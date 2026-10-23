@@ -8,29 +8,32 @@
     "edition": "first",
     "research_snapshot_dates": [
       "2026-10-21",
-      "2026-10-22"
+      "2026-10-22",
+      "2026-10-23"
     ],
     "status": "complete_first_edition_manuscript_not_a_publication_or_sales_receipt",
     "original_text_and_worksheets_license": "CC BY 4.0",
     "license_url": "https://creativecommons.org/licenses/by/4.0/",
     "third_party_rights_note": "Third-party media, names, marks, profile content and linked material retain their own rights.",
-    "manuscript_sha256": "b221712764d62d2e4fd891962a4d66c9ed8efa5b1393227c82bb0e416261fda9",
+    "manuscript_sha256": "223a2365fa3899fdb769a62f2afaae4783adb4757b4c949d77992ae0577a9be5",
     "word_count_method": "English lexical words including headings, reference prose and worksheets; contractions and hyphenated English words count once; URLs, reference labels, numeric-only tokens and placeholders excluded.",
-    "word_count_full": 10913,
-    "word_count_before_appendices": 9463,
+    "word_count_full": 12737,
+    "word_count_before_appendices": 10757,
     "word_count_by_chapter": {
-      "1": 800,
-      "2": 853,
-      "3": 694,
-      "4": 1393,
-      "5": 872,
-      "6": 824,
-      "7": 776,
-      "8": 796,
-      "9": 763,
-      "10": 1055
+      "1": 806,
+      "2": 861,
+      "3": 764,
+      "4": 2413,
+      "5": 880,
+      "6": 829,
+      "7": 780,
+      "8": 800,
+      "9": 984,
+      "10": 1060
     },
-    "chapters": 10
+    "chapters": 10,
+    "revision_note": "2026-10-23 second research pass: creator publications (S31 read back, S33–S46) added to chapters 3, 4 and 9; additive only.",
+    "word_count_method_note_20261023": "Counts recomputed by an approximate regex implementation of the stated method; earlier figures were produced by a different counter."
   },
   "coverage": {
     "account_records": 75,
@@ -796,21 +799,25 @@
       "dataset_source_ids": [
         "shalev-x-discovery-20261022"
       ],
-      "publisher_or_account": "Shalev Hani public X post, search discovery only",
+      "publisher_or_account": "Shalev Hani public X article",
       "named_article_byline": null,
       "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
-      "original_claimant_or_claim_type": "Creator-post discovery lead",
-      "source_claims": "Revenue-related search snippet; body not read back.",
-      "what_saved_research_establishes": "Search exposed an exact post URL on 2026-10-22.",
-      "not_established": "Authenticated post contents, financial accounting or audit.",
+      "original_claimant_or_claim_type": "Creator long-form article",
+      "source_claims": "Origin story; five-step system; $300K/5M followers in 3 months, $500K in 6 months; digital-products-only funnel.",
+      "what_saved_research_establishes": "Full article text read back via the X API on 2026-10-23 (published 2026-04-09T14:04:32Z).",
+      "not_established": "Financial accounting or audit; priority claim.",
       "checked_at": [
-        "2026-10-22"
+        "2026-10-22",
+        "2026-10-23"
       ],
-      "source_publication_dates": [],
+      "source_publication_dates": [
+        "2026-04-09"
+      ],
       "cited_in_chapters": [
+        3,
         4
       ],
-      "evidence_is_live_readback_during_manuscript_writing": false
+      "evidence_is_live_readback_during_manuscript_writing": true
     },
     {
       "reference_id": "S32",
@@ -833,6 +840,343 @@
         4
       ],
       "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S33",
+      "url": "https://x.com/shalevhvs/status/2075547466896929129",
+      "dataset_source_ids": [
+        "shalev-x-2075547466896929129"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator-stated staffing, output, costs and revenue.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "10 July 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S34",
+      "url": "https://x.com/shalevhvs/status/2070484602112901418",
+      "dataset_source_ids": [
+        "shalev-x-2070484602112901418"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator-described five income streams and two earlier account sales.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "26 June 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S35",
+      "url": "https://x.com/shalevhvs/status/2077788420240494866",
+      "dataset_source_ids": [
+        "shalev-x-2077788420240494866"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator-stated $170,000 sale, followers, buyer list and community size.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "16 July 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S36",
+      "url": "https://x.com/shalevhvs/status/2082119075095060964",
+      "dataset_source_ids": [
+        "shalev-x-2082119075095060964"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator explanation of the sale and its valuation logic; terms not independently documented.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "28 July 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S37",
+      "url": "https://x.com/shalevhvs/status/2088280128313012510",
+      "dataset_source_ids": [
+        "shalev-x-2088280128313012510"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator three-step method and student testimonials; testimonials unverified.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "14 August 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S38",
+      "url": "https://x.com/shalevhvs/status/2097341909765362013",
+      "dataset_source_ids": [
+        "shalev-x-2097341909765362013"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Stage 1 of a five-post thread; stages 2–5 are linked replies in the same thread.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "8 September 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S39",
+      "url": "https://x.com/shalevhvs/status/2092594203151024478",
+      "dataset_source_ids": [
+        "shalev-x-2092594203151024478"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator view that ebooks are an entry product.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "26 August 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S40",
+      "url": "https://x.com/shalevhvs/status/2075216613083890068",
+      "dataset_source_ids": [
+        "shalev-x-2075216613083890068"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator statement on press coverage and rival claims of invention.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "9 July 2026"
+      ],
+      "cited_in_chapters": [
+        3,
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S41",
+      "url": "https://x.com/shalevhvs/status/2109344859538817070",
+      "dataset_source_ids": [
+        "shalev-x-2109344859538817070"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator statement on persuasion and accuracy.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "11 October 2026"
+      ],
+      "cited_in_chapters": [
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S42",
+      "url": "https://x.com/shalevhvs/status/2068359500290294062",
+      "dataset_source_ids": [
+        "shalev-x-2068359500290294062"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator statement on viewers who do not detect AI.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "20 June 2026"
+      ],
+      "cited_in_chapters": [
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S43",
+      "url": "https://x.com/shalevhvs/status/2070173211216756851",
+      "dataset_source_ids": [
+        "shalev-x-2070173211216756851"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator biography and revenue claims.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "25 June 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S44",
+      "url": "https://x.com/shalevhvs/status/2111854752770453629",
+      "dataset_source_ids": [
+        "shalev-x-2111854752770453629"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator statement on pausing and hiring five people.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "18 October 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S45",
+      "url": "https://x.com/shalevhvs/status/2070165893641048162",
+      "dataset_source_ids": [
+        "shalev-x-2070165893641048162"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator statement on earlier AI-video commerce.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "25 June 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S46",
+      "url": "https://x.com/shalevhvs/status/2107862141051261038",
+      "dataset_source_ids": [
+        "shalev-x-2107862141051261038"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "Creator pros and cons of four models, including digital products plus Amazon affiliate.",
+      "what_saved_research_establishes": "Post text read back via the X API on 2026-10-23.",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "7 October 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
     }
   ],
   "dataset_source_register_snapshot": [

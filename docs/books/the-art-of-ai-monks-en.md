@@ -141,6 +141,8 @@ Virtual Humans published its Yang Mun profile on **28 January 2026**. Columbia N
 
 Maldita's **10 July 2026** investigation examined 16 synthetic social profiles. Its **27 July** investigation described a broader set of 250 AI health accounts, with data collected on **20–21 July**. These reports document an ecosystem at specified observation periods. They do not identify a universal starting point for monk avatars. [S13], [S14]
 
+Creator statements add one more layer. Yang Mun's creator wrote in April 2026 that “Yang Mun was the first,” and in July that about twenty other people claimed to have invented the AI monk. [S31], [S40] A claim of priority is a dated statement by an interested party. It belongs in the chronology as a claim, beside the channel and upload dates that can be checked.
+
 Our **21–22 October 2026** snapshot combines public pages, metadata, prior observation notes, and discovery leads. It expands what can be compared, while still leaving most AI classifications unresolved. A chronology with gaps is more useful than a complete-looking story assembled from guesses.
 
 ### The date you have is not always the date you want
@@ -207,13 +209,39 @@ The seller counters require the same care. The Journey page displayed 30,000-plu
 
 Columbia reports Hani's statement of more than $300,000 in revenue since launch and a rejected $325,000 acquisition offer. It also reports an AI-character service offered at $799 per hour. [S02] Virtual Humans reports a claim of more than $300,000 in profit within 90 days and references a dashboard above $213,000 in gross revenue over three months. [S04]
 
-A supplied screenshot contains a headline claiming $500,000 in six months. Its exact post URL is not present in the screenshot record. Later search discovery found a creator-post URL, but the body was not read back, so that discovery does not authenticate or reconcile the accounting behind the screenshot. [S29], [S31]
+A supplied screenshot contains a headline claiming $500,000 in six months. Its exact post URL is not present in the screenshot record. In the second research pass the matching creator article was read back in full; it is summarized in the next section. Reading the article confirms what the creator published; it does not authenticate or reconcile the accounting behind it. [S29], [S31]
 
 These figures use different periods, categories, and evidence. Revenue is money from sales before relevant deductions. Profit requires a defined treatment of costs. A price for a service is an offer, not evidence of billable hours sold. A proposed acquisition is a possible transaction, not proceeds received. The public record does not supply one reconciled ledger joining these claims.
 
 Nor can we infer deception merely because the figures cannot be reconciled here. We do not know whether the dashboard, interview language, periods, or included business lines differ. The accurate conclusion is an evidence limit: the available material does not let an outside reader compute audited net profit.
 
 To do that work, an analyst would need dated order exports by product, discounts, refunds and chargebacks, payment fees, advertising, production receipts, contractor and labor treatment, support costs, taxes where applicable, and a defined accounting period. To attribute profit to a particular Short would also require a defensible path from that creative to the order. No robe can substitute for those records.
+
+### In the creator's own words, April–October 2026
+
+This section was added in the second research pass (23 October 2026), after the creator's long-form X posts were read back in full. It credits Shalev Hani as the person who, by his own account and by the HeyGen and Columbia records, built Yang Mun. Everything below is his published statement unless another source is named. None of it is an audited ledger. [S01], [S02], [S31]
+
+**The origin story he tells.** In his pinned X article of 9 April 2026, “I Built a Fake AI Monk, Made $500K in 6 Months (Full Guide)”, Hani writes that he had been making AI content for brands when he noticed AI-generated adult-content accounts: “Fake faces, real audiences, real money.” What bothered him, he writes, was that “they were all silent.” His question was what would happen if an AI character “actually talked” and delivered a message every day. Yang Mun, “a monk in orange robes giving life advice,” was his answer. In his words: “They didn't care he wasn't real. They cared that he was helpful.” [S31]
+
+Elsewhere he places this inside a longer career: three years of AI content, “$10K/month in 2023,” and an earlier TikTok Shop account selling to a Spanish-language market with AI videos. [S43], [S45] Those are biography claims; this archive has not verified them.
+
+**The five-step system he published.** The same article sets out five rules. First, a character who “look[s] different from a normal person” and carries authority; he chose a monk because “in the health and mindset space, monks have instant trust.” Second, a script built on “empathy and solutions,” timed as two seconds of understanding, three seconds of reframe or promise, twenty to forty seconds teaching one usable thing, and three seconds tying it to who the viewer wants to become. He attributes 24 million views to the line “If you're going to overthink… then overthink the positive” and 6.5 million to a two-minute sleep hook. Third, “the exact same AI voice, same speed, same tone on every video.” Fourth, volume: native uploads of the same video to TikTok, Reels, Shorts and Facebook Reels, three times a day per character. Fifth, “digital products only”: “No affiliate deals. No brand partnerships. No ads.” [S31]
+
+Chapter 5 already warns that view counts do not isolate cause. The timing grid is useful precisely because it is testable: you can measure your own retention at the two-, five- and forty-second marks instead of trusting anyone's total.
+
+**The sale.** On 16 July 2026 Hani posted that he had sold “a fake AI monk for $170,000,” listing 6 million followers, “22k buyers on an email list” and “5,000 people in a community.” His argument was that the followers were not the asset: “The 22K buyers are.” [S35], [S37] A 28 July article explains the price as a multiple of predictable monthly income from the community, products and list, and calls the followers “rented land.” [S36] After the sale the persona is, by his account, owned and operated by someone else. Anything Yang Mun's accounts publish after mid-July 2026 should not be attributed to Hani without new evidence.
+
+**The operation behind the character.** A 10 July article describes seven characters across health, wealth and spirituality, four virtual assistants hired through OnlineJobs.ph, about 30 videos a day, and an internal course written so that new assistants can produce “at my standard within days.” He states costs of $4,000 a month for assistants and $4,000 for tools, against revenue of “$70K–$100K/month.” [S33] His 8 September thread compresses the method into five stages: find a character in a niche “where people actually spend money”; let AI write the script and make the face, voice and video; schedule two to three posts a day; connect attention to an offer; and, once a character works, “spin up 5 more in the same lane that same day.” [S38]
+
+**The product ladder.** Hani's 26 June article describes five income streams for one character: ebooks at $15–25, supplement affiliate offers, a $10–20 monthly community, a $4,000 high-ticket package for a wealth character (built, he writes, with a certified professional he paid $1,500), and selling the account itself; he reports two earlier sales at $8,000 and $11,000. [S34] On 26 August he went further: “ebooks are the lowest tier,” and the ebook is “just the front door” to quiz funnels, subscriptions and simple web apps. [S39] This book is itself an ebook, so the point deserves to be stated plainly rather than hidden.
+
+The two articles do not fully agree with each other. The April article says “digital products only” with no affiliate deals; the June article lists supplement affiliates as stream two, and an October post lists “digital products + amazon affiliate.” [S31], [S34], [S46] A plausible reading is that the April rule described Yang Mun specifically and the later posts describe the wider portfolio, but the record does not say so.
+
+**The numbers, side by side.** The April article reports $300,000 and 5 million followers in three months, “$450K total” by month six, and another $50,000 from six later characters, for $500,000. [S31] The July posts give 6 million followers at the sale. [S35] A June post says “over 8M followers” across seven characters and dates the $500,000 to “2025.” [S43] Columbia's March report and Virtual Humans' January profile give their own figures (earlier in this chapter). [S02], [S04] These statements differ in period, scope and category. Read together they describe a creator reporting fast growth; they do not form one reconciled account, and this book does not reconcile them for him.
+
+**Priority.** On 9 July Hani wrote that Columbia News Service, Eurovision News and HeyGen had covered his monk, while “20 people on this app claim they invented the AI monk.” [S40] The April article says “Yang Mun was the first.” [S31] Chapter 3 explains why this archive cannot certify a worldwide first. What the record does support is narrower and still significant: Yang Mun is the AI-monk persona with the most independent and provider coverage in our sources, and Hani is the creator those sources name.
+
+**What happened next.** By October his own posts describe a break from posting and scaling (“needed the reset”), then hiring five people “to help me scale content everywhere.” [S44] The story is ongoing. Later research passes should add dated entries here rather than rewriting this one.
 
 ### What a creator can actually take away
 
@@ -429,6 +457,14 @@ The virtual presentation of a real monk described by Thai PBS shows another poss
 Maldita's wider health-account investigation discusses an “ancestral wisdom” group containing monks and other stereotyped figures. Its 82 accounts in that group are not 82 Buddhist monks. [S14] The finding is a reason to examine how imagery substitutes for expertise, not permission to repeat the same stereotype with a better renderer.
 
 An original character can have texture without claiming a culture's authority. Give it specific habits, a purpose, and limits. Our fictional garden caretaker knows where it left the rake and admits when a story is invented. It does not claim access to secret medicine, represent all Buddhists, or pretend its biography happened.
+
+### What the creator says about persuasion
+
+Two of Hani's own posts belong in any honest discussion of this format, because they state the ethical tension more bluntly than a critic would. On 20 June 2026 he wrote: “You can tell it's AI. But your mom won't.” and “The people who spot the AI aren't the buyers.” [S42] On 11 October he wrote that people “dont want the truth. they want to feel understood,” and that the creators who grow fastest “arent the most accurate.” [S41]
+
+Read as marketing advice, these lines describe a mechanism. Read alongside this chapter, they describe the exact risk disclosure exists to reduce: an audience that values feeling understood, receiving advice from a speaker whose nature it may not perceive. The point is not to condemn one creator for candor. It is that his candor makes the design choice visible. If a format works partly because some viewers do not notice it is synthetic, then telling them is not a cosmetic label. It changes the relationship the product depends on.
+
+A different character can keep the mechanism that is worth keeping, being specific about a feeling and offering one useful action, while making the speaker's nature plain. Whether that costs reach is an empirical question. Measure it with a disclosed account rather than assuming the answer.
 
 ### Health changes the stakes
 
@@ -661,7 +697,38 @@ Reference labels link to the original public source, except S29, which links to 
 
 **S30. Instagram, robots/access notice.** Checked 22 October 2026. Describes restrictions encountered by the research route at that snapshot. [Source][S30]
 
-**S31. Shalev Hani X post, discovery URL.** Found 22 October 2026 through search. Post body not read back; retained as a discovery lead, not verified earnings evidence. [Discovery URL][S31]
+**S31. Shalev Hani, “I Built a Fake AI Monk, Made $500K in 6 Months (Full Guide)”, X article.** Published 9 April 2026; found 22 October and read back in full 23 October 2026. Creator origin story, five-step system and revenue claims; not an audited ledger. [Source][S31]
+
+
+### Creator’s own publications (second pass, read back 23 October 2026)
+
+**S33. Shalev Hani, “How I Run 7 AI Characters With 4 VAs and Make $70K-$100K a Month”, X article.** Published 10 July 2026; read back 23 October 2026 via the X API. Creator-stated staffing, output, costs and revenue. Creator statement, not an audit. [Source][S33]
+
+**S34. Shalev Hani, “How ONE AI Character Makes Money 5 Ways”, X article.** Published 26 June 2026; read back 23 October 2026 via the X API. Creator-described five income streams and two earlier account sales. Creator statement, not an audit. [Source][S34]
+
+**S35. Shalev Hani, sale announcement post.** Published 16 July 2026; read back 23 October 2026 via the X API. Creator-stated $170,000 sale, followers, buyer list and community size. Creator statement, not an audit. [Source][S35]
+
+**S36. Shalev Hani, “How I Built a Fake AI Monk Into a $170K Exit”, X article.** Published 28 July 2026; read back 23 October 2026 via the X API. Creator explanation of the sale and its valuation logic; terms not independently documented. Creator statement, not an audit. [Source][S36]
+
+**S37. Shalev Hani, “How I Build AI Characters That Make Money While I Sleep”, X article.** Published 14 August 2026; read back 23 October 2026 via the X API. Creator three-step method and student testimonials; testimonials unverified. Creator statement, not an audit. [Source][S37]
+
+**S38. Shalev Hani, five-stage thread.** Published 8 September 2026; read back 23 October 2026 via the X API. Stage 1 of a five-post thread; stages 2–5 are linked replies in the same thread. Creator statement, not an audit. [Source][S38]
+
+**S39. Shalev Hani, “ebooks are the lowest tier” post.** Published 26 August 2026; read back 23 October 2026 via the X API. Creator view that ebooks are an entry product. Creator statement, not an audit. [Source][S39]
+
+**S40. Shalev Hani, coverage and priority post.** Published 9 July 2026; read back 23 October 2026 via the X API. Creator statement on press coverage and rival claims of invention. Creator statement, not an audit. [Source][S40]
+
+**S41. Shalev Hani, “they want to feel understood” post.** Published 11 October 2026; read back 23 October 2026 via the X API. Creator statement on persuasion and accuracy. Creator statement, not an audit. [Source][S41]
+
+**S42. Shalev Hani, “your mom won’t” post.** Published 20 June 2026; read back 23 October 2026 via the X API. Creator statement on viewers who do not detect AI. Creator statement, not an audit. [Source][S42]
+
+**S43. Shalev Hani, career-claim post.** Published 25 June 2026; read back 23 October 2026 via the X API. Creator biography and revenue claims. Creator statement, not an audit. [Source][S43]
+
+**S44. Shalev Hani, reset and hiring post.** Published 18 October 2026; read back 23 October 2026 via the X API. Creator statement on pausing and hiring five people. Creator statement, not an audit. [Source][S44]
+
+**S45. Shalev Hani, TikTok Shop throwback post.** Published 25 June 2026; read back 23 October 2026 via the X API. Creator statement on earlier AI-video commerce. Creator statement, not an audit. [Source][S45]
+
+**S46. Shalev Hani, “4 ways to make money with AI in 2027” post.** Published 7 October 2026; read back 23 October 2026 via the X API. Creator pros and cons of four models, including digital products plus Amazon affiliate. Creator statement, not an audit. [Source][S46]
 
 [S01]: https://www.heygen.com/customer-stories/yangmun
 [S02]: https://columbianewsservice.com/2026/03/24/millions-found-comfort-in-a-buddhist-monk-but-he-was-never-real/
@@ -695,3 +762,17 @@ Reference labels link to the original public source, except S29, which links to 
 [S30]: https://www.instagram.com/robots.txt
 [S31]: https://x.com/shalevhvs/status/2042242260784537736
 [S32]: https://x.com/shalevhvs
+[S33]: https://x.com/shalevhvs/status/2075547466896929129
+[S34]: https://x.com/shalevhvs/status/2070484602112901418
+[S35]: https://x.com/shalevhvs/status/2077788420240494866
+[S36]: https://x.com/shalevhvs/status/2082119075095060964
+[S37]: https://x.com/shalevhvs/status/2088280128313012510
+[S38]: https://x.com/shalevhvs/status/2097341909765362013
+[S39]: https://x.com/shalevhvs/status/2092594203151024478
+[S40]: https://x.com/shalevhvs/status/2075216613083890068
+[S41]: https://x.com/shalevhvs/status/2109344859538817070
+[S42]: https://x.com/shalevhvs/status/2068359500290294062
+[S43]: https://x.com/shalevhvs/status/2070173211216756851
+[S44]: https://x.com/shalevhvs/status/2111854752770453629
+[S45]: https://x.com/shalevhvs/status/2070165893641048162
+[S46]: https://x.com/shalevhvs/status/2107862141051261038
