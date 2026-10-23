@@ -161,3 +161,9 @@ Yang Mun型の写真に近いAI僧侶動画avatarへ集中する。水彩・絵�
 書籍のX告知はPostiz `cmvjqztrg1hrgot0ymefyzjqt` がPUBLISHED、[公開投稿](https://x.com/selawmqt/status/2113304729166213433)を公式readback。既存database告知と別campaign、重複送信0。independent X timeline・閲覧数・campaign click/注文/利益は未確認。本文・receiptは `docs/evidence/ai-monk-book-{launch-copy,x-launch-en}-20261023.json`。
 
 **AM-13両版の注文snapshot:** Stripe公式の全page照合（`docs/evidence/ai-monk-book-ja-production-20261023.json`）は英語0件・日本語0件の有料Checkoutを確認する。公開や未払いcanaryを売上へ換算せず、paid本番納品は未検証を保持する。
+
+
+**日本語書籍のX告知契約:** 公開済みの日本語版をPostiz @selawmqt/integration cmt4l2jld031tqp0y8qtyo983で1件告知する。既存database/英語書籍の告知を再送せず、別campaign art_of_ai_monks_book_launch_jaを使う。直接の日本語販売ページ、正題、無料原稿全文と有料PDF/EPUB $9.99、確認済みcreator @shalevhvsへの敬意を明示する。live pageと公式integration有効・72投稿内の既存JA書籍告知0・JA既存publication fenceなしを確認する。copyのX文字数上限は保守的に273で、未知の閲覧/click/注文/利益を0にしない。同対象/媒体/目的の成功指標は既存調査で未確認のため、小さい1投稿の検証として扱う。外部送信前に具体copyと根拠を独立read-onlyで照合し、既存book launch手順の永続effect fence/公式GET readbackを再利用する。受付が不確実ならGET照合だけを続け、新規POSTを再送しない。完了はPostiz PUBLISHED/同account/同content/正確な公開permalinkとDais用copy。正本copy → docs/evidence/ai-monk-book-launch-copy-ja-20261023.json。
+
+
+**日本語書籍X告知の実結果と残件:** Postiz id `cmvkoqikc2huxlh0yjbzwnayu` は公式PUBLISHED、https://x.com/selawmqt/status/2113542427495841883 。本文の正題/価格/無料原稿/creatorは公開されるが、末尾の販売URLはproviderの保存済み本文とlive X取得本文の両方に存在しない。送信1件、再送0件。`GET /public/v1/integration-settings/cmt4l2jld031tqp0y8qtyo983` はlinks will be strippedというhostルールを明示する。一次sourceのSTRIP_LINKS_FROM_X_POSTSと保存前/送信前strip処理に一致し、shortLink:falseでもリンクは残らない。bare domainもhelperの対象であり、同経路の再投稿/replyで回復できるとは扱わない。既存Postiz経由の過去EN/DB告知もリンク保持は未証明へ戻し、本文公開と送客完了を分ける。正しい既存X identity `x:anicca/@selawmqt` はregistry/guard statusでreachable=false/holder空を確認する。現在cursorは既存本人X接続の利用可能性とleaseを確認してリンク配信を補完すること。新しいaccountや他者profileで代替せず、閲覧/click/注文/利益は未確認を保持する。正本receipt → docs/evidence/ai-monk-book-x-launch-ja-20261023.json。今後のX外部link投稿ではintegration-settingsのhostルールを送信前に読み、strip時に同経路へ送信しない。
