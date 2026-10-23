@@ -10,10 +10,10 @@
 - [x] WEB: 既存2価格表示にBase priceだけを追加し、CLI/MCPの既存返却metadataへ同じ意味を伝える。
 - [x] VERSION: package/lock/server/READMEを0.4.6へ揃える。source数・snapshot SHAは実計算する。
 - [x] VERIFY: 既存package suite/shared helper/Web rendering・build・実stdio6toolとsource acceptanceを確認する。
-- [ ] PUSH: 実装と結果receiptをcommit/pushし、remote SHA一致でprimaryへ引き渡す。
+- [x] PUSH: 実装と結果receiptのcommit `e815787f0ae48a68a0dc8a2fad88c51375781157`をpushし、remote SHA一致を確認する。primaryへsourceを引き渡す。
 - [ ] PRIMARY: fresh read-only根拠review、PR/main、immutable CLI v0.4.6 Release、Registry公開、Web/JSON/remote MCP/URL導入/実stdioの公式readback。
 
-現在cursor: PUSH。source受入証拠 → `../../evidence/ai-monk-product-price-currencies-20261024.json`。private元bodyは公開しない。source受入と公開完了を分離する。
+現在cursor: PRIMARY（fresh read-only根拠review → exact-head CI/PR/main → immutable Release/Registry/公開readback）。source受入証拠 → `../../evidence/ai-monk-product-price-currencies-20261024.json`。private元bodyは公開しない。source受入と公開完了を分離する。
 
 ## source受入結果
 

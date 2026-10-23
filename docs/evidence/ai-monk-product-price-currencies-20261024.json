@@ -391,5 +391,11 @@
     "Listed or base prices, localized checkout displays and seller reference prices are not purchases, orders, revenue or efficacy evidence."
   ],
   "latest_main_observed_before_commit": "6141c5dbcf69f3b7ae11fa63e6609039f9799375",
-  "unrelated_main_delta_preserved": "apps/landing/data/research/tiktok-script-for-etsy-shop.json; no overlap with this source unit; primary merges against latest main"
+  "unrelated_main_delta_preserved": "apps/landing/data/research/tiktok-script-for-etsy-shop.json; no overlap with this source unit; primary merges against latest main",
+  "source_commit_sha": "e815787f0ae48a68a0dc8a2fad88c51375781157",
+  "source_commit_remote_readback": {
+    "ref": "refs/heads/feat/ai-monk-product-prices-v046-20261024",
+    "sha": "e815787f0ae48a68a0dc8a2fad88c51375781157",
+    "matches_local_source_commit": true
+  }
 }
