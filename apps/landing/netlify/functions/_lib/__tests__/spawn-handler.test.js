@@ -93,6 +93,23 @@ test("duplicate event.id → 200 duplicate, NO droplet created (idempotent)", as
   assert.strictEqual(calls.markEventSeen, 0);
 });
 
+test("Factory checkout and cancellation never provision or destroy a different product", async () => {
+  const { o, calls } = makeOwners();
+  for (const type of ["checkout.session.completed", "customer.subscription.deleted"]) {
+    const event = { id: "evt_factory", type, data: { object: {
+      id: "sub_factory", subscription: "sub_factory", customer_email: "fixture@example.com",
+      metadata: { product: "ai_monk_factory" },
+    } } };
+    const res = await handler(ev(), {
+      stripeClient: fakeStripe(event), owners: o,
+      createDroplet: async () => { assert.fail("Factory must not create a droplet"); },
+      destroyDroplet: async () => { assert.fail("Factory must not destroy a droplet"); },
+    });
+    assert.equal(res.statusCode, 200);
+  }
+  assert.equal(calls.isEventSeen, 0);
+});
+
 test("customer.subscription.deleted → destroy droplet + markDestroyed + 200", async () => {
   const { o, calls } = makeOwners();
   o.owner = { sub_id: "sub_42", droplet_id: 12345 };

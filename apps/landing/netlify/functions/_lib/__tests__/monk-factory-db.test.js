@@ -99,4 +99,7 @@ test('budget and incomplete or expired subscription boundaries stop another rese
   assert.throws(() => sql(reserve(uid(4), 'missing-boundary')), /subscription_required/);
   sql('UPDATE monk_factory_accounts SET trial_end=now()-interval \'1 second\' WHERE user_id=\'' + uid(4) + '\'');
   assert.throws(() => sql(reserve(uid(4), 'expired')), /subscription_required/);
+  account(4, 'active');
+  sql('UPDATE monk_factory_accounts SET cancel_at_period_end=true WHERE user_id=\'' + uid(4) + '\'');
+  assert.throws(() => sql(reserve(uid(4), 'cancellation-scheduled')), /subscription_required/);
 });
