@@ -13,5 +13,18 @@
     "clicks": null,
     "orders": null,
     "revenue": null
+  },
+  "content_is_original_requested_copy": true,
+  "link_delivery": {
+    "original_post_destination_preserved": false,
+    "state": "delivered_by_native_reply",
+    "reply_url": "https://x.com/selawmqt/status/2113583436426625030",
+    "native_reply_id": "2113583436426625030",
+    "parent_id": "2113286777054360059",
+    "destination": "https://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_ja",
+    "destination_preserved": true,
+    "native_writes": 1,
+    "resends": 0,
+    "observed_at": "2026-10-23T10:49:00.746649+00:00"
   }
 }

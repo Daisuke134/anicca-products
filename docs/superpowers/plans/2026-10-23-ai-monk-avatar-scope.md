@@ -81,8 +81,8 @@ PR578/main `708b7adbd554d6bf8b216c8b7f4657a6497b03dc`はLanding CI39893316472と
 - [x] 既存7研究profileの根拠を読み取り専用で照合し、scope/本文/metadataを先に更新する。
 - [x] 欠落/pending候補が掲載されるREDと、CLI/get/statsの同じscopeのREDを観測する。
 - [x] canonical判定と共有selector、型、UI/CLI/MCPの説明・既存関連testsを最小修正する。
-- [ ] 関連tests・exact CI/main・本番Web/remote MCP・v0.4.0公開配布物を照合する。
-- [ ] sourceと実公開を区別してspec/evidenceに記録し、X送客/Factoryの残cursorへ戻る。
+- [x] 関連tests・exact CI/main・本番Web/remote MCP・v0.4.0公開配布物を照合する。
+- [x] sourceと実公開を区別してspec/evidenceに記録し、X送客/Factoryの残cursorへ戻る。
 
 best=対象の明確な小さい一覧を起点に同じ根拠基準で拡大する。base=4件の既存根拠だけを掲載し収益情報不足を明示する。worst=多くの候補を公開保留するため件数の見栄えが弱くなる。候補も同列掲載する案の最強論拠は発見coverageだが、今回はAI動画avatar限定という明示条件を満たさない。自分が間違うとしたら、pendingの大半に既に利用可能な動画/AI根拠があり、その追加調査の方が少ない時間で多くの適切なavatarを掲載できる場合である。
 
@@ -93,3 +93,7 @@ best=対象の明確な小さい一覧を起点に同じ根拠基準で拡大す
 **独立確認の補正:** fresh read-only検証者はMCP stats toolの説明だけに「未確認候補も件数へ含む」という旧文を見つける。実結果の候補漏れはなく、stats/getの説明をincluded限定の実契約へ揃える。分類・metric計算・UIは変更しない。
 
 **SSRの限定復旧と指摘修復:** 未知売上fixtureだけscope fieldが欠落する独立指摘を受け、元のRevenue not available assertを保持してincluded/source_idsを追加する。依存不足は以前回収したtask-local packageへのdangling symlink3件と確定する。own worktreeのその3linkだけをexact lockfile version/SHA512一致のreact-dom18.3.1・typescript5.5.4・lucide-react0.454.0へ戻し、source manifest不変で実SSR4件PASSを確認する。fresh検証はhelper9/CLI・stdio・HTTP12PASS、全71非掲載ID拒否と4sortの同一4件、Yan exact embed/動画stillの根拠も独立照合する。旧MCP説明/fixtureの2指摘以外に新規指摘はない。
+
+**統合とCLI v0.4.0公開:** PR588の最終head30ddf2fd981d90fde89397f21a0ac82795b006c1はLanding CI39938336276・package CI39938336680がSUCCESS、fresh最終Blocking0でmain e6fdf0b334ed6bb5448403a5b3fd8ad61f1e3dccへ統合する。同mainのpackage source/共有helper/JSON bytesと一致する配布物をGitHub release ai-monk-index-v0.4.0として公開する。tagの公式Git objectは同main、asset29,108bytes/SHA256 b9b4a0e75e90db499673ac9147992febdb6432089da14e1024dcd430d9d32f35。公開URLからのdownload/npm導入/実CLIとSDK stdioで4件/56sources/75archive、snapshot05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940fが一致する。views/revenue sort先頭Yang Mun、unknownを0にしない。Netlify39938900630の本番反映は進行中で、Web/remote MCPは未受入。
+
+**本番受入:** Netlify39938900630はmain e6fdf0b3でSUCCESS。10:32 UTCの公開HTMLはH1 AI Monk Database、4card/4顔画像、AI status UI無し、followers/views/revenue sortを返す。公開JSONはmain canonical SHA05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940fと完全一致する。公式SDKのremote MCP stats/searchは同じ4件/56sources/75archive、全4sortでincluded4件だけ、pending getは拒否する。旧画像bytes/layoutは変わらないため再生成/全responsive再検証を増やさない。これでscope source/本番/CLI v0.4.0の受入を完了し、69pendingの追加調査と自然定期runは残す。現在cursorは既存Xリンク3件の補完→S11 Factory運用。証拠 → docs/evidence/ai-monk-reviewed-avatar-scope-{production,mcp-production}-20261023.json、ai-monk-cli-mcp-v04-release-20261023.json。

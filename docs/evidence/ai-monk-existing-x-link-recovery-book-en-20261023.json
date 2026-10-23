@@ -1,0 +1,52 @@
+{
+  "run_id": "ai-monk-existing-x-link-recovery-20261023-book-en",
+  "campaign_key": "book-en",
+  "purpose": "Restore the original destination once as a native reply to the existing launch post",
+  "expected_handle": "@selawmqt",
+  "browser_identity": "x:anicca",
+  "postiz_integration_id": "cmt4l2jld031tqp0y8qtyo983",
+  "original_postiz_id": "cmvjqztrg1hrgot0ymefyzjqt",
+  "parent_id": "2113304729166213433",
+  "parent_url": "https://x.com/selawmqt/status/2113304729166213433",
+  "expected_parent_fragment": "The Art of AI Monks",
+  "destination": "https://aniccaai.com/the-art-of-ai-monks?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_en",
+  "content": "The Art of AI Monks — book and free manuscript:\n\nhttps://aniccaai.com/the-art-of-ai-monks?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_en",
+  "content_sha256": "7ddd4ea4cf4090fd077e0aafb9e8a222cfa8038d528d37743a2c985a628365c2",
+  "conservative_x_weighted_length": 73,
+  "max_weighted_length": 270,
+  "reply_prefix": "The Art of AI Monks — book and free manuscript:",
+  "state": "published",
+  "provider_writes": 1,
+  "resends": 0,
+  "original_destination_verified_missing": true,
+  "missing_link_source": "Read-only public X body crawl; original host integration-settings strips links",
+  "native_fence_name": "ai-monk-existing-x-link-recovery-20261023-book-en.json",
+  "independent_copy_review": {
+    "state": "accepted",
+    "findings": 0,
+    "blocking": 0,
+    "reviewer": "three_x_native_link_copy_verify",
+    "reviewed_operator_sha256": "5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0",
+    "reviewed_source_head": "66222be05",
+    "recorded_at": "2026-10-23T10:46:44.515716+00:00",
+    "navigation_diff_verified_against_prior_operator": true
+  },
+  "limits": [
+    "Original launch post and Postiz receipt remain unchanged",
+    "No Postiz repost/reply or duplicate standalone promotion",
+    "Unknown native effect requires readback only, never resend",
+    "Clicks/orders/revenue/profit/retweet not measured"
+  ],
+  "operator_sha256": "5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0",
+  "reply_url": "https://x.com/selawmqt/status/2113582983580139758",
+  "native_receipt": {
+    "reply_id": "2113582983580139758",
+    "parent_id": "2113304729166213433",
+    "full_text": "@shalevhvs The Art of AI Monks — book and free manuscript:\n\nhttps://t.co/5oczcnadBp",
+    "expanded_urls": [
+      "https://aniccaai.com/the-art-of-ai-monks?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_en"
+    ]
+  },
+  "observed_at": "2026-10-23T10:47:13.118362+00:00",
+  "verification": "own reply id/parent/full text/expanded destination and permalink"
+}

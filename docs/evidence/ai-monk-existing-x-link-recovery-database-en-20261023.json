@@ -1,0 +1,52 @@
+{
+  "run_id": "ai-monk-existing-x-link-recovery-20261023-database-en",
+  "campaign_key": "database-en",
+  "purpose": "Restore the original destination once as a native reply to the existing launch post",
+  "expected_handle": "@selawmqt",
+  "browser_identity": "x:anicca",
+  "postiz_integration_id": "cmt4l2jld031tqp0y8qtyo983",
+  "original_postiz_id": "cmvjodr4i18bbot0y14apjr6z",
+  "parent_id": "2113286528508285146",
+  "parent_url": "https://x.com/selawmqt/status/2113286528508285146",
+  "expected_parent_fragment": "Explore the free database:",
+  "destination": "https://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_en",
+  "content": "Explore the free AI Monk Database:\n\nhttps://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_en",
+  "content_sha256": "a90122737ba21d040a39de02c4e0c6879354d7575a6ffad498a71187a91e20b4",
+  "conservative_x_weighted_length": 59,
+  "max_weighted_length": 270,
+  "reply_prefix": "Explore the free AI Monk Database:",
+  "state": "published",
+  "provider_writes": 1,
+  "resends": 0,
+  "original_destination_verified_missing": true,
+  "missing_link_source": "Read-only public X body crawl; original host integration-settings strips links",
+  "native_fence_name": "ai-monk-existing-x-link-recovery-20261023-database-en.json",
+  "independent_copy_review": {
+    "state": "accepted",
+    "findings": 0,
+    "blocking": 0,
+    "reviewer": "three_x_native_link_copy_verify",
+    "reviewed_operator_sha256": "5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0",
+    "reviewed_source_head": "66222be05",
+    "recorded_at": "2026-10-23T10:46:44.516310+00:00",
+    "navigation_diff_verified_against_prior_operator": true
+  },
+  "limits": [
+    "Original launch post and Postiz receipt remain unchanged",
+    "No Postiz repost/reply or duplicate standalone promotion",
+    "Unknown native effect requires readback only, never resend",
+    "Clicks/orders/revenue/profit/retweet not measured"
+  ],
+  "operator_sha256": "5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0",
+  "reply_url": "https://x.com/selawmqt/status/2113583291374952934",
+  "native_receipt": {
+    "reply_id": "2113583291374952934",
+    "parent_id": "2113286528508285146",
+    "full_text": "@shalevhvs Explore the free AI Monk Database:\n\nhttps://t.co/FoJZPTRPkV",
+    "expanded_urls": [
+      "https://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_en"
+    ]
+  },
+  "observed_at": "2026-10-23T10:48:26.135887+00:00",
+  "verification": "own reply id/parent/full text/expanded destination and permalink"
+}
