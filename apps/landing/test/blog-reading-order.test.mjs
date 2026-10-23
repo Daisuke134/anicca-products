@@ -43,7 +43,7 @@ test('Thankful rendered hero uses its verified native icon and correct App Store
  const thankful=await import(compiled(new URL('../app/thankful/page.tsx',import.meta.url)));
  const html=renderToStaticMarkup(React.createElement(thankful.default));
  assert.match(html,/src="\/assets\/manager-site\/apps\/6759514159.png"/);
- assert.match(html,/href="https:\/\/apps.apple.com\/us\/app\/thankful-gratitude-journal\/id6759514159"/);
+ assert.match(html,/href="https:\/\/apps.apple.com\/us\/app\/thankful-gratitude-journal\/id6759514159(?:\?[^\"]*)?"/);
  assert.doesNotMatch(html,/anicca-app-icon|Thousands of people|[↗⬆↑]/u);
  assert.match(html,/thankful\/privacy\/en/);
 });

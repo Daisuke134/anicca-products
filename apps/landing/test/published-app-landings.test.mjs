@@ -31,3 +31,43 @@ test('blog discovery connects the three app cards to canonical product introduct
  }
  assert.match(html,/アプリの紹介/);
 });
+
+test('four app detail and blog CTAs preserve their destinations with eight distinct campaign identities',async()=>{
+ const {loadPublishedApps,publishedAppStoreUrl}=await import(compiled(new URL('../lib/published-apps.ts',import.meta.url)));
+ assert.equal(typeof publishedAppStoreUrl,'function');
+ const apps=loadPublishedApps(),stores=apps.map(app=>app.store),tokens=new Set();
+ const {AppDiscovery}=await import(compiled(new URL('../components/blog/OwnedMedia.tsx',import.meta.url)));
+ const blog=renderToStaticMarkup(React.createElement(AppDiscovery));
+ const cases=[
+  {slug:'dailydharma',id:'6757726663',path:'/us/app/daily-dhamma/id6757726663',detailPath:'/us/app/daily-dhamma/id6757726663',detail:'web_6757726663_detail',blog:'web_6757726663_blog'},
+  {slug:'sleepreset',id:'6762143790',path:'/us/app/for-better-sleep-sleep-reset/id6762143790',detailPath:'/us/app/for-better-sleep-sleep-reset/id6762143790',detail:'web_6762143790_detail',blog:'web_6762143790_blog'},
+  {slug:'studio-cherie',id:'6766485903',path:'/us/app/studio-cherie/id6766485903',detailPath:'/jp/app/studio-cherie/id6766485903',detail:'web_6766485903_detail',blog:'web_6766485903_blog'},
+  {slug:'thankful',id:'6759514159',path:'/us/app/thankful-gratitude-journal/id6759514159',detailPath:'/us/app/thankful-gratitude-journal/id6759514159',detail:'web_6759514159_detail',blog:'web_6759514159_blog'},
+ ];
+ for(const entry of cases){
+  const app=apps.find(app=>app.id===entry.id);
+  const page=await import(compiled(new URL(`../app/${entry.slug}/page.tsx`,import.meta.url)));
+  const detail=renderToStaticMarkup(React.createElement(page.default));
+  const card=blog.match(new RegExp(`<article[^>]*data-app-id="${entry.id}"[^>]*>(.*?)</article>`,'s'))?.[1];assert.ok(card);
+  for(const [surface,html] of [['detail',detail],['blog',card]]){
+   const url=new URL(publishedAppStoreUrl(app,surface));
+   assert.equal(url.origin,'https://apps.apple.com');
+   assert.equal(url.pathname,surface==='detail'?entry.detailPath:entry.path);
+   assert.equal(url.searchParams.get('ct'),entry[surface]);
+   assert.equal(url.searchParams.get('pt'),'93486075');assert.equal(url.searchParams.get('mt'),'8');
+   assert.deepEqual([...url.searchParams.keys()].sort(),['ct','mt','pt']);
+   assert.match(url.searchParams.get('ct'),/^[A-Za-z0-9][A-Za-z0-9_-]{0,29}$/);
+   tokens.add(url.searchParams.get('ct'));
+   const hrefs=[...html.matchAll(/<a[^>]+href="(https:\/\/apps\.apple\.com[^\"]+)"/g)].map(match=>match[1].replaceAll('&amp;','&'));
+   assert.ok(hrefs.length>0,`${entry.slug} ${surface} CTA missing`);
+   for(const href of hrefs)assert.equal(href,url.href,`${entry.slug} ${surface} CTA`);
+  }
+  if(entry.slug==='thankful')assert.equal(JSON.parse(detail.match(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/s)[1]).downloadUrl,app.store);
+ }
+ assert.equal(tokens.size,8);assert.deepEqual(apps.map(app=>app.store),stores);
+ for(const id of ['6755129214','6759667221']){
+  const app=apps.find(app=>app.id===id);
+  for(const surface of ['detail','blog'])assert.equal(publishedAppStoreUrl(app,surface),app.store);
+  const card=blog.match(new RegExp(`<article[^>]*data-app-id="${id}"[^>]*>(.*?)</article>`,'s'))?.[1];assert.ok(card.includes(`href="${app.store}"`));
+ }
+});
