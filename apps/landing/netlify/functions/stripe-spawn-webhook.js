@@ -47,6 +47,10 @@ exports.handler = async (event, deps = {}) => {
     return { statusCode: 400, body: `Webhook Error: ${err.message}` };
   }
 
+  if (stripeEvent.data?.object?.metadata?.product === 'ai_monk_factory') {
+    return { statusCode: 200, body: 'ignored Factory product' };
+  }
+
   const cfg = { url: SUPA_URL, key: SUPA_KEY };
   const doCfg = { token: DO_TOKEN, sshKeyFp: process.env.DO_SSH_KEY_FP };
 

@@ -10,6 +10,8 @@ CREATE TABLE public.monk_factory_accounts (
   period_start timestamptz,
   period_end timestamptz,
   period_paid boolean NOT NULL DEFAULT false,
+  cancel_at_period_end boolean NOT NULL DEFAULT false,
+  billing_paused boolean NOT NULL DEFAULT false,
   auto_post boolean NOT NULL DEFAULT false,
   social_profile text UNIQUE,
   instagram_account_id text,
@@ -126,7 +128,7 @@ BEGIN
     RETURN to_jsonb(job);
   END IF;
   trial := account.subscription_status = 'trialing';
-  IF account.stripe_subscription_id IS NULL OR (
+  IF account.stripe_subscription_id IS NULL OR account.cancel_at_period_end OR account.billing_paused OR (
     (trial AND now() >= account.trial_start AND now() < account.trial_end) OR
     (account.subscription_status = 'active' AND account.period_paid
       AND now() >= account.period_start AND now() < account.period_end)

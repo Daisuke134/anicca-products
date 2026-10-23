@@ -38,6 +38,10 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: `bad signature: ${e.message}` };
   }
 
+  if (evt.data?.object?.metadata?.product === 'ai_monk_factory') {
+    return { statusCode: 200, body: 'ignored Factory product' };
+  }
+
   try {
     if (evt.type === "checkout.session.completed") {
       const s = evt.data.object;

@@ -33,13 +33,17 @@ async function authenticateFactoryRequest(event, { env = process.env, fetchImpl 
   return { id: user.id, email: user.email };
 }
 
+function validateFactoryPrice(price) {
+  if (!price?.id?.startsWith('price_') || !price.active || price.currency !== 'usd' || price.unit_amount !== 19900 || price.metadata?.product !== FACTORY_PRODUCT || price.recurring?.interval !== 'month' || price.recurring.interval_count !== 1 || (price.recurring.usage_type && price.recurring.usage_type !== 'licensed')) {
+    throw factoryError('price_unavailable', 503);
+  }
+}
+
 function buildFactoryCheckout({ user, price, customerId, trialUsed }) {
   if (!UUID.test(user?.id || '') || typeof user.email !== 'string' || !user.email || typeof trialUsed !== 'boolean') {
     throw factoryError('account_unavailable', 503);
   }
-  if (!price?.id?.startsWith('price_') || !price.active || price.currency !== 'usd' || price.unit_amount !== 19900 || price.metadata?.product !== FACTORY_PRODUCT || price.recurring?.interval !== 'month' || price.recurring.interval_count !== 1 || (price.recurring.usage_type && price.recurring.usage_type !== 'licensed')) {
-    throw factoryError('price_unavailable', 503);
-  }
+  validateFactoryPrice(price);
   if (customerId && !/^cus_[A-Za-z0-9]+$/.test(customerId)) throw factoryError('account_unavailable', 503);
   const metadata = { product: FACTORY_PRODUCT, user_id: user.id };
   const subscription = { metadata: { ...metadata } };
@@ -61,4 +65,4 @@ function buildFactoryCheckout({ user, price, customerId, trialUsed }) {
   };
 }
 
-module.exports = { FACTORY_PRODUCT, UUID, factoryError, authenticateFactoryRequest, buildFactoryCheckout };
+module.exports = { FACTORY_PRODUCT, UUID, factoryError, authenticateFactoryRequest, validateFactoryPrice, buildFactoryCheckout };
