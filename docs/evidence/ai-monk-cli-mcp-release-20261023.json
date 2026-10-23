@@ -1,0 +1,54 @@
+{
+  "source_repository": "https://github.com/Daisuke134/anicca-products",
+  "source_main_commit": "838e6bb7101a2ef647560eeb5a5ef0bbc19d950a",
+  "pull_request": "https://github.com/Daisuke134/anicca-products/pull/558",
+  "package": "@anicca/ai-monk-index",
+  "version": "0.1.0",
+  "release": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.1.0",
+  "release_is_draft": false,
+  "release_is_prerelease": false,
+  "asset": {
+    "url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.1.0/anicca-ai-monk-index-0.1.0.tgz",
+    "github_asset_id": 667442268,
+    "size_bytes": 23806,
+    "sha256": "b3d7da95f826c2332cfb7886627ec3c272601e41c20d71d3f66e4bbf78baf604",
+    "official_digest_matches": true,
+    "downloaded_bytes_match": true,
+    "public_url_npm_install_succeeded": true,
+    "installed_cli_stats_succeeded": true
+  },
+  "snapshot": {
+    "updated_at": "2026-10-22",
+    "sha256": "37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9",
+    "records": 75,
+    "sources": 48,
+    "researched_profiles": 9,
+    "unverified_discovery_leads": 66,
+    "ai_status": { "confirmed": 0, "reported": 4, "unverified": 71 }
+  },
+  "validation": {
+    "red_before_implementation": true,
+    "cli_mcp_and_separate_tarball_install_tests": 7,
+    "existing_web_helper_tests": 5,
+    "fresh_independent_review_findings": 0,
+    "node20_package_ci": "https://github.com/Daisuke134/anicca-products/actions/runs/39874456958",
+    "node20_package_ci_conclusion": "success",
+    "landing_pr_ci": "https://github.com/Daisuke134/anicca-products/actions/runs/39874456897",
+    "landing_pr_ci_conclusion": "success",
+    "landing_production_deploy": "https://github.com/Daisuke134/anicca-products/actions/runs/39874897044",
+    "landing_production_deploy_conclusion": "success",
+    "live_database_cli_mcp_link_readback": true
+  },
+  "scope": {
+    "cli": ["search", "get", "stats"],
+    "mcp_transport": "stdio",
+    "mcp_tools": ["search_ai_monks", "get_ai_monk", "ai_monk_index_stats"],
+    "read_only": true,
+    "runtime_network_required": false,
+    "npm_registry_listing": false,
+    "remote_mcp_endpoint": false,
+    "chatgpt_app_listing": false,
+    "end_to_end_video_factory": false,
+    "paid_factory_subscription": false
+  }
+}
