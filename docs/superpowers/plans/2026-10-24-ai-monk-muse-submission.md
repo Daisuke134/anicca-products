@@ -20,8 +20,10 @@
 - [x] 審査提出1回、公式受付ID31824081-7a00-4287-a572-bdee976562c5をreadbackする。
 - [x] Integration credentialsをUnauthenticatedで提出し、Credentials submittedを確認する。
 - [x] Business verificationのwork emailを1回認証し、Confirmedと提出後の詳細画面を確認する。
-- [ ] Data processing questionnaireの最終draftをfresh照合blocking0で受入し、1回提出して公式状態を確認する。
+- [x] Data processing questionnaireの最終draftをfresh照合blocking0で受入し、Save後の再読込で全値一致を確認して1回提出する。公式詳細のUnder reviewとOverviewの3/3 completedを確認する。
 - [ ] 審査結果と正式掲載URLを確認する。審査待ちは掲載済みと扱わない。
 
 ## 現在cursor
-正式受付とcredentials/business提出を確認する。最後のデータ処理申告は個人所在地Japan、公開snapshotの無期限保存、queryの一時処理、provider logs/backupsの削除例外、provider限定の暗号化、条件付きSCC/DPF/UKを記録する。全countries選択は世界中からの潜在公開accessであり、物理的全世界保存や全地域到達を保証しない。exact function region・provider全access国・plan別全保持上限はunknownと明記する。最終draftの追加2値も実UIでreadbackし、送信前fence後に1回提出する。正式掲載と審査結果は未完。証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。
+正式受付ID31824081-7a00-4287-a572-bdee976562c5のOverviewは3/3 completed。Business verificationはApproved、Data processing questionnaireとIntegration credentialsはIn review。Data processingは正本との全値一致、Save1回後の再読込一致、重複防止fence作成を確認して1回だけ提出し、公式詳細のQuestionnaire submitted for reviewを確認する。再提出は行わず、審査結果と正式掲載URLを追跡する。BusinessのApprovedをコネクタ全体の承認や掲載と扱わない。
+
+申告の全countriesは世界中からの潜在公開accessであり、物理的全世界保存や全地域到達を保証しない。exact function region・provider全access国・plan別全保持上限はunknownを保持する。証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。審査待ちと独立してFactory実装を進める。

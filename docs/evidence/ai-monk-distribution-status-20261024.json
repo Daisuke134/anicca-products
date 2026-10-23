@@ -1,6 +1,6 @@
 {
   "schema_version": "anicca.ai-monk-distribution-status.v1",
-  "observed_at": "2026-10-23T17:45:21.114470+00:00",
+  "observed_at": "2026-10-23T18:15:31.656952+00:00",
   "owner_id": "root",
   "database": {
     "version": "0.4.5",
@@ -81,16 +81,23 @@
     "official_confirmation_url": "https://platform.muse.ai/submissions/31824081-7a00-4287-a572-bdee976562c5/confirmation",
     "submit_attempts": 1,
     "resends": 0,
-    "credentials": "Credentials submitted; unauthenticated",
-    "business": "Confirmed email and submitted detail view",
-    "data_processing": "final draft reviewed blocking0; Japan/conditional transfer fields readback; submit pending",
+    "credentials": "In review; unauthenticated credentials submitted",
+    "business": "Approved (business verification only)",
+    "data_processing": "In review; Questionnaire submitted for review.",
     "directory_approved": false,
     "listing_url": null,
     "uncertainties": [
       "Exact function region and exhaustive provider access countries",
       "Plan-specific operational log/backup maximum retention",
       "Muse review and runtime acceptance"
-    ]
+    ],
+    "official_overview_url": "https://platform.muse.ai/submissions/31824081-7a00-4287-a572-bdee976562c5",
+    "requirements_completed": 3,
+    "requirements_total": 3,
+    "data_processing_save_attempts": 1,
+    "data_processing_submit_attempts": 1,
+    "data_processing_resends": 0,
+    "approval_scope": "Business verification approval does not establish connector approval or directory listing."
   },
   "effects": {
     "payments": 0,
@@ -133,6 +140,22 @@
     {
       "file": "ai-monk-muse-netlify-dpa-research-20261024/readback.json",
       "sha256": "1f858500ac0f62e1a2431714d00317feeb79d1c79fd1a27c153e59238210e7f4"
+    },
+    {
+      "file": "ai-monk-muse-data-final-submit-20261024/readback.json",
+      "sha256": "6d9417bb22e7a8166a12bf1e3cea37e9496ac9339ec4195ce5bdaed3cda6cf6e"
+    },
+    {
+      "file": "ai-monk-muse-data-final-submit-20261024/official-requirements-readback.json",
+      "sha256": "b3d9c0ba0b53027e1dfc93dea0b60432b98d9d5011af2b7431ee7d18a42944ed"
+    },
+    {
+      "file": "ai-monk-muse-data-final-submit-20261024/saved-draft-readback.json",
+      "sha256": "495756c6384e0255b6b2db4446b6812966db0f5479fc86a205c85c1022b57442"
+    },
+    {
+      "file": "ai-monk-muse-data-submit-fence-20261024.json",
+      "sha256": "a484b0155e33f2692ccd8b1a9ad68349028eaadff192051c3b35e370eb728575"
     }
   ]
 }
