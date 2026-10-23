@@ -7,31 +7,31 @@
   "spec": "docs/superpowers/specs/2026-10-21-ai-monk-avatar-field-guide.md#AM-13",
   "source": {
     "path": "docs/books/the-art-of-ai-monks-en.md",
-    "sha256": "4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79",
-    "english_words": 10874,
+    "sha256": "b221712764d62d2e4fd891962a4d66c9ed8efa5b1393227c82bb0e416261fda9",
+    "english_words": 10913,
     "research_snapshot_dates": [
       "2026-10-21",
       "2026-10-22"
     ],
     "source_manifest_path": "docs/books/the-art-of-ai-monks-sources.json",
-    "source_manifest_sha256": "277276cd14db9bc36ab31a3809d18492ac80ad52a7f1157eabdd4f3656284725",
-    "source_manifest_modified": false,
+    "source_manifest_sha256": "71e502d2931a13c6e1fc06ff77e43a652e171b31c10f6081118c627557def810",
+    "source_manifest_modified": true,
     "new_external_research_or_paid_provider_calls": false
   },
   "translation": {
     "path": "docs/books/the-art-of-ai-monks-ja.md",
-    "sha256": "7c127015dc3e9ee2f8c4230010909b6beadc1940da5d46e0eade019e3ea3a5e7",
-    "title": "The Art of AI Monks",
+    "sha256": "bfcaeadc0857e5525bb71e88fd3ed367e2ac1c86889d7390f8959b981979b089",
+    "title": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線",
     "subtitle": "アバター、注目、そして法衣の裏のビジネス",
     "author": "Anicca",
     "language": "ja",
     "edition": "日本語版・初版",
     "original_text_and_worksheets_license": "CC BY 4.0",
     "third_party_rights_excluded": true,
-    "characters_unicode_full": 37083,
+    "characters_unicode_full": 37208,
     "character_count_definition": "UTF-8を復号した全文のUnicodeコードポイント数。Markdown、空白、参考文献、URLを含む。",
-    "characters_excluding_whitespace": 35725,
-    "characters_before_appendices": 28076,
+    "characters_excluding_whitespace": 35851,
+    "characters_before_appendices": 28201,
     "lines": 697,
     "chapters": 10,
     "appendices": 3,
@@ -279,5 +279,25 @@
     "correction": "120語/分の仮定が原著の英語台本に対するものだと明示する。数字・引用・段落は維持。",
     "external_sources_refetched": false,
     "format_visual_review": false
+  },
+  "scope_revision": {
+    "plan": "docs/superpowers/plans/2026-10-23-ai-monk-book-avatar-scope.md",
+    "changed_paragraphs_en": [
+      72,
+      92,
+      240,
+      289,
+      459
+    ],
+    "changed_paragraphs_ja": [
+      1,
+      72,
+      92,
+      240,
+      289,
+      459
+    ],
+    "snapshot_and_reference_content_preserved": true,
+    "review_scope": "変更した対訳段落と日本語書名のみを照合。既存独立編集reviewは初版時の歴史記録として保持。"
   }
 }

@@ -1,0 +1,237 @@
+{
+  "schema_version": "anicca.ai-monk-book-avatar-scope.v1",
+  "run_id": "ai-monk-book-avatar-scope-20261023",
+  "owner_id": "ai_monk_ui_references",
+  "base_sha": "8df0a1b26e68bbb0196802a3be08384ae84058fb",
+  "plan_commit": "8929703f9d339782e745c9e26166ba44279a87d4",
+  "branch": "fix/ai-monk-book-avatar-scope-20261023",
+  "plan": "docs/superpowers/plans/2026-10-23-ai-monk-book-avatar-scope.md",
+  "status": "source_acceptance_passed_pending_root_merge_and_production_readback",
+  "changes": {
+    "production_scope": "Yang Mun型の、写真に近い姿で話すAI生成の僧侶動画avatar。水彩・イラスト・絵画系は制作対象外。",
+    "changed_paragraphs_en": [
+      72,
+      92,
+      240,
+      289,
+      459
+    ],
+    "changed_lines_ja": [
+      1,
+      72,
+      92,
+      240,
+      289,
+      459
+    ],
+    "kai_tsukimi": "中核制作例から外し、残す商品導線・キャプション比較を対象外の隣接比較と明記。",
+    "english_title": "The Art of AI Monks",
+    "japanese_title": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線",
+    "display_path": "JA catalog title/cover_image → 既存AiMonkBookPageのH1・OG・Twitter・Book構造化data・img。既存builderの同catalog cover選択をPDF/EPUB/HTMLへ接続。",
+    "historical_records": "両原稿の付録・参考文献と32参照定義、既存106/112/162/295行はbaseと同一。75件/48source、4reported/71unverified、66候補の過去snapshotを維持。source manifestのbook以外の全フィールドはbaseと同一。",
+    "financial_contract": "両catalogのproduct/sku/language/slug/formats/currency/unit_amount/stripe_product_id/stripe_price_idはbaseと同一。購入backend未変更。"
+  },
+  "cover": {
+    "method": "既存rasterをview_imageで確認後、built-in image_genのtext-localization編集を実行。生成PNG原bytesをJA専用assetへコピー。Python/Pillow等による画像編集・crop・変換なし。",
+    "input_path": "apps/landing/public/assets/the-art-of-ai-monks-cover.png",
+    "input_sha256": "86a1aef975689957375d634a88fe73f241e8a2cd24e41eec759b93a867d85e3d",
+    "english_cover_unchanged": true,
+    "output_path": "apps/landing/public/assets/the-art-of-ai-monks-ja-cover.png",
+    "output_sha256": "74b3f68eacf95557bc12db452ec8e523a61aa00c240e730c9ae058c29ff2eff2",
+    "output_bytes": 2601202,
+    "prompt": "Use case: text-localization. Asset: Japanese edition book cover, portrait 2:3, a sibling edition of the supplied edit target. Keep the cream paper, orange and black palette, all illustrated artwork, phone, seated monk, landscape, social cards, composition and ANICCA imprint unchanged. Change only the top title and subtitle typography to Japanese. Remove all existing English title and subtitle. Render this exact title, with tasteful line breaks and the ASCII hyphen retained: 「ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線」. Suggested title lines: 「ヤング・ムンの衝撃」 and 「- AI僧侶ビジネスの最前線」. Under the title use the exact smaller subtitle: 「アバター、注目、そして法衣の裏のビジネス」. Keep ANICCA at the bottom. Japanese glyphs must be precise and legible; no other slogans, numbers, badges or new objects. Preserve the existing artwork as book-cover art; do not add or change any face. This is title localization only.",
+    "visual_result": "指定書名と既存subtitle、ANICCA表記を確認。表紙は装画であり、研究accountの姿やAI分類の根拠に用いない。"
+  },
+  "verification": {
+    "status": "PASS",
+    "tests": {
+      "command": "node --test test/ai-monk-book-page.test.mjs netlify/functions/__tests__/ai-monk-book.test.js",
+      "cwd": "apps/landing",
+      "passed": 17,
+      "failed": 0,
+      "coverage": "既存SSR4件と固定lang/SKU/価格・paid download・未払い/異版/不正metadata拒否・base64 payload size等13契約tests。新規testなし。"
+    },
+    "targeted_red_green": "JA OG imageの新cover期待値は変更前にFAIL、catalog cover経路の最小修正後はEN/JAのH1・title・OG・Twitter・構造化dataをPASS。",
+    "builder_commands": [
+      "python3 apps/landing/scripts/build-ai-monk-book.py --language en",
+      "python3 apps/landing/scripts/build-ai-monk-book.py --language ja"
+    ],
+    "builder_exit_codes": [
+      0,
+      0
+    ],
+    "builder_syntax": "py_compile PASS",
+    "editions": {
+      "en": {
+        "title": "The Art of AI Monks",
+        "pages": 59,
+        "epub_spine_items": 17,
+        "internal_resource_links_checked": 34,
+        "pdf_title_and_extract": "PASS",
+        "epub_title_language_identifier_cover_font": "PASS",
+        "manuscript_sha256": "b221712764d62d2e4fd891962a4d66c9ed8efa5b1393227c82bb0e416261fda9",
+        "files": [
+          {
+            "path": "docs/books/the-art-of-ai-monks-en.md",
+            "bytes": 78306,
+            "sha256": "b221712764d62d2e4fd891962a4d66c9ed8efa5b1393227c82bb0e416261fda9"
+          },
+          {
+            "path": "apps/landing/private/ebooks/the-art-of-ai-monks-en.pdf",
+            "bytes": 2753209,
+            "sha256": "e11d12423ca4ecac76d4f467522565a894118db5359f9918b02940bfd1c8dbad"
+          },
+          {
+            "path": "apps/landing/private/ebooks/the-art-of-ai-monks-en.epub",
+            "bytes": 2659415,
+            "sha256": "6c198814592332398b7e674f69e1c167ce8bc9569cbce56bdb7771363b088b6d"
+          },
+          {
+            "path": "apps/landing/private/ebooks/the-art-of-ai-monks-en.html",
+            "bytes": 92830,
+            "sha256": "5fa4385c65a34819d5fcf434d9a04d104e5bb7bc7e18680a78f025cae0f4f01b"
+          },
+          {
+            "path": "apps/landing/public/assets/the-art-of-ai-monks-cover.png",
+            "bytes": 2684876,
+            "sha256": "86a1aef975689957375d634a88fe73f241e8a2cd24e41eec759b93a867d85e3d"
+          }
+        ]
+      },
+      "ja": {
+        "title": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線",
+        "pages": 60,
+        "epub_spine_items": 17,
+        "internal_resource_links_checked": 34,
+        "pdf_title_and_extract": "PASS",
+        "epub_title_language_identifier_cover_font": "PASS",
+        "manuscript_sha256": "bfcaeadc0857e5525bb71e88fd3ed367e2ac1c86889d7390f8959b981979b089",
+        "files": [
+          {
+            "path": "docs/books/the-art-of-ai-monks-ja.md",
+            "bytes": 93593,
+            "sha256": "bfcaeadc0857e5525bb71e88fd3ed367e2ac1c86889d7390f8959b981979b089"
+          },
+          {
+            "path": "apps/landing/private/ebooks/the-art-of-ai-monks-ja.pdf",
+            "bytes": 2863892,
+            "sha256": "ca18a14acea235d2c952bb9b650664dd1d39ecc2178ce79bdefe31f3c9415c01"
+          },
+          {
+            "path": "apps/landing/private/ebooks/the-art-of-ai-monks-ja.epub",
+            "bytes": 2970044,
+            "sha256": "b78c4196a097f5b7bfa059a692fdff3553d4f523fb18ad328c976c90a776fa51"
+          },
+          {
+            "path": "apps/landing/private/ebooks/the-art-of-ai-monks-ja.html",
+            "bytes": 108660,
+            "sha256": "1c04f4ab88d76c64f11f23b189bd0b727d795e852ddf367834f3d5b66d2a502e"
+          },
+          {
+            "path": "apps/landing/public/assets/the-art-of-ai-monks-ja-cover.png",
+            "bytes": 2601202,
+            "sha256": "74b3f68eacf95557bc12db452ec8e523a61aa00c240e730c9ae058c29ff2eff2"
+          }
+        ]
+      }
+    },
+    "preserved_contract_fields": [
+      "product",
+      "sku",
+      "language",
+      "slug",
+      "formats",
+      "currency",
+      "unit_amount",
+      "stripe_product_id",
+      "stripe_price_id"
+    ],
+    "citation_pairs_per_edition": 95,
+    "reference_definitions_per_edition": 32,
+    "chapters_per_edition": 10,
+    "worksheets_per_edition": 4,
+    "ja_font_coverage": "EPUB埋込2subset fontが原稿の全non-whitespace codepointを含む。",
+    "visual": {
+      "status": "PASS",
+      "pages_per_edition": [
+        1,
+        2,
+        10,
+        28,
+        44
+      ],
+      "observations": "表紙・本文書名・新しい制作対象の定義・Kaiの対象外表示と商品比較表・制作手順を目視。文字欠け、重なり、ページ外への切れなし。44頁末尾の段落は次頁へ通常継続。",
+      "rendered_previews": [
+        {
+          "language": "en",
+          "page": 1,
+          "file_name": "en-page-1.png",
+          "sha256": "900416bfadee43464f43e447de18b8bfdd3dd2dae17a9046d5d4e45d2977f8e7"
+        },
+        {
+          "language": "en",
+          "page": 2,
+          "file_name": "en-page-2.png",
+          "sha256": "a5789ca9490703472395558b5869a6d861197e02aa7437159ce5f67bb404160f"
+        },
+        {
+          "language": "en",
+          "page": 10,
+          "file_name": "en-page-10.png",
+          "sha256": "48d5bbd1aefe15e557787948748e4bfc542e712de788900e9d3a98fa34410af8"
+        },
+        {
+          "language": "en",
+          "page": 28,
+          "file_name": "en-page-28.png",
+          "sha256": "6d64a345b303145fdf63fdb479ebdf6f222a6a43c24da2ed548493da7f9afc03"
+        },
+        {
+          "language": "en",
+          "page": 44,
+          "file_name": "en-page-44.png",
+          "sha256": "72ba73ff874b0bf71767df23bb0c704c94a42a36b80937fff8b895346ff5dc07"
+        },
+        {
+          "language": "ja",
+          "page": 1,
+          "file_name": "ja-page-1.png",
+          "sha256": "50fe60bb7268997d747c53389c4715bbaeeb8da1c583a0c00e49679606b5d32e"
+        },
+        {
+          "language": "ja",
+          "page": 2,
+          "file_name": "ja-page-2.png",
+          "sha256": "fd83f7db2ac6846226c61ca00ec3cc0280baaa47fd68eaf8871355a12db4cab8"
+        },
+        {
+          "language": "ja",
+          "page": 10,
+          "file_name": "ja-page-10.png",
+          "sha256": "54f1a9864109ac96dcddf07e6f089dfc7c4f0af66afba076591c233fbbf4682b"
+        },
+        {
+          "language": "ja",
+          "page": 28,
+          "file_name": "ja-page-28.png",
+          "sha256": "c02919d3ec1f813db9ff2ab4a0b01ba097fb668177bc391a9e4495482ccbfc02"
+        },
+        {
+          "language": "ja",
+          "page": 44,
+          "file_name": "ja-page-44.png",
+          "sha256": "cc7bd910fa8b4e8f5b5e2e6fc9ae7059d1d2c9e3d18c6c8817962b6bb24c6ec5"
+        }
+      ]
+    },
+    "scope_boundary": "記事・canonical dataset/AI status・directory UI/profile画像・購入backend・root field-guide spec/avatar-scope planは差分なし。",
+    "secret_scan": "変更したtextとcatalogを対象にprivate key、認証token、署名付きURLの混入なし。既存の公開Stripe product/price IDは変更なし。",
+    "diff_check": "PASS"
+  },
+  "limits": [
+    "本担当はsourceと生成物の受入まで。main統合・Netlify反映・販売pageとdownloadの本番readbackはrootが所有する。",
+    "PDFは変更に関係する選択10ページを確認。EPUBは構造・内部参照・metadata・表紙bytes・fontを確認し、専用EPUB readerでの再読は行わない。",
+    "既存の独立翻訳reviewは初版時の歴史記録。今回は変更5段落とJA書名の対訳確認であり、新しい全文reviewとは扱わない。",
+    "Stripe catalog/商品/価格のprovider mutation、認証、購入・外部送信は行わない。"
+  ]
+}

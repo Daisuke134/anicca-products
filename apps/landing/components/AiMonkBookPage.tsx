@@ -3,10 +3,10 @@ import Link from 'next/link';
 import AiMonkBookPurchase from './AiMonkBookPurchase';
 
 type Book = {
-  product: string; title: string; author: string; language: string; edition: string;
+  product: string; title: string; author: string; language: string; edition: string; cover_image?: string;
   slug: string; unit_amount: number; currency: string; pages: number; chapters: string[];
 };
-const cover = 'https://aniccaai.com/assets/the-art-of-ai-monks-cover.png';
+const cover = (book: Book) => `https://aniccaai.com${book.cover_image ?? '/assets/the-art-of-ai-monks-cover.png'}`;
 const copy = {
   en: {
     label: 'AI monk avatar research',
@@ -48,8 +48,8 @@ export function aiMonkBookMetadata(book: Book): Metadata {
   return {
     title: `${book.title} — ${book.edition} | Anicca`, description: text.description,
     alternates: { canonical: url, languages: { en: 'https://aniccaai.com/the-art-of-ai-monks', ja: 'https://aniccaai.com/the-art-of-ai-monks/ja', 'x-default': 'https://aniccaai.com/the-art-of-ai-monks' } },
-    openGraph: { title: `${book.title} — ${book.edition}`, description: text.description, url, images: [{ url: cover }] },
-    twitter: { card: 'summary_large_image', title: `${book.title} — ${book.edition}`, description: text.description, images: [cover] },
+    openGraph: { title: `${book.title} — ${book.edition}`, description: text.description, url, images: [{ url: cover(book) }] },
+    twitter: { card: 'summary_large_image', title: `${book.title} — ${book.edition}`, description: text.description, images: [cover(book)] },
   };
 }
 
@@ -61,7 +61,7 @@ export default function AiMonkBookPage({ book }: { book: Book }) {
   const structured = {
     '@context': 'https://schema.org', '@type': 'Book', name: book.title, description: text.description,
     author: { '@type': 'Organization', name: book.author }, inLanguage: book.language,
-    bookEdition: book.edition, bookFormat: 'https://schema.org/EBook', image: cover, url,
+    bookEdition: book.edition, bookFormat: 'https://schema.org/EBook', image: cover(book), url,
     offers: { '@type': 'Offer', price: (book.unit_amount / 100).toFixed(2), priceCurrency: book.currency.toUpperCase(), availability: 'https://schema.org/InStock', url },
   };
   return <main lang={book.language} className="min-h-screen bg-[#f5f1e7] text-[#28352b]">
@@ -73,7 +73,7 @@ export default function AiMonkBookPage({ book }: { book: Book }) {
       </nav>
       <section className="grid items-center gap-12 py-14 md:grid-cols-[.8fr_1.2fr] md:py-20">
         <div className="mx-auto w-full max-w-sm md:pr-6">
-          <img src="/assets/the-art-of-ai-monks-cover.png" alt={japanese ? 'The Art of AI Monksの表紙' : 'The Art of AI Monks book cover'} width={1024} height={1536} className="h-auto w-full rounded-sm shadow-[18px_24px_50px_rgba(41,48,32,.2)]" />
+          <img src={book.cover_image ?? '/assets/the-art-of-ai-monks-cover.png'} alt={japanese ? `${book.title}の表紙` : 'The Art of AI Monks book cover'} width={1024} height={1536} className="h-auto w-full rounded-sm shadow-[18px_24px_50px_rgba(41,48,32,.2)]" />
         </div>
         <div>
           <p className="text-xs font-semibold uppercase tracking-[.22em] text-[#7b6943]">{text.label}</p>

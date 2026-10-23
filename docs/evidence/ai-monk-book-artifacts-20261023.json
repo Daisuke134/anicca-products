@@ -1,6 +1,5 @@
 {
-  "manuscript_sha256": "4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79",
-  "word_count": 10874,
+  "manuscript_sha256": "b221712764d62d2e4fd891962a4d66c9ed8efa5b1393227c82bb0e416261fda9",
   "chapters": 10,
   "pdf_pages": 59,
   "epub_spine_items": 17,
@@ -8,20 +7,27 @@
   "files": [
     {
       "path": "apps/landing/private/ebooks/the-art-of-ai-monks-en.pdf",
-      "bytes": 2752798,
-      "sha256": "99d5cb2977cadffbfe5135679bbedc757749ebf2fb7aba1549e39f62b5309d1b"
+      "bytes": 2753209,
+      "sha256": "e11d12423ca4ecac76d4f467522565a894118db5359f9918b02940bfd1c8dbad"
     },
     {
       "path": "apps/landing/private/ebooks/the-art-of-ai-monks-en.epub",
-      "bytes": 2659253,
-      "sha256": "03296f581ba588c52a17dd90f0f4bc749995d180b154eb8afc89e7eca16d490c"
+      "bytes": 2659415,
+      "sha256": "6c198814592332398b7e674f69e1c167ce8bc9569cbce56bdb7771363b088b6d"
     }
   ],
-  "validation": "PDF metadata and sampled visual review; EPUB mimetype/container/manifest/spine; 95 HTML citation links and all EPUB citation targets matched source definitions",
-  "pdf_visual_review_pages": [
-    1,
-    17,
-    59
-  ],
-  "visual_review": "Cover title and author fully visible; sampled body and reference pages readable; no cropping."
+  "validation": "PDF metadata/text; EPUB title/language/identifier/cover/resources/spine; selected PDF pages visually checked",
+  "word_count": 10913,
+  "scope_revision_evidence": "docs/evidence/ai-monk-book-avatar-scope-20261023.json",
+  "visual_validation": {
+    "pages": [
+      1,
+      2,
+      10,
+      28,
+      44
+    ],
+    "status": "PASS",
+    "observations": "表紙・書名・対象定義・比較表・制作手順を目視。文字欠け・切れ・重なりなし。全ページの再校正とは扱わない。"
+  }
 }

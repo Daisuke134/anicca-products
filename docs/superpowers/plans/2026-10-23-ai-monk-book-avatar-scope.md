@@ -35,9 +35,17 @@
 
 - [x] 最新main・remote・他worktree所有・cleanを確認。
 - [x] 既存builder/guard/catalog/page/生成物/関連17testsを読む。
-- [ ] 計画を先にcommit/push、remote一致。
-- [ ] 最小原稿修正とJA書名/表紙経路の一致。
-- [ ] manifestsと両言語生成物を更新、必要最小の確認。
+- [x] 計画を先にcommit/push、remote一致（`8929703f9d339782e745c9e26166ba44279a87d4`）。
+- [x] 最小原稿修正とJA書名/表紙経路の一致。
+- [x] manifestsと両言語生成物を更新、必要最小の確認。
 - [ ] 限定commit/push・PR作成/attach・head/CI報告。
 
-現在cursor: 計画の先行commit/push。購入/Stripe/記事/DBを編集しない。
+現在cursor: source acceptance完了。この差分を限定commit/pushしPR作成/attachへ進める。source SHA・PR・CIはGitHubと完了報告を正本とし、rootへmain統合・本番readbackを渡す。購入/Stripe/記事/DBは編集しない。
+
+## 実施結果
+
+- EN原稿5段落、JA対応5段落とH1のみを修正。Kaiは対象外の隣接比較、Yang Mun型の話すavatarを制作対象と明記。付録・参照定義・過去snapshotはbaseと同一。
+- EN書名と表紙は保持。JAは指定書名と専用表紙をcatalog/page metadata・既存builderへ接続。表紙編集はbuilt-in image_genのみで、生成PNG原bytesを保存。
+- 既存17tests PASS。既存builderでEN59頁/JA60頁、各10章・95引用・17spine。両言語各1/2/10/28/44頁を目視PASS。
+- 決済識別子・価格・SKU・slug・currency・formatsはbaseと同一。根拠と成果物hashは `docs/evidence/ai-monk-book-avatar-scope-20261023.json`。
+- 本番公開/売上の成功はこのsource確認から主張しない。統合と本番確認はrootの残作業。
