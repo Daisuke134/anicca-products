@@ -25,6 +25,7 @@
 - docs/evidence/ai-monk-profile-audit-20261024.json — 67profileのUI観測と未取得境界。
 - docs/evidence/ai-monk-product-research-20261024.json — 15site/13取得成功/20商品、18価格/2価格unknown。
 - docs/evidence/ai-monk-factory-unit-economics-20261024.json — HeyGen APIとReelFarm公開料金の区別、生成原価と未確認。
+- docs/evidence/ai-monk-factory-heygen-alternative-20261024.json — Full Video Agentの設定上限での動画費と既存予算を比較し、代替採用/追加購入0を記録する。
 
 Databaseのpackage metadata/READMEはv0.4.6へ揃え、新しいmain固定入力のReleaseとして配布済みとする。既存Releaseを変更せず、公開JSON/Web/MCP・URL導入・実stdio6toolとRegistryの同一snapshotを受入する。GitHub Releaseロックはimmutable=falseのまま記録する。証拠 → docs/evidence/ai-monk-cli-mcp-v046-release-20261024.json。
 
