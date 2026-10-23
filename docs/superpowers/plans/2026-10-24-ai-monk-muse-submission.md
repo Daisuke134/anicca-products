@@ -16,9 +16,12 @@
 ## TODO
 - [x] 公開一次資料と正式portalを確認する。
 - [x] 通常ログイン後、正式提出フォームが表示されることを確認する。
-- [ ] Overview/Technical specs/Reviewへ実情報を入力して確認する。
-- [ ] 審査提出を1回実行し、公式受付番号/状態をreadbackする。
+- [x] Overview/Technical specs/Reviewへ実情報を入力し、fresh read-onlyレビューblocking0を確認する。
+- [x] 審査提出1回、公式受付ID31824081-7a00-4287-a572-bdee976562c5をreadbackする。
+- [x] Integration credentialsをUnauthenticatedで提出し、Credentials submittedを確認する。
+- [x] Business verificationのwork emailを1回認証し、Confirmedと提出後の詳細画面を確認する。
+- [ ] Data processing questionnaireの最終draftをfresh照合blocking0で受入し、1回提出して公式状態を確認する。
 - [ ] 審査結果と正式掲載URLを確認する。審査待ちは掲載済みと扱わない。
 
 ## 現在cursor
-既存Meta account認証後、submissionのOverviewを表示する。まだdraft入力・提出・掲載は行っていない。Databaseの176出典更新とCLI v0.4.5公開readbackは別担当が進め、日次IG/TikTok運用は変更しない。
+正式受付とcredentials/business提出を確認する。最後のデータ処理申告は個人所在地Japan、公開snapshotの無期限保存、queryの一時処理、provider logs/backupsの削除例外、provider限定の暗号化、条件付きSCC/DPF/UKを記録する。全countries選択は世界中からの潜在公開accessであり、物理的全世界保存や全地域到達を保証しない。exact function region・provider全access国・plan別全保持上限はunknownと明記する。最終draftの追加2値も実UIでreadbackし、送信前fence後に1回提出する。正式掲載と審査結果は未完。証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。

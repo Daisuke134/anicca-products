@@ -4,14 +4,14 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-旧順/新順/理由はfield-guideを参照する。DatabaseはPR619/main bbd81158d27d0c8b84fe5fc656062f54df7f50d5、73公開件/75archive/176出典へ更新し、Netlify39991460553はSUCCESS。価格・商品33種/35関連行を追加し、69offer rows、収益観測1件を保持する。現在cursorは176出典の公開JSON/Web/MCP受入、CLI v0.4.5の新Release/公開導入、Registry v0.4.5更新。139出典版CLI/Registry v0.4.4とX告知1本は受入済み。Museは既存Meta accountの認証を通過し、正式提出フォームへ進む。詳細は2026-10-24-ai-monk-muse-submission.md。Grok協力依頼はLM PR8749のCI待ちで、受領/投稿は未確認。FactoryはHeyGen・Stripe実accountと利用者接続の原価/契約を先に確定し、実装を先行しない。
+旧順/新順/理由はfield-guideを参照する。Database v0.4.5は73公開/75archive/176出典へ反映し、公開JSON/Web/MCP・新CLI Release/URL導入/実stdio6toolの同一snapshotを受入する。商品関連はarchive69行/公開66行。公式Registry v0.4.5は39994967749 SUCCESS/exact GET activeで完了する。Codex直接配布・本人X告知・Grokへの正式BOARD依頼は完了し、Grok受領/追加投稿は未確認。Museは正式受付とcredentials/business提出を確認し、最後のデータ処理申告を提出する。審査結果待ちと独立して原価/方式を定めたFactory実装へ進む。最新証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。
 
 ## TODO
 - [ ] DB-1: 既知73profileの商品/売上/creator/言語/画像の調査coverageを記録し、取得可能な公開一次資料から精査・拡充する。pending非掲載という旧reasonを修正し、unknownを保持する。
-- [x] DB-2（139source snapshotの公開受入済み）: 既存関連検証でsource参照/scope/価格と売上区別を確認し、main/公開JSON/Web/MCPと必要なCLI版へ反映する。
+- [x] DB-2（176source snapshotの公開JSON/Web/MCP/CLI受入済み）: 既存関連検証でsource参照/scope/価格と売上区別を確認し、main/公開JSON/Web/MCPと必要なCLI版へ反映する。
 - [ ] PL-1: 既存無料Codex pluginと正式ChatGPT/Grok/Muse配布口を確認する。OpenAI MFA/Muse提出の未完を具体化し、実提出/掲載と導入を区別する。
-- [ ] DIST-1: Database/Pluginの新launch copyを根拠付きで作り、自分のX投稿とGrok協力依頼を1回ずつ送る。公式receipt/permalinkと重複0を記録する。
-- [ ] COST-1（一次資料のAPI単価と算術原価を取得済み、請求細則/Stripe等は未確認）: ReelFarm公開価格/無料枠/導線、HeyGen実API単価、45/60秒・1日1本/2本・3日trial・再生成・Stripe手数料から原価と利益を計算する。取得不足はunknownとし課金top-upしない。
+- [x] DIST-1（本人X1本・正式Grok BOARD依頼をreadback、受領/追加投稿は別）: Database/Pluginの新launch copyを根拠付きで作り、自分のX投稿とGrok協力依頼を1回ずつ送る。公式receipt/permalinkと重複0を記録する。
+- [x] COST-1（API/Stripe/接続費の一次資料と仮定別原価表を取得、実請求/転換率はSaaSで追跡）: ReelFarm公開価格/無料枠/導線、HeyGen実API単価、45/60秒・1日1本/2本・3日trial・再生成・Stripe手数料から原価と利益を計算する。取得不足はunknownとし課金top-upしない。
 - [ ] SaaS-1: 原価からprice/生成上限を決め、最小auth・Stripe3日trial・Generate avatar/video・IG接続・自動投稿・metricsを既存Web/APIから実装して公開する。TikTokは後続。実API生成/Stripe subscription/利用者所有接続/公式投稿とmetricsを成果条件として追跡する。
 - [ ] DIST-2: 実利用できるFactoryをXで告知し、Grokにも配布協力を依頼する。未実装や未達収益を宣伝しない。
 

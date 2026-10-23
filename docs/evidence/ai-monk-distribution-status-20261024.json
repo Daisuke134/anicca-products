@@ -1,0 +1,138 @@
+{
+  "schema_version": "anicca.ai-monk-distribution-status.v1",
+  "observed_at": "2026-10-23T17:45:21.114470+00:00",
+  "owner_id": "root",
+  "database": {
+    "version": "0.4.5",
+    "main_sha": "bbd81158d27d0c8b84fe5fc656062f54df7f50d5",
+    "public": 73,
+    "archive": 75,
+    "sources": 176,
+    "archive_offer_rows": 69,
+    "public_offer_rows": 66,
+    "public_and_cli_receipt": "ai-monk-cli-mcp-v045-release-20261024.json"
+  },
+  "registry": {
+    "run_id": 39994967749,
+    "conclusion": "success",
+    "main_sha": "9cde6b1f90badd5d19ddb48dbc3fd718f7b57e49",
+    "dispatches": 1,
+    "resends": 0,
+    "new_secrets": 0,
+    "readback": {
+      "observed_at": "2026-10-23T17:26:19.324972+00:00",
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.5",
+      "curl_exit": 0,
+      "http_status": "200",
+      "response_sha256": "53c3eb9405c59f3b8586429619cd6f25d0a0e522f976aa6994ea4faeb9539698",
+      "entry": {
+        "server": {
+          "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+          "name": "io.github.Daisuke134/ai-monk-index",
+          "description": "Research monk avatars, products and video playbooks with sources and labelled uncertainty.",
+          "title": "AI Monk Index",
+          "repository": {
+            "url": "https://github.com/Daisuke134/anicca-products",
+            "source": "github"
+          },
+          "version": "0.4.5",
+          "websiteUrl": "https://aniccaai.com/ai-monk-database/support",
+          "remotes": [
+            {
+              "type": "streamable-http",
+              "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp"
+            }
+          ]
+        },
+        "_meta": {
+          "io.modelcontextprotocol.registry/official": {
+            "status": "active",
+            "statusChangedAt": "2026-10-23T17:25:57.211969Z",
+            "publishedAt": "2026-10-23T17:25:57.211969Z",
+            "updatedAt": "2026-10-23T17:25:57.211969Z",
+            "isLatest": true
+          }
+        }
+      }
+    }
+  },
+  "grok": {
+    "schema_version": "anicca.ai-monk-grok-distribution-receipt.v1",
+    "observed_at": "2026-10-23T17:24:48.672086+00:00",
+    "repo": "Daisuke134/life-manager",
+    "pr": 8749,
+    "main_sha": "5219377b52be20f741d7e82566898f2192334997",
+    "board_git_blob": "213b1e14ed9cfa9e2592f2db252b3bd4b356a940",
+    "board_sha256": "33cb1d9c61b459c93b1f5cac8611811868f8d18b03d524d2abe5663bfc2e35f4",
+    "official_get": true,
+    "request_recorded": true,
+    "grok_acknowledged": null,
+    "grok_post_permalink": null,
+    "duplicate_request_sends": 0,
+    "runtime_changes": 0,
+    "x_source_permalink": "https://x.com/selawmqt/status/2113673062554247580",
+    "ci_run": 39990136953,
+    "ci_final_conclusion": "success",
+    "ci_rerun_count": 1,
+    "next_action": "Grok owner response and external post receipt"
+  },
+  "muse": {
+    "submission_id": "31824081-7a00-4287-a572-bdee976562c5",
+    "official_confirmation_url": "https://platform.muse.ai/submissions/31824081-7a00-4287-a572-bdee976562c5/confirmation",
+    "submit_attempts": 1,
+    "resends": 0,
+    "credentials": "Credentials submitted; unauthenticated",
+    "business": "Confirmed email and submitted detail view",
+    "data_processing": "final draft reviewed blocking0; Japan/conditional transfer fields readback; submit pending",
+    "directory_approved": false,
+    "listing_url": null,
+    "uncertainties": [
+      "Exact function region and exhaustive provider access countries",
+      "Plan-specific operational log/backup maximum retention",
+      "Muse review and runtime acceptance"
+    ]
+  },
+  "effects": {
+    "payments": 0,
+    "generations": 0,
+    "daily_runtime_changes": 0
+  },
+  "evidence_refs": [
+    {
+      "file": "ai-monk-registry-v045-20261024/preflight-v045-meta.json",
+      "sha256": "39296c48a37835be88e2c43963b8ea84126378bc261f02283cf099618bb213cc"
+    },
+    {
+      "file": "ai-monk-registry-v045-20261024/publish-fence.json",
+      "sha256": "a40d64422543c59943c7c84bfe99b2620d69c0f121228a093032c1b917e82cf4"
+    },
+    {
+      "file": "ai-monk-registry-v045-20261024/official-readback.json",
+      "sha256": "25677623542a8297f878037d4a97f01ad4c4a5f76358a128d8bda16c80c84f2c"
+    },
+    {
+      "file": "ai-monk-grok-distribution-receipt-20261024.json",
+      "sha256": "caf195d09f83da8570f4f26d49c6025bec389f3b0adafc74202adf2e6377b96d"
+    },
+    {
+      "file": "ai-monk-muse-submission-final-readback-20261024.json",
+      "sha256": "3cf340ffe5fe11f56ae73d9fdeca4ce9f44e3be788a98d0ca3e3869eb3cffcb4"
+    },
+    {
+      "file": "ai-monk-muse-credentials-final-readback-20261024.json",
+      "sha256": "45625ac621fe45978ff39beec80745737bfa008862431c95f285d4e0c7a9f8c5"
+    },
+    {
+      "file": "ai-monk-muse-business-submitted-readback-20261024.json",
+      "sha256": "44ab13a5d132bee810bd823819529cc0a2ec426c6482dd9f30baf8e40f8829e7"
+    },
+    {
+      "file": "ai-monk-muse-data-processing-draft-20261024.json",
+      "sha256": "643008ad8bfff915f511045806c44381c05725e5a4e74bd38256dd33a39e3eb3"
+    },
+    {
+      "file": "ai-monk-muse-netlify-dpa-research-20261024/readback.json",
+      "sha256": "1f858500ac0f62e1a2431714d00317feeb79d1c79fd1a27c153e59238210e7f4"
+    }
+  ]
+}
