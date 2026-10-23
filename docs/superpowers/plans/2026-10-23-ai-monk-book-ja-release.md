@@ -23,7 +23,7 @@
 
 - [x] EPUBを必要glyphのフォントで生成し、納品可能なsize・全文字・引用・構造を確認する。3,048,258 bytes、base64 4,064,344 bytes。両fontに全原稿文字とASCIIが残り、全XHTML・PDF・HTMLは変更前と一致する。
 - [x] Stripe既存catalogを公式GETで照合し、日本語版のproduct/priceを重複なく登録する。`prod_VUVvsa1587Elri` / `price_1UTWtpEeDsUAcaLSV3fRzwl9`。公式GETでlive/active/USD999/one_time/SKU/lang一致を確認。
-- [ ] 言語固定Checkout/納品と日本語ページを実装し、最小の失敗テストから確認する。
+- [x] 言語固定Checkout/納品と日本語ページを実装し、最小の失敗テストから確認する。購入copyはJAなのにEnglish表示する失敗を確認して修正。
 - [ ] 英語版/既存Reset・Letterを含む関連契約、CI、main、Netlifyを確認する。
 - [ ] 公開日本語ページと未払いCheckout/保護を公式readbackし、実注文/支払済み納品の未達を記録する。
 
@@ -32,3 +32,7 @@
 ### Checkout/納品のsource検証
 
 日本語Checkoutと実PDF/EPUB bytesのテストが未対応を理由に3件失敗することを確認し、固定catalogを英語・日本語へ拡張した。13件のbook契約と既存Reset/Letterの関連契約を含む26件がPASSする。paid/live/payment・商品・言語・SKUを照合し、queryの版指定を無視する。現在cursorは日本語販売ページと購入copyの接続。
+
+### ページと関連契約
+
+既存ENページを共通componentへ移し、JA route・言語切替・正確な版/頁数/価格・無料全文を追加した。英語ページの比喩見出しも直接的な内容へ置換した。DBから両版へリンクする。37 testsがPASSする（book Checkout/実bytes納品/保護、既存Reset・Letter、両版SSR/metadata、DB契約）。Landing CIの既存book stepへSSR4件を加える。full buildはCIで確認する。元のJA PDF/EPUB・引用先・原稿は変更しない。現在cursorはsource差分の独立read-only検証、CI、main/Netlify反映。

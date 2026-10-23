@@ -37,7 +37,7 @@ jobs:
         run: node --test lib/ai-monk-directory.test.mjs test/ai-monk-evidence-rendering.test.mjs
 
       - name: Book checkout and delivery contracts
-        run: node --test netlify/functions/__tests__/ai-monk-book.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-checkout.test.js
+        run: node --test netlify/functions/__tests__/ai-monk-book.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-checkout.test.js test/ai-monk-book-page.test.mjs
 
       - run: npm run test:telemetry
       - run: npm run test:anicca-app-store-routing
