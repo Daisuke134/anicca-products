@@ -28,3 +28,23 @@ Daisの公開画面への指摘に従い、見出しを `AI Monk Database` に�
 - [ ] 未取得68件の画像を引き続き個別に照合し、確認できた分を追加する。
 
 現在cursor: レイアウト・コピー・全75件のアイコン表示はPR #560でmainへ統合し、Netlify run 39879488202と公開ブラウザで確認する。7画像は全てHTTP200と原hashを照合、68件はイニシャル。検索（同名別handleの2件を保持）、媒体別handle/数値、AI状態filter、clear、0件、詳細、画像失敗fallbackはPASS。1440/390/320pxで横はみ出しなし、client error0。根拠 → `docs/evidence/ai-monk-database-ui-production-20261023.json`。次は68件の追加画像収集と、保留したremote MCP・日本語書籍・factoryの各残TODOを進める。実画像の全件取得・網羅的な調査・収益達成は未完。
+
+
+## 追加画像batch: 公式crosslinkのある4件
+
+目的・範囲: 個別調査で正確なInstagram handleへの公式crosslinkを確認した4画像を、原bytesのまま既存manifestへ付与する。75件のIDを維持し、sourceの画像取得済みを7→11件、未取得を68→64件へ更新する。画像やプロフィールの存在をAI使用・本人確認・売上の証拠にしない。AI分類、数値、canonical dataset、UIコード、field-guide、書籍コードは変更しない。
+
+| 対応ID | 出所と同一性の根拠 | 画像の役割 |
+|---|---|---|
+| `lead-instagram-shenmuhealer` | [Stan](https://stan.store/shenmuhealer) が `instagram.com/shenmuhealer` へリンクする | `first_party_named_profile_image` |
+| `lead-instagram-aristhestill` | [公式site](https://www.aristhestill.com/) が `instagram.com/aristhestill` へリンクし、画像altに本人名を記す | `first_party_named_persona_image` |
+| `lead-instagram-ken-lu-monk` | [公式site](https://kenluteachings.com/) が `instagram.com/ken.lu.monk` へリンクし、掲載動画にposterを指定する | `first_party_video_poster` |
+| `lead-instagram-monktashirok` | [YouTube about](https://www.youtube.com/@MonkTashirok/about) の `sameAs` と外部リンクが `instagram.com/MonkTashirok` を示す | `platform_profile_avatar` |
+
+作業branchは最新 `origin/main` 由来の `feat/ai-monk-profile-images-20261023`。調査とhashの正本は `docs/evidence/ai-monk-profile-discovery-next-20261023.json`。4画像ともInstagram avatarとの同一性は未確認とし、実際の画像roleとsource/crosslinkを保持する。上流の生成画像filenameからAI状態を確定しない。
+
+受入検証: 75IDの一意性・canonicalとの一致、11画像のbytes/hash、公開JSONのsecret・署名付きURL・private path混入なし、`git diff --check`、既存directory helper 5testsを確認する。新規test・依存は追加しない。CIは作成するPRのhead checksを正本にする。
+
+source受入結果: 全75ID、11画像のbytes/hash、追加4原bytes一致、既存71行とcanonical不変、公開JSONのsecret/署名付きURL/private pathなし、`git diff --check`、既存directory helper 5testsがPASS。
+
+このbatchのcursor: source受入検証を通過し、commit/pushとPRのhead CI確認からrootへの引き継ぎへ進む。merge、Netlify反映、本番readbackはrootが所有する。全75件の実画像取得は引き続き未完。
