@@ -33,6 +33,7 @@ function subscriptionPatch({ subscription: sub, user, priceId, liveMode, custome
   return {
     stripe_subscription_id: sub.id,
     stripe_customer_id: objectId(sub.customer),
+    subscription_checkout_nonce: UUID.test(sub.metadata.checkout_nonce || '') ? sub.metadata.checkout_nonce : null,
     subscription_status: sub.status,
     trial_used: timestamp(sub.trial_start),
     trial_start: iso(sub.trial_start), trial_end: iso(sub.trial_end),
@@ -122,6 +123,7 @@ async function beginFactoryCheckout({ user, store, stripe, env, now = Date.now, 
   let account = await store.reserveProfile(user.id);
   if (account.stripe_subscription_id) account = await syncFactoryBilling({ userId: user.id, store, stripe, env });
   if (account.stripe_subscription_id && !['none', 'canceled', 'incomplete_expired'].includes(account.subscription_status)) throw factoryError('subscription_exists', 409);
+  if (!account.profile_reserved_at) await store.reserveProfile(user.id);
   const context = await store.checkoutContext(user.id, env.MONK_FACTORY_STRIPE_PRICE_ID, user.email);
   const created = Date.parse(context.checkout_created_at);
   if (context.user_id !== user.id || !UUID.test(context.checkout_nonce || '') || !Number.isFinite(created)
