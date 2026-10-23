@@ -48,6 +48,7 @@ const STATIC_PATHS = [
   "/lm/ja/departure-calculator",
   "/lm/guide",
   "/tools/social-jet-lag-calculator",
+  "/ai-monk-factory/",
 ];
 
 function tripleLanguagesForEnSlug(enSlug: string) {

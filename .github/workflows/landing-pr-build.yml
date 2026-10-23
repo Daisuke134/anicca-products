@@ -35,7 +35,7 @@ jobs:
           node /tmp/manager-publish-overlay.mjs --stage
 
       - name: AI monk directory contracts
-        run: node --test lib/ai-monk-directory.test.mjs test/ai-monk-evidence-rendering.test.mjs
+        run: node --test lib/ai-monk-directory.test.mjs test/ai-monk-evidence-rendering.test.mjs scripts/stage-ai-monk-factory.test.mjs
 
       - name: Book checkout and delivery contracts
         run: node --test netlify/functions/__tests__/ai-monk-book.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-checkout.test.js test/ai-monk-book-page.test.mjs
@@ -68,4 +68,3 @@ jobs:
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
           echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs
-

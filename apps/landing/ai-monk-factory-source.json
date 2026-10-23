@@ -1,0 +1,9 @@
+{
+  "revision": "eb78a805c4f79cd807852c27f52f9e4207a1ba61",
+  "files": {
+    "app.css": "2aa9e429aa9ce360a57b851c74684f78e598d7d860ce3bc65d980f7db69cc71e",
+    "app.mjs": "a70dbafdb704a926fb0056e4a6fd7470338ddf3b161ae09fc456aca8ab48e33a",
+    "index.html": "b83310a0689ff3ffff09ddf75f2fbfb6761f83350cfe63ca9039bc9fe94bb098",
+    "project.mjs": "71baea8f3021841c0914d96f9229bef16aba3250391cc49bee8cde5207538e84"
+  }
+}

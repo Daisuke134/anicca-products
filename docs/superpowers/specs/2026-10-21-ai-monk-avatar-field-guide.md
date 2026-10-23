@@ -191,3 +191,6 @@ Yang Mun型の写真に近いAI僧侶動画avatarへ集中する。水彩・絵�
 
 
 **順序更新と担当境界:** 旧順=Factory既存投稿/費用/資源復旧→Database根拠拡充→Web app。新順=Database73件をsource/main/本番/配布物へ復元→Monk Factory Web app→Muse/ChatGPTの配布口。理由はDaisが日次投稿をGrok Botの担当とし、DatabaseとFactory Webを優先するため。既存投稿effectやownerを中断・再送せず、公開一覧の復元を現在cursorとする。Museの具体service URLは確認中で、独立したDatabase/Web作業は継続する。
+
+
+**73件復元の公開受入:** PR595/main6ac3f6c、Netlify39953593583はSUCCESS。公開HTML73card/候補注記69、公開JSONとmainの完全一致、公式SDKのremote MCP全4sort/search/get73件、v0.4.2公式tag/assetdigest/公開URL導入/実stdio一致を確認する。制作根拠確認4件、調査中69件、対象外2件を区別する。復元計画の全項目を完了し、現在cursorはMonk Factory Web appへ進む。正本の実装計画はLife Manager docs/superpowers/plans/2026-10-23-ai-monk-factory-web.md。日次投稿はGrok Bot担当。

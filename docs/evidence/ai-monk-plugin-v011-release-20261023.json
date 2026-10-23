@@ -1,0 +1,31 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-release.v1",
+  "observed_at": "2026-10-23T13:51:23.279Z",
+  "source_main_sha": "996f33cfd0df29974c2d70226cc737bdec9586ef",
+  "netlify_workflow": 39962589562,
+  "release_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-plugin-v0.1.1",
+  "public_zip_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-v0.1.1/ai-monk-index-plugin-0.1.1.zip",
+  "sha256": "ae8ef5922c5001d7b314d45c939dd2c529cd1295a0e53aed50c12f1f2a864127",
+  "bytes": 731811,
+  "public_digest_matches": true,
+  "service_pages": {
+    "support": {
+      "status": 200,
+      "content": true
+    },
+    "terms": {
+      "status": 200,
+      "content": true
+    },
+    "privacy": {
+      "status": 200,
+      "content": true
+    }
+  },
+  "official_sdk_tool_scenarios": 5,
+  "tool_count": 3,
+  "unknown_publish_tool_rejected": true,
+  "natural_language_plugin_routing_verified": false,
+  "portal_submission_or_listing_verified": false,
+  "video_generation_or_social_publication": 0
+}
