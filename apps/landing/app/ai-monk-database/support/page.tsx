@@ -25,7 +25,7 @@ export default function AiMonkSupportPage() {
         <pre className="mt-4 overflow-x-auto rounded-lg bg-white/70 p-4 text-sm"><code>{`codex plugin marketplace add Daisuke134/anicca-products --sparse packages/ai-monk-plugin
 codex plugin add ai-monk-index@anicca
 codex plugin list --marketplace anicca`}</code></pre>
-        <p className="mt-4">This installs from Anicca&apos;s repository marketplace. It does not establish an OpenAI public directory listing or confirm natural-language tool routing. <a className="underline" href="https://github.com/Daisuke134/anicca-products/tree/main/packages/ai-monk-plugin" target="_blank" rel="noopener noreferrer">Plugin package and portable ZIP guidance</a></p>
+        <p className="mt-4">This installs from Anicca&apos;s repository marketplace. <a className="underline" href="https://github.com/Daisuke134/anicca-products/tree/main/packages/ai-monk-plugin" target="_blank" rel="noopener noreferrer">Plugin package and portable ZIP guidance</a></p>
         <p className="mt-4">For a separate video project workspace, open <Link className="underline" href="/ai-monk-factory/">Monk Factory Web</Link>.</p>
         <p className="mt-8"><Link className="underline" href="/ai-monk-database">Return to the AI Monk Database</Link></p>
       </article>

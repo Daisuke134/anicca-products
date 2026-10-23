@@ -12,7 +12,7 @@ codex plugin add ai-monk-index@anicca
 codex plugin list --marketplace anicca
 ```
 
-This installs from Anicca's repository marketplace. It does not establish an OpenAI public directory listing or confirm natural-language tool routing. The plugin connects to the existing public, read-only MCP endpoint; no API key or payment is required. Tool reference: [AI Monk Index](../ai-monk-index/README.md).
+This installs from Anicca's repository marketplace. The plugin connects to the existing public, read-only MCP endpoint; no API key or payment is required. Tool reference: [AI Monk Index](../ai-monk-index/README.md).
 
 For a separate video project workspace, open [Monk Factory Web](https://aniccaai.com/ai-monk-factory/).
 
