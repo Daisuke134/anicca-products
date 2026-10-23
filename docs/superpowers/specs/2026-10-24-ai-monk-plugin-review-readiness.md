@@ -21,11 +21,11 @@ primaryが受入、review、Release/asset公開とmain統合を所有する。bo
 
 - [x] SPEC: 本specを先にcommit/pushし、remote objectを確認する。spec-first commit c246a82f6を使用する。
 - [x] CASES: 追加positive1/2・negative1/2/3を各1回、全exit0で実行し、結果/制約・元hashを保存する。negative2は説明不足の部分充足として残す。
-- [ ] DEMO: 実ログのみのprivate動画・対応manifestを作成済み。primaryの独立した内容照合を待つ。
+- [x] DEMO: private動画と対応manifestをprimaryが目視/元データ照合し、非authorの独立read-only review SHIP/Blocking0を受入する。
 - [ ] PUBLIC: 独立review後に実動画assetを公開し、URL GET/hashを確認する。
 - [ ] PACKAGE: 確認済みdemo URLを含むv0.1.3をsource acceptance/CI/review/mainへ統合し、固定mainのZIPを公開する。
 
-現在cursor: DEMOのprimary独立review。PUBLIC / PACKAGEは未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
+現在cursor: PUBLIC / PACKAGE。DEMOの独立照合は完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
 
 
 ## CASES / private DEMOのsource結果
@@ -50,3 +50,7 @@ private最終デモは `/Users/anicca/.local/state/life-manager/ebook/evidence/a
 対応manifestは同private directoryの `demo-manifest.json`。表示105件の元JSONL行/JSON path/原文span/hash、元5files不変、文字範囲とprivate情報除外、動画形式/faststart/full decodeをfocused受入で確認する。P2/P4原文promptと追加詳細cardは単frame実寸で目視し、折返しによる非空白文字の欠落0。ローカル動画renderは初稿と最終の2回、text card描画23枚・contact sheet2枚。Factory生成・新有料provider API・AI avatar/画像・合成voiceは0として別に記録する。
 
 sanitized receiptは `docs/evidence/ai-monk-plugin-review-readiness-20261024.json`。rawJSONL・動画・元private shopper情報はrepoへ置かない。Plugin package/README・既存v0.1.2 ZIP/Release・master plan・Factory・browser/sharedstate・外部publishは変更しない。primaryは内容を独立照合して本docsを先にmainへ統合し、その固定mainから専用demo Releaseを公開する。公開URL GET/hash確認後の別followupで初めてv0.1.3 metadata/ZIPを扱う。PUBLIC / PACKAGEおよび正式upload/submit/掲載は未完のままとする。
+
+## 独立review受入
+
+非authorの既存read-only検証者がhead fc33334ed36873a6f1048c27460eaf76bf4d0961、動画/manifestの指定hash、表示105対応、8prompt、実11試行/10完了/1error、13cardと全decodeを照合し、SHIP/Blocking0とする。negative2 partial、negative3 tool1、混在snapshot、実ログ再生という範囲を保持する。新fresh threadとは主張せず、reviewer再利用を明記する。公開はprimaryの次工程。証拠 → ../../evidence/ai-monk-plugin-walkthrough-review-20261024.json。
