@@ -49,7 +49,7 @@ RETURNS jsonb LANGUAGE plpgsql SECURITY INVOKER SET search_path=public,pg_temp A
 DECLARE job public.monk_factory_jobs;
 BEGIN
   SELECT * INTO job FROM public.monk_factory_jobs
-    WHERE (p_job_id IS NULL OR id=p_job_id) AND next_run_at<=now()
+    WHERE (p_job_id IS NULL OR id=p_job_id) AND (p_image OR next_run_at<=now())
       AND (lease_until IS NULL OR lease_until<now())
       AND status IN ('reserved','processing','effect_unknown')
       AND (NOT p_image OR stage='image_pending')
