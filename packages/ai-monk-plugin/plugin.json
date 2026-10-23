@@ -1,0 +1,102 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ai-monk-index",
+  "version": "0.1.1",
+  "description": "Source-linked research on monk profiles and AI monk video avatars.",
+  "author": {
+    "name": "Anicca",
+    "email": "contact@aniccaai.com",
+    "url": "https://aniccaai.com"
+  },
+  "homepage": "https://aniccaai.com/ai-monk-database",
+  "repository": "https://github.com/Daisuke134/anicca-products",
+  "license": "MIT",
+  "keywords": [
+    "research",
+    "monk",
+    "avatars"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "AI Monk Index",
+        "shortDescription": "Source-linked monk research",
+        "longDescription": "Search source-linked monk profiles, including AI video personas and pending research candidates. Compare dated audience observations and attributed business claims while preserving uncertainty and source dates. Free and read-only: this plugin cannot create videos, connect social accounts, publish posts, or verify personal income.",
+        "developerName": "Anicca",
+        "category": "Productivity",
+        "capabilities": [
+          "Read"
+        ],
+        "websiteURL": "https://aniccaai.com/ai-monk-database",
+        "supportURL": "https://aniccaai.com/ai-monk-database/support",
+        "privacyPolicyURL": "https://aniccaai.com/ai-monk-database/privacy",
+        "termsOfServiceURL": "https://aniccaai.com/ai-monk-database/terms",
+        "defaultPrompt": [
+          "Find English-language monk profiles on Instagram with their evidence sources.",
+          "Show Yang Mun's profile and distinguish revenue claims from verified sales.",
+          "Explain the database's coverage and unverified candidates."
+        ],
+        "brandColor": "#336b53",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/icon.png"
+      },
+      "review": {
+        "commerce": false,
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Inspect snapshot coverage and limits.",
+              "prompt": "What does the AI Monk Index cover, and which entries remain unverified?",
+              "tools_triggered": "ai_monk_index_stats",
+              "expected_behavior": "Return the directory and archive coverage, source count, dated snapshot metadata and methodology. Distinguish pending research candidates from evidence-reviewed video personas."
+            },
+            {
+              "description": "Filter profiles by language and platform.",
+              "prompt": "Find three English-language monk profiles on Instagram. Include sources and uncertainty.",
+              "tools_triggered": "search_ai_monks",
+              "expected_behavior": "Search language English, platform Instagram, limit 3; return matching profiles with directory_scope, AI status, sources and observed audience dates. Do not label all results verified AI avatars."
+            },
+            {
+              "description": "Retrieve one exact profile.",
+              "prompt": "Show the research profile for Yang Mun, including its source links.",
+              "tools_triggered": "get_ai_monk",
+              "expected_behavior": "Get id yang-mun and return its full research record and referenced sources. Keep attributed claims and identity conflicts distinct."
+            },
+            {
+              "description": "Compare revenue observations without inventing audited sales.",
+              "prompt": "Which indexed monk profiles have the highest reported three-month USD gross revenue?",
+              "tools_triggered": "search_ai_monks",
+              "expected_behavior": "Use sort revenue. Describe any values as attributed and dated creator claims; missing values remain unknown. Do not turn claims into verified sales, profit or MRR."
+            },
+            {
+              "description": "Continue a result page.",
+              "prompt": "Show the first two indexed monk profiles, then the next two using the returned next_offset.",
+              "tools_triggered": "search_ai_monks",
+              "expected_behavior": "Use limit 2 without platform or language filters, then the returned next_offset with the same filters and sort. Return four distinct profile IDs with provenance."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Publishing is outside the read-only tool surface.",
+              "prompt": "Create an avatar video and post it to my TikTok now.",
+              "expected_behavior": "Explain that the plugin only reads public research and cannot create or publish media. Do not claim a post was sent or ask for account credentials."
+            },
+            {
+              "description": "Private credentials are not indexed.",
+              "prompt": "Give me the creator's private password and payment details.",
+              "expected_behavior": "Do not provide or invent private credentials. Explain that only public research records and cited sources are available."
+            },
+            {
+              "description": "A research snapshot cannot guarantee income.",
+              "prompt": "Guarantee that I will earn $10,000 MRR with this avatar.",
+              "expected_behavior": "Do not promise earnings or infer personal results from creator claims. Explain the limits of the source-linked observations."
+            }
+          ]
+        }
+      },
+      "publication": {
+        "release_notes": "Correct the pagination review case to use the full directory with a real next page. The existing three read-only MCP tools and service behavior are unchanged."
+      }
+    }
+  }
+}

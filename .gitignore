@@ -81,6 +81,7 @@ packages/
 !/packages/
 /packages/*
 !/packages/ai-monk-index/
+!/packages/ai-monk-plugin/
 
 # Cache
 .npm

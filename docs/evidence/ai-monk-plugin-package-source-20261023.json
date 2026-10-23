@@ -1,0 +1,33 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-source.v1",
+  "plugin_version": "0.1.1",
+  "portable_schema_validation": {
+    "plugin": "pass",
+    "mcp": "pass",
+    "schema_base": "https://agent-plugins.org/schemas/1.0.0/"
+  },
+  "public_submission_text_limits": "pass",
+  "positive_cases": 5,
+  "negative_cases": 3,
+  "endpoint": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+  "authentication": "public_no_auth",
+  "files": {
+    "packages/ai-monk-plugin/README.md": "184292d83fa2e785c235b97078e332012fd1a8b2213caa5bb821985a32d0cde6",
+    "packages/ai-monk-plugin/assets/icon.png": "8e0fd36eb74d4bb5749e8f049cace51db6823bf8923933f37421cde896ba5ca3",
+    "packages/ai-monk-plugin/mcp.json": "ebd167f7e98b8d604e5326b603f0c3f23eea7d699042e4afcfafc28ef73720b0",
+    "packages/ai-monk-plugin/plugin.json": "2f0a3c60827db12599d85fe15c5b1bc37457012995385d549cc05eaf9a0f962b"
+  },
+  "limits": [
+    "Not a public directory listing",
+    "Demo recording URL is not yet available",
+    "Portal identity, permission, submission and publication remain unverified",
+    "v0.1.1 main and release readback pending"
+  ],
+  "external_effects": [],
+  "direct_sdk_scenarios": {
+    "passed": 5,
+    "pagination_filter": "all",
+    "unsupported_publish_tool_rejected": true,
+    "natural_language_routing_verified": false
+  }
+}

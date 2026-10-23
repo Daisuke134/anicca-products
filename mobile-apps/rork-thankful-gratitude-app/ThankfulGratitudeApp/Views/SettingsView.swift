@@ -4,7 +4,6 @@ import RevenueCat
 struct SettingsView: View {
     @Bindable var viewModel: AppViewModel
     @State private var notificationService = NotificationService()
-    @State private var showPaywall: Bool = false
 
     private var language: AppLanguage { viewModel.language }
 
@@ -27,7 +26,7 @@ struct SettingsView: View {
 
                 Section(L10n.subscriptionSection(language)) {
                     Button {
-                        showPaywall = true
+                        viewModel.showPaywall = true
                     } label: {
                         HStack {
                             Text(L10n.manageSubscription(language))
@@ -70,12 +69,6 @@ struct SettingsView: View {
             }
             .task {
                 await notificationService.requestPermission()
-            }
-            .fullScreenCover(isPresented: $showPaywall) {
-                PaywallView(language: language, onDismiss: { showPaywall = false }, onPurchaseSuccess: {
-                    viewModel.isPro = true
-                    showPaywall = false
-                })
             }
         }
     }

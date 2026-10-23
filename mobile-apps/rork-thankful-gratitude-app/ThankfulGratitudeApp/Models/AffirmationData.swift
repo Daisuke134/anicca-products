@@ -69,4 +69,9 @@ nonisolated enum AffirmationData: Sendable {
     static func random() -> Affirmation {
         all.randomElement() ?? all[0]
     }
+
+    static func forDay(_ date: Date = Date()) -> Affirmation {
+        let day = Calendar.current.ordinality(of: .day, in: .era, for: date) ?? 0
+        return all[day % all.count]
+    }
 }
