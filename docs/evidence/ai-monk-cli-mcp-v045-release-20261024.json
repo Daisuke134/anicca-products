@@ -1,0 +1,354 @@
+{
+  "schema_version": "anicca.ai-monk-cli-release.v1",
+  "run_id": "ai-monk-cli-v045-release-20261024",
+  "owner_id": "root/monk_v043_release_verify",
+  "occurrence_id": "public-release-web-remote-download-install-stdio",
+  "release_sha": "bbd81158d27d0c8b84fe5fc656062f54df7f50d5",
+  "observed_at": "2026-10-23T17:25:13.357806+00:00",
+  "phase": "public_release_acceptance",
+  "command": "main archive build; official GitHub release and digest; public GET; URL npm install; CLI stats; real SDK stdio and remote HTTPS six tools; public JSON and rendered HTML",
+  "loaded_argv": [
+    "npm",
+    "install",
+    "--prefix",
+    "isolated-private-directory",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund",
+    "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.5/anicca-ai-monk-index-0.4.5.tgz"
+  ],
+  "loaded_env": {
+    "model_provider_flags": 0,
+    "shared_config_changes": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "release_published": true,
+    "release_creation_count": 1,
+    "latest_release_changed": false,
+    "registry_dispatches": 0,
+    "posts": 0,
+    "payments": 0,
+    "video_generation": 0,
+    "shared_profile_changes": 0
+  },
+  "readback": {
+    "observed_at": "2026-10-23T17:22:16.902533+00:00",
+    "release_id": 422120344,
+    "release_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.5",
+    "asset_id": 669840713,
+    "asset_api_url": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/669840713",
+    "download_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.5/anicca-ai-monk-index-0.4.5.tgz",
+    "target_sha": "bbd81158d27d0c8b84fe5fc656062f54df7f50d5",
+    "tag_sha": "bbd81158d27d0c8b84fe5fc656062f54df7f50d5",
+    "asset_bytes": 55819,
+    "asset_sha256": "dc818c4bef6e7da313f5f310f85216c5517ccbea58344b11d95697b7bf7985f1",
+    "official_digest_matches": true,
+    "public_get_status": 200,
+    "npm_install_exit": 0,
+    "cli_exit": 0,
+    "cli_records": 73,
+    "cli_sources": 176,
+    "stdio": {
+      "observed_at": "2026-10-23T17:22:56.627Z",
+      "package_version": "0.4.5",
+      "transport": "real_sdk_stdio",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.5"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 176,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "415571064885204388d191188490cc45bf6602aeef3e3fc47c1c3b35dff13a72",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": "",
+      "research_archive_offer_rows": 69,
+      "public_monetization_offer_rows": 66
+    },
+    "remote_mcp": {
+      "observed_at": "2026-10-23T17:23:01.362Z",
+      "package_version": "0.4.5",
+      "transport": "real_sdk_public_https",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.5"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 176,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "415571064885204388d191188490cc45bf6602aeef3e3fc47c1c3b35dff13a72",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": "",
+      "research_archive_offer_rows": 69,
+      "public_monetization_offer_rows": 66
+    },
+    "public_json": {
+      "source_url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "observed_at": "2026-10-23T17:19:01.108374+00:00",
+      "http_status": 200,
+      "sha256": "415571064885204388d191188490cc45bf6602aeef3e3fc47c1c3b35dff13a72",
+      "accounts": 75,
+      "sources": 176,
+      "public": 73,
+      "offers": 69
+    },
+    "public_web": {
+      "source_url": "https://aniccaai.com/ai-monk-database",
+      "observed_at": "2026-10-23T17:19:44.998561+00:00",
+      "method": "scrapy fetch",
+      "exit_code": 0,
+      "bytes": 817805,
+      "sha256": "ccb76a2baf3f99adbe534739798a424e8550374edbc7e2fc0b696cb165ae8476",
+      "status": "PASS",
+      "profile_cards": 73,
+      "profile_images": 71,
+      "h1": "AI Monk Database",
+      "source_count_displayed": 176,
+      "new_product_name_observed": true,
+      "currency_unknown_not_prefixed_usd": true,
+      "candidate_visible_labels": [
+        "Research",
+        "Explore monk profiles and research candidates. Compare dated followers, sampled video views, products, and reported revenue.",
+        "pending",
+        "Research snapshot"
+      ]
+    }
+  },
+  "artifact_acceptance": {
+    "package_version": "0.4.5",
+    "artifact_bytes": 55819,
+    "artifact_sha256": "dc818c4bef6e7da313f5f310f85216c5517ccbea58344b11d95697b7bf7985f1",
+    "snapshot_sha256": "415571064885204388d191188490cc45bf6602aeef3e3fc47c1c3b35dff13a72",
+    "npm_ci_exit": 0,
+    "npm_pack_exit": 0,
+    "tar_file_count": 12,
+    "tar_allowed_files_only": true,
+    "private_credential_node_modules_files": 0
+  },
+  "main_archive": {
+    "archive_source": "https://api.github.com/repos/Daisuke134/anicca-products/tarball/bbd81158d27d0c8b84fe5fc656062f54df7f50d5",
+    "archive_sha256": "22b63402ce2c15f18abb1081242316dd432d94a366811fc2969b593a08c19125",
+    "observed_at": "2026-10-23T17:20:46.769726+00:00",
+    "extracted_member_count": 23,
+    "extracted_paths": [
+      "packages/ai-monk-index/",
+      "apps/landing/lib/ai-monk-directory.mjs",
+      "apps/landing/public/data/ai-monk-avatar-database-2026.json"
+    ],
+    "earlier_extraction_boundary": "tarfile data filter rejected unrelated absolute symlink; no symlink followed; subsequent extraction limited to release inputs"
+  },
+  "source_acceptance": {
+    "pr": 619,
+    "head_sha": "6f0f343ea68050d91241012aa9865826e3220051",
+    "package_ci": 39990541586,
+    "landing_ci": 39990541622,
+    "conclusion": "success",
+    "fresh_read_only_review_blocking": 0,
+    "reviewer": "/root/monk_registry_x_publication_verify",
+    "package_tests_passed": 15,
+    "helper_tests_passed": 9,
+    "acceptance_basis": "Existing source PR tests and fresh read-only review accepted; no repeated suite or new mirroring tests added for this release-only unit."
+  },
+  "count_boundaries": {
+    "public_records": 73,
+    "research_archive_records": 75,
+    "sources": 176,
+    "research_archive_offer_rows": 69,
+    "public_monetization_offer_rows": 66,
+    "offer_row_difference": "Three offer rows belong to excluded archive records and are not returned by public monetization tools.",
+    "included": 4,
+    "pending": 69,
+    "excluded": 2
+  },
+  "claim_limits": [
+    "Publication and readback establish distribution availability, not installs by users, revenue, Directory approval, or Factory completion.",
+    "Research candidates and AI status remain explicit; observed product prices and seller counters are not revenue.",
+    "Read-only tools operate on the packaged snapshot; no provider credentials or external provider calls are required."
+  ],
+  "provider_receipt_id": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/669840713",
+  "evidence_refs": [
+    {
+      "file": "source-archive-readback.json",
+      "sha256": "0b4414694bc5096411a3cefa3af46e6ed38872034f20c62aaa995774a348956b",
+      "bytes": 821
+    },
+    {
+      "file": "build-readback.json",
+      "sha256": "2fdc0562356303ad0737325ebc6f51162e824cf82e8c74df24b42eb85c87147a",
+      "bytes": 879
+    },
+    {
+      "file": "tarball-files.json",
+      "sha256": "55d32f45782d66138de0217a4e2c64ac4ad12eff5aed98f34513e1efc82ddd9e",
+      "bytes": 340
+    },
+    {
+      "file": "official-release.json",
+      "sha256": "c3d526c2b1272fc5fafc7a412df20bf76b46bbd2265def38cfed64f394e21277",
+      "bytes": 4592
+    },
+    {
+      "file": "official-download-readback.json",
+      "sha256": "47ec1092def05820539c8da5945b4921a98bb70603c198c3d16890ad74c78b53",
+      "bytes": 739
+    },
+    {
+      "file": "public-install-readback.json",
+      "sha256": "6a3ee1bc554fb77f0fd6f2615ef9c4b9868379fa79b8a8e45106721e5e5d853d",
+      "bytes": 310
+    },
+    {
+      "file": "public-install/stdio-readback.json",
+      "sha256": "c974ca58abbe7f1232a030e304b5b74f08fe57af809d6766165ee208956e2bc0",
+      "bytes": 1766
+    },
+    {
+      "file": "public-install/stdio-responses.json",
+      "sha256": "482f8691422f853fde090eadc11e1ce8be5986209b5cf9bbeade1876d232d63a",
+      "bytes": 608972
+    },
+    {
+      "file": "remote-mcp-readback.json",
+      "sha256": "1709c5f824c08d32616de220a1309b93fb3d903a511f88e92017b050f4662311",
+      "bytes": 1773
+    },
+    {
+      "file": "remote-mcp-responses.json",
+      "sha256": "482f8691422f853fde090eadc11e1ce8be5986209b5cf9bbeade1876d232d63a",
+      "bytes": 608972
+    },
+    {
+      "file": "initial-public-database-meta.json",
+      "sha256": "eb335e47aed5ccd9e2ba79ffe462419ce1c440bd84aa3bad61ee6941532553b9",
+      "bytes": 305
+    },
+    {
+      "file": "public-database-web-meta.json",
+      "sha256": "411fda3b60b9acb59bc1f844570487e40370241742d54ea2fd7701c143e3985f",
+      "bytes": 393
+    },
+    {
+      "file": "web-render-readback.json",
+      "sha256": "fe589cbe617f56695d93905adf4759e9982d15a21f7dd9331f120acd1e04f40c",
+      "bytes": 437
+    }
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Registry publication and Muse submission remain owned by primary."
+}
