@@ -1,0 +1,1266 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-10-23T01:16:14.580556+00:00",
+  "checked_at": "2026-10-23T01:34:46.512788+00:00",
+  "purpose": "未調査10handleの公開出所とexact canonical Instagram handleの対応を確認し、対応する原画像だけを追加する。",
+  "source_plan": "docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md",
+  "source_branch": "feat/ai-monk-images-batch3-20261023",
+  "base_sha": "3c9be56aa426237119574c975b07b78785695846",
+  "scope": {
+    "targets": [
+      "monkshen",
+      "linchenhealing",
+      "thezhenwu",
+      "oravishen",
+      "mestre.jin",
+      "maestroananta",
+      "tempiovita",
+      "yunlobsang",
+      "monjaalma",
+      "shin_hyun_official"
+    ],
+    "baseline": {
+      "total": 75,
+      "acquired": 11,
+      "unknown": 64
+    },
+    "allowed_changes": [
+      "docs/evidence/ai-monk-profile-discovery-batch3-20261023.json",
+      "apps/landing/public/assets/ai-monk-profiles/ 今回確認済み原画像と対象10行/coverage",
+      "docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md batch3追記",
+      "apps/landing/components/AiMonkDatabase.tsx ProfileAvatar周辺のLeo/Sifu用CSS表示cropのみ"
+    ],
+    "excluded": [
+      "canonical dataset",
+      "book",
+      "既存evidence",
+      "AI status/language/follower推測",
+      "ProfileAvatarの2件表示crop以外のUI code"
+    ]
+  },
+  "acceptance": [
+    "10handle全件の検索・出所・失敗境界を記録",
+    "公式crosslinkまたは明確な公表profile対応がある画像のみ追加",
+    "原bytes/MIME/SHA256/attribution/source_role保持",
+    "75ID一致・全asset hashes/bytes・原byte一致",
+    "対象外manifest行とcanonical SHA不変",
+    "secret/private path/署名付きURLなし",
+    "既存directory helper5tests・git diff check",
+    "限定stage・commit/push・remote object一致・PR attachまで担当し、head CI監視・merge・Netlify・production readbackはrootへ引き継ぐ。"
+  ],
+  "research_limits": [
+    "Instagram直接自動取得を再試行しない。",
+    "vidIQ残高0。有料調査、購入、新認証、外部投稿、画像生成を行わない。",
+    "同名・同handleのみでは別platform画像を割り当てない。",
+    "公開画像の存在はAI分類や再利用ライセンスの確認ではない。",
+    "既存lead-instagram-shenmuhealerの記録HTTP Content-Typeはimage/jpeg、raw magicはWebP。既存row/URL/bytesは本batchで変更せず、全17件のMIME一致とは報告しない。新規6件のHTTP MIMEとraw signatureは一致する。"
+  ],
+  "canonical_sha256_before": "37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9",
+  "cursor": "source/visual検証PASS。限定commit/push・remote一致・PR attachを完了し、CI監視以降をrootへ引き継ぐ。",
+  "profiles": [
+    {
+      "account_id": "lead-instagram-monkshen",
+      "canonical_handle": "monkshen",
+      "canonical_profile_url": "https://www.instagram.com/monkshen/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"monkshen\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22monkshen%22",
+          "checked_at": "2026-10-23T01:16:35.876403+00:00",
+          "exit_code": 0,
+          "outcome": "results",
+          "response_sha256": "cc2acb58377234c1518dc74decb3d5b4924ac5ea00c9d9bbb305aa2515e5a906",
+          "results": [
+            {
+              "title": "Shen Yu (@monkshen) • Instagram photos and videos",
+              "url": "https://www.instagram.com/monkshen/"
+            },
+            {
+              "title": "Walk for Peace - the Book Is Here - monkshen.com",
+              "url": "https://monkshen.com/walk-for-peace-book/"
+            },
+            {
+              "title": "monkshen — Short wisdom videos, reflections, and practical teachings ...",
+              "url": "https://www.patreon.com/cw/monkshen"
+            },
+            {
+              "title": "Shen Yu (@monkshen) | TikTok",
+              "url": "https://www.tiktok.com/@monkshen"
+            },
+            {
+              "title": "About - Shen Yu — Reflections - monkshen.substack.com",
+              "url": "https://monkshen.substack.com/about"
+            },
+            {
+              "title": "monkshen — Short wisdom videos, reflections, and practical teachings ...",
+              "url": "https://www.patreon.com/cw/monkshen/sitemap"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "tools": [
+            "crwl crawl -o markdown-fit",
+            "scrapy fetch + public metadata parser"
+          ],
+          "url": "https://monkshen.com/",
+          "checked_at": "2026-10-23T01:24:11.200523+00:00",
+          "outcome": "exact_crosslink_and_named_image_verified",
+          "title": "Home - Monk Shen Yu",
+          "response_sha256": "064fb1f6c00cc3393b764899bfae04ca0ba1adbf32e258de7e2c86e05086df30",
+          "exact_crosslink_url": "https://www.instagram.com/monkshen",
+          "crosslink_locator": "a[href=\"https://www.instagram.com/monkshen\"]",
+          "observation": "Shen Yuを名乗るsiteのheader portraitとexact canonical Instagram linkを確認。"
+        }
+      ],
+      "status": "acquired",
+      "verified_image": {
+        "account_id": "lead-instagram-monkshen",
+        "filename": "lead-instagram-monkshen-source.png",
+        "image_source_url": "https://monkshen.com/wp-content/uploads/2026/01/Shen-Yu-small-rounded.png",
+        "response_url": "https://monkshen.com/wp-content/uploads/2026/01/Shen-Yu-small-rounded.png",
+        "http_status": 200,
+        "content_type": "image/png",
+        "bytes": 336468,
+        "sha256": "69a6d8d22fbb20b5f32d250080c1b85951f6b1e1d57ba973832e5316df6118d0",
+        "checked_at": "2026-10-23T01:18:36.700185+00:00",
+        "metadata_source_url": "https://monkshen.com/",
+        "exact_crosslink_url": "https://www.instagram.com/monkshen",
+        "crosslink_locator": "a[href=\"https://www.instagram.com/monkshen\"]",
+        "image_locator": "Site header logo img[src=\"https://monkshen.com/wp-content/uploads/2026/01/Shen-Yu-small-rounded.png\"]",
+        "image_role": "first_party_named_profile_image",
+        "attribution": "Home - Monk Shen Yu",
+        "transformations": "none; original HTTP response bytes",
+        "visual_checked": true,
+        "limits": "公開source内のnamed imageとexact handle対応を確認。Instagram avatarとの同一性、所有権、再利用ライセンス、AI状態は独立確認していない。"
+      },
+      "unverified_reason": null,
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-monkshen",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; verified originals copied into branch only",
+        "readback": "acquired",
+        "provider_receipt_id": null,
+        "error_class": null,
+        "retryable": false,
+        "next_action": "source inventory/CIを確認しrootへ引き継ぐ"
+      }
+    },
+    {
+      "account_id": "lead-instagram-linchenhealing",
+      "canonical_handle": "linchenhealing",
+      "canonical_profile_url": "https://www.instagram.com/linchenhealing/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"linchenhealing\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22linchenhealing%22",
+          "checked_at": "2026-10-23T01:16:35.876596+00:00",
+          "exit_code": 0,
+          "outcome": "results",
+          "response_sha256": "39f61f4c2ae10cce26ac1c038629228f038e5d33577e4e94a9eb15190c0c2e5d",
+          "results": [
+            {
+              "title": "Lin Chen (@linchenhealing) • Instagram photos and videos",
+              "url": "https://www.instagram.com/linchenhealing/"
+            },
+            {
+              "title": "Lin Chen (@linchenhealing) | TikTok",
+              "url": "https://www.tiktok.com/@linchenhealing"
+            },
+            {
+              "title": "Lin Chen | #mindfulness #innerpeace #spiritualhealing | Instagram",
+              "url": "https://www.instagram.com/reel/DY6CCIJqmJu/"
+            },
+            {
+              "title": "Coping with Loss: Finding Inner Peace After a Loved One's Death | TikTok",
+              "url": "https://www.tiktok.com/@linchenhealing/video/7616048202667642143"
+            },
+            {
+              "title": "Never miss a post from linchenhealing - Instagram",
+              "url": "https://www.instagram.com/reel/DaIneyrqA4N/"
+            },
+            {
+              "title": "Never miss a post from linchenhealing - Instagram",
+              "url": "https://www.instagram.com/reel/DXFU3_Xjw4Q/"
+            },
+            {
+              "title": "Lin Chen | Place a glass of water before you go to bed #innerpeace # ...",
+              "url": "https://www.instagram.com/reel/DVxFLUijXYn/"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "tools": [
+            "crwl crawl -o markdown-fit",
+            "scrapy fetch + public metadata parser"
+          ],
+          "url": "https://linchenhealing.com/",
+          "checked_at": "2026-10-23T01:24:11.200523+00:00",
+          "outcome": "exact_crosslink_and_named_image_verified",
+          "title": "@linchenhealing | Relieve Aches With Natural Remedies, The",
+          "response_sha256": "8f93d778b2a573760afb36f29dc78dcaf1e4c4a50dc97b7dfe874b5041dc5d55",
+          "exact_crosslink_url": "https://www.instagram.com/linchenhealing",
+          "crosslink_locator": "RSC.1c.3.profileInfoDocument.16b9e36e-a80e-47e9-88df-6ba871af7e9c.social_links.instagram = linchenhealing",
+          "observation": "公開Beacons profile metadataがexact Instagram social handleとprofile_picture_urlを同じdocument内に持つ。画像URL拡張子はpngだがHTTP応答MIMEはimage/jpeg。"
+        }
+      ],
+      "status": "acquired",
+      "verified_image": {
+        "account_id": "lead-instagram-linchenhealing",
+        "filename": "lead-instagram-linchenhealing-source.jpg",
+        "image_source_url": "https://cdn.beacons.ai/user_content/4GKN69hXJRYeWWDZrqmbZQYWGLp2/profile_linchenhealing.png?q=1772911199.9381642",
+        "response_url": "https://cdn.beacons.ai/user_content/4GKN69hXJRYeWWDZrqmbZQYWGLp2/profile_linchenhealing.png?q=1772911199.9381642",
+        "http_status": 200,
+        "content_type": "image/jpeg",
+        "bytes": 15149,
+        "sha256": "261944fcf5f38f3e15c96eacd2ad940327aa8ea1bc4279072e254921f9ece2a4",
+        "checked_at": "2026-10-23T01:18:36.938623+00:00",
+        "metadata_source_url": "https://linchenhealing.com/",
+        "exact_crosslink_url": "https://www.instagram.com/linchenhealing",
+        "crosslink_locator": "RSC.1c.3.profileInfoDocument.16b9e36e-a80e-47e9-88df-6ba871af7e9c.social_links.instagram = linchenhealing",
+        "image_locator": "RSC.1c.3.profileInfoDocument.profile_picture_url; also meta[property=\"og:image\"]",
+        "image_role": "first_party_named_profile_image",
+        "attribution": "@linchenhealing | Relieve Aches With Natural Remedies, The",
+        "transformations": "none; original HTTP response bytes",
+        "visual_checked": true,
+        "limits": "公開source内のnamed imageとexact handle対応を確認。Instagram avatarとの同一性、所有権、再利用ライセンス、AI状態は独立確認していない。"
+      },
+      "unverified_reason": null,
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-linchenhealing",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; verified originals copied into branch only",
+        "readback": "acquired",
+        "provider_receipt_id": null,
+        "error_class": null,
+        "retryable": false,
+        "next_action": "source inventory/CIを確認しrootへ引き継ぐ"
+      }
+    },
+    {
+      "account_id": "lead-instagram-thezhenwu",
+      "canonical_handle": "thezhenwu",
+      "canonical_profile_url": "https://www.instagram.com/thezhenwu/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"thezhenwu\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22thezhenwu%22",
+          "checked_at": "2026-10-23T01:16:37.806086+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "28e3ec46dc3f8d370f8664089ace599b58bc426c72168d78845760c8ad8786b6",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "thezhenwu official",
+          "url": "https://html.duckduckgo.com/html/?q=thezhenwu%20official",
+          "checked_at": "2026-10-23T01:18:37.560838+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "1bc377163517c164de6dd2b8121459325b653e1bfd81709e07b3173f20a7d600",
+          "results": [
+            {
+              "title": "Zhen Wu (@thezhenwu) • Instagram photos and videos",
+              "url": "https://www.instagram.com/thezhenwu/"
+            },
+            {
+              "title": "TheZhenwu - YouTube",
+              "url": "https://www.youtube.com/@TheZhenwu"
+            },
+            {
+              "title": "Zhenwu (@ZhenwuTV) / Posts / X",
+              "url": "https://x.com/ZhenwuTV"
+            },
+            {
+              "title": "ZHENWU集団 (@zhenwu.corp_official) • Instagram photos and videos",
+              "url": "https://www.instagram.com/zhenwu.corp_official/"
+            },
+            {
+              "title": "Jenna 周甄娜 - Facebook",
+              "url": "https://www.facebook.com/page.jennachew/reels/"
+            },
+            {
+              "title": "T-Head Quietly Launches Official Website, Debuts In-House AI Chip ...",
+              "url": "https://pandaily.com/t-head-quietly-launches-official-website-debuts-in-house-ai-chip-zhenwu-industry-sources-overall-performance-comparable-to-nvidia-h20"
+            },
+            {
+              "title": "Zhen Wu - YouTube",
+              "url": "https://www.youtube.com/@zhenwuspeaks"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://www.youtube.com/@TheZhenwu/about",
+          "checked_at": "2026-10-23T01:19:33.904912+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 1340,
+              "response_sha256": "229d65ca0ec99d0a87516126d797ff2f531ecf695885329f283574565428e0ab"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 953117,
+              "response_sha256": "4e0c8a15339984c098f9ef84a6f0dd172499fdddfcc9b6335fbd7babaf6806de"
+            }
+          ],
+          "title": "TheZhenwu - YouTube",
+          "outcome": "canonical_instagram_crosslink_missing",
+          "platform_account_id": "UCsvj7BVJ_WUBUSzu99AFf6Q",
+          "observation": "YouTube metadataでsame-handle channelとavatar候補は見えるが、exact Instagram handleへのcrosslinkを確認できない。名前/handle一致だけでは割り当てない。"
+        }
+      ],
+      "status": "unknown",
+      "verified_image": null,
+      "unverified_reason": "YouTube候補にexact canonical Instagram crosslinkがない。same handleのみで未割当て。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-thezhenwu",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkまたは明確な公開profile attributionが得られた時に再確認する。Instagram直接取得や同名画像への置換は行わない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-oravishen",
+      "canonical_handle": "oravishen",
+      "canonical_profile_url": "https://www.instagram.com/oravishen/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"oravishen\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22oravishen%22",
+          "checked_at": "2026-10-23T01:16:37.916788+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "1ffc9c69c6a31475b509ee64a92a5746ac8505f8d88cf0c5ce85e245f6f6779f",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "oravishen official",
+          "url": "https://html.duckduckgo.com/html/?q=oravishen%20official",
+          "checked_at": "2026-10-23T01:18:39.367110+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "80a6d6b1dbdef320a71644edcff94cd600e77e2f7a44760ceafaa823e3ca5d59",
+          "results": [
+            {
+              "title": "Ravi Shen (@oravishen) • Instagram photos and videos",
+              "url": "https://www.instagram.com/oravishen/"
+            },
+            {
+              "title": "Ravi Shen (@oravishen) • Instagram photos and videos",
+              "url": "https://www.instagram.com/oravishen/reels/"
+            },
+            {
+              "title": "POVISON Furniture Special Sales",
+              "url": "https://www.povison.com/guide/special-sales"
+            },
+            {
+              "title": "Ravish Kumar Official - YouTube",
+              "url": "https://www.youtube.com/channel/UC0yXUUIaPVAqZLgRjvtMftw"
+            },
+            {
+              "title": "Contemporary Furniture Pieces for Every Home | Povison",
+              "url": "https://www.povison.com/furniture/"
+            },
+            {
+              "title": "Keikoku Akujo no Yarinaoshi Oujotan - MangaDex",
+              "url": "https://mangadex.org/title/867641c3-0738-4883-ac9a-8f55deeebbdf/keikoku-akujo-no-yarinaoshi-oujotan-kishi-danchou-ga-bukiyou-de-hanaremasen"
+            },
+            {
+              "title": "Ravishing Official - YouTube",
+              "url": "https://www.youtube.com/@ravishingofficial6016"
+            }
+          ]
+        },
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"oravishen\" livro",
+          "url": "https://duckduckgo.com/html/?q=%22oravishen%22%20livro",
+          "checked_at": "2026-10-23T01:19:50.538439+00:00",
+          "exit_code": 0,
+          "outcome": "results",
+          "response_sha256": "677c2fd5d76647590a03bbdee310dde6367a45d181816c5ece709cb5d425447f",
+          "results": [
+            {
+              "title": "Ravi Shen (@oravishen) • Instagram photos and videos",
+              "url": "https://www.instagram.com/oravishen/"
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/p/DZhpz35BAGo/"
+            }
+          ]
+        }
+      ],
+      "status": "unknown",
+      "verified_image": null,
+      "unverified_reason": "exact/official/livro検索でInstagram以外の対応画像sourceが見つからない。Instagram直接自動取得はrobots境界に従い行わない。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-oravishen",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkまたは明確な公開profile attributionが得られた時に再確認する。Instagram直接取得や同名画像への置換は行わない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-mestre-jin",
+      "canonical_handle": "mestre.jin",
+      "canonical_profile_url": "https://www.instagram.com/mestre.jin/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"mestre.jin\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22mestre.jin%22",
+          "checked_at": "2026-10-23T01:16:38.628781+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "d5cdc61887362bfc52f2fc6390733f0355df17cc36b743f97734f20667eb7ceb",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "mestre.jin official",
+          "url": "https://html.duckduckgo.com/html/?q=mestre.jin%20official",
+          "checked_at": "2026-10-23T01:18:40.823429+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "8439be9e420ec39bda759d8389194bba813830b5a6638389fff249507d7df3f3",
+          "results": [
+            {
+              "title": "MestreJin (@mestre.jin) • Instagram photos and videos",
+              "url": "https://www.instagram.com/mestre.jin/"
+            },
+            {
+              "title": "MestreJin (@mestre.jin) • Instagram photos and videos",
+              "url": "https://www.instagram.com/mestre.jin/reels/"
+            },
+            {
+              "title": "Mestre Jin - Facebook",
+              "url": "https://www.facebook.com/people/Mestre-Jin/61589615616928/"
+            },
+            {
+              "title": "Jin Akanishi / 赤西 仁 (@jinstagram_official) • Instagram photos and videos",
+              "url": "https://www.instagram.com/jinstagram_official/"
+            },
+            {
+              "title": "MestreJin | #Energia #sabedoria #ritual | Instagram",
+              "url": "https://www.instagram.com/reel/DeXINiXxilD/"
+            },
+            {
+              "title": "MestreJin | #energia #ritual #sabedoria | Instagram",
+              "url": "https://www.instagram.com/reel/Db04894xrjU/"
+            },
+            {
+              "title": "MESTRE",
+              "url": "https://mestrejinbrunoficial.com.br/index.html"
+            }
+          ]
+        },
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"mestre.jin\" livro",
+          "url": "https://duckduckgo.com/html/?q=%22mestre.jin%22%20livro",
+          "checked_at": "2026-10-23T01:19:52.048142+00:00",
+          "exit_code": 0,
+          "outcome": "results",
+          "response_sha256": "af211370c01c93e31df8af8d50dacbf4dbe1cfa077fb36048abc65825645116d",
+          "results": [
+            {
+              "title": "MestreJin (@mestre.jin) • Instagram photos and videos",
+              "url": "https://www.instagram.com/mestre.jin/"
+            },
+            {
+              "title": "MestreJin (@mestre.jin) • Instagram photos and videos",
+              "url": "https://www.instagram.com/mestre.jin/reels/"
+            },
+            {
+              "title": "Mestre Jin no TikTok",
+              "url": "https://www.tiktok.com/@mestre.jin/video/7330417123438660870"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "tools": [
+            "crwl crawl -o markdown-fit",
+            "scrapy fetch"
+          ],
+          "url": "https://www.facebook.com/people/Mestre-Jin/61589615616928/about",
+          "checked_at": "2026-10-23T01:24:11.200523+00:00",
+          "outcome": "empty_public_profile_body",
+          "markdown_bytes": 2,
+          "html_bytes": 10,
+          "response_sha256": "7515bf959b73b956ceb967351c7e299cbb3668a53d35f9c770eb72e00d93ced6",
+          "observation": "公開Facebook候補の取得本文は空で、attributable imageやexact Instagram crosslinkを確認できない。同名TikTok結果はmanga内容も含むため同一人物とみなさない。"
+        }
+      ],
+      "status": "unknown",
+      "verified_image": null,
+      "unverified_reason": "公開Facebook候補は空body。exact handleへのattributable image sourceを確認できず、同名別account画像を採らない。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-mestre.jin",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkまたは明確な公開profile attributionが得られた時に再確認する。Instagram直接取得や同名画像への置換は行わない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-maestroananta",
+      "canonical_handle": "maestroananta",
+      "canonical_profile_url": "https://www.instagram.com/maestroananta/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"maestroananta\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22maestroananta%22",
+          "checked_at": "2026-10-23T01:16:38.719995+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "e5b002caad37a4b6fe3f94b41b4545be4754a2b886af4f67e16ab62ffb0b3e99",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "maestroananta official",
+          "url": "https://html.duckduckgo.com/html/?q=maestroananta%20official",
+          "checked_at": "2026-10-23T01:18:42.445022+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "eea77c3c51a9f8e2052d138bd839223a17fb3de07515c4fd4a7cd0c69f956895",
+          "results": [
+            {
+              "title": "Ananta - YouTube",
+              "url": "https://www.youtube.com/@Maestroananta"
+            },
+            {
+              "title": "Maestro Ananta | Sabiduría Ancestral (@maestroananta) - Instagram",
+              "url": "https://www.instagram.com/maestroananta/"
+            },
+            {
+              "title": "Maestro Ananta | sabiduría y bienestar (@tempiovita) - Instagram",
+              "url": "https://www.instagram.com/tempiovita/"
+            },
+            {
+              "title": "Ananta's Community - YouTube",
+              "url": "https://www.youtube.com/@Maestroananta/community"
+            },
+            {
+              "title": "Tempiovita - Facebook",
+              "url": "https://www.facebook.com/p/Tempiovita-61582431397570/"
+            },
+            {
+              "title": "Remedios Olvidados — Maestro Ananta",
+              "url": "https://anantamst.github.io/remedios-olvidados/"
+            },
+            {
+              "title": "ANANTA",
+              "url": "https://www.anantagame.com/landing/"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://www.youtube.com/@Maestroananta/about",
+          "checked_at": "2026-10-23T01:19:36.865664+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 5852,
+              "response_sha256": "a0a74ddf124866a726827ca59670b7bf98512171df637899e60fbaf6723a27ae"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 1435104,
+              "response_sha256": "9a83c6bfec3466dc74dd497f4ca72804a1a6a4ef9e61467e0d698dd485a977c5"
+            }
+          ],
+          "title": "Ananta - YouTube",
+          "outcome": "different_instagram_handle_linked",
+          "platform_account_id": "UCo2QQBdut2ZTY-6YQt4KJQA",
+          "published_instagram_crosslinks": [
+            "https://www.instagram.com/tempiovita/",
+            "https://www.instagram.com/remediosolvidados/"
+          ],
+          "crosslink_locator": "microformat.microformatDataRenderer.channelProfileMicroformatDetails.profilePage.mainEntity.sameAs",
+          "observation": "YouTube @MaestroanantaはInstagram tempiovita/remediosolvidadosに明示リンクするが、canonical maestroanantaは含まれない。Tempiovitaの画像を別recordへ再利用しない。"
+        }
+      ],
+      "status": "unknown",
+      "verified_image": null,
+      "unverified_reason": "YouTube候補が明示するInstagram handleはtempiovita/remediosolvidadosで、canonical maestroanantaへの対応は未確認。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-maestroananta",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkまたは明確な公開profile attributionが得られた時に再確認する。Instagram直接取得や同名画像への置換は行わない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-tempiovita",
+      "canonical_handle": "tempiovita",
+      "canonical_profile_url": "https://www.instagram.com/tempiovita/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"tempiovita\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22tempiovita%22",
+          "checked_at": "2026-10-23T01:16:39.453160+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "df7a6f1a501076d9966c1f6d433b6620d74cb7a16d22d98581a6ca932fa68403",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "tempiovita official",
+          "url": "https://html.duckduckgo.com/html/?q=tempiovita%20official",
+          "checked_at": "2026-10-23T01:18:43.892900+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "65a3f61d813787dda9962739a02b614850127b590ff82c98cfe82d978205fec7",
+          "results": [
+            {
+              "title": "Tempiovita Official: TikTok, Instagram, Facebook | Linktree",
+              "url": "https://linktr.ee/Tempiovita"
+            },
+            {
+              "title": "Tempiovita - Facebook",
+              "url": "https://www.facebook.com/p/Tempiovita-61582431397570/"
+            },
+            {
+              "title": "Maestro Ananta | sabiduría y bienestar (@tempiovita) - Instagram",
+              "url": "https://www.instagram.com/tempiovita/"
+            },
+            {
+              "title": "Tempo Vita Official: TikTok, Instagram, X | Linktree",
+              "url": "https://linktr.ee/tempovita"
+            },
+            {
+              "title": "Ananta - YouTube",
+              "url": "https://www.youtube.com/@Maestroananta"
+            },
+            {
+              "title": "tempiovita | Original audio on Instagram",
+              "url": "https://www.instagram.com/reels/audio/27097360096531595/"
+            },
+            {
+              "title": "Longevitey",
+              "url": "https://longevitey.com/"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "tools": [
+            "crwl crawl -o markdown-fit",
+            "scrapy fetch + public metadata parser"
+          ],
+          "url": "https://linktr.ee/Tempiovita",
+          "checked_at": "2026-10-23T01:24:11.200523+00:00",
+          "outcome": "exact_crosslink_and_named_image_verified",
+          "title": "Tempiovita Official: TikTok, Instagram, Facebook | Linktree",
+          "response_sha256": "834090c04ae2c8ccb5c718a71531d60d6f5cc526c721e2f6b4d3ba37a5e263e9",
+          "exact_crosslink_url": "https://www.instagram.com/tempiovita",
+          "crosslink_locator": "a[href=\"https://www.instagram.com/tempiovita\"]",
+          "observation": "Linktreeのnamed profile imageとexact canonical Instagram linkを確認。広告・推薦profileの画像は除外。"
+        }
+      ],
+      "status": "acquired",
+      "verified_image": {
+        "account_id": "lead-instagram-tempiovita",
+        "filename": "lead-instagram-tempiovita-source.jpg",
+        "image_source_url": "https://ugc.production.linktr.ee/137917a8-e1eb-4f81-ba1d-4171ffe0aff6_w7CucHs60w6i9QBoaOw8m6kNEg8JwnfZZG1eamSfVjjAD-V3f16ehWmn9ZpEf1aFOXQjQQ8K-Q-s900-c-k-c0x00ffffff-no-r.jpeg?io=true&size=avatar-v3_0",
+        "response_url": "https://ugc.production.linktr.ee/137917a8-e1eb-4f81-ba1d-4171ffe0aff6_w7CucHs60w6i9QBoaOw8m6kNEg8JwnfZZG1eamSfVjjAD-V3f16ehWmn9ZpEf1aFOXQjQQ8K-Q-s900-c-k-c0x00ffffff-no-r.jpeg?io=true&size=avatar-v3_0",
+        "http_status": 200,
+        "content_type": "image/jpeg",
+        "bytes": 27054,
+        "sha256": "f79408a6acd8269688524f0fa2478b75e735d348245a2d8c8de4c3cba9a95aa3",
+        "checked_at": "2026-10-23T01:21:05.758976+00:00",
+        "metadata_source_url": "https://linktr.ee/Tempiovita",
+        "exact_crosslink_url": "https://www.instagram.com/tempiovita",
+        "crosslink_locator": "a[href=\"https://www.instagram.com/tempiovita\"]",
+        "image_locator": "Named profile img alt=\"Tempiovita Official: TikTok, Instagram, Facebook\"; observed src query io=true&size=avatar-v3_0. __NEXT_DATA__.props.pageProps.account.profilePictureUrl identifies the same image.",
+        "image_role": "first_party_named_profile_image",
+        "attribution": "Tempiovita Official: TikTok, Instagram, Facebook | Linktree",
+        "transformations": "none; original HTTP response bytes",
+        "visual_checked": true,
+        "limits": "公開source内のnamed imageとexact handle対応を確認。Instagram avatarとの同一性、所有権、再利用ライセンス、AI状態は独立確認していない。",
+        "source_account_id": "128371820"
+      },
+      "unverified_reason": null,
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-tempiovita",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; verified originals copied into branch only",
+        "readback": "acquired",
+        "provider_receipt_id": null,
+        "error_class": null,
+        "retryable": false,
+        "next_action": "source inventory/CIを確認しrootへ引き継ぐ"
+      }
+    },
+    {
+      "account_id": "lead-instagram-yunlobsang",
+      "canonical_handle": "yunlobsang",
+      "canonical_profile_url": "https://www.instagram.com/yunlobsang/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"yunlobsang\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22yunlobsang%22",
+          "checked_at": "2026-10-23T01:16:39.519195+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "5ea888fc157e4340a4bdac7f0def61e71248bbf3f99ab69bb2a58d09e4311629",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "yunlobsang official",
+          "url": "https://html.duckduckgo.com/html/?q=yunlobsang%20official",
+          "checked_at": "2026-10-23T01:18:45.373483+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "949070a8cc003fd69722d0f3adc424b67c1b9abad31aaf8be7ecd54e6a83eb14",
+          "results": [
+            {
+              "title": "Yun Lobsang - YouTube",
+              "url": "https://www.youtube.com/@YunLobsang"
+            },
+            {
+              "title": "Colecciones - Yun Lobsang",
+              "url": "https://yunlobsang.com/collections"
+            },
+            {
+              "title": "Todavía estás a tiempo - Ebook de Yun Lobsang | Sabiduría ancestral ...",
+              "url": "https://yunlobsang.com/products/todavia-estas-a-tiempo"
+            },
+            {
+              "title": "Página de inicio - Yun Lobsang",
+              "url": "https://yunlobsang.com/collections/frontpage"
+            },
+            {
+              "title": "Productos - Yun Lobsang",
+              "url": "https://yunlobsang.com/collections/all"
+            },
+            {
+              "title": "Maestro Yun (@yunlobsang) • Instagram photos and videos",
+              "url": "https://www.instagram.com/yunlobsang/"
+            },
+            {
+              "title": "Buscar - Yun Lobsang",
+              "url": "https://yunlobsang.com/search"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://yunlobsang.com/",
+          "checked_at": "2026-10-23T01:19:26.036258+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 5369,
+              "response_sha256": "bd7ee7644e12d3bc1ed4aa03aa2be0587fc57a6b82de59517e5394632221962d"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 163364,
+              "response_sha256": "73235126ca10a1d4bff79804a354cb322e0cd6a5f1742de73c6e236090f3184f"
+            }
+          ],
+          "title": "\n  Yun Lobsang\n",
+          "outcome": "canonical_instagram_crosslink_missing",
+          "observation": "公開storeのHTMLにInstagram linkなし。storeの画像をsame-nameのInstagram recordへ割り当てない。"
+        },
+        {
+          "kind": "public_source",
+          "tools": [
+            "crwl crawl -o markdown-fit",
+            "scrapy fetch + ytInitialData parser"
+          ],
+          "url": "https://www.youtube.com/@YunLobsang/about",
+          "checked_at": "2026-10-23T01:24:11.200523+00:00",
+          "response_sha256": "a01be210316cc6ba3fbda151d5effa06c3dec398cba5d16c62ec02bc6afc3069",
+          "outcome": "canonical_instagram_crosslink_missing",
+          "platform_account_id": "UCOXC4bi0adXrs7a-Lctlnog",
+          "published_sameAs": [
+            "www.yunlobsang.com"
+          ],
+          "observation": "YouTube channel metadataはyunlobsang.comだけへリンクし、exact canonical Instagram crosslinkがない。avatar候補は未割当て。"
+        }
+      ],
+      "status": "unknown",
+      "verified_image": null,
+      "unverified_reason": "storeとYouTubeの相互対応候補はあるが、exact canonical Instagram handleへの公式crosslinkを確認できない。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-yunlobsang",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkまたは明確な公開profile attributionが得られた時に再確認する。Instagram直接取得や同名画像への置換は行わない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-monjaalma",
+      "canonical_handle": "monjaalma",
+      "canonical_profile_url": "https://www.instagram.com/monjaalma/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"monjaalma\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22monjaalma%22",
+          "checked_at": "2026-10-23T01:16:40.308004+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "a2085d0cd264a052e9f477f4efe717b5fc83779763db7ab8020a5ebf010e56b6",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "monjaalma official",
+          "url": "https://html.duckduckgo.com/html/?q=monjaalma%20official",
+          "checked_at": "2026-10-23T01:18:46.948600+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "87c0a7f48f759b42160e35f7cf8aa43dafb5c8e264c5f8efdbf1985a8da4cb99",
+          "results": [
+            {
+              "title": "MonjaOficiall (@monjaoficiall) • Instagram photos and videos",
+              "url": "https://www.instagram.com/monjaoficiall/"
+            },
+            {
+              "title": "Monja Alma (@monjaalma) • Instagram photos and videos",
+              "url": "https://www.instagram.com/monjaalma/"
+            },
+            {
+              "title": "monjaalma | Original audio on Instagram",
+              "url": "https://www.instagram.com/reels/audio/26088623480766947/"
+            },
+            {
+              "title": "Monja Alma - YouTube",
+              "url": "https://www.youtube.com/@monjaalma"
+            },
+            {
+              "title": "Monaja - Facebook",
+              "url": "https://www.facebook.com/Monajamwenyewe/"
+            },
+            {
+              "title": "MC STOJAN x PAJAK - MOJA MALA (OFFICIAL VIDEO 2023) - YouTube",
+              "url": "https://www.youtube.com/watch?v=jXtlf9x7Fz4"
+            },
+            {
+              "title": "#monjaalma - TikTok",
+              "url": "https://www.tiktok.com/tag/monjaalma"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://www.youtube.com/@monjaalma/about",
+          "checked_at": "2026-10-23T01:19:37.487778+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 15,
+              "response_sha256": "b73ed511cf72e8028ce6e05cb27de2e44661abb2717444d11926b1e0cf4ac271"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 756,
+              "response_sha256": "833d5ca0b739fae72a401586c7414e54e97c65853549d9cc0f09ba5ad1cc7738"
+            }
+          ],
+          "title": "404 Not Found",
+          "outcome": "profile_url_returned_not_found_page",
+          "observation": "検索indexにはYouTube候補が残るが、live HTMLのtitleは404 Not Found。exact Instagram crosslinkと現在のprofile imageを確認できない。"
+        }
+      ],
+      "status": "unknown",
+      "verified_image": null,
+      "unverified_reason": "検索indexのYouTube候補はlive HTMLで404 Not Found。exact Instagram crosslinkと対応画像は未確認。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-monjaalma",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkまたは明確な公開profile attributionが得られた時に再確認する。Instagram直接取得や同名画像への置換は行わない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-shin-hyun-official",
+      "canonical_handle": "shin_hyun_official",
+      "canonical_profile_url": "https://www.instagram.com/shin_hyun_official/",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"shin_hyun_official\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22shin_hyun_official%22",
+          "checked_at": "2026-10-23T01:16:40.351017+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "e38bee67f4f90cfc8744d1b86e49820656269147f38582891633087c96d9ca33",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "shin_hyun_official official",
+          "url": "https://html.duckduckgo.com/html/?q=shin_hyun_official%20official",
+          "checked_at": "2026-10-23T01:18:48.403114+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "1d5148ec5eab1d6794454a502efb8fc0f1f66e6e22d4fcbf329184738bea1b77",
+          "results": [
+            {
+              "title": "Shin Hyun (@shin_hyun_official) • Instagram photos and videos",
+              "url": "https://www.instagram.com/shin_hyun_official/"
+            },
+            {
+              "title": "Shin Hyun — the road away from everything he owned",
+              "url": "https://shin-hyun.com/"
+            },
+            {
+              "title": "Shin Hyun - Facebook",
+              "url": "https://www.facebook.com/shinhyunofficial/"
+            },
+            {
+              "title": "Shin Hyun - YouTube",
+              "url": "https://www.youtube.com/@ShinHyunOfficial"
+            },
+            {
+              "title": "Shin Hyun (@shin_hyun_official) • Instagram photos and videos",
+              "url": "https://www.instagram.com/shin_hyun_official/reels/"
+            },
+            {
+              "title": "Shin Hyunji Official Website | Music & Schedule",
+              "url": "https://shinhyunji.com/en"
+            },
+            {
+              "title": "Contact — Shin Hyun",
+              "url": "https://shin-hyun.com/contact.html"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "tools": [
+            "crwl crawl -o markdown-fit",
+            "scrapy fetch + public metadata parser"
+          ],
+          "url": "https://shin-hyun.com/",
+          "checked_at": "2026-10-23T01:24:11.200523+00:00",
+          "outcome": "exact_crosslink_and_named_image_verified",
+          "title": "Shin Hyun — the road away from everything he owned",
+          "response_sha256": "76536ed8d6400c17ef24e7e1e07ef3435fb48b815746b5270c77b1d09b4c9543",
+          "exact_crosslink_url": "https://www.instagram.com/shin_hyun_official/",
+          "crosslink_locator": "a[href=\"https://www.instagram.com/shin_hyun_official/\"]",
+          "observation": "Shin Hyunの名前付きportraitとexact canonical Instagram linkを確認。"
+        }
+      ],
+      "status": "acquired",
+      "verified_image": {
+        "account_id": "lead-instagram-shin-hyun-official",
+        "filename": "lead-instagram-shin-hyun-official-source.jpg",
+        "image_source_url": "https://shin-hyun.com/portrait.jpg",
+        "response_url": "https://shin-hyun.com/portrait.jpg",
+        "http_status": 200,
+        "content_type": "image/jpeg",
+        "bytes": 99371,
+        "sha256": "38453a9513a979d85269ef182bb3ebf8ff49808e0833ac4915e0d83c331af6bb",
+        "checked_at": "2026-10-23T01:21:06.778683+00:00",
+        "metadata_source_url": "https://shin-hyun.com/",
+        "exact_crosslink_url": "https://www.instagram.com/shin_hyun_official/",
+        "crosslink_locator": "a[href=\"https://www.instagram.com/shin_hyun_official/\"]",
+        "image_locator": "img[src=\"/portrait.jpg\"][alt=\"Shin Hyun\"]",
+        "image_role": "first_party_named_persona_image",
+        "attribution": "Shin Hyun — the road away from everything he owned",
+        "transformations": "none; original HTTP response bytes",
+        "visual_checked": true,
+        "limits": "公開source内のnamed imageとexact handle対応を確認。Instagram avatarとの同一性、所有権、再利用ライセンス、AI状態は独立確認していない。"
+      },
+      "unverified_reason": null,
+      "diagnostic_boundary": {
+        "occurrence_id": "batch3-shin_hyun_official",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; verified originals copied into branch only",
+        "readback": "acquired",
+        "provider_receipt_id": null,
+        "error_class": null,
+        "retryable": false,
+        "next_action": "source inventory/CIを確認しrootへ引き継ぐ"
+      }
+    }
+  ],
+  "browser_boundary": {
+    "credentials_full_json_parsed": true,
+    "credential_values_logged": false,
+    "registry_and_owner_checked": true,
+    "identity": "interactive:dais",
+    "owned_new_tab_only": true,
+    "lease_released": true,
+    "challenge_solver_used": false,
+    "paid_solver_used": false
+  },
+  "run_id": "ai-monk-images-batch3-20261023",
+  "owner_id": "/root/ai_monk_ui_references",
+  "release_sha": "3c9be56aa426237119574c975b07b78785695846",
+  "result": {
+    "targets_checked": 10,
+    "new_images": 6,
+    "unverified_in_batch": 6,
+    "coverage_after": {
+      "total": 75,
+      "acquired": 17,
+      "platform_profile_avatars": 4,
+      "first_party_named_images": 8,
+      "unknown": 58,
+      "third_party_attributed_profile_images": 2,
+      "third_party_attributed_content_images": 2,
+      "first_party_video_posters": 1
+    },
+    "production_state_changed": false,
+    "supplemental_report_images": 2
+  },
+  "validation": {
+    "status": "PASS",
+    "ids": 75,
+    "assets_hashes_bytes": 17,
+    "new_originals_identical": 6,
+    "new_mime_signatures_match": 6,
+    "unchanged_manifest_rows": 69,
+    "canonical_sha256": "37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9",
+    "unknown": 58,
+    "secret_privatepath_signedurl_scan": "PASS",
+    "targets_checked": 10,
+    "baseline_mime_note": [
+      {
+        "account_id": "lead-instagram-shenmuhealer",
+        "recorded_http_content_type": "image/jpeg",
+        "byte_signature_mime": "image/webp",
+        "existing_row_unchanged": true
+      }
+    ],
+    "tests": {
+      "command": "node --test apps/landing/lib/ai-monk-directory.test.mjs apps/landing/test/ai-monk-evidence-rendering.test.mjs",
+      "helper_tests_passed": 5,
+      "ui_tests_passed": 2,
+      "failed": 0
+    },
+    "avatar_markup": {
+      "existing_images_unchanged": 11,
+      "unknown_fallback_unchanged": true,
+      "actual_component_ssr": true,
+      "source_registry_matches_page": true
+    },
+    "avatar_preview": {
+      "checked_at": "2026-10-23T01:33:35.249667+00:00",
+      "actual_component_ssr": true,
+      "actual_tailwind_css": true,
+      "independent_registered_cdp": true,
+      "owned_new_tab_only": true,
+      "observations": [
+        {
+          "account_id": "sifuchen-california",
+          "frame_width": 72,
+          "frame_height": 72,
+          "overflow": "hidden",
+          "image_loaded": true,
+          "natural_width": 725,
+          "natural_height": 218,
+          "object_position": "0% 50%",
+          "transform": "matrix(1.35, 0, 0, 1.35, 0, 0)",
+          "fallback": false
+        },
+        {
+          "account_id": "leo-chen",
+          "frame_width": 72,
+          "frame_height": 72,
+          "overflow": "hidden",
+          "image_loaded": true,
+          "natural_width": 1600,
+          "natural_height": 800,
+          "object_position": "43% 50%",
+          "transform": "matrix(2.4, 0, 0, 2.4, 0, 34.56)",
+          "fallback": false
+        },
+        {
+          "account_id": "yang-mun",
+          "frame_width": 72,
+          "frame_height": 72,
+          "overflow": "clip",
+          "image_loaded": true,
+          "natural_width": 900,
+          "natural_height": 900,
+          "object_position": "50% 25%",
+          "transform": "none",
+          "fallback": false
+        },
+        {
+          "account_id": "lead-instagram-thezhenwu",
+          "frame_width": 72,
+          "frame_height": 72,
+          "overflow": "visible",
+          "image_loaded": false,
+          "natural_width": 0,
+          "natural_height": 0,
+          "object_position": null,
+          "transform": null,
+          "fallback": true
+        }
+      ],
+      "client_errors": 0,
+      "screenshot_sha256": "2b97064e0c6bbf9f4a7384a5b6834954246d95565bd9bad711800e157eb41e46",
+      "screenshot_bytes": 42796,
+      "visual_review": "PASS: 72px枠内でSifuの顔とLeoの中央列の顔が見え、文字だけのcropにならない。Yang Munと実unknown fallbackの表示も確認。",
+      "prior_boundary": "set_content load待ちが30秒timeout。own file navigationでDOM準備とimage decodeを分けた。"
+    },
+    "diff_check": "PASS",
+    "production_readback_performed": false
+  },
+  "scope_changes": [
+    {
+      "checked_at": "2026-10-23T01:25:46.610402+00:00",
+      "reason": "既存reportから明確に対応する2原画像を追加でき、全画像収集の到達が早まるため。",
+      "previous_scope": "未調査10handle、確認済み4画像（15取得/60未取得）。",
+      "new_scope": "元の10handle調査を維持し、root発見のreport由来2画像を補助追加（17取得/58未取得）。",
+      "supplemental_account_ids": [
+        "leo-chen",
+        "sifuchen-california"
+      ],
+      "ui_scope": "apps/landing/components/AiMonkDatabase.tsx のProfileAvatar周辺で2件だけCSS表示cropを調整する。原bytesを編集しない。",
+      "unchanged": "canonical handle/metrics/AI分類・従来画像・fallback。",
+      "verification_added": "独立CDPの72px previewで2件の顔可視を確認する。"
+    }
+  ],
+  "supplemental_report_images": [
+    {
+      "account_id": "leo-chen",
+      "discovered_by": "root; existing reported-account article",
+      "metadata_source_url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+      "article_response_sha256": "1cb0c5fa3289e113964fe6fee16ee2476f120fb63dfb792b25259346579273a3",
+      "image_source_url": "https://files.maldita.es/uploads/2026/07/6a5123b8485e9ia-applevinegar-webp.webp",
+      "image_role": "third_party_attributed_content_still",
+      "image_locator": "Image immediately after the paragraph naming Leo Chen and describing text/teeth artifacts; three-column video still collage.",
+      "local_asset": "/assets/ai-monk-profiles/leo-chen-maldita.webp",
+      "checked_at": "2026-10-23T01:21:36.375467+00:00",
+      "http_status": 200,
+      "content_type": "image/webp",
+      "bytes": 106092,
+      "sha256": "655be3f2691f54fc3f4707cb7ca85c85e1c8a344e3be65e7781d145d50423465",
+      "attribution": "Maldita.es report and attributed account content",
+      "source_methods": [
+        "root: crwl markdown-fit → scrapy fetch → article paragraph/image correspondence",
+        "subagent: registered CloakBrowser own tab, normal article/image navigation; raw Response.body bytes"
+      ],
+      "direct_http_boundary": {
+        "http_status": 403,
+        "next_probe": "registered browser normal navigation",
+        "browser_http_status": 200
+      },
+      "visual_observation": "同じpersonaの3列video still。",
+      "transformations": "none; original HTTP response bytes",
+      "css_display_only": true,
+      "limits": "第三者記事のcontent still/profile screenshotであり、本人提供avatarやreuse licenseを示さない。canonical handle/metrics/AI分類は変更しない。"
+    },
+    {
+      "account_id": "sifuchen-california",
+      "discovered_by": "root; existing reported-account article",
+      "metadata_source_url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+      "article_response_sha256": "1cb0c5fa3289e113964fe6fee16ee2476f120fb63dfb792b25259346579273a3",
+      "image_source_url": "https://files.maldita.es/uploads/2026/07/6a5124cad41c8sifu-webp.webp",
+      "image_role": "third_party_attributed_profile_screenshot",
+      "image_locator": "Image immediately after the SifuChen California paragraph about a highlighted guide; screenshot visibly names SifuChen California and handle sifuchencalifornia.",
+      "local_asset": "/assets/ai-monk-profiles/sifuchen-california-maldita.webp",
+      "checked_at": "2026-10-23T01:21:36.404037+00:00",
+      "http_status": 200,
+      "content_type": "image/webp",
+      "bytes": 13836,
+      "sha256": "96dc9eee32949aff6eb1a2a32d822f95f4a7c656f26bf4829c7e9c6f93b27d8b",
+      "attribution": "Maldita.es report and attributed account content",
+      "source_methods": [
+        "root: crwl markdown-fit → scrapy fetch → article paragraph/image correspondence",
+        "subagent: registered CloakBrowser own tab, normal article/image navigation; raw Response.body bytes"
+      ],
+      "direct_http_boundary": {
+        "http_status": 403,
+        "next_probe": "registered browser normal navigation",
+        "browser_http_status": 200
+      },
+      "visual_observation": "profile strip内でdisplay name SifuChen Californiaとhandle sifuchencaliforniaを読める。contact情報は抽出しない。",
+      "transformations": "none; original HTTP response bytes",
+      "css_display_only": true,
+      "limits": "第三者記事のcontent still/profile screenshotであり、本人提供avatarやreuse licenseを示さない。canonical handle/metrics/AI分類は変更しない。"
+    }
+  ],
+  "source_integration": {
+    "branch": "feat/ai-monk-images-batch3-20261023",
+    "base_sha": "3c9be56aa426237119574c975b07b78785695846",
+    "source_acceptance": "PASS",
+    "new_original_assets": 6,
+    "intended_coverage": {
+      "total": 75,
+      "acquired": 17,
+      "unknown": 58
+    },
+    "production_published_by_this_batch": false,
+    "ci_monitoring_and_publication_owner": "root"
+  }
+}
