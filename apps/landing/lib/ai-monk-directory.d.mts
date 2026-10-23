@@ -34,7 +34,7 @@ export type AiMonkAccount = {
   display_name: string;
   persona_type: string;
   ai_status: 'confirmed' | 'reported' | 'unverified';
-  directory_scope?: { status: 'excluded'; reason: string; source_ids?: string[] };
+  directory_scope?: { status: 'included' | 'pending' | 'excluded'; reason: string; source_ids?: string[] };
   ai_evidence?: Array<{ source_id: string; summary: string }>;
   identity_conflicts?: Array<{ source_id: string; summary: string }>;
   creator?: {

@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release focuses on realistic AI monk video avatars such as Yang Mun and uses the 2026-10-23 research observations: **73 in-scope records, 55 sources, 7 researched profiles and 66 unverified discovery leads**. Four records have reported AI provenance; none are labelled confirmed. Known illustrated/watercolor storytelling channels are excluded from search, get and counts. The source JSON retains the 75-record research archive with explicit exclusion reasons. A profile image or discovery lead does not prove AI production or video format. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release focuses on realistic AI monk video avatars such as Yang Mun and uses the 2026-10-23 research observations: **4 evidence-reviewed video personas, 56 sources**. Search, get and counts include only records explicitly reviewed for directory inclusion. The source JSON retains the **75-record research archive**, including 69 pending records and 2 excluded illustrated/watercolor channels. A profile image or discovery lead alone does not establish AI production or video format. The four included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -19,7 +19,7 @@ Yang Mun currently has the only structured revenue observation: an industry prof
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.3.0/anicca-ai-monk-index-0.3.0.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.0/anicca-ai-monk-index-0.4.0.tgz
 ```
 
 ## CLI

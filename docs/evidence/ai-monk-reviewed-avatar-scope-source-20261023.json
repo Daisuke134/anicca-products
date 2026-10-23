@@ -1,0 +1,81 @@
+{
+  "purpose": "Enforce the requested realistic AI monk video avatar scope without publishing unreviewed discovery leads",
+  "canonical_sha256": "05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940f",
+  "research_archive_records": 75,
+  "sources": 56,
+  "directory_records": 4,
+  "pending_records": 69,
+  "excluded_records": 2,
+  "included": [
+    {
+      "id": "yang-mun",
+      "scope": {
+        "status": "included",
+        "reason": "Creator/provider and independent reporting identify the realistic talking monk video persona; sampled YouTube videos are source-linked.",
+        "source_ids": [
+          "heygen-yangmun-case",
+          "columbia-yangmun-report",
+          "yangmun-youtube-short-motivation"
+        ]
+      }
+    },
+    {
+      "id": "ming-san",
+      "scope": {
+        "status": "included",
+        "reason": "Independent investigation attributes a monk-like synthetic health-video persona and a video example to @mingsanhealing; a conflicting directory claim remains preserved.",
+        "source_ids": [
+          "maldita-2026-07-27"
+        ]
+      }
+    },
+    {
+      "id": "leo-chen",
+      "scope": {
+        "status": "included",
+        "reason": "Independent investigation names Leo Chen in a synthetic monk video and describes video artifacts. The exact native handle remains unknown.",
+        "source_ids": [
+          "maldita-2026-07-10"
+        ]
+      }
+    },
+    {
+      "id": "yan-chen-monjechen",
+      "scope": {
+        "status": "included",
+        "reason": "The AI-account investigation attributes an Instagram Reel still of a realistic monk persona to Yan Chen / @monjechen. The full clip has not been independently watched.",
+        "source_ids": [
+          "maldita-2026-07-27",
+          "maldita-monjechen-video-card-20261023"
+        ]
+      }
+    }
+  ],
+  "original_55_sources_preserved": true,
+  "original_record_ids_and_order_preserved": true,
+  "original_image_bytes_unchanged": true,
+  "new_evidence_source": "https://flo.uri.sh/visualisation/29805445/embed",
+  "review_limits": [
+    "Yan Chen classification uses the independent investigation and its exact-handle Instagram Reel still, not a fresh full-video watch",
+    "SifuChen California remains pending because individual video evidence is not established",
+    "Creator identities, native handles, revenue and video metrics are not inferred from appearance",
+    "Previous books and v0.3.0 package remain historical snapshots"
+  ],
+  "verification": {
+    "new_shared_selector_red": 1,
+    "cli_stats_scope_red": 2,
+    "shared_helper_tests_passed": 9,
+    "package_cli_stdio_http_tarball_tests_passed": 13,
+    "local_ssr": "4 PASS after restoring only the three exact lockfile versions with SHA512-verified artifact bytes; source manifests unchanged",
+    "ci_main_live": "pending",
+    "local_ssr_initial": "Missing dependencies after previous cleanup; three dangling symlinks referenced removed task-local packages",
+    "fresh_readonly": "Helper9 and CLI/stdio/HTTP12 independently PASS; all71 non-included IDs rejected, four sorts cover only four included records; exact Yan embed and Reel still checked",
+    "review_fixes": [
+      "MCP stats/get description aligned with included-only scope",
+      "Unknown-revenue UI fixture explicitly included; original Revenue not available assertion retained"
+    ]
+  },
+  "provider_mutations": 0,
+  "new_generation": 0,
+  "new_publication": 0
+}

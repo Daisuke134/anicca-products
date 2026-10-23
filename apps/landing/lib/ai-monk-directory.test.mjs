@@ -6,6 +6,7 @@ const accounts = [
   {
     id: 'yang-mun',
     display_name: 'Yang Mun',
+    directory_scope: { status: 'included', source_ids: ['fixture-evidence'] },
     ai_status: 'confirmed',
     languages: [{ label: 'English' }],
     region_evidence: { label: 'Israel', basis: 'creator location' },
@@ -17,6 +18,7 @@ const accounts = [
   {
     id: 'monjechen',
     display_name: 'Yan Chen',
+    directory_scope: { status: 'included', source_ids: ['fixture-evidence'] },
     ai_status: 'unverified',
     languages: [{ label: 'Spanish' }],
     region_evidence: null,
@@ -26,6 +28,7 @@ const accounts = [
   {
     id: 'leo-chen',
     display_name: 'Leo Chen',
+    directory_scope: { status: 'included', source_ids: ['fixture-evidence'] },
     ai_status: 'reported',
     languages: [],
     region_evidence: null,
@@ -119,4 +122,17 @@ test('revenue order uses only source-linked three-month USD gross revenue and ke
   assert.deepEqual(rankAiMonkAccounts(records, 'all', 'revenue').map(a => a.id), ['revenue', 'zero', 'unknown', 'profit', 'monthly', 'other-currency', 'invalid']);
   assert.equal(getAiMonkRevenue(records[4]).amount, 213000);
   assert.equal(getAiMonkRevenue(records[0]), null);
+});
+
+
+test('unreviewed leads require explicit inclusion before entering the avatar directory', () => {
+  const records = [
+    { ...accounts[0], directory_scope: { status: 'included', source_ids: ['creator-disclosure'] } },
+    { id: 'pending', display_name: 'Pending monk', directory_scope: { status: 'pending' } },
+    { id: 'missing-scope', display_name: 'Unknown monk', ai_status: 'reported' },
+    { id: 'illustration', display_name: 'Illustrated monk', directory_scope: { status: 'excluded' } },
+  ];
+  assert.deepEqual(filterAiMonkAccounts(records).map(account => account.id), ['yang-mun']);
+  assert.deepEqual(filterAiMonkAccounts(records, { query: 'Pending monk' }), []);
+  assert.equal(records.length, 4);
 });
