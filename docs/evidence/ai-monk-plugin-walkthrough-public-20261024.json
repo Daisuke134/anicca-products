@@ -1,0 +1,148 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-demo-publication.v1",
+  "run_id": "ai-monk-plugin-walkthrough-v1-public-20261024",
+  "owner_id": "root",
+  "occurrence_id": "fixed-main-demo-release-public-download",
+  "release_sha": "1f42032764c59530f1f81b4019676ff12e06f773",
+  "observed_at": "2026-10-23T22:11:36.474183+00:00",
+  "phase": "public_demo_acceptance",
+  "status": "PASS",
+  "command": "gh release create once; official Release/tag/asset readback; anonymous scrapy fetch download/hash",
+  "loaded_argv": {
+    "release_creates": 1,
+    "resends": 0,
+    "model_or_provider_flags": 0
+  },
+  "loaded_env": {
+    "new_secrets": 0,
+    "browser_profile_changes": 0
+  },
+  "exit_code": 0,
+  "readback": {
+    "official_release": {
+      "observed_at": "2026-10-23T22:09:58.047752+00:00",
+      "id": 422351662,
+      "html_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-plugin-walkthrough-v1",
+      "tag_name": "ai-monk-plugin-walkthrough-v1",
+      "target_commitish": "1f42032764c59530f1f81b4019676ff12e06f773",
+      "immutable": false,
+      "draft": false,
+      "published_at": "2026-10-23T22:09:36Z",
+      "assets": [
+        {
+          "id": 670552046,
+          "name": "ai-monk-plugin-walkthrough-v1.mp4",
+          "size": 3681253,
+          "digest": "sha256:91150e0e1f4c3af01ab8df4f5442bac03f3cd4868f2eb700daff792359354f56",
+          "url": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/670552046",
+          "browser_download_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-walkthrough-v1/ai-monk-plugin-walkthrough-v1.mp4"
+        }
+      ]
+    },
+    "official_tag_sha": "1f42032764c59530f1f81b4019676ff12e06f773",
+    "public_download": {
+      "observed_at": "2026-10-23T22:10:32.443433+00:00",
+      "command": [
+        "rtk",
+        "proxy",
+        "scrapy",
+        "fetch",
+        "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-walkthrough-v1/ai-monk-plugin-walkthrough-v1.mp4"
+      ],
+      "anonymous_get": true,
+      "url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-walkthrough-v1/ai-monk-plugin-walkthrough-v1.mp4",
+      "http_status": 200,
+      "exit_code": 0,
+      "bytes": 3681253,
+      "sha256": "91150e0e1f4c3af01ab8df4f5442bac03f3cd4868f2eb700daff792359354f56",
+      "official_digest_matches": true,
+      "reviewed_video_bytes_equal": true,
+      "framing": "Exactly one appended Scrapy fetch _print_bytes newline removed; original stdout preserved",
+      "release_id": 422351662,
+      "asset_id": 670552046,
+      "main_sha": "1f42032764c59530f1f81b4019676ff12e06f773"
+    },
+    "video_seconds": 172,
+    "format": "1920x1080 H.264/yuv420p 30fps silent faststart",
+    "source_cases": {
+      "positive": 5,
+      "negative": 3,
+      "new_native_runs": 5,
+      "reused_native_runs": 3,
+      "full_expectation_matches": 6,
+      "recovered_input_error_cases": 1,
+      "partial_explanation_cases": 1,
+      "completed_tool_calls": 10,
+      "tool_attempts": 11
+    },
+    "independent_review": {
+      "verdict": "SHIP",
+      "blocking": 0,
+      "reviewed_head": "fc33334ed36873a6f1048c27460eaf76bf4d0961",
+      "reviewer": "/root/monk_v046_price_release_review",
+      "non_author": true,
+      "new_fresh_thread": false,
+      "receipt": "docs/evidence/ai-monk-plugin-walkthrough-review-20261024.json"
+    }
+  },
+  "effect": {
+    "demo_release_creates": 1,
+    "resends": 0,
+    "old_release_changes": 0,
+    "new_plugin_package_releases": 0,
+    "customer_charges": 0,
+    "factory_video_generations": 0,
+    "ai_avatar_image_voice_generations": 0,
+    "posts": 0,
+    "shared_daily_runtime_changes": 0
+  },
+  "evidence_directory": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024",
+  "evidence_refs": [
+    {
+      "file": "walkthrough-official-release.json",
+      "bytes": 853,
+      "sha256": "c4eb468d8f60e75ef4b3d5b5133673834db7325516a383fb01a06152876dda35"
+    },
+    {
+      "file": "walkthrough-public-download-readback.json",
+      "bytes": 855,
+      "sha256": "ab04b858a608ca7f11fa379dab77a637b4f6e715289485178b21635709066014"
+    },
+    {
+      "file": "walkthrough-publish-fence.json",
+      "bytes": 2834,
+      "sha256": "88bcd18535a1a7217ce0e157dbe7c78bd9e704f0dced5c619292102389fc9924"
+    },
+    {
+      "file": "independent-review.json",
+      "bytes": 12404,
+      "sha256": "a6739ce39a2b612be094f42946aa81b4d06a89e156f97143e806fe37345bfe18"
+    },
+    {
+      "file": "demo-manifest.json",
+      "bytes": 91081,
+      "sha256": "34d8b565f4a49866988c6be9c3bb77ecd710d93fa01f6a26762a2ac22bd965c3"
+    },
+    {
+      "file": "focused-acceptance.json",
+      "bytes": 1060,
+      "sha256": "0873d9a2813368cb5e5253497d2d670dee85769f0455237c3055188e316531d3"
+    },
+    {
+      "file": "video-render-receipt.json",
+      "bytes": 3419,
+      "sha256": "141be6f3165092340b268de15c1973f5db92d4a639a05636f866ca2cfc1f0192"
+    }
+  ],
+  "claim_limits": [
+    "Rendered playback of actual Codex logs, not a screen recording or a demonstration of ChatGPT UI integration.",
+    "Different v0.4.6 and v0.4.7 research snapshots are labelled per case; no single-snapshot suite is claimed.",
+    "negative2 refuses private credentials but omits explicit public-research-only explanation; the partial verdict remains.",
+    "Publication and exact download establish accessible review material, not formal upload/submission/approval/listing, consumer use, revenue or Factory completion.",
+    "Fixed main/tag and asset digest match. GitHub immutable=false; Release locking is not claimed."
+  ],
+  "provider_receipt_id": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/670552046",
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Add verified demo URL to metadata-only v0.1.3 on separate branch, validate/review/CI/main, then publish a new fixed-main ZIP. Keep formal developer identity/payment gate separate."
+}
