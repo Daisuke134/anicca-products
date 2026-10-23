@@ -1,0 +1,273 @@
+{
+  "schema_version": "anicca.the-art-of-ai-monks.ja-translation-evidence.v1",
+  "scope": "AM-13日本語全文の翻訳・編集。形式生成、販売公開、決済、外部投稿は対象外。",
+  "repository": "https://github.com/Daisuke134/anicca-products",
+  "base_commit": "838e6bb7101a2ef647560eeb5a5ef0bbc19d950a",
+  "branch": "feat/art-of-ai-monks-ja-20261023",
+  "spec": "docs/superpowers/specs/2026-10-21-ai-monk-avatar-field-guide.md#AM-13",
+  "source": {
+    "path": "docs/books/the-art-of-ai-monks-en.md",
+    "sha256": "4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79",
+    "english_words": 10874,
+    "research_snapshot_dates": [
+      "2026-10-21",
+      "2026-10-22"
+    ],
+    "source_manifest_path": "docs/books/the-art-of-ai-monks-sources.json",
+    "source_manifest_sha256": "277276cd14db9bc36ab31a3809d18492ac80ad52a7f1157eabdd4f3656284725",
+    "source_manifest_modified": false,
+    "new_external_research_or_paid_provider_calls": false
+  },
+  "translation": {
+    "path": "docs/books/the-art-of-ai-monks-ja.md",
+    "sha256": "d54cbe02c0ea669266b19220460912f3269097489f224de67d76962bf62bcaf5",
+    "title": "The Art of AI Monks",
+    "subtitle": "アバター、注目、そして法衣の裏のビジネス",
+    "author": "Anicca",
+    "language": "ja",
+    "edition": "日本語版・初版",
+    "original_text_and_worksheets_license": "CC BY 4.0",
+    "third_party_rights_excluded": true,
+    "characters_unicode_full": 37076,
+    "character_count_definition": "UTF-8を復号した全文のUnicodeコードポイント数。Markdown、空白、参考文献、URLを含む。",
+    "characters_excluding_whitespace": 35718,
+    "characters_before_appendices": 28069,
+    "lines": 697,
+    "chapters": 10,
+    "appendices": 3,
+    "worksheets": 4,
+    "reference_definitions": 32
+  },
+  "preserved_coverage": {
+    "account_records": 75,
+    "source_entries": 48,
+    "researched_profiles": 9,
+    "discovery_leads": 66,
+    "ai_status_counts": {
+      "reported": 4,
+      "unverified": 71
+    },
+    "confirmed_ai_records": 0,
+    "english_first": true,
+    "complete_census": false,
+    "independent_operators_established": false,
+    "new_moving_image_watches_in_oct22_expansion": 0,
+    "earlier_yang_mun_observation_note_samples": 2,
+    "private_order_or_profit_audit_obtained": false
+  },
+  "section_alignment": [
+    {
+      "section": "巻頭",
+      "source_blank_line_blocks": 20,
+      "translation_blank_line_blocks": 20,
+      "citation_occurrences": 2,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第1章　フィードの中の僧侶",
+      "source_blank_line_blocks": 20,
+      "translation_blank_line_blocks": 20,
+      "citation_occurrences": 8,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第2章　何をAI僧侶と呼ぶのか",
+      "source_blank_line_blocks": 21,
+      "translation_blank_line_blocks": 21,
+      "citation_occurrences": 12,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第3章　「最初」を決めない歴史",
+      "source_blank_line_blocks": 20,
+      "translation_blank_line_blocks": 20,
+      "citation_occurrences": 11,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第4章　Yang MunとShalev Hani",
+      "source_blank_line_blocks": 33,
+      "translation_blank_line_blocks": 33,
+      "citation_occurrences": 25,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第5章　僧侶ショート動画の創作の文法",
+      "source_blank_line_blocks": 21,
+      "translation_blank_line_blocks": 21,
+      "citation_occurrences": 6,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第6章　スクロールからストアへ",
+      "source_blank_line_blocks": 19,
+      "translation_blank_line_blocks": 19,
+      "citation_occurrences": 9,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第7章　コンテンツ工場",
+      "source_blank_line_blocks": 20,
+      "translation_blank_line_blocks": 20,
+      "citation_occurrences": 2,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第8章　配信と計測",
+      "source_blank_line_blocks": 23,
+      "translation_blank_line_blocks": 23,
+      "citation_occurrences": 5,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第9章　信仰、開示、健康に関する主張",
+      "source_blank_line_blocks": 21,
+      "translation_blank_line_blocks": 21,
+      "citation_occurrences": 9,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "第10章　別のキャラクターを作る",
+      "source_blank_line_blocks": 29,
+      "translation_blank_line_blocks": 29,
+      "citation_occurrences": 4,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "付録A　ワークシート",
+      "source_blank_line_blocks": 25,
+      "translation_blank_line_blocks": 25,
+      "citation_occurrences": 0,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "付録B　調査方法と収録範囲の限界",
+      "source_blank_line_blocks": 11,
+      "translation_blank_line_blocks": 11,
+      "citation_occurrences": 3,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    },
+    {
+      "section": "付録C　参考文献",
+      "source_blank_line_blocks": 38,
+      "translation_blank_line_blocks": 38,
+      "citation_occurrences": 32,
+      "paragraph_currency_values_match": true,
+      "normalized_numeric_values_match": true,
+      "citation_order_match": true
+    }
+  ],
+  "checks": {
+    "section_paragraph_and_citation_alignment": {
+      "status": "pass",
+      "aligned_sections": 14,
+      "split_blank_line_blocks": 321,
+      "method": "巻頭・各章・各付録を対応づけ、空行区切りブロック数と参照ラベルの順序を比較。構造照合であり、独立した意味評価ではない。"
+    },
+    "currency_values": {
+      "status": "pass",
+      "occurrences": 71,
+      "method": "対応する各段落内で、$または€付き金額の多重集合を比較。日本語の語順変更は許容。"
+    },
+    "numeric_values": {
+      "status": "pass",
+      "normalized_occurrences": 363,
+      "method": "対応する段落ごとに10以上の数値と百分率を比較。英語の月名・数詞・millionと日本語の万・億を正規化。10未満の一般数詞は自動照合の対象外。",
+      "manual_small_number_review": "75/48/9/66、reported4/unverified71/confirmed0、2本の旧観察と新規視聴0、商品・試行・計算例の小整数を原著と確認。",
+      "hypothetical_arithmetic": "台本60秒、調査108分/900分、価格差$300、ワークブック12販売、動画$10/$17.50、2時間バッチ、受取額$96/$84/残額$37、現金枠$90/労働込み$170を再計算。実績とは扱わない。"
+    },
+    "reference_urls_and_manifest": {
+      "status": "pass",
+      "reference_urls": 32,
+      "register_entries": 48,
+      "all_labels_resolved": true,
+      "adjacent_ambiguous_reference_pairs": 0,
+      "method": "原著の32件のラベル→URL定義、source manifestの32参照と比較。元48出典台帳を変更せず参照する。"
+    },
+    "pandoc_markdown_link_resolution": {
+      "status": "pass",
+      "resolved_link_occurrences": 131,
+      "unique_targets": 33,
+      "source_and_translation_target_multisets_match": true,
+      "method": "既存pandocで英日Markdownをメモリ内JSON ASTへ変換し、解決されたLinkの行き先と出現数を比較。EPUB/PDFは生成していない。"
+    },
+    "duplicate_long_paragraphs": {
+      "status": "pass",
+      "minimum_characters": 80,
+      "duplicates": 0
+    },
+    "unfinished_placeholders": {
+      "status": "pass",
+      "hits": 0,
+      "intentional_blanks": "付録Aの記入用アンダースコアは完成済みワークシートの空欄であり、未訳のplaceholderではない。"
+    },
+    "sensitive_string_patterns": {
+      "status": "pass",
+      "hits": 0,
+      "method": "鍵・token・password代入・秘密鍵ヘッダー・ローカル個人パスの限定patternを走査。秘密情報不存在の包括保証ではない。"
+    },
+    "unicode_markers_and_delimiters": {
+      "status": "pass",
+      "replacement_or_control_characters": 0,
+      "merge_conflict_markers": 0,
+      "japanese_quote_and_parenthesis_balanced": true,
+      "markdown_emphasis_and_backticks_balanced": true
+    },
+    "japanese_proofreading": {
+      "manual_review": "原著との段落対応を保ちつつ、常体、固有名、身元・報告・未確認の区別、直訳表現、計算例を校正。",
+      "dedicated_automated_grammar_check": "未実施。textlint/prhはPATHと既存repo node_modulesに見つからず、language_tool_pythonも未導入。新しい依存は追加しない。",
+      "janome_supplementary_check": {
+        "version": "0.5.0",
+        "tokens": 21198,
+        "adjacent_identical_content_words": 0,
+        "scope": "既存の無料形態素解析器で、隣接する同一内容語の重複だけを補助検査。文法・翻訳品質の自動PASSとは扱わない。"
+      }
+    },
+    "git_diff_check": {
+      "status": "pass",
+      "command": "rtk git diff --check",
+      "note": "未追跡ファイルをstageした後にも再実行する。"
+    }
+  },
+  "evidence_boundaries": [
+    "原著の2026年10月21〜22日スナップショットを訳し、その後のCLI・MCP公開や英語販売進捗は本文へ加えない。",
+    "Yang Munの身元に関するHeyGen/Columbiaと本人側の説明の食い違いを保持する。",
+    "価格、販売者カウンター、制作者の売上・利益申告、監査済み注文・純利益を分ける。",
+    "動画の観察メモ、メタデータ、キャプション、未視聴を区別する。",
+    "自社factoryの復旧・商業稼働・売上は原著の調査時点で未確認。",
+    "売上・利益・bestsellerを保証しない。販売者の順位主張は独立未確認として表す。",
+    "リンクの現在のHTTP可達性は検証しない。原著のURLを保存し、新しいlive事実を主張しない。"
+  ],
+  "remaining": [
+    "rootによる統合・main反映",
+    "日本語EPUB/PDFの生成と紙面確認",
+    "日本語版の販売ページ・SKU・公開・納品readback",
+    "実購入・注文・収益の検証"
+  ]
+}
