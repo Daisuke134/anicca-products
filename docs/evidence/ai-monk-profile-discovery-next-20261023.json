@@ -1,0 +1,1614 @@
+{
+  "schema_version": "1.0",
+  "started_at": "2026-10-23T00:47:39.479331+00:00",
+  "scope": "Bounded follow-up discovery for 20 still-unverified profile images. Published assets, manifest, canonical dataset, UI and earlier evidence are not changed.",
+  "source_base": "Latest published seven-image manifest; all 20 targets are currently unknown.",
+  "targets": [
+    {
+      "account_id": "buddha-would-say",
+      "display_name": "Buddha Would Say",
+      "handle": "buddhawouldsay",
+      "profile_url": "https://www.instagram.com/buddhawouldsay/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"buddhawouldsay\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22buddhawouldsay%22",
+          "checked_at": "2026-10-23T00:48:13.930272+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Buddha Would Say (@buddhawouldsay) - Instagram",
+              "url": "https://www.instagram.com/buddhawouldsay/",
+              "snippet": "9,318 Followers, 0 Following, 161 Posts - Buddha Would Say (@buddhawouldsay) on Instagram: \"Wisdom for everyday life. Simple stories. Clear lessons. Peaceful reminders. 💌: buddhawouldsay@gmail.com\""
+            },
+            {
+              "title": "Buddha Would Say | A good life is not only doing what you love. It is ...",
+              "url": "https://www.instagram.com/p/DdrLZlFlNTw/",
+              "snippet": "63 likes, 3 comments - buddhawouldsay on September 24, 2026: \"A good life is not only doing what you love. It is learning to find love in what must be done. Follow @buddhawouldsay for gentle reminders to live with a little more peace. #mindfulness #innerpeace #buddhawouldsay\"."
+            },
+            {
+              "title": "Sometimes we rush to give advice because we want to make ... - Facebook",
+              "url": "https://www.facebook.com/buddhawouldsay/videos/sometimes-we-rush-to-give-advice-because-we-want-to-make-things-better-but-not-e/1417802136946219/",
+              "snippet": "Sometimes your presence is enough. 🌿 Follow @buddhawouldsay for gentle reminders to live with a little more peace. #kindness #compassion #mindfulness #innerpeace #buddhawouldsay Sometimes we rush to give advice because we want to make things better. But not every difficult moment needs a solution."
+            },
+            {
+              "title": "We can't control everything life brings. But we can learn ... - Facebook",
+              "url": "https://www.facebook.com/buddhawouldsay/videos/we-cant-control-everything-life-bringsbut-we-can-learn-how-to-move-through-it-fo/26781512931547023/",
+              "snippet": "We can't control everything life brings. But we can learn how to move through it. 🌿 Follow @buddhawouldsay #mindfulness #perspective #buddhawouldsay"
+            },
+            {
+              "title": "Buddha Would Say on Instagram: \"A good day doesn't always ... - LinkedIn",
+              "url": "https://www.linkedin.com/posts/jimriley10_buddha-would-say-on-instagram-a-good-day-activity-7509195210824802304-IuJm",
+              "snippet": "Not every good day has to look impressive. 🌿 Follow @buddhawouldsay for gentle reminders to live with a little more peace. #mindfulness #simplejoys #innerpeace #selfgrowth #buddhawoulds ..."
+            },
+            {
+              "title": "What helped you once may not serve you anymore - YouTube",
+              "url": "https://www.youtube.com/watch?v=5apNLoHsoCE",
+              "snippet": "Sometimes the things that once carried us forward become the things we carry long after we need them.Know when to put it down. 🌿@buddhawouldsay"
+            },
+            {
+              "title": "Buddha Would Say | There will almost always be one more ... - Instagram",
+              "url": "https://www.instagram.com/p/DdPTi34EmWn/",
+              "snippet": "639 likes, 12 comments - buddhawouldsay on September 13, 2026: \"There will almost always be one more thing to do. One more chore. One more message. One more thing waiting for tomorrow. Peace doesn't have to wait until the list is empty. Sometimes, what you've done today is enough. 🌿 Follow @buddhawouldsay for gentle reminders to live with a little more peace. #mindfulness #innerpeace # ..."
+            }
+          ],
+          "page_title": "\"buddhawouldsay\" at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://www.youtube.com/shorts/S3dTQwd98Ek",
+          "method": "yt-dlp public video metadata",
+          "checked_at": "2026-10-23T00:49:56.535167+00:00",
+          "observation": "Uploader channel UC90kPnzg3WSdUZD_LwWMIFg / @buddhawouldsay. Description includes the same handle and mindfulness hashtags but no Instagram crosslink.",
+          "identity_status": "unverified"
+        },
+        {
+          "url": "https://www.youtube.com/@buddhawouldsay/about",
+          "method": "scrapy public HTML",
+          "observation": "No instagram.com/buddhawouldsay literal or external Instagram link is found.",
+          "identity_status": "unverified"
+        },
+        {
+          "url": "https://www.facebook.com/buddhawouldsay/about",
+          "method": "crwl public about page",
+          "observation": "Public about page exposes a creator name and contact information but no Instagram or YouTube crosslink in the rendered extraction. Contact value is not copied.",
+          "identity_status": "unverified"
+        },
+        {
+          "url": "https://linktr.ee/buddhawouldsay",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Linktree | Page Not Found",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://stan.store/buddhawouldsay",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Stan",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        }
+      ],
+      "images": [],
+      "unknown_reason": "Matching YouTube handle and Facebook name found; no explicit link to the canonical Instagram profile is established."
+    },
+    {
+      "account_id": "lead-instagram-masterlinghao",
+      "display_name": "Ling Hao",
+      "handle": "masterlinghao",
+      "profile_url": "https://www.instagram.com/masterlinghao/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"masterlinghao\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22masterlinghao%22",
+          "checked_at": "2026-10-23T00:48:13.930453+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Ling Hao (@masterlinghao) • Instagram photos and videos",
+              "url": "https://www.instagram.com/masterlinghao/",
+              "snippet": "1,103 Followers, 7 Following, 38 Posts - Ling Hao (@masterlinghao) on Instagram: \"Master Ling Hao | Taoist Healer Ancient remedies & recipes🌿 ⬇️40 years of temple wisdom ⬇️\""
+            },
+            {
+              "title": "Ling Hao (@masterlinghao) • Instagram photos and videos",
+              "url": "https://www.instagram.com/masterlinghao/reels/",
+              "snippet": "1,002 Followers, 7 Following, 38 Posts - Ling Hao (@masterlinghao) on Instagram: \"Master Ling Hao | Taoist Healer Ancient remedies & recipes🌿 ⬇️40 years of temple wisdom ⬇️\""
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/reel/DaOFZXPyNfq/",
+              "snippet": "523 likes, 15 comments - masterlinghao on June 30, 2026: \"🥒 The ancient secret nobody talks about... and you don't need to spend a fortune! 😏 Simple recipe, ingredients you already have at home. Try it and let me know the results in the comments! 👇 #monk #china #usa #america\"."
+            },
+            {
+              "title": "masterlinghao | Original audio on Instagram",
+              "url": "https://www.instagram.com/reels/audio/37556465963998149/",
+              "snippet": "Listen to masterlinghao on Instagram and watch reels with original audio"
+            },
+            {
+              "title": "Ling Hao | This ancient monk shares a secret passed down for ...",
+              "url": "https://www.instagram.com/reel/DaQkT0EuO7C/",
+              "snippet": "21 likes, 0 comments - masterlinghao on July 1, 2026: \"This ancient monk shares a secret passed down for generations 磻 A simple drink made with ingredients you probably already have at home. Try it and let me know how you feel! Follow for more ancient wisdom like this #usa #america #china #monk\"."
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/reel/DZ5bUsNSi7z/",
+              "snippet": "74 likes, 6 comments - masterlinghao on June 22, 2026: \"use this recipe and remove your dark spots from your face, my friend #usa #china #health #recipe\"."
+            }
+          ],
+          "page_title": "\"masterlinghao\" at DuckDuckGo"
+        }
+      ],
+      "source_checks": [],
+      "images": [],
+      "unknown_reason": "Search leads do not yield an attributable image tied to the exact canonical Instagram handle in this bounded check."
+    },
+    {
+      "account_id": "lead-instagram-oldmonktenzin",
+      "display_name": "Tenzin | Old Monk's Wisdom",
+      "handle": "oldmonktenzin",
+      "profile_url": "https://www.instagram.com/oldmonktenzin/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"oldmonktenzin\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22oldmonktenzin%22",
+          "checked_at": "2026-10-23T00:48:16.083237+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "provider_human_verification",
+          "results": [],
+          "page_title": "\n        DuckDuckGo\n    "
+        },
+        {
+          "query": "\"oldmonktenzin\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22oldmonktenzin%22",
+          "checked_at": "2026-10-23T00:51:01.475510+00:00",
+          "method": "Registered browser rendered public DDG HTML",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Tenzin | Old Monk's Wisdom (@oldmonktenzin) - Instagram",
+              "url": "https://www.instagram.com/oldmonktenzin/",
+              "snippet": "1 Followers, 9 Following, 0 Posts - Tenzin | Old Monk's Wisdom (@oldmonktenzin) on Instagram: \"Wealth is stillness, not chase. Daily teachings on money, peace, and enough. 📜 The Empty Bowl ↓\""
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/oldmonktenzin/reel/DYSYCKHiQu-/",
+              "snippet": "25 likes, 18 comments - oldmonktenzin on May 13, 2026: \"Cross your fingers right now… #monk #abundance #manifestation\"."
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/reel/DYNKZvWCPAb/",
+              "snippet": "78 likes, 21 comments - oldmonktenzin on May 11, 2026: \"Write your name on a piece of paper… #monk #manifestation #abundance\"."
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/reel/DYPz3G3MT1s/",
+              "snippet": "44 likes, 19 comments - oldmonktenzin on May 12, 2026: \"Place seven grains of rice inside your wallet… #monk #abundance #manifestation\"."
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/reel/DYIGvBgi8Qm/",
+              "snippet": "oldmonktenzin • Follow Will Morrison•Holy Forever (Instrumental) oldmonktenzin 6d Comment 'copper' and follow for more #monk #abundance #manifestation Load more comments tsorowami 4d Copper 1 like Reply gloriabranch6963 5d Copper 1 like Reply smullen.helen 5d Copper 1 like Reply yamini1965 5d Copper 1 like Reply Like 24 Comment 8 Share ..."
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/reel/DY4hGImC4KF/",
+              "snippet": "14 likes, 4 comments - oldmonktenzin on May 28, 2026: \"Place this number inside your right shoe… #monk #abundance #prosperity\"."
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/reel/DYKbP9CCN7j/",
+              "snippet": "21 likes, 0 comments - oldmonktenzin on May 10, 2026: \"Comment 'peace' and follow for more #monk #abundance #grateful\"."
+            }
+          ]
+        }
+      ],
+      "source_checks": [],
+      "images": [],
+      "unknown_reason": "Search leads do not yield an attributable image tied to the exact canonical Instagram handle in this bounded check."
+    },
+    {
+      "account_id": "lead-instagram-thekaizenhealing",
+      "display_name": "Kaizen Healing",
+      "handle": "thekaizenhealing",
+      "profile_url": "https://www.instagram.com/thekaizenhealing/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"thekaizenhealing\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22thekaizenhealing%22",
+          "checked_at": "2026-10-23T00:48:16.425026+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "provider_human_verification",
+          "results": [],
+          "page_title": "\n        DuckDuckGo\n    "
+        },
+        {
+          "query": "\"thekaizenhealing\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22thekaizenhealing%22",
+          "checked_at": "2026-10-23T00:51:02.409014+00:00",
+          "method": "Registered browser rendered public DDG HTML",
+          "status": "provider_human_verification",
+          "results": []
+        },
+        {
+          "query": "thekaizenhealing official",
+          "url": "https://html.duckduckgo.com/html/?q=thekaizenhealing%20official",
+          "checked_at": "2026-10-23T00:52:18.687579+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Kaizen Healing (@thekaizenhealing) • Instagram photos and videos",
+              "url": "https://www.instagram.com/thekaizenhealing/",
+              "snippet": "844 Followers, 9 Following, 99 Posts - Kaizen Healing (@thekaizenhealing) on Instagram: \"Calm your mind 🧘‍♂️ Master your habits Build your life ↓ Follow for daily mindset and clarity\""
+            },
+            {
+              "title": "Kaizen Healing - YouTube",
+              "url": "https://www.youtube.com/@thekaizenhealing",
+              "snippet": "Calm your mind 🧘‍♂️ Master your habits Build your life ↓ Follow for daily mindset and clarity"
+            },
+            {
+              "title": "Kaizen Healing - YouTube",
+              "url": "https://www.youtube.com/@Kaizenhealing/videos",
+              "snippet": "Welcome to Kaizen Healing 💫 I am a certified Reiki Master and Sound healer. Every meditation, healing track, chakra realignment, sleep aid, and soul activation on this channel is infused with ..."
+            },
+            {
+              "title": "Kaizen Health Official (@thekaizen.academy) - Instagram",
+              "url": "https://www.instagram.com/thekaizen.academy/",
+              "snippet": "1,465 Followers, 811 Following, 177 Posts - Kaizen Health Official (@thekaizen.academy) on Instagram: \"Cellular Biology without the boredom 🧬 Fix any health issue with Quantum Biology Root Cause Healing Starts Here ⬇️\""
+            },
+            {
+              "title": "Kaizen Healing - Advanced Allograft Products - Nationwide Service",
+              "url": "https://kaizenhealing.com/about.html",
+              "snippet": "Inspired by the Kaizen philosophy \"change for the better\", our company was founded with a clear purpose: to advance the delivery of high-quality tissue products and innovative solutions that support the growing and complex field of advanced wound care. We understand that wound care providers face immense challenges, from meeting clinical demands to navigating regulatory requirements. That's ..."
+            }
+          ],
+          "page_title": "thekaizenhealing official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://www.youtube.com/@thekaizenhealing/about",
+          "checked_at": "2026-10-23T00:54:00.969994+00:00",
+          "method": "scrapy public HTML",
+          "title": "Kaizen Healing - YouTube",
+          "exact_instagram_crosslink_observed": false,
+          "observed_instagram_links": [],
+          "observation": "No exact canonical Instagram crosslink established by this HTML check."
+        },
+        {
+          "url": "https://www.youtube.com/@thekaizenhealing/shorts",
+          "method": "yt-dlp public channel metadata, first listing entry only",
+          "channel_id": "UCU48D-xqzPYrQHMTrhB2RgA",
+          "channel_name": "Kaizen Healing",
+          "uploader_id": "@thekaizenhealing",
+          "observation": "Public channel/avatar metadata exists. Channel identity is not assigned to the canonical Instagram account solely from name, same handle or a similar bio."
+        }
+      ],
+      "images": [],
+      "unknown_reason": "YouTube/TikTok candidate shares a name, handle or bio, but an exact canonical Instagram crosslink is not established."
+    },
+    {
+      "account_id": "lead-instagram-samuelreedcards",
+      "display_name": "Samuel Reed",
+      "handle": "samuelreedcards",
+      "profile_url": "https://www.instagram.com/samuelreedcards/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"samuelreedcards\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22samuelreedcards%22",
+          "checked_at": "2026-10-23T00:48:17.228449+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "samuelreedcards official",
+          "url": "https://html.duckduckgo.com/html/?q=samuelreedcards%20official",
+          "checked_at": "2026-10-23T00:52:21.418265+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Samuel Reed (@samuelreedcards) • Instagram photos and videos",
+              "url": "https://www.instagram.com/samuelreedcards/",
+              "snippet": "1 Followers, 6 Following, 6 Posts - Samuel Reed (@samuelreedcards) on Instagram: \"🌙 Find the signs meant for you 🔮 Check today's Story\""
+            },
+            {
+              "title": "Samuel Reed (@samuelreedcards) • Instagram photos and videos",
+              "url": "https://www.instagram.com/samuelreedcards/reels/",
+              "snippet": "5,167 Followers, 6 Following, 165 Posts - Samuel Reed (@samuelreedcards) on Instagram: \"🌙 Find the signs meant for you 🔮 Check today's Story\""
+            },
+            {
+              "title": "Samuel Reed Official - YouTube",
+              "url": "https://www.youtube.com/@SamuelReedOfficial",
+              "snippet": "Welcome to the official home of Samuel Reed. A voice from another time. Samuel Reed brings back the warmth, soul, and honesty of classic American music from the golden era of the 1950s, 60s, and ..."
+            },
+            {
+              "title": "Samuel Reed Profiles - Facebook",
+              "url": "https://www.facebook.com/public/Samuel-Reed/",
+              "snippet": "View the profiles of people named Samuel Reed. Join Facebook to connect with Samuel Reed and others you may know. Facebook gives people the power to..."
+            },
+            {
+              "title": "Samuel Reed's Instagram, Twitter & Facebook on IDCrawl",
+              "url": "https://www.idcrawl.com/samuel-reed",
+              "snippet": "Looking for Samuel Reed? Found 648 people named Samuel Reed. Instagram, Twitter, Facebook, TikTok profiles, and images on IDCrawl."
+            }
+          ],
+          "page_title": "samuelreedcards official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [],
+      "images": [],
+      "unknown_reason": "Search leads do not yield an attributable image tied to the exact canonical Instagram handle in this bounded check."
+    },
+    {
+      "account_id": "lead-instagram-masterlianancient",
+      "display_name": "Master Lian",
+      "handle": "masterlianancient",
+      "profile_url": "https://www.instagram.com/masterlianancient/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"masterlianancient\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22masterlianancient%22",
+          "checked_at": "2026-10-23T00:48:17.228472+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "masterlianancient official",
+          "url": "https://html.duckduckgo.com/html/?q=masterlianancient%20official",
+          "checked_at": "2026-10-23T00:52:24.093271+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Master Lian | Ancient Wisdom (@masterlianancient) - Instagram",
+              "url": "https://www.instagram.com/masterlianancient/",
+              "snippet": "621 Followers, 1 Following, 19 Posts - Master Lian | Ancient Wisdom (@masterlianancient) on Instagram: \"Master Lian Ancient wisdom for modern minds 👇👇👇\""
+            },
+            {
+              "title": "Master Li Shen — Ancient Wisdom for Modern Life",
+              "url": "https://masterlishen.com/",
+              "snippet": "Official site of Master Li Shen: the 30-Day Evolution Journey, 250 Ancestral Rituals and The 36 Laws of Ancestral Wisdom. Ancient wisdom for daily life."
+            },
+            {
+              "title": "Master Lian | Ancient Wisdom | Forgiveness is not a gift you give to ...",
+              "url": "https://www.instagram.com/reel/DaXNZdQl4MZ/",
+              "snippet": "8,018 likes, 143 comments - masterlianancient on July 4, 2026: \"Forgiveness is not a gift you give to them. It is a door you open for yourself. Master Lian on forgiving those who never apologized — and finding peace anyway. Follow for daily wisdom. #MasterLian #AncientWisdom #Forgiveness #Healing #InnerPeace #Mindfulness #SelfLove #Shorts #Wisdom #Buddhism\"."
+            },
+            {
+              "title": "Master Lian | Ancient Wisdom | Some apologies never come. Master Lian ...",
+              "url": "https://www.instagram.com/reel/DbFj0P1jokk/",
+              "snippet": "14 likes, 2 comments - masterlianancient on July 22, 2026: \"Some apologies never come. Master Lian on how to find peace without one. ️ The dead cannot give what the living refused — and waiting only lets them wound you twice.#forgiveness #grief #letgo #healing #innerpeace #masterlian #ancientwisdom #emotionalhealing #lettinggo #buddhistwisdom #mindfulness #closure #peaceofmind #wisdom # ..."
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/masterlianancient/reel/Dae7z6uCY0-/",
+              "snippet": "25 likes, 0 comments - masterlianancient on July 7, 2026: \"You can forgive the snake and still refuse to carry it home. Part 2: The same woman returned — Master Lian on why forgiveness and trust are two different doors. Follow for daily wisdom. #MasterLian #AncientWisdom #Forgiveness #Boundaries #SelfRespect #LettingGo #InnerPeace #Shorts #Wisdom #Healing\"."
+            }
+          ],
+          "page_title": "masterlianancient official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://linktr.ee/masterlianancient",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Linktree | Page Not Found",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://stan.store/masterlianancient",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Stan",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        }
+      ],
+      "images": [],
+      "unknown_reason": "Search leads do not yield an attributable image tied to the exact canonical Instagram handle in this bounded check."
+    },
+    {
+      "account_id": "lead-instagram-chenweihealing",
+      "display_name": "Chen Wei Healing",
+      "handle": "chenweihealing",
+      "profile_url": "https://www.instagram.com/chenweihealing/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"chenweihealing\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22chenweihealing%22",
+          "checked_at": "2026-10-23T00:48:17.228480+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "chenweihealing official",
+          "url": "https://html.duckduckgo.com/html/?q=chenweihealing%20official",
+          "checked_at": "2026-10-23T00:52:26.859534+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Chen Weihealing (@chenweihealing) • Instagram photos and videos",
+              "url": "https://www.instagram.com/chenweihealing/",
+              "snippet": "83 Followers, 10 Following, 10 Posts - Chen Weihealing (@chenweihealing) on Instagram: \"Chen Wei Healing | Sabedora para Cura Sabedoria ancestral para a vida moderna 👇Comente \"CURA\" que te envio👇\""
+            },
+            {
+              "title": "Chen Weihealing (@chenweihealing) • Instagram photos and videos",
+              "url": "https://www.instagram.com/chenweihealing/reels/",
+              "snippet": "4,567 Followers, 42 Following, 26 Posts - Chen Weihealing (@chenweihealing) on Instagram: \"Chen Wei Healing | Sabedora para Cura Sabedoria ancestral para a vida moderna 👇Comente \"CURA\" que te envio👇\""
+            },
+            {
+              "title": "Healing with Chen - Facebook",
+              "url": "https://www.facebook.com/healingwithchen/",
+              "snippet": "Healing with Chen. 217,291 followers · 39 talking about this. Chinese Medicine | 70+ Years Experience Follow for ancient wisdom they hide from you"
+            },
+            {
+              "title": "Chen Wei - YouTube",
+              "url": "https://www.youtube.com/@Chen.wei.medicina",
+              "snippet": "🇺🇸 Sabiduría ancestral para tu salud 👇 El suplemento que recomiendo https://linktw.in/BqVKld"
+            },
+            {
+              "title": "Wei.chinesemed - Facebook",
+              "url": "https://www.facebook.com/healvex/",
+              "snippet": "Wei.chinesemed. 30,991 followers · 216 talking about this. ☯️ Follow for ancient wisdom they hide from you For those asking about my gut protocol ️‍啕"
+            }
+          ],
+          "page_title": "chenweihealing official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://linktr.ee/chenweihealing",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Linktree | Page Not Found",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://stan.store/chenweihealing",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Stan",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        }
+      ],
+      "images": [],
+      "unknown_reason": "Search leads do not yield an attributable image tied to the exact canonical Instagram handle in this bounded check."
+    },
+    {
+      "account_id": "lead-instagram-masteryunming",
+      "display_name": "Master Yun",
+      "handle": "masteryunming",
+      "profile_url": "https://www.instagram.com/masteryunming/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"masteryunming\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22masteryunming%22",
+          "checked_at": "2026-10-23T00:48:17.228489+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "masteryunming official",
+          "url": "https://html.duckduckgo.com/html/?q=masteryunming%20official",
+          "checked_at": "2026-10-23T00:52:29.362775+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Master Yun (@masteryunming) • Instagram photos and videos",
+              "url": "https://www.instagram.com/masteryunming/",
+              "snippet": "75 Followers, 0 Following, 39 Posts - Master Yun (@masteryunming) on Instagram: \"Master Yun | Mind Body Sage Quiet teachings for restless minds Breath • Stillness • Inner Balance ⬇️ Begin within ⬇️\""
+            },
+            {
+              "title": "Master Ming (@masterming.official) • Instagram photos and videos",
+              "url": "https://www.instagram.com/masterming.official/",
+              "snippet": "1,107 Followers, 0 Following, 14 Posts - Master Ming (@masterming.official) on Instagram: \" Eastern Wisdom Keeper 🌙 Ancient Remedies for Anxiety & Deep Sleep 📖 Monks' rituals to calm the mind + restore sleep 👇 Download the guide here 👇\""
+            },
+            {
+              "title": "masteryun - YouTube",
+              "url": "https://www.youtube.com/masteryun/about",
+              "snippet": "관람객들이 찍어 유투브에 올린 24반무예 / 무예24기 시범 동영상. 24 Martial Arts (ISIBSABANMUYE / ISIBSAGI) demonstration videos on Youtube. They were uploaded by spectators ..."
+            },
+            {
+              "title": "Master Yun Shen - YouTube",
+              "url": "https://www.youtube.com/@MasterYunShen/shorts",
+              "snippet": "Master Yun Shen | Ancient WisdomFollow me to achieve inner peace 🧘Ancient wisdom for a modern mind 👇"
+            },
+            {
+              "title": "Master Yun (@masteryunsage) | TikTok",
+              "url": "https://www.tiktok.com/@masteryunsage",
+              "snippet": "Master Yun (@masteryunsage) on TikTok | 9575 Likes. 3826 Followers. Master Yun 🌿 Unlock Inner Peace with \" The Silent Mind\" Ebook 👇.Watch Master Yun's popular videos: \"Sometimes you don't ...\", \"#Mindset #PositiveEn...\". Join 3826 followers on TikTok for more wisdom, spiritualgrowth, innerpeace content"
+            }
+          ],
+          "page_title": "masteryunming official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [],
+      "images": [],
+      "unknown_reason": "Search leads do not yield an attributable image tied to the exact canonical Instagram handle in this bounded check."
+    },
+    {
+      "account_id": "lead-instagram-masteryunsage",
+      "display_name": "Master Yun",
+      "handle": "masteryunsage",
+      "profile_url": "https://www.instagram.com/masteryunsage/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"masteryunsage\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22masteryunsage%22",
+          "checked_at": "2026-10-23T00:48:17.228491+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "masteryunsage official",
+          "url": "https://html.duckduckgo.com/html/?q=masteryunsage%20official",
+          "checked_at": "2026-10-23T00:52:31.903438+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Master Yun (@masteryunsage) • Instagram photos and videos",
+              "url": "https://www.instagram.com/masteryunsage/",
+              "snippet": "6,769 Followers, 96 Following, 47 Posts - Master Yun (@masteryunsage) on Instagram: \"Master Yun 🌿 Ancient wisdom to find harmony and clarity. Follow the teachings 👇\""
+            },
+            {
+              "title": "Master Yun (@masteryunsage) • Instagram photos and videos",
+              "url": "https://www.instagram.com/masteryunsage/reels/",
+              "snippet": "6,712 Followers, 92 Following, 47 Posts - Master Yun (@masteryunsage) on Instagram: \"Master Yun 🌿 Ancient wisdom to find harmony and clarity. Unlock Inner Peace with \" The Silent Mind\" Ebook 👇\""
+            },
+            {
+              "title": "Master Yun (@masteryunsage) | TikTok",
+              "url": "https://www.tiktok.com/@masteryunsage",
+              "snippet": "Master Yun (@masteryunsage) on TikTok | 9575 Likes. 3826 Followers. Master Yun 🌿 Unlock Inner Peace with \" The Silent Mind\" Ebook 👇.Watch Master Yun's popular videos: \"Sometimes you don't ...\", \"#Mindset #PositiveEn...\". Join 3826 followers on TikTok for more wisdom, spiritualgrowth, innerpeace content"
+            },
+            {
+              "title": "MT Discipline - YouTube",
+              "url": "https://www.youtube.com/@masteryunsage",
+              "snippet": "Daily discipline quotes & life hacks. No excuses. Build a life you love ⚡🔥 ⬇️ Watch & grow with me"
+            },
+            {
+              "title": "Positive Mindset for Abundance and Inner Peace | TikTok",
+              "url": "https://www.tiktok.com/@masteryunsage/video/7656729006968130836",
+              "snippet": "5815 Likes, 2701 Comments. TikTok video from Master Yun (@masteryunsage): \"Short guidance on cultivating a positive mindset, attracting abundance, and finding inner peace through spiritual wisdom. #Mindset #PositiveEnergy #Abundance #SpiritualWisdom #InnerPeace\"."
+            }
+          ],
+          "page_title": "masteryunsage official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://linktr.ee/masteryunsage",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Linktree | Page Not Found",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://stan.store/masteryunsage",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Stan",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        }
+      ],
+      "images": [],
+      "unknown_reason": "YouTube/TikTok candidate shares a name, handle or bio, but an exact canonical Instagram crosslink is not established."
+    },
+    {
+      "account_id": "lead-instagram-master-kaion",
+      "display_name": "Master Kaion",
+      "handle": "master_kaion",
+      "profile_url": "https://www.instagram.com/master_kaion/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"master_kaion\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22master_kaion%22",
+          "checked_at": "2026-10-23T00:48:17.228499+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "master_kaion official",
+          "url": "https://html.duckduckgo.com/html/?q=master_kaion%20official",
+          "checked_at": "2026-10-23T00:52:34.431127+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Master Kaion - YouTube",
+              "url": "https://www.youtube.com/@MasterKaion",
+              "snippet": "Master Kaion | Inner Harmony Ancient teachings for modern living"
+            },
+            {
+              "title": "Master Kaion (@master_kaion) • Instagram photos and videos",
+              "url": "https://www.instagram.com/master_kaion/",
+              "snippet": "5 Followers, 3 Following, 4 Posts - Master Kaion (@master_kaion) on Instagram: \"Master Kaion | Inner Harmony Ancient teachings for modern living\""
+            },
+            {
+              "title": "Master Kaion | #monk #wisdom #daughter #family | Instagram",
+              "url": "https://www.instagram.com/reel/DbwA8Y4Edua/",
+              "snippet": "2,795 likes, 162 comments - master_kaion on August 7, 2026: \"#monk #wisdom #daughter #family\"."
+            },
+            {
+              "title": "You Are Not Lazy — You Are Depleted | Master Kaion - YouTube",
+              "url": "https://www.youtube.com/watch?v=XqoFMZWSvIg",
+              "snippet": "You are not lazy. You are carrying something you never put down, and a tired body looks exactly like an unwilling one.Rest is not a reward you earn after the..."
+            },
+            {
+              "title": "Kaion Tale MMORPG",
+              "url": "https://kaiontale.com/",
+              "snippet": "Official Community Join the Kaion Tale Discord Meet other adventurers, follow updates, share feedback, and organize your next party before stepping into the world."
+            }
+          ],
+          "page_title": "master_kaion official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://linktr.ee/master_kaion",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Linktree | Page Not Found",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://stan.store/master_kaion",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Stan",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://www.youtube.com/@MasterKaion/about",
+          "checked_at": "2026-10-23T00:54:00.886979+00:00",
+          "method": "scrapy public HTML",
+          "title": "Master Kaion - YouTube",
+          "exact_instagram_crosslink_observed": false,
+          "observed_instagram_links": [],
+          "observation": "No exact canonical Instagram crosslink established by this HTML check."
+        },
+        {
+          "url": "https://www.youtube.com/@MasterKaion/shorts",
+          "method": "yt-dlp public channel metadata, first listing entry only",
+          "channel_id": "UCMpR_6EgahEcDOm02rGvJ3g",
+          "channel_name": "Master Kaion",
+          "uploader_id": "@MasterKaion",
+          "observation": "Public channel/avatar metadata exists. Channel identity is not assigned to the canonical Instagram account solely from name, same handle or a similar bio."
+        }
+      ],
+      "images": [],
+      "unknown_reason": "YouTube/TikTok candidate shares a name, handle or bio, but an exact canonical Instagram crosslink is not established."
+    },
+    {
+      "account_id": "lead-instagram-lotusfamily1",
+      "display_name": "The Lotus Family",
+      "handle": "lotusfamily1",
+      "profile_url": "https://www.instagram.com/lotusfamily1/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"lotusfamily1\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22lotusfamily1%22",
+          "checked_at": "2026-10-23T00:48:17.228503+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "lotusfamily1 official",
+          "url": "https://html.duckduckgo.com/html/?q=lotusfamily1%20official",
+          "checked_at": "2026-10-23T00:52:36.969805+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/lotusfamly1/reels/",
+              "snippet": "140K Followers, 8 Following, 124 Posts - The Lotus Family (@lotusfamly1) on Instagram: \"\""
+            },
+            {
+              "title": "The Lotus Family - YouTube",
+              "url": "https://www.youtube.com/@TheLotusFamily",
+              "snippet": "Welcome to The Lotus Family Channel! If you are new make sure to subscribe and to join us in our new journey . We will be uploading pranks, vlogs, etc. Lets expand The Lotus family and rock this ..."
+            },
+            {
+              "title": "Lotus Family - Facebook",
+              "url": "https://www.facebook.com/lotus.family.1/",
+              "snippet": "Lotus Family is on Facebook. Join Facebook to connect with Lotus Family and others you may know. Facebook gives people the power to share and makes the world more open and connected."
+            },
+            {
+              "title": "Lotus Family ロータスファミリー - YouTube",
+              "url": "https://www.youtube.com/channel/UCqkVcUNR8jH2RvvTWe7iwLA",
+              "snippet": "🪷𝟚𝟘𝟚𝟛.𝟘𝟠.𝟚𝟡 𝔹𝕠𝕪 れん坊と、家族の思い出vlog毎週金曜日19:00〜アップするよ‼️ショート動画は毎日投稿‼️チャンネル登録 ..."
+            },
+            {
+              "title": "La Lotus Family™ (@lalotusfamily) • Instagram photos and videos",
+              "url": "https://www.instagram.com/lalotusfamily/",
+              "snippet": "1,631 Followers, 1,117 Following, 294 Posts - La Lotus Family™ (@lalotusfamily) on Instagram: \" ️Crazyest fan of Lotus Cars ? Welcome ! 🏎 Best shot's of Lotus Cars on Instagram 💪Take your dose !! 🗺 From 🇬🇧 🇮🇹 🇨🇵 👉 #LaLotusFamily\""
+            }
+          ],
+          "page_title": "lotusfamily1 official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [],
+      "images": [],
+      "unknown_reason": "Indexed handle lotusfamly1 differs from canonical lotusfamily1. No image is assigned across that mismatch."
+    },
+    {
+      "account_id": "lead-instagram-haku-shinn",
+      "display_name": "Haku Shin",
+      "handle": "haku.shinn",
+      "profile_url": "https://www.instagram.com/haku.shinn/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"haku.shinn\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22haku.shinn%22",
+          "checked_at": "2026-10-23T00:48:17.228506+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "haku.shinn official",
+          "url": "https://html.duckduckgo.com/html/?q=haku.shinn%20official",
+          "checked_at": "2026-10-23T00:52:39.808397+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Haku Shin (@haku.shinn) • Instagram photos and videos",
+              "url": "https://www.instagram.com/haku.shinn/",
+              "snippet": "57K Followers, 9 Following, 161 Posts - Haku Shin (@haku.shinn) on Instagram: \"🧘 Master Haku Shin | Eastern Wisdom ☯️ 🙏 | Follow me for daily reflections 🌙 | Discover what destiny has in store for you 👇\""
+            },
+            {
+              "title": "Haku Shin | Click here and get your answer #usa #affirmations # ...",
+              "url": "https://www.instagram.com/haku.shinn/reel/DeSi_NJJH0n/",
+              "snippet": "2,581 likes, 1,526 comments - haku.shinn on October 9, 2026: \"👆Click here and get your answer 🌟 #usa #affirmations #manifestation #godblessamerica\"."
+            },
+            {
+              "title": "Haku Shin | Click here and get your answer #usa #affirmations # ...",
+              "url": "https://www.instagram.com/reel/DeDCUI0pj0g/",
+              "snippet": "781 likes, 411 comments - haku.shinn on October 3, 2026: \" Click here and get your answer #usa #affirmations #manifestation #godblessamerica\"."
+            },
+            {
+              "title": "ハク。\" 一進 \" Official Music Video - YouTube",
+              "url": "https://www.youtube.com/watch?v=v2TQOq8Yoa8",
+              "snippet": "ハク。\"一進\" https://tf.lnk.to/isshin TVアニメ「手札が多めのビクトリア」 2026年7月7日（火）24時よりテレ東系列にて放送開始! オフィシャルHP https ..."
+            },
+            {
+              "title": "ハク。 (@haku___official) • Instagram photos and videos",
+              "url": "https://www.instagram.com/haku___official/",
+              "snippet": "666K Followers, 4 Following, 1,321 Posts - See Instagram photos and videos from ハク。 (@haku___official)"
+            }
+          ],
+          "page_title": "haku.shinn official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [],
+      "images": [],
+      "unknown_reason": "Search leads do not yield an attributable image tied to the exact canonical Instagram handle in this bounded check."
+    },
+    {
+      "account_id": "lead-instagram-monktashirok",
+      "display_name": "Monk Tashirok",
+      "handle": "monktashirok",
+      "profile_url": "https://www.instagram.com/monktashirok/",
+      "status": "attributable_image_candidate",
+      "searches": [
+        {
+          "query": "\"monktashirok\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22monktashirok%22",
+          "checked_at": "2026-10-23T00:48:17.228509+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "monktashirok official",
+          "url": "https://html.duckduckgo.com/html/?q=monktashirok%20official",
+          "checked_at": "2026-10-23T00:52:42.386707+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Monk Tashirok (@monktashirok) • Instagram photos and videos",
+              "url": "https://www.instagram.com/monktashirok/",
+              "snippet": "699 Followers, 1 Following, 9 Posts - Monk Tashirok (@monktashirok) on Instagram: \"🪷 Buddhist Wisdom for Modern Life Sharing timeless teachings, mindfulness practices, inner peace, and life lessons inspired by Buddhist philosophy\""
+            },
+            {
+              "title": "Monk Tashirok - Facebook",
+              "url": "https://www.facebook.com/monktashirok/",
+              "snippet": "Monk Tashirok. 11,534 followers · 3,500 talking about this. 覆 Buddhist Wisdom for Modern Life Peace • Mindfulness • Compassion"
+            },
+            {
+              "title": "Monk Tashirok - YouTube",
+              "url": "https://www.youtube.com/@MonkTashirok/shorts",
+              "snippet": "🪷 Buddhist Wisdom for Modern Life Peace • Mindfulness • Compassion"
+            },
+            {
+              "title": "In this short teaching, I invite you to pause for a moment ... - Facebook",
+              "url": "https://www.facebook.com/monktashirok/videos/in-this-short-teaching-i-invite-you-to-pause-for-a-moment-and-notice-what-your-m/2248492702595919/",
+              "snippet": "In this short teaching, I invite you to pause for a moment and notice what your mind is chasing—answers, certainty, comfort, or control. When life feels loud, the heart often forgets its true work:..."
+            },
+            {
+              "title": "株式会社モンテローザ公式｜魚民・白木屋・笑笑・目利きの銀次",
+              "url": "https://www.monteroza.co.jp/",
+              "snippet": "モンテローザではHACCPに基づいた商品管理を始めとし、安全な食材の仕入れから安心な商品の提供まで一貫して食材・商品管理に取り組んでいます。 もっとみる ＞"
+            }
+          ],
+          "page_title": "monktashirok official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://www.youtube.com/@MonkTashirok/about",
+          "checked_at": "2026-10-23T00:54:01.875944+00:00",
+          "method": "scrapy public HTML",
+          "title": "Monk Tashirok - YouTube",
+          "exact_instagram_crosslink_observed": true,
+          "observed_instagram_links": [],
+          "observation": "Exact canonical Instagram reference observed."
+        },
+        {
+          "url": "https://www.youtube.com/@MonkTashirok/shorts",
+          "method": "yt-dlp public channel metadata, first listing entry only",
+          "channel_id": "UCWpsbzGH7WIl3Mny3MPN1dQ",
+          "channel_name": "Monk Tashirok",
+          "uploader_id": "@MonkTashirok",
+          "observation": "Public channel/avatar metadata exists. Channel identity is not assigned to the canonical Instagram account solely from name, same handle or a similar bio."
+        },
+        {
+          "url": "https://www.youtube.com/@MonkTashirok/about",
+          "method": "Public ytInitialData structured metadata parsed without executing it.",
+          "exact_instagram_crosslink_observed": true,
+          "exact_crosslink_url": "https://www.instagram.com/MonkTashirok",
+          "json_evidence_paths": [
+            "microformat.microformatDataRenderer.channelProfileMicroformatDetails.profilePage.mainEntity.sameAs.1",
+            "aboutChannelViewModel.links.1.channelExternalLinkViewModel.link.content"
+          ],
+          "observation": "Both sameAs and the channel external-link metadata name the exact canonical Instagram handle; redirect tokens are omitted."
+        }
+      ],
+      "images": [
+        {
+          "account_id": "lead-instagram-monktashirok",
+          "handle": "monktashirok",
+          "status": "attributable_candidate_downloaded",
+          "metadata_source_url": "https://www.youtube.com/@MonkTashirok/shorts",
+          "identity_evidence_url": "https://www.youtube.com/@MonkTashirok/about",
+          "profile_url": "https://www.instagram.com/monktashirok/",
+          "exact_crosslink_url": "https://www.instagram.com/MonkTashirok",
+          "platform_account_id": "UCWpsbzGH7WIl3Mny3MPN1dQ",
+          "image_source_url": "https://yt3.googleusercontent.com/28sZu-NbQmccAdwV7cR7ZNHX4KwEQ-Afiq_lARAoSVxQeG18ZaKnUM3bTwHAmbL0DSU9IMhSnA=s900-c-k-c0x00ffffff-no-rj",
+          "image_locator": "yt-dlp public channel thumbnail id=7, 900x900 avatar. YouTube about page profilePage.mainEntity.sameAs and channelExternalLinkViewModel link the exact Instagram handle.",
+          "image_role": "platform_profile_avatar",
+          "asset_filename": "lead-instagram-monktashirok-youtube.jpg",
+          "sha256": "26174d23a5a6d4d59b06f2ebfcb8f579ed524a0b7af03f738d8c7203b9f72192",
+          "bytes": 158760,
+          "content_type": "image/jpeg",
+          "checked_at": "2026-10-23T00:56:34.842086+00:00",
+          "transformations": "none; original HTTP response bytes without local modification.",
+          "limits": "The channel links the exact canonical Instagram handle. This is its YouTube avatar; equivalence with the Instagram avatar, ownership and reuse license remain unverified.",
+          "visual_review": "Viewed original image; the named persona is visibly depicted. This is not a new image generation or an identity audit."
+        }
+      ],
+      "unknown_reason": null
+    },
+    {
+      "account_id": "lead-instagram-master-li-shen",
+      "display_name": "Li Shen",
+      "handle": "master.li.shen",
+      "profile_url": "https://www.instagram.com/master.li.shen/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"master.li.shen\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22master.li.shen%22",
+          "checked_at": "2026-10-23T00:48:17.228512+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "master.li.shen official",
+          "url": "https://html.duckduckgo.com/html/?q=master.li.shen%20official",
+          "checked_at": "2026-10-23T00:52:44.809255+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Master Li Shen — Ancient Wisdom for Modern Life",
+              "url": "https://masterlishen.com/",
+              "snippet": "Official site of Master Li Shen: the 30-Day Evolution Journey, 250 Ancestral Rituals and The 36 Laws of Ancestral Wisdom. Ancient wisdom for daily life."
+            },
+            {
+              "title": "Master Li Shen - YouTube",
+              "url": "https://www.youtube.com/@MasterLiShen",
+              "snippet": "Li Shen | Eastern Wisdom Timeless lessons for modern life. Calm the mind. Live with clarity. Facebook: Master Li Shen Instagram: masterlishen Li Shen is a digital character with educational and ..."
+            },
+            {
+              "title": "Meister Li Shen - YouTube",
+              "url": "https://www.youtube.com/@Meister-LiShen",
+              "snippet": "Meister Li Shen | Östliche Weisheit Alte Lehren für das moderne Leben. Beruhige den Geist. Lebe mit Klarheit. Facebook: Meister Li Shen Instagram: meisterlishen Li Shen ist eine digitale Figur ..."
+            },
+            {
+              "title": "Master Li Shen - Facebook",
+              "url": "https://www.facebook.com/MasterLiShen/",
+              "snippet": "Continue your journey with Master Li Shen. The 30-Day Evolution Journey was created to help you develop greater clarity, balance, and personal transformation over 30 days. And along with it, you also receive the 250 Ancestral Rituals collection, featuring practices and teachings inspired by ancestral wisdom. 📚 30-Day Evolution Journey 📖 250 Ancestral Rituals 🎁 Access to digital ..."
+            },
+            {
+              "title": "30-Day Evolution Journey | Master Li Shen",
+              "url": "https://masterlishen.com/30-day-journey",
+              "snippet": "A 30-day guided video journey with Master Li Shen to break old patterns and sustain real change, with the 250 Ancestral Rituals collection included."
+            }
+          ],
+          "page_title": "master.li.shen official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://masterlishen.com/",
+          "checked_at": "2026-10-23T00:54:01.446916+00:00",
+          "method": "scrapy public HTML",
+          "title": "Master Li Shen — Ancient Wisdom for Modern Life",
+          "exact_instagram_crosslink_observed": false,
+          "observed_instagram_links": [],
+          "observation": "No exact canonical Instagram crosslink established by this HTML check."
+        }
+      ],
+      "images": [],
+      "unknown_reason": "Observed official-site/YouTube leads refer to masterlishen, not exact master.li.shen. No alias merge is made."
+    },
+    {
+      "account_id": "lead-instagram-ken-lu-monk",
+      "display_name": "Ken Lu",
+      "handle": "ken.lu.monk",
+      "profile_url": "https://www.instagram.com/ken.lu.monk/",
+      "status": "attributable_image_candidate",
+      "searches": [
+        {
+          "query": "\"ken.lu.monk\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22ken.lu.monk%22",
+          "checked_at": "2026-10-23T00:48:17.228515+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "ken.lu.monk official",
+          "url": "https://html.duckduckgo.com/html/?q=ken.lu.monk%20official",
+          "checked_at": "2026-10-23T00:52:47.269670+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Ken Lu | Based in USA (@ken.lu.monk) - Instagram",
+              "url": "https://www.instagram.com/ken.lu.monk/",
+              "snippet": "70K Followers, 122 Following, 127 Posts - Ken Lu | Based in USA🇺🇸 (@ken.lu.monk) on Instagram: \"93 years old - Spiritual & Holistic Healer 🌿 Sharing ancient wisdom for modern life 🙏 Get all my teachings below 👇\""
+            },
+            {
+              "title": "Ken Lu | Based in USA (@ken.lu.monk) - Instagram",
+              "url": "https://www.instagram.com/ken.lu.monk/reels/",
+              "snippet": "14K Followers, 102 Following, 32 Posts - Ken Lu | Based in USA🇺🇸 (@ken.lu.monk) on Instagram: \"Sharing ancient wisdom for modern life 🙏 Access all the teachings below 👇\""
+            },
+            {
+              "title": "Ken Lu Teachings — Five Ancient Practices for Peace, Wealth & Protection",
+              "url": "https://kenluteachings.com/",
+              "snippet": "One hour recording. Five ancient teachings. Cleansing, Abundance, Protection, Love, and Inner Peace — delivered by Ken Lu in his own voice. Instant access for $37."
+            },
+            {
+              "title": "Ken Monk - Facebook",
+              "url": "https://www.facebook.com/ken.monk.2025/",
+              "snippet": "Ken Monk is on Facebook. Join Facebook to connect with Ken Monk and others you may know. Facebook gives people the power to share and makes the world more open and connected."
+            },
+            {
+              "title": "[Live] The World of Darkness... | Teaching Service | Pastor Ken LUAMBA ...",
+              "url": "https://www.youtube.com/watch?v=x_waXfeAk-M",
+              "snippet": "Shalom, people of God! Welcome to our Sunday Service on October 18, 2026 Speaker: Pastor Ken Luamba Theme: The Spirit World and How It Works Sub-theme: The World of Darkness: Organization and ..."
+            }
+          ],
+          "page_title": "ken.lu.monk official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://kenluteachings.com/",
+          "checked_at": "2026-10-23T00:53:59.595329+00:00",
+          "method": "scrapy public HTML",
+          "title": "Ken Lu Teachings — Five Ancient Practices for Peace, Wealth & Protection",
+          "exact_instagram_crosslink_observed": true,
+          "observed_instagram_links": [
+            "https://instagram.com/ken.lu.monk"
+          ],
+          "observation": "Exact canonical Instagram reference observed."
+        }
+      ],
+      "images": [
+        {
+          "account_id": "lead-instagram-ken-lu-monk",
+          "handle": "ken.lu.monk",
+          "status": "attributable_candidate_downloaded",
+          "metadata_source_url": "https://kenluteachings.com/",
+          "profile_url": "https://www.instagram.com/ken.lu.monk/",
+          "exact_crosslink_url": "https://instagram.com/ken.lu.monk",
+          "image_source_url": "https://anonmuoyhxq4dmdc.public.blob.vercel-storage.com/vsl-thumb-5NIzsCJi9RjadofmTD7p2j8cWecpfX.jpg",
+          "image_locator": "Official Ken Lu sales-page video poster, on a page linking to exact @ken.lu.monk for support.",
+          "image_role": "first_party_video_poster",
+          "source_filename_note": null,
+          "asset_filename": "lead-instagram-ken-lu-monk-source.jpg",
+          "sha256": "bb45ed2fadf58eb70b065f641e3340374556ef54260c3d179a4caec85a658633",
+          "bytes": 153414,
+          "content_type": "image/jpeg",
+          "checked_at": "2026-10-23T00:56:18.329349+00:00",
+          "transformations": "none; original HTTP response bytes, without local crop, resize, conversion or generation.",
+          "limits": "The source page attributes this image to the named persona and links the exact canonical Instagram handle. Equivalence with the Instagram avatar, ownership and reuse license remain unverified.",
+          "visual_review": "Viewed original image; the named persona is visibly depicted. This is not a new image generation or an identity audit."
+        }
+      ],
+      "unknown_reason": null
+    },
+    {
+      "account_id": "lead-instagram-liangmaster4u",
+      "display_name": "Master Liang",
+      "handle": "liangmaster4u",
+      "profile_url": "https://www.instagram.com/liangmaster4u/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"liangmaster4u\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22liangmaster4u%22",
+          "checked_at": "2026-10-23T00:48:17.228518+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "liangmaster4u official",
+          "url": "https://html.duckduckgo.com/html/?q=liangmaster4u%20official",
+          "checked_at": "2026-10-23T00:52:49.774080+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Master Liang (@liangmaster4u) • Instagram photos and videos",
+              "url": "https://www.instagram.com/liangmaster4u/",
+              "snippet": "18K Followers, 0 Following, 260 Posts - Master Liang (@liangmaster4u) on Instagram: \"Master Liang | Healing Guide Timeless wisdom for a calmer, healthier life Based in the US 🇺🇸\""
+            },
+            {
+              "title": "Master Liang (@liangmaster4u) • Instagram photos and videos",
+              "url": "https://www.instagram.com/liangmaster4u/reels/",
+              "snippet": "17K Followers, 0 Following, 260 Posts - Master Liang (@liangmaster4u) on Instagram: \"Master Liang | Healing Guide Timeless wisdom for a calmer, healthier life Based in the US 🇺🇸\""
+            },
+            {
+              "title": "Master Liang - YouTube",
+              "url": "https://www.youtube.com/@masterliangfengshui",
+              "snippet": "Discover your Five Elements here: https://mingandmatter.com/"
+            },
+            {
+              "title": "Symsg网址收藏|Symsg最新网址发布 - 绳艺美术馆最新地址发布页",
+              "url": "https://symsg.wordpress.com/",
+              "snippet": "请大家Ctrl+D 收藏本页 绳艺视频美术馆最新地址 最新域名： https://symsg1.com 永久域名： https://symsg.wordpress.com 最近发现国产浏览器屏蔽网站严重 如果不能访问请更换浏览器为以下浏览器 电脑： Chrome浏览器 Edge浏览器 安卓手机： X浏览器 Via浏览器 苹果手机：Safari浏览器 Chrome浏览器 Via浏览器 如果以上 ..."
+            },
+            {
+              "title": "老友一键重装系统_电脑重装系统_老友装机大师官网",
+              "url": "https://www.laoyouxitong.cn/index.html",
+              "snippet": "老友装机大师是一款傻瓜式操作的重装系统软件，全程只需一键式操作即可完成重装系统win11、重装系统win10、重装系统win7，简单一步重装，人人都可以给自己重装系统。"
+            }
+          ],
+          "page_title": "liangmaster4u official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [],
+      "images": [],
+      "unknown_reason": "Search leads do not yield an attributable image tied to the exact canonical Instagram handle in this bounded check."
+    },
+    {
+      "account_id": "lead-instagram-aristhestill",
+      "display_name": "Aris The Still",
+      "handle": "aristheStill",
+      "profile_url": "https://www.instagram.com/aristheStill/",
+      "status": "attributable_image_candidate",
+      "searches": [
+        {
+          "query": "\"aristheStill\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22aristheStill%22",
+          "checked_at": "2026-10-23T00:48:17.228521+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "aristheStill official",
+          "url": "https://html.duckduckgo.com/html/?q=aristheStill%20official",
+          "checked_at": "2026-10-23T00:52:52.285751+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Aris The Still (@aristhestill) • Instagram photos and videos",
+              "url": "https://www.instagram.com/aristhestill/",
+              "snippet": "46K Followers, 0 Following, 140 Posts - Aris The Still (@aristhestill) on Instagram: \"Aris The Still | Healing Mentor Ancient teachings for modern life 🧘 Calm within. Heal deeply 🌿 Begin your path to healing 👇\""
+            },
+            {
+              "title": "The 21 Sacred Rituals — The Complete Guide for Healing Your Home, Your ...",
+              "url": "https://www.aristhestill.com/",
+              "snippet": "Aris The Still is a Buddhist monk who has spent decades in silence, studying the rituals that heal homes, bodies, and spirits. His teachings have reached millions through short videos — but the deepest practices were never meant for 60-second clips. This book contains the complete versions of every ritual he has shared, expanded with the history, intention, and spoken declarations that ..."
+            },
+            {
+              "title": "Aris The Still - YouTube",
+              "url": "https://www.youtube.com/@ArisTheStill",
+              "snippet": "Aris The Still | Healing Mentor. Ancient teachings for modern life 🧘Calm within. Heal deeply 🌿"
+            },
+            {
+              "title": "Aris The Still | New York NY - Facebook",
+              "url": "https://www.facebook.com/ArisTheStill/",
+              "snippet": "Aris The Still, New York. 439 likes · 131 talking about this. Aris The Still | Healing Mentor Ancient teachings for modern life 律 Calm within. Heal deeply Begin your path to healing ..."
+            },
+            {
+              "title": "Ari Stille (@ariistille) • Instagram photos and videos",
+              "url": "https://www.instagram.com/ariistille/",
+              "snippet": "2,370 Followers, 727 Following, 19 Posts - Ari Stille (@ariistille) on Instagram: \"NC 🇺🇸 @virginiamilitaryinstitute\""
+            }
+          ],
+          "page_title": "aristheStill official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://linktr.ee/aristheStill",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Linktree | Page Not Found",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://stan.store/aristheStill",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Stan",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://www.aristhestill.com/",
+          "checked_at": "2026-10-23T00:53:59.921100+00:00",
+          "method": "scrapy public HTML",
+          "title": "The 21 Sacred Rituals — The Complete Guide for Healing Your Home, Your Body, and Your Spirit",
+          "exact_instagram_crosslink_observed": true,
+          "observed_instagram_links": [
+            "https://instagram.com/aristhestill"
+          ],
+          "observation": "Exact canonical Instagram reference observed."
+        }
+      ],
+      "images": [
+        {
+          "account_id": "lead-instagram-aristhestill",
+          "handle": "aristheStill",
+          "status": "attributable_candidate_downloaded",
+          "metadata_source_url": "https://www.aristhestill.com/",
+          "profile_url": "https://www.instagram.com/aristhestill/",
+          "exact_crosslink_url": "https://instagram.com/aristhestill",
+          "image_source_url": "https://www.aristhestill.com/_next/image?url=%2Faris%2Fcandlelit-evening.png&w=384&q=75&dpl=dpl_4GWvR4f4nXMXQwX451TKVVovUDvG",
+          "image_locator": "Named img alt=Aris The Still in candlelit setting; source-provided 384w srcset candidate.",
+          "image_role": "first_party_named_persona_image",
+          "source_filename_note": null,
+          "asset_filename": "lead-instagram-aristhestill-source.png",
+          "sha256": "7184c52e6859bbaf771e8a7af2e6df7570863fc7a23848dee558eea05ef4847c",
+          "bytes": 112041,
+          "content_type": "image/png",
+          "checked_at": "2026-10-23T00:56:16.711364+00:00",
+          "transformations": "none; original HTTP response bytes, without local crop, resize, conversion or generation.",
+          "limits": "The source page attributes this image to the named persona and links the exact canonical Instagram handle. Equivalence with the Instagram avatar, ownership and reuse license remain unverified.",
+          "visual_review": "Viewed original image; the named persona is visibly depicted. This is not a new image generation or an identity audit."
+        }
+      ],
+      "unknown_reason": null
+    },
+    {
+      "account_id": "lead-instagram-zenmuun",
+      "display_name": "Zen Muun",
+      "handle": "zenmuun",
+      "profile_url": "https://www.instagram.com/zenmuun/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"zenmuun\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22zenmuun%22",
+          "checked_at": "2026-10-23T00:48:17.228526+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "zenmuun official",
+          "url": "https://html.duckduckgo.com/html/?q=zenmuun%20official",
+          "checked_at": "2026-10-23T00:52:54.812762+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Zen Mun (@zenmuun) • Instagram photos and videos",
+              "url": "https://www.instagram.com/zenmuun/reels/",
+              "snippet": "96K Followers, 124 Following, 43 Posts - Zen Mun (@zenmuun) on Instagram: \"Zen Mun | Sabiduría Sanadora Sabiduría ancestral para la vida actual ⬇️Adquiere mi libro Alimentos para Sanar⬇️\""
+            },
+            {
+              "title": "One moment, please...",
+              "url": "https://fkzemun.com/",
+              "snippet": "One moment, please... Please wait while your request is being verified..."
+            },
+            {
+              "title": "Zen Mun (@zenmuun) • Instagram Photos & Videos - Pikory",
+              "url": "https://pikory.com/u/zenmuun/3155932559",
+              "snippet": "95,952 Followers, 24 Following, 0 Posts - See Instagram photos and videos from Zen Mun (@zenmuun) anonymously. Engagement Rate: 3.16%."
+            },
+            {
+              "title": "FK Zemun - Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/FK_Zemun",
+              "snippet": "Copy of the history page of former official website at ticketservis.com Copy of the history page of former official website Archived 28 September 2011 at the Wayback Machine at ticketservis.com FK Zemun league standings since 2001 at Srbijafudbal Milanović menja Bekvalca at fudbal.info.com, 30-8-2016 (in Serbian)"
+            },
+            {
+              "title": "Zen Mu Online Season 18 Part 1-3",
+              "url": "https://www.zenmu.org/about",
+              "snippet": "This website requires javascript/cookies support in order to operate properly."
+            }
+          ],
+          "page_title": "zenmuun official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://linktr.ee/zenmuun",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Linktree | Page Not Found",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://stan.store/zenmuun",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Stan",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://pikory.com/u/zenmuun/3155932559",
+          "checked_at": "2026-10-23T00:53:59.958350+00:00",
+          "method": "scrapy public HTML",
+          "title": "Just a moment...",
+          "exact_instagram_crosslink_observed": false,
+          "observed_instagram_links": [],
+          "observation": "Provider verification page; content/image not obtained."
+        }
+      ],
+      "images": [],
+      "unknown_reason": "An exact-handle directory lead is indexed, but its live page returned a provider verification screen. No image is read back."
+    },
+    {
+      "account_id": "lead-instagram-kael-wisdom",
+      "display_name": "Master Kael",
+      "handle": "kael.wisdom",
+      "profile_url": "https://www.instagram.com/kael.wisdom/",
+      "status": "image_unverified",
+      "searches": [
+        {
+          "query": "\"kael.wisdom\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22kael.wisdom%22",
+          "checked_at": "2026-10-23T00:48:17.228529+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "kael.wisdom official",
+          "url": "https://html.duckduckgo.com/html/?q=kael.wisdom%20official",
+          "checked_at": "2026-10-23T00:52:57.478865+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "Master Kael (@kael.wisdom) • Instagram photos and videos",
+              "url": "https://www.instagram.com/kael.wisdom/",
+              "snippet": "2,565 Followers, 2 Following, 73 Posts - Master Kael (@kael.wisdom) on Instagram: \"Master Kael A quiet space for a calmer mind and deeper rest 🌙 Free 3-night guide to calm racing thoughts before sleep ⬇️\""
+            },
+            {
+              "title": "Master Kael - YouTube",
+              "url": "https://www.youtube.com/@Kaelwisdom",
+              "snippet": "A space for a quiet mind, deep rest, and inner peace 🌙 If you carry quiet exhaustion — the racing thoughts at 2am, the overthinking that never seems to rest, the heaviness that builds when ..."
+            },
+            {
+              "title": "Kael Wisdom - YouTube",
+              "url": "https://www.youtube.com/channel/UCQ-x5SJE_cqzY0P4HPmi6Bg",
+              "snippet": "Share your videos with friends, family, and the world"
+            },
+            {
+              "title": "Master Kael (@kael.wisdom) • Instagram photos and videos",
+              "url": "https://www.instagram.com/kael.wisdom/reels/",
+              "snippet": "2,570 Followers, 2 Following, 73 Posts - Master Kael (@kael.wisdom) on Instagram: \"Master Kael A quiet space for a calmer mind and deeper rest 🌙 ⬇️ The evening rest routine I trust ⬇️\""
+            },
+            {
+              "title": "Kael (@kaelswisdom) | TikTok",
+              "url": "https://www.tiktok.com/@kaelswisdom",
+              "snippet": "Kael (@kaelswisdom) on TikTok | 1260 Likes. 191 Followers. Ancient wisdom for modern minds. Silence. Strength. Self-mastery. I am Kael… and now you know better.Watch the latest video from Kael (@kaelswisdom)."
+            }
+          ],
+          "page_title": "kael.wisdom official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://linktr.ee/kael.wisdom",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Linktree | Page Not Found",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://stan.store/kael.wisdom",
+          "method": "Deterministic public handle-hub probe, not an assumed official identity.",
+          "title": "Stan",
+          "status": "identity_not_confirmed",
+          "exact_instagram_crosslinks": [],
+          "observation": "No exact canonical Instagram attribution established on this candidate hub."
+        },
+        {
+          "url": "https://www.youtube.com/@Kaelwisdom/about",
+          "checked_at": "2026-10-23T00:54:01.919164+00:00",
+          "method": "scrapy public HTML",
+          "title": "Master Kael - YouTube",
+          "exact_instagram_crosslink_observed": false,
+          "observed_instagram_links": [],
+          "observation": "No exact canonical Instagram crosslink established by this HTML check."
+        },
+        {
+          "url": "https://www.youtube.com/@Kaelwisdom/shorts",
+          "method": "yt-dlp public channel metadata, first listing entry only",
+          "channel_id": "UCVBamXGCYyXYJwsohI7EWQw",
+          "channel_name": "Master Kael",
+          "uploader_id": "@Kaelwisdom",
+          "observation": "Public channel/avatar metadata exists. Channel identity is not assigned to the canonical Instagram account solely from name, same handle or a similar bio."
+        }
+      ],
+      "images": [],
+      "unknown_reason": "YouTube/TikTok candidate shares a name, handle or bio, but an exact canonical Instagram crosslink is not established."
+    },
+    {
+      "account_id": "lead-instagram-shenmuhealer",
+      "display_name": "Shen Mu",
+      "handle": "shenmuhealer",
+      "profile_url": "https://www.instagram.com/shenmuhealer/",
+      "status": "attributable_image_candidate",
+      "searches": [
+        {
+          "query": "\"shenmuhealer\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22shenmuhealer%22",
+          "checked_at": "2026-10-23T00:48:17.228531+00:00",
+          "method": "scrapy fetch public DuckDuckGo HTML + lxml parser",
+          "status": "not_attempted_after_provider_challenge",
+          "results": []
+        },
+        {
+          "query": "shenmuhealer official",
+          "url": "https://html.duckduckgo.com/html/?q=shenmuhealer%20official",
+          "checked_at": "2026-10-23T00:53:00.064779+00:00",
+          "method": "Sequential scrapy public DuckDuckGo HTML; exact handle with official-site qualifier",
+          "status": "results_read",
+          "results": [
+            {
+              "title": "shenmu healer - YouTube",
+              "url": "https://www.youtube.com/@shenmuhealer",
+              "snippet": "shenmu healer @shenmuhealer • 171 subscribers • 59 videos Ancient Wisdom For Modern Life ...more Ancient Wisdom For Modern Life ...more ...more"
+            },
+            {
+              "title": "Shen Mu (@shenmuhealer) • Instagram photos and videos",
+              "url": "https://www.instagram.com/shenmuhealer/",
+              "snippet": "680K Followers, 33 Following, 1,076 Posts - Shen Mu (@shenmuhealer) on Instagram: \"📜| Ancient Wisdom For Modern Life 🌿| Natural Remedies 👇🏽| My Soursop Bitters Below\""
+            },
+            {
+              "title": "Shenmuhealer - Instagram",
+              "url": "https://www.instagram.com/popular/shenmuhealer/",
+              "snippet": "Shen Mu (shenmuhealer) presents as a wellness creator sharing traditional medicine remedies for menopause-related skin concerns. In a July 2026 video from a Japanese temple garden, Shen Mu explains that crepey skin stems from estrogen decline and liver overload rather than aging or sun damage. The account promotes a healing handbook and 27 monastery remedies, including a morning liver-flush ..."
+            },
+            {
+              "title": "Shen Mu - Facebook",
+              "url": "https://www.facebook.com/p/Shen-Mu-61586056361749/",
+              "snippet": "Shen Mu. 2,243,987 followers · 29,497 talking about this. | Ancient Wisdom For Modern Life | My Daily Reds + Biotics https://geni.us/rhoia-us | My 27 Remedies ..."
+            },
+            {
+              "title": "Shen Mu (@shenmuhealer) | Stan",
+              "url": "https://stan.store/shenmuhealer",
+              "snippet": "Stan | Linksite 27 Ancient Remedies from the Tibetan Mountains 🏔️ SHEN MU'S COMPLETE HEALING HANDBOOK"
+            }
+          ],
+          "page_title": "shenmuhealer official at DuckDuckGo"
+        }
+      ],
+      "source_checks": [
+        {
+          "url": "https://stan.store/shenmuhealer",
+          "checked_at": "2026-10-23T00:53:59.255070+00:00",
+          "method": "scrapy public HTML",
+          "title": "Shen Mu (@shenmuhealer) | Stan",
+          "exact_instagram_crosslink_observed": true,
+          "observed_instagram_links": [
+            "https://www.instagram.com/shenmuhealer"
+          ],
+          "observation": "Exact canonical Instagram reference observed."
+        },
+        {
+          "url": "https://www.youtube.com/@shenmuhealer/about",
+          "checked_at": "2026-10-23T00:54:02.370613+00:00",
+          "method": "scrapy public HTML",
+          "title": "shenmu healer  - YouTube",
+          "exact_instagram_crosslink_observed": false,
+          "observed_instagram_links": [],
+          "observation": "No exact canonical Instagram crosslink established by this HTML check."
+        }
+      ],
+      "images": [
+        {
+          "account_id": "lead-instagram-shenmuhealer",
+          "handle": "shenmuhealer",
+          "status": "attributable_candidate_downloaded",
+          "metadata_source_url": "https://stan.store/shenmuhealer",
+          "profile_url": "https://www.instagram.com/shenmuhealer/",
+          "exact_crosslink_url": "https://www.instagram.com/shenmuhealer",
+          "image_source_url": "https://assets.stanwith.me/live/msc/28536717/9w2jn/geminigeneratedimagen9cs99n9cs99n9cs.png/webp/433x0/85/geminigeneratedimagen9cs99n9cs99n9cs.webp",
+          "image_locator": "Stan header user image; page title names Shen Mu and exact @shenmuhealer Instagram link.",
+          "image_role": "first_party_named_profile_image",
+          "source_filename_note": "The source upload filename contains GeminiGeneratedImage; this is not used to establish AI status.",
+          "asset_filename": "lead-instagram-shenmuhealer-source.jpg",
+          "sha256": "9fce3e7326c1758ad809f225f42f74bd025b9c967ffc546cafdfe4d808238ec1",
+          "bytes": 24540,
+          "content_type": "image/jpeg",
+          "checked_at": "2026-10-23T00:56:13.122689+00:00",
+          "transformations": "none; original HTTP response bytes, without local crop, resize, conversion or generation.",
+          "limits": "The source page attributes this image to the named persona and links the exact canonical Instagram handle. Equivalence with the Instagram avatar, ownership and reuse license remain unverified.",
+          "visual_review": "Viewed original image; the named persona is visibly depicted. This is not a new image generation or an identity audit."
+        }
+      ],
+      "unknown_reason": null
+    }
+  ],
+  "candidate_identity_checks": [
+    {
+      "account_id": "buddha-would-say",
+      "candidate_url": "https://www.youtube.com/@buddhawouldsay",
+      "candidate_platform_id": "UC90kPnzg3WSdUZD_LwWMIFg",
+      "prior_observation": "Meet Bodhi; public 20 videos / 12 subscribers reported by root. These numbers are not revalidated or merged.",
+      "status": "identity_unverified",
+      "reason": "Same handle alone does not link this YouTube channel to the canonical Instagram account."
+    }
+  ],
+  "summary": {
+    "targets": 20,
+    "targets_with_search_results": 20,
+    "new_attributable_image_candidates": 4,
+    "sample_targets_without_accepted_image": 16,
+    "published_manifest_changed": false,
+    "accepted_into_product": false,
+    "paid_tools_used": false,
+    "new_authentication_used": false,
+    "instagram_direct_collection_used": false
+  },
+  "constraints": [
+    "No paid tools or credit topup.",
+    "No new authentication or account changes.",
+    "No direct automated Instagram collection retries.",
+    "Only publicly attributable original image bytes are eligible.",
+    "No newly generated substitute portrait or name-only substitution. Existing source-published persona images are eligible with the observed role; AI origin is not inferred from an upload filename."
+  ],
+  "last_updated_at": "2026-10-23T00:53:01.517764+00:00",
+  "challenge_handling": {
+    "observed": "Custom DuckDuckGo duck-image challenge, not reCAPTCHA v2.",
+    "method": "Registered browser normal navigation after fresh inspection; one later navigation returned results without challenge interaction. No checkbox/image selection or paid solver was used.",
+    "solver_used": false,
+    "browser_lease_released": true
+  },
+  "research_limits": [
+    "Search snippets are discovery evidence, not authoritative current audience counts or proof of creator earnings; no canonical metrics are changed.",
+    "Some DDG responses show human verification. They are preserved as such, and later successful public searches are recorded separately.",
+    "A same handle, matching display name or similar bio alone does not establish cross-platform identity.",
+    "The four source images have exact canonical Instagram crosslinks. Instagram-avatar equivalence, account ownership and image reuse rights are not independently audited.",
+    "Pikory live content is unavailable behind a verification page; no inference about its image is made.",
+    "Candidate images are outside the product repository pending root review and integration."
+  ],
+  "completed_at": "2026-10-23T00:58:07.506191+00:00",
+  "collection_status": "bounded_followup_finished",
+  "validation": {
+    "target_ids_unique": true,
+    "all_twenty_targets_searched": true,
+    "candidate_hashes_and_sizes_match": true,
+    "candidate_images_visually_reviewed": true,
+    "original_bytes_preserved": true,
+    "candidate_image_count": 4,
+    "browser_lease_released": true,
+    "production_assets_and_data_untouched": true
+  },
+  "source_integration": {
+    "branch": "feat/ai-monk-profile-images-20261023",
+    "base_sha": "b663a0adb0f48b2b7652e6f5077aea1033b28b32",
+    "prepared_at": "2026-10-23T01:01:41.502283+00:00",
+    "added_account_ids": [
+      "lead-instagram-monktashirok",
+      "lead-instagram-ken-lu-monk",
+      "lead-instagram-aristhestill",
+      "lead-instagram-shenmuhealer"
+    ],
+    "public_asset_paths": [
+      "/assets/ai-monk-profiles/lead-instagram-monktashirok-youtube.jpg",
+      "/assets/ai-monk-profiles/lead-instagram-ken-lu-monk-source.jpg",
+      "/assets/ai-monk-profiles/lead-instagram-aristhestill-source.png",
+      "/assets/ai-monk-profiles/lead-instagram-shenmuhealer-source.jpg"
+    ],
+    "source_coverage": {
+      "total": 75,
+      "acquired": 11,
+      "platform_profile_avatars": 4,
+      "first_party_named_images": 4,
+      "unknown": 64,
+      "third_party_attributed_profile_images": 1,
+      "third_party_attributed_content_images": 1,
+      "first_party_video_posters": 1
+    },
+    "canonical_metrics_or_ai_classification_changed": false,
+    "production_deployment_performed": false,
+    "publication_owner": "root",
+    "verification_status": "pass",
+    "verified_at": "2026-10-23T01:02:59.260225+00:00",
+    "inventory_validation": {
+      "canonical_ids": 75,
+      "acquired_assets": 11,
+      "unknown_images": 64,
+      "original_byte_matches": 4,
+      "unchanged_existing_rows": 71,
+      "all_asset_hashes_and_sizes_match": true,
+      "canonical_dataset_unchanged": true,
+      "public_json_secret_or_signed_url_findings": 0
+    },
+    "directory_helper_tests": {
+      "command": "node --test apps/landing/lib/ai-monk-directory.test.mjs",
+      "passed": 5,
+      "failed": 0
+    },
+    "diff_check": "pass",
+    "cursor": "commit/push, PR head CI, root merge/publication"
+  }
+}
