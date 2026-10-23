@@ -75,3 +75,28 @@ test('profile capacity includes trial and retained profiles before another check
   assert.throws(() => sql('SET ROLE service_role; SELECT monk_factory_reserve_profile(\'' + uid(26) + '\')'), /profile_capacity/);
   assert.equal(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_reserve_profile(\'' + uid(1) + '\')')).user_id, uid(1));
 });
+
+test('trial and paid periods are separate, but failed paid renders still consume the thirty-six-attempt limit', options, () => {
+  account(3);
+  for (let n = 0; n < 3; n++) sql(reserve(uid(3), 'trial-' + n));
+  account(3, 'active');
+  for (let n = 0; n < 6; n++) {
+    const failed = JSON.parse(sql(reserve(uid(3), 'failed-' + n)));
+    sql('UPDATE monk_factory_jobs SET status=\'failed\' WHERE id=\'' + failed.id + '\'');
+  }
+  for (let n = 0; n < 30; n++) {
+    assert.equal(JSON.parse(sql(reserve(uid(3), 'paid-' + n))).max_seconds, 45);
+  }
+  assert.throws(() => sql(reserve(uid(3), 'paid-overflow')), /quota_exhausted/);
+});
+
+test('budget and incomplete or expired subscription boundaries stop another reservation', options, () => {
+  account(4);
+  const first = JSON.parse(sql(reserve(uid(4), 'budget-first')));
+  sql('UPDATE monk_factory_jobs SET reserved_micro_usd=4250000 WHERE id=\'' + first.id + '\'');
+  assert.throws(() => sql(reserve(uid(4), 'over-budget')), /budget_exhausted/);
+  sql('UPDATE monk_factory_accounts SET trial_end=NULL WHERE user_id=\'' + uid(4) + '\'');
+  assert.throws(() => sql(reserve(uid(4), 'missing-boundary')), /subscription_required/);
+  sql('UPDATE monk_factory_accounts SET trial_end=now()-interval \'1 second\' WHERE user_id=\'' + uid(4) + '\'');
+  assert.throws(() => sql(reserve(uid(4), 'expired')), /subscription_required/);
+});

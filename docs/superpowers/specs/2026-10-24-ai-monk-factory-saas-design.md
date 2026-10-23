@@ -47,4 +47,4 @@ dashboardは実provider状態、投稿URL、取得日時付きのviews/likes等�
 4. 実利用できる状態をXで告知する。売上・MRR・他者利益・正式directory掲載は、対応する外部結果が無い限り未達とする。
 
 ## 現在cursor
-Database v0.4.5の73公開件/176出典と新CLI Release/6toolsを受入する。公式Registry v0.4.5はactiveをreadbackする。Museは正式受付ID31824081-7a00-4287-a572-bdee976562c5とCredentials submittedを確認し、事業メール/データ処理申告が未完。Factoryはこの原価/方式契約までで、SaaSコード・provider新規契約・料金公開・API生成は未実施。実原価とprovider利用条件を検証し、sourceから順に実装する。
+Database/Plugin配布状態 → ../plans/2026-10-24-ai-monk-research-distribution.md。Factoryの実装・検証・未完事項 → ../plans/2026-10-24-ai-monk-factory-saas.md。料金公開・provider新規契約・API生成・売上は未実施。

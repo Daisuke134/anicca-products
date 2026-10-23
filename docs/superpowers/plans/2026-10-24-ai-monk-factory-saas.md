@@ -17,7 +17,7 @@ Spec: ../specs/2026-10-24-ai-monk-factory-saas-design.md
 - provider未設定は具体的な利用不可状態にし、mockの成功や請求だけを提供しない。
 
 ## Task 1: 本人確認・永続quota・Stripe
-Files: apps/landing/netlify/functions/_lib/monk-factory.js、_lib/monk-factory-store.js、monk-factory.js、monk-factory-stripe.js、_lib/__tests__/monk-factory.test.js、CLIで作るapps/landing/supabase/migrations/*_monk_factory.sql。
+Files: apps/landing/netlify/functions/_lib/monk-factory.js、_lib/monk-factory-store.js、monk-factory.js、monk-factory-stripe.js、_lib/__tests__/monk-factory.test.js、CLIで作るapps/landing/supabase/migrations/*_monk_factory.sql、scripts/test-ai-monk-factory-db.mjs。
 Interfaces: authenticateFactoryRequest(event,{env,fetchImpl})→verified {id,email}。buildFactoryCheckout({user,price,customerId,trialUsed})→公式GETしたPriceのUSD199/月/Factory metadataを検証した固定Stripe payload。storeはaccounts/jobs/eventsとservice-only RPCによるslot/生成枠/period予約を提供する。
 - [ ] missing/invalid token・偽造user ID・固定price/3日trial・二重quota/別user/RLS・署名不正/重複webhookの必要最小REDを確認する。
 - [ ] server getUser、service-only DB更新、atomic quota/slot、固定Checkout/本人portal、raw署名と公式subscription照合を実装しGREENにする。
@@ -38,4 +38,4 @@ Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-mon
 - [ ] Factory専用provider/Stripe3日trial/本人IG接続/実avatar-video/公式postとmetricsを区別して確認し、利用可能な事実だけをXへ告知する。
 
 ## 現在cursor
-設計・原価モデルは専用branchへ先行pushし、fresh builder指摘を反映済み。接続済みSupabase Primaryの既存production projectとcredential SSOTの一致、monk_factory既存table0を確認する。Task1のauth/Checkout境界はREDから実装し6件GREEN。永続DBの4件は独立したUnix socket専用Postgres fixtureでRPC/table未実装のREDを確認する。trial上限、36並列要求の30枠制限、RLS、25profile容量を実装する。API handler/Stripe webhookへの配線と本番反映はまだ行っていない。SaaS公開・料金公開・実生成・売上は未完。
+Task1のauth/Checkout境界はREDから実装し6件GREEN。永続DBはRPC/table未実装のREDから実装し、trial上限・36並列要求の30枠制限・RLS・25profile容量の4件GREENを確認する。専用runnerは毎回新しいTCP無効のlocal Postgresを作り、終了時に自分のfixtureだけ片付ける。期間分離・失敗後の試行上限・原価予算・欠落/失効した課金境界も同じ実DBで確認する。API handler/Stripe webhookへの配線と本番反映はまだ行っていない。SaaS公開・料金公開・実生成・売上は未完。
