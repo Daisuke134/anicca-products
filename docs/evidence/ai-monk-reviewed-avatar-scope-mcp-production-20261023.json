@@ -1,0 +1,65 @@
+{
+  "observed_at": "2026-10-23T10:32:05.298Z",
+  "endpoint": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+  "stats": {
+    "metadata": {
+      "schema_version": "anicca.ai-monk-avatar-database.v1",
+      "updated_at": "2026-10-23",
+      "snapshot_sha256": "05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940f",
+      "source_url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "scope": "English-first research on realistic AI monk video avatars such as Yang Mun. The public directory contains 4 evidence-reviewed video personas. The 75-record research archive retains 69 pending candidates and 2 excluded illustrated/watercolor channels. This is not a complete census.",
+      "research_archive_records": 75,
+      "excluded_from_directory": 71,
+      "license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners.",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "methodology": [
+        "Publish a synthetic monk video persona only after an explicit included scope review supported by creator/provider disclosure or credible reporting with account-attributed video evidence. Keep missing-scope and pending records in the research archive; an image or discovery lead alone is insufficient.",
+        "Do not merge accounts on similar names alone. Unknown handles, creators, launch dates, and product URLs remain null with a reason.",
+        "Store platform, source URL, capture date, and metric beside each number. Instagram followers, YouTube subscribers, views, seller counters, creator statements, orders, and net profit are different measures.",
+        "Summarize video structure without storing full scripts, captions, or downloaded media. Video URLs point to the original platform.",
+        "User-provided screenshots are identified as such; their calendar capture date is unknown unless the screenshot itself shows it.",
+        "Screenshot-visible handles seed unverified leads. Public metadata is dated and source-linked when read through connected research providers. Direct Instagram probes stopped after its robots notice was reviewed; use authorized/connected data access for continuing collection. Unknown AI origin, creator, language and revenue are not inferred from appearance or audience size.",
+        "Audience ordering uses each platform's latest numeric followers/subscribers, never views or historical peaks. All-platform comparisons use the largest single observed audience; cross-platform audiences are not added and may overlap. Provider-rounded figures are labelled in each snapshot status."
+      ],
+      "views_order": "Largest observed view count among sampled videos on the selected platform, not channel totals or recent-period reach. See each sample date and source.",
+      "revenue_order": "Latest reported three-month USD gross-revenue observation, descending. Other currencies, periods, profit, buyout offers, seller counters and prices are excluded. Missing values sort last; claims are not audited sales.",
+      "audience_order": "Latest numeric followers/subscribers per platform; largest single audience when platform=all. Audiences are not added. Views and revenue claims are not audience counts. See each snapshot for date, source and rounding."
+    },
+    "records": 4,
+    "sources": 56,
+    "ai_status": {
+      "confirmed": 0,
+      "reported": 4,
+      "unverified": 0
+    }
+  },
+  "sorted": {
+    "audience": [
+      "yang-mun",
+      "ming-san",
+      "yan-chen-monjechen",
+      "leo-chen"
+    ],
+    "views": [
+      "yang-mun",
+      "ming-san",
+      "leo-chen",
+      "yan-chen-monjechen"
+    ],
+    "revenue": [
+      "yang-mun",
+      "ming-san",
+      "leo-chen",
+      "yan-chen-monjechen"
+    ],
+    "directory": [
+      "yang-mun",
+      "ming-san",
+      "leo-chen",
+      "yan-chen-monjechen"
+    ]
+  },
+  "pending_get_rejected": true,
+  "tool_count": 3,
+  "official_sdk": true
+}

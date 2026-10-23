@@ -1,0 +1,28 @@
+{
+  "recorded_at": "2026-10-23T10:32:00.933515+00:00",
+  "source_main": "e6fdf0b334ed6bb5448403a5b3fd8ad61f1e3dcc",
+  "netlify_workflow": "39938900630",
+  "deploy_conclusion": "success",
+  "url": "https://aniccaai.com/ai-monk-database",
+  "h1": "AI Monk Database",
+  "public_profile_ids": [
+    "yang-mun",
+    "ming-san",
+    "yan-chen-monjechen",
+    "leo-chen"
+  ],
+  "profile_images": 4,
+  "ai_status_interface": false,
+  "sort_options": [
+    "audience",
+    "views",
+    "revenue",
+    "directory"
+  ],
+  "research_archive_records": 75,
+  "sources": 56,
+  "canonical_sha256": "05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940f",
+  "public_json_matches_main": true,
+  "browser_layout_not_rechecked": "Only shared inclusion selector and archive copy changed; prior image bytes/responsive layout remain unchanged",
+  "remote_mcp": "passed; matching official SDK readback in ai-monk-reviewed-avatar-scope-mcp-production-20261023.json"
+}
