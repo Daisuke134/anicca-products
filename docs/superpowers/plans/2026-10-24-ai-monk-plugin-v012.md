@@ -24,9 +24,18 @@ Museは既存提出の3/3 requirements受付済み、BusinessだけApproved、Da
 - [x] v0.1.2のmanifest/READMEを6toolsへ整合する。
 - [x] portable schema、隔離したCodex package/config load、公開remote6toolのsource受入を記録する。証拠 → `../../evidence/ai-monk-plugin-v012-source-20261024.json`。branchのcommit/pushとremote object一致は主担当へ報告する。
 - [x] PR630/main2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1の固定4filesからZIPを作り、ai-monk-plugin-v0.1.2を公開する。asset670323615/733154bytesのofficial digestと公開download SHA256 78594ea8af058d06cc64cf65d1442e3bca9f3ba799d1761f8779f2dd6a45d1baが一致する。source review SHIP、旧Release変更0。証拠 → ../../evidence/ai-monk-plugin-v012-release-20261024.json。
+- [x] positive3/4/5のnative自然言語routingを隔離Codexで実受入する。top_formats、search_ai_monks→how_they_monetize、winning_playbooksの計4呼び出し、全caseの日本語final/exit0、公開v0.4.6 snapshot一致を確認する。証拠 → ../../evidence/ai-monk-plugin-native-v012-20261024.json。
 - [ ] primaryがdeveloper identity/支払元・実demoを満たして正式upload/submit/審査結果/掲載を個別に記録する。
 
-全体の順序は変更しない。現在cursorはdeveloper identity/支払元・実walkthroughと正式upload/submit/掲載の外部受入。過去の3tool版のnative routing受入は過去の証拠として維持し、今回の6tool版native routingは未受入として残す。
+全体の順序は変更しない。現在cursorはdeveloper identity/支払元・実walkthroughと正式upload/submit/掲載の外部受入。過去の3tool版のnative routing受入は過去の証拠として維持する。今回v0.1.2は拡張3機能のpositive3/4/5だけnative受入し、positive1/2・negative3件・全6tool native suiteは未受入として残す。
+
+## native routing受入の範囲
+
+固定main2cfc70e由来v0.1.2をprivate CODEX_HOMEでloadし、既存ユーザー選択を継承する有限ephemeral/read-only runを3件実行する。新しいmodel/provider指定0、tool名の強制0、認証materialコピー0、共有config変更0。標準authへの参照symlinkは使用後に除去し、既存runtimeのauthを新credential作成やloginへ読み替えない。
+
+公開v0.4.6のsnapshot b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02を4呼び出しすべてで確認する。最終回答の日本語・source/日付/未確認と未監査claimの区別を保持する。未検証のcaseと正式提出/demoを完了へ拡張しない。private入力・出力とhash一覧はreceiptで参照する。
+
+CLIには未使用Firecrawl transportの認証要求が各runの起動時に出る。privateのplugin宣言とmcp listはAI Monkだけで、不要transportの発生元は未確定とする。実research tool呼び出し/認証修復は0、tokenや共有設定の変更・推測した無効化設定は行わない。この境界を成功や無通信へ置換しない。
 
 ## main統合後の再現可能なZIP作成
 
