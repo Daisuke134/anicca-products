@@ -1,6 +1,6 @@
 {
   "schema_version": "anicca.ai-monk-avatar-database.v1",
-  "updated_at": "2026-10-22",
+  "updated_at": "2026-10-23",
   "license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners.",
   "scope": "English-first research on realistic AI monk video avatars such as Yang Mun. The directory has 7 researched profiles and 66 unverified discovery candidates; known illustrated/watercolor storytelling channels are excluded. The full 75-record research archive is retained, not a complete census.",
   "methodology": [
@@ -464,6 +464,83 @@
       "checked_at": "2026-10-22",
       "captured_at": "2026-10-22T14:42:03.637Z",
       "notes": "Index contains further candidate pages including Monk Tao, Yun Shen and Shen Healings. They remain follow-up leads; commercial AI labels and counts were not promoted to first-party verification."
+    },
+    {
+      "id": "yangmun-ig-20261023",
+      "title": "Yang Mun Instagram public header",
+      "url": "https://www.instagram.com/yangmunus/",
+      "source_type": "ordinary visible readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T02:48:32.265Z",
+      "notes": "Exact canonical profile identity matched. Public header displays フォロワー252.3万人. This is a rounded display, not an exact audience total or a growth-rate comparison."
+    },
+    {
+      "id": "mingsan-ig-20261023",
+      "title": "Ming San | Healing Guide Instagram public header",
+      "url": "https://www.instagram.com/mingsanhealing/",
+      "source_type": "ordinary visible readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T02:48:33.220Z",
+      "notes": "Exact canonical profile identity matched. Public header displays フォロワー137.8万人. This is a rounded display, not an exact audience total or a growth-rate comparison."
+    },
+    {
+      "id": "monjechen-ig-20261023",
+      "title": "Yan Chen | Sabiduría sanadora Instagram public header",
+      "url": "https://www.instagram.com/monjechen/",
+      "source_type": "ordinary visible readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T02:48:33.904Z",
+      "notes": "Exact canonical profile identity matched. Public header displays フォロワー134.2万人. This is a rounded display, not an exact audience total or a growth-rate comparison."
+    },
+    {
+      "id": "yangjun-ig-20261023",
+      "title": "Yangjun | Magician | Healer Instagram public header",
+      "url": "https://www.instagram.com/monkyangjun/",
+      "source_type": "ordinary visible readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T02:48:34.713Z",
+      "notes": "Exact canonical profile identity matched. Public header displays フォロワー9.5万人. This is a rounded display, not an exact audience total or a growth-rate comparison."
+    },
+    {
+      "id": "yangmun-yt-metrics-20261023",
+      "title": "Yang Mun YouTube sampled-video views and channel subscribers metadata refresh",
+      "url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "source_type": "first-party public metadata via yt-dlp without cookies or media download",
+      "published_at": null,
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T02:47:03.550355+00:00",
+      "capture_completed_at": "2026-10-23T02:47:03.844065+00:00",
+      "channel_id": "UCoMa3p67nJWkk2kk-8hD1jA",
+      "video_urls": [
+        "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+        "https://www.youtube.com/shorts/Qdv6S7HonSM",
+        "https://www.youtube.com/shorts/j8WRhcQvzRM"
+      ],
+      "notes": "Three video IDs match the existing samples and channel @Yangmunv2. Observed views: Er2Ig4GM7z0 521580; Qdv6S7HonSM 1102391; j8WRhcQvzRM 12561569. All three return channel_follower_count 159000. Metadata only; this refresh adds no moving-image watch or new creative analysis. Raw signed media metadata is not published."
+    },
+    {
+      "id": "beravia-beetroot-product-20261023",
+      "title": "Beetroot Capsules official product page",
+      "url": "https://beraviahealth.com/products/beetroot",
+      "source_type": "first-party seller product page",
+      "published_at": null,
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T02:53:26.925048+00:00",
+      "notes": "The current public mingsanhealing bio links to this official product page. Product name is Beetroot Capsules. Its own price was not obtained; the displayed $24.99 belongs to a separate Moringa Capsules upsell. Commission, sales and efficacy are unverified."
+    },
+    {
+      "id": "monjechen-calm-guide-20261023",
+      "title": "El Camino de Vuelta a la Calma official product page",
+      "url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+      "source_type": "first-party seller product page",
+      "published_at": null,
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T02:53:26.975599+00:00",
+      "notes": "The current public monjechen bio links to this official product page. It presents a 103-page digital guide and seller-displayed €9,95. The page also includes Agotado and add-to-cart text, so availability is unresolved. Seller health claims, urgency and reviews are not adopted as facts or sales evidence."
     }
   ],
   "accounts": [
@@ -564,6 +641,15 @@
               "as_of": "2026-10-22",
               "source_id": "yangmun-ig-20261022",
               "status": "public_connector_snapshot"
+            },
+            {
+              "value": 2523000,
+              "metric": "followers",
+              "as_of": "2026-10-23",
+              "captured_at": "2026-10-23T02:48:32.265Z",
+              "display_value": "252.3万人",
+              "source_id": "yangmun-ig-20261023",
+              "status": "public_page_readback_rounded"
             }
           ]
         },
@@ -599,6 +685,15 @@
               "as_of": "2026-10-22",
               "source_id": "yangmun-yt-recent20-20261022",
               "status": "public_listing_metadata_snapshot"
+            },
+            {
+              "value": 159000,
+              "metric": "subscribers",
+              "as_of": "2026-10-23",
+              "captured_at": "2026-10-23T02:47:03.550355+00:00",
+              "source_id": "yangmun-yt-metrics-20261023",
+              "status": "public_metadata_snapshot",
+              "notes": "yt-dlp channel_follower_count; the underlying public count may be rounded."
             }
           ]
         },
@@ -617,7 +712,8 @@
           "price": 49.99,
           "currency": "USD",
           "source_id": "yangmun-journey-store",
-          "status": "displayed_price_not_order_data"
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.yang-mun.com/pages/journey"
         },
         {
           "type": "eBook bundle",
@@ -625,7 +721,8 @@
           "price": 59.99,
           "currency": "USD",
           "source_id": "yangmun-journey-store",
-          "status": "displayed_price_not_order_data"
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.yang-mun.com/pages/journey"
         }
       ],
       "seller_counters": [
@@ -677,33 +774,87 @@
           "title": "Words of Motivation from Yang Mun",
           "duration_seconds": 65,
           "uploaded_at": "2025-11-29",
-          "views": 521549,
-          "views_captured_at": "2026-10-21",
+          "views": 521580,
+          "views_captured_at": "2026-10-23",
           "source_id": "yangmun-youtube-short-motivation",
           "structure_summary": "One continuous, front-facing temple shot; future-oriented reassurance, concrete life imagery, then a repeatable morning/night reflection invitation. No paid product CTA was visible in this sample.",
-          "media_status": "temporary_analysis_only_official_embed_only"
+          "media_status": "temporary_analysis_only_official_embed_only",
+          "metrics": [
+            {
+              "value": 521549,
+              "metric": "views",
+              "as_of": "2026-10-21",
+              "source_id": "yangmun-youtube-short-motivation",
+              "status": "historical_public_view_observation"
+            },
+            {
+              "value": 521580,
+              "metric": "views",
+              "as_of": "2026-10-23",
+              "captured_at": "2026-10-23T02:47:03.550355+00:00",
+              "source_id": "yangmun-yt-metrics-20261023",
+              "status": "public_metadata_snapshot"
+            }
+          ],
+          "views_source_id": "yangmun-yt-metrics-20261023"
         },
         {
           "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
           "title": "1minute of Yang Mun Wisdom",
           "duration_seconds": 78,
           "uploaded_at": "2025-11-25",
-          "views": 1102388,
-          "views_captured_at": "2026-10-21",
+          "views": 1102391,
+          "views_captured_at": "2026-10-23",
           "source_id": "yangmun-youtube-short-health",
           "structure_summary": "A symptom-led hook moves into an unverified traditional-medicine explanation and emotional reframe. This is a health-claim risk example, not an endorsed claim.",
-          "media_status": "temporary_analysis_only_official_embed_only"
+          "media_status": "temporary_analysis_only_official_embed_only",
+          "metrics": [
+            {
+              "value": 1102388,
+              "metric": "views",
+              "as_of": "2026-10-21",
+              "source_id": "yangmun-youtube-short-health",
+              "status": "historical_public_view_observation"
+            },
+            {
+              "value": 1102391,
+              "metric": "views",
+              "as_of": "2026-10-23",
+              "captured_at": "2026-10-23T02:47:03.597544+00:00",
+              "source_id": "yangmun-yt-metrics-20261023",
+              "status": "public_metadata_snapshot"
+            }
+          ],
+          "views_source_id": "yangmun-yt-metrics-20261023"
         },
         {
           "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
           "title": "You’re Drinking Water the WRONG Way",
           "duration_seconds": 96,
           "uploaded_at": "2025-11-10",
-          "views": 12561496,
-          "views_captured_at": "2026-10-21",
+          "views": 12561569,
+          "views_captured_at": "2026-10-23",
           "source_id": "yangmun-youtube-short-health-metadata",
           "structure_summary": "Metadata-only high-reach health-claim example: 96 seconds and 12,561,496 views at the 2026-10-21 read. The video was not downloaded or fact-checked; do not treat it as medical guidance.",
-          "media_status": "metadata_only_official_link_only"
+          "media_status": "metadata_only_official_link_only",
+          "metrics": [
+            {
+              "value": 12561496,
+              "metric": "views",
+              "as_of": "2026-10-21",
+              "source_id": "yangmun-youtube-short-health-metadata",
+              "status": "historical_public_view_observation"
+            },
+            {
+              "value": 12561569,
+              "metric": "views",
+              "as_of": "2026-10-23",
+              "captured_at": "2026-10-23T02:47:03.844065+00:00",
+              "source_id": "yangmun-yt-metrics-20261023",
+              "status": "public_metadata_snapshot"
+            }
+          ],
+          "views_source_id": "yangmun-yt-metrics-20261023"
         }
       ],
       "unknowns": [
@@ -711,7 +862,7 @@
         "The avatar's country or location; the reported Israel location belongs to the creator.",
         "Paid orders, product mix, refunds, fees, ad spend, creator net profit, and revenue by creative.",
         "The self-reported revenue/profit claims do not reconcile to an audited statement.",
-        "Current Instagram count is connector rounded readback; historical snapshots are retained.",
+        "Public Instagram follower observations are rounded; historical source snapshots are retained and are not growth-rate comparisons.",
         "Current monthly revenue, order counts and ROI remain unverified."
       ],
       "revenue_observations": [
@@ -796,6 +947,15 @@
               "as_of": "2026-10-22",
               "source_id": "mingsan-ig-20261022",
               "status": "public_connector_snapshot"
+            },
+            {
+              "value": 1378000,
+              "metric": "followers",
+              "as_of": "2026-10-23",
+              "captured_at": "2026-10-23T02:48:33.220Z",
+              "display_value": "137.8万人",
+              "source_id": "mingsan-ig-20261023",
+              "status": "public_page_readback_rounded"
             }
           ]
         }
@@ -812,6 +972,17 @@
           "url": "https://beraviahealth.com/products/beetroot",
           "source_id": "mingsan-ig-20261022",
           "status": "public_bio_link_commission_sales_and_efficacy_unknown"
+        },
+        {
+          "type": "external wellness product link",
+          "name": "Beetroot Capsules",
+          "url": "https://beraviahealth.com/products/beetroot",
+          "price": null,
+          "currency": null,
+          "as_of": "2026-10-23",
+          "source_id": "beravia-beetroot-product-20261023",
+          "status": "public_bio_link_and_seller_product_page_price_commission_and_sales_unknown",
+          "notes": "Official product name verified; own price unavailable. No affiliate commission, paid units, revenue or health efficacy established."
         }
       ],
       "seller_counters": [],
@@ -988,7 +1159,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/monjechen/"
+        "https://www.instagram.com/monjechen/",
+        "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma"
       ],
       "platforms": [
         {
@@ -1009,6 +1181,15 @@
               "as_of": null,
               "source_id": "user-screenshot-monjechen-instagram",
               "status": "screenshot_snapshot_date_unknown"
+            },
+            {
+              "value": 1342000,
+              "metric": "followers",
+              "as_of": "2026-10-23",
+              "captured_at": "2026-10-23T02:48:33.904Z",
+              "display_value": "134.2万人",
+              "source_id": "monjechen-ig-20261023",
+              "status": "public_page_readback_rounded"
             }
           ]
         }
@@ -1020,13 +1201,28 @@
           "url": null,
           "source_id": "user-screenshot-monjechen-instagram",
           "status": "link_visible_but_cropped_in_screenshot_full_target_unverified"
+        },
+        {
+          "type": "digital guide",
+          "name": "El Camino de Vuelta a la Calma",
+          "url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+          "price": 9.95,
+          "currency": "EUR",
+          "pages": 103,
+          "as_of": "2026-10-23",
+          "source_id": "monjechen-calm-guide-20261023",
+          "status": "seller_displayed_price_not_order_data",
+          "availability": "unknown",
+          "availability_note": "Page includes Agotado alongside add-to-cart text; stock and checkout were not verified.",
+          "notes": "The earlier screenshot-only cropped-link offer remains unchanged as a historical observation. No paid units, revenue, efficacy or affiliate commission verified."
         }
       ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
-        "Calendar capture date, full product URL, creator identity/location, and any match with the 'Monk Chen' name in Maldita's investigation headline."
+        "The supplied screenshot's calendar capture date, creator identity/location, and any match with the 'Monk Chen' name in Maldita's investigation headline.",
+        "Current product availability, paid units, affiliate commission and sales remain unverified."
       ]
     },
     {
@@ -3959,6 +4155,15 @@
               "as_of": "2026-10-22",
               "source_id": "yangjun-ig-20261022",
               "status": "public_connector_snapshot"
+            },
+            {
+              "value": 95000,
+              "metric": "followers",
+              "as_of": "2026-10-23",
+              "captured_at": "2026-10-23T02:48:34.713Z",
+              "display_value": "9.5万人",
+              "source_id": "yangjun-ig-20261023",
+              "status": "public_page_readback_rounded"
             }
           ]
         }
