@@ -67,16 +67,18 @@ def main(language='en'):
         return len(pairs)
     citation_pairs = check_citations(fragment)
     assert citation_pairs > 0, 'rendered citations must be linked'
+    cover_path = book.get('cover_image', '/assets/the-art-of-ai-monks-cover.png')
+    cover = LANDING / 'public' / cover_path.lstrip('/')
+    assert cover.is_file(), 'book cover must exist before building'
     rendered = OUTPUT / f'the-art-of-ai-monks-{language}.html'
     style = '<style>' + japanese_css + '</style>' if japanese_css else ''
-    rendered.write_text('<!doctype html><html lang="' + language + '"><head><meta charset="utf-8"><meta name="author" content="Anicca"><title>' + html.escape(book['title']) + '</title><link rel="stylesheet" href="' + pdf_css.name + '">' + style + '</head><body><section class="cover"><img src="../../public/assets/the-art-of-ai-monks-cover.png" alt="The Art of AI Monks cover"></section><article>' + fragment + '</article></body></html>')
+    rendered.write_text('<!doctype html><html lang="' + language + '"><head><meta charset="utf-8"><meta name="author" content="Anicca"><title>' + html.escape(book['title']) + '</title><link rel="stylesheet" href="' + pdf_css.name + '">' + style + '</head><body><section class="cover"><img src="../../public' + html.escape(cover_path) + '" alt="' + html.escape(book['title']) + ' cover"></section><article>' + fragment + '</article></body></html>')
     pdf = OUTPUT / book['formats']['pdf']
     result = command(['weasyprint', str(rendered), str(pdf)])
     if result.stderr.strip():
         print('PDF renderer notices: ' + result.stderr[-1500:])
     # Pandoc supplies the EPUB title page, so omit the two duplicate title headings.
     epub_text = text.replace('# ' + book['title'] + '\n', '', 1).replace('## ' + book['subtitle'] + '\n', '', 1)
-    cover = LANDING / 'public/assets/the-art-of-ai-monks-cover.png'
     epub = OUTPUT / book['formats']['epub']
     with tempfile.TemporaryDirectory(prefix='ai-monk-book-') as temporary:
         stylesheet = epub_css

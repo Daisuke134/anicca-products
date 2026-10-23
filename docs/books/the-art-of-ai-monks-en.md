@@ -69,7 +69,7 @@ Consider a hypothetical viewer who watches one 60-second reflection on each of 3
 
 ### A format with several jobs
 
-The researched profiles do not all lead to the same destination. Yang Mun has a program and bundles. The Zen Storyteller presents a named book in several formats. Yangjun displays a narrowly positioned guide and a separate creator-services listing. Ming San's bio links to an external wellness product. Other records have no verified offer. [S05], [S19], [S22], [S23], [S16], [S28]
+The researched profiles include video-avatar records and adjacent commercial comparisons. Yang Mun has a program and bundles. The Zen Storyteller, an illustrated brand outside our production scope, presents a named book in several formats. Yangjun displays a narrowly positioned guide and a separate creator-services listing. Ming San's bio links to an external wellness product. Other records have no verified offer. [S05], [S19], [S22], [S23], [S16], [S28]
 
 Calling this a single “AI monk business model” conceals the differences. A book's production and support burden differ from a community's. An external product link may or may not earn commission. A creator-services listing has a business customer rather than the same reader buying a reflection. A useful analysis follows the actual route.
 
@@ -89,7 +89,7 @@ A robe is a poor detector of software.
 
 An older face, a symmetrical composition, or a strangely smooth voice may invite questions. None, by itself, proves an AI-generated person. A real monk can appear in a stylized video. A fictional monk can be drawn by a human. A synthetic voice can translate a real speaker. A clip can combine all these techniques. The visible result and the production process need separate descriptions.
 
-For this field guide, “AI monk” is a research label for monk-like characters whose synthetic production is claimed or supported by evidence. We also study adjacent accounts because their offers and storytelling illuminate the format. Inclusion does not amount to confirmation.
+The production target of this field guide is a photorealistic, AI-created monk speaking in video, in the Yang Mun format. Watercolor, illustrated, and painted monk content is outside that production scope. The research archive also retains adjacent accounts to document their offers and storytelling. Inclusion in that archive does not establish AI provenance or make an account a production example.
 
 ### Five possibilities behind the same screen
 
@@ -237,7 +237,7 @@ The examples in the archive suggest five useful script jobs: recognition, tensio
 
 **Recognition** tells the viewer what situation the video concerns. **Tension** gives the situation movement. **The turn** offers a different way to see or handle it. **The action** is something small enough to attempt. **The destination** says where to go if more help with that exact task is wanted.
 
-Yang Mun's motivation sample supplies an observed movement from worry to a repeatable reflection. The Zen Storyteller supplies caption and offer evidence connecting a life dilemma to a named book. Yangjun's selected caption supplies a direct guide-in-bio invitation. We have not watched the latter two clips' motion or measured their pacing; they support a message-and-offer comparison, not a shared editing formula. [S09], [S20], [S19], [S24], [S22]
+Yang Mun's motivation sample supplies an observed movement from worry to a repeatable reflection. The Zen Storyteller is an out-of-scope illustrated-brand comparison: its caption and offer connect a life dilemma to a named book. Yangjun's selected caption supplies a direct guide-in-bio invitation. We have not watched the latter two clips' motion or measured their pacing; they support a message-and-offer comparison, not a shared editing formula. [S09], [S20], [S19], [S24], [S22]
 
 ### Make the visual world do one job
 
@@ -286,7 +286,7 @@ The researched routes show several different offers:
 | Case | Publicly documented route | What the record establishes |
 |---|---|---|
 | Yang Mun | Profile to Journey and book collection | Seller-displayed $49.99 and $59.99 offers. [S05] |
-| Kai Tsukimi / The Zen Storyteller | Recurring storytelling brand to *A Cup of Zen* | Seller-listed Kindle $9.99, paperback $14.99, hardcover $19.99. [S19] |
+| Kai Tsukimi / The Zen Storyteller (adjacent illustrated brand; outside the production scope) | Recurring storytelling brand to *A Cup of Zen* | Seller-listed Kindle $9.99, paperback $14.99, hardcover $19.99. [S19] |
 | SifuChen California | Highlighted-story route described by Maldita | Reported €16.45 guide; exact live handle unresolved. [S13] |
 | Leo Chen | Comment invitation for a book/PDF | Reported lead path; price and paid conversion unknown. [S13] |
 | Ming San | Bio to an external beetroot product | Visible destination; commission, sales, and efficacy unknown. [S16] |
@@ -456,7 +456,7 @@ No part requires a false monastery, an unlicensed human likeness, or a miraculou
 
 Write one sentence: “This character helps [specific audience] with [ordinary task] through [kind of story].” Then write the limit: “It does not claim [authority or outcome].” For our example, the audience is people facing small unfinished work; the story is a gentle comic comparison; the limit excludes religious and medical authority.
 
-Study three relevant public examples before deciding how to present the idea. The archive's comparison of Yang Mun, Kai Tsukimi, and Yangjun separates a recorded one-point reflection, a story-to-book route, and a narrow guide offer. These examples have different evidence quality and unresolved operators; they are not three independently proven profitable factories. [S09], [S19], [S22]
+Study relevant public examples before deciding how to present the idea. Use Yang Mun's observed one-point reflection as the talking-avatar production reference. Yangjun supplies a narrow guide-offer comparison. Kai Tsukimi's story-to-book route remains only an adjacent illustrated-brand comparison outside the production scope. Evidence quality and operators remain unresolved; these are not independently proven profitable factories. [S09], [S19], [S22]
 
 Write down what you will adapt: a clear opening situation, one point, a stable original setting, or continuity from story to product. Write down what stays with the original creator: words, face, voice, biographical identity, and protected media. This is a design brief you can actually use.
 

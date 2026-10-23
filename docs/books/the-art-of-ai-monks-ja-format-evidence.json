@@ -1,5 +1,5 @@
 {
-  "manuscript_sha256": "7c127015dc3e9ee2f8c4230010909b6beadc1940da5d46e0eade019e3ea3a5e7",
+  "manuscript_sha256": "bfcaeadc0857e5525bb71e88fd3ed367e2ac1c86889d7390f8959b981979b089",
   "chapters": 10,
   "pdf_pages": 60,
   "epub_spine_items": 17,
@@ -7,333 +7,38 @@
   "files": [
     {
       "path": "apps/landing/private/ebooks/the-art-of-ai-monks-ja.pdf",
-      "bytes": 2919705,
-      "sha256": "4aab15dc64f5fb11c01b62110076168c88b231938c2deb3b011fea3d68e917b3"
+      "bytes": 2863892,
+      "sha256": "ca18a14acea235d2c952bb9b650664dd1d39ecc2178ce79bdefe31f3c9415c01"
     },
     {
       "path": "apps/landing/private/ebooks/the-art-of-ai-monks-ja.epub",
-      "bytes": 3048258,
-      "sha256": "98d40a3f327bf3bdfe6a2a51ce96baeac03c0fe3c34247d80ad9dd6482ef76a7"
+      "bytes": 2970044,
+      "sha256": "b78c4196a097f5b7bfa059a692fdff3553d4f523fb18ad328c976c90a776fa51"
     },
     {
       "path": "apps/landing/private/ebooks/the-art-of-ai-monks-ja.html",
-      "bytes": 108144,
-      "sha256": "52c94934e09aa8e782f42256b8734debacd84e4cec63e71f6d8c8a6a656369cf"
+      "bytes": 108660,
+      "sha256": "1c04f4ab88d76c64f11f23b189bd0b727d795e852ddf367834f3d5b66d2a502e"
     }
   ],
-  "validation": "PDF unchanged from reviewed artifact; EPUB subset fonts, all source/ASCII glyphs, unchanged XHTML, citations and structure verified",
+  "validation": "PDF metadata/text; EPUB title/language/identifier/cover/resources/spine; selected PDF pages visually checked",
   "schema_version": "anicca.the-art-of-ai-monks.ja-format-evidence.v1",
   "language": "ja",
-  "character_count": 37083,
+  "character_count": 37208,
   "worksheets": 4,
   "reference_definitions": 32,
-  "source_manifest_sha256": "277276cd14db9bc36ab31a3809d18492ac80ad52a7f1157eabdd4f3656284725",
+  "source_manifest_sha256": "71e502d2931a13c6e1fc06ff77e43a652e171b31c10f6081118c627557def810",
   "publication_status": "artifacts_only_not_a_publication_or_sales_receipt",
-  "scope": "確定済み日本語全文をPDF/EPUB/HTMLへ整形。販売公開・provider SKU登録・注文・売上の証明ではない。",
-  "repository": "https://github.com/Daisuke134/anicca-products",
-  "branch": "feat/art-of-ai-monks-ja-20261023",
-  "base_commit": "1f7ebb542",
-  "plan": "docs/superpowers/plans/2026-10-23-ai-monk-book-ja-format.md",
-  "builder": {
-    "path": "apps/landing/scripts/build-ai-monk-book.py",
-    "sha256": "d860543d88db2f65e7a8e65738ba11932aeeeb0e06e144ecfd0e781d3cf1a856",
-    "japanese_command": "rtk proxy python3 apps/landing/scripts/build-ai-monk-book.py --language ja",
-    "english_default_command": "rtk proxy python3 apps/landing/scripts/build-ai-monk-book.py",
-    "new_dependencies_installed": false,
-    "paid_api_or_auth_or_provider_mutations": false
-  },
-  "source_files": [
-    {
-      "path": "docs/books/the-art-of-ai-monks-en.md",
-      "sha256": "4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79",
-      "unchanged": true
-    },
-    {
-      "path": "docs/books/the-art-of-ai-monks-ja.md",
-      "sha256": "7c127015dc3e9ee2f8c4230010909b6beadc1940da5d46e0eade019e3ea3a5e7",
-      "unchanged": true
-    },
-    {
-      "path": "docs/books/the-art-of-ai-monks-sources.json",
-      "sha256": "277276cd14db9bc36ab31a3809d18492ac80ad52a7f1157eabdd4f3656284725",
-      "unchanged": true
-    },
-    {
-      "path": "docs/books/the-art-of-ai-monks-ja-translation-evidence.json",
-      "sha256": "65b9ada3b3e8d306f4dc9d10b75723dbcf704592cf2289082aae201b363429a1",
-      "unchanged": true
-    }
-  ],
-  "metadata": {
-    "path": "apps/landing/data/books/the-art-of-ai-monks-ja.json",
-    "sha256": "9d49629ce15a9afc836f468b9d950386dcb1941901e487bb1be851cdb3eec44e",
-    "language": "ja",
-    "edition": "日本語版・初版",
-    "sku_note": "Stripe本番GETで日本語版の商品・one-time価格を照合済み。購入・売上の証拠は別。docs/evidence/ai-monk-ja-stripe-catalog-20261023.json を参照。"
-  },
-  "tools": {
-    "pandoc": "3.9.0.2",
-    "weasyprint": "68.1",
-    "poppler_pdfinfo": "26.02.0"
-  },
-  "checks": {
-    "red_green_japanese_language": {
-      "status": "pass",
-      "red": "旧builderは--language jaで英語版のみ生成し、日本語PDF存在assertが想定どおり失敗。",
-      "green": "最終builderが日本語3形式を生成し、10章/37,083文字/4sheet/32参照/95本文引用を照合。",
-      "isolated_fixture": "tmp/pdfs/ai-monk-ja-format-regression"
-    },
-    "changed_source_rejected": {
-      "status": "pass",
-      "probe": "隔離fixtureの日本語原稿に改行を追加すると、review translation evidence after manuscript changesで出力前に停止。原稿はfixture内だけで変更し復元。"
-    },
-    "all_links": {
-      "status": "pass",
-      "markdown_ast_html_epub_target_multisets_equal": true,
-      "link_occurrences": 131,
-      "unique_external_targets": 33,
-      "pdf_link_annotations": 132,
-      "pdf_unique_targets": 33,
-      "pdf_annotation_note": "折返した1リンクが複数annotationになるため本文のlink出現数とは別。",
-      "epub_internal_links_and_resource_paths_checked": 34,
-      "live_url_availability_rechecked": false
-    },
-    "epub_structure_and_fonts": {
-      "status": "pass",
-      "chapter_headings": 10,
-      "spine_items": 17,
-      "mimetype_first_and_uncompressed": true,
-      "container_manifest_spine_resolved": true,
-      "metadata": {
-        "title": "The Art of AI Monks",
-        "creator": "Anicca",
-        "language": "ja",
-        "identifier": "urn:anicca:art_of_ai_monks_ja_v1",
-        "rights": "Original text and worksheets CC BY 4.0; third-party material retains its own rights."
-      },
-      "embedded_fonts": [
-        {
-          "archive_path": "EPUB/fonts/NotoSansJP-Bold.ttf",
-          "bytes": 294988,
-          "sha256": "ceb984ab8b97962ca13660b2fea09a609e5a34a87f91cf935f4a43a56f15de4b"
-        },
-        {
-          "archive_path": "EPUB/fonts/NotoSansJP-Regular.ttf",
-          "bytes": 294460,
-          "sha256": "19c890bebffb5e1ad87e140d6dfcb800240f5fd46d458cc03e827c0fc607f966"
-        }
-      ],
-      "font_css_paths_resolved": [
-        "EPUB/fonts/NotoSansJP-Bold.ttf",
-        "EPUB/fonts/NotoSansJP-Regular.ttf"
-      ],
-      "font_obfuscation": false
-    },
-    "pdf_fonts_and_text": {
-      "status": "pass",
-      "pages": 60,
-      "font_inventory": [
-        "name                                 type              encoding         emb sub uni object ID",
-        "------------------------------------ ----------------- ---------------- --- --- --- ---------",
-        "ZGMLVJ+Noto-Sans-JP                  CID TrueType      Identity-H       yes yes yes    330  0",
-        "XSXJRS+Noto-Sans-JP-Bold             CID TrueType      Identity-H       yes yes yes    334  0",
-        "AKZUAA+Georgia                       CID TrueType      Identity-H       yes yes yes    338  0",
-        "BAKOXN+Noto-Sans-JP-Oblique          CID TrueType      Identity-H       yes yes yes    342  0",
-        "TODPWC+Noto-Sans-JP-Bold-Oblique     CID TrueType      Identity-H       yes yes yes    346  0"
-      ],
-      "all_listed_fonts_embedded_and_unicode": true,
-      "replacement_characters": 0,
-      "zero_cid_tokens": 0,
-      "japanese_font_source_coverage": [
-        {
-          "family": "Noto Sans JP",
-          "style": "Regular",
-          "filename": "NotoSansJP-Regular.ttf",
-          "sha256": "3b89071bb4b1c52d6cf5e07d4c1a5cc31e620a91727581d51c3b5ba03cffd4cc",
-          "missing_source_codepoints": 0,
-          "embedding_fsType": 0,
-          "license_url": "http://scripts.sil.org/OFL"
-        },
-        {
-          "family": "Noto Sans JP",
-          "style": "Bold",
-          "filename": "NotoSansJP-Bold.ttf",
-          "sha256": "123c188141fbf7764eab545464d7c7915e315e7e3e643d457c54385852bd5666",
-          "missing_source_codepoints": 0,
-          "embedding_fsType": 0,
-          "license_url": "http://scripts.sil.org/OFL"
-        }
-      ],
-      "body_font_pt": 10.2,
-      "japanese_heading_pt": 18,
-      "japanese_line_height": 1.65
-    },
-    "default_english_regeneration": {
-      "status": "pass",
-      "command": "引数なしの最終builderを隔離fixtureで実行",
-      "pages": 59,
-      "words": 10874,
-      "chapters": 10,
-      "citation_links": 95,
-      "epub_spine_items": 17,
-      "html_metadata_and_shared_styles_byte_identical": true,
-      "regenerated_pdf_sha256": "7c71a5a039d1c15a0a16fb9cc7cbb76c2e13ef0818104879dd3a55d93cdb169d",
-      "shared_english_artifacts_modified": false,
-      "epub_note": "EPUB ZIPには生成時刻が入り、再生成ファイルのhashは同一性条件にしない。"
-    },
-    "existing_book_contract_tests": {
-      "status": "pass",
-      "tests": 8,
-      "command": "node --test apps/landing/netlify/functions/__tests__/ai-monk-book.test.js",
-      "includes_binary_response_size": true
-    },
-    "python_syntax": {
-      "status": "pass"
-    },
-    "git_diff_check": {
-      "status": "pass",
-      "command": "rtk git diff --check",
-      "new_text_files_trailing_whitespace_scan": "pass"
-    }
-  },
-  "visual_review": {
-    "status": "pass",
-    "method": "最終PDFをPoppler pdftoppmで110dpi PNGへrenderし、view_imageで各ページを実画像として確認。文字欠落・重なり・overflow・引用文字の切れなし。",
-    "pdf_sha256": "4aab15dc64f5fb11c01b62110076168c88b231938c2deb3b011fea3d68e917b3",
-    "sample_count": 12,
+  "scope_revision_evidence": "docs/evidence/ai-monk-book-avatar-scope-20261023.json",
+  "visual_validation": {
     "pages": [
-      {
-        "page": 1,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p1.png",
-        "image_sha256": "0d2deeaa1144b06f6ea8948117df184d5d574080a0f56b9eff5ea61602696635",
-        "status": "pass",
-        "observed": "既存表紙の全体、四隅と題名が収まる。"
-      },
-      {
-        "page": 2,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p2.png",
-        "image_sha256": "1551eb5a898a0ea81fe2709d64da82bd741076556ede58ffb4fff3b4ed8b3e30",
-        "status": "pass",
-        "observed": "日本語版の書誌、subtitle、巻頭本文、ページ番号。"
-      },
-      {
-        "page": 24,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p24.png",
-        "image_sha256": "f6145179db5602e9573d1eaa13d50565cd7a8a1492c44f22c7bcdc4fa0762598",
-        "status": "pass",
-        "observed": "第5章の長い章題が1行に収まり、本文と小見出しが読める。"
-      },
-      {
-        "page": 28,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p28.png",
-        "image_sha256": "13417ee787d61a2a920684617fee5ba563eaed6f8c75ef6b43b93bb36efbe001",
-        "status": "pass",
-        "observed": "中盤の第6章、3列表、行内引用S05/S19。"
-      },
-      {
-        "page": 40,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p40.png",
-        "image_sha256": "900f732883ba2204f4c9e2b7a4c95059922b78025482d59800a4d1d9d5518ccd",
-        "status": "pass",
-        "observed": "第9章の長い章題、日本語太字と開示文。"
-      },
-      {
-        "page": 49,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p49.png",
-        "image_sha256": "9341c6a668a60a460ad6ae5dcd436fb46ff3d1500e4b36b724f85232a9a2a530",
-        "status": "pass",
-        "observed": "付録A/A1証拠カードの表全体、記入欄とページ末尾。"
-      },
-      {
-        "page": 50,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p50.png",
-        "image_sha256": "16b75490c8edacd6263c3d5fff5b78b85f694c1978ac24953807171a91f69d80",
-        "status": "pass",
-        "observed": "A2企画書の日本語、太字、空欄。"
-      },
-      {
-        "page": 51,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p51.png",
-        "image_sha256": "9e987de972012b41a59a4b6d7d29f04717c786572574b0ca495f5f142a3b9252",
-        "status": "pass",
-        "observed": "A3公開・結果台帳の全行と記入欄。"
-      },
-      {
-        "page": 52,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p52.png",
-        "image_sha256": "4f3645f9f365e59908f16c31022211615c4a1b303492d291fc3a0bff471c0cae",
-        "status": "pass",
-        "observed": "A4採算の式、記入欄、行折返し。"
-      },
-      {
-        "page": 56,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p56.png",
-        "image_sha256": "0b2fa52ad27fed01ac626f1d23308cc8fc4aa9e9a79d3745c003a7b9257eda90",
-        "status": "pass",
-        "observed": "付録C、参考文献S01-S04、出典リンクの文字。"
-      },
-      {
-        "page": 57,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p57.png",
-        "image_sha256": "eb619faff6249ba40bd5369ce479f2437e4aa06c16b79144dd8267233583473e",
-        "status": "pass",
-        "observed": "参考文献S05/S06/S32とS07-S11、日付と数値。"
-      },
-      {
-        "page": 60,
-        "image_path": "tmp/pdfs/the-art-of-ai-monks-ja-final-p60.png",
-        "image_sha256": "f30e91b8bf3161c7a3d69df436cd2914bf2d1de5ec5d12dfea8f57e59c4f33b3",
-        "status": "pass",
-        "observed": "最終参考文献S27-S31、出典リンク、最終ページ番号。"
-      }
+      1,
+      2,
+      10,
+      28,
+      44
     ],
-    "full_60_page_visual_review": false
-  },
-  "remaining": [
-    "rootによるcommit/push・PR/main統合と正式公開",
-    "日本語販売ページ・provider商品/SKU・checkout/納品readback",
-    "実購入・注文・売上の確認"
-  ],
-  "limitations": [
-    "EPUBは構造・フォント・全linkを検証し、実機のEPUB reader表示は未実測。",
-    "原著のURLを維持し、リンク先の現在のHTTP状態や新しい外部事実は再取得しない。",
-    "PNGは専用worktreeの一時検証資料で、販売用成果物には含めない。"
-  ],
-  "delivery_size_optimization": {
-    "checked_at": "2026-10-23T00:58:36.162465+00:00",
-    "old_epub_bytes": 9351338,
-    "epub_bytes": 3048258,
-    "base64_response_bytes": 4064344,
-    "response_limit_bytes": 6000000,
-    "response_overhead_budget_bytes": 4096,
-    "sources": [
-      "https://docs.netlify.com/build/async-workloads/limitations.md",
-      "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html"
-    ],
-    "all_xhtml_unchanged": true,
-    "pdf_and_html_hash_unchanged": true,
-    "fonts": [
-      {
-        "path": "EPUB/fonts/NotoSansJP-Bold.ttf",
-        "bytes": 294988,
-        "codepoints": 1015,
-        "missing_required_codepoints": 0,
-        "license_name_ids_preserved": [
-          13,
-          14
-        ]
-      },
-      {
-        "path": "EPUB/fonts/NotoSansJP-Regular.ttf",
-        "bytes": 294460,
-        "codepoints": 1015,
-        "missing_required_codepoints": 0,
-        "license_name_ids_preserved": [
-          13,
-          14
-        ]
-      }
-    ],
-    "check": "all printable manuscript characters plus ASCII remain in both embedded fonts; license name records retained"
+    "status": "PASS",
+    "observations": "表紙・書名・対象定義・比較表・制作手順を目視。文字欠け・切れ・重なりなし。全ページの再校正とは扱わない。"
   }
 }

@@ -1,7 +1,7 @@
 {
   "product": "ai_monk_book",
   "sku": "art_of_ai_monks_ja_v1",
-  "title": "The Art of AI Monks",
+  "title": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線",
   "subtitle": "アバター、注目、そして法衣の裏のビジネス",
   "author": "Anicca",
   "language": "ja",
@@ -11,12 +11,12 @@
     "pdf": "the-art-of-ai-monks-ja.pdf",
     "epub": "the-art-of-ai-monks-ja.epub"
   },
-  "character_count": 37083,
+  "character_count": 37208,
   "character_count_definition": "UTF-8を復号した全文のUnicodeコードポイント数。Markdown、空白、参考文献、URLを含む。",
   "original_text_and_worksheets_license": "CC BY 4.0",
   "third_party_rights_excluded": true,
-  "manuscript_sha256": "7c127015dc3e9ee2f8c4230010909b6beadc1940da5d46e0eade019e3ea3a5e7",
-  "source_manifest_sha256": "277276cd14db9bc36ab31a3809d18492ac80ad52a7f1157eabdd4f3656284725",
+  "manuscript_sha256": "bfcaeadc0857e5525bb71e88fd3ed367e2ac1c86889d7390f8959b981979b089",
+  "source_manifest_sha256": "71e502d2931a13c6e1fc06ff77e43a652e171b31c10f6081118c627557def810",
   "research_snapshot": "2026-10-21/2026-10-22",
   "chapters": [
     "フィードの中の僧侶",
@@ -34,5 +34,6 @@
   "currency": "usd",
   "unit_amount": 999,
   "stripe_product_id": "prod_VUVvsa1587Elri",
-  "stripe_price_id": "price_1UTWtpEeDsUAcaLSV3fRzwl9"
+  "stripe_price_id": "price_1UTWtpEeDsUAcaLSV3fRzwl9",
+  "cover_image": "/assets/the-art-of-ai-monks-ja-cover.png"
 }
