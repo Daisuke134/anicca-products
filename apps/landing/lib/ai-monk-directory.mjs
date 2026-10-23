@@ -30,6 +30,10 @@ function matchesKnownOrUnknown(values, filter) {
   return values.some((value) => normalize(value) === normalize(filter));
 }
 
+export function getAiMonkAvatarAccounts(accounts) {
+  return accounts.filter(account => account.directory_scope?.status !== 'excluded');
+}
+
 export function filterAiMonkAccounts(accounts, filters = {}) {
   const query = normalize(filters.query);
   const status = filters.status ?? 'all';
@@ -37,7 +41,7 @@ export function filterAiMonkAccounts(accounts, filters = {}) {
   const platform = filters.platform ?? 'all';
   const region = filters.region ?? 'all';
 
-  return accounts.filter((account) => {
+  return getAiMonkAvatarAccounts(accounts).filter((account) => {
     const languages = languageLabels(account);
     const platforms = (account.platforms ?? []).map(({ platform: name }) => name).filter(Boolean);
     const regions = regionLabel(account) ? [regionLabel(account)] : [];
@@ -51,7 +55,33 @@ export function filterAiMonkAccounts(accounts, filters = {}) {
 }
 
 
-export function rankAiMonkAccounts(accounts, platform = 'all') {
+export function getAiMonkTopVideo(account, platform = 'all') {
+  return (account.creative_samples ?? [])
+    .filter(sample => typeof sample.views === 'number' && Number.isFinite(sample.views) && sample.views >= 0)
+    .map(sample => {
+      let samplePlatform = sample.platform;
+      if (!samplePlatform) {
+        try {
+          const host = new URL(sample.url).hostname.toLowerCase();
+          samplePlatform = (host === 'youtube.com' || host.endsWith('.youtube.com')) || host === 'youtu.be' ? 'YouTube'
+            : (host === 'instagram.com' || host.endsWith('.instagram.com')) ? 'Instagram' : (host === 'tiktok.com' || host.endsWith('.tiktok.com')) ? 'TikTok' : undefined;
+        } catch { /* An archived source may not have a platform URL. */ }
+      }
+      if (!samplePlatform && account.platforms?.length === 1) samplePlatform = account.platforms[0].platform;
+      return { ...sample, platform: samplePlatform };
+    })
+    .filter(sample => normalize(platform) === 'all' || normalize(sample.platform) === normalize(platform))
+    .sort((a, b) => b.views - a.views)[0] ?? null;
+}
+
+export function getAiMonkRevenue(account) {
+  return (account.revenue_observations ?? [])
+    .filter(item => item.metric === 'gross_revenue' && item.currency === 'USD' && item.period_months === 3
+      && typeof item.amount === 'number' && Number.isFinite(item.amount) && item.amount >= 0 && item.source_id)
+    .sort((a, b) => (Date.parse(b.as_of) || 0) - (Date.parse(a.as_of) || 0))[0] ?? null;
+}
+
+export function rankAiMonkAccounts(accounts, platform = 'all', metric = 'audience') {
   const audience = (account) => Math.max(-1, ...(account.platforms ?? [])
     .filter((entry) => normalize(platform) === 'all' || normalize(entry.platform) === normalize(platform))
     .map((entry) => (entry.snapshots ?? [])
@@ -59,7 +89,9 @@ export function rankAiMonkAccounts(accounts, platform = 'all') {
         && typeof value === 'number' && Number.isFinite(value) && value >= 0)
       .sort((a, b) => (Date.parse(b.as_of) || 0) - (Date.parse(a.as_of) || 0))[0]?.value ?? -1));
 
-  return accounts.map((account, index) => ({ account, index, audience: audience(account) }))
+  const value = account => metric === 'views' ? getAiMonkTopVideo(account, platform)?.views ?? -1
+    : metric === 'revenue' ? getAiMonkRevenue(account)?.amount ?? -1 : audience(account);
+  return accounts.map((account, index) => ({ account, index, audience: value(account) }))
     .sort((a, b) => b.audience - a.audience || a.index - b.index)
     .map(({ account }) => account);
 }

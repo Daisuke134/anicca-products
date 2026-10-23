@@ -1,6 +1,8 @@
 import * as z from 'zod/v4';
-import { filterAiMonkAccounts, rankAiMonkAccounts } from './ai-monk-directory.mjs';
+import { filterAiMonkAccounts, rankAiMonkAccounts, getAiMonkAvatarAccounts } from './ai-monk-directory.mjs';
 import { database, snapshotSha256 } from './snapshot.mjs';
+
+const directoryAccounts = getAiMonkAvatarAccounts(database.accounts);
 
 export const searchSchema = z.strictObject({
   query: z.string().max(500).optional(),
@@ -8,7 +10,7 @@ export const searchSchema = z.strictObject({
   language: z.string().min(1).max(200).default('all'),
   platform: z.enum(['all', 'Instagram', 'TikTok', 'YouTube', 'unknown']).default('all'),
   region: z.string().min(1).max(200).default('all'),
-  sort: z.enum(['audience', 'directory']).default('audience'),
+  sort: z.enum(['audience', 'views', 'revenue', 'directory']).default('audience'),
   offset: z.number().int().min(0).default(0),
   limit: z.number().int().min(1).max(50).default(10),
 });
@@ -19,9 +21,13 @@ const metadata = {
   snapshot_sha256: snapshotSha256,
   source_url: 'https://aniccaai.com/data/ai-monk-avatar-database-2026.json',
   scope: database.scope,
+  research_archive_records: database.accounts.length,
+  excluded_from_directory: database.accounts.length - directoryAccounts.length,
   license: database.license,
   license_url: database.license_url,
   methodology: database.methodology,
+  views_order: 'Largest observed view count among sampled videos on the selected platform, not channel totals or recent-period reach. See each sample date and source.',
+  revenue_order: 'Latest reported three-month USD gross-revenue observation, descending. Other currencies, periods, profit, buyout offers, seller counters and prices are excluded. Missing values sort last; claims are not audited sales.',
   audience_order: 'Latest numeric followers/subscribers per platform; largest single audience when platform=all. Audiences are not added. Views and revenue claims are not audience counts. See each snapshot for date, source and rounding.',
 };
 
@@ -41,8 +47,8 @@ function sourcesFor(records) {
 
 export function searchAccounts(options = {}) {
   const filters = searchSchema.parse(options);
-  const filtered = filterAiMonkAccounts(database.accounts, filters);
-  const ordered = filters.sort === 'audience' ? rankAiMonkAccounts(filtered, filters.platform) : filtered;
+  const filtered = filterAiMonkAccounts(directoryAccounts, filters);
+  const ordered = filters.sort === 'directory' ? filtered : rankAiMonkAccounts(filtered, filters.platform, filters.sort);
   const accounts = ordered.slice(filters.offset, filters.offset + filters.limit);
   return {
     metadata,
@@ -55,16 +61,16 @@ export function searchAccounts(options = {}) {
 }
 
 export function getAccount(id) {
-  const account = database.accounts.find(record => record.id === id);
+  const account = directoryAccounts.find(record => record.id === id);
   if (!account) throw new Error(`Unknown account: ${id}`);
   return { metadata, account, sources: sourcesFor([account]) };
 }
 
 export function getStats() {
   const ai_status = { confirmed: 0, reported: 0, unverified: 0 };
-  for (const account of database.accounts) {
+  for (const account of directoryAccounts) {
     const status = account.ai_status ?? 'unknown';
     ai_status[status] = (ai_status[status] ?? 0) + 1;
   }
-  return { metadata, records: database.accounts.length, sources: database.sources.length, ai_status };
+  return { metadata, records: directoryAccounts.length, sources: database.sources.length, ai_status };
 }

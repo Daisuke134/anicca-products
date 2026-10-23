@@ -34,3 +34,43 @@ test('audience cards disclose rounding and link the exact observation source', (
   assert.match(html, /href="https:\/\/example.test\/provider-capture"/);
   assert.match(html, /2026-10-22/);
 });
+
+test('the visible directory and its count exclude illustrated storytelling', () => {
+  const html = renderToStaticMarkup(React.createElement(Directory, {
+    accounts: [
+      { id: 'yang-mun', display_name: 'Yang Mun', persona_type: 'AI monk avatar', ai_status: 'reported' },
+      { id: 'kai-tsukimi', display_name: 'Kai Tsukimi', persona_type: 'Illustrated storyteller', ai_status: 'unverified', directory_scope: { status: 'excluded', reason: 'Illustration' } },
+      { id: 'buddha-would-say', display_name: 'Buddha Would Say', persona_type: 'Illustrated monk', ai_status: 'unverified', directory_scope: { status: 'excluded', reason: 'Illustration' } },
+    ], sourceCount: 0, updatedAt: '2026-10-23',
+  }));
+  assert.match(html, /AI monk video avatars/);
+  assert.equal((html.match(/<article /g) ?? []).length, 1);
+  assert.doesNotMatch(html, /Kai Tsukimi|Buddha Would Say/);
+  assert.match(html, /<strong[^>]*>1<\/strong> profiles/);
+});
+
+
+test('business cards show views, products and reported revenue without an AI-status interface', () => {
+  const html = renderToStaticMarkup(React.createElement(Directory, {
+    accounts: [{ id: 'business', display_name: 'Business Monk', persona_type: 'Monk avatar', ai_status: 'reported',
+      ai_evidence: [{ source_id: 'report', summary: 'AI production evidence' }], unknowns: ['AI origin unknown'],
+      creative_samples: [{ url: 'https://www.youtube.com/shorts/a', title: 'Sample', structure_summary: 'Original', views: 1234567, views_captured_at: '2026-10-22' }],
+      offers: [{ type: 'eBook', name: 'Original guide', price: 49.99, currency: 'USD', url: 'https://example.test/product' }],
+      revenue_observations: [{ metric: 'gross_revenue', amount: 213000, currency: 'USD', period_months: 3, as_of: '2026-01-28', comparison: 'greater_than', source_id: 'report', status: 'creator_reported' }],
+    }, { id: 'unknown', display_name: 'Unknown Monk', persona_type: 'Monk avatar', ai_status: 'unverified' }],
+    sourceCount: 1, updatedAt: '2026-10-22', sources: [{ id: 'report', title: 'Reported dashboard claim', url: 'https://example.test/revenue-report' }],
+  }));
+  assert.doesNotMatch(html, /AI: |AI status|Filter by evidence status|Why this status|AI production evidence|AI origin unknown|Profile type/);
+  assert.match(html, /Top sampled video/);
+  assert.match(html, /1.2M/);
+  assert.match(html, /213K/);
+  assert.match(html, /3 months/);
+  assert.match(html, /Creator-reported/);
+  assert.match(html, /2026-01-28/);
+  assert.match(html, /href="https:\/\/example.test\/revenue-report"/);
+  assert.match(html, /Original guide/);
+  assert.match(html, /49.99/);
+  assert.match(html, /Revenue not available/);
+  assert.match(html, /value="views"/);
+  assert.match(html, /value="revenue"/);
+});

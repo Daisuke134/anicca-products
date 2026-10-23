@@ -45,7 +45,7 @@ test('get keeps the complete canonical record, unknown language, and provenance'
 
 test('stats counts records and statuses without converting leads into confirmed avatars', () => {
   const stats = getStats();
-  assert.equal(stats.records, canonical.accounts.length);
+  assert.equal(stats.records, canonical.accounts.filter(a => a.directory_scope?.status !== 'excluded').length);
   assert.equal(stats.sources, canonical.sources.length);
   assert.equal(stats.ai_status.confirmed ?? 0, 0);
   assert.equal(Object.values(stats.ai_status).reduce((sum, n) => sum + n, 0), stats.records);
@@ -54,7 +54,7 @@ test('stats counts records and statuses without converting leads into confirmed 
 test('invalid CLI input fails without returning plausible research results', () => {
   for (const args of [
     ['search', '--limit', '0'], ['search', '--limit', '51'], ['search', '--offset', '-1'],
-    ['search', '--sort', 'revenue'], ['search', '--status', 'fake'], ['search', '--typo', 'x'],
+    ['search', '--sort', 'unsupported-sort'], ['search', '--status', 'fake'], ['search', '--typo', 'x'],
     ['get'], ['get', 'missing-monk'], ['stats', '--query', 'ignored'], ['search', 'unexpected'],
   ]) {
     const result = run(...args);
@@ -62,4 +62,39 @@ test('invalid CLI input fails without returning plausible research results', () 
     assert.equal(result.stdout, '', args.join(' '));
     assert.ok(result.stderr.length, args.join(' '));
   }
+});
+
+test('CLI and MCP data omit illustrated channels while retaining the research archive', () => {
+  const first = searchAccounts({ limit: 50 });
+  const second = searchAccounts({ offset: 50, limit: 50 });
+  assert.equal(canonical.accounts.length, 75);
+  assert.equal(first.total, 73);
+  assert.equal(first.accounts.length + second.accounts.length, 73);
+  for (const id of ['kai-tsukimi', 'buddha-would-say']) {
+    assert.ok(canonical.accounts.some(a => a.id === id));
+    assert.equal(searchAccounts({ query: id }).total, 0);
+    assert.throws(() => getAccount(id), /Unknown account/);
+    const cliResult = run('search', '--query', id);
+    assert.equal(cliResult.status, 0, cliResult.stderr);
+    assert.equal(JSON.parse(cliResult.stdout).total, 0);
+  }
+  assert.equal(getStats().records, 73);
+  assert.equal(getStats().metadata.research_archive_records, 75);
+  assert.equal(getStats().metadata.excluded_from_directory, 2);
+});
+
+
+test('business sorts are available to CLI and MCP searches with period and source retained', () => {
+  for (const sort of ['views', 'revenue']) {
+    const result = run('search', '--sort', sort, '--limit', '1');
+    assert.equal(result.status, 0, result.stderr);
+    const page = JSON.parse(result.stdout);
+    assert.equal(page.accounts[0].id, 'yang-mun');
+    assert.equal(page.filters.sort, sort);
+  }
+  const report = getAccount('yang-mun').account.revenue_observations[0];
+  assert.equal(report.amount, 213000);
+  assert.equal(report.period_months, 3);
+  assert.equal(report.metric, 'gross_revenue');
+  assert.equal(report.source_id, 'virtual-humans-yangmun-profile');
 });

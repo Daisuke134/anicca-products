@@ -1,0 +1,75 @@
+{
+  "purpose": "Business metrics for AI Monk Database without AI-status UI.",
+  "research_archive_records": 75,
+  "directory_records": 73,
+  "sources": 48,
+  "snapshot_sha256": "fa1bda71fa4073bbc8a2f75cb7fe1be0d815c4b1a680fcb1d94449dcb86e1c2d",
+  "preservation": {
+    "existing_observations_claims_sources_ai_evidence_unchanged": true,
+    "new_fields": [
+      "directory_scope on two illustrated records",
+      "revenue_observations on yang-mun"
+    ],
+    "scope_description_updated": true
+  },
+  "business_metrics": {
+    "followers": "Latest dated single-platform followers/subscribers; no cross-platform sum.",
+    "views": "Highest observed sampled-video view count, selected platform when known; never channel totals or recent 30-day reach.",
+    "revenue": "Latest source-linked three-month USD gross revenue. No annualization, currency conversion, price/counter multiplication, profit or buyout substitution.",
+    "unknowns": "Unknown, not zero; ordered after known zero."
+  },
+  "revenue_evidence": {
+    "id": "yang-mun",
+    "amount_lower_bound_usd": 213000,
+    "period_months": 3,
+    "reported_at": "2026-01-28",
+    "source_id": "virtual-humans-yangmun-profile",
+    "url": "https://virtualhumans.org/article/who-is-yang-mun-the-ai-generated-wellness-guru-with-2-6m-followers",
+    "source_rechecked_at": "2026-10-23",
+    "basis": "Industry profile reports a creator-shared gross-revenue dashboard claim, not independently audited sales.",
+    "limits": [
+      "Exact start/end dates not supplied.",
+      "Not a present monthly revenue estimate.",
+      "The $300k profit/earnings and $325k acquisition claims are not revenue comparison values."
+    ]
+  },
+  "design_references": [
+    {
+      "url": "https://app.sensortower.com/?app_tab=trending&category=0&app_id=6767364919",
+      "observation": "Public crawl returned title only; no private app analytics inspected."
+    },
+    {
+      "url": "https://sensortower.com/product/mobile-app/app-performance-insights",
+      "observation": "Official product page describes downloads/revenue estimates, platform breakdown and competitor benchmarking; it does not supply AI-monk revenue."
+    },
+    {
+      "url": "https://mobbin.com/screens/69be9b8b-34ee-418a-b20e-01682f8b9d4d",
+      "observation": "Square screen visually inspected: period filter and separate net-sales/count columns with sorting; borrow explicit metric period."
+    },
+    {
+      "url": "https://mobbin.com/screens/e50d7744-9733-428b-b82d-b59928ed6298",
+      "observation": "Calendly screen visually inspected: all-time filter and clearly labelled funnel counts; no revenue success metric asserted."
+    }
+  ],
+  "validation": {
+    "red_failures": 4,
+    "green": [
+      {
+        "command": "node --test apps/landing/lib/ai-monk-directory.test.mjs apps/landing/test/ai-monk-evidence-rendering.test.mjs",
+        "passed": 12
+      },
+      {
+        "cwd": "packages/ai-monk-index",
+        "command": "npm test",
+        "passed": 13
+      }
+    ],
+    "ci": "pending",
+    "production": "pending"
+  },
+  "remaining": [
+    "Collect fresh dated platform observations and additional source-linked revenue disclosures.",
+    "Natural recurring data-update execution not yet verified.",
+    "The database is not a complete census."
+  ]
+}
