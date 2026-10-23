@@ -28,6 +28,10 @@
 [functions.monk-teachings-mcp]
   node_bundler = "esbuild"
 
+# Scheduled only in published production deploys. The handler is a no-op while Factory is disabled.
+[functions.monk-factory-tick]
+  schedule = "* * * * *"
+
 # Former public paid-ebook paths — no longer serve file bytes
 [[redirects]]
   from = "/ebooks/anicca-reset-en.pdf"
