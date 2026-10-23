@@ -22,7 +22,7 @@ stable profileは`factory_<verified UUID>`。GET一致を優先し、公式404�
 
 自動投稿ONは明示API操作だけ。ON時点の完成済み未投稿videoを先に使い、最初の投稿機会はON時点、以後24時間を起点とする。account lockの下で日次occurrence/次回時刻を予約し、同時tickは同じvideoを投稿しない。制作/投稿直前のStripe同期、ON、公式IG再照合を必須にする。投稿直前fence・公式request ID・GETで回復し、unknownは再送しない。OFF/解約/失効は次回制作/投稿を止める。metricsは本人profile/native post IDの公式値と取得時刻を保存し、欠落を0にしない。
 
-Stripe queueは既存pendingEvents/markEventとsyncFactoryBillingを使う。期限切れCheckoutは公式sessionのnonce/user/statusを照合し、未成立・provider profile未作成・trial未使用の予約だけ解放する。旧subscription receiptは現在のactive subscriptionへ上書きせず、既知旧IDの公式帰属を確かめno-opとする。
+Stripe queueは既存pendingEvents/markEventとsyncFactoryBillingを使う。公式subscription GETがcanceled/incomplete_expiredで現subscription IDとCheckout nonceへ一致したときだけ、billing leaseのCASと同じrow lock内で未使用profile予約・終了済みCheckout context・未送信social leaseを解放する。実profileまたは送信fenceがある場合は保持する。生涯trial履歴・subscription履歴・生成jobと費用は消さない。期限切れCheckoutも公式sessionのnonce/user/status/customerと現sessionを照合し、未成立かつ現subscriptionなし、または同じIDを公式GETでterminalと確認した場合だけ、同じ未使用条件・現在世代CASで解放する。新Checkoutは課金同期後、context作成前に必要な枠を再予約する。旧subscription receiptは現在のactive subscriptionへ上書きせず、既知旧IDの公式帰属を確かめno-opとする。
 
 ## 公開APIとruntime
 
@@ -32,4 +32,4 @@ tickは既存Netlify scheduleで1分、最大4work item/22秒の処理予算と�
 
 ## 現在cursor
 
-source実装と関連RED→GREENを完了する。独立Postgres20件でquota/lease/CAS、OFF・取消との競合、unknown replay-zero、公式request ID回復、保存応答消失、profile帰属、期限切れCheckout/旧nonce、内部列非公開を確認する。実adapterと最小transport fixtureを通して実DB playbook→script→speech→render→publish→metrics、署名background画像→private blob→PhotoAvatarも確認する。Factory関連core45件がGREEN、DBは別runで20/20を確認する。provider raw body/JWT/base64の公開0。新migrationはCLI生成`20261023184014_monk_factory_jobs.sql`、元migration変更0。live条件はmain統合/DB反映/専用billing/keyとJOB_SECRET/Netlify schedule/private Blobs/実認証/本人IG接続/実画像・動画・投稿・metricsであり、今回のprovider通信・本番DB・課金・生成・投稿は0。
+source実装と関連RED→GREENを完了する。隔離Postgres25件でquota/lease/CAS、OFF・取消との競合、unknown replay-zero、公式request ID回復、保存応答消失、profile帰属、期限切れCheckout/旧nonce、内部列非公開を確認する。実adapterと最小transport fixtureを通して実DB playbook→script→speech→render→publish→metrics、署名background画像→private blob→PhotoAvatarも確認する。追加の容量回帰は25人trial解約後の予約0/次の入場、生涯trialと費用保持、解放とsocial送信fenceの両順序、再Checkoutの再予約、期限切れ再CheckoutとGET中の世代切替、顧客帰属、実profile/unknown/active保持を確認する。Factory関連core48件がGREEN、DBは別runで25/25を確認する。provider raw body/JWT/base64の公開0。job migrationはCLI生成`20261023184014_monk_factory_jobs.sql`、容量migrationはCLI生成`20261023201136_monk_factory_capacity.sql`で、適用済み2本は変更しない。source review/CI/main統合と追加migration反映はprimaryへ引き渡す。live条件は専用billing/keyとJOB_SECRET/Netlify schedule/private Blobs/実認証/本人IG接続/実画像・動画・投稿・metricsであり、今回のprovider通信・本番DB・課金・生成・投稿は0。

@@ -277,8 +277,14 @@ async function processFactoryEvents({ store, stripe, env, deadline = Infinity })
           || !UUID.test(session.metadata.checkout_nonce || '')) throw factoryError('billing_mismatch', 503);
         if (session.metadata.checkout_nonce === account.checkout_nonce) {
           if (account.checkout_session_id && session.id !== account.checkout_session_id) throw factoryError('billing_mismatch', 503);
+          if (account.checkout_customer_id && (typeof session.customer === 'string' ? session.customer : session.customer?.id) !== account.checkout_customer_id) throw factoryError('billing_mismatch', 503);
           if (!account.checkout_session_id) await store.saveCheckout(event.user_id, account.checkout_nonce, session.id);
-          await store.releaseUnusedProfile(event.user_id, account.checkout_nonce);
+          const verified = account.stripe_subscription_id
+            ? await syncFactoryBilling({ userId: event.user_id, store, stripe, env }) : account;
+          if (!verified.stripe_subscription_id || (verified.stripe_subscription_id === account.stripe_subscription_id
+            && ['canceled','incomplete_expired'].includes(verified.subscription_status))) {
+            await store.releaseUnusedProfile(event.user_id, account.checkout_nonce, session.id, verified.stripe_subscription_id);
+          }
         }
       } else if (account.stripe_subscription_id && event.stripe_subscription_id !== account.stripe_subscription_id
         && !['none','canceled','incomplete_expired'].includes(account.subscription_status)) {

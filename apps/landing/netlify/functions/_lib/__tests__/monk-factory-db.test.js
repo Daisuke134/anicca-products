@@ -29,7 +29,7 @@ before(() => {
   assert.ok(fs.existsSync(path.resolve(__dirname, '../ai-monk-index/index.mjs')), 'Build the canonical research input first: node packages/ai-monk-index/scripts/build.mjs --netlify');
   sql('CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN; CREATE ROLE service_role NOLOGIN BYPASSRLS; CREATE SCHEMA auth; CREATE TABLE auth.users(id uuid PRIMARY KEY); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT nullif(current_setting(\'request.jwt.claim.sub\',true),\'\')::uuid $$; GRANT USAGE ON SCHEMA auth TO authenticated; GRANT EXECUTE ON FUNCTION auth.uid() TO authenticated; INSERT INTO auth.users SELECT (\'00000000-0000-4000-8000-\'||lpad(n::text,12,\'0\'))::uuid FROM generate_series(1,30) n;');
   const dir = path.resolve(__dirname, '../../../../supabase/migrations');
-  const migrations = fs.readdirSync(dir).filter(x => /_monk_factory(?:_jobs)?\.sql$/.test(x)).sort();
+  const migrations = fs.readdirSync(dir).filter(x => /_monk_factory(?:_(?:jobs|capacity))?\.sql$/.test(x)).sort();
   for (const migration of migrations) execFileSync('psql', [...args(), '-f', path.join(dir, migration)], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 });
 
@@ -199,6 +199,31 @@ function jobStore() {
 }
 function claimJob(id) { return JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_claim_job(' + quoted(id) + ',false)') || 'null'); }
 
+function billingStore() {
+  const rpc = (name, values) => JSON.parse(sql('SET ROLE service_role; SELECT ' + name + '(' + values.map(value => value == null ? 'NULL' : quoted(value)).join(',') + ')') || 'null');
+  return { ...jobStore(),
+    reserveProfile: async id => rpc('monk_factory_reserve_profile', [id]),
+    checkoutContext: async (id, price, email) => rpc('monk_factory_checkout_context', [id, price, email]),
+    claimBilling: async id => rpc('monk_factory_claim_billing', [id]),
+    applyBilling: async (id, nonce, state) => rpc('monk_factory_apply_billing', [id, nonce, JSON.stringify(state)]),
+    releaseBilling: async (id, nonce) => sql('UPDATE monk_factory_accounts SET billing_sync_nonce=NULL,billing_sync_until=NULL WHERE user_id=' + quoted(id) + ' AND billing_sync_nonce=' + quoted(nonce)),
+    saveCheckout: async (id, nonce, session) => sql('UPDATE monk_factory_accounts SET checkout_session_id=' + quoted(session) + ' WHERE user_id=' + quoted(id) + ' AND checkout_nonce=' + quoted(nonce)),
+    releaseUnusedProfile: async (id, nonce, session, subscription) => rpc('monk_factory_release_unused_profile', [id, nonce, session, subscription]),
+  };
+}
+
+const billingEnv = { MONK_FACTORY_STRIPE_PRICE_ID: 'price_capacity', MONK_FACTORY_STRIPE_LIVE: 'false' };
+const capacityPrice = { id: 'price_capacity', livemode: false, active: true, currency: 'usd', unit_amount: 19900,
+  metadata: { product: 'ai_monk_factory' }, recurring: { interval: 'month', interval_count: 1 } };
+function capacitySubscription(account, status = 'trialing') {
+  const start = Math.floor(Date.now()/1000)-3600;
+  return { id: 'sub_capacity' + account.user_id.slice(-2), customer: 'cus_capacity' + account.user_id.slice(-2),
+    livemode: false, status, metadata: { product: 'ai_monk_factory', user_id: account.user_id, checkout_nonce: account.checkout_nonce },
+    trial_start: start, trial_end: start+3*86400, cancel_at_period_end: false,
+    items: { has_more: false, data: [{ id: 'si_capacity', quantity: 1, price: capacityPrice, current_period_start: start, current_period_end: start+30*86400 }] },
+    latest_invoice: null };
+}
+
 test('a provider timeout leaves its pre-POST fence and an expired lease never submits again', options, async () => {
   const { advanceFactoryJob } = require('../monk-factory-jobs.js');
   account(8);
@@ -289,7 +314,8 @@ test('real adapter plus database completes DB-script speech render publish and a
   const store = jobStore();
   for (const expected of ['script_ready','speech_ready','video_pending','post_ready','post_pending','published','published']) {
     await advanceFactoryJob({ job: nextClaim(job.id), store, providers, env: providerEnv, syncBilling: async () => store.account(uid(11)) });
-    assert.equal((await store.job(job.id)).stage, expected);
+    const current = await store.job(job.id);
+    assert.equal(current.stage, expected, current.error_class);
   }
   const result = await store.job(job.id);
   assert.equal(result.status, 'completed');
@@ -381,7 +407,7 @@ test('expired Checkout receipts release only unused matching slots and persist f
   store.markEvent = async id => sql('UPDATE monk_factory_stripe_events SET processed_at=now() WHERE id=' + quoted(id));
   store.deferEvent = async (id, patch) => sql('UPDATE monk_factory_stripe_events SET error_class=' + quoted(patch.error_class) + ',evidence=' + quoted(JSON.stringify(patch.evidence)) + '::jsonb,next_attempt_at=' + quoted(patch.next_attempt_at) + ' WHERE id=' + quoted(id));
   store.saveCheckout = async (id, nonce, session) => sql('UPDATE monk_factory_accounts SET checkout_session_id=' + quoted(session) + ' WHERE user_id=' + quoted(id) + ' AND checkout_nonce=' + quoted(nonce));
-  store.releaseUnusedProfile = async (id, nonce) => sql('UPDATE monk_factory_accounts SET profile_reserved_at=NULL WHERE user_id=' + quoted(id) + ' AND checkout_nonce=' + quoted(nonce) + ' AND NOT trial_used AND social_profile IS NULL AND social_submit_started_at IS NULL AND stripe_subscription_id IS NULL');
+  store.releaseUnusedProfile = billingStore().releaseUnusedProfile;
   const stripe = { checkout: { sessions: { retrieve: async id => {
     const n = Number(id.slice('cs_expired'.length));
     if (n===18) throw Object.assign(new Error(), { code: 'billing_unavailable' });
@@ -389,8 +415,9 @@ test('expired Checkout receipts release only unused matching slots and persist f
   } } } };
   for (let n=0;n<4;n++) await processFactoryEvents({ store, stripe, env: { MONK_FACTORY_STRIPE_LIVE: 'false' } });
   assert.equal((await store.account(uid(15))).profile_reserved_at, null);
-  assert.equal((await store.account(uid(15))).checkout_session_id, 'cs_expired15');
-  assert.ok((await store.account(uid(16))).profile_reserved_at);
+  assert.equal((await store.account(uid(15))).checkout_session_id, null);
+  assert.equal((await store.account(uid(16))).profile_reserved_at, null);
+  assert.equal((await store.account(uid(16))).trial_used, true);
   assert.ok((await store.account(uid(17))).profile_reserved_at);
   assert.equal(sql("SELECT count(*) FROM monk_factory_stripe_events WHERE id LIKE 'evt_queue%' AND processed_at IS NOT NULL"), '3');
   assert.equal(sql("SELECT error_class FROM monk_factory_stripe_events WHERE id='evt_queue18'"), 'billing_unavailable');
@@ -410,4 +437,173 @@ test('the atomic POST fence rejects OFF or cancellation after a worker read its 
   const manualLease = claimJob(manual.id);
   sql('UPDATE monk_factory_accounts SET cancel_at_period_end=true WHERE user_id=' + quoted(uid(20)));
   assert.throws(() => sql(fence(manualLease)), /subscription_required/);
+});
+
+test('twenty-five canceled unconnected trials free capacity while retaining lifetime trials and charged jobs', options, async () => {
+  const { syncFactoryBilling } = require('../monk-factory-billing.js');
+  // The preceding tests are complete; this remains the same isolated local fixture.
+  sql('TRUNCATE monk_factory_accounts CASCADE');
+  const store = billingStore();
+  const subscriptions = new Map();
+  const stripe = { subscriptions: { retrieve: async id => structuredClone(subscriptions.get(id)) } };
+  for (let n=1;n<=25;n++) {
+    await store.reserveProfile(uid(n));
+    const context = await store.checkoutContext(uid(n), capacityPrice.id, 'fixture@example.com');
+    const sub = capacitySubscription(context); subscriptions.set(sub.id, sub);
+    await syncFactoryBilling({ userId: uid(n), subscriptionId: sub.id, store, stripe, env: billingEnv });
+  }
+  assert.equal(sql('SELECT count(*) FROM monk_factory_accounts WHERE profile_reserved_at IS NOT NULL'), '25');
+  assert.throws(() => sql('SET ROLE service_role; SELECT monk_factory_reserve_profile(' + quoted(uid(26)) + ')'), /profile_capacity/);
+  sql(reserve(uid(1), 'retained-charge'));
+  const cost = sql('SELECT sum(reserved_micro_usd) FROM monk_factory_jobs');
+  const social = await store.claimSocial(uid(1));
+  for (let n=1;n<=25;n++) {
+    const current = await store.account(uid(n));
+    subscriptions.get(current.stripe_subscription_id).status = n===25 ? 'incomplete_expired' : 'canceled';
+    await syncFactoryBilling({ userId: uid(n), store, stripe, env: billingEnv });
+  }
+  assert.equal(sql('SELECT count(*) FROM monk_factory_accounts WHERE profile_reserved_at IS NOT NULL'), '0');
+  assert.equal(sql('SELECT count(*) FROM monk_factory_accounts WHERE trial_used AND stripe_subscription_id IS NOT NULL'), '25');
+  assert.equal(sql('SELECT count(*) FROM monk_factory_accounts WHERE checkout_nonce IS NOT NULL'), '0');
+  assert.equal((await store.account(uid(1))).social_lease_id, null);
+  assert.equal(sql('SET ROLE service_role; SELECT monk_factory_fence_social(' + quoted(uid(1)) + ',' + quoted(social.social_lease_id) + ')'), 'f');
+  assert.equal(await store.saveSocial(uid(1), social.social_lease_id, { profile: 'factory_' + uid(1), connected: false }), null);
+  assert.equal(sql('SELECT sum(reserved_micro_usd) FROM monk_factory_jobs'), cost);
+  assert.equal((await store.reserveProfile(uid(26))).user_id, uid(26));
+});
+
+test('checkout reserves again after terminal billing frees its old context and never repeats the lifetime trial', options, async () => {
+  const { syncFactoryBilling, beginFactoryCheckout } = require('../monk-factory-billing.js');
+  const store = billingStore();
+  await store.reserveProfile(uid(27));
+  const context = await store.checkoutContext(uid(27), capacityPrice.id, 'fixture@example.com');
+  const sub = capacitySubscription(context);
+  let creates = 0;
+  const stripe = { subscriptions: { retrieve: async () => sub }, prices: { retrieve: async () => capacityPrice },
+    checkout: { sessions: { create: async params => {
+      creates++;
+      assert.equal(params.subscription_data.trial_period_days, undefined);
+      assert.notEqual(params.metadata.checkout_nonce, context.checkout_nonce);
+      return { id: 'cs_capacity27', mode: 'subscription', status: 'open', customer: sub.customer,
+        client_reference_id: uid(27), metadata: params.metadata, url: 'https://checkout.stripe.com/c/pay/capacity27' };
+    } } } };
+  await syncFactoryBilling({ userId: uid(27), subscriptionId: sub.id, store, stripe, env: billingEnv });
+  sub.status = 'canceled';
+  const result = await beginFactoryCheckout({ user: { id: uid(27), email: 'fixture@example.com' }, store, stripe, env: billingEnv });
+  assert.equal(result.url, 'https://checkout.stripe.com/c/pay/capacity27');
+  assert.equal(creates, 1);
+  const current = await store.account(uid(27));
+  assert.ok(current.profile_reserved_at);
+  assert.equal(current.trial_used, true);
+  assert.equal(current.checkout_trial, false);
+  assert.equal(current.stripe_subscription_id, sub.id);
+});
+
+test('terminal billing retains real profiles, unknown social POSTs and a checkout changed during its GET', options, async () => {
+  const { syncFactoryBilling } = require('../monk-factory-billing.js');
+  const store = billingStore();
+  for (const n of [28,29,30]) {
+    await store.reserveProfile(uid(n));
+    const context = await store.checkoutContext(uid(n), capacityPrice.id, 'fixture@example.com');
+    const sub = capacitySubscription(context);
+    const stripe = { subscriptions: { retrieve: async () => structuredClone(sub) } };
+    await syncFactoryBilling({ userId: uid(n), subscriptionId: sub.id, store, stripe, env: billingEnv });
+    const social = await store.claimSocial(uid(n));
+    if (n===28) assert.equal(sql('SET ROLE service_role; SELECT monk_factory_fence_social(' + quoted(uid(n)) + ',' + quoted(social.social_lease_id) + ')'), 't');
+    if (n===29) await store.saveSocial(uid(n), social.social_lease_id, { profile: 'factory_' + uid(n), connected: false });
+    if (n===30) stripe.subscriptions.retrieve = async () => {
+      sql('UPDATE monk_factory_accounts SET checkout_nonce=' + quoted(uid(30)) + ' WHERE user_id=' + quoted(uid(n)));
+      return structuredClone(sub);
+    };
+    sub.status = 'canceled';
+    await syncFactoryBilling({ userId: uid(n), store, stripe, env: billingEnv });
+    const current = await store.account(uid(n));
+    assert.ok(current.profile_reserved_at, 'retained case ' + n);
+    assert.equal(current.checkout_nonce, n===30 ? uid(30) : context.checkout_nonce);
+    if (n!==29) assert.equal(current.social_lease_id, social.social_lease_id);
+  }
+  const current = await store.account(uid(30));
+  const sub = capacitySubscription(current);
+  const stripe = { subscriptions: { retrieve: async () => sub } };
+  for (const status of ['active','trialing','past_due','unpaid','paused','incomplete']) {
+    sub.status = status;
+    sub.cancel_at_period_end = status === 'trialing';
+    await syncFactoryBilling({ userId: uid(30), store, stripe, env: billingEnv });
+    assert.ok((await store.account(uid(30))).profile_reserved_at, status);
+  }
+});
+
+test('expiry of a returning user checkout frees only its current unused slot after official terminal readback', options, async () => {
+  const { processFactoryEvents } = require('../monk-factory-jobs.js');
+  const store = billingStore();
+  let current = await store.account(uid(27));
+  const social = await store.claimSocial(uid(27));
+  let pending = { id: 'evt_returning', user_id: uid(27), event_type: 'checkout.session.expired', stripe_object_id: 'cs_old_capacity27' };
+  let processed = 0, replaceDuringGet = false, wrongCustomer = false;
+  const failures = [];
+  store.pendingEvents = async () => pending ? [pending] : [];
+  store.markEvent = async () => { processed++; pending = null; };
+  store.deferEvent = async (_id, patch) => { failures.push(patch.error_class); };
+  const sub = capacitySubscription(current, 'canceled');
+  sub.metadata.checkout_nonce = uid(1); // The completed trial has a different nonce from its new Checkout.
+  const stripe = { subscriptions: { retrieve: async () => sub }, checkout: { sessions: { retrieve: async id => {
+    const session = { id, livemode: false, mode: 'subscription', status: 'expired', subscription: null,
+      customer: wrongCustomer ? 'cus_other' : current.checkout_customer_id,
+      client_reference_id: uid(27), metadata: { product: 'ai_monk_factory', user_id: uid(27),
+        checkout_nonce: id==='cs_old_capacity27' ? uid(1) : current.checkout_nonce } };
+    if (replaceDuringGet) sql('UPDATE monk_factory_accounts SET checkout_nonce=' + quoted(uid(27)) + ',checkout_session_id=\'cs_replacement27\' WHERE user_id=' + quoted(uid(27)));
+    return session;
+  } } } };
+  await processFactoryEvents({ store, stripe, env: billingEnv });
+  assert.equal(processed, 1);
+  assert.equal((await store.account(uid(27))).checkout_nonce, current.checkout_nonce);
+  assert.ok((await store.account(uid(27))).profile_reserved_at);
+  pending = { id: 'evt_returning_current', user_id: uid(27), event_type: 'checkout.session.expired', stripe_object_id: current.checkout_session_id };
+  replaceDuringGet = true;
+  await processFactoryEvents({ store, stripe, env: billingEnv });
+  current = await store.account(uid(27));
+  assert.equal(processed, 2);
+  assert.equal(current.checkout_nonce, uid(27));
+  assert.ok(current.profile_reserved_at);
+  assert.equal(current.social_lease_id, social.social_lease_id);
+  replaceDuringGet = false;
+  wrongCustomer = true;
+  pending = { id: 'evt_returning_replacement', user_id: uid(27), event_type: 'checkout.session.expired', stripe_object_id: current.checkout_session_id };
+  await processFactoryEvents({ store, stripe, env: billingEnv });
+  assert.deepEqual(failures, ['billing_mismatch']);
+  assert.equal(processed, 2);
+  assert.ok((await store.account(uid(27))).profile_reserved_at);
+  wrongCustomer = false;
+  await processFactoryEvents({ store, stripe, env: billingEnv });
+  const released = await store.account(uid(27));
+  assert.equal(processed, 3);
+  assert.equal(released.profile_reserved_at, null);
+  assert.equal(released.checkout_nonce, null);
+  assert.equal(released.social_lease_id, null);
+  assert.equal(released.trial_used, true);
+  assert.equal(released.stripe_subscription_id, current.stripe_subscription_id);
+  assert.equal(sql('SET ROLE service_role; SELECT monk_factory_fence_social(' + quoted(uid(27)) + ',' + quoted(social.social_lease_id) + ')'), 'f');
+  assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_release_unused_profile(' + [uid(27),current.checkout_nonce,current.checkout_session_id,current.stripe_subscription_id].map(quoted).join(',') + ')'), /permission denied/);
+});
+
+test('expired checkouts cannot free a profile, a fenced POST or a subscription still active on official GET', options, async () => {
+  const { processFactoryEvents } = require('../monk-factory-jobs.js');
+  const store = billingStore();
+  for (const n of [28,29,30]) {
+    const current = await store.account(uid(n));
+    await store.saveCheckout(uid(n), current.checkout_nonce, 'cs_retained' + n);
+    let marked = false;
+    store.pendingEvents = async () => [{ id: 'evt_retained'+n, user_id: uid(n), event_type: 'checkout.session.expired', stripe_object_id: 'cs_retained'+n }];
+    store.markEvent = async () => { marked = true; };
+    store.deferEvent = async () => {};
+    const sub = capacitySubscription(current, n===30 ? 'active' : 'canceled');
+    const stripe = { subscriptions: { retrieve: async () => sub }, checkout: { sessions: { retrieve: async id => ({
+      id, livemode: false, mode: 'subscription', status: 'expired', subscription: null, customer: current.checkout_customer_id,
+      client_reference_id: uid(n), metadata: { product: 'ai_monk_factory', user_id: uid(n), checkout_nonce: current.checkout_nonce },
+    }) } } };
+    await processFactoryEvents({ store, stripe, env: billingEnv });
+    assert.equal(marked, true);
+    assert.ok((await store.account(uid(n))).profile_reserved_at);
+    assert.equal((await store.account(uid(n))).checkout_nonce, current.checkout_nonce);
+  }
 });

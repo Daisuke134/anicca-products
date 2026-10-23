@@ -58,7 +58,8 @@ function createFactoryStore({ env = process.env, fetchImpl = fetch } = {}) {
       if (!row) throw factoryError('checkout_conflict', 409);
       return row;
     },
-    releaseUnusedProfile: (id, nonce) => checked(accounts().update({ profile_reserved_at: null }).eq('user_id', uid(id)).eq('checkout_nonce', nonce).eq('trial_used', false).is('social_profile', null).is('social_submit_started_at', null).is('stripe_subscription_id', null)),
+    releaseUnusedProfile: (id, nonce, session, subscription) => rpc('monk_factory_release_unused_profile', {
+      p_user_id: uid(id), p_checkout_nonce: uid(nonce), p_checkout_session_id: session, p_subscription_id: subscription }),
     stop: id => checked(accounts().update({ auto_post: false }).eq('user_id', uid(id)).select('auto_post').maybeSingle()),
     jobs: id => checked(db.from('monk_factory_jobs').select('id,kind,status,stage,max_seconds,video_url,image_url,post_url,metrics,metrics_at,error_class,created_at').eq('user_id', uid(id)).order('created_at', { ascending: false }).limit(40)),
     enqueueEvent: row => checked(db.from('monk_factory_stripe_events').upsert(row, { onConflict: 'id', ignoreDuplicates: true })),
