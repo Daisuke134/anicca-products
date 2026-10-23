@@ -1818,6 +1818,15 @@
           "bytes": 315
         }
       ]
+    },
+    {
+      "id": "sifuchen-california-ig-header-20261024",
+      "title": "SifuChen California native Instagram public profile header",
+      "url": "https://www.instagram.com/sifuchencalifornia/",
+      "source_type": "first-party public profile HTML metadata; dated observation",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T22:49:32.398477+00:00",
+      "notes": "Anonymous native profile HTML. og:title, og:url and canonical identify @sifuchencalifornia, matching the handle visible in the previously attributed Maldita screenshot. The bio labels AI-generated content; this is first-party disclosure, not an independent production audit. Spanish is observed in bio text only. Displayed 834K followers is rounded and dated; it is not an exact count or revenue. No account-attributed video, operator identity or current product checkout is verified."
     }
   ],
   "accounts": [
@@ -2352,13 +2361,25 @@
         {
           "source_id": "maldita-2026-07-10",
           "summary": "Maldita identifies the portrayed man as AI-created and includes the profile in its report on synthetic accounts."
+        },
+        {
+          "source_id": "sifuchen-california-ig-header-20261024",
+          "summary": "The native public profile bio states AI Generado Artificial. This first-party disclosure supports reported AI origin; production method and account-attributed video format remain independently unverified."
         }
       ],
       "creator": {
         "name": null,
         "relationship": "Unknown"
       },
-      "languages": [],
+      "languages": [
+        {
+          "label": "Spanish",
+          "source_ids": [
+            "sifuchen-california-ig-header-20261024"
+          ],
+          "basis": "native public profile bio text; spoken-video language not audited"
+        }
+      ],
       "region_evidence": {
         "label": "Spain (profile flag)",
         "basis": "Maldita reports that the profile displayed a Spanish flag; this does not establish the operator's location.",
@@ -2366,15 +2387,26 @@
       },
       "source_urls": [
         "https://archive.li/CZww4",
-        "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/"
+        "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+        "https://www.instagram.com/sifuchencalifornia/"
       ],
       "platforms": [
         {
           "platform": "Instagram",
-          "handle": null,
-          "profile_url": "https://archive.li/CZww4",
-          "snapshots": [],
-          "unknown_reason": "The investigation links an archived profile but does not establish the live handle or a per-account follower count."
+          "handle": "sifuchencalifornia",
+          "profile_url": "https://www.instagram.com/sifuchencalifornia/",
+          "snapshots": [
+            {
+              "value": 834000,
+              "metric": "followers",
+              "as_of": "2026-10-23",
+              "captured_at": "2026-10-23T22:49:32.398477+00:00",
+              "display_value": "834K",
+              "rounded": true,
+              "source_id": "sifuchen-california-ig-header-20261024",
+              "status": "public_profile_html_metadata_rounded"
+            }
+          ]
         }
       ],
       "offers": [
@@ -2403,14 +2435,15 @@
         }
       ],
       "unknowns": [
-        "Exact live Instagram handle, current followers, operator location, sales, refunds, and revenue.",
-        "The Spanish-flag/Spain market signal does not establish the language of the account’s own posts."
+        "Exact unrounded follower count, operator identity/location, current product availability, sales, refunds, and revenue.",
+        "Spanish is observed in the native profile bio only; post and spoken-video language remain unaudited."
       ],
       "directory_scope": {
         "status": "pending",
         "reason": "The report establishes a realistic AI-created still and guide highlight, but an account-attributed video example has not been verified.",
         "source_ids": [
-          "maldita-2026-07-10"
+          "maldita-2026-07-10",
+          "sifuchen-california-ig-header-20261024"
         ]
       }
     },

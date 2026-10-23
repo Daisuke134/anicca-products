@@ -85,3 +85,19 @@ test('business cards show views, products and reported revenue without an AI-sta
   assert.match(html, /value="views"/);
   assert.match(html, /value="revenue"/);
 });
+
+
+test('native Sifu profile avatar retains its original framing', () => {
+  const html = renderToStaticMarkup(React.createElement(Directory, {
+    accounts: [{
+      id: 'sifuchen-california', display_name: 'SifuChen California', ai_status: 'reported',
+      directory_scope: { status: 'pending' },
+    }],
+    profileImages: { 'sifuchen-california': '/assets/ai-monk-profiles/sifuchen-california-instagram.jpg' },
+    sourceCount: 0, updatedAt: '2026-10-23',
+  }));
+  const image = html.match(/<img[^>]*alt="SifuChen California profile image"[^>]*>/)?.[0];
+  assert.ok(image);
+  assert.match(image, /src="\/assets\/ai-monk-profiles\/sifuchen-california-instagram\.jpg"/);
+  assert.doesNotMatch(image, /transform:/);
+});

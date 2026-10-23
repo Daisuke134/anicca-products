@@ -1,0 +1,270 @@
+{
+  "schema_version": "anicca.ai-monk-sifuchen-native-profile-source.v1",
+  "run_id": "ai-monk-sifuchen-native-profile-20261024",
+  "owner_id": "root",
+  "recorded_by": "monk_product_price_followup",
+  "occurrence_id": "one-profile-native-header-avatar-source-update",
+  "phase": "source_prepared_publication_pending",
+  "recorded_at": "2026-10-23T22:59:02.108803+00:00",
+  "source_branch": "feat/ai-monk-profile-evidence-followup-20261024",
+  "base_main": "d952342b3b517000f1c75492f6536b82b2c76a46",
+  "spec_first_commit": "5f9e60770576aeef70f5b2e26313a7f936dea8da",
+  "spec_path": "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+  "spec_remote_match_as_recorded_by_primary": true,
+  "release_sha": null,
+  "source_snapshot": {
+    "version": "0.4.8",
+    "canonical_path": "apps/landing/public/data/ai-monk-avatar-database-2026.json",
+    "sha256": "e7fe35a6219381f90da1a5f8ce3e0df98935948f2f37e0053bdbaf91dd539516",
+    "archive_records": 75,
+    "public_records": 73,
+    "sources": 181,
+    "new_source_count": 1,
+    "new_source": {
+      "id": "sifuchen-california-ig-header-20261024",
+      "title": "SifuChen California native Instagram public profile header",
+      "url": "https://www.instagram.com/sifuchencalifornia/",
+      "source_type": "first-party public profile HTML metadata; dated observation",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T22:49:32.398477+00:00",
+      "notes": "Anonymous native profile HTML. og:title, og:url and canonical identify @sifuchencalifornia, matching the handle visible in the previously attributed Maldita screenshot. The bio labels AI-generated content; this is first-party disclosure, not an independent production audit. Spanish is observed in bio text only. Displayed 834K followers is rounded and dated; it is not an exact count or revenue. No account-attributed video, operator identity or current product checkout is verified."
+    },
+    "old_180_source_objects_unchanged": true,
+    "other_74_account_objects_unchanged": true,
+    "all_creator_offer_seller_counter_and_revenue_claim_objects_unchanged": true,
+    "comparison_basis": "Parsed JSON object equality against fixed base main; raw complete dataset hash is recorded separately."
+  },
+  "native_header": {
+    "observed_at": "2026-10-23T22:49:32.398477+00:00",
+    "url": "https://www.instagram.com/sifuchencalifornia/",
+    "fetch_exit_code": 0,
+    "http_status": 200,
+    "html_sha256": "1ce63c205501b6c3e487365afb81083b4332732f80fd73d279a0bd235d683ebd",
+    "identity": {
+      "og_title": "SifuChen California (@sifuchencalifornia) • Instagram photos and videos",
+      "og_url": "https://www.instagram.com/sifuchencalifornia/",
+      "canonical": "https://www.instagram.com/sifuchencalifornia/",
+      "same_exact_handle": true,
+      "prior_screenshot_handle_matches": "sifuchencalifornia"
+    },
+    "short_evidence": [
+      {
+        "locator": "head meta[property=\"og:title\"] @content",
+        "value": "SifuChen California (@sifuchencalifornia) • Instagram photos and videos"
+      },
+      {
+        "locator": "head meta[property=\"og:url\"] and link[rel=\"canonical\"]",
+        "value": "https://www.instagram.com/sifuchencalifornia/"
+      },
+      {
+        "locator": "head meta[name=\"description\"] @content, bio clause",
+        "value": "AI Generado Artificial"
+      }
+    ],
+    "language": {
+      "label": "Spanish",
+      "basis": "native bio text only; spoken-video language remains unaudited"
+    },
+    "followers": {
+      "value": 834000,
+      "metric": "followers",
+      "as_of": "2026-10-23",
+      "captured_at": "2026-10-23T22:49:32.398477+00:00",
+      "display_value": "834K",
+      "rounded": true,
+      "source_id": "sifuchen-california-ig-header-20261024",
+      "status": "public_profile_html_metadata_rounded"
+    },
+    "og_image_present": true,
+    "expiring_image_URL_copied_to_repo": false
+  },
+  "native_avatar": {
+    "observed_at": "2026-10-23T22:50:25.922946+00:00",
+    "http_status": 200,
+    "fetch_exit_code": 0,
+    "source": "native profile og:image; exact title/handle/canonical matched",
+    "local_asset": "/assets/ai-monk-profiles/sifuchen-california-instagram.jpg",
+    "image_role": "platform_profile_avatar",
+    "content_type": "image/jpeg",
+    "format": "JPEG",
+    "width": 100,
+    "height": 100,
+    "bytes": 3567,
+    "sha256": "e7e7005cd00e740ac5e8d0cfa818de60608af8b17b4a83f63a67ae9a721e5b7c",
+    "framed_stdout_bytes": 3568,
+    "framed_stdout_sha256": "987619e1bdbba6d1cf28e8f103bc8f9407f6b1c8e21e71fc2d37f0750d4a6c18",
+    "framing": "One Scrapy print newline removed, source image bytes unchanged.",
+    "transformation": "none",
+    "generation_count": 0,
+    "repo_asset_bytes_equal_download_readback": true,
+    "replaces": "third_party_attributed_profile_screenshot",
+    "image_record_count_change": 0,
+    "image_manifest_path": "apps/landing/public/assets/ai-monk-profiles/profiles.json",
+    "image_manifest_sha256": "5c877c716252cc32464ea382d658ef5c2fe01c0c22ab911565de895be7a291e1",
+    "coverage": {
+      "archive_records": 75,
+      "public_records": 73,
+      "archive_images": 73,
+      "public_images": 71,
+      "unknown_archive_images": 2
+    }
+  },
+  "classification_and_limits": {
+    "ai_status_before": "reported",
+    "ai_status_after": "reported",
+    "directory_scope_before": "pending",
+    "directory_scope_after": "pending",
+    "creator_unchanged": true,
+    "existing_16_45_EUR_reported_offer_unchanged": true,
+    "new_product_checkout_verified": false,
+    "video_watched_or_format_verified": false,
+    "operator_or_ownership_verified": false,
+    "sales_orders_revenue_audited": false,
+    "image_reuse_license_verified": false,
+    "kaizen_generic_oEmbed_adds_canonical_source": false,
+    "Kaizen_account_unchanged": true
+  },
+  "validation": {
+    "collection_and_source_hash_checks": "PASS",
+    "package_existing_tests": {
+      "status": "PASS",
+      "passed": 15,
+      "failed": 0,
+      "exit_code": 0,
+      "checked_at": "2026-10-23T22:54:36.341790+00:00",
+      "command": [
+        "rtk",
+        "proxy",
+        "npm",
+        "test"
+      ],
+      "real_stdio_and_isolated_tarball_install_in_existing_suite": true,
+      "dependency_install": "primary completed npm ci using existing lockfile",
+      "evidence": {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/package-tests-green.json",
+        "sha256": "6b786a70719b122b461a733c040537d51afd4dde7793f2aab97884eb9a5a8f56",
+        "bytes": 1228
+      }
+    },
+    "initial_test_environment_boundary": {
+      "error_class": "ERR_MODULE_NOT_FOUND",
+      "reported_by": "primary",
+      "behavior_regression_RED_proved_by_this_failure": false
+    },
+    "new_tests_or_test_framework_added_by_receipt_author": 0,
+    "native_avatar_framing_regression": {
+      "status": "RED_TO_GREEN",
+      "RED": {
+        "exit_code": 1,
+        "expected_assertion_failure_observed": true,
+        "error_class": "ERR_ASSERTION",
+        "cause": "旧Sifuスクリーンショット用object-position:left centerとtransform:scale(1.35)がnative avatarへ残る。",
+        "dependency_error": false,
+        "checked_at": "2026-10-23T22:57:23.142637+00:00",
+        "evidence": {
+          "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/native-avatar-framing-red.json",
+          "sha256": "56798b330f3116e66f02afbda5513858d3922d5a5db82c06d21a874dc442a084",
+          "bytes": 1782
+        }
+      },
+      "primary_fix": "SifuChenだけに残る旧スクリーンショット拡大CSSを除去する。",
+      "GREEN": {
+        "exit_code": 0,
+        "passed": 14,
+        "failed": 0,
+        "helper_tests": 9,
+        "rendering_tests": 5,
+        "checked_at": "2026-10-23T22:57:34.427933+00:00",
+        "command": [
+          "rtk",
+          "proxy",
+          "node",
+          "--test",
+          "lib/ai-monk-directory.test.mjs",
+          "test/ai-monk-evidence-rendering.test.mjs"
+        ],
+        "evidence": {
+          "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/landing-contract-tests-green.json",
+          "sha256": "deb749b3aaa7b6547b7895798dd555ec817c9fa9af953d3230d93776408c2577",
+          "bytes": 1823
+        }
+      }
+    },
+    "Web_dependency_install_and_related_tests": {
+      "status": "PASS",
+      "dependency_install": "primary completed npm ci with existing lockfile before the actual assertion RED/GREEN",
+      "related_test_passed": 14,
+      "whole_landing_build_or_all_page_suite_claimed": false
+    },
+    "primary_focused_source_acceptance": {
+      "status": "PASS",
+      "source_references": 643,
+      "all_source_references_resolve": true,
+      "snapshot_sha256": "e7fe35a6219381f90da1a5f8ce3e0df98935948f2f37e0053bdbaf91dd539516",
+      "original_source_objects_unchanged": 180,
+      "other_accounts_unchanged": 74,
+      "reported_pending_creator_and_financial_unknowns_preserved": true,
+      "rounded_display_contract": true,
+      "native_avatar_hash_matches": true,
+      "public_signed_CDN_query_not_copied": true,
+      "evidence": {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/source-acceptance.json",
+        "sha256": "d5b908267b000eb8bb36e256c17fc171e042c8179edcc1ac950ba7beff0f5b00",
+        "bytes": 541
+      }
+    },
+    "independent_review_CI_main_and_public_readback": "pending_primary"
+  },
+  "effect": {
+    "primary_profile_rows_changed": 1,
+    "primary_new_canonical_sources": 1,
+    "image_count_increase": 0,
+    "avatar_transforms_or_AI_generation": 0,
+    "receipt_author_repo_source_tests_images_other_docs_changes": 0,
+    "receipt_author_index_commit_push_changes": 0,
+    "receipt_author_external_fetch_browser_auth_or_publish": 0,
+    "paid_API_calls": 0,
+    "posts_or_purchases": 0,
+    "receipt_author_new_owned_receipt_files": 1
+  },
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/primary-native-header-readback.json",
+      "sha256": "f4298a072d79bf2824e2c879eb63a78f3770086c58fdc26d76fbe5fe6d981b24",
+      "bytes": 1266
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/native-avatar-download-readback.json",
+      "sha256": "2c9cb4fd4d2bae064cfe4b1fd3aadf5fd8147379478df2f0e0029e6828430fb7",
+      "bytes": 778
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/source-implementation-readback.json",
+      "sha256": "5e730113aa34a4651fcad4aea4f7668d7038064396759b33ccc9b2adc44ad529",
+      "bytes": 709
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-unresolved-profile-followup-20261024/followup-result.json",
+      "sha256": "998c92292c5c2d236e138250a8f5f9d272d0e2c877ed017b1e7dd2c52d9d5d78",
+      "bytes": 25776
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/native-avatar-framing-red.json",
+      "sha256": "56798b330f3116e66f02afbda5513858d3922d5a5db82c06d21a874dc442a084",
+      "bytes": 1782
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/landing-contract-tests-green.json",
+      "sha256": "deb749b3aaa7b6547b7895798dd555ec817c9fa9af953d3230d93776408c2577",
+      "bytes": 1823
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/source-acceptance.json",
+      "sha256": "d5b908267b000eb8bb36e256c17fc171e042c8179edcc1ac950ba7beff0f5b00",
+      "bytes": 541
+    }
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Primary owns whole-change commit/push, independent review/CI/main and immutable v0.4.8 publication/readback. Focused source acceptance, package15 and focused Web14 pass; public v0.4.8 release is not yet accepted."
+}

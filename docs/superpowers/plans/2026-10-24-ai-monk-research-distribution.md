@@ -42,8 +42,10 @@ Netlify AI Gatewayは現accountの公式GETで利用不可を確認する。team
 
 専用OpenAIの正規アクセスとMuse審査は外部状態の未完条件として保持し、同じ認証失敗の再試行や重複提出を行わない。旧実行cursorはSaaS-1のprovider利用準備、新しい独立作業cursorはDB-1のsifuchen-california/master-kaizen-tiktokの2件とPL-1の公式カタログ入口確認とする。理由はproviderが公式401/account_deactivatedで非retryableの一方、既知profileの公開一次資料と配布仕様は無料・read-onlyで精査できるため。全体のFactory/収益成果と既存TODOは縮小せず、日次IG/TikTok/Postiz/HeyGen/Grok loopのeffectを変更しない。
 
-- [ ] 2profileの既存canonical/discovery/auditを比較し、native handle/画像/公開商品を追加できる一次根拠を限定取得する。同名の別personaとの同一性、AI制作、売上を推測しない。未取得なら実際に確認した出所と不足を残す。古いbatch対象外という理由を、現在のprofile項目が必ず欠落しているという意味へ流用しない。
-- [ ] OpenAI公式docsを実取得し、GitHub repo marketplaceでの直接配布とChatGPT/Codex共通の正式Plugin directory/提出フローを区別する。Museの既存submissionとGrokの既存依頼はread-onlyで確認し、受付/審査/承認/配布receiptを分ける。新しいlogin、submit、依頼、X投稿はこのunitに含めない。
+- [x] 2profileの既存canonical/discovery/auditを比較し、native handle/画像/公開商品を追加できる一次根拠を限定取得する。同名の別personaとの同一性、AI制作、売上を推測しない。未取得なら実際に確認した出所と不足を残す。古いbatch対象外という理由を、現在のprofile項目が必ず欠落しているという意味へ流用しない。
+- [x] OpenAI公式docsを実取得し、GitHub repo marketplaceでの直接配布とChatGPT/Codex共通の正式Plugin directory/提出フローを区別する。Museの既存submissionとGrokの既存依頼はread-onlyで確認し、受付/審査/承認/配布receiptを分ける。新しいlogin、submit、依頼、X投稿はこのunitに含めない。
 - [ ] 公開sourceによって確定できるdata差分があればcanonicalと呼び出し先を揃え、既存の関連検証、必要なreview/CI/main由来公開まで進める。sourceが増えた場合だけ次のCLI/Registry snapshotを作り、v0.4.7のReleaseを上書きしない。data差分がない場合は現在のv0.4.7/180sourceを維持し、限定調査と現在状態のreceiptを正本へ反映する。
 
 所有はprimaryがmaster/source/公開受入、read-only workerが2profileのprivate調査証拠とする。repo/worktreeの他者編集を上書きせず、保護storeを削除・移動しない。限定unitの完了を全世界の全件把握、正式カタログ承認、Factory稼働、売上達成へ換算しない。
+
+SifuChenの取得結果ではnative URL/canonical/@handleが一致し、本人bioのAI自己表示、丸め表示834K followers、プロフィール画像を確認する。ai_status=reported/directory_scope=pendingを維持し、動画形式・creator・商品現況・監査済み売上へ拡張しない。bioのSpanishと投稿音声言語を区別する。この1profileと画像出典を更新し、他74recordsと旧180sourcesは保持した181source snapshotをv0.4.8のWeb/CLI/MCP/Registryへ反映する。Kaizen oEmbedは汎用応答のためcanonical sourceを増やさない。画像は既存Maldita screenshotからnative avatarの元bytesへ切替え、公開画像件数は増加させない。root/master/README/manifestの現在版だけを揃え、旧Release/証拠は保持する。
