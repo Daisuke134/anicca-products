@@ -15,20 +15,20 @@
     "original_text_and_worksheets_license": "CC BY 4.0",
     "license_url": "https://creativecommons.org/licenses/by/4.0/",
     "third_party_rights_note": "Third-party media, names, marks, profile content and linked material retain their own rights.",
-    "manuscript_sha256": "223a2365fa3899fdb769a62f2afaae4783adb4757b4c949d77992ae0577a9be5",
+    "manuscript_sha256": "0e040dba9f84943b5b368eb89b38e89e9ee7e065259f1a79cf051fcfe9979f39",
     "word_count_method": "English lexical words including headings, reference prose and worksheets; contractions and hyphenated English words count once; URLs, reference labels, numeric-only tokens and placeholders excluded.",
-    "word_count_full": 12737,
-    "word_count_before_appendices": 10757,
+    "word_count_full": 14116,
+    "word_count_before_appendices": 11638,
     "word_count_by_chapter": {
       "1": 806,
       "2": 861,
-      "3": 764,
-      "4": 2413,
-      "5": 880,
+      "3": 966,
+      "4": 2636,
+      "5": 1079,
       "6": 829,
       "7": 780,
       "8": 800,
-      "9": 984,
+      "9": 1241,
       "10": 1060
     },
     "chapters": 10,
@@ -1172,6 +1172,320 @@
       ],
       "source_publication_dates": [
         "7 October 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S47",
+      "url": "https://x.com/shalevhvs/status/2014732472664076414",
+      "dataset_source_ids": [
+        "shalev-x-2014732472664076414"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "“Everyone is copying this AI character” post. Creator claims of 400M+ views, $300k profit in 90 days and 5M followers.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "23 January 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S48",
+      "url": "https://x.com/shalevhvs/status/2018725900959822131",
+      "dataset_source_ids": [
+        "shalev-x-2018725900959822131"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "“The exact blueprint I used to build Yang Mun into a $300k profit machine”, X article. Creator tool and voice workflow; links to a paid blueprint.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "3 February 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S49",
+      "url": "https://x.com/shalevhvs/status/2021989884882244010",
+      "dataset_source_ids": [
+        "shalev-x-2021989884882244010"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "post on declining a $325,000 offer. Creator statement; same figure as reported in S02.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "12 February 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S50",
+      "url": "https://x.com/shalevhvs/status/2044099931494068455",
+      "dataset_source_ids": [
+        "shalev-x-2044099931494068455"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "“I Tested 200+ AI Scripts. These 3 Formulas Got 70 Million Views”, X article. Creator-reported view counts for three script structures.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "14 April 2026"
+      ],
+      "cited_in_chapters": [
+        4,
+        5
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S51",
+      "url": "https://x.com/shalevhvs/status/2049166336002343021",
+      "dataset_source_ids": [
+        "shalev-x-2049166336002343021"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "background post (“Yang Mun was luck bro”). Self-described training, brand work and video count.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "28 April 2026"
+      ],
+      "cited_in_chapters": [
+        3,
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S52",
+      "url": "https://x.com/shalevhvs/status/2012564307071127718",
+      "dataset_source_ids": [
+        "shalev-x-2012564307071127718"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "post on sales from a character labeled as AI. Creator claim; sales figure unverified.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "17 January 2026"
+      ],
+      "cited_in_chapters": [
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S53",
+      "url": "https://x.com/shalevhvs/status/2052265003051524464",
+      "dataset_source_ids": [
+        "shalev-x-2052265003051524464"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "post on account bans and calls to action. Creator interpretation of platform enforcement.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "7 May 2026"
+      ],
+      "cited_in_chapters": [
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S54",
+      "url": "https://x.com/shalevhvs/status/2056389501816303742",
+      "dataset_source_ids": [
+        "shalev-x-2056389501816303742"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "post on followers’ mental-health messages. Creator statement; messages not reviewed.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "18 May 2026"
+      ],
+      "cited_in_chapters": [
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S55",
+      "url": "https://x.com/shalevhvs/status/1765717627110895699",
+      "dataset_source_ids": [
+        "shalev-x-1765717627110895699"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "thread on AI TikTok Shop content. Earlier creator claim of 20M+ views and five-figure profit.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "7 March 2024"
+      ],
+      "cited_in_chapters": [
+        3
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S56",
+      "url": "https://x.com/shalevhvs/status/1785762655623434673",
+      "dataset_source_ids": [
+        "shalev-x-1785762655623434673"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "thread item on cautious claim wording. Creator advice to qualify claims with “may,” “might,” “potentially.”",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "1 May 2024"
+      ],
+      "cited_in_chapters": [
+        3
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S57",
+      "url": "https://x.com/shalevhvs/status/1732500936596082750",
+      "dataset_source_ids": [
+        "shalev-x-1732500936596082750"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "thread on growing a POV app’s accounts in 60 days. Creator claims of 30M Instagram and 15M TikTok views; advice to remake winners.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "6 December 2023"
+      ],
+      "cited_in_chapters": [
+        3
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S58",
+      "url": "https://x.com/shalevhvs/status/2056718288823198031",
+      "dataset_source_ids": [
+        "shalev-x-2056718288823198031"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "post summarizing seven characters and “$500k PROFIT”. Creator claim using “profit”; compare S31 and S59.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "19 May 2026"
+      ],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": true
+    },
+    {
+      "reference_id": "S59",
+      "url": "https://x.com/shalevhvs/status/2052024190547710355",
+      "dataset_source_ids": [
+        "shalev-x-2052024190547710355"
+      ],
+      "publisher_or_account": "Shalev Hani public X account @shalevhvs",
+      "named_article_byline": "Shalev Hani",
+      "byline_note": "Author is the account holder.",
+      "original_claimant_or_claim_type": "Creator statement",
+      "source_claims": "“AI Monk + Claude = $467K in 7 months”, X article. Creator title figure differing from S31 and S58.",
+      "what_saved_research_establishes": "Post body and publication date read back via X API on 2026-10-23 (third pass).",
+      "not_established": "Independent verification of any figure, sale term or testimonial.",
+      "checked_at": [
+        "2026-10-23"
+      ],
+      "source_publication_dates": [
+        "6 May 2026"
       ],
       "cited_in_chapters": [
         4
