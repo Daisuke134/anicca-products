@@ -18,8 +18,8 @@ type Copy = {
   heroLine2: React.ReactNode;
   heroSub: string;
   ctaPrimary: string;
-  rating: string;
-  ratingMeta: string;
+  platform: string;
+  platformMeta: string;
   badges: string[];
   proofRow: string;
 
@@ -67,63 +67,62 @@ const COPY: Record<Locale, Copy> = {
   en: {
     navBack: '← anicca.ai',
     navLang: 'JA',
-    eyebrow: 'Anicca · iOS · Health & Wellness',
+    eyebrow: 'Anicca · Daily affirmations for iPhone',
     heroLine1: (
       <>
-        you don't<br />have to be<br />okay
+        Daily<br />affirmations
       </>
     ),
-    heroLine2: <em className="not-italic text-gold/90">right now.</em>,
+    heroLine2: <em className="not-italic text-gold/90">for a kinder<br />inner voice.</em>,
     heroSub:
-      "Anicca is a quiet companion on your phone. When the spiral starts - at 11:47pm, in line at the pharmacy, the second you open Instagram - a single line of kindness arrives. You don't have to open an app. It finds you.",
+      'When self-criticism gets loud, make room for a kinder thought. Anicca is an iPhone affirmation app: choose what you are struggling with, enable notifications, and receive short cards to read.',
     ctaPrimary: 'Download on the App Store',
-    rating: '4.8',
-    ratingMeta: 'App Store · Health & Fitness',
+    platform: 'iPhone',
+    platformMeta: 'Daily affirmation cards',
     badges: [
-      'iOS 15+',
-      'No streaks',
-      'No tracker',
-      'No guilt',
-      'Private by design',
+      'iOS 16.6+',
+      'Short cards',
+      'Choose your topics',
+      'Notifications',
+      'Free download',
     ],
-    proofRow:
-      'Featured in soft-life TikTok · As gentle as a friend who has done the work',
+    proofRow: 'Choose your topics · Enable notifications · Read a short card',
 
     storyEyebrow: 'I. The premise',
     storyHeading: (
       <>
-        Every other affirmation app<br />
-        <em className="text-mist">waits for you to open it.</em>
+        A little less<br />
+        <em className="text-mist">hard on yourself.</em>
       </>
     ),
     storyBody:
-      "The spiral does not wait. It comes at midnight, at red lights, in the bathroom mirror. By the time you remember to open the journaling app, the moment has passed. Anicca was built backwards: the affirmation arrives at the spiral. Not a habit, not a streak - a knock on the door.",
+      'Some days your inner voice is harsher than you would be to a friend. Anicca offers short affirmation cards for those difficult days. Start by choosing the areas you want support with.',
 
-    notesEyebrow: 'II. A day with Anicca',
+    notesEyebrow: 'II. Everyday words',
     notesHeading: (
       <>
-        One line of kindness,<br />
-        <em className="text-mist">at the right moment.</em>
+        A short card,<br />
+        <em className="text-mist">a gentler thought.</em>
       </>
     ),
     notesBody:
-      "Anicca learns the shape of your day. She doesn't bother you when you're fine - she shows up when the wave comes.",
+      'A few examples of gentle words for difficult days.',
     notes: [
       {
-        time: '07:42',
-        text: 'You woke up tired. Today does not have to be efficient. It has to be lived.',
+        time: 'Example 01',
+        text: 'You can be a work in progress and still speak to yourself with kindness.',
       },
       {
-        time: '14:18',
-        text: 'You re-read the message you sent. It was kind. Stop checking it.',
+        time: 'Example 02',
+        text: 'You do not have to solve every thought today. One breath is enough for this moment.',
       },
       {
-        time: '23:51',
-        text: 'The story your mind is telling you at this hour is not the truth. Sleep is allowed to be the answer.',
+        time: 'Example 03',
+        text: 'Rest does not need to be earned. You can let today be enough.',
       },
     ],
 
-    showcaseEyebrow: 'III. Three screens, three feelings',
+    showcaseEyebrow: 'III. Three screens, three small steps',
     showcaseHeading: (
       <>
         Built like a <em className="text-mist">monastery</em>,<br />
@@ -132,99 +131,98 @@ const COPY: Record<Locale, Copy> = {
     ),
     showcase: [
       {
-        title: 'Tell it what hurts',
-        body: 'Onboard in 90 seconds. Pick what you carry - anxiety, self-doubt, grief, late nights. Anicca calibrates to the exact shape of your weather.',
+        title: 'Choose what is on your mind',
+        body: 'Choose the concerns that matter to you during setup.',
         img: '/screenshots/en/onboarding.png',
       },
       {
-        title: 'It arrives at the spiral',
-        body: 'Not a digest. Not a daily push at 8am. Anicca learns when your mind unravels and meets you there - once, briefly, gently.',
+        title: 'Allow a little reminder',
+        body: 'Enable notifications on your iPhone to receive affirmation cards. You can manage notification permission in iPhone Settings.',
         img: '/screenshots/en/notification.png',
       },
       {
-        title: 'A small lighter feeling',
-        body: 'Tap to read. Thumb up if it lands. Cards become more you. Nothing to track. Nothing to lose.',
+        title: 'Read a short card',
+        body: 'Open a card and take a moment with its words. A small reading pause, with no long session to work through.',
         img: '/screenshots/en/nudge-card.png',
       },
     ],
 
-    voicesEyebrow: 'IV. The voice',
+    voicesEyebrow: 'IV. Example words',
     voicesHeading: (
       <>
-        Lines you might<br />
-        <em className="text-mist">actually keep.</em>
+        A few words,<br />
+        <em className="text-mist">shown as examples.</em>
       </>
     ),
     voicesBody:
-      'Real Anicca cards. Tap a thumb up if it lands; the model writes more like that one.',
+      'Example affirmations for a kinder inner voice.',
     voices: [
       {
         line: 'You are allowed to disappoint people who never asked how you were.',
-        tag: 'boundaries · 22:14',
+        tag: 'example · self-kindness',
       },
       {
         line: 'The version of you from a year ago would be proud you are still here.',
-        tag: 'self-love · 09:02',
+        tag: 'example · self-doubt',
       },
       {
         line: 'A storm is not a sign that you built the house wrong.',
-        tag: 'grief · 03:38',
+        tag: 'example · overthinking',
       },
       {
         line: 'You can want the thing and not be ready for the thing on the same day.',
-        tag: 'manifestation · 07:55',
+        tag: 'example · self-doubt',
       },
       {
         line: 'Rest is not the reward for finishing. It is the requirement for continuing.',
-        tag: 'burnout · 18:40',
+        tag: 'example · rest',
       },
       {
         line: 'Anicca means impermanence. The feeling you are in right now is also passing.',
-        tag: 'anxiety · 23:47',
+        tag: 'example · impermanence',
       },
     ],
 
-    vsEyebrow: 'V. Why it works',
+    vsEyebrow: 'V. For difficult days',
     vsHeading: (
       <>
-        Not another <em className="text-mist">habit tracker</em>.
+        What is on your mind,<br />
+        <em className="text-mist">and a small next step.</em>
       </>
     ),
-    vsThemHeader: 'Other apps',
+    vsThemHeader: 'The situation',
     vsRows: [
-      { label: 'Trigger', them: 'You remember to open it', us: 'It opens itself, gently' },
-      { label: 'Cadence', them: 'Daily push at 8:00am', us: 'When the spiral actually arrives' },
-      { label: 'Length', them: 'A 10-minute session', us: 'A single line, 4 seconds' },
-      { label: 'Failure', them: 'Streak broken, guilt installed', us: 'Nothing to break' },
-      { label: 'Voice', them: 'Crush your goals!', us: "You don't have to be okay right now" },
+      { label: 'Self-talk', them: 'Your inner critic is loud', us: 'Read a short affirmation card' },
+      { label: 'Overthinking', them: 'Thoughts keep circling', us: 'Choose the concerns you want support with' },
+      { label: 'Reminders', them: 'You want a moment to pause', us: 'Enable notifications to receive cards' },
+      { label: 'Attention', them: 'A long session feels like too much', us: 'Read a short card' },
+      { label: 'Next step', them: 'You are deciding whether it fits', us: 'Review Anicca on the App Store' },
     ],
 
     pricingEyebrow: 'VI. Pricing',
     pricingHeading: (
       <>
         Free to download.<br />
-        <em className="text-mist">Pro if it helps.</em>
+        <em className="text-mist">Choose what fits.</em>
       </>
     ),
     free: {
-      name: 'Free',
-      price: '$0',
+      name: 'Download',
+      price: 'Free',
       bullets: [
-        'Onboarding & calibration',
-        '3 affirmation cards / week',
-        'Daily reading feed',
+        'Anicca for iPhone',
+        'Compatibility listed on the App Store',
+        'Optional in-app subscriptions',
       ],
     },
     pro: {
-      name: 'Anicca Pro',
-      price: '$9.99 / mo',
-      sub: 'or $49.99 / year (save 58%)',
+      name: 'Optional subscriptions',
+      price: 'See in app',
+      sub: 'Local prices are shown before you purchase.',
       bullets: [
-        'Unlimited cards (1-3 per day, learned)',
-        'Voice sessions - talk it out',
-        'Lock-screen widget',
-        '13 themes incl. shadow work, manifestation, grief',
-        'Cancel anytime, no questions',
+        'Review available plans in the app',
+        'Check the price and renewal terms',
+        'Choose whether to subscribe',
       ],
       cta: 'Start with the App Store',
     },
@@ -232,30 +230,12 @@ const COPY: Record<Locale, Copy> = {
     faqEyebrow: 'VII. Questions',
     faqHeading: <>Things people ask.</>,
     faq: [
-      {
-        q: 'Is this religious?',
-        a: 'Anicca borrows one Pāli word - the Buddhist word for impermanence. The app is for anyone who wakes up tired. No belief required.',
-      },
-      {
-        q: 'Will I get notified all day?',
-        a: '1-3 notifications per day, max. You can pause everything from the lock-screen. Quiet hours are respected automatically.',
-      },
-      {
-        q: 'Is my data shared?',
-        a: 'No. Onboarding stays on-device where possible. The model never sees your messages, photos, or contacts. Cancel and your records are deleted within 30 days.',
-      },
-      {
-        q: 'What if I miss a day?',
-        a: 'Nothing happens. There are no streaks, no scores, no shame. Anicca will be there tomorrow.',
-      },
-      {
-        q: 'Can I use it offline?',
-        a: 'Yes. Your reading feed is cached on the device - open it without signal at the worst moment of the day.',
-      },
-      {
-        q: 'Why is it AI-personalised?',
-        a: 'Because grief, burnout, and self-doubt sound different in different people. Thumb up the lines that land; the model writes more like those.',
-      },
+      { q: "What is Anicca?", a: "Anicca is an iPhone affirmation app with short cards for difficult days. Choose the areas you want support with to get started." },
+      { q: "How do I receive cards?", a: "Choose the topics you want support with, then allow notifications on your iPhone to receive cards. You can manage notification permission in iPhone Settings." },
+      { q: "What does Anicca mean?", a: "Anicca is a Pāli word for impermanence: things change. It is the idea behind the app's gentle tone." },
+      { q: "How much does it cost?", a: "Anicca is free to download with optional in-app subscriptions. Available plans, local prices, and renewal terms are shown on the purchase screen." },
+      { q: "Which iPhones are supported?", a: "Anicca requires iOS 16.6 or later. Check the App Store listing for current compatibility." },
+      { q: "Where can I read about privacy?", a: "The Privacy Policy is linked from the App Store listing. Read it for details about how your data is handled." },
     ],
 
     closeEyebrow: 'VIII. Take it with you',
@@ -266,56 +246,56 @@ const COPY: Record<Locale, Copy> = {
       </>
     ),
     closeBody:
-      'Including the feeling you are sitting in right now. Anicca is the small voice that reminds you of that - at the exact hour you forget.',
+      'Carry a few kinder words into your day. Choose your topics, allow notifications, and open a short affirmation card for a moment to read.',
     closeCta: 'Download on the App Store',
-    closeMeta: 'iOS 15+ · Free · Anicca Pro from $9.99 / mo',
+    closeMeta: 'iPhone · Free download · Optional in-app subscriptions',
     closeBack: '← back to anicca.ai',
   },
 
   ja: {
     navBack: '← anicca.ai',
     navLang: 'EN',
-    eyebrow: 'アニッチャ · iOS · Health & Wellness',
+    eyebrow: 'Anicca · iPhoneのアファメーションアプリ',
     heroLine1: (
       <>
-        今夜は<br />無理しなくて<br />いい
+        自分に<br />やさしい<br />言葉を。
       </>
     ),
-    heroLine2: <em className="not-italic text-gold/90">大丈夫。</em>,
+    heroLine2: <em className="not-italic text-gold/90">毎日の<br />アファメーション。</em>,
     heroSub:
-      'アニッチャ は、あなたのスマホに静かに住む同伴者。心が崩れ始めた瞬間 23:47、レジ待ちの列、Instagram を開いた瞬間 一言だけ、やさしさが届く。アプリを開く必要はない。向こうから来る。',
+      '自分を責めてしまう日に、少しやさしい言葉を。Aniccaは、短いカードが届くiPhoneのアファメーションアプリです。気になる悩みを選び、通知を有効にして受け取ります。',
     ctaPrimary: 'App Store で入手',
-    rating: '4.8',
-    ratingMeta: 'App Store · ヘルスケア / フィットネス',
-    badges: ['iOS 15+', 'ストリークなし', '記録なし', '罪悪感なし', 'プライバシー優先'],
-    proofRow: 'soft-life TikTok で話題 · 大人の友達みたいに、やさしい',
+    platform: 'iPhone',
+    platformMeta: '短いアファメーションカード',
+    badges: ['iOS 16.6+', '短いカード', '悩みを選ぶ', '通知で受け取る', '無料ダウンロード'],
+    proofRow: '悩みを選ぶ · 通知を有効にする · 短いカードを読む',
 
     storyEyebrow: 'I. 前提',
     storyHeading: (
       <>
-        他の アファメーション アプリは、<br />
-        <em className="text-mist">あなたが開くのを待つ。</em>
+        自分にも、<br />
+        <em className="text-mist">友達にかけるような言葉を。</em>
       </>
     ),
     storyBody:
-      'けれど、心の渦は待たない。真夜中、信号待ち、洗面台の鏡。ジャーナルアプリを開こうと思いついた頃には、もう波は過ぎている。アニッチャ は逆向きに作られた - 渦のほうに、アファメーション が届く。習慣でもストリークでもなく、ノックのように。',
+      '友達には言わないような厳しい言葉を、自分には向けてしまう日がある。Aniccaは、そんな日に読む短いアファメーションカードを届けます。今気になっている悩みを選ぶところから始めます。',
 
-    notesEyebrow: 'II. アニッチャ と過ごす一日',
+    notesEyebrow: 'II. 日々の言葉',
     notesHeading: (
       <>
-        一行のやさしさ、<br />
-        <em className="text-mist">ちょうどいい瞬間に。</em>
+        短いカードで、<br />
+        <em className="text-mist">少しやさしい言葉を。</em>
       </>
     ),
     notesBody:
-      'アニッチャ はあなたの一日の形を学ぶ。元気なときは黙っている。波が来たときに、そっと現れる。',
+      '難しい日に読む、やさしい言葉の例です。',
     notes: [
-      { time: '07:42', text: '疲れて目が覚めた。今日は効率的でなくていい。生きていればいい。' },
-      { time: '14:18', text: 'さっき送ったメッセージを読み返した。やさしかった。確認するのをやめていい。' },
-      { time: '23:51', text: 'この時間に頭が話している物語は、本当のことではない。眠ることが答えでも構わない。' },
+      { time: '文面例 01', text: 'まだ途中の自分にも、やさしい言葉をかけていい。' },
+      { time: '文面例 02', text: '今日、すべての考えに答えを出さなくていい。今はひと呼吸で十分。' },
+      { time: '文面例 03', text: '休むために、何かを成し遂げる必要はない。今日はここまででもいい。' },
     ],
 
-    showcaseEyebrow: 'III. 3 つの画面、3 つの感覚',
+    showcaseEyebrow: 'III. 3つの画面、小さな3歩',
     showcaseHeading: (
       <>
         作りは <em className="text-mist">寺院</em>、<br />
@@ -324,76 +304,75 @@ const COPY: Record<Locale, Copy> = {
     ),
     showcase: [
       {
-        title: '何が痛むかを教えて',
-        body: '90 秒で初期設定。今あなたが抱えているもの（不安、自己否定、悲しみ、夜更かし）を選ぶ。アニッチャ はあなたの天気の形に合わせる。',
+        title: '気になる悩みを選ぶ',
+        body: '初期設定で、今の自分に合う悩みを選びます。',
         img: '/screenshots/ja/onboarding.png',
       },
       {
-        title: '渦のほうに届く',
-        body: 'まとめ通知ではなく、朝 8 時の定刻通知でもない。心がほどける時間を学習し、その瞬間に、一度だけ、静かに現れる。',
+        title: '通知を有効にする',
+        body: 'iPhoneで通知を許可すると、アファメーションカードを受け取れます。通知の許可はiPhoneの「設定」で管理できます。',
         img: '/screenshots/ja/notification.png',
       },
       {
-        title: '少しだけ、軽くなる',
-        body: 'タップして読む。沁みたら親指を上げる。カードはあなたに似ていく。記録するものは何もない。失うものも何もない。',
+        title: '短いカードを読む',
+        body: 'カードを開いて、言葉を読むひとときを。長いセッションに取り組まず、短い文章に目を向けます。',
         img: '/screenshots/ja/nudge-card.png',
       },
     ],
 
-    voicesEyebrow: 'IV. 言葉',
+    voicesEyebrow: 'IV. 言葉の例',
     voicesHeading: (
       <>
-        実際に届くかもしれない<br />
-        <em className="text-mist">一行たち。</em>
+        自分に向ける、<br />
+        <em className="text-mist">短い言葉の文面例。</em>
       </>
     ),
-    voicesBody: '実際に アニッチャ から届くカード。沁みたら親指を上げると、モデルはそれに似た一行をもっと書きます。',
+    voicesBody: '自分にやさしい言葉をかけるための文面例です。',
     voices: [
-      { line: 'あなたの体調を一度も訊かなかった人を、がっかりさせていい。', tag: '境界線 · 22:14' },
-      { line: '一年前のあなたは、今もここにいるあなたを誇りに思っている。', tag: 'セルフラブ · 09:02' },
-      { line: '嵐は、家の建て方を間違えたという証拠ではない。', tag: '悲しみ · 03:38' },
-      { line: 'それを欲しがることと、まだその準備ができていないことは、同じ日に成立していい。', tag: 'マニフェステーション · 07:55' },
-      { line: '休息は、終わらせたご褒美ではない。続けるための条件。', tag: 'バーンアウト · 18:40' },
-      { line: 'アニッチャ は無常という意味。今あなたが感じているこの感覚も、過ぎていく。', tag: '不安 · 23:47' },
+      { line: 'あなたの体調を一度も訊かなかった人を、がっかりさせていい。', tag: '文面例 · 自分へのやさしさ' },
+      { line: '一年前のあなたは、今もここにいるあなたを誇りに思っている。', tag: '文面例 · 自信のない日' },
+      { line: '嵐は、家の建て方を間違えたという証拠ではない。', tag: '文面例 · 考えすぎ' },
+      { line: 'それを欲しがることと、まだその準備ができていないことは、同じ日に成立していい。', tag: '文面例 · 自信のない日' },
+      { line: '休息は、終わらせたご褒美ではない。続けるための条件。', tag: '文面例 · 休息' },
+      { line: 'アニッチャ は無常という意味。今あなたが感じているこの感覚も、過ぎていく。', tag: '文面例 · 無常' },
     ],
 
-    vsEyebrow: 'V. 効く理由',
+    vsEyebrow: 'V. 難しい日に',
     vsHeading: (
       <>
-        ただの <em className="text-mist">習慣トラッカー</em> ではない。
+        今の気持ちと、<br />
+        <em className="text-mist">小さな次の一歩。</em>
       </>
     ),
-    vsThemHeader: '他のアプリ',
+    vsThemHeader: 'こんなとき',
     vsRows: [
-      { label: 'きっかけ', them: 'あなたが思い出してアプリを開く', us: '向こうから、そっと開く' },
-      { label: '頻度', them: '毎朝 8:00 の定刻通知', us: '実際に渦が来た瞬間' },
-      { label: '長さ', them: '10 分のセッション', us: '一行、4 秒' },
-      { label: '失敗', them: 'ストリーク途切れる、罪悪感が住みつく', us: '途切れるものがない' },
-      { label: '声色', them: '目標を粉砕しろ!', us: '今夜は無理しなくていい' },
+      { label: '自分への言葉', them: '自分を責める声が大きい', us: '短いアファメーションカードを読む' },
+      { label: '考えすぎ', them: '同じ考えがぐるぐるする', us: '気になる悩みを選ぶ' },
+      { label: 'きっかけ', them: '少し立ち止まるきっかけがほしい', us: '通知を有効にしてカードを受け取る' },
+      { label: 'ひととき', them: '長いセッションに取り組む余裕がない', us: '短いカードに目を向ける' },
+      { label: '次の一歩', them: '自分に合うか確かめたい', us: 'App StoreでAniccaを確認する' },
     ],
 
     pricingEyebrow: 'VI. 料金',
     pricingHeading: (
       <>
         ダウンロードは無料。<br />
-        <em className="text-mist">役に立ったら Pro で。</em>
+        <em className="text-mist">自分に合うか確かめて。</em>
       </>
     ),
     free: {
-      name: 'Free',
-      price: '¥0',
-      bullets: ['初期設定 & キャリブレーション', '週 3 枚のカード', '読み返しフィード'],
+      name: 'ダウンロード',
+      price: '無料',
+      bullets: ['iPhoneのAnicca', '対応条件はApp Storeで確認', '任意のアプリ内サブスクリプション'],
     },
     pro: {
-      name: 'Anicca Pro',
-      price: '¥1,500 / 月',
-      sub: 'または ¥7,800 / 年 (58% off)',
+      name: '任意のサブスクリプション',
+      price: '購入画面で確認',
+      sub: '地域ごとの料金は購入前に表示されます。',
       bullets: [
-        '無制限のカード (1日 1〜3 枚、学習)',
-        'ボイスセッション - 声に出して話す',
-        'ロック画面ウィジェット',
-        '13 のテーマ (シャドウワーク、マニフェステーション、悲しみ等)',
-        'いつでも解約、説明不要',
+        'アプリで利用できるプランを確認',
+        '料金と更新条件を確認',
+        '登録するかを自分で選ぶ',
       ],
       cta: 'App Store で始める',
     },
@@ -401,30 +380,12 @@ const COPY: Record<Locale, Copy> = {
     faqEyebrow: 'VII. よくある質問',
     faqHeading: <>聞かれること。</>,
     faq: [
-      {
-        q: '宗教ですか?',
-        a: 'パーリ語をひとつだけ借りています（仏教の「無常」という言葉）。アプリ自体は、疲れて目覚めるすべての人のためのものです。信仰は不要。',
-      },
-      {
-        q: '一日中通知が来ますか?',
-        a: '1 日に 1〜3 回まで。ロック画面から全部止められます。おやすみ時間は自動で尊重します。',
-      },
-      {
-        q: 'データは共有されますか?',
-        a: 'いいえ。可能な限り端末内で完結します。モデルがあなたのメッセージや写真、連絡先を見ることはありません。解約後 30 日以内に記録は削除されます。',
-      },
-      {
-        q: '一日休んだら?',
-        a: '何も起きません。ストリークもスコアも罰もありません。アニッチャ は、明日もそこにいます。',
-      },
-      {
-        q: 'オフラインでも使えますか?',
-        a: 'はい。読み返しフィードは端末にキャッシュされます。電波がない、最悪のタイミングでも開けます。',
-      },
-      {
-        q: 'なぜ AI でパーソナライズなんですか?',
-        a: '悲しみ、燃え尽き、自己否定は、人によって響く言葉が違うから。沁みた一行に親指を上げると、モデルはそれに似た一行をもっと書きます。',
-      },
+      { q: "Aniccaとは？", a: "Aniccaは、難しい日に読む短いカードを届けるiPhoneのアファメーションアプリです。気になる悩みを選ぶところから始めます。" },
+      { q: "カードはどう受け取りますか？", a: "気になる悩みを選び、iPhoneで通知を許可するとカードを受け取れます。通知の許可はiPhoneの「設定」で管理できます。" },
+      { q: "Aniccaの意味は？", a: "パーリ語で「無常」、物事は移り変わるという意味です。アプリのやさしい言葉の背景にある考え方です。" },
+      { q: "料金は？", a: "ダウンロードは無料で、任意のアプリ内サブスクリプションがあります。利用できるプラン、地域ごとの料金、更新条件は購入画面で確認できます。" },
+      { q: "対応するiPhoneは？", a: "iOS 16.6以降に対応しています。最新の対応条件はApp Storeの商品ページで確認できます。" },
+      { q: "プライバシーについてはどこで確認できますか？", a: "App Storeの商品ページからプライバシーポリシーを開けます。データの取り扱いについて、そちらで確認できます。" },
     ],
 
     closeEyebrow: 'VIII. 持ち帰る',
@@ -435,9 +396,9 @@ const COPY: Record<Locale, Copy> = {
       </>
     ),
     closeBody:
-      '今あなたが座っているその感覚も含めて。アニッチャ は、それをあなたが忘れる正確な時刻に、静かに思い出させる小さな声。',
+      '毎日に、自分へ向けるやさしい言葉を。気になる悩みを選び、通知を許可して、届いた短いアファメーションカードを読むところから。',
     closeCta: 'App Store で入手',
-    closeMeta: 'iOS 15+ · 無料 · Anicca Pro は ¥1,500 / 月から',
+    closeMeta: 'iPhone · 無料ダウンロード · 任意のアプリ内サブスクリプション',
     closeBack: '← anicca.ai に戻る',
   },
 };
@@ -520,10 +481,10 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
                     className="font-soft text-[22px] italic text-ink"
                     style={{ fontVariationSettings: '"opsz" 96' }}
                   >
-                    ★ {t.rating}
+                    {t.platform}
                   </span>
                   <span className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-mist">
-                    {t.ratingMeta}
+                    {t.platformMeta}
                   </span>
                 </div>
               </div>
@@ -561,7 +522,7 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
                     />
                     <div className="min-w-0">
                       <p className="font-mono-ui text-[10px] uppercase tracking-[0.18em] text-mist">
-                        anicca · now
+                        anicca · {locale === 'ja' ? '文面例' : 'example'}
                       </p>
                       <p className="mt-0.5 truncate font-soft text-[13px] italic text-ink">
                         {t.notes[2].text.slice(0, 64)}
@@ -774,7 +735,7 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
                           {r.label}
                         </td>
                         <td
-                          className="py-5 pr-3 font-soft text-[16px] text-mist line-through decoration-ink/15"
+                          className="py-5 pr-3 font-soft text-[16px] text-mist"
                           style={{ fontVariationSettings: '"opsz" 96' }}
                         >
                           {r.them}
