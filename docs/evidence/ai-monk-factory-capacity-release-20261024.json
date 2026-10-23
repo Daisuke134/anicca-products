@@ -1,0 +1,110 @@
+{
+  "schema_version": "anicca.ai-monk-factory-capacity-release.v1",
+  "observed_at": "2026-10-23T20:27:00.821606+00:00",
+  "owner_id": "root",
+  "reviewed_source_sha": "f84485907b62941e3e52df4735fd0ac7b9ecc810",
+  "source_acceptance": {
+    "core_pass": 48,
+    "client_pass": 5,
+    "isolated_postgres_pass": 25
+  },
+  "independent_read_only_review": {
+    "verdict": "SHIP",
+    "core_pass": 48,
+    "isolated_postgres_pass": 25,
+    "skip": 0,
+    "blocking_findings": 0
+  },
+  "ci": {
+    "run_id": 40018027230,
+    "conclusion": "success"
+  },
+  "release": {
+    "pr": 629,
+    "main_sha": "710f0347a2981e19b0aa11d73df953a9bd1e9588",
+    "deploy_run_id": 40018476870,
+    "deploy_conclusion": "success"
+  },
+  "migration": {
+    "source_file": "20261023201136_monk_factory_capacity.sql",
+    "source_sha256": "7e2fa1a0c1d493149538d1c655b1e5385b4609f263cea9d62470fab2116825cd",
+    "remote_name": "monk_factory_capacity",
+    "remote_version": "20261023202156",
+    "apply_attempts": 1,
+    "previous_migrations_changed": 0,
+    "terminal_release_installed": true,
+    "old_social_lease_invalidated": true,
+    "rls_all_enabled": true,
+    "execute_permissions": {
+      "anon": false,
+      "authenticated": false,
+      "service_role": true
+    },
+    "account_job_event_counts": [
+      0,
+      0,
+      0
+    ]
+  },
+  "public_runtime": {
+    "observed_at": "2026-10-23T20:25:27.654273+00:00",
+    "site_id": "d67537f0-21bd-477e-ac1a-323f7ec6d5cd",
+    "published_deploy": {
+      "id": "6adbc2375057021d837b22e6",
+      "state": "ready",
+      "title": "Deploy from GHA prod - 710f0347a2981e19b0aa11d73df953a9bd1e9588",
+      "commit_ref": null,
+      "context": "production",
+      "created_at": "2026-10-23T20:23:19.835Z",
+      "published_at": "2026-10-23T20:23:59.240Z"
+    },
+    "factory_functions": [
+      "monk-factory",
+      "monk-factory-image-background",
+      "monk-factory-stripe",
+      "monk-factory-tick"
+    ],
+    "main_sha_in_title": true,
+    "env_mutations": 0
+  },
+  "authenticated_live_api": {
+    "http_status": 200,
+    "ready": false,
+    "account_present": false,
+    "jobs_count": 0,
+    "error_class": null,
+    "observed_at": "2026-10-23T20:25:35.672861+00:00",
+    "identity_matches_ssot": true,
+    "customer_checkout_created": false,
+    "provider_generation_post_count": 0
+  },
+  "effects": {
+    "production_migrations_added": 1,
+    "production_env_changes": 0,
+    "customer_payments": 0,
+    "provider_generations": 0,
+    "social_posts": 0
+  },
+  "limits": [
+    "Cancelled customer/provider effects are verified with isolated fixtures, not fabricated production customers.",
+    "Factory remains disabled while provider billing requirements are unmet."
+  ],
+  "evidence_refs": [
+    {
+      "file": "ai-monk-factory-dedicated-provider-20261024/capacity-main-migration.sql",
+      "sha256": "7e2fa1a0c1d493149538d1c655b1e5385b4609f263cea9d62470fab2116825cd"
+    },
+    {
+      "file": "ai-monk-factory-dedicated-provider-20261024/capacity-migration-apply-fence.json",
+      "sha256": "cf7276ee8bdb27d92eec1cae52fcce4882ae725cdbfd0c940e3f295efa1d6288"
+    },
+    {
+      "file": "ai-monk-factory-dedicated-provider-20261024/capacity-production-readback.json",
+      "sha256": "e3b67043bdec0db648a46eb350bc350e5fd6960172ea36251474968f2d0cfc8b"
+    },
+    {
+      "file": "ai-monk-factory-dedicated-provider-20261024/capacity-netlify-published-readback.json",
+      "sha256": "804b56150b4882f38c060a2d06ff28a3ccd2a3dee604e0af76e5569a89c710d7"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "observed_at": "2026-10-23T20:39:36.947941+00:00",
+  "permalink": "https://x.com/selawmqt/status/2113731126355468705",
+  "tweet_id": "2113731126355468705",
+  "author": "selawmqt",
+  "official_get_status": 200,
+  "copy_matches_after_html_entity_decode_and_url_expansion": true,
+  "copy_sha256": "5ef18ab27c05ccef30581a120d99a1bb21650b4a5d2fbf41dfb9eef07bb49b45",
+  "expanded_utm_url": "https://aniccaai.com/ai-monk-database/support?utm_source=x&utm_medium=social&utm_campaign=ai_monk_creation_tools",
+  "media_count": 1,
+  "ui_submit_clicks": 1,
+  "resends": 0,
+  "original_create_response_validation": "HTML entities prevented the raw prefix comparison; no retry was sent",
+  "receipt_source": "official TweetResultByRestId/TweetDetail GET plus independent public page",
+  "public_readback_file": "x-followup-public-readback.md",
+  "clicks": null,
+  "installs": null,
+  "orders": null,
+  "schema_version": "anicca.ai-monk-plugin-x-followup.v1",
+  "owner_id": "root",
+  "review": {
+    "verdict": "SHIP",
+    "blocking_findings": 0,
+    "copy_and_image_digest_verified": true
+  },
+  "database_snapshot_at_post": {
+    "version": "0.4.5",
+    "public_profiles": 73,
+    "archive": 75,
+    "sources": 176,
+    "snapshot_sha256": "415571064885204388d191188490cc45bf6602aeef3e3fc47c1c3b35dff13a72",
+    "evidence_reviewed_public": 4,
+    "pending_public": 69
+  },
+  "plugin_release_at_post": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-plugin-v0.1.2",
+  "image_sha256": "70674f4ad26a5dd9268df243500a8805a021b7b8baed3078f94e4ab722dfa1f2",
+  "native_metrics_snapshot": {
+    "observed_at": "2026-10-23T20:37:28.364685+00:00",
+    "views": 4,
+    "likes": 1,
+    "replies": 2,
+    "reposts": 0
+  },
+  "independent_public_readback": {
+    "url": "https://x.com/selawmqt/status/2113731126355468705",
+    "crawl_exit": 0,
+    "views_observed": 6,
+    "body_contains_expected_public_copy": true
+  },
+  "metric_limits": [
+    "Provider views are not unique people and may include operator/crawler views.",
+    "No attributed clicks, installs, orders or revenue are established."
+  ],
+  "effects": {
+    "new_public_posts": 1,
+    "post_retries": 0,
+    "factory_customer_checkouts": 0,
+    "generations": 0,
+    "grok_daily_runtime_changes": 0
+  },
+  "evidence_refs": [
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/x-copy.txt",
+      "sha256": "5ef18ab27c05ccef30581a120d99a1bb21650b4a5d2fbf41dfb9eef07bb49b45"
+    },
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/database-public-preview.png",
+      "sha256": "70674f4ad26a5dd9268df243500a8805a021b7b8baed3078f94e4ab722dfa1f2"
+    },
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/x-media-upload-fence.json",
+      "sha256": "7d53ab7bcb7cd2d260be8735477a8fe1e1b9c272888446a88dd3200cbf704b71"
+    },
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/x-composer-preflight.json",
+      "sha256": "b1dd3ea598b23f5f87a468c8aca0c9b77c7985acd75a1ba74538669d69469b4b"
+    },
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/x-post-submit-fence.json",
+      "sha256": "8d7a54cf978f891884ede123c5e444d9a55853d347b9b0b57c3c5b17a9a5add1"
+    },
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/x-own-profile-recovery-readback.json",
+      "sha256": "377df45296a6708b3d321315b7f315dfdb6fe1832fe84432e69c1500218cd2b9"
+    },
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/x-native-recovery-receipt.json",
+      "sha256": "97ec40b413aeabef5e045f53ae937d6c60ca186ac6e956de53a8f9ec8dc8edb9"
+    },
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/x-native-copy-reconciliation.json",
+      "sha256": "73afe036fed4e771b00b8b35f763ffa7657e85a6d41fb097c7e1073f6bf8c116"
+    },
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/x-native-final-readback.json",
+      "sha256": "fede92303345064219bf3bb709447b45182ae67e2ad2b72a673a40ddf6ee375f"
+    },
+    {
+      "file": "ai-monk-plugin-distribution-followup-20261024/x-followup-public-readback.md",
+      "sha256": "5e03969f19e32764cfee553c84ada244dd7d35e225d5cdcadb9f42d3bab6650a"
+    }
+  ]
+}

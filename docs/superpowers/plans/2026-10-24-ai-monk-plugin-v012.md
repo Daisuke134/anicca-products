@@ -23,10 +23,10 @@ Museは既存提出の3/3 requirements受付済み、BusinessだけApproved、Da
 
 - [x] v0.1.2のmanifest/READMEを6toolsへ整合する。
 - [x] portable schema、隔離したCodex package/config load、公開remote6toolのsource受入を記録する。証拠 → `../../evidence/ai-monk-plugin-v012-source-20261024.json`。branchのcommit/pushとremote object一致は主担当へ報告する。
-- [ ] 主担当がPR/main統合後、immutable main SHA由来のZIPを新Releaseへ公開し、official digestと公開download bytesを照合する。
+- [x] PR630/main2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1の固定4filesからZIPを作り、ai-monk-plugin-v0.1.2を公開する。asset670323615/733154bytesのofficial digestと公開download SHA256 78594ea8af058d06cc64cf65d1442e3bca9f3ba799d1761f8779f2dd6a45d1baが一致する。source review SHIP、旧Release変更0。証拠 → ../../evidence/ai-monk-plugin-v012-release-20261024.json。
 - [ ] primaryがdeveloper identity/支払元・実demoを満たして正式upload/submit/審査結果/掲載を個別に記録する。
 
-全体の順序は変更しない。現在cursorは主担当によるmain統合・新ZIP公開。過去の3tool版のnative routing受入は過去の証拠として維持し、今回の6tool版native routingは未受入として残す。
+全体の順序は変更しない。現在cursorはdeveloper identity/支払元・実walkthroughと正式upload/submit/掲載の外部受入。過去の3tool版のnative routing受入は過去の証拠として維持し、今回の6tool版native routingは未受入として残す。
 
 ## main統合後の再現可能なZIP作成
 

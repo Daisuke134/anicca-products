@@ -1,0 +1,37 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-v012-public-release.v1",
+  "observed_at": "2026-10-23T20:31:28.427495+00:00",
+  "owner_id": "root",
+  "source_main_sha": "2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1",
+  "source_pr": 630,
+  "reviewed_source_sha": "9aea42f2cd247311bd78d49a4a648573f5f478a2",
+  "source_and_copy_review": "SHIP",
+  "tag": "ai-monk-plugin-v0.1.2",
+  "tag_object_sha": "2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1",
+  "release_id": 422283129,
+  "release_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-plugin-v0.1.2",
+  "published_at": "2026-10-23T20:31:07Z",
+  "is_draft": false,
+  "is_prerelease": false,
+  "asset": {
+    "id": 670323615,
+    "name": "ai-monk-index-plugin-0.1.2.zip",
+    "bytes": 733154,
+    "official_digest": "sha256:78594ea8af058d06cc64cf65d1442e3bca9f3ba799d1761f8779f2dd6a45d1ba",
+    "public_download_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-v0.1.2/ai-monk-index-plugin-0.1.2.zip",
+    "download_sha256": "78594ea8af058d06cc64cf65d1442e3bca9f3ba799d1761f8779f2dd6a45d1ba",
+    "zip_file_digests": {
+      "README.md": "50b6f0ec83bc74b7462ff5ebd1e69d2c6dcfb02f8efc101ebb0d16671611af6f",
+      "assets/icon.png": "8e0fd36eb74d4bb5749e8f049cace51db6823bf8923933f37421cde896ba5ca3",
+      "mcp.json": "ebd167f7e98b8d604e5326b603f0c3f23eea7d699042e4afcfafc28ef73720b0",
+      "plugin.json": "62ca5502bac4e8fca32f3ec2bf51f03851508a60572ae9d95ede9c497c6a533a"
+    }
+  },
+  "create_attempts": 1,
+  "resends": 0,
+  "old_release_mutations": 0,
+  "limits": [
+    "ZIP publication is not formal ChatGPT directory acceptance.",
+    "Developer identity/default payment, actual demo and new natural-language routing remain unverified."
+  ]
+}

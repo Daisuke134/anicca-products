@@ -1,0 +1,84 @@
+{
+  "schema_version": "anicca.ai-monk-factory-provider-preflight.v1",
+  "recorded_at": "2026-10-23T20:27:00.821606+00:00",
+  "owner_id": "root",
+  "heygen": {
+    "dedicated_factory_account": true,
+    "api_key_saved_ssot": true,
+    "official_users_me_status": 200,
+    "identity_matches_factory_ssot": true,
+    "grok_email_differs": true,
+    "api_wallet_usd": 0,
+    "api_wallet_auto_reload": false,
+    "workspace_auto_refill_flag_is_not_wallet_reload": true,
+    "minimum_topup_usd_ui_contract": 5,
+    "topup_purchased": false,
+    "generations": 0
+  },
+  "openai": {
+    "dedicated_alias_account_created": true,
+    "dedicated_organization_and_project_created": true,
+    "organization_name": "AI Monk Factory",
+    "project_name": "AI Monk Factory Production",
+    "api_key_create_count": 1,
+    "key_saved_ssot": true,
+    "official_models_get_status": 200,
+    "image_model_listed": true,
+    "model_list_does_not_establish_paid_generation_permission": true,
+    "credit_balance_usd": 0,
+    "paid_generation_calls": 0,
+    "payment_details_ui": "card number, expiry and CVC required",
+    "link_selector_observed": false,
+    "full_card_credential_in_ssot": false,
+    "auto_reload_setting_verified": false,
+    "organization_verification_gate": "valid default payment method required",
+    "plugin_upload_gate": "verified developer identity required before create/upload",
+    "zip_uploads": 0,
+    "submissions": 0
+  },
+  "upload_post": {
+    "dedicated_account_prepared": true,
+    "paid_professional_purchased": false,
+    "planned_monthly_usd": 50,
+    "planned_profiles": 25,
+    "planned_white_label": true,
+    "checkout_prepared": true,
+    "link_authenticated": true,
+    "purchase_deferred_until_generation_budgets_available": true
+  },
+  "effects": {
+    "topups": 0,
+    "new_paid_subscriptions": 0,
+    "factory_customer_checkouts": 0,
+    "generations": 0,
+    "social_posts": 0,
+    "grok_daily_runtime_mutations": 0
+  },
+  "next_action": "Register a usable payment method in the dedicated OpenAI organization; verify funding/limits and identity, then complete provider/runtime acceptance. Continue independent database/plugin distribution.",
+  "official_sources": [
+    "https://developers.openai.com/api/docs/guides/spend-limits",
+    "https://developers.openai.com/plugins/deploy/submission"
+  ],
+  "evidence_refs": [
+    {
+      "file": "ai-monk-factory-dedicated-provider-20261024/root-current-user-readback.json",
+      "sha256": "ccf1e4bb4f072c5be3b2998bba2cbfb0002699ac77e87570f9d49b204815774d"
+    },
+    {
+      "file": "ai-monk-factory-dedicated-provider-20261024/heygen-provisioning-summary.json",
+      "sha256": "284bbbd3e45fe5b8cec46c5d2d02fd6aae9815855e0da2146721f0bf3a682c20"
+    },
+    {
+      "file": "ai-monk-factory-dedicated-provider-20261024/openai-api-key-readback.json",
+      "sha256": "7b02d5050155a9cdbf3fbb25b83760215567df21fb2bf296aa6657813460b5eb"
+    },
+    {
+      "file": "ai-monk-factory-dedicated-provider-20261024/openai-free-organization-readback.json",
+      "sha256": "d509816cedc569a5f30b6e27f58cf380d1d787ed1175117ec580a0cb365f95f6"
+    },
+    {
+      "file": "ai-monk-factory-dedicated-provider-20261024/openai-plugin-submission-preflight.json",
+      "sha256": "55fcda53e0fad5df36790ec035733c42198f6eec55d573a9275eef2dd1ffcdf6"
+    }
+  ]
+}
