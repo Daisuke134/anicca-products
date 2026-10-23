@@ -15,8 +15,8 @@
   "conservative_x_weighted_length": 57,
   "max_weighted_length": 270,
   "reply_prefix": "無料のAI Monk Databaseはこちら。",
-  "state": "prepared",
-  "provider_writes": 0,
+  "state": "published",
+  "provider_writes": 1,
   "resends": 0,
   "original_destination_verified_missing": true,
   "missing_link_source": "Read-only public X body crawl; original host integration-settings strips links",
@@ -37,5 +37,16 @@
     "Unknown native effect requires readback only, never resend",
     "Clicks/orders/revenue/profit/retweet not measured"
   ],
-  "operator_sha256": "5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0"
+  "operator_sha256": "5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0",
+  "reply_url": "https://x.com/selawmqt/status/2113583436426625030",
+  "native_receipt": {
+    "reply_id": "2113583436426625030",
+    "parent_id": "2113286777054360059",
+    "full_text": "無料のAI Monk Databaseはこちら。\n\nhttps://t.co/dCEJcaMcS1",
+    "expanded_urls": [
+      "https://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_ja"
+    ]
+  },
+  "observed_at": "2026-10-23T10:49:00.746649+00:00",
+  "verification": "own reply id/parent/full text/expanded destination and permalink"
 }

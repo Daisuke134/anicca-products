@@ -12,8 +12,8 @@
 
 - [x] 3件の具体copy/元UTM/hash/親を永続specへ保存しpush。
 - [x] fresh copy/operator read-only照合、source/mainの公開scopeを確認。
-- [ ] native3返信をそれぞれ1回だけ実行し公式native receipt/expanded URL/permalinkを照合。
-- [ ] 自分のlease releaseを確認し、元receiptを保持して結果を記録/統合。
+- [x] native3返信をそれぞれ1回だけ実行し公式native receipt/expanded URL/permalinkを照合。
+- [x] 自分のlease releaseを確認し、元receiptを保持して結果を記録/統合。
 
 **実行operator:** /private/tmp/ai_monk_existing_x_link_reply_20261023.py、SHA256 3c41ed77a5b05f2cc4055a6dced7bd9a50e0eab8285630ae7c9e72b5cf8db4b8。3targetの親ID/本文fragment/copy SHA/元URLを固定し、正規guard acquire完了時の自身lease PID34833/UUID/portを実行前に照合する。lease再取得でPIDが変わった場合は旧operatorをそのまま使わず再照合する。source copyとoperatorはfresh read-only受入前で未送信。
 
@@ -24,3 +24,15 @@
 **送信前timeoutの原因境界と限定修復:** book-enの2実行はno_submit/TimeoutError/receipt nullで、専用fence未作成・CreateTweet0。送信無しの観測を追加し、exact parentの直表示では本人@selawmqt/親article1/返信欄1を確認する。実operatorだけが先にX homeへ遷移するため、余分なhomeを除きexact parentで同じ本人確認→親照合を行う。cold hydrationの待機を45秒にし、失敗時のui_phaseを返す。本文/3target/元UTM/送信前fence/既存fence再送禁止/native receipt/permalinkは保持する。新operator SHA256 5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0、syntax PASS。旧reviewの本文受入を保持し、navigation差分の独立再照合が済むまで送信しない。
 
 **navigation差分の受入:** fresh検証者は新operator5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0の変更を逆適用し旧受入SHA3c41ed77へ完全一致することを確認する。findings0/Blocking0、3copy SHA/元UTM/親・送信前fence/1click/receipt/permalinkは不変。本人handle/親/返信欄を得たread-only probe4とも整合する。
+
+## 実結果
+
+3件はnative CreateTweetの実応答で親ID/返信ID/full text/expanded URLを取得し、別の正確なpermalinkを開いて本人本文を照合する。
+
+| 対象 | 返信URL | 元の親ID |
+|---|---|---|
+| 英語書籍 | https://x.com/selawmqt/status/2113582983580139758 | 2113304729166213433 |
+| Database英語 | https://x.com/selawmqt/status/2113583291374952934 | 2113286528508285146 |
+| Database日本語 | https://x.com/selawmqt/status/2113583436426625030 | 2113286777054360059 |
+
+各native送信1/再送0/元Postiz再送0、合計3件のリンク補完。book-enの旧事前確認2回は専用fence無しのno_submitで、投稿数へ含めない。JA書籍の既存返信2113556550073921584は今回の対象外で再送0。元のPostiz ID/本文copy/receipt/originを保持し、native receiptを別のlink_deliveryとして追記する。使用した自分のleaseをrelease後holder空を確認し、browserは停止しない。クリック/注文/利益/retweetは本作業で測定しない。source/proofを本branchでpushし、結果docs PRのCI/mainを確認する。
