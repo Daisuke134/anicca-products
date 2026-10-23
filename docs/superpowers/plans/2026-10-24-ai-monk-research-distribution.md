@@ -15,7 +15,7 @@
 - [x] COST-1（API/Stripe/接続費の一次資料と仮定別原価表を取得、実請求/転換率はSaaSで追跡）: ReelFarm公開価格/無料枠/導線、HeyGen実API単価、45/60秒・1日1本/2本・3日trial・再生成・Stripe手数料から原価と利益を計算する。取得不足はunknownとし課金top-upしない。
 - [ ] SaaS-1: 原価からprice/生成上限を決め、最小auth・Stripe3日trial・Generate avatar/video・IG接続・自動投稿・metricsを既存Web/APIから実装して公開する。TikTokは後続。実API生成/Stripe subscription/利用者所有接続/公式投稿とmetricsを成果条件として追跡する。
 - [ ] DIST-2: 実利用できるFactoryをXで告知し、Grokにも配布協力を依頼する。未実装や未達収益を宣伝しない。
-- [ ] PL-1: 既存無料Codex pluginと正式ChatGPT/Grok/Muse配布口を確認する。OpenAI MFAとMuse審査待ちの未完を具体化し、実提出/掲載と導入を区別する。
+- [ ] PL-1: 既存無料Codex pluginと正式ChatGPT/Grok/Muse配布口を確認する。6toolを案内するportable v0.1.2のsource・新Release・正式提出/掲載を分けて追跡する。新しい専用OpenAI orgではupload前のdeveloper identityにvalid default payment methodが必要で、upload/submitは0。既存accountのpasskey MFAとは区別する。Museは3/3 requirements受付済み、BusinessだけApproved、Data/credentialsはIn reviewで、全体掲載は未確認。現在のpackage準備 → `2026-10-24-ai-monk-plugin-v012.md`。
 - [ ] DB-1: 既知73profileの商品/売上/creator/言語/画像の調査coverageを記録し、取得可能な公開一次資料から精査・拡充する。pending非掲載という旧reasonを修正し、unknownを保持する。
 
 ## 境界
