@@ -1,0 +1,34 @@
+{
+  "run_id": "ai-monk-existing-x-link-recovery-20261023-database-ja",
+  "campaign_key": "database-ja",
+  "purpose": "Restore the original destination once as a native reply to the existing launch post",
+  "expected_handle": "@selawmqt",
+  "browser_identity": "x:anicca",
+  "postiz_integration_id": "cmt4l2jld031tqp0y8qtyo983",
+  "original_postiz_id": "cmvjofwki18joot0ye8ugzfyl",
+  "parent_id": "2113286777054360059",
+  "parent_url": "https://x.com/selawmqt/status/2113286777054360059",
+  "expected_parent_fragment": "Yang Munから調査を広げます。",
+  "destination": "https://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_ja",
+  "content": "無料のAI Monk Databaseはこちら。\n\nhttps://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_ja",
+  "content_sha256": "aad77ed8223641916ec2d2690dcf5bf13fb16a238fab0af7809c5dd18448c9a1",
+  "conservative_x_weighted_length": 57,
+  "max_weighted_length": 270,
+  "reply_prefix": "無料のAI Monk Databaseはこちら。",
+  "state": "prepared",
+  "provider_writes": 0,
+  "resends": 0,
+  "original_destination_verified_missing": true,
+  "missing_link_source": "Read-only public X body crawl; original host integration-settings strips links",
+  "native_fence_name": "ai-monk-existing-x-link-recovery-20261023-database-ja.json",
+  "independent_copy_review": {
+    "state": "pending",
+    "findings": null
+  },
+  "limits": [
+    "Original launch post and Postiz receipt remain unchanged",
+    "No Postiz repost/reply or duplicate standalone promotion",
+    "Unknown native effect requires readback only, never resend",
+    "Clicks/orders/revenue/profit/retweet not measured"
+  ]
+}
