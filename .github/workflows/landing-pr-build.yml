@@ -36,7 +36,7 @@ jobs:
           node /tmp/manager-publish-overlay.mjs --stage
 
       - name: AI monk directory contracts
-        run: node --test lib/ai-monk-directory.test.mjs lib/monk-factory-client.test.mjs test/ai-monk-evidence-rendering.test.mjs scripts/stage-ai-monk-factory.test.mjs
+        run: node --test lib/ai-monk-directory.test.mjs lib/monk-factory-client.test.mjs test/ai-monk-evidence-rendering.test.mjs test/ai-monk-factory-action-readiness.test.mjs scripts/stage-ai-monk-factory.test.mjs
 
       - name: AI monk factory atomic database contracts
         working-directory: .
