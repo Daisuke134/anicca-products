@@ -4,15 +4,15 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-現在cursorはDB-1のYang Mun現行Journey/upgradeの通貨・商品対応の限定精査とする。PL-1はOpenAI既存appeal正式却下、Muse残2件審査中を保持し、重複再送しない → ../../evidence/ai-monk-marketplace-followup-20261024.json。Factory billing preflightの未完条件も保持する。旧順PL-1→Factory、新順はPL-1の公式結果保持と独立にDB-1の既知未確認商品→確定差分のCLI/MCP公開→Factory。理由は正式掲載をローカル変更で進める具体要求が無い一方、Databaseに現行商品の通貨未確認が残るため。限定範囲・受入・現在状態は末尾「Yang Mun現行offerの通貨精査」を正本とする。
+現在cursorはDB-1のYang Mun現行商品の通貨精査からv0.4.12公開までの結果保存とする。限定範囲・受入は末尾「Yang Mun現行offerの通貨精査」、公開証拠 → ../../evidence/ai-monk-cli-mcp-v0412-release-20261024.json。旧順PL-1の正式結果受入→DB-1の限定価格精査、新順はこの公開受入の永続化→SaaS-1の独立課金元・使用可能予算・有料モデル権限の無課金準備である。理由は既知商品の取得可能な価格根拠と全配布面の整合を閉じた一方、正式掲載をローカル変更で進める具体要求が無いため。PL-1はOpenAI既存appeal正式却下・Muse残2件審査中を保持し、重複再送しない → ../../evidence/ai-monk-marketplace-followup-20261024.json。Factoryの準備契約と未完条件 → 2026-10-24-ai-monk-factory-billing-preflight.md。
 
-独立して受入済みのDatabase/CLI v0.4.11は73公開/75archive/191出典、商品観測archive78行/公開75行で、公開JSON/Web・固定main Release・公開URL導入/CLI・実stdio/HTTPS MCP各6tool・公式Registry active/isLatestの同一snapshotを確認する。公開Webは73card/71画像を維持する。Arisの17 USDはseller JSON-LD、Monje Wu主商品19.99 USD/任意addon5.99 USD・Maestro Lin17 USD・Ling Hao9.99 USDはcheckoutのconversion base観測で、JP表示額を分離する。売上・実在庫・会計通貨は未確認。公開受入 → ../../evidence/ai-monk-cli-mcp-v0411-release-20261024.json。Database→CLI/plugin→Factoryの優先順を維持する。既存の正式掲載caseは重複せず結果/追加要求を受入し、正式掲載の対応は冒頭の現在cursorへ従う。Factoryの専用有料billing・実費/実生成・利用者所有IG接続/投稿・metrics・USD10K MRRは未完。日次IG/TikTok/Postiz/Grok所有effectは変更しない。
+独立して受入済みのDatabase/CLI v0.4.12は73公開/75archive/195出典、商品観測archive80行/公開77行で、公開JSON/Web・固定main Release・公開URL導入/CLI・実stdio/HTTPS MCP各6tool・公式Registry active/isLatestの同一snapshotを確認する。公開Webは73card/71画像を維持する。Yang MunのJourney49.99 USD/Collection59.99 USDはUSD query指定の商品ページ表示で、通常匿名表示の8000/9600 JPYは別観測とする。旧観測は保持し、Checkout総額・会計通貨・購入・売上は未確認。公開受入 → ../../evidence/ai-monk-cli-mcp-v0412-release-20261024.json。Database→CLI/plugin→Factoryの優先順を維持する。Factoryの専用有料billing・実費/実生成・利用者所有IG接続/投稿・metrics・USD10K MRRは未完。日次IG/TikTok/Postiz/Grok所有effectは変更しない。
 
 ## 実行順の更新
 旧順は既知profileの調査完了→plugin正式掲載→Factory。新順は取得済みsnapshotの公開受入→plugin配布/Registry公開/Muse提出→Factory実装とし、新規一次資料・審査結果は到着時に反映する。理由は73公開件/176出典のWeb・CLI・MCP、配布と申告の受入が揃い、残る取得不可入口や外部審査の待機だけでは次の成果が進まないため。収益へ必要なFactory制作/課金契約を独立して実装する。既存の日次effectを中断・重複しない。旧cursorはSaaS-1のGemini画像・台本adapterと専用provider準備。Daisの最新優先順に従い、新cursorはDB-1の商品・収益根拠の拡充→PL-1のCLI/plugin配布→SaaS-1の有料billing・実費/実生成・本人IG受入とする。理由はDatabaseとpluginによる配布を先に進め、Factoryは実原価を確認してから提供するため。Gemini adapterはPR647/main373eec46af11c0d32566386df7fbd201413b3d5b由来Webへ公開済み。専用未課金project/keyとSSOT保存後のモデルGET200は受入するが、Netlifyへの専用key設定・paid billing・実生成・Factory enableは未完。公開受入 → ../../evidence/ai-monk-factory-gemini-adapter-production-20261024.json。専用準備 → ../../evidence/ai-monk-factory-gemini-project-preparation-20261024.json。PL-1の正式掲載に必要な専用OpenAI正規アクセス復旧は独立した未完条件として保持する。通常メールコード認証後の公式UIはaccount削除または無効化を示し、既存専用keyのGET /v1/modelsは401/account_deactivatedを返す。原因と削除の有無、現在のbilling値は未確認で、別account新設や共有Grok予算への切替は行わない。現在状態 → ../../evidence/ai-monk-factory-openai-account-state-20261024.json。本人確認・quota・Stripe配線はsource review/CIを通してmainへ統合し、main由来Web/API/DBを公開する。専用199USD Product/Priceと解約portalは作成・公式GET確認済みで、利用者Checkout/請求は0。課金CTAは無効のまま専用生成予算を準備する。DB-1/PL-1は未確認を保持し、外部待ちを成功へ置換しない。
 
 ## TODO
-- [x] DB-2（191source snapshotの公開JSON/Web/MCP/CLI/Registry受入済み）: 既存関連検証でsource参照/scope/価格と売上区別を確認し、main/公開JSON/Web/MCPと必要なCLI版へ反映する。
+- [x] DB-2（195source snapshotの公開JSON/Web/MCP/CLI/Registry受入済み）: 既存関連検証でsource参照/scope/価格と売上区別を確認し、main/公開JSON/Web/MCPと必要なCLI版へ反映する。
 - [x] DIST-1（本人X1本・正式Grok BOARD依頼をreadback、受領/追加投稿は別）: Database/Pluginの新launch copyを根拠付きで作り、自分のX投稿とGrok協力依頼を1回ずつ送る。公式receipt/permalinkと重複0を記録する。
 - [x] COST-1（API/Stripe/接続費の一次資料と仮定別原価表を取得、実請求/転換率はSaaSで追跡）: ReelFarm公開価格/無料枠/導線、HeyGen実API単価、45/60秒・1日1本/2本・3日trial・再生成・Stripe手数料から原価と利益を計算する。取得不足はunknownとし課金top-upしない。
 - [ ] SaaS-1: 原価からprice/生成上限を決め、最小auth・Stripe3日trial・Generate avatar/video・IG接続・自動投稿・metricsを既存Web/APIから実装して公開する。TikTokは後続。実API生成/Stripe subscription/利用者所有接続/公式投稿とmetricsを成果条件として追跡する。
@@ -155,6 +155,12 @@ primaryがspec/data/公開を所有する。必要な独立read-only研究者は
 
 - [x] SOURCE: 公式公開URLの時刻・最終URL・本文/raw hashとvariant/product対応、明示通貨を照合する。
 - [x] DATA: 新観測欠落の最小一時assertion RED→data追加→GREEN、package15/helper・render15とbuilt CLI/monetizationを受入する。旧75records/191source/78offerは新要素を除くと完全一致する。独立raw照合のblockingは0。source結果 → ../../evidence/ai-monk-yangmun-offer-source-20261024.json。runtime/依存/恒久mirroring testの追加は0。
-- [ ] PUBLIC: 実データ差分がある場合だけ既存CI/PR/main/公開Web、固定main Release/公開URL導入/CLI/stdio/HTTPS MCP・Registryの同一snapshotを受入する。差分が無ければ具体的不足を記録する。
+- [x] PUBLIC: PR663/main5c4471addaaa0f6cd1ae3937465ceb10e0113437、source CIとmain package/deployを受入する。Release422513094/asset671246432・公開URL導入/CLI・stdioと公開HTTPS各6tool・公開JSON/Web・Registry40062441129 SUCCESS/exact GET active/isLatestの同一snapshotを確認する。証拠 → ../../evidence/ai-monk-cli-mcp-v0412-release-20261024.json。
 
 SOURCEでJourney/Complete Collectionの購入variantがseller商品ページのJSON-LD Offer URLと一致する。USD指定表示は49.99/59.99 USD、通常の匿名商品表示は8000/9600 JPYで、4ページともHTTP200・明示priceCurrencyを確認する。DATAは4sourceと2日付付きoffer観測を追加して195sources/75archive/73public、offer archive80/公開77を目標とする。USDをmerchant会計通貨やUS Checkout実表示へ昇格しない。無料ギフト2件は購入リンクの商品対応の調査証拠に留め、今回の新offer件数には数えない。通常表示のJPYは別のpresentment_priceと出典へ分離する。
+
+## v0.4.12公開受入の結果保存
+
+main5c4471addaaa0f6cd1ae3937465ceb10e0113437由来のdocs/ai-monk-v0412-publication-20261024で、本planの現在pointer/状態と新しい公開receiptだけを保存する。primaryは本planと統合、workerは新receipt1件を所有する。旧receiptの変更、新規source/data/version/runtime/認証/課金/生成/投稿は0。今回のJSON parse/参照bytes/hash、秘密値非混入とdiff、commit/push/remote object一致、PR/mainの対象blob一致を最小受入とし、docs-onlyの追加deployは要求しない。
+
+公開JSONは480570bytes/SHA256 e6f897828510031412a6ea0ff1058d617c58ae3c6dbc05852c12deb4fb38bf22で固定mainと一致する。Webは73card/71画像/195出典とYang Mun先頭2offerを確認する。固定main tarballは64038bytes/SHA256 cbf206926ec14ea6d92c4efd0963214cb952a699ad645f6b0ffc7156b1cb4705で公式digest/匿名GET/公開URL導入と一致する。Netlify published ready6adc335eec8e8c7c79b49f34のcommit_refはnullで、GHA/titleと公開snapshotによる対応付けに留める。GitHub immutable=false、browser viewport/paid納品/注文/売上は未検証。既存Plugin payload v0.1.3は変更せず、正式ChatGPT/Muse掲載やFactory実利用・MRRの成果へ換算しない。
