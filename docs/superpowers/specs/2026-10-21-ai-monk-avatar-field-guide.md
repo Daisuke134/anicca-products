@@ -215,7 +215,7 @@ Factoryの完成形は、利用者が自分のInstagramを先に接続し、独�
 
 ## Database・Plugin・Factoryの追加契約
 
-旧順は配布整合→plugin掲載/販売条件→Factory。Daisの最新指定により、Databaseの商品・収益根拠精査→Plugin公開/配布→Factory SaaSへ更新する。理由はDatabaseとPluginを先にtraction/distributionへ使い、その知見を生成へ戻すため。進行中の公開Release/PRやGrok Bot所有の日次投稿effectは中断・重複しない。
+この節はDatabase・Plugin・Factoryのproduct契約を定める。実行順の変更履歴とcurrent cursorの正本は `docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md` とする。OpenAI identity/review待ちでDatabaseやFactoryを停止せず、進行中の公開Release/PRやGrok Bot所有の日次posting effectは中断・重複しない。
 
 Databaseは既知の73公開profile/75archiveを対象に、creator・媒体・言語・商品名/価格/URL・出所付き期間/通貨/売上claimを精査し、新しい実在候補も追加する。全世界の全件網羅を証明済みと呼ばず、調査範囲・取得日・未確認を表示する。価格を売上、本人申告を監査済み収益、未知を0へ変換しない。公開中pendingのreasonに残る非掲載という古い説明も正す。
 
