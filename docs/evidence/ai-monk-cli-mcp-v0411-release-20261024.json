@@ -1,0 +1,825 @@
+{
+  "schema_version": "anicca.ai-monk-cli-mcp-release.v1",
+  "run_id": "ai-monk-cli-v0411-release-20261024",
+  "owner_id": "root",
+  "occurrence_id": "fixed-main-v0411-publication-acceptance",
+  "observed_at": "2026-10-24T03:07:37.292218+00:00",
+  "consolidated_at": "2026-10-24T03:08:00.756398+00:00",
+  "release_sha": "a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+  "phase": "saved_publication_readback_consolidation",
+  "command": "保存済みの固定main build・正式Release・公開JSON/Web・匿名download・URL install/CLI・実SDK stdio/HTTPS・Registry・Netlify readbackを照合する。集約中の新規provider呼出しは0。",
+  "loaded_argv_env": {
+    "source_paths": [
+      "packages/ai-monk-index",
+      "apps/landing/lib/ai-monk-directory.mjs",
+      "apps/landing/public/data/ai-monk-avatar-database-2026.json"
+    ],
+    "shared_npm_config_or_auth_used": false,
+    "npm_url_install_ignore_scripts": true,
+    "npm_userconfig": "<isolated_empty_npmrc>",
+    "npm_globalconfig": "/dev/null",
+    "stdio_command_expression": "process.execPath",
+    "stdio_argv": [
+      "<isolated_public_url_install>/node_modules/@anicca/ai-monk-index/dist/stdio.mjs"
+    ],
+    "https_transport": "StreamableHTTPClientTransport",
+    "https_url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+    "exact_original_process_executable_and_full_env": "保存済みreadbackに完全な値は含まれない。probeの引数式とnpm認証設定を共有しないinstall設定を確認する。"
+  },
+  "exit_code": 0,
+  "effect": "公開済みv0.4.11の配布面が同一の研究snapshotを返すことを保存済み証拠で確認する。今回のreceipt作成による追加公開・生成・支払い・投稿は0。",
+  "readback": {
+    "source_integration": {
+      "pr_url": "https://github.com/Daisuke134/anicca-products/pull/655",
+      "source_head_sha": "2db9ce6ac03f4afe743dd977ead5d4495a9b4a0f",
+      "state": "MERGED",
+      "main_merge_sha": "a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+      "merged_at": "2026-10-24T02:59:16Z",
+      "source_receipt": "docs/evidence/ai-monk-product-checkouts-source-20261024.json"
+    },
+    "source_review_and_ci": {
+      "github_codex": {
+        "status": "completed",
+        "head_sha": "2db9ce6ac03f4afe743dd977ead5d4495a9b4a0f",
+        "has_any_findings": false,
+        "has_unresolved_findings": false,
+        "comment_url": "https://github.com/Daisuke134/anicca-products/pull/655#issuecomment-6378998274",
+        "trigger": "PR opened",
+        "observed_automatically": true,
+        "manually_requested_review": 0,
+        "security_review_not_asserted": true
+      },
+      "coderabbit": {
+        "status_context": "SUCCESS",
+        "content_review": "skipped",
+        "reason": "公開コメントは10 stars未満のため自動レビューを省略と明記する。content review実施とは扱わない。",
+        "comment_url": "https://github.com/Daisuke134/anicca-products/pull/655#issuecomment-6378998268"
+      },
+      "local_independent_raw_source_review": {
+        "status": "not_executed",
+        "evidence": "primaryの担当記録。server側の自動reviewと区別し、このreceiptの集約でも追加reviewは実行しない。"
+      },
+      "source_ci_observed_at": "2026-10-24T02:59:14.727627+00:00",
+      "source_ci": [
+        {
+          "workflow": "AI Monk Index CLI and MCP",
+          "name": "package",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "details_url": "https://github.com/Daisuke134/anicca-products/actions/runs/40056157251/job/120759487143",
+          "completed_at": "2026-10-24T02:55:29Z"
+        },
+        {
+          "workflow": "Landing PR build",
+          "name": "landing",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "details_url": "https://github.com/Daisuke134/anicca-products/actions/runs/40056155227/job/120759481697",
+          "completed_at": "2026-10-24T02:58:51Z"
+        }
+      ],
+      "main_ci": [
+        {
+          "id": 40056441948,
+          "name": "AI Monk Index CLI and MCP",
+          "head_branch": "main",
+          "head_sha": "a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+          "status": "completed",
+          "conclusion": "success",
+          "event": "push",
+          "run_attempt": 1,
+          "html_url": "https://github.com/Daisuke134/anicca-products/actions/runs/40056441948",
+          "created_at": "2026-10-24T02:59:19Z",
+          "updated_at": "2026-10-24T02:59:41Z"
+        },
+        {
+          "id": 40056441955,
+          "name": "Netlify Deploy (Landing)",
+          "head_branch": "main",
+          "head_sha": "a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+          "status": "completed",
+          "conclusion": "success",
+          "event": "push",
+          "run_attempt": 1,
+          "html_url": "https://github.com/Daisuke134/anicca-products/actions/runs/40056441955",
+          "created_at": "2026-10-24T02:59:19Z",
+          "updated_at": "2026-10-24T03:04:17Z"
+        }
+      ],
+      "saved_source_acceptance": {
+        "source_red": {
+          "exit_code": 1,
+          "reason": "New dated Monje Wu checkout observation absent before data edit"
+        },
+        "source_green": {
+          "exit_code": 0,
+          "all_old_data_equal_after_removing_exact_new_observations_and_sources": true
+        },
+        "package_tests": {
+          "exit_code": 0,
+          "passed": 15
+        },
+        "directory_helper_tests": {
+          "exit_code": 0,
+          "passed": 9
+        },
+        "render_tests": {
+          "exit_code": 0,
+          "passed": 6
+        },
+        "built_get_and_monetization": {
+          "exit_code": 0,
+          "new_observations_returned": 4,
+          "price_currency_presentment_source_equal": true,
+          "unknown_billing_revenue_preserved": true
+        },
+        "initial_helper_command_limit": "First combined Node command named a nonexistent helper path; it ran rendering tests only (6). The corrected lib helper path is run separately and passes 9.",
+        "research_failures_recovered": "System Python lacks Scrapy; installed pipx environment/CLI succeeds. Ling Hao initial invalid module basename is separately retained and corrected without artifact overwrite."
+      }
+    },
+    "data_scope": {
+      "archive_records": 75,
+      "public_records": 73,
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "sources": 191,
+      "old_sources_preserved": 188,
+      "new_sources": 3,
+      "new_dated_offer_observations": 4,
+      "all_existing_account_fields_and_observations_preserved": true,
+      "existing_financial_fields_unchanged": true,
+      "directory_scope_and_ai_status_unchanged": true,
+      "research_archive_offer_rows": 78,
+      "public_monetization_offer_rows": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "snapshot_sha256": "3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665a",
+      "offer_row_limit": "offer rowsはaccountごとの観測行数であり、独立商品数・注文数ではない。"
+    },
+    "new_checkout_observations": [
+      {
+        "account_id": "lead-instagram-masterlinghao",
+        "observation_id": "checkout-linghao-main-20261024",
+        "name": "The Monks' Secret: 150 Recipes That Saved Generations",
+        "price": 9.99,
+        "currency": "USD",
+        "price_kind": "base_offer_price",
+        "billing_kind": null,
+        "presentment_price": {
+          "amount": 1654,
+          "currency": "JPY",
+          "country": "JP",
+          "locale": "ja_JP",
+          "kind": "localized_anonymous_checkout_amount",
+          "captured_at": "2026-10-24T02:50:34.355439+00:00",
+          "source_id": "product-public-checkout-linghao-20261024"
+        },
+        "source_id": "product-public-checkout-linghao-20261024",
+        "related_observation_id": "remaining-ling-hao-monks-secret",
+        "availability": {
+          "state": "public_checkout_display_observed_purchase_not_tested",
+          "purchase_completed": false
+        },
+        "url": "https://pay.hotmart.com/T106736999M?sck=HOTMART_PRODUCT_PAGE&hotfeature=32",
+        "paid_orders": null,
+        "revenue": null,
+        "revenue_status": "unknown_no_payment_or_revenue_receipt"
+      },
+      {
+        "account_id": "lead-instagram-monjewu",
+        "observation_id": "checkout-monjewu-main-20261024",
+        "name": "La Mente del Monje",
+        "price": 19.99,
+        "currency": "USD",
+        "price_kind": "base_offer_price",
+        "billing_kind": null,
+        "presentment_price": {
+          "amount": 3309,
+          "currency": "JPY",
+          "country": "JP",
+          "locale": "ja_JP",
+          "kind": "localized_anonymous_checkout_amount",
+          "captured_at": "2026-10-24T02:49:55.861086+00:00",
+          "source_id": "product-public-checkout-monjewu-20261024"
+        },
+        "source_id": "product-public-checkout-monjewu-20261024",
+        "related_observation_id": "monje-wu-mente",
+        "availability": {
+          "state": "public_checkout_display_observed_purchase_not_tested",
+          "purchase_completed": false
+        },
+        "url": "https://pay.hotmart.com/J106191740M?off=x81cmfou&checkoutMode=10",
+        "paid_orders": null,
+        "revenue": null,
+        "revenue_status": "unknown_no_payment_or_revenue_receipt"
+      },
+      {
+        "account_id": "lead-instagram-monjewu",
+        "observation_id": "checkout-monjewu-meditation-addon-20261024",
+        "name": "La Biblia de la Meditación",
+        "price": 5.99,
+        "currency": "USD",
+        "price_kind": "base_offer_price",
+        "billing_kind": null,
+        "presentment_price": {
+          "amount": 992,
+          "currency": "JPY",
+          "country": "JP",
+          "locale": "ja_JP",
+          "kind": "localized_anonymous_checkout_amount",
+          "captured_at": "2026-10-24T02:49:55.861086+00:00",
+          "source_id": "product-public-checkout-monjewu-20261024"
+        },
+        "source_id": "product-public-checkout-monjewu-20261024",
+        "related_observation_id": null,
+        "availability": {
+          "state": "optional_checkout_addon_unselected_purchase_not_tested",
+          "purchase_completed": false
+        },
+        "url": "https://pay.hotmart.com/J106191740M?off=x81cmfou&checkoutMode=10",
+        "paid_orders": null,
+        "revenue": null,
+        "revenue_status": "unknown_no_payment_or_revenue_receipt"
+      },
+      {
+        "account_id": "lead-instagram-elmaestrolin",
+        "observation_id": "checkout-maestrolin-main-20261024",
+        "name": "El Código Prohibido",
+        "price": 17,
+        "currency": "USD",
+        "price_kind": "base_offer_price",
+        "billing_kind": null,
+        "presentment_price": {
+          "amount": 2814,
+          "currency": "JPY",
+          "country": "JP",
+          "locale": "ja_JP",
+          "kind": "localized_anonymous_checkout_amount",
+          "captured_at": "2026-10-24T02:49:55.802075+00:00",
+          "source_id": "product-public-checkout-maestrolin-20261024"
+        },
+        "source_id": "product-public-checkout-maestrolin-20261024",
+        "related_observation_id": "remaining-maestro-lin-codigo",
+        "availability": {
+          "state": "public_checkout_display_observed_purchase_not_tested",
+          "purchase_completed": false
+        },
+        "url": "https://pay.hotmart.com/J105675450L",
+        "paid_orders": null,
+        "revenue": null,
+        "revenue_status": "unknown_no_payment_or_revenue_receipt"
+      }
+    ],
+    "checkout_price_interpretation": {
+      "checkout_amount_path": "script#__NUXT_DATA__: products[].offer.paymentMethods[].amount.value/currency",
+      "base_amount_path": "products[].exchange[].baseValue/baseCurrency",
+      "base_usd_is_direct_us_checkout_or_merchant_settlement": false,
+      "presentment_country": "JP",
+      "presentment_locale": "ja_JP",
+      "main_and_optional_addon_separate": true,
+      "optional_addon_selected_or_purchased": false,
+      "billing_recurrence": null,
+      "actual_purchases_sales_revenue_inventory_tax_treatment": "unverified",
+      "limit": "USDはcheckout metadataの換算基準額。匿名JP/ja_JPのJPY請求表示額と分けて保存し、米国checkout総額・加盟店精算通貨・注文・売上・効能とは扱わない。過去の不明観測を維持する。"
+    },
+    "fixed_main_build": {
+      "observed_at": "2026-10-24T02:59:22.755265+00:00",
+      "source_main_sha": "a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+      "source_head_sha": "2db9ce6ac03f4afe743dd977ead5d4495a9b4a0f",
+      "source_archive_bytes": 552960,
+      "source_archive_sha256": "30116e8828b377eed0f1a59f22dcf102bd21523d64c0786e383823dc0d995242",
+      "npm_ci_exit": 0,
+      "build_exit": 0,
+      "npm_pack_exit": 0,
+      "tar_file_count": 12,
+      "artifact_bytes": 62880,
+      "artifact_sha256": "b7442b1835cd47df2d756b33446f2e33ce3ccfa5c5587639393646667275fbb6",
+      "packaged_canonical_bytes_equal": true,
+      "source_and_packaged_public_snapshot_bytes_rechecked_equal": true
+    },
+    "github_release": {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.11",
+      "release_id": 422479575,
+      "tag": "ai-monk-index-v0.4.11",
+      "official_target_commitish": "a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+      "asset_id": 671100571,
+      "asset_name": "anicca-ai-monk-index-0.4.11.tgz",
+      "asset_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.11/anicca-ai-monk-index-0.4.11.tgz",
+      "asset_bytes": 62880,
+      "official_asset_digest": "sha256:b7442b1835cd47df2d756b33446f2e33ce3ccfa5c5587639393646667275fbb6",
+      "local_and_anonymous_asset_digest_equal": true,
+      "immutable_release_claimed": false,
+      "immutable": false,
+      "draft": false,
+      "prerelease": false,
+      "published_at": "2026-10-24T02:59:40Z",
+      "limit": "正式Release応答のimmutableはfalseであり、ロック済みReleaseとは扱わない。正式Git refはlightweight tagから固定mainのcommitへ1段で解決し、target_commitish・asset digest・公開時刻も正式応答で確認する。",
+      "tag_target_readback": {
+        "observed_at": "2026-10-24T03:07:37.292218+00:00",
+        "tag": "ai-monk-index-v0.4.11",
+        "resolved_commit": "a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+        "matches_fixed_main": true,
+        "tag_type": "lightweight",
+        "official_ref_chain_length": 1,
+        "official_ref_url": "https://api.github.com/repos/Daisuke134/anicca-products/git/refs/tags/ai-monk-index-v0.4.11"
+      }
+    },
+    "netlify": {
+      "observed_at": "2026-10-24T03:04:40.831714+00:00",
+      "site_http_status": 200,
+      "published_deploy": {
+        "id": "6adc1fede8e7aae85ab2bea5",
+        "state": "ready",
+        "title": "Deploy from GHA prod - a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+        "branch": "main",
+        "commit_ref": null,
+        "created_at": "2026-10-24T03:03:09.069Z",
+        "published_at": "2026-10-24T03:03:52.005Z",
+        "deploy_ssl_url": "https://6adc1fede8e7aae85ab2bea5--anicca2.netlify.app"
+      },
+      "mcp_function_present": true,
+      "source_sha_in_deploy_title": true,
+      "corresponding_main_workflow": {
+        "id": 40056441955,
+        "name": "Netlify Deploy (Landing)",
+        "head_branch": "main",
+        "head_sha": "a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "run_attempt": 1,
+        "html_url": "https://github.com/Daisuke134/anicca-products/actions/runs/40056441955",
+        "created_at": "2026-10-24T02:59:19Z",
+        "updated_at": "2026-10-24T03:04:17Z"
+      },
+      "limit": "commit_refはnull。title内のSHAと同じmain SHAの正式workflow completed/successを対応付け、配信データを公開JSONとMCPのsnapshot一致で確認する。commit_refによる証明へ置換しない。"
+    },
+    "public_database": {
+      "observed_at": "2026-10-24T03:04:41.360443+00:00",
+      "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "http_status": 200,
+      "body_bytes": 472958,
+      "body_sha256": "3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665a",
+      "canonical_bytes_equal": true,
+      "records": 75,
+      "sources": 191,
+      "records_scope": "research_archive_records",
+      "public_records": 73
+    },
+    "public_web": {
+      "observed_at": "2026-10-24T03:04:40.829328+00:00",
+      "url": "https://aniccaai.com/ai-monk-database",
+      "http_status": 200,
+      "body_bytes": 861399,
+      "body_sha256": "45d4f5116b202465103f7207fabaf2047a93886eb9d8857dd92075125115d3f0",
+      "cards": 73,
+      "distinct_cards": 73,
+      "profile_images": 71,
+      "source_191_present": true,
+      "expected_ids_equal": true,
+      "visible_new_offer_checks": {
+        "lead-instagram-monjewu": {
+          "base_price_label": true,
+          "all_expected_prices": true
+        },
+        "lead-instagram-elmaestrolin": {
+          "base_price_label": true,
+          "all_expected_prices": true
+        },
+        "lead-instagram-masterlinghao": {
+          "base_price_label": true,
+          "all_expected_prices": true
+        }
+      },
+      "limit": "保存済みHTTP本文のparser readbackであり、今回のreceipt集約で新たなbrowser画面確認は実行しない。"
+    },
+    "public_url_install_and_cli": {
+      "observed_at": "2026-10-24T02:59:43.458614+00:00",
+      "public_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.11/anicca-ai-monk-index-0.4.11.tgz",
+      "anonymous_http_status": 200,
+      "anonymous_download_bytes": 62880,
+      "anonymous_download_sha256": "b7442b1835cd47df2d756b33446f2e33ce3ccfa5c5587639393646667275fbb6",
+      "official_asset_digest_equal": true,
+      "npm_url_install_exit": 0,
+      "shared_npm_config_or_auth_used": false,
+      "installed_version": "0.4.11",
+      "canonical_installed_bytes_equal": true,
+      "snapshot_sha256": "3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665a",
+      "cli_get_exit": 0,
+      "cli_account_id": "lead-instagram-monjewu",
+      "monjewu_main_and_addon_returned": true,
+      "cli_limit": "保存済みinstall readbackとpublish scriptはgetの成功、主商品・追加商品の2観測返却を示す。全CLI commandの実行とは扱わない。"
+    },
+    "mcp_stdio": {
+      "observed_at": "2026-10-24T03:00:06.809Z",
+      "package_version": "0.4.11",
+      "transport": "real_sdk_stdio",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.11"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 191,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665a",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": "",
+      "research_archive_offer_rows": 78,
+      "public_monetization_offer_rows": 75
+    },
+    "mcp_public_https": {
+      "observed_at": "2026-10-24T03:04:44.265Z",
+      "package_version": "0.4.11",
+      "transport": "real_sdk_public_https",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.11"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 191,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665a",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": "",
+      "research_archive_offer_rows": 78,
+      "public_monetization_offer_rows": 75
+    },
+    "mcp_comparison": {
+      "tool_names": [
+        "search_ai_monks",
+        "get_ai_monk",
+        "ai_monk_index_stats",
+        "top_formats",
+        "how_they_monetize",
+        "winning_playbooks"
+      ],
+      "completed_calls_per_transport": 6,
+      "saved_stdio_and_https_responses_equal": true,
+      "all_text_and_structured_outputs_equal": true,
+      "snapshot_sha256": "3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665a",
+      "verification_owner": "root",
+      "independent_non_author_acceptance": false,
+      "limit": "external_provider_calls=0は生成等の下流provider呼出しを指す。保存済みHTTPS MCP検証では公開通信を実行する。今回の集約では通信を追加しない。"
+    },
+    "mcp_registry": {
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.11",
+      "preflight_observed_at": "2026-10-24T02:59:41.282715+00:00",
+      "preflight_http_status": 404,
+      "observed_at": "2026-10-24T03:05:25.647259+00:00",
+      "http_status": 200,
+      "body_sha256": "187fca4db9f5b4b1c18caa0b2ad29b96255802a7236acee0e672f5b4bf64d656",
+      "server_name": "io.github.Daisuke134/ai-monk-index",
+      "version": "0.4.11",
+      "status": "active",
+      "is_latest_at_observation": true,
+      "published_at": "2026-10-24T03:05:16.710182Z",
+      "remotes": [
+        {
+          "type": "streamable-http",
+          "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp"
+        }
+      ],
+      "workflow_run_id": 40056843384,
+      "dispatches": 1,
+      "resends": 0,
+      "workflow_conclusion": "success",
+      "workflow_status": "completed",
+      "workflow": {
+        "id": 40056843384,
+        "name": "Publish AI Monk MCP Registry",
+        "head_branch": "main",
+        "head_sha": "a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1",
+        "status": "completed",
+        "conclusion": "success",
+        "event": "workflow_dispatch",
+        "run_attempt": 1,
+        "html_url": "https://github.com/Daisuke134/anicca-products/actions/runs/40056843384",
+        "created_at": "2026-10-24T03:05:01Z",
+        "updated_at": "2026-10-24T03:05:19Z"
+      }
+    }
+  },
+  "provider_receipt_id": {
+    "github_pr": 655,
+    "github_release": 422479575,
+    "github_asset": 671100571,
+    "netlify_deploy": "6adc1fede8e7aae85ab2bea5",
+    "registry_server_version": "io.github.Daisuke134/ai-monk-index@0.4.11",
+    "registry_workflow_run": 40056843384,
+    "main_package_workflow": 40056441948,
+    "main_deploy_workflow": 40056441955
+  },
+  "error_class": null,
+  "retryable": false,
+  "next_action": "primaryがこの新receiptと正本の状態をcommit/push/mainへ統合する。PL-1の正式ChatGPT/Muse掲載、顧客課金、Factoryと収益成果は別の未完項目として維持する。",
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/Projects/anicca-products-worktrees/ai-monk-plugin-v012-20261024/docs/evidence/ai-monk-product-checkouts-source-20261024.json",
+      "bytes": 14983,
+      "sha256": "59fc7ceefbe74c0768572197039c3ca60b4744ab14fca209603e46471e368409"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/source-pr-ci-readback.json",
+      "bytes": 1197,
+      "sha256": "474e56d588753d10abf3ba7da9b79491af5ef4566f99be12aa92a2067922c0bf"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/automatic-source-review-readback.json",
+      "bytes": 15263,
+      "sha256": "a4a744470735ae0288f9e58336a43fa064bacbf48b4d04fba311f3fe393fa6a7"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/build-readback.json",
+      "bytes": 1470,
+      "sha256": "cd2f4d93ac2ac8db6ac9a7d9ba8a4fbd143e463fd1e1fef0fc4aec5543b993d1"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/source-main.tar",
+      "bytes": 552960,
+      "sha256": "30116e8828b377eed0f1a59f22dcf102bd21523d64c0786e383823dc0d995242"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/source-pr-readback.json",
+      "bytes": 199,
+      "sha256": "d02fa76dc7ea4bb9de09ed7e43a0e032ff918571baecf8f40046ccc91907f30a"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/main-package-workflow-readback.json",
+      "bytes": 14278,
+      "sha256": "8b30381f39a0e6713e0f4171dbdc1fbd198302a3fd4ce328e34c0662414b7a0c"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/main-deploy-workflow-readback.json",
+      "bytes": 14279,
+      "sha256": "9a85b037274109c93c0ebb5023796e2d86b6a10f2ebefb5e45fb7e8e8504425a"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/official-release-full-readback.json",
+      "bytes": 4349,
+      "sha256": "9caeea10f77004a22efd885ae438160bbabf06b43a72fcc10a1f3479de1b0fb3"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/publish-fence.json",
+      "bytes": 404,
+      "sha256": "07f16fa0bc10b6cc26e102c33489b999591527b7567bac2960283fca9b6200b4"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/netlify-deploy-readback.json",
+      "bytes": 2164,
+      "sha256": "06a64deca3304e7015ba48850d6ec267c13f130ec7921e779bbe53136d31294f"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/public-database-readback.json",
+      "bytes": 326,
+      "sha256": "1aa0d3195cfc068f411d8dbb07fe9fcb264af614fe48fdf601dd9fed26c708b2"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/public-database.body",
+      "bytes": 472958,
+      "sha256": "3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665a"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/public-web-readback.json",
+      "bytes": 721,
+      "sha256": "c24b4262044519d40560839269bcbadf704c17733d3382d0136b5d7bd1b2326b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/public-web.body",
+      "bytes": 861399,
+      "sha256": "45d4f5116b202465103f7207fabaf2047a93886eb9d8857dd92075125115d3f0"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/public_readback.py",
+      "bytes": 2726,
+      "sha256": "a67a1afd2a2c5e02822131af9a2ee64e293bee8b55b16a35353077821ee75c8c"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/public-install-readback.json",
+      "bytes": 802,
+      "sha256": "3df691f90e5af544513d68c1010c8369e5d03f7c26381dbcb821b0d9c3d79352"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/anonymous-public-download.tgz",
+      "bytes": 62880,
+      "sha256": "b7442b1835cd47df2d756b33446f2e33ce3ccfa5c5587639393646667275fbb6"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/publish-release.py",
+      "bytes": 4783,
+      "sha256": "795e57dd1e1d4ec30156332a64c9ace0ca63123096ac77990e3d16a5521f824f"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/verification-public-install/stdio-readback.json",
+      "bytes": 1768,
+      "sha256": "6778abfba114151467932bbb24fa514ba3465116db15303db779721bc7eee4bc"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/verification-public-install/stdio-responses.json",
+      "bytes": 679591,
+      "sha256": "f010a716558211c1e48291f130d9e6dd6f7fbe073d9c3adc3fba371768a59c63"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/installed-stdio-probe.mjs",
+      "bytes": 4418,
+      "sha256": "fe8132a1fe333995397926278be80c9fa5dd852b8c5bf1c1ce7203fcfb9c45fd"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/remote-mcp-readback.json",
+      "bytes": 1775,
+      "sha256": "1b1ba51425230b93824871461fa581f18335e5266e6752f617ef36f15ea51883"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/remote-mcp-responses.json",
+      "bytes": 679591,
+      "sha256": "f010a716558211c1e48291f130d9e6dd6f7fbe073d9c3adc3fba371768a59c63"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/remote-mcp-probe.mjs",
+      "bytes": 4497,
+      "sha256": "7ef30ab52566b4be8e7a2167ff8c63a7f10c13bdcc17c915ab4489bb95530b01"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/stdio-https-equality-readback.json",
+      "bytes": 394,
+      "sha256": "c01421be4d26e93a82584da7110bf19d963ea0c07bf5d1df627c2c55281f1861"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/registry-preflight.json",
+      "bytes": 281,
+      "sha256": "b3ce2b31e5bedaa2fe2904181fc4f8e52ddf85139535d4ec90c32d8fbec2ce7d"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/registry-publish-fence.json",
+      "bytes": 223,
+      "sha256": "3008f7597bec5d26eae857afe8cf96228fe60fde0c906b390556829c6e2dfe37"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/registry-dispatch-action.json",
+      "bytes": 212,
+      "sha256": "3dea75eaae1f006713115b4abb5e94a9963a905fa0745c937ad51cdd1e91a60d"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/registry-readback.json",
+      "bytes": 778,
+      "sha256": "a0930e3a13fe3ea208b757d05d896240185b7465455adba892aebdf6f7bedc64"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/registry-final.body.json",
+      "bytes": 767,
+      "sha256": "187fca4db9f5b4b1c18caa0b2ad29b96255802a7236acee0e672f5b4bf64d656"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/registry-workflow-readback.json",
+      "bytes": 14253,
+      "sha256": "80853fec4753c784a22ef90b7e262a8f873da8a950624a1c4083660d9df80ab0"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/release-source/packages/ai-monk-index/anicca-ai-monk-index-0.4.11.tgz",
+      "bytes": 62880,
+      "sha256": "b7442b1835cd47df2d756b33446f2e33ce3ccfa5c5587639393646667275fbb6"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0411-release-20261024/tag-target-readback.json",
+      "bytes": 697,
+      "sha256": "6a277983bff4e848b8c2ec4773582126e6d4c98492adb8456c40e00f9b541ee6"
+    }
+  ],
+  "limitations": [
+    "記載時刻の保存済みreadbackであり、現在のlatest versionや永続的な可用性を保証しない。",
+    "73 public recordsには69 pending research candidatesを含む。4 includedと区別し、AI生成の確定73件とは扱わない。",
+    "4件の新checkout観測は換算基準USDとJP表示JPYを分ける。価格・表示checkout・販売者の主張を購入・注文・収益・実在庫・税務・効能へ昇格しない。",
+    "Monje Wu追加商品は任意・未選択。主商品への同梱や購入を主張しない。過去の価格・通貨不明を含む観測を維持する。",
+    "server側Codex自動review completed/no findingsを観測する。追加手動review依頼は0で、ローカル独立raw source reviewやsecurity reviewの実施を主張しない。CodeRabbit内容reviewはskipped。",
+    "stdio/HTTPS各6 toolと全出力一致の検証ownerはrootであり、独立した非author acceptanceとは扱わない。",
+    "Webの73 cards・71 profile images・191 sources・Base price表示は保存済みHTTP本文のparser readbackであり、新しいbrowser画面実測ではない。",
+    "正式ChatGPT/Muse掲載、顧客課金、Factoryの有料生成・自動投稿、MRRをこの配布面検証から主張しない。",
+    "旧Release・旧receipt・他ownerの日次配信、credential SSOT・hook・runtime・sourceを今回の集約で変更しない。"
+  ],
+  "receipt_consolidation_external_effects": {
+    "new_provider_calls": 0,
+    "release_or_registry_resends": 0,
+    "payments_generation_posts": 0,
+    "daily_owner_changes": 0,
+    "ssot_or_hook_changes": 0
+  }
+}
