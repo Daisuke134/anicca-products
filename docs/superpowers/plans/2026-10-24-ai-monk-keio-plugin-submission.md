@@ -8,7 +8,7 @@ Daisが指定する既存のKeiodaisuke accountで、AI Monk Indexの正式Plugi
 ## 順序と所有
 旧cursorは既存書籍X投稿の公開前preflight。新cursorはDais指定のKeiodaisuke accountによる正式Plugin提出とGrokbotへの具体委譲。理由はDaisが本人accountの使用とGrokbotへの依頼を明示したため。X本文の独立確認はblocking0、Postiz本人integrationは有効、投稿呼出しは0。未送信のまま保持し、重複しない。
 
-Grokbotは今回のportal UI/提出作業のownerとし、primaryは依頼送信・受付と実行の区別・証拠照合・正本更新を所有する。同時に同じbrowser/portalを操作しない。日次IG/TikTok/Postiz/HeyGen/Grok所有loop、他案件、共有config・security設定は変更しない。既存browser identity/owner/leaseと本人live sessionを先に照合する。credentialの唯一の保存先は ~/.local/share/anicca/credentials.json。password・API key・cookie・認証コード・private case値をmessage/repo/logへ送らない。
+primaryはportal UI/提出作業、依頼送信・受付と実行の区別・証拠照合・正本更新を所有する。Grokbotへ1回依頼したが45秒以内に応答が無く、着手・claimは未確認。Daisの「自分で提出して」という指定に従いprimaryが進め、Grokには支援とownershipの明示引継ぎだけを求める。同時に同じbrowser/portalを操作しない。日次IG/TikTok/Postiz/HeyGen/Grok所有loop、他案件、共有config・security設定は変更しない。既存browser identity/owner/leaseと本人live sessionを先に照合する。credentialの唯一の保存先は ~/.local/share/anicca/credentials.json。password・API key・cookie・認証コード・private case値をmessage/repo/logへ送らない。
 
 ## Grokbotへの依頼
 canonical tg_user.pyによる既存MTProto dialog確認では20会話を取得し、Grok名の宛先は見つからない。既存チーム連絡文書とReason公式一覧を照合し、「Daisukeのネットワーク」の参謀宛先daisuke/cursorを使う。公式whoは同じMac miniのexisting cursorをidle、machineをonlineと返す。idleの一覧だけを着手と扱わない。reason network sendで今回の依頼を1回送り、delivery receipt・返信と実行を分ける。新session・agent・network・監視loopを作らない。
@@ -25,4 +25,4 @@ canonical tg_user.pyによる既存MTProto dialog確認では20会話を取得�
 - [ ] 結果と残条件をsanitized receipt/正本へ反映する。
 
 ## 現在cursor
-既存Reasonの参謀宛先を公式whoで確認し、今回のportal作業を1回委譲する。旧の専用account限定の結果 → ../../evidence/ai-monk-marketplace-resolution-20261024.json。rootによる制限範囲の過大解釈は今回の明示指示とlive権限確認へ置き換える。本人accountでも明示的な拒否が出た場合はその実状態を記録する。
+既存Reasonの参謀宛先を公式whoで確認し、今回の作業を1回依頼する。45秒以内に応答が無くdelivery/着手は未確認、再送0。primaryによるportal作業を進め、Grokへownershipの補足だけを1回通知する。旧の専用account限定の結果 → ../../evidence/ai-monk-marketplace-resolution-20261024.json。rootによる制限範囲の過大解釈は今回の明示指示とlive権限確認へ置き換える。本人accountでも明示的な拒否が出た場合はその実状態を記録する。
