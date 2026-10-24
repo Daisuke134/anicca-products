@@ -1,0 +1,103 @@
+{
+  "observed_at_utc": "2026-10-24T14:15:57Z",
+  "scope": "AI Monk Factory no-trial release and production readiness; no provider mutation",
+  "release": {
+    "pr": 686,
+    "head_sha": "53c09618fe6cbe733e334cf0d032c809ad46b187",
+    "merge_sha": "28fc06ecdd79377e19b1eed734922da468d46284",
+    "pr_ci_run": {
+      "id": 40100777243,
+      "conclusion": "success",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40100777243"
+    },
+    "netlify_run": {
+      "id": 40101137159,
+      "conclusion": "success",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40101137159"
+    },
+    "supabase_migration": {
+      "version": "20261024140729",
+      "name": "monk_factory_capacity_intent"
+    }
+  },
+  "netlify": {
+    "site": "anicca2",
+    "domain": "aniccaai.com",
+    "published_deploy_id": "6adcbc9e5d86f3902f2e08ed",
+    "published_deploy_state": "ready",
+    "published_deploy_title": "Deploy from GHA prod - 28fc06ecdd79377e19b1eed734922da468d46284",
+    "commit_ref": null,
+    "published_at_utc": "2026-10-24T14:12:24.145Z",
+    "environment_readback_http": 200,
+    "factory_environment_variable_count": 0
+  },
+  "public_factory_page": {
+    "url": "https://aniccaai.com/ai-monk-factory",
+    "retrieval": "crwl crawl -o markdown-fit",
+    "free_offer": "Up to 3 free videos, 20 seconds each; no card; no time limit",
+    "post_free_price": "USD 199 per month candidate",
+    "three_day_trial_copy_visible": false,
+    "free_video_generation_verified": false
+  },
+  "reelfarm_reference": {
+    "url": "https://reel.farm/",
+    "public_offer": "Make 3 TikToks free; connect account; automate daily generation and publishing; analytics",
+    "public_prices": [
+      {
+        "plan": "Growth",
+        "usd_per_month": 49,
+        "slideshows": 100
+      },
+      {
+        "plan": "Scale",
+        "usd_per_month": 95,
+        "slideshows": 250
+      },
+      {
+        "plan": "Enterprise",
+        "usd_per_month": 195,
+        "slideshows": 750
+      }
+    ]
+  },
+  "provider_state": {
+    "gemini_factory_project": {
+      "state": "prepared_unfunded",
+      "billing_verified": false
+    },
+    "heygen_factory": {
+      "account_state": "official_api_verified_free_factory_account",
+      "api_key_state": "active_verified",
+      "wallet_auto_reload": false
+    },
+    "upload_post_factory": {
+      "account_state": "official_api_verified_free_plan",
+      "plan": "Default",
+      "profile_limit": 2,
+      "paid_plan_purchased": false
+    },
+    "stripe_factory": {
+      "state": "catalog_prepared_runtime_disabled"
+    }
+  },
+  "source_reason_for_disabled_generation": {
+    "source_file": "apps/landing/app/ai-monk-factory/factory.tsx",
+    "condition": "Generate controls are disabled when generationReady is false",
+    "backend_gate": "factoryReadiness requires MONK_FACTORY_ENABLED, jobRuntimeReady, and generation provider readiness",
+    "inference": "With zero Factory environment variables and Gemini billing unverified, the screenshot's disabled Generate buttons match the intentional readiness gate rather than a click-handler defect."
+  },
+  "external_effects": {
+    "provider_generation": 0,
+    "stripe_checkout_or_charge": 0,
+    "customer_instagram_oauth": 0,
+    "customer_post": 0,
+    "grok_bot_or_postiz_daily_posting_changes": 0
+  },
+  "remaining": [
+    "Set a company-wide hard spend limit in addition to per-user reservations.",
+    "Verify dedicated Gemini billing, model access, and evidence; configure HeyGen voice and funded capacity.",
+    "Configure only generation variables after provider budget and cap are verified; keep MONK_FACTORY_ENABLED false until readiness passes.",
+    "Complete customer Instagram OAuth/publishing through the official API and provider review.",
+    "Accept real generated videos, three-free quota, post metrics, and fixed-price Stripe checkout after free quota."
+  ]
+}
