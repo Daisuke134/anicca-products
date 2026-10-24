@@ -54,6 +54,10 @@ PR572の最終head `bb7c9913fea918432117fe19e01869dd1e2efe5f`はpackage CI398908
 - [x] 毎朝9時のthread heartbeat `ai-monk-database`をACTIVEで作成し、provider viewと永続設定のkind/status/schedule/current thread一致をreadback。初回定期実行は未到来。
 - [ ] 初回定期runで日付付き更新または具体的未取得理由と公開状態を確認。
 
+### 初回heartbeatの実行範囲
+
+`ai-monk-database`の2026-10-24T00:03:58.413Z実行を、base `373eec46af11c0d32566386df7fbd201413b3d5b`由来の`data/ai-monk-daily-20261024`で扱う。現在の掲載契約はdirectory-restorationの73件（included4/pending69）を維持する。人気と商品導線のあるYang Munの公開YouTube指標、Ming San/Yan Chenを含む既存公式商品ページを無料ツールで再確認し、観測日時・丸め・通貨・期間・未取得理由を記録する。既存75record/181source/過去snapshot・creator claimと未知の売上を保持する。完了条件は追記データのsource参照と過去値不変の照合、既存関連tests/CI/main、公開JSON・Web・remote MCPの一致である。データを更新した場合は現行CLI配布契約に従い次patch版へ反映する。動画生成・SNS投稿・Factory実装・有料provider購入・既存lease変更は対象外。
+
 商品cardも観測日、またはsourceの公開/確認日を表示し、過去の価格を現在の在庫・価格と混同しない。表示のRED1件→関連12テストPASS。既存決済や売上計算のcontractは変更しない。
 
 ## 最新指標と商品preview
