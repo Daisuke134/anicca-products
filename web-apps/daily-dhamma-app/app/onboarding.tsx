@@ -75,7 +75,8 @@ export default function OnboardingScreen() {
   const handleSkip = async () => {
     await requestNotificationPermission();
     completeOnboarding();
-    router.replace('/');
+    // Skipping the intro still ends on the paywall, like finishing it (Monkey Taps pattern).
+    router.replace('/paywall');
   };
 
   const renderPage = ({ item, index }: { item: OnboardingPage; index: number }) => {

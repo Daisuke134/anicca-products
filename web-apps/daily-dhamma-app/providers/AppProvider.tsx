@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import createContextHook from '@nkzw/create-context-hook';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { AppState } from 'react-native';
 import { useRevenueCat } from './RevenueCatProvider';
 import {
   scheduleMorningVerseNotification,
@@ -9,6 +10,7 @@ import {
   getNotificationPermissionStatus,
   cancelAllNotifications,
 } from '@/utils/notifications';
+import { localDateKey, nextOpenStreak } from '@/utils/paywallUtils';
 
 interface AppSettings {
   hasCompletedOnboarding: boolean;
@@ -18,6 +20,10 @@ interface AppSettings {
   morningNotificationTime: string;
   darkMode: boolean;
   bookmarkedVerses: number[];
+  // 3日連続起動の paywall 用（旧データには無いので optional）
+  lastOpenDate?: string;
+  openStreak?: number;
+  streakPaywallShown?: boolean;
 }
 
 const defaultSettings: AppSettings = {
@@ -93,6 +99,24 @@ export const [AppProvider, useApp] = createContextHook(() => {
   }, [updateSettings]);
 
   const isPremium = rcIsPremium || settings.isPremium;
+
+  // 連続起動日数: 起動時とフォアグラウンド復帰時に今日の日付で更新
+  const [today, setToday] = useState(() => localDateKey(new Date()));
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') setToday(localDateKey(new Date()));
+    });
+    return () => sub.remove();
+  }, []);
+  useEffect(() => {
+    // ストレージの値が state に反映されるまで待つ（デフォルト値で上書きしないため）
+    if (!settingsQuery.data || settings !== settingsQuery.data) return;
+    const next = nextOpenStreak(settings.lastOpenDate, settings.openStreak, today);
+    if (next) {
+      console.log('[AppProvider] Open streak:', next.openStreak);
+      updateSettings(next);
+    }
+  }, [today, settings, settingsQuery.data, updateSettings]);
 
   // 通知スケジュール: 設定またはisPremiumが変更されたらリスケジュール
   const hasScheduledRef = useRef(false);

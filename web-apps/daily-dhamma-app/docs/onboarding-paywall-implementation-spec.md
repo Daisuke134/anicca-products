@@ -28,4 +28,4 @@
 4. 確定main SHAから既存productionビルド経路を使い、EAS build UUID・source SHA・version・採番されたbuild番号とASC buildを対応付ける。build 42を修正版と扱わない。
 5. 対象versionへ修正版buildを設定し、審査提出の公式readbackを確認する。利用・課金・収益の確認はLife Managerの残TODOで継続する。
 
-現在位置: source修正前。PR #644 head `45a690f9bf4c1139257c2f31e5030399c314359d` は、商品metadataだけで無料表示を出すため独立レビューで要修正となる。ASC build `067d498c-8eb0-4a63-88cf-7fd999f8cd74`（1.1.1 / 42）はVALID・upload COMPLETEだが、そのsource SHAは未確定で、今回の修正を含まない。実機・StoreKitの顧客資格・trial開始・課金は未確認。
+現在位置: source修正とTDDを完了し、独立レビュー・CI・main統合を進める。修正前は資格未確認の4ケースで失敗し、修正後はJest全76件とTypeScriptが通る。API失敗・顧客切替・再表示時のcacheも確認する。PR #644 head `45a690f9bf4c1139257c2f31e5030399c314359d` は、商品metadataだけで無料表示を出すため独立レビューで要修正となる。ASC build `067d498c-8eb0-4a63-88cf-7fd999f8cd74`（1.1.1 / 42）はVALID・upload COMPLETEだが、そのsource SHAは未確定で、今回の修正を含まない。実機・StoreKitの顧客資格・trial開始・課金は未確認。

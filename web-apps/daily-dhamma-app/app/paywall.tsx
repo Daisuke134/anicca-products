@@ -1,17 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Alert, Linking } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { X, Check, Flower2, Sparkles, Bell } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import Colors from '@/constants/colors';
 import { useRevenueCat } from '@/providers/RevenueCatProvider';
 import { PurchasesPackage } from 'react-native-purchases';
-import { t, TranslationKey } from '@/utils/i18n';
-import { findMonthlyPackage, findYearlyPackage, formatPackagePrice } from '@/utils/paywallUtils';
+import i18n, { t, TranslationKey } from '@/utils/i18n';
+import { useTrialEligibility } from '@/utils/useTrialEligibility';
+import {
+  findMonthlyPackage,
+  findYearlyPackage,
+  formatPackagePrice,
+  getFreeTrial,
+  perMonthPriceString,
+  savingsPercent,
+  trackPaywallEvent,
+} from '@/utils/paywallUtils';
 
 const PRIVACY_POLICY_URL = 'https://aniccaai.com/dailydharma/privacy';
 const TERMS_URL = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/';
+const CLOSE_DELAY_MS = 3000;
 
 const featureKeys: Array<{ icon: React.ComponentType<{ size: number; color: string }>; titleKey: TranslationKey; descKey: TranslationKey }> = [
   { icon: Sparkles, titleKey: 'paywall.feature.verses.title', descKey: 'paywall.feature.verses.desc' },
@@ -24,8 +34,13 @@ export default function PaywallScreen() {
   const insets = useSafeAreaInsets();
   const colors = Colors.light;
   const [selectedPlan, setSelectedPlan] = useState<'yearly' | 'monthly'>('yearly');
+  const [showClose, setShowClose] = useState(false);
+  // onboarding からはパラメータなしで来る。他の入口はすべて source を付ける
+  const { source = 'onboarding' } = useLocalSearchParams<{ source?: string }>();
 
   const {
+    isConfigured,
+    customerInfo,
     currentOffering,
     isLoadingOfferings,
     purchasePackage,
@@ -36,6 +51,17 @@ export default function PaywallScreen() {
 
   const monthlyPackage = findMonthlyPackage(currentOffering?.availablePackages ?? []);
   const yearlyPackage = findYearlyPackage(currentOffering?.availablePackages ?? []);
+  const trialEligibility = useTrialEligibility(yearlyPackage?.product.identifier, isConfigured, customerInfo);
+  const trial = getFreeTrial(yearlyPackage, trialEligibility);
+  const savings = savingsPercent(monthlyPackage, yearlyPackage);
+  // 月額を選んだらトライアル表記は出さない
+  const activeTrial = selectedPlan === 'yearly' ? trial : null;
+
+  useEffect(() => {
+    trackPaywallEvent('paywall_shown', source);
+    const timer = setTimeout(() => setShowClose(true), CLOSE_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [source]);
 
   const handlePurchase = async () => {
     const pkg = selectedPlan === 'yearly' ? yearlyPackage : monthlyPackage;
@@ -47,7 +73,9 @@ export default function PaywallScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     try {
-      await purchasePackage(pkg);
+      const customerInfo = await purchasePackage(pkg);
+      const isTrial = customerInfo.entitlements.active['premium']?.periodType === 'TRIAL';
+      trackPaywallEvent(isTrial ? 'trial_started' : 'purchase', source);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.replace('/');
     } catch (error: unknown) {
@@ -81,8 +109,9 @@ export default function PaywallScreen() {
     }
   };
 
-  const handleSkip = () => {
-    router.replace('/');
+  const handleClose = () => {
+    if (router.canGoBack()) router.back();
+    else router.replace('/');
   };
 
   const formatPrice = (pkg: PurchasesPackage | undefined) => formatPackagePrice(pkg);
@@ -92,14 +121,22 @@ export default function PaywallScreen() {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
-        <TouchableOpacity
-          style={[styles.closeButton, { backgroundColor: colors.backgroundSecondary }]}
-          onPress={handleSkip}
-          activeOpacity={0.7}
-          disabled={isLoading}
-        >
-          <X size={20} color={colors.textSecondary} />
-        </TouchableOpacity>
+        {showClose ? (
+          <TouchableOpacity
+            testID="paywall_close"
+            style={styles.closeButton}
+            onPress={handleClose}
+            activeOpacity={0.7}
+            disabled={isLoading}
+            hitSlop={12}
+            accessibilityRole="button"
+            accessibilityLabel={t('paywall.close')}
+          >
+            <X size={14} color={colors.textMuted} />
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.closeButton} />
+        )}
       </View>
 
       <ScrollView
@@ -188,6 +225,18 @@ export default function PaywallScreen() {
                 onPress={() => handleSelectPlan('yearly')}
                 activeOpacity={0.8}
               >
+                <View style={styles.badgeRow}>
+                  <View style={[styles.badge, { backgroundColor: colors.gold }]}>
+                    <Text style={styles.badgeText}>{t('paywall.badge.bestValue')}</Text>
+                  </View>
+                  {trial && (
+                    <View style={[styles.badge, { backgroundColor: colors.accent }]}>
+                      <Text style={styles.badgeText}>
+                        {i18n.t(`paywall.trial.badge.${trial.unit}`, { count: trial.count })}
+                      </Text>
+                    </View>
+                  )}
+                </View>
                 <View style={styles.planOptionHeader}>
                   <Text style={[styles.planOptionTitle, { color: colors.text }]}>{t('paywall.plan.yearly')}</Text>
                   <View style={[
@@ -203,6 +252,16 @@ export default function PaywallScreen() {
                   {formatPrice(yearlyPackage)}
                   <Text style={[styles.planOptionPeriod, { color: colors.textMuted }]}>{t('paywall.plan.perYear')}</Text>
                 </Text>
+                {yearlyPackage && (
+                  <Text style={[styles.planOptionSub, { color: colors.textSecondary }]}>
+                    {perMonthPriceString(yearlyPackage)}{t('paywall.plan.perMonth')}
+                  </Text>
+                )}
+                {savings !== null && (
+                  <Text style={[styles.planOptionSub, { color: colors.gold }]}>
+                    {i18n.t('paywall.plan.savings', { percent: savings })}
+                  </Text>
+                )}
               </TouchableOpacity>
             </View>
 
@@ -217,18 +276,23 @@ export default function PaywallScreen() {
                 <ActivityIndicator size="small" color={Colors.light.background} />
               ) : (
                 <Text style={styles.purchaseButtonText}>
-                  {t('paywall.cta')}
+                  {activeTrial
+                    ? i18n.t(`paywall.trial.cta.${activeTrial.unit}`, { count: activeTrial.count })
+                    : t('paywall.cta')}
                 </Text>
               )}
             </TouchableOpacity>
+
+            {activeTrial && (
+              <Text testID="paywall_trial_terms" style={[styles.trialText, { color: colors.textSecondary }]}>
+                {i18n.t(`paywall.trial.after.${activeTrial.unit}`, {
+                  count: activeTrial.count,
+                  price: formatPrice(yearlyPackage),
+                })}
+              </Text>
+            )}
           </>
         )}
-
-        <TouchableOpacity testID="paywall_skip" style={styles.skipButton} onPress={handleSkip} disabled={isLoading}>
-          <Text style={[styles.skipText, { color: colors.textMuted }]}>
-            {t('paywall.free')}
-          </Text>
-        </TouchableOpacity>
 
         <TouchableOpacity
           testID="paywall_restore"
@@ -274,11 +338,11 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   closeButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 24,
+    height: 24,
     alignItems: 'center',
     justifyContent: 'center',
+    opacity: 0.6,
   },
   scrollView: {
     flex: 1,
@@ -374,6 +438,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700' as const,
   },
+  planOptionSub: {
+    fontSize: 13,
+    marginTop: 4,
+  },
+  badgeRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 4,
+    marginBottom: 8,
+  },
+  badge: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 6,
+  },
+  badgeText: {
+    fontSize: 10,
+    fontWeight: '700' as const,
+    color: Colors.light.background,
+  },
   planOptionPeriod: {
     fontSize: 14,
     fontWeight: '400' as const,
@@ -403,13 +487,10 @@ const styles = StyleSheet.create({
     fontWeight: '600' as const,
     color: Colors.light.background,
   },
-  skipButton: {
-    alignItems: 'center',
-    paddingVertical: 16,
-  },
-  skipText: {
-    fontSize: 16,
-    fontWeight: '500' as const,
+  trialText: {
+    fontSize: 13,
+    textAlign: 'center',
+    marginBottom: 16,
   },
   restoreButton: {
     alignItems: 'center',

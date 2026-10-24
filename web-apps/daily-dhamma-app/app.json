@@ -2,7 +2,7 @@
   "expo": {
     "name": "Daily Dhamma",
     "slug": "daily-dharma",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "dailydharma",
@@ -27,7 +27,8 @@
             "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
           }
         ]
-      }
+      },
+      "buildNumber": "42"
     },
     "android": {
       "adaptiveIcon": {
