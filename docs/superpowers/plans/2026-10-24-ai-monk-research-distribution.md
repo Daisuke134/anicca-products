@@ -4,6 +4,7 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
+現在cursorはDaisが明示するKeiodaisukeの既存accountによる正式Plugin提出とGrokbotへの具体委譲。範囲・所有・旧順序→新順序・受入の正本 → 2026-10-24-ai-monk-keio-plugin-submission.md。専用accountの停止を全ての有効な本人accountへ自動拡張しない。下記の専用account復旧結果は履歴として保持する。未送信の書籍X投稿は保持する。
 現在のPL-1限定作業はDaisの「Go fix」に基づく正式掲載の復旧・審査対応。範囲・旧順序→新順序・受入の正本 → 2026-10-24-ai-monk-marketplace-resolution.md。OpenAIは既存同caseの最終却下を再取得し、復旧通知は確認できない。Museは今回native URL入力からの実ページ遷移を確認できず、最新審査状態は未取得。過去の審査中を今回の観測へ置換しない。公開MCPの実SDK6toolは正常で、設定変更・再申立て・再提出0。結果 → ../../evidence/ai-monk-marketplace-resolution-20261024.json。正式掲載の未完を保持し、独立したDatabase/CLI/plugin配布を継続する。
 現在cursorは既存9.99 USD書籍LPへ案内するX配信の実行である。旧cursorはYangjunの1source/11サービス価格をv0.4.13へ公開する作業、新cursorは公開済みの具体的発見から既存書籍へ1つの主CTAでつなぐ配信。理由はDatabase/CLI/MCP/Registryの同一snapshot受入が揃い、初期予算未回答・Factory native権限不足・正式Plugin審査の未完を保持したまま、追加支出0で収益導線を進められるため。公開受入 → ../../evidence/ai-monk-cli-mcp-v0413-release-20261024.json。日次Grok所有effectと未完作用を重複させず、同じAXRaise・Google Prompt・正式提出を再送しない。Factoryの未完 → ../../evidence/ai-monk-factory-billing-form-preflight-20261024.json。OpenAI既存appeal正式却下/Muse残2件審査中 → ../../evidence/ai-monk-marketplace-followup-20261024.json。
 
