@@ -39,13 +39,20 @@ function periodMatches(job, account) {
   const prefix = 'paid:' + account.stripe_subscription_id + ':';
   return job.max_seconds === 45 && job.period_key.startsWith(prefix) && Number(job.period_key.slice(prefix.length)) === Date.parse(account.period_start) / 1000;
 }
+function tokenUsage(value) {
+  const usage = {};
+  for (const key of ['inputTokens', 'outputTokens', 'thoughtTokens', 'totalTokens']) {
+    if (Number.isSafeInteger(value?.[key]) && value[key] >= 0) usage[key] = value[key];
+  }
+  return Object.keys(usage).length ? { usage } : {};
+}
 function evidence(job, phase, env, details = {}) {
   return { [phase]: { run_id: job.lease_id, owner_id: 'factory:' + job.user_id, occurrence_id: job.occurrence_id,
     release_sha: /^[a-f0-9]{40}$/i.test(env.COMMIT_REF || '') ? env.COMMIT_REF : null,
     argv: [phase], env: { factory_enabled: env.MONK_FACTORY_ENABLED === 'true' }, phase, command: phase,
     exit_code: details.error ? 1 : 0, effect: details.effect || 'none', readback: details.readback || null,
     provider_receipt_id: details.receipt || null, evidence_refs: details.receipt ? [details.receipt] : [],
-    error_class: details.error || null, retryable: details.retryable === true, next_action: details.nextAction || null } };
+    error_class: details.error || null, retryable: details.retryable === true, next_action: details.nextAction || null, ...tokenUsage(details.usage) } };
 }
 
 // Only repeat the database write; an ambiguous response never repeats a provider POST.
@@ -147,7 +154,7 @@ async function advanceFactoryJob(options) {
     if (Date.now() >= deadline) throw factoryError('tick_deadline', 503);
     const result = await providers[method]({ ...input, requestId: job.id + ':' + stage });
     await save({ ...resultPatch(result), error_class: null,
-      evidence: evidence(job, stage, env, { effect: 'confirmed', receipt: result.id, nextAction: 'next_stage' }) });
+      evidence: evidence(job, stage, env, { effect: 'confirmed', receipt: result.id, nextAction: 'next_stage', usage: result.usage }) });
   }
   try {
     // A persisted submit fence is never an invitation to repeat its POST.
@@ -156,7 +163,7 @@ async function advanceFactoryJob(options) {
         const image = await images.get('images/' + job.id);
         if (image?.jobId === job.id && image?.userId === job.user_id && image.receiptId) {
           return await save({ stage: 'image_ready', status: 'processing', image_blob_key: 'images/' + job.id, image_receipt_id: image.receiptId,
-            evidence: evidence(job, 'image_recovery', env, { effect: 'confirmed', receipt: image.receiptId, readback: 'private_blob', nextAction: 'avatar_submit' }) });
+            evidence: evidence(job, 'image_recovery', env, { effect: 'confirmed', receipt: image.receiptId, readback: 'private_blob', nextAction: 'avatar_submit', usage: image.usage }) });
         }
       }
       const receipt = job.stage === 'avatar_submitting' ? job.avatar_provider_id : job.stage === 'video_submitting' ? job.video_provider_id : null;
@@ -234,7 +241,7 @@ async function advanceFactoryJob(options) {
     await save({ status: unknown ? 'effect_unknown' : transient ? job.status : 'failed', stage: unknown || transient ? job.stage : 'failed',
       error_class: codeOf(error), next_run_at: after(unknown ? 3600000 : 60000),
       evidence: evidence(job, job.stage, env, { effect: unknown ? 'unknown' : error.effect || 'none', receipt: error.providerReceiptId,
-        error: codeOf(error), retryable: transient, nextAction: unknown ? 'official_readback' : transient ? 'retry_readback' : 'reservation_retained' }) }).catch(() => {});
+        error: codeOf(error), retryable: transient, usage: error.usage, nextAction: unknown ? 'official_readback' : transient ? 'retry_readback' : 'reservation_retained' }) }).catch(() => {});
   }
 }
 
@@ -244,6 +251,7 @@ async function runFactoryImage({ ticket, store, providers, images, env, stripe, 
   if (!original || original.image_nonce !== payload.nonce || Date.parse(original.image_ticket_until) !== payload.expiresAt) throw factoryError('invalid_image_ticket', 401);
   let job = await store.claimJob(payload.jobId, true);
   if (!job) return;
+  let imageResult;
   try {
     const account = await syncBilling({ userId: job.user_id, store, stripe, env });
     if (env.MONK_FACTORY_ENABLED !== 'true' || (await providers.readiness()).ready !== true) throw factoryError('factory_unavailable', 503);
@@ -252,14 +260,15 @@ async function runFactoryImage({ ticket, store, providers, images, env, stripe, 
     job = await persist(store, job, { stage: 'image_submitting', status: 'effect_unknown',
       evidence: evidence(job, 'image_submitting', env, { effect: 'unknown', nextAction: 'private_blob_save' }) }, true);
     const result = await providers.createAvatarImage({ requestId: job.id + ':image_submitting' });
+    imageResult = result;
     const key = 'images/' + job.id;
-    await images.put(key, { jobId: job.id, userId: job.user_id, receiptId: result.id, imageBase64: result.imageBase64, mediaType: result.mediaType });
+    await images.put(key, { jobId: job.id, userId: job.user_id, receiptId: result.id, imageBase64: result.imageBase64, mediaType: result.mediaType, ...tokenUsage(result.usage) });
     await persist(store, job, { stage: 'image_ready', status: 'processing', image_blob_key: key, image_receipt_id: result.id,
-      evidence: evidence(job, 'image_readback', env, { effect: 'confirmed', receipt: result.id, readback: 'private_blob', nextAction: 'avatar_submit' }) });
+      evidence: evidence(job, 'image_readback', env, { effect: 'confirmed', receipt: result.id, readback: 'private_blob', nextAction: 'avatar_submit', usage: result.usage }) });
   } catch (error) {
     const unknown = job.stage === 'image_submitting' && error.effect !== 'none';
     await persist(store, job, { status: unknown ? 'effect_unknown' : 'failed', stage: unknown ? job.stage : 'failed', error_class: codeOf(error),
-      next_run_at: after(3600000), evidence: evidence(job, 'image_error', env, { effect: unknown ? 'unknown' : 'none', error: codeOf(error), nextAction: unknown ? 'private_blob_or_receipt_readback' : 'reservation_retained' }) }).catch(() => {});
+      next_run_at: after(3600000), evidence: evidence(job, 'image_error', env, { effect: unknown ? 'unknown' : 'none', receipt: imageResult?.id || error.providerReceiptId, usage: imageResult?.usage || error.usage, error: codeOf(error), nextAction: unknown ? 'private_blob_or_receipt_readback' : 'reservation_retained' }) }).catch(() => {});
   }
 }
 

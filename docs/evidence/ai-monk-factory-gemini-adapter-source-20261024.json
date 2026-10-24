@@ -1,0 +1,204 @@
+{
+  "schema_version": "anicca.ai-monk-factory-gemini-adapter-source.v1",
+  "run_id": "ai-monk-factory-gemini-adapter-20261024",
+  "owner_id": "root",
+  "occurrence_id": "bounded-gemini-image-script-adapter",
+  "release_sha": null,
+  "base_main": "8e59eda6c0cb241b8f2fe195a06e6a9df5d25772",
+  "spec_commit": "2675f1bdd569b4be348467295268c547a112026e",
+  "observed_at": "2026-10-23T23:55:30.948578+00:00",
+  "phase": "source_acceptance",
+  "command": "focused Node tests and isolated local PostgreSQL fixture",
+  "exit_code": 0,
+  "effect": "source-only Gemini image/script replacement; paid API not enabled",
+  "readback": {
+    "provider_red_exit": 1,
+    "incomplete_usage_red_exit": 1,
+    "provider_and_jobs_green": {
+      "pass": 33,
+      "fail": 0,
+      "includes_worker_three_usage_regressions": true
+    },
+    "isolated_postgres": {
+      "pass": 25,
+      "fail": 0,
+      "before_final_error-only_usage_forwarding": true
+    },
+    "readiness_without_dedicated_paid_key": false
+  },
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "fresh source money review, exact-head CI, main merge and served-page/official deploy readback; then dedicated paid Gemini project and live generation acceptance",
+  "models": {
+    "script": "gemini-3.1-flash-lite",
+    "image": "gemini-3.1-flash-lite-image"
+  },
+  "contract": {
+    "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
+    "auth_header": "x-goog-api-key",
+    "store": false,
+    "background": false,
+    "stream": false,
+    "max_output_tokens": {
+      "image": 4096,
+      "script": 1200
+    },
+    "max_output_includes_thought": true,
+    "image_format": {
+      "type": "image",
+      "mime_type": "image/jpeg",
+      "delivery": "inline",
+      "aspect_ratio": "2:3",
+      "image_size": "1K"
+    },
+    "completed_exact_model_and_id_required": true,
+    "unknown_no_resend": true,
+    "usage_fields": [
+      "inputTokens",
+      "outputTokens",
+      "thoughtTokens",
+      "totalTokens"
+    ],
+    "usage_is_not_invoice_usd": true,
+    "unknown_success_response_usage_and_receipt_retained": true
+  },
+  "budgets": {
+    "provider_image_reservation_usd": 0.14,
+    "script_reservation_usd": 0.005,
+    "unchanged_sql_avatar_reservation_usd": 1.6,
+    "unchanged_trial_period_usd": 4.25,
+    "unchanged_paid_period_usd": 70,
+    "unchanged_price_usd_per_month": 199,
+    "invoice_hard_ceiling_proven": false,
+    "conditional_preflight_ref": "ai-monk-factory-gemini-provider-preflight-20261024.json"
+  },
+  "source_files": [
+    {
+      "path": "apps/landing/app/ai-monk-factory/privacy/page.tsx",
+      "bytes": 3341,
+      "sha256": "3dcce5e6fb855f024bc5c78aa1b1496ab39c230dfd6ad85833c7c12dcb8bdcc6"
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/terms/page.tsx",
+      "bytes": 3548,
+      "sha256": "9a43b74f7415c26712871ed2ca6864fe7163e6c2086a8a784d25c3623630b7e2"
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/factory.tsx",
+      "bytes": 22017,
+      "sha256": "b6510a650e189332363160258a70ee428cf7ee5345092a84504f49e88f90618f"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+      "bytes": 21801,
+      "sha256": "7303e89aa9fd849a94b3b12ca14306a688fe8a8ef015faf01bd70af861e18c75"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/monk-factory-jobs.js",
+      "bytes": 25562,
+      "sha256": "242caeeca729e7842b2176072f87c92a8ad4a26f8f1cd3a2351226a62e5203c3"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/__tests__/monk-factory-providers.test.js",
+      "bytes": 26050,
+      "sha256": "c300c47cd712b084648b3ce292a694975a25fc7e5498f9911a2b61e2ceff57a6"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/__tests__/monk-factory-jobs.test.js",
+      "bytes": 12857,
+      "sha256": "a27badc5dcb9f72c07426d514c8447325ccab357b7ed00e0dfe31ba9a3635b72"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/__tests__/monk-factory-db.test.js",
+      "bytes": 47655,
+      "sha256": "3c4571a3dbb65552e47da5f4f925be629bad8a1f562404c40c3e31da5647fb15"
+    }
+  ],
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/provider-red.log",
+      "bytes": 12238,
+      "sha256": "cdc47bc1dd4a47488e9b44c3a5fa42cd7f841dbe4033f1bcf957078b7691990c"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/provider-red.json",
+      "bytes": 327,
+      "sha256": "37b9acea16bf260f63973f4a09e4bb5346a76111941faa99f741838e24ae08eb"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/provider-green.log",
+      "bytes": 2445,
+      "sha256": "3c2f948af0fa1fb70147b71a095a3673459149770f5a3a96163f9fb041252bd6"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/incomplete-usage-red.log",
+      "bytes": 2428,
+      "sha256": "57b38e8f2de8370014be95292ae06f760aefcc5fc15ae3c758dbcfb6a6655139"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/adapter-and-usage-green.log",
+      "bytes": 3558,
+      "sha256": "1c9d017cbbc31ad0ea58ac9f576d8c0f7aa72a17e70244627e0bbbecfe898a1f"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/adapter-and-usage-green.json",
+      "bytes": 318,
+      "sha256": "d860e41f9efaf9529ee51d6881c7332744ab8da816ba3f249eb8ff092c7b3d49"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/database-green.log",
+      "bytes": 2927,
+      "sha256": "3ced51ce8d4bdacb0817ababb37eede1793737a8be00c721d8075f9c8e92aea6"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/database-green.json",
+      "bytes": 344,
+      "sha256": "2f1e81dd7e83f2d3f36b13beb70ff5137d5151cfafe367cd3a8927dad9ca5797"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/dedicated-readiness-source.json",
+      "bytes": 338,
+      "sha256": "331d6e22391a81bef23f204ab824d1dfa5dfb09084bb492f37e0f83ef02f3500"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/usage-source-20261023T235417Z-de6e3b18.json",
+      "bytes": 2319,
+      "sha256": "a407b7d8f13a95c6ad81a6fe82e7ec02faff1d148753ec48d5e88ac12a690628"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/gemini-interactions-rest.stdout.log",
+      "bytes": 118729,
+      "sha256": "3e597a4d9a87059e9e05f7bf5ec9040cd11acbb2dc290b795c7837a16e224797"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/gemini-interactions-contract-readback.json",
+      "bytes": 1044,
+      "sha256": "f4d067b955a4969d5fa9f6f040c7b3a2fcf18a4963aad80a6c33fcddc8a4683e"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/gemini-thinking-contract.stdout.log",
+      "bytes": 31079,
+      "sha256": "24f6120dc8e2bf1d983ddade11f69932f3f5e916cac5191d14d050170238666d"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/gemini-thinking-contract.metadata.json",
+      "bytes": 1252,
+      "sha256": "b2fdcc3ce95bf31d477704a08d2c6bc21fb1dc90ef8bf1dbfc56bdfa060c4cf7"
+    }
+  ],
+  "live_effects": {
+    "dedicated_project_key_creation": 0,
+    "deployment_setting_changes": 0,
+    "payments_generation": 0,
+    "customer_checkout": 0,
+    "ig_connection_posts": 0,
+    "daily_loop_changes": 0
+  },
+  "limits": [
+    "Actual model access, completion rate, actual tokens, invoices and profit are unverified.",
+    "Provider privacy and adult-creator terms are aligned; actual audience/eligibility acceptance remains before enabling.",
+    "OpenAI formal marketplace account recovery and Muse review remain separate unfinished outcomes.",
+    "The earlier shared CDP guard rejection remains unresolved; no rejected route was retried."
+  ]
+}
