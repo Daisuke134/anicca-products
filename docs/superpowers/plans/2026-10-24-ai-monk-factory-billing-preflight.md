@@ -25,4 +25,13 @@ Factory全体のbootstrap capは既存SSOT/specに無い。別AgentCore workstre
 
 Google公式4資料では、Tier/Prepay残高はAPI keyでなくCloud Billing accountに帰属する。別Cloud Billing accountで既存payments profileを選べるがSign-up and purchase権限は別に必要。Org所属ならbilling.accounts.createも必要。Gemini公表Prepay最低USD5、最終UIの地域/tier条件は別。既存PostpayからPrepayへの移行は入金前でもaccount状態を変え得るため、共有口座では進めない。通常budgetは通知用だが、現行spend-cap budgetは単一project/単一eligible serviceのGeminiにも対応する。Project cap・spend-cap budget・Prepayにも遅延/進行中request/負残高があり、invoiceの厳密hard ceilingとは扱わない。根拠は新receiptの公式URLと保存参照を正本にする。
 
-次は同じGoogle Promptの結果と初期予算の回答を受け取り、本人Consoleの独立口座/支払profile/地域別必要額を確認する。課金作成/紐付け/購入/生成の確定はこの無課金unitの対象外で、必要額と分離条件を具体化した後続契約に分ける。全体の優先順と成果条件は2026-10-24-ai-monk-research-distribution.mdを正本とし、PL-1のOpenAI既存申立て/Muse既存提出は外部回答待ちとして別に追跡する。
+次は同じGoogle Promptの結果と初期予算の回答を受け取り、本人Consoleの独立口座/支払profile/地域別必要額を確認する。課金作成/紐付け/購入/生成の確定はこの無課金unitの対象外で、必要額と分離条件を具体化した後続契約に分ける。全体の優先順と成果条件は2026-10-24-ai-monk-research-distribution.mdを正本とし、PL-1のOpenAI既存申立ては正式却下、Muse既存提出は残2件審査中として別に追跡する → ../../evidence/ai-monk-marketplace-followup-20261024.json。
+
+## 既存の信頼済みGoogle sessionからの確認
+
+旧順は専用provision profileの本人iPhone/Gmail Prompt結果待ち、新順はその待機を保持しつつ登録済みinteractive:daisの既存Google sessionからConsoleを確認する。理由は、同じ認証通知を再送せず、既存本人sessionだけで課金元の分離・payments profile利用可否を具体化できる可能性があるため。現在cursorはこのread-only確認。運転予算への未回答とUSD0 capは保持し、支出承認へ読み替えない。
+
+primaryはSSOT全体とregistryのowner/profile/leaseを確認し、正しいPIDを照合してから通常のnative UIでroot所有の新windowを1つ作る。既存の顧客windowをnavigateしない。Consoleの本人をSSOTとRAM照合し、既にsigned-inの正しい本人を選択できる場合だけ進める。新login/password/Google Prompt送信、recovery/reset、logout、profile/authのコピーは0。本人が確認できた場合はbilling作成の入口・既存payments profileの選択可否・地域別の必要額を読み取るが、作成・規約同意・紐付け・Prepay移行・購入の確定は行わない。
+
+- [ ] TRUSTED-LIVE: 既存Google sessionの本人、Console入口と見える権限/支払profile/必要額を確認する。取得できない場合は具体的な画面と不足条件を残す。
+- [ ] TRUSTED-RECORD: 自分のwindowとleaseを閉じ、秘密値を除いた新receiptと本planをcommit/push/PR/mainへ保存する。旧記録を上書きせず、認証/課金完了を推測しない。

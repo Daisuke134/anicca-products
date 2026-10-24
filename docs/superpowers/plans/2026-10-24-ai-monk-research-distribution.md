@@ -4,7 +4,7 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-現在cursorはDB-1のYang Mun現行商品の通貨精査からv0.4.12公開までの結果保存とする。限定範囲・受入は末尾「Yang Mun現行offerの通貨精査」、公開証拠 → ../../evidence/ai-monk-cli-mcp-v0412-release-20261024.json。旧順PL-1の正式結果受入→DB-1の限定価格精査、新順はこの公開受入の永続化→SaaS-1の独立課金元・使用可能予算・有料モデル権限の無課金準備である。理由は既知商品の取得可能な価格根拠と全配布面の整合を閉じた一方、正式掲載をローカル変更で進める具体要求が無いため。PL-1はOpenAI既存appeal正式却下・Muse残2件審査中を保持し、重複再送しない → ../../evidence/ai-monk-marketplace-followup-20261024.json。Factoryの準備契約と未完条件 → 2026-10-24-ai-monk-factory-billing-preflight.md。
+現在cursorはSaaS-1の独立課金元・使用可能予算・有料モデル権限の無課金準備である。専用profileの本人端末確認/初期予算の未回答を保持し、既存trusted Google sessionからConsoleを確認する限定契約 → 2026-10-24-ai-monk-factory-billing-preflight.md「既存の信頼済みGoogle sessionからの確認」。v0.4.12のDatabase/CLI/MCP/Registry公開と記録main統合は受入済み → ../../evidence/ai-monk-cli-mcp-v0412-release-20261024.json。PL-1のOpenAI既存appeal正式却下とMuse残2件審査中は保持し、重複再送しない → ../../evidence/ai-monk-marketplace-followup-20261024.json。
 
 独立して受入済みのDatabase/CLI v0.4.12は73公開/75archive/195出典、商品観測archive80行/公開77行で、公開JSON/Web・固定main Release・公開URL導入/CLI・実stdio/HTTPS MCP各6tool・公式Registry active/isLatestの同一snapshotを確認する。公開Webは73card/71画像を維持する。Yang MunのJourney49.99 USD/Collection59.99 USDはUSD query指定の商品ページ表示で、通常匿名表示の8000/9600 JPYは別観測とする。旧観測は保持し、Checkout総額・会計通貨・購入・売上は未確認。公開受入 → ../../evidence/ai-monk-cli-mcp-v0412-release-20261024.json。Database→CLI/plugin→Factoryの優先順を維持する。Factoryの専用有料billing・実費/実生成・利用者所有IG接続/投稿・metrics・USD10K MRRは未完。日次IG/TikTok/Postiz/Grok所有effectは変更しない。
 
