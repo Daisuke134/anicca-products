@@ -13,7 +13,7 @@ Grokbotは今回のportal UI/提出作業のownerとし、primaryは依頼送信
 ## Grokbotへの依頼
 canonical tg_user.pyによる既存MTProto dialog確認では20会話を取得し、Grok名の宛先は見つからない。既存チーム連絡文書とReason公式一覧を照合し、「Daisukeのネットワーク」の参謀宛先daisuke/cursorを使う。公式whoは同じMac miniのexisting cursorをidle、machineをonlineと返す。idleの一覧だけを着手と扱わない。reason network sendで今回の依頼を1回送り、delivery receipt・返信と実行を分ける。新session・agent・network・監視loopを作らない。
 
-相手・本文・run IDのhashを持つ排他fenceを送信前に保存する。既存Telegram sessionは保持し、別Botへの誤送信や本番bot tokenのwebhook/getUpdates変更は0。本文・chat ID・secret値を可視logへ出さず、必要な状態だけsanitizeする。Reasonの既存認証とnetwork設定も変更しない。
+相手・本文・run IDのhashを持つ排他fenceを送信前に保存する。Daisの最新指示により、エージェント間連絡にTelegramは使わない。先行のdialog読取だけで送信0を保持し、以降のTelegram読取・送信は行わない。既存の業務report loopやbot設定を今回の連絡作業から変更しない。本文・chat ID・secret値を可視logへ出さず、必要な状態だけsanitizeする。Reasonの既存認証とnetwork設定も変更しない。
 
 依頼内容は公開v0.1.3 packageと既存MCPの利用、本人Keiodaisukeの通常login・組織/identity確認、可能なupload→scan→review提出→publish、receiptと具体的不足条件の報告。サポートへの再申立てや別account新設、架空の法人情報、予算共有は含めない。
 
