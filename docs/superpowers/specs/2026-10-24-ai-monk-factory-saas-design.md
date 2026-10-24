@@ -26,6 +26,8 @@ Stripe JPの標準公表card3.6%＋Billing0.7%、FXが必要な場合の追加2%
 
 ReelFarmの現行公式ページは「3 TikToks free」、TikTok接続、日次の自動生成・投稿、analyticsを掲げる。公開価格はGrowth USD49/月・100 slideshows、Scale USD95/月・250、Enterprise USD195/月・750。Factoryは無料3本→OAuth接続→自動投稿→metricsの導線を参考にする。AI avatar動画とslideshowsでは原価が異なるので本数・価格をそのまま転用しない。現在のUSD199/月・30本は候補であり、USD95前後の案を含め、実原価・失敗/再試行費・決済/hosting費とユーザーの「約USD100/月で使っていた」という価格期待を比較して確定する。参照: [ReelFarm](https://reel.farm/)。
 
+2026-10-24の最新公式価格を使うと、20秒の投稿1本はHeyGen Avatar IV Photo USD0.77 + Starfish TTS USD0.04 + Gemini script reserve USD0.005 = USD0.815/日、30日でUSD24.45。初回だけPhoto Avatar USD1.32とGemini 1K portrait reserve USD0.14を加える。無料3本の同じ上限シナリオはUSD3.905/新規利用者で、quotaのUSD4.25/user予約内。paid 30 completed/36 attempts/45秒上限では動画USD62.37 + TTS USD3.24 + script reserve USD0.18 = USD65.79のprovider原価シナリオとなる。USD199候補から残るUSD133.21は決済・hosting・storage・posting・税・無料利用者獲得費・追加失敗を引く前の金額であり、利益ではない。無料reserve USD4.25/user、仮定転換率10%なら有料1人あたり無料獲得費USD42.50を引き、USD199/30の残額はUSD90.71、USD95/30ならUSD-13.29（いずれも決済・infra控除前）。同じ10%仮定のUSD95/10・12-attempt案は直接生成原価USD21.93、無料獲得費控除後USD30.57が決済・infra前に残る。いずれもモデル計算で、実費・転換率・利益の観測ではない。ReelFarmの価格anchorを参照しつつ、slideshowsと同じ成果数を動画quotaへ当てはめない。料金表・原価式 → `../plans/2026-10-24-ai-monk-research-distribution.md` と `../../evidence/ai-monk-factory-cost-and-button-readiness-20261025.json`。
+
 Instagram公式OverviewはInstagram LoginでFacebook Page連携を不要にできると説明し、他社user向けAdvanced AccessにはMeta App ReviewとBusiness Verificationを要求する。Content Publishing guideはprofessional account、publish permission、accountによってはPPA完了を求める。TikTok公式Content Posting APIはregistered app、scopeのapp承認と利用者認可を求め、audit前clientの投稿をprivateに制限する。Instagramを先行し、TikTokのpublic postingはaudit後に有効化する。参照: https://developers.facebook.com/documentation/instagram-platform/overview 、https://developers.facebook.com/documentation/instagram-platform/content-publishing 、https://developers.tiktok.com/docs/en/content-posting-api-get-started 。
 
 ## 最小の利用導線
@@ -58,7 +60,7 @@ dashboardは実provider状態、投稿URL、取得日時付きのviews/likes等�
 3. 最新mainへ統合し、必要なprovider/deployment設定を対象限定で反映する。実login/3本無料枠/有料subscription/本人OAuth接続/独自avatar・video/公式投稿・metricsを実receiptと分けて確認する。
 4. 実利用できる状態をXで告知する。売上・MRR・他者利益・正式directory掲載は、対応する外部結果が無い限り未達とする。
 
-## 現在cursor
+## SaaS-1の過去readback
 PR #686はhead `53c09618fe6cbe733e334cf0d032c809ad46b187`、merge commit `28fc06ecdd79377e19b1eed734922da468d46284`でmainへ統合済み。PR CI `40100777243`はSUCCESS。Supabase Primaryの公式readbackでmigration `20261024140729 monk_factory_capacity_intent`を確認する。
 
 main由来Netlify Deploy `40101137159`とpost-deploy money-path smokeはSUCCESS。公式published deploy `6adcbc9e5d86f3902f2e08ed`はready、titleにmain SHA `28fc06ecdd79377e19b1eed734922da468d46284`を含み、Netlifyのcommit_refはnull。公開 `/ai-monk-factory` は「最大3本の無料動画・各20秒・カード不要・期限なし」、消費後は月USD199の案内となり、3日trial文言は表示されない。
@@ -67,4 +69,15 @@ main由来Netlify Deploy `40101137159`とpost-deploy money-path smokeはSUCCESS�
 
 private SSOTの状態確認では、Factory専用Gemini projectは `prepared_unfunded` / `billing_verified=false`、HeyGenはAPI key確認済みのfree accountでauto-reload off、Upload-PostはDefault/free・2 profile・paid plan未購入、Stripeは商品catalog準備済みだがruntime disabled。生成・Stripe Checkout・Instagram OAuth・投稿・課金は今回0件。キーやwallet値はreceiptへ保存しない。
 
-現在cursorは生成providerの専用支払元・モデル/voice権限と会社全体のhard spend capを受け入れること。無料quota USD4.25と有料期間USD70は利用者単位の予約であり、新規利用者数に対する会社全体の上限ではない。これらを確認するまではFactoryを有効化せず、生成envを本番へ追加しない。Instagram投稿はUpload-Postの未購入white-label契約に依存させず、公式Instagram API/OAuth経路を販売前に実装・審査する。公開受入と未完条件 → ../plans/2026-10-24-ai-monk-research-distribution.md。3本無料の仕組みはReelFarmに倣うが、同サービスのslide数や価格を動画原価の異なるFactoryへ自動転用しない。料金候補は実原価で再評価する。
+## 現在cursor
+2026-10-24T17:20:07Zの公式read-only再確認では、Netlify production env APIはHTTP 200、58 variables、`MONK_FACTORY_*`は0件。最新deploy `6adce42e0d5c44f3fd32870f`はreadyで17:01:27Z公開、titleはmain `f2353829b831325e744868b95adf065cdbc002b8`、`commit_ref=null`。公開ページは3本無料・期限なし・カード不要・$199/月候補を表示する。ユーザー画像のstudio disabled状態は別の症状証拠であり、日付不明の画像をauthenticated live readbackとみなさない。
+
+Factory codeは `MONK_FACTORY_ENABLED=true`、job runtime secret、provider keysと独立billing evidenceが揃わないとgenerationをreadyにせず、Checkoutとsocialも個別ready gateで閉じる。`factory.tsx`はreadiness falseなら該当ボタンをdisabledにし、APIはcapability actionを503で拒否する。したがって「ボタンを押せない」の根本原因はUI handlerではなく未設定runtimeであり、押せるよう見せるだけの修正はしない。focused API testは6/6 PASS。
+
+Fresh provider GETではHeyGen `/v3/users/me`がHTTP 200、wallet USD0.00、billing type wallet。Upload-Post `/api/uploadposts/users`はHTTP 200、Default plan、profile 0/limit 2。Gemini models GETはHTTP 200で `gemini-3.1-flash-lite` と `gemini-3.1-flash-lite-image` を返すが、これはbilling proofではなく、private credential SSOTの専用project `billing_verified=false` と一致する。Stripe catalogは用意済みでもproduction runtimeはdisabledのまま。今回のAPI readはすべてGETで、provider account、Instagram接続/投稿、checkout/課金、本番envの変更は0。
+
+現行実装のInstagram接続/投稿adapterはUpload-Postであり、customer-scale white-label契約は未確認。Meta公式Instagram LoginはBusiness/Creator accountとpublish permissionsを必要とし、Advanced AccessにはMeta App Review・Business Verificationが必要。公式Content Publishing APIはpublicly hosted mediaを使い、AI生成Reelではmedia container作成時に `is_ai_generated=true` を渡せる。Factoryを顧客へ販売する前に、Upload-Postの無料2-profile経路へ依存しない公式Meta API/OAuthか、確認済みwhite-label契約を選び、その認可・token保存・投稿・metricsのend-to-endを完了する。Instagram official docs: [overview](https://developers.facebook.com/docs/instagram-platform/overview/), [content publishing](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/content-publishing/)。
+
+現行の原価参照はHeyGen公式price article（2026-10-19更新）でAvatar IV Photo USD2.31/min、Photo Avatar USD1.32/call、Starfish USD0.12/min、API free creditsなし。Google公式pricingは Gemini 3.1 Flash-Lite input USD0.25/output USD1.50 per 1M tokens、Gemini 3.1 Flash Lite Image 1K output USD0.0336。20秒を1日1本ならUSD0.815/日、30日USD24.45の直接生成シナリオ。初回avatar/portraitを含むfree 3本は最大USD3.905見積り、USD4.25/user quota内。30本/36 attempt/45秒 paid capはUSD65.79の直接原価モデルで、$199候補の利益確定ではない。Fresh source, formula and blocked readiness → `../../evidence/ai-monk-factory-cost-and-button-readiness-20261025.json`。
+
+次cursorは会社全体hard spend capと専用有料provider予算/権限の実受入、ならびにcustomer-scale Instagram API/OAuth準備。これらが揃うまでFactory runtimeを有効にせず、生成/Checkout/social buttonを開けない。現在の利用者別USD4.25/70 reservationは会社全体の支出上限を代替しない。実行順 → `../plans/2026-10-24-ai-monk-research-distribution.md`。
