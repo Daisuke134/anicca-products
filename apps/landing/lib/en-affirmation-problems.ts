@@ -19,6 +19,10 @@ export type EnAffirmationProblem = {
   title: string;
   shortTitle: string;
   metaDescription: string;
+  /** Explicit JSON-LD article publication date (YYYY-MM-DD). */
+  datePublished?: string;
+  /** Explicit JSON-LD article update date (YYYY-MM-DD). */
+  dateModified?: string;
   /** Plain-language “why this happens” (~lead + sections). */
   whyItHappens: string[];
   affirmations: string[];
@@ -37,6 +41,14 @@ export type EnAffirmationProblem = {
   /** App Store ct param prefix. Default seo_en. */
   campaignPrefix?: 'seo_en' | 'seo_geo';
   comparison?: EnAffirmationComparison;
+};
+
+export type EnAffirmationProblemWithDates = Omit<
+  EnAffirmationProblem,
+  'datePublished' | 'dateModified'
+> & {
+  datePublished: string;
+  dateModified: string;
 };
 
 export const EN_AFFIRMATION_APP_STORE_BASE =
@@ -873,6 +885,8 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     jaSlug: 'sunday-scaries',
     title: 'Affirmations for Sunday scaries (2026): lines for the dread before Monday',
     shortTitle: 'Affirmations for Sunday scaries',
+    datePublished: '2026-10-16',
+    dateModified: '2026-10-16',
     metaDescription:
       'Calm affirmations for Sunday scaries, plus a two-minute exercise for easing Monday dread. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
@@ -909,6 +923,8 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     jaSlug: 'social-anxiety-at-work',
     title: 'Affirmations for social anxiety at work (2026): lines for meetings, chat, and small talk',
     shortTitle: 'Affirmations for social anxiety at work',
+    datePublished: '2026-10-16',
+    dateModified: '2026-10-16',
     metaDescription:
       'Steady affirmations for social anxiety at work, plus a two-minute exercise before a meeting or conversation. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
@@ -1021,8 +1037,19 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
 
 export function getEnAffirmationProblem(
   slug: string,
-): EnAffirmationProblem | undefined {
-  return EN_AFFIRMATION_PROBLEMS.find((p) => p.slug === slug);
+): EnAffirmationProblemWithDates | undefined {
+  const problem = EN_AFFIRMATION_PROBLEMS.find((p) => p.slug === slug);
+  if (!problem) return undefined;
+
+  const campaignDate =
+    problem.campaignPrefix === 'seo_geo' ? '2026-10-15' : '2026-10-09';
+  const datePublished = problem.datePublished ?? campaignDate;
+
+  return {
+    ...problem,
+    datePublished,
+    dateModified: problem.dateModified ?? datePublished,
+  };
 }
 
 export function allEnAffirmationSlugs(): string[] {
