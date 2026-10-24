@@ -1,0 +1,154 @@
+{
+  "schema_version": "anicca.ai-monk-factory-readiness.v1",
+  "run_id": "ai-monk-factory-provider-readiness-20261025T192736Z",
+  "owner_id": "root",
+  "occurrence_id": "factory-provider-readiness-2026-10-24T19:27:36Z",
+  "release_sha": "527e30b624c3a6c376210bf61966285b293c909b",
+  "observed_at": "2026-10-24T19:27:36.486Z",
+  "phase": "read_only_production_and_provider_readback",
+  "command": [
+    "GET Netlify production environment and latest deploy using the exact private credentials SSOT service",
+    "GET Gemini models/gemini-3.1-flash-lite",
+    "GET Gemini models/gemini-3.1-flash-lite-image",
+    "GET HeyGen /v3/users/me",
+    "GET Upload-Post /api/uploadposts/users",
+    "gh run view 40124990311",
+    "crwl crawl https://aniccaai.com/ai-monk-factory -o markdown-fit",
+    "crwl crawl https://reel.farm/ -o markdown-fit"
+  ],
+  "loaded_argv": {
+    "provider_operations": "read_only_GET_only",
+    "factory_generation_requests": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0,
+    "provider_mutations": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT exact service rows; token values not printed or copied",
+    "production_secret_values_printed": 0,
+    "production_env_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "provider_topups_or_plan_changes": 0,
+    "factory_generation_requests": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "source_release": {
+      "pr": 704,
+      "state": "MERGED",
+      "merge_sha": "527e30b624c3a6c376210bf61966285b293c909b",
+      "landing_ci": "40124651245:success",
+      "independent_codex_review": "completed_no_blocking_findings",
+      "netlify_workflow": "40124990311:success",
+      "post_deploy_smoke": "success"
+    },
+    "netlify": {
+      "site": "aniccaai.com",
+      "environment_http_status": 200,
+      "production_variable_count": 58,
+      "factory_variable_names": [],
+      "latest_deploy_http_status": 200,
+      "latest_deploy_id": "6add0653003d36ed2f0ea505",
+      "latest_deploy_state": "ready",
+      "published_at": "2026-10-24T19:26:52.639Z",
+      "commit_ref": null,
+      "title": "Deploy from GHA prod - 527e30b624c3a6c376210bf61966285b293c909b"
+    },
+    "provider_accounts": {
+      "gemini": {
+        "model_readbacks": [
+          { "model": "gemini-3.1-flash-lite", "http_status": 200 },
+          { "model": "gemini-3.1-flash-lite-image", "http_status": 200 }
+        ],
+        "billing_verified": "not established by model GET"
+      },
+      "heygen": {
+        "http_status": 200,
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 6.53
+      },
+      "upload_post": {
+        "http_status": 200,
+        "success": true,
+        "plan": "default",
+        "profiles": 0,
+        "profile_limit": 2,
+        "paid_plan_purchased_in_credentials_ssot": false
+      },
+      "stripe": {
+        "live_api_readback": "not performed in this run",
+        "factory_price_candidate_in_credentials_ssot": "USD 199/month, catalog_prepared_runtime_disabled",
+        "public_page_price": "USD 199/month",
+        "factory_specific_production_env_names": []
+      }
+    },
+    "public_factory_page": {
+      "route": "https://aniccaai.com/ai-monk-factory",
+      "crawl_succeeded": true,
+      "offer": "3 videos free, up to 20 seconds, no card, no time-limited trial",
+      "paid_price_copy": "USD 199/month",
+      "authenticated_studio_interaction": "not observed"
+    },
+    "button_behavior": {
+      "source": "PR #700 is included in current main and production deploy",
+      "when_readiness_is_false": "button click displays a local capability reason and sends no API request",
+      "contract_tests": "34/34 passed in PR #700",
+      "user_screenshot_clock": "21:31-21:32 JST; calendar date not visible"
+    },
+    "reelfarm_reference": {
+      "url": "https://reel.farm/",
+      "free_offer": "3 TikToks",
+      "flow": ["create automation", "connect TikTok", "daily generation and publishing"],
+      "plans_observed": {
+        "Growth": "USD 49/month for 100 slideshows",
+        "Scale": "USD 95/month for 250 slideshows",
+        "Enterprise": "USD 195/month for 750 slideshows"
+      },
+      "pricing_copying_decision": "not finalized; compare verified generation cost and gross margin before checkout activation"
+    },
+    "limitations": [
+      "No authenticated user session was used to inspect the studio after deploy.",
+      "Gemini model availability does not prove billing or production spend authority.",
+      "HeyGen wallet balance is not a company-wide hard spend cap.",
+      "Upload-Post Default plan/profile limit is not customer-scale Instagram readiness.",
+      "Production Factory environment is absent, so generation, checkout and Instagram actions remain unavailable by design.",
+      "Views, revenue, profit and paid demand were not measured."
+    ]
+  },
+  "provider_receipt_id": "6add0653003d36ed2f0ea505",
+  "evidence_refs": [
+    {
+      "url": "https://github.com/Daisuke134/anicca-products/pull/704",
+      "fact": "eBook paid mode fix merged as main SHA 527e30b; source CI and post-deploy smoke passed."
+    },
+    {
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40124990311",
+      "fact": "Main SHA 527e30b deployed to Netlify and post-deploy smoke passed."
+    },
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+      "http_status": 200,
+      "fact": "58 production variables; none use the MONK_FACTORY_ prefix."
+    },
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=5",
+      "http_status": 200,
+      "fact": "Latest ready production deploy title contains main SHA 527e30b."
+    },
+    {
+      "url": "https://aniccaai.com/ai-monk-factory",
+      "fact": "Public page offers three free videos, no card, and no time-limited trial."
+    },
+    {
+      "url": "https://reel.farm/",
+      "fact": "Current public page shows three free TikToks, automation/account-connection flow, daily publishing, analytics, and plan pricing."
+    }
+  ],
+  "error_class": "factory_runtime_not_configured",
+  "retryable": false,
+  "next_action": "Keep provider mutations and Factory generation/checkout/Instagram actions closed. Continue EBOOK-LEGACY-1 and Database/CLI/Plugin work. Before Factory activation, verify dedicated billing/funding and an actual-spend cap, customer-scale Instagram API readiness, production runtime settings, actual per-video costs, and margin-supported pricing; then read back authenticated readiness without resending any daily Grok Bot posts."
+}
