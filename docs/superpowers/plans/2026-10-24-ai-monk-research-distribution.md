@@ -4,6 +4,7 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
+現在のPL-1限定作業はDaisの「Go fix」に基づく正式掲載の復旧・審査対応。範囲・旧順序→新順序・受入の正本 → 2026-10-24-ai-monk-marketplace-resolution.md。既存appealの最終却下とMuse審査中を成功へ置換せず、新通知と既存submissionを確認する。
 現在cursorは既存9.99 USD書籍LPへ案内するX配信の実行である。旧cursorはYangjunの1source/11サービス価格をv0.4.13へ公開する作業、新cursorは公開済みの具体的発見から既存書籍へ1つの主CTAでつなぐ配信。理由はDatabase/CLI/MCP/Registryの同一snapshot受入が揃い、初期予算未回答・Factory native権限不足・正式Plugin審査の未完を保持したまま、追加支出0で収益導線を進められるため。公開受入 → ../../evidence/ai-monk-cli-mcp-v0413-release-20261024.json。日次Grok所有effectと未完作用を重複させず、同じAXRaise・Google Prompt・正式提出を再送しない。Factoryの未完 → ../../evidence/ai-monk-factory-billing-form-preflight-20261024.json。OpenAI既存appeal正式却下/Muse残2件審査中 → ../../evidence/ai-monk-marketplace-followup-20261024.json。
 
 独立して受入済みのDatabase/CLI v0.4.13は73公開/75archive/196出典、商品・サービス観測archive91行/公開88行で、公開JSON/Web・固定main Release・公開URL導入/CLI・実stdio/HTTPS MCP各6tool・公式Registry active/isLatestの同一snapshotを確認する。公開Webは73card/71画像を維持する。Yangjunの11サービス価格は50/75/100/120 USDのseller表示で、課金周期・注文・売上は未確認。Yang Munの既存通貨観測を含む旧195出典/80offerは保持する。公開受入 → ../../evidence/ai-monk-cli-mcp-v0413-release-20261024.json。Database→CLI/plugin→Factoryの優先順と日次Grok所有境界を維持し、Factoryの有料billing・実生成・利用者IG接続/投稿・metrics・USD10K MRRを未完として追跡する。
