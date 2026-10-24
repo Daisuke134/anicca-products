@@ -1,0 +1,345 @@
+{
+  "schema_version": "anicca.ai-monk-digital-product-catalog.v1",
+  "run_id": "ai-monk-yangmun-digital-catalog-20261024",
+  "owner_id": "root",
+  "occurrence_id": "yang-mun-shopify-products-json-20261024",
+  "release_sha": "d108719505624143332430fca075082492c17557",
+  "observed_at": "2026-10-24T14:54:32Z",
+  "phase": "first_party_product_catalog_read",
+  "command": [
+    "crwl crawl https://yang-mun.com/collections/all -o markdown-fit",
+    "scrapy fetch https://yang-mun.com/products.json?limit=250",
+    "crwl crawl each selected product page with variant=<id>&currency=USD -o markdown-fit"
+  ],
+  "loaded_argv": {
+    "checkout_requests": 0,
+    "purchase_requests": 0,
+    "cart_mutations": 0
+  },
+  "loaded_env": {
+    "authentication": "anonymous public pages; no account login or payment credential used"
+  },
+  "exit_code": 0,
+  "effect": {
+    "checkout_submissions": 0,
+    "purchases": 0,
+    "payments": 0,
+    "provider_calls": 0,
+    "posts": 0
+  },
+  "source_readback": {
+    "catalog_url": "https://yang-mun.com/products.json?limit=250",
+    "http_status": 200,
+    "product_count": 55,
+    "raw_bytes": 190574,
+    "raw_sha256": "f363cbcdd65d2ac5edb15df53f037b7b39fad5edaa373c4d6b85ba747bdffdbb",
+    "currency_limit": "Shopify variant.price fields in products.json lack a currency code and are not treated as USD.",
+    "selected_currency_method": "For each included product, a first-party product page was fetched with its exact variant ID and currency=USD; the displayed amount is a localized storefront price, not a payment or settlement receipt."
+  },
+  "accepted_offers": [
+    {
+      "name": "The Gut Guide",
+      "type": "eBook",
+      "product_id": "15839303893332",
+      "variant_id": "57417030467924",
+      "price": 12.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-gut-guide?variant=57417030467924&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Gut Care Bundle",
+      "type": "eBook bundle",
+      "product_id": "15839305204052",
+      "variant_id": "57417032859988",
+      "price": 19.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-gut-care-bundle?variant=57417032859988&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "Easy Healthy Living - 2 eBook Bundle",
+      "type": "eBook bundle",
+      "product_id": "15780279746900",
+      "variant_id": "57217964278100",
+      "price": 19.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/easy-healthy-living-2-ebook-bundle?variant=57217964278100&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "Move a Little, Every Day - eBook",
+      "type": "eBook",
+      "product_id": "15780274504020",
+      "variant_id": "57217916535124",
+      "price": 12.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/move-a-little-every-day-ebook?variant=57217916535124&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Simple Kitchen - eBook",
+      "type": "eBook",
+      "product_id": "15780271391060",
+      "variant_id": "57217889010004",
+      "price": 12.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-simple-kitchen-ebook?variant=57217889010004&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Complete Yang Mun Audiobook Bundle",
+      "type": "audiobook bundle",
+      "product_id": "15769905398100",
+      "variant_id": "57167484354900",
+      "price": 19.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-complete-yang-mun-audiobook-bundle?variant=57167484354900&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "Time To Heal - Audiobook",
+      "type": "audiobook",
+      "product_id": "15769894814036",
+      "variant_id": "57167222538580",
+      "price": 12.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/time-to-heal-audiobook?variant=57167222538580&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "Healing the Modern Soul - Audiobook",
+      "type": "audiobook",
+      "product_id": "15769894682964",
+      "variant_id": "57167221948756",
+      "price": 12.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/healing-the-modern-soul-audiobook?variant=57167221948756&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Way Back to Stillness - Audiobook",
+      "type": "audiobook",
+      "product_id": "15769894453588",
+      "variant_id": "57167218475348",
+      "price": 12.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-way-back-to-stillness-audiobook?variant=57167218475348&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Eyes - eBook",
+      "type": "eBook",
+      "product_id": "15752812593492",
+      "variant_id": "57087368954196",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-eyes-ebook?variant=57087368954196&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Skin - eBook",
+      "type": "eBook",
+      "product_id": "15752812396884",
+      "variant_id": "57087368593748",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-skin-ebook?variant=57087368593748&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Brain - eBook",
+      "type": "eBook",
+      "product_id": "15752812036436",
+      "variant_id": "57087368069460",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-brain-ebook?variant=57087368069460&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Stomach - eBook",
+      "type": "eBook",
+      "product_id": "15752811872596",
+      "variant_id": "57087366824276",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-stomach-ebook?variant=57087366824276&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Kidneys - eBook",
+      "type": "eBook",
+      "product_id": "15752811807060",
+      "variant_id": "57087366660436",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-kidneys-ebook?variant=57087366660436&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Lungs - eBook",
+      "type": "eBook",
+      "product_id": "15752811708756",
+      "variant_id": "57087366562132",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-lungs-ebook?variant=57087366562132&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Spleen - eBook",
+      "type": "eBook",
+      "product_id": "15752811577684",
+      "variant_id": "57087366037844",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-spleen-ebook?variant=57087366037844&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Heart - eBook",
+      "type": "eBook",
+      "product_id": "15752811512148",
+      "variant_id": "57087365841236",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-heart-ebook?variant=57087365841236&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Liver - eBook",
+      "type": "eBook",
+      "product_id": "15752811413844",
+      "variant_id": "57087365710164",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-liver-ebook?variant=57087365710164&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Body Remembers How to Eat - eBook",
+      "type": "eBook",
+      "product_id": "15677023977812",
+      "variant_id": "56771040444756",
+      "price": 17.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-body-remembers-how-to-eat-printed-book-ebook?variant=56771040444756&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Complete Yang Mun eBook Bundle",
+      "type": "eBook bundle",
+      "product_id": "15616667844948",
+      "variant_id": "56477948477780",
+      "price": 19.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-complete-yang-mun-ebook-bundle?variant=56477948477780&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "Time To Heal - eBook",
+      "type": "eBook",
+      "product_id": "15586375336276",
+      "variant_id": "56372495057236",
+      "price": 12.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/time-to-heal-the-wisdom-of-yang-mun?variant=56372495057236&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "The Way Back to Stillness - eBook",
+      "type": "eBook",
+      "product_id": "15586416066900",
+      "variant_id": "56372887191892",
+      "price": 12.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/the-way-back-to-stillness-yang-mun?variant=56372887191892&currency=USD",
+      "orders": null,
+      "revenue": null
+    },
+    {
+      "name": "Healing the Modern Soul - eBook",
+      "type": "eBook",
+      "product_id": "15586413609300",
+      "variant_id": "56372862910804",
+      "price": 12.99,
+      "currency": "USD",
+      "url": "https://yang-mun.com/products/healing-the-modern-soul-yang-mun?variant=56372862910804&currency=USD",
+      "orders": null,
+      "revenue": null
+    }
+  ],
+  "excluded_observations": [
+    {
+      "product": "The Book Companion",
+      "reason": "First-party product page returned Page not found; no current purchase page confirmed."
+    },
+    {
+      "product": "The 7-Night Sleep Reset",
+      "observed_listing_price_usd": 7.99,
+      "reason": "The product page links directly to the full PDF; whether purchase is required is unresolved, so it is not counted as a paid offer."
+    },
+    {
+      "product": "50 Questions for a Happier Life",
+      "observed_listing_price_usd": 7.99,
+      "reason": "The page describes a printable/savable collection but does not state digital delivery; excluded under the current batch criteria."
+    },
+    {
+      "product": "Yang Mun Recipes eBook, Inner Circle Community Access, Yang Mun Breathwork Guide",
+      "reason": "The public product catalog shows zero-price variants; excluded from paid-price offers and not treated as sales."
+    },
+    {
+      "product": "Digital product",
+      "reason": "Zero-price generic placeholder with no product description; excluded."
+    },
+    {
+      "product": "30-Day Healing Journey - Yang Mun and 30 Day Healing Journey + All eBooks",
+      "reason": "The product and variant IDs already exist in the canonical database; no duplicate observations added."
+    },
+    {
+      "product": "Yang Mun Gift Card",
+      "reason": "Outside this ebook/digital-book batch."
+    }
+  ],
+  "database_delta": {
+    "new_offers": 23,
+    "new_sources": 24,
+    "yangmun_offer_rows_after": 29,
+    "account_records": 75,
+    "source_rows_after": 224,
+    "total_offer_rows_after": 114,
+    "creator_claims_changed": 0,
+    "revenue_observations_changed": 0,
+    "seller_counters_changed": 0
+  },
+  "claim_limits": [
+    "Listed prices do not establish purchases, paid orders, revenue, profit, or a particular seller settlement currency.",
+    "Existing Yang Mun revenue claim, revenue observation, seller counters, and all historical offers remain unchanged.",
+    "The uncoded base price from Shopify products.json is not merged into the USD selected-currency price."
+  ],
+  "error_class": "none",
+  "retryable": false,
+  "next_action": "Run package and data checks, update the plan with this source result, then publish the new snapshot through the existing Database, CLI, MCP, and Web release path."
+}

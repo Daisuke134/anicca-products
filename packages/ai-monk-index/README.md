@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release uses the current dated research snapshot: **73 monk profiles, including 6 evidence-reviewed video personas and 67 pending research candidates**, with **200 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. All six included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the current dated research snapshot: **73 monk profiles, including 6 evidence-reviewed video personas and 67 pending research candidates**, with **224 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. All six included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -32,12 +32,14 @@ v0.4.14 adds a dated public TikTok embedded-metadata snapshot for the existing M
 
 v0.4.15 adds dated first-party Instagram Reel evidence for Maitre Yun and SifuChen California. Their public profiles disclose AI-generated content, and their attributed Reels display Instagram's AI content label; both remain `reported`, with no independent production audit. Sifu's Reel says matcha, but the linked Amazon ASIN resolves to dog omega-3; the intended product, commercial relationship, commission, price, orders and revenue remain unknown and are not attributed as an offer. The directory remains 73 profiles/75 archived records; 6 are evidence-reviewed and 67 pending, with 200 sources.
 
+v0.4.16 adds 23 dated Yang Mun seller-page observations (19 ebooks/ebook bundles and 4 audiobooks/audiobook bundles) matched to exact Shopify product and variant IDs, plus the public 55-product catalog source. Product pages selected with `currency=USD` display prices from 12.99 to 19.99 USD for the included products; these are localized seller-listed prices, not payment receipts. Product-page language and `requires_shipping=false` support digital delivery for this batch. Orders, revenue, billing frequency for ebooks, checkout totals, and merchant settlement currency remain unknown. Existing offers and revenue/counter observations are preserved. The archive remains 75 records, with 224 sources and 114 offer rows; this is not a complete census.
+
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.15/anicca-ai-monk-index-0.4.15.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.16/anicca-ai-monk-index-0.4.16.tgz
 ```
 
 ## CLI
