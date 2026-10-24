@@ -244,3 +244,5 @@ source受入では49候補から39 sourceを引用し、既存2 sourceを変更�
 ## 未確認商品価格・通貨の追加観測
 
 v0.4.6で確定3系統のbase/定期/比較/presentment価格を分け、Kaelと他の未知値を維持する契約 → `2026-10-24-ai-monk-product-price-currencies.md`。
+
+Arisの既存商品へseller JSON-LDの価格/通貨を新しい観測として追加し、過去の価格不明・未監査売上と区別する限定契約 → `../plans/2026-10-24-ai-monk-research-distribution.md`「商品構造化データの限定追加」。

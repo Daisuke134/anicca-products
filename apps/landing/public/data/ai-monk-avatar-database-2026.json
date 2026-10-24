@@ -1887,6 +1887,16 @@
       "checked_at": "2026-10-24",
       "captured_at": "2026-10-24T00:08:37.510769+00:00",
       "notes": "JSON-LD and storefront explicitly specify EUR 9.95. InStock metadata and an enabled cart button coexist with Agotado text; purchase availability is unresolved. No cart or checkout was opened."
+    },
+    {
+      "id": "product-jsonld-aris-21-rituals-20261024",
+      "title": "Aris The Still: The 21 Sacred Rituals seller JSON-LD price",
+      "url": "https://www.aristhestill.com/",
+      "source_type": "first-party seller page embedded Product/Offer JSON-LD",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T00:30:04.586694+00:00",
+      "notes": "The matching Product/Offer JSON-LD explicitly lists price 17.00 and priceCurrency USD, with InStock metadata and priceValidUntil 2026-12-31. Checkout, actual availability, billing recurrence, merchant settlement currency and revenue are unverified. Earlier price-unknown observation is retained."
     }
   ],
   "accounts": [
@@ -7197,6 +7207,37 @@
           "attribution": "Public profile links to the store; operator identity, product authorship and legal ownership are unverified.",
           "notes": "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue. Product health or wellbeing benefits and seller identity claims are not independently verified.",
           "price_unknown_reason": "No price was exposed in the fetched public product page; checkout was not visited."
+        },
+        {
+          "type": "digital_bundle",
+          "name": "The 21 Sacred Rituals — The Complete Guide for Healing Your Home, Your Body, and Your Spirit",
+          "price": 17.0,
+          "currency": "USD",
+          "source_id": "product-jsonld-aris-21-rituals-20261024",
+          "source_ids": [
+            "product-site-aristhestill-20261024",
+            "product-jsonld-aris-21-rituals-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.aristhestill.com/",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T00:30:04.586694+00:00",
+          "formats": [
+            "PDF",
+            "audiobook; audio file type unverified"
+          ],
+          "observation_id": "jsonld-aris-21-rituals-20261024",
+          "related_observation_id": "aris-21-rituals",
+          "price_kind": "seller_structured_offer_price",
+          "billing_kind": null,
+          "seller_price_valid_until": "2026-12-31",
+          "availability": {
+            "state": "seller_structured_data_in_stock_checkout_unverified",
+            "basis": "Matching seller Product/Offer JSON-LD declares https://schema.org/InStock; no cart or checkout was opened.",
+            "purchase_completed": false
+          },
+          "attribution": "Public profile links to the store; operator identity, product authorship and legal ownership are unverified.",
+          "notes": "Seller structured data lists 17.00 USD. This is not a verified transaction or a confirmed merchant settlement currency. Billing recurrence and actual availability remain unknown. The seller price-valid-until field is metadata, not a guarantee. Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue. Product health or wellbeing benefits and seller identity claims are not independently verified."
         }
       ],
       "seller_counters": [

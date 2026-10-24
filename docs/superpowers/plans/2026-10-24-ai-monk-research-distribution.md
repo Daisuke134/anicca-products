@@ -101,3 +101,13 @@ PR648/main `6c54f3a9a4c4df080174c1d76ddbbaa85a168737`の先行planに従い、�
 CDP操作は正規lease取得後も保護hookに実行前拒否され、policy変更・迂回・再送は0。別native経路ではbundle-only selectorが別業務profileを選んだため、UI観測をbilling受入から除外する。自分が変えた空ページ表示を復元し、自分の確認用window閉鎖・既存window保持・lease解放を確認する。公式APIでも請求先は既存1件のまま、Factory projectは未課金。新billing accountの最終送信・支払い・生成は0。Factory再開時はPID/profileに固定できるUI経路と専用billingを扱い、共有walletへlinkしない。
 
 Databaseの別ownerによる日次更新PR649/main `505aa8182356e286c586aa9a5f618d8509806f2e`はsource v0.4.9/187出典、CI40044430970とDeploy40044430905 SUCCESS。公開JSONの00:23:54Z観測は75archive/181出典・SHA `e7fe35a6219381f90da1a5f8ce3e0df98935948f2f37e0053bdbaf91dd539516`で、v0.4.9の全配布面受入へ置換しない。Factory source373→505は差分0。rootは日次ownerのsource・release・Registryを変更/再送せず、独立して未確認の商品・収益根拠を精査する。
+
+## 商品構造化データの限定追加
+
+DB-1の現在unitはAris The Stillの既存商品 `aris-21-rituals` の公開価格不明を、公式seller HTMLのJSON-LDで再確認する。目的は既知商品の価格・通貨根拠を拡充してWeb/CLI/MCPへ同一snapshotを配ること。対象は `https://www.aristhestill.com/` の商品名・Offer価格/通貨・availability表示、既存profileとの帰属経路のみ。ログイン・cart・checkout・支払い・売上推定は0。MonjeWu/MonjeLinの探索結果はreceiptに境界だけを記録し、この実装unitのデータ対象を増やさない。
+
+main `ad08dd187d3b3c051bb29d9e1040ec76272f5461`由来の専用branch `feat/ai-monk-product-jsonld-20261024`を使う。所有はprimary。先行契約をpushしてからcanonical JSONの新source/新しい日付付きoffer観測、package/lock/README/server metadata、当planと新規receiptだけを変更する。旧187sources・全75recordsの既存field/offer・4included/69pending/2excluded・AI状態・画像・指標・revenue観測は保持する。既存null観測を上書きせず、新しい観測から旧商品IDを参照する。JSON-LDのInStockはseller metadataであり実在庫/購入成功へ昇格しない。billing recurrenceとmerchant会計通貨は独立未確認なら補わない。
+
+受入は、未追加の価格観測について最小の一時assertion RED→データ追加→GREEN、既存shared/helperとpackage検証、fresh read-only data review・既存CI/main公開とする。新parser/runtime/依存/恒久的mirroring testは作らない。新v0.4.10のmain固定Release・公開JSON/Web/CLI/stdio/HTTPS MCP・Registryを同一snapshotで確認し、v0.4.9を含む旧Release/receiptを変えない。別ownerの日次v0.4.9公開を中断・再送しない。Factory・plugin payload・認証/課金・X・日次Grok所有effectは変更0。現在cursorはこのDB-1の根拠追加、次はPL-1の既存正式配布口の未完条件。
+
+Arisの公式HTML HTTP200/JSON-LDで同一商品17 USDを確認し、新しいsource1件・日付付きoffer1件を追加する。旧187sources/既存全観測・収益fieldを保持するsource acceptanceはRED→GREEN。既存package15件/shared・render15件とbuild済みget/monetizationの価格/出典返却を確認し、v0.4.10/188出典へ揃える。source証拠 → ../../evidence/ai-monk-product-jsonld-source-20261024.json。独立review・最終head CI・main由来公開/新Release/Registryは次に受入する。
