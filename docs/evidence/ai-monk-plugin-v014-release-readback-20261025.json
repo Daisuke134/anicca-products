@@ -1,0 +1,173 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-release-readback.v1",
+  "run_id": "ai-monk-plugin-v014-release-readback-20261025",
+  "owner_id": "ai-monk-database-plugin",
+  "occurrence_id": "pr-694-main-f2353829b831325e744868b95adf065cdbc002b8",
+  "release_sha": "f2353829b831325e744868b95adf065cdbc002b8",
+  "observed_at": "2026-10-24T17:08:29Z",
+  "phase": "merged_release_registry_and_production_readback",
+  "command": "Merge the reviewed Database/Plugin change, publish main-derived immutable releases, and verify public MCP/Web/JSON/CLI/Plugin distribution.",
+  "loaded_argv": {
+    "pull_request": "https://github.com/Daisuke134/anicca-products/pull/694",
+    "index_release": "ai-monk-index-v0.4.19",
+    "plugin_release": "ai-monk-plugin-v0.1.4",
+    "registry_workflow_run_id": 40114352879
+  },
+  "loaded_env": {
+    "repository": "Daisuke134/anicca-products",
+    "main_sha": "f2353829b831325e744868b95adf065cdbc002b8",
+    "secret_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "pull_request_merged": true,
+    "main_deployed": true,
+    "public_github_releases": 2,
+    "public_mcp_registry_version": true,
+    "isolated_codex_marketplace_install": true,
+    "factory_provider_or_runtime_changes": 0,
+    "generation_requests": 0,
+    "social_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "pull_request": {
+      "number": 694,
+      "state": "MERGED",
+      "head_sha": "37456d6b66a8b71dbaf19af269269eb65b091da7",
+      "merge_sha": "f2353829b831325e744868b95adf065cdbc002b8",
+      "checks": {
+        "package": "SUCCESS",
+        "landing": "SUCCESS",
+        "CodeRabbit": "SUCCESS",
+        "independent_read_only_review_blocking_findings": 0
+      }
+    },
+    "main_workflows": {
+      "ai_monk_index": {
+        "run_id": 40113879315,
+        "conclusion": "success",
+        "head_sha": "f2353829b831325e744868b95adf065cdbc002b8"
+      },
+      "netlify_deploy": {
+        "run_id": 40113879297,
+        "conclusion": "success",
+        "head_sha": "f2353829b831325e744868b95adf065cdbc002b8"
+      }
+    },
+    "index_release": {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.19",
+      "version": "0.4.19",
+      "target_sha": "f2353829b831325e744868b95adf065cdbc002b8",
+      "immutable": true,
+      "asset": "anicca-ai-monk-index-0.4.19.tgz",
+      "asset_bytes": 75506,
+      "asset_sha256": "a15b8e6b604d76f33f376fe1356885778e49d946f42d0999beb8af2b946cf50e",
+      "downloaded_asset_sha256_matches": true
+    },
+    "plugin_release": {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-plugin-v0.1.4",
+      "version": "0.1.4",
+      "target_sha": "f2353829b831325e744868b95adf065cdbc002b8",
+      "immutable": true,
+      "asset": "ai-monk-index-plugin-0.1.4.zip",
+      "asset_bytes": 733684,
+      "asset_sha256": "3ad6e0885e326129e5aac41c38ab5f59ce39df67e4f2f116360a3278be8955d8",
+      "downloaded_asset_sha256_matches": true,
+      "source_files_match_main": [
+        "plugin.json",
+        "mcp.json",
+        "README.md",
+        "assets/icon.png"
+      ]
+    },
+    "public_distribution": {
+      "production_https_mcp": {
+        "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+        "initialize_http_status": 200,
+        "protocol_version": "2025-03-26",
+        "server_name": "ai-monk-index",
+        "server_version": "0.4.19",
+        "tools_list_http_status": 200,
+        "tool_count": 6,
+        "sessionless": true
+      },
+      "official_mcp_registry": {
+        "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.19",
+        "workflow_run_id": 40114352879,
+        "http_status": 200,
+        "version": "0.4.19",
+        "status": "active",
+        "is_latest": true
+      },
+      "public_data": {
+        "web_url": "https://aniccaai.com/ai-monk-database",
+        "json_url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+        "canonical_snapshot_sha256": "eb78534751267a0769216bed8006624291ea98167738648e6553c98b2f756540",
+        "archive_records": 75,
+        "public_profiles": 73,
+        "included": 6,
+        "pending": 67,
+        "excluded": 2,
+        "sources": 233,
+        "account_offer_rows": 116
+      },
+      "cli_from_downloaded_release": {
+        "stats_snapshot_sha256": "eb78534751267a0769216bed8006624291ea98167738648e6553c98b2f756540",
+        "records": 73,
+        "sources": 233
+      },
+      "isolated_codex_marketplace": {
+        "plugin": "ai-monk-index@anicca",
+        "enabled": true,
+        "version": "0.1.4",
+        "user_configuration_modified": false
+      }
+    },
+    "plugin_scope": {
+      "native_model_run_v0_1_4": false,
+      "formal_chatgpt_approval_or_listing": false,
+      "muse_approval_or_listing": false,
+      "grok_publisher_listing": false,
+      "minor_deferred_review_note": "Evidence implementation_source_files count includes docs/metadata and is ambiguous; no blocking finding."
+    },
+    "factory_state": {
+      "buttons": "disabled_by_fail_closed_readiness_gates",
+      "generation_checkout_social_readiness": "not_proven_ready",
+      "three_free_videos_no_time_trial": "product_contract_only; no live Factory generation proven"
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "url": "https://github.com/Daisuke134/anicca-products/pull/694",
+      "fact": "PR merged to main with package/landing/CodeRabbit checks successful; independent review blocking findings 0."
+    },
+    {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.19",
+      "fact": "Immutable main-derived Index release asset hash was verified against downloaded bytes."
+    },
+    {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-plugin-v0.1.4",
+      "fact": "Immutable main-derived Plugin ZIP hash was verified against downloaded bytes; its four files match fixed main."
+    },
+    {
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.19",
+      "http_status": 200,
+      "fact": "Official registry reports the exact version active and latest."
+    },
+    {
+      "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+      "http_status": 200,
+      "fact": "Production HTTPS MCP initializes at 0.4.19 and lists six tools."
+    },
+    {
+      "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "http_status": 200,
+      "fact": "Public JSON content hash equals the canonical 75-record database snapshot."
+    }
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "SaaS-2: diagnose Factory readiness, provider economics and company-wide spend-cap prerequisites; keep generation, social publishing and checkout disabled until the real API path is ready."
+}
