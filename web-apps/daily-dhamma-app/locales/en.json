@@ -37,10 +37,10 @@
       "monthly": "Monthly",
       "yearly": "Yearly",
       "perMonth": "/month",
-      "perYear": "/year"
+      "perYear": "/year",
+      "savings": "Save %{percent}% vs monthly"
     },
-    "cta": "Subscribe Now",
-    "free": "Continue with Free",
+    "cta": "Start now",
     "restore": "Restore Purchases",
     "restoring": "Restoring...",
     "loading": "Loading plans...",
@@ -68,11 +68,36 @@
         "title": "Restore Failed",
         "msg": "Please try again later."
       }
-    }
+    },
+    "badge": {
+      "bestValue": "BEST VALUE"
+    },
+    "trial": {
+      "badge": {
+        "DAY": "%{count}-day free trial",
+        "WEEK": "%{count}-week free trial",
+        "MONTH": "%{count}-month free trial"
+      },
+      "cta": {
+        "DAY": "Start %{count}-day free trial",
+        "WEEK": "Start %{count}-week free trial",
+        "MONTH": "Start %{count}-month free trial"
+      },
+      "after": {
+        "DAY": "%{count}-day free trial, then %{price}/year. Cancel anytime.",
+        "WEEK": "%{count}-week free trial, then %{price}/year. Cancel anytime.",
+        "MONTH": "%{count}-month free trial, then %{price}/year. Cancel anytime."
+      }
+    },
+    "close": "Close"
   },
   "index": {
     "title": "Daily Dhamma",
-    "swipeHint": "Swipe up for next verse"
+    "swipeHint": "Swipe up for next verse",
+    "locked": {
+      "title": "Continue with Premium",
+      "cta": "See Premium"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -89,8 +114,6 @@
     "notificationsHint": "Receive morning wisdom verses and mindfulness reminders",
     "dailyFrequency": "Daily Frequency",
     "frequencyHint": "How many mindfulness reminders per day",
-    "frequencyFixed": "3x per day",
-    "upgradeForMore": "Upgrade for more",
     "notificationTime": "Notification Time",
     "freq": {
       "x3": "3x",

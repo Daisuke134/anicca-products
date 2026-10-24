@@ -37,10 +37,10 @@
       "monthly": "月額プラン",
       "yearly": "年額プラン",
       "perMonth": "/月",
-      "perYear": "/年"
+      "perYear": "/年",
+      "savings": "月額より%{percent}%お得"
     },
-    "cta": "登録する",
-    "free": "無料で続ける",
+    "cta": "今すぐ始める",
     "restore": "購入を復元",
     "restoring": "復元中...",
     "loading": "プランを読み込み中...",
@@ -68,11 +68,36 @@
         "title": "復元失敗",
         "msg": "後でもう一度お試しください。"
       }
-    }
+    },
+    "badge": {
+      "bestValue": "BEST VALUE"
+    },
+    "trial": {
+      "badge": {
+        "DAY": "%{count}日間無料",
+        "WEEK": "%{count}週間無料",
+        "MONTH": "%{count}か月無料"
+      },
+      "cta": {
+        "DAY": "%{count}日間無料で始める",
+        "WEEK": "%{count}週間無料で始める",
+        "MONTH": "%{count}か月無料で始める"
+      },
+      "after": {
+        "DAY": "%{count}日後に%{price}/年。いつでもキャンセルできます",
+        "WEEK": "%{count}週間後に%{price}/年。いつでもキャンセルできます",
+        "MONTH": "%{count}か月後に%{price}/年。いつでもキャンセルできます"
+      }
+    },
+    "close": "閉じる"
   },
   "index": {
     "title": "デイリーダンマ",
-    "swipeHint": "スワイプで次の法句経へ"
+    "swipeHint": "スワイプで次の法句経へ",
+    "locked": {
+      "title": "続きはプレミアムで",
+      "cta": "プレミアムを見る"
+    }
   },
   "settings": {
     "title": "設定",
@@ -89,8 +114,6 @@
     "notificationsHint": "毎朝の法句経とマインドフルネスリマインダーを受け取ります",
     "dailyFrequency": "1日の頻度",
     "frequencyHint": "1日何回マインドフルネスリマインダーを受け取るか",
-    "frequencyFixed": "1日3回",
-    "upgradeForMore": "より多く受け取るにはアップグレード",
     "notificationTime": "朝の時刻",
     "freq": {
       "x3": "3回",

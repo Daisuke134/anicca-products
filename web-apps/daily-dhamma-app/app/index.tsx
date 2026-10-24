@@ -12,12 +12,14 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Settings, Bookmark, BookmarkCheck } from 'lucide-react-native';
+import { Settings, Bookmark, BookmarkCheck, Lock } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import * as Localization from 'expo-localization';
 import Colors from '@/constants/colors';
 import { Verse, getFreeVerses, getAllVerses, getLocalizedVerse, getLocalizedSource, getLocalizedChapter } from '@/data/verses';
 import { useApp } from '@/providers/AppProvider';
+import { useRevenueCat } from '@/providers/RevenueCatProvider';
+import { isVerseLocked, shouldShowStreakPaywall } from '@/utils/paywallUtils';
 import { t } from '@/utils/i18n';
 
 const { width, height } = Dimensions.get('window');
@@ -25,7 +27,8 @@ const { width, height } = Dimensions.get('window');
 export default function MainScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { settings, isLoading, toggleBookmark, isBookmarked, isPremium } = useApp();
+  const { settings, isLoading, toggleBookmark, isBookmarked, isPremium, updateSettings } = useApp();
+  const { isLoadingCustomerInfo } = useRevenueCat();
   const colorScheme = useColorScheme();
   const isDark = settings.darkMode || colorScheme === 'dark';
   const colors = isDark ? Colors.dark : Colors.light;
@@ -34,7 +37,16 @@ export default function MainScreen() {
   const flatListRef = useRef<FlatList>(null);
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  const availableVerses = isPremium ? getAllVerses() : getFreeVerses();
+  const freeVerses = getFreeVerses();
+  // 無料は10句。11句目はロック画面として置き、そこへスワイプしたら paywall
+  const availableVerses = isPremium
+    ? getAllVerses()
+    : [...freeVerses, getAllVerses().find((v) => v.isPremium)!];
+  const verseCount = isPremium ? availableVerses.length : freeVerses.length;
+  const openPaywall = useCallback(
+    (source: string) => router.push({ pathname: '/paywall', params: { source } }),
+    [router]
+  );
   const locale = Localization.getLocales()[0]?.languageTag ?? 'en';
 
   useEffect(() => {
@@ -44,16 +56,46 @@ export default function MainScreen() {
     }
   }, [isLoading, settings.hasCompletedOnboarding, router]);
 
+  // 3日連続で開いたら1回だけ paywall
+  useEffect(() => {
+    if (isLoading || isLoadingCustomerInfo || !settings.hasCompletedOnboarding) return;
+    if (shouldShowStreakPaywall(settings.openStreak, settings.streakPaywallShown, isPremium)) {
+      updateSettings({ streakPaywallShown: true });
+      openPaywall('streak');
+    }
+  }, [isLoading, isLoadingCustomerInfo, settings, isPremium, updateSettings, openPaywall]);
+
   const handleBookmark = useCallback((verseId: number) => {
     if (!isPremium) {
-      router.push('/paywall');
+      openPaywall('bookmark');
       return;
     }
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     toggleBookmark(verseId);
-  }, [isPremium, toggleBookmark, router]);
+  }, [isPremium, toggleBookmark, openPaywall]);
 
   const renderVerse = ({ item, index }: { item: Verse; index: number }) => {
+    if (isVerseLocked(index, freeVerses.length, isPremium)) {
+      return (
+        <View style={[styles.versePage, { height, backgroundColor: colors.background }]}>
+          <View style={styles.verseContent}>
+            <Lock size={32} color={colors.gold} />
+            <Text style={[styles.lockedTitle, { color: colors.text }]}>{t('index.locked.title')}</Text>
+            <TouchableOpacity
+              testID="verse_locked_cta"
+              style={[styles.lockedButton, { backgroundColor: colors.gold }]}
+              onPress={() => openPaywall('verse_limit')}
+              activeOpacity={0.8}
+            >
+              <Text style={[styles.lockedButtonText, { color: Colors.light.background }]}>
+                {t('index.locked.cta')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+
     const inputRange = [
       (index - 1) * height,
       index * height,
@@ -165,6 +207,7 @@ export default function MainScreen() {
           if (index !== currentIndex) {
             setCurrentIndex(index);
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            if (isVerseLocked(index, freeVerses.length, isPremium)) openPaywall('verse_limit');
           }
         }}
         scrollEventThrottle={16}
@@ -175,11 +218,13 @@ export default function MainScreen() {
         })}
       />
 
-      <View style={[styles.pageIndicator, { bottom: insets.bottom + 24 }]}>
-        <Text style={[styles.pageIndicatorText, { color: colors.textMuted }]}>
-          {currentIndex + 1} / {availableVerses.length}
-        </Text>
-      </View>
+      {currentIndex < verseCount && (
+        <View style={[styles.pageIndicator, { bottom: insets.bottom + 24 }]}>
+          <Text style={[styles.pageIndicatorText, { color: colors.textMuted }]}>
+            {currentIndex + 1} / {verseCount}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -273,6 +318,22 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  lockedTitle: {
+    fontSize: 22,
+    fontWeight: '300',
+    textAlign: 'center',
+    marginTop: 24,
+  },
+  lockedButton: {
+    marginTop: 32,
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+  },
+  lockedButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
   },
   swipeHint: {
     position: 'absolute',
