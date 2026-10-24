@@ -27,24 +27,130 @@ test('API reads and stop updates bind to Auth server ID, ignoring forged body an
   assert.deepEqual(calls, [['account', user.id], ['jobs', user.id], ['stop', user.id]]);
 });
 
-test('unavailable production providers cannot start a trial or reserve a billing profile', async () => {
-  const response = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session' }, body: JSON.stringify({ action: 'checkout' }) }, { env, fetchImpl: auth, store: { reserveProfile: async () => assert.fail('unavailable service reserved a checkout') } });
-  assert.equal(response.statusCode, 503);
-  assert.equal(JSON.parse(response.body).error, 'factory_unavailable');
+test('Stripe setup does not block an authenticated free video and Checkout waits for the lifetime allowance', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const calls = [];
+  const dependencies = { env: configured, fetchImpl: auth, syncBilling: async () => null,
+    providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: false } }) },
+    store: {
+      account: async id => { calls.push(['account', id]); return null; },
+      usage: async id => { calls.push(['usage', id]); return { videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }; },
+      reserveJob: async (id, occurrence, kind) => { calls.push(['reserve', id, occurrence, kind]); return { id: 'free-job-fixture' }; },
+      checkoutContext: async () => assert.fail('free quota must be used before Checkout is created'),
+    } };
+  const request = { headers: { authorization: 'Bearer fixture-session' } };
+  const avatar = await factoryHandler({ ...request, httpMethod: 'POST', body: JSON.stringify({ action: 'generate_avatar' }) }, dependencies);
+  assert.equal(avatar.statusCode, 202);
+  assert.equal(JSON.parse(avatar.body).jobId, 'free-job-fixture');
+  const checkout = await factoryHandler({ ...request, httpMethod: 'POST', body: JSON.stringify({ action: 'checkout' }) }, dependencies);
+  assert.equal(checkout.statusCode, 409);
+  assert.equal(JSON.parse(checkout.body).error, 'free_quota_remaining');
+  assert.deepEqual(calls, [['usage', user.id], ['account', user.id], ['reserve', user.id, 'avatar:lifetime', 'avatar'], ['usage', user.id]]);
 });
 
-test('missing cancellation or billing configuration keeps ready false and cannot reserve Checkout', async () => {
-  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long',
-    STRIPE_SECRET_KEY: 'sk_test_fixture', MONK_FACTORY_STRIPE_PRICE_ID: 'price_fixture', MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID: 'bpc_fixture',
-    MONK_FACTORY_STRIPE_WEBHOOK_SECRET: 'whsec_fixture', MONK_FACTORY_STRIPE_LIVE: 'false' };
-  for (const field of ['STRIPE_SECRET_KEY', 'MONK_FACTORY_STRIPE_PRICE_ID', 'MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID', 'MONK_FACTORY_STRIPE_WEBHOOK_SECRET', 'MONK_FACTORY_STRIPE_LIVE']) {
-    const missing = { ...configured }; delete missing[field]; let reservations = 0;
-    const dependencies = { env: missing, fetchImpl: auth, stripe: {}, providers: { readiness: () => ({ ready: true }) },
-      store: { account: async () => null, reserveProfile: async () => { reservations++; throw new Error('not configured'); } } };
-    const req = { httpMethod: 'GET', headers: { authorization: 'Bearer fixture' } };
-    const state = await factoryHandler(req, dependencies);
-    assert.equal(JSON.parse(state.body).ready, false, field);
-    const checkout = await factoryHandler({ ...req, httpMethod: 'POST', body: JSON.stringify({ action: 'checkout' }) }, dependencies);
-    assert.equal(checkout.statusCode, 503); assert.equal(reservations, 0, field);
-  }
+test('checkout readiness is separate from generation readiness', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const response = await factoryHandler({ httpMethod: 'GET', headers: { authorization: 'Bearer fixture-session' } }, {
+    env: configured, fetchImpl: auth,
+    providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: false } }) },
+    store: { usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }), account: async () => null, jobs: async () => [] },
+  });
+  assert.equal(response.statusCode, 200);
+  const snapshot = JSON.parse(response.body);
+  assert.equal(snapshot.readiness.generation.ready, true);
+  assert.equal(snapshot.readiness.checkout.ready, false);
+  assert.equal(snapshot.readiness.social.ready, false);
+  assert.equal(snapshot.usage.videosRemaining, 3);
+});
+
+test('a newly connected Instagram starts daily creation and one default avatar, but a stopped account stays stopped', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const calls = [];
+  let account = { user_id: user.id, subscription_status: 'none', auto_post: false, auto_post_intent: true,
+    social_profile: 'factory_' + user.id, connected_at: null, instagram_account_id: null, avatar_id: null };
+  const jobs = [];
+  const store = {
+    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }),
+    account: async () => structuredClone(account),
+    jobs: async () => structuredClone(jobs),
+    claimSocial: async () => ({ ...account, social_lease_id: 'social-lease-fixture' }),
+    saveSocial: async (_id, _lease, state) => {
+      account = { ...account, social_profile: state.profile, instagram_account_id: state.accountId,
+        instagram_username: state.handle, connected_at: state.connected ? (account.connected_at || new Date().toISOString()) : null,
+        social_checked_at: new Date().toISOString() };
+      return structuredClone(account);
+    },
+    releaseSocial: async () => {},
+    setAutopost: async () => { calls.push('autopost'); account.auto_post = true; return { auto_post: true }; },
+    reserveJob: async (_id, occurrence, kind, origin) => {
+      calls.push(['reserve', occurrence, kind, origin]);
+      const job = { id: 'avatar-job-fixture', kind, status: 'reserved', origin };
+      jobs.push(job);
+      return job;
+    },
+  };
+  const providers = {
+    readiness: async () => ({ generation: { ready: true }, social: { ready: true } }),
+    socialState: async () => ({ profile: 'factory_' + user.id, connected: true, accountId: 'ig-opaque-fixture', handle: 'monk_fixture' }),
+  };
+  const request = { httpMethod: 'GET', headers: { authorization: 'Bearer fixture-session' } };
+  const first = await factoryHandler(request, { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(first.statusCode, 200);
+  const connected = JSON.parse(first.body);
+  assert.equal(connected.account.connected, true);
+  assert.equal(connected.account.auto_post, true);
+  assert.equal(connected.jobs[0].kind, 'avatar');
+  assert.deepEqual(calls, ['autopost', ['reserve', 'avatar:lifetime', 'avatar', 'auto']]);
+
+  account.auto_post = false; account.auto_post_intent = false; // A user Stop must not be undone by the next status refresh.
+  const stopped = await factoryHandler(request, { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(stopped.statusCode, 200);
+  assert.equal(JSON.parse(stopped.body).account.auto_post, false);
+  assert.equal(calls.filter(call => call === 'autopost').length, 1);
+  assert.equal(calls.filter(call => Array.isArray(call)).length, 1);
+});
+
+test('Stop during Instagram OAuth prevents a later connection readback from starting automation', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  let connected = false;
+  let account = { user_id: user.id, subscription_status: 'none', auto_post: false, auto_post_intent: false,
+    social_profile: 'factory_' + user.id, social_submit_started_at: '2026-10-24T00:00:00.000Z', connected_at: null, instagram_account_id: null };
+  let autopostStarts = 0;
+  const store = {
+    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }),
+    account: async () => structuredClone(account),
+    reserveProfile: async () => {},
+    setAutopostIntent: async (_id, enabled) => { account.auto_post_intent = enabled; return { auto_post_intent: enabled }; },
+    stop: async () => { account.auto_post = false; account.auto_post_intent = false; return { auto_post: false }; },
+    jobs: async () => [],
+    claimSocial: async () => ({ ...account, social_lease_id: 'social-lease-fixture' }),
+    saveSocial: async (_id, _lease, state) => {
+      account = { ...account, social_profile: state.profile, instagram_account_id: state.accountId,
+        connected_at: state.connected ? (account.connected_at || new Date().toISOString()) : null,
+        social_checked_at: new Date().toISOString() };
+      return structuredClone(account);
+    },
+    releaseSocial: async () => {},
+    setAutopost: async () => { autopostStarts++; account.auto_post = true; return { auto_post: true }; },
+    reserveJob: async () => assert.fail('Stop during OAuth must prevent avatar generation'),
+  };
+  const providers = {
+    readiness: async () => ({ generation: { ready: true }, social: { ready: true } }),
+    socialState: async () => ({ profile: 'factory_' + user.id, connected, accountId: connected ? 'ig-opaque-fixture' : null, handle: 'monk_fixture' }),
+    connectInstagram: async () => ({ accessUrl: 'https://instagram.example/authorize' }),
+  };
+  const authHeader = { authorization: 'Bearer fixture-session' };
+  const connect = await factoryHandler({ httpMethod: 'POST', headers: authHeader, body: JSON.stringify({ action: 'connect_instagram' }) },
+    { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(connect.statusCode, 200);
+  assert.equal(account.auto_post_intent, true);
+  const pending = await factoryHandler({ httpMethod: 'GET', headers: authHeader }, { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(JSON.parse(pending.body).account.auto_post_intent, true);
+  assert.equal(JSON.parse(pending.body).account.auto_post, false);
+  await factoryHandler({ httpMethod: 'POST', headers: authHeader, body: JSON.stringify({ action: 'stop' }) }, { env: configured, fetchImpl: auth, store });
+  connected = true;
+  const status = await factoryHandler({ httpMethod: 'GET', headers: authHeader }, { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(status.statusCode, 200);
+  assert.equal(JSON.parse(status.body).account.auto_post, false);
+  assert.equal(autopostStarts, 0);
 });

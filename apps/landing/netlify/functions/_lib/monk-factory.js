@@ -39,18 +39,14 @@ function validateFactoryPrice(price) {
   }
 }
 
-function buildFactoryCheckout({ user, price, customerId, trialUsed }) {
-  if (!UUID.test(user?.id || '') || typeof user.email !== 'string' || !user.email || typeof trialUsed !== 'boolean') {
+function buildFactoryCheckout({ user, price, customerId }) {
+  if (!UUID.test(user?.id || '') || typeof user.email !== 'string' || !user.email) {
     throw factoryError('account_unavailable', 503);
   }
   validateFactoryPrice(price);
   if (customerId && !/^cus_[A-Za-z0-9]+$/.test(customerId)) throw factoryError('account_unavailable', 503);
   const metadata = { product: FACTORY_PRODUCT, user_id: user.id };
   const subscription = { metadata: { ...metadata } };
-  if (!trialUsed) {
-    subscription.trial_period_days = 3;
-    subscription.trial_settings = { end_behavior: { missing_payment_method: 'cancel' } };
-  }
   return {
     mode: 'subscription',
     line_items: [{ price: price.id, quantity: 1 }],
@@ -62,7 +58,7 @@ function buildFactoryCheckout({ user, price, customerId, trialUsed }) {
     ...(customerId ? { customer: customerId } : { customer_email: user.email }),
     success_url: 'https://aniccaai.com/ai-monk-factory?checkout=success&session_id={CHECKOUT_SESSION_ID}',
     cancel_url: 'https://aniccaai.com/ai-monk-factory?checkout=cancelled',
-    custom_text: { submit: { message: trialUsed ? 'USD199 per month. Up to 30 videos per month, each up to 45 seconds. Cancel from your dashboard.' : '3 days free, then USD199 per month. Trial: up to 3 videos, each up to 20 seconds. Cancel before your trial ends to avoid the subscription charge.' } },
+    custom_text: { submit: { message: 'USD199 per month. Up to 30 completed videos per paid period, each up to 45 seconds. Cancel from your dashboard.' } },
   };
 }
 

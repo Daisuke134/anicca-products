@@ -114,7 +114,7 @@ test('image completion retains numeric token usage in its private blob and evide
   let job = { id: key, user_id: user.id, kind: 'avatar', origin: 'manual', stage: 'image_pending', period_key: 'trial:sub_fixture', max_seconds: 20,
     image_nonce: user.id, image_ticket_until: new Date(expiresAt).toISOString() };
   let posts = 0; const blobs = new Map();
-  const store = { job: async () => job, claimJob: async () => job, advanceJob: async (row, patch) => {
+  const store = { account: async () => account, job: async () => job, claimJob: async () => job, advanceJob: async (row, patch) => {
     job = { ...row, ...patch, evidence: { ...row.evidence, ...patch.evidence } };
     return job;
   } };
@@ -156,7 +156,7 @@ test('an incomplete paid image keeps returned numeric usage and receipt in unkno
   let job = { id: key, user_id: user.id, kind: 'avatar', origin: 'manual', stage: 'image_pending', period_key: 'trial:sub_fixture', max_seconds: 20,
     image_nonce: user.id, image_ticket_until: new Date(expiresAt).toISOString() };
   let posts = 0;
-  const store = { job: async () => job, claimJob: async () => job, advanceJob: async (row, patch) => (job = { ...row, ...patch, evidence: { ...row.evidence, ...patch.evidence } }) };
+  const store = { account: async () => account, job: async () => job, claimJob: async () => job, advanceJob: async (row, patch) => (job = { ...row, ...patch, evidence: { ...row.evidence, ...patch.evidence } }) };
   const providers = { readiness: () => ({ ready: true }), createAvatarImage: async () => {
     posts++; throw Object.assign(new Error('provider_effect_unknown'), { code: 'provider_effect_unknown', effect: 'unknown', providerReceiptId: 'incomplete_image', usage: { thoughtTokens: 37, raw: 'private thought' } });
   } };
@@ -178,7 +178,7 @@ test('a failed private blob write keeps the completed image receipt and usage wi
   let job = { id: key, user_id: user.id, kind: 'avatar', origin: 'manual', stage: 'image_pending', period_key: 'trial:sub_fixture', max_seconds: 20,
     image_nonce: user.id, image_ticket_until: new Date(expiresAt).toISOString() };
   let posts = 0;
-  const store = { job: async () => job, claimJob: async () => job, advanceJob: async (row, patch) => (job = { ...row, ...patch, evidence: { ...row.evidence, ...patch.evidence } }) };
+  const store = { account: async () => account, job: async () => job, claimJob: async () => job, advanceJob: async (row, patch) => (job = { ...row, ...patch, evidence: { ...row.evidence, ...patch.evidence } }) };
   const providers = { readiness: () => ({ ready: true }), createAvatarImage: async () => {
     posts++; return { id: 'completed_image_1', imageBase64: '/9j/2Q==', mediaType: 'image/jpeg', usage: { inputTokens: 19, outputTokens: 1120, thoughtTokens: 0, totalTokens: 1139 } };
   } };

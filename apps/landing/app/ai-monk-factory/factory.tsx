@@ -7,7 +7,7 @@ import { factoryDestination, factoryRequest, type FactoryAction } from '@/lib/mo
 
 type Account = {
   subscription_status?: string; trial_end?: string; period_end?: string; period_paid?: boolean;
-  cancel_at_period_end?: boolean; billing_paused?: boolean; auto_post?: boolean;
+  cancel_at_period_end?: boolean; billing_paused?: boolean; auto_post?: boolean; auto_post_intent?: boolean;
   instagram_username?: string; connected?: boolean; connected_at?: string; social_checked_at?: string;
   avatar_ready?: boolean; avatar_image_url?: string; next_post_at?: string;
 };
@@ -17,7 +17,8 @@ type Job = {
   metrics?: { views?: number | null; likes?: number | null; comments?: number | null; asOf?: string; fetchedAt?: string; fetched_at?: string };
   metrics_at?: string;
 };
-type Snapshot = { ready: boolean; account: Account | null; jobs: Job[]; usage?: { videosRemaining: number | null; attemptsRemaining: number | null; maxSeconds: number | null; periodEnd: string | null; asOf: string } };
+type Capability = { ready: boolean; reason?: string | null };
+type Snapshot = { ready: boolean; readiness?: { generation?: Capability; checkout?: Capability; social?: Capability }; account: Account | null; jobs: Job[]; usage?: { videosRemaining: number | null; attemptsRemaining: number | null; maxSeconds: number | null; periodEnd: string | null; asOf: string } };
 type PendingVideo = { occurrence: string; jobId?: string };
 const finished = new Set(['completed', 'failed', 'cancelled']);
 const date = (value?: string | null) => value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) : '—';
@@ -26,15 +27,24 @@ const media = (value?: string) => { try { const u = new URL(value || ''); return
 const messages: Record<string, string> = {
   sign_in_required: 'Please sign in again to continue.', auth_unavailable: 'Sign-in is temporarily unavailable. Please try again.',
   connection_interrupted: 'The connection was interrupted. Your request may still be processing. Check the same request before starting another.',
-  quota_exhausted: 'You have used the available video attempts for this period.', budget_exhausted: 'Generation is paused for this period. Your existing videos remain available.',
+  quota_exhausted: 'You have used the available video attempts. Choose a plan to continue.', budget_exhausted: 'Generation is paused for this period. Your existing videos remain available.',
   profile_capacity: 'All creator spaces are currently taken. Please check back before starting a subscription.',
-  subscription_required: 'An active subscription or trial is required. Check your billing status below.',
+  subscription_required: 'Your three free videos are used. Choose a plan to continue.',
+  free_quota_remaining: 'Use your three free videos before starting a subscription.',
   avatar_required: 'Create your avatar first.', avatar_exists: 'Your avatar request already exists. Its status is shown below.',
-  instagram_required: 'Connect an Instagram Business or Creator account first.', social_not_connected: 'Reconnect Instagram before turning on daily posting.',
+  instagram_required: 'Connect an Instagram Business or Creator account first.', social_not_connected: 'Reconnect Instagram before daily posting can resume.',
   billing_sync_conflict: 'Your billing status is updating. Please check again in a moment.',
   checkout_reconciliation_required: 'We are checking your previous checkout. Please refresh before trying again.',
+  generation_unavailable: 'Video generation is not configured yet. Your account and free allowance are safe; please check again later.',
+  social_unavailable: 'Instagram connection is not configured yet. Please check again later.',
+  checkout_unavailable: 'Checkout is not configured yet. Please check again later.',
   factory_unavailable: 'The studio is temporarily unavailable. No new checkout or generation can start. Please check again later.',
 };
+const unavailable = (capability?: Capability) => ({
+  studio_setup: 'The studio is not enabled yet.', runtime_setup: 'The generation worker is not configured yet.',
+  provider_setup: 'The generation services are not ready yet.', social_setup: 'Instagram publishing is not configured yet.',
+  billing_setup: 'Secure checkout is not configured yet.',
+}[capability?.reason || ''] || 'This service is temporarily unavailable.');
 function errorMessage(error: unknown) {
   const code = error && typeof error === 'object' && 'code' in error ? String(error.code) : '';
   return messages[code] || 'This action could not finish. Refresh to check its status before trying again.';
@@ -162,10 +172,14 @@ export default function Factory() {
   const videos = jobs.filter(j => j.kind === 'video');
   const active = !!account && !account.cancel_at_period_end && !account.billing_paused && ((account.subscription_status === 'trialing' && Date.parse(account.trial_end || '') > Date.now()) || (account.subscription_status === 'active' && account.period_paid && Date.parse(account.period_end || '') > Date.now()));
   const generating = videos.some(j => !finished.has(j.status));
-  const ready = snapshot?.ready === true;
+  const generationReady = snapshot?.readiness?.generation?.ready ?? snapshot?.ready === true;
+  const socialReady = snapshot?.readiness?.social?.ready ?? snapshot?.ready === true;
+  const checkoutReady = snapshot?.readiness?.checkout?.ready === true;
+  const freeQuotaAvailable = Number(snapshot?.usage?.videosRemaining) > 0 && Number(snapshot?.usage?.attemptsRemaining) > 0;
+  const freeQuotaSpent = !freeQuotaAvailable;
+  const hasAccess = active || freeQuotaAvailable;
   const avatarReady = account?.avatar_ready === true;
   const hasBilling = !!account?.subscription_status && account.subscription_status !== 'none';
-  const locked = !!busy || !ready;
   const image = media(account?.avatar_image_url || avatarJob?.image_url);
 
   return <main className="mf-shell">
@@ -177,16 +191,17 @@ export default function Factory() {
     <header className={`mf-hero ${session ? 'mf-hero-compact' : ''}`}>
       <div><p className="mf-eyebrow">Research. Create. Publish.</p><h1>Your monk.<br /><em>Your next Reel.</em></h1>
         <p className="mf-lead">An original AI monk, thoughtful scripts, and videos for your Instagram. One calm place to create and keep going.</p>
-        {!session && <div className="mf-hero-action"><button className="mf-button" onClick={() => void login()} disabled={!authReady || !!busy}>{busy === 'login' ? 'Opening sign-in…' : 'Start with Google'} <span aria-hidden="true">↗</span></button><span>3-day trial · then $199/month</span></div>}
+        {!session && <div className="mf-hero-action"><button className="mf-button" onClick={() => void login()} disabled={!authReady || !!busy}>{busy === 'login' ? 'Opening sign-in…' : 'Make 3 Reels free'} <span aria-hidden="true">↗</span></button><span>No card. No time-limited trial.</span></div>}
       </div>
-      {!session && <aside className="mf-process" aria-label="How it works"><p className="mf-eyebrow">From an idea to a daily practice</p><ol><li><span>01</span><div><h2>Meet your monk</h2><p>Generate one original, fictional avatar.</p></div></li><li><span>02</span><div><h2>Make something useful</h2><p>Research-led scripts become narrated Reels.</p></div></li><li><span>03</span><div><h2>Let it flow</h2><p>Connect Instagram. Turn daily posting on.</p></div></li></ol><a href="/ai-monk-database">Explore the research behind it <span aria-hidden="true">↗</span></a></aside>}
+      {!session && <aside className="mf-process" aria-label="How it works"><p className="mf-eyebrow">From an idea to a daily practice</p><ol><li><span>01</span><div><h2>Meet your monk</h2><p>We create one original, fictional avatar for you.</p></div></li><li><span>02</span><div><h2>Make something useful</h2><p>Research-led scripts become narrated Reels.</p></div></li><li><span>03</span><div><h2>Let it flow</h2><p>Connect Instagram once. Daily creation and posting start automatically; stop any time.</p></div></li></ol><a href="/ai-monk-database">Explore the research behind it <span aria-hidden="true">↗</span></a></aside>}
     </header>
 
     <div className="mf-announcements" aria-live="polite">{error && <p className="mf-error" role="alert">{error}</p>}{notice && <p className="mf-notice">{notice}</p>}</div>
 
     {session && <section className="mf-studio" aria-label="Your studio">
-      <div className="mf-section-heading"><div><p className="mf-eyebrow">Your studio</p><h2>A little more presence.</h2></div><div className="mf-studio-actions">{(!snapshot || account?.auto_post) && <button className="mf-text-button" disabled={!!busy} onClick={() => void act('stop')}>Stop daily posting</button>}<button className="mf-text-button" disabled={loading || !!busy} onClick={() => { setError(''); setLoading(true); void load(session.access_token).catch(e => setError(errorMessage(e))).finally(() => setLoading(false)); }}>{loading ? 'Checking…' : 'Refresh status ↻'}</button></div></div>
-      {snapshot && !ready && <p className="mf-notice">The studio is preparing to open. Checkout and new generation are unavailable for now. Your existing content and stop control remain here.</p>}
+      <div className="mf-section-heading"><div><p className="mf-eyebrow">Your studio</p><h2>A little more presence.</h2></div><div className="mf-studio-actions">{(!snapshot || account?.auto_post || account?.auto_post_intent) && <button className="mf-text-button" disabled={!!busy} onClick={() => void act('stop')}>Stop daily creation and posting</button>}<button className="mf-text-button" disabled={loading || !!busy} onClick={() => { setError(''); setLoading(true); void load(session.access_token).catch(e => setError(errorMessage(e))).finally(() => setLoading(false)); }}>{loading ? 'Checking…' : 'Refresh status ↻'}</button></div></div>
+      {snapshot && !generationReady && <p className="mf-notice">{unavailable(snapshot.readiness?.generation)} Existing content and the Stop control remain available.</p>}
+      {snapshot && !socialReady && !account?.connected && <p className="mf-notice">{unavailable(snapshot.readiness?.social)}</p>}
       {!snapshot ? <p className="mf-loading">{loading ? 'Opening your studio…' : 'Refresh to load your studio.'}</p> : <>
         <div className="mf-workspace">
           <div className="mf-avatar">
@@ -194,13 +209,13 @@ export default function Factory() {
             <span className="mf-media-label">Fictional · AI-generated</span>
           </div>
           <div className="mf-steps">
-            <div className="mf-step"><span className="mf-step-number">01</span><div><h3>Your original avatar</h3><p>Create once. The same monk appears in your videos.</p><button className="mf-button mf-button-small" disabled={locked || !active || !!avatarJob || avatarReady} onClick={() => void act('generate_avatar')}>{avatarReady ? 'Avatar ready ✓' : avatarJob ? stage(avatarJob) : busy === 'generate_avatar' ? 'Requesting…' : 'Generate my monk'}</button></div></div>
-            <div className="mf-step"><span className="mf-step-number">02</span><div><h3>Something worth sharing</h3><p>An original script, voice, and vertical video. No prompt setup.</p><button className="mf-button mf-button-small" disabled={!!busy || !ready || !avatarReady || generating || (!pendingVideo && (!active || !(Number(snapshot.usage?.videosRemaining) > 0) || !(Number(snapshot.usage?.attemptsRemaining) > 0)))} onClick={() => void act('generate_video')}>{busy === 'generate_video' ? 'Requesting…' : generating ? 'Video in progress…' : pendingVideo ? 'Check my generation request' : 'Generate a Reel'}</button></div></div>
+            <div className="mf-step"><span className="mf-step-number">01</span><div><h3>Your original avatar</h3><p>Connect Instagram and we create your monk automatically. You can also create it now.</p><button className="mf-button mf-button-small" disabled={!!busy || !generationReady || !hasAccess || !!avatarJob || avatarReady} onClick={() => void act('generate_avatar')}>{avatarReady ? 'Avatar ready ✓' : avatarJob ? stage(avatarJob) : busy === 'generate_avatar' ? 'Requesting…' : 'Generate my monk'}</button></div></div>
+            <div className="mf-step"><span className="mf-step-number">02</span><div><h3>Something worth sharing</h3><p>Original script, voice, and vertical video. No prompt setup.</p><button className="mf-button mf-button-small" disabled={!!busy || !generationReady || !avatarReady || generating || (!pendingVideo && !hasAccess) || (account?.auto_post && !pendingVideo)} onClick={() => void act('generate_video')}>{busy === 'generate_video' ? 'Requesting…' : generating ? 'Video in progress…' : account?.auto_post ? 'Daily generation is on' : pendingVideo ? 'Check my generation request' : 'Generate a Reel'}</button></div></div>
             <div className="mf-step"><span className="mf-step-number">03</span><div><h3>Your Instagram, on a rhythm</h3><p>{account?.connected ? `Connected${account.instagram_username ? ` · @${account.instagram_username.replace(/^@/, '')}` : ''}` : 'Use an Instagram Business or Creator account.'}</p>
-              {!account?.connected && <><p className="mf-fine">If this Instagram is already connected to another Upload-Post workspace, reconnecting may move that connection here.</p><button className="mf-button mf-button-small mf-button-outline" disabled={locked || !active} onClick={() => void act('connect_instagram')}>Connect Instagram ↗</button></>}
-              {account?.connected && <button className={`mf-button mf-button-small ${account.auto_post ? 'mf-button-outline' : ''}`} disabled={!!busy || (!account.auto_post && (!ready || !active || !avatarReady))} onClick={() => void act(account.auto_post ? 'stop' : 'autopost')}>{account.auto_post ? 'Turn daily posting off' : 'Turn daily posting on'}</button>}
+              {!account?.connected && <><p className="mf-fine">Connecting starts daily avatar/video creation and automatic publishing to this account. You can stop at any time. If this account is linked to another Upload-Post workspace, reconnecting may move it here.</p><button className="mf-button mf-button-small mf-button-outline" disabled={!!busy || !socialReady || !hasAccess || account?.auto_post_intent} onClick={() => void act('connect_instagram')}>{account?.auto_post_intent ? 'Waiting for Instagram authorization…' : 'Connect Instagram ↗'}</button></>}
+              {account?.connected && <button className={`mf-button mf-button-small ${account.auto_post ? 'mf-button-outline' : ''}`} disabled={!!busy || (!account.auto_post && (!socialReady || !generationReady || !hasAccess))} onClick={() => void act(account.auto_post ? 'stop' : 'autopost')}>{account.auto_post ? 'Stop daily creation and posting' : 'Resume daily creation and posting'}</button>}
               {account?.auto_post && !account.connected && <button className="mf-button mf-button-small mf-button-outline" disabled={!!busy} onClick={() => void act('stop')}>Turn daily posting off</button>}
-              <p className="mf-fine">{account?.auto_post ? `Daily posting is on. Next scheduled: ${date(account.next_post_at)}.` : 'Daily posting stays off until you turn it on.'} Connection checked: {date(account?.social_checked_at)}.</p>
+              <p className="mf-fine">{account?.auto_post ? `Daily creation and posting are on. Next scheduled: ${date(account.next_post_at)}.` : account?.auto_post_intent ? 'Daily creation and posting will start after Instagram confirms the connection. You can stop now.' : account?.connected ? 'Daily creation and posting are off. Resume them whenever you are ready.' : 'Connect once to start daily creation and posting.'} Connection checked: {date(account?.social_checked_at)}.</p>
             </div></div>
           </div>
         </div>
@@ -212,10 +227,11 @@ export default function Factory() {
       </>}
     </section>}
 
-    <section className="mf-plan" aria-labelledby="mf-plan-title"><div><p className="mf-eyebrow">One monk. A daily practice.</p><h2 id="mf-plan-title">Less setup.<br /><em>More creating.</em></h2><p>One original avatar. Research-led scripts. Instagram publishing and post results, together.</p><a href="/ai-monk-database">Start with the free database ↗</a></div><div className="mf-plan-details"><div className="mf-price"><strong>$199</strong><span>USD / month</span></div><p className="mf-trial">3 days to try it. Up to 3 videos, 20 seconds each.</p><ul><li>Then up to 30 completed videos per month, 45 seconds each</li><li>Up to 36 generation attempts per paid period</li><li>One original avatar · Instagram connection · daily posting</li><li>Preview your videos and see available post metrics</li></ul>
-      {account?.cancel_at_period_end ? <p className="mf-notice">Cancellation is scheduled. New generation and daily posting are stopped.</p> : account?.subscription_status === 'trialing' ? <p className="mf-notice">Trial ends {date(account.trial_end)}. Then $199 USD/month unless you cancel before the trial ends.</p> : account?.subscription_status === 'active' ? <p className="mf-notice">{account.billing_paused ? 'Billing is paused.' : `Current paid period ends ${date(account.period_end)}.`}</p> : <button className="mf-button mf-button-wide" disabled={!authReady || !!busy || (!!session && !ready)} onClick={() => session ? void act('checkout') : void login()}>{busy === 'checkout' ? 'Opening Stripe…' : session ? 'Continue with Stripe ↗' : 'Start my 3-day trial ↗'}</button>}
+    <section className="mf-plan" aria-labelledby="mf-plan-title"><div><p className="mf-eyebrow">One monk. A daily practice.</p><h2 id="mf-plan-title">Less setup.<br /><em>More creating.</em></h2><p>One original avatar. Research-led scripts. Instagram publishing and post results, together.</p><a href="/ai-monk-database">Start with the free database ↗</a></div><div className="mf-plan-details"><div className="mf-price"><strong>$199</strong><span>USD / month</span></div><p className="mf-trial">Up to 3 free videos, 20 seconds each. No card and no time limit.</p><ul><li>Then up to 30 completed videos per month, 45 seconds each</li><li>Up to 36 generation attempts per paid period</li><li>One original avatar · Instagram connection · daily posting</li><li>Preview your videos and see available post metrics</li></ul>
+      {account?.cancel_at_period_end ? <p className="mf-notice">Cancellation is scheduled. New generation and daily posting are stopped.</p> : account?.subscription_status === 'trialing' ? <p className="mf-notice">Your existing trial ends {date(account.trial_end)}. Then $199 USD/month unless you cancel before it ends.</p> : account?.subscription_status === 'active' ? <p className="mf-notice">{account.billing_paused ? 'Billing is paused.' : `Current paid period ends ${date(account.period_end)}.`}</p> : session && freeQuotaAvailable ? <p className="mf-notice">Your free videos are ready. No payment is needed until you use them.</p> : <button className="mf-button mf-button-wide" disabled={!authReady || !!busy || (!!session && !checkoutReady)} onClick={() => session ? void act('checkout') : void login()}>{busy === 'checkout' ? 'Opening Stripe…' : session ? 'Continue with Stripe ↗' : 'Get 3 free videos ↗'}</button>}
+      {session && freeQuotaSpent && !active && !checkoutReady && <p className="mf-fine">{unavailable(snapshot?.readiness?.checkout)}</p>}
       {session && hasBilling && <button className="mf-text-button mf-manage" disabled={!!busy} onClick={() => void act('portal')}>{busy === 'portal' ? 'Opening billing…' : 'Manage or cancel subscription ↗'}</button>}
-      <p className="mf-fine">Card required. $199 USD/month after the trial, automatically renewed. Cancel in the studio before the trial ends to avoid the first subscription charge. Trial once per account. Attempts do not roll over. No earnings or audience growth are guaranteed.</p><p className="mf-fine">For creators aged 18 and over. By starting, you confirm you are at least 18 and agree to the <a href="/ai-monk-factory/terms">Factory terms</a> and <a href="/ai-monk-factory/privacy">privacy notice</a>.</p>
+      <p className="mf-fine">No card is required for the first 3 videos. After that, the plan is $199 USD/month and renews automatically until canceled. Failed or unconfirmed attempts may use an attempt. No earnings or audience growth are guaranteed.</p><p className="mf-fine">For creators aged 18 and over. By starting, you confirm you are at least 18 and agree to the <a href="/ai-monk-factory/terms">Factory terms</a> and <a href="/ai-monk-factory/privacy">privacy notice</a>.</p>
     </div></section>
 
     <footer className="mf-footer"><a className="mf-wordmark" href="/ai-monk-factory">Monk Factory</a><p>A fictional voice. Something useful to say.</p><div><a href="/ai-monk-factory/terms">Terms</a><a href="/ai-monk-factory/privacy">Privacy</a><a href="mailto:keiodaisuke@gmail.com">Support ↗</a></div></footer>

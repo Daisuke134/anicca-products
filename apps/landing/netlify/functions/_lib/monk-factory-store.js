@@ -1,7 +1,7 @@
 const { createClient } = require('@supabase/supabase-js');
 const { UUID, factoryError } = require('./monk-factory.js');
 
-const conflicts = new Set(['profile_capacity', 'profile_required', 'subscription_exists', 'occurrence_conflict', 'avatar_exists', 'billing_sync_conflict', 'instagram_required', 'social_mismatch', 'autopost_stopped']);
+const conflicts = new Set(['profile_capacity', 'profile_required', 'subscription_exists', 'free_quota_remaining', 'occurrence_conflict', 'avatar_exists', 'billing_sync_conflict', 'instagram_required', 'social_mismatch', 'autopost_stopped']);
 async function checked(query) {
   const { data, error } = await query;
   if (error) {
@@ -30,7 +30,7 @@ function createFactoryStore({ env = process.env, fetchImpl = fetch } = {}) {
   return {
     account: id => checked(accounts().select('*').eq('user_id', uid(id)).maybeSingle()),
     reserveProfile: id => rpc('monk_factory_reserve_profile', { p_user_id: uid(id) }),
-    reserveJob: (id, occurrence, kind) => rpc('monk_factory_start_job', { p_user_id: uid(id), p_occurrence_id: occurrence, p_kind: kind, p_origin: 'manual' }),
+    reserveJob: (id, occurrence, kind, origin = 'manual') => rpc('monk_factory_start_job', { p_user_id: uid(id), p_occurrence_id: occurrence, p_kind: kind, p_origin: origin }),
     job: id => checked(db.from('monk_factory_jobs').select('*').eq('id', uid(id)).maybeSingle()),
     claimJob: (id = null, image = false) => rpc('monk_factory_claim_job', { p_job_id: id == null ? null : uid(id), p_image: image }),
     advanceJob: (job, patch, keep = false) => rpc('monk_factory_advance_job', { p_job_id: uid(job.id), p_lease_id: uid(job.lease_id), p_stage: job.stage, p_patch: patch, p_keep_lease: keep }),
@@ -40,6 +40,7 @@ function createFactoryStore({ env = process.env, fetchImpl = fetch } = {}) {
     saveSocial: (id, lease, state) => rpc('monk_factory_save_social', { p_user_id: uid(id), p_lease_id: uid(lease), p_state: state }),
     releaseSocial: (id, lease) => checked(accounts().update({ social_lease_id: null, social_lease_until: null }).eq('user_id', uid(id)).eq('social_lease_id', uid(lease))),
     setAutopost: id => rpc('monk_factory_set_autopost', { p_user_id: uid(id) }),
+    setAutopostIntent: (id, enabled) => rpc('monk_factory_set_autopost_intent', { p_user_id: uid(id), p_enabled: enabled === true }),
     scheduleAuto: id => rpc('monk_factory_schedule_auto', { p_user_id: uid(id) }),
     dueAccounts: () => checked(accounts().select('user_id').eq('auto_post', true).lte('next_post_at', new Date().toISOString()).order('next_post_at').limit(2)),
     checkoutContext: (id, price, email) => rpc('monk_factory_checkout_context', { p_user_id: uid(id), p_price_id: price, p_email: email }),
@@ -60,7 +61,7 @@ function createFactoryStore({ env = process.env, fetchImpl = fetch } = {}) {
     },
     releaseUnusedProfile: (id, nonce, session, subscription) => rpc('monk_factory_release_unused_profile', {
       p_user_id: uid(id), p_checkout_nonce: uid(nonce), p_checkout_session_id: session, p_subscription_id: subscription }),
-    stop: id => checked(accounts().update({ auto_post: false }).eq('user_id', uid(id)).select('auto_post').maybeSingle()),
+    stop: id => checked(accounts().update({ auto_post: false, auto_post_intent: false }).eq('user_id', uid(id)).select('auto_post').maybeSingle()),
     jobs: id => checked(db.from('monk_factory_jobs').select('id,kind,status,stage,max_seconds,video_url,image_url,post_url,metrics,metrics_at,error_class,created_at').eq('user_id', uid(id)).order('created_at', { ascending: false }).limit(40)),
     enqueueEvent: row => checked(db.from('monk_factory_stripe_events').upsert(row, { onConflict: 'id', ignoreDuplicates: true })),
     pendingEvents: () => checked(db.from('monk_factory_stripe_events').select('*').is('processed_at', null).lte('next_attempt_at', new Date().toISOString()).order('created_at').limit(10)),

@@ -59,12 +59,26 @@ function createFactoryProviders({ env = process.env, fetchImpl = fetch } = {}) {
     return env[prefix + '_BILLING_VERIFIED'] === 'true' && configured(prefix + '_BILLING_EVIDENCE_REF');
   }
   function readiness() {
-    const missing = Object.values(SERVICES).map(({ prefix }) => prefix + '_API_KEY').filter((key) => !configured(key));
-    if (!configured('MONK_FACTORY_HEYGEN_VOICE_ID')) missing.push('MONK_FACTORY_HEYGEN_VOICE_ID');
-    const unverified = Object.keys(SERVICES).filter((provider) => !billingVerified(provider)).map((provider) => provider + '_independent_billing');
-    if (env.MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED !== 'true') unverified.push('upload_post_white_label');
-    if (model !== SCRIPT_MODEL) unverified.push('script_model_pricing');
-    return { ready: !missing.length && !unverified.length, missing, unverified, limits: { imageReservedUsd: 0.14, scriptReservedUsd: 0.005, imagePromptMaxBytes: 1024, scriptInputMaxBytes: 12000, imageTimeoutMs: 240000, requestTimeoutMs: 10000 } };
+    const missing = providers => providers.flatMap(provider => {
+      const keys = [SERVICES[provider].prefix + '_API_KEY'];
+      if (provider === 'heygen') keys.push('MONK_FACTORY_HEYGEN_VOICE_ID');
+      return keys.filter(key => !configured(key));
+    });
+    const unverified = providers => providers.flatMap(provider => {
+      const values = billingVerified(provider) ? [] : [provider + '_independent_billing'];
+      if (provider === 'upload_post' && env.MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED !== 'true') values.push('upload_post_white_label');
+      return values;
+    });
+    const generationMissing = missing(['gemini', 'heygen']);
+    const generationUnverified = unverified(['gemini', 'heygen']);
+    if (model !== SCRIPT_MODEL) generationUnverified.push('script_model_pricing');
+    const socialMissing = missing(['upload_post']);
+    const socialUnverified = unverified(['upload_post']);
+    const generation = { ready: !generationMissing.length && !generationUnverified.length, missing: generationMissing, unverified: generationUnverified };
+    const social = { ready: !socialMissing.length && !socialUnverified.length, missing: socialMissing, unverified: socialUnverified };
+    return { ready: generation.ready && social.ready, generation, social,
+      missing: [...generationMissing, ...socialMissing], unverified: [...generationUnverified, ...socialUnverified],
+      limits: { imageReservedUsd: 0.14, scriptReservedUsd: 0.005, imagePromptMaxBytes: 1024, scriptInputMaxBytes: 12000, imageTimeoutMs: 240000, requestTimeoutMs: 10000 } };
   }
   function ensure(provider, submit = false) {
     if (!configured(SERVICES[provider].prefix + '_API_KEY') || (submit && (!billingVerified(provider) || (provider === 'upload_post' && env.MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED !== 'true')))) {
