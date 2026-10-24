@@ -1,0 +1,276 @@
+{
+  "schema_version": "anicca.ai-monk-factory-cost-readiness.v1",
+  "run_id": "ai-monk-factory-cost-and-button-readiness-20261025",
+  "owner_id": "ai-monk-factory",
+  "occurrence_id": "1c290253-5273-4e7d-929d-6f312eb818bb",
+  "release_sha": "f2353829b831325e744868b95adf065cdbc002b8",
+  "observed_at": "2026-10-24T17:20:07Z",
+  "phase": "read_only_production_provider_and_unit_economics_preflight",
+  "command": [
+    "GET Netlify production environment and latest deploy",
+    "GET HeyGen /v3/users/me",
+    "GET Upload-Post /api/uploadposts/users",
+    "GET Gemini /v1beta/models?pageSize=100",
+    "GET https://aniccaai.com/ai-monk-factory",
+    "crwl crawl https://reel.farm/ -o markdown-fit",
+    "crwl crawl https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained -o markdown-fit",
+    "crwl crawl https://ai.google.dev/gemini-api/docs/pricing -o markdown-fit",
+    "crwl crawl https://developers.facebook.com/docs/instagram-platform/overview/ -o markdown-fit",
+    "crwl crawl https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/content-publishing/ -o markdown-fit",
+    "node --test apps/landing/netlify/functions/_lib/__tests__/monk-factory-api.test.js"
+  ],
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT exact service rows; values not printed",
+    "services_checked": [
+      "netlify-anicca-existing-deployment",
+      "heygen-ai-monk-factory",
+      "upload-post-ai-monk-factory",
+      "gemini-ai-monk-factory"
+    ],
+    "secret_values_printed": 0,
+    "factory_production_environment_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "provider_mutations": 0,
+    "netlify_environment_changes": 0,
+    "generation_requests": 0,
+    "social_profiles_created": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0,
+    "code_changes": 0
+  },
+  "readback": {
+    "production": {
+      "netlify_environment": {
+        "http_status": 200,
+        "variable_count": 58,
+        "factory_variable_names": []
+      },
+      "latest_deploy": {
+        "http_status": 200,
+        "deploy_id": "6adce42e0d5c44f3fd32870f",
+        "state": "ready",
+        "published_at": "2026-10-24T17:01:27.399Z",
+        "commit_ref": null,
+        "title_sha": "f2353829b831325e744868b95adf065cdbc002b8"
+      },
+      "public_factory_page": {
+        "url": "https://aniccaai.com/ai-monk-factory",
+        "free_videos": 3,
+        "duration_seconds": 20,
+        "time_trial": false,
+        "card_required_for_free_quota": false,
+        "paid_monthly_price_candidate_usd": 199
+      },
+      "user_screenshot": {
+        "shows_studio_preparing_message_and_disabled_generation_instagram_controls": true,
+        "calendar_date_known": false,
+        "treated_as_authenticated_live_readback": false
+      }
+    },
+    "factory_code": {
+      "api_path": "apps/landing/netlify/functions/monk-factory.js",
+      "ui_path": "apps/landing/app/ai-monk-factory/factory.tsx",
+      "generation_requires": [
+        "MONK_FACTORY_ENABLED=true",
+        "job runtime secret",
+        "Gemini and HeyGen keys",
+        "provider independent billing verification"
+      ],
+      "social_requires": [
+        "MONK_FACTORY_ENABLED=true",
+        "Upload-Post provider key and billing verification",
+        "white-label verification"
+      ],
+      "checkout_requires": [
+        "MONK_FACTORY_ENABLED=true",
+        "complete Stripe runtime readiness"
+      ],
+      "ui_disables_actions_when_capability_not_ready": true,
+      "api_returns_503_for_unready_capability": true,
+      "diagnosis": "missing production runtime/provider configuration; disabled buttons are the expected fail-closed behavior, not a click-handler defect"
+    },
+    "providers": {
+      "heygen": {
+        "endpoint": "https://api.heygen.com/v3/users/me",
+        "http_status": 200,
+        "billing_type": "wallet",
+        "wallet_remaining_balance": 0.0,
+        "currency": "usd"
+      },
+      "upload_post": {
+        "endpoint": "https://api.upload-post.com/api/uploadposts/users",
+        "http_status": 200,
+        "success": true,
+        "plan": "default",
+        "profiles": 0,
+        "profile_limit": 2
+      },
+      "gemini": {
+        "endpoint": "https://generativelanguage.googleapis.com/v1beta/models?pageSize=100",
+        "http_status": 200,
+        "requested_models_visible": [
+          "models/gemini-3.1-flash-lite",
+          "models/gemini-3.1-flash-lite-image"
+        ],
+        "billing_verified_in_private_ssot": false,
+        "models_get_is_billing_proof": false
+      },
+      "stripe": {
+        "catalog_prepared_in_private_ssot": true,
+        "production_runtime_ready": false,
+        "runtime_reason": "zero MONK_FACTORY_* production environment variables"
+      }
+    },
+    "reelfarm_reference": {
+      "url": "https://reel.farm/",
+      "free_offer": "3 TikToks",
+      "workflow": [
+        "create automation and set posting schedule",
+        "connect TikTok account once",
+        "automatic daily slideshow generation and posting"
+      ],
+      "analytics": true,
+      "prices_usd_monthly": {
+        "growth": 49,
+        "scale": 95,
+        "enterprise": 195
+      },
+      "limits_slideshows": {
+        "growth": 100,
+        "scale": 250,
+        "enterprise": 750
+      },
+      "pricing_used_as_video_economics": false
+    },
+    "current_provider_rates": {
+      "heygen_source_url": "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+      "heygen_source_updated": "2026-10-19",
+      "heygen_avatar_iv_photo_usd_per_minute": 2.31,
+      "heygen_photo_avatar_creation_usd_per_call": 1.32,
+      "heygen_starfish_tts_usd_per_minute": 0.12,
+      "heygen_api_free_credits": false,
+      "gemini_source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "gemini_script_input_usd_per_1m_tokens": 0.25,
+      "gemini_script_output_usd_per_1m_tokens": 1.5,
+      "gemini_flash_lite_image_1k_usd_per_image": 0.0336,
+      "local_safety_reservations": {
+        "portrait_usd": 0.14,
+        "script_usd_per_attempt": 0.005
+      }
+    },
+    "unit_economics_scenarios": {
+      "daily_video": {
+        "video_seconds": 20,
+        "video_usd": 0.77,
+        "tts_usd": 0.04,
+        "script_reserved_usd": 0.005,
+        "marginal_total_usd_per_day": 0.815,
+        "marginal_total_usd_per_30_days": 24.45,
+        "excludes": [
+          "one-time avatar and portrait",
+          "storage and bandwidth",
+          "social provider or hosting costs",
+          "payment processing",
+          "tax",
+          "unconfirmed/failed generation charges"
+        ]
+      },
+      "three_free_videos_per_new_user": {
+        "video_seconds_each": 20,
+        "formula_usd": "1.32 photo avatar + 0.14 portrait reserve + 3 * (0.77 video + 0.04 TTS + 0.005 script)",
+        "scenario_total_usd": 3.905,
+        "per_user_quota_reserve_usd": 4.25
+      },
+      "paid_30_completed_36_attempts": {
+        "price_candidate_usd_per_month": 199,
+        "max_video_seconds_each": 45,
+        "video_cost_usd": 62.37,
+        "tts_cost_usd": 3.24,
+        "script_reserve_usd": 0.18,
+        "direct_generation_cost_usd": 65.79,
+        "pre_other_cost_remainder_usd": 133.21,
+        "pre_other_cost_remainder_after_10pct_free_conversion_reserve_usd": 90.71,
+        "caveat": "hypothetical only; excludes fees, hosting, storage, posting, tax, CAC beyond the stated free reserve, churn and unknown failures; not realized profit"
+      },
+      "reelfarm_scale_price_sensitivity": {
+        "price_usd_per_month": 95,
+        "same_30_videos_direct_cost_usd": 65.79,
+        "free_acquisition_reserve_at_10pct_conversion_usd": 42.5,
+        "remainder_before_payment_and_infrastructure_usd": -13.29,
+        "candidate_reduced_quota": {
+          "completed_videos": 10,
+          "attempts": 12,
+          "direct_generation_cost_usd": 21.93,
+          "remainder_after_free_acquisition_reserve_usd": 30.57
+        },
+        "not_a_final_price_decision": true
+      }
+    },
+    "instagram_customer_scale_requirements": {
+      "overview_url": "https://developers.facebook.com/docs/instagram-platform/overview/",
+      "content_publishing_url": "https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/content-publishing/",
+      "current_code_adapter": "Upload-Post API",
+      "customer_scale_meta_access": "Advanced Access requires Meta App Review and Business Verification",
+      "required_account_type": "Instagram Business or Creator",
+      "required_permissions": [
+        "instagram_business_basic",
+        "instagram_business_content_publish"
+      ],
+      "ai_disclosure_parameter": "is_ai_generated=true",
+      "public_media_host_required": true,
+      "current_meta_app_review_readback": false
+    },
+    "focused_test": {
+      "command": "node --test apps/landing/netlify/functions/_lib/__tests__/monk-factory-api.test.js",
+      "tests": 6,
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+      "http_status": 200,
+      "fact": "Production has 58 environment variables and no MONK_FACTORY_* configuration."
+    },
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=5",
+      "http_status": 200,
+      "fact": "Latest production deploy is ready, based on main commit f2353829b831325e744868b95adf065cdbc002b8."
+    },
+    {
+      "url": "https://reel.farm/",
+      "fact": "First-party page shows three free TikToks, connect-once automation, daily generation/posting and analytics."
+    },
+    {
+      "url": "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+      "fact": "First-party current API pricing includes Avatar IV Photo USD2.31/minute, Photo Avatar USD1.32/call and Starfish TTS USD0.12/minute."
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "fact": "First-party pricing shows Gemini 3.1 Flash-Lite text rates and USD0.0336 per 1K Flash Lite Image output."
+    },
+    {
+      "url": "https://developers.facebook.com/docs/instagram-platform/overview/",
+      "fact": "Advanced Access for external Instagram users requires app review and business verification."
+    },
+    {
+      "url": "https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/content-publishing/",
+      "fact": "Instagram Login publishing requires professional accounts and supports is_ai_generated=true on media container creation."
+    },
+    {
+      "path": "apps/landing/netlify/functions/monk-factory.js",
+      "fact": "API readiness gates reject unconfigured generation, checkout and social capabilities with 503."
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/factory.tsx",
+      "fact": "UI disables the matching buttons while their API capability readiness is false."
+    }
+  ],
+  "error_class": "factory_runtime_not_configured_and_generation_providers_unfunded",
+  "retryable": false,
+  "next_action": "Keep the production buttons fail-closed. Confirm a company-wide spend cap and funded provider path, then complete Meta Instagram Login/API review or a verified customer-scale publishing contract before enabling production runtime."
+}
