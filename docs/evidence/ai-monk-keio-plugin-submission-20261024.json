@@ -2,11 +2,11 @@
   "schema_version": "anicca.ai-monk-keio-plugin-submission.v1",
   "run_id": "ai-monk-keio-plugin-20261024",
   "owner_id": "root",
-  "occurrence_id": "existing-keiodaisuke-identity-and-reason-ui-handoff",
-  "release_sha": "c268d93533f9c8efe3bb2aa639a25b70e3c010ff",
-  "recorded_at": "2026-10-24T06:45:30.690895+00:00",
-  "phase": "existing_account_portal_handoff_pending",
-  "command": "Canonical tg_user.py read-only initial inventory before user stop; existing Reason Network who/request/inbox/send; registered leased CuaDriver native UI; public policy GET",
+  "occurrence_id": "existing_keiodaisuke_google_selection_and_openai_device_mfa",
+  "release_sha": "d9520ed2dd64454ce08bcd65fbf7df52caa3a342",
+  "recorded_at": "2026-10-24T07:02:25.582526+00:00",
+  "phase": "existing_account_openai_device_mfa_pending",
+  "command": "Registered leased CuaDriver native Web UI; exact Google account-to-SSOT comparison in RAM; existing OpenAI MFA device notification; Reason Network MCP ownership return request",
   "loaded_argv_env": {
     "new_model_flags": 0,
     "new_session_or_agent_created": 0,
@@ -19,7 +19,8 @@
     "ssot_requested_google_identity_found": true,
     "portal_live_identity_verified": false,
     "dedicated_factory_account": "Separate account used by prior attempts; its final denial remains unchanged",
-    "correction": "Do not infer an all-account or publisher-wide restriction from the dedicated account denial. Verify the requested existing account normally; obey any actual applicable provider refusal."
+    "correction": "Do not infer an all-account or publisher-wide restriction from the dedicated account denial. Verify the requested existing account normally; obey any actual applicable provider refusal.",
+    "google_selected_identity_exact_ssot_match": true
   },
   "reason": {
     "network": "Daisukeのネットワーク",
@@ -40,8 +41,12 @@
     "handoff_send_exit_code": 0,
     "handoff_send_response": "Directed to daisuke/cursor",
     "handoff_acknowledged": null,
-    "current_portal_ui_owner": "Grok/参謀 after explicit handoff; primary performs no simultaneous UI actions",
-    "actual_upload_submit_publish": null
+    "current_portal_ui_owner": "Primary performs separate-tab display/login only; no draft/upload/submit until handback acknowledgment",
+    "actual_upload_submit_publish": null,
+    "ownership_return_requested": true,
+    "ownership_return_message_id": "01M5PB4Z14EV470N16QVBZK5TK",
+    "ownership_return_delivery": "delivered: session was waiting for messages",
+    "ownership_return_acknowledged": null
   },
   "telegram": {
     "initial_dialog_inventory_only": true,
@@ -52,18 +57,35 @@
   "primary_browser": {
     "registered_identity": "interactive:dais",
     "profile_pid_matches": true,
-    "portal_navigation_reached": false,
+    "portal_navigation_reached": true,
     "target_url": "https://platform.openai.com/plugins",
-    "observed_state": "New Tab with target in omnibox; navigation not confirmed",
+    "observed_state": "OpenAI Web requires approval in an existing logged-in iPhone ChatGPT app",
     "account_login_or_rejection_observed": false,
-    "diagnosed_tool_failure": "Signed CuaDriver daemon terminated; fallback CLI reported Accessibility permission not granted. A prior live check had both permissions granted. Existing signed app was started only after confirmed not running.",
     "tcc_permission_changes": 0,
     "direct_cdp_retry": 0,
     "mac_or_browser_restart": 0,
     "owned_windows_closed": true,
     "preexisting_named_windows_retained": true,
     "clipboard_restored": true,
-    "lease_released": true
+    "lease_released": true,
+    "historical_native_failure": "Signed CuaDriver daemon terminated; fallback CLI reported Accessibility permission not granted. A prior live check had both permissions granted. Existing signed app was started only after confirmed not running.",
+    "navigation_fix": "Existing current-space window, owned new tab, native Edit-menu paste followed by Return; original clipboard restored",
+    "owned_new_tab_preserved_for_mfa": true,
+    "mfa": {
+      "method": "device_notification",
+      "requests": 1,
+      "resends": 0,
+      "human_device_approval_verified": false,
+      "account_refusal_observed": false
+    },
+    "followup_observation": {
+      "result": "native tool daemon stopped again; fallback CLI lacks Accessibility permission",
+      "browser_guard": "registered browser still reachable; holder empty",
+      "account_result": "No new account result observed from the failed readback",
+      "shared_config_or_security_changes": 0,
+      "resolved": "Signed driver started only after confirmed not running; fresh native readback confirms same existing-device MFA approval screen; browser lease released"
+    },
+    "latest_successful_observation_at": "2026-10-24T07:03:49.883339+00:00"
   },
   "package": {
     "version": "0.1.3",
@@ -85,9 +107,10 @@
     "new_api_key": 0,
     "daily_posting_changes": 0,
     "telegram_send": 0,
-    "root_x_post_create": 0
+    "root_x_post_create": 1,
+    "root_x_post_scope": "Independent X book unit; published with purchase URL missing. See ai-monk-book-x-funnel-20261024.json."
   },
-  "readback": "Reason target identity and initial receipt are confirmed; explicit UI handoff is sent after primary cleanup and lease release. No Keiodaisuke portal login, upload, formal submission or listing is verified yet.",
+  "readback": "Requested existing Google identity matches SSOT and is selected. Official OpenAI Web is at existing-device MFA approval. Authenticated OpenAI identity, organization rights, upload, submission and listing remain unverified.",
   "provider_receipt_id": {
     "reason_target": "daisuke/cursor",
     "formal_chatgpt_plugin": null
@@ -132,11 +155,21 @@
       "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/public-policy-readback.json",
       "bytes": 968,
       "sha256": "132b509ed901eac4530c8f2cf30da53c2c6b40edad1feb963c014def1e3d6fbb"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/keio-web-mfa-readback.json",
+      "bytes": 1568,
+      "sha256": "cc422f3e72d9119090f87d754a09c8de8604a53d9406a1e2c8ce83bc3a86dd51"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/web-keio-mfa-recheck-after-daemon-start.json",
+      "bytes": 7332,
+      "sha256": "1ce6d23a31ff9003f403edd79746ae49be2b90040392e32701dec5285bca275a"
     }
   ],
-  "error_class": "native_browser_input_failure_with_reason_handoff_pending",
+  "error_class": "openai_existing_account_device_mfa_pending",
   "retryable": false,
-  "next_action": "Receive the actual Keiodaisuke portal state and handoff acknowledgment from Grok; resolve concrete identity or scan findings; verify official upload, review submission and listing separately. Never treat a message or draft as submission.",
+  "next_action": "Complete the existing iPhone ChatGPT login approval without resending the prompt; verify authenticated OpenAI identity and portal rights, resolve Reason ownership, then upload and submit the existing v0.1.3 package once.",
   "claim_limits": [
     "ChatGPT subscription or Codex runtime access alone does not prove developer verification or directory publication.",
     "Dedicated account final denial is historical and is not a verified restriction on every existing account.",
