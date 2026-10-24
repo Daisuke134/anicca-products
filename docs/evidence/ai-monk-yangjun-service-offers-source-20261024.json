@@ -1,0 +1,288 @@
+{
+  "schema_version": "anicca.ai-monk-yangjun-service-offers-source.v1",
+  "run_id": "ai-monk-yangjun-service-offers-source-20261024",
+  "owner_id": "root",
+  "occurrence_id": "eleven-dated-collabstr-service-prices",
+  "release_sha": "66faa51718acb4ed55daa1147e68595a277627d3",
+  "spec_commit": "4a8bc63e1349bfceb4d50d60051663b5de2e4706",
+  "recorded_at": "2026-10-24T04:57:12.518107+00:00",
+  "phase": "source_accepted_publication_pending",
+  "command": "Public crwl captured rendered HTML; DOM/JSON-LD service offer comparison; append-only canonical update; focused source acceptance; existing package and landing tests; independent raw/source review",
+  "exit_code": 0,
+  "source": {
+    "id": "product-yangjun-collabstr-packages-20261024",
+    "title": "Yangjun Collabstr public service packages and explicit USD offer metadata",
+    "url": "https://collabstr.com/yangjun",
+    "source_type": "first-party public creator marketplace service listing; unaudited seller display",
+    "published_at": null,
+    "checked_at": "2026-10-24",
+    "captured_at": "2026-10-24T04:51:07.694881+00:00",
+    "capture_method": "crwl markdown-fit and full CrawlResult with cache bypass",
+    "evidence_sha256": "3fdb2557e1c7b03a65e488a0c08b730468b7b86b725a9239370a9493d8e6b341",
+    "evidence_kind": "private_public_rendered_html_response",
+    "notes": "Eleven public Service offer prices have explicit USD priceCurrency and each matches one DOM package name, seller package ID and displayed amount. Prices are listed service packages, not paid orders, fulfillment, revenue, profit or guaranteed marketing results. Billing recurrence and operator identity remain unverified."
+  },
+  "offers": [
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001241-20261024",
+      "seller_package_id": "2001241",
+      "name": "1 Instagram Story",
+      "price": 50,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001239-20261024",
+      "seller_package_id": "2001239",
+      "name": "1 Instagram Photo Feed Post",
+      "price": 50,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001240-20261024",
+      "seller_package_id": "2001240",
+      "name": "1 Instagram Reel",
+      "price": 100,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001243-20261024",
+      "seller_package_id": "2001243",
+      "name": "1 UGC Product Photo",
+      "price": 50,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001245-20261024",
+      "seller_package_id": "2001245",
+      "name": "1 UGC Photo Ad",
+      "price": 50,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001246-20261024",
+      "seller_package_id": "2001246",
+      "name": "1 UGC Tutorial",
+      "price": 50,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001249-20261024",
+      "seller_package_id": "2001249",
+      "name": "1 UGC Blog",
+      "price": 75,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001247-20261024",
+      "seller_package_id": "2001247",
+      "name": "1 UGC Testimonial/Review",
+      "price": 75,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001242-20261024",
+      "seller_package_id": "2001242",
+      "name": "1 UGC Product Video",
+      "price": 100,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001248-20261024",
+      "seller_package_id": "2001248",
+      "name": "1 UGC Unboxing",
+      "price": 100,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "product-yangjun-collabstr-package-2001244-20261024",
+      "seller_package_id": "2001244",
+      "name": "1 UGC Video Ad",
+      "price": 120,
+      "currency": "USD",
+      "price_kind": "listed_service_package",
+      "billing_kind": null,
+      "paid_orders": null,
+      "revenue": null
+    }
+  ],
+  "source_acceptance": {
+    "red_exit": 1,
+    "red_failure": "new dated source must be present",
+    "green_exit": 0,
+    "prior_sources_preserved": 195,
+    "prior_archive_records_preserved": 75,
+    "prior_offers_preserved": 80,
+    "new_source_count": 1,
+    "new_offer_count": 11,
+    "other_fields_unchanged": true,
+    "schema_and_runtime_changes": 0,
+    "canonical_bytes": 498088,
+    "canonical_sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+    "sources": 196,
+    "archive_records": 75,
+    "archive_offer_rows": 91,
+    "public_profiles": 73,
+    "public_offer_rows": 88,
+    "built_get_new_offers": 11,
+    "built_monetization_new_offers": 11,
+    "package_tests_passed": 15,
+    "landing_helper_and_render_tests_passed": 15,
+    "package_version": "0.4.13"
+  },
+  "independent_review": {
+    "reviewer": "yangjun_service_review",
+    "fresh_context": true,
+    "read_only": true,
+    "checks_passed": 27,
+    "blocking": 0,
+    "saved_raw_revalidated": true,
+    "new_provider_get_performed": false,
+    "initial_probe_false_positive": "Reviewer treated directory_scope object as a string and incorrectly counted public profiles as zero. Original artifact retained; correction uses directory_scope.status and confirms included4/pending69/excluded2, public73. Source unchanged.",
+    "corrected_artifact": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/independent-source-review-correction.json"
+  },
+  "diagnostics": {
+    "local_built_probe_error": "Expected nonexistent metadata.snapshot; corrected to existing snapshot.mjs packageVersion export. No product-code fix required.",
+    "li_shen_product_page": "Public HTML contains no price/currency; no canonical update."
+  },
+  "effect": {
+    "source_data_and_version_docs_changes": true,
+    "new_dependencies": 0,
+    "new_runtime_logic": 0,
+    "provider_purchase_or_payment": 0,
+    "verified_revenue_observations_added": 0,
+    "daily_posting_changes": 0,
+    "formal_plugin_resubmissions": 0,
+    "release_or_registry_publish_in_this_source_step": 0
+  },
+  "readback": "Raw service Offer USD prices match all eleven DOM package names, IDs and amounts. Removing the one new source and eleven appended offers reproduces the base JSON; package/lock/server0.4.13 and README196source/new prices/install agree. Publication is a later boundary.",
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-next-product-source-20261024/yangjun-collabstr-20261024T045103252901Z.rendered.raw.html",
+      "bytes": 186072,
+      "sha256": "3fdb2557e1c7b03a65e488a0c08b730468b7b86b725a9239370a9493d8e6b341",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-next-product-source-20261024/yangjun-collabstr-20261024T045103252901Z.capture.json",
+      "bytes": 788,
+      "sha256": "2c079ac41214b9b24f516a1bdcabee4ded4b5dbd42f185d9b145458851b37efc",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-next-product-source-20261024/research-readback.json",
+      "bytes": 11430,
+      "sha256": "0340259bb7828ffc129251b9955b309be0da8e05a8cfc5dd33e11177bd72b83b",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-next-product-source-20261024/canonical-update-candidate-yangjun.json",
+      "bytes": 16890,
+      "sha256": "4230a70d160bbaafc8986f15fcb2388fff3c09a3311b194e0046a500a1657547",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/source-acceptance.py",
+      "bytes": 2234,
+      "sha256": "c742d328d5be6cadfbeac98c3334f00430c6308268e8f7c233c2bf12f0d7f19e",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/red-test-observation.json",
+      "bytes": 342,
+      "sha256": "8e3b6074461e9067308aeae1b78d3e4bff13eaaae21d41e25a08edbd28a5de7c",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/built-probe-readback.json",
+      "bytes": 273,
+      "sha256": "d8fdf1ce52a8d61047ef78729adbb982d0dcffd8fdf481b647806ec3ffda3a24",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/package-tests.stdout.log",
+      "bytes": 1619,
+      "sha256": "921e4696f3c58dc1ce8c11b7edbd901306bf06395684c5aa15d18ca3647935b2",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/package-tests.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/landing-tests.stdout.log",
+      "bytes": 1573,
+      "sha256": "b2144a7d9f3bc47b9856487ee1599da2cdde3bd69519c70e8e1812f0f9b4629b",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/landing-tests.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/independent-source-review.json",
+      "bytes": 7363,
+      "sha256": "78712d0c7f744a3f38f761d1002e20da006c530d4384d27e4a0c39b423907422",
+      "visibility": "private_public_research_or_local_acceptance"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangjun-service-offers-20261024/independent-source-review-correction.json",
+      "bytes": 8523,
+      "sha256": "46028cfd3fb61d617fc5fcc7d9c5dcbeecfca1ca6c436c9e9f3b454b86c425fe",
+      "visibility": "private_public_research_or_local_acceptance"
+    }
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Commit/push source and receive CI/main; publish a new fixed-main v0.4.13 release and verify public JSON/Web, installed CLI, real stdio/HTTPS six tools and exact Registry active/isLatest.",
+  "claim_limits": [
+    "Seller-listed service package prices are not orders, service fulfillment, brand deals, profit, audited revenue or proof of AI production.",
+    "Billing recurrence, checkout fees/taxes and operator identity remain unverified.",
+    "Public profile scope and all prior observations are retained; this is not a census of every AI monk.",
+    "Formal Plugin listings, Factory paid billing/generation/customer connections/posting and USD10K MRR remain incomplete."
+  ]
+}
