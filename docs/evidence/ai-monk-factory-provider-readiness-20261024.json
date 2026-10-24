@@ -1,0 +1,50 @@
+{
+  "schema_version": "anicca.ai-monk-factory-provider-readiness.v1",
+  "observed_at": "2026-10-24T14:29:47Z",
+  "scope": "read-only provider readiness checks; no generation, profile creation, posting, checkout, payment, or account setting changes",
+  "sources": {
+    "reelfarm_reference": "https://reel.farm/",
+    "gemini_models": "https://generativelanguage.googleapis.com/v1beta/models?pageSize=100",
+    "heygen_current_user": "https://developers.heygen.com/reference/get-current-user.md",
+    "upload_post_user_profiles": "https://docs.upload-post.com/api/user-profiles"
+  },
+  "reelfarm_public_flow": {
+    "three_free_videos": true,
+    "connect_account_then_automate": true,
+    "daily_generation_and_publishing": true,
+    "note": "Public marketing mechanism observed; ReelFarm revenue claims and current paid pricing were not verified here."
+  },
+  "providers": {
+    "gemini": {
+      "http_status": 200,
+      "target_models_returned": [
+        "models/gemini-3.1-flash-lite",
+        "models/gemini-3.1-flash-lite-image"
+      ],
+      "credential_ledger_state": "prepared_unfunded",
+      "billing_verified": false,
+      "generation_requests": 0
+    },
+    "heygen": {
+      "http_status": 200,
+      "billing_type": "wallet",
+      "wallet_currency": "usd",
+      "remaining_balance": 0,
+      "generation_requests": 0
+    },
+    "upload_post": {
+      "http_status": 200,
+      "plan": "default",
+      "profiles": 0,
+      "profile_limit": 2,
+      "profile_creation_requests": 0
+    }
+  },
+  "production": {
+    "factory_runtime_environment": "no MONK_FACTORY_* variables in latest recorded Netlify production environment readback",
+    "published_public_page": "3 free videos, no card, no time limit; USD 199/month after the free allowance",
+    "authenticated_studio": "generation and social actions remain disabled by readiness gates",
+    "effect": "No settings changed; no profiles, posts, checkouts, subscriptions, or charges created."
+  },
+  "interpretation": "Model availability does not imply funded generation. The no-click state is the expected fail-closed readiness behavior, not a click-handler failure. Resume Factory activation only after a company-wide spend cap, funded provider accounts, and a customer-scale Instagram publishing path are confirmed."
+}
