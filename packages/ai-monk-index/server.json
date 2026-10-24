@@ -8,7 +8,7 @@
     "source": "github"
   },
   "websiteUrl": "https://aniccaai.com/ai-monk-database/support",
-  "version": "0.4.13",
+  "version": "0.4.14",
   "remotes": [
     {
       "type": "streamable-http",

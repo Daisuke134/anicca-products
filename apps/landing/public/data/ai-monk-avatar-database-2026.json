@@ -1980,6 +1980,19 @@
       "evidence_sha256": "3fdb2557e1c7b03a65e488a0c08b730468b7b86b725a9239370a9493d8e6b341",
       "evidence_kind": "private_public_rendered_html_response",
       "notes": "Eleven public Service offer prices have explicit USD priceCurrency and each matches one DOM package name, seller package ID and displayed amount. Prices are listed service packages, not paid orders, fulfillment, revenue, profit or guaranteed marketing results. Billing recurrence and operator identity remain unverified."
+    },
+    {
+      "id": "master-kaizen-public-metadata-20261024",
+      "title": "Master Kaizen public TikTok profile and video embedded metadata snapshot",
+      "url": "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464",
+      "source_type": "first-party public TikTok page embedded metadata",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T11:01:45.790Z",
+      "capture_method": "scrapy fetch after crwl crawl returned empty output",
+      "evidence_sha256": "9e650a3726ad3ba2dc94f227eba75159857402d74ed50f3852a8cd019e5cee4e",
+      "evidence_kind": "public_page_embedded_metadata_response",
+      "notes": "The public embedded response reports 275700 followers and video 7693476794522930464 with 648600 plays, 62000 likes, 14900 comments, 11100 shares, 75 seconds, and caption #manifestation. Embedded IsAigc is false, AIGCDescription is empty, and ShowAIGC is false; these fields do not establish whether the video was made with AI. The video was not visually reviewed. Spoken language, operator, offers, sales, and revenue remain unknown."
     }
   ],
   "accounts": [
@@ -10429,6 +10442,14 @@
               "as_of": "2026-10-22",
               "source_id": "omaster-kaizen-tiktok-20261022",
               "status": "indexed_discovery_snapshot_rounded"
+            },
+            {
+              "value": 275700,
+              "metric": "followers",
+              "as_of": "2026-10-24",
+              "captured_at": "2026-10-24T11:01:45.790Z",
+              "source_id": "master-kaizen-public-metadata-20261024",
+              "status": "public_embedded_metadata_snapshot"
             }
           ]
         }
@@ -10442,9 +10463,9 @@
           "title": "Manifestation-themed monk-persona post",
           "duration_seconds": 75,
           "uploaded_at": "2026-10-06",
-          "views": 648200,
-          "views_captured_at": "2026-10-22",
-          "source_id": "omaster-kaizen-tiktok-20261022",
+          "views": 648600,
+          "views_captured_at": "2026-10-24",
+          "source_id": "master-kaizen-public-metadata-20261024",
           "structure_summary": "vidIQ describes a spiritual engagement prompt. The metadata caption is only a manifestation hashtag; spoken language, actual scenes and AI provenance were not independently watched.",
           "media_status": "metadata_only_official_link_only",
           "metrics": [
@@ -10468,6 +10489,41 @@
               "as_of": "2026-10-22",
               "source_id": "omaster-kaizen-tiktok-20261022",
               "status": "indexed_discovery_snapshot_rounded"
+            },
+            {
+              "value": 648200,
+              "metric": "views",
+              "as_of": "2026-10-22",
+              "source_id": "omaster-kaizen-tiktok-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 648600,
+              "metric": "views",
+              "as_of": "2026-10-24",
+              "source_id": "master-kaizen-public-metadata-20261024",
+              "status": "public_embedded_metadata_snapshot"
+            },
+            {
+              "value": 62000,
+              "metric": "likes",
+              "as_of": "2026-10-24",
+              "source_id": "master-kaizen-public-metadata-20261024",
+              "status": "public_embedded_metadata_snapshot"
+            },
+            {
+              "value": 14900,
+              "metric": "comments",
+              "as_of": "2026-10-24",
+              "source_id": "master-kaizen-public-metadata-20261024",
+              "status": "public_embedded_metadata_snapshot"
+            },
+            {
+              "value": 11100,
+              "metric": "shares",
+              "as_of": "2026-10-24",
+              "source_id": "master-kaizen-public-metadata-20261024",
+              "status": "public_embedded_metadata_snapshot"
             }
           ]
         }
