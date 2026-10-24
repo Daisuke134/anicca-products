@@ -25,7 +25,7 @@ primaryが受入、review、Release/asset公開とmain統合を所有する。bo
 - [x] PUBLIC: primaryが独立review後にdemo Release 422351662 / asset 670552046を公開し、匿名GET200・3,681,253 bytes・レビュー済み動画SHA256一致を確認する。GitHub immutable=falseを保持する。
 - [x] PACKAGE: metadata sourceの独立review SHIP/Blocking0とPR639/main71ae730a93648edc76b041fd850bbfbb71e3ce53への統合を受入する。固定mainの4regular filesからv0.1.3 ZIPを作成し、Release422362726/asset670585099の公開downloadと公式digest、独立公開review PASS/Blocking0を確認する。GitHub immutable=false、正式ChatGPT掲載0、v0.1.3 native再modelrun0を保持する。
 
-現在cursor: primaryによる既存専用OpenAI申立ての結果受入と、正規復旧後の正式upload/submit/審査/掲載の個別受入。公式appealは1件受理され成功画面/確認メールを受入するが、復旧と正式提出は未完。最新状態 → ../../evidence/ai-monk-plugin-marketplace-access-20261024.json。DEMOの独立照合・PUBLIC・PACKAGEは完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
+現在cursor: OpenAIは既存appealへの正式回答で無効化維持と同案件の追加申立てを検討しない旨を通知する。復旧・正式upload/submit/掲載は未完。Museは既存提出のデータ処理/接続情報の審査結果を待つ。最新結果 → ../../evidence/ai-monk-marketplace-followup-20261024.json。DEMO/PUBLIC/PACKAGEの既存受入は維持する。
 
 
 ## CASES / private DEMOのsource結果
@@ -94,6 +94,6 @@ Daisの「OpenAIアカウント無効化とMuse審査を直す」を今回の最
 
 完了条件は専用OpenAIの正規復旧後の正式upload/submitと公式掲載、Museの正式承認・掲載URLの確認。公式判断がまだ無ければ未完を保持し、確認時刻、既存case/submissionとの対応、残るprovider条件、次の具体的操作を新しい受入記録へ残す。受付済みや資料修正を掲載完了とは呼ばない。
 
-- [ ] FOLLOWUP: 既存申立ての専用メールとMuse既存提出を再確認する。
-- [ ] FIX: 到着した追加要求または自所有の設定不備へ必要な修正を行い、公式結果を確認する。要求がなければ未実施と理由を残す。
-- [ ] RECORD: 秘密値を除いた結果を保存し、通常のPR/main統合とremote object一致を確認する。
+- [x] FOLLOWUP: 既存申立ての専用メールとMuse既存提出を再確認する。OpenAI正式回答の送信元/同一case/DKIM/SPF/DMARCと、Museの概要/データ処理/接続情報を受入する。
+- [ ] FIX: OpenAIは既存appealを正式却下し、追加申立てを検討しないと回答する。原因は非開示。Museに追加要求/接続エラーは無く、確定した自所有の設定不備も無いため、根拠のない変更・再送を行わない。正式復旧/掲載は未完。
+- [x] RECORD: 秘密値を除いた結果を新receiptへ保存する → ../../evidence/ai-monk-marketplace-followup-20261024.json。PR/main統合とremote object一致は専用private evidenceのresult-docs-main-readback.jsonに記録する。
