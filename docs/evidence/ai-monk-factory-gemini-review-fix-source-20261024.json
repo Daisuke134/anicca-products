@@ -1,0 +1,106 @@
+{
+  "schema_version": "anicca.ai-monk-factory-gemini-review-fix-source.v1",
+  "run_id": "ai-monk-factory-gemini-adapter-20261024",
+  "owner_id": "root",
+  "occurrence_id": "gemini-known-receipt-and-usage-retention-fix",
+  "observed_at": "2026-10-24T00:00:48.800630+00:00",
+  "reviewed_initial_head": "f21d025b8af04af510373b51523fa13cfde29e5f",
+  "phase": "review_finding_red_green",
+  "command": "focused provider/jobs tests",
+  "exit_code": 0,
+  "effect": "retain official interaction ID and known numeric token counts on malformed success or private storage failure",
+  "readback": {
+    "initial_review_verdict": "NO_SHIP",
+    "initial_blocking_count": 2,
+    "red_exit_code": 1,
+    "focused_green": {
+      "pass": 35,
+      "fail": 0
+    },
+    "prior_ci": {
+      "run_id": 40042397129,
+      "head": "f21d025b8af04af510373b51523fa13cfde29e5f",
+      "conclusion": "success",
+      "does_not_accept_fix_head": true
+    },
+    "final_head_review_ci": "pending"
+  },
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "limited independent recheck and CI at the fixed head, then main release and public readback",
+  "fixes": [
+    "Prefer a valid interaction body ID over HTTP trace IDs for Gemini responses. Preserve safe known receipt/usage on HTTP200 malformed success.",
+    "Retain the already received image result in the local invocation so blob/persistence errors retain receipt and numeric usage. Unknown replay never regenerates."
+  ],
+  "source_files": [
+    {
+      "path": "apps/landing/app/ai-monk-factory/privacy/page.tsx",
+      "bytes": 3341,
+      "sha256": "3dcce5e6fb855f024bc5c78aa1b1496ab39c230dfd6ad85833c7c12dcb8bdcc6"
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/terms/page.tsx",
+      "bytes": 3548,
+      "sha256": "9a43b74f7415c26712871ed2ca6864fe7163e6c2086a8a784d25c3623630b7e2"
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/factory.tsx",
+      "bytes": 22017,
+      "sha256": "b6510a650e189332363160258a70ee428cf7ee5345092a84504f49e88f90618f"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+      "bytes": 21962,
+      "sha256": "0d3413162f8bcaa512b632e7f5168d0010e0adf754f6bd7c6863f36242afac66"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/monk-factory-jobs.js",
+      "bytes": 25648,
+      "sha256": "0afa7177886625cf1e6087078285c0ac3c95a64b1074f0d7bc10670cff90aeb3"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/__tests__/monk-factory-providers.test.js",
+      "bytes": 27125,
+      "sha256": "e74a03467c4a39a50f87ddacef2f8f1a69bd21da68ca78730cce50dcf66cb084"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/__tests__/monk-factory-jobs.test.js",
+      "bytes": 14880,
+      "sha256": "238160947a2ef810b04aafe73e4f0c0c729058b18d48c307ab5834e57b4b56bc"
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/__tests__/monk-factory-db.test.js",
+      "bytes": 47655,
+      "sha256": "3c4571a3dbb65552e47da5f4f925be629bad8a1f562404c40c3e31da5647fb15"
+    }
+  ],
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/independent-source-review.json",
+      "bytes": 22031,
+      "sha256": "a627fa362d947ec0a74a8cfeb7c4ae8f67a7df9c580a37dbf775d4f638902e5a"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/review-findings-red.log",
+      "bytes": 2403,
+      "sha256": "b4039ea53750f6a21bc1224e55900398eded1dfbca696379a12daa351a86041b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/review-findings-green.log",
+      "bytes": 3791,
+      "sha256": "43c9ec1a823d20db985cc031d90774b330864b595c3fcec0195e5e1165eee413"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-adapter-20261024/review-findings-green.json",
+      "bytes": 321,
+      "sha256": "27808d5dedae6bd9799ad22bd19ec81aa741b761d2a3b15b7c1bd799992124ae"
+    }
+  ],
+  "unchanged": [
+    "SQL migrations, price, quotas and period reservations",
+    "POST once and unknown effect fences",
+    "dedicated billing readiness; live enabling remains off"
+  ],
+  "live_mutations_payments_generation": 0
+}

@@ -96,12 +96,12 @@ function createFactoryProviders({ env = process.env, fetchImpl = fetch } = {}) {
     }
     let data;
     try { data = await response.json(); } catch { throw invalidResponse(provider, submit, requestId, receiptId); }
-    if (!data || typeof data !== 'object' || data.success === false || data.error) throw invalidResponse(provider, submit, requestId, receiptId);
+    if (!data || typeof data !== 'object' || data.success === false || data.error) throw invalidResponse(provider, submit, requestId, provider === 'gemini' && isId(data?.id) ? data.id : receiptId, provider === 'gemini' ? data?.usage : undefined);
     return { data, receiptId };
   }
 
   function completedContent(data, model, requestId, receiptId) {
-    if (!isId(data.id) || data.model !== model || data.status !== 'completed' || !Array.isArray(data.steps)) throw invalidResponse('gemini', true, requestId, receiptId || data.id, data.usage);
+    if (!isId(data.id) || data.model !== model || data.status !== 'completed' || !Array.isArray(data.steps)) throw invalidResponse('gemini', true, requestId, isId(data.id) ? data.id : receiptId, data.usage);
     return data.steps.filter(step => step?.type === 'model_output').flatMap(step => Array.isArray(step.content) ? step.content : []);
   }
   async function createAvatarImage({ requestId, signal }) {
@@ -112,7 +112,7 @@ function createFactoryProviders({ env = process.env, fetchImpl = fetch } = {}) {
       response_format: { type: 'image', mime_type: 'image/jpeg', delivery: 'inline', aspect_ratio: '2:3', image_size: '1K' },
     } });
     const images = completedContent(data, IMAGE_MODEL, requestId, receiptId).filter(part => part?.type === 'image');
-    if (images.length !== 1 || images[0].mime_type !== 'image/jpeg' || !validJpeg(images[0].data)) throw invalidResponse('gemini', true, requestId, receiptId || data.id, data.usage);
+    if (images.length !== 1 || images[0].mime_type !== 'image/jpeg' || !validJpeg(images[0].data)) throw invalidResponse('gemini', true, requestId, isId(data.id) ? data.id : receiptId, data.usage);
     return { id: data.id, status: 'completed', imageBase64: images[0].data, mediaType: 'image/jpeg', usage: usage(data.usage), reservedUsd: 0.14 };
   }
   async function createPhotoAvatar({ imageBase64, mediaType, requestId }) {
@@ -145,8 +145,8 @@ function createFactoryProviders({ env = process.env, fetchImpl = fetch } = {}) {
     const { data, receiptId } = await request('gemini', '/v1beta/interactions', { method: 'POST', requestId, body });
     const parts = completedContent(data, model, requestId, receiptId);
     let output;
-    try { if (parts.length !== 1 || parts[0]?.type !== 'text') throw new Error(); output = JSON.parse(parts[0].text); } catch { throw invalidResponse('gemini', true, requestId, receiptId || data.id, data.usage); }
-    if (!output || typeof output.script !== 'string' || !output.script.trim() || output.script.length > 5000 || typeof output.caption !== 'string' || !output.caption.trim() || output.caption.length > 2200 || !Array.isArray(output.source_ids) || !output.source_ids.length || output.source_ids.some((id) => !playbooks.some((item) => item.id === id))) throw invalidResponse('gemini', true, requestId, receiptId || data.id, data.usage);
+    try { if (parts.length !== 1 || parts[0]?.type !== 'text') throw new Error(); output = JSON.parse(parts[0].text); } catch { throw invalidResponse('gemini', true, requestId, isId(data.id) ? data.id : receiptId, data.usage); }
+    if (!output || typeof output.script !== 'string' || !output.script.trim() || output.script.length > 5000 || typeof output.caption !== 'string' || !output.caption.trim() || output.caption.length > 2200 || !Array.isArray(output.source_ids) || !output.source_ids.length || output.source_ids.some((id) => !playbooks.some((item) => item.id === id))) throw invalidResponse('gemini', true, requestId, isId(data.id) ? data.id : receiptId, data.usage);
     return { id: data.id, script: output.script.trim(), caption: output.caption.trim(), sourceIds: [...new Set(output.source_ids)], usage: usage(data.usage), reservedUsd: 0.005 };
   }
   async function createSpeech({ script, requestId }) {

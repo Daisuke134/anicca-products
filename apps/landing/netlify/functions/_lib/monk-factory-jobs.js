@@ -251,6 +251,7 @@ async function runFactoryImage({ ticket, store, providers, images, env, stripe, 
   if (!original || original.image_nonce !== payload.nonce || Date.parse(original.image_ticket_until) !== payload.expiresAt) throw factoryError('invalid_image_ticket', 401);
   let job = await store.claimJob(payload.jobId, true);
   if (!job) return;
+  let imageResult;
   try {
     const account = await syncBilling({ userId: job.user_id, store, stripe, env });
     if (env.MONK_FACTORY_ENABLED !== 'true' || (await providers.readiness()).ready !== true) throw factoryError('factory_unavailable', 503);
@@ -259,6 +260,7 @@ async function runFactoryImage({ ticket, store, providers, images, env, stripe, 
     job = await persist(store, job, { stage: 'image_submitting', status: 'effect_unknown',
       evidence: evidence(job, 'image_submitting', env, { effect: 'unknown', nextAction: 'private_blob_save' }) }, true);
     const result = await providers.createAvatarImage({ requestId: job.id + ':image_submitting' });
+    imageResult = result;
     const key = 'images/' + job.id;
     await images.put(key, { jobId: job.id, userId: job.user_id, receiptId: result.id, imageBase64: result.imageBase64, mediaType: result.mediaType, ...tokenUsage(result.usage) });
     await persist(store, job, { stage: 'image_ready', status: 'processing', image_blob_key: key, image_receipt_id: result.id,
@@ -266,7 +268,7 @@ async function runFactoryImage({ ticket, store, providers, images, env, stripe, 
   } catch (error) {
     const unknown = job.stage === 'image_submitting' && error.effect !== 'none';
     await persist(store, job, { status: unknown ? 'effect_unknown' : 'failed', stage: unknown ? job.stage : 'failed', error_class: codeOf(error),
-      next_run_at: after(3600000), evidence: evidence(job, 'image_error', env, { effect: unknown ? 'unknown' : 'none', receipt: error.providerReceiptId, usage: error.usage, error: codeOf(error), nextAction: unknown ? 'private_blob_or_receipt_readback' : 'reservation_retained' }) }).catch(() => {});
+      next_run_at: after(3600000), evidence: evidence(job, 'image_error', env, { effect: unknown ? 'unknown' : 'none', receipt: imageResult?.id || error.providerReceiptId, usage: imageResult?.usage || error.usage, error: codeOf(error), nextAction: unknown ? 'private_blob_or_receipt_readback' : 'reservation_retained' }) }).catch(() => {});
   }
 }
 

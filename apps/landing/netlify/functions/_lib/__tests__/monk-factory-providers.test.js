@@ -382,3 +382,22 @@ test('Gemini script truncation and invalid JSON/source/length never become usabl
   const result = await providers.createScript({ playbooks: [{ id: 'p1' }], maxSeconds: 20, requestId });
   assert.deepEqual(result.usage, { thoughtTokens: 7 });
 });
+
+
+test('Gemini interaction receipt and known usage survive trace headers and malformed success bodies', async () => {
+  const base = { id: 'interaction_billed_1', model: 'gemini-3.1-flash-lite-image', status: 'incomplete', steps: [], usage: { total_thought_tokens: 37, private: 'raw provider content' } };
+  for (const body of [base, { ...base, error: { message: 'private diagnostics' } }]) {
+    let calls = 0;
+    const providers = createFactoryProviders({ env, fetchImpl: async () => { calls++; return json(body, 200, { 'x-request-id': 'http_trace_1' }); } });
+    await assert.rejects(providers.createAvatarImage({ requestId }), error => {
+      assert.equal(error.code, 'provider_effect_unknown');
+      assert.equal(error.effect, 'unknown');
+      assert.equal(error.providerReceiptId, 'interaction_billed_1');
+      assert.deepEqual(error.usage, { thoughtTokens: 37 });
+      assert.ok(!JSON.stringify(error).includes('private'));
+      assert.ok(!JSON.stringify(error).includes('raw provider content'));
+      return true;
+    });
+    assert.equal(calls, 1);
+  }
+});

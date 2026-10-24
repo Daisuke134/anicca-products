@@ -70,3 +70,7 @@ Interactionsは同期の`background:false/store:false`で1回送る。公式inte
 現在cursor: main `8e59eda6c0cb241b8f2fe195a06e6a9df5d25772`由来の専用branch `feat/ai-monk-factory-gemini-adapter-20261024`で本契約を先行pushし、最小RED→Gemini adapter置換→GREEN・CI/main公開へ進む。専用credential・本番設定・入金・実生成・顧客課金・本人IG接続/投稿はこのsource unitで実行せず、ready=false/enable=falseを維持する。
 
 source受入: provider/jobs33件（画像・台本の新APIと不完全応答usage保存のRED→GREEN）、隔離Postgres25件PASS。DB検証は最後のerror-only usage転送前であり、最終headの既存CIが同DB契約を再確認する。実API/課金は0。source receipt → ../../evidence/ai-monk-factory-gemini-adapter-source-20261024.json。fresh source review・CI・main反映を次に受入する。
+
+独立reviewのf21d025で、異常応答のinteraction IDがHTTP追跡IDへ置換される場合と、生成後のblob保存失敗で取得済みID/usageが失われる場合を確認する。公式interaction IDをHTTP headerより優先し、不正成功応答と保存障害にも既知の数値usage/receiptを残す最小RED→GREENを追加する。再送0・予約保持・price/quotaは維持し、修正headを限定再検証する。
+
+上記2指摘はfocused実assertionのRED→GREEN/35件で修正する。初回f21d025のCI40042397129 SUCCESSを修正後の合格へ流用しない。初回receiptはそのheadの履歴として保持し、修正証拠 → ../../evidence/ai-monk-factory-gemini-review-fix-source-20261024.json。
