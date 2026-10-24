@@ -261,7 +261,11 @@ export default function AiMonkDatabase({
         <header className="pb-7 pt-4 sm:pt-8">
           <h1 id="directory-heading" className="text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">AI Monk Database</h1>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">Explore monk profiles and research candidates. Compare dated followers, sampled video views, products, and reported revenue.</p>
-          <a href="/ai-monk-factory/" className="mt-4 inline-flex items-center gap-2 rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 transition-colors hover:border-stone-500 hover:bg-stone-100">Open Monk Factory <span aria-hidden="true">↗</span></a>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <Link href="/the-art-of-ai-monks" className="inline-flex items-center gap-2 rounded-lg bg-stone-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-stone-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-700"><BookOpen size={16} aria-hidden="true" />Get the book · $9.99</Link>
+            <Link href="/ai-monk-database/support#install-the-codex-plugin" className="inline-flex items-center gap-2 rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 transition-colors hover:border-stone-500 hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-700">Free Codex plugin <ArrowUpRight size={16} aria-hidden="true" /></Link>
+            <Link href="/ai-monk-factory/" className="inline-flex items-center gap-1 text-sm text-stone-600 underline underline-offset-4 hover:text-stone-950">Monk Factory <span aria-hidden="true">↗</span></Link>
+          </div>
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-stone-500">
             <span><strong className="font-semibold text-stone-900">{accounts.length}</strong> profiles</span>
             <span>{reviewedCount} evidence-reviewed · {accounts.length - reviewedCount} pending</span>
