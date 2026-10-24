@@ -24,7 +24,7 @@ test('image ticket authenticates its exact job and rejects expiry or tampering b
 test('Generate binds occurrence to verified UID and readiness false reserves nothing', async () => {
   const account = { user_id: user.id, avatar_id: 'avatar_fixture', stripe_subscription_id: 'sub_fixture' };
   const calls = [];
-  const store = { account: async () => account, reserveJob: async (...args) => { calls.push(args); return { id: key }; } };
+  const store = { account: async () => account, companyBudgetStatus: async () => ({ ready: true }), reserveJob: async (...args) => { calls.push(args); return { id: key }; } };
   const event = { httpMethod: 'POST', headers: { authorization: 'Bearer fixture', 'idempotency-key': key }, body: JSON.stringify({ action: 'generate_video', user_id: key, script: 'untrusted' }) };
   const response = await factoryHandler(event, { env, store, fetchImpl: auth, providers: { readiness: () => ({ ready: true }) }, syncBilling: async () => account });
   assert.equal(response.statusCode, 202);
