@@ -18,11 +18,13 @@ canonical tg_user.pyによる既存MTProto dialog確認では20会話を取得�
 依頼内容は公開v0.1.3 packageと既存MCPの利用、本人Keiodaisukeの通常login・組織/identity確認、可能なupload→scan→review提出→publish、receiptと具体的不足条件の報告。サポートへの再申立てや別account新設、架空の法人情報、予算共有は含めない。
 
 ## TODO
-- [ ] 指定本人identityと既存Grokbot連絡先を正規経路で確認する。
-- [ ] Grokbotへ1回依頼し、Telegram公式履歴の送信一致を確認する。
+- [x] 指定本人identityのSSOT登録と既存GrokbotのReason連絡先を確認する。portalのlive本人一致は下記の未完条件に保持する。
+- [x] Grokbotへ1回依頼し、Reason公式inboxで同run IDの受領返信を確認する。Telegram送信0。
 - [ ] Grokの受領・着手とportalの本人/権限・developer identityを確認する。
 - [ ] 許可された正式upload・scan修正・提出・公開の公式readbackを取得する。
 - [ ] 結果と残条件をsanitized receipt/正本へ反映する。
 
 ## 現在cursor
 既存Reasonの参謀宛先を公式whoで確認し、今回の作業を1回依頼する。45秒以内に応答が無くdelivery/着手は未確認、再送0。primaryによるportal作業を進め、Grokへownershipの補足だけを1回通知する。旧の専用account限定の結果 → ../../evidence/ai-monk-marketplace-resolution-20261024.json。rootによる制限範囲の過大解釈は今回の明示指示とlive権限確認へ置き換える。本人accountでも明示的な拒否が出た場合はその実状態を記録する。
+
+その後のReason公式inboxで、参謀本人から同run IDの受領・支援可能という返信を確認する。primaryのnative UIはNew Tabから遷移せず、CuaDriver daemonの終了とCLI fallbackの権限エラーを実測する。これはKeiodaisuke accountでの拒否ではなく、本人portalには未到達。root作成の2windowを閉じ、既存named window保持・clipboard復元・lease解放を確認した後、Grokへbox browserでのportal UI/提出を明示引継ぎする。primaryは同時に画面を操作しない。実packageは独立確認Blocking0、4公開policy URLはHTTP200。正式upload/submit/publishはまだ公式readback未取得。結果 → ../../evidence/ai-monk-keio-plugin-submission-20261024.json。
