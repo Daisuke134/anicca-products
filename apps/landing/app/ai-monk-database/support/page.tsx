@@ -20,7 +20,7 @@ export default function AiMonkSupportPage() {
         <h2 className="mb-2 mt-8 text-xl font-semibold">Connection and coverage</h2>
         <p>The remote MCP URL is <code>https://aniccaai.com/.netlify/functions/ai-monk-mcp</code>. It offers profile search, exact lookup, coverage statistics, format and monetization research, and source-linked playbooks. It cannot create videos or post to social accounts. Check each result&apos;s source dates, candidate scope and uncertainty.</p>
         <p className="mt-4"><a className="underline" href="https://github.com/Daisuke134/anicca-products/tree/main/packages/ai-monk-index" target="_blank" rel="noopener noreferrer">Installation and tool reference</a></p>
-        <h2 className="mb-2 mt-8 text-xl font-semibold">Install the Codex plugin</h2>
+        <h2 id="install-the-codex-plugin" className="mb-2 mt-8 text-xl font-semibold">Install the Codex plugin</h2>
         <p>Use a Codex CLI with <code>codex plugin marketplace</code> support (checked with 0.160.0):</p>
         <pre className="mt-4 overflow-x-auto rounded-lg bg-white/70 p-4 text-sm"><code>{`codex plugin marketplace add Daisuke134/anicca-products --sparse .agents/plugins --sparse packages/ai-monk-plugin
 codex plugin add ai-monk-index@anicca
