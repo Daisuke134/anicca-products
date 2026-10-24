@@ -1,0 +1,146 @@
+{
+  "schema_version": "anicca.ai-monk-keio-plugin-submission.v1",
+  "run_id": "ai-monk-keio-plugin-20261024",
+  "owner_id": "root",
+  "occurrence_id": "existing-keiodaisuke-identity-and-reason-ui-handoff",
+  "release_sha": "c268d93533f9c8efe3bb2aa639a25b70e3c010ff",
+  "recorded_at": "2026-10-24T06:45:30.690895+00:00",
+  "phase": "existing_account_portal_handoff_pending",
+  "command": "Canonical tg_user.py read-only initial inventory before user stop; existing Reason Network who/request/inbox/send; registered leased CuaDriver native UI; public policy GET",
+  "loaded_argv_env": {
+    "new_model_flags": 0,
+    "new_session_or_agent_created": 0,
+    "secret_values_logged": false,
+    "shared_security_or_browser_config_changes": 0
+  },
+  "exit_code": 0,
+  "account_scope": {
+    "requested_identity": "Existing Keiodaisuke account; do not create another account",
+    "ssot_requested_google_identity_found": true,
+    "portal_live_identity_verified": false,
+    "dedicated_factory_account": "Separate account used by prior attempts; its final denial remains unchanged",
+    "correction": "Do not infer an all-account or publisher-wide restriction from the dedicated account denial. Verify the requested existing account normally; obey any actual applicable provider refusal."
+  },
+  "reason": {
+    "network": "Daisukeのネットワーク",
+    "target": "daisuke/cursor",
+    "initial_live_target": "existing personal cursor session on online Mac mini, idle; roster alone not execution proof",
+    "initial_request_exit_code": 1,
+    "initial_request_result": "No answer within 45 seconds; later inbox response confirms receipt and identity as 参謀",
+    "work_request_count": 1,
+    "fyi_ownership_clarification_count": 1,
+    "grok_acknowledged": true,
+    "acknowledgment_source": "Official reason network inbox response with exact run ID and sender daisuke/cursor",
+    "grok_reported_capabilities": [
+      "box browser inspection and screenshots",
+      "package SHA256 verification",
+      "submission ledger recording"
+    ],
+    "explicit_portal_handoff_count": 1,
+    "handoff_send_exit_code": 0,
+    "handoff_send_response": "Directed to daisuke/cursor",
+    "handoff_acknowledged": null,
+    "current_portal_ui_owner": "Grok/参謀 after explicit handoff; primary performs no simultaneous UI actions",
+    "actual_upload_submit_publish": null
+  },
+  "telegram": {
+    "initial_dialog_inventory_only": true,
+    "grok_named_dialog_found": false,
+    "send": 0,
+    "current_policy": "Dais explicitly stops Telegram for agent communications; use existing Reason Network. No subsequent Telegram reads or sends; unrelated business loops unchanged."
+  },
+  "primary_browser": {
+    "registered_identity": "interactive:dais",
+    "profile_pid_matches": true,
+    "portal_navigation_reached": false,
+    "target_url": "https://platform.openai.com/plugins",
+    "observed_state": "New Tab with target in omnibox; navigation not confirmed",
+    "account_login_or_rejection_observed": false,
+    "diagnosed_tool_failure": "Signed CuaDriver daemon terminated; fallback CLI reported Accessibility permission not granted. A prior live check had both permissions granted. Existing signed app was started only after confirmed not running.",
+    "tcc_permission_changes": 0,
+    "direct_cdp_retry": 0,
+    "mac_or_browser_restart": 0,
+    "owned_windows_closed": true,
+    "preexisting_named_windows_retained": true,
+    "clipboard_restored": true,
+    "lease_released": true
+  },
+  "package": {
+    "version": "0.1.3",
+    "asset_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-v0.1.3/ai-monk-index-plugin-0.1.3.zip",
+    "sha256": "b64a4682f0fdd4e6408f720ced9d5540abcaeb560c2ecb52cfc883ffce056ac5",
+    "independent_read_only_review": "Blocking 0; package source and recorded ZIP match, free read-only 6 tools, 5 positive/3 negative cases, demo, four policy URLs",
+    "independent_reviewer": "plugin_submission_package_check",
+    "review_does_not_prove_current_portal_acceptance": true,
+    "public_policies_all_200": true
+  },
+  "effect": {
+    "primary_formal_upload": 0,
+    "primary_formal_submit": 0,
+    "primary_formal_publish": 0,
+    "formal_listing_verified": false,
+    "grok_portal_effects_verified": false,
+    "new_account": 0,
+    "payment_or_subscription": 0,
+    "new_api_key": 0,
+    "daily_posting_changes": 0,
+    "telegram_send": 0,
+    "root_x_post_create": 0
+  },
+  "readback": "Reason target identity and initial receipt are confirmed; explicit UI handoff is sent after primary cleanup and lease release. No Keiodaisuke portal login, upload, formal submission or listing is verified yet.",
+  "provider_receipt_id": {
+    "reason_target": "daisuke/cursor",
+    "formal_chatgpt_plugin": null
+  },
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/reason-grok-submit-fence.json",
+      "bytes": 354,
+      "sha256": "9ca829c124e48c57adf7571b0e51a8d3af1de8854e2d655e9dff895096898369"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/grok-request.txt",
+      "bytes": 2548,
+      "sha256": "f13d056e62813192b1f12857bf113ea636cadd17933aa64f84dc199772fb94d8"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/reason-send-result.private.json",
+      "bytes": 149,
+      "sha256": "a473cb0ae50d4b81d7129d0d8b8f79a031819614eead8cce496487a2c286041b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/grok-portal-handoff-fence.json",
+      "bytes": 303,
+      "sha256": "dfde521f6e8d3a4068193cdc02385bf4130b3d62d4eac8b12bb7038ab5548581"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/grok-portal-handoff.txt",
+      "bytes": 2017,
+      "sha256": "646f618d3b8b73ad3043fe5ebfcc371ae0a5dddad8337fecf53071c252190ef2"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/grok-portal-handoff-result.private.json",
+      "bytes": 126,
+      "sha256": "8e368b03763e3b1ac1402b33a3ef4d8c48a3e5e75f60f1550e70b352678db696"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/primary-browser-handoff-cleanup.json",
+      "bytes": 370,
+      "sha256": "60b9f6bc1d5aae07335ed3a4e9de2bf47f30592a23da54e2738e6b752a229a5f"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-keio-plugin-submission-20261024/public-policy-readback.json",
+      "bytes": 968,
+      "sha256": "132b509ed901eac4530c8f2cf30da53c2c6b40edad1feb963c014def1e3d6fbb"
+    }
+  ],
+  "error_class": "native_browser_input_failure_with_reason_handoff_pending",
+  "retryable": false,
+  "next_action": "Receive the actual Keiodaisuke portal state and handoff acknowledgment from Grok; resolve concrete identity or scan findings; verify official upload, review submission and listing separately. Never treat a message or draft as submission.",
+  "claim_limits": [
+    "ChatGPT subscription or Codex runtime access alone does not prove developer verification or directory publication.",
+    "Dedicated account final denial is historical and is not a verified restriction on every existing account.",
+    "Grok receipt is not evidence of portal execution.",
+    "No generated media, paid provider budget or USD10K MRR is achieved by this step."
+  ]
+}
