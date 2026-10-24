@@ -56,17 +56,17 @@ function resolveFile({ lang, format, product }) {
 }
 
 function isPaidEbookSession(session, liveMode) {
-  if (!session || session.status !== 'complete' || session.payment_status !== 'paid') return false;
-  if (session.livemode !== liveMode) return false;
+  if (!session || session.status !== 'complete' || session.payment_status !== 'paid'
+    || session.livemode !== liveMode || session.mode !== 'payment') return false;
   const meta = session.metadata || {};
   const product = meta.product;
   if (product === AI_MONK_BOOK_PRODUCT) {
     const book = getAiMonkBook(meta.lang);
-    return Boolean(book && session.mode === 'payment' && meta.book_sku === book.sku);
+    return Boolean(book && meta.book_sku === book.sku);
   }
   if (product === 'ebook') return true;
   // Legacy checkouts omitted metadata.product; webhook treats those as ebook.
-  if (!product && session.mode === 'payment') return true;
+  if (!product) return true;
   return false;
 }
 
