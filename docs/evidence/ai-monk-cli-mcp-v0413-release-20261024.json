@@ -1,0 +1,776 @@
+{
+  "schema_version": "anicca.ai-monk-cli-mcp-release.v1",
+  "run_id": "ai-monk-cli-v0413-release-20261024",
+  "owner_id": "root",
+  "occurrence_id": "fixed-main-v0413-publication-acceptance",
+  "observed_at": "2026-10-24T05:07:58.674713+00:00",
+  "consolidated_at": "2026-10-24T05:09:27.240424+00:00",
+  "release_sha": "7a201619be67f6e06008d657ff8ccedb6e18091b",
+  "phase": "publication_accepted_documentation_integration_pending",
+  "command": "Consolidate saved fixed-main build, official Release and anonymous download, public URL install/CLI, real SDK stdio/HTTPS, public JSON/Web, Netlify and Registry exact-version readbacks. No new provider effect during consolidation.",
+  "loaded_argv_env": {
+    "source_paths": [
+      "packages/ai-monk-index",
+      "apps/landing/lib/ai-monk-directory.mjs",
+      "apps/landing/public/data/ai-monk-avatar-database-2026.json"
+    ],
+    "shared_npm_config_or_auth_used": false,
+    "stdio_transport": "real SDK local stdio",
+    "https_transport": "real SDK public Streamable HTTP",
+    "https_url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+    "web_html_parser_runtime": "existing pipx Scrapy interpreter",
+    "secret_values_logged": false
+  },
+  "exit_code": 0,
+  "effect": "Accept the v0.4.13 distribution surfaces as one fixed-main snapshot. Consolidation itself adds no publish, payment, generation, posting or browser operation.",
+  "readback": {
+    "source_integration": {
+      "pr": 667,
+      "head_sha": "7b7c4c62f829ba90b519fc793f7f2324eceeb791",
+      "main_sha": "7a201619be67f6e06008d657ff8ccedb6e18091b",
+      "merged_at": "2026-10-24T05:01:00Z",
+      "source_receipt": "docs/evidence/ai-monk-yangjun-service-offers-source-20261024.json"
+    },
+    "source_review_and_ci": {
+      "focused_red_exit": 1,
+      "focused_green_exit": 0,
+      "package_tests_passed": 15,
+      "landing_helper_render_tests_passed": 15,
+      "independent_source_checks_passed": 27,
+      "independent_source_blocking": 0,
+      "ci_runs": [
+        {
+          "id": 40064388374,
+          "name": "AI Monk Index CLI and MCP",
+          "head_sha": "7b7c4c62f829ba90b519fc793f7f2324eceeb791",
+          "conclusion": "success"
+        },
+        {
+          "id": 40064388482,
+          "name": "Landing PR build",
+          "head_sha": "7b7c4c62f829ba90b519fc793f7f2324eceeb791",
+          "conclusion": "success"
+        },
+        {
+          "id": 40064603616,
+          "name": "AI Monk Index CLI and MCP",
+          "head_sha": "7a201619be67f6e06008d657ff8ccedb6e18091b",
+          "conclusion": "success"
+        },
+        {
+          "id": 40064603646,
+          "name": "Netlify Deploy (Landing)",
+          "head_sha": "7a201619be67f6e06008d657ff8ccedb6e18091b",
+          "conclusion": "success"
+        },
+        {
+          "id": 40064992351,
+          "name": "Publish AI Monk MCP Registry",
+          "head_sha": "7a201619be67f6e06008d657ff8ccedb6e18091b",
+          "conclusion": "success"
+        }
+      ],
+      "code_rabbit_limit": "SUCCESS is a skipped/manual-required status, not a completed content review."
+    },
+    "data_scope": {
+      "public_profiles": 73,
+      "research_archive_records": 75,
+      "sources": 196,
+      "included": 4,
+      "pending": 69,
+      "excluded": 2,
+      "archive_offer_rows": 91,
+      "public_offer_rows": 88,
+      "snapshot_bytes": 498088,
+      "snapshot_sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+      "prior_195_sources_75_records_80_offers_preserved": true
+    },
+    "new_product_price_observations": {
+      "account_id": "yangjun",
+      "source_url": "https://collabstr.com/yangjun",
+      "new_source_count": 1,
+      "new_offer_count": 11,
+      "currency": "USD",
+      "basis": "Each visible package name, ID and amount matches its Service/Offer price and explicit priceCurrency.",
+      "offers": [
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001241-20261024",
+          "seller_package_id": "2001241",
+          "name": "1 Instagram Story",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001239-20261024",
+          "seller_package_id": "2001239",
+          "name": "1 Instagram Photo Feed Post",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001240-20261024",
+          "seller_package_id": "2001240",
+          "name": "1 Instagram Reel",
+          "price": 100,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001243-20261024",
+          "seller_package_id": "2001243",
+          "name": "1 UGC Product Photo",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001245-20261024",
+          "seller_package_id": "2001245",
+          "name": "1 UGC Photo Ad",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001246-20261024",
+          "seller_package_id": "2001246",
+          "name": "1 UGC Tutorial",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001249-20261024",
+          "seller_package_id": "2001249",
+          "name": "1 UGC Blog",
+          "price": 75,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001247-20261024",
+          "seller_package_id": "2001247",
+          "name": "1 UGC Testimonial/Review",
+          "price": 75,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001242-20261024",
+          "seller_package_id": "2001242",
+          "name": "1 UGC Product Video",
+          "price": 100,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001248-20261024",
+          "seller_package_id": "2001248",
+          "name": "1 UGC Unboxing",
+          "price": 100,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001244-20261024",
+          "seller_package_id": "2001244",
+          "name": "1 UGC Video Ad",
+          "price": 120,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "paid_orders": null,
+          "revenue": null
+        }
+      ],
+      "billing_recurrence": null,
+      "paid_orders": null,
+      "revenue": null
+    },
+    "fixed_main_build": {
+      "observed_at": "2026-10-24T05:01:07.213476+00:00",
+      "source_main_sha": "7a201619be67f6e06008d657ff8ccedb6e18091b",
+      "source_head_sha": "7b7c4c62f829ba90b519fc793f7f2324eceeb791",
+      "source_paths": [
+        "packages/ai-monk-index",
+        "apps/landing/lib/ai-monk-directory.mjs",
+        "apps/landing/public/data/ai-monk-avatar-database-2026.json"
+      ],
+      "source_archive_bytes": 583680,
+      "source_archive_sha256": "c7b5feff9771488076f53e4871916504f501e17048404df558f3f8816f87f086",
+      "npm_ci_exit": 0,
+      "build_exit": 0,
+      "npm_pack_exit": 0,
+      "artifact_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/release-source/packages/ai-monk-index/anicca-ai-monk-index-0.4.13.tgz",
+      "artifact_name": "anicca-ai-monk-index-0.4.13.tgz",
+      "artifact_bytes": 65191,
+      "artifact_sha256": "1a00968910d398c71eb57068ef5a9a2b529b25eb43f126c9dcbf87bc3a0f3894",
+      "tar_files": [
+        "package/LICENSE",
+        "package/dist/database.json",
+        "package/package.json",
+        "package/DATA-LICENSE.md",
+        "package/README.md",
+        "package/dist/ai-monk-directory.mjs",
+        "package/dist/cli.mjs",
+        "package/dist/http.mjs",
+        "package/dist/index.mjs",
+        "package/dist/mcp.mjs",
+        "package/dist/snapshot.mjs",
+        "package/dist/stdio.mjs"
+      ],
+      "tar_file_count": 12,
+      "packaged_canonical_bytes_equal": true,
+      "snapshot_sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+      "shared_npm_config_auth_used": false
+    },
+    "github_release": {
+      "release_id": 422527725,
+      "asset_id": 671319698,
+      "tag": "ai-monk-index-v0.4.13",
+      "target_commitish": "7a201619be67f6e06008d657ff8ccedb6e18091b",
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.13",
+      "asset_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.13/anicca-ai-monk-index-0.4.13.tgz",
+      "asset_bytes": 65191,
+      "official_digest": "sha256:1a00968910d398c71eb57068ef5a9a2b529b25eb43f126c9dcbf87bc3a0f3894",
+      "immutable": false,
+      "anonymous_download_http_status": 200,
+      "anonymous_download_digest_equal": true
+    },
+    "public_url_install_and_cli": {
+      "observed_at": "2026-10-24T05:01:22.504413+00:00",
+      "release_id": 422527725,
+      "asset_id": 671319698,
+      "target_main": "7a201619be67f6e06008d657ff8ccedb6e18091b",
+      "url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.13/anicca-ai-monk-index-0.4.13.tgz",
+      "artifact_bytes": 65191,
+      "artifact_sha256": "1a00968910d398c71eb57068ef5a9a2b529b25eb43f126c9dcbf87bc3a0f3894",
+      "anonymous_http_status": 200,
+      "official_digest_equal": true,
+      "immutable": false,
+      "installed_version": "0.4.13",
+      "npm_url_install_exit": 0,
+      "canonical_installed_bytes_equal": true,
+      "snapshot_sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+      "cli_get_exit": 0,
+      "yangjun_eleven_service_packages_returned": true,
+      "shared_npm_config_or_auth_used": false
+    },
+    "stdio": {
+      "observed_at": "2026-10-24T05:02:35.198Z",
+      "package_version": "0.4.13",
+      "transport": "real_sdk_stdio",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.13"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 196,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": "",
+      "research_archive_offer_rows": 91,
+      "public_monetization_offer_rows": 88
+    },
+    "https_mcp": {
+      "observed_at": "2026-10-24T05:06:30.135Z",
+      "package_version": "0.4.13",
+      "transport": "real_sdk_public_https",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.13"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 196,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": "",
+      "research_archive_offer_rows": 91,
+      "public_monetization_offer_rows": 88
+    },
+    "stdio_https_output_equality": {
+      "stdio_https_response_bytes_equal": true,
+      "bytes": 775554,
+      "sha256": "48b136b9b7093cb94233b644b0deb0ba29a5ab47deddd7e343f8001cdf726d29"
+    },
+    "public_database": {
+      "observed_at": "2026-10-24T05:06:40.073935+00:00",
+      "requested_url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "http_status": 200,
+      "body_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/public-database.json",
+      "body_bytes": 498088,
+      "body_sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+      "expected_version": "0.4.13",
+      "expected_canonical_sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+      "canonical_bytes_equal": true,
+      "records": 75,
+      "sources": 196
+    },
+    "public_web": {
+      "observed_at": "2026-10-24T05:06:40.018728+00:00",
+      "requested_url": "https://aniccaai.com/ai-monk-database",
+      "url": "https://aniccaai.com/ai-monk-database",
+      "http_status": 200,
+      "body_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/public-web.html",
+      "body_bytes": 889590,
+      "body_sha256": "2a990aedbe42ea911da87e7c01c89e1f18cf89d3636d9186e04560fb29dc2c89",
+      "expected_version": "0.4.13",
+      "expected_canonical_sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+      "yangjun_details_offer_rows": 13,
+      "eleven_details_checks": [
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001241-20261024",
+          "name": "1 Instagram Story",
+          "expected_price": "$50.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001239-20261024",
+          "name": "1 Instagram Photo Feed Post",
+          "expected_price": "$50.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001240-20261024",
+          "name": "1 Instagram Reel",
+          "expected_price": "$100.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001243-20261024",
+          "name": "1 UGC Product Photo",
+          "expected_price": "$50.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001245-20261024",
+          "name": "1 UGC Photo Ad",
+          "expected_price": "$50.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001246-20261024",
+          "name": "1 UGC Tutorial",
+          "expected_price": "$50.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001249-20261024",
+          "name": "1 UGC Blog",
+          "expected_price": "$75.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001247-20261024",
+          "name": "1 UGC Testimonial/Review",
+          "expected_price": "$75.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001242-20261024",
+          "name": "1 UGC Product Video",
+          "expected_price": "$100.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001248-20261024",
+          "name": "1 UGC Unboxing",
+          "expected_price": "$100.00",
+          "matched_once": true,
+          "price_equal": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001244-20261024",
+          "name": "1 UGC Video Ad",
+          "expected_price": "$120.00",
+          "matched_once": true,
+          "price_equal": true
+        }
+      ],
+      "all_eleven_new_offers_in_details": true,
+      "cards": 73,
+      "distinct_cards": 73,
+      "profile_images": 71,
+      "source_196_present": true,
+      "expected_ids_equal": true,
+      "yangjun_product_rows": [
+        {
+          "name": "1 Instagram Story",
+          "url": "https://collabstr.com/yangjun",
+          "text": "1 Instagram Story · $50.00Observed 2026-10-24"
+        },
+        {
+          "name": "1 Instagram Photo Feed Post",
+          "url": "https://collabstr.com/yangjun",
+          "text": "1 Instagram Photo Feed Post · $50.00Observed 2026-10-24"
+        }
+      ],
+      "yangjun_top_two_exact": true,
+      "visible_new_offer_checks": [
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001241-20261024",
+          "canonical_currency": "USD",
+          "expected_rendered_price": "$50.00",
+          "name_equal": true,
+          "url_equal": true,
+          "rendered_price_present": true
+        },
+        {
+          "observation_id": "product-yangjun-collabstr-package-2001239-20261024",
+          "canonical_currency": "USD",
+          "expected_rendered_price": "$50.00",
+          "name_equal": true,
+          "url_equal": true,
+          "rendered_price_present": true
+        }
+      ],
+      "currency_display_contract": "USD is rendered as dollar-prefixed price; ISO currency is verified in the matching canonical JSON."
+    },
+    "netlify": {
+      "site_http_status": 200,
+      "site_response_sha256": "68fd970c46cf9a5395317e2879b02f5cb3d8de222850440a1015f038f86088d0",
+      "published_deploy": {
+        "id": "6adc3c789034a52e9caeb2b6",
+        "state": "ready",
+        "title": "Deploy from GHA prod - 7a201619be67f6e06008d657ff8ccedb6e18091b",
+        "branch": "main",
+        "commit_ref": null,
+        "created_at": "2026-10-24T05:04:56.116Z",
+        "published_at": "2026-10-24T05:05:33.616Z",
+        "deploy_ssl_url": "https://6adc3c789034a52e9caeb2b6--anicca2.netlify.app"
+      },
+      "expected_source_sha": "7a201619be67f6e06008d657ff8ccedb6e18091b",
+      "source_sha_in_title": true,
+      "commit_ref_null": true
+    },
+    "mcp_registry": {
+      "observed_at": "2026-10-24T05:07:58.674713+00:00",
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.13",
+      "http_status": 200,
+      "version": "0.4.13",
+      "name": "io.github.Daisuke134/ai-monk-index",
+      "status": "active",
+      "isLatest": true,
+      "body_bytes": 764,
+      "body_sha256": "7f84b2881f3f798b73e1d605355b4dbcb9dedbdd09366d3857648226c23aa0ee",
+      "workflow_run": 40064992351
+    },
+    "local_probe_diagnostics": {
+      "source_probe": "Initial diagnostic expected nonexistent metadata.snapshot; corrected to existing snapshot.mjs packageVersion export.",
+      "web_probe": "Default python3 lacked scrapy before any network call; used the installed scrapy CLI shebang interpreter. No data/HTML request was repeated for this local import failure.",
+      "independent_review": "Reviewer initial count used directory_scope as a string. Original report retained; correction uses directory_scope.status and confirms public73 /4 included/69 pending/2 excluded. Product source unchanged."
+    }
+  },
+  "provider_receipt_id": {
+    "github_pr": 667,
+    "github_release": 422527725,
+    "github_asset": 671319698,
+    "netlify_deploy": "6adc3c789034a52e9caeb2b6",
+    "registry_server_version": "io.github.Daisuke134/ai-monk-index@0.4.13",
+    "registry_workflow_run": 40064992351,
+    "main_package_workflow": 40064603616,
+    "main_deploy_workflow": 40064603646
+  },
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Integrate this new receipt and current-state pointers into main; then use the existing 9.99 USD book landing page for one evidence-based X distribution action. Keep formal listings, paid Factory operation and revenue outcomes incomplete.",
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/build-readback.json",
+      "bytes": 1470,
+      "sha256": "a5e206733319545033f31c80444e93f9e242e64d08a06bb5a0a113d25606a013",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/source-pr-readback.json",
+      "bytes": 199,
+      "sha256": "11739d6e663febcd223f742d2ba955a4e91ab17b27b46f7790af333e55f0038c",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/official-release-full-readback.json",
+      "bytes": 4425,
+      "sha256": "b18dc35e56251688978de3edd5847233304be7c809f4eaf2f64643dfd2759a92",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/public-install-readback.json",
+      "bytes": 811,
+      "sha256": "c14b151276dfd55d95902ff1a44a2c80bac429392578435abcd65c0ba0fb5243",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/anonymous-public-download.tgz",
+      "bytes": 65191,
+      "sha256": "1a00968910d398c71eb57068ef5a9a2b529b25eb43f126c9dcbf87bc3a0f3894",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/verification-public-install/stdio-readback.json",
+      "bytes": 1768,
+      "sha256": "a90669b7bc4b41e825a309ceb850f3891637e2d2f4db9e875091bcb8f26b956c",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/verification-public-install/stdio-responses.json",
+      "bytes": 775554,
+      "sha256": "48b136b9b7093cb94233b644b0deb0ba29a5ab47deddd7e343f8001cdf726d29",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/remote-mcp-readback.json",
+      "bytes": 1775,
+      "sha256": "f80030c642374a436808dfb9c4214d8fb160cb986e7f786c46f36089eedb4166",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/remote-mcp-responses.json",
+      "bytes": 775554,
+      "sha256": "48b136b9b7093cb94233b644b0deb0ba29a5ab47deddd7e343f8001cdf726d29",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/stdio-https-equality-readback.json",
+      "bytes": 146,
+      "sha256": "141d8d92bfff30fa5343891c6c1b08eb6d3c58b8f863c2b6c8ebe4fe75365433",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/public-database.json",
+      "bytes": 498088,
+      "sha256": "3904f129587b9f727c1cb79068c81f23af9a83153d04fbeb4dc14a3d2beb6def",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/public-web.html",
+      "bytes": 889590,
+      "sha256": "2a990aedbe42ea911da87e7c01c89e1f18cf89d3636d9186e04560fb29dc2c89",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/public-database-readback.json",
+      "bytes": 669,
+      "sha256": "8fc89369fe65f1d030c1cd9af32d2232088c404add88377842fcea0d29744c68",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/public-web-readback.json",
+      "bytes": 4229,
+      "sha256": "b5cd0964bcf9eacb3fbd765b4545ab1056be606d72abaa9d9e5fc39fafa88d93",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/netlify-readback.json",
+      "bytes": 1347,
+      "sha256": "297dd81a1bf28b6fd22c838921fe5d6e285791cbc704996bbe2fa008218072fc",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/registry-exact-official.json",
+      "bytes": 764,
+      "sha256": "7f84b2881f3f798b73e1d605355b4dbcb9dedbdd09366d3857648226c23aa0ee",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/registry-exact-readback.json",
+      "bytes": 447,
+      "sha256": "1ef6c7738c14d4f96ae960e9b77adfd28317bc226981d0988f093ca01fac9d40",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/registry-dispatch-action.json",
+      "bytes": 212,
+      "sha256": "ab8a588b300792c56be7cfad0ff530dd286119932abd7c348d7363aa6687e742",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/registry-publish-fence.json",
+      "bytes": 223,
+      "sha256": "366f704e6c0889374169fd7134b8d48f85610efd3f952d8fcec26b22db29f69c",
+      "visibility": "private_local_publication_evidence"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v0413-release-20261024/ci-readback.json",
+      "bytes": 18575,
+      "sha256": "5a890358b3476889c94eac8e36d66f0afd4eb1d5eb01ba0f5e6a4a781e4b2fed",
+      "visibility": "private_local_publication_evidence"
+    }
+  ],
+  "limitations": [
+    "GitHub immutable=false is recorded separately from the fixed source main SHA and verified digest.",
+    "Netlify commit_ref is null. The GHA/main SHA in title plus the independently served snapshot provide correlation, not a non-null commit_ref.",
+    "Public Web verification is HTTP/HTML parsing of cards, source counts, first two rows and all eleven new detail rows; no new viewport/browser interaction is claimed.",
+    "The independent stdio verifier used the installed public-URL package and saved Release/download readbacks; it did not independently repeat those provider GETs.",
+    "Listed service prices are not completed purchases, service fulfillment, brand deals, profit, audited revenue or proof of AI production.",
+    "Billing recurrence, final checkout fees/taxes, creator identity, current sales and actual revenue remain unverified.",
+    "The 73 public profiles include 69 pending research candidates and are not an all-world census or 73 confirmed AI video personas.",
+    "Official OpenAI account restoration/ChatGPT listing and Muse approval/listing remain incomplete.",
+    "Factory paid budget/billing, generation, customer-owned IG connection/posting, metrics and USD10K MRR remain incomplete."
+  ],
+  "receipt_consolidation_external_effects": {
+    "new_provider_calls": 0,
+    "release_or_registry_resends": 0,
+    "payments_generation_posts": 0,
+    "daily_owner_changes": 0,
+    "ssot_or_hook_changes": 0,
+    "browser_operations": 0
+  }
+}
