@@ -1,0 +1,288 @@
+{
+  "schema_version": "anicca.ai-monk-yangmun-offer-source.v1",
+  "run_id": "ai-monk-yangmun-offer-currency-20261024",
+  "owner_id": "root",
+  "occurrence_id": "source-acceptance-two-variant-matched-product-observations",
+  "release_sha": "718c929ccf4819c955097575df1ec6128f1f2530",
+  "source_spec_commit": "9d24fab41589a5a12136c262a8c6844357eebdc5",
+  "observed_at": "2026-10-24T04:17:42.870424+00:00",
+  "phase": "source_accepted_not_published",
+  "command": "crwl first-party Journey; Scrapy product catalog and product HTML; minimal missing-observation assertion RED then GREEN; package/helper/render tests; built CLI/getMonetization; independent saved-raw price check",
+  "loaded_argv_env": {
+    "credentials_used": false,
+    "browser_used": false,
+    "paid_api_used": false,
+    "runtime_or_model_overrides": false
+  },
+  "exit_code": 0,
+  "source_observations": [
+    {
+      "type": "guided digital program",
+      "name": "30-Day Healing Journey - Yang Mun",
+      "price": 49.99,
+      "currency": "USD",
+      "price_kind": "localized_product_price",
+      "billing_kind": null,
+      "url": "https://yang-mun.com/products/30-day-healing-journey-yang-mun?currency=USD",
+      "as_of": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.814755+00:00",
+      "source_id": "yangmun-journey-product-usd-20261024",
+      "source_ids": [
+        "yangmun-journey-product-usd-20261024",
+        "yangmun-journey-product-jpy-20261024"
+      ],
+      "seller_product_id": "15644869230932",
+      "seller_variant_id": "56589619102036",
+      "price_context": "anonymous_storefront_currency_USD_query",
+      "presentment_price": {
+        "amount": 8000,
+        "currency": "JPY",
+        "context": "anonymous_default_storefront_product_page",
+        "captured_at": "2026-10-24T04:13:57.816730+00:00",
+        "source_id": "yangmun-journey-product-jpy-20261024"
+      },
+      "status": "seller_product_metadata_price_not_order_data",
+      "availability": {
+        "state": "in_stock_product_metadata_purchase_not_tested",
+        "purchase_completed": false,
+        "basis": "Seller Product JSON-LD declares schema.org/InStock; checkout and delivery were not tested."
+      },
+      "revenue": null,
+      "previous_observation_ids": [
+        "daily-20261024-yangmun-0"
+      ],
+      "observation_id": "product-yangmun-journey-currencies-20261024",
+      "notes": "Product and variant IDs match the Journey purchase link. USD is explicitly selected in the anonymous product-page request; the default JPY page is a separate observation. These are listed prices, not payment, revenue, merchant settlement currency or verified US checkout totals. Historical unknown and earlier USD observations are retained. Billing recurrence is not established by this product-metadata observation."
+    },
+    {
+      "type": "eBook bundle",
+      "name": "30 Day Healing Journey + All eBooks",
+      "price": 59.99,
+      "currency": "USD",
+      "price_kind": "localized_product_price",
+      "billing_kind": null,
+      "url": "https://yang-mun.com/products/the-complete-collection-yang-mun?currency=USD",
+      "as_of": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.773967+00:00",
+      "source_id": "yangmun-collection-product-usd-20261024",
+      "source_ids": [
+        "yangmun-collection-product-usd-20261024",
+        "yangmun-collection-product-jpy-20261024"
+      ],
+      "seller_product_id": "15646286643540",
+      "seller_variant_id": "56592501506388",
+      "price_context": "anonymous_storefront_currency_USD_query",
+      "presentment_price": {
+        "amount": 9600,
+        "currency": "JPY",
+        "context": "anonymous_default_storefront_product_page",
+        "captured_at": "2026-10-24T04:13:57.630780+00:00",
+        "source_id": "yangmun-collection-product-jpy-20261024"
+      },
+      "status": "seller_product_metadata_price_not_order_data",
+      "availability": {
+        "state": "in_stock_product_metadata_purchase_not_tested",
+        "purchase_completed": false,
+        "basis": "Seller Product JSON-LD declares schema.org/InStock; checkout and delivery were not tested."
+      },
+      "revenue": null,
+      "previous_observation_ids": [
+        "daily-20261024-yangmun-1"
+      ],
+      "observation_id": "product-yangmun-collection-currencies-20261024",
+      "notes": "Product and variant IDs match the Journey purchase link. USD is explicitly selected in the anonymous product-page request; the default JPY page is a separate observation. These are listed prices, not payment, revenue, merchant settlement currency or verified US checkout totals. Historical unknown and earlier USD observations are retained. Billing recurrence is not established by this product-metadata observation."
+    }
+  ],
+  "source_pages": [
+    {
+      "id": "yangmun-journey-product-usd-20261024",
+      "title": "Yang Mun 30-Day Healing Journey - Yang Mun — USD product-page observation",
+      "url": "https://yang-mun.com/products/30-day-healing-journey-yang-mun?currency=USD",
+      "source_type": "first-party seller product page and JSON-LD",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.814755+00:00",
+      "notes": "Product 15644869230932, variant 56589619102036: JSON-LD Offer price 49.99 USD, matching Open Graph currency and hidden variant input. The request explicitly selects currency=USD and Shopify.currency.active is USD. This is a selected-currency storefront price, not a US checkout total or merchant settlement currency."
+    },
+    {
+      "id": "yangmun-journey-product-jpy-20261024",
+      "title": "Yang Mun 30-Day Healing Journey - Yang Mun — JPY product-page observation",
+      "url": "https://yang-mun.com/products/30-day-healing-journey-yang-mun",
+      "source_type": "first-party seller product page and JSON-LD",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.816730+00:00",
+      "notes": "Product 15644869230932, variant 56589619102036: JSON-LD Offer price 8000 JPY, matching Open Graph currency and hidden variant input. The anonymous default storefront response has Shopify.currency.active JPY. This localized product price is separate from the USD query response; checkout totals, tax, purchase and delivery are unverified."
+    },
+    {
+      "id": "yangmun-collection-product-usd-20261024",
+      "title": "Yang Mun 30 Day Healing Journey + All eBooks — USD product-page observation",
+      "url": "https://yang-mun.com/products/the-complete-collection-yang-mun?currency=USD",
+      "source_type": "first-party seller product page and JSON-LD",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.773967+00:00",
+      "notes": "Product 15646286643540, variant 56592501506388: JSON-LD Offer price 59.99 USD, matching Open Graph currency and hidden variant input. The request explicitly selects currency=USD and Shopify.currency.active is USD. This is a selected-currency storefront price, not a US checkout total or merchant settlement currency."
+    },
+    {
+      "id": "yangmun-collection-product-jpy-20261024",
+      "title": "Yang Mun 30 Day Healing Journey + All eBooks — JPY product-page observation",
+      "url": "https://yang-mun.com/products/the-complete-collection-yang-mun",
+      "source_type": "first-party seller product page and JSON-LD",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.630780+00:00",
+      "notes": "Product 15646286643540, variant 56592501506388: JSON-LD Offer price 9600 JPY, matching Open Graph currency and hidden variant input. The anonymous default storefront response has Shopify.currency.active JPY. This localized product price is separate from the USD query response; checkout totals, tax, purchase and delivery are unverified."
+    }
+  ],
+  "counts": {
+    "research_archive_records": 75,
+    "public_records": 73,
+    "included": 4,
+    "pending": 69,
+    "excluded": 2,
+    "sources_before": 191,
+    "sources_after": 195,
+    "archive_offer_rows_before": 78,
+    "archive_offer_rows_after": 80,
+    "public_monetization_offer_rows_after": 77
+  },
+  "source_tests": {
+    "red_exit": 1,
+    "red_reason": "New product-currency observations missing",
+    "green_exit": 0,
+    "existing_canonical_data_unchanged_after_removing_additions": true,
+    "package_pass": 15,
+    "helper_and_render_pass": 15,
+    "built_cli_get": true,
+    "built_how_they_monetize": true,
+    "new_sources_returned": 4,
+    "first_built_probe_exit": 1,
+    "first_built_probe_limit": "Probe expected nonexistent metadata.package_version; corrected to existing packageVersion export without source changes."
+  },
+  "independent_source_check": {
+    "recorded_at": "2026-10-24T04:17:42.870424+00:00",
+    "reviewer": "yangmun_price_source_check",
+    "fresh_context": true,
+    "read_only": true,
+    "external_calls": 0,
+    "blocking_findings": 0,
+    "source_raw_independently_parsed": 4,
+    "raw_hashes_bytes_matched": 4,
+    "catalog_product_variant_links_matched": true,
+    "existing_offer_rows_preserved": 78,
+    "existing_sources_preserved": 191,
+    "new_observations": 2,
+    "new_sources": 4,
+    "limits": "Saved-time product-page prices only; no checkout total, settlement currency, purchase, delivery or revenue verified."
+  },
+  "version": "0.4.12",
+  "canonical_sha256": "e6f897828510031412a6ea0ff1058d617c58ae3c6dbc05852c12deb4fb38bf22",
+  "effect": {
+    "new_public_sources": 4,
+    "new_dated_offers": 2,
+    "historical_records_changed": 0,
+    "runtime_code_changes": 0,
+    "new_dependencies": 0,
+    "cart_post": 0,
+    "checkout_created": 0,
+    "payments": 0,
+    "new_account": 0,
+    "openai_or_muse_resubmission": 0,
+    "daily_posting_changes": 0
+  },
+  "readback": "Source acceptance and built local CLI/API only; CI, main production, release, public installation and Registry remain pending.",
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/source-red.log",
+      "bytes": 1887,
+      "sha256": "b4c6ea67e38879b5454be591539b6d212f62966080269f025320dc43e4bec992"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/source-green.log",
+      "bytes": 132,
+      "sha256": "85e2ae7a1e0de1cbf3bf4c6a936a95025bcb3cb0474a5ba6502e43d6152b03b5"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/package-tests.log",
+      "bytes": 1619,
+      "sha256": "1b4ad499191d92fff6d764cca3b19e81df2de98257f38f924ec625c5c91d9126"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/helper-render-tests.log",
+      "bytes": 1568,
+      "sha256": "7d2fe0cd10f5522fd0105e2ecfff76cc7cd77e39e47c628a27d2060da3e9abe8"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/built-api-readback.json",
+      "bytes": 4941,
+      "sha256": "c429d920771792abb5bf2d6747c42209932664de542ba250a3bb7eb76d5d0989"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/source-data-readback.json",
+      "bytes": 330,
+      "sha256": "79164a1cc6eac840c50742a0e69957fedbdf03fbe1facd44a49b802f95443ab1"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/independent-source-check.json",
+      "bytes": 569,
+      "sha256": "85ca38d7465b8e3b7d03667aeebfd9c55394fd85219b84d280d5766ba16942be"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/catalog-research/catalog-research-result.json",
+      "bytes": 14353,
+      "sha256": "d443e9e496fa09c0a3875d38fc3a6eea642145325310cd6bdcb92e949a91331b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/catalog-research/journey-usd.raw",
+      "bytes": 821470,
+      "sha256": "96a388b29af1ac96c47642443c78cc7392dcacd447b58339486f1d837d502d18"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/catalog-research/journey-usd.fetch.json",
+      "bytes": 625,
+      "sha256": "b203a6bdd63c37059f9a7f1db034234f1bafb2e3ddb762f16ad9b740afd5c3d2"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/catalog-research/journey-default.raw",
+      "bytes": 821503,
+      "sha256": "2906de687ccf2cf42d8b65537838dd68968bdcb89b8135c04dc4d2dd8a986b8e"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/catalog-research/journey-default.fetch.json",
+      "bytes": 603,
+      "sha256": "322c18f7f038714581ddb9e35446c13fd31cc4589b8169b1cfaab775a3e0b17f"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/catalog-research/collection-usd.raw",
+      "bytes": 806002,
+      "sha256": "c2fd121c1af9791908d918ad29039530204026cc39ca9ecad5c3d738d34f8e6d"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/catalog-research/collection-usd.fetch.json",
+      "bytes": 630,
+      "sha256": "7339ccb5f872ea6e9fc4de275ce447bc8910497abed11e2575e7ff39d45b960c"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/catalog-research/collection-default.raw",
+      "bytes": 806032,
+      "sha256": "d5a4f1022a640ad5e0cf6414c2e084cbaa752a98e40f0bb5339529fa359796c1"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-yangmun-offer-followup-20261024/catalog-research/collection-default.fetch.json",
+      "bytes": 608,
+      "sha256": "46b679e476bcf2e7ae1e6757e3e663d720082a26789ab583b0392a337d230e9c"
+    }
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Accept source CI and main deployment, then publish fixed-main v0.4.12 artifact and Registry metadata; confirm the same snapshot on Web/CLI/stdio/HTTPS MCP.",
+  "claim_limits": [
+    "USD is explicitly selected storefront product display, not merchant settlement currency or a verified US checkout total.",
+    "Default JPY product prices remain a separate presentment observation.",
+    "JSON-LD InStock is seller metadata, not proof of purchase or delivery.",
+    "Earlier unknown and historical USD observations remain unchanged.",
+    "No price, follower or seller counter is treated as audited orders or revenue."
+  ]
+}
