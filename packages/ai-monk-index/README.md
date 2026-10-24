@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **195 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **196 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -26,12 +26,14 @@ v0.4.12 adds two dated Yang Mun product observations matched to the Journey purc
 
 v0.4.11 adds four dated checkout observations while retaining all earlier observations: Monje Wu’s main offer has a 19.99 USD conversion base and a separate, unselected meditation add-on has a 5.99 USD base; Maestro Lin has a 17 USD base; Ling Hao has a 9.99 USD base. The anonymously returned Japanese checkout amounts are stored separately as 3309, 992, 2814 and 1654 JPY. These are explicit checkout conversion bases, not directly observed US checkout totals or verified merchant settlement currencies. Billing recurrence, final tax treatment, purchase completion and revenue remain unverified. The optional add-on is not included in the main price.
 
+v0.4.13 adds eleven dated Yangjun service-package prices from the public Collabstr seller listing. Explicit USD JSON-LD offers match the displayed package names and amounts: Instagram Story and Photo Feed Post plus UGC Product Photo, Photo Ad and Tutorial are 50 USD; UGC Blog and Testimonial/Review are 75 USD; Instagram Reel, UGC Product Video and Unboxing are 100 USD; UGC Video Ad is 120 USD. The earlier generic UGC listing and all prior observations remain. These are listed service prices, not completed purchases, brand deals, audited revenue, profit or evidence of AI production. Billing recurrence and final checkout fees/taxes remain unknown.
+
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.12/anicca-ai-monk-index-0.4.12.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.13/anicca-ai-monk-index-0.4.13.tgz
 ```
 
 ## CLI

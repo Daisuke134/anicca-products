@@ -1967,6 +1967,19 @@
       "checked_at": "2026-10-24",
       "captured_at": "2026-10-24T04:13:57.630780+00:00",
       "notes": "Product 15646286643540, variant 56592501506388: JSON-LD Offer price 9600 JPY, matching Open Graph currency and hidden variant input. The anonymous default storefront response has Shopify.currency.active JPY. This localized product price is separate from the USD query response; checkout totals, tax, purchase and delivery are unverified."
+    },
+    {
+      "id": "product-yangjun-collabstr-packages-20261024",
+      "title": "Yangjun Collabstr public service packages and explicit USD offer metadata",
+      "url": "https://collabstr.com/yangjun",
+      "source_type": "first-party public creator marketplace service listing; unaudited seller display",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T04:51:07.694881+00:00",
+      "capture_method": "crwl markdown-fit and full CrawlResult with cache bypass",
+      "evidence_sha256": "3fdb2557e1c7b03a65e488a0c08b730468b7b86b725a9239370a9493d8e6b341",
+      "evidence_kind": "private_public_rendered_html_response",
+      "notes": "Eleven public Service offer prices have explicit USD priceCurrency and each matches one DOM package name, seller package ID and displayed amount. Prices are listed service packages, not paid orders, fulfillment, revenue, profit or guaranteed marketing results. Billing recurrence and operator identity remain unverified."
     }
   ],
   "accounts": [
@@ -9954,6 +9967,303 @@
           "url": "https://collabstr.com/yangjun",
           "source_id": "yangjun-collabstr-20261022",
           "status": "seller_listed_services_no_verified_orders"
+        },
+        {
+          "type": "creator service package",
+          "name": "1 Instagram Story",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001241",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001241-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 Instagram Photo Feed Post",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001239",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001239-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 Instagram Reel",
+          "price": 100,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001240",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001240-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 UGC Product Photo",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001243",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001243-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 UGC Photo Ad",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001245",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001245-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 UGC Tutorial",
+          "price": 50,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001246",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001246-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 UGC Blog",
+          "price": 75,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001249",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001249-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 UGC Testimonial/Review",
+          "price": 75,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001247",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001247-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 UGC Product Video",
+          "price": 100,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001242",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001242-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 UGC Unboxing",
+          "price": 100,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001248",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001248-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
+        },
+        {
+          "type": "creator service package",
+          "name": "1 UGC Video Ad",
+          "price": 120,
+          "currency": "USD",
+          "price_kind": "listed_service_package",
+          "billing_kind": null,
+          "url": "https://collabstr.com/yangjun",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:51:07.694881+00:00",
+          "source_id": "product-yangjun-collabstr-packages-20261024",
+          "source_ids": [
+            "product-yangjun-collabstr-packages-20261024",
+            "yangjun-collabstr-20261022"
+          ],
+          "seller_package_id": "2001244",
+          "status": "seller_listed_service_price_not_order_data",
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "observation_id": "product-yangjun-collabstr-package-2001244-20261024",
+          "notes": "Public marketplace DOM package title/amount matches its Service hasOfferCatalog Offer price and explicit USD priceCurrency. Quantity in the package title describes the listed deliverable. Billing recurrence, final checkout fees/taxes, completion of purchases or services, creator/operator legal identity, brand deals, paid orders and revenue remain unverified. Preserve earlier generic UGC listing and source observations."
         }
       ],
       "seller_counters": [],
