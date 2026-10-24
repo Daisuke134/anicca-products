@@ -1,0 +1,160 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+
+const readiness = await import('../app/ai-monk-factory/action-readiness.mjs');
+
+test('a blocked generation CTA explains the blocker without sending an API action', () => {
+  assert.equal(typeof readiness.requestFactoryAction, 'function', 'readiness action gate is implemented');
+
+  let sent = 0;
+  const notices = [];
+  const result = readiness.requestFactoryAction(
+    'generate_avatar',
+    { generation: { ready: false, reason: 'studio_setup' } },
+    false,
+    () => { sent += 1; },
+    message => notices.push(message),
+  );
+
+  assert.equal(result, false);
+  assert.equal(sent, 0);
+  assert.match(notices[0], /studio is not enabled yet/i);
+  assert.match(notices[0], /No request was sent/i);
+});
+
+test('a ready generation CTA dispatches once', () => {
+  const actions = [];
+  const notices = [];
+  const result = readiness.requestFactoryAction(
+    'generate_avatar',
+    { generation: { ready: true } },
+    false,
+    action => actions.push(action),
+    message => notices.push(message),
+    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3 },
+  );
+
+  assert.equal(result, true);
+  assert.deepEqual(actions, ['generate_avatar']);
+  assert.deepEqual(notices, []);
+});
+
+test('a blocked video CTA identifies the missing avatar before dispatch', () => {
+  let sent = 0;
+  const notices = [];
+
+  const result = readiness.requestFactoryAction(
+    'generate_video',
+    { generation: { ready: true } },
+    false,
+    () => { sent += 1; },
+    message => notices.push(message),
+    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3 },
+  );
+
+  assert.equal(result, false);
+  assert.equal(sent, 0);
+  assert.match(notices[0], /create your monk first/i);
+});
+
+test('Stop remains actionable when generation readiness is false', () => {
+  let sent = 0;
+  const notices = [];
+
+  const result = readiness.requestFactoryAction(
+    'stop',
+    { generation: { ready: false, reason: 'studio_setup' } },
+    false,
+    action => { assert.equal(action, 'stop'); sent += 1; },
+    message => notices.push(message),
+  );
+
+  assert.equal(result, true);
+  assert.equal(sent, 1);
+  assert.deepEqual(notices, []);
+});
+
+test('unknown quota is not classified as exhausted', () => {
+  assert.equal(typeof readiness.factoryQuotaState, 'function', 'quota state distinguishes unknown from exhausted');
+
+  assert.deepEqual(readiness.factoryQuotaState({ videosRemaining: null, attemptsRemaining: null }), {
+    known: false, available: false, exhausted: false,
+  });
+  assert.deepEqual(readiness.factoryQuotaState({ videosRemaining: 0, attemptsRemaining: 0 }), {
+    known: true, available: false, exhausted: true,
+  });
+});
+
+test('Instagram connection and autopost require both social and generation readiness', () => {
+  for (const action of ['connect_instagram', 'autopost']) {
+    let sent = 0;
+    const notices = [];
+    const result = readiness.requestFactoryAction(
+      action,
+      { social: { ready: true }, generation: { ready: false, reason: 'provider_setup' } },
+      true,
+      () => { sent += 1; },
+      message => notices.push(message),
+      { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3 },
+    );
+
+    assert.equal(result, false, `${action} must stay local until generation is ready`);
+    assert.equal(sent, 0, `${action} must not send an API request`);
+    assert.match(notices[0], /generation services are not ready yet/i);
+    assert.match(notices[0], /No request was sent/i);
+  }
+});
+
+test('unknown allowance never sends a generation request', () => {
+  let sent = 0;
+  const notices = [];
+  const quota = readiness.factoryQuotaState({ videosRemaining: null, attemptsRemaining: null });
+
+  const result = readiness.requestFactoryAction(
+    'generate_avatar',
+    { generation: { ready: true } },
+    false,
+    () => { sent += 1; },
+    message => notices.push(message),
+    { hasAccess: false, quotaKnown: quota.known, videosRemaining: null, attemptsRemaining: null },
+  );
+
+  assert.equal(result, false);
+  assert.equal(sent, 0);
+  assert.match(notices[0], /could not be confirmed/i);
+  assert.match(notices[0], /No request was sent/i);
+});
+
+test('an exhausted free allowance blocks new generation actions without consuming quota', () => {
+  let sent = 0;
+  const notices = [];
+  const result = readiness.requestFactoryAction(
+    'generate_avatar',
+    { generation: { ready: true } },
+    false,
+    () => { sent += 1; },
+    message => notices.push(message),
+    { hasAccess: false, quotaKnown: true, videosRemaining: 0, attemptsRemaining: 0 },
+  );
+
+  assert.equal(result, false);
+  assert.equal(sent, 0);
+  assert.match(notices[0], /used your three free videos/i);
+});
+
+test('an existing pending video request can still be recovered after quota exhaustion', () => {
+  let sent = 0;
+  const notices = [];
+  const result = readiness.requestFactoryAction(
+    'generate_video',
+    { generation: { ready: true } },
+    true,
+    () => { sent += 1; },
+    message => notices.push(message),
+    { hasAccess: false, quotaKnown: true, videosRemaining: 0, attemptsRemaining: 0, pendingVideo: true },
+  );
+
+  assert.equal(result, true);
+  assert.equal(sent, 1);
+  assert.deepEqual(notices, []);
+});
