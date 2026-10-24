@@ -2337,6 +2337,42 @@
       "evidence_kind": "public_http_response_body",
       "response_bytes": 136594,
       "notes": "The public seller page displays “+500 miembros activos en la comunidad”. This is not a paid-member or revenue receipt. Profile route attribution does not prove operator identity, authorship, actual purchase, revenue or profit."
+    },
+    {
+      "id": "shenmu-handbook-reel-20261025",
+      "title": "Shen Mu public Instagram Reel links to the handbook",
+      "url": "https://www.instagram.com/reel/DaYBOq5FMhy/",
+      "source_type": "first-party public Instagram Reel page and caption",
+      "checked_at": "2026-10-25",
+      "captured_at": "2026-10-24T16:08:37.702510Z",
+      "notes": "HTTP 200. The account-attributed Reel caption links directly to the handbook product URL. Instagram page displays the label AI-generated profile; this is platform-reported evidence, not an independent AI-production audit. Response HTML SHA-256 faa428ab7b37eec479bdb7e282acd00f9d8a8707c78500ab26f5d70515617b72; extracted markdown SHA-256 d39e5063e3adca560f31bdc60ab3c2d420b794f2c08b83b695f8ac1bdf8c7ada; raw page files stay outside the public repository."
+    },
+    {
+      "id": "shenmu-stan-store-20261025",
+      "title": "Shen Mu Stan public storefront",
+      "url": "https://stan.store/shenmuhealer",
+      "source_type": "first-party seller storefront; dated observation",
+      "checked_at": "2026-10-25",
+      "captured_at": "2026-10-24T16:05:24.084808Z",
+      "notes": "HTTP 200. Store page links both product pages under seller handle shenmuhealer and displays their sale and strikethrough prices. Response HTML SHA-256 94a52987fd245aa2088908ecaf941615392040ee7881ef2048226692f986efe7; raw HTML stays outside the public repository. Storefront linkage does not independently verify operator identity or legal authorship."
+    },
+    {
+      "id": "shenmu-handbook-stan-20261025",
+      "title": "Shen Mu Stan product page: 27 Ancient Remedies from the Tibetan Mountains",
+      "url": "https://stan.store/shenmuhealer/p/shen-mus-healing-handbook-",
+      "source_type": "first-party seller product page; server-rendered metadata",
+      "checked_at": "2026-10-25",
+      "captured_at": "2026-10-24T16:05:24.159348Z",
+      "notes": "HTTP 200. Stan store_id 1028431, page_id 4310123, type digital-download, currency USD, price.amount 47 and sale_amount 12.95. The page copy displays Current downloads: 10,251. Response HTML SHA-256 925f730160d543b4c32e535550181b4fe0d528d4131658eb6884bbf892b23459; raw HTML stays outside the public repository. Listed prices and the download statement are not order or revenue evidence."
+    },
+    {
+      "id": "shenmu-age-stan-20261025",
+      "title": "Shen Mu Stan product page: The Simple System to Look and Feel 10 Years Younger",
+      "url": "https://stan.store/shenmuhealer/p/the-simple-system-to-look--feel-10-years-younger",
+      "source_type": "first-party seller product page; server-rendered metadata",
+      "checked_at": "2026-10-25",
+      "captured_at": "2026-10-24T16:05:55.720427Z",
+      "notes": "HTTP 200. Stan store_id 1028431, page_id 4420638, type digital-download, currency USD, price.amount 47 and sale_amount 9.95. Response HTML SHA-256 79ece8a21d73ce07b1266003f65e306796dfef24b473739fefd1f39f126d663c; raw HTML stays outside the public repository. Listed prices are not order or revenue evidence."
     }
   ],
   "accounts": [
@@ -9834,11 +9870,15 @@
         "shenmuhealer"
       ],
       "persona_type": "Monk-themed Instagram account lead",
-      "ai_status": "unverified",
+      "ai_status": "reported",
       "ai_evidence": [
         {
           "source_id": "user-supplied-instagram-following-screenshots",
           "summary": "Screenshot discovery only. A separate dated public-profile source records the current visible state; the screenshot does not establish AI production."
+        },
+        {
+          "source_id": "shenmu-handbook-reel-20261025",
+          "summary": "Instagram public Reel page displays the platform label AI-generated profile for @shenmuhealer. This is reported platform evidence, not an independent AI-production audit."
         }
       ],
       "creator": {
@@ -9856,7 +9896,11 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/shenmuhealer/"
+        "https://www.instagram.com/shenmuhealer/",
+        "https://www.instagram.com/reel/DaYBOq5FMhy/",
+        "https://stan.store/shenmuhealer",
+        "https://stan.store/shenmuhealer/p/shen-mus-healing-handbook-",
+        "https://stan.store/shenmuhealer/p/the-simple-system-to-look--feel-10-years-younger"
       ],
       "platforms": [
         {
@@ -9876,13 +9920,78 @@
           ]
         }
       ],
-      "offers": [],
-      "seller_counters": [],
+      "offers": [
+        {
+          "type": "ebook",
+          "name": "27 Ancient Remedies from the Tibetan Mountains",
+          "price": 12.95,
+          "currency": "USD",
+          "source_id": "shenmu-handbook-stan-20261025",
+          "source_ids": [
+            "shenmu-handbook-stan-20261025",
+            "shenmu-stan-store-20261025",
+            "shenmu-handbook-reel-20261025"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://stan.store/shenmuhealer/p/shen-mus-healing-handbook-",
+          "as_of": "2026-10-25",
+          "availability": {
+            "state": "offered_not_transaction_tested",
+            "basis": "Stan product metadata declares digital-download, currency USD, and a listed sale price; no checkout or purchase was tested.",
+            "purchase_completed": false
+          },
+          "observation_id": "shenmu-healing-handbook",
+          "attribution": "The public @shenmuhealer Reel links directly to this seller page. The matching storefront handle supports an account-to-product link; operator identity and legal authorship remain unverified.",
+          "notes": "Seller-listed price only; reference price is 47 USD. No paid order, recurring billing, revenue or profit was observed.",
+          "reference_price": {
+            "amount": 47,
+            "currency": "USD",
+            "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+          }
+        },
+        {
+          "type": "ebook",
+          "name": "The Simple System to Look and Feel 10 Years Younger",
+          "price": 9.95,
+          "currency": "USD",
+          "source_id": "shenmu-age-stan-20261025",
+          "source_ids": [
+            "shenmu-age-stan-20261025",
+            "shenmu-stan-store-20261025"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://stan.store/shenmuhealer/p/the-simple-system-to-look--feel-10-years-younger",
+          "as_of": "2026-10-25",
+          "availability": {
+            "state": "offered_not_transaction_tested",
+            "basis": "Stan product metadata declares digital-download, currency USD, and a listed sale price; no checkout or purchase was tested.",
+            "purchase_completed": false
+          },
+          "observation_id": "shenmu-age-like-a-monk",
+          "attribution": "This product is listed in the same public Stan storefront under seller handle shenmuhealer. No separate profile-to-product link was captured; operator identity and legal authorship remain unverified.",
+          "notes": "Seller-listed price only; reference price is 47 USD. No paid order, recurring billing, revenue or profit was observed.",
+          "reference_price": {
+            "amount": 47,
+            "currency": "USD",
+            "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+          }
+        }
+      ],
+      "seller_counters": [
+        {
+          "value": "10,251",
+          "metric": "downloads",
+          "source_id": "shenmu-handbook-stan-20261025",
+          "status": "seller_displayed_not_audited",
+          "scope": "Handbook product page only",
+          "notes": "Seller page copy says Current downloads: 10,251. Not independently verified and not equivalent to paid orders, revenue or profit."
+        }
+      ],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "Instagram displays an AI-generated profile label, but production is not independently audited. Operator identity, physical location, product authorship, audience validity, paid orders, revenue and profit are unverified."
       ],
       "directory_scope": {
         "status": "pending",

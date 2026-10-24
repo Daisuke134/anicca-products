@@ -1,0 +1,106 @@
+{
+  "schema_version": "anicca.ai-monk-digital-offer-source.v1",
+  "run_id": "ai-monk-shenmu-products-source-20261025",
+  "owner_id": "root",
+  "occurrence_id": "shenmu-first-party-reel-and-stan-offers",
+  "release_sha": "7e90532333ada601c7dd55b484ae4133b6ade188",
+  "observed_at": "2026-10-24T16:08:37.702510Z",
+  "phase": "first_party_profile_and_digital_offer_read",
+  "command": [
+    "crwl crawl https://www.instagram.com/reel/DaYBOq5FMhy/ -o markdown-fit",
+    "crwl crawl https://stan.store/shenmuhealer -o markdown-fit",
+    "crwl crawl each linked Stan product page -o markdown-fit",
+    "scrapy fetch the same public pages for server-rendered product metadata"
+  ],
+  "loaded_argv": {
+    "account_login": 0,
+    "checkout_or_cart_requests": 0,
+    "purchase_requests": 0,
+    "provider_mutations": 0
+  },
+  "loaded_env": {
+    "authentication": "anonymous public pages; no account or payment credential used"
+  },
+  "exit_code": 0,
+  "effect": {
+    "account_logins": 0,
+    "checkout_submissions": 0,
+    "purchases": 0,
+    "payments": 0,
+    "posts": 0,
+    "provider_calls": 0
+  },
+  "source_readback": {
+    "reel": {
+      "url": "https://www.instagram.com/reel/DaYBOq5FMhy/",
+      "http_status": 200,
+      "raw_sha256": "faa428ab7b37eec479bdb7e282acd00f9d8a8707c78500ab26f5d70515617b72",
+      "extracted_markdown_sha256": "d39e5063e3adca560f31bdc60ab3c2d420b794f2c08b83b695f8ac1bdf8c7ada",
+      "observations": [
+        "The account-attributed Reel caption links directly to the handbook product page.",
+        "Instagram displays the label AI-generated profile; this is platform-reported evidence, not an independent AI-production audit."
+      ]
+    },
+    "storefront": {
+      "url": "https://stan.store/shenmuhealer",
+      "http_status": 200,
+      "raw_sha256": "94a52987fd245aa2088908ecaf941615392040ee7881ef2048226692f986efe7",
+      "observations": [
+        "The public seller storefront lists both product pages under the handle shenmuhealer.",
+        "Storefront linkage does not independently verify operator identity or legal authorship."
+      ]
+    },
+    "offers": [
+      {
+        "name": "27 Ancient Remedies from the Tibetan Mountains",
+        "url": "https://stan.store/shenmuhealer/p/shen-mus-healing-handbook-",
+        "page_id": "4310123",
+        "type": "digital-download",
+        "currency": "USD",
+        "sale_price": 12.95,
+        "reference_price": 47,
+        "http_status": 200,
+        "raw_sha256": "925f730160d543b4c32e535550181b4fe0d528d4131658eb6884bbf892b23459",
+        "seller_displayed_counter": {
+          "value": "10,251",
+          "metric": "downloads",
+          "scope": "this product page only",
+          "status": "seller_displayed_not_audited"
+        }
+      },
+      {
+        "name": "The Simple System to Look and Feel 10 Years Younger",
+        "url": "https://stan.store/shenmuhealer/p/the-simple-system-to-look--feel-10-years-younger",
+        "page_id": "4420638",
+        "type": "digital-download",
+        "currency": "USD",
+        "sale_price": 9.95,
+        "reference_price": 47,
+        "http_status": 200,
+        "raw_sha256": "79ece8a21d73ce07b1266003f65e306796dfef24b473739fefd1f39f126d663c"
+      }
+    ]
+  },
+  "data_acceptance": {
+    "canonical_snapshot_sha256": "eb78534751267a0769216bed8006624291ea98167738648e6553c98b2f756540",
+    "archive_records": 75,
+    "public_profiles": 73,
+    "included_profiles": 6,
+    "pending_profiles": 67,
+    "excluded_profiles": 2,
+    "sources": 233,
+    "account_offer_rows": 116,
+    "new_offers": 2,
+    "new_seller_counters": 1,
+    "ai_status": "reported",
+    "directory_scope": "pending",
+    "new_orders": 0,
+    "new_revenue_observations": 0,
+    "new_profit_observations": 0,
+    "creator_identity_changes": 0,
+    "interpretation": "Listed prices and the seller-displayed download counter are not evidence of paid orders, revenue or profit. Visual content and AI production were not independently reviewed."
+  },
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Run focused source/data assertions and package acceptance, then publish as an immutable v0.4.18 snapshot without changing earlier releases."
+}
