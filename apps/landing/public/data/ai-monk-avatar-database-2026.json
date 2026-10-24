@@ -1827,6 +1827,66 @@
       "checked_at": "2026-10-23",
       "captured_at": "2026-10-23T22:49:32.398477+00:00",
       "notes": "Anonymous native profile HTML. og:title, og:url and canonical identify @sifuchencalifornia, matching the handle visible in the previously attributed Maldita screenshot. The bio labels AI-generated content; this is first-party disclosure, not an independent production audit. Spanish is observed in bio text only. Displayed 834K followers is rounded and dated; it is not an exact count or revenue. No account-attributed video, operator identity or current product checkout is verified."
+    },
+    {
+      "id": "daily-yangmun-youtube-Er2Ig4GM7z0-20261024",
+      "title": "Yang Mun public YouTube metadata: Er2Ig4GM7z0",
+      "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+      "source_type": "first-party public YouTube video metadata",
+      "published_at": "2025-11-29",
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T00:08:15.798702+00:00",
+      "notes": "yt-dlp public metadata, without media download or supplied cookies. Exact video id, @Yangmunv2 and channel id matched. Views are a dated sampled-video count; channel_follower_count is a rounded public subscriber observation, not growth or revenue."
+    },
+    {
+      "id": "daily-yangmun-youtube-Qdv6S7HonSM-20261024",
+      "title": "Yang Mun public YouTube metadata: Qdv6S7HonSM",
+      "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
+      "source_type": "first-party public YouTube video metadata",
+      "published_at": "2025-11-25",
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T00:08:15.839943+00:00",
+      "notes": "yt-dlp public metadata, without media download or supplied cookies. Exact video id, @Yangmunv2 and channel id matched. Views are a dated sampled-video count; channel_follower_count is a rounded public subscriber observation, not growth or revenue."
+    },
+    {
+      "id": "daily-yangmun-youtube-j8WRhcQvzRM-20261024",
+      "title": "Yang Mun public YouTube metadata: j8WRhcQvzRM",
+      "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
+      "source_type": "first-party public YouTube video metadata",
+      "published_at": "2025-11-10",
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T00:08:18.315206+00:00",
+      "notes": "yt-dlp public metadata, without media download or supplied cookies. Exact video id, @Yangmunv2 and channel id matched. Views are a dated sampled-video count; channel_follower_count is a rounded public subscriber observation, not growth or revenue."
+    },
+    {
+      "id": "daily-product-yang-mun-journey-20261024",
+      "title": "Daily first-party product observation: 30-Day Healing Journey",
+      "url": "https://www.yang-mun.com/pages/journey",
+      "source_type": "first-party seller page and embedded metadata",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T00:08:37.375470+00:00",
+      "notes": "The page displays $49.99 and $59.99, but its anonymous storefront metadata is JPY/JP and no product priceCurrency was found. Neither USD nor a 49.99 JPY amount is established. Keep normalized price/currency unknown; older USD observations remain historical."
+    },
+    {
+      "id": "daily-product-beravia-beetroot-20261024",
+      "title": "Daily first-party product observation: Beetroot Capsules",
+      "url": "https://beraviahealth.com/products/beetroot",
+      "source_type": "first-party seller page and embedded metadata",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T00:08:36.628758+00:00",
+      "notes": "JSON-LD and default variant confirm 29.99 USD; the same embedded monthly selling plan is 26.99 USD. Generic weekly/20% widget copy conflicts with the specific monthly/10% plan. Checkout, actual stock, commission and sales are unverified."
+    },
+    {
+      "id": "daily-product-monjechen-calm-guide-20261024",
+      "title": "Daily first-party product observation: El Camino de Vuelta a la Calma",
+      "url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+      "source_type": "first-party seller page and embedded metadata",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T00:08:37.510769+00:00",
+      "notes": "JSON-LD and storefront explicitly specify EUR 9.95. InStock metadata and an enabled cart button coexist with Agotado text; purchase availability is unresolved. No cart or checkout was opened."
     }
   ],
   "accounts": [
@@ -1981,6 +2041,15 @@
               "source_id": "yangmun-yt-metrics-20261023",
               "status": "public_metadata_snapshot",
               "notes": "yt-dlp channel_follower_count; the underlying public count may be rounded."
+            },
+            {
+              "value": 159000,
+              "metric": "subscribers",
+              "as_of": "2026-10-24",
+              "captured_at": "2026-10-24T00:08:15.798702+00:00",
+              "source_id": "daily-yangmun-youtube-Er2Ig4GM7z0-20261024",
+              "status": "public_metadata_snapshot_rounded",
+              "notes": "yt-dlp channel_follower_count on an identity-matched public video. The public 159K display is approximate; repeated rounded values do not measure exact growth."
             }
           ]
         },
@@ -2010,6 +2079,40 @@
           "source_id": "yangmun-journey-store",
           "status": "displayed_price_not_order_data",
           "url": "https://www.yang-mun.com/pages/journey"
+        },
+        {
+          "type": "guided digital program",
+          "name": "30-Day Healing Journey",
+          "price": null,
+          "currency": null,
+          "display_price": "$49.99",
+          "price_kind": "currency_unverified_display_only",
+          "billing_kind": "one_time",
+          "url": "https://www.yang-mun.com/pages/journey",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T00:08:37.375470+00:00",
+          "source_id": "daily-product-yang-mun-journey-20261024",
+          "status": "seller_displayed_amount_currency_unresolved",
+          "availability": "seller_purchase_link_present_checkout_unverified",
+          "notes": "The page displays $49.99 and $59.99, but its anonymous storefront metadata is JPY/JP and no product priceCurrency was found. Neither USD nor a 49.99 JPY amount is established. Keep normalized price/currency unknown; older USD observations remain historical. The journey is explicitly one-time.",
+          "observation_id": "daily-20261024-yangmun-0"
+        },
+        {
+          "type": "digital product upgrade",
+          "name": "Get everything upgrade",
+          "price": null,
+          "currency": null,
+          "display_price": "$59.99",
+          "price_kind": "currency_unverified_display_only",
+          "billing_kind": null,
+          "url": "https://www.yang-mun.com/pages/journey",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T00:08:37.375470+00:00",
+          "source_id": "daily-product-yang-mun-journey-20261024",
+          "status": "seller_displayed_amount_currency_unresolved",
+          "availability": "seller_purchase_link_present_checkout_unverified",
+          "notes": "The page displays $49.99 and $59.99, but its anonymous storefront metadata is JPY/JP and no product priceCurrency was found. Neither USD nor a 49.99 JPY amount is established. Keep normalized price/currency unknown; older USD observations remain historical. Current upgrade contents and billing recurrence were not independently established.",
+          "observation_id": "daily-20261024-yangmun-1"
         }
       ],
       "seller_counters": [
@@ -2066,8 +2169,8 @@
           "title": "Words of Motivation from Yang Mun",
           "duration_seconds": 65,
           "uploaded_at": "2025-11-29",
-          "views": 521580,
-          "views_captured_at": "2026-10-23",
+          "views": 521603,
+          "views_captured_at": "2026-10-24",
           "source_id": "yangmun-youtube-short-motivation",
           "structure_summary": "One continuous, front-facing temple shot; future-oriented reassurance, concrete life imagery, then a repeatable morning/night reflection invitation. No paid product CTA was visible in this sample.",
           "media_status": "temporary_analysis_only_official_embed_only",
@@ -2086,9 +2189,17 @@
               "captured_at": "2026-10-23T02:47:03.550355+00:00",
               "source_id": "yangmun-yt-metrics-20261023",
               "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 521603,
+              "metric": "views",
+              "as_of": "2026-10-24",
+              "captured_at": "2026-10-24T00:08:15.798702+00:00",
+              "source_id": "daily-yangmun-youtube-Er2Ig4GM7z0-20261024",
+              "status": "public_metadata_snapshot"
             }
           ],
-          "views_source_id": "yangmun-yt-metrics-20261023"
+          "views_source_id": "daily-yangmun-youtube-Er2Ig4GM7z0-20261024"
         },
         {
           "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
@@ -2096,7 +2207,7 @@
           "duration_seconds": 78,
           "uploaded_at": "2025-11-25",
           "views": 1102391,
-          "views_captured_at": "2026-10-23",
+          "views_captured_at": "2026-10-24",
           "source_id": "yangmun-youtube-short-health",
           "structure_summary": "A symptom-led hook moves into an unverified traditional-medicine explanation and emotional reframe. This is a health-claim risk example, not an endorsed claim.",
           "media_status": "temporary_analysis_only_official_embed_only",
@@ -2115,17 +2226,25 @@
               "captured_at": "2026-10-23T02:47:03.597544+00:00",
               "source_id": "yangmun-yt-metrics-20261023",
               "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 1102391,
+              "metric": "views",
+              "as_of": "2026-10-24",
+              "captured_at": "2026-10-24T00:08:15.839943+00:00",
+              "source_id": "daily-yangmun-youtube-Qdv6S7HonSM-20261024",
+              "status": "public_metadata_snapshot"
             }
           ],
-          "views_source_id": "yangmun-yt-metrics-20261023"
+          "views_source_id": "daily-yangmun-youtube-Qdv6S7HonSM-20261024"
         },
         {
           "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
           "title": "You’re Drinking Water the WRONG Way",
           "duration_seconds": 96,
           "uploaded_at": "2025-11-10",
-          "views": 12561569,
-          "views_captured_at": "2026-10-23",
+          "views": 12561596,
+          "views_captured_at": "2026-10-24",
           "source_id": "yangmun-youtube-short-health-metadata",
           "structure_summary": "Metadata-only high-reach health-claim example: 96 seconds and 12,561,496 views at the 2026-10-21 read. The video was not downloaded or fact-checked; do not treat it as medical guidance.",
           "media_status": "metadata_only_official_link_only",
@@ -2144,9 +2263,17 @@
               "captured_at": "2026-10-23T02:47:03.844065+00:00",
               "source_id": "yangmun-yt-metrics-20261023",
               "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 12561596,
+              "metric": "views",
+              "as_of": "2026-10-24",
+              "captured_at": "2026-10-24T00:08:18.315206+00:00",
+              "source_id": "daily-yangmun-youtube-j8WRhcQvzRM-20261024",
+              "status": "public_metadata_snapshot"
             }
           ],
-          "views_source_id": "yangmun-yt-metrics-20261023"
+          "views_source_id": "daily-yangmun-youtube-j8WRhcQvzRM-20261024"
         }
       ],
       "unknowns": [
@@ -2316,6 +2443,41 @@
               "source_id": "product-price-followup-beravia-beetroot-20261024"
             }
           ]
+        },
+        {
+          "type": "external wellness product link",
+          "name": "Beetroot Capsules",
+          "url": "https://beraviahealth.com/products/beetroot",
+          "price": 29.99,
+          "currency": "USD",
+          "as_of": "2026-10-24",
+          "source_id": "daily-product-beravia-beetroot-20261024",
+          "status": "displayed_price_not_order_data",
+          "notes": "JSON-LD and default variant confirm 29.99 USD; the same embedded monthly selling plan is 26.99 USD. Generic weekly/20% widget copy conflicts with the specific monthly/10% plan. Checkout, actual stock, commission and sales are unverified.",
+          "price_kind": "listed_one_time_offer",
+          "billing_kind": "one_time",
+          "source_ids": [
+            "daily-product-beravia-beetroot-20261024"
+          ],
+          "captured_at": "2026-10-24T00:08:36.628758+00:00",
+          "observation_id": "daily-20261024-beravia-beetroot",
+          "variant": {
+            "id": 51739327430929,
+            "title": "Default Title",
+            "sku": "VOX4BEET"
+          },
+          "variant_prices": [
+            {
+              "kind": "subscription_offer",
+              "amount": 26.99,
+              "currency": "USD",
+              "billing_period": "month",
+              "name": "Deliver every month, 10% off",
+              "selling_plan_id": 12669944081,
+              "source_id": "daily-product-beravia-beetroot-20261024"
+            }
+          ],
+          "availability": "seller_structured_data_in_stock_checkout_unverified"
         }
       ],
       "seller_counters": [],
@@ -2598,6 +2760,24 @@
           "availability": "unknown",
           "availability_note": "Page includes Agotado alongside add-to-cart text; stock and checkout were not verified.",
           "notes": "The earlier screenshot-only cropped-link offer remains unchanged as a historical observation. No paid units, revenue, efficacy or affiliate commission verified."
+        },
+        {
+          "type": "digital guide",
+          "name": "El Camino de Vuelta a la Calma",
+          "price": 9.95,
+          "currency": "EUR",
+          "price_kind": "listed_offer",
+          "billing_kind": null,
+          "url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+          "pages": 103,
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T00:08:37.510769+00:00",
+          "source_id": "daily-product-monjechen-calm-guide-20261024",
+          "status": "seller_displayed_price_not_order_data",
+          "availability": "unknown",
+          "availability_note": "Agotado text conflicts with JSON-LD InStock and a cart button without a disabled attribute. Purchase availability was not verified.",
+          "notes": "JSON-LD and storefront explicitly specify EUR 9.95. InStock metadata and an enabled cart button coexist with Agotado text; purchase availability is unresolved. No cart or checkout was opened. Billing recurrence remains unverified.",
+          "observation_id": "daily-20261024-monjechen-guide"
         }
       ],
       "seller_counters": [],

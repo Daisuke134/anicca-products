@@ -54,6 +54,10 @@ PR572の最終head `bb7c9913fea918432117fe19e01869dd1e2efe5f`はpackage CI398908
 - [x] 毎朝9時のthread heartbeat `ai-monk-database`をACTIVEで作成し、provider viewと永続設定のkind/status/schedule/current thread一致をreadback。初回定期実行は未到来。
 - [ ] 初回定期runで日付付き更新または具体的未取得理由と公開状態を確認。
 
+### 初回heartbeatの実行範囲
+
+`ai-monk-database`の2026-10-24T00:03:58.413Z実行を、base `373eec46af11c0d32566386df7fbd201413b3d5b`由来の`data/ai-monk-daily-20261024`で扱う。現在の掲載契約はdirectory-restorationの73件（included4/pending69）を維持する。人気と商品導線のあるYang Munの公開YouTube指標、Ming San/Yan Chenを含む既存公式商品ページを無料ツールで再確認し、観測日時・丸め・通貨・期間・未取得理由を記録する。既存75record/181source/過去snapshot・creator claimと未知の売上を保持する。完了条件は追記データのsource参照と過去値不変の照合、既存関連tests/CI/main、公開JSON・Web・remote MCPの一致である。データを更新した場合は現行CLI配布契約に従い次patch版へ反映する。動画生成・SNS投稿・Factory実装・有料provider購入・既存lease変更は対象外。
+
 商品cardも観測日、またはsourceの公開/確認日を表示し、過去の価格を現在の在庫・価格と混同しない。表示のRED1件→関連12テストPASS。既存決済や売上計算のcontractは変更しない。
 
 ## 最新指標と商品preview
@@ -97,3 +101,5 @@ best=対象の明確な小さい一覧を起点に同じ根拠基準で拡大す
 **統合とCLI v0.4.0公開:** PR588の最終head30ddf2fd981d90fde89397f21a0ac82795b006c1はLanding CI39938336276・package CI39938336680がSUCCESS、fresh最終Blocking0でmain e6fdf0b334ed6bb5448403a5b3fd8ad61f1e3dccへ統合する。同mainのpackage source/共有helper/JSON bytesと一致する配布物をGitHub release ai-monk-index-v0.4.0として公開する。tagの公式Git objectは同main、asset29,108bytes/SHA256 b9b4a0e75e90db499673ac9147992febdb6432089da14e1024dcd430d9d32f35。公開URLからのdownload/npm導入/実CLIとSDK stdioで4件/56sources/75archive、snapshot05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940fが一致する。views/revenue sort先頭Yang Mun、unknownを0にしない。Netlify39938900630の本番反映は進行中で、Web/remote MCPは未受入。
 
 **本番受入:** Netlify39938900630はmain e6fdf0b3でSUCCESS。10:32 UTCの公開HTMLはH1 AI Monk Database、4card/4顔画像、AI status UI無し、followers/views/revenue sortを返す。公開JSONはmain canonical SHA05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940fと完全一致する。公式SDKのremote MCP stats/searchは同じ4件/56sources/75archive、全4sortでincluded4件だけ、pending getは拒否する。旧画像bytes/layoutは変わらないため再生成/全responsive再検証を増やさない。これでscope source/本番/CLI v0.4.0の受入を完了し、69pendingの追加調査と自然定期runは残す。現在cursorは既存Xリンク3件の補完→S11 Factory運用。証拠 → docs/evidence/ai-monk-reviewed-avatar-scope-{production,mcp-production}-20261023.json、ai-monk-cli-mcp-v04-release-20261023.json。
+
+**初回heartbeatのsource受入:** 2026-10-24の公開観測を3プロフィールへ追記する。Yang MunのYouTube3本viewsは521603/1102391/12561596、channel subscribersは丸め159000。商品3ページをHTTP200で確認し、Ming Sanの29.99 USD単発/26.99 USD月次とYan Chenの9.95 EURを再観測する。Yang Munのドル表示とJPY storefront設定の不整合、YanのAgotado/InStock併記は未確定を維持する。追加は指標4件/offer4件/出典6件、合計187出典。旧181出典・offer/metric履歴・全scope・収益申告は不変。helper9＋CLI/stdio/HTTP/install15件PASS、fresh read-only指摘0件。Instagram followersは5creditsの有料lookupを使わず未取得、現在売上/注文/利益は公開価格から推定しない。学び・未取得理由・取得時刻は `docs/evidence/ai-monk-daily-refresh-20261024.json`。CI/main/公開受入は次工程であり、初回定期runをまだ完了扱いにしない。
