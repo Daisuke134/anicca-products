@@ -1,0 +1,169 @@
+{
+  "schema_version": "anicca.ai-monk-book-x-funnel-result.v1",
+  "run_id": "ai-monk-book-x-funnel-20261024",
+  "owner_id": "root",
+  "occurrence_id": "one-book-post-selawmqt",
+  "release_sha": "852fa4281f90ffa95bf5f1d8219afd4ac7bddf2a",
+  "release_sha_scope": "rebase後のdocs親commit。新runtime releaseの主張は含まない。",
+  "recorded_at": "2026-10-24 06:57:58 UTC",
+  "recorded_by": "plugin_submission_package_check",
+  "phase": "docs_result_record",
+  "status": "PUBLISHED_PURCHASE_PATH_UNMET",
+  "command": "既存rebaseを解消し、保存済みPostiz/X応答を照合してsanitized事実だけを記録する。",
+  "loaded_argv": {
+    "rebase_continue": [
+      "git",
+      "-c",
+      "core.editor=true",
+      "rebase",
+      "--continue"
+    ],
+    "new_provider_requests": 0
+  },
+  "loaded_env": {
+    "shared_config_changes": 0,
+    "auth_credential_access": 0,
+    "model_provider_overrides": 0
+  },
+  "exit_code": 0,
+  "source": {
+    "branch": "docs/ai-monk-book-x-funnel-20261024",
+    "initial_base_main": "7ac673209f5474b013b6e44c31d336603439a083",
+    "original_spec_commit": "08c915cd0ba28a4cdbf1d3ab1e1ead96a40f37c2",
+    "rebase_onto": "92fa297ff11b04ed564ac332272fa1fd460d8ed6",
+    "rebased_spec_commit": "852fa4281f90ffa95bf5f1d8219afd4ac7bddf2a",
+    "primary_cursor": "Keiodaisuke既存accountによる正式Plugin Web提出",
+    "X_distribution": "最優先cursorを置き換えず、独立並行で追跡する。"
+  },
+  "saved_preflight": {
+    "observed_at": "2026-10-24T06:48:44.486635+00:00",
+    "author": "selawmqt",
+    "integration_enabled": true,
+    "duplicate_campaign_posts": 0,
+    "posts_create_calls_before_send": 0,
+    "planned_copy_sha256": "925ca628ec586f2ea89b06fd789d2bf5888098f5c10d536901c162486052043a",
+    "conservative_weighted_length_upper_bound": 212,
+    "saved_independent_review_blocking": 0
+  },
+  "provider_create": {
+    "observed_at": "2026-10-24T06:49:20.198394+00:00",
+    "http_status": 201,
+    "post_id": "cmvm1gbz52gnxqu1cilsvc7ms",
+    "create_calls": 1,
+    "repeat_create": 0,
+    "initial_published_verified": false,
+    "initial_record_preserved": true
+  },
+  "readback": {
+    "basis": "保存済みの公式Postiz post listとX oEmbed/syndication応答を使う。本docs unitの新規GETは0。",
+    "observed_at": null,
+    "postiz": {
+      "post_id": "cmvm1gbz52gnxqu1cilsvc7ms",
+      "state": "PUBLISHED",
+      "release_id": "2113885630384275807",
+      "release_url": "https://twitter.com/selawmqt/status/2113885630384275807",
+      "publish_date": "2026-10-24T06:49:00.000Z",
+      "public_content_sha256": "dfe249e3b20b74b16e8ba199ddb163bed453b1776da7620a4f22ef3e0b70a5cd",
+      "expected_campaign_url_present": false,
+      "content_urls": []
+    },
+    "x": {
+      "permalink": "https://x.com/selawmqt/status/2113885630384275807",
+      "author": "selawmqt",
+      "id": "2113885630384275807",
+      "created_at": "2026-10-24T06:49:43.000Z",
+      "public_content_sha256": "dfe249e3b20b74b16e8ba199ddb163bed453b1776da7620a4f22ef3e0b70a5cd",
+      "postiz_public_content_equal": true,
+      "expected_campaign_url_present": false,
+      "syndication_url_entities": [],
+      "syndication_card_present": false,
+      "oembed_book_link_present": false
+    }
+  },
+  "purchase_path": {
+    "expected_url": "https://aniccaai.com/the-art-of-ai-monks?utm_source=x&utm_medium=social&utm_campaign=ai_monk_ugc_book_20261024",
+    "expected_url_present_in_saved_create_payload": true,
+    "expected_url_present_in_published_content": false,
+    "exact_loss_boundary_and_cause": null,
+    "diagnosis": "保存済みcreate payloadにcampaign URLが存在する一方、一致するPostiz/X公開本文には存在しない。欠落した正確な境界は未確認。"
+  },
+  "outcome": {
+    "post_published": true,
+    "purchase_path_delivered": false,
+    "original_acceptance_met": false,
+    "correction_performed": false
+  },
+  "metrics": {
+    "saved_response_observed_at": null,
+    "saved_syndication_favorite_count": 0,
+    "saved_syndication_conversation_count": 0,
+    "current_views": null,
+    "current_reposts": null,
+    "clicks": null,
+    "orders": null,
+    "actual_revenue": null,
+    "MRR": null,
+    "limits": "保存応答のcounterに取得時刻が無く、現在値とは扱わない。公開は書籍click・購入・収入・Factory完了の証明にならない。"
+  },
+  "fence": {
+    "file": "post-submit-fence.json",
+    "sha256": "ccdc4f61709ed906446bb2d656b5d05b8df4a4bacc6e12ea58357f47a47c2682",
+    "maximum_create_calls": 1,
+    "released": 0,
+    "modified_by_docs_unit": false
+  },
+  "effect": {
+    "existing_post_create_calls": 1,
+    "existing_repeats": 0,
+    "docs_unit_external_sends": 0,
+    "docs_unit_post_edits": 0,
+    "docs_unit_post_deletes": 0,
+    "docs_unit_additional_posts": 0,
+    "docs_unit_provider_GETs": 0,
+    "docs_unit_fence_releases": 0,
+    "credential_values_copied": 0,
+    "private_files_added_to_repo": 0
+  },
+  "evidence_directory": "~/.local/state/life-manager/ebook/evidence/ai-monk-book-x-funnel-20261024",
+  "evidence_refs": [
+    {
+      "file": "final-preflight.json",
+      "bytes": 576,
+      "sha256": "4abb94b303563a33f612d2e7f9ffa026b823ac60da911cbb5b7e368520860eaf"
+    },
+    {
+      "file": "postiz-create-payload.json",
+      "bytes": 664,
+      "sha256": "3cfafab4d34bc78683d3bf5e257f9ff2212efc92265542c45855cc59c20cf24e"
+    },
+    {
+      "file": "postiz-create-readback.json",
+      "bytes": 309,
+      "sha256": "c34ca5fe4e38e28bf0181349fe52b361b22dd31a4df7a2e16ac1719c5b092f76"
+    },
+    {
+      "file": "postiz-posts-after.private.json",
+      "bytes": 49962,
+      "sha256": "8ed9cf0d61f42226a3bc8cd9a3a27d953da05a65616dbeb6d82d7cc1aa35bcc9"
+    },
+    {
+      "file": "x-oembed.private.json",
+      "bytes": 901,
+      "sha256": "04067d282936c595147f9ac875a581e57ebb8f6a3fb0b1da260c486d78117a56"
+    },
+    {
+      "file": "x-syndication.private.json",
+      "bytes": 952,
+      "sha256": "942636a72e1a75c576c724892372d9a2ea7b6129bd49587878fb168d8a1c6b1f"
+    },
+    {
+      "file": "post-submit-fence.json",
+      "bytes": 478,
+      "sha256": "ccdc4f61709ed906446bb2d656b5d05b8df4a4bacc6e12ea58357f47a47c2682"
+    }
+  ],
+  "error_class": "published_purchase_url_missing",
+  "retryable": false,
+  "retryability_scope": "本docs-only unitでは自動再送や是正の外部操作を行わない。",
+  "next_action": "primaryがKeio提出cursorを保持し、既存証拠から購入URL欠落を診断して、送信fenceを解除/再使用しない是正手段を具体化する。本workerによる是正とPR/main統合は未実施。"
+}
