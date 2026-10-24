@@ -33,5 +33,16 @@ Google公式4資料では、Tier/Prepay残高はAPI keyでなくCloud Billing ac
 
 primaryはSSOT全体とregistryのowner/profile/leaseを確認し、正しいPIDを照合してから通常のnative UIでroot所有の新windowを1つ作る。既存の顧客windowをnavigateしない。Consoleの本人をSSOTとRAM照合し、既にsigned-inの正しい本人を選択できる場合だけ進める。新login/password/Google Prompt送信、recovery/reset、logout、profile/authのコピーは0。本人が確認できた場合はbilling作成の入口・既存payments profileの選択可否・地域別の必要額を読み取るが、作成・規約同意・紐付け・Prepay移行・購入の確定は行わない。
 
-- [ ] TRUSTED-LIVE: 既存Google sessionの本人、Console入口と見える権限/支払profile/必要額を確認する。取得できない場合は具体的な画面と不足条件を残す。
-- [ ] TRUSTED-RECORD: 自分のwindowとleaseを閉じ、秘密値を除いた新receiptと本planをcommit/push/PR/mainへ保存する。旧記録を上書きせず、認証/課金完了を推測しない。
+- [x] TRUSTED-LIVE: 既存Google sessionの本人、Console入口と見える権限/支払profile/必要額を確認する。取得できない場合は具体的な画面と不足条件を残す。
+- [x] TRUSTED-RECORD: 自分のwindowとleaseを閉じ、秘密値を除いた新receiptと本planをcommit/push/PR/mainへ保存する。旧記録を上書きせず、認証/課金完了を推測しない。
+
+
+### 信頼済みsessionの確認結果
+
+既存のアカウント選択にFactory本人がログイン済みで表示され、1回選択する。続く本人ConsoleのアカウントcontrolとSSOTのemailをRAM照合し、一致を確認する。専用provision profileのGoogle Prompt完了を意味しないが、この経路では新login・password・通知再送を必要条件にしない。
+
+本人Consoleの「請求先アカウントの管理」と「アカウントを作成」の表示をwindow screenshot/native OCRで確認する。中央内容がAX treeから欠落し、入口click後の作成formへの遷移は確認できない。新口座作成権限、既存payments profileの選択可否、地域別の最終必要額は未確認のまま保持する。表示やclick受付を作成成功へ置換しない。途中で既存native daemonの終了とCLI fallbackのAccessibility拒否を観測し、署名済みappの公開LaunchServices serve経路から復帰する。TCC・browser・hook・認証profileは変更しない。
+
+自分のwindowだけを閉じ、直後のinventoryではまだ残るが、後続のfresh inventoryで消失と既存named 6window保持を確認する。guard holder空と衝突なしを確認する。支出、課金resource作成/紐付け、規約同意、Prepay移行、生成はすべて0。private証拠は700/600を保つ。今回の観測unitの結果 → ../../evidence/ai-monk-factory-trusted-billing-session-20261024.json。
+
+現在cursorは、確認済みの既存Factory本人sessionから対象を確実に限定できるnative経路で作成formを読み、権限・payments profile・地域額を具体化すること。初期予算の未回答とUSD0 capを維持し、別profileのGoogle Promptは再送しない。正式Plugin掲載はOpenAI既存appealの正式却下とMuse残2項目の審査を保持し、根拠のない設定変更・重複提出を行わない。
