@@ -1,0 +1,46 @@
+{
+  "objective": "Make Factory actions explain readiness blockers when clicked, keep unknown free quota distinct from exhausted quota, and retain the three-free-video offer without a time-limited trial.",
+  "source": {
+    "branch": "fix/factory-button-readiness-guidance-20261025",
+    "commit": "7ad8c0e02fa3bdd1e44e9b11a660f693c56d7191",
+    "pull_request": "https://github.com/Daisuke134/anicca-products/pull/700",
+    "merged_main_commit": "f831fc8fd36a23a3334b2d94b0f28b17513c0a4a",
+    "merged_at_utc": "2026-10-24T18:53:39Z",
+    "review": "Independent read-only review: ship",
+    "pull_request_checks": {
+      "landing_workflow_run": "40122440656",
+      "landing_workflow": "success",
+      "code_rabbit": "success"
+    }
+  },
+  "validation": {
+    "landing_contract_tests": {
+      "command": "node --test lib/ai-monk-directory.test.mjs lib/monk-factory-client.test.mjs test/ai-monk-evidence-rendering.test.mjs test/ai-monk-factory-action-readiness.test.mjs scripts/stage-ai-monk-factory.test.mjs",
+      "passed": 34,
+      "failed": 0
+    },
+    "production_build": "success in Landing PR CI",
+    "typecheck": "failed with 6 errors in 4 unchanged files outside this diff; no Factory file was reported"
+  },
+  "production": {
+    "provider": "Netlify",
+    "workflow_run": "40122797399",
+    "workflow_status": "success",
+    "source_commit": "f831fc8fd36a23a3334b2d94b0f28b17513c0a4a",
+    "provider_deploy_status": "live",
+    "unique_deploy_url": "https://6adcffa60c2388313eb30680--anicca2.netlify.app",
+    "deploy_live_at_utc": "2026-10-24T18:58:38Z",
+    "post_deploy_money_path_smoke": "pass",
+    "public_factory_route": {
+      "url": "https://aniccaai.com/ai-monk-factory",
+      "readback": "Up to 3 free videos; no card and no time limit"
+    }
+  },
+  "limits": {
+    "authenticated_studio_clickthrough": "not checked with a live user session",
+    "provider_generation_or_social_action": "none",
+    "checkout_or_charge": "none",
+    "runtime_environment_change": "none",
+    "remaining_cursor": "SaaS-2 provider/runtime/OAuth readiness; last provider snapshot is from 2026-10-24 and requires a fresh readback"
+  }
+}
