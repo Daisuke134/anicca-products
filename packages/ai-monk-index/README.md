@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **196 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **197 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -28,12 +28,14 @@ v0.4.11 adds four dated checkout observations while retaining all earlier observ
 
 v0.4.13 adds eleven dated Yangjun service-package prices from the public Collabstr seller listing. Explicit USD JSON-LD offers match the displayed package names and amounts: Instagram Story and Photo Feed Post plus UGC Product Photo, Photo Ad and Tutorial are 50 USD; UGC Blog and Testimonial/Review are 75 USD; Instagram Reel, UGC Product Video and Unboxing are 100 USD; UGC Video Ad is 120 USD. The earlier generic UGC listing and all prior observations remain. These are listed service prices, not completed purchases, brand deals, audited revenue, profit or evidence of AI production. Billing recurrence and final checkout fees/taxes remain unknown.
 
+v0.4.14 adds a dated public TikTok embedded-metadata snapshot for the existing Master Kaizen candidate: 275,700 followers and one video with 648,600 plays, 62,000 likes, 14,900 comments and 11,100 shares. Older dated observations remain. TikTok's embedded AIGC flags do not establish AI provenance; the video was not visually reviewed, and its operator, offer, orders and revenue remain unknown. The profile remains pending.
+
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.13/anicca-ai-monk-index-0.4.13.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.14/anicca-ai-monk-index-0.4.14.tgz
 ```
 
 ## CLI

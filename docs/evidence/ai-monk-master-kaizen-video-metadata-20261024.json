@@ -1,0 +1,79 @@
+{
+  "schema_version": "anicca.ai-monk-public-video-metadata.v1",
+  "run_id": "ai-monk-master-kaizen-metadata-20261024",
+  "owner_id": "root",
+  "occurrence_id": "master-kaizen-public-video-metadata-readback",
+  "observed_at": "2026-10-24T11:01:45.790Z",
+  "release_sha": "257358ce6b1fe77dbfb5a60a94d771a86e066fb6",
+  "phase": "read_only_public_source_capture",
+  "command": "crwl crawl returned empty output; scrapy fetch retrieved the public TikTok page and embedded metadata",
+  "loaded_argv": ["scrapy", "fetch", "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464"],
+  "loaded_env": {"authentication": "none", "mutation": "none"},
+  "exit_code": 0,
+  "effect": "read-only public page capture; one dated source and dated profile/video metrics added locally",
+  "readback": {
+    "url": "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464",
+    "http_status": 200,
+    "raw_response_bytes": 433031,
+    "raw_response_sha256": "9e650a3726ad3ba2dc94f227eba75159857402d74ed50f3852a8cd019e5cee4e",
+    "video_id": "7693476794522930464",
+    "handle": "omaster.kaizen",
+    "display_name": "Master Kaizen",
+    "followers": 275700,
+    "duration_seconds": 75,
+    "plays": 648600,
+    "likes": 62000,
+    "comments": 14900,
+    "shares": 11100,
+    "caption": "#manifestation",
+    "embedded_aigc_fields": {"IsAigc": false, "AIGCDescription": "", "ShowAIGC": false},
+    "video_visually_reviewed": false
+  },
+  "canonical_effect": {
+    "source_id": "master-kaizen-public-metadata-20261024",
+    "archive_records": 75,
+    "public_records": 73,
+    "sources_before": 196,
+    "sources_after": 197,
+    "profile_ai_status": "unverified",
+    "directory_scope": "pending",
+    "offers_added": 0,
+    "revenue_observations_added": 0,
+    "older_metric_observations_preserved": true
+  },
+  "canonical_sha256": "65e73a3b9ca597705f2a10a95ff165452b332f425f42fc1c400178dcb177979a",
+  "acceptance_probe": {
+    "red_exit_code": 1,
+    "green_exit_code": 0,
+    "red_cause": "Expected source id and 2026-10-24 profile/video metrics were absent before the canonical dataset edit.",
+    "green_pending": false,
+    "package_tests": {"pass": 15, "fail": 0},
+    "landing_directory_tests": {"pass": 9, "fail": 0},
+    "json_parse_and_source_references": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Publish the accepted snapshot through CLI-1, then resume broader DB-1 profile/product/revenue coverage.",
+  "evidence_refs": [
+    {
+      "url": "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464",
+      "kind": "anonymous_public_page_embedded_metadata",
+      "bytes": 433031,
+      "sha256": "9e650a3726ad3ba2dc94f227eba75159857402d74ed50f3852a8cd019e5cee4e"
+    }
+  ],
+  "limitations": [
+    "The page's AIGC flags do not establish whether AI generated the video.",
+    "The video was not visually reviewed; spoken language, operator identity, offer, orders, and revenue remain unknown.",
+    "Public view and engagement counts are dated observations, not revenue or current channel reach."
+  ],
+  "external_effects": {
+    "login_or_authentication": 0,
+    "video_playback": 0,
+    "payment_or_checkout": 0,
+    "posts_or_account_changes": 0,
+    "official_listing_submissions": 0
+  }
+}

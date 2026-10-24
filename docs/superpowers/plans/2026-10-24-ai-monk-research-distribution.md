@@ -4,21 +4,22 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-現在cursorはDB-1の商品・収益根拠の拡充。公開DBを現在確認すると73件が表示され、以前の「4件」は再現しない。最新の記録済みreleaseはv0.4.13、73公開/75archive/196 sources。今回の添付画像ではPersona側が完了を表示する一方、OpenAI Organization settingsはPersonal/「Identity in review」のまま。OpenAI公式提出guideは正式提出前のIndividualまたはBusiness verification完了を求めるため、この状態では提出条件を満たしたと扱わず、正式submitは保留する。既存ZIPはVerified後に一度だけ使い、審査・承認後の公開readbackまで分けて確認する。OpenAI審査はDB/CLI/Factory作業を止めない並行待機にする。status/evidence → ../plans/2026-10-24-ai-monk-keio-plugin-submission.md と ../../evidence/ai-monk-keio-portal-20261024.json。
+現在cursorはCLI-1で、source acceptance済みv0.4.14候補を公開配布へ通す。公開DBは73件（4 reviewed/69 pending）、archive75件、canonical候補197 sources。最新の公開済みreleaseはv0.4.13/196 sourcesであり、v0.4.14はまだ未公開。今回の添付画像ではPersona側が完了を表示する一方、OpenAI Organization settingsはPersonal/「Identity in review」のまま。OpenAI公式提出guideは正式提出前のIndividualまたはBusiness verification完了を求めるため、この状態では提出条件を満たしたと扱わず、正式submitは保留する。既存ZIPはVerified後に一度だけ使い、審査・承認後の公開readbackまで分けて確認する。OpenAI審査はDB/CLI/Factory作業を止めない並行待機にする。status/evidence → ../plans/2026-10-24-ai-monk-keio-plugin-submission.md と ../../evidence/ai-monk-keio-portal-20261024.json。
 先行の専用account限定作業はDaisの「Go fix」に基づく復旧・審査対応。範囲・旧順序→新順序・受入の正本 → 2026-10-24-ai-monk-marketplace-resolution.md。OpenAIは既存同caseの最終却下を再取得し、復旧通知は確認できない。Museは今回native URL入力からの実ページ遷移を確認できず、最新審査状態は未取得。過去の審査中を今回の観測へ置換しない。公開MCPの実SDK6toolは正常で、設定変更・再申立て・再提出0。結果 → ../../evidence/ai-monk-marketplace-resolution-20261024.json。正式掲載の未完を保持し、独立したDatabase/CLI/plugin配布を継続する。
 独立並行の既存書籍X配布はKeio提出の現在cursorを置き換えず、日次Grok所有effectや送信済み作用を重複させない。状態・証拠・残TODOの正本 → 2026-10-24-ai-monk-book-x-funnel.md。
 
 独立して受入済みのDatabase/CLI v0.4.13は73公開/75archive/196出典、商品・サービス観測archive91行/公開88行で、公開JSON/Web・固定main Release・公開URL導入/CLI・実stdio/HTTPS MCP各6tool・公式Registry active/isLatestの同一snapshotを確認する。公開Webは73card/71画像を維持する。Yangjunの11サービス価格は50/75/100/120 USDのseller表示で、課金周期・注文・売上は未確認。Yang Munの既存通貨観測を含む旧195出典/80offerは保持する。公開受入 → ../../evidence/ai-monk-cli-mcp-v0413-release-20261024.json。Database→CLI/plugin→Factoryの優先順と日次Grok所有境界を維持し、Factoryの有料billing・実生成・利用者IG接続/投稿・metrics・USD10K MRRを未完として追跡する。
 
 ## 実行順の更新
-旧順は外部ChatGPT/Muse掲載の完了を先に待ち、Factoryをその後に進める形。新順はDB-1の商品・収益根拠→CLI-1の同一snapshot公開→PL-1のDatabase Plugin配布→SaaS-1のFactory Web app/課金→PL-FACTORY-1のCLI/Plugin操作連携→実利用後のX告知→将来のiPhone app。OpenAI/Museの外部審査は並行待機とし、DB・CLI・Factoryを止めない。理由は配布面を先に進めながら、APIができてからFactory自動運転をpluginへ接続できるため。既存Grok Botの日次投稿と公開済みeffectは変更・再送しない。
+旧順は外部ChatGPT/Muse掲載の完了を先に待ち、Factoryをその後に進める形。新順は受入済みのDB-1データbatchをCLI-1で今公開→DB-1の残余coverage→PL-1のDatabase Plugin配布→SaaS-1のFactory Web app/課金→PL-FACTORY-1のCLI/Plugin操作連携→実利用後のX告知→将来のiPhone app。順序を変える理由はsource acceptanceと既存testを通過したv0.4.14候補を、網羅性の終わりがない追加調査で配布保留にしないため。OpenAI/Museの外部審査は並行待機とし、DB・CLI・Factoryを止めない。理由は配布面を先に進めながら、APIができてからFactory自動運転をpluginへ接続できるため。既存Grok Botの日次投稿と公開済みeffectは変更・再送しない。
 
 ## TODO
 - [x] DB-2: v0.4.13の公開JSON/Web/CLI/stdio/HTTPS MCP/Registryで同一snapshotを受け入れ済み。公開ページは現在73件を返す。
 - [x] DIST-1: Database/PluginのX告知1件とGrokへの配布依頼1件を送り、readback済み。
 - [x] COST-1: ReelFarmの無料枠・自動投稿導線・公開価格を調査済み。AI動画原価は別計算し、実収益/転換率は未確認。
-- [ ] DB-1: 既知のAI monk profile・商品・収益claimの根拠付きcoverageを拡充する。価格・通貨・期間・出典時点とunknownを保持し、世界最大/全件網羅/監査済み売上と主張しない。公開DBは73件で、以前の4件表示は現在再現しない。
-- [ ] CLI-1: DB-1でデータが変わった後、package/CLI・Web/JSON・stdio/HTTPS MCP・Registryへ同じsnapshotを公開し、固定releaseと外部readbackを確認する。dataset変更がなければreleaseを作らない。
+- [x] DB-1 batch: Master Kaizenの2026-10-24 follower/video metrics sourceを追加し、AI状態・pending scope・売上unknown・旧metricsを保持。canonical 75 records/197 sources。source receipt acceptance RED→GREEN、package15/helper9、JSON/reference/diffをPASS。公開前のv0.4.14候補。
+- [ ] CLI-1: 現在cursor。source-accepted v0.4.14 snapshotをpackage/CLI・Web/JSON・stdio/HTTPS MCP・Registryへ同一内容で公開し、fixed-main releaseとofficial readbackを確認する。dataset source acceptance済みのため次に実行する。
+- [ ] DB-1 residual: 既知のAI monk profile・商品・収益claimの根拠付きcoverageを継続拡充する。価格・通貨・期間・出典時点とunknownを保持し、世界最大/全件網羅/監査済み売上と主張しない。公開DBは73件で、以前の4件表示は現在再現しない。
 - [ ] PL-1: Codex portable Plugin v0.1.3は公開済みで、OpenAI公式directory掲載とは区別する。ChatGPTはOpenAI Individual identityが「Identity in review」から「Verified」へ変わった後、組織ownerまたはApps Management Writeの権限を確認し、既存ZIPを一度だけuploadする。必須scan修正→review submit→承認後の公開readbackを取り、draft/upload/submit/approval/publishedを混同しない。Persona完了画面だけではOpenAI側のVerifiedを意味しない。Museは3/3要件を提出済みだがBusinessのみApproved、Data processingとIntegration credentialsは審査中なので再提出しない。xAI remote MCPは`server_url`によるAPI接続を確認したが、公式資料に公開directoryへの提出経路は見つかっていない。
 - [ ] SaaS-1: DB/CLI/Pluginの先行成果を受け、Factoryを「期限trialなし・完成動画3本無料・以降月額subscription」へ移行する。InstagramのOAuthと投稿権限を確認したら、既定のmonk名/profile/avatar/台本で追加のGenerate設定なしに日次生成・投稿を自動開始し、編集と停止を可能にする。一般利用者向けInstagram公開にはAdvanced Access・Meta App Review・Business Verificationが必要。TikTokはContent Posting APIのscope承認と公開audit後に追加する。web appを先にし、価格/本数は実provider・platform原価から確定する。
 - [ ] PL-FACTORY-1: Factory APIが利用可能になった後、既存CLI/Pluginから自動運転の作成・停止、job状態・metricsの取得を行えるようにする。tenant認証を必須にし、SNS tokenはserverに保持する。hostでOAuth同意を完了できない場合はFactory Webの一度限りのOAuth画面へつなぎ、以降の日次処理はAPIで行う。
@@ -170,3 +171,9 @@ SOURCEでJourney/Complete Collectionの購入variantがseller商品ページのJ
 main5c4471addaaa0f6cd1ae3937465ceb10e0113437由来のdocs/ai-monk-v0412-publication-20261024で、本planの現在pointer/状態と新しい公開receiptだけを保存する。primaryは本planと統合、workerは新receipt1件を所有する。旧receiptの変更、新規source/data/version/runtime/認証/課金/生成/投稿は0。今回のJSON parse/参照bytes/hash、秘密値非混入とdiff、commit/push/remote object一致、PR/mainの対象blob一致を最小受入とし、docs-onlyの追加deployは要求しない。
 
 公開JSONは480570bytes/SHA256 e6f897828510031412a6ea0ff1058d617c58ae3c6dbc05852c12deb4fb38bf22で固定mainと一致する。Webは73card/71画像/195出典とYang Mun先頭2offerを確認する。固定main tarballは64038bytes/SHA256 cbf206926ec14ea6d92c4efd0963214cb952a699ad645f6b0ffc7156b1cb4705で公式digest/匿名GET/公開URL導入と一致する。Netlify published ready6adc335eec8e8c7c79b49f34のcommit_refはnullで、GHA/titleと公開snapshotによる対応付けに留める。GitHub immutable=false、browser viewport/paid納品/注文/売上は未検証。既存Plugin payload v0.1.3は変更せず、正式ChatGPT/Muse掲載やFactory実利用・MRRの成果へ換算しない。
+
+## Master Kaizenの公開メタデータ更新
+
+2026-10-24の匿名公開TikTokページをread-onlyで取得し、profile follower 275,700、既知videoのplays 648,600 / likes 62,000 / comments 14,900 / shares 11,100 / duration 75秒をembedded metadataから記録する。capture bytes 433031、SHA256 `9e650a3726ad3ba2dc94f227eba75159857402d74ed50f3852a8cd019e5cee4e`。`crwl crawl`は空結果のため`scrapy fetch`へ切替えた。動画自体を再生・目視せず、TikTok embedded AIGC flagsがfalse/emptyでもAI originへ推論せず、既存`unverified`/`pending`・unknown revenue/offersを維持する。旧2026-10-22観測はすべて保持する。receipt → ../../evidence/ai-monk-master-kaizen-video-metadata-20261024.json。
+
+DATA差分はsource1件追加、75 archive/73 public/197 sources、offer/revenue観測追加0。package/README/server metadataをv0.4.14候補へ整合し、変更前assertion RED→変更後GREEN、package15/helper9、JSON/reference/diffをPASSする。review/CI/PR/main固定Releaseと公開JSON/Web/CLI/stdio/HTTPS MCP/Registry同一snapshot readbackは未実施であり、v0.4.14は候補であって公開済みではない。次cursorはこの受入済みsnapshotのCLI-1公開。その後DB-1でprofile/product/revenue coverageを続ける。OpenAI identity reviewとMuse審査は並行待機、Factory・認証・課金・投稿へのeffectは0。
