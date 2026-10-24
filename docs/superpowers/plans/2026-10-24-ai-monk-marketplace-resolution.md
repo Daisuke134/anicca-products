@@ -11,11 +11,15 @@ Daisの「Go fix」を受け、Codex公開済みとは別に、既存OpenAI専�
 認証はlocal credentials.json全体をRAMで確認し、exact serviceと本人一致を使う。secret値をrepo/log/chatへ複製しない。接続済みGmailを優先し、専用mailboxを読めない場合は既存の正規read-only経路だけを使う。browserは登録済みinteractive:daisのowner/live lease/sessionを確認し、使用中の他者leaseに触れない。日次Grok所有loop、支払、課金、Factory provider設定は対象外。
 
 ## 実行と受入
-- [ ] OpenAI公式復旧・掲載要件を最新一次資料と既存caseに照合する。
-- [ ] 既存mailboxの新通知を確認し、転送先と直接mailboxの観測範囲を分ける。
+- [x] OpenAI公式復旧・掲載要件を最新一次資料と既存caseに照合する。
+- [x] 既存mailboxの新通知を確認し、転送先と直接mailboxの観測範囲を分ける。
 - [ ] Muse既存submissionを公式UIで再読し、変更要求・接続エラー・審査結果を確認する。
-- [ ] 観測した自所有不備があれば最小修正・関連検証・反映を行う。無ければ変更0を記録する。
+- [x] 観測した自所有不備があれば最小修正・関連検証・反映を行う。無ければ変更0を記録する。公開MCPの6実SDK呼出は成功し、設定変更0。
 - [ ] 結果と不足条件をsanitized receiptへ保存し、spec/正本cursorをcommit/push・PR/mainへ反映する。
 
 ## 現在cursor
-最新通知とMuse既存提出をread-onlyで観測する。先行証拠 → ../../evidence/ai-monk-marketplace-followup-20261024.json。正式掲載の2条件は未完のまま保持する。
+OpenAIは既存同一message ID・同case・正規送信元とDKIM/SPF/DMARC pass付きの最終却下を再取得する。復旧通知は取得できず、同案件の再申立て・別accountによる停止回避は行わない。公式の再開・復旧が必要。Museの新通知は観測した転送先に無いが、direct mailboxの全範囲を確認したとは扱わない。
+
+Museの今回の公式UI再読は未達。登録済みprofileの新規owned windowへURLを入力してもNew Tabのままで、実ページ遷移を確認できない。別native bindingも本人session一致を確認できず操作0。過去の3/3受付・Business Approved・残2件In reviewは履歴として保持し、最新状態へ置換しない。root作成windowだけ閉じ、既存named window保持・lease解放を確認する。
+
+公開MCP v0.4.13を実SDKから6tool呼出し、73profile/196source/snapshot一致を確認する。これはMuse hostの実scanや審査承認ではない。具体的な設定不備は観測できないため、推測のCORS変更や再提出は0。結果 → ../../evidence/ai-monk-marketplace-resolution-20261024.json。PL-1はOpenAI公式再開とMuse既存提出の正規readback・具体的要求への対応が残る。先行証拠 → ../../evidence/ai-monk-marketplace-followup-20261024.json。正式掲載の2条件は未完のまま保持し、独立したDatabase/CLI/plugin配布を元のgoalで継続する。
