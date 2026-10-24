@@ -103,11 +103,24 @@
     "landing_production_build": {
       "exit_code": 0,
       "ci_inputs_staged": "PASS: pinned Manager marketing and blog sources; DASHBOARD_SNAPSHOT_URL=http://127.0.0.1:9",
+      "scope_note": "This local build preceded restoration of npm 10 optional peer entries; the final lockfile rebuild is covered by PR CI.",
       "warnings": [
         "Optional @react-native-async-storage/async-storage missing in MetaMask wallet import chain",
         "Optional pino-pretty missing in WalletConnect import chain",
         "Tailwind reports an ambiguous ease-[cubic-bezier(0.16,1,0.3,1)] class"
       ]
+    },
+    "landing_clean_install": {
+      "npm_version": "10.8.2",
+      "command": "npm ci --ignore-scripts",
+      "exit_code": 0,
+      "packages_added": 1481
+    },
+    "landing_ci_initial_failure": {
+      "run_id": 40095696866,
+      "step": "npm ci",
+      "error": "Lockfile omitted seven optional wallet-SDK peer entries for zod@3.25.76.",
+      "fix": "Regenerated the lockfile with npm 10.8.2; clean install then passed."
     },
     "package_npm_audit": {
       "total": 0,
@@ -115,10 +128,12 @@
       "critical": 0
     },
     "landing_app_npm_audit": {
-      "total": 106,
-      "high": 66,
+      "total": 107,
+      "low": 5,
+      "moderate": 32,
+      "high": 68,
       "critical": 2,
-      "remaining_zod_finding": "Eight nested Zod copies under wallet SDK dependencies remain below 4.6.6; direct Zod used by the remote MCP path is 4.6.7. The wallet SDK fix requires a major version update and is outside this database/MCP patch. Review reachable findings before Factory OAuth or subscription launch."
+      "remaining_zod_finding": "Seven nested optional wallet-SDK peer entries use zod@3.25.76; direct Zod in the remote MCP and landing app is 4.6.7. These nested findings remain outside this database/MCP patch; review reachable findings before Factory OAuth or subscription launch."
     },
     "json_build_and_reference_resolution": "PASS",
     "git_diff_check": "PASS"
@@ -126,7 +141,7 @@
   "provider_receipt_id": null,
   "error_class": null,
   "retryable": false,
-  "next_action": "Complete source diff acceptance, then push this dedicated branch, merge the fixed-main PR, publish ai-monk-index v0.4.15, and verify the exact public JSON/Web/CLI/MCP/Registry snapshot before resuming the revised SaaS-1 cursor: Factory readiness diagnosis and three-completed-video free quota with no time trial.",
+  "next_action": "Repair PR 683 landing lockfile with npm 10.8.2, push the clean-install fix, pass both PR checks, merge, publish ai-monk-index v0.4.15, and verify public JSON/Web/CLI/MCP/Registry snapshot before starting the revised SaaS-1 Factory cursor.",
   "evidence_refs": [
     {
       "url": "https://www.instagram.com/reel/DcgKaFhOS9c/",
