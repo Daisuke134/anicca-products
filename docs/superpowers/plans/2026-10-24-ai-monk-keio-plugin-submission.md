@@ -11,7 +11,9 @@ Daisが指定する既存のKeiodaisuke accountで、AI Monk Indexの正式Plugi
 Grokbotは今回のportal UI/提出作業のownerとし、primaryは依頼送信・受付と実行の区別・証拠照合・正本更新を所有する。同時に同じbrowser/portalを操作しない。日次IG/TikTok/Postiz/HeyGen/Grok所有loop、他案件、共有config・security設定は変更しない。既存browser identity/owner/leaseと本人live sessionを先に照合する。credentialの唯一の保存先は ~/.local/share/anicca/credentials.json。password・API key・cookie・認証コード・private case値をmessage/repo/logへ送らない。
 
 ## Grokbotへの依頼
-既存MTProto user sessionとcanonical tg_user.pyを使い、dialogs→対象chat確認→既存履歴の重複確認→今回の依頼を1回送信→公式履歴で同じ送信をreadbackする。相手・本文・run IDのhashを持つ排他fenceを送信前に保存する。sessionを作り直したり、本番bot tokenのwebhook/getUpdatesを変更しない。読取結果の本文・chat ID・secret値は可視logへ出さず、必要な状態だけsanitizeする。
+canonical tg_user.pyによる既存MTProto dialog確認では20会話を取得し、Grok名の宛先は見つからない。既存チーム連絡文書とReason公式一覧を照合し、「Daisukeのネットワーク」の参謀宛先daisuke/cursorを使う。公式whoは同じMac miniのexisting cursorをidle、machineをonlineと返す。idleの一覧だけを着手と扱わない。reason network sendで今回の依頼を1回送り、delivery receipt・返信と実行を分ける。新session・agent・network・監視loopを作らない。
+
+相手・本文・run IDのhashを持つ排他fenceを送信前に保存する。既存Telegram sessionは保持し、別Botへの誤送信や本番bot tokenのwebhook/getUpdates変更は0。本文・chat ID・secret値を可視logへ出さず、必要な状態だけsanitizeする。Reasonの既存認証とnetwork設定も変更しない。
 
 依頼内容は公開v0.1.3 packageと既存MCPの利用、本人Keiodaisukeの通常login・組織/identity確認、可能なupload→scan→review提出→publish、receiptと具体的不足条件の報告。サポートへの再申立てや別account新設、架空の法人情報、予算共有は含めない。
 
@@ -23,4 +25,4 @@ Grokbotは今回のportal UI/提出作業のownerとし、primaryは依頼送信
 - [ ] 結果と残条件をsanitized receipt/正本へ反映する。
 
 ## 現在cursor
-Grokbotの既存dialogを確認し、今回のportal作業を1回委譲する。旧の専用account限定の結果 → ../../evidence/ai-monk-marketplace-resolution-20261024.json。rootによる制限範囲の過大解釈は今回の明示指示とlive権限確認へ置き換える。本人accountでも明示的な拒否が出た場合はその実状態を記録する。
+既存Reasonの参謀宛先を公式whoで確認し、今回のportal作業を1回委譲する。旧の専用account限定の結果 → ../../evidence/ai-monk-marketplace-resolution-20261024.json。rootによる制限範囲の過大解釈は今回の明示指示とlive権限確認へ置き換える。本人accountでも明示的な拒否が出た場合はその実状態を記録する。
