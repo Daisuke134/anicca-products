@@ -46,3 +46,13 @@ primaryはSSOT全体とregistryのowner/profile/leaseを確認し、正しいPID
 自分のwindowだけを閉じ、直後のinventoryではまだ残るが、後続のfresh inventoryで消失と既存named 6window保持を確認する。guard holder空と衝突なしを確認する。支出、課金resource作成/紐付け、規約同意、Prepay移行、生成はすべて0。private証拠は700/600を保つ。今回の観測unitの結果 → ../../evidence/ai-monk-factory-trusted-billing-session-20261024.json。
 
 現在cursorは、確認済みの既存Factory本人sessionから対象を確実に限定できるnative経路で作成formを読み、権限・payments profile・地域額を具体化すること。初期予算の未回答とUSD0 capを維持し、別profileのGoogle Promptは再送しない。正式Plugin掲載はOpenAI既存appealの正式却下とMuse残2項目の審査を保持し、根拠のない設定変更・重複提出を行わない。
+
+
+## 作成formの対象window限定preflight
+
+目的は、既存Factory本人sessionの課金作成formへ入り、権限・既存payments profile・地域別必要額を読み取ること。完了はその実画面または取得できない具体的な境界の記録、root所有windowの閉鎖、既存window保持、lease解放とmain保存で判定する。spend-cap USD0と予算未回答を保持し、作成・規約同意・紐付け・Prepay移行・購入・生成の確定は0。新login・password・Google Prompt再送・auth/profileコピーも0。
+
+前の観測は中央内容のAX欠落と、background pixel click後の遷移未確認。仮説は対象windowへの入力dispatchの不足である。登録済みprofile/PIDとleaseをfresh確認し、root所有new windowだけを作る。CuaDriverの公開APIにwindow raise操作が無いため、必要ならmacOS標準AXの既存権限の範囲で、そのPID内のexact titleに一致するroot所有window1つだけをAXRaiseし、以後の入力はCuaDriverで行う。既存window・他profileをactivate/navigateせず、TCC/Automation権限の変更・browser/daemon/hookのpatchや再起動はしない。権限拒否や対象の不一致なら同操作を再送せず、具体的な境界を残して独立したDB-1調査へ進む。
+
+- [ ] FORM-LIVE: 対象windowの同一性を確認し、作成form・見える権限/支払profile/必要額を読む。入力受付とprovider反映を区別する。
+- [ ] FORM-RECORD: 秘密値を除いた新receiptとcurrent cursorを保存し、最小の参照/hash/権限確認後にcommit/push/PR/mainへ統合する。
