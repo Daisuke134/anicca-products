@@ -211,7 +211,7 @@ Factoryの完成形は、利用者が自分のInstagramを先に接続し、独�
 
 実行順・残TODO・現在のDatabase/CLI/Registry/Plugin公開・正式提出状態 → docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md。
 
-日次IG/TikTokと既存HeyGen/Postiz/loopはGrok Bot所有。Factory SaaS・実生成/本人接続/自動投稿/metrics・有料注文・USD10K MRR・他者無人収益は未完を保持する。ChatGPT/Codex共通directory用の専用OpenAI既存appeal正式却下とMuseの既存審査状態 → docs/evidence/ai-monk-marketplace-followup-20261024.json。申立て受付・account復旧・正式提出・掲載を区別する。
+日次IG/TikTokと既存HeyGen/Postiz/loopはGrok Bot所有。Factory SaaS・実生成/本人接続/自動投稿/metrics・有料注文・USD10K MRR・他者無人収益は未完を保持する。OpenAI/Museのprovider gate、現状、正式提出・掲載の違いは `docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md` を正本とし、account固有のappeal結果と本人提示画面を同一accountの証拠と推定しない。
 
 ## Database・Plugin・Factoryの追加契約
 
@@ -219,7 +219,7 @@ Factoryの完成形は、利用者が自分のInstagramを先に接続し、独�
 
 Databaseは既知の73公開profile/75archiveを対象に、creator・媒体・言語・商品名/価格/URL・出所付き期間/通貨/売上claimを精査し、新しい実在候補も追加する。全世界の全件網羅を証明済みと呼ばず、調査範囲・取得日・未確認を表示する。価格を売上、本人申告を監査済み収益、未知を0へ変換しない。公開中pendingのreasonに残る非掲載という古い説明も正す。
 
-PluginはDatabase由来の制作手順/台本/format/商品導線を検索できるread-only研究配布とし、既存6toolsを使う。Codex直接配布とChatGPT公式掲載を区別し、ChatGPTとGrok/Museの正式plugin口を一次資料で特定する。未確認serviceへ推測で提出しない。
+PluginはDatabase由来の制作手順/台本/format/product researchを検索できる、既存6toolsの無料read-only研究配布とする。Codex/MCP Registry公開、ChatGPT Directory掲載、Muse Connector掲載、Grok Custom MCP接続を別々の経路として扱う。ChatGPT DirectoryはVerified Developer identityと審査を要し、digital goods/services、subscription、trialや価格の宣伝、freemium upsellを認めないため、ChatGPT Pluginは独立価値を持つ無料research toolとし、ebook/Factoryの有料導線をChatGPT内に置かない。Grok公式資料にpublic publisher listing flowはなく、利用者自身が公開MCPを追加する。Museの審査は独立して追跡する。現状と残TODOは `docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md` を参照する。
 
 FactoryはDatabaseと一体のcloud Web appとし、詳細契約は `docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md` を正本とする。無料は時間制ではなく、完成したAI Monk動画3本。利用者はInstagramをOAuthで一度接続し、Factoryがmonk avatar・名前・profile・台本を既定値で選び、毎日自動生成・投稿する。初期設定は不要とし、profile編集と自動投稿停止はいつでも可能にする。Instagramを先行し、TikTokはContent Posting APIの公開監査後に追加する。web appを先に完成し、iPhone appは後続とする。料金・月間本数はReelFarmの無料3本/自動運転/分析導線を参考にし、動画生成原価・投稿API・決済費から利益が残る値を決める。3日trialは採用しない。現在のdraft/local plan完成からSaaS提供を達成扱いしない。
 
