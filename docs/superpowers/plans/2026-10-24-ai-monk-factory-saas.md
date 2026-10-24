@@ -1,4 +1,6 @@
-# AI Monk Factoryクラウド実装計画
+# AI Monk Factoryクラウド実装計画（旧3日trial実装の履歴）
+
+> このplanの完了項目は、旧「3日trial」契約で実装した履歴として保持する。現行の正本は `../specs/2026-10-24-ai-monk-factory-saas-design.md` で、無料は完成動画3本・期限なし、その後は月額subscriptionとする。今後の実装はこの旧task listを仕様として使わない。
 
 Goal: Generateから独自avatar/台本/縦動画を作り、本人のInstagramへ自動投稿し実metricsを確認できる、3日trial付きのWebを公開する。
 Architecture: 既存Next static export/Netlify FunctionsとSupabase Auth/Postgresを使う。公式APIの非同期IDを永続jobへ保存し、短いscheduled tickで進める。Stripeとsocial帰属はserverがverified user IDに結ぶ。

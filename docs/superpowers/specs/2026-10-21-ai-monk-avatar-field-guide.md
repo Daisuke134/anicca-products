@@ -221,7 +221,7 @@ Databaseは既知の73公開profile/75archiveを対象に、creator・媒体・�
 
 PluginはDatabase由来の制作手順/台本/format/商品導線を検索できるread-only研究配布とし、既存6toolsを使う。Codex直接配布とChatGPT公式掲載を区別し、ChatGPTとGrok/Museの正式plugin口を一次資料で特定する。未確認serviceへ推測で提出しない。
 
-FactoryはDatabaseと一体のcloud Web appとし、利用者の設定を最小にする。Generateで独自AI monk avatar画像、次のGenerateでDatabaseから学んだ台本/縦動画を制作する。Instagram接続を先行し、自動投稿とdashboardの実metricsへつなぐ。TikTokは後続接続とする。利用者にprovider API key/CLI/config調整を求めず、サービス側が既存APIを使う。Stripe subscriptionは3日間無料trialを採用する。ReelFarmの画面/activation/paywall構造を参照するが、HeyGen等の実原価/再生成/投稿頻度/trial費用/決済費を先に計算し、利益が残る価格・生成上限を決める。最新の原価重視指示を、価格をそのままコピーする以前の指示より優先する。将来SaaSの要件であり、現在のdraft/local plan完成から達成を導かない。
+FactoryはDatabaseと一体のcloud Web appとし、詳細契約は `docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md` を正本とする。無料は時間制ではなく、完成したAI Monk動画3本。利用者はInstagramをOAuthで一度接続し、Factoryがmonk avatar・名前・profile・台本を既定値で選び、毎日自動生成・投稿する。初期設定は不要とし、profile編集と自動投稿停止はいつでも可能にする。Instagramを先行し、TikTokはContent Posting APIの公開監査後に追加する。web appを先に完成し、iPhone appは後続とする。料金・月間本数はReelFarmの無料3本/自動運転/分析導線を参考にし、動画生成原価・投稿API・決済費から利益が残る値を決める。3日trialは採用しない。現在のdraft/local plan完成からSaaS提供を達成扱いしない。
 
 各商品の公開後はXでDais所有accountから本人として告知し、Grokにも配布協力を依頼する。具体copy/対象/URLを根拠付きで作り、同目的/媒体の成功例を先に調べる。適切な実績指標が取れない部分は穴を記録し小さい1投稿で計測する。既存の告知を再送せず、新campaignの永続fenceと公式receipt/公開permalinkを確認する。日次IG/TikTok運用は引き続きGrok Bot所有。
 

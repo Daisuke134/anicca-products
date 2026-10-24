@@ -19,11 +19,13 @@ primaryは画面・login・正式提出・証拠照合と正本を所有する�
 - [x] Googleの選択画面をSSOTと完全一致で照合し、Keiodaisuke本人を選ぶ。
 - [x] OpenAIの追加認証で既存ChatGPTアプリへのプッシュ通知を1回要求する。再送0。
 - [x] iPhoneのログイン済みChatGPTアプリで本人確認を完了し、ChatGPT WebのaccountメールとSSOTのKeiodaisuke完全一致を確認する。DaisもDoneと返答する。
-- [ ] 正式portalの既存draft/submission、権限とdeveloper identityを確認する。
+- [x] 認証済み本人の正式portalと既存Personal組織を確認する。表示された既存Plugin行は0、upload入口はverified developer identityを要求する。
+- [x] Dais本人がPersonaの本人確認を完了した画面を提示する。OpenAI組織設定のIndividual状態は引き続き「Identity in review」であることを確認する。
+- [ ] OpenAIのIndividual identityが公式画面でVerifiedになるまで待ち、Apps Management権限と組織所有者を別に確認する。審査中は再提出しない。
 - [ ] 正式upload・scan修正・提出・公開の公式readbackを取得する。
 - [ ] 結果と残条件を正本へ反映する。
 
 ## 現在cursor
-現在cursorは認証済みKeiodaisuke accountでの正式portal権限・既存案件確認と提出。Daisの再送依頼時には旧sessionが失効し、プッシュ通知が一時利用不可だった。通常のGoogle loginを同じ本人accountで更新すると通知が再度有効になり、1回要求する。SMSは旧session失効画面までで、コード送信成功は未確認。再通知後にChatGPT Webがログイン済みへ遷移し、account設定のメールをSSOTと完全一致で確認する。新account・新subscription・key・security変更は0。旧要求と今回の1回を分け、正式upload/submit/publishはまだ未確認。
+現在cursorはOpenAI側のdeveloper identity審査。Dais本人のPersona完了画面と、OpenAI組織設定の「Identity in review」を同時に示す添付画像を受け取った。Persona手続き完了は確認できるが、OpenAIのVerified状態ではなく、正式portalのupload入口はverified developer identityを要求するためZIP upload/submit/publishは各0。公式手順はorganization/projectの所有者またはApps Management Writeを要求し、IndividualまたはBusinessの本人確認完了後にverified Developer identityを選んでZIPをuploadする → https://developers.openai.com/plugins/deploy/submission 。公式入口は https://platform.openai.com/settings/organization/general 。生体認証・身分証の送信と同意の代行は0。審査中の重複uploadや再提出はしない。OpenAIの公式Verified表示が得られたら、既存のv0.1.3 ZIPと既存draftを照合して一度だけuploadし、scan・submit・掲載を別々にreadbackする。
 
-primaryのnative操作はAX属性書込だけではURL内部状態が更新されずNew Tabに留まる。稼働中signed CuaDriver、既存本人windowからの新タブ、native Editメニューの貼り付けとReturnでWeb遷移を確認する。元clipboardはRAMだけで保持して復元する。これは操作経路の修復であり、本人accountの拒否ではない。公式OpenAIの追加認証まで到達するが、正式提出・掲載は未確認。証拠 → ../../evidence/ai-monk-keio-plugin-submission-20261024.json。
+primaryのnative操作はAX属性書込だけではURL内部状態が更新されずNew Tabに留まる。稼働中signed CuaDriver、既存本人windowからの新タブ、native Editメニューの貼り付けとReturnでWeb遷移を確認する。元clipboardはRAMだけで保持して復元する。これは操作経路の修復であり、本人accountの拒否ではない。公式OpenAIの追加認証まで到達するが、正式提出・掲載は未確認。最新証拠 → ../../evidence/ai-monk-keio-portal-20261024.json。先行MFA待ちの記録 → ../../evidence/ai-monk-keio-plugin-submission-20261024.json。
