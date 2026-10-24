@@ -466,7 +466,8 @@ test('real adapter plus database completes DB-script speech render publish and a
   for (const expected of ['script_ready','speech_ready','video_pending','post_ready','post_pending','published','published']) {
     await advanceFactoryJob({ job: nextClaim(job.id), store, providers, env: providerEnv, syncBilling: async () => store.account(uid(11)) });
     const current = await store.job(job.id);
-    assert.equal(current.stage, expected, JSON.stringify({ error_class: current.error_class, evidence: current.evidence }));
+    assert.equal(current.stage, expected, JSON.stringify({ error_class: current.error_class, evidence: current.evidence,
+      provider_paths: paths, company_reserved_micro_usd: sql('SELECT coalesce(sum(reserved_micro_usd),0) FROM monk_factory_jobs') }));
   }
   const result = await store.job(job.id);
   assert.equal(result.status, 'completed');
