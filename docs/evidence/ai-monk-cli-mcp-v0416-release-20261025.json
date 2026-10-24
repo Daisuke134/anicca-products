@@ -1,0 +1,133 @@
+{
+  "schema_version": "anicca.ai-monk-index-publication.v1",
+  "run_id": "ai-monk-cli-mcp-v0416-release-20261025",
+  "owner_id": "root",
+  "occurrence_id": "pr-690-yang-mun-fixed-main-release",
+  "release_sha": "46e8a672e8d0030ed94b993b95739aefc6200cb4",
+  "observed_at": "2026-10-24T15:18:29Z",
+  "phase": "fixed_main_release_and_external_acceptance",
+  "command": [
+    "gh pr checks 690",
+    "gh release view ai-monk-index-v0.4.16",
+    "download and install the public release tarball in an isolated prefix; run CLI and real stdio MCP SDK checks",
+    "GET https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+    "GET live HTTPS MCP tools ai_monk_index_stats and get_ai_monk",
+    "GET official MCP Registry version 0.4.16",
+    "GET Netlify production environment and deploy readback"
+  ],
+  "loaded_env": {
+    "provider_secrets": "Not printed or copied into this receipt",
+    "release_source": "Fixed main commit, not an unmerged feature branch"
+  },
+  "exit_code": 0,
+  "provider_receipt_ids": {
+    "pull_request": 690,
+    "pull_request_head": "78e5188fe28e127dc5cc01975c41b9a68ff1b9a6",
+    "merge_commit": "46e8a672e8d0030ed94b993b95739aefc6200cb4",
+    "main_package_workflow": 40105777669,
+    "main_landing_workflow": 40105777678,
+    "mcp_registry_workflow": 40106266906,
+    "github_release": "ai-monk-index-v0.4.16",
+    "github_release_asset_id": 672572960,
+    "netlify_deploy_id": "6adccb4b7e7dd5fa6b820179"
+  },
+  "readback": {
+    "pull_request_checks": {
+      "passed": 3,
+      "failed": 0,
+      "merge_state": "merged"
+    },
+    "github_release": {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.16",
+      "target_commit": "46e8a672e8d0030ed94b993b95739aefc6200cb4",
+      "draft": false,
+      "prerelease": false,
+      "asset": "anicca-ai-monk-index-0.4.16.tgz",
+      "asset_sha256": "07c3082817ae582518faa8d992567d278d4357eb6505d3390b1858c177199c44",
+      "asset_size_bytes": 72250
+    },
+    "database_snapshot": {
+      "sha256": "a623d9358dad0f3ba703b58298bb1192cc1549fb719ec2f9335b86aafd882cc4",
+      "archive_records": 75,
+      "public_profiles": 73,
+      "sources": 224,
+      "offer_rows": 114,
+      "yang_mun_offer_rows": 29,
+      "yang_mun_creator_claims": 4,
+      "yang_mun_revenue_observations": 1,
+      "orders_and_profit_inferred": false
+    },
+    "netlify": {
+      "http_status": 200,
+      "deploy_id": "6adccb4b7e7dd5fa6b820179",
+      "state": "ready",
+      "commit_ref": null,
+      "title_contains_main_sha": true
+    },
+    "public_web": {
+      "url": "https://aniccaai.com/ai-monk-database",
+      "profile_cards_found": 73,
+      "snapshot_archive_records": 75,
+      "sources": 224,
+      "yang_mun_offer_preview_cards": 2,
+      "yang_mun_full_offer_rows": 29
+    },
+    "public_json": {
+      "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "http_status": 200,
+      "sha256": "a623d9358dad0f3ba703b58298bb1192cc1549fb719ec2f9335b86aafd882cc4"
+    },
+    "public_cli_and_stdio_mcp": {
+      "source": "official GitHub Release tarball, isolated install prefix",
+      "stats": "73 public records, 224 sources, snapshot hash matches canonical JSON",
+      "yang_mun": "29 offers, 4 claims, 1 revenue observation",
+      "mcp_tools": 6,
+      "passed": true
+    },
+    "hosted_https_mcp": {
+      "mcp_tools": 6,
+      "stats": "73 records, 224 sources, same snapshot SHA-256",
+      "yang_mun_get_offer_rows": 29,
+      "passed": true
+    },
+    "official_mcp_registry": {
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.16",
+      "http_status": 200,
+      "version": "0.4.16",
+      "status": "active",
+      "is_latest": true
+    }
+  },
+  "effect": {
+    "data_changes": "23 dated offers and 24 source rows for Yang Mun were merged and released",
+    "external_release_published": true,
+    "factory_configuration_or_generation": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "evidence_refs": [
+    {
+      "path": "docs/evidence/ai-monk-yangmun-digital-catalog-20261024.json",
+      "fact": "First-party product catalog and 23 offer observations; paid orders and revenue remain unknown."
+    },
+    {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.16",
+      "fact": "Fixed-main GitHub release and public tarball."
+    },
+    {
+      "url": "https://aniccaai.com/ai-monk-database",
+      "fact": "73 public profile cards and source-linked details."
+    },
+    {
+      "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "fact": "Public canonical JSON snapshot."
+    },
+    {
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.16",
+      "fact": "Official Registry reports version active and latest."
+    }
+  ],
+  "error_class": "none",
+  "retryable": false,
+  "next_action": "Continue the current DB-1 residual source unit; Factory activation remains gated by separate provider, funding, spend-cap and Instagram API prerequisites."
+}

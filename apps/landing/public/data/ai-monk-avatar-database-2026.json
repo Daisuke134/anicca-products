@@ -1,6 +1,6 @@
 {
   "schema_version": "anicca.ai-monk-avatar-database.v1",
-  "updated_at": "2026-10-24",
+  "updated_at": "2026-10-25",
   "license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners.",
   "scope": "English-first research on monk profiles and AI monk video avatars such as Yang Mun. The public directory contains 73 profiles: 6 evidence-reviewed video personas and 67 pending research candidates. The 75-record research archive also retains 2 excluded illustrated/watercolor channels. This is not a complete census.",
   "methodology": [
@@ -2272,6 +2272,71 @@
       "checked_at": "2026-10-24",
       "captured_at": "2026-10-24T14:54:32Z",
       "notes": "The request selected currency=USD and the page displayed 12.99 USD. The Shopify catalog identifies product 15586413609300, variant 56372862910804, available=true, requires_shipping=false. This is a listed price, not a completed checkout or sale."
+    },
+    {
+      "id": "zenmuun-counter-home-20261025",
+      "title": "Zen Muun public storefront reader counter",
+      "url": "https://www.zenmuns.com/",
+      "source_type": "first-party public seller page; displayed counter is not audited",
+      "checked_at": "2026-10-25",
+      "captured_at": "2026-10-24T15:27:06Z",
+      "capture_method": "scrapy fetch",
+      "evidence_sha256": "07e492347ee040de005f7e7a92065d4aef9cf47655d65576960d8d4eebb72872",
+      "evidence_kind": "public_http_response_body",
+      "response_bytes": 31464,
+      "notes": "The seller storefront displays “+10,000 lectores satisfechos” site-wide. Scope may overlap product counters and is unclear. Profile route attribution does not prove operator identity, authorship, actual purchase, revenue or profit."
+    },
+    {
+      "id": "zenmuun-counter-alimentos-20261025",
+      "title": "Zen Muun Alimentos para Sanar seller counter",
+      "url": "https://www.zenmuns.com/alimentos",
+      "source_type": "first-party public seller page; displayed counter is not audited",
+      "checked_at": "2026-10-25",
+      "captured_at": "2026-10-24T15:27:06Z",
+      "capture_method": "scrapy fetch",
+      "evidence_sha256": "a15d82b8be465784f4ddbee8fea00fe7b96fd4944c694c8c679a98f44f8b4a37",
+      "evidence_kind": "public_http_response_body",
+      "response_bytes": 163721,
+      "notes": "The public seller page displays “+500 personas ya tienen este libro”. This does not establish paid orders. Profile route attribution does not prove operator identity, authorship, actual purchase, revenue or profit."
+    },
+    {
+      "id": "zenmuun-counter-tiempo-20261025",
+      "title": "Zen Muun Tiempo de Sanar seller purchase claim",
+      "url": "https://www.zenmuns.com/tiempo-para-sanar",
+      "source_type": "first-party public seller page; displayed counter is not audited",
+      "checked_at": "2026-10-25",
+      "captured_at": "2026-10-24T15:27:06Z",
+      "capture_method": "scrapy fetch",
+      "evidence_sha256": "4673941012a973d8c6593350617e7163c22b4e21ff835e15404d0787a37fa72a",
+      "evidence_kind": "public_http_response_body",
+      "response_bytes": 82844,
+      "notes": "The public seller page says “Más de 7,000 personas ya lo compraron”. This seller claim is not independently audited. Profile route attribution does not prove operator identity, authorship, actual purchase, revenue or profit."
+    },
+    {
+      "id": "zenmuun-counter-camino-20261025",
+      "title": "Zen Muun El Camino de Regreso reader counter",
+      "url": "https://www.zenmuns.com/camino",
+      "source_type": "first-party public seller page; displayed counter is not audited",
+      "checked_at": "2026-10-25",
+      "captured_at": "2026-10-24T15:27:06Z",
+      "capture_method": "scrapy fetch",
+      "evidence_sha256": "aec1e415769625c9722240174ea2a8de1dfc06f2fe8fc682983f9c6fd663d8b5",
+      "evidence_kind": "public_http_response_body",
+      "response_bytes": 76624,
+      "notes": "The public seller page displays “+2,782 lectores felices”. This is not an order or revenue receipt. Profile route attribution does not prove operator identity, authorship, actual purchase, revenue or profit."
+    },
+    {
+      "id": "zenmuun-counter-comunidad-20261025",
+      "title": "Zen Muun Comunidad Sanadora member counter",
+      "url": "https://www.zenmuns.com/comunidad",
+      "source_type": "first-party public seller page; displayed counter is not audited",
+      "checked_at": "2026-10-25",
+      "captured_at": "2026-10-24T15:27:06Z",
+      "capture_method": "scrapy fetch",
+      "evidence_sha256": "635f0726a2dce1cc174079736d9d6aaff97d87e9809fca49f3a65321575b4872",
+      "evidence_kind": "public_http_response_body",
+      "response_bytes": 136594,
+      "notes": "The public seller page displays “+500 miembros activos en la comunidad”. This is not a paid-member or revenue receipt. Profile route attribution does not prove operator identity, authorship, actual purchase, revenue or profit."
     }
   ],
   "accounts": [
@@ -9387,7 +9452,38 @@
           "revenue_status": "unknown_no_payment_or_revenue_receipt"
         }
       ],
-      "seller_counters": [],
+      "seller_counters": [
+        {
+          "value": "10,000+",
+          "metric": "satisfied readers (site-wide; scope unclear)",
+          "source_id": "zenmuun-counter-home-20261025",
+          "status": "seller_displayed_scope_unclear"
+        },
+        {
+          "value": "500+",
+          "metric": "people who have Alimentos para Sanar",
+          "source_id": "zenmuun-counter-alimentos-20261025",
+          "status": "seller_displayed_not_audited"
+        },
+        {
+          "value": "7,000+",
+          "metric": "purchases claimed for Tiempo de Sanar",
+          "source_id": "zenmuun-counter-tiempo-20261025",
+          "status": "seller_displayed_purchase_claim_not_audited"
+        },
+        {
+          "value": "2,782",
+          "metric": "readers reported for El Camino de Regreso",
+          "source_id": "zenmuun-counter-camino-20261025",
+          "status": "seller_displayed_not_audited"
+        },
+        {
+          "value": "500+",
+          "metric": "active Comunidad Sanadora members",
+          "source_id": "zenmuun-counter-comunidad-20261025",
+          "status": "seller_displayed_not_audited"
+        }
+      ],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
@@ -9399,7 +9495,8 @@
         "Comunidad Sanadora de Zen Mun: current price remains unverified; public availability is not a completed purchase.",
         "Community monthly price is a placeholder; ebook/bonus reference values are not current subscription or standalone prices.",
         "Product research: Current standalone prices for the three ebooks.",
-        "Product research: Community subscription amount is a placeholder, not a number."
+        "Product research: Community subscription amount is a placeholder, not a number.",
+        "Seller-displayed reader, purchase and member counts are unverified claims with possible overlap; they are not paid-order, revenue or profit observations."
       ],
       "directory_scope": {
         "status": "pending",
