@@ -25,7 +25,7 @@ primaryが受入、review、Release/asset公開とmain統合を所有する。bo
 - [x] PUBLIC: primaryが独立review後にdemo Release 422351662 / asset 670552046を公開し、匿名GET200・3,681,253 bytes・レビュー済み動画SHA256一致を確認する。GitHub immutable=falseを保持する。
 - [x] PACKAGE: metadata sourceの独立review SHIP/Blocking0とPR639/main71ae730a93648edc76b041fd850bbfbb71e3ce53への統合を受入する。固定mainの4regular filesからv0.1.3 ZIPを作成し、Release422362726/asset670585099の公開downloadと公式digest、独立公開review PASS/Blocking0を確認する。GitHub immutable=false、正式ChatGPT掲載0、v0.1.3 native再modelrun0を保持する。
 
-現在cursor: primaryによる既存専用OpenAI申立ての結果受入と、正規復旧後の正式upload/submit/審査/掲載の個別受入。公式appealは1件受理され成功画面/確認メールを受入するが、復旧と正式提出は未完。最新状態 → ../../evidence/ai-monk-plugin-marketplace-access-20261024.json。DEMOの独立照合・PUBLIC・PACKAGEは完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
+現在cursor: OpenAIは既存appealへの正式回答で無効化維持と同案件の追加申立てを検討しない旨を通知する。復旧・正式upload/submit/掲載は未完。Museは既存提出のデータ処理/接続情報の審査結果を待つ。最新結果 → ../../evidence/ai-monk-marketplace-followup-20261024.json。DEMO/PUBLIC/PACKAGEの既存受入は維持する。
 
 
 ## CASES / private DEMOのsource結果
@@ -84,3 +84,16 @@ v0.1.3のsource head5cf5d4f59d0bd0ce3ef2604a79eebfa7d8b2eb71はPR639で固定mai
 非authorの既存read-only検証者は公式Release/tag、公開ZIP、固定main/sourceの4regular filesを実照合し、PASS/SHIP/Blocking0を返す。新fresh threadとは主張しない。private根拠は `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-release-20261024/verification-independent-release-review.json`、SHA256 `65bd70cd8927149fc183c78cc9e37db54ea4cb1cf5fb278093b160cc2d53413a`。v0.1.3はmetadata-onlyで、native再modelrun0。実8試験はv0.1.2の6full/1recovery/1partial・研究v0.4.6/v0.4.7混在のまま保持する。公開ZIP/デモの受入から正式ChatGPT掲載や審査合格を推定しない。
 
 最終docs unitは最新main71ae730a93648edc76b041fd850bbfbb71e3ce53から、既存clean WT `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-product-prices-v046-20261024` にbranch `docs/ai-monk-plugin-v013-release-20261024` を作る。本specを先に更新し、sanitized release receipt `docs/evidence/ai-monk-plugin-v013-release-20261024.json`、v0.1.2 planの現行pointer、master PL-1の公開状態だけを揃える。既存証拠のhash/JSON/参照・diffを最小確認し、commit/pushとremote object一致・cleanまでworkerが完了する。source/browser/credential/Release/投稿・Factory記述は変更せず、PR/mergeとOpenAIの最新外部gate観測はprimaryへ残す。
+
+
+## 正式掲載の再開カーソル
+
+Daisの「OpenAIアカウント無効化とMuse審査を直す」を今回の最優先とする。旧カーソルはFactoryの無課金billing preflight、新カーソルはPL-1の既存OpenAI申立てとMuse提出の最新結果・追加要求への対応。理由は正式掲載の停止要因を先に解消するという明示指示であり、Factoryの支出・本人端末確認待ちへ作業を逸らさない。既存の日次投稿はGrok所有のままとする。
+
+今回の範囲は、SSOTと登録済み本人認証の一致を確認し、OpenAI専用受信箱の既存caseとMuse既存submissionを読み取ること、公式の不足要求があれば既存案件内で必要な最小修正を行うこと。新アカウント、異議申立てやsubmissionの重複送信、予算未確認の支払、共有設定変更は含まない。メール/APIは読取り専用とし、新たな対人メッセージ送信は行わない。審査中という事実だけでは設定を変更しない。
+
+完了条件は専用OpenAIの正規復旧後の正式upload/submitと公式掲載、Museの正式承認・掲載URLの確認。公式判断がまだ無ければ未完を保持し、確認時刻、既存case/submissionとの対応、残るprovider条件、次の具体的操作を新しい受入記録へ残す。受付済みや資料修正を掲載完了とは呼ばない。
+
+- [x] FOLLOWUP: 既存申立ての専用メールとMuse既存提出を再確認する。OpenAI正式回答の送信元/同一case/DKIM/SPF/DMARCと、Museの概要/データ処理/接続情報を受入する。
+- [ ] FIX: OpenAIは既存appealを正式却下し、追加申立てを検討しないと回答する。原因は非開示。Museに追加要求/接続エラーは無く、確定した自所有の設定不備も無いため、根拠のない変更・再送を行わない。正式復旧/掲載は未完。
+- [x] RECORD: 秘密値を除いた結果を新receiptへ保存する → ../../evidence/ai-monk-marketplace-followup-20261024.json。PR/main統合とremote object一致は専用private evidenceのresult-docs-main-readback.jsonに記録する。
