@@ -1,0 +1,66 @@
+{
+  "schema_version": "anicca.ai-monk-factory-provider-readback.v1",
+  "run_id": "ai-monk-factory-provider-readback-20261024T190541Z",
+  "owner_id": "root",
+  "occurrence_id": "ae603404-9bc4-45bb-9e64-671c188ea3f0",
+  "release_sha": "f831fc8fd36a23a3334b2d94b0f28b17513c0a4a",
+  "observed_at": "2026-10-24T19:05:41.220Z",
+  "phase": "read_only_production_provider_readback",
+  "command": [
+    "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd",
+    "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+    "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=5"
+  ],
+  "loaded_argv": {
+    "provider_mutations": 0,
+    "factory_generation_requests": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT, exact service netlify-anicca-existing-deployment; token value not printed or copied",
+    "production_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "factory_generation_requests": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "netlify_site": {
+      "http_status": 200,
+      "custom_domain": "aniccaai.com",
+      "site_url": "https://aniccaai.com"
+    },
+    "production_environment": {
+      "http_status": 200,
+      "variable_count": 58,
+      "factory_variable_names": []
+    },
+    "latest_production_deploy": {
+      "http_status": 200,
+      "deploy_id": "6adcffa60c2388313eb30680",
+      "state": "ready",
+      "published_at": "2026-10-24T18:58:38.092Z",
+      "commit_ref": null,
+      "title": "Deploy from GHA prod - f831fc8fd36a23a3334b2d94b0f28b17513c0a4a",
+      "deploy_url": "https://6adcffa60c2388313eb30680--anicca2.netlify.app"
+    }
+  },
+  "provider_receipt_id": "6adcffa60c2388313eb30680",
+  "evidence_refs": [
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+      "http_status": 200,
+      "fact": "58 production variables; none have the MONK_FACTORY_ prefix."
+    },
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=5",
+      "http_status": 200,
+      "fact": "The latest production deploy is ready and its title contains the exact main commit SHA."
+    }
+  ],
+  "error_class": "factory_runtime_not_configured",
+  "retryable": false,
+  "next_action": "Refresh HeyGen balance, Gemini billing/model access, Upload-Post plan/profile capacity, and Stripe production price/webhook readbacks. Establish a funded dedicated provider path and actual-spend cap, then configure the missing MONK_FACTORY_* production variables and verify authenticated API readiness before enabling generation or social actions."
+}
