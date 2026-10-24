@@ -211,7 +211,7 @@ Factoryの完成形は、利用者が自分のInstagramを先に接続し、独�
 
 実行順・残TODO・現在のDatabase/CLI/Registry/Plugin公開・正式提出状態 → docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md。
 
-日次IG/TikTokと既存HeyGen/Postiz/loopはGrok Bot所有。Factory SaaS・実生成/本人接続/自動投稿/metrics・有料注文・USD10K MRR・他者無人収益は未完を保持する。ChatGPT/Codex共通directory用の専用OpenAIの状態 → docs/evidence/ai-monk-factory-openai-account-state-20261024.json。Museの審査状態は上記planを参照し、無料配布・正式提出・掲載を区別する。
+日次IG/TikTokと既存HeyGen/Postiz/loopはGrok Bot所有。Factory SaaS・実生成/本人接続/自動投稿/metrics・有料注文・USD10K MRR・他者無人収益は未完を保持する。ChatGPT/Codex共通directory用の専用OpenAI正規復旧とMuseの既存審査状態 → docs/evidence/ai-monk-plugin-marketplace-access-20261024.json。申立て受付・account復旧・正式提出・掲載を区別する。
 
 ## Database・Plugin・Factoryの追加契約
 
