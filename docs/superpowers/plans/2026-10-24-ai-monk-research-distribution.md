@@ -132,3 +132,9 @@ OpenAIの通常認証/APIで確認したaccount_deactivatedに対し、公式復
 Museの既存submissionを本人sessionで再読し、3/3、Business Approved、Data/credentials In reviewを確認する。全体のSubmittedと将来stepのラベルを承認済みへ読み替えない。Data詳細はUnder review、認証不要・Streamable HTTP POST・正しい公開MCP/6 read-only tools・GET405の説明は保存済み。AXで長文が空になる項目は実画面を照合し、OCRのURL誤読を入力不備と扱わない。所有するGmail2受信箱のexact recipient検索は既存の事業メール確認1件だけで、新たな審査結果/修正要求を見つけないが、Muse直接受信箱の全件取得とは主張しない。新提出/編集/再送は0。
 
 native PIDキー入力が別windowへ届いたため、対象を改めて観測し、送信/決済0のまま元Receptionist site/titleへ戻し、自分の新規空window閉鎖と両lease解放/controller exit0を確認する。保護hookのCDP実行前拒否を迂回せず、browser/基盤/日次loopを再起動しない。復旧の証拠 → ../../evidence/ai-monk-plugin-marketplace-access-20261024.json。次は既存caseへのprovider回答/追加要求の受入であり、正規復旧後に同じv0.1.3を正式upload/submitする。回答待ちだけを理由に全goalを完了/blockedへ変更しない。
+
+
+## 審査待ちと独立した未確認商品の精査
+前turnは公式OpenAI appeal受理とMuse既存requirementsのreadback、v0.4.10公開受入を正本へ反映したprogressと判定する。審査結果の未着を同じlogin/提出の再送理由にしない。Database→CLI/plugin→Factoryの優先順を維持し、回答待ちと独立にDB-1の既知商品Monje Wu/El Maestro Lin/Ling Haoの匿名販売価格・通貨を精査する。限定範囲・状態・受入の正本 → 2026-10-24-ai-monk-product-checkouts.md。source差分が成立した場合だけ新版を公開し、未知の売上と正式掲載は未完のまま維持する。
+
+DB-1の限定sourceは3公式checkoutの4観測（Monje Wu主商品19.99 USD/未選択addon5.99 USD、Maestro Lin17 USD、Ling Hao9.99 USD）と別建てJP表示額を追加し、v0.4.11/191出典へ揃える。188出典と全既存観測/収益/掲載scopeは保持、source acceptance RED→GREEN/package15/helper9/render6/built get/monetizationはPASS。source時点ではCI/main/新版公開は未受入。現在の全配布面受入はv0.4.10のままとし、限定unitの次cursorはv0.4.11公開である。source証拠 → ../../evidence/ai-monk-product-checkouts-source-20261024.json。
