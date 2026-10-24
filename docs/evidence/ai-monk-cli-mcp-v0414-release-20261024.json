@@ -1,0 +1,134 @@
+{
+  "schema_version": "anicca.ai-monk-cli-mcp-publication.v1",
+  "run_id": "ai-monk-v0414-publication-20261024",
+  "owner_id": "root",
+  "occurrence_id": "main-v0414-release-and-surface-readback",
+  "observed_at": "2026-10-24T11:21:21Z",
+  "release_sha": "8ceeaaa17e6d6b6e521edab729cd777c822a8468",
+  "phase": "main_release_and_external_acceptance",
+  "command": "Merge PR #678; run main package and Netlify deploy workflows; build tarball from main; publish GitHub Release and MCP Registry; read back public JSON, Web, installed CLI, stdio, HTTPS MCP, and Registry",
+  "loaded_argv": [
+    "npm pack",
+    "gh release create ai-monk-index-v0.4.14",
+    "gh workflow run Publish AI Monk MCP Registry --ref main"
+  ],
+  "loaded_env": {
+    "release_source": "detached worktree at main SHA 8ceeaaa17e6d6b6e521edab729cd777c822a8468",
+    "registry_auth": "GitHub OIDC workflow",
+    "site_auth": "existing Netlify GitHub workflow"
+  },
+  "exit_code": 0,
+  "effect": "publish AI Monk Index v0.4.14 from main and promote the same read-only snapshot to the MCP Registry",
+  "source_acceptance": {
+    "pre_change_red_exit_code": 1,
+    "post_change_green_exit_code": 0,
+    "local_package_tests": {"pass": 15, "fail": 0},
+    "local_landing_tests": {"pass": 9, "fail": 0},
+    "PR_checks": {"package": "pass", "landing": "pass"},
+    "main_package_workflow": {"id": 40089033339, "status": "success"},
+    "dataset_records": 75,
+    "public_profiles": 73,
+    "sources": 197,
+    "snapshot_sha256": "65e73a3b9ca597705f2a10a95ff165452b332f425f42fc1c400178dcb177979a"
+  },
+  "provider_receipt_id": {
+    "github_pr": 678,
+    "github_pr_head": "dae8df5db2b613249abacaf3b9783850e69eb59a",
+    "github_merge_commit": "8ceeaaa17e6d6b6e521edab729cd777c822a8468",
+    "main_package_workflow": 40089033339,
+    "netlify_workflow": 40089033395,
+    "github_release_tag": "ai-monk-index-v0.4.14",
+    "github_release_asset_id": 672074938,
+    "mcp_registry_workflow": 40089496202,
+    "mcp_registry_server_version": "io.github.Daisuke134/ai-monk-index@0.4.14"
+  },
+  "readback": {
+    "github_release": {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.14",
+      "target_commit": "8ceeaaa17e6d6b6e521edab729cd777c822a8468",
+      "draft": false,
+      "prerelease": false,
+      "asset_name": "anicca-ai-monk-index-0.4.14.tgz",
+      "asset_bytes": 65833,
+      "asset_sha256": "8a432ea47090583c53d1c9ff2b25930309fb16c8afc6f27c745b4c46a4a27c22"
+    },
+    "netlify": {
+      "workflow": "https://github.com/Daisuke134/anicca-products/actions/runs/40089033395",
+      "status": "success",
+      "post_deploy_money_path_smoke": "success"
+    },
+    "public_json": {
+      "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "http_status": 200,
+      "response_body_bytes": 500806,
+      "response_sha256": "65e73a3b9ca597705f2a10a95ff165452b332f425f42fc1c400178dcb177979a",
+      "matches_canonical_byte_for_byte": true,
+      "scrapy_stdout_note": "scrapy fetch wrote one extra terminal newline to the capture file; removing that CLI-added byte yields the exact 500806-byte response body and canonical SHA-256."
+    },
+    "public_web": {
+      "url": "https://aniccaai.com/ai-monk-database",
+      "http_status": 200,
+      "markdown_bytes": 92699,
+      "markdown_sha256": "a9b9fee972fa84bbb6a332ba5d1a617e6cf4f8db4789b7ada50c5461512e094a",
+      "readback": ["73 profiles found", "Master Kaizen displays approximately 276K TikTok followers dated 2026-10-24"]
+    },
+    "public_github_cli_install": {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.14/anicca-ai-monk-index-0.4.14.tgz",
+      "install": "PASS",
+      "get_ai_monk": "PASS",
+      "stats_records": 73,
+      "stats_sources": 197,
+      "snapshot_sha256": "65e73a3b9ca597705f2a10a95ff165452b332f425f42fc1c400178dcb177979a"
+    },
+    "public_tarball_stdio": {
+      "transport": "stdio",
+      "status": "PASS",
+      "read_only_tools": 6,
+      "records": 73,
+      "sources": 197,
+      "snapshot_sha256": "65e73a3b9ca597705f2a10a95ff165452b332f425f42fc1c400178dcb177979a"
+    },
+    "public_https_mcp": {
+      "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+      "status": "PASS",
+      "read_only_tools": 6,
+      "records": 73,
+      "sources": 197,
+      "snapshot_sha256": "65e73a3b9ca597705f2a10a95ff165452b332f425f42fc1c400178dcb177979a"
+    },
+    "mcp_registry": {
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.14",
+      "http_status": 200,
+      "response_body_bytes": 767,
+      "response_sha256": "ce8cc8fb7f0fc458b77c6090f28a83bfbaf4f17a9476374129d73fc14abe65db",
+      "version": "0.4.14",
+      "name": "io.github.Daisuke134/ai-monk-index",
+      "status": "active",
+      "isLatest": true,
+      "remote_url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp"
+    }
+  },
+  "effect_fence": {
+    "chatgpt_directory_submission": 0,
+    "muse_resubmission": 0,
+    "daily_social_posts_or_owner_changes": 0,
+    "factory_auth_billing_or_generation": 0
+  },
+  "next_action": "Resume DB-1 residual profile/product/revenue source coverage; then continue PL-1 ChatGPT identity gating and the pending Muse review, followed by Factory subscription and generation work.",
+  "evidence_refs": [
+    "https://github.com/Daisuke134/anicca-products/pull/678",
+    "https://github.com/Daisuke134/anicca-products/actions/runs/40089033395",
+    "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.14",
+    "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+    "https://aniccaai.com/ai-monk-database",
+    "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.14"
+  ],
+  "diagnostics": {
+    "gh_pr_merge_exit": 1,
+    "failure_boundary": "Remote GitHub PR merge completed, but gh then failed switching this local worktree to main because another registered worktree already has main checked out.",
+    "remote_readback": "PR 678 is MERGED; main and merge commit both read back as 8ceeaaa17e6d6b6e521edab729cd777c822a8468.",
+    "retry_or_duplicate_merge": false
+  },
+  "error_class": null,
+  "retryable": false
+}
