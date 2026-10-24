@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **187 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **188 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -20,12 +20,14 @@ v0.4.8 resolves SifuChen California's native Instagram handle, adds a dated roun
 
 v0.4.9 refreshes three Yang Mun video counts and its rounded subscriber count, plus three official seller pages. The journey page’s dollar displays conflict with its storefront currency metadata, so the new normalized prices/currencies stay unknown. Existing historical prices and revenue claims remain unchanged.
 
+v0.4.10 adds a dated 17 USD seller-structured price for Aris The Still’s existing The 21 Sacred Rituals bundle. The official Product/Offer JSON-LD explicitly identifies USD; the earlier price-unknown observation is retained. InStock and price-valid-until are seller metadata. Actual purchase availability, billing recurrence, merchant settlement currency, paid orders and revenue remain unverified.
+
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.9/anicca-ai-monk-index-0.4.9.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.10/anicca-ai-monk-index-0.4.10.tgz
 ```
 
 ## CLI

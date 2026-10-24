@@ -1,0 +1,149 @@
+{
+  "schema_version": "anicca.ai-monk-product-jsonld-source.v1",
+  "run_id": "ai-monk-product-jsonld-followup-20261024",
+  "owner_id": "root",
+  "occurrence_id": "aris-seller-price-source-acceptance",
+  "observed_at": "2026-10-24T00:31:34.362152+00:00",
+  "source_base": "ad08dd187d3b3c051bb29d9e1040ec76272f5461",
+  "phase": "data_source_acceptance",
+  "command": "preserved seller JSON-LD read; bounded RED/GREEN; existing package and shared/render tests; built get/monetization API",
+  "exit_code": 0,
+  "effect": "append one dated 17 USD seller-listed observation and one source; prepare CLI/Registry 0.4.10",
+  "readback": {
+    "url": "https://www.aristhestill.com/",
+    "http_status": 200,
+    "seller_jsonld": {
+      "@type": "Product",
+      "name": "The 21 Sacred Rituals — The Complete Guide for Healing Your Home, Your Body, and Your Spirit",
+      "offers": {
+        "@type": "Offer",
+        "price": "17.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://aristhestill.com",
+        "priceValidUntil": "2026-12-31"
+      }
+    },
+    "archive_records": 75,
+    "public_records": 73,
+    "included": 4,
+    "pending": 69,
+    "excluded": 2,
+    "old_sources_preserved": 187,
+    "sources": 188,
+    "unmodified_accounts": 74,
+    "new_offer_observations": 1,
+    "existing_aris_offer_preserved": true,
+    "all_old_financial_and_other_fields_preserved": true,
+    "red_exit_code": 1,
+    "green_exit_code": 0,
+    "shared_directory_and_render_tests": {
+      "pass": 15,
+      "fail": 0
+    },
+    "cli_stdio_http_package_tests": {
+      "pass": 15,
+      "fail": 0
+    },
+    "built_api": {
+      "status": "PASS",
+      "snapshot_sha256": "3dd7cddc6dd8e4da0c751984ea0fb2894f405fc4d291743833b3561ab81bfeb9",
+      "records": 73,
+      "sources": 188,
+      "get_and_monetization_price": 17,
+      "currency": "USD",
+      "source_returned": true,
+      "historical_unknown_retained": true
+    },
+    "release_version": "0.4.10",
+    "independent_review_ci_main_publication": "pending"
+  },
+  "canonical_sha256": "3dd7cddc6dd8e4da0c751984ea0fb2894f405fc4d291743833b3561ab81bfeb9",
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Independent read-only exact-source review, existing CI/main, new fixed-main release and public/Registry acceptance.",
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/aris-public-jsonld-readback.json",
+      "bytes": 2460,
+      "sha256": "273b39f364871289e603539799c7a920c885f1dd73cfc4c1a52842ba65a16a2b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/aris-seller.body.html",
+      "bytes": 97543,
+      "sha256": "dfa68ddef4ac59dfd779471267c40e9a6019c33a461ec134db19a71be681236d"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/source-acceptance.py",
+      "bytes": 2308,
+      "sha256": "0b998199448f9beed8e5815ca1892e0a2eb8083b160039597b9c4e821f0c2c0a"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/source-red.stderr.log",
+      "bytes": 351,
+      "sha256": "545f7134b9535ac75cb999e2c029aedac1962fe6056321d9e8c16d474a2c6932"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/source-acceptance-v2.py",
+      "bytes": 2348,
+      "sha256": "62293394dd7d18ad510469cff3218b8af877be87ea0a3a662a60ef9d1b2b1922"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/source-green.stderr.log",
+      "bytes": 351,
+      "sha256": "8d54b86d586042a0350de8156bf8f7dfd008e0a8f5655f1386e138651f008592"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/source-green-v2.stdout.log",
+      "bytes": 272,
+      "sha256": "49e788d3ed25e9d82244dcf64229c0633a2e7cb9bcb67b793a10881a803865c8"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/package-tests.stdout.log",
+      "bytes": 1625,
+      "sha256": "5e365ca26a66a87c75efdbe43ad9c578192f023d17eaed86655b40fa6cd8d3f6"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/package-tests.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/shared-tests.stdout.log",
+      "bytes": 1570,
+      "sha256": "fef1e92a6f4a3cb41640986f4b9019380384f3e01d1ba972e2094e8a10c03d3e"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/shared-tests.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-jsonld-followup-20261024/built-api.stdout.json",
+      "bytes": 237,
+      "sha256": "5a9d6a227dcee0442f6fd3e8992c64463f3498ec49f6afdfccfeb8b9e2939f3f"
+    }
+  ],
+  "acceptance_probe_correction": {
+    "initial_green_exit_code": 1,
+    "cause": "Comparison removed appended offer but forgot to remove the separately asserted appended source. No unexpected canonical change.",
+    "correction": "v2 removes exactly the already validated added source as well, then compares the complete dataset to base. Initial scripts/logs retained."
+  },
+  "other_profile_followups": {
+    "monje_wu": "Exploration found JP localized presentment 3309 JPY; base currency unresolved. No canonical change.",
+    "monje_lin": "Exploration found JP localized presentment 2814 JPY; base currency unresolved. No canonical change.",
+    "limitations": "Exploratory raw/HTTP was not preserved; these values are not accepted canonical evidence."
+  },
+  "limitations": [
+    "Seller InStock/price-valid-until are metadata, not verified purchase availability.",
+    "Billing recurrence, merchant settlement currency, paid orders, revenue, creator identity and health efficacy remain unverified.",
+    "Earlier missing-price observation and all existing source entries remain unchanged."
+  ],
+  "external_effects": {
+    "checkout_cart_login": 0,
+    "payments_generation_posts": 0,
+    "factory_or_plugin_payload_changes": 0,
+    "daily_owner_changes_or_replays": 0
+  }
+}
