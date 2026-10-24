@@ -22,7 +22,7 @@ Stripe JPの標準公表card3.6%＋Billing0.7%、FXが必要な場合の追加2%
 
 無料3本の動画・TTS・avatar予約の小計はUSD4.03、その他を含むprovider/台本のhard budgetはUSD4.25。画像を別APIへ変えた後もUSD0.28の保守枠を残す計算であり、HeyGen単独の実請求ではない。無料3本→paid10%という仮定では獲得無料枠費USD42.50/有料利用者となる。初月利益試算は有料1人でUSD16.753、5人でUSD56.753、25人でUSD64.753。paid側のUSD1.60はavatarを再利用する通常経路では実費0となる保守予備費で、毎月再生成する仕様ではない。転換率5%・有料1人ではUSD-25.747で赤字。売上・継続率・税・実手数料の未確定部分を隠さず、実請求と実転換率から更新する。
 
-ReelFarm公式ページは「3 TikToks free」、毎日自動生成・投稿・分析を掲げ、月USD49/100 slideshows、USD95/250、USD195/750を表示する。Factoryは無料3本→OAuth接続→自動投稿→metricsの導線を参考にするが、slideshowsとAI avatar動画は原価が異なるため有料本数/価格はそのまま採用しない。USD199/月・30本は現行候補とし、実原価から本番価格を確定する。参照: https://reel.farm/ 。
+ReelFarmの現行公式ページは「3 TikToks free」、TikTok接続、日次の自動生成・投稿、analyticsを掲げる。今回の公開ページ取得では有料価格を確認できないため、過去のUSD49/95/195の記録をcurrent priceとして使わない。Factoryは無料3本→OAuth接続→自動投稿→metricsの導線を参考にするが、slideshowsとAI avatar動画は原価が異なるため、無料枠以外の価格や本数をそのまま採用しない。USD199/月・30本は候補であり、実原価・失敗/再試行費・決済/hosting費から本番価格を確定する。参照: [ReelFarm](https://reel.farm/)。
 
 Instagram公式OverviewはInstagram LoginでFacebook Page連携を不要にできると説明し、他社user向けAdvanced AccessにはMeta App ReviewとBusiness Verificationを要求する。Content Publishing guideはprofessional account、publish permission、accountによってはPPA完了を求める。TikTok公式Content Posting APIはregistered app、scopeのapp承認と利用者認可を求め、audit前clientの投稿をprivateに制限する。Instagramを先行し、TikTokのpublic postingはaudit後に有効化する。参照: https://developers.facebook.com/documentation/instagram-platform/overview 、https://developers.facebook.com/documentation/instagram-platform/content-publishing 、https://developers.tiktok.com/docs/en/content-posting-api-get-started 。
 
