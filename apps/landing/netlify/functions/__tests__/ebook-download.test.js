@@ -44,6 +44,25 @@ test('paid ebook session gate accepts complete paid ebook sessions only', () => 
   }, true), false);
 });
 
+test('subscription-mode sessions cannot read ebook bytes even when payment fields and metadata look paid', async () => {
+  for (const metadata of [{ product: 'ebook', lang: 'en' }, { lang: 'en' }]) {
+    let protectedFileRead = false;
+    const response = await ebookDownloadHandler({
+      httpMethod: 'GET',
+      queryStringParameters: { session_id: 'cs_live_subscription_ebook_1', format: 'pdf' },
+    }, {
+      env: { STRIPE_SECRET_KEY: 'sk_live_redacted' },
+      liveMode: true,
+      retrieveSession: async () => ({
+        status: 'complete', payment_status: 'paid', livemode: true, mode: 'subscription', metadata,
+      }),
+      readFile: () => { protectedFileRead = true; return Buffer.from('must stay private'); },
+    });
+    assert.equal(response.statusCode, 403);
+    assert.equal(protectedFileRead, false);
+  }
+});
+
 test('ebook download streams private PDF for a verified Stripe session', async () => {
   assert.ok(fs.existsSync(privatePdf), 'paid PDF must live under private/ebooks');
   const response = await ebookDownloadHandler({
