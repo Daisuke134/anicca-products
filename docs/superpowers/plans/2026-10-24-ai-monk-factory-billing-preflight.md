@@ -54,5 +54,12 @@ primaryはSSOT全体とregistryのowner/profile/leaseを確認し、正しいPID
 
 前の観測は中央内容のAX欠落と、background pixel click後の遷移未確認。仮説は対象windowへの入力dispatchの不足である。登録済みprofile/PIDとleaseをfresh確認し、root所有new windowだけを作る。CuaDriverの公開APIにwindow raise操作が無いため、必要ならmacOS標準AXの既存権限の範囲で、そのPID内のexact titleに一致するroot所有window1つだけをAXRaiseし、以後の入力はCuaDriverで行う。既存window・他profileをactivate/navigateせず、TCC/Automation権限の変更・browser/daemon/hookのpatchや再起動はしない。権限拒否や対象の不一致なら同操作を再送せず、具体的な境界を残して独立したDB-1調査へ進む。
 
-- [ ] FORM-LIVE: 対象windowの同一性を確認し、作成form・見える権限/支払profile/必要額を読む。入力受付とprovider反映を区別する。
-- [ ] FORM-RECORD: 秘密値を除いた新receiptとcurrent cursorを保存し、最小の参照/hash/権限確認後にcommit/push/PR/mainへ統合する。
+- [x] FORM-LIVE: 対象windowの同一性を確認し、作成form・見える権限/支払profile/必要額を読む。入力受付とprovider反映を区別する。
+- [x] FORM-RECORD: 秘密値を除いた新receiptとcurrent cursorを保存し、最小の参照/hash/権限確認後にcommit/push/PR/mainへ統合する。
+
+
+### 対象window限定probeの結果
+
+root所有の空windowだけを作り、fresh AX titleの一致を確認する。標準AXRaiseはSystem Eventsの補助アクセス拒否（-25211）で終了し、課金URLへ進まない。同操作の再試行・TCC/Automation変更・driver/browser設定変更やrestartは0。自分のwindow閉鎖、既存named 6window保持、guard holder空を公式native/guard readbackで確認する。支出と課金resourceの作成/変更は0。結果 → ../../evidence/ai-monk-factory-billing-form-preflight-20261024.json。
+
+この失敗はmacOS側の操作権限であり、Googleの新課金口座作成権限が拒否された証拠ではない。既存本人sessionの確認は前receiptの範囲で保持する。form・payments profile・地域額・初期予算は未確定。旧cursorの同じAXRaiseを繰り返さず、DB-1の公式商品source拡充を独立して進める。課金操作は、対象を確実に限定できる正規UI経路と予算条件が揃ってから再開する。
