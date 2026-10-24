@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release uses the current dated research snapshot: **73 monk profiles, including 6 evidence-reviewed video personas and 67 pending research candidates**, with **229 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. All six included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the current dated research snapshot: **73 monk profiles, including 6 evidence-reviewed video personas and 67 pending research candidates**, with **233 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. All six included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -36,12 +36,14 @@ v0.4.16 adds 23 dated Yang Mun seller-page observations (19 ebooks/ebook bundles
 
 v0.4.17 adds five dated seller-displayed counters from Zen Muun’s public storefront and product/community pages. The counters remain unverified, may overlap, and do not establish paid orders, revenue, or profit. Four current price displays remain placeholders, so no prices or revenue observations are added. The archive remains 75 records, with 229 sources and 114 offer rows; this is not a complete census.
 
+v0.4.18 adds two first-party Stan digital-download offers linked to the pending @shenmuhealer profile: 12.95 USD and 9.95 USD, each with a separate 47 USD reference price. Instagram displays an “AI-generated profile” label, recorded as platform-reported evidence only; the profile remains pending because its Reels were not visually reviewed. The seller page’s “10,251 downloads” stays an unaudited product-scoped counter, not paid orders or revenue. Operator identity, authorship, orders, revenue and profit remain unknown. The archive remains 75 records, with 233 sources and 116 account-offer rows; this is not a complete census.
+
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.17/anicca-ai-monk-index-0.4.17.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.18/anicca-ai-monk-index-0.4.18.tgz
 ```
 
 ## CLI
