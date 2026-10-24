@@ -1,0 +1,139 @@
+{
+  "schema_version": "anicca.ai-monk-factory-readiness.v1",
+  "run_id": "ai-monk-factory-button-readiness-20261025",
+  "owner_id": "root",
+  "occurrence_id": "factory-studio-buttons-disabled-after-v0416-readback",
+  "release_sha": "46e8a672e8d0030ed94b993b95739aefc6200cb4",
+  "observed_at": "2026-10-24T15:25:20Z",
+  "phase": "read_only_readiness_diagnosis",
+  "command": [
+    "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+    "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=5",
+    "crwl crawl https://aniccaai.com/ai-monk-factory -o markdown-fit",
+    "crwl crawl https://reel.farm/ -o markdown-fit",
+    "read apps/landing/app/ai-monk-factory/factory.tsx and apps/landing/netlify/functions/monk-factory.js"
+  ],
+  "loaded_argv": {
+    "provider_mutations": 0,
+    "factory_generation_requests": 0,
+    "checkout_requests": 0,
+    "instagram_connections_or_posts": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT, exact service netlify-anicca-existing-deployment; token value not printed or copied",
+    "production_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "factory_generation_requests": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "netlify_environment": {
+      "http_status": 200,
+      "production_variable_count": 58,
+      "factory_variable_names": []
+    },
+    "latest_production_deploy": {
+      "http_status": 200,
+      "deploy_id": "6adccb4b7e7dd5fa6b820179",
+      "state": "ready",
+      "published_at": "2026-10-24T15:14:56.310Z",
+      "commit_ref": null,
+      "title": "Deploy from GHA prod - 46e8a672e8d0030ed94b993b95739aefc6200cb4"
+    },
+    "public_factory_page": {
+      "copy": "Up to 3 free videos, 20 seconds each. No card and no time limit. Plan: $199 USD/month.",
+      "studio_status": "Checkout and new generation are unavailable for now; existing content and Stop control remain here."
+    },
+    "reelfarm_reference": {
+      "url": "https://reel.farm/",
+      "free_offer": "3 TikToks",
+      "flow": [
+        "create automation",
+        "connect TikTok",
+        "automatic daily generation and publishing"
+      ],
+      "analytics": true,
+      "paid_plan_api_access_advertised": true
+    },
+    "source_contract": {
+      "ui": "Generate buttons require generation readiness; Instagram Connect requires social readiness; Stripe checkout requires checkout readiness. Each control is disabled while its capability is false.",
+      "api": "factoryReadiness requires MONK_FACTORY_ENABLED and the associated runtime/provider or billing checks. Each POST action rechecks readiness and returns 503 when unavailable.",
+      "diagnosis": "The observed disabled state is the intentional fail-closed readiness gate, not a missing click handler. The authenticated post-deploy UI/API state was not independently read back."
+    },
+    "provider_prerequisites_last_verified": {
+      "gemini": {
+        "state": "prepared_unfunded",
+        "billing_verified": false,
+        "observed_at": "2026-10-24T00:09:48Z"
+      },
+      "heygen": {
+        "wallet_currency": "USD",
+        "wallet_remaining_balance": 0,
+        "wallet_auto_reload_enabled": false,
+        "observed_at": "2026-10-23T20:00:49Z"
+      },
+      "upload_post": {
+        "plan": "Default",
+        "profile_count": 0,
+        "profile_limit": 2,
+        "paid_plan_purchased": false,
+        "observed_at": "2026-10-23T19:21:23Z"
+      },
+      "stripe": {
+        "catalog_price": "$199 USD/month",
+        "account_status": "catalog_prepared_runtime_disabled",
+        "observed_at": "2026-10-23T19:30:16Z"
+      },
+      "factory_runtime": {
+        "state": "prepared_not_deployed",
+        "observed_at": "2026-10-23T19:53:54Z"
+      },
+      "company_wide_hard_spend_cap": "not found in current spec or private credentials SSOT"
+    },
+    "user_attachment": {
+      "screenshot_clock": "21:31–21:32 JST",
+      "calendar_date_visible": false,
+      "authenticated_screen_after_latest_deploy": false
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+      "http_status": 200,
+      "fact": "58 production variables; none have the MONK_FACTORY_ prefix."
+    },
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=5",
+      "http_status": 200,
+      "fact": "Latest deploy is ready; its title contains the current main merge SHA."
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/factory.tsx",
+      "fact": "UI disables generation, connect and checkout controls when each readiness capability is false."
+    },
+    {
+      "path": "apps/landing/netlify/functions/monk-factory.js",
+      "fact": "Server rechecks capability readiness for each action and fails closed."
+    },
+    {
+      "path": "docs/evidence/ai-monk-factory-provider-readiness-20261024.json",
+      "fact": "Last official provider readbacks identify unfunded/unverified Gemini, zero HeyGen balance, Upload-Post Default limits and no enabled Factory runtime."
+    },
+    {
+      "path": "docs/evidence/ai-monk-factory-billing-preflight-20261024.json",
+      "fact": "No company-wide Factory bootstrap spend cap or verified dedicated funding source was established."
+    },
+    {
+      "url": "https://reel.farm/",
+      "fact": "First-party product page describes a three-free-TikTok automation, account connection, daily creation/publishing and analytics."
+    }
+  ],
+  "error_class": "factory_runtime_not_configured",
+  "retryable": false,
+  "next_action": "Keep generation, Instagram connection, Checkout and posting gates closed. Continue no-spend Database/Plugin work. Resume Factory activation only after dedicated provider funding and permissions, a company-wide hard cap, production runtime configuration and customer-scale Instagram API/OAuth readiness are verified."
+}

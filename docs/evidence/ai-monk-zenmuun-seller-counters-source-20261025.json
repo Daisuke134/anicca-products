@@ -1,0 +1,139 @@
+{
+  "schema_version": "anicca.ai-monk-seller-counter-source.v1",
+  "run_id": "ai-monk-zenmuun-seller-counters-source-20261025",
+  "owner_id": "root",
+  "occurrence_id": "zenmuun-five-first-party-page-counters",
+  "release_sha": "46e8a672e8d0030ed94b993b95739aefc6200cb4",
+  "observed_at": "2026-10-24T15:27:06Z",
+  "phase": "source_accepted_before_publication",
+  "command": [
+    "crwl crawl five public zenmuns.com storefront/product/community pages -o markdown-fit",
+    "scrapy fetch each page; hash public response bodies; verify displayed claims",
+    "temporary source acceptance RED to GREEN",
+    "npm test in packages/ai-monk-index",
+    "node --test apps/landing/lib/ai-monk-directory.test.mjs"
+  ],
+  "loaded_env": {
+    "research": "Anonymous public first-party pages; no browser, login, credentials or payment information",
+    "package_test": "Existing package dependencies"
+  },
+  "exit_code": 0,
+  "effects": {
+    "new_sources": 5,
+    "new_seller_counters": 5,
+    "new_offers_or_prices": 0,
+    "paid_orders_added": 0,
+    "revenue_observations_added": 0,
+    "creator_claims_changed": 0,
+    "login_or_checkout": 0,
+    "payments": 0,
+    "factory_provider_or_social_effects": 0
+  },
+  "observations": [
+    {
+      "source_id": "zenmuun-counter-home-20261025",
+      "url": "https://www.zenmuns.com/",
+      "displayed_claim": "+10,000 lectores satisfechos",
+      "counter_value": "10,000+",
+      "status": "seller_displayed_scope_unclear",
+      "scope_note": "Site-wide reader count may overlap product-specific counters."
+    },
+    {
+      "source_id": "zenmuun-counter-alimentos-20261025",
+      "url": "https://www.zenmuns.com/alimentos",
+      "displayed_claim": "+500 personas ya tienen este libro",
+      "counter_value": "500+",
+      "status": "seller_displayed_not_audited"
+    },
+    {
+      "source_id": "zenmuun-counter-tiempo-20261025",
+      "url": "https://www.zenmuns.com/tiempo-para-sanar",
+      "displayed_claim": "Más de 7,000 personas ya lo compraron",
+      "counter_value": "7,000+",
+      "status": "seller_displayed_purchase_claim_not_audited"
+    },
+    {
+      "source_id": "zenmuun-counter-camino-20261025",
+      "url": "https://www.zenmuns.com/camino",
+      "displayed_claim": "+2,782 lectores felices",
+      "counter_value": "2,782",
+      "status": "seller_displayed_not_audited"
+    },
+    {
+      "source_id": "zenmuun-counter-comunidad-20261025",
+      "url": "https://www.zenmuns.com/comunidad",
+      "displayed_claim": "+500 miembros activos en la comunidad",
+      "counter_value": "500+",
+      "status": "seller_displayed_not_audited"
+    }
+  ],
+  "source_readback": {
+    "page_responses": [
+      {
+        "source_id": "zenmuun-counter-home-20261025",
+        "http_status": 200,
+        "response_bytes": 31464,
+        "sha256": "07e492347ee040de005f7e7a92065d4aef9cf47655d65576960d8d4eebb72872"
+      },
+      {
+        "source_id": "zenmuun-counter-alimentos-20261025",
+        "http_status": 200,
+        "response_bytes": 163721,
+        "sha256": "a15d82b8be465784f4ddbee8fea00fe7b96fd4944c694c8c679a98f44f8b4a37"
+      },
+      {
+        "source_id": "zenmuun-counter-tiempo-20261025",
+        "http_status": 200,
+        "response_bytes": 82844,
+        "sha256": "4673941012a973d8c6593350617e7163c22b4e21ff835e15404d0787a37fa72a"
+      },
+      {
+        "source_id": "zenmuun-counter-camino-20261025",
+        "http_status": 200,
+        "response_bytes": 76624,
+        "sha256": "aec1e415769625c9722240174ea2a8de1dfc06f2fe8fc682983f9c6fd663d8b5"
+      },
+      {
+        "source_id": "zenmuun-counter-comunidad-20261025",
+        "http_status": 200,
+        "response_bytes": 136594,
+        "sha256": "635f0726a2dce1cc174079736d9d6aaff97d87e9809fca49f3a65321575b4872"
+      }
+    ],
+    "prices": "Product and subscription prices still render as ellipses/placeholders; no amount or currency was added."
+  },
+  "database_delta": {
+    "archive_records": 75,
+    "public_profiles": 73,
+    "source_rows_before": 224,
+    "source_rows_after": 229,
+    "offer_rows_before": 114,
+    "offer_rows_after": 114,
+    "canonical_snapshot_sha256": "ba6b26b1ce65b6ca3e070ae9cdda41f3d1f54a4b76c505cfc3593c287193233b",
+    "seller_counters_before": 27,
+    "seller_counters_after": 32,
+    "target_profile": "lead-instagram-zenmuun",
+    "target_offers": 4,
+    "target_offers_with_unknown_price": 4,
+    "target_revenue_observations": 0,
+    "ai_status_and_directory_scope_changed": false,
+    "target_profile_seller_counters_before": 0,
+    "target_profile_seller_counters_after": 5
+  },
+  "acceptance": {
+    "temporary_assertion_red_before_data": true,
+    "temporary_assertion_green_after_data": true,
+    "package_tests": "16/16 PASS; includes source-linked monetization, CLI, stdio MCP and isolated tarball checks",
+    "ai_monk_directory_helper_tests": "9/9 PASS",
+    "landing_render_test": "BLOCKED before test execution: ERR_MODULE_NOT_FOUND react because apps/landing dependencies are absent in this worktree."
+  },
+  "claim_limits": [
+    "The counts are seller-displayed statements, not audited purchases, paid memberships, revenue or profit.",
+    "The counters may overlap and must not be summed.",
+    "The public profile route does not establish the operator identity, authorship or legal ownership of the seller pages.",
+    "AI production status remains unverified; no directory scope was promoted."
+  ],
+  "error_class": "none",
+  "retryable": false,
+  "next_action": "Complete the source PR/main merge, publish immutable main-derived v0.4.17, then verify public Web/JSON, released CLI/stdio MCP, hosted HTTPS MCP and official MCP Registry against the same snapshot."
+}
