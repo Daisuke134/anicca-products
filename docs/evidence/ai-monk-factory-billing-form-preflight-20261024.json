@@ -1,0 +1,108 @@
+{
+  "schema_version": "anicca.ai-monk-factory-billing-form-preflight.v1",
+  "run_id": "ai-monk-factory-billing-form-preflight-20261024",
+  "owner_id": "root",
+  "occurrence_id": "owned-blank-window-target-raise-permission-refusal",
+  "release_sha": "09dc04ac20bc3a72cb72ed2d7f6fdc9b7d36614c",
+  "spec_commit": "5772e1ee5cb0e855d581e973bbf95c432907793d",
+  "recorded_at": "2026-10-24T04:51:45.811875+00:00",
+  "phase": "native_target_raise_denied_before_billing_navigation",
+  "command": "Registered browser guard lease; CuaDriver owned blank window; standard macOS System Events AXRaise of exact unique owned title; CuaDriver own-tab cleanup; guard readback",
+  "loaded_argv_env": {
+    "browser_identity": "interactive:dais",
+    "registered_profile_main_pid_verified": true,
+    "native_daemon_pid": 98539,
+    "capture_mode": "ax",
+    "trajectory_recording": false,
+    "spend_cap_usd": 0,
+    "ssot_entire_document_loaded_in_ram": true,
+    "factory_service_rows": 1,
+    "matching_exact_google_service_rows": 1,
+    "secret_values_logged": false
+  },
+  "exit_code": 1,
+  "native_probe": {
+    "owned_blank_window": 80759,
+    "exact_title": "新しいタブ - Chromium",
+    "action_attempts": 1,
+    "action_completed": false,
+    "provider_or_os_error_code": -25211,
+    "error_summary": "System Events refuses osascript because assistive access is not permitted.",
+    "same_denied_action_retried": false,
+    "tcc_automation_permissions_changed": false,
+    "native_driver_or_browser_configuration_changed": false,
+    "driver_or_browser_restart": false,
+    "billing_url_navigation": false,
+    "new_billing_form_observed": false
+  },
+  "prior_identity_evidence": "docs/evidence/ai-monk-factory-trusted-billing-session-20261024.json",
+  "billing": {
+    "new_account_create_entitlement": null,
+    "existing_payments_profile_eligible": null,
+    "region_specific_required_funding": null,
+    "bootstrap_budget_answer_received": false
+  },
+  "effect": {
+    "owned_blank_window_created": 1,
+    "owned_blank_window_closed": 1,
+    "billing_form_fields_changed": 0,
+    "new_login_password_or_prompt": 0,
+    "terms_acceptance": 0,
+    "billing_account_create": 0,
+    "project_billing_link": 0,
+    "prepay_transition": 0,
+    "purchase_funding_or_generation": 0,
+    "netlify_or_stripe_configuration": 0,
+    "openai_or_muse_resubmission": 0,
+    "daily_posting_changes": 0
+  },
+  "cleanup": {
+    "own_window_closed": true,
+    "preexisting_named_windows_retained": true,
+    "preexisting_named_window_count": 6,
+    "guard_holder_empty": true,
+    "collisions_empty": true
+  },
+  "readback": "Fresh native snapshot established the unique owned blank title. System Events returned -25211 before AXRaise; no billing navigation followed. Fresh WindowServer inventory and guard confirm owned-window removal, six original named windows retained and lease release.",
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-form-20261024/browser-cleanup-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 170,
+      "sha256": "556483c404a44a27ef1c9c49e946c87c82790df20c81421fdd9dcab20c3b3892"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-form-20261024/browser-windows-before.json",
+      "visibility": "private_local_only",
+      "bytes": 3324,
+      "sha256": "5ce61c351a044172318156048cf8a3fb400e803142b2251ef956df18440cc47b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-form-20261024/lease-release-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 96,
+      "sha256": "f71b42a6e418713897506ae0636be31842a533b1934f7cdb34d15f9fb767ca1d"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-form-20261024/own-window-close-action.json",
+      "visibility": "private_local_only",
+      "bytes": 165,
+      "sha256": "2bf5bd96602a12720869a8ce890d53498c416ec4674026095d09785eb1d06422"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-form-20261024/owned-window-native-raise.json",
+      "visibility": "private_local_only",
+      "bytes": 371,
+      "sha256": "0440f4aef96b254140bba0ef7c0c1f343c33591f4db78d99d1d5913efadd9f6b"
+    }
+  ],
+  "error_class": "macos_assistive_access_denied_for_standard_ax_raise",
+  "retryable": false,
+  "next_action": "Do not retry the denied native action or change shared TCC/driver/browser settings. Continue DB-1 official product evidence independently. Factory still needs a reliable target-specific billing UI path and an explicit bootstrap budget before any paid operation.",
+  "claim_limits": [
+    "The failed native probe does not establish a provider billing permission failure.",
+    "Prior trusted Google identity confirmation remains a separate observation, not a new login in this probe.",
+    "No account, funding, paid model access, generation, customer-owned connection, posting or revenue result is achieved by this probe."
+  ]
+}
