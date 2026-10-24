@@ -1927,6 +1927,46 @@
       "checked_at": "2026-10-24",
       "captured_at": "2026-10-24T02:50:34.355439+00:00",
       "notes": "The Monks' Secret: 150 Recipes That Saved Generations: conversion base 9.99 USD; JP presentment 1654 JPY. Product/offer identity is matched to the existing public seller or marketplace route. USD is explicit baseCurrency, not inferred from a dollar sign. Converted intermediate amounts are not substituted for payment-method totals. Billing recurrence, final tax treatment, merchant settlement, purchase completion and revenue are unverified. Public contact details and anonymous checkout/session tokens are excluded."
+    },
+    {
+      "id": "yangmun-journey-product-usd-20261024",
+      "title": "Yang Mun 30-Day Healing Journey - Yang Mun — USD product-page observation",
+      "url": "https://yang-mun.com/products/30-day-healing-journey-yang-mun?currency=USD",
+      "source_type": "first-party seller product page and JSON-LD",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.814755+00:00",
+      "notes": "Product 15644869230932, variant 56589619102036: JSON-LD Offer price 49.99 USD, matching Open Graph currency and hidden variant input. The request explicitly selects currency=USD and Shopify.currency.active is USD. This is a selected-currency storefront price, not a US checkout total or merchant settlement currency."
+    },
+    {
+      "id": "yangmun-journey-product-jpy-20261024",
+      "title": "Yang Mun 30-Day Healing Journey - Yang Mun — JPY product-page observation",
+      "url": "https://yang-mun.com/products/30-day-healing-journey-yang-mun",
+      "source_type": "first-party seller product page and JSON-LD",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.816730+00:00",
+      "notes": "Product 15644869230932, variant 56589619102036: JSON-LD Offer price 8000 JPY, matching Open Graph currency and hidden variant input. The anonymous default storefront response has Shopify.currency.active JPY. This localized product price is separate from the USD query response; checkout totals, tax, purchase and delivery are unverified."
+    },
+    {
+      "id": "yangmun-collection-product-usd-20261024",
+      "title": "Yang Mun 30 Day Healing Journey + All eBooks — USD product-page observation",
+      "url": "https://yang-mun.com/products/the-complete-collection-yang-mun?currency=USD",
+      "source_type": "first-party seller product page and JSON-LD",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.773967+00:00",
+      "notes": "Product 15646286643540, variant 56592501506388: JSON-LD Offer price 59.99 USD, matching Open Graph currency and hidden variant input. The request explicitly selects currency=USD and Shopify.currency.active is USD. This is a selected-currency storefront price, not a US checkout total or merchant settlement currency."
+    },
+    {
+      "id": "yangmun-collection-product-jpy-20261024",
+      "title": "Yang Mun 30 Day Healing Journey + All eBooks — JPY product-page observation",
+      "url": "https://yang-mun.com/products/the-complete-collection-yang-mun",
+      "source_type": "first-party seller product page and JSON-LD",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T04:13:57.630780+00:00",
+      "notes": "Product 15646286643540, variant 56592501506388: JSON-LD Offer price 9600 JPY, matching Open Graph currency and hidden variant input. The anonymous default storefront response has Shopify.currency.active JPY. This localized product price is separate from the USD query response; checkout totals, tax, purchase and delivery are unverified."
     }
   ],
   "accounts": [
@@ -2000,7 +2040,11 @@
         "https://www.youtube.com/shorts/j8WRhcQvzRM",
         "https://www.heygen.com/customer-stories/yangmun",
         "https://www.youtube.com/@Yangmunv2/shorts",
-        "https://x.com/i/article/2042242260784537736"
+        "https://x.com/i/article/2042242260784537736",
+        "https://yang-mun.com/products/30-day-healing-journey-yang-mun?currency=USD",
+        "https://yang-mun.com/products/30-day-healing-journey-yang-mun",
+        "https://yang-mun.com/products/the-complete-collection-yang-mun?currency=USD",
+        "https://yang-mun.com/products/the-complete-collection-yang-mun"
       ],
       "platforms": [
         {
@@ -2102,6 +2146,82 @@
         }
       ],
       "offers": [
+        {
+          "type": "guided digital program",
+          "name": "30-Day Healing Journey - Yang Mun",
+          "price": 49.99,
+          "currency": "USD",
+          "price_kind": "localized_product_price",
+          "billing_kind": null,
+          "url": "https://yang-mun.com/products/30-day-healing-journey-yang-mun?currency=USD",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:13:57.814755+00:00",
+          "source_id": "yangmun-journey-product-usd-20261024",
+          "source_ids": [
+            "yangmun-journey-product-usd-20261024",
+            "yangmun-journey-product-jpy-20261024"
+          ],
+          "seller_product_id": "15644869230932",
+          "seller_variant_id": "56589619102036",
+          "price_context": "anonymous_storefront_currency_USD_query",
+          "presentment_price": {
+            "amount": 8000,
+            "currency": "JPY",
+            "context": "anonymous_default_storefront_product_page",
+            "captured_at": "2026-10-24T04:13:57.816730+00:00",
+            "source_id": "yangmun-journey-product-jpy-20261024"
+          },
+          "status": "seller_product_metadata_price_not_order_data",
+          "availability": {
+            "state": "in_stock_product_metadata_purchase_not_tested",
+            "purchase_completed": false,
+            "basis": "Seller Product JSON-LD declares schema.org/InStock; checkout and delivery were not tested."
+          },
+          "revenue": null,
+          "previous_observation_ids": [
+            "daily-20261024-yangmun-0"
+          ],
+          "observation_id": "product-yangmun-journey-currencies-20261024",
+          "notes": "Product and variant IDs match the Journey purchase link. USD is explicitly selected in the anonymous product-page request; the default JPY page is a separate observation. These are listed prices, not payment, revenue, merchant settlement currency or verified US checkout totals. Historical unknown and earlier USD observations are retained. Billing recurrence is not established by this product-metadata observation."
+        },
+        {
+          "type": "eBook bundle",
+          "name": "30 Day Healing Journey + All eBooks",
+          "price": 59.99,
+          "currency": "USD",
+          "price_kind": "localized_product_price",
+          "billing_kind": null,
+          "url": "https://yang-mun.com/products/the-complete-collection-yang-mun?currency=USD",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T04:13:57.773967+00:00",
+          "source_id": "yangmun-collection-product-usd-20261024",
+          "source_ids": [
+            "yangmun-collection-product-usd-20261024",
+            "yangmun-collection-product-jpy-20261024"
+          ],
+          "seller_product_id": "15646286643540",
+          "seller_variant_id": "56592501506388",
+          "price_context": "anonymous_storefront_currency_USD_query",
+          "presentment_price": {
+            "amount": 9600,
+            "currency": "JPY",
+            "context": "anonymous_default_storefront_product_page",
+            "captured_at": "2026-10-24T04:13:57.630780+00:00",
+            "source_id": "yangmun-collection-product-jpy-20261024"
+          },
+          "status": "seller_product_metadata_price_not_order_data",
+          "availability": {
+            "state": "in_stock_product_metadata_purchase_not_tested",
+            "purchase_completed": false,
+            "basis": "Seller Product JSON-LD declares schema.org/InStock; checkout and delivery were not tested."
+          },
+          "revenue": null,
+          "previous_observation_ids": [
+            "daily-20261024-yangmun-1"
+          ],
+          "observation_id": "product-yangmun-collection-currencies-20261024",
+          "notes": "Product and variant IDs match the Journey purchase link. USD is explicitly selected in the anonymous product-page request; the default JPY page is a separate observation. These are listed prices, not payment, revenue, merchant settlement currency or verified US checkout totals. Historical unknown and earlier USD observations are retained. Billing recurrence is not established by this product-metadata observation."
+        },
         {
           "type": "guided digital program",
           "name": "30-Day Healing Journey",

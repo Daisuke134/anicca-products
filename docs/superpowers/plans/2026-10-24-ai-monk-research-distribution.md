@@ -153,6 +153,8 @@ Factoryのsource上の次境界は既存provider契約とGemini準備planを参�
 
 primaryがspec/data/公開を所有する。必要な独立read-only研究者は当sellerのpublic商品対応・通貨とprivate raw証拠だけを所有する。既存75archive/73public/191sourcesと全観測・scope・売上のunknownは保持する。明確な新規観測が得られた時だけsourceと日付付きoffer観測を追加し、package/Registry metadataをv0.4.12へ揃える。価格を注文/売上と呼ばず、地域表示額と基本通貨・購入方式を分離する。ソース差分が無ければ新版やReleaseを作らない。
 
-- [ ] SOURCE: 公式公開URLの時刻・最終URL・本文/raw hashとvariant/product対応、明示通貨を照合する。
-- [ ] DATA: 新観測欠落の最小一時assertion RED→必要なdataのみ→GREEN、既存package/helper/renderの関連検証を実行する。runtime/依存/恒久mirroring testは増やさない。
+- [x] SOURCE: 公式公開URLの時刻・最終URL・本文/raw hashとvariant/product対応、明示通貨を照合する。
+- [x] DATA: 新観測欠落の最小一時assertion RED→data追加→GREEN、package15/helper・render15とbuilt CLI/monetizationを受入する。旧75records/191source/78offerは新要素を除くと完全一致する。独立raw照合のblockingは0。source結果 → ../../evidence/ai-monk-yangmun-offer-source-20261024.json。runtime/依存/恒久mirroring testの追加は0。
 - [ ] PUBLIC: 実データ差分がある場合だけ既存CI/PR/main/公開Web、固定main Release/公開URL導入/CLI/stdio/HTTPS MCP・Registryの同一snapshotを受入する。差分が無ければ具体的不足を記録する。
+
+SOURCEでJourney/Complete Collectionの購入variantがseller商品ページのJSON-LD Offer URLと一致する。USD指定表示は49.99/59.99 USD、通常の匿名商品表示は8000/9600 JPYで、4ページともHTTP200・明示priceCurrencyを確認する。DATAは4sourceと2日付付きoffer観測を追加して195sources/75archive/73public、offer archive80/公開77を目標とする。USDをmerchant会計通貨やUS Checkout実表示へ昇格しない。無料ギフト2件は購入リンクの商品対応の調査証拠に留め、今回の新offer件数には数えない。通常表示のJPYは別のpresentment_priceと出典へ分離する。
