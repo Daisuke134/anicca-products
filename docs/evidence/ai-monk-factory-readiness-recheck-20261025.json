@@ -1,0 +1,91 @@
+{
+  "schema_version": "anicca.ai-monk-factory-readiness-recheck.v1",
+  "run_id": "ai-monk-factory-readiness-recheck-20261025",
+  "owner_id": "root",
+  "occurrence_id": "7ab91484-cb0a-47fd-8b17-71d8a66ba4b2",
+  "release_sha": "d108719505624143332430fca075082492c17557",
+  "observed_at": "2026-10-24T15:04:12Z",
+  "phase": "read_only_production_readback",
+  "command": [
+    "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+    "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=5",
+    "GET https://aniccaai.com/ai-monk-factory",
+    "crwl crawl https://reel.farm/ -o markdown-fit"
+  ],
+  "loaded_argv": {
+    "provider_mutations": 0,
+    "factory_generation_requests": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT, exact service netlify-anicca-existing-deployment; token value not printed or copied",
+    "production_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "factory_generation_requests": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "netlify_environment": {
+      "http_status": 200,
+      "production_variable_count": 58,
+      "factory_variable_names": []
+    },
+    "latest_production_deploy": {
+      "http_status": 200,
+      "deploy_id": "6adcc0c0d29df2fc313aa4d6",
+      "state": "ready",
+      "published_at": "2026-10-24T14:29:52.123Z",
+      "commit_ref": null,
+      "title_sha": "a93aaa0624c83d26cb32828768f788b714f3c5dc"
+    },
+    "public_factory_page": {
+      "copy": "Up to 3 free videos, 20 seconds each. No card and no time limit.",
+      "authenticated_screen_after_latest_deploy_read": false
+    },
+    "reelfarm_reference": {
+      "free_offer": "3 TikToks",
+      "flow": [
+        "create automation",
+        "connect TikTok",
+        "automatic daily generation and publishing"
+      ],
+      "analytics": true,
+      "paid_plan_api_access_advertised": true
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+      "http_status": 200,
+      "fact": "58 production variables; none have the MONK_FACTORY_ prefix."
+    },
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=5",
+      "http_status": 200,
+      "fact": "Latest listed production deploy is ready; its commit_ref is null and title contains a93aaa0624c83d26cb32828768f788b714f3c5dc."
+    },
+    {
+      "url": "https://aniccaai.com/ai-monk-factory",
+      "fact": "Current public page shows 3 free videos, no card, no time limit; the authenticated studio was not read after latest deploy."
+    },
+    {
+      "url": "https://reel.farm/",
+      "fact": "Current first-party page shows three TikToks free, connect TikTok, automatic daily creation/publishing, analytics, and API access on paid tiers."
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/factory.tsx",
+      "fact": "Generation and Instagram buttons are disabled when their capability readiness is false."
+    },
+    {
+      "path": "apps/landing/netlify/functions/monk-factory.js",
+      "fact": "Generation/checkout/social readiness is separated; generation requires the runtime and provider readiness."
+    }
+  ],
+  "error_class": "factory_runtime_not_configured",
+  "retryable": false,
+  "next_action": "Keep generation, checkout and social actions fail-closed. Resume Factory activation only after a dedicated funded provider path, a company-wide hard spend cap, and customer-scale Instagram API/OAuth readiness are confirmed."
+}
