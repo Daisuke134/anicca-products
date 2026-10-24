@@ -1,0 +1,331 @@
+{
+  "schema_version": "anicca.ai-monk-product-checkouts-source.v1",
+  "run_id": "ai-monk-product-checkouts-20261024",
+  "owner_id": "root",
+  "occurrence_id": "three-public-hotmart-checkouts-four-dated-offers",
+  "recorded_at": "2026-10-24T02:54:31.413748+00:00",
+  "base_main": "1f32dfda92010bdb19e92a5080b999443a9f1497",
+  "spec_first_commit": "f2b4e4a37566a56e4049616de11d97a6757576c2",
+  "concrete_data_contract_commit": "dd2b06c40fee581dfacc655f3b4b0980abb18f41",
+  "phase": "source_accepted_before_ci_main_and_publication",
+  "release_sha": null,
+  "command": "Anonymous crwl extraction and Scrapy HTTP/raw capture; temporary source acceptance RED to GREEN; existing package/helper/render checks; built get/monetization probe",
+  "loaded_argv_env": {
+    "research": "Installed crwl and pipx Scrapy; no browser/credential/shared profile access",
+    "package_test": "npm test in packages/ai-monk-index",
+    "helper_test": "node --test apps/landing/lib/ai-monk-directory.test.mjs",
+    "render_test": "node --test apps/landing/test/ai-monk-evidence-rendering.test.mjs"
+  },
+  "exit_code": 0,
+  "scope": {
+    "source_version": "0.4.11",
+    "archive_records": 75,
+    "public_records": 73,
+    "old_sources_preserved": 188,
+    "new_sources": 3,
+    "sources": 191,
+    "new_dated_offer_observations": 4,
+    "research_archive_offer_rows": 78,
+    "public_monetization_offer_rows": 75,
+    "canonical_sha256": "3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665a",
+    "all_existing_account_fields_and_observations_preserved": true,
+    "existing_financial_fields_unchanged": true,
+    "directory_scope_and_ai_status_unchanged": true
+  },
+  "observations": [
+    {
+      "account_id": "lead-instagram-masterlinghao",
+      "observation_id": "checkout-linghao-main-20261024",
+      "name": "The Monks' Secret: 150 Recipes That Saved Generations",
+      "price": 9.99,
+      "currency": "USD",
+      "price_kind": "base_offer_price",
+      "billing_kind": null,
+      "presentment_price": {
+        "amount": 1654,
+        "currency": "JPY",
+        "country": "JP",
+        "locale": "ja_JP",
+        "kind": "localized_anonymous_checkout_amount",
+        "captured_at": "2026-10-24T02:50:34.355439+00:00",
+        "source_id": "product-public-checkout-linghao-20261024"
+      },
+      "source_id": "product-public-checkout-linghao-20261024",
+      "related_observation_id": "remaining-ling-hao-monks-secret",
+      "availability": {
+        "state": "public_checkout_display_observed_purchase_not_tested",
+        "purchase_completed": false
+      }
+    },
+    {
+      "account_id": "lead-instagram-monjewu",
+      "observation_id": "checkout-monjewu-main-20261024",
+      "name": "La Mente del Monje",
+      "price": 19.99,
+      "currency": "USD",
+      "price_kind": "base_offer_price",
+      "billing_kind": null,
+      "presentment_price": {
+        "amount": 3309,
+        "currency": "JPY",
+        "country": "JP",
+        "locale": "ja_JP",
+        "kind": "localized_anonymous_checkout_amount",
+        "captured_at": "2026-10-24T02:49:55.861086+00:00",
+        "source_id": "product-public-checkout-monjewu-20261024"
+      },
+      "source_id": "product-public-checkout-monjewu-20261024",
+      "related_observation_id": "monje-wu-mente",
+      "availability": {
+        "state": "public_checkout_display_observed_purchase_not_tested",
+        "purchase_completed": false
+      }
+    },
+    {
+      "account_id": "lead-instagram-monjewu",
+      "observation_id": "checkout-monjewu-meditation-addon-20261024",
+      "name": "La Biblia de la Meditación",
+      "price": 5.99,
+      "currency": "USD",
+      "price_kind": "base_offer_price",
+      "billing_kind": null,
+      "presentment_price": {
+        "amount": 992,
+        "currency": "JPY",
+        "country": "JP",
+        "locale": "ja_JP",
+        "kind": "localized_anonymous_checkout_amount",
+        "captured_at": "2026-10-24T02:49:55.861086+00:00",
+        "source_id": "product-public-checkout-monjewu-20261024"
+      },
+      "source_id": "product-public-checkout-monjewu-20261024",
+      "related_observation_id": null,
+      "availability": {
+        "state": "optional_checkout_addon_unselected_purchase_not_tested",
+        "purchase_completed": false
+      }
+    },
+    {
+      "account_id": "lead-instagram-elmaestrolin",
+      "observation_id": "checkout-maestrolin-main-20261024",
+      "name": "El Código Prohibido",
+      "price": 17,
+      "currency": "USD",
+      "price_kind": "base_offer_price",
+      "billing_kind": null,
+      "presentment_price": {
+        "amount": 2814,
+        "currency": "JPY",
+        "country": "JP",
+        "locale": "ja_JP",
+        "kind": "localized_anonymous_checkout_amount",
+        "captured_at": "2026-10-24T02:49:55.802075+00:00",
+        "source_id": "product-public-checkout-maestrolin-20261024"
+      },
+      "source_id": "product-public-checkout-maestrolin-20261024",
+      "related_observation_id": "remaining-maestro-lin-codigo",
+      "availability": {
+        "state": "public_checkout_display_observed_purchase_not_tested",
+        "purchase_completed": false
+      }
+    }
+  ],
+  "source_interpretation": {
+    "checkout_amount_path": "script#__NUXT_DATA__: products[].offer.paymentMethods[].amount.value/currency",
+    "base_amount_path": "products[].exchange[].baseValue/baseCurrency",
+    "country_and_locale": "checkout countryIsoCode JP and locale ja_JP, separate from marketplace targetCountry or transaction defaults",
+    "intermediate_amounts": "exchange.convertedValue precedes additional presentment spread and is not the UI/payment-method total",
+    "main_and_addon_separate": true,
+    "optional_addon_selected_or_purchased": false,
+    "base_usd_is_not_direct_us_checkout_or_merchant_settlement": true,
+    "billing_recurrence": null,
+    "actual_purchases_sales_revenue_inventory_tax_treatment": "unverified",
+    "public_contact_and_session_fields_promoted": false
+  },
+  "verification": {
+    "source_red": {
+      "exit_code": 1,
+      "reason": "New dated Monje Wu checkout observation absent before data edit"
+    },
+    "source_green": {
+      "exit_code": 0,
+      "all_old_data_equal_after_removing_exact_new_observations_and_sources": true
+    },
+    "package_tests": {
+      "exit_code": 0,
+      "passed": 15
+    },
+    "directory_helper_tests": {
+      "exit_code": 0,
+      "passed": 9
+    },
+    "render_tests": {
+      "exit_code": 0,
+      "passed": 6
+    },
+    "built_get_and_monetization": {
+      "exit_code": 0,
+      "new_observations_returned": 4,
+      "price_currency_presentment_source_equal": true,
+      "unknown_billing_revenue_preserved": true
+    },
+    "initial_helper_command_limit": "First combined Node command named a nonexistent helper path; it ran rendering tests only (6). The corrected lib helper path is run separately and passes 9.",
+    "research_failures_recovered": "System Python lacks Scrapy; installed pipx environment/CLI succeeds. Ling Hao initial invalid module basename is separately retained and corrected without artifact overwrite.",
+    "source_review_ci_main_publication": "Not yet accepted in this source receipt; follow the later public release receipt."
+  },
+  "effect": {
+    "anonymous_public_fetches_only": true,
+    "login_signup_personal_input_cart_mutation_payment_purchase": 0,
+    "new_paid_api_generation": 0,
+    "OpenAI_Muse_resend": 0,
+    "daily_posting_owner_changes": 0,
+    "runtime_parser_dependency_changes": 0,
+    "new_registry_or_release_publication_at_source_receipt": 0
+  },
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/monjewu.seller-readback.json",
+      "bytes": 643,
+      "sha256": "c69ab2e094a5f3e10ce357b11d7241d1d4c0235cbd09583eabd7557e9a8f6e7b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/monjewu.seller.body.html",
+      "bytes": 9034,
+      "sha256": "7cb0cae6dfd6300feb765303a1c91257c4700ba97ab5ef8b0fa70adf019943c4"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/monjewu.checkout-readback.json",
+      "bytes": 432,
+      "sha256": "6eb65e214e7a346cc93d78a8d09bfa753e14ae77ae6244120b8be50c23e4a990"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/monjewu.checkout.body.html",
+      "bytes": 186295,
+      "sha256": "0de8e9eece3b4e142fa772f0d7d774a0231c6f94fe5402b9f183f7fddd51f943"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/monjewu.checkout.crwl.stdout",
+      "bytes": 690,
+      "sha256": "511fcc7f2bd9d8223b15612b8f74b9e489f959dca784380240a0157d91abcbef"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/monjewu.checkout-price-extraction.json",
+      "bytes": 2076,
+      "sha256": "827607f053d377931ce0968724ec9fdde9ce8d17f98a114d14684eea12f32f86"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/maestrolin.seller-readback.json",
+      "bytes": 515,
+      "sha256": "4f1b300c0b3010673ebb9cbb270a7136a54bd9fd92f281f115d5a343d1ef77c2"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/maestrolin.seller.body.html",
+      "bytes": 25481,
+      "sha256": "68864a61f8adc6923fc4260e86e7837ad14cb7222fc02a81fe22afbef7dadcdf"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/maestrolin.checkout-readback.json",
+      "bytes": 417,
+      "sha256": "97158ace20b4d4f508f6a5b291fd9aa890fa0f8e8f211763c13f313aa23b77de"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/maestrolin.checkout.body.html",
+      "bytes": 186713,
+      "sha256": "576c71616e96a6706f62141a36997331d5f7017ea468d74574f0fb02e809c98a"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/maestrolin.checkout.crwl.stdout",
+      "bytes": 541,
+      "sha256": "12618c61657d76d56a6b3f47c89c9e4712d0e0c034efb75e8e0a90e0ed7e34d8"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/maestrolin.checkout-price-extraction.json",
+      "bytes": 1500,
+      "sha256": "7db5ffd72251c3178463affd49a01cc281482227cb676e7c122295f65ba1b37e"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/linghao/readback.json",
+      "bytes": 5165,
+      "sha256": "6f38a6af7449a22867bfa4210fe507798a4885239cac44fad945e0830481fa22"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/linghao/manifest.json",
+      "bytes": 6248,
+      "sha256": "efc3fa083ca940fc0b8bf8624d740251bd388ad0755be7893e1807cf8baf7fa4"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/linghao/checkout.fields.json",
+      "bytes": 2239,
+      "sha256": "182737c319778b0a60e159bba1cbf4dba1f11154deb8920d52a69c31135015a1"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/linghao/checkout.raw.meta.json",
+      "bytes": 728,
+      "sha256": "eeb57f84dba8df1a5b0a7ccfab0b9736394cab9048405a14c0d0e55727f310fd"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/linghao/checkout.raw.html",
+      "bytes": 186287,
+      "sha256": "6a52fe7b9b69e2bf255894bc528f152d050feec8f6469899fdffa6850699b364"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/source-acceptance.py",
+      "bytes": 2382,
+      "sha256": "b9090adb87faab79821e90090a62ab7185315d91908ce24fce414fbeb68ceb5a"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/source-red-readback.json",
+      "bytes": 388,
+      "sha256": "61ee648502c290e50d2a5af640e263e912114d9b8c0a76f92b570f15f3d24c12"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/source-green-readback.json",
+      "bytes": 513,
+      "sha256": "169a5aab45b380bd2f7a273d8aac900c37d347147a38cc074035b8ce41b2affe"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/package-tests.readback.json",
+      "bytes": 286,
+      "sha256": "bc86831973ce1f8d250d98cbb2e303f989a463f6f80f963b91e21c087b521c8c"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/package-tests.stdout.log",
+      "bytes": 1626,
+      "sha256": "7e4f1b4cf4aee901d756692a4d2bc76f850b191d57f6eb7279ec0d746311b6ed"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/directory-render-tests.readback.json",
+      "bytes": 402,
+      "sha256": "247a8e073ad50bbf36309c296332cbcf879f0392b4dcf116b904003776602e0c"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/directory-render-tests.stdout.log",
+      "bytes": 674,
+      "sha256": "c91e4ea1ce703b2b7c2e793156463007c2a165e058362379df4b09b26edb451d"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/directory-helper-tests.readback.json",
+      "bytes": 442,
+      "sha256": "8ff4988df3ee982b92efde06b83eaa795a0e590a9f72f947cf809d7fa63e7b39"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/directory-helper-tests.stdout.log",
+      "bytes": 1007,
+      "sha256": "3fbeb0328bd7c724e91774c60eede4896ef263cc86e2bb0a21aee41c78f9baf7"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/built-price-probe.mjs",
+      "bytes": 1372,
+      "sha256": "f76d088f0a915ecdcb680afa1b538e6045d7d9e3b52eb0bdbec7cf9f52e239c1"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-checkouts-20261024/built-price-readback.json",
+      "bytes": 306,
+      "sha256": "861fb7b6eb0ca9e075bc7507bf32460f523f0c67a5f51135bd87bc88c20eeab0"
+    }
+  ],
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Commit/push source, accept required existing PR checks and main, then publish fixed-main v0.4.11 and verify Web/JSON/URL install/stdio/HTTPS MCP/Registry without replacing earlier releases. Keep PL-1/Factory/revenue outcomes incomplete."
+}

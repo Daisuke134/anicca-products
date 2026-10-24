@@ -136,3 +136,5 @@ native PIDキー入力が別windowへ届いたため、対象を改めて観測�
 
 ## 審査待ちと独立した未確認商品の精査
 前turnは公式OpenAI appeal受理とMuse既存requirementsのreadback、v0.4.10公開受入を正本へ反映したprogressと判定する。審査結果の未着を同じlogin/提出の再送理由にしない。Database→CLI/plugin→Factoryの優先順を維持し、回答待ちと独立にDB-1の既知商品Monje Wu/El Maestro Lin/Ling Haoの匿名販売価格・通貨を精査する。限定範囲・状態・受入の正本 → 2026-10-24-ai-monk-product-checkouts.md。source差分が成立した場合だけ新版を公開し、未知の売上と正式掲載は未完のまま維持する。
+
+DB-1の限定sourceは3公式checkoutの4観測（Monje Wu主商品19.99 USD/未選択addon5.99 USD、Maestro Lin17 USD、Ling Hao9.99 USD）と別建てJP表示額を追加し、v0.4.11/191出典へ揃える。188出典と全既存観測/収益/掲載scopeは保持、source acceptance RED→GREEN/package15/helper9/render6/built get/monetizationはPASS。source時点ではCI/main/新版公開は未受入。現在の全配布面受入はv0.4.10のままとし、限定unitの次cursorはv0.4.11公開である。source証拠 → ../../evidence/ai-monk-product-checkouts-source-20261024.json。

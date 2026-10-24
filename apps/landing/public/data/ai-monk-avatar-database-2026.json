@@ -1897,6 +1897,36 @@
       "checked_at": "2026-10-24",
       "captured_at": "2026-10-24T00:30:04.586694+00:00",
       "notes": "The matching Product/Offer JSON-LD explicitly lists price 17.00 and priceCurrency USD, with InStock metadata and priceValidUntil 2026-12-31. Checkout, actual availability, billing recurrence, merchant settlement currency and revenue are unverified. Earlier price-unknown observation is retained."
+    },
+    {
+      "id": "product-public-checkout-monjewu-20261024",
+      "title": "Monje Wu main offer and optional meditation add-on — official public Hotmart checkout",
+      "url": "https://pay.hotmart.com/J106191740M?off=x81cmfou&checkoutMode=10",
+      "source_type": "first-party public checkout visible total and embedded product/offer conversion metadata",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T02:49:55.861086+00:00",
+      "notes": "La mente del monje: conversion base 19.99 USD; JP presentment 3309 JPY; La Biblia de la Meditación: conversion base 5.99 USD; JP presentment 992 JPY (optional unselected add-on). Product/offer identity is matched to the existing public seller or marketplace route. USD is explicit baseCurrency, not inferred from a dollar sign. Converted intermediate amounts are not substituted for payment-method totals. Billing recurrence, final tax treatment, merchant settlement, purchase completion and revenue are unverified. Public contact details and anonymous checkout/session tokens are excluded."
+    },
+    {
+      "id": "product-public-checkout-maestrolin-20261024",
+      "title": "El Maestro Lin: El Código Prohibido — official public Hotmart checkout",
+      "url": "https://pay.hotmart.com/J105675450L",
+      "source_type": "first-party public checkout visible total and embedded product/offer conversion metadata",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T02:49:55.802075+00:00",
+      "notes": "El Código Prohibido — 30 Rituales Secretos del Maestro Lin: conversion base 17 USD; JP presentment 2814 JPY. Product/offer identity is matched to the existing public seller or marketplace route. USD is explicit baseCurrency, not inferred from a dollar sign. Converted intermediate amounts are not substituted for payment-method totals. Billing recurrence, final tax treatment, merchant settlement, purchase completion and revenue are unverified. Public contact details and anonymous checkout/session tokens are excluded."
+    },
+    {
+      "id": "product-public-checkout-linghao-20261024",
+      "title": "Ling Hao: The Monks' Secret — official public Hotmart checkout",
+      "url": "https://pay.hotmart.com/T106736999M?sck=HOTMART_PRODUCT_PAGE&hotfeature=32",
+      "source_type": "first-party public checkout visible total and embedded product/offer conversion metadata",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T02:50:34.355439+00:00",
+      "notes": "The Monks' Secret: 150 Recipes That Saved Generations: conversion base 9.99 USD; JP presentment 1654 JPY. Product/offer identity is matched to the existing public seller or marketplace route. USD is explicit baseCurrency, not inferred from a dollar sign. Converted intermediate amounts are not substituted for payment-method totals. Billing recurrence, final tax treatment, merchant settlement, purchase completion and revenue are unverified. Public contact details and anonymous checkout/session tokens are excluded."
     }
   ],
   "accounts": [
@@ -4468,6 +4498,51 @@
           "paid_orders": null,
           "revenue": null,
           "revenue_status": "unknown_no_payment_or_revenue_receipt"
+        },
+        {
+          "type": "digital_product",
+          "name": "The Monks' Secret: 150 Recipes That Saved Generations",
+          "price": 9.99,
+          "currency": "USD",
+          "source_id": "product-public-checkout-linghao-20261024",
+          "source_ids": [
+            "product-remaining-source-ba5d6a45809f",
+            "lead-instagram-masterlinghao-ig-header-20261024",
+            "product-remaining-source-57d4296638fd",
+            "product-public-checkout-linghao-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://pay.hotmart.com/T106736999M?sck=HOTMART_PRODUCT_PAGE&hotfeature=32",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T02:50:34.355439+00:00",
+          "formats": [
+            "specific ebook/course format not established by generic marketplace FAQ"
+          ],
+          "availability": {
+            "state": "public_checkout_display_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "checkout-linghao-main-20261024",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://go.hotmart.com/T106736999M?dp=1"
+          ],
+          "notes": "Official Hotmart checkout metadata for product 8124714, offer b1rdyhgq, lists conversion base 9.99 USD; the anonymous JP/ja_JP payment-method amount is 1654 JPY and is stored separately. The conversion base is not a directly observed US checkout total or verified merchant settlement currency. Billing recurrence, final tax treatment, actual purchase availability, legal ownership, paid orders and revenue remain unverified. Seller health or wellbeing benefits are not independently verified. Earlier observations remain historical.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "base_offer_price",
+          "billing_kind": null,
+          "presentment_price": {
+            "amount": 1654,
+            "currency": "JPY",
+            "country": "JP",
+            "locale": "ja_JP",
+            "kind": "localized_anonymous_checkout_amount",
+            "captured_at": "2026-10-24T02:50:34.355439+00:00",
+            "source_id": "product-public-checkout-linghao-20261024"
+          },
+          "related_observation_id": "remaining-ling-hao-monks-secret"
         }
       ],
       "seller_counters": [],
@@ -6918,6 +6993,85 @@
           "attribution": "Public profile links to the store; operator identity, product authorship and legal ownership are unverified.",
           "notes": "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue. Product health or wellbeing benefits and seller identity claims are not independently verified.",
           "price_unknown_reason": "No price was exposed in the fetched public product page; checkout was not visited."
+        },
+        {
+          "type": "ebook",
+          "name": "La Mente del Monje",
+          "price": 19.99,
+          "currency": "USD",
+          "source_id": "product-public-checkout-monjewu-20261024",
+          "source_ids": [
+            "product-site-monjewu-20261024",
+            "product-public-checkout-monjewu-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://pay.hotmart.com/J106191740M?off=x81cmfou&checkoutMode=10",
+          "as_of": "2026-10-24",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "public_checkout_display_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "checkout-monjewu-main-20261024",
+          "attribution": "Public profile links to the store; operator identity, product authorship and legal ownership are unverified.",
+          "notes": "Official Hotmart checkout metadata for product 7892946, offer x81cmfou, lists conversion base 19.99 USD; the anonymous JP/ja_JP payment-method amount is 3309 JPY and is stored separately. The conversion base is not a directly observed US checkout total or verified merchant settlement currency. Billing recurrence, final tax treatment, actual purchase availability, legal ownership, paid orders and revenue remain unverified. Seller health or wellbeing benefits are not independently verified. Earlier observations remain historical.",
+          "captured_at": "2026-10-24T02:49:55.861086+00:00",
+          "price_kind": "base_offer_price",
+          "billing_kind": null,
+          "presentment_price": {
+            "amount": 3309,
+            "currency": "JPY",
+            "country": "JP",
+            "locale": "ja_JP",
+            "kind": "localized_anonymous_checkout_amount",
+            "captured_at": "2026-10-24T02:49:55.861086+00:00",
+            "source_id": "product-public-checkout-monjewu-20261024"
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "related_observation_id": "monje-wu-mente"
+        },
+        {
+          "type": "ebook",
+          "name": "La Biblia de la Meditación",
+          "formats": [
+            "digital meditation guide; delivered file type unverified"
+          ],
+          "attribution": "Public profile links to the store; operator identity, product authorship and legal ownership are unverified.",
+          "price": 5.99,
+          "currency": "USD",
+          "source_id": "product-public-checkout-monjewu-20261024",
+          "source_ids": [
+            "product-site-monjewu-20261024",
+            "product-public-checkout-monjewu-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://pay.hotmart.com/J106191740M?off=x81cmfou&checkoutMode=10",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T02:49:55.861086+00:00",
+          "observation_id": "checkout-monjewu-meditation-addon-20261024",
+          "price_kind": "base_offer_price",
+          "billing_kind": null,
+          "presentment_price": {
+            "amount": 992,
+            "currency": "JPY",
+            "country": "JP",
+            "locale": "ja_JP",
+            "kind": "localized_anonymous_checkout_amount",
+            "captured_at": "2026-10-24T02:49:55.861086+00:00",
+            "source_id": "product-public-checkout-monjewu-20261024"
+          },
+          "availability": {
+            "state": "optional_checkout_addon_unselected_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "notes": "This is a separate optional, unselected add-on shown on the Monje Wu main checkout; it is not included in the main product price. Official Hotmart checkout metadata for product 8142754, offer 1pz3r8w0, lists conversion base 5.99 USD; the anonymous JP/ja_JP payment-method amount is 992 JPY and is stored separately. The conversion base is not a directly observed US checkout total or verified merchant settlement currency. Billing recurrence, final tax treatment, actual purchase availability, legal ownership, paid orders and revenue remain unverified. Seller health or wellbeing benefits are not independently verified. Earlier observations remain historical."
         }
       ],
       "seller_counters": [
@@ -9327,6 +9481,50 @@
             "currency": null,
             "kind": "seller_reference_price_not_verified_transaction"
           }
+        },
+        {
+          "type": "digital_guide",
+          "name": "El Código Prohibido",
+          "price": 17,
+          "currency": "USD",
+          "source_id": "product-public-checkout-maestrolin-20261024",
+          "source_ids": [
+            "product-remaining-source-c062e53ed30c",
+            "lead-instagram-elmaestrolin-ig-header-20261024",
+            "product-public-checkout-maestrolin-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://pay.hotmart.com/J105675450L",
+          "as_of": "2026-10-24",
+          "captured_at": "2026-10-24T02:49:55.802075+00:00",
+          "formats": [
+            "digital guide; file type unverified"
+          ],
+          "availability": {
+            "state": "public_checkout_display_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "checkout-maestrolin-main-20261024",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "http://elmaestrolin.com/"
+          ],
+          "notes": "Official Hotmart checkout metadata for product 7672014, offer lwzg29cy, lists conversion base 17 USD; the anonymous JP/ja_JP payment-method amount is 2814 JPY and is stored separately. The conversion base is not a directly observed US checkout total or verified merchant settlement currency. Billing recurrence, final tax treatment, actual purchase availability, legal ownership, paid orders and revenue remain unverified. Seller health or wellbeing benefits are not independently verified. Earlier observations remain historical.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "base_offer_price",
+          "billing_kind": null,
+          "presentment_price": {
+            "amount": 2814,
+            "currency": "JPY",
+            "country": "JP",
+            "locale": "ja_JP",
+            "kind": "localized_anonymous_checkout_amount",
+            "captured_at": "2026-10-24T02:49:55.802075+00:00",
+            "source_id": "product-public-checkout-maestrolin-20261024"
+          },
+          "related_observation_id": "remaining-maestro-lin-codigo"
         }
       ],
       "seller_counters": [],
