@@ -1,0 +1,76 @@
+{
+  "schema_version": "anicca.ai-monk-factory-readiness-recheck.v1",
+  "run_id": "ai-monk-factory-readiness-recheck-20261024",
+  "owner_id": "root",
+  "occurrence_id": "anicca2-production-readiness-readback-20261024",
+  "release_sha": "4ed6113851478c9992b106bb0ea139fd5972c33b",
+  "observed_at": "2026-10-24T14:44:21Z",
+  "phase": "read_only_production_readback",
+  "command": [
+    "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+    "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=10",
+    "GET https://aniccaai.com/ai-monk-factory"
+  ],
+  "loaded_argv": {
+    "provider_generation_requests": 0,
+    "netlify_mutations": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT, exact service netlify-anicca-existing-deployment; token value not printed or copied",
+    "production_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "factory_generation_requests": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "production_environment": {
+      "http_status": 200,
+      "entry_count": 58,
+      "factory_prefixed_variable_count": 0
+    },
+    "latest_production_deploy": {
+      "http_status": 200,
+      "id": "6adcc0c0d29df2fc313aa4d6",
+      "state": "ready",
+      "context": "production",
+      "published_at": "2026-10-24T14:29:52.123Z",
+      "commit_ref": null
+    },
+    "public_page": {
+      "url": "https://aniccaai.com/ai-monk-factory",
+      "observed_at": "2026-10-24T14:44:21Z",
+      "copy": [
+        "Up to 3 free videos, 20 seconds each. No card and no time limit.",
+        "USD 199/month after the free allowance."
+      ]
+    },
+    "authenticated_studio": {
+      "post_deploy_ui_readback": false,
+      "source_contract": "Generation and checkout remain disabled unless MONK_FACTORY_ENABLED and their runtime/provider readiness are satisfied."
+    }
+  },
+  "provider_receipt_id": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=10",
+  "evidence_refs": [
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+      "http_status": 200,
+      "fact": "58 production variables; none have a MONK_FACTORY_ prefix."
+    },
+    {
+      "url": "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=10",
+      "http_status": 200,
+      "fact": "The latest listed production deploy is ready. Netlify returned commit_ref=null."
+    },
+    {
+      "url": "https://aniccaai.com/ai-monk-factory",
+      "fact": "Public page advertises three free videos with no card or time limit."
+    }
+  ],
+  "error_class": "factory_runtime_not_configured",
+  "retryable": false,
+  "next_action": "Keep production generation, checkout, and social actions fail-closed. Continue the DB-1 current batch; resume Factory setup when a dedicated funded provider path, company-wide spend cap, and customer-scale Instagram publishing path are ready."
+}
