@@ -1,0 +1,302 @@
+{
+  "schema_version": "anicca.ai-monk-database-entry-cta-publication.v1",
+  "run_id": "ai-monk-database-entry-cta-20261024",
+  "owner_id": "root",
+  "occurrence_id": "header-book-and-free-plugin-publication-1",
+  "observed_at": "2026-10-24T03:54:14.673595+00:00",
+  "release_sha": "e36d2eea4e74dae03f6967e919086b48fe42641f",
+  "phase": "source_and_publication_accepted",
+  "command": "Existing render/book tests; GitHub PR/CI/main readback; official Stripe and Netlify GET; crwl and Scrapy public readback; offline saved HTML acceptance",
+  "loaded_argv_env": {
+    "credential_source": "private SSOT exact service rows in RAM only",
+    "secrets_in_argv_env_or_output": false
+  },
+  "exit_code": 0,
+  "effect": {
+    "source_files_changed": 2,
+    "source_pr_merged": 1,
+    "existing_automatic_main_deploys_accepted": 1,
+    "manual_deploy_dispatch": 0,
+    "new_dependencies": 0,
+    "new_persistent_tests": 0,
+    "canonical_database_changes": 0,
+    "cli_or_plugin_payload_changes": 0,
+    "book_price_checkout_entitlement_code_changes": 0,
+    "billing_or_payment_configuration_changes": 0,
+    "checkouts_or_payments_created_by_operator": 0,
+    "generation_or_social_posts": 0,
+    "formal_review_resends": 0,
+    "factory_enable_changes": 0,
+    "grok_daily_runtime_changes": 0
+  },
+  "readback": {
+    "source": {
+      "base_main": "2bbca3b5b4912a7e19b0efffdbc4eb50ee3120e3",
+      "spec_commit": "51d438299331f84448345a054fb732715979bc01",
+      "source_head": "00b534ef0cf1a881cfda88a60a386abc8e10059f",
+      "pr": {
+        "headRefOid": "00b534ef0cf1a881cfda88a60a386abc8e10059f",
+        "mergeCommit": {
+          "oid": "e36d2eea4e74dae03f6967e919086b48fe42641f"
+        },
+        "mergedAt": "2026-10-24T03:46:43Z",
+        "number": 660,
+        "state": "MERGED",
+        "url": "https://github.com/Daisuke134/anicca-products/pull/660"
+      },
+      "main_blob_matches": 4,
+      "focused_tests": {
+        "passed": 10,
+        "failed": 0,
+        "exit_code": 0
+      },
+      "canonical_json_unchanged": true,
+      "canonical_json_source_sha256": "3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665a",
+      "ci": {
+        "id": 40059343721,
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40059343721"
+      }
+    },
+    "main_deploy": {
+      "id": 40059692583,
+      "head_sha": "e36d2eea4e74dae03f6967e919086b48fe42641f",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40059692583",
+      "existing_post_deploy_money_smoke_passed": true
+    },
+    "official_netlify": {
+      "site_http_status": 200,
+      "site_response_sha256": "49740e44308dcca22650b8041ef3fefda3dcbddcc194e69e90a0585d20f93351",
+      "published_deploy": {
+        "id": "6adc2ae074978bba89741724",
+        "state": "ready",
+        "title": "Deploy from GHA prod - e36d2eea4e74dae03f6967e919086b48fe42641f",
+        "branch": "main",
+        "commit_ref": null,
+        "created_at": "2026-10-24T03:49:52.651Z",
+        "published_at": "2026-10-24T03:50:28.789Z",
+        "deploy_ssl_url": "https://6adc2ae074978bba89741724--anicca2.netlify.app"
+      },
+      "expected_source_sha": "e36d2eea4e74dae03f6967e919086b48fe42641f",
+      "source_sha_in_title": true,
+      "commit_ref_null": true,
+      "observed_at": "2026-10-24T03:51:12.658363+00:00"
+    },
+    "public_html": {
+      "header_links": [
+        {
+          "href": "/the-art-of-ai-monks",
+          "text": "Get the book · $9.99"
+        },
+        {
+          "href": "/ai-monk-database/support#install-the-codex-plugin",
+          "text": "Free Codex plugin"
+        },
+        {
+          "href": "/ai-monk-factory",
+          "text": "Monk Factory ↗"
+        }
+      ],
+      "header_before_search": true,
+      "public_cards": 73,
+      "distinct_public_cards": 73,
+      "public_expected_id_set_matches": true,
+      "archive_records_text": 75,
+      "source_count_text": 191,
+      "source_count_normalization_note": "Initial Scrapy extraction used an uncollapsed exact substring and returned false across SSR text-node whitespace; saved original HTML with collapsed whitespace confirms 75 records/191 sources without refetch or data edits.",
+      "plugin_anchor_count": 1,
+      "book_schema_price": {
+        "amount": "9.99",
+        "currency": "USD"
+      },
+      "destinations_http_status": {
+        "support": 200,
+        "factory": 200,
+        "book": 200,
+        "database": 200
+      },
+      "browser_viewport_or_paid_purchase_tested": false,
+      "observed_at": "2026-10-24T03:52:20.710271+00:00"
+    },
+    "existing_live_book_catalog": {
+      "account_matches_expected": true,
+      "charges_enabled": true,
+      "price_http_status": 200,
+      "price_id": "price_1UTNvEEeDsUAcaLS7mNPgXUn",
+      "product_id": "prod_VUMeHBJUIOWBsK",
+      "price_active": true,
+      "product_active": true,
+      "livemode": true,
+      "currency": "usd",
+      "unit_amount": 999,
+      "type": "one_time",
+      "product_book_sku": "art_of_ai_monks_en_v1",
+      "orders_revenue_paid_delivery": "not_observed",
+      "observed_at": "2026-10-24T03:41:43.494142+00:00"
+    },
+    "reference": {
+      "url": "https://www.yang-mun.com/pages/journey",
+      "retrieved_at_utc": "2026-10-24T03:35:09.081405+00:00",
+      "method": "crwl crawl URL -o markdown-fit -bc -O FILE",
+      "observed_product": "30-day online course; not an ebook",
+      "observed_cta": "Start the Journey",
+      "placement_reference": "Price and access terms near the CTA at start, middle and end of captured body",
+      "verified_matching_conversion_metric": false,
+      "seller_result_claims_reused_as_verified_results": false,
+      "experiment": "Small exposure change for existing book/plugin links; no measured conversion lift."
+    },
+    "clicks": null,
+    "plugin_installs": null,
+    "paid_orders": null,
+    "revenue": null,
+    "MRR": null
+  },
+  "provider_receipt_id": {
+    "source_pr": 660,
+    "source_ci": 40059343721,
+    "main_deploy_workflow": 40059692583,
+    "netlify_deploy": "6adc2ae074978bba89741724",
+    "stripe_price_get": "req_E6A3ZOlIBPxHG8"
+  },
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/focused-tests.log",
+      "visibility": "private_local_only",
+      "bytes": 1004,
+      "sha256": "58e1f4e118efbba33e865ba19ec7c9adfa5f7cba0c1bc591360960a339531d52"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/source-test-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 548,
+      "sha256": "b8216b764d3bce2417fe51e90d1f2f7e1d20d2b766bb40317b58396194cac76e"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/source-ci-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 4849,
+      "sha256": "d4e9528eb866254bd56c75fe0eb9dcefb161d02fe0d8e865c421204708e9c460"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/source-pr-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 856,
+      "sha256": "65a451583e9c00f93d76fc99c172c9a752da048603b824bc5440b7c53bca9112"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/source-main-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 1472,
+      "sha256": "c07f23f5e0612530b40c978141313211fa3ae3289ce0c148fb3341384f6b6deb"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/stripe-price-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 1362,
+      "sha256": "d44c07aee36a3115a0f26e60f9a2e17bd3e3d07685b1ca7f3e8f4c296c06fc7b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/deploy-workflow-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 4294,
+      "sha256": "a048060638fcc888b1e49d7096f7fa052c0c40e5c53af7a7d50095b9e4edc65f"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/netlify-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 1341,
+      "sha256": "e9e5ee4af7be77881779a1e75c04c9c5523ebaa0b2b8c56256a0080380ec9a87"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/public-crwl-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 389,
+      "sha256": "040c9a9066b7dd25fb1abfb34f0df2b7c60976bf0fdbf715923e7d10278ae4e2"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/database.markdown-fit.md",
+      "visibility": "private_local_only",
+      "bytes": 91077,
+      "sha256": "d83f82232a60de359f2ac78821bbdd049d69a7bcd63ca5d7d3f6d4c69a062a7c"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/public-rows.json",
+      "visibility": "private_local_only",
+      "bytes": 5035,
+      "sha256": "f151bf4fe5bd01782e604f03cd67ef54d04c8d11e11c907a911824e9708991f3"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/public-acceptance.json",
+      "visibility": "private_local_only",
+      "bytes": 1430,
+      "sha256": "4332baa6f8085ec2e4c316c095859501ac3447d7f304ff5b3500c87aaad3e3a8"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/database.public.html",
+      "visibility": "private_local_only",
+      "bytes": 862767,
+      "sha256": "e5b2a2bd96de8fcf5638dd1f0b5d2860bc501b7166217f12c07a158e2c6402e4"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/support.public.html",
+      "visibility": "private_local_only",
+      "bytes": 15285,
+      "sha256": "32d9d5bfe70b99dc5940444949f7dc6badb5ee04b4864b12985b547815552c92"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/book.public.html",
+      "visibility": "private_local_only",
+      "bytes": 27178,
+      "sha256": "013133642c431c902f4a54f5a233d1b6ec9930d1431674a69b17b796bb251361"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/factory.public.html",
+      "visibility": "private_local_only",
+      "bytes": 10743,
+      "sha256": "21ba571344e12dbde40dc7069fd6ae3d47f0f679094f0b5b8cd7e1689931541b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/public_cta_readback.py",
+      "visibility": "private_local_only",
+      "bytes": 2331,
+      "sha256": "375537fc9e36fa1885806b58a678a9fc685e8968811df4abc596ce0acf2c4d18"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024/netlify_readback.py",
+      "visibility": "private_local_only",
+      "bytes": 2213,
+      "sha256": "6624385e9c12c533953e8758667e97bb128763cc1f19eb8e44ee592953ea867a"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024-reference/manifest.json",
+      "visibility": "private_local_only",
+      "bytes": 1732,
+      "sha256": "c0e9852cb1234120291cb9f01a2d6c5ea31f56231fe97ec0a886d8fcf335e39a"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024-reference/journey.markdown-fit.md",
+      "visibility": "private_local_only",
+      "bytes": 12318,
+      "sha256": "1663d0548378ef7d12b6d43054fe8e868b5af60110c57c3823bd980c0b60a00b"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-entry-cta-20261024-reference/reference-summary.md",
+      "visibility": "private_local_only",
+      "bytes": 2868,
+      "sha256": "b8df1b27bb7f2487c31679f306d16f1d580fac11cbb1a50d33b4a5e183e92de8"
+    }
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Keep existing Google device confirmation and Factory bootstrap-budget questions pending without resends; track existing OpenAI/Muse case decisions. Continue incomplete Database research/distribution and real sales outcomes under the master spec.",
+  "limits": [
+    "This is author-run source and HTTP/HTML acceptance, not a fresh browser viewport, accessibility audit, click attribution or paid delivery test.",
+    "Netlify commit_ref is null. Successful GHA main head and matching deploy title establish build correlation; served header/destination HTML is separately observed.",
+    "Initial source-count substring detection was false due to SSR text-node whitespace. Saved original HTML normalized offline confirms 75 archive records/191 sources; no refetch or data edits were needed.",
+    "Live fixed-price/catalog status and public links do not establish purchases, revenue, conversion lift or MRR. Book schema availability is seller metadata, not verified inventory or delivery.",
+    "正式ChatGPT/Muse掲載、Factory専用課金・本人確認/予算・実生成/本人IG接続/投稿/metrics、USD10K MRRと他者の無人収益は未完。"
+  ]
+}
