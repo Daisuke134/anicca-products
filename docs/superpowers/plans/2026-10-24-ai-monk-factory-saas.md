@@ -72,4 +72,4 @@ Netlify AI Gatewayの代替経路は公式docsと現account GETでread-only確�
 
 この再確認で専用OpenAIの正規復旧条件を保持する。現在のSaaS-1内cursorは配布正本の「Checkout本番反映と次のprovider実装」を参照する。正式ChatGPT upload/submit、Factory enable、customer Checkout/請求、画像/動画生成、IG接続/投稿は0を保持する。Database/公開MCP/Codex Pluginの公開とは独立した未完条件とする。証拠 → ../../evidence/ai-monk-factory-openai-account-state-20261024.json。
 
-Checkoutの公開受入とGemini画像・台本候補への実装順変更、GCP read-onlyの実行前guard拒否の正本 → 2026-10-24-ai-monk-research-distribution.md「Checkout本番反映と次のprovider実装」。旧OpenAI adapterを現runtimeとして保持し、Geminiの専用有料project/key・課金・実生成・Factory enable/実提供は未完とする。
+CheckoutとGemini adapterのmain由来公開、専用未課金project/key準備、UI routing是正、Database→Plugin→Factoryの現在cursor → 2026-10-24-ai-monk-research-distribution.md。Gemini専用paid billing・Netlify key設定・実原価/実生成・Factory enable/実提供は未完とする。
