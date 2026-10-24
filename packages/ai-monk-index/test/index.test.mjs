@@ -71,7 +71,7 @@ test('CLI and MCP include pending research candidates and omit illustrations whi
   assert.equal(first.total, 73);
   assert.equal(first.accounts.length, 50);
   assert.equal(second.accounts.length, 23);
-  for (const id of ['master-kaizen-tiktok', 'sifuchen-california', 'lead-instagram-lotusfamily1']) {
+  for (const id of ['master-kaizen-tiktok', 'lead-instagram-lotusfamily1']) {
     const record = canonical.accounts.find(a => a.id === id);
     assert.equal(record.directory_scope.status, 'pending');
     assert.deepEqual(getAccount(id).account, record);
@@ -93,6 +93,30 @@ test('CLI and MCP include pending research candidates and omit illustrations whi
   assert.equal(getStats().records, 73);
   assert.equal(getStats().metadata.research_archive_records, 75);
   assert.equal(getStats().metadata.excluded_from_directory, 2);
+});
+
+test('first-party profile disclosures and labeled reels support inclusion while preserving uncertainty', () => {
+  const cases = [
+    ['lead-instagram-maitreyun', 'lead-instagram-maitreyun-reel-20261024', 'https://www.instagram.com/reel/DcgKaFhOS9c/'],
+    ['sifuchen-california', 'sifuchen-california-reel-20261024', 'https://www.instagram.com/reel/De1p-ZsIlGu/'],
+  ];
+  const webAccounts = filterAiMonkAccounts(canonical.accounts, { language: 'all', platform: 'Instagram', status: 'all' });
+  for (const [id, sourceId, url] of cases) {
+    const record = canonical.accounts.find(a => a.id === id);
+    assert.ok(record);
+    assert.equal(record.ai_status, 'reported');
+    assert.equal(record.directory_scope.status, 'included');
+    assert.ok(record.directory_scope.source_ids.includes(sourceId));
+    assert.ok(canonical.sources.some(source => source.id === sourceId && source.url === url));
+    assert.ok(record.creative_samples.some(sample => sample.source_id === sourceId && sample.url === url));
+    assert.ok(webAccounts.some(account => account.id === id));
+    assert.deepEqual(getAccount(id).account, record);
+  }
+  const sifu = canonical.accounts.find(a => a.id === 'sifuchen-california');
+  const linkedProduct = canonical.sources.find(source => source.id === 'sifuchen-california-amazon-link-target-20261024');
+  assert.ok(linkedProduct);
+  assert.equal(sifu.offers.some(offer => offer.source_id === linkedProduct.id), false);
+  assert.equal(sifu.revenue_observations?.length ?? 0, 0);
 });
 
 

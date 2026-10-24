@@ -1,0 +1,176 @@
+{
+  "schema_version": "anicca.ai-monk-public-profile-reels.v1",
+  "run_id": "ai-monk-profile-reels-source-20261024",
+  "owner_id": "root",
+  "occurrence_id": "maitre-yun-and-sifuchen-first-party-reel-evidence",
+  "observed_at": "2026-10-24T12:33:41Z",
+  "release_sha": "0bdfb6f00ac4f995e948e72526d884b0835ea305",
+  "phase": "read_only_public_source_capture_and_local_dataset_acceptance",
+  "command": "crwl crawl public Instagram Reel and Amazon pages; scrapy fetch Reel pages, linked Amazon target, and public profile timelines",
+  "loaded_argv": [
+    ["crwl", "crawl", "https://www.instagram.com/reel/DcgKaFhOS9c/", "-o", "markdown-fit"],
+    ["crwl", "crawl", "https://www.instagram.com/reel/De1p-ZsIlGu/", "-o", "markdown-fit"],
+    ["crwl", "crawl", "https://www.amazon.es/dp/B0H8TQL5TC", "-o", "markdown-fit"],
+    ["scrapy", "fetch", "https://www.instagram.com/reel/DcgKaFhOS9c/"],
+    ["scrapy", "fetch", "https://www.instagram.com/reel/De1p-ZsIlGu/"],
+    ["scrapy", "fetch", "https://www.amazon.es/dp/B0H8TQL5TC"],
+    ["scrapy", "fetch", "https://www.instagram.com/maitreyun_/"],
+    ["scrapy", "fetch", "https://www.instagram.com/sifuchencalifornia/"]
+  ],
+  "loaded_env": {
+    "authentication": "none",
+    "cookies_or_private_state": "none",
+    "mutation": "none"
+  },
+  "exit_code": 0,
+  "effect": "Added two dated first-party Reel samples and three source records; promoted two reported personas from pending to included. Added no offer, follower observation, paid-order observation, or revenue observation.",
+  "readback": {
+    "instagram_reels": [
+      {
+        "url": "https://www.instagram.com/reel/DcgKaFhOS9c/",
+        "http_status": 200,
+        "response_bytes": 607850,
+        "response_sha256": "20799c71d9b383640263e0000b3d1b2a514f8085b705ea1f704d40867e7cf513",
+        "shortcode": "DcgKaFhOS9c",
+        "account_attribution": "@maitreyun_",
+        "profile_timeline_url": "https://www.instagram.com/maitreyun_/",
+        "profile_timeline_bytes": 784563,
+        "profile_timeline_sha256": "eb17334d7999eb84877640ce4dae430248cfd49bdd8292a866e8f659410bfb99",
+        "profile_timeline_date": "2026-08-26",
+        "first_party_ai_label": "AI content",
+        "profile_disclosure": "public display name identifies an AI-generated avatar; bio describes a fictional digital character",
+        "caption_summary": "#calme #conseils #rituel",
+        "video_played": false
+      },
+      {
+        "url": "https://www.instagram.com/reel/De1p-ZsIlGu/",
+        "http_status": 200,
+        "response_bytes": 817790,
+        "response_sha256": "ffcf3cbdaa8d3c9acc720723726c2066c7b6f61120998fa59de588bfe7d7fc92",
+        "shortcode": "De1p-ZsIlGu",
+        "account_attribution": "@sifuchencalifornia",
+        "profile_timeline_url": "https://www.instagram.com/sifuchencalifornia/",
+        "profile_timeline_bytes": 782848,
+        "profile_timeline_sha256": "b2d6befa3de65e75f4b0c7cd62e68e96de800a3acd1160b52b19406ec0255fd8",
+        "profile_timeline_date": "2026-10-23",
+        "first_party_ai_label": "AI content",
+        "profile_disclosure": "public profile bio labels AI-generated content",
+        "caption_summary": "The caption links https://www.amazon.es/dp/B0H8TQL5TC and says the creator's morning matcha.",
+        "video_played": false
+      }
+    ],
+    "linked_amazon_page": {
+      "url": "https://www.amazon.es/dp/B0H8TQL5TC",
+      "http_status": 200,
+      "response_bytes": 1257947,
+      "response_sha256": "6988f5281a0604f5073882e0bfb1d2f6a4bfa1805e6d939554a77eea77fc7121",
+      "asin": "B0H8TQL5TC",
+      "visible_product_title": "Omega 3 para Perros - Aceite de Salmón Puro con EPA, DHA y Vitamina E - Articulaciones, Pelo Brillante y Piel Sana - 60 Perlas Blandas Sabor Salmón Natural",
+      "caption_target_mismatch": true,
+      "reliable_current_price_captured": false,
+      "affiliate_or_creator_relationship": "unknown"
+    },
+    "canonical_effect": {
+      "archive_records": 75,
+      "directory_records": 73,
+      "included_before": 4,
+      "included_after": 6,
+      "pending_before": 69,
+      "pending_after": 67,
+      "excluded": 2,
+      "sources_before": 197,
+      "sources_after": 200,
+      "reported_ai_status_retained": true,
+      "offers_added": 0,
+      "revenue_observations_added": 0,
+      "followers_changed": false
+    },
+    "canonical_bytes": 506896,
+    "canonical_sha256": "3ae2ecb91ee198b69f1c736ad66c184695d44bfb88d9b453195668b2f7ee57a6"
+  },
+  "acceptance_probe": {
+    "red_exit_code": 1,
+    "red_cause": "Before the canonical edit, the new test observed directory_scope.status=pending where the accepted first-party profile and Reel evidence requires included.",
+    "green_focused_exit_code": 0,
+    "package_tests": {
+      "pass": 16,
+      "fail": 0
+    },
+    "landing_directory_and_render_tests": {
+      "pass": 15,
+      "fail": 0
+    },
+    "landing_production_build": {
+      "exit_code": 0,
+      "ci_inputs_staged": "PASS: pinned Manager marketing and blog sources; DASHBOARD_SNAPSHOT_URL=http://127.0.0.1:9",
+      "warnings": [
+        "Optional @react-native-async-storage/async-storage missing in MetaMask wallet import chain",
+        "Optional pino-pretty missing in WalletConnect import chain",
+        "Tailwind reports an ambiguous ease-[cubic-bezier(0.16,1,0.3,1)] class"
+      ]
+    },
+    "package_npm_audit": {
+      "total": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "landing_app_npm_audit": {
+      "total": 106,
+      "high": 66,
+      "critical": 2,
+      "remaining_zod_finding": "Eight nested Zod copies under wallet SDK dependencies remain below 4.6.6; direct Zod used by the remote MCP path is 4.6.7. The wallet SDK fix requires a major version update and is outside this database/MCP patch. Review reachable findings before Factory OAuth or subscription launch."
+    },
+    "json_build_and_reference_resolution": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Complete source diff acceptance, then push this dedicated branch, merge the fixed-main PR, publish ai-monk-index v0.4.15, and verify the exact public JSON/Web/CLI/MCP/Registry snapshot before resuming the revised SaaS-1 cursor: Factory readiness diagnosis and three-completed-video free quota with no time trial.",
+  "evidence_refs": [
+    {
+      "url": "https://www.instagram.com/reel/DcgKaFhOS9c/",
+      "kind": "anonymous_public_instagram_reel_html",
+      "bytes": 607850,
+      "sha256": "20799c71d9b383640263e0000b3d1b2a514f8085b705ea1f704d40867e7cf513"
+    },
+    {
+      "url": "https://www.instagram.com/maitreyun_/",
+      "kind": "anonymous_public_instagram_profile_timeline_html",
+      "bytes": 784563,
+      "sha256": "eb17334d7999eb84877640ce4dae430248cfd49bdd8292a866e8f659410bfb99"
+    },
+    {
+      "url": "https://www.instagram.com/reel/De1p-ZsIlGu/",
+      "kind": "anonymous_public_instagram_reel_html",
+      "bytes": 817790,
+      "sha256": "ffcf3cbdaa8d3c9acc720723726c2066c7b6f61120998fa59de588bfe7d7fc92"
+    },
+    {
+      "url": "https://www.instagram.com/sifuchencalifornia/",
+      "kind": "anonymous_public_instagram_profile_timeline_html",
+      "bytes": 782848,
+      "sha256": "b2d6befa3de65e75f4b0c7cd62e68e96de800a3acd1160b52b19406ec0255fd8"
+    },
+    {
+      "url": "https://www.amazon.es/dp/B0H8TQL5TC",
+      "kind": "anonymous_public_amazon_product_page_html",
+      "bytes": 1257947,
+      "sha256": "6988f5281a0604f5073882e0bfb1d2f6a4bfa1805e6d939554a77eea77fc7121"
+    }
+  ],
+  "limitations": [
+    "Instagram labels and profile disclosures support reported AI origin but do not establish an independent production audit; neither video was played.",
+    "Current price, orders, refunds, affiliate status/commission, and creator revenue remain unknown; the Amazon ASIN title conflicts with the Reel's matcha text.",
+    "No audience metric or revenue claim changed in this update.",
+    "The full apps/landing dependency audit remains at 106 findings including 2 critical and 66 high; the fixed direct MCP Zod dependency does not resolve unrelated nested wallet SDK findings."
+  ],
+  "external_effects": {
+    "login_or_authentication": 0,
+    "payments_or_checkouts": 0,
+    "posts_or_account_changes": 0,
+    "account_connections": 0,
+    "provider_submissions": 0,
+    "public_get_requests": 8
+  }
+}

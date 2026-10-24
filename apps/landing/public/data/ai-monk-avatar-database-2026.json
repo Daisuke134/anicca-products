@@ -2,7 +2,7 @@
   "schema_version": "anicca.ai-monk-avatar-database.v1",
   "updated_at": "2026-10-24",
   "license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners.",
-  "scope": "English-first research on monk profiles and AI monk video avatars such as Yang Mun. The public directory contains 73 profiles: 4 evidence-reviewed video personas and 69 pending research candidates. The 75-record research archive also retains 2 excluded illustrated/watercolor channels. This is not a complete census.",
+  "scope": "English-first research on monk profiles and AI monk video avatars such as Yang Mun. The public directory contains 73 profiles: 6 evidence-reviewed video personas and 67 pending research candidates. The 75-record research archive also retains 2 excluded illustrated/watercolor channels. This is not a complete census.",
   "methodology": [
     "Publish explicitly included and pending monk research profiles. Included records carry reviewed video-avatar evidence; pending records remain candidates with their existing unknowns. Exclude illustrated/watercolor accounts and missing-scope records from the directory. An image or discovery lead alone does not establish AI production or video format.",
     "Do not merge accounts on similar names alone. Unknown handles, creators, launch dates, and product URLs remain null with a reason.",
@@ -1993,6 +1993,45 @@
       "evidence_sha256": "9e650a3726ad3ba2dc94f227eba75159857402d74ed50f3852a8cd019e5cee4e",
       "evidence_kind": "public_page_embedded_metadata_response",
       "notes": "The public embedded response reports 275700 followers and video 7693476794522930464 with 648600 plays, 62000 likes, 14900 comments, 11100 shares, 75 seconds, and caption #manifestation. Embedded IsAigc is false, AIGCDescription is empty, and ShowAIGC is false; these fields do not establish whether the video was made with AI. The video was not visually reviewed. Spoken language, operator, offers, sales, and revenue remain unknown."
+    },
+    {
+      "id": "lead-instagram-maitreyun-reel-20261024",
+      "title": "Maitre Yun Instagram Reel DcgKaFhOS9c",
+      "url": "https://www.instagram.com/reel/DcgKaFhOS9c/",
+      "source_type": "first-party public Instagram Reel page and profile timeline; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T12:33:41Z",
+      "capture_method": "crwl crawl markdown-fit; scrapy fetch of Reel and public profile timeline",
+      "evidence_sha256": "20799c71d9b383640263e0000b3d1b2a514f8085b705ea1f704d40867e7cf513",
+      "evidence_kind": "anonymous_public_instagram_page_response",
+      "notes": "The anonymous Reel page labels the post AI content; the public @maitreyun_ profile timeline attributes shortcode DcgKaFhOS9c to Maitre Yun and gives August 26, 2026. The visible caption contains #calme #conseils #rituel. The Reel was not played. Platform labeling and first-party profile disclosure are not an independent AI-production audit; product sales and revenue remain unknown."
+    },
+    {
+      "id": "sifuchen-california-reel-20261024",
+      "title": "SifuChen California Instagram Reel De1p-ZsIlGu",
+      "url": "https://www.instagram.com/reel/De1p-ZsIlGu/",
+      "source_type": "first-party public Instagram Reel page and profile timeline; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T12:33:41Z",
+      "capture_method": "crwl crawl markdown-fit; scrapy fetch of Reel and public profile timeline",
+      "evidence_sha256": "ffcf3cbdaa8d3c9acc720723726c2066c7b6f61120998fa59de588bfe7d7fc92",
+      "evidence_kind": "anonymous_public_instagram_page_response",
+      "notes": "The anonymous Reel page labels the post AI content; the public @sifuchencalifornia profile timeline attributes shortcode De1p-ZsIlGu to SifuChen California and gives October 23, 2026. The caption links an Amazon.es ASIN while saying matcha. The Reel was not played. The platform label and profile disclosure are not an independent AI-production audit."
+    },
+    {
+      "id": "sifuchen-california-amazon-link-target-20261024",
+      "title": "Amazon.es product page linked from SifuChen California Reel",
+      "url": "https://www.amazon.es/dp/B0H8TQL5TC",
+      "source_type": "first-party public Amazon product page; link-target readback",
+      "published_at": null,
+      "checked_at": "2026-10-24",
+      "captured_at": "2026-10-24T12:33:41Z",
+      "capture_method": "crwl crawl markdown-fit and scrapy fetch",
+      "evidence_sha256": "6988f5281a0604f5073882e0bfb1d2f6a4bfa1805e6d939554a77eea77fc7121",
+      "evidence_kind": "anonymous_public_product_page_response",
+      "notes": "The ASIN page title identifies Omega 3 para Perros (omega-3 for dogs), which conflicts with the Reel caption's claim that the link is for the creator's morning matcha. The intended item, creator's commercial relationship, affiliate commission, reliable current price, paid orders, and revenue are unverified. Do not attribute this listing as the creator's offer."
     }
   ],
   "accounts": [
@@ -2713,6 +2752,10 @@
         {
           "source_id": "sifuchen-california-ig-header-20261024",
           "summary": "The native public profile bio states AI Generado Artificial. This first-party disclosure supports reported AI origin; production method and account-attributed video format remain independently unverified."
+        },
+        {
+          "source_id": "sifuchen-california-reel-20261024",
+          "summary": "The first-party public Reel page displays Instagram's AI content label and the profile timeline attributes the Reel to this account. This is platform labeling and account attribution, not an independent production audit."
         }
       ],
       "creator": {
@@ -2736,7 +2779,9 @@
       "source_urls": [
         "https://archive.li/CZww4",
         "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
-        "https://www.instagram.com/sifuchencalifornia/"
+        "https://www.instagram.com/sifuchencalifornia/",
+        "https://www.instagram.com/reel/De1p-ZsIlGu/",
+        "https://www.amazon.es/dp/B0H8TQL5TC"
       ],
       "platforms": [
         {
@@ -2780,18 +2825,31 @@
           "source_id": "maldita-2026-07-10",
           "structure_summary": "The report describes a monk-like figure in an outdoor scene and a guide CTA placed in a profile highlight. It is an observed offer path, not verified sales.",
           "media_status": "archive_link_only"
+        },
+        {
+          "url": "https://www.instagram.com/reel/De1p-ZsIlGu/",
+          "title": "SifuChen California Reel with Instagram AI content label",
+          "duration_seconds": null,
+          "uploaded_at": "2026-10-23",
+          "views": null,
+          "views_captured_at": null,
+          "source_id": "sifuchen-california-reel-20261024",
+          "structure_summary": "The profile timeline attributes this Reel to @sifuchencalifornia. Instagram labels it AI content. Its caption says matcha but links to ASIN B0H8TQL5TC, whose public Amazon title is Omega 3 para Perros (source sifuchen-california-amazon-link-target-20261024). The Reel was not played; intended product, commercial relationship, price, commission, orders, and revenue are unverified.",
+          "media_status": "metadata_only_official_link_only"
         }
       ],
       "unknowns": [
         "Exact unrounded follower count, operator identity/location, current product availability, sales, refunds, and revenue.",
-        "Spanish is observed in the native profile bio only; post and spoken-video language remain unaudited."
+        "Spanish is observed in the native profile bio only; post and spoken-video language remain unaudited.",
+        "The 2026-10-23 Reel caption says matcha, but its Amazon ASIN resolves to dog omega-3. The intended linked product, creator relationship, affiliate commission, reliable price, orders, and revenue remain unknown; the link is not attributed as an offer."
       ],
       "directory_scope": {
-        "status": "pending",
-        "reason": "The report establishes a realistic AI-created still and guide highlight, but an account-attributed video example has not been verified.",
+        "status": "included",
+        "reason": "The first-party profile discloses AI-generated content and an account-attributed Instagram Reel displays Instagram's AI content label. This supports inclusion as a reported AI video persona, not an independent production audit.",
         "source_ids": [
           "maldita-2026-07-10",
-          "sifuchen-california-ig-header-20261024"
+          "sifuchen-california-ig-header-20261024",
+          "sifuchen-california-reel-20261024"
         ]
       }
     },
@@ -9118,6 +9176,10 @@
         {
           "source_id": "lead-instagram-maitreyun-ig-header-20261024",
           "summary": "The public display name identifies an AI-generated avatar and the bio describes a fictional digital character. First-party disclosure, not an independent production audit."
+        },
+        {
+          "source_id": "lead-instagram-maitreyun-reel-20261024",
+          "summary": "The first-party public Reel page displays Instagram's AI content label and the profile timeline attributes the Reel to this account. This is platform labeling and account attribution, not an independent production audit."
         }
       ],
       "creator": {
@@ -9135,7 +9197,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/maitreyun_/"
+        "https://www.instagram.com/maitreyun_/",
+        "https://www.instagram.com/reel/DcgKaFhOS9c/"
       ],
       "platforms": [
         {
@@ -9158,7 +9221,19 @@
       "offers": [],
       "seller_counters": [],
       "creator_claims": [],
-      "creative_samples": [],
+      "creative_samples": [
+        {
+          "url": "https://www.instagram.com/reel/DcgKaFhOS9c/",
+          "title": "Maitre Yun Reel with Instagram AI content label",
+          "duration_seconds": null,
+          "uploaded_at": "2026-08-26",
+          "views": null,
+          "views_captured_at": null,
+          "source_id": "lead-instagram-maitreyun-reel-20261024",
+          "structure_summary": "The profile timeline attributes this Reel to @maitreyun_; its public display name identifies an AI-generated avatar, and Instagram labels the Reel AI content. The visible caption contains #calme #conseils #rituel. The Reel was not played; the label and disclosure are not an independent AI-production audit, and no product sales or revenue are established.",
+          "media_status": "metadata_only_official_link_only"
+        }
+      ],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
         "Independent AI-production audit, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
@@ -9168,11 +9243,12 @@
         "Product route https://beacons.ai/maitreyun: content_blocked_or_opaque; no new product or price is established by this retrieval."
       ],
       "directory_scope": {
-        "status": "pending",
-        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Displayed as a research candidate; AI production and video format remain unverified.",
+        "status": "included",
+        "reason": "The first-party profile identifies an AI-generated avatar and fictional digital character; an account-attributed Instagram Reel displays Instagram's AI content label. This supports inclusion as a reported AI video persona, not an independent production audit.",
         "source_ids": [
           "user-supplied-instagram-following-screenshots",
-          "lead-instagram-maitreyun-ig-header-20261024"
+          "lead-instagram-maitreyun-ig-header-20261024",
+          "lead-instagram-maitreyun-reel-20261024"
         ]
       }
     },
