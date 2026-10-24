@@ -111,3 +111,11 @@ main `ad08dd187d3b3c051bb29d9e1040ec76272f5461`由来の専用branch `feat/ai-mo
 受入は、未追加の価格観測について最小の一時assertion RED→データ追加→GREEN、既存shared/helperとpackage検証、fresh read-only data review・既存CI/main公開とする。新parser/runtime/依存/恒久的mirroring testは作らない。新v0.4.10のmain固定Release・公開JSON/Web/CLI/stdio/HTTPS MCP・Registryを同一snapshotで確認し、v0.4.9を含む旧Release/receiptを変えない。別ownerの日次v0.4.9公開を中断・再送しない。Factory・plugin payload・認証/課金・X・日次Grok所有effectは変更0。現在cursorはこのDB-1の根拠追加、次はPL-1の既存正式配布口の未完条件。
 
 Arisの公式HTML HTTP200/JSON-LDで同一商品17 USDを確認し、新しいsource1件・日付付きoffer1件を追加する。旧187sources/既存全観測・収益fieldを保持するsource acceptanceはRED→GREEN。既存package15件/shared・render15件とbuild済みget/monetizationの価格/出典返却を確認し、v0.4.10/188出典へ揃える。source証拠 → ../../evidence/ai-monk-product-jsonld-source-20261024.json。独立review・最終head CI・main由来公開/新Release/Registryは次に受入する。
+
+## 正式Plugin掲載のアクセス復旧
+
+Daisの「Go fix」に従い、PL-1の専用OpenAI account無効化とMuse審査の未完条件を現在cursorへ進める。DatabaseのAris sourceはPR652/main `8a5f78fb9ade2c45cd213c5beabcf71ee718c25d`へ統合済みで、新版の公開/Release/Registry受入は中断・重複せず並行して完了する。
+
+専用branch `fix/ai-monk-plugin-marketplace-access-20261024`は上記最新main由来。目的は既存専用identityの正規アクセス復旧と、Muse公式submissionの不足要求を修正し正式提出/審査/掲載を前進させること。所有はprimary。本unitはSSOT全文のRAM確認、本人/owner/既存lease/session照合、最新の公式復旧手順・通知・Muse要求の取得を先に行い、同じ非retryable loginの再実行や提出重複をしない。正規の復旧/既存提出の不足修正は必要な範囲で進め、他account新設や他者identityへの切替、共有wallet/日次loop変更、課金は0。外部審査結果は自分で承認扱いにせず、公式receipt/掲載URLを個別に確認する。
+
+完了条件は本人accountへの公式アクセス、必要なdeveloper identityと正式upload/submit/公開readback、Museの全requirements/審査/掲載を区別して閉じること。未解消なら原因・自分が直した範囲・provider受付ID/要求・次の具体的操作を新しいreceiptへ残す。既存receiptを書き換えない。既存source/正式掲載/売上を混同せず、source修正が必要な場合だけ関係する契約と最小検証を先行更新する。Google/login skillのKeychain指定・復旧停止はDaisのSSOT/Apple store禁止と今回の正規復旧委任を優先し、browser再起動・新context・guard迂回は行わない。
