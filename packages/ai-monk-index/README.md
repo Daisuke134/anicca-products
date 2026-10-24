@@ -38,12 +38,14 @@ v0.4.17 adds five dated seller-displayed counters from Zen Muun’s public store
 
 v0.4.18 adds two first-party Stan digital-download offers linked to the pending @shenmuhealer profile: 12.95 USD and 9.95 USD, each with a separate 47 USD reference price. Instagram displays an “AI-generated profile” label, recorded as platform-reported evidence only; the profile remains pending because its Reels were not visually reviewed. The seller page’s “10,251 downloads” stays an unaudited product-scoped counter, not paid orders or revenue. Operator identity, authorship, orders, revenue and profit remain unknown. The archive remains 75 records, with 233 sources and 116 account-offer rows; this is not a complete census.
 
+v0.4.19 adds explicit MCP initialization guidance to refuse requests for private credentials and payment details and to avoid guarantees or inferences about personal earnings and MRR. The research snapshot and six read-only tools are unchanged.
+
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.18/anicca-ai-monk-index-0.4.18.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.19/anicca-ai-monk-index-0.4.19.tgz
 ```
 
 ## CLI
