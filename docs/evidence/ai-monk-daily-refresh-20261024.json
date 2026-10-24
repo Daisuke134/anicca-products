@@ -1,0 +1,268 @@
+{
+  "schema_version": "anicca.ai-monk-daily-refresh.v1",
+  "automation_id": "ai-monk-database",
+  "trigger_at": "2026-10-24T00:03:58.413Z",
+  "source_base": "373eec46af11c0d32566386df7fbd201413b3d5b",
+  "recorded_at": "2026-10-24T00:12:20.346124+00:00",
+  "as_of": "2026-10-24",
+  "changed_accounts": [
+    "yang-mun",
+    "ming-san",
+    "yan-chen-monjechen"
+  ],
+  "added_sources": 6,
+  "sources": 187,
+  "dated_metric_observations_added": 4,
+  "dated_offer_observations_added": 4,
+  "archive_records": 75,
+  "directory_records": 73,
+  "included": 4,
+  "pending": 69,
+  "excluded": 2,
+  "youtube_observations": [
+    {
+      "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+      "captured_at": "2026-10-24T00:08:15.798702+00:00",
+      "status": "observed",
+      "fields": {
+        "id": "Er2Ig4GM7z0",
+        "title": "Words of Motivation from Yang Mun #yangmun #whoisyangmun #timetohealyangmun #yangmunbook",
+        "channel": "Yang Mun",
+        "channel_id": "UCoMa3p67nJWkk2kk-8hD1jA",
+        "channel_url": "https://www.youtube.com/channel/UCoMa3p67nJWkk2kk-8hD1jA",
+        "uploader_id": "@Yangmunv2",
+        "channel_follower_count": 159000,
+        "view_count": 521603,
+        "like_count": 15949,
+        "comment_count": 926,
+        "duration": 65,
+        "upload_date": "20251129"
+      },
+      "method": "yt-dlp public YouTube metadata; no media download or cookies supplied"
+    },
+    {
+      "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
+      "captured_at": "2026-10-24T00:08:15.839943+00:00",
+      "status": "observed",
+      "fields": {
+        "id": "Qdv6S7HonSM",
+        "title": "1minute  of Yang Mun Wisdom #yangmun #yangmuns #masteryangmun",
+        "channel": "Yang Mun",
+        "channel_id": "UCoMa3p67nJWkk2kk-8hD1jA",
+        "channel_url": "https://www.youtube.com/channel/UCoMa3p67nJWkk2kk-8hD1jA",
+        "uploader_id": "@Yangmunv2",
+        "channel_follower_count": 159000,
+        "view_count": 1102391,
+        "like_count": 23463,
+        "comment_count": 295,
+        "duration": 78,
+        "upload_date": "20251125"
+      },
+      "method": "yt-dlp public YouTube metadata; no media download or cookies supplied"
+    },
+    {
+      "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
+      "captured_at": "2026-10-24T00:08:18.315206+00:00",
+      "status": "observed",
+      "fields": {
+        "id": "j8WRhcQvzRM",
+        "title": "You’re Drinking Water the WRONG Way 😳 | Yang Mun Chinese Medicine Wisdom #yangmun #masteryangmun",
+        "channel": "Yang Mun",
+        "channel_id": "UCoMa3p67nJWkk2kk-8hD1jA",
+        "channel_url": "https://www.youtube.com/channel/UCoMa3p67nJWkk2kk-8hD1jA",
+        "uploader_id": "@Yangmunv2",
+        "channel_follower_count": 159000,
+        "view_count": 12561596,
+        "like_count": 363008,
+        "comment_count": 22000,
+        "duration": 96,
+        "upload_date": "20251110"
+      },
+      "method": "yt-dlp public YouTube metadata; no media download or cookies supplied"
+    }
+  ],
+  "product_observations": [
+    {
+      "account_id": "yang-mun",
+      "url": "https://www.yang-mun.com/pages/journey",
+      "captured_at": "2026-10-24T00:08:37.375470+00:00",
+      "http_status": 200,
+      "html_sha256": "5ed25aa9fb7f3aa778064a268ffad11132688196992cf08ca4271d3fd547b7c8",
+      "currency_metadata": {
+        "active_currency": "JPY",
+        "country": "JP",
+        "rate": "159.201735",
+        "product_priceCurrency_found": false,
+        "notes": "crwl本文のログインURLはregion_country=US。経路ごとの地域差を示すが、それだけでドル記号をUSDへ確定できない。JPYというmetadataも表示$49.99のJPY価格を意味しない。"
+      },
+      "price_observations": [
+        {
+          "name": "30-Day Healing Journey",
+          "display_price": "$49.99",
+          "amount": null,
+          "currency": null,
+          "currency_status": "表示はドル記号のみ。取得HTMLはShopify.currency.active=JPY/country=JPで、商品priceCurrencyの明示を取得できず通貨未確定。",
+          "billing_kind": "one_time",
+          "billing_evidence": "one-time / One payment / Lifetime access",
+          "reference_display_price": "$99.99",
+          "availability": "seller_purchase_link_present_checkout_unverified",
+          "display_numeric_amount": 49.99,
+          "amount_status": "通貨未確定のため正規化価格はnull。生の表示額はdisplay_price/display_numeric_amountにのみ保持。"
+        },
+        {
+          "name": "Want everything? / Get everything",
+          "display_price": "$59.99",
+          "amount": null,
+          "currency": null,
+          "currency_status": "同ページと同じ通貨の未確定を保持。",
+          "billing_kind": null,
+          "billing_note": "アップグレードの単発課金・内容詳細を今回の抽出では独立確認していない。",
+          "availability": "seller_purchase_link_present_checkout_unverified",
+          "display_numeric_amount": 59.99,
+          "amount_status": "通貨未確定のため正規化価格はnull。生の表示額はdisplay_price/display_numeric_amountにのみ保持。"
+        }
+      ],
+      "comparison": {
+        "numeric_display_prices": "49.99と59.99は前回と同額。",
+        "currency": "前回USDの記録は今回取得で再確認できない。現在のドル記号とactive JPYを矛盾として保持し、USD断定の追記はしない。",
+        "billing": "Journeyのone-timeを再確認。",
+        "bundle_contents": "前回は3冊eBooksを含むComplete Collection。今回抽出はGet everythingという表示と価格を確認し、内容の変更を断定しない。",
+        "seller_counters": "30,000/2,500系の表示は前回と数値同等。人数・注文・売上の増減を示さない。"
+      }
+    },
+    {
+      "account_id": "ming-san",
+      "url": "https://beraviahealth.com/products/beetroot",
+      "captured_at": "2026-10-24T00:08:36.628758+00:00",
+      "http_status": 200,
+      "html_sha256": "c52df8ce3ffdaa8967a3ee68815fc5643e45995d05133cd39fc22d38e9e6823c",
+      "currency_metadata": {
+        "active_currency": "USD",
+        "country": "US",
+        "rate": "1.0",
+        "jsonld_priceCurrency": "USD"
+      },
+      "price_observations": [
+        {
+          "name": "Beetroot Capsules / Default Title",
+          "amount": 29.99,
+          "currency": "USD",
+          "billing_kind": "one_time",
+          "price_basis": "当該商品のJSON-LD Offer.price=29.99 / priceCurrency=USDと同一variantのprice=2999。",
+          "variant_id": 51739327430929,
+          "sku": "VOX4BEET",
+          "availability": "seller_structured_data_in_stock_checkout_unverified"
+        },
+        {
+          "name": "Deliver every month, 10% off",
+          "amount": 26.99,
+          "currency": "USD",
+          "billing_kind": "subscription",
+          "billing_period": "month",
+          "selling_plan_id": 12669944081,
+          "price_basis": "同商品のembedded selling-plan allocation.price=2699 / perDeliveryPrice=2699、plan名の月次・10% off。USDは同商品JSON-LDとactive USDで明示。",
+          "availability": "embedded_plan_present_checkout_unverified"
+        }
+      ],
+      "comparison": {
+        "one_time_price_delta": 0,
+        "subscription_price_delta": 0,
+        "currency": "USDを今回再確認。",
+        "selling_plan": "月次26.99 USD、plan id、10% offは同じ。",
+        "reference_price": "前回44.99 USDのseller reference priceを今回の当該variantでは独立再確認していない。Moringa upsellの44.99を根拠にしない。",
+        "availability": "今回のseller JSON-LDはInStock。実在庫・checkoutは確認していない。"
+      }
+    },
+    {
+      "account_id": "yan-chen-monjechen",
+      "url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+      "captured_at": "2026-10-24T00:08:37.510769+00:00",
+      "http_status": 200,
+      "html_sha256": "07dcacca95bc74ce3b77a1dcd6844a1918887c603c791e91af8a2fac3101a795",
+      "currency_metadata": {
+        "active_currency": "EUR",
+        "country": "PT",
+        "rate": "1.0",
+        "jsonld_priceCurrency": "EUR"
+      },
+      "price_observations": [
+        {
+          "name": "El Camino de Vuelta a la Calma",
+          "display_price": "€9,95",
+          "amount": 9.95,
+          "currency": "EUR",
+          "billing_kind": null,
+          "billing_observation": "デジタルガイド購入を提示し、抽出範囲に定期課金の明示はない。単発課金を明示文言またはcheckoutで独立確定していない。",
+          "availability": "conflicting_public_availability_signals",
+          "variant_id": 64699551678841,
+          "reference_display_price": "€19,95"
+        }
+      ],
+      "comparison": {
+        "price_delta": 0,
+        "currency": "EURを今回JSON-LD/Shopify activeで再確認。",
+        "pages": "103ページ表示は同じ。",
+        "availability": "売切表示と購入導線の併記は継続。今回追加したJSON-LD InStockと非disabledボタンも矛盾の解消にはならない。"
+      }
+    }
+  ],
+  "uncollected": [
+    {
+      "metric": "Instagram followers",
+      "status": "not_collected",
+      "reason": "The available vidIQ ig_profile lookup costs 5 credits per call and is outside this free-tools run. No browser owner/lease/session was changed; the prior direct-Instagram robots limitation is retained. Existing dated Instagram observations are unchanged."
+    },
+    {
+      "metric": "current revenue/orders/profit",
+      "status": "not_verified",
+      "reason": "The sampled public seller pages contain prices and seller counters, not payment or accounting receipts. Existing creator claims and comparable revenue observations are unchanged."
+    }
+  ],
+  "preservation_checks": {
+    "old_181_sources_unchanged": true,
+    "old_offers_and_platform_snapshots_preserved": true,
+    "unmodified_72_accounts": true,
+    "scope_and_financial_claims_unchanged": true
+  },
+  "learning_notes": [
+    {
+      "kind": "fact",
+      "source_id": "daily-product-yang-mun-journey-20261024",
+      "note": "The seller combines a finite 30-day routine, a one-time entry offer and an optional upgrade; the displayed community is a bonus, not verified subscription revenue."
+    },
+    {
+      "kind": "fact",
+      "source_id": "daily-product-monjechen-calm-guide-20261024",
+      "note": "The seller packages a digital guide with a 30-day sequence, calendar and checklist; urgency counters do not establish paid orders."
+    },
+    {
+      "kind": "inference_to_test_not_observed_result",
+      "note": "Factory scripts can test an original product-specific CTA and a finite practice sequence. No conversion, health benefit or income uplift is established by these observations."
+    }
+  ],
+  "canonical_sha256": "6daa9b82697c3ad2904a933c875ff0755e9b90d5de1b601655f6981e0d2bbafd",
+  "package_version": "0.4.9",
+  "provider_writes": 0,
+  "video_generations": 0,
+  "social_posts": 0,
+  "paid_provider_purchases": 0,
+  "status": "source acceptance passed; CI, merge, release and production pending",
+  "validation": {
+    "shared_directory_tests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "cli_stdio_http_public_package_contract_tests": {
+      "passed": 15,
+      "failed": 0
+    },
+    "source_reference_resolution": true,
+    "old_sources_metrics_offers_and_financial_claims_preserved": true,
+    "independent_read_only_review": {
+      "reviewer": "daily_monk_data_review_20261024",
+      "findings": 0,
+      "blocking": 0,
+      "limits": "No external refetch or raw-HTML extraction review; tests executed by primary. CI/release/production pending."
+    }
+  }
+}

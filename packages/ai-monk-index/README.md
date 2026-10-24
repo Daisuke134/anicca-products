@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **181 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **187 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -18,12 +18,14 @@ v0.4.5 introduced 33 distinct product observations across 35 account-offer rows.
 
 v0.4.8 resolves SifuChen California's native Instagram handle, adds a dated rounded 834K follower observation and Spanish bio language, and records the profile's own AI disclosure. Its reported AI status and pending video-format review remain unchanged. The Web uses the native public avatar instead of a third-party screenshot; public image coverage stays unchanged. Operator identity, spoken-video language, current product availability and revenue remain unverified.
 
+v0.4.9 refreshes three Yang Mun video counts and its rounded subscriber count, plus three official seller pages. The journey page’s dollar displays conflict with its storefront currency metadata, so the new normalized prices/currencies stay unknown. Existing historical prices and revenue claims remain unchanged.
+
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.8/anicca-ai-monk-index-0.4.8.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.9/anicca-ai-monk-index-0.4.9.tgz
 ```
 
 ## CLI
