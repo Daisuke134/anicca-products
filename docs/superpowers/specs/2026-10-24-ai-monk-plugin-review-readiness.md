@@ -84,3 +84,16 @@ v0.1.3のsource head5cf5d4f59d0bd0ce3ef2604a79eebfa7d8b2eb71はPR639で固定mai
 非authorの既存read-only検証者は公式Release/tag、公開ZIP、固定main/sourceの4regular filesを実照合し、PASS/SHIP/Blocking0を返す。新fresh threadとは主張しない。private根拠は `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-release-20261024/verification-independent-release-review.json`、SHA256 `65bd70cd8927149fc183c78cc9e37db54ea4cb1cf5fb278093b160cc2d53413a`。v0.1.3はmetadata-onlyで、native再modelrun0。実8試験はv0.1.2の6full/1recovery/1partial・研究v0.4.6/v0.4.7混在のまま保持する。公開ZIP/デモの受入から正式ChatGPT掲載や審査合格を推定しない。
 
 最終docs unitは最新main71ae730a93648edc76b041fd850bbfbb71e3ce53から、既存clean WT `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-product-prices-v046-20261024` にbranch `docs/ai-monk-plugin-v013-release-20261024` を作る。本specを先に更新し、sanitized release receipt `docs/evidence/ai-monk-plugin-v013-release-20261024.json`、v0.1.2 planの現行pointer、master PL-1の公開状態だけを揃える。既存証拠のhash/JSON/参照・diffを最小確認し、commit/pushとremote object一致・cleanまでworkerが完了する。source/browser/credential/Release/投稿・Factory記述は変更せず、PR/mergeとOpenAIの最新外部gate観測はprimaryへ残す。
+
+
+## 正式掲載の再開カーソル
+
+Daisの「OpenAIアカウント無効化とMuse審査を直す」を今回の最優先とする。旧カーソルはFactoryの無課金billing preflight、新カーソルはPL-1の既存OpenAI申立てとMuse提出の最新結果・追加要求への対応。理由は正式掲載の停止要因を先に解消するという明示指示であり、Factoryの支出・本人端末確認待ちへ作業を逸らさない。既存の日次投稿はGrok所有のままとする。
+
+今回の範囲は、SSOTと登録済み本人認証の一致を確認し、OpenAI専用受信箱の既存caseとMuse既存submissionを読み取ること、公式の不足要求があれば既存案件内で必要な最小修正を行うこと。新アカウント、異議申立てやsubmissionの重複送信、予算未確認の支払、共有設定変更は含まない。メール/APIは読取り専用とし、新たな対人メッセージ送信は行わない。審査中という事実だけでは設定を変更しない。
+
+完了条件は専用OpenAIの正規復旧後の正式upload/submitと公式掲載、Museの正式承認・掲載URLの確認。公式判断がまだ無ければ未完を保持し、確認時刻、既存case/submissionとの対応、残るprovider条件、次の具体的操作を新しい受入記録へ残す。受付済みや資料修正を掲載完了とは呼ばない。
+
+- [ ] FOLLOWUP: 既存申立ての専用メールとMuse既存提出を再確認する。
+- [ ] FIX: 到着した追加要求または自所有の設定不備へ必要な修正を行い、公式結果を確認する。要求がなければ未実施と理由を残す。
+- [ ] RECORD: 秘密値を除いた結果を保存し、通常のPR/main統合とremote object一致を確認する。
