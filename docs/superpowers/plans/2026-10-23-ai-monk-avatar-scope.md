@@ -49,10 +49,10 @@ PR572の最終head `bb7c9913fea918432117fe19e01869dd1e2efe5f`はpackage CI398908
 
 既存のCreator/ebook記事loopは記事制作を所有し、日々のdatabase指標更新を所有するDesktop automationは見つからない。指標更新は現在threadのheartbeatを毎朝9時Asia/Tokyoで1つ作成し、既存記事/動画producerやPostiz effectを重複起動しない。新しい常駐supervisor、agent framework、model固定、paid APIは追加しない。
 
-対象は同じAI monk avatarのpublic followers/subscribers・sampled video views・商品/価格/導線・根拠のある売上申告。人気と商品導線のある対象から進め、source identity・観測日・期間・丸めを保持する。unknownを0にせず、異なる期間/通貨/利益を売上へ変換しない。取得不能なら未取得理由を記録して独立したsourceへ進む。既存のrepo source acceptance/CI/mainと公開readbackを使う。所有者とleaseが競合するeffectを重ねない。自然な初回の定期実行は未来のため、設定作成・今回の手動収集と区別する。
+対象は同じAI monk avatarのpublic followers/subscribers・sampled video views・商品/価格/導線・根拠のある売上申告。人気と商品導線のある対象から進め、source identity・観測日・期間・丸めを保持する。unknownを0にせず、異なる期間/通貨/利益を売上へ変換しない。取得不能なら未取得理由を記録して独立したsourceへ進む。既存のrepo source acceptance/CI/mainと公開readbackを使う。所有者とleaseが競合するeffectを重ねない。設定作成・手動収集と自然な定期実行を区別し、初回heartbeatの実績を下記の本番受入へ記録する。
 
-- [x] 毎朝9時のthread heartbeat `ai-monk-database`をACTIVEで作成し、provider viewと永続設定のkind/status/schedule/current thread一致をreadback。初回定期実行は未到来。
-- [ ] 初回定期runで日付付き更新または具体的未取得理由と公開状態を確認。
+- [x] 毎朝9時のthread heartbeat `ai-monk-database`をACTIVEで作成し、provider viewと永続設定のkind/status/schedule/current thread一致をreadback。設定作成時点では初回定期実行は未到来で、実行結果は下記本番受入を参照。
+- [x] 初回定期runで日付付き更新または具体的未取得理由と公開状態を確認。
 
 ### 初回heartbeatの実行範囲
 
@@ -68,7 +68,7 @@ PR576/main `8af42e44d395a4dd4ee7d3fc8941f52c812b6001`で研究source55へ更新�
 
 PR578/main `708b7adbd554d6bf8b216c8b7f4657a6497b03dc`はLanding CI39893316472とNetlify39893766896がsuccess。最終の通常ブラウザreadbackは最新2商品、IG/YouTubeのdated snapshot、73card、71画像＋2頭文字、AI status非表示、followers/views/revenue sort、対象外2件の検索除外、320/390pxの横overflowなし、client error0を確認する。JA本文の`main lang=ja`と指定題名も確認する。画像hash/native decodeは初回public proofを参照し、画像bytesを変えないpreview修正で再検証を増やさない。
 
-現在cursor: AM-14 / AI Monk Factoryの既存ownerの復旧。運用TODO正本はLife ManagerのS11を参照する。定期task初回の自然run、全候補の動画形式精査・画像2件/標準icon1件の補完、全creator売上、factory復旧・実売上・subscriptionは未完のまま。
+現在cursor: AM-14 / AI Monk Factoryの既存ownerの復旧。運用TODO正本はLife ManagerのS11を参照する。全候補の動画形式精査・画像2件/標準icon1件の補完、全creator売上、factory復旧・実売上・subscriptionは未完のまま。
 
 公開証拠 → `docs/evidence/ai-monk-avatar-scope-production-20261023.json`、`docs/evidence/ai-monk-business-ui-production-20261023.json`、`docs/evidence/ai-monk-business-mcp-production-20261023.json`、`docs/evidence/ai-monk-cli-mcp-v03-release-20261023.json`、`docs/evidence/ai-monk-book-title-production-20261023.json`。
 
@@ -102,4 +102,6 @@ best=対象の明確な小さい一覧を起点に同じ根拠基準で拡大す
 
 **本番受入:** Netlify39938900630はmain e6fdf0b3でSUCCESS。10:32 UTCの公開HTMLはH1 AI Monk Database、4card/4顔画像、AI status UI無し、followers/views/revenue sortを返す。公開JSONはmain canonical SHA05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940fと完全一致する。公式SDKのremote MCP stats/searchは同じ4件/56sources/75archive、全4sortでincluded4件だけ、pending getは拒否する。旧画像bytes/layoutは変わらないため再生成/全responsive再検証を増やさない。これでscope source/本番/CLI v0.4.0の受入を完了し、69pendingの追加調査と自然定期runは残す。現在cursorは既存Xリンク3件の補完→S11 Factory運用。証拠 → docs/evidence/ai-monk-reviewed-avatar-scope-{production,mcp-production}-20261023.json、ai-monk-cli-mcp-v04-release-20261023.json。
 
-**初回heartbeatのsource受入:** 2026-10-24の公開観測を3プロフィールへ追記する。Yang MunのYouTube3本viewsは521603/1102391/12561596、channel subscribersは丸め159000。商品3ページをHTTP200で確認し、Ming Sanの29.99 USD単発/26.99 USD月次とYan Chenの9.95 EURを再観測する。Yang Munのドル表示とJPY storefront設定の不整合、YanのAgotado/InStock併記は未確定を維持する。追加は指標4件/offer4件/出典6件、合計187出典。旧181出典・offer/metric履歴・全scope・収益申告は不変。helper9＋CLI/stdio/HTTP/install15件PASS、fresh read-only指摘0件。Instagram followersは5creditsの有料lookupを使わず未取得、現在売上/注文/利益は公開価格から推定しない。学び・未取得理由・取得時刻は `docs/evidence/ai-monk-daily-refresh-20261024.json`。CI/main/公開受入は次工程であり、初回定期runをまだ完了扱いにしない。
+**初回heartbeatのsource受入:** 2026-10-24の公開観測を3プロフィールへ追記する。Yang MunのYouTube3本viewsは521603/1102391/12561596、channel subscribersは丸め159000。商品3ページをHTTP200で確認し、Ming Sanの29.99 USD単発/26.99 USD月次とYan Chenの9.95 EURを再観測する。Yang Munのドル表示とJPY storefront設定の不整合、YanのAgotado/InStock併記は未確定を維持する。追加は指標4件/offer4件/出典6件、合計187出典。旧181出典・offer/metric履歴・全scope・収益申告は不変。helper9＋CLI/stdio/HTTP/install15件PASS、fresh read-only指摘0件。Instagram followersは5creditsの有料lookupを使わず未取得、現在売上/注文/利益は公開価格から推定しない。学び・未取得理由・取得時刻は `docs/evidence/ai-monk-daily-refresh-20261024.json`。source受入段階の記録であり、公開結果は下記の本番受入を参照する。
+
+**初回heartbeatの本番受入:** PR649/head `b724dce7d10055cecc9839026347a9980fe90751`はpackage CI40044088058・Landing CI40044087953・CodeRabbitがSUCCESSでmain `505aa8182356e286c586aa9a5f618d8509806f2e`へ統合する。Netlify40044430905は同mainでSUCCESS。2026-10-24T00:25:42.652Zの公開JSONはcanonical SHA256 `6daa9b82697c3ad2904a933c875ff0755e9b90d5de1b601655f6981e0d2bbafd`と一致し、公開HTMLの73card/新offer/観測日/AI status非表示/4sort、公式SDKのremote MCP6tools・73件/187出典/75archiveと変更3accountの完全一致を確認する。CLI v0.4.9の公式tagは同main、asset60,227bytes/SHA256 `63ce5eaedde30e0178581d79fd535749d96bcc73962c92f060372ef1b1051a90`。公開URLからの実installとstdioで同じsnapshotを返す。central registryのmetadata versionはこの日次taskでは再publishせず、既存remote URLは維持する。本人記事はcrwl本文空の後scrapyで再取得し、2026-04-09公開の既知申告を確認するが、現在売上/利益の証拠へ変換しない。初回自然定期runを受入済みとし、未取得IG followers・各creatorの会計情報・候補調査は残す。元の長時間goalはpausedのままで、このtaskによる動画生成/SNS投稿/追加課金は0。証拠 → `docs/evidence/ai-monk-daily-{refresh,production}-20261024.json`、`docs/evidence/ai-monk-cli-mcp-v049-release-20261024.json`。
