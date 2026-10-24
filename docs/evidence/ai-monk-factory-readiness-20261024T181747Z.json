@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "run_id": "factory-readiness-e7fcb301-b6fc-4fe1-8100-4685093429c9",
+  "observed_at": "2026-10-24T18:17:47.897Z",
+  "owner_id": "primary",
+  "occurrence_id": "factory-readiness-postdeploy-20261025T181747Z",
+  "release_sha": "c6d90ab4b7c7e570a6549585a2013afe3cc52460",
+  "loaded_argv": ["read-only production readiness probe"],
+  "loaded_env": {
+    "credential_services": [
+      "netlify-anicca-existing-deployment",
+      "heygen-ai-monk-factory",
+      "upload-post-ai-monk-factory",
+      "gemini-ai-monk-factory"
+    ],
+    "secret_values_logged": false,
+    "factory_variable_names": []
+  },
+  "phase": "read_only_production_provider_preflight",
+  "command": "GET Netlify site environment variable names; GET HeyGen /v3/users/me; GET Upload-Post /api/uploadposts/users; GET Gemini /v1beta/models; read-only Supabase budget ACL query",
+  "exit_code": 0,
+  "effect": "read_only",
+  "readback": {
+    "production": {
+      "netlify_environment": {
+        "http_status": 200,
+        "variable_count": 62,
+        "factory_variable_names": []
+      },
+      "deploy": {
+        "github_run_id": "40119267904",
+        "http_status": "success",
+        "release_sha": "c6d90ab4b7c7e570a6549585a2013afe3cc52460",
+        "post_deploy_smoke": "passed"
+      },
+      "public_factory_page": {
+        "url": "https://aniccaai.com/ai-monk-factory",
+        "free_videos": 3,
+        "max_seconds_each": 20,
+        "time_limited_trial": false,
+        "card_required_for_free_quota": false,
+        "monthly_price_usd": 199
+      },
+      "factory_api_readiness": {
+        "authenticated_snapshot_fetched": false,
+        "source_rule": "MONK_FACTORY_ENABLED must equal true before generation, checkout, and social readiness can be true",
+        "inferred_reason_with_zero_factory_variables": "studio_setup"
+      }
+    },
+    "providers": {
+      "heygen": {
+        "endpoint": "GET /v3/users/me",
+        "http_status": 200,
+        "billing_type": "wallet",
+        "remaining_balance": 0
+      },
+      "upload_post": {
+        "endpoint": "GET /api/uploadposts/users",
+        "http_status": 200,
+        "plan": "default",
+        "connected_profiles": 0,
+        "profile_limit": 2
+      },
+      "gemini": {
+        "endpoint": "GET /v1beta/models",
+        "http_status": 200,
+        "models": [
+          "models/gemini-3.1-flash-lite",
+          "models/gemini-3.1-flash-lite-image"
+        ],
+        "dedicated_project_billing_verified": false,
+        "model_list_is_billing_evidence": false
+      }
+    },
+    "company_budget": {
+      "supabase_project": "cycgdwndgfgdbnndithc",
+      "migration_version": "20261024175709",
+      "daily_cap_micro_usd": 10000000,
+      "rls_enabled": true,
+      "anon_can_select": false,
+      "authenticated_can_select": false,
+      "service_role_can_select": true,
+      "anon_can_read_status": false,
+      "service_role_can_read_status": true,
+      "cap_semantics": "estimated job reservations, not provider invoice or actual cash spend"
+    },
+    "writes": {
+      "provider_generation": 0,
+      "social_connection_or_post": 0,
+      "checkout_or_charge": 0,
+      "production_environment_changes": 0,
+      "database_ddl_reapplied": 0
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "https://aniccaai.com/ai-monk-factory",
+    "https://github.com/Daisuke134/anicca-products/actions/runs/40119267904",
+    "Supabase Primary official migration list and read-only SQL result"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Keep Factory actions fail-closed. Establish dedicated provider funding and actual-spend limits, approved customer-scale Instagram publishing (Meta API/OAuth or a verified white-label contract), and production Stripe runtime; then re-read each readiness capability before enabling generation."
+}
