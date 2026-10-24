@@ -1,0 +1,379 @@
+{
+  "schema_version": "anicca.ai-monk-factory-billing-preflight.v1",
+  "run_id": "ai-monk-factory-billing-preflight-20261024",
+  "owner_id": "root",
+  "occurrence_id": "sanitized-billing-preflight-aggregate-1",
+  "receipt_compiler_owner_id": "/root/billing_preflight_receipt",
+  "recorded_at_utc": "2026-10-24T03:28:21.464271+00:00",
+  "release_sha": "00870b1c531f30bcd97d69c8eab148dd5d694e11",
+  "release_sha_meaning": "専用branchのmain由来base。実行済みの本番releaseや有料Factory稼働を表さない。",
+  "scope_spec": "docs/superpowers/plans/2026-10-24-ai-monk-factory-billing-preflight.md",
+  "phase": "preflight_recorded_with_open_conditions",
+  "command": "指定の既存private readbackと保存済みGoogle公式資料だけをローカルで集約し、JSON再読込と全参照のbytes/SHA-256を照合する。",
+  "loaded_argv_env": {
+    "execution_surface": "local_files_only",
+    "source_authentication": "primaryが取得済みのreadbackだけを利用する。",
+    "ssot_values_loaded_by_receipt_compiler": false,
+    "credential_or_token_in_argv": false,
+    "browser_profile_or_auth_state_loaded_by_receipt_compiler": false,
+    "new_provider_calls_by_receipt_compiler": 0,
+    "new_browser_calls_by_receipt_compiler": 0,
+    "new_authentication_calls_by_receipt_compiler": 0,
+    "gcloud_config_mutation": false
+  },
+  "exit_code": 0,
+  "exit_code_scope": "ローカルreceipt作成・参照整合性確認のみ。ブラウザ認証成功、課金作成、入金、Factory稼働の成功ではない。",
+  "effect": {
+    "new_accounts_projects_keys": 0,
+    "terms_acceptance": 0,
+    "billing_account_create": 0,
+    "billing_link": 0,
+    "shared_billing_prepay_switch": 0,
+    "payment_method_create_or_change": 0,
+    "payments_or_topups": 0,
+    "paid_generation": 0,
+    "netlify_changes": 0,
+    "factory_enable": 0,
+    "stripe_customer_charges": 0,
+    "review_submission_resends": 0,
+    "google_prompt_resends": 0,
+    "account_recovery_or_password_reset": 0,
+    "passkey_use_or_creation": 0,
+    "ssot_write": 0,
+    "historical_receipt_changes_by_receipt_compiler": 0,
+    "normal_email_login_submit": 1,
+    "normal_password_submit": 1,
+    "normal_google_prompt_selection": 1,
+    "normal_login_counts_scope": "上記3件はprimaryの既存ログイン操作。receipt compilerによる新規操作は0。",
+    "browser_restarts": 0
+  },
+  "readback": {
+    "gcloud_official_api": {
+      "evidence_refs": [
+        "gcloud_readback"
+      ],
+      "started_at": "2026-10-24T03:16:43.629067+00:00",
+      "finished_at": "2026-10-24T03:16:48.289441+00:00",
+      "source_occurrence_id": "gcloud-billing-readonly-1",
+      "source_exit_code": 0,
+      "identity": {
+        "ssot_entire_file_loaded_by_primary": true,
+        "factory_identity_exact_matches": 1,
+        "active_gcloud_identity_exact_match": true,
+        "comparison_method": "primaryがRAM内で照合する。本人email・token・SSOT値は本receiptに保存しない。"
+      },
+      "factory_project": {
+        "billingEnabled": false,
+        "billing_account_reference_present": false
+      },
+      "visible_billing_accounts": {
+        "count": 1,
+        "open_count": 1,
+        "active_identity_direct_roles": [
+          "roles/billing.admin"
+        ],
+        "iam_http_status": 200,
+        "linked_projects_http_status": 200,
+        "linked_project_count_in_page": 4,
+        "linked_projects_more_pages": false,
+        "factory_project_present_in_page": false,
+        "factory_dedicated_billing_verified": false,
+        "reuse_decision": "既存4projectで利用する共有口座のためFactory専用口座として流用しない。"
+      },
+      "new_billing_account_creation_permission": "not_verified_by_existing_account_iam",
+      "payments_profile_sign_up_and_purchase_permission": "not_verified",
+      "existing_billing_admin_role_proves_new_account_or_payments_permission": false
+    },
+    "native_login": {
+      "initial_session": {
+        "evidence_refs": [
+          "native_identity_comparison"
+        ],
+        "observed_at": "2026-10-24T03:22:06.260814+00:00",
+        "correct_pid_and_profile_verified": true,
+        "factory_identity_visible": false,
+        "other_ssot_registered_google_identity_matches": 1,
+        "console_welcome_terms_gate_visible": true,
+        "terms_acceptance": 0
+      },
+      "origin_verification": {
+        "evidence_refs": [
+          "native_login_origin_ax",
+          "native_login_window_private",
+          "native_email_action"
+        ],
+        "ax_url_origin_observed": null,
+        "ax_official_origin_verified": false,
+        "primary_visual_origin_verified": "https://accounts.google.com",
+        "basis": "AXではURLを取得できない。primaryがprivate screenshotの実画面でaccounts.google.comを確認した記録を採る。receipt compilerは画面の本人名・emailを転記しない。"
+      },
+      "normal_existing_account_login": {
+        "evidence_refs": [
+          "native_email_action",
+          "native_passkey_cancel",
+          "native_password_action",
+          "native_google_prompt_action"
+        ],
+        "factory_identity_exact_before_email_submit": true,
+        "factory_identity_exact_before_password_submit": true,
+        "normal_email_login_submit": 1,
+        "normal_password_submit": 1,
+        "native_passkey_sheet_cancel": 1,
+        "normal_google_prompt_selection": 1,
+        "secret_in_argv": false,
+        "secret_persisted_or_printed": false,
+        "password_display_toggled": false,
+        "browser_recording_disabled_for_password": true
+      },
+      "latest_recorded_auth_state": {
+        "evidence_refs": [
+          "native_google_prompt_action",
+          "native_google_prompt_state",
+          "native_google_prompt_followup"
+        ],
+        "observed_at": "2026-10-24T03:27:19.127203+00:00",
+        "google_prompt_instructions_visible": true,
+        "google_prompt_expired_visible": false,
+        "billing_console_visible": false,
+        "phone_approval_observed": false,
+        "browser_authentication_success_verified": false,
+        "required_external_step": "本人iPhoneのGmailに届くGoogle Promptの確認。本人端末の完了と同一sessionの成功readbackは未取得。",
+        "freshness_limit": "保存済み最終観測の状態。継続時は再送前に同一sessionをreadbackし、現在も有効とは断定しない。",
+        "same_pid_and_window_verified": true
+      },
+      "lease_cleanup": {
+        "evidence_refs": [
+          "native_lease_cleanup"
+        ],
+        "observed_at": "2026-10-24T03:27:35.504741+00:00",
+        "lease_holder_empty": true,
+        "phone_confirmation_wait_retains_lease": false,
+        "official_guard_status_exit": 0,
+        "identity_collisions": 0,
+        "browser_still_reachable": true,
+        "original_tabs_preserved": 3,
+        "owned_google_prompt_tab_retained": 1,
+        "browser_restart": 0,
+        "controller_terminal_exit": 1,
+        "controller_exit_explanation": "自分のlease controllerをbounded readback後にCtrl-Cで終了する。制御用のexit 1であり、provider失敗や認証拒否を意味しない。guard公式statusはexit 0、holder空、衝突0。",
+        "next_action": "本人端末操作後は既存Prompt tabを保持したままleaseを再確認して対象限定readbackする。再送・重複loginはしない。"
+      }
+    },
+    "official_document_contract": {
+      "manifest_recorded_at_utc": "2026-10-24T03:16:22.043810+00:00",
+      "manifest_ref": "official_source_manifest",
+      "gemini_prepay": {
+        "evidence_refs": [
+          "official_gemini_billing"
+        ],
+        "published_minimum_USD": "5",
+        "published_minimum_scope": "新規Paid Tier/Prepayの公表最低額または他通貨相当。本人の地域・tier・支払画面の最終額は別途確認する。",
+        "account_specific_checkout_total": null,
+        "existing_account_migration_is_state_change_before_purchase": true,
+        "migration_scope": "Switch to Prepayとcredits購入は別段階。既存共有口座のPrepay移行も変更0を維持する。"
+      },
+      "billing_account_and_payment_profile": {
+        "evidence_refs": [
+          "official_billing_account_create"
+        ],
+        "organization_member_requires_billing_accounts_create": true,
+        "without_organization_specific_billing_role_required_by_docs": false,
+        "organization_membership_for_this_identity_verified": false,
+        "existing_payments_profile_selection_documented": true,
+        "existing_profile_requires_sign_up_and_purchase_permission": true,
+        "fresh_card_mandatory_for_this_identity_verified": false,
+        "account_specific_creation_or_payment_profile_permission_verified": false,
+        "creation_can_trigger_temporary_pre_authorization_hold": true
+      },
+      "cost_controls": {
+        "evidence_refs": [
+          "official_alerts_only_budgets",
+          "official_spend_cap_budgets",
+          "official_gemini_billing"
+        ],
+        "alerts_only_budgets": "通知・追跡用。自動停止のspend cap budgetsとは別の機能。",
+        "spend_cap_budgets": "Gemini APIのgenerativelanguage.googleapis.comを対象にできる。単一project・単一対応service・月次の推定gross費用で新規利用を停止する。",
+        "spend_cap_budget_inflight_requests_can_continue_and_charge": true,
+        "spend_cap_budget_actual_cost_reporting_can_exceed_24_hours": true,
+        "gemini_project_cap_can_lag_around_minutes": 10,
+        "gemini_project_cap_long_running_tasks_can_exceed_cap": true,
+        "prepay_cutoff_delays_can_produce_negative_balance": true,
+        "any_control_is_strict_final_invoice_ceiling": false,
+        "configured_in_this_run": false
+      }
+    },
+    "factory_bootstrap_budget": {
+      "provenance": "primaryの既存SSOT/spec調査結果と今回の未回答状況を記録する。receipt compilerはSSOT値を読まない。",
+      "this_preflight_authorized_spend_cap_USD": "0",
+      "factory_total_bootstrap_spend_cap_found_in_ssot_or_spec": false,
+      "factory_total_bootstrap_spend_cap_USD": null,
+      "funding_source_or_payments_profile_authority_verified": false,
+      "primary_async_amount_question_response_received": false,
+      "unanswered_question_is_spend_authorization": false,
+      "separate_agentcore_under_USD100_authorization_reusable_for_factory": false,
+      "existing_trial_4_25_or_paid_70_reservations_are_bootstrap_cap": false,
+      "primary_reported_published_component_subtotal_USD": {
+        "UploadPost": "50",
+        "HeyGen": "5",
+        "Gemini": "5",
+        "sum": "60",
+        "provenance_limit": "primary提供の公表額小計。今回の4資料はGemini最低額を支える。UploadPost/HeyGen額は本receiptで再取得しない。",
+        "is_actual_checkout_total": false,
+        "is_all_factory_costs": false,
+        "is_authorized_factory_spend_cap": false
+      },
+      "actual_factory_checkout_total_USD": null
+    }
+  },
+  "provider_receipt_id": null,
+  "provider_receipt_id_meaning": "課金・入金・新規account・有料生成は実行しないため、そのprovider receiptは無い。",
+  "evidence_refs": [
+    {
+      "id": "gcloud_readback",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/gcloud-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 2442,
+      "sha256": "7eae35566b2a516fef0c4fdff22db2d6eed442de43a423c2815007361878f12b"
+    },
+    {
+      "id": "native_identity_comparison",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/native-identity-comparison.json",
+      "visibility": "private_local_only",
+      "bytes": 364,
+      "sha256": "0b08a7f1ca8a0c572b0ac1b4720be996083f9bc7480e0e3182fbd4007973b08d"
+    },
+    {
+      "id": "native_login_origin_ax",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/native-login-origin.json",
+      "visibility": "private_local_only",
+      "bytes": 102,
+      "sha256": "a9371c7e16ecf566d94b36815c3606d1556a0329ba34f73f1d75538c491b0c35"
+    },
+    {
+      "id": "native_login_window_private",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/google-login-window.png",
+      "visibility": "private_local_only",
+      "bytes": 99990,
+      "sha256": "720fcb3b3105129c020d44d11924cd77ab2c0ed4fa655f8d871c9b77f00f05d7"
+    },
+    {
+      "id": "native_email_action",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/native-login-email-action.json",
+      "visibility": "private_local_only",
+      "bytes": 317,
+      "sha256": "4505fd3f71746272fde9b35c858c32433713bce0cf0f208793e3290674d18605"
+    },
+    {
+      "id": "native_passkey_cancel",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/native-passkey-cancel.json",
+      "visibility": "private_local_only",
+      "bytes": 153,
+      "sha256": "0d6b493bc60269babd4cca06e85b4404768469321262dabf4487054432d977e6"
+    },
+    {
+      "id": "native_password_action",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/native-password-action.json",
+      "visibility": "private_local_only",
+      "bytes": 335,
+      "sha256": "b8b4c6604a4ff96102b778b4d7c723345953e627a8cbf2bd3f20af9a3aa08a0d"
+    },
+    {
+      "id": "native_google_prompt_action",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/native-google-prompt-action.json",
+      "visibility": "private_local_only",
+      "bytes": 228,
+      "sha256": "9d4eb2c31c424c40892d6784e78f75c270409670e4aaaf4b95070c07bcaa31d9"
+    },
+    {
+      "id": "native_google_prompt_state",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/native-google-prompt-state.json",
+      "visibility": "private_local_only",
+      "bytes": 215,
+      "sha256": "eece2e74bb21c40cbec9d789fcd1f34efb8a5417bede583dd8ef17d69fc6b0cd"
+    },
+    {
+      "id": "official_source_manifest",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-paid-docs-20261024/source-manifest.json",
+      "visibility": "public_official_docs_metadata",
+      "bytes": 2224,
+      "sha256": "5cbdac8db0b4c4c2127a6bd0dcd9bbead5d850c7ad745f2d676d9b7175e15845"
+    },
+    {
+      "id": "official_gemini_billing",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-paid-docs-20261024/gemini-billing.md",
+      "visibility": "saved_public_official_docs",
+      "bytes": 38513,
+      "sha256": "1fc958a57fa36a702dc98c28420564989f1bc564def4b773e1933993de384927",
+      "url": "https://ai.google.dev/gemini-api/docs/billing",
+      "fetched_at_utc": "2026-10-24T03:15:15.258885+00:00",
+      "retrieval_method": "crwl crawl URL -o markdown-fit -bc",
+      "timestamp_basis": "saved_output_mtime_after_successful_crwl_exit_0"
+    },
+    {
+      "id": "official_billing_account_create",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-paid-docs-20261024/create-billing-account.md",
+      "visibility": "saved_public_official_docs",
+      "bytes": 28379,
+      "sha256": "f5d7a62cde11024b9a565462b46b53078719164927fe750fb411f010462068be",
+      "url": "https://cloud.google.com/billing/docs/how-to/create-billing-account",
+      "fetched_at_utc": "2026-10-24T03:15:16.144898+00:00",
+      "retrieval_method": "crwl crawl URL -o markdown-fit -bc",
+      "timestamp_basis": "saved_output_mtime_after_successful_crwl_exit_0"
+    },
+    {
+      "id": "official_alerts_only_budgets",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-paid-docs-20261024/cloud-budgets.md",
+      "visibility": "saved_public_official_docs",
+      "bytes": 72913,
+      "sha256": "3a58c91bdcd281f7b0a642e1a8681dbc6298e09a23efffde34fec809adede5e9",
+      "url": "https://cloud.google.com/billing/docs/how-to/budgets",
+      "fetched_at_utc": "2026-10-24T03:15:16.111136+00:00",
+      "retrieval_method": "crwl crawl URL -o markdown-fit -bc",
+      "timestamp_basis": "saved_output_mtime_after_successful_crwl_exit_0"
+    },
+    {
+      "id": "official_spend_cap_budgets",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-paid-docs-20261024/cloud-budget-spend-caps.md",
+      "visibility": "saved_public_official_docs",
+      "bytes": 32008,
+      "sha256": "1c4aec72ef58514a6ea336fc2c37b68d2b2b4cf3bd801855b8ca1f675358c259",
+      "url": "https://docs.cloud.google.com/billing/docs/how-to/budgets-spend-caps",
+      "fetched_at_utc": "2026-10-24T03:15:31.570827+00:00",
+      "retrieval_method": "crwl crawl URL -o markdown-fit -bc",
+      "timestamp_basis": "saved_output_mtime_after_successful_crwl_exit_0"
+    },
+    {
+      "id": "native_google_prompt_followup",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/native-google-prompt-followup1.json",
+      "visibility": "private_local_only",
+      "bytes": 525,
+      "sha256": "fa19839ae5d2d4dafb19720ca973d9aea61f200c345c1444c509fed082f90c1a"
+    },
+    {
+      "id": "native_lease_cleanup",
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-billing-preflight-20261024/native-lease-cleanup.json",
+      "visibility": "private_local_only",
+      "bytes": 617,
+      "sha256": "40556ee5427180b2b3c9cb5c3b6362535b603e95ab57c1113f5efc86bf2e6869"
+    }
+  ],
+  "error_class": "authentication_google_prompt_pending_and_bootstrap_cap_unconfirmed",
+  "retryable": false,
+  "next_action": "既存Google Promptの本人端末操作後、再送せず同一sessionで認証結果を読む。Factory全体のbootstrap上限額・支払元の不足を正本に残し、本人認証と新billing作成/既存payments profile利用権限を課金送信なしで確かめる。予算未確定を0円または支出承認へ置換しない。",
+  "limits": [
+    "このreceiptのローカル整合性確認は、全goal完了、ブラウザ認証成功、専用課金の作成・紐付け、入金、生成、公開・販売・収益を証明しない。",
+    "gcloud active identityの本人一致とブラウザの認証状態は別の境界として扱う。",
+    "既存共有口座のBilling Adminは、新billing account作成権限やpayments profile利用権限の証明ではない。",
+    "private screenshot・AX・SSOTの本人名、email、支払方法、account ID、token、secret値は公開receiptへ転記しない。private参照の本体はrepoへ追加しない。",
+    "Google公式資料の取得時刻は保存済み取得結果に基づく。receipt compilerは新provider/browser/auth呼び出しを行わない。",
+    "Promptの本人端末操作と金額情報への回答はprimaryの最終記録時点で未受領。後続結果を推測で補完しない。",
+    "lease解放はcleanup時点の公式guard readback。ブラウザを再起動せず既存3tabsと自分のPrompt tabを保持し、端末確認待ち中はleaseを占有しない。"
+  ],
+  "verification": {
+    "json_round_trip": true,
+    "evidence_reference_count": 16,
+    "all_reference_bytes_and_sha256_rechecked": true,
+    "official_manifest_doc_hashes_rechecked": true,
+    "verification_scope": "本JSONを再読込し、16参照の現在bytes/SHA-256とmanifest内4資料のSHA-256を比較する。"
+  }
+}
