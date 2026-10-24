@@ -1,6 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { subscriptionPatch, beginFactoryCheckout, syncFactoryBilling } = require('../monk-factory-billing.js');
+const { buildFactoryCheckout } = require('../monk-factory.js');
 
 const user = { id: 'eaa06ae6-53ec-4a6b-baa4-e6731b129ca8', email: 'fixture@example.com' };
 const price = { id: 'price_factory', livemode: false, active: true, currency: 'usd', unit_amount: 19900, metadata: { product: 'ai_monk_factory' }, recurring: { interval: 'month', interval_count: 1 } };
@@ -65,11 +66,19 @@ test('cancellation and incomplete invoice evidence never keep autonomous posting
   assert.throws(() => patch(missing), { code: 'billing_mismatch' });
 });
 
+test('the paid plan starts without a Stripe trial or trial messaging', () => {
+  const params = buildFactoryCheckout({ user, price });
+  assert.equal(params.mode, 'subscription');
+  assert.equal(params.subscription_data.trial_period_days, undefined);
+  assert.equal(params.subscription_data.trial_settings, undefined);
+  assert.equal(JSON.stringify(params).toLowerCase().includes('3 days free'), false);
+});
+
 test('retry after a lost Checkout save uses the same persisted payload and Stripe idempotency key', async () => {
   const now = Date.now();
-  const context = { user_id: user.id, subscription_status: 'none', checkout_nonce: '00000000-0000-4000-8000-000000000001', checkout_created_at: new Date(now).toISOString(), checkout_price_id: price.id, checkout_email: user.email, checkout_trial: true, checkout_customer_id: null, checkout_session_id: null };
+  const context = { user_id: user.id, subscription_status: 'none', checkout_nonce: '00000000-0000-4000-8000-000000000001', checkout_created_at: new Date(now).toISOString(), checkout_price_id: price.id, checkout_email: user.email, checkout_customer_id: null, checkout_session_id: null };
   const calls = []; let saveCalls = 0;
-  const store = { reserveProfile: async () => context, checkoutContext: async () => context,
+  const store = { account: async () => context, reserveProfile: async () => context, checkoutContext: async () => context,
     saveCheckout: async () => { if (++saveCalls === 1) throw new Error('fixture lost database response'); } };
   const stripe = { prices: { retrieve: async () => price }, checkout: { sessions: { create: async (params, options) => {
     calls.push(structuredClone({ params, options }));

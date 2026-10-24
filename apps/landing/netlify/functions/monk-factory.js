@@ -3,19 +3,38 @@ const { createFactoryStore } = require('./_lib/monk-factory-store.js');
 const { factoryStripeClient, beginFactoryCheckout, syncFactoryBilling, stripeHostedUrl, factoryBillingReady } = require('./_lib/monk-factory-billing.js');
 const { jobRuntimeReady, entitled, ensureFactorySocial } = require('./_lib/monk-factory-jobs.js');
 
-const publicFields = ['subscription_status', 'trial_end', 'period_end', 'period_paid', 'cancel_at_period_end', 'billing_paused', 'auto_post', 'instagram_username', 'connected_at', 'avatar_image_url', 'next_post_at'];
+const publicFields = ['subscription_status', 'period_end', 'period_paid', 'cancel_at_period_end', 'billing_paused', 'auto_post', 'auto_post_intent', 'instagram_username', 'connected_at', 'avatar_image_url', 'next_post_at'];
 function publicAccount(account) {
   return account ? { ...Object.fromEntries(publicFields.filter(key => Object.hasOwn(account, key)).map(key => [key, account[key]])),
     avatar_ready: !!account.avatar_id, connected: !!account.connected_at && !!account.instagram_account_id,
     social_checked_at: account.social_checked_at || null } : null;
 }
 const reply = (statusCode, value) => ({ statusCode, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(value) });
-async function ready(env, providers) {
-  if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env) || !factoryBillingReady(env)) return false;
+const freeQuotaAvailable = usage => Number.isSafeInteger(usage?.videosRemaining) && usage.videosRemaining > 0
+  && Number.isSafeInteger(usage?.attemptsRemaining) && usage.attemptsRemaining > 0;
+
+async function factoryReadiness(env, providers) {
+  let providerState;
   try {
     const api = providers || require('./_lib/monk-factory-providers.js').createFactoryProviders({ env });
-    return (await api.readiness()).ready === true;
-  } catch { return false; }
+    providerState = await api.readiness();
+  } catch { providerState = {}; }
+  const enabled = env.MONK_FACTORY_ENABLED === 'true';
+  const generationProviderReady = providerState.generation?.ready === true || (!providerState.generation && providerState.ready === true);
+  const socialProviderReady = providerState.social?.ready === true || (!providerState.social && providerState.ready === true);
+  const generation = { ready: enabled && jobRuntimeReady(env) && generationProviderReady,
+    reason: !enabled ? 'studio_setup' : !jobRuntimeReady(env) ? 'runtime_setup' : !generationProviderReady ? 'provider_setup' : null };
+  const checkout = { ready: enabled && factoryBillingReady(env),
+    reason: !enabled ? 'studio_setup' : !factoryBillingReady(env) ? 'billing_setup' : null };
+  const social = { ready: enabled && socialProviderReady,
+    reason: !enabled ? 'studio_setup' : !socialProviderReady ? 'social_setup' : null };
+  return { generation, checkout, social };
+}
+function requireCapability(readiness, capability) {
+  if (!readiness[capability]?.ready) {
+    const code = capability === 'generation' ? 'generation_unavailable' : capability === 'checkout' ? 'checkout_unavailable' : 'social_unavailable';
+    throw factoryError(code, 503);
+  }
 }
 
 async function factoryHandler(event, dependencies = {}) {
@@ -30,50 +49,96 @@ async function factoryHandler(event, dependencies = {}) {
         body = JSON.parse(event.body || '{}');
       } catch { throw factoryError('invalid_request', 400); }
       if (!body || !['checkout', 'portal', 'stop', 'generate_avatar', 'generate_video', 'connect_instagram', 'autopost'].includes(body.action)) throw factoryError('invalid_request', 400);
-      if (!['portal','stop'].includes(body.action) && !await ready(env, dependencies.providers)) throw factoryError('factory_unavailable', 503);
     }
     const store = dependencies.store || createFactoryStore({ env });
     const syncBilling = dependencies.syncBilling || syncFactoryBilling;
-    const providers = () => dependencies.providers || require('./_lib/monk-factory-providers.js').createFactoryProviders({ env });
+    const providerApi = () => dependencies.providers || require('./_lib/monk-factory-providers.js').createFactoryProviders({ env });
     const billing = () => dependencies.stripe || factoryStripeClient(env);
-    if (event.httpMethod === 'GET') {
+    const getAccount = async () => {
+      await store.usage?.(user.id);
       let account = await store.account(user.id);
-      if (account?.stripe_subscription_id) account = await syncBilling({ userId: user.id, store, stripe: billing(), env });
-      if (account?.social_profile || account?.social_submit_started_at) {
-        try { account = await ensureFactorySocial({ userId: user.id, store, providers: providers() }); } catch { /* Preserve the last official readback timestamp. */ }
+      if (account?.stripe_subscription_id) account = await syncBilling({ userId: user.id, store,
+        stripe: dependencies.syncBilling ? dependencies.stripe : billing(), env });
+      return account;
+    };
+    if (event.httpMethod === 'GET') {
+      const readiness = await factoryReadiness(env, dependencies.providers);
+      const usage = store.usage ? await store.usage(user.id) : null;
+      let account = await store.account(user.id);
+      if (account?.stripe_subscription_id) account = await syncBilling({ userId: user.id, store,
+        stripe: dependencies.syncBilling ? dependencies.stripe : billing(), env });
+      if ((account?.social_profile || account?.social_submit_started_at) && readiness.social.ready) {
+        let confirmed = false;
+        try { account = await ensureFactorySocial({ userId: user.id, store, providers: providerApi() }); confirmed = true; }
+        catch { /* Keep the last account readback available, including Stop. */ }
+        const generationAccess = confirmed && readiness.generation.ready && (entitled(account) || freeQuotaAvailable(usage));
+        if (generationAccess && account.auto_post_intent && !account.auto_post && account.connected_at && account.instagram_account_id) {
+          await store.setAutopost(user.id);
+          account = await store.account(user.id);
+        }
+        let jobs = account ? await store.jobs(user.id) : [];
+        if (account?.auto_post && account.connected_at && account.instagram_account_id && generationAccess
+          && !account.avatar_id && !jobs.some(job => job.kind === 'avatar')) {
+          await store.reserveJob(user.id, 'avatar:lifetime', 'avatar', 'auto');
+          jobs = await store.jobs(user.id);
+        }
+        return reply(200, { account: publicAccount(account), jobs, ready: readiness.generation.ready, readiness, usage });
       }
-      return reply(200, { account: publicAccount(account), jobs: account ? await store.jobs(user.id) : [], ready: await ready(env, dependencies.providers),
-        usage: account && store.usage ? await store.usage(user.id) : null });
+      return reply(200, { account: publicAccount(account), jobs: account ? await store.jobs(user.id) : [],
+        ready: readiness.generation.ready, readiness, usage });
     }
     if (body.action === 'stop') { await store.stop(user.id); return reply(200, { auto_post: false }); }
-    if (['generate_avatar','generate_video'].includes(body.action)) {
+    if (body.action === 'checkout') {
+      const usage = store.usage ? await store.usage(user.id) : null;
+      if (freeQuotaAvailable(usage)) throw factoryError('free_quota_remaining', 409);
+      const readiness = await factoryReadiness(env, dependencies.providers);
+      requireCapability(readiness, 'checkout');
+      return reply(200, await beginFactoryCheckout({ user, store, stripe: billing(), env }));
+    }
+    if (['generate_avatar', 'generate_video'].includes(body.action)) {
+      const readiness = await factoryReadiness(env, dependencies.providers);
+      requireCapability(readiness, 'generation');
       let occurrence = 'avatar:lifetime';
       if (body.action === 'generate_video') {
-        const headers = Object.fromEntries(Object.entries(event.headers || {}).map(([key,value]) => [key.toLowerCase(),value]));
+        const headers = Object.fromEntries(Object.entries(event.headers || {}).map(([key, value]) => [key.toLowerCase(), value]));
         if (!UUID.test(headers['idempotency-key'] || '')) throw factoryError('invalid_request', 400);
         occurrence = 'manual:' + headers['idempotency-key'].toLowerCase();
       }
-      const account = await syncBilling({ userId: user.id, store, stripe: dependencies.syncBilling ? dependencies.stripe : billing(), env });
+      const account = await getAccount();
       if (body.action === 'generate_video' && !account?.avatar_id) throw factoryError('avatar_required', 409);
       const job = await store.reserveJob(user.id, occurrence, body.action === 'generate_avatar' ? 'avatar' : 'video');
       return reply(202, { jobId: job.id });
     }
-    const stripe = billing();
-    if (body.action === 'checkout') return reply(200, await beginFactoryCheckout({ user, store, stripe, env }));
-    const account = await syncBilling({ userId: user.id, store, stripe, env });
-    if (['connect_instagram','autopost'].includes(body.action)) {
-      if (!entitled(account)) throw factoryError('subscription_required', 402);
-      const api = providers();
+    if (['connect_instagram', 'autopost'].includes(body.action)) {
+      const readiness = await factoryReadiness(env, dependencies.providers);
+      requireCapability(readiness, 'social');
+      const account = await getAccount();
+      const usage = store.usage ? await store.usage(user.id) : null;
+      if (!entitled(account) && !freeQuotaAvailable(usage)) throw factoryError('subscription_required', 402);
+      if (body.action === 'connect_instagram') await store.reserveProfile(user.id);
+      const api = providerApi();
       const connected = await ensureFactorySocial({ userId: user.id, store, providers: api, create: body.action === 'connect_instagram' });
       if (body.action === 'autopost') {
-        if (!connected.instagram_account_id || !connected.connected_at || !connected.avatar_id) throw factoryError('instagram_required', 409);
-        return reply(200, await store.setAutopost(user.id));
+        if (!connected.instagram_account_id || !connected.connected_at) throw factoryError('instagram_required', 409);
+        const enabled = await store.setAutopost(user.id);
+        const jobs = await store.jobs(user.id);
+        if (!connected.avatar_id && !jobs.some(job => job.kind === 'avatar')) {
+          await store.reserveJob(user.id, 'avatar:lifetime', 'avatar', 'auto');
+        }
+        return reply(200, enabled);
       }
-      const result = await api.connectInstagram(user.id);
-      return reply(200, { url: result.accessUrl });
+      await store.setAutopostIntent(user.id, true);
+      try {
+        const result = await api.connectInstagram(user.id);
+        return reply(200, { url: result.accessUrl });
+      } catch (error) {
+        await store.setAutopostIntent(user.id, false).catch(() => {});
+        throw error;
+      }
     }
+    const account = await getAccount();
     if (!account?.stripe_customer_id || !account.stripe_subscription_id || !env.MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID) throw factoryError('portal_unavailable', 503);
-    const portal = await stripe.billingPortal.sessions.create({ customer: account.stripe_customer_id, configuration: env.MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID,
+    const portal = await billing().billingPortal.sessions.create({ customer: account.stripe_customer_id, configuration: env.MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID,
       return_url: 'https://aniccaai.com/ai-monk-factory',
       flow_data: { type: 'subscription_cancel', subscription_cancel: { subscription: account.stripe_subscription_id } },
     });

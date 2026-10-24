@@ -33,23 +33,23 @@ test('expired, anonymous and unconfirmed sessions cannot start a paid trial', as
   await assert.rejects(authenticateFactoryRequest({ headers: { authorization: 'Bearer fixture-session' } }, { env, fetchImpl: async () => { throw new Error('private upstream diagnostic'); } }), { code: 'auth_unavailable', status: 503 });
 });
 
-test('checkout binds the verified user to the fixed monthly price and three-day card-backed trial', () => {
+test('checkout binds the verified user to the fixed monthly plan without a time-limited trial', () => {
   const actual = buildFactoryCheckout({ user, price, trialUsed: false });
   assert.equal(actual.mode, 'subscription');
   assert.deepEqual(actual.line_items, [{ price: price.id, quantity: 1 }]);
   assert.equal(actual.client_reference_id, user.id);
   assert.deepEqual(actual.metadata, { product: 'ai_monk_factory', user_id: user.id });
   assert.equal(actual.subscription_data.metadata.user_id, user.id);
-  assert.equal(actual.subscription_data.trial_period_days, 3);
-  assert.equal(actual.subscription_data.trial_settings.end_behavior.missing_payment_method, 'cancel');
+  assert.equal(actual.subscription_data.trial_period_days, undefined);
+  assert.equal(actual.subscription_data.trial_settings, undefined);
   assert.equal(actual.payment_method_collection, 'always');
   assert.deepEqual(actual.payment_method_types, ['card']);
   assert.equal(actual.customer_email, user.email);
   assert.ok(actual.success_url.startsWith('https://aniccaai.com/ai-monk-factory'));
 });
 
-test('a used trial cannot be granted again and customer reuse omits a new customer email', () => {
-  const actual = buildFactoryCheckout({ user, price, customerId: 'cus_fixture', trialUsed: true });
+test('customer reuse omits a new customer email and does not restore a time trial', () => {
+  const actual = buildFactoryCheckout({ user, price, customerId: 'cus_fixture' });
   assert.equal(actual.customer, 'cus_fixture');
   assert.equal(actual.customer_email, undefined);
   assert.equal(actual.subscription_data.trial_period_days, undefined);

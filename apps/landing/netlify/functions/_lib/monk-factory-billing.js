@@ -120,14 +120,14 @@ async function findCheckout(stripe, context, userId, created) {
 }
 
 async function beginFactoryCheckout({ user, store, stripe, env, now = Date.now, allowReset = true }) {
-  let account = await store.reserveProfile(user.id);
-  if (account.stripe_subscription_id) account = await syncFactoryBilling({ userId: user.id, store, stripe, env });
-  if (account.stripe_subscription_id && !['none', 'canceled', 'incomplete_expired'].includes(account.subscription_status)) throw factoryError('subscription_exists', 409);
-  if (!account.profile_reserved_at) await store.reserveProfile(user.id);
+  let account = await store.account(user.id);
+  if (account?.stripe_subscription_id) account = await syncFactoryBilling({ userId: user.id, store, stripe, env });
+  if (account?.stripe_subscription_id && !['none', 'canceled', 'incomplete_expired'].includes(account.subscription_status)) throw factoryError('subscription_exists', 409);
   const context = await store.checkoutContext(user.id, env.MONK_FACTORY_STRIPE_PRICE_ID, user.email);
+  account = context;
   const created = Date.parse(context.checkout_created_at);
   if (context.user_id !== user.id || !UUID.test(context.checkout_nonce || '') || !Number.isFinite(created)
-    || context.checkout_price_id !== env.MONK_FACTORY_STRIPE_PRICE_ID || typeof context.checkout_trial !== 'boolean') throw factoryError('billing_mismatch', 503);
+    || context.checkout_price_id !== env.MONK_FACTORY_STRIPE_PRICE_ID) throw factoryError('billing_mismatch', 503);
   let session;
   if (context.checkout_session_id) session = await stripe.checkout.sessions.retrieve(context.checkout_session_id);
   else if (now() - created >= 22*3600000) {
@@ -139,7 +139,7 @@ async function beginFactoryCheckout({ user, store, stripe, env, now = Date.now, 
     const price = await stripe.prices.retrieve(context.checkout_price_id);
     if (price.livemode !== factoryLiveMode(env)) throw factoryError('billing_mismatch', 503);
     const params = buildFactoryCheckout({ user: { id: user.id, email: context.checkout_email }, price,
-      customerId: context.checkout_customer_id, trialUsed: !context.checkout_trial });
+      customerId: context.checkout_customer_id });
     params.metadata.checkout_nonce = context.checkout_nonce;
     params.subscription_data.metadata.checkout_nonce = context.checkout_nonce;
     params.expires_at = Math.floor(created/1000) + 23*3600;

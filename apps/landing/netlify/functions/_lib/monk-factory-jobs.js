@@ -35,9 +35,16 @@ function entitled(account, now = Date.now()) {
   return (trial || (account.subscription_status === 'active' && account.period_paid === true)) && start <= now && now < end;
 }
 function periodMatches(job, account) {
+  if (job.period_key === 'free:lifetime') return job.max_seconds === 20;
   if (account.subscription_status === 'trialing') return job.period_key === 'trial:' + account.stripe_subscription_id && job.max_seconds === 20;
   const prefix = 'paid:' + account.stripe_subscription_id + ':';
   return job.max_seconds === 45 && job.period_key.startsWith(prefix) && Number(job.period_key.slice(prefix.length)) === Date.parse(account.period_start) / 1000;
+}
+function jobEntitled(account, job) {
+  return account?.user_id === job.user_id && (job.period_key === 'free:lifetime' ? job.max_seconds === 20 : entitled(account) && periodMatches(job, account));
+}
+function providerReady(state, capability) {
+  return state?.[capability]?.ready === true || (!state?.[capability] && state?.ready === true);
 }
 function tokenUsage(value) {
   const usage = {};
@@ -135,10 +142,13 @@ async function advanceFactoryJob(options) {
   const save = (patch, keep = false) => persist(store, job, patch, keep).then(row => (job = row));
   async function allowed(post = false) {
     if (Date.now() >= deadline) throw factoryError('tick_deadline', 503);
-    if (env.MONK_FACTORY_ENABLED !== 'true' || (await providers.readiness()).ready !== true) throw factoryError('factory_unavailable', 503);
-    let account = await syncBilling({ userId: job.user_id, store, stripe, env });
-    if (account?.user_id !== job.user_id || !entitled(account)) throw factoryError('subscription_required', 402);
-    if (!post && !periodMatches(job, account)) throw factoryError('job_period_expired', 402);
+    const state = await providers.readiness();
+    if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env) || !providerReady(state, 'generation')) throw factoryError('generation_unavailable', 503);
+    if (post && !providerReady(state, 'social')) throw factoryError('social_unavailable', 503);
+    let account = await store.account(job.user_id);
+    if (account?.stripe_subscription_id) account = await syncBilling({ userId: job.user_id, store, stripe, env });
+    if (!jobEntitled(account, job)) throw factoryError('subscription_required', 402);
+    if (!post && job.period_key !== 'free:lifetime' && !periodMatches(job, account)) throw factoryError('job_period_expired', 402);
     if ((job.origin === 'auto' || post) && !account.auto_post) throw factoryError('autopost_stopped', 409);
     if (job.origin === 'auto' && !post) {
       account = await ensureFactorySocial({ userId: job.user_id, store, providers });
@@ -253,9 +263,11 @@ async function runFactoryImage({ ticket, store, providers, images, env, stripe, 
   if (!job) return;
   let imageResult;
   try {
-    const account = await syncBilling({ userId: job.user_id, store, stripe, env });
-    if (env.MONK_FACTORY_ENABLED !== 'true' || (await providers.readiness()).ready !== true) throw factoryError('factory_unavailable', 503);
-    if (account?.user_id !== job.user_id || !entitled(account) || !periodMatches(job, account)) throw factoryError('subscription_required', 402);
+    let account = await store.account(job.user_id);
+    if (account?.stripe_subscription_id) account = await syncBilling({ userId: job.user_id, store, stripe, env });
+    const state = await providers.readiness();
+    if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env) || !providerReady(state, 'generation')) throw factoryError('generation_unavailable', 503);
+    if (!jobEntitled(account, job) || (job.period_key !== 'free:lifetime' && !periodMatches(job, account))) throw factoryError('subscription_required', 402);
     if (job.origin === 'auto' && !account.auto_post) throw factoryError('autopost_stopped', 409);
     job = await persist(store, job, { stage: 'image_submitting', status: 'effect_unknown',
       evidence: evidence(job, 'image_submitting', env, { effect: 'unknown', nextAction: 'private_blob_save' }) }, true);
@@ -316,12 +328,14 @@ async function processFactoryEvents({ store, stripe, env, deadline = Infinity })
 async function runFactoryTick({ store, providers, stripe, env, images, fetchImpl = fetch, syncBilling = syncFactoryBilling, maxItems = 4, budgetMs = 22000 }) {
   const deadline = Date.now() + Math.min(budgetMs, 22000);
   let count = await processFactoryEvents({ store, stripe, env, deadline });
-  if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env) || (await providers.readiness()).ready !== true) return { processed: count };
-  for (const row of await store.dueAccounts()) {
+  const state = await providers.readiness();
+  if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env) || !providerReady(state, 'generation')) return { processed: count };
+  for (const row of providerReady(state, 'social') ? await store.dueAccounts() : []) {
     if (Date.now() + 15000 >= deadline || count >= maxItems) break;
     try {
-      const account = await syncBilling({ userId: row.user_id, store, stripe, env });
-      if (entitled(account) && account.auto_post) {
+      let account = await store.account(row.user_id);
+      if (account?.stripe_subscription_id) account = await syncBilling({ userId: row.user_id, store, stripe, env });
+      if (account.auto_post) {
         const social = await ensureFactorySocial({ userId: row.user_id, store, providers });
         if (social.auto_post && social.instagram_account_id) await store.scheduleAuto(row.user_id);
       }

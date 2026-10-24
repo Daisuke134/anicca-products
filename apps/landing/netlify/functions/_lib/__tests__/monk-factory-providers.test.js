@@ -37,6 +37,18 @@ test('missing dedicated keys and unverified billing block submissions without us
   assert.ok(!JSON.stringify(state).includes('daily-secret'));
 });
 
+test('missing social provider setup does not mark image and script generation unavailable', () => {
+  const generationOnly = { ...env };
+  delete generationOnly.MONK_FACTORY_UPLOAD_POST_API_KEY;
+  delete generationOnly.MONK_FACTORY_UPLOAD_POST_BILLING_VERIFIED;
+  delete generationOnly.MONK_FACTORY_UPLOAD_POST_BILLING_EVIDENCE_REF;
+  delete generationOnly.MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED;
+  const state = createFactoryProviders({ env: generationOnly }).readiness();
+  assert.equal(state.generation.ready, true);
+  assert.equal(state.social.ready, false);
+  assert.ok(state.social.missing.includes('MONK_FACTORY_UPLOAD_POST_API_KEY'));
+});
+
 test('an operator billing flag without its evidence reference remains unverified', async () => {
   let calls = 0;
   const providers = createFactoryProviders({ env: { ...env, MONK_FACTORY_GEMINI_BILLING_EVIDENCE_REF: '' }, fetchImpl: async () => { calls++; } });
