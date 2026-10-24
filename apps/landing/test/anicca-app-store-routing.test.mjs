@@ -4,13 +4,15 @@ import test from 'node:test';
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 
-test('the Instagram bio /app route uses the configured Apple campaign token', () => {
+test('the Instagram bio /app route includes the provider and campaign tokens Apple requires', () => {
   const page = read('app/app/page.tsx');
   const target = /redirect\(['"]([^'"]+)['"]\)/.exec(page)?.[1];
   assert.ok(target, 'the /app route must keep redirecting directly to the store');
   const url = new URL(target);
   assert.match(url.pathname, /\/id6755129214$/);
   assert.equal(url.searchParams.get('ct'), 'anicca-ios_ig_anicca-en_en');
+  assert.equal(url.searchParams.get('pt'), '93486075');
+  assert.equal(url.searchParams.get('mt'), '8');
   const deployConfigs = [
     readFileSync(new URL('../../../netlify.toml', import.meta.url), 'utf8'),
     read('netlify.toml'),
@@ -18,7 +20,11 @@ test('the Instagram bio /app route uses the configured Apple campaign token', ()
   for (const config of deployConfigs) {
     const redirect = /from = "\/app"[\s\S]*?to = "([^"]+)"[\s\S]*?status = 302/.exec(config);
     assert.ok(redirect, 'both Netlify deploy configs must preserve the /app redirect');
-    assert.equal(new URL(redirect[1]).searchParams.get('ct'), 'anicca-ios_ig_anicca-en_en');
+    const store = new URL(redirect[1]);
+    assert.match(store.pathname, /\/id6755129214$/);
+    assert.equal(store.searchParams.get('ct'), 'anicca-ios_ig_anicca-en_en');
+    assert.equal(store.searchParams.get('pt'), '93486075');
+    assert.equal(store.searchParams.get('mt'), '8');
   }
 });
 
