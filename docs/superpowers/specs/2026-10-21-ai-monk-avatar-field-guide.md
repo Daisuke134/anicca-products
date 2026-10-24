@@ -8,7 +8,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 - Yang Mun単独記事とAI僧侶フィールドガイドは英語・日本語の計4本が公開済み。公開URLは維持する。
 - 4本の記事は証拠を整理している一方、導入と見出しが調査報告書寄りで、読者を引き込む物語・ユーモア・読み進める理由が弱い。
-- 正本archiveは75レコードと176出典。公開受入済みv0.4.5のWeb/CLI/stdio/remote MCPはincluded4件とpending69件の計73件、公開画像は71件。excluded2件とscope欠落は掲載しない。公開受入の正本 → docs/evidence/ai-monk-cli-mcp-v045-release-20261024.json。
+- 現在のarchive・公開scope・出典数・配布版・本番受入の正本 → `../plans/2026-10-24-ai-monk-research-distribution.md` の「順序と現在cursor」。過去版の公開証拠は各receiptで保持する。
 - Yang MunのAI生成状態は、HeyGenとColumbiaの説明に対し、Columbiaがリンクする本人側ページが「本人は実在し、声だけAI翻訳」と主張している。現時点では食い違いを解消できない。
 - 追加提供されたInstagram画面には100〜102件のフォロー中表示と複数の僧侶風アカウント名が写っている。リスト全体でもAI生成状態でもなく、個別確認用の候補発見材料。
 - `/monk` は既存eBook販売ページなので使用しない。
