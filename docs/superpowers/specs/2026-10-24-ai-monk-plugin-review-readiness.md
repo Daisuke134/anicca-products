@@ -25,7 +25,7 @@ primaryが受入、review、Release/asset公開とmain統合を所有する。bo
 - [x] PUBLIC: primaryが独立review後にdemo Release 422351662 / asset 670552046を公開し、匿名GET200・3,681,253 bytes・レビュー済み動画SHA256一致を確認する。GitHub immutable=falseを保持する。
 - [x] PACKAGE: metadata sourceの独立review SHIP/Blocking0とPR639/main71ae730a93648edc76b041fd850bbfbb71e3ce53への統合を受入する。固定mainの4regular filesからv0.1.3 ZIPを作成し、Release422362726/asset670585099の公開downloadと公式digest、独立公開review PASS/Blocking0を確認する。GitHub immutable=false、正式ChatGPT掲載0、v0.1.3 native再modelrun0を保持する。
 
-現在cursor: primaryによる正式ChatGPT提出の外部gate確認とupload/submit/審査/掲載の個別受入。DEMOの独立照合・PUBLIC・PACKAGEは完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
+現在cursor: primaryによる既存専用OpenAI申立ての結果受入と、正規復旧後の正式upload/submit/審査/掲載の個別受入。公式appealは1件受理され成功画面/確認メールを受入するが、復旧と正式提出は未完。最新状態 → ../../evidence/ai-monk-plugin-marketplace-access-20261024.json。DEMOの独立照合・PUBLIC・PACKAGEは完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
 
 
 ## CASES / private DEMOのsource結果
