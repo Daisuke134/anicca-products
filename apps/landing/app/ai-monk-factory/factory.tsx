@@ -28,6 +28,8 @@ const messages: Record<string, string> = {
   sign_in_required: 'Please sign in again to continue.', auth_unavailable: 'Sign-in is temporarily unavailable. Please try again.',
   connection_interrupted: 'The connection was interrupted. Your request may still be processing. Check the same request before starting another.',
   quota_exhausted: 'You have used the available video attempts. Choose a plan to continue.', budget_exhausted: 'Generation is paused for this period. Your existing videos remain available.',
+  company_budget_exhausted: 'Today’s Factory generation budget is used. It resets at 00:00 UTC; your free videos remain available.',
+  spend_cap_setup: 'The daily generation budget guard is not configured yet. Generation stays paused to protect the studio budget.',
   profile_capacity: 'All creator spaces are currently taken. Please check back before starting a subscription.',
   subscription_required: 'Your three free videos are used. Choose a plan to continue.',
   free_quota_remaining: 'Use your three free videos before starting a subscription.',
@@ -43,6 +45,8 @@ const messages: Record<string, string> = {
 const unavailable = (capability?: Capability) => ({
   studio_setup: 'The studio is not enabled yet.', runtime_setup: 'The generation worker is not configured yet.',
   provider_setup: 'The generation services are not ready yet.', social_setup: 'Instagram publishing is not configured yet.',
+  spend_cap_setup: 'The daily generation budget guard is not ready yet.',
+  company_budget_exhausted: 'The daily generation budget has been reached. It resets at 00:00 UTC.',
   billing_setup: 'Secure checkout is not configured yet.',
 }[capability?.reason || ''] || 'This service is temporarily unavailable.');
 function errorMessage(error: unknown) {

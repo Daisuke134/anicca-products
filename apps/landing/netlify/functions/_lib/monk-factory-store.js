@@ -7,7 +7,8 @@ async function checked(query) {
   if (error) {
     if (error.code === 'P0001') {
       if (conflicts.has(error.message)) throw factoryError(error.message, 409);
-      if (['quota_exhausted', 'budget_exhausted'].includes(error.message)) throw factoryError(error.message, 429);
+      if (['quota_exhausted', 'budget_exhausted', 'company_budget_exhausted'].includes(error.message)) throw factoryError(error.message, 429);
+      if (error.message === 'spend_cap_setup') throw factoryError(error.message, 503);
       if (['subscription_required', 'job_period_expired'].includes(error.message)) throw factoryError(error.message, 402);
     }
     throw factoryError('store_unavailable', 503);
@@ -31,10 +32,12 @@ function createFactoryStore({ env = process.env, fetchImpl = fetch } = {}) {
     account: id => checked(accounts().select('*').eq('user_id', uid(id)).maybeSingle()),
     reserveProfile: id => rpc('monk_factory_reserve_profile', { p_user_id: uid(id) }),
     reserveJob: (id, occurrence, kind, origin = 'manual') => rpc('monk_factory_start_job', { p_user_id: uid(id), p_occurrence_id: occurrence, p_kind: kind, p_origin: origin }),
+    jobByOccurrence: (id, occurrence) => checked(db.from('monk_factory_jobs').select('id,kind').eq('user_id', uid(id)).eq('occurrence_id', occurrence).maybeSingle()),
     job: id => checked(db.from('monk_factory_jobs').select('*').eq('id', uid(id)).maybeSingle()),
     claimJob: (id = null, image = false) => rpc('monk_factory_claim_job', { p_job_id: id == null ? null : uid(id), p_image: image }),
     advanceJob: (job, patch, keep = false) => rpc('monk_factory_advance_job', { p_job_id: uid(job.id), p_lease_id: uid(job.lease_id), p_stage: job.stage, p_patch: patch, p_keep_lease: keep }),
     usage: id => rpc('monk_factory_usage', { p_user_id: uid(id) }),
+    companyBudgetStatus: () => rpc('monk_factory_company_budget_status', {}),
     claimSocial: id => rpc('monk_factory_claim_social', { p_user_id: uid(id) }),
     fenceSocial: (id, lease) => rpc('monk_factory_fence_social', { p_user_id: uid(id), p_lease_id: uid(lease) }),
     saveSocial: (id, lease, state) => rpc('monk_factory_save_social', { p_user_id: uid(id), p_lease_id: uid(lease), p_state: state }),

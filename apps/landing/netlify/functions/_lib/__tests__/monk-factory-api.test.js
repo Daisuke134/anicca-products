@@ -33,6 +33,7 @@ test('Stripe setup does not block an authenticated free video and Checkout waits
   const dependencies = { env: configured, fetchImpl: auth, syncBilling: async () => null,
     providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: false } }) },
     store: {
+      companyBudgetStatus: async () => ({ ready: true }),
       account: async id => { calls.push(['account', id]); return null; },
       usage: async id => { calls.push(['usage', id]); return { videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }; },
       reserveJob: async (id, occurrence, kind) => { calls.push(['reserve', id, occurrence, kind]); return { id: 'free-job-fixture' }; },
@@ -53,7 +54,7 @@ test('checkout readiness is separate from generation readiness', async () => {
   const response = await factoryHandler({ httpMethod: 'GET', headers: { authorization: 'Bearer fixture-session' } }, {
     env: configured, fetchImpl: auth,
     providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: false } }) },
-    store: { usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }), account: async () => null, jobs: async () => [] },
+    store: { companyBudgetStatus: async () => ({ ready: true }), usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }), account: async () => null, jobs: async () => [] },
   });
   assert.equal(response.statusCode, 200);
   const snapshot = JSON.parse(response.body);
@@ -63,6 +64,81 @@ test('checkout readiness is separate from generation readiness', async () => {
   assert.equal(snapshot.usage.videosRemaining, 3);
 });
 
+test('company daily budget exhaustion keeps generation disabled and returns its reason before reserving a job', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const calls = [];
+  const dependencies = {
+    env: configured,
+    fetchImpl: auth,
+    providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: true } }) },
+    store: {
+      companyBudgetStatus: async () => ({ ready: false, reason: 'company_budget_exhausted' }),
+      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }),
+      account: async () => null,
+      jobs: async () => [],
+      reserveJob: async () => { calls.push('reserve'); return { id: 'should-not-reserve' }; },
+    },
+  };
+  const headers = { authorization: 'Bearer fixture-session' };
+  const status = await factoryHandler({ httpMethod: 'GET', headers }, dependencies);
+  const snapshot = JSON.parse(status.body);
+  assert.equal(status.statusCode, 200);
+  assert.deepEqual(snapshot.readiness.generation, { ready: false, reason: 'company_budget_exhausted' });
+  assert.equal(snapshot.readiness.social.ready, false);
+  assert.equal(snapshot.readiness.checkout.ready, false);
+
+  const generated = await factoryHandler({ httpMethod: 'POST', headers, body: JSON.stringify({ action: 'generate_avatar' }) }, dependencies);
+  assert.equal(generated.statusCode, 429);
+  assert.equal(JSON.parse(generated.body).error, 'company_budget_exhausted');
+  assert.deepEqual(calls, []);
+});
+
+test('an existing idempotent job can be recovered after the company budget is exhausted', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const calls = [];
+  const occurrence = '12345678-1234-4234-8234-123456789abc';
+  const dependencies = {
+    env: configured,
+    fetchImpl: auth,
+    providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: true } }) },
+    store: {
+      companyBudgetStatus: async () => ({ ready: false, reason: 'company_budget_exhausted' }),
+      jobByOccurrence: async (id, key) => { calls.push(['lookup', id, key]); return { id: 'reserved-job', kind: 'video' }; },
+      reserveJob: async () => { calls.push(['reserve']); return { id: 'new-job' }; },
+    },
+  };
+  const response = await factoryHandler({
+    httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session', 'idempotency-key': occurrence },
+    body: JSON.stringify({ action: 'generate_video' }),
+  }, dependencies);
+  assert.equal(response.statusCode, 202);
+  assert.deepEqual(JSON.parse(response.body), { jobId: 'reserved-job' });
+  assert.deepEqual(calls, [['lookup', user.id, 'manual:' + occurrence]]);
+});
+
+test('a missing company budget guard fails closed before generation', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const calls = [];
+  const dependencies = {
+    env: configured,
+    fetchImpl: auth,
+    providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: true } }) },
+    store: {
+      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }),
+      account: async () => null,
+      jobs: async () => [],
+      reserveJob: async () => { calls.push('reserve'); return { id: 'should-not-reserve' }; },
+    },
+  };
+  const headers = { authorization: 'Bearer fixture-session' };
+  const status = await factoryHandler({ httpMethod: 'GET', headers }, dependencies);
+  assert.deepEqual(JSON.parse(status.body).readiness.generation, { ready: false, reason: 'spend_cap_setup' });
+  const generated = await factoryHandler({ httpMethod: 'POST', headers, body: JSON.stringify({ action: 'generate_avatar' }) }, dependencies);
+  assert.equal(generated.statusCode, 503);
+  assert.equal(JSON.parse(generated.body).error, 'spend_cap_setup');
+  assert.deepEqual(calls, []);
+});
+
 test('a newly connected Instagram starts daily creation and one default avatar, but a stopped account stays stopped', async () => {
   const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
   const calls = [];
@@ -70,6 +146,7 @@ test('a newly connected Instagram starts daily creation and one default avatar, 
     social_profile: 'factory_' + user.id, connected_at: null, instagram_account_id: null, avatar_id: null };
   const jobs = [];
   const store = {
+    companyBudgetStatus: async () => ({ ready: true }),
     usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }),
     account: async () => structuredClone(account),
     jobs: async () => structuredClone(jobs),
@@ -117,6 +194,7 @@ test('Stop during Instagram OAuth prevents a later connection readback from star
     social_profile: 'factory_' + user.id, social_submit_started_at: '2026-10-24T00:00:00.000Z', connected_at: null, instagram_account_id: null };
   let autopostStarts = 0;
   const store = {
+    companyBudgetStatus: async () => ({ ready: true }),
     usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }),
     account: async () => structuredClone(account),
     reserveProfile: async () => {},

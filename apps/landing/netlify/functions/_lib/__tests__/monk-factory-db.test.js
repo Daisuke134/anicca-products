@@ -29,8 +29,38 @@ before(() => {
   assert.ok(fs.existsSync(path.resolve(__dirname, '../ai-monk-index/index.mjs')), 'Build the canonical research input first: node packages/ai-monk-index/scripts/build.mjs --netlify');
   sql('CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN; CREATE ROLE service_role NOLOGIN BYPASSRLS; CREATE SCHEMA auth; CREATE TABLE auth.users(id uuid PRIMARY KEY); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT nullif(current_setting(\'request.jwt.claim.sub\',true),\'\')::uuid $$; GRANT USAGE ON SCHEMA auth TO authenticated; GRANT EXECUTE ON FUNCTION auth.uid() TO authenticated; INSERT INTO auth.users SELECT (\'00000000-0000-4000-8000-\'||lpad(n::text,12,\'0\'))::uuid FROM generate_series(1,30) n;');
   const dir = path.resolve(__dirname, '../../../../supabase/migrations');
-  const migrations = fs.readdirSync(dir).filter(x => /_monk_factory(?:_(?:jobs|capacity))?\.sql$/.test(x)).sort();
+  const migrations = fs.readdirSync(dir).filter(x => /_monk_factory(?:_[a-z]+)*\.sql$/.test(x)).sort();
   for (const migration of migrations) execFileSync('psql', [...args(), '-f', path.join(dir, migration)], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+});
+
+test('company daily reservation cap serializes simultaneous jobs across users', options, async () => {
+  sql('DELETE FROM monk_factory_jobs; DELETE FROM monk_factory_accounts');
+  try {
+    assert.equal(sql('SELECT daily_cap_micro_usd FROM monk_factory_company_budget WHERE id=true'), '10000000');
+    const userIds = [21, 22, 25, 26, 27, 28, 29].map(uid);
+    const run = promisify(execFile);
+    const results = await Promise.allSettled(userIds.map((userId, n) => run('psql', [...args(), '-c', reserve(userId, 'company-avatar-' + n, 'avatar')], { encoding: 'utf8' })));
+    const accepted = results.filter(result => result.status === 'fulfilled');
+    const rejected = results.filter(result => result.status === 'rejected');
+    assert.equal(accepted.length, 6);
+    assert.equal(rejected.length, 1);
+    assert.match(rejected[0].reason.stderr, /company_budget_exhausted/);
+    assert.equal(sql('SELECT sum(reserved_micro_usd) FROM monk_factory_jobs'), '9600000');
+
+    sql('DELETE FROM monk_factory_jobs; DELETE FROM monk_factory_accounts');
+    const lingering = JSON.parse(sql(reserve(userIds[0], 'unknown-from-yesterday', 'avatar')));
+    sql('UPDATE monk_factory_jobs SET status=\'effect_unknown\',stage=\'avatar_submitting\',created_at=now()-interval \'1 day\',updated_at=now()-interval \'1 day\' WHERE id=\'' + lingering.id + '\'');
+    for (let n = 0; n < 5; n++) sql(reserve(userIds[n + 1], 'daily-avatar-' + n, 'avatar'));
+    sql('UPDATE monk_factory_jobs SET status=\'completed\',stage=\'completed\',updated_at=now() WHERE id=\'' + lingering.id + '\'');
+    sql('UPDATE monk_factory_company_budget SET daily_cap_micro_usd=9600000 WHERE id=true');
+    assert.deepEqual(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_company_budget_status()')),
+      { ready: false, reason: 'company_budget_exhausted' });
+    assert.throws(() => sql(reserve(userIds[6], 'over-daily-avatar', 'avatar')), /company_budget_exhausted/);
+    assert.equal(sql('SELECT sum(reserved_micro_usd) FROM monk_factory_jobs'), '9600000');
+  } finally {
+    sql('DELETE FROM monk_factory_jobs; DELETE FROM monk_factory_accounts');
+    sql('UPDATE monk_factory_company_budget SET daily_cap_micro_usd=1000000000 WHERE id=true');
+  }
 });
 
 test('trial reservation is idempotent, bounded by three attempts, and keeps unknown effects reserved', options, () => {
@@ -436,7 +466,7 @@ test('real adapter plus database completes DB-script speech render publish and a
   for (const expected of ['script_ready','speech_ready','video_pending','post_ready','post_pending','published','published']) {
     await advanceFactoryJob({ job: nextClaim(job.id), store, providers, env: providerEnv, syncBilling: async () => store.account(uid(11)) });
     const current = await store.job(job.id);
-    assert.equal(current.stage, expected, current.error_class);
+    assert.equal(current.stage, expected, JSON.stringify({ error_class: current.error_class, evidence: current.evidence }));
   }
   const result = await store.job(job.id);
   assert.equal(result.status, 'completed');

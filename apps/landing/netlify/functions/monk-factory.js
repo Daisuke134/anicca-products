@@ -13,7 +13,7 @@ const reply = (statusCode, value) => ({ statusCode, headers: { 'Content-Type': '
 const freeQuotaAvailable = usage => Number.isSafeInteger(usage?.videosRemaining) && usage.videosRemaining > 0
   && Number.isSafeInteger(usage?.attemptsRemaining) && usage.attemptsRemaining > 0;
 
-async function factoryReadiness(env, providers) {
+async function factoryReadiness(env, providers, store) {
   let providerState;
   try {
     const api = providers || require('./_lib/monk-factory-providers.js').createFactoryProviders({ env });
@@ -22,16 +22,23 @@ async function factoryReadiness(env, providers) {
   const enabled = env.MONK_FACTORY_ENABLED === 'true';
   const generationProviderReady = providerState.generation?.ready === true || (!providerState.generation && providerState.ready === true);
   const socialProviderReady = providerState.social?.ready === true || (!providerState.social && providerState.ready === true);
-  const generation = { ready: enabled && jobRuntimeReady(env) && generationProviderReady,
-    reason: !enabled ? 'studio_setup' : !jobRuntimeReady(env) ? 'runtime_setup' : !generationProviderReady ? 'provider_setup' : null };
-  const checkout = { ready: enabled && factoryBillingReady(env),
-    reason: !enabled ? 'studio_setup' : !factoryBillingReady(env) ? 'billing_setup' : null };
-  const social = { ready: enabled && socialProviderReady,
-    reason: !enabled ? 'studio_setup' : !socialProviderReady ? 'social_setup' : null };
+  let companyBudget;
+  try { companyBudget = await store?.companyBudgetStatus?.(); } catch { companyBudget = null; }
+  const companyBudgetReady = companyBudget?.ready === true;
+  const companyBudgetReason = companyBudget?.reason === 'company_budget_exhausted' ? 'company_budget_exhausted' : 'spend_cap_setup';
+  const runtimeReady = jobRuntimeReady(env);
+  const generation = { ready: enabled && runtimeReady && generationProviderReady && companyBudgetReady,
+    reason: !enabled ? 'studio_setup' : !runtimeReady ? 'runtime_setup' : !generationProviderReady ? 'provider_setup' : !companyBudgetReady ? companyBudgetReason : null };
+  const social = { ready: enabled && socialProviderReady && generation.ready,
+    reason: !enabled ? 'studio_setup' : !socialProviderReady ? 'social_setup' : !generation.ready ? generation.reason : null };
+  const checkout = { ready: enabled && factoryBillingReady(env) && generation.ready && social.ready,
+    reason: !enabled ? 'studio_setup' : !factoryBillingReady(env) ? 'billing_setup' : !generation.ready ? generation.reason : !social.ready ? social.reason : null };
   return { generation, checkout, social };
 }
 function requireCapability(readiness, capability) {
   if (!readiness[capability]?.ready) {
+    if (readiness[capability]?.reason === 'company_budget_exhausted') throw factoryError('company_budget_exhausted', 429);
+    if (readiness[capability]?.reason === 'spend_cap_setup') throw factoryError('spend_cap_setup', 503);
     const code = capability === 'generation' ? 'generation_unavailable' : capability === 'checkout' ? 'checkout_unavailable' : 'social_unavailable';
     throw factoryError(code, 503);
   }
@@ -62,7 +69,7 @@ async function factoryHandler(event, dependencies = {}) {
       return account;
     };
     if (event.httpMethod === 'GET') {
-      const readiness = await factoryReadiness(env, dependencies.providers);
+      const readiness = await factoryReadiness(env, dependencies.providers, store);
       const usage = store.usage ? await store.usage(user.id) : null;
       let account = await store.account(user.id);
       if (account?.stripe_subscription_id) account = await syncBilling({ userId: user.id, store,
@@ -91,26 +98,32 @@ async function factoryHandler(event, dependencies = {}) {
     if (body.action === 'checkout') {
       const usage = store.usage ? await store.usage(user.id) : null;
       if (freeQuotaAvailable(usage)) throw factoryError('free_quota_remaining', 409);
-      const readiness = await factoryReadiness(env, dependencies.providers);
+      const readiness = await factoryReadiness(env, dependencies.providers, store);
       requireCapability(readiness, 'checkout');
       return reply(200, await beginFactoryCheckout({ user, store, stripe: billing(), env }));
     }
     if (['generate_avatar', 'generate_video'].includes(body.action)) {
-      const readiness = await factoryReadiness(env, dependencies.providers);
-      requireCapability(readiness, 'generation');
       let occurrence = 'avatar:lifetime';
       if (body.action === 'generate_video') {
         const headers = Object.fromEntries(Object.entries(event.headers || {}).map(([key, value]) => [key.toLowerCase(), value]));
         if (!UUID.test(headers['idempotency-key'] || '')) throw factoryError('invalid_request', 400);
         occurrence = 'manual:' + headers['idempotency-key'].toLowerCase();
       }
+      const kind = body.action === 'generate_avatar' ? 'avatar' : 'video';
+      const previous = await store.jobByOccurrence?.(user.id, occurrence);
+      if (previous) {
+        if (previous.kind !== kind) throw factoryError('occurrence_conflict', 409);
+        return reply(202, { jobId: previous.id });
+      }
+      const readiness = await factoryReadiness(env, dependencies.providers, store);
+      requireCapability(readiness, 'generation');
       const account = await getAccount();
       if (body.action === 'generate_video' && !account?.avatar_id) throw factoryError('avatar_required', 409);
-      const job = await store.reserveJob(user.id, occurrence, body.action === 'generate_avatar' ? 'avatar' : 'video');
+      const job = await store.reserveJob(user.id, occurrence, kind);
       return reply(202, { jobId: job.id });
     }
     if (['connect_instagram', 'autopost'].includes(body.action)) {
-      const readiness = await factoryReadiness(env, dependencies.providers);
+      const readiness = await factoryReadiness(env, dependencies.providers, store);
       requireCapability(readiness, 'social');
       const account = await getAccount();
       const usage = store.usage ? await store.usage(user.id) : null;
