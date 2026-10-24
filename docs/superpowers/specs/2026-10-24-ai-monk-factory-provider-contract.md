@@ -67,10 +67,12 @@ Interactionsは同期の`background:false/store:false`で1回送る。公式inte
 
 設定不足と独立課金元未確認でPOST0、日次keyへのfallback0、画像/PhotoAvatar/LLMの公式payload、Starfish duration欠落/上限超過で動画POST0、timeoutでsubmit1回、secret/raw診断非露出、公式profile/opaque account照合、hosted URLのorigin制限、公開postの成功条件、metrics欠落非0をfocused testで確認する。実APIアクセス・実課金・全suiteはこのsource受入に追加しない。
 
-現在cursor: main `8e59eda6c0cb241b8f2fe195a06e6a9df5d25772`由来の専用branch `feat/ai-monk-factory-gemini-adapter-20261024`で本契約を先行pushし、最小RED→Gemini adapter置換→GREEN・CI/main公開へ進む。専用credential・本番設定・入金・実生成・顧客課金・本人IG接続/投稿はこのsource unitで実行せず、ready=false/enable=falseを維持する。
+source unitの開始点はmain `8e59eda6c0cb241b8f2fe195a06e6a9df5d25772`由来の専用branch `feat/ai-monk-factory-gemini-adapter-20261024`。本契約の先行pushと最小RED→GREEN・修正後CI/main公開は下記production receiptで受入する。専用credential・本番設定・入金・実生成・顧客課金・本人IG接続/投稿はこのsource unitでは0とし、後続の未課金credential準備と区別する。ready=false/enable=falseを維持する。
 
-source受入: provider/jobs33件（画像・台本の新APIと不完全応答usage保存のRED→GREEN）、隔離Postgres25件PASS。DB検証は最後のerror-only usage転送前であり、最終headの既存CIが同DB契約を再確認する。実API/課金は0。source receipt → ../../evidence/ai-monk-factory-gemini-adapter-source-20261024.json。fresh source review・CI・main反映を次に受入する。
+source受入: provider/jobs33件（画像・台本の新APIと不完全応答usage保存のRED→GREEN）、隔離Postgres25件PASS。DB検証は最後のerror-only usage転送前であり、最終headの既存CIが同DB契約を再確認する。実API/課金は0。source receipt → ../../evidence/ai-monk-factory-gemini-adapter-source-20261024.json。初回sourceの履歴を保持し、後続の最終受入はproduction receiptで記録する。
 
 独立reviewのf21d025で、異常応答のinteraction IDがHTTP追跡IDへ置換される場合と、生成後のblob保存失敗で取得済みID/usageが失われる場合を確認する。公式interaction IDをHTTP headerより優先し、不正成功応答と保存障害にも既知の数値usage/receiptを残す最小RED→GREENを追加する。再送0・予約保持・price/quotaは維持し、修正headを限定再検証する。
 
 上記2指摘はfocused実assertionのRED→GREEN/35件で修正する。初回f21d025のCI40042397129 SUCCESSを修正後の合格へ流用しない。初回receiptはそのheadの履歴として保持し、修正証拠 → ../../evidence/ai-monk-factory-gemini-review-fix-source-20261024.json。
+
+最終sourceはhead `e147e59624dccb351d9902ea345b765337cf838b`の独立限定再検証SHIP/Blocking0・focused35件とCI40042813632 SUCCESSで受入し、PR647/main `373eec46af11c0d32566386df7fbd201413b3d5b`由来Deploy40043161929 SUCCESSと公開Webで確認する。専用project/keyの未課金準備は別unitで受入する。source/main公開 → ../../evidence/ai-monk-factory-gemini-adapter-production-20261024.json。全体の現在cursor → ../plans/2026-10-24-ai-monk-research-distribution.md。

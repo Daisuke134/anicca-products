@@ -1,0 +1,188 @@
+{
+  "observed_at": "2026-10-24T00:27:40.108198+00:00",
+  "owner_id": "root",
+  "release_sha": "373eec46af11c0d32566386df7fbd201413b3d5b",
+  "retryable": false,
+  "schema_version": "anicca.ai-monk-factory-gemini-project-preparation-result.v1",
+  "run_id": "ai-monk-factory-gemini-project-preparation-20261024",
+  "occurrence_id": "dedicated-unfunded-project-and-key-acceptance",
+  "phase": "bounded_dedicated_resource_readback",
+  "command": "Targeted gcloud create/describe/IAM/billing/key reads; immediate private SSOT save; fresh model metadata GET; independent read-only verification",
+  "exit_code": 0,
+  "effect": "Dedicated unfunded project and API-restricted key prepared; no paid billing or generation",
+  "readback": {
+    "plan": {
+      "pr": 648,
+      "main_sha": "6c54f3a9a4c4df080174c1d76ddbbaa85a168737",
+      "blob_verified_before_mutation": true
+    },
+    "project": {
+      "projectId": "anicca-monk-factory-20261024",
+      "projectNumber": "799522298244",
+      "name": "AI Monk Factory",
+      "lifecycleState": "ACTIVE",
+      "createTime": "2026-10-24T00:06:58.770Z"
+    },
+    "actor_is_project_owner": true,
+    "billing_enabled": false,
+    "billing_account_unlinked": true,
+    "api_services_enabled": [
+      "apikeys.googleapis.com",
+      "generativelanguage.googleapis.com"
+    ],
+    "key_resource_name": "projects/799522298244/locations/global/keys/factory-gemini-server",
+    "restricted_service": "generativelanguage.googleapis.com",
+    "ssot_exact_service": "gemini-ai-monk-factory",
+    "ssot_exact_service_count": 1,
+    "ssot_saved_and_fresh_reloaded": true,
+    "ssot_modes": {
+      "directory": "700",
+      "file": "600"
+    },
+    "models": [
+      {
+        "model": "gemini-3.1-flash-lite",
+        "http_status": 200,
+        "returned_model_name": "models/gemini-3.1-flash-lite",
+        "sha256": "cd14b006195ba3ed5d3b1fbe9eac027009f23ef5e4927c4a83c79072f4c542ca",
+        "request_id": null,
+        "generation_called": false
+      },
+      {
+        "model": "gemini-3.1-flash-lite-image",
+        "http_status": 200,
+        "returned_model_name": "models/gemini-3.1-flash-lite-image",
+        "sha256": "fdbb76a856995c6706e9c90961e7fb1868ff70699660794576fc349b14114b4b",
+        "request_id": null,
+        "generation_called": false
+      }
+    ],
+    "independent_verification": {
+      "verdict": "PASS",
+      "blocking_count": 0,
+      "checks": {
+        "ssot_identity_resource_permissions": true,
+        "dedicated_project_identity_active": true,
+        "ssot_google_identity_is_project_owner": true,
+        "project_billing_disabled_unlinked": true,
+        "dedicated_key_api_restricted": true,
+        "saved_secret_belongs_to_dedicated_key_resource": true,
+        "named_model_gemini-3.1-flash-lite": true,
+        "named_model_gemini-3.1-flash-lite-image": true,
+        "existing_billing_account_count_remains_one": true
+      },
+      "official_read_calls": 8,
+      "saved_key_resource_ram_comparison_match": true
+    },
+    "ui_followup": {
+      "observed_at": "2026-10-24T00:21:57.647030+00:00",
+      "phase": "official_billing_after_ui_readonly_attempt",
+      "billing_accounts_count": 1,
+      "billing_account_created": false,
+      "factory_project_billing_enabled": false,
+      "factory_project_unlinked": true,
+      "ssot_exact_factory_service_count": 1,
+      "payments_generation": 0,
+      "browser_lease_released": true,
+      "native_ui_acceptance_disqualified_due_to_profile_mismatch": true,
+      "own_window_closure_confirmed_by_followup": true
+    }
+  },
+  "provider_receipt_id": "projects/799522298244/locations/global/keys/factory-gemini-server",
+  "error_class": null,
+  "next_action": "Prioritize Database product/revenue evidence and CLI/plugin distribution. Factory followup requires verified PID/profile-bound native UI, separate self-service Cloud Billing/paid wallet, cost and generation acceptance.",
+  "request_counts": {
+    "project_create": 1,
+    "key_create": 1,
+    "requested_api_services_enable": 2,
+    "billing_account_final_submit": 0,
+    "billing_link": 0,
+    "payments": 0,
+    "generation": 0,
+    "netlify_key_configuration": 0,
+    "factory_enable": 0
+  },
+  "diagnosed_errors": [
+    {
+      "phase": "project_preflight",
+      "error": "Ambiguous permission-or-not-found describe before fixed-ID create",
+      "provider_create_before_diagnosis": 0,
+      "resolution": "Observe narrow official state; create fixed new ID once with request fence; verify official describe."
+    },
+    {
+      "phase": "key_list",
+      "error": "Unsupported location flag in installed gcloud list command",
+      "key_create_before_diagnosis": 0,
+      "resolution": "Read installed official help; correct list flags; one subsequent key create."
+    },
+    {
+      "phase": "independent_preflight",
+      "error": "Verifier incorrectly required all google service rows to be unique",
+      "provider_calls_in_failed_attempt": 0,
+      "resolution": "Exact service plus Factory identity selects one row. Preserve failed receipt and write separate passing followup."
+    },
+    {
+      "phase": "native_ui",
+      "error": "Bundle-only selector selected another registered business profile",
+      "resolution": "Exclude UI from billing acceptance; restore modified blank page, close own draft, preserve all existing windows and release own lease. Financial final submit zero."
+    }
+  ],
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-project-preparation-20261024/project-create-readback.json",
+      "bytes": 1391,
+      "sha256": "522631fa6f2a527f83e5a9e9e1172fac986089d5715f8a2da0465120ca38a7bd"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-project-preparation-20261024/api-enable-readback.json",
+      "bytes": 1165,
+      "sha256": "4e3a9fb8b05f754582080161dcfde8b94d3cb0fedfbb49c7e9b29e104ce151c6"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-project-preparation-20261024/key-preparation-readback.json",
+      "bytes": 2537,
+      "sha256": "beb470a9a6591760039fdb333b92fa0512a0942eb35df84ecfd798fd2f94fcd6"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-project-preparation-20261024/independent-project-key-verify.json",
+      "bytes": 2414,
+      "sha256": "91564854c2a2a2c5fdb548c6717557a05e9edc475303efe82a3d5fc3306e7acc"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-project-preparation-20261024/independent-project-key-verify-followup.json",
+      "bytes": 7487,
+      "sha256": "f26edb7096d6e9931f99346aebc2d93bba8e1cfa8503b35952f5d95f09c37052"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-project-preparation-20261024/native-ui-routing-result.json",
+      "bytes": 1593,
+      "sha256": "63bc6afef2e64186d070fe12cc4a3a6ee090260c1dfd32e9c4d17cde0c5b30b4"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-project-preparation-20261024/native-cleanup-observation.json",
+      "bytes": 450,
+      "sha256": "387bebbbb701d060990110c8067f97d6f7fbf1db1522872c3e66e861975533fe"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-gemini-project-preparation-20261024/billing-after-ui-readback.json",
+      "bytes": 484,
+      "sha256": "c772f47b92a1fcd6fd461dda8af83b0f3d9fbc0869d14c880d2f5fb6a3caa4d0"
+    }
+  ],
+  "official_references": [
+    {
+      "url": "https://docs.cloud.google.com/billing/docs/reference/rest/v1/billingAccounts/create",
+      "finding": "REST creation is for reseller subaccounts, not a standard self-service standalone account."
+    },
+    {
+      "url": "https://docs.cloud.google.com/billing/docs/how-to/create-billing-account",
+      "finding": "Self-service creation uses Cloud Console and Google payments profile; final submit remains unperformed."
+    }
+  ],
+  "limitations": [
+    "Model metadata GET200 proves key authentication/model visibility only, not paid rights, available balance, invoice or successful generation.",
+    "Existing shared billing is not a dedicated Factory wallet and is not linked or modified.",
+    "Native UI form observation is excluded due to identity-routing mismatch.",
+    "No credential values, personal email, payment data or other project list is included."
+  ]
+}

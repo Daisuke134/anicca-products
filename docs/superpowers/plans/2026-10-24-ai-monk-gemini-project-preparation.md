@@ -16,13 +16,19 @@ installed gcloudの公式helpでprojects create、services api-keys create/get-k
 
 ## TODO・重複防止
 
-- [ ] SPEC: 当planを専用branchへcommit/pushしremote objectを確認する。mainへ通常統合し、外部操作前に同じplan blobを確認する。
-- [ ] PROJECT: 事前のowned request fenceをO_EXCL/fsyncで保存し、project作成を1回だけ送る。公式describeでID/name/lifecycle/帰属を確認し、billing未接続を公式readbackする。通信不明時は同IDのGETを先に行い、重複createしない。
-- [ ] KEY: 対象projectの必要APIだけを有効化し、固定key IDの既存状態をGET/listで確認する。新規作成は専用fenceの最初の1回だけ。API制限を公式describeで照合する。
-- [ ] SSOT: key値はRAMから直ちに`~/.local/share/anicca/credentials.json`のexact service `gemini-ai-monk-factory`へ保存する。既存行と他者更新を保持し、directory700/file600を維持する。keyをrepo/private log/chatへ複製しない。保存後にSSOTを新しく読んだ別requestでmodels GETを行う。
-- [ ] READBACK: 新project/billing未接続/key restriction/models認証の結果を秘匿receiptに保存し、公開receiptにはkey値・本人email・他project一覧を入れない。失敗はerror class/exit/effect/readback/次の操作を残す。
-- [ ] RECORD: 当planと配布正本の現在cursorを更新し、source/公開反映と未完の専用paid billing・実生成・Stripe/本人IGの受入を分けてcommit/push/main統合する。
+- [x] SPEC: 当planを専用branchへcommit/pushしremote objectを確認する。mainへ通常統合し、外部操作前に同じplan blobを確認する。
+- [x] PROJECT: 事前のowned request fenceをO_EXCL/fsyncで保存し、project作成を1回だけ送る。公式describeでID/name/lifecycle/帰属を確認し、billing未接続を公式readbackする。通信不明時は同IDのGETを先に行い、重複createしない。
+- [x] KEY: 対象projectの必要APIだけを有効化し、固定key IDの既存状態をGET/listで確認する。新規作成は専用fenceの最初の1回だけ。API制限を公式describeで照合する。
+- [x] SSOT: key値はRAMから直ちに`~/.local/share/anicca/credentials.json`のexact service `gemini-ai-monk-factory`へ保存する。既存行と他者更新を保持し、directory700/file600を維持する。keyをrepo/private log/chatへ複製しない。保存後にSSOTを新しく読んだ別requestでmodels GETを行う。
+- [x] READBACK: 新project/billing未接続/key restriction/models認証の結果を秘匿receiptに保存し、公開receiptにはkey値・本人email・他project一覧を入れない。失敗はerror class/exit/effect/readback/次の操作を残す。
+- [x] RECORD: 新規準備receiptと当plan・配布正本の現在cursorを本docs差分へ保存する。source/公開反映と未完の専用paid billing・実生成・Stripe/本人IGの受入を分け、通常のcommit/push/main統合とmain blob照合で閉じる。
 
 ## 実行境界
 
 Cloud project/key作成とAPI enableは対象限定で宣言して実行する。既存認証・共有課金・browser/profile・Netlify secrets・Factory enable flagは変更しない。未取得token/残高/料金を0へ変換しない。sourceテスト成功をprovider課金/生成の成功と呼ばない。追加scheduler・framework・customer設定は作らない。
+
+## 準備結果と残る条件
+
+先行planはPR648/main `6c54f3a9a4c4df080174c1d76ddbbaa85a168737`のblob一致を確認してから実行する。project作成1回/API2件enable/key作成1回、project ACTIVE/本人owner、Gemini APIのみのkey制限、SSOT保存/再読込と2モデルGET200を公式確認する。専用projectのbillingEnabled=false・billing未接続を維持する。独立read-only検証は9項目PASS/Blocking0で、公式keyとSSOTの一致をRAM内だけで比較する。初回の誤ったGoogle行selectorのFAILはprovider call0の履歴として保持し、訂正後PASSを新規followup receiptに保存する。結果 → ../../evidence/ai-monk-factory-gemini-project-preparation-20261024.json。
+
+native bundle-only selectorは別業務profileへ誤routingするため受入に使わず、当該表示を元の空ページへ戻す。自分の確認window閉鎖・既存window保持・lease解放と、後続公式billing未接続/既存account1件を確認する。billing form最終送信・支払・実生成・Netlify専用key設定・Factory enableは0。次のFactory条件は正しいPID/profile固定のUI経路、独立Cloud Billing/paid wallet、実原価と実生成の受入。全体の実行cursorと優先順 → 2026-10-24-ai-monk-research-distribution.md。
