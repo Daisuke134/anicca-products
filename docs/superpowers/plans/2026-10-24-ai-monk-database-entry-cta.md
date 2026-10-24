@@ -15,10 +15,10 @@ page-croのCTA階層と最初の画面の可視性に絞る。Factoryの大き�
 ## TODO
 - [x] SPEC: 本plan/master pointerを先行commit/pushしremote一致を確認する。
 - [x] SOURCE: 既存2ファイルのheaderリンク階層とheading idだけを変更する。node --test test/ai-monk-evidence-rendering.test.mjs test/ai-monk-book-page.test.mjs とdiff確認を行う。低影響の静的リンク変更には新規の恒久testや実装の鏡のtestを追加しない。
-- [ ] PUBLIC: sourceをpushし、既存CI/PR/mainとmain由来Deploy/公開HTMLを受入する。JSON/CLI/plugin payloadを変更せず、不要な版上げやRelease/Registry再送をしない。
-- [ ] RECORD: 結果・限界・次cursorを正本へ保存し、今回blob/main一致を確認する。
+- [x] PUBLIC: sourceをpushし、既存CI/PR/mainとmain由来Deploy/公開HTMLを受入する。JSON/CLI/plugin payloadを変更せず、不要な版上げやRelease/Registry再送をしない。
+- [x] RECORD-SOURCE: 結果・限界・次cursorを正本へ保存する。証拠 → ../../evidence/ai-monk-database-entry-cta-production-20261024.json。通常のcommit/push/PR/mainと今回blob一致は統合readbackへ保存する。
 
 ## 適用判断と実行順
 using-superpowers→brainstorming/writing-plans→executing-plans、既存worktree、ponytail full、page-croを適用する。Daisの明示No-human-loopに従いskillの質問/承認停止・model強制・固定全suite/追加reviewを採らず、primaryが既存styleの限定変更を実装する。projectの固定3検索/自動memory保存より必要範囲検索とdeveloperのmemory更新制限を優先する。
 
-旧の単独cursorはFactory専用課金preflight。Google本人端末確認とFactory初期予算の未回答が実測条件なので、それを保持したまま独立してAM-13/PL-1の公開入口を先に直す。全体のDatabase→CLI/plugin配布・販売→Factoryの優先順は維持する。既存OpenAI case/Muse提出とGoogle Promptを再送せず、課金/日次effectを中断・重複しない。先行契約は51d438299でpush/remote一致を確認する。sourceは既存2ファイルの限定差分で、関連render/book10件とdiffはPASS、canonical JSONの元SHA 3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665aを保持する。新規test/依存0、現在cursorはPUBLIC。
+旧の単独cursorはFactory専用課金preflight。Google本人端末確認とFactory初期予算の未回答が実測条件なので、それを保持したまま独立してAM-13/PL-1の公開入口を先に直す。全体のDatabase→CLI/plugin配布・販売→Factoryの優先順は維持する。既存OpenAI case/Muse提出とGoogle Promptを再送せず、課金/日次effectを中断・重複しない。先行契約は51d438299でpush/remote一致を確認する。sourceは既存2ファイルの限定差分で、関連render/book10件とdiffはPASS、canonical JSONの元SHA 3f9b316cd49554c0805068c8c581c367021702b0912e3cd351a98ceddd20665aを保持する。新規test/依存0、公開はPR660/main e36d2eea4e74dae03f6967e919086b48fe42641fとDeploy40059692583 SUCCESS、Netlify ready 6adc2ae074978bba89741724で受入する。公開headerの3導線/検索欄前の配置、導入id、4遷移先HTTP200、73card/191出典を確認する。限定導線の公開は完了、click/install/order/売上改善は未測定。全体の次cursorはmasterへ戻す。
