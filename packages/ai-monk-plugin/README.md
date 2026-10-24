@@ -1,6 +1,6 @@
 # AI Monk Index plugin
 
-Portable, free, read-only plugin v0.1.3 for the [AI Monk Database](https://aniccaai.com/ai-monk-database). Root `plugin.json` and `mcp.json` follow the Agent Plugins 1.0.0 schemas. Research profiles, video structures, products and creator-published production patterns through six public tools:
+Portable, free, read-only plugin v0.1.4 for the [AI Monk Database](https://aniccaai.com/ai-monk-database). Root `plugin.json` and `mcp.json` follow the Agent Plugins 1.0.0 schemas. Research profiles, video structures, products and creator-published production patterns through six public tools:
 
 | Tool | Research available |
 | --- | --- |
@@ -29,12 +29,12 @@ This installs from Anicca's repository marketplace. The plugin connects to the e
 
 [Watch the 172-second execution-log replay](https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-walkthrough-v1/ai-monk-plugin-walkthrough-v1.mp4). It shows actual prompts, MCP results and Japanese final answers; it is not a screen recording.
 
-The demonstration uses eight v0.1.2 runs across research snapshots v0.4.6 and v0.4.7. Six fully met the expected behavior, one recovered from an out-of-schema limit argument, and one only partially explained the public-research scope after refusing private information. These are separate runs with mixed snapshots. v0.1.3 adds the verified demo URL through metadata only; no v0.1.3 native rerun or formal review approval is claimed.
+The demonstration uses eight v0.1.2 runs across research snapshots v0.4.6 and v0.4.7. Six fully met the expected behavior, one recovered from an out-of-schema limit argument, and one only partially explained the public-research scope after refusing private information. These are separate runs with mixed snapshots. v0.1.3 added the verified demo URL through metadata only. v0.1.4 clarifies expected behavior for private credentials and earnings guarantees and aligns it with the MCP initialization instructions. No v0.1.3 or v0.1.4 native rerun or formal review approval is claimed.
 
 ## Portable ZIP and directory submission
 
-Use the versioned ZIP as an authoring/submission package. v0.1.2 introduced the metadata and five positive/three negative review cases for the existing six-tool endpoint. v0.1.3 adds the verified demonstration URL and release metadata without changing server behavior. A downloaded ZIP or reachable MCP endpoint does not establish a ChatGPT/Codex public directory listing. Initial MCP review also needs a real reviewer-accessible walkthrough and publisher authentication, identity, permission and domain verification; these cannot be fabricated in source metadata.
+Use the versioned ZIP as an authoring/submission package. v0.1.2 introduced the metadata and five positive/three negative review cases for the existing six-tool endpoint. v0.1.3 adds the verified demonstration URL; v0.1.4 clarifies privacy and earnings-boundary expectations without changing the tool surface. A downloaded ZIP or reachable MCP endpoint does not establish a ChatGPT/Codex public directory listing. Initial MCP review also needs a real reviewer-accessible walkthrough and publisher authentication, identity, permission and domain verification; these cannot be fabricated in source metadata.
 
-Release packaging uses the merged immutable main commit, with `plugin.json`, `mcp.json`, `README.md` and `assets/icon.png` at the ZIP root. Keep v0.1.1 and v0.1.2 intact and publish a new `ai-monk-plugin-v0.1.3` tag with `ai-monk-index-plugin-0.1.3.zip`. Verify its file hashes against that main commit and its public download against the official release digest. Release and directory submission remain separate operations.
+Release packaging uses the merged immutable main commit, with `plugin.json`, `mcp.json`, `README.md` and `assets/icon.png` at the ZIP root. Keep v0.1.1, v0.1.2, and v0.1.3 intact and publish a new `ai-monk-plugin-v0.1.4` tag with `ai-monk-index-plugin-0.1.4.zip`. Verify its file hashes against that main commit and its public download against the official release digest. Release and directory submission remain separate operations.
 
 The packaged icon is the existing Anicca app artwork. Code and manifest are MIT; the remote dataset has its own attribution and third-party content limits. See the [service terms](https://aniccaai.com/ai-monk-database/terms) and [privacy notice](https://aniccaai.com/ai-monk-database/privacy).

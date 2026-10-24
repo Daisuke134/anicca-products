@@ -1,0 +1,80 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-v014-source.v1",
+  "run_id": "ai-monk-plugin-v014-source-20261025",
+  "owner_id": "ai-monk-plugin-prep",
+  "occurrence_id": "mcp-boundaries-private-data-and-income-guarantees",
+  "source_branch": "feat/ai-monk-plugin-instructions-20261025",
+  "source_base_main_sha": "c2882fad18105305d7aa8f02caed7706eb381b4b",
+  "observed_at": "2026-10-24T16:47:49Z",
+  "phase": "source_acceptance",
+  "scope": "Strengthen read-only MCP initialization guidance and Plugin review-case wording for private-data requests and personal earnings guarantees.",
+  "files_changed": [
+    "packages/ai-monk-index/src/mcp.mjs",
+    "packages/ai-monk-index/test/http.test.mjs",
+    "packages/ai-monk-index/package.json",
+    "packages/ai-monk-index/package-lock.json",
+    "packages/ai-monk-index/server.json",
+    "packages/ai-monk-index/README.md",
+    "packages/ai-monk-plugin/plugin.json",
+    "packages/ai-monk-plugin/README.md"
+  ],
+  "versions": {
+    "ai_monk_index": "0.4.19",
+    "plugin": "0.1.4",
+    "data_snapshot_sha256": "eb78534751267a0769216bed8006624291ea98167738648e6553c98b2f756540"
+  },
+  "plugin_cases": {
+    "positive": 5,
+    "negative": 3,
+    "negative2": "explicitly state the public index contains no private credentials/payment details; offer only source-backed public research",
+    "negative3": "do not guarantee personal earnings/revenue/MRR or infer them from views, prices, counters, or creator claims"
+  },
+  "walkthrough": {
+    "url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-walkthrough-v1/ai-monk-plugin-walkthrough-v1.mp4",
+    "duration_seconds": 172,
+    "type": "execution-log replay, not screen recording"
+  },
+  "prior_native_evidence": {
+    "plugin_version": "0.1.2",
+    "runs": 8,
+    "research_snapshots": [
+      "0.4.6",
+      "0.4.7"
+    ],
+    "fully_met": 6,
+    "recovered_argument_error_cases": 1,
+    "partial_explanation_cases": 1,
+    "partial_case": "negative2",
+    "native_runs_for_v013_or_v014": 0
+  },
+  "verification": {
+    "focused_http_initialization_test_before_fix": "FAIL: missing explicit private-data guidance",
+    "focused_http_initialization_test_after_fix": "PASS 4/4",
+    "full_package_test": "PASS 16/16",
+    "plugin_manifest_json_parse": "PASS",
+    "case_counts": "5 positive / 3 negative"
+  },
+  "effect": {
+    "main_merge": 0,
+    "release_creates": 0,
+    "registry_publish": 0,
+    "production_deploy": 0,
+    "provider_configuration_changes": 0,
+    "generation_requests": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0,
+    "formal_chatgpt_upload_or_submit": 0,
+    "formal_muse_submission_or_resubmission": 0,
+    "new_native_model_runs": 0,
+    "implementation_source_files": 8,
+    "evidence_receipts_added": 2
+  },
+  "claim_limits": [
+    "The new instructions and review-case wording have not been evaluated in a new native model run.",
+    "The walkthrough is an execution-log replay, not a screen recording.",
+    "Codex repository plugin release is separate from formal ChatGPT or Muse directory listing/approval."
+  ],
+  "next_action": "Run PR source checks and merge. Publish immutable AI Monk Index v0.4.19 and Plugin v0.1.4 from fixed main, deploy the MCP instructions, then verify the public MCP initialization response, snapshot hash, registry status and ZIP asset digest.",
+  "error_class": null,
+  "retryable": false
+}

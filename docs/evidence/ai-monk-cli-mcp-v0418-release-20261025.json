@@ -1,0 +1,170 @@
+{
+  "schema_version": "anicca.ai-monk-cli-mcp-release.v1",
+  "run_id": "ai-monk-cli-mcp-v0418-release-20261025",
+  "owner_id": "ai-monk-index-release",
+  "occurrence_id": "ai-monk-index-v0.4.18",
+  "release_sha": "c2882fad18105305d7aa8f02caed7706eb381b4b",
+  "observed_at": "2026-10-24T16:42:08Z",
+  "phase": "public-release-readback",
+  "command": "Publish and verify main-derived AI Monk Index v0.4.18 across Web, JSON, CLI, stdio MCP, HTTPS MCP, GitHub Release, and official MCP Registry.",
+  "loaded_argv": [
+    "gh release create ai-monk-index-v0.4.18 --target c2882fad18105305d7aa8f02caed7706eb381b4b",
+    "gh workflow run 'Publish AI Monk MCP Registry' --ref main"
+  ],
+  "loaded_env": {
+    "repository": "Daisuke134/anicca-products",
+    "branch": "main",
+    "main_sha": "c2882fad18105305d7aa8f02caed7706eb381b4b",
+    "release_immutability_enabled": true
+  },
+  "exit_code": 0,
+  "effect": {
+    "public_github_release": true,
+    "public_mcp_registry_version": true,
+    "production_database_updated": true,
+    "factory_provider_or_runtime_changes": 0,
+    "avatar_or_video_generation_requests": 0,
+    "instagram_connections_or_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "source_readback": {
+    "pull_request": {
+      "number": 693,
+      "url": "https://github.com/Daisuke134/anicca-products/pull/693",
+      "state": "MERGED",
+      "merge_commit": "c2882fad18105305d7aa8f02caed7706eb381b4b",
+      "checks": {
+        "package": "SUCCESS",
+        "landing": "SUCCESS",
+        "CodeRabbit": "SUCCESS"
+      }
+    },
+    "main_workflows": {
+      "ai_monk_index": {
+        "run_id": 40111176823,
+        "conclusion": "success",
+        "head_sha": "c2882fad18105305d7aa8f02caed7706eb381b4b"
+      },
+      "netlify_deploy": {
+        "run_id": 40111176777,
+        "conclusion": "success",
+        "head_sha": "c2882fad18105305d7aa8f02caed7706eb381b4b"
+      }
+    },
+    "github_repository_immutable_releases": {
+      "url": "https://api.github.com/repos/Daisuke134/anicca-products/immutable-releases",
+      "enabled": true,
+      "enforced_by_owner": false
+    },
+    "github_release": {
+      "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.18",
+      "tag": "ai-monk-index-v0.4.18",
+      "target_sha": "c2882fad18105305d7aa8f02caed7706eb381b4b",
+      "is_immutable": true,
+      "asset": "anicca-ai-monk-index-0.4.18.tgz",
+      "asset_bytes": 75294,
+      "asset_sha256": "e7f7c27036653fc86db284ceb048c39b2e39e5671689eb9c644129bac47bd83d",
+      "downloaded_asset_sha256": "e7f7c27036653fc86db284ceb048c39b2e39e5671689eb9c644129bac47bd83d"
+    },
+    "public_web": {
+      "url": "https://aniccaai.com/ai-monk-database",
+      "public_profiles": 73,
+      "archive_records": 75,
+      "sources": 233,
+      "as_of": "2026-10-25"
+    },
+    "public_json": {
+      "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "sha256": "eb78534751267a0769216bed8006624291ea98167738648e6553c98b2f756540",
+      "archive_records": 75,
+      "public_profiles": 73,
+      "included": 6,
+      "pending": 67,
+      "excluded": 2,
+      "sources": 233,
+      "account_offer_rows": 116
+    },
+    "released_cli": {
+      "installed_downloaded_release_asset": true,
+      "stats": {
+        "snapshot_sha256": "eb78534751267a0769216bed8006624291ea98167738648e6553c98b2f756540",
+        "records": 73,
+        "sources": 233
+      },
+      "get_profile": {
+        "id": "lead-instagram-shenmuhealer",
+        "offers": 2,
+        "referenced_sources": 6,
+        "seller_download_counter": "10,251 (unaudited seller-displayed claim)"
+      }
+    },
+    "released_stdio_mcp": {
+      "tool_count": 6,
+      "stats_snapshot_sha256": "eb78534751267a0769216bed8006624291ea98167738648e6553c98b2f756540",
+      "get_profile": {
+        "id": "lead-instagram-shenmuhealer",
+        "offers": 2,
+        "referenced_sources": 6
+      }
+    },
+    "production_https_mcp": {
+      "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+      "tool_count": 6,
+      "stats_snapshot_sha256": "eb78534751267a0769216bed8006624291ea98167738648e6553c98b2f756540",
+      "get_profile": {
+        "id": "lead-instagram-shenmuhealer",
+        "offers": 2,
+        "referenced_sources": 6
+      }
+    },
+    "official_mcp_registry": {
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.18",
+      "workflow_run_id": 40112391848,
+      "http_status": 200,
+      "version": "0.4.18",
+      "status": "active",
+      "is_latest": true
+    }
+  },
+  "data_acceptance": {
+    "account_id": "lead-instagram-shenmuhealer",
+    "display_name": "Shen Mu",
+    "ai_status": "reported",
+    "directory_scope": "pending",
+    "offers": [
+      {
+        "name": "27 Ancient Remedies from the Tibetan Mountains",
+        "price": 12.95,
+        "currency": "USD"
+      },
+      {
+        "name": "The Simple System to Look and Feel 10 Years Younger",
+        "price": 9.95,
+        "currency": "USD"
+      }
+    ],
+    "seller_counter": {
+      "value": "10,251",
+      "metric": "downloads",
+      "status": "seller_displayed_not_audited",
+      "scope": "product page only"
+    },
+    "paid_orders_revenue_profit": "unknown; not inferred from listed prices or download counter",
+    "census": "incomplete; 6 included and 67 pending public profiles"
+  },
+  "factory_state": {
+    "user_screenshot": "Factory studio displays preparation/unavailable status and disabled generation/Instagram/checkout controls; screenshot calendar date unknown",
+    "free_allowance": "three lifetime free videos, no time-based trial, no card, confirmed in production public page",
+    "last_official_environment_readback": "58 production variables and zero MONK_FACTORY_* variables at 2026-10-24T15:25:20Z",
+    "code_behavior": "UI disables actions when capability readiness is false; API returns 503 for unavailable capabilities",
+    "effects_this_run": {
+      "provider_configuration_changes": 0,
+      "generation": 0,
+      "instagram_connection_or_post": 0,
+      "stripe_checkout_or_charge": 0
+    }
+  },
+  "error_class": null,
+  "retryable": false,
+  "next_action": "PL-PREP-1: verify the read-only Plugin's positive/negative cases and prepare its public walkthrough; leave OpenAI/Muse external review gates nonblocking; preserve the Factory provider funding, production configuration, Instagram OAuth and company-wide spend-cap prerequisites."
+}

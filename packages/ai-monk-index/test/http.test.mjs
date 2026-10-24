@@ -41,7 +41,10 @@ test('SDK HTTP client uses the same source-linked tools across stateless request
 test('legacy MCP initialization works without persistent sessions', async () => {
   const response = await createHttpHandler()(new Request(url, { method: 'POST', headers, body: JSON.stringify(initialize) }));
   assert.equal(response.status, 200);
-  assert.equal((await response.json()).result.protocolVersion, '2025-03-26');
+  const payload = await response.json();
+  assert.equal(payload.result.protocolVersion, '2025-03-26');
+  assert.match(payload.result.instructions, /contains no private credentials or private payment details/i);
+  assert.match(payload.result.instructions, /never guarantee personal earnings, revenue, or MRR/i);
   assert.equal(response.headers.get('mcp-session-id'), null);
 });
 
