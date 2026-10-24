@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-10-24T00:20:52.045Z",
+  "release_sha": "505aa8182356e286c586aa9a5f618d8509806f2e",
+  "release_tag": "ai-monk-index-v0.4.9",
+  "release_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.9",
+  "asset_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.9/anicca-ai-monk-index-0.4.9.tgz",
+  "asset_bytes": 60227,
+  "asset_sha256": "63ce5eaedde30e0178581d79fd535749d96bcc73962c92f060372ef1b1051a90",
+  "official_github_digest": "sha256:63ce5eaedde30e0178581d79fd535749d96bcc73962c92f060372ef1b1051a90",
+  "official_tag_sha": "505aa8182356e286c586aa9a5f618d8509806f2e",
+  "public_url_npm_install": true,
+  "installed_version": "0.4.9",
+  "cli_records": 73,
+  "cli_sources": 187,
+  "research_archive_records": 75,
+  "snapshot_sha256": "6daa9b82697c3ad2904a933c875ff0755e9b90d5de1b601655f6981e0d2bbafd",
+  "stdio_matches_cli": true,
+  "installed_json_matches_source": true,
+  "source_files_match_main": true,
+  "source_files_compared": 11,
+  "central_registry": "not_republished_in_this_daily_data_task"
+}

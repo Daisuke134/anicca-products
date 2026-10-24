@@ -246,7 +246,7 @@
   "video_generations": 0,
   "social_posts": 0,
   "paid_provider_purchases": 0,
-  "status": "source acceptance passed; CI, merge, release and production pending",
+  "status": "completed daily database refresh; original broader goal remains paused and incomplete",
   "validation": {
     "shared_directory_tests": {
       "passed": 9,
@@ -264,5 +264,54 @@
       "blocking": 0,
       "limits": "No external refetch or raw-HTML extraction review; tests executed by primary. CI/release/production pending."
     }
+  },
+  "revenue_source_readback": {
+    "observed_at": "2026-10-24T00:19:19.625834+00:00",
+    "url": "https://x.com/i/article/2042242260784537736",
+    "retrieval_attempts": [
+      {
+        "method": "crwl",
+        "exit_code": 0,
+        "captured_at": "2026-10-24T00:19:18.278470+00:00",
+        "body_characters": 2,
+        "known_amount_markers_found": false
+      },
+      {
+        "method": "scrapy",
+        "exit_code": 0,
+        "captured_at": "2026-10-24T00:19:19.622907+00:00",
+        "body_characters": 200753,
+        "known_amount_markers_found": true
+      }
+    ],
+    "body_retrieved": true,
+    "response_body_sha256": "b0fcc8af7bd68cd4eb4631bd5d8da8efa4a0966f4226d8b6bf28526aaee51a5e",
+    "published_time_metadata": [
+      "2026-04-09T14:04:32.000Z"
+    ],
+    "time_datetime": [
+      "2026-04-09T14:04:32.000Z"
+    ],
+    "known_historical_amount_markers_present": {
+      "$300K": true,
+      "$500K": true,
+      "$450K": true,
+      "$50K": true
+    },
+    "financial_treatment": "Historical first-party self-report only. The six-month headline and persona-level breakdown remain unresolved; do not convert it to current monthly revenue, gross revenue, profit or audited orders.",
+    "new_financial_claims_added": 0,
+    "provider_writes": 0
+  },
+  "production_acceptance": {
+    "source_main": "505aa8182356e286c586aa9a5f618d8509806f2e",
+    "netlify_workflow": "40044430905",
+    "conclusion": "success",
+    "web_json_and_remote_mcp_match": true,
+    "cli_version": "0.4.9",
+    "public_url_install_and_stdio_match": true,
+    "evidence_refs": [
+      "ai-monk-daily-production-20261024.json",
+      "ai-monk-cli-mcp-v049-release-20261024.json"
+    ]
   }
 }
