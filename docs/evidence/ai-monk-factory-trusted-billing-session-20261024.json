@@ -1,0 +1,170 @@
+{
+  "schema_version": "anicca.ai-monk-factory-trusted-billing-session.v1",
+  "run_id": "ai-monk-factory-trusted-billing-session-20261024",
+  "owner_id": "root",
+  "occurrence_id": "existing-trusted-google-session-billing-entry",
+  "release_sha": "c8536fa57fe87dbbb5646081483a0a3093085f57",
+  "spec_commit": "4911d74b9bd4db0debd671220fa96e8a82c9111d",
+  "recorded_at": "2026-10-24T04:45:45.522451+00:00",
+  "phase": "factory_identity_confirmed_billing_entry_visible_create_form_unverified",
+  "command": "Leased registered browser; existing signed native CuaDriver CLI; private SSOT RAM identity comparison; window-local screenshot and native Vision OCR; owned-window cleanup and guard readback",
+  "loaded_argv_env": {
+    "browser_identity": "interactive:dais",
+    "native_daemon": "signed CuaDriver 0.2.0 app",
+    "native_capture_mode": "ax",
+    "trajectory_recording_enabled": false,
+    "spend_cap_usd": 0,
+    "secret_values_logged": false
+  },
+  "exit_code": 0,
+  "preflight": {
+    "ssot_entire_document_loaded_in_ram": true,
+    "exact_factory_service_rows": 1,
+    "matching_exact_google_service_rows": 1,
+    "ssot_directory_mode": "0700",
+    "ssot_file_mode": "0600",
+    "registry_owner_profile_and_main_pid_verified": true,
+    "guard_collisions_empty": true
+  },
+  "google": {
+    "existing_signed_in_factory_choice_present": true,
+    "existing_factory_choice_selected_once": true,
+    "active_console_account_matches_factory_ssot": true,
+    "identity_observed_at": "2026-10-24T04:43:06.615282+00:00",
+    "active_account_control_count": 1,
+    "console_page_title": "請求先アカウント – アカウントのプロファイル – お支払い – Google Cloud コンソール",
+    "create_account_entry_visible_in_window_screenshot_ocr": true,
+    "create_account_entry_click_attempts": 1,
+    "create_form_transition_verified": false,
+    "new_billing_account_create_entitlement": null,
+    "existing_payments_profile_eligible": null,
+    "region_specific_required_funding": null,
+    "separate_provision_google_prompt_completion": null
+  },
+  "diagnostics": {
+    "initial_omnibox_ax_display_was_not_a_navigation_receipt": true,
+    "native_daemon_disappeared_during_ui_read": true,
+    "fallback_cli_reported_accessibility_permission_not_granted": true,
+    "correction": "Relaunched the existing signed app serve entry through its documented LaunchServices command; daemon status and fresh AX reads succeeded. No TCC, browser, hook or profile changes.",
+    "native_daemon_restored_pid": 98539,
+    "billing_central_content_missing_from_ax_tree": true,
+    "window_screenshot_native_ocr_confirmed_create_entry": true,
+    "native_get_window_state_javascript_read_did_not_provide_js_result_and_once_reported_unrelated_ax_title": true,
+    "target_mismatch_response": "Stopped input and checked fresh WindowServer inventory; owned window retained its Google Cloud title. Fresh same-pair AX then matched it. No JavaScript mutations.",
+    "create_entry_action_result": "Click acknowledged; subsequent window screenshot/OCR and AX did not confirm a new form. Do not treat acknowledgement as provider effect.",
+    "cleanup_first_immediate_inventory": "Owned window still present immediately after close acknowledgement; later fresh inventory confirmed closure."
+  },
+  "effect": {
+    "owned_browser_window_created": 1,
+    "existing_signed_in_account_selected": 1,
+    "console_reload": 1,
+    "google_new_login": 0,
+    "password_submission": 0,
+    "google_prompt_send_or_resend": 0,
+    "recovery_reset_or_logout": 0,
+    "profile_or_auth_copy": 0,
+    "terms_acceptance": 0,
+    "billing_account_create": 0,
+    "project_billing_link": 0,
+    "prepay_transition": 0,
+    "purchase_or_funding": 0,
+    "generation": 0,
+    "netlify_or_factory_configuration": 0,
+    "stripe_customer_charge": 0,
+    "openai_or_muse_resubmission": 0,
+    "daily_posting_changes": 0
+  },
+  "cleanup": {
+    "owned_window_closed": true,
+    "preexisting_named_windows_retained": true,
+    "preexisting_named_window_count": 6,
+    "guard_holder_empty": true,
+    "guard_reachable": true,
+    "guard_collisions_empty": true
+  },
+  "readback": "Fresh active Google Console account control matched the Factory identity in RAM. Screenshot/native OCR established a create-account entry only; create entitlement, payments profile and final funding remain unverified. Fresh WindowServer/guard readbacks establish cleanup.",
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/browser-cleanup-followup.json",
+      "visibility": "private_local_only",
+      "bytes": 198,
+      "sha256": "934f1dd4c161e3a23dd20083278be030b67dd5df5d6dd50ae3fedcb63b3c9678"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/browser-cleanup-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 208,
+      "sha256": "f1a85ea7574f8ef7b7c25fa00e5c75586734070ab41fa024ef26c83f32da920c"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/browser-windows-before-resume.json",
+      "visibility": "private_local_only",
+      "bytes": 3324,
+      "sha256": "002bd5c100e87dfe991011e0c3e6bcd844bb996c8b4983b3d8d485d450391eca"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/browser-windows-before.json",
+      "visibility": "private_local_only",
+      "bytes": 5600,
+      "sha256": "a24c878acb9c8b2cdacfc584c642d8c1b8231a40f372bbf9bbe174ac6d6900df"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/console-entry-ocr-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 648,
+      "sha256": "0b43d7e2459e2ba362567b7e3091532dd53b79ce4c8c281c971f6185d5176aa4"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/google-console-after-create-entry.png",
+      "visibility": "private_local_only",
+      "bytes": 148292,
+      "sha256": "c14f49eb7e02cda7e3789dbd17ecba2eb98b4edbe7384028dfb302d87a072873"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/google-console-before-create.png",
+      "visibility": "private_local_only",
+      "bytes": 148298,
+      "sha256": "453e88a75585278291230054a9a48b375db2a6cc67ff9bc3273ad5161873d088"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/google-console-before-reload.png",
+      "visibility": "private_local_only",
+      "bytes": 148298,
+      "sha256": "453e88a75585278291230054a9a48b375db2a6cc67ff9bc3273ad5161873d088"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/lease-release-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 102,
+      "sha256": "fdc90bfa99f98abffa33d0a7df136cf69a0a5c1ef737514b5d42767ca7359b70"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/navigation-diagnostic.png",
+      "visibility": "private_local_only",
+      "bytes": 55625,
+      "sha256": "dc2767820be1f1354742a266aca4e817fd37b66288644dd4ee783d591d17b095"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/own-window-close-action.json",
+      "visibility": "private_local_only",
+      "bytes": 237,
+      "sha256": "b9e65cf4d1b4fe0190ac313d0b0b541199061671f0b7b25daa0d5fee03211b76"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-trusted-billing-session-20261024/trusted-console-identity-readback.json",
+      "visibility": "private_local_only",
+      "bytes": 961,
+      "sha256": "5354d4cb9285551dcad58a471ae4099feabf57af0eb763e15e5e9ec17780584c"
+    }
+  ],
+  "error_class": "native_billing_content_ax_gap_and_unverified_create_form",
+  "retryable": true,
+  "next_action": "Use the verified existing trusted Factory session to inspect the create form with a reliable target-specific native path; establish new-account entitlement, eligible payments profile and region amount without confirmation or payment. Keep the unanswered Factory bootstrap budget and USD0 spend cap. Do not resend the separate Google Prompt.",
+  "claim_limits": [
+    "The existing trusted session removes a new login requirement for this path; it does not prove completion of the separate provision-profile Prompt.",
+    "A visible create entry is not proof of permission to create, a saved payment profile, funding, paid model access or a working Factory.",
+    "The entry click acknowledgement is not proof of a create-form transition or billing mutation.",
+    "OpenAI final appeal denial and pending Muse review remain as recorded separately; this preflight does not resolve formal listings."
+  ]
+}
