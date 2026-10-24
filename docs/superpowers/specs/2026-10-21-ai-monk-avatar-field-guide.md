@@ -211,7 +211,7 @@ Factoryの完成形は、利用者が自分のInstagramを先に接続し、独�
 
 実行順・残TODO・現在のDatabase/CLI/Registry/Plugin公開・正式提出状態 → docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md。
 
-日次IG/TikTokと既存HeyGen/Postiz/loopはGrok Bot所有。Factory SaaS・実生成/本人接続/自動投稿/metrics・有料注文・USD10K MRR・他者無人収益は未完を保持する。ChatGPT/Codex共通directory用の専用OpenAI正規復旧とMuseの既存審査状態 → docs/evidence/ai-monk-plugin-marketplace-access-20261024.json。申立て受付・account復旧・正式提出・掲載を区別する。
+日次IG/TikTokと既存HeyGen/Postiz/loopはGrok Bot所有。Factory SaaS・実生成/本人接続/自動投稿/metrics・有料注文・USD10K MRR・他者無人収益は未完を保持する。ChatGPT/Codex共通directory用の専用OpenAI既存appeal正式却下とMuseの既存審査状態 → docs/evidence/ai-monk-marketplace-followup-20261024.json。申立て受付・account復旧・正式提出・掲載を区別する。
 
 ## Database・Plugin・Factoryの追加契約
 
@@ -246,3 +246,5 @@ source受入では49候補から39 sourceを引用し、既存2 sourceを変更�
 v0.4.6で確定3系統のbase/定期/比較/presentment価格を分け、Kaelと他の未知値を維持する契約 → `2026-10-24-ai-monk-product-price-currencies.md`。
 
 Arisの既存商品へseller JSON-LDの価格/通貨を新しい観測として追加し、過去の価格不明・未監査売上と区別する限定契約 → `../plans/2026-10-24-ai-monk-research-distribution.md`「商品構造化データの限定追加」。
+
+Yang Mun現行offerの通貨/商品対応の限定追加契約と現在cursor → docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md「Yang Mun現行offerの通貨精査」。

@@ -4,7 +4,7 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-現在cursorはDaisの明示指示によりPL-1のOpenAI専用アカウント復旧とMuse既存提出の正式掲載を優先する。旧Factory billing preflightは未完を保持する。今回の範囲・順序変更理由・残TODO → ../specs/2026-10-24-ai-monk-plugin-review-readiness.md#正式掲載の再開カーソル。OpenAIは既存appealを正式却下し無効化を維持する。Museは提出3/3、Business Approved、残り2件In reviewで追加要求なし。最新結果 → ../../evidence/ai-monk-marketplace-followup-20261024.json。AM-13/PL-1のDatabase上部から書籍/無料pluginへの導線は公開受入済み → 2026-10-24-ai-monk-database-entry-cta.md。
+現在cursorはDB-1のYang Mun現行Journey/upgradeの通貨・商品対応の限定精査とする。PL-1はOpenAI既存appeal正式却下、Muse残2件審査中を保持し、重複再送しない → ../../evidence/ai-monk-marketplace-followup-20261024.json。Factory billing preflightの未完条件も保持する。旧順PL-1→Factory、新順はPL-1の公式結果保持と独立にDB-1の既知未確認商品→確定差分のCLI/MCP公開→Factory。理由は正式掲載をローカル変更で進める具体要求が無い一方、Databaseに現行商品の通貨未確認が残るため。限定範囲・受入・現在状態は末尾「Yang Mun現行offerの通貨精査」を正本とする。
 
 独立して受入済みのDatabase/CLI v0.4.11は73公開/75archive/191出典、商品観測archive78行/公開75行で、公開JSON/Web・固定main Release・公開URL導入/CLI・実stdio/HTTPS MCP各6tool・公式Registry active/isLatestの同一snapshotを確認する。公開Webは73card/71画像を維持する。Arisの17 USDはseller JSON-LD、Monje Wu主商品19.99 USD/任意addon5.99 USD・Maestro Lin17 USD・Ling Hao9.99 USDはcheckoutのconversion base観測で、JP表示額を分離する。売上・実在庫・会計通貨は未確認。公開受入 → ../../evidence/ai-monk-cli-mcp-v0411-release-20261024.json。Database→CLI/plugin→Factoryの優先順を維持する。既存の正式掲載caseは重複せず結果/追加要求を受入し、正式掲載の対応は冒頭の現在cursorへ従う。Factoryの専用有料billing・実費/実生成・利用者所有IG接続/投稿・metrics・USD10K MRRは未完。日次IG/TikTok/Postiz/Grok所有effectは変更しない。
 
@@ -146,3 +146,13 @@ PR655/head2db9ce6ac/main a4719691e4cbe77891cf16c111fe9dc3b2c1d4c1のsource CI・
 旧cursorはDB-1の3商品checkout精査→v0.4.11公開とPL-1の正規復旧申立て。新cursorは既存OpenAI case/Muse追加要求の受入と独立に、SaaS-1の専用Gemini課金元・実使用可能予算・有料モデル権限を確認する準備である。理由は限定Database/CLI配布面の今回受入と正式な申立てを完了しており、外部審査結果待ちだけを理由にFactoryの必要条件を止めると収益への到達が遅れるため。全体のDatabase→CLI/plugin→Factoryという優先順、継続調査・正式掲載・実生成/本人IG接続/投稿/metrics・USD10K MRRという成果条件は縮小しない。
 
 Factoryのsource上の次境界は既存provider契約とGemini準備planを参照する。専用project/keyとモデルGET200を、有料権限や実生成へ昇格しない。MONK_FACTORY_ENABLEDは全provider/Stripe readinessの共通gateであり、Geminiだけの部分enableを新設しない。trial4.25USD/paid70USDは生成予約の上限で、Factory全体のbootstrap spend-capへ流用しない。次unitで独立支払元・必要額と既存予算を具体化し、共有Grok/既存顧客の財布へfallbackしない。今回の公開unitはFactory設定/支払い/生成/日次投稿の変更0で閉じる。OpenAI/Museの新しい審査結果は今回の通知followupで未受領、再送0を維持する。
+
+## Yang Mun現行offerの通貨精査
+
+既存Databaseのdaily-20261024-yangmun-0/1は$49.99/$59.99という表示を保持するが、ISO通貨と現行購入商品への対応は未確認である。既存の歴史的USD観測を上書きせず、sellerの公開Journeyページ・そこから辿れる商品/variantメタデータと匿名の購入画面の表示を確認する。cart/checkoutへのPOST、account/signup、個人情報、支払、purchase、provider/日次投稿変更は0とする。公開商品情報だけで不足する場合は不足を記録し、通貨を推測しない。
+
+primaryがspec/data/公開を所有する。必要な独立read-only研究者は当sellerのpublic商品対応・通貨とprivate raw証拠だけを所有する。既存75archive/73public/191sourcesと全観測・scope・売上のunknownは保持する。明確な新規観測が得られた時だけsourceと日付付きoffer観測を追加し、package/Registry metadataをv0.4.12へ揃える。価格を注文/売上と呼ばず、地域表示額と基本通貨・購入方式を分離する。ソース差分が無ければ新版やReleaseを作らない。
+
+- [ ] SOURCE: 公式公開URLの時刻・最終URL・本文/raw hashとvariant/product対応、明示通貨を照合する。
+- [ ] DATA: 新観測欠落の最小一時assertion RED→必要なdataのみ→GREEN、既存package/helper/renderの関連検証を実行する。runtime/依存/恒久mirroring testは増やさない。
+- [ ] PUBLIC: 実データ差分がある場合だけ既存CI/PR/main/公開Web、固定main Release/公開URL導入/CLI/stdio/HTTPS MCP・Registryの同一snapshotを受入する。差分が無ければ具体的不足を記録する。
