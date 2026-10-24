@@ -4,7 +4,7 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-現在cursorはDaisが明示するKeiodaisukeの既存accountによる正式Plugin提出とGrokbotへの具体委譲。範囲・所有・旧順序→新順序・受入の正本 → 2026-10-24-ai-monk-keio-plugin-submission.md。専用accountの停止を全ての有効な本人accountへ自動拡張しない。下記の専用account復旧結果は履歴として保持する。
+現在cursorはKeiodaisuke既存accountの正式Plugin Web提出。指定本人のGoogle選択をSSOTと照合してOpenAIの追加認証まで到達し、既存iPhone ChatGPTアプリでの承認待ち。プッシュ通知要求は1回/再送0。範囲・所有・旧順序→新順序・受入の正本 → 2026-10-24-ai-monk-keio-plugin-submission.md。専用accountの停止を全ての有効な本人accountへ自動拡張しない。下記の専用account復旧結果は履歴として保持する。
 先行の専用account限定作業はDaisの「Go fix」に基づく復旧・審査対応。範囲・旧順序→新順序・受入の正本 → 2026-10-24-ai-monk-marketplace-resolution.md。OpenAIは既存同caseの最終却下を再取得し、復旧通知は確認できない。Museは今回native URL入力からの実ページ遷移を確認できず、最新審査状態は未取得。過去の審査中を今回の観測へ置換しない。公開MCPの実SDK6toolは正常で、設定変更・再申立て・再提出0。結果 → ../../evidence/ai-monk-marketplace-resolution-20261024.json。正式掲載の未完を保持し、独立したDatabase/CLI/plugin配布を継続する。
 独立並行の既存書籍X配布はKeio提出の現在cursorを置き換えず、日次Grok所有effectや送信済み作用を重複させない。状態・証拠・残TODOの正本 → 2026-10-24-ai-monk-book-x-funnel.md。
 
