@@ -20,7 +20,7 @@
 
 [RevenueCat React Native SDK 9.6.15の実装・API契約](https://github.com/RevenueCat/react-native-purchases/blob/9.6.15/src/purchases.ts#L920-L941) は `checkTrialOrIntroductoryPriceEligibility` をtrial表示の判断に用い、unknownでは通常価格を表示するよう定める。依存lockと導入済みSDKはいずれも9.6.15を示す。
 
-## 受け入れ条件と現在位置
+## 受け入れ条件
 
 1. 対象外・unknown・欠測で無料表示が出る回帰テストを、修正前のコードで失敗させる。
 2. eligible＋無料商品だけが無料表示に進むことと、API失敗・顧客切替時に以前の資格を使わないことを関連テストで確認する。appのJestとTypeScriptを実行する。
@@ -28,4 +28,4 @@
 4. 確定main SHAから既存productionビルド経路を使い、EAS build UUID・source SHA・version・採番されたbuild番号とASC buildを対応付ける。build 42を修正版と扱わない。
 5. 対象versionへ修正版buildを設定し、審査提出の公式readbackを確認する。利用・課金・収益の確認はLife Managerの残TODOで継続する。
 
-現在位置: source修正とTDDを完了し、独立レビュー・CI・main統合を進める。修正前は資格未確認の4ケースで失敗し、修正後はJest全76件とTypeScriptが通る。API失敗・顧客切替・再表示時のcacheも確認する。PR #644 head `45a690f9bf4c1139257c2f31e5030399c314359d` は、商品metadataだけで無料表示を出すため独立レビューで要修正となる。ASC build `067d498c-8eb0-4a63-88cf-7fd999f8cd74`（1.1.1 / 42）はVALID・upload COMPLETEだが、そのsource SHAは未確定で、今回の修正を含まない。実機・StoreKitの顧客資格・trial開始・課金は未確認。
+進捗・提出済みbuild・現在cursor・残TODOの正本 → [Life Manager統合SSOT](https://github.com/Daisuke134/life-manager/blob/main/docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md#anicca旗艦公開6アプリの配信と継続課金)。この文書は実装契約を保持する。
