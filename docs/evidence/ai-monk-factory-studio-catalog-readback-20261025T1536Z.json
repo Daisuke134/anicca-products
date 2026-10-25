@@ -1,0 +1,151 @@
+{
+  "schema_version": "anicca.ai-monk-factory-studio-catalog-readback.v1",
+  "run_id": "ai-monk-factory-studio-catalog-readback-20261025T1536Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-authenticated-get-and-catalog-recheck-20261025T1536Z",
+  "release_sha": null,
+  "release_readback": {
+    "deploy_id": "6ade1b931bf85fdaa32e08f6",
+    "branch": "main",
+    "deploy_state": "ready",
+    "published_at": "2026-10-25T15:09:47.839Z",
+    "provider_commit_ref_present": false,
+    "deploy_title_sha": "3905ccb3937aa1117734352244c79465174187c1"
+  },
+  "observed_at": null,
+  "observed_at_precision": "bounded window; the authenticated GET event timestamp was not separately captured",
+  "observed_at_window_utc": {
+    "start": "2026-10-25T15:21:54Z",
+    "end": "2026-10-25T15:36:38Z"
+  },
+  "phase": "authenticated_studio_readback_and_public_catalog_recheck",
+  "effect": "read_only; no action was replayed and no provider, social, billing, or runtime settings were changed",
+  "commands": [
+    {
+      "command": "GET https://aniccaai.com/.netlify/functions/monk-factory with the current signed-in Factory session",
+      "observed_at": null,
+      "timestamp_precision": "within observed_at_window_utc",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_request_id": "01M5ST3KGPW6QM6SMWBWQ6J0AQ",
+      "loaded_argv_env": {
+        "authorization": "Bearer token; value redacted",
+        "cache": "no-store"
+      },
+      "readback": {
+        "ready": false,
+        "readiness": {
+          "generation": { "ready": false, "reason": "studio_setup" },
+          "checkout": { "ready": false, "reason": "studio_setup" },
+          "social": { "ready": false, "reason": "studio_setup" }
+        },
+        "account": {
+          "subscription_present": false,
+          "instagram_connected": false,
+          "auto_post": false,
+          "auto_post_intent": false,
+          "avatar_ready": false
+        },
+        "usage": { "videos_remaining": 3, "attempts_remaining": 3 },
+        "job_count": 0,
+        "account_existed_before_get": true
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Keep generation, Instagram connection, and checkout closed until provider spend boundaries and production runtime readiness are established."
+    },
+    {
+      "command": "Read-only Studio DOM inspection after GET",
+      "observed_at": null,
+      "timestamp_precision": "within observed_at_window_utc",
+      "readback": {
+        "generate_monk_avatar_disabled": false,
+        "generate_full_video_disabled": false,
+        "instagram_connect_disabled": false,
+        "api_response_reason": "studio_setup"
+      },
+      "error_class": "ui_readiness_not_reflected_in_button_disabled_state",
+      "retryable": false,
+      "next_action": "Disable unavailable generation and connection CTAs from the same readiness contract while preserving Stop."
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/products -o markdown-fit",
+      "observed_at_window_utc": { "start": "2026-10-25T15:36:43Z", "end": "2026-10-25T15:36:49Z" },
+      "readback": {
+        "factory_listed": true,
+        "category": "Software",
+        "status": "Preparing to open",
+        "free_offer": "up to 3 completed videos; no card; no time-limited trial",
+        "generation_open": false,
+        "subscription_checkout_open": false,
+        "factory_link_present": true
+      }
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/dais -o markdown-fit",
+      "observed_at_window_utc": { "start": "2026-10-25T15:36:43Z", "end": "2026-10-25T15:36:49Z" },
+      "readback": {
+        "factory_listed": true,
+        "category": "Web products",
+        "status": "preparing to open",
+        "factory_link_present": true
+      }
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/factory -o markdown-fit",
+      "observed_at_window_utc": { "start": "2026-10-25T15:36:43Z", "end": "2026-10-25T15:36:49Z" },
+      "readback": {
+        "factory_listed": true,
+        "category": "Anicca Web Apps",
+        "status": "Preparing · $199/mo",
+        "factory_link_present": true
+      }
+    }
+  ],
+  "provider_readback": {
+    "observed_at_window_utc": {
+      "start": "2026-10-25T15:21:54Z",
+      "end": "2026-10-25T15:36:38Z"
+    },
+    "heygen": {
+      "http_status": 200,
+      "billing_type": "wallet",
+      "factory_wallet_usd": 0,
+      "wallet_auto_reload": false,
+      "dashboard_auto_top_up": "off",
+      "usage_based_spending_cap_object_present": false,
+      "effective_hard_cap": "not exposed by the checked API response"
+    },
+    "gemini": {
+      "billing_enabled": false,
+      "billing_account_linked": false
+    },
+    "netlify": {
+      "production_variable_count": 58,
+      "factory_variable_count": 0
+    }
+  },
+  "catalog_source_note": "The public /dais route uses the pinned Life Manager marketing overlay per apps/landing/CANONICAL-MARKETING.md. Its duplicate Next.js DaisBody.tsx omits Factory from the local Anicca Web Apps array and is explicitly not the published source. The public /products, /dais, and /factory crawls all include Factory.",
+  "effects": {
+    "factory_actions_replayed": 0,
+    "generation_requests": 0,
+    "provider_settings_changed": 0,
+    "provider_credits_purchased": 0,
+    "instagram_oauth_or_posts": 0,
+    "stripe_checkouts_or_charges": 0,
+    "grok_postiz_owner_or_schedule_changes": 0
+  },
+  "historical_user_screenshot": {
+    "generic_error_displayed": true,
+    "failed_action": "unknown",
+    "effect_from_screenshot": "unknown; no action/run/provider receipt was present",
+    "this_run_replayed_action": false
+  },
+  "evidence_refs": [
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "apps/landing/CANONICAL-MARKETING.md",
+    "apps/landing/app/ai-monk-factory/action-readiness.mjs"
+  ],
+  "next_action": "Release the CTA readiness fix, read back the deployed Studio controls, then continue SaaS-2 at the provider-side spend-boundary and dedicated Gemini billing/cap gate. Do not top up, turn on auto-reload, or enable MONK_FACTORY_ENABLED without a bounded provider spend condition."
+}

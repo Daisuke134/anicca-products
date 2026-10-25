@@ -4,7 +4,7 @@ const { factoryStripeClient, beginFactoryCheckout, syncFactoryBilling, stripeHos
 const { jobRuntimeReady, entitled, ensureFactorySocial } = require('./_lib/monk-factory-jobs.js');
 
 const instagramReconnectCodes = new Set(['instagram_reconnect_required', 'instagram_required', 'instagram_publish_permission_required', 'instagram_insights_permission_required']);
-const publicFields = ['subscription_status', 'period_end', 'period_paid', 'cancel_at_period_end', 'billing_paused', 'auto_post', 'auto_post_intent', 'instagram_username', 'connected_at', 'avatar_image_url', 'next_post_at'];
+const publicFields = ['subscription_status', 'period_end', 'period_paid', 'cancel_at_period_end', 'billing_paused', 'auto_post', 'auto_post_intent', 'auto_post_paused', 'instagram_username', 'connected_at', 'avatar_image_url', 'next_post_at'];
 function publicAccount(account, instagramReauthRequired = false) {
   return account ? { ...Object.fromEntries(publicFields.filter(key => Object.hasOwn(account, key)).map(key => [key, account[key]])),
     avatar_ready: !!account.avatar_id, connected: !instagramReauthRequired && !!account.connected_at && !!account.instagram_account_id,
@@ -92,7 +92,7 @@ async function factoryHandler(event, dependencies = {}) {
         if (Buffer.byteLength(event.body || '') > 8192) throw new Error();
         body = JSON.parse(event.body || '{}');
       } catch { throw factoryError('invalid_request', 400); }
-      if (!body || !['checkout', 'portal', 'stop', 'generate_avatar', 'generate_video', 'connect_instagram', 'autopost'].includes(body.action)) throw factoryError('invalid_request', 400);
+      if (!body || !['checkout', 'portal', 'stop', 'pause', 'resume', 'generate_avatar', 'generate_video', 'connect_instagram', 'autopost'].includes(body.action)) throw factoryError('invalid_request', 400);
     }
     const store = dependencies.store || createFactoryStore({ env });
     const syncBilling = dependencies.syncBilling || syncFactoryBilling;
@@ -122,8 +122,8 @@ async function factoryHandler(event, dependencies = {}) {
         const generationAccess = confirmed && readiness.generation.ready && (entitled(account) || freeQuotaAvailable(usage));
         const postingAccess = confirmed && account?.connected_at && account?.instagram_account_id
           && (generationAccess || hasUnpostedFreeVideo(jobs));
-        if (postingAccess && account.auto_post_intent && !account.auto_post) {
-          await store.setAutopost(user.id);
+        if (postingAccess && account.auto_post_intent && !account.auto_post && !account.auto_post_paused) {
+          await store.startAutopostIfIntended(user.id);
           account = await store.account(user.id);
         }
         if (account && postingAccess && account.auto_post) jobs = await store.jobs(user.id);
@@ -139,10 +139,32 @@ async function factoryHandler(event, dependencies = {}) {
       return reply(200, { account: publicAccount(account), jobs: publicJobs(account ? await store.jobs(user.id) : []),
         ready: readiness.generation.ready, readiness, usage });
     }
-    if (body.action === 'stop') { await store.stop(user.id); return reply(200, { auto_post: false }); }
+    if (body.action === 'stop') {
+      const stopped = await store.stop(user.id);
+      return reply(200, stopped || { auto_post: false, auto_post_intent: false, auto_post_paused: false });
+    }
+    if (body.action === 'pause') {
+      const account = await store.account(user.id);
+      if (!account?.auto_post_intent) throw factoryError('autopost_intent_required', 409);
+      return reply(200, await store.pauseAutopost(user.id));
+    }
+    if (body.action === 'resume') {
+      const readiness = await factoryReadiness(env, dependencies.providers, store);
+      requireCapability(readiness, 'social');
+      const account = await getAccount();
+      if (!account?.auto_post_intent) throw factoryError('autopost_intent_required', 409);
+      if (!account.auto_post_paused && !account.auto_post) throw factoryError('autopost_not_paused', 409);
+      const connected = await ensureFactorySocial({ userId: user.id, store, providers: providerApi() });
+      if (!connected?.instagram_account_id || !connected?.connected_at) throw factoryError('instagram_required', 409);
+      return reply(200, await store.resumeAutopost(user.id));
+    }
     if (body.action === 'checkout') {
       const usage = store.usage ? await store.usage(user.id) : null;
       if (freeQuotaAvailable(usage)) throw factoryError('free_quota_remaining', 409);
+      if (Number.isSafeInteger(usage?.videosRemaining) && usage.videosRemaining > 0
+        && Number.isSafeInteger(usage?.attemptsRemaining) && usage.attemptsRemaining <= 0) {
+        throw factoryError('free_generation_incomplete', 409);
+      }
       const readiness = await factoryReadiness(env, dependencies.providers, store);
       requireCapability(readiness, 'checkout');
       return reply(200, await beginFactoryCheckout({ user, store, stripe: billing(), env }));
@@ -173,6 +195,7 @@ async function factoryHandler(event, dependencies = {}) {
       const account = await getAccount();
       const usage = store.usage ? await store.usage(user.id) : null;
       if (body.action === 'autopost') {
+        if (account?.auto_post_paused) throw factoryError('autopost_paused', 409);
         const jobs = await store.jobs(user.id);
         if (!entitled(account) && !freeQuotaAvailable(usage) && !hasUnpostedFreeVideo(jobs)) throw factoryError('subscription_required', 402);
         const api = providerApi();

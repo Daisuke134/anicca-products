@@ -1,0 +1,145 @@
+{
+  "schema_version": "anicca.ai-monk-factory-authenticated-live-readback.v1",
+  "run_id": "factory-authenticated-live-readback-20261025T215209Z",
+  "owner_id": "Codex-primary",
+  "occurrence_id": "factory-authenticated-live-readback-20261025T215209Z",
+  "release_sha": null,
+  "observed_at": "2026-10-25T21:53:55.182Z",
+  "phase": "authenticated_factory_and_provider_readiness_readback",
+  "loaded_argv_env": {
+    "credential_services": [
+      "netlify-anicca-existing-deployment",
+      "heygen-ai-monk-factory",
+      "gemini-ai-monk-factory",
+      "google"
+    ],
+    "browser_identity": "interactive:dais",
+    "browser_lease_acquired_and_released": true,
+    "secret_values_logged": false
+  },
+  "commands": [
+    {
+      "command": "Authenticated Factory Studio status GET using the existing page and Refresh status",
+      "observed_at": "2026-10-25T21:52:09.649Z",
+      "exit_code": 0,
+      "effect": "read_only_status_get; no Factory action POST",
+      "readback": {
+        "http_status": 200,
+        "session_present": true,
+        "ready": false,
+        "capabilities": {
+          "generation": { "ready": false, "reason": "studio_setup" },
+          "social": { "ready": false, "reason": "studio_setup" },
+          "checkout": { "ready": false, "reason": "studio_setup" }
+        },
+        "usage": {
+          "videos_remaining": 3,
+          "attempts_remaining": 6,
+          "completed_videos": 0
+        },
+        "account": {
+          "avatar_ready": false,
+          "instagram_connected": false,
+          "auto_post": false,
+          "auto_post_intent": false,
+          "auto_post_paused": false
+        },
+        "jobs": { "total": 0, "videos": 0 },
+        "ui": {
+          "message": "The studio is not enabled yet.",
+          "generate_avatar_disabled": true,
+          "generate_video_disabled": true,
+          "connect_instagram_disabled": true
+        }
+      },
+      "provider_receipt_id": null,
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Resolve the dedicated provider and runtime prerequisites before enabling generation, Instagram, or Checkout."
+    },
+    {
+      "command": "GET Netlify production environment variable names for the Anicca site",
+      "observed_at": "2026-10-25T21:52:51.680Z",
+      "exit_code": 0,
+      "effect": "read_only_observation; environment values not read or logged",
+      "http_status": 200,
+      "readback": {
+        "context": "production",
+        "environment_variable_count": 58,
+        "factory_variable_names": []
+      },
+      "provider_receipt_id": null,
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Configure dedicated Factory runtime only after providers, account permissions, and spend boundaries are verified."
+    },
+    {
+      "command": "GET https://api.heygen.com/v3/users/me using exact SSOT service heygen-ai-monk-factory",
+      "observed_at": "2026-10-25T21:53:22.432Z",
+      "exit_code": 0,
+      "effect": "read_only_observation",
+      "http_status": 200,
+      "readback": {
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0,
+        "auto_reload_enabled": false
+      },
+      "provider_receipt_id": null,
+      "error_class": null,
+      "retryable": false,
+      "next_action": "A bounded Factory wallet top-up is required before any avatar or video generation."
+    },
+    {
+      "command": "Read-only Google Cloud billing page for project anicca-monk-factory-20261024",
+      "observed_at": "2026-10-25T21:53:55.182Z",
+      "exit_code": 0,
+      "effect": "read_only_browser_observation",
+      "readback": {
+        "project_id_match": true,
+        "signed_in": true,
+        "billing_account_linked": false,
+        "visible_state": "This project has no linked billing account."
+      },
+      "provider_receipt_id": null,
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Link billing only after the dedicated project's effective usage boundary is established."
+    },
+    {
+      "command": "Read exact Credential SSOT service names for Meta/Facebook developer app credentials",
+      "observed_at": "2026-10-25T21:52:53.394Z",
+      "exit_code": 0,
+      "effect": "read_only_observation; secret values not logged",
+      "readback": { "matching_app_credential_services": [] },
+      "provider_receipt_id": null,
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Create/configure the Instagram Login developer app and grant monk.mujo the required app role and publish permission."
+    }
+  ],
+  "screenshot_action_error": "The earlier generic error remains unattributed because it had no action ID or API code. The refresh above succeeded and returned studio_setup; no action was replayed.",
+  "external_action_counts": {
+    "avatar_generation": 0,
+    "video_generation": 0,
+    "instagram_oauth": 0,
+    "instagram_posts": 0,
+    "stripe_checkouts": 0,
+    "stripe_charges": 0,
+    "factory_runtime_mutations": 0,
+    "grok_postiz_schedule_mutations": 0
+  },
+  "product_code_changed": false,
+  "production_runtime_changed": false,
+  "runtime_readiness": "not_ready",
+  "current_cursor": "FACTORY-PROVIDER-ACCESS-1",
+  "mvp_contract_unchanged": "avatar -> up to three completed full script/voice videos free -> connect Instagram -> daily creation and posting",
+  "evidence_refs": [
+    "https://aniccaai.com/ai-monk-factory",
+    "https://aniccaai.com/products/",
+    "https://developers.facebook.com/documentation/instagram-platform/create-an-instagram-app",
+    "https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login",
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md"
+  ],
+  "next_action": "Establish bounded HeyGen and Gemini billing, configure the Instagram Login app and monk.mujo role, set Factory production runtime, then run the authorized Instagram-first E2E without touching Grok Bot/Postiz ownership."
+}

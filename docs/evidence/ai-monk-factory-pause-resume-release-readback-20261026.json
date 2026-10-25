@@ -1,0 +1,132 @@
+{
+  "schema_version": "anicca.ai-monk-factory-pause-resume-release-readback.v1",
+  "run_id": "factory-pause-resume-release-20261025T210203Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "3568b9c4-f0e1-4fc1-90c0-d07047a5ccfb",
+  "release_sha": "e726b628206c265d3f119e976956a041ff899095",
+  "observed_at": "2026-10-25T21:02:03Z",
+  "phase": "main_migration_deploy_and_production_readback",
+  "loaded_argv_env": {
+    "credential_services": ["netlify-anicca-existing-deployment"],
+    "secret_values_logged": false,
+    "supabase_account": "Primary",
+    "supabase_project": "Anicca"
+  },
+  "commands": [
+    {
+      "command": "GitHub PR #775 source acceptance and merge",
+      "exit_code": 0,
+      "effect": "source_integrated_to_main",
+      "provider_receipt_id": "https://github.com/Daisuke134/anicca-products/pull/775",
+      "readback": {
+        "head_sha": "a34a94b19a0f06ada159d196b521451aa0bdc3f1",
+        "landing_ci_run": "40232832167",
+        "landing_ci_conclusion": "success",
+        "merge_sha": "e726b628206c265d3f119e976956a041ff899095",
+        "merged_at": "2026-10-25T20:57:12Z"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Factory runtime remains closed pending provider, Meta and dedicated runtime configuration."
+    },
+    {
+      "command": "Supabase Primary migration monk_factory_pause_resume on Anicca",
+      "exit_code": 0,
+      "effect": "production_schema_migration_applied",
+      "provider_receipt_id": "20261025205649",
+      "readback": {
+        "migration_name": "monk_factory_pause_resume",
+        "version": "20261025205649",
+        "column": "public.monk_factory_accounts.auto_post_paused boolean NOT NULL DEFAULT false",
+        "trigger_count": 1,
+        "functions": {
+          "monk_factory_set_autopost_paused": {"service_role_execute": true, "anon_execute": false, "authenticated_execute": false},
+          "monk_factory_start_autopost_if_intended": {"service_role_execute": true, "anon_execute": false, "authenticated_execute": false},
+          "monk_factory_set_autopost_intent": {"service_role_execute": true, "anon_execute": false, "authenticated_execute": false}
+        }
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Main release is deployed; no migration retry is required."
+    },
+    {
+      "command": "GitHub Actions Netlify deploy workflow run 40233167000",
+      "exit_code": 0,
+      "effect": "production_deployment_completed_by_main_workflow",
+      "provider_receipt_id": "6ade6e0ef7247c56e6f2e73b",
+      "readback": {
+        "workflow_conclusion": "success",
+        "head_sha": "e726b628206c265d3f119e976956a041ff899095",
+        "post_deploy_money_path_smoke": "PASS",
+        "unique_deploy_url": "https://6ade6e0ef7247c56e6f2e73b--anicca2.netlify.app"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Confirm public Factory/product listing and dedicated runtime variables."
+    },
+    {
+      "command": "GET https://api.netlify.com/api/v1/deploys/6ade6e0ef7247c56e6f2e73b",
+      "exit_code": 0,
+      "effect": "read_only_provider_observation",
+      "provider_receipt_id": "6ade6e0ef7247c56e6f2e73b",
+      "readback": {
+        "http_status": 200,
+        "state": "ready",
+        "context": "production",
+        "branch": "main",
+        "commit_ref": null,
+        "title": "Deploy from GHA prod - e726b628206c265d3f119e976956a041ff899095",
+        "published_at": "2026-10-25T21:01:40.954Z",
+        "url": "https://aniccaai.com"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Netlify production deploy is ready for the merged main SHA."
+    },
+    {
+      "command": "GET Netlify production env names for site d67537f0-21bd-477e-ac1a-323f7ec6d5cd; values omitted",
+      "exit_code": 0,
+      "effect": "read_only_provider_observation",
+      "readback": {
+        "http_status": 200,
+        "variable_count": 58,
+        "factory_variable_names": []
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Keep generation, Instagram OAuth and Factory checkout closed until dedicated runtime is configured and read back."
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/ai-monk-factory -o markdown-fit; crwl crawl https://aniccaai.com/products/ -o markdown-fit",
+      "exit_code": 0,
+      "effect": "read_only_public_content_observation",
+      "readback": {
+        "factory_page": {
+          "url": "https://aniccaai.com/ai-monk-factory",
+          "offer": "3 completed videos free, no card, no time limit, no three-day trial; USD199/month after free offer"
+        },
+        "products_listing": {
+          "url": "https://aniccaai.com/products/",
+          "factory_listed": true,
+          "section": "Software",
+          "status": "Preparing to open",
+          "generation_and_checkout_open": false
+        }
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Update the listing to available only after Factory runtime and paid access are ready."
+    }
+  ],
+  "external_actions_not_performed": [
+    "avatar or video generation",
+    "Instagram OAuth or account connection",
+    "Instagram post or metrics fetch",
+    "Stripe Checkout, subscription or charge",
+    "HeyGen credit purchase or Gemini billing change",
+    "Grok Bot/Postiz schedule or owner change"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "FACTORY-PROVIDER-ACCESS-1 is the current cursor; only after a verified spend boundary proceed to Meta app, dedicated runtime, Factory E2E, Stripe test conversion and launch."
+}

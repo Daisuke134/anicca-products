@@ -1,5 +1,5 @@
 const endpoint = '/.netlify/functions/monk-factory';
-const actions = new Set(['checkout', 'portal', 'generate_avatar', 'generate_video', 'connect_instagram', 'autopost', 'stop']);
+const actions = new Set(['checkout', 'portal', 'generate_avatar', 'generate_video', 'connect_instagram', 'autopost', 'pause', 'resume', 'stop']);
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export class FactoryClientError extends Error {
@@ -28,10 +28,10 @@ export async function factoryRequest(token, action, { idempotencyKey, signal, fe
 
 export function factoryDestination(result, action) {
   if (action === 'checkout' && result.complete === true) return null;
-  const hosts = { checkout: 'checkout.stripe.com', portal: 'billing.stripe.com', connect_instagram: 'www.facebook.com' };
+  const hosts = { checkout: 'checkout.stripe.com', portal: 'billing.stripe.com', connect_instagram: 'www.instagram.com' };
   let url;
   try { url = new URL(result.url); } catch { throw new FactoryClientError('invalid_destination'); }
   if (!hosts[action] || url.protocol !== 'https:' || url.hostname !== hosts[action] || url.username || url.password || url.port || url.hash
-    || (action === 'connect_instagram' && url.pathname !== '/dialog/oauth')) throw new FactoryClientError('invalid_destination');
+    || (action === 'connect_instagram' && url.pathname !== '/oauth/authorize')) throw new FactoryClientError('invalid_destination');
   return url.href;
 }

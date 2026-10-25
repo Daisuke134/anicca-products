@@ -43,15 +43,27 @@ test('dashboard uses GET and cancellation does not inherit a generation occurren
   assert.equal(calls[1][1].headers['Idempotency-Key'], undefined);
 });
 
+test('pause and resume are explicit authenticated controls without a generation occurrence', async () => {
+  const calls = [];
+  const fetchImpl = async (...args) => { calls.push(args); return Response.json({ auto_post: false }); };
+  await factoryRequest('fixture', 'pause', { idempotencyKey: occurrence, fetchImpl });
+  await factoryRequest('fixture', 'resume', { idempotencyKey: occurrence, fetchImpl });
+  assert.deepEqual(calls.map(([, init]) => JSON.parse(init.body)), [{ action: 'pause' }, { action: 'resume' }]);
+  for (const [, init] of calls) {
+    assert.equal(init.method, 'POST');
+    assert.equal(init.headers['Idempotency-Key'], undefined);
+  }
+});
+
 test('each redirect is limited to its own HTTPS provider and rejects credentials, ports and lookalikes', () => {
   assert.equal(factoryDestination({ url: 'https://checkout.stripe.com/c/pay/fixture' }, 'checkout'), 'https://checkout.stripe.com/c/pay/fixture');
   assert.equal(factoryDestination({ url: 'https://billing.stripe.com/p/session/fixture' }, 'portal'), 'https://billing.stripe.com/p/session/fixture');
-  assert.equal(factoryDestination({ url: 'https://www.facebook.com/dialog/oauth?client_id=fixture' }, 'connect_instagram'), 'https://www.facebook.com/dialog/oauth?client_id=fixture');
+  assert.equal(factoryDestination({ url: 'https://www.instagram.com/oauth/authorize?client_id=fixture' }, 'connect_instagram'), 'https://www.instagram.com/oauth/authorize?client_id=fixture');
   for (const value of ['http://checkout.stripe.com/c/pay/fixture', 'https://checkout.stripe.com.evil.test/', 'https://user@checkout.stripe.com/', 'https://checkout.stripe.com:444/', 'https://checkout.stripe.com/#fixture', 'https://billing.stripe.com/']) {
     assert.throws(() => factoryDestination({ url: value }, 'checkout'), { code: 'invalid_destination' });
   }
   assert.throws(() => factoryDestination({ url: 'https://checkout.stripe.com/' }, 'portal'), { code: 'invalid_destination' });
-  for (const value of ['https://app.upload-post.com/connect?token=fixture', 'https://facebook.com/dialog/oauth', 'https://www.facebook.com.evil.test/dialog/oauth']) {
+  for (const value of ['https://app.upload-post.com/connect?token=fixture', 'https://www.facebook.com/dialog/oauth', 'https://www.instagram.com/dialog/oauth', 'https://instagram.com/oauth/authorize', 'https://www.instagram.com.evil.test/oauth/authorize']) {
     assert.throws(() => factoryDestination({ url: value }, 'connect_instagram'), { code: 'invalid_destination' });
   }
 });

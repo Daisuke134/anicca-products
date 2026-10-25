@@ -27,7 +27,7 @@ function account(n, status = 'trialing') {
 before(() => {
   if (!socket) return;
   assert.ok(fs.existsSync(path.resolve(__dirname, '../ai-monk-index/index.mjs')), 'Build the canonical research input first: node packages/ai-monk-index/scripts/build.mjs --netlify');
-  sql('CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN; CREATE ROLE service_role NOLOGIN BYPASSRLS; CREATE SCHEMA auth; CREATE TABLE auth.users(id uuid PRIMARY KEY); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT nullif(current_setting(\'request.jwt.claim.sub\',true),\'\')::uuid $$; GRANT USAGE ON SCHEMA auth TO authenticated; GRANT EXECUTE ON FUNCTION auth.uid() TO authenticated; INSERT INTO auth.users SELECT (\'00000000-0000-4000-8000-\'||lpad(n::text,12,\'0\'))::uuid FROM generate_series(1,30) n;');
+  sql('CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN; CREATE ROLE service_role NOLOGIN BYPASSRLS; CREATE SCHEMA auth; CREATE TABLE auth.users(id uuid PRIMARY KEY); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT nullif(current_setting(\'request.jwt.claim.sub\',true),\'\')::uuid $$; GRANT USAGE ON SCHEMA auth TO authenticated; GRANT EXECUTE ON FUNCTION auth.uid() TO authenticated; INSERT INTO auth.users SELECT (\'00000000-0000-4000-8000-\'||lpad(n::text,12,\'0\'))::uuid FROM generate_series(1,40) n;');
   const dir = path.resolve(__dirname, '../../../../supabase/migrations');
   const migrations = fs.readdirSync(dir).filter(x => /_monk_factory(?:_[a-z]+)*\.sql$/.test(x)).sort();
   for (const migration of migrations) execFileSync('psql', [...args(), '-f', path.join(dir, migration)], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
@@ -77,11 +77,11 @@ test('trial reservation is idempotent, bounded by three attempts, and keeps unkn
   assert.equal(sql('SELECT sum(reserved_micro_usd) FROM monk_factory_jobs WHERE user_id=\'' + uid(1) + '\''), '4180000');
 });
 
-test('a new account gets three lifetime free video attempts without reserving social capacity', options, () => {
+test('a new account gets three lifetime completed videos without reserving social capacity', options, () => {
   const userId = uid(15);
   const initial = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_usage(\'' + userId + '\')'));
   assert.equal(initial.videosRemaining, 3);
-  assert.equal(initial.attemptsRemaining, 3);
+  assert.equal(initial.attemptsRemaining, 6);
   assert.equal(initial.maxSeconds, 20);
   assert.equal(initial.periodEnd, null);
   assert.equal(sql('SELECT profile_reserved_at IS NULL FROM monk_factory_accounts WHERE user_id=\'' + userId + '\''), 't');
@@ -97,11 +97,53 @@ test('a new account gets three lifetime free video attempts without reserving so
   }
   const after = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_usage(\'' + userId + '\')'));
   assert.equal(after.videosRemaining, 0);
-  assert.equal(after.attemptsRemaining, 0);
+  assert.equal(after.attemptsRemaining, 3);
   assert.equal(sql('SELECT sum(reserved_micro_usd) FROM monk_factory_jobs WHERE user_id=\'' + userId + '\''), '4180000');
   const checkout = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_checkout_context(\'' + userId + '\',\'price_fixture\',\'fixture@example.com\')'));
   assert.equal(checkout.checkout_trial, null);
   assert.equal(checkout.profile_reserved_at, null);
+});
+
+test('failed free attempts preserve completed-video quota while six attempts and their reservation stay bounded', options, () => {
+  const userId = uid(31);
+  sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')');
+  sql(reserve(userId, 'free-avatar', 'avatar'));
+  const first = JSON.parse(sql(reserve(userId, 'free-attempt-1')));
+  sql('UPDATE monk_factory_jobs SET status=\'failed\',stage=\'failed\',error_class=\'fixture_failure\' WHERE id=' + quoted(first.id));
+  let usage = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')'));
+  assert.equal(usage.videosRemaining, 3, 'a failed attempt does not consume a completed video');
+  assert.equal(usage.attemptsRemaining, 5);
+
+  for (let n = 2; n <= 4; n++) {
+    const job = JSON.parse(sql(reserve(userId, 'free-attempt-' + n)));
+    const completed = n <= 4;
+    sql('UPDATE monk_factory_jobs SET status=\'' + (completed ? 'completed' : 'failed') + '\',stage=\'' + (completed ? 'completed' : 'failed')
+      + '\',video_url=' + (completed ? quoted('https://fixture.example/' + n + '.mp4') : 'NULL')
+      + ',video_completed_at=' + (completed ? 'now()' : 'NULL') + ' WHERE id=' + quoted(job.id));
+  }
+  usage = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')'));
+  assert.equal(usage.videosRemaining, 0);
+  assert.equal(usage.attemptsRemaining, 2);
+  assert.equal(sql('SELECT sum(reserved_micro_usd) FROM monk_factory_jobs WHERE user_id=' + quoted(userId)), '5040000');
+  assert.throws(() => sql(reserve(userId, 'free-attempt-5')), /quota_exhausted/);
+  const checkout = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_checkout_context(' + quoted(userId) + ',\'price_fixture\',\'fixture@example.com\')'));
+  assert.equal(checkout.checkout_trial, null);
+});
+
+test('the attempt safety cap cannot start paid Checkout before three completed free videos', options, () => {
+  const userId = uid(32);
+  sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')');
+  for (let n = 1; n <= 6; n++) {
+    const job = JSON.parse(sql(reserve(userId, 'partial-free-' + n)));
+    const completed = n <= 2;
+    sql('UPDATE monk_factory_jobs SET status=\'' + (completed ? 'completed' : 'failed') + '\',stage=\'' + (completed ? 'completed' : 'failed')
+      + '\',video_url=' + (completed ? quoted('https://fixture.example/partial-' + n + '.mp4') : 'NULL')
+      + ',video_completed_at=' + (completed ? 'now()' : 'NULL') + ' WHERE id=' + quoted(job.id));
+  }
+  const usage = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')'));
+  assert.equal(usage.videosRemaining, 1);
+  assert.equal(usage.attemptsRemaining, 0);
+  assert.throws(() => sql('SET ROLE service_role; SELECT monk_factory_checkout_context(' + quoted(userId) + ',\'price_fixture\',\'fixture@example.com\')'), /free_quota_remaining/);
 });
 
 test('a canceled legacy trial user still gets the new lifetime free-video allowance', options, () => {
@@ -110,7 +152,7 @@ test('a canceled legacy trial user still gets the new lifetime free-video allowa
   sql('UPDATE monk_factory_accounts SET trial_used=true WHERE user_id=' + quoted(userId));
   const usage = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')'));
   assert.equal(usage.videosRemaining, 3);
-  assert.equal(usage.attemptsRemaining, 3);
+  assert.equal(usage.attemptsRemaining, 6);
   const video = JSON.parse(sql(reserve(userId, 'legacy-user-free-video')));
   assert.equal(video.period_key, 'free:lifetime');
 });
@@ -130,7 +172,7 @@ test('accounts without a current paid or trial entitlement get the lifetime free
   assert.equal(sql('SET ROLE service_role; SELECT monk_factory_free_eligible(' + quoted(uid(24)) + ')'), 'f');
 });
 
-test('parallel free requests cannot reserve more than three lifetime attempts', options, async () => {
+test('parallel free requests cannot reserve more than three in-flight lifetime videos', options, async () => {
   const userId = uid(16);
   const run = promisify(execFile);
   const results = await Promise.allSettled(Array.from({ length: 6 }, (_, n) => run('psql', [...args(), '-c', reserve(userId, 'free-parallel-' + n)], { encoding: 'utf8' })));
@@ -163,6 +205,7 @@ test('row security hides other users and prevents clients changing billing or in
   assert.throws(() => sql('SET ROLE anon; SELECT monk_factory_reserve_profile(\'' + uid(3) + '\')'), /permission denied/);
   assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_reserve_job(\'' + uid(1) + '\',\'forged\',\'video\')'), /permission denied/);
   assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_set_autopost_intent(\'' + uid(1) + '\', true)'), /permission denied/);
+  assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_start_autopost_if_intended(\'' + uid(1) + '\')'), /permission denied/);
 });
 
 test('profile capacity includes trial and retained profiles before another checkout can start', options, () => {
@@ -202,10 +245,7 @@ test('budget and incomplete or expired subscription boundaries stop another rese
 
 test('parallel checkout requests retain one immutable context and stale billing responses cannot overwrite a newer lease', options, async () => {
   const run = promisify(execFile);
-  for (let n = 0; n < 3; n++) {
-    const consumed = JSON.parse(sql(reserve(uid(5), 'checkout-free-consumed-' + n)));
-    sql('UPDATE monk_factory_jobs SET status=\'failed\' WHERE id=\'' + consumed.id + '\'');
-  }
+  completeFreeVideos(uid(5));
   const checkout = 'SET ROLE service_role; SELECT monk_factory_checkout_context(\'' + uid(5) + '\',\'price_fixture\',\'fixture@example.com\')';
   const requests = await Promise.all(Array.from({ length: 8 }, () => run('psql', [...args(), '-c', checkout], { encoding: 'utf8' })));
   const contexts = requests.map(x => JSON.parse(x.stdout.trim()));
@@ -290,7 +330,7 @@ test('a connected account drains completed free videos at zero quota and keeps c
   }
   const usage = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_usage(' + "'" + userId + "'" + ')'));
   assert.equal(usage.videosRemaining, 0);
-  assert.equal(usage.attemptsRemaining, 0);
+  assert.equal(usage.attemptsRemaining, 3);
 
   const intent = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost_intent(' + "'" + userId + "'" + ',true)'));
   assert.equal(intent.auto_post_intent, true);
@@ -319,7 +359,49 @@ test('a connected account drains completed free videos at zero quota and keeps c
   assert.equal(sql('SELECT auto_post_intent FROM monk_factory_accounts WHERE user_id=\'' + userId + '\''), 't');
 });
 
-test('a connected free account starts the API schedule without an avatar and stops at three reserved videos', options, () => {
+test('Pause preserves Instagram consent and connection, blocks the daily scheduler, and Resume rechecks fresh access', options, () => {
+  const userId = uid(38);
+  sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')');
+  sql('UPDATE monk_factory_accounts SET avatar_id=\'avatar-pause-fixture\',social_profile=' + quoted('factory_' + userId)
+    + ',instagram_account_id=\'opaque-pause-fixture\',instagram_username=\'monk_fixture\',connected_at=now(),social_checked_at=now(),next_post_at=now()-interval \'1 second\' WHERE user_id=' + quoted(userId));
+  sql('SET ROLE service_role; SELECT monk_factory_set_autopost_intent(' + quoted(userId) + ',true)');
+  assert.equal(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost(' + quoted(userId) + ')')).auto_post, true);
+
+  const paused = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost_paused(' + quoted(userId) + ',true)'));
+  assert.deepEqual(paused, { auto_post: false, auto_post_intent: true, auto_post_paused: true });
+  assert.equal(sql('SELECT instagram_account_id FROM monk_factory_accounts WHERE user_id=' + quoted(userId)), 'opaque-pause-fixture');
+  assert.equal(sql('SELECT social_profile FROM monk_factory_accounts WHERE user_id=' + quoted(userId)), 'factory_' + userId);
+  assert.equal(sql('SELECT count(*) FROM monk_factory_jobs WHERE user_id=' + quoted(userId)), '0');
+  assert.deepEqual(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_start_autopost_if_intended(' + quoted(userId) + ')')), paused,
+    'a stale OAuth/status readback cannot resume an explicit Pause');
+  assert.equal(sql('SET ROLE service_role; SELECT coalesce(monk_factory_schedule_auto(' + quoted(userId) + ')::text,\'null\')'), 'null');
+
+  sql('UPDATE monk_factory_accounts SET social_checked_at=now()-interval \'2 minutes\' WHERE user_id=' + quoted(userId));
+  assert.throws(() => sql('SET ROLE service_role; SELECT monk_factory_set_autopost_paused(' + quoted(userId) + ',false)'), /instagram_required/);
+  assert.equal(sql('SELECT auto_post_paused FROM monk_factory_accounts WHERE user_id=' + quoted(userId)), 't');
+  sql('UPDATE monk_factory_accounts SET social_checked_at=now(),next_post_at=now()-interval \'1 second\' WHERE user_id=' + quoted(userId));
+  const resumed = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost_paused(' + quoted(userId) + ',false)'));
+  assert.deepEqual(resumed, { auto_post: true, auto_post_intent: true, auto_post_paused: false });
+  const job = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_schedule_auto(' + quoted(userId) + ')'));
+  assert.equal(job.origin, 'auto');
+  sql('UPDATE monk_factory_accounts SET auto_post=false,auto_post_intent=false,auto_post_paused=false WHERE user_id=' + quoted(userId));
+  assert.deepEqual({
+    auto_post: sql('SELECT auto_post FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+    auto_post_intent: sql('SELECT auto_post_intent FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+    auto_post_paused: sql('SELECT auto_post_paused FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+  }, { auto_post: 'f', auto_post_intent: 'f', auto_post_paused: 'f' });
+  assert.deepEqual(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_start_autopost_if_intended(' + quoted(userId) + ')')),
+    { auto_post: false, auto_post_intent: false, auto_post_paused: false }, 'a stale OAuth/status readback cannot undo Stop');
+  sql('UPDATE monk_factory_accounts SET auto_post=false,auto_post_intent=true,auto_post_paused=true WHERE user_id=' + quoted(userId));
+  sql('SET ROLE service_role; SELECT monk_factory_set_autopost_intent(' + quoted(userId) + ',false)');
+  assert.deepEqual({
+    auto_post: sql('SELECT auto_post FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+    auto_post_intent: sql('SELECT auto_post_intent FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+    auto_post_paused: sql('SELECT auto_post_paused FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+  }, { auto_post: 'f', auto_post_intent: 'f', auto_post_paused: 'f' }, 'clearing consent also clears Pause');
+});
+
+test('a connected free account retries failed daily videos up to six attempts without an avatar', options, () => {
   const userId = uid(17);
   sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')');
   sql('SET ROLE service_role; SELECT monk_factory_reserve_profile(' + quoted(userId) + ')');
@@ -338,7 +420,7 @@ test('a connected free account starts the API schedule without an avatar and sto
   assert.equal(schedule(), null, 'the scheduler waits for its default avatar');
   sql('UPDATE monk_factory_accounts SET avatar_id=\'avatar17\' WHERE user_id=' + quoted(userId));
   let first;
-  for (let n = 1; n <= 3; n++) {
+  for (let n = 1; n <= 6; n++) {
     const job = schedule();
     assert.equal(job.period_key, 'free:lifetime');
     assert.equal(job.max_seconds, 20);
@@ -358,7 +440,7 @@ test('a connected free account starts the API schedule without an avatar and sto
   assert.equal(usage.attemptsRemaining, 0);
   assert.equal(schedule(), null);
   assert.equal(sql('SELECT auto_post FROM monk_factory_accounts WHERE user_id=' + quoted(userId)), 'f');
-  assert.equal(sql('SELECT count(*) FROM monk_factory_jobs WHERE user_id=' + quoted(userId) + ' AND kind=\'video\''), '3');
+  assert.equal(sql('SELECT count(*) FROM monk_factory_jobs WHERE user_id=' + quoted(userId) + ' AND kind=\'video\''), '6');
 });
 
 test('server usage counts unknown reservations and hides internal account and job columns from clients', options, () => {
@@ -371,6 +453,14 @@ test('server usage counts unknown reservations and hides internal account and jo
 });
 
 const quoted = value => "'" + String(value).replaceAll("'", "''") + "'";
+function completeFreeVideos(userId, count = 3) {
+  for (let n = 1; n <= count; n++) {
+    const occurrence = 'fixture-free-complete-' + userId.slice(-4) + '-' + n;
+    sql('INSERT INTO monk_factory_jobs(user_id,occurrence_id,kind,period_key,status,stage,max_seconds,reserved_micro_usd,video_url,video_completed_at) VALUES ('
+      + [userId, occurrence, 'video', 'free:lifetime', 'completed', 'completed'].map(quoted).join(',')
+      + ',20,0,' + quoted('https://fixture.example/completed-' + n + '.mp4') + ',now())');
+  }
+}
 function jobStore() {
   return {
     account: async id => JSON.parse(sql('SELECT to_jsonb(a) FROM monk_factory_accounts a WHERE user_id=' + quoted(id))),
@@ -391,7 +481,7 @@ function billingStore() {
     reserveProfile: async id => rpc('monk_factory_reserve_profile', [id]),
     checkoutContext: async (id, price, email) => {
       const usage = rpc('monk_factory_usage', [id]);
-      if (usage?.periodEnd === null && Number.isSafeInteger(usage?.attemptsRemaining)) {
+      if (usage?.periodEnd === null && Number(usage?.videosRemaining) > 0 && Number.isSafeInteger(usage?.attemptsRemaining)) {
         for (let n = 0; n < usage.attemptsRemaining; n++) {
           const job = JSON.parse(sql(reserve(id, 'checkout-free-consumed-' + n)));
           sql('UPDATE monk_factory_jobs SET status=\'failed\' WHERE id=' + quoted(job.id));
@@ -658,6 +748,7 @@ test('twenty-five canceled unconnected trials free capacity while retaining life
   const stripe = { subscriptions: { retrieve: async id => structuredClone(subscriptions.get(id)) } };
   for (let n=1;n<=25;n++) {
     await store.reserveProfile(uid(n));
+    completeFreeVideos(uid(n));
     const context = await store.checkoutContext(uid(n), capacityPrice.id, 'fixture@example.com');
     const sub = capacitySubscription(context); subscriptions.set(sub.id, sub);
     await syncFactoryBilling({ userId: uid(n), subscriptionId: sub.id, store, stripe, env: billingEnv });
@@ -686,6 +777,7 @@ test('a post-free checkout creates no Stripe trial and does not reserve social c
   const { syncFactoryBilling, beginFactoryCheckout } = require('../monk-factory-billing.js');
   const store = billingStore();
   await store.reserveProfile(uid(27));
+  completeFreeVideos(uid(27));
   const context = await store.checkoutContext(uid(27), capacityPrice.id, 'fixture@example.com');
   const sub = capacitySubscription(context, 'active');
   sub.trial_start = null; sub.trial_end = null;
@@ -720,6 +812,7 @@ test('terminal billing retains real profiles, unknown social POSTs and a checkou
   const store = billingStore();
   for (const n of [28,29,30]) {
     await store.reserveProfile(uid(n));
+    completeFreeVideos(uid(n));
     const context = await store.checkoutContext(uid(n), capacityPrice.id, 'fixture@example.com');
     const sub = capacitySubscription(context);
     const stripe = { subscriptions: { retrieve: async () => structuredClone(sub) } };

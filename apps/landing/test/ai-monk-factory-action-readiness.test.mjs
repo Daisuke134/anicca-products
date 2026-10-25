@@ -16,6 +16,33 @@ test('a blocked CTA renders its reason as an inline status beside that action', 
   assert.equal(renderToStaticMarkup(React.createElement(FactoryActionNotice, { notice, action: 'connect_instagram' })), '');
 });
 
+test('unready action capabilities disable their CTAs while Stop remains available', () => {
+  assert.equal(typeof readiness.factoryActionReady, 'function', 'buttons share the action readiness contract');
+
+  const unavailable = {
+    generation: { ready: false, reason: 'studio_setup' },
+    social: { ready: false, reason: 'social_setup' },
+    checkout: { ready: false, reason: 'billing_setup' },
+  };
+  for (const action of ['generate_avatar', 'generate_video', 'connect_instagram', 'autopost', 'checkout']) {
+    assert.equal(readiness.factoryActionReady(action, unavailable), false, `${action} must be disabled`);
+  }
+  assert.equal(readiness.factoryActionReady('pause', unavailable), true, 'Pause stays available without provider readiness');
+  assert.equal(readiness.factoryActionReady('resume', unavailable), false, 'Resume requires Instagram readiness');
+  assert.equal(readiness.factoryActionReady('stop', unavailable), true, 'Stop remains available');
+
+  const available = {
+    generation: { ready: true },
+    social: { ready: true },
+    checkout: { ready: true },
+  };
+  for (const action of ['generate_avatar', 'generate_video', 'connect_instagram', 'autopost', 'checkout']) {
+    assert.equal(readiness.factoryActionReady(action, available), true, `${action} is enabled when ready`);
+  }
+  assert.equal(readiness.factoryActionReady('pause', available), true);
+  assert.equal(readiness.factoryActionReady('resume', available), true);
+});
+
 test('a blocked generation CTA explains the blocker without sending an API action', () => {
   assert.equal(typeof readiness.requestFactoryAction, 'function', 'readiness action gate is implemented');
 
@@ -44,7 +71,7 @@ test('a ready generation CTA dispatches once', () => {
     false,
     action => actions.push(action),
     message => notices.push(message),
-    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3 },
+    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 6 },
   );
 
   assert.equal(result, true);
@@ -62,7 +89,7 @@ test('a blocked video CTA identifies the missing avatar before dispatch', () => 
     false,
     () => { sent += 1; },
     message => notices.push(message),
-    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3 },
+    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 6 },
   );
 
   assert.equal(result, false);
@@ -87,15 +114,48 @@ test('Stop remains actionable when generation readiness is false', () => {
   assert.deepEqual(notices, []);
 });
 
+test('Pause remains actionable without readiness while Resume is explicitly gated by Instagram readiness', () => {
+  let sent = 0;
+  const notices = [];
+  assert.equal(readiness.requestFactoryAction('pause', { social: { ready: false } }, true,
+    action => { assert.equal(action, 'pause'); sent += 1; }, message => notices.push(message)), true);
+  assert.equal(readiness.requestFactoryAction('resume', { social: { ready: false, reason: 'social_setup' } }, true,
+    () => { sent += 1; }, message => notices.push(message)), false);
+  assert.equal(sent, 1);
+  assert.match(notices[0], /Instagram publishing is not configured yet/i);
+});
+
 test('unknown quota is not classified as exhausted', () => {
   assert.equal(typeof readiness.factoryQuotaState, 'function', 'quota state distinguishes unknown from exhausted');
 
   assert.deepEqual(readiness.factoryQuotaState({ videosRemaining: null, attemptsRemaining: null }), {
-    known: false, available: false, exhausted: false,
+    known: false, available: false, exhausted: false, attemptsExhausted: false,
   });
   assert.deepEqual(readiness.factoryQuotaState({ videosRemaining: 0, attemptsRemaining: 0 }), {
-    known: true, available: false, exhausted: true,
+    known: true, available: false, exhausted: true, attemptsExhausted: true,
   });
+  assert.deepEqual(readiness.factoryQuotaState({ videosRemaining: 1, attemptsRemaining: 0, completedVideos: 2 }), {
+    known: true, available: false, exhausted: false, attemptsExhausted: true,
+  });
+});
+
+test('retry exhaustion does not claim all free videos were delivered or start Checkout', () => {
+  let sent = 0;
+  const notices = [];
+  const result = readiness.requestFactoryAction(
+    'checkout',
+    { checkout: { ready: true } },
+    true,
+    () => { sent += 1; },
+    message => notices.push(message),
+    { quotaKnown: true, videosRemaining: 1, attemptsRemaining: 0, completedVideos: 2 },
+  );
+
+  assert.equal(result, false);
+  assert.equal(sent, 0);
+  assert.match(notices[0], /after 2 of 3 completed free videos/i);
+  assert.match(notices[0], /No charge will start/i);
+  assert.match(notices[0], /No request was sent/i);
 });
 
 test('Instagram connection and autopost need social readiness when finished videos are ready to publish', () => {
@@ -108,7 +168,7 @@ test('Instagram connection and autopost need social readiness when finished vide
       true,
       () => { sent += 1; },
       message => notices.push(message),
-      { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3, completedVideoReady: true },
+    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 6, completedVideoReady: true },
     );
 
     assert.equal(result, true, `${action} may proceed with completed videos when social is ready`);
@@ -181,7 +241,7 @@ test('an exhausted free allowance blocks new generation actions without consumin
 
   assert.equal(result, false);
   assert.equal(sent, 0);
-  assert.match(notices[0], /used your three free videos/i);
+  assert.match(notices[0], /all three completed free videos/i);
 });
 
 test('an existing pending video request can still be recovered after quota exhaustion', () => {
@@ -199,4 +259,10 @@ test('an existing pending video request can still be recovered after quota exhau
   assert.equal(result, true);
   assert.equal(sent, 1);
   assert.deepEqual(notices, []);
+});
+
+test('invalid Factory session tells the creator to sign in again instead of showing a generic error', () => {
+  assert.equal(typeof readiness.factoryErrorMessage, 'function', 'Factory API errors map to safe user guidance');
+  assert.equal(readiness.factoryErrorMessage({ code: 'invalid_session' }, {}), 'Please sign in again to continue.');
+  assert.equal(readiness.factoryErrorMessage({ code: 'future_unknown_code' }, {}), 'This action could not finish. Refresh to check its status before trying again.');
 });

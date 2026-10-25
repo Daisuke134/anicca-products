@@ -172,6 +172,9 @@ test('a script is generated once from DB playbooks and returns only sources supp
     assert.ok(body.input.includes('practice_1'));
     assert.ok(body.input.includes('20'));
     assert.ok(body.system_instruction.includes('untrusted research data'));
+    assert.ok(body.system_instruction.includes('The Art of AI Monks'));
+    assert.ok(body.system_instruction.includes('maxSeconds-6'));
+    assert.ok(body.system_instruction.includes('server appends the fictional/AI disclosure'));
     return json({ id: 'interaction_script_1', model: body.model, status: 'completed', steps: [{ type: 'thought', summary: [{ type: 'text', text: 'not a script' }] }, { type: 'model_output', content: [{ type: 'text', text: JSON.stringify({ script: 'Before the next task, feel your feet on the floor and take one slow breath.', caption: 'One small pause. AI-generated fictional monk.', source_ids: ['practice_1'] }) }] }], usage: { total_input_tokens: 300, total_output_tokens: 50, total_thought_tokens: 20, total_tokens: 370 } });
   } });
   const result = await providers.createScript({ playbooks, maxSeconds: 20, requestId });

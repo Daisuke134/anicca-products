@@ -1,0 +1,87 @@
+{
+  "schema_version": "anicca.ai-monk-factory-cta-release-readback.v1",
+  "run_id": "ai-monk-factory-cta-release-readback-20261025T155611Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-cta-pr-main-deploy-and-public-catalog-readback-20261025T155611Z",
+  "release_sha": "a02cddb98f648abc34f1d44072de1ac8bd47b9a0",
+  "release_readback": {
+    "pull_request": {
+      "number": 760,
+      "url": "https://github.com/Daisuke134/anicca-products/pull/760",
+      "head_sha": "aebc354f234f0e4bba091db238e11ad80232c14b",
+      "merged_at": "2026-10-25T15:50:17Z",
+      "merge_sha": "a02cddb98f648abc34f1d44072de1ac8bd47b9a0"
+    },
+    "ci": {
+      "run_id": "40208565137",
+      "conclusion": "success",
+      "focused_action_readiness_tests": "13/13 passed"
+    },
+    "production_deploy_workflow": {
+      "run_id": "40208828000",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40208828000",
+      "branch": "main",
+      "head_sha": "a02cddb98f648abc34f1d44072de1ac8bd47b9a0",
+      "conclusion": "success",
+      "completed_at": "2026-10-25T15:55:05Z",
+      "post_deploy_money_path_smoke": "success",
+      "netlify_provider_deploy_id": "not captured from workflow readback"
+    }
+  },
+  "observed_at_window_utc": {
+    "start": "2026-10-25T15:56:11Z",
+    "end": "2026-10-25T15:56:31Z"
+  },
+  "phase": "production_release_and_public_catalog_readback",
+  "effect": "read_only_public_crawls; no Factory action, runtime, billing, OAuth, or posting setting was changed",
+  "commands": [
+    {
+      "command": "crwl crawl https://aniccaai.com/products -o markdown-fit",
+      "exit_code": 0,
+      "readback": {
+        "factory_listed": true,
+        "category": "Software",
+        "status": "Preparing to open",
+        "free_video_offer": "up to 3 completed videos; no card; no time-limited trial",
+        "generation_and_checkout_open": false
+      }
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/dais -o markdown-fit",
+      "exit_code": 0,
+      "readback": {
+        "factory_listed": true,
+        "category": "Web products",
+        "status": "preparing to open"
+      }
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/factory -o markdown-fit",
+      "exit_code": 0,
+      "readback": {
+        "factory_listed": true,
+        "category": "Anicca Web Apps",
+        "status": "Preparing · $199/mo"
+      }
+    }
+  ],
+  "source_note": "The public /dais route uses the pinned Life Manager marketing overlay. The duplicate local DaisBody.tsx is not the published source and omits the Factory entry.",
+  "post_deploy_studio_readback": {
+    "authenticated_dom_and_button_state": "not captured",
+    "netlify_factory_environment_readback": "not repeated after deploy; last GET at 2026-10-25T15:36Z showed 0 MONK_FACTORY_* variables"
+  },
+  "effects": {
+    "avatar_or_video_generation": 0,
+    "instagram_oauth_or_post": 0,
+    "stripe_checkout_or_charge": 0,
+    "factory_runtime_or_provider_setting_changes": 0,
+    "grok_postiz_owner_or_schedule_changes": 0
+  },
+  "evidence_refs": [
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "apps/landing/CANONICAL-MARKETING.md",
+    "apps/landing/app/ai-monk-factory/action-readiness.mjs"
+  ],
+  "next_action": "Continue with provider-side spend boundary and dedicated Gemini billing/cap. Keep Factory generation, Instagram connection, and checkout disabled until runtime readiness is established."
+}

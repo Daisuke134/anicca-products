@@ -1,0 +1,113 @@
+{
+  "schema_version": "anicca.ai-monk-factory-provider-spend-boundary-research.v1",
+  "run_id": "ai-monk-factory-provider-spend-boundary-research-20261025T160147Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "heygen-gemini-public-cost-and-cap-doc-review-20261025T160147Z",
+  "observed_at_window_utc": {
+    "start": "2026-10-25T15:56:31Z",
+    "end": "2026-10-25T16:01:47Z"
+  },
+  "phase": "provider_spend_boundary_public_documentation_review",
+  "effect": "public_documentation_and_source_review_only; no provider login, billing link, purchase, runtime configuration, generation, or post",
+  "sources": [
+    {
+      "url": "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+      "source_type": "official_HeyGen_Help_Center",
+      "last_updated": "2026-10-19",
+      "facts": {
+        "api_billing_model": "Pay-As-You-Go API credits; buyer chooses credit amount",
+        "usage_basis": "USD amount based on generation type and actual generated seconds",
+        "avatar_iv_photo_avatar_usd_per_minute": 2.31,
+        "starfish_tts_usd_per_minute": 0.12,
+        "api_free_credits_since_2026_02": false,
+        "payg_credit_expiry_months": 12
+      }
+    },
+    {
+      "url": "https://developers.heygen.com/docs/usage-limits",
+      "source_type": "official_HeyGen_Developer_Documentation",
+      "facts": {
+        "payg_concurrent_workflow_limit": 10,
+        "limit_type": "concurrency and endpoint rate limits; not a monetary spend cap",
+        "daily_hard_spend_cap_documented": false
+      }
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/billing",
+      "source_type": "official_Google_AI_Developer_Documentation",
+      "last_updated": "2026-09-28",
+      "facts": {
+        "project_monthly_spend_cap": "available in AI Studio",
+        "prepay_zero_balance_effect": "Gemini API keys using the billing account stop",
+        "prepay_minimum_usd": 5,
+        "cutoff_processing_delay_minutes": 10,
+        "long_running_tasks_can_exceed_project_cap": true,
+        "monthly_auto_charge_limit_covers_manual_credit_purchases": false,
+        "prepay_cutoff_can_create_negative_balance": true
+      }
+    },
+    {
+      "url": "https://docs.cloud.google.com/billing/docs/how-to/budgets-spend-caps",
+      "source_type": "official_Google_Cloud_Billing_Documentation",
+      "last_updated": "2026-10-22",
+      "facts": {
+        "gemini_api_is_eligible_service": true,
+        "scope": "one project and one eligible service per spend cap budget",
+        "enforcement": "blocks new usage when enforced",
+        "in_flight_usage_completes": true,
+        "latency_overage_is_billed": true
+      }
+    }
+  ],
+  "factory_source_readback": {
+    "files": [
+      "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+      "apps/landing/netlify/functions/_lib/monk-factory.js"
+    ],
+    "video_provider": "HeyGen Avatar IV, 1080p, 9:16",
+    "voice_provider": "HeyGen Starfish TTS",
+    "image_and_script_provider": "Gemini gemini-3.1-flash-lite-image for image; configured Gemini model for scripts",
+    "max_video_seconds": 45,
+    "paid_video_quota_per_period": 30,
+    "internal_image_reservation_usd": 0.14,
+    "internal_script_reservation_usd_per_video": 0.005,
+    "photo_avatar_creation_price": "not established by the reviewed official pricing table"
+  },
+  "modeled_cost_usd": {
+    "assumption": "Free outputs max 20 seconds and paid outputs max 45 seconds; current documented HeyGen API rates and source-internal Gemini reservations; excludes HeyGen photo avatar creation, extra retries, Stripe, storage, hosting, tax, and other overhead",
+    "heygen_video_usd_per_max_length_video": 1.7325,
+    "heygen_starfish_voice_usd_per_max_length_video": 0.09,
+    "gemini_script_reservation_usd_per_video": 0.005,
+    "total_per_max_length_video_before_one_time_avatar_image": 1.8275,
+    "free_video_known_cost_usd_per_20_seconds": 0.815,
+    "three_free_videos_plus_one_avatar_image_reservation_usd": 2.585,
+    "three_free_videos_and_one_avatar_internal_reservation_usd": 4.18,
+    "thirty_paid_videos_plus_one_avatar_image_reservation_usd": 54.965,
+    "thirty_paid_video_attempts_and_one_avatar_internal_reservation_usd": 57.775,
+    "thirty_six_paid_video_attempts_and_one_avatar_internal_reservation_usd": 69.01,
+    "gross_199_minus_thirty_paid_known_costs_before_avatar_creation_and_overhead_usd": 144.035,
+    "gross_199_minus_thirty_paid_app_reservation_before_other_overhead_usd": 141.225,
+    "shared_app_daily_reservation_cap_usd": 10,
+    "free_lifetime_internal_budget_usd": 4.25,
+    "paid_period_internal_budget_usd": 70,
+    "invoice_or_profitability_proven": false
+  },
+  "current_account_readback_refs": {
+    "heygen_dedicated_wallet_usd": 0,
+    "heygen_auto_reload": "off",
+    "heygen_provider_spend_cap_object": "not present in previously checked API response",
+    "gemini_dedicated_project_billing_enabled": false,
+    "gemini_dedicated_project_billing_account_linked": false,
+    "gemini_project_lifecycle_state": "ACTIVE",
+    "readback_source": "docs/evidence/ai-monk-factory-gemini-billing-readback-20261025T160700Z.json",
+    "heygen_wallet_readback_source": "docs/evidence/ai-monk-factory-studio-catalog-readback-20261025T1536Z.json",
+    "company_budget_production_readback_source": "docs/evidence/ai-monk-factory-readiness-20261024T181747Z.json"
+  },
+  "evidence_refs": [
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+    "apps/landing/netlify/functions/_lib/monk-factory.js"
+  ],
+  "next_action": "Read-only inspect the dedicated Gemini project cap and identity permissions without linking billing. Keep HeyGen auto-reload off and do not purchase credits until the bounded provider cost condition is established."
+}

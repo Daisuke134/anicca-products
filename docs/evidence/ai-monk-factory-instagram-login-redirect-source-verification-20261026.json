@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "run_id": "19339639-d322-4354-9799-902e08a4d496",
+  "owner_id": "codex-ai-monk-factory",
+  "occurrence_id": "306956e2-2de4-40b3-a138-6c5d56077007",
+  "release_sha": "b4d4c94c5d8a1d1254f502cd26e5efac7342f76a",
+  "observed_at_utc": "2026-10-25T16:48:33Z",
+  "phase": "instagram_login_redirect_source_fix_and_local_acceptance",
+  "loaded_argv": [
+    "node --test lib/ai-monk-directory.test.mjs lib/monk-factory-client.test.mjs test/ai-monk-evidence-rendering.test.mjs test/ai-monk-factory-action-readiness.test.mjs scripts/stage-ai-monk-factory.test.mjs",
+    "node scripts/test-ai-monk-factory-db.mjs",
+    "npm run test:telemetry",
+    "npm run build after workflow-pinned marketing and blog asset staging"
+  ],
+  "loaded_env": {
+    "secrets_emitted": false,
+    "factory_runtime_mutated": false
+  },
+  "commands": [
+    {
+      "command": "Instagram Login destination regression test before the fix",
+      "result": "expected_red",
+      "failed_assertion": "Instagram Login URL was rejected with invalid_destination"
+    },
+    {
+      "command": "AI Monk directory, client, evidence, action-readiness, and staging tests",
+      "result": "pass",
+      "tests": 38,
+      "passed": 38,
+      "failed": 0
+    },
+    {
+      "command": "Factory isolated database contract suite",
+      "result": "pass",
+      "tests": 33,
+      "passed": 33,
+      "failed": 0
+    },
+    {
+      "command": "telemetry suite",
+      "result": "pass",
+      "tests": 525,
+      "passed": 492,
+      "failed": 0,
+      "skipped": 33
+    },
+    {
+      "command": "Next production build",
+      "result": "pass",
+      "exit_code": 0,
+      "generated_routes": 675,
+      "warnings": [
+        "existing optional dependencies @react-native-async-storage/async-storage and pino-pretty are absent in unrelated wallet imports",
+        "existing ambiguous Tailwind ease utility warning"
+      ]
+    }
+  ],
+  "effect": "local source and documentation only; no provider billing, wallet, runtime, OAuth, generation, checkout, or social-post effect",
+  "readback": {
+    "instagram_login_url_allowed": "https://www.instagram.com/oauth/authorize",
+    "legacy_facebook_login_url_allowed": false,
+    "third_party_or_lookalike_url_allowed": false,
+    "factory_production_ctas_enabled": false,
+    "source_release_complete": false
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "apps/landing/lib/monk-factory-client.mjs",
+    "apps/landing/lib/monk-factory-client.test.mjs",
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Commit and push this dedicated source-fix branch; pass PR CI, merge to main, then verify immutable production deployment and public readback. Keep Factory runtime closed until provider spend boundaries and required runtime configuration are ready."
+}

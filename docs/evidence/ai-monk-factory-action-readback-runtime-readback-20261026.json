@@ -1,0 +1,96 @@
+{
+  "schema_version": "anicca.ai-monk-factory-action-readback-runtime-readback.v1",
+  "run_id": "factory-action-readback-runtime-20261025T190654Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-action-readback-runtime-20261025T190654Z",
+  "release_sha": "780875429163509130e54e633784f2268e75fe64",
+  "observed_at": "2026-10-25T19:06:54.257558+00:00",
+  "phase": "official_read_only_runtime_readback",
+  "effect": "read_only_observation; no provider, billing, OAuth, posting, or production configuration mutation",
+  "loaded_argv_env": {
+    "credential_services": [
+      "netlify-anicca-existing-deployment",
+      "heygen-ai-monk-factory",
+      "gemini-ai-monk-factory",
+      "stripe-test-restricted"
+    ],
+    "secret_values_logged": false
+  },
+  "commands": [
+    {
+      "command": "GET Netlify production environment variable names for the existing Anicca site",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": "57b50a41-b498-43e2-90fe-380de8e952e3",
+      "readback": {
+        "variable_count": 58,
+        "factory_variable_names": []
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Configure dedicated Factory runtime only after provider and Meta/Stripe prerequisites are ready."
+    },
+    {
+      "command": "GET https://api.heygen.com/v3/users/me using exact SSOT service heygen-ai-monk-factory",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": null,
+      "readback": {
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0,
+        "wallet_auto_reload_enabled": false,
+        "spend_cap_field_in_profile_response": false
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Keep video generation disabled until a bounded, funded HeyGen spend boundary is confirmed."
+    },
+    {
+      "command": "Read exact SSOT service gemini-ai-monk-factory billing metadata",
+      "exit_code": 0,
+      "http_status": null,
+      "provider_receipt_id": null,
+      "readback": {
+        "source": "private Credential SSOT metadata, not provider billing readback",
+        "provider_state": "prepared_unfunded",
+        "billing_verified": false
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Obtain a dedicated Gemini billing/cap readback before enabling image and script generation."
+    },
+    {
+      "command": "Read credential service names for Meta/Facebook app credentials and monk.mujo login",
+      "exit_code": 0,
+      "http_status": null,
+      "provider_receipt_id": null,
+      "readback": {
+        "meta_or_facebook_app_credential_service_present": false,
+        "instagram_monkmujo_login_credential_present": true,
+        "login_credential_is_not_meta_oauth_app_readiness": true
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Factory OAuth requires a Meta app ID/secret and verified Instagram permissions."
+    },
+    {
+      "command": "GET saved Factory price using exact test-restricted Stripe credential",
+      "exit_code": 0,
+      "http_status": 404,
+      "provider_receipt_id": "req_gnzQwiMUnNHPf2",
+      "readback": {
+        "credential_mode": "test",
+        "error_code": "resource_missing"
+      },
+      "error_class": "resource_missing_from_current_test_credential_view",
+      "retryable": false,
+      "next_action": "Confirm a Factory test-mode recurring price and sufficient Checkout/webhook permissions."
+    }
+  ],
+  "evidence_refs": [
+    "docs/evidence/ai-monk-factory-quota-release-readback-20261026.json",
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md"
+  ],
+  "runtime_readiness": "not_ready",
+  "generation_posting_checkout_attempts": 0
+}

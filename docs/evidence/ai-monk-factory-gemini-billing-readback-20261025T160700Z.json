@@ -1,0 +1,82 @@
+{
+  "schema_version": "anicca.ai-monk-factory-gemini-billing-readback.v1",
+  "run_id": "ai-monk-factory-gemini-billing-readback-20261025T160700Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "gemini-dedicated-project-read-only-billing-status-20261025T160700Z",
+  "observed_at_window_utc": {
+    "start": "2026-10-25T16:01:47Z",
+    "end": "2026-10-25T16:07:00Z"
+  },
+  "phase": "dedicated_gemini_project_read_only_state_check",
+  "effect": "read_only_identity_match_and_project_billing_readback; no billing, spend cap, credit balance, or runtime setting changed",
+  "identity_check": {
+    "credential_ssot_service_match": "google",
+    "active_gcloud_identity_matches_ssot": true,
+    "email_or_credential_value_emitted": false
+  },
+  "project_readback": {
+    "credential_ssot_service": "gemini-ai-monk-factory",
+    "exact_service_matches": 1,
+    "project_lifecycle_state": "ACTIVE",
+    "billing_enabled": false,
+    "billing_account_linked": false,
+    "ai_studio_project_spend_cap": "not read back",
+    "commands": [
+      {
+        "command": "gcloud projects describe <project-from-private-SSOT> --format=value(lifecycleState)",
+        "exit_code": 0,
+        "readback": "ACTIVE"
+      },
+      {
+        "command": "gcloud billing projects describe <project-from-private-SSOT> --format=value(billingEnabled)",
+        "exit_code": 0,
+        "readback": "False"
+      }
+    ]
+  },
+  "factory_app_budget_source_readback": {
+    "migration": "apps/landing/supabase/migrations/20261024175709_monk_factory_company_budget.sql",
+    "shared_daily_cap_usd": 10,
+    "free_max_video_seconds": 20,
+    "free_attempt_reservation_usd": 0.86,
+    "free_avatar_reservation_usd": 1.6,
+    "free_lifetime_budget_usd": 4.25,
+    "paid_max_video_seconds": 45,
+    "paid_attempt_reservation_usd": 1.8725,
+    "paid_avatar_reservation_usd": 1.6,
+    "paid_max_attempts": 36,
+    "paid_video_outputs": 30,
+    "paid_period_budget_usd": 70,
+    "shared_budget_production_readback": "docs/evidence/ai-monk-factory-readiness-20261024T181747Z.json",
+    "free_avatar_plus_three_video_attempt_reservation_usd": 4.18,
+    "paid_avatar_plus_thirty_video_attempt_reservation_usd": 57.775,
+    "paid_avatar_plus_thirty_six_video_attempt_reservation_usd": 69.01,
+    "note": "These are preflight app reservations, not provider invoices or provider-side hard spend caps."
+  },
+  "provider_rate_model_refs": {
+    "public_rate_receipt": "docs/evidence/ai-monk-factory-provider-spend-boundary-research-20261025T160147Z.json",
+    "heygen_avatar_iv_photo_avatar_usd_per_minute": 2.31,
+    "heygen_starfish_tts_usd_per_minute": 0.12,
+    "gemini_script_internal_reservation_usd": 0.005,
+    "gemini_avatar_image_internal_reservation_usd": 0.14,
+    "known_cost_free_three_20_second_videos_plus_image_reservation_usd": 2.585,
+    "known_cost_paid_thirty_45_second_videos_plus_image_reservation_usd": 54.965,
+    "heygen_photo_avatar_creation_price": "not established"
+  },
+  "effects": {
+    "billing_account_linked": 0,
+    "spend_cap_changed": 0,
+    "heygen_credit_purchase": 0,
+    "generation_or_video": 0,
+    "instagram_oauth_or_post": 0,
+    "stripe_checkout_or_charge": 0
+  },
+  "evidence_refs": [
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "docs/evidence/ai-monk-factory-provider-spend-boundary-research-20261025T160147Z.json",
+    "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+    "apps/landing/supabase/migrations/20261024175709_monk_factory_company_budget.sql"
+  ],
+  "next_action": "Read-only inspect the Google AI Studio monthly spend cap for this dedicated project using an existing supported session. Keep billing disabled until the project cap, HeyGen finite-wallet limit, and purchase boundary are established."
+}

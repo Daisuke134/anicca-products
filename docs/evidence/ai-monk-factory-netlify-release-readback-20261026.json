@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "run_id": "factory-netlify-release-readback-20261025T173941748353+0000",
+  "owner_id": "Codex primary session",
+  "occurrence_id": "71e63e22ec724527b411ffe4063802ec",
+  "observed_at": "2026-10-25T17:39:41.748353+00:00",
+  "release_sha": "e6da42e5fd8c9acc5e77e6ff4caaffb6a52c309c",
+  "phase": "production_deploy_readback",
+  "command": "GET /sites/{site_id}/env?context=production; GET /sites/{site_id}/deploys?per_page=1; credential omitted",
+  "loaded_argv": [
+    "GET",
+    "Netlify production environment and latest deploy"
+  ],
+  "loaded_env": {
+    "credential_source": "SSOT exact service netlify-anicca-existing-deployment",
+    "secret_values_logged": false
+  },
+  "effect": "read_only_observation",
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Keep runtime closed until dedicated provider spend boundary, Meta OAuth, Stripe test, and Factory env are ready.",
+  "exit_code": 0,
+  "readback": {
+    "env_http_status": 200,
+    "production_env_variable_count": 58,
+    "monk_factory_variable_count": 0,
+    "deploy_http_status": 200,
+    "latest_deploy": {
+      "id": "6ade3e636ae97444c5fd1a52",
+      "state": "ready",
+      "published_at": "2026-10-25T17:38:41.762Z",
+      "title": "Deploy from GHA prod - e6da42e5fd8c9acc5e77e6ff4caaffb6a52c309c",
+      "branch": "main",
+      "commit_ref": null
+    },
+    "env_body_sha256": "a5a00c2909cfc6c420d34c55426ea805116f7c881ea4a00ef1b77c48c6971c1a",
+    "deploy_body_sha256": "f4ed40b3bbc2ea7f71e389c11752971cb09b68fd659dcf96ad61931b4dab9dcd"
+  }
+}

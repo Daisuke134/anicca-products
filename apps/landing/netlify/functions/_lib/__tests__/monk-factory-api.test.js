@@ -1,6 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { factoryHandler } = require('../../monk-factory.js');
+const { createFactoryStore } = require('../monk-factory-store.js');
 
 const user = { id: 'eaa06ae6-53ec-4a6b-baa4-e6731b129ca8', email: 'fixture@example.com', email_confirmed_at: '2026-01-01' };
 const env = { SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_ANON_KEY: 'public-fixture' };
@@ -13,18 +14,68 @@ test('missing identity never accesses Factory persistence', async () => {
 
 test('API reads and stop updates bind to Auth server ID, ignoring forged body and query IDs', async () => {
   const calls = [];
+  const ownVideo = { id: 'owned-video', kind: 'video', status: 'completed', stage: 'completed', script: 'A complete script.',
+    caption: 'Fictional AI-generated monk. The ebook is linked.', video_url: 'https://cdn.example/video.mp4' };
   const store = {
     account: async id => { calls.push(['account', id]); return { user_id: id, subscription_status: 'none', stripe_customer_id: 'private-internal-fixture', checkout_nonce: 'private-context-fixture' }; },
-    jobs: async id => { calls.push(['jobs', id]); return []; },
+    jobs: async id => { calls.push(['jobs', id]); return [ownVideo]; },
     stop: async id => { calls.push(['stop', id]); return { auto_post: false }; },
   };
   const req = { httpMethod: 'GET', headers: { authorization: 'Bearer fixture-session' }, body: JSON.stringify({ user_id: 'another-user' }), queryStringParameters: { user_id: 'another-user' } };
   const response = await factoryHandler(req, { env, fetchImpl: auth, store });
   assert.equal(response.statusCode, 200);
   assert.equal(response.body.includes('private-'), false);
+  assert.equal(JSON.parse(response.body).jobs[0].script, ownVideo.script);
+  assert.equal(JSON.parse(response.body).jobs[0].caption, ownVideo.caption);
   const stopped = await factoryHandler({ ...req, httpMethod: 'POST', body: JSON.stringify({ action: 'stop', user_id: 'another-user' }) }, { env, fetchImpl: auth, store });
   assert.equal(stopped.statusCode, 200);
   assert.deepEqual(calls, [['account', user.id], ['jobs', user.id], ['stop', user.id]]);
+});
+
+test('Pause is available when provider readiness is down and preserves the owner consent', async () => {
+  const account = { user_id: user.id, auto_post: true, auto_post_intent: true, auto_post_paused: false };
+  const calls = [];
+  const response = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session' },
+    body: JSON.stringify({ action: 'pause', user_id: 'another-user' }) }, {
+    env, fetchImpl: auth,
+    store: {
+      account: async id => { calls.push(['account', id]); return structuredClone(account); },
+      pauseAutopost: async id => {
+        calls.push(['pause', id]);
+        Object.assign(account, { auto_post: false, auto_post_intent: true, auto_post_paused: true });
+        return { auto_post: false, auto_post_intent: true, auto_post_paused: true };
+      },
+    },
+  });
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(JSON.parse(response.body), { auto_post: false, auto_post_intent: true, auto_post_paused: true });
+  assert.deepEqual(calls, [['account', user.id], ['pause', user.id]]);
+});
+
+test('Factory job projection returns the owner script and caption without widening the account filter', async () => {
+  let requested;
+  const originalWebSocket = globalThis.WebSocket;
+  if (!globalThis.WebSocket) globalThis.WebSocket = require('ws');
+  try {
+    const store = createFactoryStore({
+      env: { SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_SERVICE_ROLE_KEY: 'fixture-service-role' },
+      fetchImpl: async url => {
+        requested = new URL(url);
+        return new Response(JSON.stringify([{ id: 'owned-video', script: 'Complete script.', caption: 'Book CTA.' }]), {
+          status: 200, headers: { 'content-type': 'application/json', 'content-range': '0-0/*' },
+        });
+      },
+    });
+    const jobs = await store.jobs(user.id);
+    const columns = requested.searchParams.get('select').split(',');
+    assert.ok(columns.includes('script'));
+    assert.ok(columns.includes('caption'));
+    assert.equal(requested.searchParams.get('user_id'), 'eq.' + user.id);
+    assert.deepEqual(jobs, [{ id: 'owned-video', script: 'Complete script.', caption: 'Book CTA.' }]);
+  } finally {
+    if (originalWebSocket === undefined) delete globalThis.WebSocket;
+    else globalThis.WebSocket = originalWebSocket;
+  }
 });
 
 test('Stripe setup does not block an authenticated free video and Checkout waits for the lifetime allowance', async () => {
@@ -35,7 +86,7 @@ test('Stripe setup does not block an authenticated free video and Checkout waits
     store: {
       companyBudgetStatus: async () => ({ ready: true }),
       account: async id => { calls.push(['account', id]); return null; },
-      usage: async id => { calls.push(['usage', id]); return { videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }; },
+      usage: async id => { calls.push(['usage', id]); return { videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20, periodEnd: null }; },
       reserveJob: async (id, occurrence, kind) => { calls.push(['reserve', id, occurrence, kind]); return { id: 'free-job-fixture' }; },
       checkoutContext: async () => assert.fail('free quota must be used before Checkout is created'),
     } };
@@ -49,12 +100,30 @@ test('Stripe setup does not block an authenticated free video and Checkout waits
   assert.deepEqual(calls, [['usage', user.id], ['account', user.id], ['reserve', user.id, 'avatar:lifetime', 'avatar'], ['usage', user.id]]);
 });
 
+test('Checkout stays closed when the retry cap is reached before three free videos are complete', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const calls = [];
+  const response = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session' },
+    body: JSON.stringify({ action: 'checkout' }) }, {
+    env: configured,
+    fetchImpl: auth,
+    providers: { readiness: async () => { calls.push('readiness'); return { checkout: { ready: true } }; } },
+    store: {
+      usage: async () => ({ videosRemaining: 1, attemptsRemaining: 0, completedVideos: 2 }),
+      checkoutContext: async () => { calls.push('checkout'); throw new Error('Checkout must remain closed'); },
+    },
+  });
+  assert.equal(response.statusCode, 409);
+  assert.equal(JSON.parse(response.body).error, 'free_generation_incomplete');
+  assert.deepEqual(calls, []);
+});
+
 test('checkout readiness is separate from generation readiness', async () => {
   const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
   const response = await factoryHandler({ httpMethod: 'GET', headers: { authorization: 'Bearer fixture-session' } }, {
     env: configured, fetchImpl: auth,
     providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: false } }) },
-    store: { companyBudgetStatus: async () => ({ ready: true }), usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }), account: async () => null, jobs: async () => [] },
+    store: { companyBudgetStatus: async () => ({ ready: true }), usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20 }), account: async () => null, jobs: async () => [] },
   });
   assert.equal(response.statusCode, 200);
   const snapshot = JSON.parse(response.body);
@@ -73,7 +142,7 @@ test('company daily budget exhaustion keeps generation disabled and returns its 
     providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: true } }) },
     store: {
       companyBudgetStatus: async () => ({ ready: false, reason: 'company_budget_exhausted' }),
-      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }),
+      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20 }),
       account: async () => null,
       jobs: async () => [],
       reserveJob: async () => { calls.push('reserve'); return { id: 'should-not-reserve' }; },
@@ -162,7 +231,7 @@ test('a missing company budget guard fails closed before generation', async () =
     fetchImpl: auth,
     providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: true } }) },
     store: {
-      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }),
+      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20 }),
       account: async () => null,
       jobs: async () => [],
       reserveJob: async () => { calls.push('reserve'); return { id: 'should-not-reserve' }; },
@@ -197,7 +266,7 @@ test('Instagram connection posts completed free videos after quota is exhausted 
       return structuredClone(account);
     },
     releaseSocial: async () => {},
-    setAutopost: async () => { calls.push('autopost'); account.auto_post = true; return { auto_post: true }; },
+    startAutopostIfIntended: async () => { calls.push('autopost'); account.auto_post = true; return { auto_post: true }; },
     reserveJob: async (_id, occurrence, kind, origin) => {
       calls.push(['reserve', occurrence, kind, origin]);
       const job = { id: 'avatar-job-fixture', kind, status: 'reserved', origin };
@@ -227,6 +296,96 @@ test('Instagram connection posts completed free videos after quota is exhausted 
   assert.equal(JSON.parse(stopped.body).account.auto_post, false);
   assert.equal(calls.filter(call => call === 'autopost').length, 1);
   assert.equal(calls.filter(call => Array.isArray(call)).length, 0);
+});
+
+test('OAuth/status readback leaves an explicitly paused Instagram account paused', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  let account = { user_id: user.id, subscription_status: 'none', auto_post: false, auto_post_intent: true, auto_post_paused: true,
+    social_profile: 'factory_' + user.id, connected_at: null, instagram_account_id: null, avatar_id: 'avatar-fixture' };
+  let autopostStarts = 0;
+  const store = {
+    companyBudgetStatus: async () => ({ ready: true }),
+    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20, periodEnd: null }),
+    account: async () => structuredClone(account),
+    jobs: async () => [{ id: 'completed-video-fixture', kind: 'video', period_key: 'free:lifetime', status: 'completed',
+      video_url: 'https://cdn.example/fixture.mp4', post_url: null, post_provider_id: null }],
+    claimSocial: async () => ({ ...account, social_lease_id: 'social-lease-fixture' }),
+    saveSocial: async (_id, _lease, state) => {
+      account = { ...account, social_profile: state.profile, instagram_account_id: state.accountId,
+        instagram_username: state.handle, connected_at: state.connected ? (account.connected_at || new Date().toISOString()) : null,
+        social_checked_at: new Date().toISOString() };
+      return structuredClone(account);
+    },
+    releaseSocial: async () => {},
+    startAutopostIfIntended: async () => { autopostStarts += 1; account.auto_post = true; return { auto_post: true }; },
+  };
+  const providers = {
+    readiness: async () => ({ generation: { ready: true }, social: { ready: true } }),
+    socialState: async () => ({ profile: 'factory_' + user.id, connected: true, accountId: 'ig-opaque-fixture', handle: 'monk_fixture' }),
+  };
+  const response = await factoryHandler({ httpMethod: 'GET', headers: { authorization: 'Bearer fixture-session' } },
+    { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(response.statusCode, 200);
+  assert.equal(autopostStarts, 0);
+  assert.equal(JSON.parse(response.body).account.auto_post, false);
+  assert.equal(JSON.parse(response.body).account.auto_post_intent, true);
+  assert.equal(JSON.parse(response.body).account.auto_post_paused, true);
+  assert.equal(JSON.parse(response.body).account.connected, true);
+});
+
+test('Resume requires a fresh Instagram readback before changing paused automation', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const calls = [];
+  const account = { user_id: user.id, subscription_status: 'none', auto_post: false, auto_post_intent: true, auto_post_paused: true,
+    social_profile: 'factory_' + user.id, connected_at: new Date().toISOString(), instagram_account_id: 'ig-fixture',
+    avatar_id: 'avatar-fixture', social_checked_at: new Date().toISOString() };
+  const store = {
+    companyBudgetStatus: async () => ({ ready: true }),
+    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20 }),
+    account: async () => structuredClone(account),
+    jobs: async () => [],
+    claimSocial: async () => ({ ...account, social_lease_id: 'social-lease-fixture' }),
+    saveSocial: async (_id, _lease, state) => ({ ...account, ...state }),
+    releaseSocial: async () => {},
+    resumeAutopost: async id => { calls.push(['resume', id]); return { auto_post: true, auto_post_intent: true, auto_post_paused: false }; },
+  };
+  const providers = {
+    readiness: async () => ({ generation: { ready: false, reason: 'provider_setup' }, social: { ready: true } }),
+    socialState: async () => { calls.push('instagram-readback'); return { profile: 'factory_' + user.id,
+      connected: true, accountId: 'ig-fixture', handle: 'monk_fixture' }; },
+  };
+  const response = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session' },
+    body: JSON.stringify({ action: 'resume' }) }, { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(JSON.parse(response.body), { auto_post: true, auto_post_intent: true, auto_post_paused: false });
+  assert.deepEqual(calls, ['instagram-readback', ['resume', user.id]]);
+});
+
+test('manual auto-post cannot bypass an existing explicit pause', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const account = { user_id: user.id, subscription_status: 'none', auto_post: false, auto_post_intent: true, auto_post_paused: true,
+    social_profile: 'factory_' + user.id, connected_at: new Date().toISOString(), instagram_account_id: 'ig-fixture',
+    avatar_id: 'avatar-fixture', social_checked_at: new Date().toISOString() };
+  let starts = 0;
+  const response = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session' },
+    body: JSON.stringify({ action: 'autopost' }) }, {
+    env: configured, fetchImpl: auth,
+    providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: true } }),
+      socialState: async () => ({ profile: 'factory_' + user.id, connected: true, accountId: 'ig-fixture', handle: 'monk_fixture' }) },
+    store: {
+      companyBudgetStatus: async () => ({ ready: true }),
+      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6 }),
+      account: async () => structuredClone(account),
+      jobs: async () => [],
+      claimSocial: async () => ({ ...account, social_lease_id: 'social-lease-fixture' }),
+      saveSocial: async (_id, _lease, state) => ({ ...account, ...state }),
+      releaseSocial: async () => {},
+      setAutopost: async () => { starts += 1; return { auto_post: true }; },
+    },
+  });
+  assert.equal(response.statusCode, 409);
+  assert.equal(JSON.parse(response.body).error, 'autopost_paused');
+  assert.equal(starts, 0);
 });
 
 test('autopost can be turned on for a saved free video when generation is unavailable and quota is spent', async () => {
@@ -336,7 +495,7 @@ test('Stop during Instagram OAuth prevents a later connection readback from star
   let autopostStarts = 0;
   const store = {
     companyBudgetStatus: async () => ({ ready: true }),
-    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }),
+    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20, periodEnd: null }),
     account: async () => structuredClone(account),
     reserveProfile: async () => {},
     setAutopostIntent: async (_id, enabled) => { account.auto_post_intent = enabled; return { auto_post_intent: enabled }; },
