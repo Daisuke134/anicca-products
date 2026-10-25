@@ -89,6 +89,67 @@
     "retryable": false,
     "next_action": "Do not enable production generation until the Factory-specific HeyGen and Gemini billing states and effective spend controls are ready; then configure production runtime secrets and verify generation readiness."
   },
+  "official_pricing_readback": {
+    "run_id": "ai-monk-factory-pricing-readback-20261025T082432Z",
+    "owner_id": "codex-primary",
+    "occurrence_id": "ai-monk-factory-pricing-readback-20261025T082432Z",
+    "release_sha": "f2e13ec4961383611c6499401d5ffca1d1e44fb4",
+    "observed_at": "2026-10-25T08:24:32Z",
+    "phase": "official_provider_pricing_readonly",
+    "command": "crwl crawl official HeyGen API pricing and Google Gemini API billing documentation.",
+    "loaded_argv": [
+      "GET https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+      "GET https://ai.google.dev/gemini-api/docs/billing"
+    ],
+    "loaded_env": {
+      "secret_values_logged": false
+    },
+    "exit_code": 0,
+    "effect": "none_read_only",
+    "readback": {
+      "heygen": {
+        "source_url": "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+        "api_credits": "pay_as_you_go",
+        "photo_avatar_usd_per_call": 1.32,
+        "avatar_iv_photo_video_usd_per_minute_actual_seconds": 2.31,
+        "starfish_speech_usd_per_minute": 0.12,
+        "free_api_credits_offered": false,
+        "doc_last_updated": "2026-10-19"
+      },
+      "gemini": {
+        "source_url": "https://ai.google.dev/gemini-api/docs/billing",
+        "paid_tier_minimum_prepay_usd": 5,
+        "prepay_auto_reload_optional": true,
+        "project_monthly_spend_cap_supported": true,
+        "doc_last_updated": "2026-09-28"
+      },
+      "factory_one_avatar_and_three_20_second_videos_estimate": {
+        "heygen_photo_avatar_usd": 1.32,
+        "heygen_avatar_iv_video_usd": 2.31,
+        "heygen_starfish_speech_usd": 0.12,
+        "heygen_total_usd": 3.75,
+        "gemini_image_internal_reservation_usd": 0.14,
+        "gemini_three_script_internal_reservations_usd": 0.015,
+        "gemini_total_internal_reservation_usd": 0.155,
+        "combined_estimate_usd": 3.905,
+        "caveat": "Estimate assumes exactly one photo-avatar creation and three successful 20-second videos; excludes provider charges for failures, retries, and variance. Gemini figures are Factory code reservation values, not official invoice readback."
+      },
+      "bounded_initial_e2e_credit_target_usd": {
+        "heygen_factory_api_credits": 5,
+        "gemini_factory_prepay": 5,
+        "combined_one_time_credit_target": 10,
+        "auto_reload": "off"
+      }
+    },
+    "provider_receipt_id": null,
+    "evidence_refs": [
+      "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+      "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md"
+    ],
+    "error_class": null,
+    "retryable": false,
+    "next_action": "For a first bounded live E2E, use one-time $5 HeyGen API credits and $5 Gemini Prepay, keep auto-reload off, set the Gemini project monthly spend cap, and do not use the general HeyGen wallet."
+  },
   "provider_receipt_id": null,
   "evidence_refs": [
     "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
