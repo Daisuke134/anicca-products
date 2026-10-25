@@ -53,7 +53,7 @@ DaisがAI Monk FactoryがProducts一覧にない理由を確認した。公開�
 
 #### AI Monk Database discoverability — in progress; preserve SaaS-2 cursor
 
-2026-10-25の公開readbackでは、`/factory`のWeb Apps一覧にAI Monk Database（Free）がある一方、公開`/dais`と`/products/`にはDatabaseカードがない。原因は掲載元が別々の手書きカタログで、`/dais`はLife Managerのstatic HTML overlay、`/products/`は本repoのstatic HTMLだからである。Databaseは公開・無料で利用できるため、検索/課金/データ契約を変えず、既存の公式説明「source-linked AI monk profiles, products, and revenue evidence」を使ったカードを両方の正本へ追加する。受入は`/dais`英日と`/products/`でDatabase名・Free表示・正しいURLを本番readbackすること。既存の73 profile/CLI/MCP/PluginとFactory runtime、Grok Bot/Postizの日次投稿には触れない。この依頼は独立したdiscoverability修正で、主cursor`SaaS-2 runtime readiness`とその後のFactory E2E順序は変更しない。
+2026-10-25の公開readbackでは、`/dais`のWeb productsと`/products/`のSoftware一覧からAI Monk Databaseが漏れていた。原因は掲載元が別々の手書きカタログで、`/dais`はLife Managerのstatic HTML overlay、`/products/`は本repoのstatic HTMLだからである。Life Manager PR #8996は英日両ページへFreeのDatabaseカードを追加し、merge commit `883df57600eb6ccca5ca4ca376396044bc7567ef`で統合済み。Products側では既存の公式説明「source-linked AI monk profiles, products, and revenue evidence」を使い、静的Productsカードと受入テストを追加した。今回のPRでは両workflowの`MANAGER_PRODUCTS_REVISION`を同じLife Manager merge commitへ固定し、公開ページを再buildする。完了条件は`/dais`英日と`/products/`の本番readbackでDatabase名・Free表示・正しいURLを確認すること。既存の73 profile/CLI/MCP/PluginとFactory runtime、Grok Bot/Postizの日次投稿には触れない。この依頼は独立したdiscoverability修正で、主cursor`SaaS-2 runtime readiness`とその後のFactory E2E順序は変更しない。
 
 #### Historical 2026-10-25T08:47Z snapshot (superseded by current live readback)
 
