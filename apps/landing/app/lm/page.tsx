@@ -1,5 +1,6 @@
 import LaunchFrame from '@/components/site/LaunchFrame';
 import LmBody from './LmBody';
+import JsonLd from '@/components/JsonLd';
 
 // /lm is the public Life Manager Cloud landing page. Its CTA enters the Railway Web app's
 // Google identity and Calendar-permission flow. The Google callback starts Calendar consent,
@@ -9,7 +10,7 @@ import LmBody from './LmBody';
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'Life Manager — Google Calendar travel time assistant',
+  title: 'Life Manager — never be late again: travel time and departure reminders in Google Calendar',
   description:
     'Connect Google Calendar to add travel time and departure reminders before eligible in-person events. Seven-day free trial, then $29/month.',
   other: {
@@ -21,6 +22,21 @@ export const metadata = {
 export default function Page() {
   return (
     <LaunchFrame active="/lm">
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'WebApplication',
+          name: 'Life Manager',
+          url: 'https://aniccaai.com/lm',
+          applicationCategory: 'LifestyleApplication',
+          operatingSystem: 'Web',
+          description:
+            'Adds travel time and departure reminders to Google Calendar before eligible in-person events.',
+          offers: { '@type': 'Offer', price: '29', priceCurrency: 'USD', description: 'Seven-day free trial, then $29/month' },
+          author: { '@type': 'Person', name: 'Daisuke Narita', alternateName: '成田大祐', url: 'https://aniccaai.com/dais' },
+          publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
+        }}
+      />
       <LmBody />
     </LaunchFrame>
   );

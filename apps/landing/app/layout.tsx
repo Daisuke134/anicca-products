@@ -1,7 +1,7 @@
 export const metadata = {
-  title: 'Manager — Understand the world. Change its conditions.',
+  title: 'Anicca by Daisuke Narita — Life Manager and daily affirmation apps',
   description:
-    'Understand the world. Change its conditions. Learn from reality. We are building AI to improve the conditions of life for all living beings.',
+    "I'm Daisuke Narita (成田大祐). I build tools that quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.",
   icons: {
     icon: '/favicon.png',
     shortcut: '/favicon.png',

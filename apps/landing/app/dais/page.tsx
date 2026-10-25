@@ -34,7 +34,15 @@ const JSON_LD = {
   '@type': 'CollectionPage',
   name: "Daisuke Narita's apps and products",
   url: 'https://aniccaai.com/dais',
-  author: { '@type': 'Person', name: 'Daisuke Narita', url: 'https://aniccaai.com/dais' },
+  author: {
+    '@type': 'Person',
+    name: 'Daisuke Narita',
+    alternateName: '成田大祐',
+    url: 'https://aniccaai.com/dais',
+    jobTitle: 'Indie developer',
+    worksFor: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
+    sameAs: ['https://github.com/Daisuke134'],
+  },
   mainEntity: {
     '@type': 'ItemList',
     itemListElement: [
