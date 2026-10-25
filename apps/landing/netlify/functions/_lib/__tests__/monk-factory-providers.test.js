@@ -10,19 +10,20 @@ const env = {
   MONK_FACTORY_GEMINI_API_KEY: 'factory-gemini-secret',
   MONK_FACTORY_HEYGEN_API_KEY: 'factory-heygen-secret',
   MONK_FACTORY_HEYGEN_VOICE_ID: 'starfish_voice_1',
-  MONK_FACTORY_UPLOAD_POST_API_KEY: 'factory-social-secret',
+  MONK_FACTORY_META_APP_ID: 'meta-app-id',
+  MONK_FACTORY_META_APP_SECRET: 'meta-app-secret',
+  MONK_FACTORY_META_CONFIG_ID: 'meta-config-id',
+  MONK_FACTORY_META_REDIRECT_URI: 'https://aniccaai.com/.netlify/functions/monk-factory-instagram-oauth',
+  MONK_FACTORY_META_WEBHOOK_VERIFY_TOKEN: 'private-webhook-verification-token',
+  MONK_FACTORY_JOB_SECRET: 'a-private-factory-job-secret-for-tests-only',
+  MONK_FACTORY_META_STANDARD_ACCESS_VERIFIED: 'true',
+  MONK_FACTORY_META_STANDARD_ACCESS_EVIDENCE_REF: 'private:meta-app-readback',
   MONK_FACTORY_GEMINI_BILLING_VERIFIED: 'true',
   MONK_FACTORY_GEMINI_BILLING_EVIDENCE_REF: 'private:gemini-project-readback',
   MONK_FACTORY_HEYGEN_BILLING_VERIFIED: 'true',
   MONK_FACTORY_HEYGEN_BILLING_EVIDENCE_REF: 'private:heygen-workspace-readback',
-  MONK_FACTORY_UPLOAD_POST_BILLING_VERIFIED: 'true',
-  MONK_FACTORY_UPLOAD_POST_BILLING_EVIDENCE_REF: 'private:social-account-readback',
-  MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED: 'true',
 };
 const json = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), { status, headers });
-const socialBody = (account = { username: '17841400000000001', handle: 'a_renamable_handle', reauth_required: false }) => ({
-  success: true, profile: { username: profile, social_accounts: { instagram: account } },
-});
 
 test('missing dedicated keys and unverified billing block submissions without using daily-owner keys', async () => {
   let calls = 0;
@@ -39,14 +40,11 @@ test('missing dedicated keys and unverified billing block submissions without us
 
 test('missing social provider setup does not mark image and script generation unavailable', () => {
   const generationOnly = { ...env };
-  delete generationOnly.MONK_FACTORY_UPLOAD_POST_API_KEY;
-  delete generationOnly.MONK_FACTORY_UPLOAD_POST_BILLING_VERIFIED;
-  delete generationOnly.MONK_FACTORY_UPLOAD_POST_BILLING_EVIDENCE_REF;
-  delete generationOnly.MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED;
+  delete generationOnly.MONK_FACTORY_META_APP_ID;
   const state = createFactoryProviders({ env: generationOnly }).readiness();
   assert.equal(state.generation.ready, true);
   assert.equal(state.social.ready, false);
-  assert.ok(state.social.missing.includes('MONK_FACTORY_UPLOAD_POST_API_KEY'));
+  assert.ok(state.social.missing.includes('MONK_FACTORY_META_APP_ID'));
 });
 
 test('an operator billing flag without its evidence reference remains unverified', async () => {
@@ -240,114 +238,6 @@ test('a verified duration produces one 9:16 Avatar IV request and its official v
   assert.deepEqual(await providers.videoStatus('video_1'), { id: 'video_1', status: 'completed', videoUrl: 'https://files.heygen.ai/video.mp4', duration: 20 });
   assert.equal(submits, 1);
 });
-
-test('profile creation and hosted OAuth are scoped to the verified user, without operator key exposure', async () => {
-  const providers = createFactoryProviders({ env, fetchImpl: async (url, init) => {
-    const body = JSON.parse(init.body);
-    assert.equal(body.username, profile);
-    assert.equal(init.headers['Idempotency-Key'], undefined);
-    if (url.endsWith('/generate-jwt')) {
-      assert.deepEqual(body.platforms, ['instagram']);
-      assert.equal(body.show_calendar, false);
-      return json({ success: true, access_url: 'https://app.upload-post.com/connect?token=profile-scoped-fixture', duration: 172800, jwt: 'never-return-this-field' });
-    }
-    assert.equal(url, 'https://api.upload-post.com/api/uploadposts/users');
-    return json({ success: true, profile: { username: profile, social_accounts: { instagram: null } } }, 201);
-  } });
-  assert.deepEqual(await providers.createSocialProfile(userId), { profile, status: 'created' });
-  const connection = await providers.connectInstagram(userId);
-  assert.equal(connection.profile, profile);
-  assert.equal(connection.accessUrl, 'https://app.upload-post.com/connect?token=profile-scoped-fixture');
-  assert.ok(!JSON.stringify(connection).includes('never-return-this-field'));
-  assert.ok(!JSON.stringify(connection).includes('factory-social-secret'));
-});
-
-test('white-label entitlement, hostile hosted URLs and a different official profile are rejected', async () => {
-  let calls = 0;
-  const noPlan = createFactoryProviders({ env: { ...env, MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED: '' }, fetchImpl: async () => { calls++; } });
-  await assert.rejects(noPlan.connectInstagram(userId), { code: 'provider_not_ready' });
-  assert.equal(calls, 0);
-  const hostileUrl = createFactoryProviders({ env, fetchImpl: async () => json({ success: true, access_url: 'https://attacker.example/connect?token=private' }) });
-  await assert.rejects(hostileUrl.connectInstagram(userId), { code: 'provider_effect_unknown' });
-  const otherProfile = createFactoryProviders({ env, fetchImpl: async () => json({ success: true, profile: { username: 'another-user', social_accounts: { instagram: { username: '17841400000000001' } } } }) });
-  await assert.rejects(otherProfile.socialState(userId), { code: 'provider_readback_invalid' });
-});
-
-test('account IDs come from the opaque provider field and changed/expired accounts cannot publish', async () => {
-  let posts = 0;
-  let account = { username: '17841400000000001', handle: 'new_handle', reauth_required: false };
-  const providers = createFactoryProviders({ env, fetchImpl: async (_url, init) => {
-    if (init.method === 'POST') posts++;
-    return json(socialBody(account));
-  } });
-  const state = await providers.socialState(userId);
-  assert.equal(state.accountId, '17841400000000001');
-  assert.equal(state.handle, 'new_handle');
-  await assert.rejects(providers.publishInstagram({ userId, accountId: 'another-account', videoUrl: 'https://files.heygen.ai/video.mp4', caption: 'A pause.', requestId }), { code: 'instagram_account_changed' });
-  account = { ...account, reauth_required: true };
-  await assert.rejects(providers.publishInstagram({ userId, accountId: account.username, videoUrl: 'https://files.heygen.ai/video.mp4', caption: 'A pause.', requestId }), { code: 'instagram_reconnect_required' });
-  assert.equal(posts, 0);
-});
-
-test('Instagram posting sends one async multipart upload with a documented correlation and idempotency key', async () => {
-  let posts = 0;
-  const providers = createFactoryProviders({ env, fetchImpl: async (url, init) => {
-    if (init.method === 'GET') return json(socialBody());
-    posts++;
-    assert.equal(url, 'https://api.upload-post.com/api/upload');
-    assert.equal(init.headers['Idempotency-Key'], requestId);
-    assert.equal(init.headers['Content-Type'], undefined);
-    assert.equal(init.body.get('user'), profile);
-    assert.deepEqual(init.body.getAll('platform[]'), ['instagram']);
-    assert.equal(init.body.get('video'), 'https://files.heygen.ai/video.mp4');
-    assert.equal(init.body.get('media_type'), 'REELS');
-    assert.equal(init.body.get('async_upload'), 'true');
-    assert.equal(init.body.get('request_id'), requestId);
-    return json({ success: true, request_id: requestId, total_platforms: 1 });
-  } });
-  assert.deepEqual(await providers.publishInstagram({ userId, accountId: '17841400000000001', videoUrl: 'https://files.heygen.ai/video.mp4', caption: 'A pause.', requestId }), { id: requestId, status: 'pending' });
-  assert.equal(posts, 1);
-});
-
-test('upload completion requires the Instagram result and distinguishes a skipped destination', async () => {
-  let result = { platform: 'instagram', status: 'completed', success: true, post_id: 'ig_post_1', post_url: 'https://www.instagram.com/reel/clip1/' };
-  const providers = createFactoryProviders({ env, fetchImpl: async (url) => {
-    assert.equal(url, 'https://api.upload-post.com/api/uploadposts/status?request_id=occurrence_1');
-    return json({ request_id: requestId, status: 'completed', results: [result] });
-  } });
-  assert.deepEqual(await providers.postStatus(requestId), { id: requestId, status: 'completed', postId: 'ig_post_1', postUrl: 'https://www.instagram.com/reel/clip1/' });
-  result = { platform: 'instagram', success: false, status: 'skipped', skipped: true };
-  assert.equal((await providers.postStatus(requestId)).status, 'failed');
-  result = { platform: 'instagram', success: true, status: 'completed' };
-  await assert.rejects(providers.postStatus(requestId), { code: 'provider_readback_invalid' });
-});
-
-test('an upload container ID is resolved through official analytics rather than used as a native post ID', async () => {
-  const providers = createFactoryProviders({ env, fetchImpl: async (url) => {
-    if (url.includes('/status?')) return json({ request_id: requestId, status: 'completed', results: [{ platform: 'instagram', success: true, url: 'https://www.instagram.com/reel/clip1/', container_id: 'container_1' }] });
-    assert.equal(url, 'https://api.upload-post.com/api/uploadposts/post-analytics/occurrence_1');
-    return json({ success: true, post: { request_id: requestId, profile_username: profile }, platforms: { instagram: { success: true, platform_post_id: 'ig_native_1', post_url: 'https://www.instagram.com/reel/clip1/', post_metrics_source: 'platform_api', post_metrics: { views: 12 } } } });
-  } });
-  assert.deepEqual(await providers.postStatus(requestId), { id: requestId, status: 'completed', postId: 'ig_native_1', postUrl: 'https://www.instagram.com/reel/clip1/', profile });
-});
-
-test('metrics enforce official profile/post attribution and never fill missing observations with zero', async () => {
-  let owner = profile;
-  const providers = createFactoryProviders({ env, fetchImpl: async (url) => {
-    const parsed = new URL(url);
-    assert.equal(parsed.searchParams.get('user'), profile);
-    assert.equal(parsed.searchParams.get('platform_post_id'), 'ig_post_1');
-    assert.equal(parsed.searchParams.get('platform'), 'instagram');
-    return json({ success: true, post: { profile_username: owner, platform: 'instagram', platform_post_id: 'ig_post_1', source: 'organic' }, platforms: { instagram: { success: true, platform_post_id: 'ig_post_1', post_metrics_source: 'platform_api', post_metrics: { reach: 0, likes: 12, private_extra: 'never-return' } } } });
-  } });
-  const result = await providers.metrics({ userId, postId: 'ig_post_1' });
-  assert.deepEqual(result.metrics, { reach: 0, likes: 12 });
-  assert.equal(result.source, 'platform_api');
-  assert.equal(result.metrics.views, undefined);
-  owner = 'another-user';
-  await assert.rejects(providers.metrics({ userId, postId: 'ig_post_1' }), { code: 'provider_readback_invalid' });
-});
-
 
 test('incomplete, wrong-model and invalid Gemini image results retain an unknown effect without retry', async () => {
   const valid = { id: 'interaction_image', model: 'gemini-3.1-flash-lite-image', status: 'completed', steps: [{ type: 'model_output', content: [{ type: 'image', mime_type: 'image/jpeg', data: imageBase64 }] }] };

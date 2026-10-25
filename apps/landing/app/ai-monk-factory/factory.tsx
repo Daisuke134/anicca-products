@@ -35,6 +35,7 @@ const messages: Record<string, string> = {
   subscription_required: 'Your three free videos are used. Choose a plan to continue.',
   free_quota_remaining: 'Use your three free videos before starting a subscription.',
   avatar_required: 'Create your avatar first.', avatar_exists: 'Your avatar request already exists. Its status is shown below.',
+  video_required: 'Generate one full video before connecting Instagram.',
   instagram_required: 'Connect an Instagram Business or Creator account first.', social_not_connected: 'Reconnect Instagram before daily posting can resume.',
   billing_sync_conflict: 'Your billing status is updating. Please check again in a moment.',
   checkout_reconciliation_required: 'We are checking your previous checkout. Please refresh before trying again.',
@@ -179,6 +180,8 @@ export default function Factory() {
   const freeQuotaSpent = quota.exhausted;
   const hasAccess = active || freeQuotaAvailable;
   const avatarReady = account?.avatar_ready === true;
+  const completedVideoReady = videos.some(j => j.status === 'completed' && !!j.video_url);
+  const freeVideosRemaining = !active && quota.known ? Math.min(3, Math.max(0, snapshot?.usage?.videosRemaining || 0)) : null;
   const hasBilling = !!account?.subscription_status && account.subscription_status !== 'none';
   const image = media(account?.avatar_image_url || avatarJob?.image_url);
   const actionReadiness = {
@@ -188,7 +191,7 @@ export default function Factory() {
   };
   const requestAction = (action: FactoryAction) => requestFactoryAction(action, actionReadiness, avatarReady, act, setNotice, {
     hasAccess, quotaKnown: quota.known, videosRemaining: snapshot?.usage?.videosRemaining,
-    attemptsRemaining: snapshot?.usage?.attemptsRemaining, pendingVideo: !!pendingVideo,
+    attemptsRemaining: snapshot?.usage?.attemptsRemaining, pendingVideo: !!pendingVideo, completedVideoReady,
   });
 
   return <main className="mf-shell">
@@ -218,13 +221,13 @@ export default function Factory() {
             <span className="mf-media-label">Fictional · AI-generated</span>
           </div>
           <div className="mf-steps">
-            <div className="mf-step"><span className="mf-step-number">01</span><div><h3>Your original avatar</h3><p>Connect Instagram and we create your monk automatically. You can also create it now.</p><button className="mf-button mf-button-small" disabled={!!busy || !!avatarJob || avatarReady} onClick={() => requestAction('generate_avatar')}>{avatarReady ? 'Avatar ready ✓' : avatarJob ? stage(avatarJob) : busy === 'generate_avatar' ? 'Requesting…' : !generationReady ? 'Check generation setup' : !hasAccess ? 'Check free allowance' : 'Generate my monk'}</button></div></div>
-            <div className="mf-step"><span className="mf-step-number">02</span><div><h3>Something worth sharing</h3><p>Original script, voice, and vertical video. No prompt setup.</p><button className="mf-button mf-button-small" disabled={!!busy || generating || (account?.auto_post && !pendingVideo)} onClick={() => requestAction('generate_video')}>{busy === 'generate_video' ? 'Requesting…' : generating ? 'Video in progress…' : account?.auto_post ? 'Daily generation is on' : pendingVideo ? 'Check my generation request' : !generationReady ? 'Check generation setup' : !avatarReady ? 'Create your monk first' : !hasAccess ? 'Check free allowance' : 'Generate a Reel'}</button>{!avatarReady && <p className="mf-fine">Create your monk first, then generate a Reel.</p>}</div></div>
-            <div className="mf-step"><span className="mf-step-number">03</span><div><h3>Your Instagram, on a rhythm</h3><p>{account?.connected ? `Connected${account.instagram_username ? ` · @${account.instagram_username.replace(/^@/, '')}` : ''}` : 'Use an Instagram Business or Creator account.'}</p>
-              {!account?.connected && <><p className="mf-fine">Connecting starts daily avatar/video creation and automatic publishing to this account. You can stop at any time. If this account is linked to another Upload-Post workspace, reconnecting may move it here.</p><button className="mf-button mf-button-small mf-button-outline" disabled={!!busy || account?.auto_post_intent} onClick={() => requestAction('connect_instagram')}>{account?.auto_post_intent ? 'Waiting for Instagram authorization…' : !socialReady || !generationReady ? 'Check Instagram setup' : !hasAccess ? 'Check free allowance' : 'Connect Instagram ↗'}</button></>}
-              {account?.connected && <button className={`mf-button mf-button-small ${account.auto_post ? 'mf-button-outline' : ''}`} disabled={!!busy} onClick={() => requestAction(account.auto_post ? 'stop' : 'autopost')}>{account.auto_post ? 'Stop daily creation and posting' : !socialReady || !generationReady ? 'Check Instagram setup' : !hasAccess ? 'Check free allowance' : 'Resume daily creation and posting'}</button>}
+            <div className="mf-step"><span className="mf-step-number">01</span><div><h3>Generate your monk avatar</h3><p>Create one original, fictional monk to appear in every video.</p><button className="mf-button mf-button-small" disabled={!!busy || !!avatarJob || avatarReady} onClick={() => requestAction('generate_avatar')}>{avatarReady ? 'Avatar ready ✓' : avatarJob ? stage(avatarJob) : busy === 'generate_avatar' ? 'Requesting…' : 'Generate Monk Avatar'}</button></div></div>
+            <div className="mf-step"><span className="mf-step-number">02</span><div><h3>Generate the full video</h3><p>Original script, HeyGen voice, and vertical Reel. Three full videos are free; no prompt setup.</p><button className="mf-button mf-button-small" disabled={!!busy || generating || (account?.auto_post && !pendingVideo)} onClick={() => requestAction('generate_video')}>{busy === 'generate_video' ? 'Requesting…' : generating ? 'Video in progress…' : account?.auto_post ? 'Daily generation is on' : pendingVideo ? 'Check my generation request' : !avatarReady ? 'Generate your monk first' : !quota.known ? 'Check free allowance' : !hasAccess ? 'Choose a plan to continue' : freeVideosRemaining === null ? 'Generate The Full Video' : `Generate The Full Video · ${freeVideosRemaining} free`}</button>{!avatarReady && <p className="mf-fine">Generate your monk first, then make a full video.</p>}</div></div>
+            <div className="mf-step"><span className="mf-step-number">03</span><div><h3>Connect your IG to auto post</h3><p>{account?.connected ? `Connected${account.instagram_username ? ` · @${account.instagram_username.replace(/^@/, '')}` : ''}` : 'Use an Instagram Business or Creator account.'}</p>
+              {!account?.connected && <><p className="mf-fine">Generate your monk and at least one full video first. Connecting gives the Factory permission to start daily generation and posting. It starts while free videos remain or a subscription is active; you can stop at any time.</p><button className="mf-button mf-button-small mf-button-outline" disabled={!!busy || account?.auto_post_intent} onClick={() => requestAction('connect_instagram')}>{account?.auto_post_intent ? 'Waiting for Instagram authorization…' : !avatarReady ? 'Generate your monk first' : !completedVideoReady ? 'Generate your first full video' : 'Connect your IG to auto post ↗'}</button></>}
+              {account?.connected && <button className={`mf-button mf-button-small ${account.auto_post ? 'mf-button-outline' : ''}`} disabled={!!busy} onClick={() => requestAction(account.auto_post ? 'stop' : 'autopost')}>{account.auto_post ? 'Stop daily auto posting' : !socialReady || !generationReady ? 'Check Instagram setup' : !hasAccess ? 'Choose a plan to continue' : 'Start daily auto posting'}</button>}
               {account?.auto_post && !account.connected && <button className="mf-button mf-button-small mf-button-outline" disabled={!!busy} onClick={() => void act('stop')}>Turn daily posting off</button>}
-              <p className="mf-fine">{account?.auto_post ? `Daily creation and posting are on. Next scheduled: ${date(account.next_post_at)}.` : account?.auto_post_intent ? 'Daily creation and posting will start after Instagram confirms the connection. You can stop now.' : account?.connected ? 'Daily creation and posting are off. Resume them whenever you are ready.' : 'Connect once to start daily creation and posting.'} Connection checked: {date(account?.social_checked_at)}.</p>
+              <p className="mf-fine">{account?.auto_post ? `Daily creation and posting are on. Next scheduled: ${date(account.next_post_at)}.` : account?.auto_post_intent ? 'Instagram is connected. Daily creation and posting will start when a free video allowance or active subscription is available.' : account?.connected ? 'Instagram is connected. Daily posting is off until you start it.' : 'Connect once to start daily creation and posting.'} Connection checked: {date(account?.social_checked_at)}.</p>
             </div></div>
           </div>
         </div>

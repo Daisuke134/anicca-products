@@ -13,8 +13,9 @@ async function imageBackgroundHandler(event, dependencies = {}) {
     verifyImageTicket(ticket, env);
   } catch { return { statusCode: 401, body: '' }; }
   try {
-    await runFactoryImage({ ticket, env, store: dependencies.store || createFactoryStore({ env }),
-      providers: dependencies.providers || createFactoryProviders({ env }),
+    const store = dependencies.store || createFactoryStore({ env });
+    await runFactoryImage({ ticket, env, store,
+      providers: dependencies.providers || createFactoryProviders({ env, socialStore: store }),
       stripe: dependencies.stripe || factoryStripeClient(env), images: dependencies.images || createPrivateImages(event),
       ...(dependencies.syncBilling ? { syncBilling: dependencies.syncBilling } : {}) });
     return { statusCode: 204, body: '' };

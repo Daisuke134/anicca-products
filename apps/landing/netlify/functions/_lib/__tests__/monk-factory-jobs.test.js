@@ -147,6 +147,74 @@ test('fenced image recovery restores numeric blob usage without another provider
   assert.equal(JSON.stringify(saved.evidence).includes('private-'), false);
 });
 
+test('a successful Meta media_publish response is saved for metrics recovery after a lost DB write', async () => {
+  const { advanceFactoryJob } = require('../monk-factory-jobs.js');
+  const account = { user_id: user.id, auto_post: true, instagram_account_id: 'ig_fixture', connected_at: new Date().toISOString(),
+    stripe_subscription_id: null, avatar_id: 'avatar_fixture' };
+  let saved = { id: key, user_id: user.id, kind: 'video', origin: 'auto', stage: 'post_pending', status: 'processing',
+    lease_id: '22222222-2222-4222-8222-222222222222', lease_until: new Date(Date.now() + 30000).toISOString(),
+    period_key: 'free:lifetime', max_seconds: 20, autopost_requested: true, post_provider_id: 'container_fixture', evidence: {} };
+  let writeAttempts = 0; let publishCalls = 0;
+  const store = {
+    account: async () => account,
+    job: async () => saved,
+    fenceInstagramPublish: async () => true,
+    advanceJob: async (row, patch) => {
+      if (patch.stage === 'published' && writeAttempts++ < 2) throw Object.assign(new Error(), { code: 'store_unavailable', status: 503 });
+      saved = { ...saved, ...patch, evidence: { ...saved.evidence, ...patch.evidence } };
+      return saved;
+    },
+  };
+  const providers = {
+    readiness: () => ({ generation: { ready: true }, social: { ready: true } }),
+    postStatus: async () => ({ id: 'container_fixture', status: 'ready_to_publish' }),
+    publishInstagramContainer: async () => { publishCalls++; return { id: 'media_fixture', status: 'published' }; },
+    metrics: async () => assert.fail('the same tick must not skip the published stage'),
+  };
+  await advanceFactoryJob({ job: saved, store, providers, env, syncBilling: async () => account });
+  assert.equal(publishCalls, 1);
+  assert.equal(saved.stage, 'published');
+  assert.equal(saved.status, 'processing');
+  assert.equal(saved.post_id, 'media_fixture');
+  assert.equal(saved.evidence.publish_fence.effect, 'confirmed');
+  assert.equal(saved.evidence.media_publish_recovery.provider_receipt_id, 'media_fixture');
+});
+
+test('a successful Meta container response is saved for status polling after a lost DB write', async () => {
+  const { advanceFactoryJob } = require('../monk-factory-jobs.js');
+  const account = { user_id: user.id, auto_post: true, instagram_account_id: 'ig_fixture', connected_at: new Date().toISOString(),
+    stripe_subscription_id: null, avatar_id: 'avatar_fixture', social_profile: 'factory_' + user.id };
+  let saved = { id: key, user_id: user.id, kind: 'video', origin: 'auto', stage: 'post_ready', status: 'processing',
+    lease_id: '22222222-2222-4222-8222-222222222222', lease_until: new Date(Date.now() + 30000).toISOString(),
+    period_key: 'free:lifetime', max_seconds: 20, autopost_requested: true, video_url: 'https://fixture.example/video.mp4',
+    caption: 'Fictional AI-generated monk. Pause.', evidence: {} };
+  let writeAttempts = 0; let createCalls = 0;
+  const store = {
+    account: async () => account,
+    job: async () => saved,
+    claimSocial: async () => ({ ...account, social_lease_id: '33333333-3333-4333-8333-333333333333' }),
+    saveSocial: async (_id, _lease, state) => ({ ...account, ...state, social_lease_id: '33333333-3333-4333-8333-333333333333' }),
+    releaseSocial: async () => {},
+    advanceJob: async (row, patch) => {
+      if (patch.stage === 'post_pending' && patch.post_provider_id === 'container_fixture' && writeAttempts++ < 2) throw Object.assign(new Error(), { code: 'store_unavailable', status: 503 });
+      saved = { ...saved, ...patch, evidence: { ...saved.evidence, ...patch.evidence } };
+      return saved;
+    },
+  };
+  const providers = {
+    readiness: () => ({ generation: { ready: true }, social: { ready: true } }),
+    socialState: async () => ({ profile: 'factory_' + user.id, connected: true, accountId: 'ig_fixture', handle: 'monk.mujo' }),
+    publishInstagram: async () => { createCalls++; return { id: 'container_fixture', status: 'pending' }; },
+    postStatus: async () => assert.fail('the same tick must not poll before the receipt is saved'),
+  };
+  await advanceFactoryJob({ job: saved, store, providers, env, syncBilling: async () => account });
+  assert.equal(createCalls, 1);
+  assert.equal(saved.stage, 'post_pending');
+  assert.equal(saved.status, 'processing');
+  assert.equal(saved.post_provider_id, 'container_fixture');
+  assert.equal(saved.evidence.container_create_recovery.provider_receipt_id, 'container_fixture');
+});
+
 
 test('an incomplete paid image keeps returned numeric usage and receipt in unknown-effect evidence without retry', async () => {
   const { runFactoryImage, signImageTicket } = require('../monk-factory-jobs.js');

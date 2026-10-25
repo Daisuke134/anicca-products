@@ -1,5 +1,6 @@
 const ID = /^[A-Za-z0-9_.:-]{1,200}$/;
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
+const { createMetaInstagramProvider } = require('./monk-factory-instagram.js');
 const SCRIPT_MODEL = 'gemini-3.1-flash-lite';
 const IMAGE_MODEL = 'gemini-3.1-flash-lite-image';
 const IMAGE_PROMPT = 'Create one original, entirely fictional adult Buddhist monk for an AI-generated mindfulness video series. Invent a new face; do not depict a real person, celebrity, existing character, or known creator. Photorealistic vertical head-and-shoulders portrait, looking directly at the camera, entire head visible, relaxed neutral expression, mouth closed, natural skin texture, simple saffron robe, soft even daylight, uncluttered warm neutral background. Keep the face large, clear and front-facing for lip sync. One person only. No text, logos, watermarks, accessories covering the face, or collage.';
@@ -7,7 +8,6 @@ const SCRIPT_INSTRUCTIONS = 'Write one original, helpful English script and capt
 const SERVICES = {
   gemini: { base: 'https://generativelanguage.googleapis.com', prefix: 'MONK_FACTORY_GEMINI' },
   heygen: { base: 'https://api.heygen.com', prefix: 'MONK_FACTORY_HEYGEN' },
-  upload_post: { base: 'https://api.upload-post.com', prefix: 'MONK_FACTORY_UPLOAD_POST' },
 };
 
 function providerError(code, provider, effect = 'none', extra = {}) {
@@ -51,8 +51,9 @@ function profileFor(userId) {
   return 'factory_' + userId.toLowerCase();
 }
 
-function createFactoryProviders({ env = process.env, fetchImpl = fetch } = {}) {
+function createFactoryProviders({ env = process.env, fetchImpl = fetch, socialStore } = {}) {
   const model = env.MONK_FACTORY_SCRIPT_MODEL || SCRIPT_MODEL;
+  const metaInstagram = createMetaInstagramProvider({ env, fetchImpl, store: socialStore });
   const configured = (key) => typeof env[key] === 'string' && env[key].trim().length > 0;
   function billingVerified(provider) {
     const prefix = SERVICES[provider].prefix;
@@ -64,16 +65,13 @@ function createFactoryProviders({ env = process.env, fetchImpl = fetch } = {}) {
       if (provider === 'heygen') keys.push('MONK_FACTORY_HEYGEN_VOICE_ID');
       return keys.filter(key => !configured(key));
     });
-    const unverified = providers => providers.flatMap(provider => {
-      const values = billingVerified(provider) ? [] : [provider + '_independent_billing'];
-      if (provider === 'upload_post' && env.MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED !== 'true') values.push('upload_post_white_label');
-      return values;
-    });
+    const unverified = providers => providers.flatMap(provider => billingVerified(provider) ? [] : [provider + '_independent_billing']);
     const generationMissing = missing(['gemini', 'heygen']);
     const generationUnverified = unverified(['gemini', 'heygen']);
     if (model !== SCRIPT_MODEL) generationUnverified.push('script_model_pricing');
-    const socialMissing = missing(['upload_post']);
-    const socialUnverified = unverified(['upload_post']);
+    const metaReadiness = metaInstagram.readiness();
+    const socialMissing = [...metaReadiness.missing];
+    const socialUnverified = [...metaReadiness.unverified];
     const generation = { ready: !generationMissing.length && !generationUnverified.length, missing: generationMissing, unverified: generationUnverified };
     const social = { ready: !socialMissing.length && !socialUnverified.length, missing: socialMissing, unverified: socialUnverified };
     return { ready: generation.ready && social.ready, generation, social,
@@ -81,7 +79,7 @@ function createFactoryProviders({ env = process.env, fetchImpl = fetch } = {}) {
       limits: { imageReservedUsd: 0.14, scriptReservedUsd: 0.005, imagePromptMaxBytes: 1024, scriptInputMaxBytes: 12000, imageTimeoutMs: 240000, requestTimeoutMs: 10000 } };
   }
   function ensure(provider, submit = false) {
-    if (!configured(SERVICES[provider].prefix + '_API_KEY') || (submit && (!billingVerified(provider) || (provider === 'upload_post' && env.MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED !== 'true')))) {
+    if (!configured(SERVICES[provider].prefix + '_API_KEY') || (submit && !billingVerified(provider))) {
       throw providerError('provider_not_ready', provider);
     }
   }
@@ -187,82 +185,7 @@ function createFactoryProviders({ env = process.env, fetchImpl = fetch } = {}) {
     if (video?.id !== id || status(video.status) === 'unknown' || (video.status === 'completed' && (!httpsUrl(video.video_url) || !positiveDuration(video.duration)))) throw invalidResponse('heygen', false, null, id);
     return { id, status: status(video.status), ...(httpsUrl(video.video_url) ? { videoUrl: httpsUrl(video.video_url) } : {}), ...(positiveDuration(video.duration) ? { duration: video.duration } : {}) };
   }
-  async function createSocialProfile(userId) {
-    const profile = profileFor(userId);
-    const { data } = await request('upload_post', '/api/uploadposts/users', { method: 'POST', requestId: profile, body: { username: profile } });
-    if (data.success !== true || data.profile?.username !== profile) throw invalidResponse('upload_post', true, profile);
-    return { profile, status: 'created' };
-  }
-  async function connectInstagram(userId) {
-    const profile = profileFor(userId);
-    const { data } = await request('upload_post', '/api/uploadposts/users/generate-jwt', { method: 'POST', requestId: profile, body: { username: profile, platforms: ['instagram'], redirect_url: 'https://aniccaai.com/ai-monk-factory', show_calendar: false, readonly_calendar: false } });
-    const accessUrl = httpsUrl(data.access_url);
-    const parsed = accessUrl && new URL(accessUrl);
-    if (data.success !== true || !parsed || parsed.origin !== 'https://app.upload-post.com' || parsed.pathname !== '/connect' || !parsed.searchParams.get('token')) throw invalidResponse('upload_post', true, profile);
-    return { profile, accessUrl };
-  }
-  async function socialState(userId) {
-    const profile = profileFor(userId);
-    const { data } = await request('upload_post', '/api/uploadposts/users/' + encodeURIComponent(profile));
-    if (data.success !== true || data.profile?.username !== profile) throw invalidResponse('upload_post', false);
-    const account = data.profile.social_accounts?.instagram;
-    // Upload-Post names the stable Instagram user ID "username"; "handle" is mutable.
-    const accountId = account && typeof account === 'object' && isId(account.username) ? account.username : null;
-    const reauthRequired = account?.reauth_required === true;
-    return { profile, connected: !!accountId && !reauthRequired, accountId, handle: typeof account?.handle === 'string' && account.handle.length <= 200 ? account.handle : null, reauthRequired };
-  }
-  async function publishInstagram({ userId, accountId, videoUrl, caption, requestId }) {
-    requireId(requestId);
-    requireId(accountId);
-    if (!httpsUrl(videoUrl) || typeof caption !== 'string' || !caption.trim() || caption.length > 2200) throw inputError('invalid_instagram_post');
-    ensure('upload_post', true);
-    const connection = await socialState(userId);
-    if (connection.reauthRequired) throw inputError('instagram_reconnect_required');
-    if (!connection.connected || connection.accountId !== accountId) throw inputError('instagram_account_changed');
-    const body = new FormData();
-    for (const [key, value] of Object.entries({ user: connection.profile, 'platform[]': 'instagram', video: videoUrl, title: caption, media_type: 'REELS', async_upload: 'true', request_id: requestId, external_id: requestId })) body.set(key, value);
-    const { data, receiptId } = await request('upload_post', '/api/upload', { method: 'POST', requestId, idempotency: true, body });
-    if (data.success !== true || data.request_id !== requestId) throw invalidResponse('upload_post', true, requestId, receiptId);
-    return { id: data.request_id, status: 'pending' };
-  }
-  async function postStatus(id) {
-    requireId(id);
-    const { data } = await request('upload_post', '/api/uploadposts/status?request_id=' + encodeURIComponent(id));
-    if (data.request_id !== id || status(data.status) === 'unknown') throw invalidResponse('upload_post', false, null, id);
-    if (data.status !== 'completed') return { id, status: status(data.status) };
-    const result = Array.isArray(data.results) ? data.results.find((item) => item?.platform === 'instagram') : null;
-    if (result?.skipped || result?.success === false || ['failed', 'skipped'].includes(result?.status)) return { id, status: 'failed' };
-    let postId = result?.post_id;
-    const postUrl = httpsUrl(result?.post_url || result?.url);
-    const parsed = postUrl && new URL(postUrl);
-    if (result?.success !== true || !parsed || !['www.instagram.com', 'instagram.com'].includes(parsed.hostname)) throw invalidResponse('upload_post', false, null, id);
-    if (!isId(postId)) {
-      // A publish container is not an Instagram media ID; resolve the ID from the official upload record.
-      const { data: analytics } = await request('upload_post', '/api/uploadposts/post-analytics/' + encodeURIComponent(id));
-      const instagram = analytics.platforms?.instagram;
-      const profile = analytics.post?.profile_username;
-      postId = instagram?.platform_post_id;
-      if (analytics.success !== true || analytics.post?.request_id !== id || typeof profile !== 'string' || !profile.startsWith('factory_') || !UUID.test(profile.slice(8)) || instagram?.success !== true || !isId(postId)) throw invalidResponse('upload_post', false, null, id);
-      return { id, status: 'completed', postId, postUrl, profile };
-    }
-    return { id, status: 'completed', postId, postUrl };
-  }
-  async function metrics({ userId, postId }) {
-    const profile = profileFor(userId);
-    requireId(postId);
-    const query = new URLSearchParams({ platform_post_id: postId, platform: 'instagram', user: profile });
-    const { data } = await request('upload_post', '/api/uploadposts/post-analytics?' + query);
-    const instagram = data.platforms?.instagram;
-    if (data.success !== true || data.post?.profile_username !== profile || data.post.platform_post_id !== postId || data.post.platform !== 'instagram' || instagram?.success !== true || instagram.platform_post_id !== postId || instagram.post_metrics_source !== 'platform_api') throw invalidResponse('upload_post', false, null, postId);
-    const values = {};
-    for (const key of ['views', 'reach', 'likes', 'comments', 'shares', 'saves', 'impressions', 'crossposted_views', 'facebook_views']) {
-      const value = instagram.post_metrics?.[key];
-      if (typeof value === 'number' && Number.isFinite(value) && value >= 0) values[key] = value;
-    }
-    if (!Object.keys(values).length) throw providerError('metrics_unavailable', 'upload_post', 'none', { retryable: true });
-    return { postId, profile, source: 'platform_api', metrics: values };
-  }
-  return { readiness, createAvatarImage, createPhotoAvatar, avatarStatus, createScript, createSpeech, createVideo, videoStatus, createSocialProfile, connectInstagram, socialState, publishInstagram, postStatus, metrics };
+  return { ...metaInstagram, readiness, createAvatarImage, createPhotoAvatar, avatarStatus, createScript, createSpeech, createVideo, videoStatus };
 }
 
 module.exports = { createFactoryProviders };

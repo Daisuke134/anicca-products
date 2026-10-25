@@ -45,7 +45,7 @@ export function requestFactoryAction(action, readiness, avatarReady, perform, no
     return false;
   }
 
-  const allowanceRequired = ['generate_avatar', 'generate_video', 'connect_instagram', 'autopost'].includes(action);
+  const allowanceRequired = ['generate_avatar', 'generate_video', 'autopost'].includes(action);
   const recoveringVideo = action === 'generate_video' && allowance.pendingVideo;
   if (allowanceRequired && !allowance.hasAccess && !recoveringVideo) {
     const message = !allowance.quotaKnown
@@ -61,6 +61,16 @@ export function requestFactoryAction(action, readiness, avatarReady, perform, no
 
   if (action === 'generate_video' && !avatarReady) {
     notify('Create your monk first. No request was sent.');
+    return false;
+  }
+
+  if (action === 'connect_instagram' && !avatarReady) {
+    notify('Generate your monk avatar first. No Instagram request was sent.');
+    return false;
+  }
+
+  if (action === 'connect_instagram' && !allowance.completedVideoReady) {
+    notify('Generate one full video first. No Instagram request was sent.');
     return false;
   }
 

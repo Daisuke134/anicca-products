@@ -105,6 +105,19 @@ test('Instagram connection and autopost require both social and generation readi
   }
 });
 
+test('Instagram OAuth follows the avatar and first completed video steps', () => {
+  const actions = [];
+  const notices = [];
+  const perform = action => actions.push(action);
+  const ready = { generation: { ready: true }, social: { ready: true } };
+  assert.equal(readiness.requestFactoryAction('connect_instagram', ready, false, perform, message => notices.push(message), { hasAccess: true, quotaKnown: true }), false);
+  assert.match(notices.pop(), /avatar first/i);
+  assert.equal(readiness.requestFactoryAction('connect_instagram', ready, true, perform, message => notices.push(message), { hasAccess: true, quotaKnown: true }), false);
+  assert.match(notices.pop(), /one full video first/i);
+  assert.equal(readiness.requestFactoryAction('connect_instagram', ready, true, perform, message => notices.push(message), { completedVideoReady: true }), true);
+  assert.deepEqual(actions, ['connect_instagram']);
+});
+
 test('unknown allowance never sends a generation request', () => {
   let sent = 0;
   const notices = [];

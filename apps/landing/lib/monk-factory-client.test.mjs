@@ -46,12 +46,14 @@ test('dashboard uses GET and cancellation does not inherit a generation occurren
 test('each redirect is limited to its own HTTPS provider and rejects credentials, ports and lookalikes', () => {
   assert.equal(factoryDestination({ url: 'https://checkout.stripe.com/c/pay/fixture' }, 'checkout'), 'https://checkout.stripe.com/c/pay/fixture');
   assert.equal(factoryDestination({ url: 'https://billing.stripe.com/p/session/fixture' }, 'portal'), 'https://billing.stripe.com/p/session/fixture');
-  assert.equal(factoryDestination({ url: 'https://app.upload-post.com/connect?token=fixture' }, 'connect_instagram'), 'https://app.upload-post.com/connect?token=fixture');
+  assert.equal(factoryDestination({ url: 'https://www.facebook.com/dialog/oauth?client_id=fixture' }, 'connect_instagram'), 'https://www.facebook.com/dialog/oauth?client_id=fixture');
   for (const value of ['http://checkout.stripe.com/c/pay/fixture', 'https://checkout.stripe.com.evil.test/', 'https://user@checkout.stripe.com/', 'https://checkout.stripe.com:444/', 'https://checkout.stripe.com/#fixture', 'https://billing.stripe.com/']) {
     assert.throws(() => factoryDestination({ url: value }, 'checkout'), { code: 'invalid_destination' });
   }
   assert.throws(() => factoryDestination({ url: 'https://checkout.stripe.com/' }, 'portal'), { code: 'invalid_destination' });
-  assert.throws(() => factoryDestination({ url: 'https://billing.stripe.com/' }, 'connect_instagram'), { code: 'invalid_destination' });
+  for (const value of ['https://app.upload-post.com/connect?token=fixture', 'https://facebook.com/dialog/oauth', 'https://www.facebook.com.evil.test/dialog/oauth']) {
+    assert.throws(() => factoryDestination({ url: value }, 'connect_instagram'), { code: 'invalid_destination' });
+  }
 });
 
 test('completed checkout resumes without a redirect URL', () => {
