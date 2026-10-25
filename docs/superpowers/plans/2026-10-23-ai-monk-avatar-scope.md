@@ -105,3 +105,13 @@ best=対象の明確な小さい一覧を起点に同じ根拠基準で拡大す
 **初回heartbeatのsource受入:** 2026-10-24の公開観測を3プロフィールへ追記する。Yang MunのYouTube3本viewsは521603/1102391/12561596、channel subscribersは丸め159000。商品3ページをHTTP200で確認し、Ming Sanの29.99 USD単発/26.99 USD月次とYan Chenの9.95 EURを再観測する。Yang Munのドル表示とJPY storefront設定の不整合、YanのAgotado/InStock併記は未確定を維持する。追加は指標4件/offer4件/出典6件、合計187出典。旧181出典・offer/metric履歴・全scope・収益申告は不変。helper9＋CLI/stdio/HTTP/install15件PASS、fresh read-only指摘0件。Instagram followersは5creditsの有料lookupを使わず未取得、現在売上/注文/利益は公開価格から推定しない。学び・未取得理由・取得時刻は `docs/evidence/ai-monk-daily-refresh-20261024.json`。source受入段階の記録であり、公開結果は下記の本番受入を参照する。
 
 **初回heartbeatの本番受入:** PR649/head `b724dce7d10055cecc9839026347a9980fe90751`はpackage CI40044088058・Landing CI40044087953・CodeRabbitがSUCCESSでmain `505aa8182356e286c586aa9a5f618d8509806f2e`へ統合する。Netlify40044430905は同mainでSUCCESS。2026-10-24T00:25:42.652Zの公開JSONはcanonical SHA256 `6daa9b82697c3ad2904a933c875ff0755e9b90d5de1b601655f6981e0d2bbafd`と一致し、公開HTMLの73card/新offer/観測日/AI status非表示/4sort、公式SDKのremote MCP6tools・73件/187出典/75archiveと変更3accountの完全一致を確認する。CLI v0.4.9の公式tagは同main、asset60,227bytes/SHA256 `63ce5eaedde30e0178581d79fd535749d96bcc73962c92f060372ef1b1051a90`。公開URLからの実installとstdioで同じsnapshotを返す。central registryのmetadata versionはこの日次taskでは再publishせず、既存remote URLは維持する。本人記事はcrwl本文空の後scrapyで再取得し、2026-04-09公開の既知申告を確認するが、現在売上/利益の証拠へ変換しない。初回自然定期runを受入済みとし、未取得IG followers・各creatorの会計情報・候補調査は残す。元の長時間goalはpausedのままで、このtaskによる動画生成/SNS投稿/追加課金は0。証拠 → `docs/evidence/ai-monk-daily-{refresh,production}-20261024.json`、`docs/evidence/ai-monk-cli-mcp-v049-release-20261024.json`。
+
+## 2回目heartbeatの実行範囲
+
+2026-10-24T23:59:58.755Zの定期更新を、base `29a84055d86fd4dbcf0dc82fb8f6530018125501`由来の専用branch `data/ai-monk-daily-20261025`で扱う。現行73公開/75archive・included6/pending67/excluded2・233出典と全履歴を保持する。Yang Munの既存YouTube3動画と丸めsubscriber、Yang Mun/Ming San/Yan Chenの公式商品ページを無料公開sourceで再確認する。取得時刻・出所・通貨・期間・未取得理由を記録し、不明売上を推定しない。公式creator記事の既知申告も再読する。Instagramの直接HTTP停止方針と既存browser leaseを維持し、有料lookup・動画生成・SNS投稿・Factory実装・元のpaused goalの再開を行わない。
+
+- [ ] 日付付き観測を追記し、旧source/metric/offer/収益申告と非対象account不変を検証する。
+- [ ] 関連既存testsと独立read-only確認、exact CI/main統合を通す。
+- [ ] 公開JSON/Web/remote MCPと次patch CLIの公式取得を照合し、未取得理由と学びを証拠へ記録する。
+
+現在cursor: 2回目heartbeatの公開情報収集。仕様・掲載判定・UIの振る舞い変更はなく、データ追記と配布snapshot更新に限定する。
