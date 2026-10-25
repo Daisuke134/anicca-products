@@ -5,19 +5,26 @@
 
 ## 順序と現在cursor
 
-### Current cursor override — 2026-10-26 JST — eBook campaign source release
+### Current cursor override — 2026-10-26 JST — Factory runtime readiness
 
-現行MVP契約は変えない。Factoryは「Generate Monk Avatar → Generate The Full Video（最大3本無料） → Connect your IG to auto post」で、完成script/captionは既存の英語eBook『The Art of AI Monks』へ出典付きで案内する。動画providerはHeyGen、Instagram優先、Grok Bot/Postizの日次投稿ownerは既存のままとする。
+MVPは「Generate Monk Avatar → Generate The Full Video（完全な台本/voice付きで最大3本無料） → Connect your IG to auto post」。trialなし・カードなし・期限なし。Instagramを接続したらAPI経由の日次生成/投稿を開始し、Pause/Stopを提供する。eBook campaignは『The Art of AI Monks』。HeyGenを動画providerに固定し、Grok Bot/Postizの既存日次owner/scheduleは変更しない。
 
-**新しい公式readback:** Netlify production env GETは2026-10-25T17:23Z（10/26 JST）にHTTP200、58 variables、`MONK_FACTORY_*` 0件。最新deploy `6ade35182e5695e48c0e46a8`はreadyで、titleはmain SHA `23617ccbc031f372f73ee92033193d32d6e04a8e`、`commit_ref=null`。HeyGen Factory keyの`GET /v3/users/me`は同17:21ZにHTTP200、wallet USD0、auto-reload off、`usage_based`/`spending_cap_usd`なし。Geminiの最新保存済み公式project/AI Studio readbackは16:27Z、billing disabled、billing accountなし、月cap値は非表示で状態unknown。証拠 → `../../evidence/ai-monk-factory-netlify-readback-20261026.json`、`../../evidence/ai-monk-factory-mvp-provider-readback-20261026.json`、`../../evidence/ai-monk-factory-ai-studio-cap-readback-20261025T162759Z.json`。
+**完了したrelease:** eBook campaign CTA/script/caption表示sourceをPR #766でmain `e6da42e5fd8c9acc5e77e6ff4caaffb6a52c309c`へ統合。Landing CI run `40216699098`とproduction deploy run `40217036260`は成功。公式deploy readbackはdeploy `6ade3e636ae97444c5fd1a52`をready/published、main SHA入りtitleで確認。Netlify production envは58 variables、`MONK_FACTORY_*` 0件。公開readbackではFactoryは`/products/` Softwareと`/dais` Web productsに掲載される一方、どちらもPreparing statusで、generation/Checkoutは未開放。Factoryは一覧から除外されていないが、runtimeは閉じている。readbacks → `../../evidence/ai-monk-factory-netlify-release-readback-20261026.json`、`../../evidence/ai-monk-factory-public-listing-readback-20261026.json`。
 
-このbranchのeBook campaign修正は、script CTA・captionのcanonical book link・videoごとのscript/caption表示を追加し、source regression tests 88件PASS、隔離Postgres依存の33件SKIP、Next production build 675 pages PASSまで完了。main/productionには未反映。provider generation、OAuth/post、Checkout/charge、environment mutationは0。
+**順序変更の記録:** 旧順序は (1) eBook CTA source修正をrelease、(2) provider spend boundary、(3) Factory/Meta/Stripe runtime、(4) E2E。新順序はrelease済みの項目(1)を完了にし、(2) HeyGen/Geminiの実効支出境界、(3) runtime/Meta/Stripe test readiness、(4) avatarと完成video最大3本無料の実生成、(5) Instagram OAuth後の日次生成・投稿・URL/metrics/Pause/Stop、(6) free quota後のStripe test Checkout/webhookと支払後再開、(7) evidence、(8) Xで一度だけ告知、(9) その後に改善・配信loop。理由は、sourceの独立修正がmainへrelease済みで、残る最短cursorは実際に使えるprovider/runtimeとE2Eだからである。source releaseを未完として扱わず、provider支出境界を越えて推測で設定しない。
 
-**順序変更の記録:** 旧順序は (1) provider spend boundary、(2) runtime/Meta/Stripe readiness、(3) Factory E2E。新順序は (1) 既にできた低費用のsource campaign修正を統合・公開し、内容と本番表示を合わせる、(2) HeyGen/Geminiの有効な支出境界、(3) Factory/Meta/Stripe test runtime readiness、(4) avatarと完成video最大3本無料、(5) Instagram OAuth後の日次生成・投稿・metrics・Pause/Stop、(6) free quota後のStripe test Checkout/webhookと再開、(7) 証拠を分けて保存し、条件がそろえば一度だけX告知、(8) 以後のDatabase改善・product iteration・X配信を有限run loopで継続。変更理由は、script/captionにebook CTAがない・利用者が内容を確認できない欠落を、provider資金やproduction runtimeを変更せず独立して修正・検証できたため。**現在cursorはstep (1) のbranch release**であり、PR/CI/main/deploy/readbackが残る。
+**現在cursor / TODO:**
+1. **SaaS-2 — provider spend boundary（current cursor）:** HeyGen専用walletがUSD0でauto-reload off。workspace auto-refill/wallet hard capは未確認。Gemini専用projectはbilling disabled、月capは未表示。固定HeyGen providerの有限支出方法を確立し、Gemini専用billing/project capのreadbackを得る。内部USD10/day予約は請求上限ではない。読み取り済みreceipt → `../../evidence/ai-monk-factory-mvp-provider-readback-20261026.json`、`../../evidence/ai-monk-factory-ai-studio-cap-readback-20261025T162759Z.json`。初期テストに必要な支払いは、金額・上限がspec内に確定するまで実行しない。
+2. **Runtime readiness:** Netlifyへ必要なFactory envを設定/readbackし、Meta Instagram Login app/role/permissionsとStripe test-mode product/price/Checkout/webhookを用意する。既存共通Stripe keyだけでFactoryのtest Checkoutが読める/作れるとは扱わない。Factory env現状は58 total / 0 `MONK_FACTORY_*`。
+3. **Free generation E2E:** Studioからavatar生成、そのavatarで完全なscript/voice/videoを最大3本、期限なし・カードなし・trialなしで確認する。成功だけでなく、quotaとprovider receiptを保存する。
+4. **Instagram auto-post E2E:** Factory OAuthでInstagram接続後、日次生成/投稿、公式readbackの投稿URLと取得可能なmetricsを確認し、Pause/Stopを確認する。`monk.mujo`の利用は許可済みだが、Grok Botが所有する既存schedule/Postiz connectionへ手を加えない。重複投稿を作らない。
+5. **Stripe test conversion:** free quota消費後にtest-mode Checkout/webhookを確認し、支払状態に応じてdaily generation/postingが再開することを確認。live chargeなし。
+6. **Evidence and one-time launch:** source/provider/post/Stripeの根拠を区別して保存し、E2Eが成立したらFactoryをXで一度だけ告知する。その後に改善/配信loopを起動する。
+7. **Later scope:** TikTok、CLI/PluginからのFactory automation、Meta Advanced Access/App Review、iPhone appはInstagram-first web MVPと一度のlaunchの後。ChatGPT/Muse marketplace審査やDatabase全coverageはFactory E2Eのblockerにしない。
 
-##
+今回のsource release readbackではprovider生成、OAuth、投稿、Checkout/charge、本番env変更は行っていない。既存Grok Bot/Postizの日次ownerも変更していない。本番runtimeのE2Eは未完了である。
 
-### Previous cursor override — 2026-10-26 (JST; superseded by the eBook campaign source release entry above)
+### Previous cursor override — 2026-10-26（JST; 上記のFactory runtime readinessへ更新済み）
 
 #### CTA readiness修正の本番反映と一覧再読込 — 2026-10-25T15:50Z–15:56Z
 

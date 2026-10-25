@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "run_id": "factory-public-listing-readback-20261025T174052045772+0000",
+  "owner_id": "Codex primary session",
+  "occurrence_id": "652041386d234112826ee8a637cc00d6",
+  "observed_at": "2026-10-25T17:40:52.045772+00:00",
+  "release_sha": "e6da42e5fd8c9acc5e77e6ff4caaffb6a52c309c",
+  "phase": "public_factory_and_catalog_read_only_crawl",
+  "command": "crwl crawl https://aniccaai.com/ai-monk-factory -o markdown-fit; crwl crawl https://aniccaai.com/products/ -o markdown-fit; crwl crawl https://aniccaai.com/dais -o markdown-fit",
+  "loaded_argv": [
+    "crwl crawl",
+    "public Factory and product listing routes"
+  ],
+  "loaded_env": {
+    "secrets_used": false
+  },
+  "effect": "read_only_public_content_observation",
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Keep listing status as preparing to open until Factory runtime and provider integrations are ready.",
+  "exit_code": 0,
+  "readback": {
+    "factory_page": {
+      "url": "https://aniccaai.com/ai-monk-factory",
+      "offer": "up to 3 free videos, no card, no time limit",
+      "subscription_copy": "USD 199/month",
+      "mvp_campaign_copy": "Research-led scripts that point viewers to The Art of AI Monks, our sourced English ebook."
+    },
+    "products_listing": {
+      "url": "https://aniccaai.com/products/",
+      "factory_listed": true,
+      "section": "Software",
+      "status": "Preparing to open",
+      "runtime_copy": "Generation and subscription checkout are not open yet."
+    },
+    "dais_listing": {
+      "url": "https://aniccaai.com/dais",
+      "factory_listed": true,
+      "section": "Web products",
+      "status": "preparing to open"
+    }
+  }
+}
