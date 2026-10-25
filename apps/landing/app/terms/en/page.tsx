@@ -66,10 +66,13 @@ export default function TermsEN() {
         Court.
       </p>
 
+      <h2 className="mt-10 text-xl font-semibold text-foreground">9a. Social Publishing (TikTok and YouTube)</h2>
+      <p className="mt-3 text-muted-foreground">Anicca also operates a publishing tool (the &quot;Anicca&quot; app registered with TikTok for Developers and Google/YouTube) that we use to publish our own Anicca content to our own TikTok and YouTube accounts and to view the performance of that content. By connecting an account, you authorize the tool to post videos you or we prepared and to read basic profile information, video lists, and view statistics for that account. Use of these platforms is also subject to the TikTok Terms of Service and the YouTube Terms of Service. You can revoke access at any time from your TikTok or Google account settings.</p>
+
       <h2 className="mt-10 text-xl font-semibold text-foreground">10. Contact</h2>
       <p className="mt-3 text-muted-foreground">Please contact keiodaisuke@gmail.com.</p>
 
-      <p className="mt-12 text-right text-sm text-muted-foreground">Last Updated: January 26, 2026</p>
+      <p className="mt-12 text-right text-sm text-muted-foreground">Last Updated: October 25, 2026</p>
     </main>
   );
 }
