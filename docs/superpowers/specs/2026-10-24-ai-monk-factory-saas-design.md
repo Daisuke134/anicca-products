@@ -41,9 +41,9 @@ Instagram接続APIはOAuthを始める前に`auto_post_intent`を保存する。
 
 ユーザーの本番画面に「This action could not finish. Refresh to check its status before trying again.」とStudio load failureが表示された。Source auditでは、`factory.tsx`の`act()`がaction POSTの後に`load()`を同じ`try/catch`で実行し、POSTが200/202で受理済みでもGET refreshの失敗をaction失敗として表示し得る。これでは生成・Stop等のeffectが既に始まった可能性を隠し、再送による重複判断を誘う。
 
-受入条件は、POST成功後にGETが失敗した場合は「request received / status not confirmed / refresh before retry」と伝え、成功済みactionと未確認readbackを区別すること。POST自体の失敗は従来どおりerror codeを表示すること。video idempotency keyとpending occurrenceを維持し、refresh失敗で再送しないこと。実際に何のactionが送られたか、外部provider effectがあったかはこの画面だけからは特定できない。
+受入条件は、POST成功後にGETが失敗した場合は「request received / status not confirmed / refresh before retry」と伝え、成功済みactionと未確認readbackを区別すること。状態未確認時に成功通知を併記しない。POST自体の失敗は従来どおりerror codeを表示すること。video idempotency keyとpending occurrenceを維持し、refresh失敗で再送しないこと。実際に何のactionが送られたか、外部provider effectがあったかはこの画面だけからは特定できない。
 
-source fixをworktree `fix/ai-monk-ebook-database-resume-20261026`へ実装した。専用testは修正前にmissing helperでRED、修正後はreadback failure/successの2ケースがGREEN。関連Factory/client/API suiteは131件中96 pass・0 fail・35 DB fixture skip。Next production buildは678ページ / exit 0。全体`tsc --noEmit`は既知の6 errors（dashboard 1、wallet 1、Life Manager CTA 4）のみで、変更Factory fileのerrorはない。CIと同一SHAのcanonical `published-apps.json`をignored build inputとしてstageし、commit対象から外した。現行修正のCI/main/production releaseは未完。
+source fixをworktree `fix/ai-monk-ebook-database-resume-20261026`へ実装した。回帰testは成功通知がreadback後にのみ出ることも確認し、readback失敗時の警告だけを残す。関連Factory/client/API suiteは137件中102 pass・0 fail・35 DB fixture skip。Next production buildは680ページ / exit 0。全体`tsc --noEmit`は既知の6 errors（dashboard 1、wallet 1、Life Manager CTA 4）のみで、変更Factory fileのerrorはない。CIと同一SHAのcanonical `published-apps.json`をignored build inputとしてstageし、commit対象から外した。現行修正のCI/main/production releaseは未完。
 
 ## Latest production release and live readiness — 2026-10-26 JST
 

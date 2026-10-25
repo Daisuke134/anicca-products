@@ -38,9 +38,10 @@ export function factoryActionReady(action, readiness) {
   return (actionCapabilities[action] || []).every(name => readiness?.[name]?.ready === true);
 }
 
-export async function refreshFactoryActionStatus(refresh, onReadbackFailure) {
+export async function refreshFactoryActionStatus(refresh, onReadbackFailure, onReadbackSuccess) {
   try {
     await refresh();
+    onReadbackSuccess();
     return true;
   } catch {
     onReadbackFailure();

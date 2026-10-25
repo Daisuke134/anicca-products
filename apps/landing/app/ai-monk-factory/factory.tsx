@@ -175,10 +175,10 @@ export default function Factory() {
         pending = { ...pending, jobId: result.jobId };
         videoRequest.current = pending; setPendingVideo(pending); writePending(s.user.id, pending);
       }
-      setNotice(action === 'stop' ? 'Daily posting is off. No new automatic generation or publishing will start.' : action === 'autopost' ? 'Daily posting is on. Your next scheduled post is shown below.' : 'Request received. Progress appears below.');
       await refreshFactoryActionStatus(
         () => load(s.access_token),
         () => { if (token.current === s.access_token) setError('Your request was received, but the Studio could not confirm its status. Refresh before retrying.'); },
+        () => { if (token.current === s.access_token) setNotice(action === 'stop' ? 'Daily posting is off. No new automatic generation or publishing will start.' : action === 'autopost' ? 'Daily posting is on. Your next scheduled post is shown below.' : 'Request received. Progress appears below.'); },
       );
     } catch (e) {
       if (token.current === s.access_token) setError(actionAccepted
