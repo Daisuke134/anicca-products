@@ -61,6 +61,11 @@ function groups(en: boolean): Group[] {
           href: 'https://iglowup-ai.lovable.app',
           external: true,
         },
+        {
+          name: 'AI Monk Factory',
+          tagline: en ? 'AI monk video studio · preparing to open' : 'AI 僧侶動画スタジオ · 公開準備中',
+          href: '/ai-monk-factory',
+        },
         { name: 'Lookmax', tagline: en ? 'coming soon' : '近日', coming: true },
       ],
       more: { label: en ? 'See the web-app factory →' : 'Web アプリ工場を見る →', href: '/factory' },
