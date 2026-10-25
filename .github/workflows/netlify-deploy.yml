@@ -86,13 +86,20 @@ jobs:
           echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/landing/scripts/netlify-cli/package-lock.json
+
+      - name: Install locked Netlify CLI
+        working-directory: apps/landing
+        run: npm ci --prefix scripts/netlify-cli
+
       # 2026-06-07 V14-2 fix: replaced nwtgck/actions-netlify@v3.0 (= 5 連続 ISE)
       # with direct netlify-cli call (= validated via manual deploy locally)
       # Spec: 2026-06-07-cron-role-clarification-design.md §12.4 → V14-2
       # Security: env vars for all template inputs (= injection防止)
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli@latest
-
       - name: Deploy to Netlify
         working-directory: apps/landing
         env:
@@ -103,9 +110,9 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$GHA_REF" = "refs/heads/main" ]; then
-            netlify deploy --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --dir=out --functions=netlify/functions --prod --no-build --message "Deploy from GHA prod - $GHA_SHA"
+            ./scripts/netlify-cli/node_modules/.bin/netlify deploy --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --dir=out --functions=netlify/functions --prod --no-build --message "Deploy from GHA prod - $GHA_SHA"
           else
-            netlify deploy --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --dir=out --functions=netlify/functions --no-build --message "Deploy from GHA preview - $GHA_SHA"
+            ./scripts/netlify-cli/node_modules/.bin/netlify deploy --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --dir=out --functions=netlify/functions --no-build --message "Deploy from GHA preview - $GHA_SHA"
           fi
 
       # C5/C6 (VCSDD life-manager-cost-connect-reliability): post-deploy money-path smoke + auto-rollback.

@@ -127,6 +127,38 @@ test('ebook download rejects unpaid or wrong-product sessions', async () => {
 
 test('webhook ebook email uses gated download URL with session id', async () => {
   let html = '';
+  const receipts = new Map();
+  const fetchImpl = async (url, options = {}) => {
+    const method = options.method || 'GET';
+    const body = options.body ? JSON.parse(options.body) : null;
+    const response = (status, rows) => ({
+      ok: status >= 200 && status < 300,
+      status,
+      json: async () => rows,
+    });
+
+    if (url.includes('/rest/v1/ebook_webhook_receipts')) {
+      if (method === 'POST') {
+        const row = { ...body };
+        receipts.set(row.stripe_session_id, row);
+        return response(201, [row]);
+      }
+      if (method === 'PATCH') {
+        const sessionMatch = url.match(/stripe_session_id=eq\.([^&]+)/);
+        const eventMatch = url.match(/stripe_event_id=eq\.([^&]+)/);
+        const row = sessionMatch
+          ? receipts.get(decodeURIComponent(sessionMatch[1]))
+          : [...receipts.values()].find((receipt) => receipt.stripe_event_id === decodeURIComponent(eventMatch?.[1] || ''));
+        if (!row) return response(200, []);
+        Object.assign(row, body);
+        return response(200, [{ ...row }]);
+      }
+    }
+    if (url.endsWith('/rest/v1/buyers') && method === 'POST') {
+      return response(201, [{ id: 'buyer_test' }]);
+    }
+    throw new Error(`Unexpected webhook dependency: ${method} ${url}`);
+  };
   const payload = {
     id: 'evt_ebook_gate',
     type: 'checkout.session.completed',
@@ -134,6 +166,7 @@ test('webhook ebook email uses gated download URL with session id', async () => 
       object: {
         id: 'cs_live_ebook_mail',
         mode: 'payment',
+        payment_status: 'paid',
         metadata: { product: 'ebook', lang: 'en' },
         customer_details: { email: 'buyer@example.com' },
         amount_total: 1099,
@@ -151,8 +184,12 @@ test('webhook ebook email uses gated download URL with session id', async () => 
       STRIPE_WEBHOOK_SECRET: SECRET,
       STRIPE_SECRET_KEY: 'sk_live_redacted',
       RESEND_API_KEY: 're_redacted',
+      RESEND_FROM_EMAIL: 'books@aniccaai.com',
+      SUPABASE_URL: 'https://supabase.example.test',
+      SUPABASE_SERVICE_ROLE_KEY: 'service_role_test',
     },
     nowSeconds: NOW,
+    fetchImpl,
     sendEmail: async (_key, _email, _subject, deliveredHtml) => { html = deliveredHtml; },
   });
   assert.equal(response.body, 'ok ebook');
