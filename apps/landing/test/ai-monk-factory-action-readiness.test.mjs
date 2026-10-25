@@ -16,6 +16,29 @@ test('a blocked CTA renders its reason as an inline status beside that action', 
   assert.equal(renderToStaticMarkup(React.createElement(FactoryActionNotice, { notice, action: 'connect_instagram' })), '');
 });
 
+test('unready action capabilities disable their CTAs while Stop remains available', () => {
+  assert.equal(typeof readiness.factoryActionReady, 'function', 'buttons share the action readiness contract');
+
+  const unavailable = {
+    generation: { ready: false, reason: 'studio_setup' },
+    social: { ready: false, reason: 'social_setup' },
+    checkout: { ready: false, reason: 'billing_setup' },
+  };
+  for (const action of ['generate_avatar', 'generate_video', 'connect_instagram', 'autopost', 'checkout']) {
+    assert.equal(readiness.factoryActionReady(action, unavailable), false, `${action} must be disabled`);
+  }
+  assert.equal(readiness.factoryActionReady('stop', unavailable), true, 'Stop remains available');
+
+  const available = {
+    generation: { ready: true },
+    social: { ready: true },
+    checkout: { ready: true },
+  };
+  for (const action of ['generate_avatar', 'generate_video', 'connect_instagram', 'autopost', 'checkout']) {
+    assert.equal(readiness.factoryActionReady(action, available), true, `${action} is enabled when ready`);
+  }
+});
+
 test('a blocked generation CTA explains the blocker without sending an API action', () => {
   assert.equal(typeof readiness.requestFactoryAction, 'function', 'readiness action gate is implemented');
 

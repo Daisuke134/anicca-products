@@ -15,6 +15,10 @@ export type FactoryAllowance = {
 
 export function factoryQuotaState(usage?: { videosRemaining?: number | null; attemptsRemaining?: number | null } | null): FactoryQuota;
 export function factoryCapabilityUnavailable(capability?: FactoryCapabilityState | null): string;
+export function factoryActionReady(
+  action: FactoryAction,
+  readiness: Partial<Record<FactoryCapability, FactoryCapabilityState>>,
+): boolean;
 export function requestFactoryAction(
   action: FactoryAction,
   readiness: Partial<Record<FactoryCapability, FactoryCapabilityState>>,
