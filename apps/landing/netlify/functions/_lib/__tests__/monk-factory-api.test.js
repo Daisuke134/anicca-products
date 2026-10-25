@@ -32,6 +32,26 @@ test('API reads and stop updates bind to Auth server ID, ignoring forged body an
   assert.deepEqual(calls, [['account', user.id], ['jobs', user.id], ['stop', user.id]]);
 });
 
+test('Pause is available when provider readiness is down and preserves the owner consent', async () => {
+  const account = { user_id: user.id, auto_post: true, auto_post_intent: true, auto_post_paused: false };
+  const calls = [];
+  const response = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session' },
+    body: JSON.stringify({ action: 'pause', user_id: 'another-user' }) }, {
+    env, fetchImpl: auth,
+    store: {
+      account: async id => { calls.push(['account', id]); return structuredClone(account); },
+      pauseAutopost: async id => {
+        calls.push(['pause', id]);
+        Object.assign(account, { auto_post: false, auto_post_intent: true, auto_post_paused: true });
+        return { auto_post: false, auto_post_intent: true, auto_post_paused: true };
+      },
+    },
+  });
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(JSON.parse(response.body), { auto_post: false, auto_post_intent: true, auto_post_paused: true });
+  assert.deepEqual(calls, [['account', user.id], ['pause', user.id]]);
+});
+
 test('Factory job projection returns the owner script and caption without widening the account filter', async () => {
   let requested;
   const originalWebSocket = globalThis.WebSocket;
@@ -246,7 +266,7 @@ test('Instagram connection posts completed free videos after quota is exhausted 
       return structuredClone(account);
     },
     releaseSocial: async () => {},
-    setAutopost: async () => { calls.push('autopost'); account.auto_post = true; return { auto_post: true }; },
+    startAutopostIfIntended: async () => { calls.push('autopost'); account.auto_post = true; return { auto_post: true }; },
     reserveJob: async (_id, occurrence, kind, origin) => {
       calls.push(['reserve', occurrence, kind, origin]);
       const job = { id: 'avatar-job-fixture', kind, status: 'reserved', origin };
@@ -276,6 +296,96 @@ test('Instagram connection posts completed free videos after quota is exhausted 
   assert.equal(JSON.parse(stopped.body).account.auto_post, false);
   assert.equal(calls.filter(call => call === 'autopost').length, 1);
   assert.equal(calls.filter(call => Array.isArray(call)).length, 0);
+});
+
+test('OAuth/status readback leaves an explicitly paused Instagram account paused', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  let account = { user_id: user.id, subscription_status: 'none', auto_post: false, auto_post_intent: true, auto_post_paused: true,
+    social_profile: 'factory_' + user.id, connected_at: null, instagram_account_id: null, avatar_id: 'avatar-fixture' };
+  let autopostStarts = 0;
+  const store = {
+    companyBudgetStatus: async () => ({ ready: true }),
+    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20, periodEnd: null }),
+    account: async () => structuredClone(account),
+    jobs: async () => [{ id: 'completed-video-fixture', kind: 'video', period_key: 'free:lifetime', status: 'completed',
+      video_url: 'https://cdn.example/fixture.mp4', post_url: null, post_provider_id: null }],
+    claimSocial: async () => ({ ...account, social_lease_id: 'social-lease-fixture' }),
+    saveSocial: async (_id, _lease, state) => {
+      account = { ...account, social_profile: state.profile, instagram_account_id: state.accountId,
+        instagram_username: state.handle, connected_at: state.connected ? (account.connected_at || new Date().toISOString()) : null,
+        social_checked_at: new Date().toISOString() };
+      return structuredClone(account);
+    },
+    releaseSocial: async () => {},
+    startAutopostIfIntended: async () => { autopostStarts += 1; account.auto_post = true; return { auto_post: true }; },
+  };
+  const providers = {
+    readiness: async () => ({ generation: { ready: true }, social: { ready: true } }),
+    socialState: async () => ({ profile: 'factory_' + user.id, connected: true, accountId: 'ig-opaque-fixture', handle: 'monk_fixture' }),
+  };
+  const response = await factoryHandler({ httpMethod: 'GET', headers: { authorization: 'Bearer fixture-session' } },
+    { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(response.statusCode, 200);
+  assert.equal(autopostStarts, 0);
+  assert.equal(JSON.parse(response.body).account.auto_post, false);
+  assert.equal(JSON.parse(response.body).account.auto_post_intent, true);
+  assert.equal(JSON.parse(response.body).account.auto_post_paused, true);
+  assert.equal(JSON.parse(response.body).account.connected, true);
+});
+
+test('Resume requires a fresh Instagram readback before changing paused automation', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const calls = [];
+  const account = { user_id: user.id, subscription_status: 'none', auto_post: false, auto_post_intent: true, auto_post_paused: true,
+    social_profile: 'factory_' + user.id, connected_at: new Date().toISOString(), instagram_account_id: 'ig-fixture',
+    avatar_id: 'avatar-fixture', social_checked_at: new Date().toISOString() };
+  const store = {
+    companyBudgetStatus: async () => ({ ready: true }),
+    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20 }),
+    account: async () => structuredClone(account),
+    jobs: async () => [],
+    claimSocial: async () => ({ ...account, social_lease_id: 'social-lease-fixture' }),
+    saveSocial: async (_id, _lease, state) => ({ ...account, ...state }),
+    releaseSocial: async () => {},
+    resumeAutopost: async id => { calls.push(['resume', id]); return { auto_post: true, auto_post_intent: true, auto_post_paused: false }; },
+  };
+  const providers = {
+    readiness: async () => ({ generation: { ready: false, reason: 'provider_setup' }, social: { ready: true } }),
+    socialState: async () => { calls.push('instagram-readback'); return { profile: 'factory_' + user.id,
+      connected: true, accountId: 'ig-fixture', handle: 'monk_fixture' }; },
+  };
+  const response = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session' },
+    body: JSON.stringify({ action: 'resume' }) }, { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(JSON.parse(response.body), { auto_post: true, auto_post_intent: true, auto_post_paused: false });
+  assert.deepEqual(calls, ['instagram-readback', ['resume', user.id]]);
+});
+
+test('manual auto-post cannot bypass an existing explicit pause', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const account = { user_id: user.id, subscription_status: 'none', auto_post: false, auto_post_intent: true, auto_post_paused: true,
+    social_profile: 'factory_' + user.id, connected_at: new Date().toISOString(), instagram_account_id: 'ig-fixture',
+    avatar_id: 'avatar-fixture', social_checked_at: new Date().toISOString() };
+  let starts = 0;
+  const response = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session' },
+    body: JSON.stringify({ action: 'autopost' }) }, {
+    env: configured, fetchImpl: auth,
+    providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: true } }),
+      socialState: async () => ({ profile: 'factory_' + user.id, connected: true, accountId: 'ig-fixture', handle: 'monk_fixture' }) },
+    store: {
+      companyBudgetStatus: async () => ({ ready: true }),
+      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6 }),
+      account: async () => structuredClone(account),
+      jobs: async () => [],
+      claimSocial: async () => ({ ...account, social_lease_id: 'social-lease-fixture' }),
+      saveSocial: async (_id, _lease, state) => ({ ...account, ...state }),
+      releaseSocial: async () => {},
+      setAutopost: async () => { starts += 1; return { auto_post: true }; },
+    },
+  });
+  assert.equal(response.statusCode, 409);
+  assert.equal(JSON.parse(response.body).error, 'autopost_paused');
+  assert.equal(starts, 0);
 });
 
 test('autopost can be turned on for a saved free video when generation is unavailable and quota is spent', async () => {

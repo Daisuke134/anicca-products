@@ -43,6 +43,18 @@ test('dashboard uses GET and cancellation does not inherit a generation occurren
   assert.equal(calls[1][1].headers['Idempotency-Key'], undefined);
 });
 
+test('pause and resume are explicit authenticated controls without a generation occurrence', async () => {
+  const calls = [];
+  const fetchImpl = async (...args) => { calls.push(args); return Response.json({ auto_post: false }); };
+  await factoryRequest('fixture', 'pause', { idempotencyKey: occurrence, fetchImpl });
+  await factoryRequest('fixture', 'resume', { idempotencyKey: occurrence, fetchImpl });
+  assert.deepEqual(calls.map(([, init]) => JSON.parse(init.body)), [{ action: 'pause' }, { action: 'resume' }]);
+  for (const [, init] of calls) {
+    assert.equal(init.method, 'POST');
+    assert.equal(init.headers['Idempotency-Key'], undefined);
+  }
+});
+
 test('each redirect is limited to its own HTTPS provider and rejects credentials, ports and lookalikes', () => {
   assert.equal(factoryDestination({ url: 'https://checkout.stripe.com/c/pay/fixture' }, 'checkout'), 'https://checkout.stripe.com/c/pay/fixture');
   assert.equal(factoryDestination({ url: 'https://billing.stripe.com/p/session/fixture' }, 'portal'), 'https://billing.stripe.com/p/session/fixture');

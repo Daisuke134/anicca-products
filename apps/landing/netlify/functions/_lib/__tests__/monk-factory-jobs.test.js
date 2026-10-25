@@ -84,7 +84,7 @@ test('scheduled creation stays disabled when cancellation configuration is missi
 test('stop is idempotent before the first Factory account exists', async () => {
   const result = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture' }, body: JSON.stringify({ action: 'stop' }) },
     { env, fetchImpl: auth, store: { stop: async () => null } });
-  assert.deepEqual(JSON.parse(result.body), { auto_post: false });
+  assert.deepEqual(JSON.parse(result.body), { auto_post: false, auto_post_intent: false, auto_post_paused: false });
 });
 
 test('script evidence retains only supplied numeric token usage without inventing missing counts', async () => {
