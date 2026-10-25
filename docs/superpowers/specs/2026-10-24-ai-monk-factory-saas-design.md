@@ -5,6 +5,8 @@ Databaseの根拠を台本へ戻し、利用者はInstagramを一度OAuth接続�
 
 初回導線は「3本無料」→Google認証→Instagram接続だけとする。OAuthへ進む前に「接続後は既定の架空AI monkを作り、毎日1本ずつ自動生成・公開する。無料3本を使い切るかStopを押すと停止する」と明示する。公式readbackで接続完了した後はserver APIがautopostを有効にし、avatar生成と日次jobを開始する。別途Generate/Turn on操作を必須にしない。動画を手動生成する既存操作は補助機能として残す。OAuth後の実投稿には対象accountの公式permissionとprovider審査が必要で、未確認なら生成と投稿のreadinessを別々に表示する。
 
+ユーザー提示画面の「Daily posting stays off until you turn it on」はこの契約と矛盾する。画像の日付・deployは確認できておらず、現在のproduction readbackとは扱わない。最終受入では、未準備なら不足している機能ごとの理由を表示して操作を閉じ、準備完了後はInstagram OAuthの成功を公式readbackした時点で日次自動生成・投稿を開始する。利用者はいつでもPause/Stopでき、profileの編集は任意とする。
+
 ## 採る方式と理由
 既存Next/Netlify/Supabase/Stripeを使い、server-verified user IDへjob・billing・接続を結ぶ。画像/台本はGemini API、動画はHeyGen API、投稿はInstagram/TikTok公式APIを使う。接続時に各platformのOAuth同意を一度行い、その後の生成・投稿・metrics取得はserver APIで動かす。providerキーとOAuth tokenはserverだけが持つ。Instagramはprofessional Business/Creator accountとpublish scopeが必要。Instagram Loginを選ぶとFacebook Page連携なしで利用できるが、他社userへ公開するにはAdvanced Access・Meta App Review・Business Verificationが要る。Page接続accountでPage Publishing Authorization (PPA)が要求された場合は利用者側で完了する。TikTokはregistered app、`video.publish`のapp承認と各userのOAuth認可、public posting用app auditが必要で、audit前の投稿はprivateに制限される。既存依存を再利用し、新frameworkや設定画面を増やさない。
 
