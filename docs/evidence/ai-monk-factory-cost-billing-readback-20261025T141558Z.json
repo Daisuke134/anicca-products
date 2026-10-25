@@ -1,0 +1,149 @@
+{
+  "schema_version": "anicca.ai-monk-factory-cost-billing-readback.v1",
+  "run_id": "factory-cost-billing-readback-20261025T141558Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-cost-billing-readback-20261025T141558Z",
+  "release_sha": "eaa66c3e17f26621c493320852e4072c6c95b1c8",
+  "observed_at": "2026-10-25T14:15:58Z",
+  "phase": "official_provider_billing_and_rate_readback",
+  "effect": "read_only_observation; no provider or product mutation",
+  "loaded_argv_env": {
+    "credential_service": "heygen-ai-monk-factory",
+    "secret_value_logged": false
+  },
+  "provider_receipt_ids": [],
+  "commands": [
+    {
+      "command": "GET https://api.heygen.com/v3/users/me using the Factory-specific HeyGen credential; credential value omitted",
+      "loaded_argv_env": {
+        "credential_service": "heygen-ai-monk-factory",
+        "secret_value_logged": false
+      },
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_request_id": null,
+      "readback": {
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0,
+        "wallet_auto_reload_enabled": false,
+        "usage_based_object_present": false,
+        "usage_based_spending_cap_field_present": false,
+        "workspace_api_auto_refill": "unknown from this response",
+        "wallet_hard_spending_cap": "not exposed by this response"
+      },
+      "error_class": null,
+      "retryable": null
+    },
+    {
+      "command": "GET https://api.heygen.com/v1/payment/config.get?feature=api",
+      "loaded_argv_env": {
+        "credential_service": "heygen-ai-monk-factory",
+        "secret_value_logged": false
+      },
+      "exit_code": 0,
+      "http_status": 404,
+      "response_kind": "HTML error page",
+      "provider_request_id": null,
+      "readback": "No billing setting was returned. This exploratory route is unsupported by this observation and must not be retried as an official settings endpoint.",
+      "error_class": "unsupported_endpoint_or_not_found",
+      "retryable": false
+    }
+  ],
+  "official_rate_sources": [
+    {
+      "url": "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+      "source_type": "HeyGen official pricing article",
+      "updated_at": "2026-10-19",
+      "published_rates": {
+        "photo_avatar_creation_usd_per_call": 1.32,
+        "avatar_iv_photo_usd_per_minute": 2.31,
+        "starfish_tts_usd_per_minute": 0.12,
+        "billing_basis": "actual generated seconds; pay-as-you-go API billing"
+      }
+    },
+    {
+      "url": "https://developers.heygen.com/user-profile",
+      "source_type": "HeyGen official API documentation",
+      "facts": [
+        "GET /v3/users/me exposes wallet balance and wallet auto-reload fields.",
+        "The documented usage-based spending cap is a separate billing object; its absence does not prove a wallet hard cap or workspace API auto-refill setting."
+      ]
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "source_type": "Google official Gemini API pricing",
+      "published_rates": {
+        "gemini_3_1_flash_lite_input_usd_per_million_tokens": 0.25,
+        "gemini_3_1_flash_lite_output_and_thinking_usd_per_million_tokens": 1.5,
+        "gemini_3_1_flash_lite_image_standard_1k_output_usd_per_image": 0.0336
+      }
+    }
+  ],
+  "source_implementation": {
+    "provider_file": "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+    "image_model": "gemini-3.1-flash-lite-image",
+    "script_model": "gemini-3.1-flash-lite",
+    "image_request": "one 1K 2:3 image; prompt input plus up to 4096 output tokens",
+    "script_request": "playbook and instruction input up to 12000 bytes; up to 1200 output tokens per script",
+    "usage_fields_returned_by_code": ["inputTokens", "outputTokens", "thoughtTokens", "totalTokens"],
+    "factory_internal_reservations_usd": {
+      "image": 0.14,
+      "script_per_request": 0.005
+    }
+  },
+  "partial_cost_scenarios_usd": {
+    "heygen_free_flow_new_avatar_plus_three_successful_20_second_videos": {
+      "formula": "1.32 + 3 * (20/60) * (2.31 + 0.12)",
+      "heygen_component": 3.75,
+      "scope": "HeyGen list-price component only; assumes maximum 20-second speech/video for each of three successful videos; excludes Gemini charges, failures, retries and all other operating costs."
+    },
+    "heygen_paid_30_successful_videos_at_45_seconds_with_existing_avatar": {
+      "formula": "30 * (45/60) * (2.31 + 0.12)",
+      "heygen_component": 54.675,
+      "new_avatar_if_charged_in_this_period_usd": 1.32,
+      "with_new_avatar_usd": 55.995,
+      "scope": "HeyGen list-price scenario only; assumes each completed video and its speech are billed at the 45-second limit. Avatar is normally created in the free flow and reused."
+    },
+    "heygen_paid_36_attempts_each_billed_at_45_seconds": {
+      "formula": "36 * (45/60) * (2.31 + 0.12)",
+      "heygen_component": 65.61,
+      "scope": "Hypothetical HeyGen component if all 36 allowed attempts incur the full 45-second video and speech rate. It is not a period cost cap or an observed invoice."
+    },
+    "known_gemini_output_component_per_1k_image": {
+      "published_image_output_rate": 0.0336,
+      "image_prompt_and_thinking_cost": "unknown without provider usage receipt",
+      "script_input_and_output_cost": "unknown without provider usage receipt"
+    }
+  },
+  "application_reservations_not_provider_caps": {
+    "free_quota_total_usd": 4.25,
+    "paid_period_total_usd": 70,
+    "company_daily_usd": 10,
+    "paid_attempts_per_period": 36,
+    "meaning": "Database reservations gate new application jobs; they are not provider-side spend limits and do not bound charges from already-submitted, failed, delayed or under-reserved provider work."
+  },
+  "other_readback_basis": {
+    "production_factory_variables_last_read_at": "2026-10-25T12:36:00Z",
+    "production_factory_variable_count": 0,
+    "factory_generation_social_checkout_readiness": "false; reason studio_setup",
+    "gemini_billing_last_read_at": "2026-10-25T11:05:09Z",
+    "gemini_billing_state": "prepared_unfunded",
+    "gemini_billing_verified": false,
+    "fresh_gemini_billing_readback_at_1415z": false
+  },
+  "provider_and_business_results": {
+    "provider_credit_purchase": 0,
+    "provider_generation": 0,
+    "instagram_oauth_or_post": 0,
+    "stripe_checkout_or_charge": 0,
+    "paid_invoice_or_customer_revenue_receipt": 0,
+    "verified_profit": false
+  },
+  "evidence_refs": [
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+    "apps/landing/supabase/migrations/20261024175709_monk_factory_company_budget.sql"
+  ],
+  "next_action": "Read the current Factory HeyGen workspace API auto-refill and effective wallet spend boundary through a supported authenticated provider surface, and refresh the dedicated Gemini project billing/cap receipt. If no enforceable provider-side limit exists, keep generation closed and record the exact missing boundary. Once a spend ceiling is established, use the already-authorized bounded free-video E2E and capture actual provider usage/invoices; internal reservations alone are not a spend cap."
+}

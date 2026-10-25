@@ -1,0 +1,43 @@
+{
+  "schema_version": "anicca.ai-monk-factory-catalog-readback.v1",
+  "run_id": "factory-catalog-readback-20261025T141851Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-catalog-readback-20261025T141851Z",
+  "release_sha": "eaa66c3e17f26621c493320852e4072c6c95b1c8",
+  "observed_at": "2026-10-25T14:18:51Z",
+  "phase": "public_catalog_visibility_readback",
+  "command": "crwl crawl https://aniccaai.com/dais -o markdown-fit; crwl crawl https://aniccaai.com/products/ -o markdown-fit; crwl crawl https://aniccaai.com/ai-monk-factory -o markdown-fit",
+  "exit_code": 0,
+  "effect": "read_only_public_page_observation; no page or listing mutation",
+  "loaded_argv_env": {
+    "credential_used": false,
+    "environment_values_logged": false
+  },
+  "readback": {
+    "https://aniccaai.com/dais": {
+      "section": "Web products",
+      "product": "AI Monk Factory",
+      "description": "AI monk video studio · preparing to open.",
+      "listed": true
+    },
+    "https://aniccaai.com/products/": {
+      "section": "Software",
+      "product": "AI Monk Factory",
+      "status": "Preparing to open",
+      "free_offer": "Up to 3 completed videos are free, with no card and no time-limited trial.",
+      "availability": "Generation and subscription checkout are not open yet.",
+      "listed": true,
+      "price_displayed": false
+    },
+    "https://aniccaai.com/ai-monk-factory": {
+      "price_displayed_usd_per_month": 199,
+      "free_offer": "Up to 3 free videos; no card and no time limit.",
+      "generation_or_checkout_successfully_tested": false
+    }
+  },
+  "inference": "The public web catalogs currently include Factory. Their 'preparing to open' status and explicit unavailable generation/checkout wording can make it appear absent from a list of products available now. This is a status/presentation distinction, not a current catalog omission.",
+  "error_class": null,
+  "retryable": null,
+  "provider_receipt_id": null,
+  "next_action": "No catalog mutation is needed. Continue SaaS-2 runtime readiness; keep the published availability wording aligned with actual generation and Checkout readiness."
+}
