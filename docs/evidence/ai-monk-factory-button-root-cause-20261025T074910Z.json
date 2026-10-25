@@ -1,0 +1,82 @@
+{
+  "schema_version": "anicca.ai-monk-factory-button-root-cause.v1",
+  "run_id": "ai-monk-factory-button-root-cause-20261025T074910Z",
+  "owner_id": "root",
+  "occurrence_id": "factory-button-root-cause-readback-20261025T074910Z",
+  "release_sha": "0ebcd46bb9eaaaab0427182b901ee229ae679f4d",
+  "observed_at": "2026-10-25T07:49:16.641Z",
+  "phase": "factory_button_runtime_diagnosis",
+  "command": [
+    "GET Netlify production environment and latest deployment",
+    "GET Factory-only HeyGen /v3/users/me",
+    "GET Gemini model metadata",
+    "Read Factory provider billing state from exact private credential SSOT service"
+  ],
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT exact service rows; secret values were not printed",
+    "production_secret_values_printed": 0,
+    "provider_mutation_requests": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "provider_billing_or_wallet_changes": 0,
+    "factory_generation_requests": 0,
+    "instagram_oauth_or_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "netlify_production_environment": {
+      "endpoint": "GET /api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+      "started_at": "2026-10-25T07:49:10.235Z",
+      "finished_at": "2026-10-25T07:49:12.649Z",
+      "http_status": 200,
+      "variable_count": 58,
+      "factory_variable_names": []
+    },
+    "latest_production_deploy": {
+      "endpoint": "GET /api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=1",
+      "started_at": "2026-10-25T07:49:12.814Z",
+      "finished_at": "2026-10-25T07:49:13.861Z",
+      "http_status": 200,
+      "id": "6addb125cd8856ba295afa87",
+      "state": "ready",
+      "branch": "main",
+      "deploy_title": "Deploy from GHA prod - 0ebcd46bb9eaaaab0427182b901ee229ae679f4d",
+      "commit_ref": null
+    },
+    "factory_heygen": {
+      "endpoint": "GET https://api.heygen.com/v3/users/me",
+      "started_at": "2026-10-25T07:49:13.864Z",
+      "finished_at": "2026-10-25T07:49:16.512Z",
+      "http_status": 200,
+      "wallet_remaining_balance": 0.0,
+      "currency": "usd",
+      "wallet_auto_reload": false,
+      "provider_selection": "HeyGen is confirmed and remains fixed"
+    },
+    "factory_gemini": {
+      "endpoint": "GET https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite",
+      "started_at": "2026-10-25T07:49:16.512Z",
+      "finished_at": "2026-10-25T07:49:16.641Z",
+      "http_status": 200,
+      "model": "models/gemini-3.1-flash-lite",
+      "model_metadata_is_generation_or_billing_proof": false,
+      "credential_ssot_project_state": "prepared_unfunded",
+      "credential_ssot_billing_verified": false
+    },
+    "code_readback": {
+      "source_ref": "origin/main:apps/landing/netlify/functions/monk-factory.js",
+      "generation_requires": [
+        "MONK_FACTORY_ENABLED=true",
+        "MONK_FACTORY_JOB_SECRET with at least 32 bytes",
+        "generation provider readiness",
+        "company daily budget readiness"
+      ],
+      "source_ref_providers": "origin/main:apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+      "heygen_provider": "Photo avatar, speech, and video are implemented with HeyGen",
+      "gemini_provider": "Avatar image and original script are implemented with Gemini",
+      "interpretation": "Production environment lacks all MONK_FACTORY_* settings, so the generation CTA correctly fails closed before creating a job"
+    }
+  }
+}
