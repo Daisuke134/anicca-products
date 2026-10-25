@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "run_id": "ai-monk-factory-studio-schema-error-20261025T1049Z",
+  "owner_id": "codex-primary",
+  "occurrence_id": "studio_load_20261025_0918z",
+  "release_sha": "0ebcd46bb9eaaaab0427182b901ee229ae679f4d",
+  "release_sha_meaning": "Last official Netlify production deploy readback before the correlated Studio requests; the Supabase request log does not expose a Netlify deploy id.",
+  "observed_at": "2026-10-25T10:49:11Z",
+  "completed_at": "2026-10-25T10:53:14Z",
+  "phase": "read_only_studio_get_error_correlation",
+  "command": [
+    "Query Supabase unified edge and Postgres logs for 2026-10-25T09:15:00Z..09:22:00Z",
+    "Read current production migration registry and selected information_schema columns",
+    "Read the committed source migration and Studio jobs query"
+  ],
+  "loaded_argv": [],
+  "loaded_env": [
+    "Supabase integration link: Primary",
+    "Supabase project: cycgdwndgfgdbnndithc"
+  ],
+  "exit_code": 0,
+  "effect": {
+    "supabase_log_queries": 3,
+    "production_schema_reads": 3,
+    "production_schema_migrations_applied": 1,
+    "production_data_rows_changed": 0,
+    "factory_posts": 0,
+    "generation_requests": 0,
+    "instagram_oauth_or_posts": 0,
+    "stripe_checkouts_or_charges": 0,
+    "netlify_changes": 0
+  },
+  "readback": {
+    "window_utc": {
+      "start": "2026-10-25T09:15:00Z",
+      "end": "2026-10-25T09:22:00Z"
+    },
+    "studio_requests": [
+      {
+        "timestamp": "2026-10-25T09:18:55.787Z",
+        "method": "GET",
+        "path": "/rest/v1/monk_factory_jobs",
+        "http_status": 400,
+        "request_id": "01a1725b-1b2b-7ed1-b2cb-a817f64afe02"
+      },
+      {
+        "timestamp": "2026-10-25T09:19:14.639Z",
+        "method": "GET",
+        "path": "/rest/v1/monk_factory_jobs",
+        "http_status": 400,
+        "request_id": "01a1725b-64cf-7536-9c8d-5b34f97f6c90"
+      }
+    ],
+    "postgres_errors": [
+      {
+        "timestamp": "2026-10-25T09:18:55.817Z",
+        "sqlstate": "42703",
+        "message": "column monk_factory_jobs.metrics_checked_at does not exist"
+      },
+      {
+        "timestamp": "2026-10-25T09:19:14.676Z",
+        "sqlstate": "42703",
+        "message": "column monk_factory_jobs.metrics_checked_at does not exist"
+      }
+    ],
+    "successful_sibling_reads": [
+      {
+        "timestamp": "2026-10-25T09:18:55.555Z",
+        "method": "POST",
+        "path": "/rest/v1/rpc/monk_factory_company_budget_status",
+        "http_status": 200
+      },
+      {
+        "timestamp": "2026-10-25T09:18:55.656Z",
+        "method": "POST",
+        "path": "/rest/v1/rpc/monk_factory_usage",
+        "http_status": 200
+      },
+      {
+        "timestamp": "2026-10-25T09:18:55.713Z",
+        "method": "GET",
+        "path": "/rest/v1/monk_factory_accounts",
+        "http_status": 200
+      },
+      {
+        "timestamp": "2026-10-25T09:19:14.472Z",
+        "method": "POST",
+        "path": "/rest/v1/rpc/monk_factory_company_budget_status",
+        "http_status": 200
+      },
+      {
+        "timestamp": "2026-10-25T09:19:14.531Z",
+        "method": "POST",
+        "path": "/rest/v1/rpc/monk_factory_usage",
+        "http_status": 200
+      },
+      {
+        "timestamp": "2026-10-25T09:19:14.574Z",
+        "method": "GET",
+        "path": "/rest/v1/monk_factory_accounts",
+        "http_status": 200
+      }
+    ],
+    "production_schema": {
+      "missing_columns": [
+        "monk_factory_jobs.metrics_checked_at",
+        "monk_factory_accounts.instagram_access_token_ciphertext",
+        "monk_factory_accounts.instagram_access_token_expires_at",
+        "monk_factory_accounts.instagram_business_id",
+        "monk_factory_accounts.instagram_oauth_state_hash",
+        "monk_factory_accounts.instagram_oauth_state_expires_at"
+      ],
+      "monk_factory_fence_instagram_publish_exists": false,
+      "monk_factory_instagram_oauth_state_index_exists": false
+    },
+    "migration_registry_before_apply": {
+      "last_factory_migration_version": "20261025084739",
+      "last_factory_migration_name": "monk_factory_free_queue_autopost",
+      "target_migration_version": "20261025140200",
+      "target_migration_name": "monk_factory_instagram_meta",
+      "target_migration_applied": false
+    },
+    "migration_application": {
+      "success": true,
+      "migration_name": "monk_factory_instagram_meta",
+      "provider_migration_version": "20261025105314"
+    },
+    "post_migration_schema_readback": {
+      "required_columns_present": 6,
+      "fence_function_exists": true,
+      "oauth_index_exists": true,
+      "authenticated_can_read_token": false,
+      "service_role_can_read_token": true,
+      "service_role_can_execute_fence": true,
+      "authenticated_can_execute_fence": false,
+      "studio_jobs_column_select_limit_0": "success; no rows returned"
+    },
+    "source_migration_path": "apps/landing/supabase/migrations/20261025140200_monk_factory_instagram_meta.sql",
+    "source_migration_commit": "a58050177d9d0973a371cae904205281952875c1"
+  },
+  "provider_receipt_id": "20261025105314",
+  "provider_receipt_id_meaning": "Official Supabase migration history version for the successfully applied schema migration.",
+  "evidence_refs": [
+    "docs/evidence/ai-monk-factory-button-root-cause-20261025T074910Z.json",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md"
+  ],
+  "error_class": "undefined_column_metrics_checked_at",
+  "retryable": false,
+  "next_action": "Confirm an authenticated Studio GET after the schema fix without replaying any POST. Then continue the existing SaaS-2 runtime-readiness cursor; generation, OAuth, posting, and checkout remain disabled until their independent prerequisites are ready."
+}
