@@ -5,7 +5,7 @@
 
 ## 順序と現在cursor
 
-### Current cursor override — 2026-10-26 JST — auth-error UX source fix ready; release pending; Factory runtime remains closed
+### Current cursor override — 2026-10-26 JST — auth-error UX shipped; Factory runtime remains closed
 
 MVPは「Generate Monk Avatar → Generate The Full Video（完全なscript/voice付きで完成video最大3本無料） → Connect your IG to auto post」。期限なし・カードなし・3日trialなし。Instagram接続が日次自動生成/投稿への明示同意で、Stopを提供し、独立Pause/ResumeはFACTORY-PAUSE-1で追加する。eBook campaignは『The Art of AI Monks』。HeyGenを動画providerに固定し、Grok Bot/Postizの既存日次owner/scheduleを変更しない。
 
@@ -21,11 +21,11 @@ MVPは「Generate Monk Avatar → Generate The Full Video（完全なscript/voic
 
 **順序変更の記録:** 旧cursorはFACTORY-UI-READBACK-1 source fix。PR #771のCI/main/deploy/public readbackが完了したため、新cursorはruntime prerequisite。新順序は (1) HeyGen API prepaid creditsとGemini paid projectを有効化し、既存のsource予約上限内で費用を確認、(2) Meta Developer app/Instagram Loginと`monk.mujo`のProfessional/publish権限をreadback、(3) dedicated Factory Netlify envとtest Stripe key/webhookを設定、(4) Pause/Resume controlを追加しStopと区別、(5) free 3 completed videos E2E、(6) Instagram接続後の日次生成/投稿・URL/metrics/Pause/Stop、(7) free quota後のStripe test Checkout/webhook・paid resume、(8) 顧客公開用Meta Advanced Access/App Review/Business VerificationとStripe live product/price/webhook、(9)安定したauthenticated APIへFactory CLI/Plugin操作を接続、(10)production product listingをavailableにし、実動作を示してXへ一度だけ告知、(11)その後にDatabase/product/distribution improvement loopを開始する。TikTok、iPhone、marketplace掲載はInstagram-first web MVP後。Grok Bot/Postizの既存投稿ownerは維持する。
 
-**2026-10-26 auth-error UX cursor update:** 旧順序はStudioのauthenticated request/log correlation後にprovider/runtime設定へ戻ることだった。新順序は、`FACTORY-AUTH-ERROR-1`で既知の`invalid_session`を再サインイン案内へ変換してからHeyGen/Gemini provider accessとMeta/runtime readinessへ戻る。backendの`authenticateFactoryRequest`は`invalid_session`を返すが、Studio error mapが未対応でgeneric action errorへ落ちるsource defectを確認したため。修正は外部生成・投稿・支出・再送を行わず、次回の診断を明確にする。添付画面で実際に返ったAPI code/actionは未取得なので、画面の原因が`invalid_session`だったとは扱わない。現在cursorは`FACTORY-AUTH-ERROR-1`。
+**2026-10-26 auth-error UX cursor update:** backendの`authenticateFactoryRequest`が返す`invalid_session`をStudioがgeneric action errorへ落とすsource defectを確認し、既知codeを再サインイン案内へ変える`FACTORY-AUTH-ERROR-1`をprovider/runtime準備より先に行った。PR #773、Landing CI `40229337422`、main merge `20ebae74aa1c4b764d55076d5ba6b93dcf01feea`、Netlify production deploy `6ade634a85c5119d2aeebde1`とpost-deploy smokeがPASS。公開Factory JS bundleに`invalid_session`分岐と再サインイン文言があることを確認した。旧cursorは`FACTORY-AUTH-ERROR-1`、新cursorは`FACTORY-PROVIDER-ACCESS-1`。元の添付画面が返したAPI code/actionは未取得のままで、原因は特定済みと扱わない。生成・OAuth・投稿・Checkout・charge・runtime設定は変更していない。
 
 **現在cursor / TODO:**
 1. **[x] FACTORY-UI-READBACK-1:** POST受付とGET refresh失敗を分離し、fresh snapshotが`auto_post`/`auto_post_intent`の期待値と一致するときだけ成功表示。回帰tests、CI、main、production deployとpublic copyを確認済み。
-2. **[ ] FACTORY-AUTH-ERROR-1:** source fix and focused tests/build PASS in the dedicated branch. CI, merge, deploy, and public readback remain. Map `invalid_session` to a safe sign-in-again message; keep the generic fallback for unknown codes. The screenshot's actual API code is unverified.
+2. **[x] FACTORY-AUTH-ERROR-1:** PR #773 merged as `20ebae74aa1c4b764d55076d5ba6b93dcf01feea`; Landing CI `40229337422` and Netlify production deploy `6ade634a85c5119d2aeebde1` passed. Public bundle contains the `invalid_session` sign-in-again mapping; unknown codes retain the generic message. The screenshot's actual API code remains unverified.
 3. **[x] FACTORY-STRIPE-TEST-CATALOG-1:** USD199/月、Factory metadata、trialなしのtest Priceを作成・official GET readback済み。test checkout/webhook接続は未完了。
 4. **[ ] FACTORY-PROVIDER-ACCESS-1:** HeyGen API creditsを一回購入しauto-reload offを維持する。初回6 attemptのHeyGen概算は最大USD6.18なので、USD10の一回credit top-upを提案する。Gemini専用projectのbillingを有効化し、既存のper-user USD6.76とcompany USD10/day reservationを超える経路がないか確認する。
 5. **[ ] FACTORY-META-APP-1:** Instagram Login Developer appを作成し、Meta App ID/secretをprivate SSOTへ、必要なapp settings/redirect/webhookをFactory runtimeへ設定する。`monk.mujo`をProfessional/Creator accountおよびdev-role/publish permissionとしてreadbackする。
@@ -48,7 +48,7 @@ MVPは「Generate Monk Avatar → Generate The Full Video（完全なscript/voic
 
 - Spec/acceptance: when the Factory API returns `invalid_session`, show a sign-in-again instruction; retain the existing generic recovery guidance for unknown codes. Do not claim this was the screenshot's actual response without authenticated request correlation.
 - Source result: implemented `factoryErrorMessage` as the single UI mapper and covered known/unknown codes with a regression test.
-- Local verification: Factory suite 129 total / 94 passed / 0 failed / 35 skipped because the isolated DB fixture is unavailable; production build generated all 680 pages and exited 0. CI, merge, deploy, and public readback are pending.
+- Local verification: Factory suite 129 total / 94 passed / 0 failed / 35 skipped because the isolated DB fixture is unavailable; production build generated all 680 pages and exited 0. Landing CI `40229337422` passed; PR #773 merged as `20ebae74aa1c4b764d55076d5ba6b93dcf01feea`; Netlify deploy `6ade634a85c5119d2aeebde1` is live and post-deploy smoke passes. Public Factory bundle contains the message and mapping.
 - Boundary: this clarifies one known error response but does not identify the screenshot's originating request. It performs no generation, OAuth, posting, checkout, charge, or runtime configuration change.
 
 PR #771ではUI sourceのみ本番へ反映し、Factory runtime env、HeyGen funding、Gemini billing、Meta OAuth、Instagram投稿、Stripe Checkout/chargeは変更していない。独立してStripe test Product/Priceを作成・readbackした。authenticated Studioで生成/接続CTAを押す実操作は未実施。HeyGen wallet USD0、Gemini billing未設定、Meta appなしのため、runtimeはclosedのままである。
@@ -306,7 +306,7 @@ MuseはOpenAI identityと独立したsubmission/reviewである。[Muse公式doc
 - [x] FACTORY-EBOOK-1 source contract/release: Source-backed spoken ebook CTA, canonical Instagram caption link, and per-video script/caption display are merged in PR #766 and deployed from main. Landing CI `40216699098`, production deploy `40217036260`, and published deploy readback `6ade3e636ae97444c5fd1a52` passed. This source release does not activate Factory runtime actions.
 - [x] FACTORY-EBOOK-1 release (completed): PR #766/main `e6da42e5fd8c9acc5e77e6ff4caaffb6a52c309c`; published page/source readback is recorded in `../../evidence/ai-monk-factory-netlify-release-readback-20261026.json`. Last official production env GET returned 58 variables and zero `MONK_FACTORY_*`.
 - [x] FACTORY-UI-READBACK-1: PR #771 merge 889846dbafc2da14724cd5c5009853cdcfc615cf, CI/deploy/public readback completed; accepted POST and unconfirmed GET states are distinct.
-- [ ] FACTORY-AUTH-ERROR-1: Source fix maps backend `invalid_session` to a safe sign-in-again message and preserves the generic fallback for unknown codes. Focused test and production build pass locally; CI, merge, deploy and public readback remain. Do not infer that this was the screenshot's response without authenticated correlation.
+- [x] FACTORY-AUTH-ERROR-1: PR #773 / merge `20ebae74aa1c4b764d55076d5ba6b93dcf01feea`; focused tests and Landing CI `40229337422` pass; production deploy `6ade634a85c5119d2aeebde1` is live and smoke passes; public bundle readback confirms the mapping. Do not infer that this was the screenshot's response without authenticated correlation.
 - [x] FACTORY-STRIPE-TEST-CATALOG-1: test Product/Price USD199 monthly, trial none, active/read back; Checkout/webhook not yet exercised.
 - [ ] FACTORY-PROVIDER-ACCESS-1: HeyGen wallet is USD0 and the API has no verified hard spend cap; fund a bounded one-time wallet (recommended USD10, auto-reload off). Gemini dedicated project remains prepared_unfunded/billing_verified=false; enable dedicated billing and verify budget behavior before generation.
 - [x] FACTORY-FREE-3-1: completed-video lifetime quota of 3, max 6 attempts, USD6.76/user internal reservation, checkout gate, and effect_unknown fence are released in PR #769 and Supabase migration 20261025184321; this reservation is not a provider invoice cap.
