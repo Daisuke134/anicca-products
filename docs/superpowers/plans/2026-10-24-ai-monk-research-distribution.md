@@ -32,8 +32,8 @@ Public crawlで`/factory`のAnicca Web Apps一覧に、eBookへ誘導するcompl
 
 - Spec/acceptance: `../specs/2026-10-24-ai-monk-factory-saas-design.md`「UI action/readback false-failure」。Separate accepted POST from failed status refresh; keep idempotency/pending occurrence; do not claim an accepted request failed.
 - Task: locally implemented, source release pending. Final review found one important issue: any successful GET enabled an explicit stop/autopost notice without checking returned account state. Fix wave validates expected account state and adds mismatch tests. Combined Factory/client/API suite after fix: 140 tests, 105 pass, 0 fail, 35 DB fixture skips. Production build: 680 pages, exit 0. TypeScript check retains six baseline errors in unchanged files and none in Factory files.
-- Commit range: base `508557e042e7a29ebf152ef9b3fd72e58865b83a`; amended head pending. CI/main/production deploy remain required to complete the source-release TODO.
-- Final review: whole-branch package `review-508557e04..2ca008170.diff` found one Important finding and is fixed in the current uncommitted fix wave. Regenerate a scoped package from the fix-wave base and perform exactly one re-review before merge.
+- Commit range: base `508557e042e7a29ebf152ef9b3fd72e58865b83a`; head `bb1bc47ae7d495e22d4771394ef3a79bcfb96b7d`. Landing CI for the fix-wave head, main integration, and production deployment remain required to complete the source-release TODO.
+- Final review: whole-branch package `review-508557e04..2ca008170.diff` found one Important finding (on/off notice did not verify returned account state). Fix package `review-2ca008170..bb1bc47ae.diff` was re-reviewed and passed: finding addressed, no new breakage. CodeRabbit skipped its OSS review and required manual review; the independent reviewer completed the manual review.
 
 このreleaseではsource、DB schema関数、公開copyのみ反映し、provider設定、HeyGen funding、Gemini billing、Meta OAuth、Instagram投稿、Stripe Checkout/charge、本番Factory envは変更していない。authenticated Studioでボタンを押す実操作も未確認。HeyGen wallet USD0・provider cap未確認のため、runtimeはclosedのままにする。
 
