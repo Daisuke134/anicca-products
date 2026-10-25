@@ -22,6 +22,7 @@ export function factoryActionReady(
 ): boolean;
 export function refreshFactoryActionStatus(
   refresh: () => Promise<unknown>,
+  action: FactoryAction,
   onReadbackFailure: () => void,
   onReadbackSuccess: () => void,
 ): Promise<boolean>;

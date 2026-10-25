@@ -114,15 +114,21 @@ export default function Factory() {
   }, []);
 
   const load = useCallback(async (accessToken: string, signal?: AbortSignal) => {
-    const result = await factoryRequest(accessToken, undefined, { signal }) as unknown as Snapshot;
-    if (token.current !== accessToken || signal?.aborted) return;
-    if (!Array.isArray(result.jobs) || typeof result.ready !== 'boolean') throw new Error('invalid snapshot');
+    const response = await factoryRequest(accessToken, undefined, { signal }) as unknown;
+    if (token.current !== accessToken || signal?.aborted) return null;
+    if (!response || typeof response !== 'object' || Array.isArray(response)) throw new Error('invalid snapshot');
+    const result = response as Snapshot;
+    if (!Array.isArray(result.jobs) || typeof result.ready !== 'boolean'
+      || !(result.account === null || (typeof result.account === 'object' && !Array.isArray(result.account)))) {
+      throw new Error('invalid snapshot');
+    }
     setSnapshot(result);
     const pending = videoRequest.current;
     if (pending?.jobId && result.jobs.some(job => job.id === pending.jobId)) {
       if (owner.current) writePending(owner.current, null);
       videoRequest.current = null; setPendingVideo(null);
     }
+    return result;
   }, []);
 
   useEffect(() => {
@@ -177,7 +183,8 @@ export default function Factory() {
       }
       await refreshFactoryActionStatus(
         () => load(s.access_token),
-        () => { if (token.current === s.access_token) setError('Your request was received, but the Studio could not confirm its status. Refresh before retrying.'); },
+        action,
+        () => { if (token.current === s.access_token) { setNotice(''); setError('Your request was received, but the Studio could not confirm its status. Refresh before retrying.'); } },
         () => { if (token.current === s.access_token) setNotice(action === 'stop' ? 'Daily posting is off. No new automatic generation or publishing will start.' : action === 'autopost' ? 'Daily posting is on. Your next scheduled post is shown below.' : 'Request received. Progress appears below.'); },
       );
     } catch (e) {

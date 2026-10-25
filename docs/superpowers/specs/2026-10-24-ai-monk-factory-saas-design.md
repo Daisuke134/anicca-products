@@ -41,9 +41,9 @@ Instagram接続APIはOAuthを始める前に`auto_post_intent`を保存する。
 
 ユーザーの本番画面に「This action could not finish. Refresh to check its status before trying again.」とStudio load failureが表示された。Source auditでは、`factory.tsx`の`act()`がaction POSTの後に`load()`を同じ`try/catch`で実行し、POSTが200/202で受理済みでもGET refreshの失敗をaction失敗として表示し得る。これでは生成・Stop等のeffectが既に始まった可能性を隠し、再送による重複判断を誘う。
 
-受入条件は、POST成功後にGETが失敗した場合は「request received / status not confirmed / refresh before retry」と伝え、成功済みactionと未確認readbackを区別すること。状態未確認時に成功通知を併記しない。POST自体の失敗は従来どおりerror codeを表示すること。video idempotency keyとpending occurrenceを維持し、refresh失敗で再送しないこと。実際に何のactionが送られたか、外部provider effectがあったかはこの画面だけからは特定できない。
+受入条件は、POST成功後にGETが失敗した場合は「request received / status not confirmed / refresh before retry」と伝え、成功済みactionと未確認readbackを区別すること。stop/autopostはHTTP 2xxだけで成功表示せず、fresh account snapshotの`auto_post`と`auto_post_intent`が要求状態に一致する場合だけ「on/off」と表示する。不一致なら受付済み・状態未確認とする。状態未確認時に成功通知を併記しない。POST自体の失敗は従来どおりerror codeを表示すること。video idempotency keyとpending occurrenceを維持し、refresh失敗で再送しないこと。実際に何のactionが送られたか、外部provider effectがあったかはこの画面だけからは特定できない。
 
-source fixをworktree `fix/ai-monk-ebook-database-resume-20261026`へ実装した。回帰testは成功通知がreadback後にのみ出ることも確認し、readback失敗時の警告だけを残す。関連Factory/client/API suiteは137件中102 pass・0 fail・35 DB fixture skip。Next production buildは680ページ / exit 0。全体`tsc --noEmit`は既知の6 errors（dashboard 1、wallet 1、Life Manager CTA 4）のみで、変更Factory fileのerrorはない。CIと同一SHAのcanonical `published-apps.json`をignored build inputとしてstageし、commit対象から外した。現行修正のCI/main/production releaseは未完。
+source fixをworktree `fix/ai-monk-ebook-database-resume-20261026`へ実装した。readbackの通信成功だけではなく、stop/autopostのaccount状態が要求値に一致してから成功通知を出す。最終レビューで見つかった不一致readbackの誤通知を回帰testで検出し修正する。関連Factory/client/API suiteは140件中105 pass・0 fail・35 DB fixture skip。Next production buildは680ページ / exit 0。全体`tsc --noEmit`は既知の6 errors（dashboard 1、wallet 1、Life Manager CTA 4）のみで、Factory変更箇所にerrorなし。fix waveのCI/re-review/main/production releaseは未完。
 
 ## Latest production release and live readiness — 2026-10-26 JST
 

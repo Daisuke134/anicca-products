@@ -38,15 +38,25 @@ export function factoryActionReady(action, readiness) {
   return (actionCapabilities[action] || []).every(name => readiness?.[name]?.ready === true);
 }
 
-export async function refreshFactoryActionStatus(refresh, onReadbackFailure, onReadbackSuccess) {
+export async function refreshFactoryActionStatus(refresh, action, onReadbackFailure, onReadbackSuccess) {
+  let snapshot;
   try {
-    await refresh();
-    onReadbackSuccess();
-    return true;
+    snapshot = await refresh();
   } catch {
     onReadbackFailure();
     return false;
   }
+
+  const account = snapshot && typeof snapshot === 'object' ? snapshot.account : null;
+  const confirmed = action === 'autopost' ? account?.auto_post === true
+    : action === 'stop' ? account?.auto_post === false && account?.auto_post_intent === false
+      : true;
+  if (!confirmed) {
+    onReadbackFailure();
+    return false;
+  }
+  onReadbackSuccess();
+  return true;
 }
 
 export function requestFactoryAction(action, readiness, avatarReady, perform, notify, allowance = {}) {
