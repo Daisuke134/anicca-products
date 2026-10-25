@@ -1,0 +1,152 @@
+{
+  "schema_version": "anicca.ai-monk-factory-e2e-preflight.v1",
+  "run_id": "ai-monk-factory-e2e-preflight-20261025",
+  "owner_id": "root",
+  "occurrence_id": "factory-e2e-preflight-postiz-monk-20261025T040516Z",
+  "release_sha": "6f8fc8015f0872081545d81052015c6905f0e493",
+  "observed_at": "2026-10-25T04:05:16Z",
+  "phase": "factory_e2e_read_only_preflight",
+  "command": [
+    "GET Netlify production environment and latest deploy using exact private credential SSOT service",
+    "GET Gemini required models",
+    "GET HeyGen /v3/users/me",
+    "GET Upload-Post /api/uploadposts/users",
+    "Postiz integration list for the Personal link",
+    "Postiz posts list for target Instagram and TikTok over the previous and next 30 days",
+    "crwl crawl https://docs.postiz.com/oauth -o markdown-fit",
+    "run locked Factory API, billing, jobs, providers, webhook, client, and readiness tests"
+  ],
+  "loaded_argv": {
+    "provider_operations": "read_only_GET_only",
+    "factory_generation_requests": 0,
+    "oauth_authorizations": 0,
+    "instagram_or_tiktok_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT exact service rows; credential values were not printed or copied",
+    "production_secret_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "provider_topups_or_plan_changes": 0,
+    "factory_generation_requests": 0,
+    "oauth_authorizations": 0,
+    "instagram_or_tiktok_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "netlify": {
+      "environment_http_status": 200,
+      "production_variable_count": 58,
+      "factory_variable_names": [],
+      "latest_deploy_http_status": 200,
+      "latest_deploy_id": "6add7ca117eb8a93ca471fd3",
+      "latest_deploy_state": "ready",
+      "latest_deploy_published_at": "2026-10-25T03:51:42.343Z",
+      "latest_deploy_commit_ref": null
+    },
+    "generation_providers": {
+      "gemini": {
+        "model_gets": [
+          { "model": "gemini-3.1-flash-lite", "http_status": 200 },
+          { "model": "gemini-3.1-flash-lite-image", "http_status": 200 }
+        ],
+        "dedicated_billing_verified": false,
+        "project_state": "prepared_unfunded"
+      },
+      "heygen": {
+        "users_me_http_status": 200,
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0
+      }
+    },
+    "social_providers": {
+      "upload_post": {
+        "users_http_status": 200,
+        "plan": "default",
+        "profile_count": 0,
+        "profile_limit": 2
+      },
+      "postiz": {
+        "user_authorized_test_target": "monk.mujo",
+        "instagram_integration": {
+          "id": "cmoopzaak04yop70y1yx1bwr1",
+          "provider_name": "monk",
+          "platform": "instagram-standalone"
+        },
+        "instagram_posts": {
+          "previous_30_days": {
+            "from": "2026-09-25T04:05:16Z",
+            "to": "2026-10-25T04:05:16Z",
+            "published": 1
+          },
+          "next_30_days": {
+            "from": "2026-10-25T04:05:16Z",
+            "to": "2026-11-24T04:05:16Z",
+            "listed_posts": 0
+          }
+        },
+        "tiktok_integration": {
+          "id": "cmo5rwq2p00twn10yrsdglng3",
+          "provider_name": "Monk Anicca",
+          "platform": "tiktok"
+        },
+        "tiktok_posts": {
+          "previous_30_days": {
+            "from": "2026-09-25T04:05:16Z",
+            "to": "2026-10-25T04:05:16Z",
+            "published": 2
+          },
+          "next_30_days": {
+            "from": "2026-10-25T04:05:16Z",
+            "to": "2026-11-24T04:05:16Z",
+            "listed_posts": 0
+          }
+        },
+        "factory_adapter_match": false,
+        "note": "The existing Factory social adapter uses Upload-Post. No Postiz connection or post mutation was made. Postiz OAuth can act on behalf of Postiz users and requires a registered OAuth application; it does not establish direct Instagram OAuth for general Factory customers."
+      }
+    },
+    "stripe": {
+      "factory_production_runtime_ready": false,
+      "factory_specific_runtime_variables_present": false,
+      "production_checkout_or_charge_created": false
+    },
+    "factory_source": {
+      "readiness_gate": "generation, social, and checkout require their provider/runtime readiness; POST actions fail closed when not ready",
+      "cta_behavior": "readiness failure is reported locally without sending an API request; disabled states also depend on pending, busy, or completed-account conditions",
+      "authenticated_live_click_readback": false
+    },
+    "tests": {
+      "command": "node --test netlify/functions/_lib/__tests__/monk-factory*.test.js lib/monk-factory-client.test.mjs test/ai-monk-factory-action-readiness.test.mjs",
+      "passed": 79,
+      "failed": 0,
+      "skipped": 31,
+      "skip_scope": "database-backed or real provider end-to-end cases"
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "url": "https://docs.postiz.com/oauth",
+      "fact": "Postiz supports OAuth2 authorization code for third-party apps acting on Postiz users; app registration is required and users can revoke access."
+    },
+    {
+      "url": "https://docs.postiz.com/public-api/introduction",
+      "fact": "Postiz Public API supports API-key or OAuth-token authentication for integration listing and post operations."
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+      "fact": "The current Factory Instagram adapter calls Upload-Post, so the existing Postiz integration is not yet an end-to-end Factory target."
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/action-readiness.mjs",
+      "fact": "Unavailable capabilities are explained locally and no action request is dispatched."
+    }
+  ],
+  "error_class": "factory_runtime_not_configured",
+  "retryable": false,
+  "next_action": "Finish SaaS-2: establish a dedicated funded generation path and enforceable actual-spend cap, select a customer-scale Instagram OAuth route that preserves the Postiz connection, and configure a dedicated no-trial Stripe runtime. Then run Factory E2E-1 with the user-authorized monk.mujo target, verify one controlled publish and official post/metrics attribution, and Pause/Stop before any overlapping daily effect."
+}
