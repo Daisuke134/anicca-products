@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "run_id": "34aae0d3-3ef8-4e52-aed2-041c67da240a",
+  "owner_id": "codex-ai-monk-factory",
+  "occurrence_id": "bec55540-eafb-4729-ba87-560fc452a5ad",
+  "release_sha": "23617ccbc031f372f73ee92033193d32d6e04a8e",
+  "observed_at_window_utc": {
+    "start": "2026-10-25T16:49:46Z",
+    "end": "2026-10-25T17:00:05Z"
+  },
+  "phase": "instagram_login_redirect_release_and_public_readback",
+  "loaded_argv": [
+    "GET GitHub PR #764 and Landing PR build status",
+    "GET GitHub main Netlify Deploy workflow 40213902172",
+    "GET Netlify production deploys with Credential SSOT service netlify-anicca-existing-deployment",
+    "crwl crawl https://aniccaai.com/products -o markdown-fit",
+    "crwl crawl https://aniccaai.com/dais -o markdown-fit",
+    "crwl crawl https://aniccaai.com/factory -o markdown-fit",
+    "crwl crawl https://aniccaai.com/ai-monk-factory -o markdown-fit"
+  ],
+  "loaded_env": {
+    "credential_source": "private Credential SSOT; values not emitted",
+    "credential_value_emitted": false
+  },
+  "commands": [
+    {
+      "command": "GitHub PR #764 source acceptance",
+      "result": "merged",
+      "head_sha": "23be800ed16f789d1075976044d46b5af7e372c7",
+      "merge_sha": "23617ccbc031f372f73ee92033193d32d6e04a8e",
+      "landing_ci": "success",
+      "landing_ci_run_id": "40213546029"
+    },
+    {
+      "command": "GitHub main production deployment and money-path smoke",
+      "result": "success",
+      "workflow_run_id": "40213902172",
+      "head_sha": "23617ccbc031f372f73ee92033193d32d6e04a8e"
+    },
+    {
+      "command": "Netlify official production deploy GET",
+      "http_status": 200,
+      "readback": {
+        "site_match_count": 1,
+        "matching_deploy_state": "ready",
+        "matching_deploy_context": "production",
+        "matching_deploy_branch": "main",
+        "matching_deploy_title": "Deploy from GHA prod - 23617ccbc031f372f73ee92033193d32d6e04a8e",
+        "matching_deploy_published_at": "2026-10-25T16:58:33.953Z",
+        "provider_commit_ref": null,
+        "identity_basis": "exact main SHA in official deploy title; Netlify commit_ref is null for this CLI deploy"
+      },
+      "effect": "read_only"
+    },
+    {
+      "command": "Public product catalog crawls",
+      "result": "factory_listed_as_preparing",
+      "pages": {
+        "/products": "AI Monk Factory appears in Software; Preparing to open; generation and subscription checkout are not open",
+        "/dais": "AI Monk Factory appears in Web products with preparing-to-open status",
+        "/factory": "AI Monk Factory appears with Preparing and $199/mo",
+        "/ai-monk-factory": "3 free videos with no card/time limit; then $199/month"
+      },
+      "effect": "read_only"
+    }
+  ],
+  "effect": "source deployment only; no provider billing, wallet, runtime, OAuth, generation, checkout, or posting action",
+  "readback": {
+    "source_release_complete": true,
+    "factory_excluded_from_public_catalog": false,
+    "factory_public_status": "preparing_to_open",
+    "user_visible_studio_generation_readiness": "not verified by these public crawls",
+    "last_factory_runtime_env_readback": "58 variables; MONK_FACTORY_* count 0 at 2026-10-25T16:38Z"
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "docs/evidence/ai-monk-factory-instagram-login-redirect-source-verification-20261026.json",
+    "docs/evidence/ai-monk-factory-readiness-cursor-readback-20261025T163850Z.json",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Verify an existing usable Stripe test credential, account identity, Checkout permissions, and matching Factory price; keep live runtime closed."
+}
