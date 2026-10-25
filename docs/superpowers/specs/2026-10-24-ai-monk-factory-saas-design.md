@@ -1,11 +1,25 @@
 # AI Monk Factoryのクラウド実装・原価契約
 
 ## 目的と範囲
-Databaseの根拠を台本へ戻し、利用者がGoogle認証後に「monk avatarを生成 → 完成動画を最大3本無料で生成 → Instagramを接続」と進めるWeb appを作る。動画・台本・profileは既定値で生成し、promptや毎日の手動操作を求めない。Instagram接続時は、既に完成した未投稿videoを無料quotaが0でも先に日次投稿する。free quotaまたは有効なsubscriptionがある間は新しいvideoも日次生成・投稿する。quotaが尽きたら新規生成を止め、残る完成free videoを投稿し終えた後はInstagram接続intentを保ったままsubscriptionまで待機し、支払確認後に自動再開する。完成動画3本は期限なし・カードなしで提供し、3日trialは置かない。Instagramを先行し、TikTokは公開Content Posting API監査後に追加する。既定profileは任意で編集できる。web appを先に提供し、iPhone appは後続とする。既存の日次Grok所有loop、書籍決済は変更しない。公開mockやlocalhost planをSaaS完成と扱わない。
+ReelFarm型のAI Monk video factoryをWeb appとして提供し、AI monk avatarsでeBookを販売する。利用者はGoogle認証後に「monk avatarを生成 → 完全なscript・voice付き縦videoを最大3本無料で生成 → Instagramを接続」と進める。promptや日々の手動操作は求めない。初期campaignの販売先はAniccaの英語版eBook『The Art of AI Monks』とし、生成scriptに短い案内を含め、Instagram captionには商品ページへのリンクを付ける。scriptとcaptionは生成videoごとに本人のStudioで表示する。利用者には初期campaignの販売先を事前に表示する。利用者ごとの別eBook/offer設定はMVP後の拡張とする。
 
-初回導線は「Google認証 → Generate Monk Avatar → Generate Full Video（最大3本無料） → Connect your IG to auto post」とする。Instagram接続はavatarと完成動画が1本以上できた後に許可する。Connect押下が明示的な自動投稿同意となり、Meta OAuthの公式readback後は、完成済み未投稿videoを無料quotaが0でも日次投稿する。無料quotaまたは有効subscriptionがある間は新規videoも日次生成する。quotaを使い切った後は完成済みvideoを投稿し終えると、新規生成・投稿jobを作らず、Instagram接続intentを維持してCheckoutを待つ。支払確認後は日次生成・投稿を自動再開する。OAuth後の実投稿には対象accountの公式permissionとprovider設定が必要で、未確認なら生成と投稿のreadinessを分けて表示する。
+完成video 3本は期限なし・カードなし・3日trialなし。avatar生成後、完成videoが1本以上あればInstagram接続を許可する。Connect操作が日次自動生成・投稿への明示的な同意となり、OAuth後は完成済み未投稿videoを先に日次投稿する。free quotaまたは有効なsubscriptionがある間は新しいvideoも日次生成・投稿する。quotaが尽きたら新規生成を止め、残る完成free videoを投稿し終えた後はInstagram接続intentを保ったままsubscriptionまで待機し、支払確認後に自動再開する。Instagramを先行し、TikTokは公開Content Posting API監査後に追加する。既定profileは任意で編集できる。web appを先に提供し、iPhone appは後続とする。既存の日次Grok所有loop、書籍決済は変更しない。公開mockやlocalhost planをSaaS完成と扱わない。
+
+初回導線は「Google認証 → Generate Monk Avatar → Generate The Full Video（完成script/voice付きで最大3本無料） → Connect your IG to auto post」とする。Instagram接続はavatarと完成動画が1本以上できた後に許可する。Connect押下が明示的な自動投稿同意となり、Meta OAuthの公式readback後は、完成済み未投稿videoを無料quotaが0でも日次投稿する。無料quotaまたは有効subscriptionがある間は新規videoも日次生成する。quotaを使い切った後は完成済みvideoを投稿し終えると、新規生成・投稿jobを作らず、Instagram接続intentを維持してCheckoutを待つ。支払確認後は日次生成・投稿を自動再開する。OAuth後の実投稿には対象accountの公式permissionとprovider設定が必要で、未確認なら生成と投稿のreadinessを分けて表示する。
 
 Connect前のInstagram日次投稿は停止する。接続操作そのものが自動投稿の明示的な開始指示となる。未準備なら不足機能をボタン付近と画面内に示し、生成APIへ誤送信しない。利用者はいつでもPause/Stopでき、profile編集は任意とする。Generate/Connect CTAのclick handlerは存在し、readiness未達時は外部APIを呼ばずfail-closedにする。未認証の公開CTAはサインインへ進めるが、認証後の生成/投稿/checkoutはruntime readinessが必要である。2026-10-25のユーザー画面にはStudio load/actionのgeneric errorが出たが、失敗actionとprovider結果は不明であり、成功・失敗のどちらにも推定しない。現行Instagram接続adapterは公式Instagram Loginを使い、Facebook Page/config_id前提を外す。
+
+## MVP source/readiness readback — 2026-10-26 JST
+
+現行MVP契約は「avatar生成 → 完成script/voice付きvideoを最大3本無料 → Instagram OAuth → 日次生成/投稿」であり、trial・カード要求・日々の手動操作はない。初期販売先は『The Art of AI Monks』。各scriptに短い音声CTA、各Instagram captionにcanonical product-page URLを含め、利用者は自分のStudioでscript/captionを確認できる。Connect前に販売先と日次自動投稿への同意を表示する。Grok Bot/Postizの既存日次owner/scheduleは変えない。
+
+今回のsource修正はこの販売内容契約の欠落を埋める。以前のgenerator promptは一般的なReelだけを求め、ebook CTAを含めず、store/API/UIも生成済みscript/captionを利用者へ返していなかった。回帰テストでこの欠落をRED確認後、server側に短い固定CTAと商品URLを追加し、owner-filtered job queryからscript/captionを返し、動画カードに全文表示した。モデルpromptは本文の尺をCTA用に空け、出典のない販売主張を禁止する。Factory関連unit testsは121 total / 88 pass / 0 fail / 33 skipped（隔離Postgres fixture未提供）、production buildは675 pagesで成功。これらのsource変更は専用branch上で、main統合・公開deploy前である。
+
+2026-10-25T17:23Z（2026-10-26 JST）のNetlify公式GETはHTTP200、production env 58件、`MONK_FACTORY_*` 0件。最新deploy `6ade35182e5695e48c0e46a8`はreadyだが、titleにmain SHA `23617ccbc031f372f73ee92033193d32d6e04a8e`を示し、`commit_ref`はnull。今回のsource修正はそのdeployに含まれない。readback → `../../evidence/ai-monk-factory-netlify-readback-20261026.json`。
+
+2026-10-25T17:21Z（2026-10-26 JST）のHeyGen公式profile GETはHTTP200、Factory専用wallet USD0、wallet auto-reload off、responseに`usage_based`と`spending_cap_usd` fieldなし。HeyGen workspace auto-refillとwallet hard capは未確認。Geminiの最後の公式project readback（2026-10-25T16:27Z）はbilling disabled・billing accountなし、AI StudioはFree tier、月間cap値を表示せず、cap未設定とは断定できない。内部USD10/day予約はprovider上限ではない。証拠 → `../../evidence/ai-monk-factory-mvp-provider-readback-20261026.json`、`../../evidence/ai-monk-factory-ai-studio-cap-readback-20261025T162759Z.json`。
+
+現在の本番cursorはruntime readinessで、Factoryをproductionで有効化しない。次の順序は (1) eBook CTA/script表示のsource branchをmainへ統合・deployし公開readback、(2) HeyGenの有限支出境界とGemini専用billing/capを公式readback、(3) Netlify Factory env・Meta Instagram Login・Stripe test-modeを設定/readback、(4) avatar生成後に完成video最大3本を期限なし/カードなし/trialなしで実生成、(5) Instagram接続後の日次生成・投稿・URL/metrics・Pause/Stopを対象accountの公式readbackで確認、(6) free quota後のStripe test Checkout/webhookと支払後再開を確認する。未確認の支出境界を作るために無制限top-up/auto-reloadを有効化しない。Grok Bot/Postiz daily ownerは維持する。現cursorと実行順の正本 → `../plans/2026-10-24-ai-monk-research-distribution.md`。
 
 ## 現在の本番blocker — 2026-10-25
 Netlify本番環境の最後の公式env GET（2026-10-25T15:36Z）では変数58件、`MONK_FACTORY_*`は0件だった。その後、main commit `a02cddb98f648abc34f1d44072de1ac8bd47b9a0`のproduction deploy workflow `40208828000`は2026-10-25T15:55:05Zに完了し、post-deploy money-path smokeも成功した。deploy後の環境変数は再readbackしていない。Factory runtime設定が確認できるまで本番Studioをclosed状態にし、avatar・video・Instagram接続CTAはreadiness gateでdisabledにする。ボタン自体の不具合を直すPR #760はmain反映済みだが、runtime未設定のまま有効化しない。
