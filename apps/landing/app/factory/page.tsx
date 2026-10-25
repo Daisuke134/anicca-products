@@ -33,8 +33,8 @@ const APPS = [
   {
     name: 'AI Monk Factory',
     href: '/ai-monk-factory',
-    tagline: 'Original AI monk videos for Instagram. Preparing to open.',
-    price: 'Preparing · $199/mo',
+    tagline: 'AI monk avatars and complete scripted Reels that introduce The Art of AI Monks. Three finished videos free; connect Instagram to start daily posting.',
+    price: 'Preparing · 3 videos free · $199/mo after',
     bgClass: 'bg-[hsl(var(--surface))]',
     accentClass: 'bg-[hsl(var(--gold)/0.08)]',
   },

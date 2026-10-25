@@ -27,7 +27,7 @@ export function factoryQuotaState(usage) {
   const attemptsRemaining = usage?.attemptsRemaining;
   const known = Number.isSafeInteger(videosRemaining) && Number.isSafeInteger(attemptsRemaining);
   const available = known && videosRemaining > 0 && attemptsRemaining > 0;
-  return { known, available, exhausted: known && !available };
+  return { known, available, exhausted: known && videosRemaining <= 0, attemptsExhausted: known && attemptsRemaining <= 0 };
 }
 
 export function factoryCapabilityUnavailable(capability) {
@@ -49,6 +49,14 @@ export function requestFactoryAction(action, readiness, avatarReady, perform, no
     return false;
   }
 
+  if (action === 'checkout' && allowance.quotaKnown && allowance.videosRemaining > 0) {
+    const message = allowance.attemptsRemaining <= 0
+      ? `The six-attempt safety limit was reached after ${allowance.completedVideos ?? Math.max(0, 3 - allowance.videosRemaining)} of 3 completed free videos. No charge will start; contact support.`
+      : 'Complete your three free videos before starting a subscription.';
+    notify(`${message} No request was sent.`);
+    return false;
+  }
+
   const allowanceRequired = ['generate_avatar', 'generate_video'].includes(action)
     || (action === 'autopost' && !allowance.postableVideoReady);
   const recoveringVideo = action === 'generate_video' && allowance.pendingVideo;
@@ -56,9 +64,9 @@ export function requestFactoryAction(action, readiness, avatarReady, perform, no
     const message = !allowance.quotaKnown
       ? 'Your free video allowance could not be confirmed. Refresh status before starting an action.'
       : allowance.videosRemaining <= 0
-        ? 'You have used your three free videos. Choose a plan to continue.'
+        ? 'You have received all three completed free videos. Choose a plan to continue.'
         : allowance.attemptsRemaining <= 0
-          ? 'No free generation attempts remain. Choose a plan to continue.'
+          ? `The six-attempt safety limit was reached after ${allowance.completedVideos ?? Math.max(0, 3 - allowance.videosRemaining)} of 3 completed free videos. No charge will start; contact support.`
           : 'A generation allowance is required to start this action.';
     notify(`${message} No request was sent.`);
     return false;

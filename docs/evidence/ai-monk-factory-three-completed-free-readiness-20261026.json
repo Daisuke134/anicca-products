@@ -1,0 +1,73 @@
+{
+  "observed_at": "2026-10-26T03:28:50+09:00",
+  "scope": "Source implementation and read-only production readiness; no production settings, provider jobs, OAuth, posts, or charges changed.",
+  "contract": {
+    "order": [
+      "Generate Monk Avatar",
+      "Generate The Full Video with a complete script and voice; three completed videos free",
+      "Connect Instagram; successful OAuth consent starts daily generation and posting"
+    ],
+    "free_offer": "Three completed videos, no card, no expiration, no three-day trial.",
+    "failed_attempts": "Do not reduce completed-video allowance; at most six free generation attempts.",
+    "retry_cap": "Avatar plus six free attempts reserve USD 6.76 per user lifetime internally; this is not a provider invoice hard cap.",
+    "uncertain_effects": "Keep effect_unknown fenced until provider readback; never blindly resubmit.",
+    "after_retry_cap": "If fewer than three videos completed, block Checkout and show delivered count plus Support.",
+    "existing_daily_owner": "Grok Bot/Postiz schedule and accounts remain untouched."
+  },
+  "source": {
+    "worktree": "/Users/anicca/Projects/anicca-products-worktrees/ai-monk-factory-three-completed-free-20261026",
+    "branch": "fix/ai-monk-factory-three-completed-free-20261026",
+    "release_status": "local source only; PR/main/deploy pending",
+    "changes": [
+      "Database free quota now counts completed videos separately from up to six attempts.",
+      "Checkout is unavailable until all three free videos are complete; incomplete delivery at the retry cap cannot charge.",
+      "Studio, API, terms, autopost allowance and billing fixtures use the same contract.",
+      "The Anicca Web Apps listing copy describes the avatar/script/video/Instagram MVP while retaining Preparing status."
+    ]
+  },
+  "verification": {
+    "isolated_database": { "passed": 35, "failed": 0 },
+    "factory_node_suite": { "passed": 94, "failed": 0, "skipped_without_database_fixture": 35 },
+    "production_build": { "exit_code": 0, "static_pages": 677, "factory_route": true, "warnings": "Existing optional wallet dependency and Tailwind ambiguity warnings; build succeeds." },
+    "typescript": {
+      "factory_files_with_errors": 0,
+      "errors_in_unchanged_files": [
+        "app/dashboard/page.tsx: dashboard-core.mjs declaration missing",
+        "app/income/wallet/page.tsx: ExportPrivateKeyButtonProps lacks className",
+        "app/lm/LmBody.tsx and components/lm/LmJaCta.tsx: writer-cta-url exports missing"
+      ]
+    },
+    "diff_check": "pass"
+  },
+  "production_readback": {
+    "netlify": {
+      "site": "aniccaai.com",
+      "environment_http": 200,
+      "environment_variable_count": 62,
+      "factory_variable_count": 0,
+      "latest_deploy": {
+        "id": "6ade3e636ae97444c5fd1a52",
+        "state": "ready",
+        "branch": "main",
+        "commit_ref": null,
+        "published_at": "2026-10-25T17:38:41.762Z"
+      }
+    },
+    "factory_function_route": { "http": 401, "safe_error": "sign_in_required", "method": "unauthenticated GET; route presence only" },
+    "heygen": { "endpoint": "GET /v3/users/me", "http": 200, "wallet_currency": "usd", "wallet_remaining_balance": 0, "auto_reload": false },
+    "gemini_factory_credential_ssot": { "provider_state": "prepared_unfunded", "billing_verified": false, "updated_at": "2026-10-24T00:09:48.049118+00:00" },
+    "stripe_factory_credential_ssot": { "account_status": "catalog_prepared_runtime_disabled", "price": "USD 199/month", "runtime_secret_available": false, "updated_at": "2026-10-23T19:30:16.155969+00:00" },
+    "meta_factory_app": "No exact Meta/Facebook app credential is present in the credential service index; Instagram user credentials do not establish app OAuth readiness."
+  },
+  "listing_readback": {
+    "url": "https://aniccaai.com/dais",
+    "factory_entry": "AI Monk Factory",
+    "displayed_status": "AI monk video studio · preparing to open.",
+    "conclusion": "Factory is listed; the public label reflects the unconfigured runtime."
+  },
+  "remaining_external_prerequisites": [
+    "Fund the dedicated HeyGen wallet or establish a verified hard spend bound; current balance is zero.",
+    "Enable and bound the dedicated Gemini project billing for image and script generation.",
+    "Configure the dedicated Factory Netlify runtime, Stripe test-mode Checkout/webhook credential, and Meta Instagram Login app/permissions."
+  ]
+}

@@ -2,12 +2,13 @@ import type { FactoryAction } from '../../lib/monk-factory-client.mjs';
 
 export type FactoryCapability = 'generation' | 'social' | 'checkout';
 export type FactoryCapabilityState = { ready?: boolean; reason?: string | null; name?: FactoryCapability };
-export type FactoryQuota = { known: boolean; available: boolean; exhausted: boolean };
+export type FactoryQuota = { known: boolean; available: boolean; exhausted: boolean; attemptsExhausted: boolean };
 export type FactoryAllowance = {
   hasAccess?: boolean;
   quotaKnown?: boolean;
   videosRemaining?: number | null;
   attemptsRemaining?: number | null;
+  completedVideos?: number | null;
   pendingVideo?: boolean;
   completedVideoReady?: boolean;
   postableVideoReady?: boolean;
