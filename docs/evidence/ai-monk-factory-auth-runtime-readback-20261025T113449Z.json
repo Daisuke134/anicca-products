@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "run_id": "ai-monk-factory-auth-runtime-readback-20261025T113449Z",
+  "owner_id": "codex-primary",
+  "occurrence_id": "ai-monk-factory-auth-runtime-readback-20261025T113449Z",
+  "release_sha": "3f10484ad3678004055f008315072f663ad402bb",
+  "observed_at": "2026-10-25T11:34:49.909595Z",
+  "phase": "factory_auth_and_provider_wallet_readback",
+  "command": "Start Factory Google OAuth with the owner-authorized account, inspect requested scopes and challenge state, then call the dedicated HeyGen wallet GET. No credential value is recorded.",
+  "loaded_argv": [
+    "Open https://aniccaai.com/ai-monk-factory and select Sign in",
+    "Select the uniquely SSOT-matched Google owner account",
+    "Read Google OAuth scope and challenge page state",
+    "GET https://api.heygen.com/v3/users/me"
+  ],
+  "loaded_env": {
+    "credential_source": "/Users/anicca/.local/share/anicca/credentials.json",
+    "browser_identity": "interactive:dais",
+    "browser_context": "isolated; Google cookie domains only",
+    "secret_values_logged": false
+  },
+  "exit_code": 0,
+  "effect": "Google OAuth sign-in request and owner-account selection started; stopped at passkey challenge. HeyGen request was read-only.",
+  "readback": {
+    "google_oauth": {
+      "owner_account_matched_ssot": true,
+      "requested_scopes": [
+        "email",
+        "profile"
+      ],
+      "challenge_host": "accounts.google.com",
+      "challenge_path": "/v3/signin/challenge/pk",
+      "visible_dom_controls": 0,
+      "visible_dom_inputs": 0,
+      "consent_completed": false,
+      "factory_session_established": false
+    },
+    "factory_studio": {
+      "authenticated_get_attempted": false,
+      "past_action_outcome": "unknown; do not retry before correlation",
+      "current_run_generation_started": false,
+      "current_run_instagram_oauth_completed": false,
+      "current_run_post_published": false,
+      "current_run_checkout_started": false,
+      "current_run_charge_created": false
+    },
+    "heygen_factory": {
+      "http_status": 200,
+      "wallet_currency": "usd",
+      "wallet_remaining_balance": 0.0,
+      "wallet_auto_reload_enabled": false,
+      "workspace_api_auto_refill_currently_verified": false,
+      "generation_started": false,
+      "charge_created": false
+    },
+    "runtime_changes": {
+      "netlify_environment_changed": false,
+      "meta_configuration_changed": false,
+      "stripe_configuration_changed": false,
+      "provider_credit_purchased": false
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "docs/evidence/ai-monk-factory-runtime-readback-20261025T110509Z.json",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md"
+  ],
+  "error_class": "google_auth_challenge_without_visible_dom_controls",
+  "retryable": true,
+  "next_action": "Dais completes the Google passkey at https://aniccaai.com/ai-monk-factory; then Codex performs the authenticated Studio GET and correlates prior action state before any retry."
+}
