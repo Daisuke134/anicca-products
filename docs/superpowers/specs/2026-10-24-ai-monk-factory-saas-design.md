@@ -21,7 +21,19 @@ source変更は固定の短いebook CTAと商品ページURLを生成script/capt
 
 最後の保存済みHeyGen公式profile readbackはFactory専用wallet USD0、auto-reload offで、wallet hard cap/spending-cap fieldは確認できない。Gemini専用projectの公式readbackはbilling disabled・billing accountなし、AI Studio Free tierで月cap値は非表示。内部USD10/day予約はprovider請求上限ではない。証拠 → `../../evidence/ai-monk-factory-mvp-provider-readback-20261026.json`、`../../evidence/ai-monk-factory-ai-studio-cap-readback-20261025T162759Z.json`。
 
-現在cursorは実効支出境界とruntime readinessである。順序は (1) HeyGen/Geminiで費用を有限化し、HeyGen wallet/refillとGemini project billing/capを公式readback、(2) Netlify Factory env・Meta Instagram Login/app roles/permissions・Stripe test-mode catalog/checkout/webhookをreadback、(3) avatarと完全video最大3本を本番生成してquota/no-card/no-trialを確認、(4) Factory OAuthでInstagram接続後、日次生成/投稿・post URL・取得可能なmetrics・Pause/Stopを確認、(5) free quota後にStripe test checkout/webhookと支払後再開を確認、(6) 根拠を保存してFactoryをXで一度だけ告知、(7) その後にDatabase改善・product iteration・distribution loopを起動する。TikTok、iPhone、marketplace掲載はこのInstagram-first web MVPの完了後に行う。Grok Bot/Postiz ownerを変更しない。
+現在cursorは実効支出境界とruntime readinessである。順序は (1) HeyGen/Geminiで費用を有限化し、HeyGen wallet/refillとGemini project billing/capを公式readback、(2) 3本の無料artifact countと、失敗時も利用者の3本を減らさないための別個の有限attempt/cost capを実装・検証、(3) Netlify Factory env・Meta Instagram Login/app roles/permissions・Stripe test-mode catalog/checkout/webhookをreadback、(4) avatarと完全video最大3本を本番生成してquota/no-card/no-trialを確認、(5) Factory OAuthでInstagram接続後、日次生成/投稿・post URL・取得可能なmetrics・Pause/Stopを確認、(6) free quota後にStripe test checkout/webhookと支払後再開を確認、(7) 根拠を保存してFactoryをXで一度だけ告知、(8) その後にDatabase改善・product iteration・distribution loopを起動する。TikTok、iPhone、marketplace掲載はこのInstagram-first web MVPの完了後に行う。Grok Bot/Postiz ownerを変更しない。
+
+## Factory flow contract audit — source/read-only — 2026-10-26
+
+画面とAPIの順序はGenerate Monk Avatar → Generate The Full Video → Connect your IG to auto post。動画は少なくとも1本完成すればInstagramを接続でき、3本を手動生成し終える必要はない。接続後は残りの無料quotaがあれば日次生成する。この仕様は、完成済みvideoを先に投稿し、残りquotaを自動生成へ回す。
+
+生成sourceはAI Monk playbooksを読み、Geminiがscript/caption/source IDsを返す。固定のeBook CTAを追加し、HeyGen Starfishでscriptを音声化してからHeyGen Avatar IVの9:16/1080p videoを作る。完了statusのvideoとscript/captionをStudioのlibrary cardで確認できる。
+
+Instagram接続APIはOAuthを始める前に`auto_post_intent`を保存する。OAuth後のauthenticated status GETが公式Instagram account/publish permissionをreadbackし、intentが残り、quotaまたは投稿可能な完成free videoがあれば`auto_post`を開始する。daily schedulerは完成済み未投稿videoを先に処理し、free quotaまたは有効subscriptionがある間だけ新しいvideoを日次生成する。Stopはactive auto-postとpending intentの両方を解除し、未完OAuthが後からStopを上書きしない。関連API/DB test sourceは通常接続、quota 0でのfree queue投稿、Stop中OAuthを扱う。
+
+**未解決の契約差:** 現行DBは新規userの`videosRemaining=3`と`attemptsRemaining=3`を返し、free video reservationを3回のattemptで止める。失敗・未確定attemptも利用枠になり得ることは公開ページにも明記される。2026-10-26の公開ページは「最大3本無料」「期限なし・カード不要」と「failed or unconfirmed attempts may use an attempt」を表示する。従って現在の実装は「最大3回のattempt」であり、失敗があっても完成videoを3本提供する契約ではない。受け入れ条件は完成artifactを3本数え、attempt/cost上限は別に有限化すること。effect unknownはprovider公式readbackまで予約を保持し、再送しない。上限が先に尽きるときは無料3本を提供済みと表示しない。次のsource task → `../plans/2026-10-24-ai-monk-research-distribution.md`「FACTORY-FREE-3-1」。
+
+今回の監査はsourceとpublic pageのread-only確認で、StudioへloginしてCTAを押す、本番provider生成、OAuth、Instagram投稿、Checkout、chargeは行っていない。focused test実行はcheckoutに`@supabase/supabase-js`と`react`がなく起動できず、isolated PostgreSQL fixtureもないためPASSとは報告しない。Studio screenshotのgeneric errorはaction/provider receiptがなく、成功・失敗どちらとも判定しない。前回保存済みNetlify official env GETは58 variables・`MONK_FACTORY_*` 0件で、production runtime E2Eは未完了。最新の公開Marketing crawlは[Factory page](https://aniccaai.com/ai-monk-factory)を取得したが、これはauthenticated Studioや本番runtimeのreadbackではない。
 
 ## Historical production blocker snapshot — 2026-10-25（現状は上記2026-10-26 readbackを優先）
 Netlify本番環境の最後の公式env GET（2026-10-25T15:36Z）では変数58件、`MONK_FACTORY_*`は0件だった。その後、main commit `a02cddb98f648abc34f1d44072de1ac8bd47b9a0`のproduction deploy workflow `40208828000`は2026-10-25T15:55:05Zに完了し、post-deploy money-path smokeも成功した。deploy後の環境変数は再readbackしていない。Factory runtime設定が確認できるまで本番Studioをclosed状態にし、avatar・video・Instagram接続CTAはreadiness gateでdisabledにする。ボタン自体の不具合を直すPR #760はmain反映済みだが、runtime未設定のまま有効化しない。
@@ -69,6 +81,7 @@ dashboardは実provider状態、投稿URL、取得日時付きのviews/likes等�
 ## 実装の境界
 - 現在の公開draft入口を同じURLの実Web appへ置き換える。localhost向け4file配布はdownload用pathへ移し、public staticとNext routeを衝突させない。既存利用者や永続draft移行の要件は確認されていないので互換レイヤーを増やさない。
 - 無料quotaは認証userごとに完成動画3本の生涯枠とし、時間経過でresetしない。Stripe trial fieldsは使わない。有料quotaは公式paid invoice期間に紐づけ、paid30成功/最大36attemptを繰越0で管理する。費用不明の試行は原価予約を保持し、公式に非課金と確認できたものだけ解放する。
+- 無料3本は完成artifactのcountとし、attempt/cost capは別に有限化する。provider failureを3本のartifact quotaから減算しない。安全なretry上限は公式provider spend boundaryから決め、attempt capが先に尽きた場合は提供済み動画数を正確に表示する。effect-unknownは予約を保ち、公式readbackまでretryしない。
 - readinessは共通booleanへ集約せず、generation・checkout・socialをaction別に返す。core runtime flag/job secretが不足する場合はjobを停止し、provider設定不足は生成を、Stripe設定不足はcheckoutを、公式OAuth/publish設定不足はsocial actionだけを止める。clientへsecretや内部env値を返さず、なぜ操作できないかを利用者向けの安全なstatusで表示する。readinessがfalseでも該当CTAはクリックでき、押下時は安全な理由を画面内に表示するだけにする（API POST・job作成・quota/attempt消費は行わない）。Instagram接続はcore job runtimeとsocial readinessを必要とし、generation readinessとは独立する。avatarと完成videoがある場合だけOAuthへ進める。無料quotaが不明な場合は残数0と区別し、課金導線を出さずstatus更新を案内する。OAuth接続は3本のfree quotaを使い切っても許可する。quotaが0でも既存の完成free videoを投稿できる間はautopostを有効にし、残る既存videoを投稿し終えたらintentを保ったまま新規effectを止める。paid subscription後はintentに従い新規生成・投稿を自動再開する。
 - Netlify APIはSupabase server getUserでbearerを検証する。client入力user_id/customer_id/profileを信用しない。RLSは自分のrowの読取だけ、課金/生成/接続の更新はserver限定とする。
 - account/job/provider-eventを永続化する。unique occurrence/lease、atomic count/seconds/USD予約で連打・並列・scheduled再実行の二重効果を防ぐ。timeout後のeffect不明は予約を保持し、公式GETで照合する。
