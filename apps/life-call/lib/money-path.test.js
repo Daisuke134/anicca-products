@@ -16,7 +16,7 @@ const {
 
 const GOOD = "https://buy.stripe.com/9B600j6C204S7LadIG2880V"; // LM $20/mo (registry known-good)
 const BAD = "https://buy.stripe.com/00w9ATf8yaJwghG6ge2880v"; // ¥700k AI供養 (the real 2026-07-03 bug)
-const LIFE_MANAGER_WEB_APP = "https://life-call-production.up.railway.app/lm";
+const LIFE_MANAGER_PUBLIC_ORIGIN = "https://aniccaai.com";
 
 test("extractStripeLink: pulls buy.stripe.com/<slug> out of a chunk string", () => {
   const chunk = `})}let m="/x",x="${GOOD}",p=/re/;`;
@@ -32,32 +32,46 @@ test("assertMoneyPath: PASS when bundle link == registry, FAIL on the ¥700k bug
   assert.match(bad.reason, /stripe/i);
 });
 
-test("assertWebAppHandoff accepts the canonical Web app route", () => {
+test("assertWebAppHandoff accepts the same-origin Cloud route", () => {
   assert.equal(typeof assertWebAppHandoff, "function");
-  assert.deepEqual(assertWebAppHandoff({ chunk: `href=\"${LIFE_MANAGER_WEB_APP}\"` }), { ok: true, reason: "ok" });
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime?source=landing&amp;lang=en"' }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), { ok: true, reason: "ok" });
 });
 
-test("assertWebAppHandoff fails when the canonical Web app route is absent", () => {
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://example.com/lm"' }), {
-    ok: false, reason: "web app handoff link missing in /lm chunk",
+test("assertWebAppHandoff fails when the same-origin Cloud route is absent", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://example.com/lm"' }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
+    ok: false, reason: "Life Manager Cloud route missing in /lm page",
   });
 });
 
 test("assertWebAppHandoff rejects Telegram and direct Stripe links", () => {
-  assert.deepEqual(assertWebAppHandoff({ chunk: `${LIFE_MANAGER_WEB_APP} https://t.me/LifeManagerBotbot?start=lp` }), {
+  const cloud = 'href="/maritime?source=landing"';
+  assert.deepEqual(assertWebAppHandoff({ chunk: `${cloud} https://t.me/LifeManagerBotbot?start=lp` }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
     ok: false, reason: "telegram link found in /lm chunk",
   });
-  assert.deepEqual(assertWebAppHandoff({ chunk: `${LIFE_MANAGER_WEB_APP} https://checkout.stripe.com/c/pay` }), {
+  assert.deepEqual(assertWebAppHandoff({ chunk: `${cloud} https://checkout.stripe.com/c/pay` }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
     ok: false, reason: "stripe link found in /lm chunk",
   });
 });
 
-test("assertWebAppHandoff rejects alternate Life Manager endpoints", () => {
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'https://life-call-production.up.railway.app/auth/google' }), {
-    ok: false, reason: "unexpected web app link in /lm chunk: https://life-call-production.up.railway.app/auth/google",
+test("assertWebAppHandoff rejects direct Railway links", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://life-call-production.up.railway.app/lm"' }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
+    ok: false, reason: "direct backend link found in /lm page",
   });
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'https://life-call-production.up.railway.app.evil/lm' }), {
-    ok: false, reason: "web app handoff link missing in /lm chunk",
+});
+
+test("assertWebAppHandoff requires a valid public origin to verify same-origin links", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime"' }), {
+    ok: false, reason: "public origin required to verify Life Manager Cloud route",
   });
 });
 
