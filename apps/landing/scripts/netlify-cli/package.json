@@ -1,0 +1,11 @@
+{
+  "name": "@anicca/netlify-deploy-cli",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "netlify-cli": "27.14.2"
+  },
+  "overrides": {
+    "toml": "5.0.1"
+  }
+}

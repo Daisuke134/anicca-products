@@ -143,7 +143,9 @@ function verifySigned({ token, secret, slug, nowSeconds, kind, lifetime }) {
   if (pieces.length !== 2) throw new TypeError('entitlement signature is invalid');
   const actual = Buffer.from(pieces[1], 'base64url');
   const expected = Buffer.from(sign(pieces[0], secret), 'base64url');
-  if (actual.length !== expected.length || !crypto.timingSafeEqual(actual, expected)) {
+  if (pieces[1] !== actual.toString('base64url')
+    || actual.length !== expected.length
+    || !crypto.timingSafeEqual(actual, expected)) {
     throw new TypeError('entitlement signature is invalid');
   }
   let claims;
