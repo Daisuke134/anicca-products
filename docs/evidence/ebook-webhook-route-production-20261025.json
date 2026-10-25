@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-25T03:48:50Z",
+  "environment": "production",
+  "main_commit": "4c58716b5c6e415040dee39ad5d46a534f9f44cb",
+  "deployment": {
+    "workflow_id": "40159262278",
+    "conclusion": "success",
+    "duration_seconds": 282,
+    "immutable_deploy_url": "https://6add7bb991b0aa814a0ea504--anicca2.netlify.app"
+  },
+  "webhook_route": {
+    "path": "/.netlify/functions/webhook",
+    "requests": [
+      {
+        "host": "https://aniccaai.com",
+        "method": "GET",
+        "http_status": 400,
+        "response": "no sig",
+        "request_id": "01M5RJS9FA8E4QWJ0S38GM0YGH"
+      },
+      {
+        "host": "https://6add7bb991b0aa814a0ea504--anicca2.netlify.app",
+        "method": "GET",
+        "http_status": 400,
+        "response": "no sig",
+        "request_id": "01M5RJSS5D7HC0QN8YPCJM9B22"
+      }
+    ]
+  },
+  "side_effects": {
+    "valid_signed_webhook": 0,
+    "checkout": 0,
+    "paid_download": 0,
+    "email_delivery": 0,
+    "database_write": 0
+  },
+  "notes": [
+    "The unsigned GET was rejected before webhook work; the HTTP 400 is the expected fail-closed route response.",
+    "The main deploy workflow's post-deploy money-path smoke passed.",
+    "Paid Checkout and PDF delivery remain unproven."
+  ]
+}
