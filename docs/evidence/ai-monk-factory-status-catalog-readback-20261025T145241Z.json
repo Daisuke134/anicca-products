@@ -1,0 +1,124 @@
+{
+  "schema_version": "anicca.ai-monk-factory-status-catalog-readback.v1",
+  "run_id": "ai-monk-factory-status-catalog-readback-20261025T145241Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-provider-catalog-readback-20261025T145241Z",
+  "release_sha": "08ada033aa78938f3c90462e8db519e4f6dd6e34",
+  "observed_at": "2026-10-25T14:52:41Z",
+  "phase": "provider_runtime_and_public_catalog_readback",
+  "effect": "provider_and_product_read_only_observation; private credential SSOT status metadata synchronized; no provider or product mutation",
+  "commands": [
+    {
+      "command": "GET https://api.heygen.com/v3/users/me with Factory-only credential from private credential SSOT",
+      "observed_at": "2026-10-25T14:52:41Z",
+      "exit_code": 0,
+      "http_status": 200,
+      "loaded_argv_env": {"credential_service": "heygen-ai-monk-factory", "secret_value_logged": false},
+      "readback": {
+        "billing_type": "wallet",
+        "wallet_currency": "usd",
+        "wallet_remaining_balance": 0,
+        "wallet_auto_reload_enabled": false,
+        "usage_based_object_present": false,
+        "usage_based_spending_cap_field_present": false,
+        "workspace_api_auto_refill": "not exposed by this API response"
+      },
+      "error_class": null,
+      "retryable": null
+    },
+    {
+      "command": "Official HeyGen dashboard billing readback",
+      "observed_at": "2026-10-25T14:40Z",
+      "timestamp_precision": "approximate minute from the same authenticated session",
+      "http_status": 200,
+      "readback": {"auto_top_up": "off", "balance_usd": 0},
+      "provider_settings_changed": false
+    },
+    {
+      "command": "gcloud billing projects describe for exact Factory Gemini project from private credential SSOT",
+      "observed_at": "2026-10-25T14:50:42Z",
+      "exit_code": 0,
+      "identity_matches_private_ssot": true,
+      "readback": {"billing_enabled": false, "billing_account_present": false},
+      "project_identifier_logged": false,
+      "error_class": null,
+      "retryable": null
+    },
+    {
+      "command": "GET https://api.netlify.com/api/v1/sites/{anicca2}/env?context=production",
+      "observed_at": "2026-10-25T14:52:06Z",
+      "http_status": 200,
+      "production_variable_count": 58,
+      "factory_variable_names": [],
+      "latest_deploy": {
+        "http_status": 200,
+        "state": "ready",
+        "context": "production",
+        "branch": "main",
+        "provider_commit_ref_present": false
+      },
+      "loaded_argv_env": {"credential_service": "netlify-anicca-existing-deployment", "secret_value_logged": false}
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/products/ -o markdown-fit",
+      "observed_at": "2026-10-25T14:49:07Z",
+      "readback": {
+        "factory_listed_under": "Software",
+        "status": "Preparing to open",
+        "free_offer": "up to 3 completed videos; no card; no time-limited trial",
+        "generation_open": false,
+        "subscription_checkout_open": false,
+        "factory_link_present": true
+      }
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/dais -o markdown-fit",
+      "observed_at": "2026-10-25T14:49:07Z",
+      "readback": {"factory_listed_under": "Web products", "status": "preparing to open", "factory_link_present": true}
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/ai-monk-factory -o markdown-fit",
+      "observed_at": "2026-10-25T14:49:07Z",
+      "readback": {
+        "price_displayed": "$199 USD / month",
+        "free_video_cta_displayed": "Get 3 free videos",
+        "listing_detail_mismatch": true
+      }
+    },
+    {
+      "command": "User-provided Studio screenshot review",
+      "observed_at": "unknown; screenshot shows 18:19 local time without a date",
+      "readback": {
+        "generic_error_displayed": "This action could not finish. Refresh to check its status before trying again.",
+        "studio_status_text": "Refresh to load your studio.",
+        "failed_action": "unknown",
+        "provider_effect": "unknown; screenshot has no run id, request id, or provider receipt"
+      },
+      "next_action": "Before retrying any uncertain action, perform an authenticated Studio GET and correlate provider/runtime logs; do not infer that a generation, post, checkout, or charge completed."
+    }
+  ],
+  "product_listing_conclusion": "AI Monk Factory is not omitted: it is listed on /products/ under Software and on /dais under Web products. It appears unavailable because both listings say preparing to open and the linked app page still shows a price and free-video CTA despite an unconfigured production runtime.",
+  "provider_runtime_conclusion": "The current production site has no MONK_FACTORY_* variables. HeyGen has a zero-balance wallet with auto-reload off and no usage-based spending-cap object in the profile response. The dedicated Gemini project has billing disabled and no billing account. Generation, Instagram publishing, and subscription checkout must stay closed until provider spend/funding boundaries and runtime readiness are established.",
+  "application_reservations_are_not_provider_caps": true,
+  "effects": {
+    "provider_settings_changed": 0,
+    "provider_credits_purchased": 0,
+    "private_credential_ssot_status_metadata_updates": 1,
+    "generation_requests_by_this_run": 0,
+    "oauth_authorizations_by_this_run": 0,
+    "instagram_or_tiktok_posts_by_this_run": 0,
+    "stripe_checkouts_or_charges_by_this_run": 0
+  },
+  "official_sources": [
+    "https://developers.heygen.com/user-profile",
+    "https://developers.heygen.com/docs/stripe-projects",
+    "https://cloud.google.com/sdk/gcloud/reference/billing/projects/describe"
+  ],
+  "evidence_refs": [
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "docs/evidence/ai-monk-factory-e2e-preflight-20261025.json",
+    "docs/evidence/ai-monk-factory-cost-billing-readback-20261025T141558Z.json"
+  ],
+  "next_action": "Advance SaaS-2 to establish a fixed provider-side spend ceiling and dedicated Gemini billing/cap. Do not top up, enable auto-reload, or turn on MONK_FACTORY_ENABLED without an authorized bounded budget. Then configure/read back job runtime, Stripe test mode, and Meta Standard Access for monk.mujo before the three-free-video E2E. Keep the product listed as preparing until that E2E works, and correct the linked-page CTA/status mismatch."
+}
