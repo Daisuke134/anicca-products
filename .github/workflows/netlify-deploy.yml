@@ -86,6 +86,12 @@ jobs:
           echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs
 
+      - name: Apply canonical products catalog routes only
+        working-directory: apps/landing
+        env:
+          MANAGER_PRODUCTS_REVISION: 6bbef9053bb1feb011c971c2c0eb38d8da9a71ad
+        run: node scripts/apply-products-overlay.mjs
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
