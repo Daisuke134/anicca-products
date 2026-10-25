@@ -38,6 +38,16 @@ export function factoryActionReady(action, readiness) {
   return (actionCapabilities[action] || []).every(name => readiness?.[name]?.ready === true);
 }
 
+export async function refreshFactoryActionStatus(refresh, onReadbackFailure) {
+  try {
+    await refresh();
+    return true;
+  } catch {
+    onReadbackFailure();
+    return false;
+  }
+}
+
 export function requestFactoryAction(action, readiness, avatarReady, perform, notify, allowance = {}) {
   const capabilities = actionCapabilities[action] || [];
   const blocked = capabilities

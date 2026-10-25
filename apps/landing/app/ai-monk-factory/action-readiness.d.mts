@@ -20,6 +20,10 @@ export function factoryActionReady(
   action: FactoryAction,
   readiness: Partial<Record<FactoryCapability, FactoryCapabilityState>>,
 ): boolean;
+export function refreshFactoryActionStatus(
+  refresh: () => Promise<unknown>,
+  onReadbackFailure: () => void,
+): Promise<boolean>;
 export function requestFactoryAction(
   action: FactoryAction,
   readiness: Partial<Record<FactoryCapability, FactoryCapabilityState>>,

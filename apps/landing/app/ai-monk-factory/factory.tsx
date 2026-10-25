@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { getSession, onAuthChange, signInWithGoogle, signOut } from '@/lib/auth';
 import { factoryDestination, factoryRequest, type FactoryAction } from '@/lib/monk-factory-client.mjs';
-import { factoryActionReady, factoryCapabilityUnavailable, factoryQuotaState, requestFactoryAction } from './action-readiness.mjs';
+import { factoryActionReady, factoryCapabilityUnavailable, factoryQuotaState, refreshFactoryActionStatus, requestFactoryAction } from './action-readiness.mjs';
 import { FactoryActionNotice } from './factory-action-notice.mjs';
 
 type Account = {
@@ -158,6 +158,7 @@ export default function Factory() {
     if (!s || busy) return;
     setBusy(action); setError(''); setNotice('');
     let pending = videoRequest.current;
+    let actionAccepted = false;
     if (action === 'generate_video' && !pending) {
       pending = { occurrence: crypto.randomUUID() };
       videoRequest.current = pending; setPendingVideo(pending); writePending(s.user.id, pending);
@@ -165,6 +166,7 @@ export default function Factory() {
     try {
       const result = await factoryRequest(s.access_token, action, { idempotencyKey: pending?.occurrence });
       if (token.current !== s.access_token) return;
+      actionAccepted = true;
       if (action === 'checkout' || action === 'portal' || action === 'connect_instagram') {
         const destination = factoryDestination(result, action);
         if (destination) { window.location.assign(destination); return; }
@@ -174,8 +176,15 @@ export default function Factory() {
         videoRequest.current = pending; setPendingVideo(pending); writePending(s.user.id, pending);
       }
       setNotice(action === 'stop' ? 'Daily posting is off. No new automatic generation or publishing will start.' : action === 'autopost' ? 'Daily posting is on. Your next scheduled post is shown below.' : 'Request received. Progress appears below.');
-      await load(s.access_token);
-    } catch (e) { if (token.current === s.access_token) setError(errorMessage(e)); }
+      await refreshFactoryActionStatus(
+        () => load(s.access_token),
+        () => { if (token.current === s.access_token) setError('Your request was received, but the Studio could not confirm its status. Refresh before retrying.'); },
+      );
+    } catch (e) {
+      if (token.current === s.access_token) setError(actionAccepted
+        ? 'Your request was received, but the next step could not be confirmed. Refresh status before retrying.'
+        : errorMessage(e));
+    }
     finally { if (token.current === s.access_token) setBusy(null); }
   };
 
