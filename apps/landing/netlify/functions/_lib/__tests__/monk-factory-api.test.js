@@ -34,21 +34,28 @@ test('API reads and stop updates bind to Auth server ID, ignoring forged body an
 
 test('Factory job projection returns the owner script and caption without widening the account filter', async () => {
   let requested;
-  const store = createFactoryStore({
-    env: { SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_SERVICE_ROLE_KEY: 'fixture-service-role' },
-    fetchImpl: async url => {
-      requested = new URL(url);
-      return new Response(JSON.stringify([{ id: 'owned-video', script: 'Complete script.', caption: 'Book CTA.' }]), {
-        status: 200, headers: { 'content-type': 'application/json', 'content-range': '0-0/*' },
-      });
-    },
-  });
-  const jobs = await store.jobs(user.id);
-  const columns = requested.searchParams.get('select').split(',');
-  assert.ok(columns.includes('script'));
-  assert.ok(columns.includes('caption'));
-  assert.equal(requested.searchParams.get('user_id'), 'eq.' + user.id);
-  assert.deepEqual(jobs, [{ id: 'owned-video', script: 'Complete script.', caption: 'Book CTA.' }]);
+  const originalWebSocket = globalThis.WebSocket;
+  if (!globalThis.WebSocket) globalThis.WebSocket = require('ws');
+  try {
+    const store = createFactoryStore({
+      env: { SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_SERVICE_ROLE_KEY: 'fixture-service-role' },
+      fetchImpl: async url => {
+        requested = new URL(url);
+        return new Response(JSON.stringify([{ id: 'owned-video', script: 'Complete script.', caption: 'Book CTA.' }]), {
+          status: 200, headers: { 'content-type': 'application/json', 'content-range': '0-0/*' },
+        });
+      },
+    });
+    const jobs = await store.jobs(user.id);
+    const columns = requested.searchParams.get('select').split(',');
+    assert.ok(columns.includes('script'));
+    assert.ok(columns.includes('caption'));
+    assert.equal(requested.searchParams.get('user_id'), 'eq.' + user.id);
+    assert.deepEqual(jobs, [{ id: 'owned-video', script: 'Complete script.', caption: 'Book CTA.' }]);
+  } finally {
+    if (originalWebSocket === undefined) delete globalThis.WebSocket;
+    else globalThis.WebSocket = originalWebSocket;
+  }
 });
 
 test('Stripe setup does not block an authenticated free video and Checkout waits for the lifetime allowance', async () => {
