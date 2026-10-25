@@ -341,3 +341,38 @@ test('Stop during Instagram OAuth prevents a later connection readback from star
   assert.equal(JSON.parse(status.body).account.auto_post, false);
   assert.equal(autopostStarts, 0);
 });
+
+test('a lost Instagram publishing permission is shown as reconnect-required and Connect starts fresh OAuth', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const account = { user_id: user.id, subscription_status: 'none', auto_post: true, auto_post_intent: false,
+    social_profile: 'factory_' + user.id, instagram_account_id: 'ig-opaque-fixture', connected_at: new Date().toISOString(),
+    avatar_id: 'avatar-fixture' };
+  let oauthCalls = 0;
+  const store = {
+    companyBudgetStatus: async () => ({ ready: true }),
+    usage: async () => ({ videosRemaining: 2, attemptsRemaining: 2, maxSeconds: 20, periodEnd: null }),
+    account: async () => structuredClone(account),
+    jobs: async () => [{ id: 'completed-video-fixture', kind: 'video', status: 'completed', video_url: 'https://cdn.example/fixture.mp4' }],
+    claimSocial: async () => ({ ...account, social_lease_id: 'social-lease-fixture' }),
+    releaseSocial: async () => {},
+    reserveProfile: async () => {},
+    setAutopostIntent: async () => ({ auto_post_intent: true }),
+  };
+  const providers = {
+    readiness: async () => ({ generation: { ready: true }, social: { ready: true } }),
+    socialState: async () => { throw Object.assign(new Error('instagram_publish_permission_required'), { code: 'instagram_publish_permission_required', status: 409 }); },
+    connectInstagram: async () => { oauthCalls++; return { accessUrl: 'https://www.facebook.com/dialog/oauth?reconnect=1' }; },
+  };
+  const headers = { authorization: 'Bearer fixture-session' };
+  const status = await factoryHandler({ httpMethod: 'GET', headers }, { env: configured, fetchImpl: auth, store, providers });
+  const snapshot = JSON.parse(status.body);
+  assert.equal(status.statusCode, 200);
+  assert.equal(snapshot.account.connected, false);
+  assert.equal(snapshot.account.instagram_reauth_required, true);
+
+  const reconnect = await factoryHandler({ httpMethod: 'POST', headers, body: JSON.stringify({ action: 'connect_instagram' }) },
+    { env: configured, fetchImpl: auth, store, providers });
+  assert.equal(reconnect.statusCode, 200);
+  assert.equal(JSON.parse(reconnect.body).url, 'https://www.facebook.com/dialog/oauth?reconnect=1');
+  assert.equal(oauthCalls, 1);
+});

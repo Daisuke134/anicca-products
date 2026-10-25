@@ -83,11 +83,24 @@ function createMetaInstagramProvider({ env = process.env, fetchImpl = fetch, sto
       throw error(mutating ? 'provider_effect_unknown' : 'provider_readback_invalid', 503, mutating ? 'unknown' : 'none', !mutating, receiptId ? { providerReceiptId: receiptId } : {});
     }
     if (!response.ok || data?.error) {
+      if (token && (response.status === 401 || response.status === 403 || Number(data?.error?.code) === 190)) {
+        throw error('instagram_reconnect_required', 409);
+      }
+      const providerCode = Number(data?.error?.code);
+      if (token && providerCode >= 200 && providerCode < 300) throw error('instagram_publish_permission_required', 409);
       const rejected = [400, 401, 403, 404, 413, 415, 422, 429].includes(response.status);
       throw error(mutating && !rejected ? 'provider_effect_unknown' : mutating ? 'provider_rejected' : 'provider_readback_unavailable',
         response.status || 503, mutating && !rejected ? 'unknown' : 'none', !mutating, receiptId ? { providerReceiptId: receiptId } : {});
     }
     return data;
+  }
+
+  async function requireInstagramPermissions(token) {
+    const permissions = await request(graphBase + '/me/permissions', { token });
+    if (!Array.isArray(permissions.data)) throw error('provider_readback_invalid');
+    const granted = new Set(permissions.data.filter(item => item?.status === 'granted').map(item => item.permission));
+    if (!granted.has('instagram_content_publish')) throw error('instagram_publish_permission_required', 409);
+    if (!granted.has('instagram_manage_insights')) throw error('instagram_insights_permission_required', 409);
   }
 
   async function credential(userId) {
@@ -136,6 +149,7 @@ function createMetaInstagramProvider({ env = process.env, fetchImpl = fetch, sto
     const assigned = await request(graphBase + '/me/assigned_instagram_accounts?fields=id,username', { token: token.access_token });
     const accounts = Array.isArray(assigned.data) ? assigned.data.filter(item => ACCOUNT_ID.test(item?.id || '') && typeof item.username === 'string' && item.username.length <= 200) : [];
     if (accounts.length !== 1) throw error(accounts.length ? 'instagram_account_selection_required' : 'instagram_account_required', 409);
+    await requireInstagramPermissions(token.access_token);
     const selected = accounts[0];
     const expiresAt = Number.isFinite(token.expires_in) && token.expires_in > 0 ? new Date(Date.now() + token.expires_in * 1000).toISOString() : null;
     await store.saveInstagramCredential(userId, {
@@ -153,6 +167,7 @@ function createMetaInstagramProvider({ env = process.env, fetchImpl = fetch, sto
     const saved = await credential(userId);
     const live = await request(graphBase + '/' + encodeURIComponent(saved.instagram_account_id) + '?fields=id,username', { token: saved.token });
     if (live.id !== saved.instagram_account_id || live.username !== saved.instagram_username) throw error('provider_readback_invalid');
+    await requireInstagramPermissions(saved.token);
     return { profile: profileFor(userId), connected: true, accountId: live.id, handle: live.username, reauthRequired: false };
   }
 

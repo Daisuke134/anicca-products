@@ -3,10 +3,12 @@ const { createFactoryStore } = require('./_lib/monk-factory-store.js');
 const { factoryStripeClient, beginFactoryCheckout, syncFactoryBilling, stripeHostedUrl, factoryBillingReady } = require('./_lib/monk-factory-billing.js');
 const { jobRuntimeReady, entitled, ensureFactorySocial } = require('./_lib/monk-factory-jobs.js');
 
+const instagramReconnectCodes = new Set(['instagram_reconnect_required', 'instagram_required', 'instagram_publish_permission_required', 'instagram_insights_permission_required']);
 const publicFields = ['subscription_status', 'period_end', 'period_paid', 'cancel_at_period_end', 'billing_paused', 'auto_post', 'auto_post_intent', 'instagram_username', 'connected_at', 'avatar_image_url', 'next_post_at'];
-function publicAccount(account) {
+function publicAccount(account, instagramReauthRequired = false) {
   return account ? { ...Object.fromEntries(publicFields.filter(key => Object.hasOwn(account, key)).map(key => [key, account[key]])),
-    avatar_ready: !!account.avatar_id, connected: !!account.connected_at && !!account.instagram_account_id,
+    avatar_ready: !!account.avatar_id, connected: !instagramReauthRequired && !!account.connected_at && !!account.instagram_account_id,
+    instagram_reauth_required: instagramReauthRequired,
     social_checked_at: account.social_checked_at || null } : null;
 }
 function publicJobs(jobs) {
@@ -104,10 +106,12 @@ async function factoryHandler(event, dependencies = {}) {
       if (account?.stripe_subscription_id) account = await syncBilling({ userId: user.id, store,
         stripe: dependencies.syncBilling ? dependencies.stripe : billing(), env });
       if ((account?.social_profile || account?.social_submit_started_at) && readiness.social.ready) {
-        let confirmed = false;
+        let confirmed = false; let instagramReauthRequired = false;
         let socialProviders;
         try { socialProviders = providerApi(); account = await ensureFactorySocial({ userId: user.id, store, providers: socialProviders }); confirmed = true; }
-        catch { /* Keep the last account readback available, including Stop. */ }
+        catch (error) {
+          instagramReauthRequired = !!(account?.connected_at && account?.instagram_account_id && instagramReconnectCodes.has(error?.code));
+        }
         const generationAccess = confirmed && readiness.generation.ready && (entitled(account) || freeQuotaAvailable(usage));
         if (generationAccess && account.auto_post_intent && !account.auto_post && account.connected_at && account.instagram_account_id) {
           await store.setAutopost(user.id);
@@ -121,7 +125,7 @@ async function factoryHandler(event, dependencies = {}) {
           await store.reserveJob(user.id, 'avatar:lifetime', 'avatar', 'auto');
           jobs = await store.jobs(user.id);
         }
-        return reply(200, { account: publicAccount(account), jobs: publicJobs(jobs), ready: readiness.generation.ready, readiness, usage });
+        return reply(200, { account: publicAccount(account, instagramReauthRequired), jobs: publicJobs(jobs), ready: readiness.generation.ready, readiness, usage });
       }
       return reply(200, { account: publicAccount(account), jobs: publicJobs(account ? await store.jobs(user.id) : []),
         ready: readiness.generation.ready, readiness, usage });
@@ -171,7 +175,14 @@ async function factoryHandler(event, dependencies = {}) {
         }
         return reply(200, enabled);
       }
-      if (account?.instagram_account_id && account?.connected_at) return reply(200, { connected: true });
+      if (account?.instagram_account_id && account?.connected_at) {
+        try {
+          const checked = await ensureFactorySocial({ userId: user.id, store, providers: providerApi() });
+          if (checked?.instagram_account_id && checked?.connected_at) return reply(200, { connected: true });
+        } catch (error) {
+          if (!instagramReconnectCodes.has(error?.code)) throw error;
+        }
+      }
       if (!account?.avatar_id) throw factoryError('avatar_required', 409);
       const jobs = await store.jobs(user.id);
       if (!jobs.some(job => job.kind === 'video' && job.status === 'completed' && typeof job.video_url === 'string')) throw factoryError('video_required', 409);

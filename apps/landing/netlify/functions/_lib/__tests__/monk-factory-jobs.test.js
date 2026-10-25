@@ -149,16 +149,23 @@ test('fenced image recovery restores numeric blob usage without another provider
 
 test('a successful Meta media_publish response is saved for metrics recovery after a lost DB write', async () => {
   const { advanceFactoryJob } = require('../monk-factory-jobs.js');
-  const account = { user_id: user.id, auto_post: true, instagram_account_id: 'ig_fixture', connected_at: new Date().toISOString(),
+  let account = { user_id: user.id, auto_post: true, instagram_account_id: 'ig_fixture', connected_at: new Date().toISOString(),
+    social_profile: 'factory_' + user.id, social_checked_at: new Date(Date.now() - 61000).toISOString(),
     stripe_subscription_id: null, avatar_id: 'avatar_fixture' };
   let saved = { id: key, user_id: user.id, kind: 'video', origin: 'auto', stage: 'post_pending', status: 'processing',
     lease_id: '22222222-2222-4222-8222-222222222222', lease_until: new Date(Date.now() + 30000).toISOString(),
     period_key: 'free:lifetime', max_seconds: 20, autopost_requested: true, post_provider_id: 'container_fixture', evidence: {} };
-  let writeAttempts = 0; let publishCalls = 0;
+  let writeAttempts = 0; let publishCalls = 0; let socialStateCalls = 0;
   const store = {
-    account: async () => account,
+    account: async () => structuredClone(account),
     job: async () => saved,
-    fenceInstagramPublish: async () => true,
+    claimSocial: async () => ({ ...account, social_lease_id: '33333333-3333-4333-8333-333333333333' }),
+    saveSocial: async (_id, _lease, state) => (account = { ...account, ...state, social_checked_at: new Date().toISOString() }),
+    releaseSocial: async () => {},
+    fenceInstagramPublish: async () => {
+      if (Date.now() - Date.parse(account.social_checked_at) >= 60000) throw Object.assign(new Error('instagram_required'), { code: 'instagram_required', status: 409 });
+      return true;
+    },
     advanceJob: async (row, patch) => {
       if (patch.stage === 'published' && writeAttempts++ < 2) throw Object.assign(new Error(), { code: 'store_unavailable', status: 503 });
       saved = { ...saved, ...patch, evidence: { ...saved.evidence, ...patch.evidence } };
@@ -168,16 +175,33 @@ test('a successful Meta media_publish response is saved for metrics recovery aft
   const providers = {
     readiness: () => ({ generation: { ready: true }, social: { ready: true } }),
     postStatus: async () => ({ id: 'container_fixture', status: 'ready_to_publish' }),
+    socialState: async () => { socialStateCalls++; return { profile: 'factory_' + user.id, connected: true, accountId: 'ig_fixture', handle: 'monk.mujo' }; },
     publishInstagramContainer: async () => { publishCalls++; return { id: 'media_fixture', status: 'published' }; },
     metrics: async () => assert.fail('the same tick must not skip the published stage'),
   };
   await advanceFactoryJob({ job: saved, store, providers, env, syncBilling: async () => account });
+  assert.equal(socialStateCalls, 1, 'a stale one-minute publish fence needs a fresh Instagram identity read');
   assert.equal(publishCalls, 1);
   assert.equal(saved.stage, 'published');
   assert.equal(saved.status, 'processing');
   assert.equal(saved.post_id, 'media_fixture');
   assert.equal(saved.evidence.publish_fence.effect, 'confirmed');
   assert.equal(saved.evidence.media_publish_recovery.provider_receipt_id, 'media_fixture');
+});
+
+test('an Instagram reconnect requirement keeps a pending post retryable for recovery', async () => {
+  const { advanceFactoryJob } = require('../monk-factory-jobs.js');
+  const job = { id: key, user_id: user.id, kind: 'video', origin: 'auto', stage: 'post_pending', status: 'processing',
+    lease_id: '22222222-2222-4222-8222-222222222222', lease_until: new Date(Date.now() + 30000).toISOString(),
+    period_key: 'free:lifetime', max_seconds: 20, autopost_requested: true, post_provider_id: 'container_fixture', evidence: {} };
+  let saved;
+  await advanceFactoryJob({ job, store: { advanceJob: async (row, patch) => (saved = { ...row, ...patch }) }, env,
+    providers: { postStatus: async () => { throw Object.assign(new Error('instagram_reconnect_required'), { code: 'instagram_reconnect_required', status: 409 }); } } });
+  assert.equal(saved.status, 'processing');
+  assert.equal(saved.stage, 'post_pending');
+  assert.equal(saved.error_class, 'instagram_reconnect_required');
+  assert.ok(Date.parse(saved.next_run_at) > Date.now());
+  assert.equal(saved.evidence.post_pending.next_action, 'instagram_reconnect');
 });
 
 test('a successful Meta container response is saved for status polling after a lost DB write', async () => {

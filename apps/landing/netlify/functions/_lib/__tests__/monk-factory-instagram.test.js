@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { createMetaInstagramProvider } = require('../monk-factory-instagram.js');
+const { createMetaInstagramProvider, encryptToken } = require('../monk-factory-instagram.js');
 
 const userId = '11111111-1111-4111-8111-111111111111';
 const env = {
@@ -48,6 +48,9 @@ test('Meta Unified Login uses one-time state, exchanges the code server-side, an
     }
     if (parsed.pathname.endsWith('/me')) return json({ id: 'app-scoped-id', client_business_id: 'business-1' });
     if (parsed.pathname.endsWith('/me/assigned_instagram_accounts')) return json({ data: [{ id: '17841400000000001', username: 'monk.mujo' }] });
+    if (parsed.pathname.endsWith('/me/permissions')) return json({ data: [
+      { permission: 'instagram_content_publish', status: 'granted' }, { permission: 'instagram_manage_insights', status: 'granted' },
+    ] });
     if (parsed.pathname.endsWith('/17841400000000001')) return json({ id: '17841400000000001', username: 'monk.mujo' });
     throw new Error('unexpected Meta request');
   } });
@@ -73,10 +76,76 @@ test('Meta Unified Login uses one-time state, exchanges the code server-side, an
   assert.ok(Math.abs(Date.parse(saved.instagram_access_token_expires_at) - (Date.now() + 5184000000)) < 2000);
   assert.ok(saved.instagram_access_token_ciphertext.startsWith('v1.'));
   assert.ok(!JSON.stringify(saved).includes('raw-meta-user-token'));
-  assert.equal(calls.length, 3);
+  assert.equal(calls.length, 4);
 
   await assert.rejects(provider.completeInstagramOAuth({ code: 'one-time-code', state }), { code: 'instagram_oauth_state_invalid' });
-  assert.equal(calls.length, 3);
+  assert.equal(calls.length, 4);
+});
+
+test('Meta OAuth does not save an Instagram account when publish permission was not granted', async () => {
+  const store = fakeStore();
+  const provider = createMetaInstagramProvider({ env, store, fetchImpl: async url => {
+    const parsed = new URL(url);
+    if (parsed.pathname.endsWith('/oauth/access_token')) return json({ access_token: 'raw-meta-user-token' });
+    if (parsed.pathname.endsWith('/me') && parsed.searchParams.has('fields')) return json({ id: 'app-scoped-id', client_business_id: 'business-1' });
+    if (parsed.pathname.endsWith('/me/assigned_instagram_accounts')) return json({ data: [{ id: '17841400000000001', username: 'monk.mujo' }] });
+    if (parsed.pathname.endsWith('/me/permissions')) return json({ data: [ { permission: 'instagram_manage_insights', status: 'granted' } ] });
+    throw new Error('unexpected Meta request');
+  } });
+  const login = new URL((await provider.connectInstagram(userId)).accessUrl);
+  await assert.rejects(provider.completeInstagramOAuth({ code: 'one-time-code', state: login.searchParams.get('state') }), { code: 'instagram_publish_permission_required' });
+  assert.equal(store.getCredential(), null);
+});
+
+test('Meta OAuth does not save an Instagram account when Insights permission was not granted', async () => {
+  const store = fakeStore();
+  const provider = createMetaInstagramProvider({ env, store, fetchImpl: async url => {
+    const parsed = new URL(url);
+    if (parsed.pathname.endsWith('/oauth/access_token')) return json({ access_token: 'raw-meta-user-token' });
+    if (parsed.pathname.endsWith('/me') && parsed.searchParams.has('fields')) return json({ id: 'app-scoped-id', client_business_id: 'business-1' });
+    if (parsed.pathname.endsWith('/me/assigned_instagram_accounts')) return json({ data: [{ id: '17841400000000001', username: 'monk.mujo' }] });
+    if (parsed.pathname.endsWith('/me/permissions')) return json({ data: [ { permission: 'instagram_content_publish', status: 'granted' } ] });
+    throw new Error('unexpected Meta request');
+  } });
+  const login = new URL((await provider.connectInstagram(userId)).accessUrl);
+  await assert.rejects(provider.completeInstagramOAuth({ code: 'one-time-code', state: login.searchParams.get('state') }), { code: 'instagram_insights_permission_required' });
+  assert.equal(store.getCredential(), null);
+});
+
+test('an invalid Meta access token asks for Instagram reconnection instead of a generic retry', async () => {
+  const store = fakeStore();
+  await store.saveInstagramCredential(userId, {
+    instagram_access_token_ciphertext: encryptToken('raw-meta-user-token', env.MONK_FACTORY_JOB_SECRET),
+    instagram_access_token_expires_at: null, instagram_account_id: '17841400000000001', instagram_username: 'monk.mujo',
+  });
+  const provider = createMetaInstagramProvider({ env, store, fetchImpl: async () => json({ error: { code: 190, message: 'invalid token' } }, 400) });
+  await assert.rejects(provider.socialState(userId), { code: 'instagram_reconnect_required' });
+});
+
+test('an existing Instagram connection whose publish permission was revoked requires reconnect', async () => {
+  const store = fakeStore();
+  await store.saveInstagramCredential(userId, {
+    instagram_access_token_ciphertext: encryptToken('raw-meta-user-token', env.MONK_FACTORY_JOB_SECRET),
+    instagram_access_token_expires_at: null, instagram_account_id: '17841400000000001', instagram_username: 'monk.mujo',
+  });
+  const provider = createMetaInstagramProvider({ env, store, fetchImpl: async url => {
+    const parsed = new URL(url);
+    if (parsed.pathname.endsWith('/17841400000000001')) return json({ id: '17841400000000001', username: 'monk.mujo' });
+    if (parsed.pathname.endsWith('/me/permissions')) return json({ data: [ { permission: 'instagram_basic', status: 'granted' } ] });
+    throw new Error('unexpected Meta request');
+  } });
+  await assert.rejects(provider.socialState(userId), { code: 'instagram_publish_permission_required' });
+});
+
+test('Meta permission rejection at publish is recoverable through Instagram reconnection', async () => {
+  const store = fakeStore();
+  await store.saveInstagramCredential(userId, {
+    instagram_access_token_ciphertext: encryptToken('raw-meta-user-token', env.MONK_FACTORY_JOB_SECRET),
+    instagram_access_token_expires_at: null, instagram_account_id: '17841400000000001', instagram_username: 'monk.mujo',
+  });
+  const provider = createMetaInstagramProvider({ env, store, fetchImpl: async () => json({ error: { code: 250, message: 'Permissions error' } }, 400) });
+  await assert.rejects(provider.publishInstagramContainer({ userId, accountId: '17841400000000001', containerId: 'container-1', requestId: 'job:publish' }),
+    { code: 'instagram_publish_permission_required' });
 });
 
 test('Meta Reels publish sends the AI disclosure flag and resolves the published URL before completion', async () => {
@@ -88,6 +157,9 @@ test('Meta Reels publish sends the AI disclosure flag and resolves the published
     if (parsed.pathname.endsWith('/oauth/access_token')) return json({ access_token: 'raw-meta-user-token', expires_in: 5184000 });
     if (parsed.pathname.endsWith('/me')) return json({ id: 'app-scoped-id', client_business_id: 'business-1' });
     if (parsed.pathname.endsWith('/me/assigned_instagram_accounts')) return json({ data: [{ id: '17841400000000001', username: 'monk.mujo' }] });
+    if (parsed.pathname.endsWith('/me/permissions')) return json({ data: [
+      { permission: 'instagram_content_publish', status: 'granted' }, { permission: 'instagram_manage_insights', status: 'granted' },
+    ] });
     if (parsed.pathname.endsWith('/17841400000000001')) return json({ id: '17841400000000001', username: 'monk.mujo' });
     if (parsed.pathname.endsWith('/17841400000000001/media') && init.method === 'POST') {
       assert.equal(init.headers.Authorization, 'Bearer raw-meta-user-token');
@@ -126,6 +198,9 @@ test('Meta Insights returns only observed numeric values and keeps attribution t
     if (parsed.pathname.endsWith('/oauth/access_token')) return json({ access_token: 'raw-meta-user-token', expires_in: 5184000 });
     if (parsed.pathname.endsWith('/me')) return json({ id: 'app-scoped-id', client_business_id: 'business-1' });
     if (parsed.pathname.endsWith('/me/assigned_instagram_accounts')) return json({ data: [{ id: '17841400000000001', username: 'monk.mujo' }] });
+    if (parsed.pathname.endsWith('/me/permissions')) return json({ data: [
+      { permission: 'instagram_content_publish', status: 'granted' }, { permission: 'instagram_manage_insights', status: 'granted' },
+    ] });
     if (parsed.pathname.endsWith('/media-1') && parsed.searchParams.get('fields') === 'id,permalink,timestamp') return json({ id: 'media-1', permalink: 'https://www.instagram.com/reel/AbCdEf/', timestamp: '2026-10-25T05:00:00+0000' });
     if (parsed.pathname.endsWith('/17841400000000001/insights')) {
       assert.fail('insights must use the published media ID');
@@ -151,6 +226,9 @@ test('an Instagram post with delayed Insights completes URL readback with empty 
     if (parsed.pathname.endsWith('/oauth/access_token')) return json({ access_token: 'raw-meta-user-token', expires_in: 5184000 });
     if (parsed.pathname.endsWith('/me')) return json({ id: 'app-scoped-id', client_business_id: 'business-1' });
     if (parsed.pathname.endsWith('/me/assigned_instagram_accounts')) return json({ data: [{ id: '17841400000000001', username: 'monk.mujo' }] });
+    if (parsed.pathname.endsWith('/me/permissions')) return json({ data: [
+      { permission: 'instagram_content_publish', status: 'granted' }, { permission: 'instagram_manage_insights', status: 'granted' },
+    ] });
     if (parsed.pathname.endsWith('/17841400000000001')) return json({ id: '17841400000000001', username: 'monk.mujo' });
     if (parsed.pathname.endsWith('/media-2') && parsed.searchParams.get('fields') === 'id,permalink,timestamp') return json({ id: 'media-2', permalink: 'https://www.instagram.com/reel/Delayed/', timestamp: '2026-10-25T05:00:00+0000' });
     if (parsed.pathname.endsWith('/media-2/insights')) return json({ data: [] });

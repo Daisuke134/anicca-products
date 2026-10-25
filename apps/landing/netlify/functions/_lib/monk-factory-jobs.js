@@ -234,8 +234,11 @@ async function advanceFactoryJob(options) {
       if (result.status === 'failed') throw factoryError('instagram_publish_failed', 422);
       if (result.status === 'ready_to_publish') {
         const account = await allowed(true);
-        if (!account?.instagram_account_id || !await store.fenceInstagramPublish(job.id, job.lease_id)) throw factoryError('job_lease_lost', 409);
-        const published = await providers.publishInstagramContainer({ userId: job.user_id, accountId: account.instagram_account_id,
+        const freshAccount = await ensureFactorySocial({ userId: job.user_id, store, providers });
+        if (!freshAccount?.auto_post || !freshAccount.instagram_account_id || !freshAccount.connected_at
+          || freshAccount.instagram_account_id !== account?.instagram_account_id) throw factoryError('instagram_required', 409);
+        if (!await store.fenceInstagramPublish(job.id, job.lease_id)) throw factoryError('job_lease_lost', 409);
+        const published = await providers.publishInstagramContainer({ userId: job.user_id, accountId: freshAccount.instagram_account_id,
           containerId: job.post_provider_id, requestId: job.id + ':media_publish' });
         if (published.status !== 'published' || !published.id) throw factoryError('provider_readback_invalid', 503);
         try {
@@ -274,12 +277,14 @@ async function advanceFactoryJob(options) {
       return;
     }
     const submitting = job.stage.endsWith('_submitting');
-    const transient = error.retryable === true || ['factory_unavailable','image_dispatch_unavailable','image_storage_unavailable','tick_deadline','billing_sync_in_progress','social_sync_in_progress','store_unavailable','billing_unavailable'].includes(codeOf(error));
+    const reauthRequired = ['instagram_reconnect_required', 'instagram_publish_permission_required', 'instagram_insights_permission_required'].includes(codeOf(error))
+      || (codeOf(error) === 'instagram_required' && job.stage.startsWith('post_'));
+    const transient = reauthRequired || error.retryable === true || ['factory_unavailable','image_dispatch_unavailable','image_storage_unavailable','tick_deadline','billing_sync_in_progress','social_sync_in_progress','store_unavailable','billing_unavailable'].includes(codeOf(error));
     const unknown = error.effect === 'unknown' || (submitting && error.effect !== 'none');
     await save({ status: unknown ? 'effect_unknown' : transient ? job.status : 'failed', stage: unknown || transient ? job.stage : 'failed',
-      error_class: codeOf(error), next_run_at: after(unknown ? 3600000 : 60000),
+      error_class: codeOf(error), next_run_at: after(unknown || reauthRequired ? 3600000 : 60000),
       evidence: evidence(job, job.stage, env, { effect: unknown ? 'unknown' : error.effect || 'none', receipt: error.providerReceiptId,
-        error: codeOf(error), retryable: transient, usage: error.usage, nextAction: unknown ? 'official_readback' : transient ? 'retry_readback' : 'reservation_retained' }) }).catch(() => {});
+        error: codeOf(error), retryable: transient, usage: error.usage, nextAction: unknown ? 'official_readback' : reauthRequired ? 'instagram_reconnect' : transient ? 'retry_readback' : 'reservation_retained' }) }).catch(() => {});
   }
 }
 
