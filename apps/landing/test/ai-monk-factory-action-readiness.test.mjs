@@ -27,6 +27,8 @@ test('unready action capabilities disable their CTAs while Stop remains availabl
   for (const action of ['generate_avatar', 'generate_video', 'connect_instagram', 'autopost', 'checkout']) {
     assert.equal(readiness.factoryActionReady(action, unavailable), false, `${action} must be disabled`);
   }
+  assert.equal(readiness.factoryActionReady('pause', unavailable), true, 'Pause stays available without provider readiness');
+  assert.equal(readiness.factoryActionReady('resume', unavailable), false, 'Resume requires Instagram readiness');
   assert.equal(readiness.factoryActionReady('stop', unavailable), true, 'Stop remains available');
 
   const available = {
@@ -37,6 +39,8 @@ test('unready action capabilities disable their CTAs while Stop remains availabl
   for (const action of ['generate_avatar', 'generate_video', 'connect_instagram', 'autopost', 'checkout']) {
     assert.equal(readiness.factoryActionReady(action, available), true, `${action} is enabled when ready`);
   }
+  assert.equal(readiness.factoryActionReady('pause', available), true);
+  assert.equal(readiness.factoryActionReady('resume', available), true);
 });
 
 test('a blocked generation CTA explains the blocker without sending an API action', () => {
@@ -108,6 +112,17 @@ test('Stop remains actionable when generation readiness is false', () => {
   assert.equal(result, true);
   assert.equal(sent, 1);
   assert.deepEqual(notices, []);
+});
+
+test('Pause remains actionable without readiness while Resume is explicitly gated by Instagram readiness', () => {
+  let sent = 0;
+  const notices = [];
+  assert.equal(readiness.requestFactoryAction('pause', { social: { ready: false } }, true,
+    action => { assert.equal(action, 'pause'); sent += 1; }, message => notices.push(message)), true);
+  assert.equal(readiness.requestFactoryAction('resume', { social: { ready: false, reason: 'social_setup' } }, true,
+    () => { sent += 1; }, message => notices.push(message)), false);
+  assert.equal(sent, 1);
+  assert.match(notices[0], /Instagram publishing is not configured yet/i);
 });
 
 test('unknown quota is not classified as exhausted', () => {

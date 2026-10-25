@@ -57,8 +57,8 @@ test('stop is not announced off while the API still reports an active autopost i
 
 test('matching autopost and stop snapshots allow explicit status notices', async () => {
   for (const [action, account, expected] of [
-    ['autopost', { auto_post: true, auto_post_intent: true }, 'daily posting on'],
-    ['stop', { auto_post: false, auto_post_intent: false }, 'daily posting off'],
+    ['autopost', { auto_post: true, auto_post_intent: true, auto_post_paused: false }, 'daily posting on'],
+    ['stop', { auto_post: false, auto_post_intent: false, auto_post_paused: false }, 'daily posting off'],
   ]) {
     const notices = [];
     const refreshed = await refreshFactoryActionStatus(
@@ -70,5 +70,29 @@ test('matching autopost and stop snapshots allow explicit status notices', async
 
     assert.equal(refreshed, true);
     assert.deepEqual(notices, [expected]);
+  }
+});
+
+test('pause and resume notices require the saved automation flags to match', async () => {
+  for (const [action, account] of [
+    ['pause', { auto_post: false, auto_post_intent: true, auto_post_paused: true }],
+    ['resume', { auto_post: true, auto_post_intent: true, auto_post_paused: false }],
+  ]) {
+    const notices = [];
+    const refreshed = await refreshFactoryActionStatus(async () => ({ account }), action,
+      () => notices.push('status unconfirmed'), () => notices.push(`${action} confirmed`));
+    assert.equal(refreshed, true);
+    assert.deepEqual(notices, [`${action} confirmed`]);
+  }
+
+  for (const [action, account] of [
+    ['pause', { auto_post: false, auto_post_intent: false, auto_post_paused: false }],
+    ['resume', { auto_post: false, auto_post_intent: true, auto_post_paused: true }],
+  ]) {
+    const notices = [];
+    const refreshed = await refreshFactoryActionStatus(async () => ({ account }), action,
+      () => notices.push('status unconfirmed'), () => notices.push(`${action} confirmed`));
+    assert.equal(refreshed, false);
+    assert.deepEqual(notices, ['status unconfirmed']);
   }
 });

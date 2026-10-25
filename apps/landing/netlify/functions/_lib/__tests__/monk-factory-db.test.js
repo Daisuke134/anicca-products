@@ -205,6 +205,7 @@ test('row security hides other users and prevents clients changing billing or in
   assert.throws(() => sql('SET ROLE anon; SELECT monk_factory_reserve_profile(\'' + uid(3) + '\')'), /permission denied/);
   assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_reserve_job(\'' + uid(1) + '\',\'forged\',\'video\')'), /permission denied/);
   assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_set_autopost_intent(\'' + uid(1) + '\', true)'), /permission denied/);
+  assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_start_autopost_if_intended(\'' + uid(1) + '\')'), /permission denied/);
 });
 
 test('profile capacity includes trial and retained profiles before another checkout can start', options, () => {
@@ -356,6 +357,48 @@ test('a connected account drains completed free videos at zero quota and keeps c
   assert.equal(resumed.origin, 'auto');
   assert.match(resumed.period_key, /^paid:sub_paid_30:/);
   assert.equal(sql('SELECT auto_post_intent FROM monk_factory_accounts WHERE user_id=\'' + userId + '\''), 't');
+});
+
+test('Pause preserves Instagram consent and connection, blocks the daily scheduler, and Resume rechecks fresh access', options, () => {
+  const userId = uid(38);
+  sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')');
+  sql('UPDATE monk_factory_accounts SET avatar_id=\'avatar-pause-fixture\',social_profile=' + quoted('factory_' + userId)
+    + ',instagram_account_id=\'opaque-pause-fixture\',instagram_username=\'monk_fixture\',connected_at=now(),social_checked_at=now(),next_post_at=now()-interval \'1 second\' WHERE user_id=' + quoted(userId));
+  sql('SET ROLE service_role; SELECT monk_factory_set_autopost_intent(' + quoted(userId) + ',true)');
+  assert.equal(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost(' + quoted(userId) + ')')).auto_post, true);
+
+  const paused = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost_paused(' + quoted(userId) + ',true)'));
+  assert.deepEqual(paused, { auto_post: false, auto_post_intent: true, auto_post_paused: true });
+  assert.equal(sql('SELECT instagram_account_id FROM monk_factory_accounts WHERE user_id=' + quoted(userId)), 'opaque-pause-fixture');
+  assert.equal(sql('SELECT social_profile FROM monk_factory_accounts WHERE user_id=' + quoted(userId)), 'factory_' + userId);
+  assert.equal(sql('SELECT count(*) FROM monk_factory_jobs WHERE user_id=' + quoted(userId)), '0');
+  assert.deepEqual(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_start_autopost_if_intended(' + quoted(userId) + ')')), paused,
+    'a stale OAuth/status readback cannot resume an explicit Pause');
+  assert.equal(sql('SET ROLE service_role; SELECT coalesce(monk_factory_schedule_auto(' + quoted(userId) + ')::text,\'null\')'), 'null');
+
+  sql('UPDATE monk_factory_accounts SET social_checked_at=now()-interval \'2 minutes\' WHERE user_id=' + quoted(userId));
+  assert.throws(() => sql('SET ROLE service_role; SELECT monk_factory_set_autopost_paused(' + quoted(userId) + ',false)'), /instagram_required/);
+  assert.equal(sql('SELECT auto_post_paused FROM monk_factory_accounts WHERE user_id=' + quoted(userId)), 't');
+  sql('UPDATE monk_factory_accounts SET social_checked_at=now(),next_post_at=now()-interval \'1 second\' WHERE user_id=' + quoted(userId));
+  const resumed = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost_paused(' + quoted(userId) + ',false)'));
+  assert.deepEqual(resumed, { auto_post: true, auto_post_intent: true, auto_post_paused: false });
+  const job = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_schedule_auto(' + quoted(userId) + ')'));
+  assert.equal(job.origin, 'auto');
+  sql('UPDATE monk_factory_accounts SET auto_post=false,auto_post_intent=false,auto_post_paused=false WHERE user_id=' + quoted(userId));
+  assert.deepEqual({
+    auto_post: sql('SELECT auto_post FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+    auto_post_intent: sql('SELECT auto_post_intent FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+    auto_post_paused: sql('SELECT auto_post_paused FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+  }, { auto_post: 'f', auto_post_intent: 'f', auto_post_paused: 'f' });
+  assert.deepEqual(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_start_autopost_if_intended(' + quoted(userId) + ')')),
+    { auto_post: false, auto_post_intent: false, auto_post_paused: false }, 'a stale OAuth/status readback cannot undo Stop');
+  sql('UPDATE monk_factory_accounts SET auto_post=false,auto_post_intent=true,auto_post_paused=true WHERE user_id=' + quoted(userId));
+  sql('SET ROLE service_role; SELECT monk_factory_set_autopost_intent(' + quoted(userId) + ',false)');
+  assert.deepEqual({
+    auto_post: sql('SELECT auto_post FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+    auto_post_intent: sql('SELECT auto_post_intent FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+    auto_post_paused: sql('SELECT auto_post_paused FROM monk_factory_accounts WHERE user_id=' + quoted(userId)),
+  }, { auto_post: 'f', auto_post_intent: 'f', auto_post_paused: 'f' }, 'clearing consent also clears Pause');
 });
 
 test('a connected free account retries failed daily videos up to six attempts without an avatar', options, () => {

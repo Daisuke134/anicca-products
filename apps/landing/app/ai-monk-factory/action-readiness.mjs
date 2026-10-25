@@ -19,6 +19,8 @@ const actionCapabilities = {
   generate_video: ['generation'],
   connect_instagram: ['social'],
   autopost: ['social'],
+  pause: [],
+  resume: ['social'],
   checkout: ['checkout'],
 };
 
@@ -57,8 +59,10 @@ export async function refreshFactoryActionStatus(refresh, action, onReadbackFail
   }
 
   const account = snapshot && typeof snapshot === 'object' ? snapshot.account : null;
-  const confirmed = action === 'autopost' ? account?.auto_post === true
-    : action === 'stop' ? account?.auto_post === false && account?.auto_post_intent === false
+  const confirmed = action === 'autopost' ? account?.auto_post === true && account?.auto_post_intent === true && account?.auto_post_paused === false
+    : action === 'stop' ? account?.auto_post === false && account?.auto_post_intent === false && account?.auto_post_paused === false
+      : action === 'pause' ? account?.auto_post === false && account?.auto_post_intent === true && account?.auto_post_paused === true
+        : action === 'resume' ? account?.auto_post === true && account?.auto_post_intent === true && account?.auto_post_paused === false
       : true;
   if (!confirmed) {
     onReadbackFailure();
