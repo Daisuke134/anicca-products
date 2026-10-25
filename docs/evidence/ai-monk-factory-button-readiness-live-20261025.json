@@ -1,0 +1,120 @@
+{
+  "schema_version": "anicca.ai-monk-factory-button-readiness.v1",
+  "run_id": "ai-monk-factory-button-readiness-live-20261025",
+  "owner_id": "root",
+  "occurrence_id": "factory-button-readiness-readback-20261025T064156Z",
+  "release_sha": "1b19b689bdde00dfc6f111207fa8d9e55c908e4b",
+  "observed_at": "2026-10-25T06:41:56Z",
+  "phase": "factory_button_runtime_diagnosis",
+  "command": [
+    "GET Netlify production environment and latest deployment using exact private credential SSOT service",
+    "GET production Factory route and inspect the deployed build id",
+    "GET HeyGen /v3/users/me for the existing general and Factory-specific key",
+    "Read exact Gemini and Stripe Factory credential metadata without printing secret values",
+    "Run the focused Factory CTA readiness tests"
+  ],
+  "loaded_argv": {
+    "provider_operations": "read_only_GET_only",
+    "factory_generation_requests": 0,
+    "oauth_authorizations": 0,
+    "instagram_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT exact service rows; credential values were not printed or copied",
+    "production_secret_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "provider_topups_or_account_setting_changes": 0,
+    "factory_generation_requests": 0,
+    "oauth_authorizations": 0,
+    "instagram_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "netlify": {
+      "environment_http_status": 200,
+      "production_variable_count": 58,
+      "factory_variable_names": [],
+      "latest_deploy_http_status": 200,
+      "latest_deploy_id": "6add9df3516614dbb81ea3e4",
+      "latest_deploy_state": "ready",
+      "latest_deploy_context": "production",
+      "latest_deploy_branch": "main",
+      "latest_deploy_title_commit_sha": "1b19b689bdde00dfc6f111207fa8d9e55c908e4b",
+      "latest_deploy_commit_ref": null,
+      "latest_deploy_published_at": "2026-10-25T06:13:48.420Z",
+      "factory_route_http_status": 200,
+      "factory_route_build_id": "6ee6FOrKopnCregShVmNj"
+    },
+    "generation_providers": {
+      "heygen_existing_account": {
+        "users_me_http_status": 200,
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 6.53,
+        "wallet_auto_reload_enabled": true,
+        "wallet_auto_reload_threshold_usd": 5,
+        "wallet_auto_reload_amount_usd": 10,
+        "factory_environment_key_configured": false
+      },
+      "heygen_factory_account": {
+        "users_me_http_status": 200,
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0,
+        "wallet_auto_reload_enabled": false,
+        "factory_environment_key_configured": false
+      },
+      "gemini": {
+        "dedicated_project_state": "prepared_unfunded",
+        "dedicated_billing_verified": false,
+        "factory_environment_key_configured": false
+      }
+    },
+    "payments_and_social": {
+      "stripe_factory_catalog_status": "catalog_prepared_runtime_disabled",
+      "stripe_factory_runtime_key_in_ssot": false,
+      "meta_app_credential_service_in_ssot": false
+    },
+    "factory_source": {
+      "deployed_sequence": [
+        "Generate Monk Avatar",
+        "Generate The Full Video",
+        "Connect your IG to auto post"
+      ],
+      "readiness_gate": "generation and social actions require provider/runtime readiness",
+      "blocked_action_behavior": "display local blocker and do not send an API job request",
+      "authenticated_live_click_readback": false
+    },
+    "tests": {
+      "command": "node --test test/ai-monk-factory-action-readiness.test.mjs",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "key_assertions": [
+        "blocked generation CTA explains the blocker without sending an API action",
+        "ready generation CTA dispatches once",
+        "Stop remains actionable while generation readiness is false"
+      ]
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "path": "apps/landing/app/ai-monk-factory/factory.tsx",
+      "fact": "The three CTA labels and click handlers are present in the latest main source; generation requests pass through the readiness guard."
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/action-readiness.mjs",
+      "fact": "When generation readiness is false, the guard reports a local blocker and returns before dispatching the API action."
+    },
+    {
+      "path": "docs/evidence/ai-monk-factory-e2e-preflight-20261025.json",
+      "fact": "Existing target-account authorization and prior runtime findings; this receipt adds a fresh production and provider readback."
+    }
+  ],
+  "error_class": "factory_runtime_not_configured",
+  "retryable": false,
+  "next_action": "Keep HeyGen as the selected provider. Choose a bounded Factory funding path, verify/fund the dedicated Gemini image/script project within the budget, configure production runtime secrets and billing evidence refs, then read back generation readiness before running avatar/video generation. After generation works, finish Stripe test mode and Meta Unified Login for monk.mujo, verify one auto-publish and metrics, then Pause/Stop."
+}
