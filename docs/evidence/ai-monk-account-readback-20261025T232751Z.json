@@ -1,0 +1,104 @@
+{
+  "recorded_at_utc": "2026-10-25T23:27:51Z",
+  "scope": "AI Monk Database/Factory, The Art of AI Monks sales path, and the user-specified Postiz integrations",
+  "postiz": {
+    "observed_at_utc": "2026-10-25T23:21:45Z",
+    "readback": "Postiz integration list and organization posts list",
+    "integrations": [
+      {
+        "id": "cmo5rwq2p00twn10yrsdglng3",
+        "platform": "tiktok",
+        "name": "Monk Anicca",
+        "present": true
+      },
+      {
+        "id": "cmoopzaak04yop70y1yx1bwr1",
+        "platform": "instagram-standalone",
+        "name": "monk",
+        "present": true
+      }
+    ],
+    "posts_window_utc": {
+      "start": "2026-10-19T00:00:00Z",
+      "end": "2026-11-04T00:00:00Z"
+    },
+    "target_posts": {
+      "published_count": 5,
+      "by_platform": {
+        "tiktok": 3,
+        "instagram": 2
+      },
+      "published_dates_utc": [
+        "2026-10-23",
+        "2026-10-25"
+      ],
+      "future_queue_count": 0,
+      "daily_cadence_verified": false
+    },
+    "effect": "read_only; no posts, integrations, queues, or schedules changed"
+  },
+  "stripe": {
+    "observed_at_utc": "2026-10-25T23:25:20Z",
+    "mode": "live",
+    "account_scope": "live Stripe account matched to Factory and AI Monk book catalog metadata",
+    "active_subscriptions": {
+      "count": 0,
+      "all_pages_read": true,
+      "verified_active_recurring_mrr_usd": 0
+    },
+    "ai_monk_book": {
+      "product_id": "prod_VUMeHBJUIOWBsK",
+      "price_id": "price_1UTNvEEeDsUAcaLS7mNPgXUn",
+      "product_active": true,
+      "price_active": true,
+      "price_type": "one_time",
+      "unit_amount_minor": 999,
+      "currency": "usd",
+      "paid_completed_checkout_sessions_since_2026_10_22": 0,
+      "all_session_pages_read": true,
+      "gross_paid_amount_minor_by_currency": {}
+    },
+    "effect": "read_only; no checkout session, charge, refund, or customer mutation created"
+  },
+  "public_book_page": {
+    "observed_on_utc_date": "2026-10-25",
+    "url": "https://aniccaai.com/the-art-of-ai-monks",
+    "public_crawl": "The Art of AI Monks page is live and displays Buy PDF + EPUB for USD9.99, one payment, download after checkout, and a free GitHub manuscript link"
+  },
+  "database_public_page": {
+    "observed_on_utc_date": "2026-10-25",
+    "url": "https://aniccaai.com/ai-monk-database",
+    "public_crawl": {
+      "profiles_reported": 73,
+      "archive_records_reported": 75,
+      "sources_reported": 239,
+      "last_updated": "2026-10-25"
+    }
+  },
+  "historical_database_audit": {
+    "checked_repository_paths": [
+      "apps/landing/public/data/ai-monk-avatar-database-2026.json",
+      "apps/landing/public/assets/ai-monk-profiles/profiles.json"
+    ],
+    "git_revisions_checked": {
+      "canonical_database_snapshot": 40,
+      "image_profile_archive": 7
+    },
+    "canonical_snapshots_with_17_profiles": 0,
+    "image_archive_profile_counts": [75],
+    "historical_id_list_found": false,
+    "conclusion": "The user-reported historical 17 IDs could not be reconstructed from these repository histories. Keep the 17-ID reconciliation unresolved; do not alter the current 75-record archive or claim completeness."
+  },
+  "source_tests": {
+    "command": "node --test netlify/functions/_lib/__tests__/ebook-checkout.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-webhook.test.js",
+    "passed": 53,
+    "failed": 0,
+    "limit": "source/test-fixture verification; not a live checkout, webhook delivery, or customer PDF/EPUB receipt"
+  },
+  "unverified": [
+    "Postiz records do not establish any Grok-owned publishing outside Postiz or prove daily cadence",
+    "No paid AI Monk eBook order or customer download has been verified",
+    "USD0 recurring MRR is scoped to the matched Stripe account and is not a claim about unrelated payment accounts or processors",
+    "The 17 unmatched historical Database IDs remain unresolved"
+  ]
+}

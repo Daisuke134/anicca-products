@@ -61,11 +61,11 @@ source fixをworktree `fix/ai-monk-ebook-database-resume-20261026`へ実装し�
 
 ## 2026-10-26 Postiz・Stripe・Studio readback
 
-2026-10-25T23:13:39ZのPostiz公式readbackでは、Grok Bot ownerのTikTok `cmo5rwq2p00twn10yrsdglng3` とInstagram `cmoopzaak04yop70y1yx1bwr1` がintegrations一覧にあり、対象期間（2026-10-23〜2026-11-03 UTC）に`PUBLISHED`が計5件、future queueは0件。期間中の毎日投稿を証明せず、CodexはGrok owner/scheduleを変更しない。
+2026-10-25T23:21:45ZのPostiz read-only readbackでは、Grok Bot ownerのTikTok `cmo5rwq2p00twn10yrsdglng3` とInstagram `cmoopzaak04yop70y1yx1bwr1` がintegrations一覧にある。2026-10-19〜2026-11-04 UTCのtarget postsは`PUBLISHED`が計5件（TikTok 3、Instagram 2）で、10/23と10/25に存在しfuture queueは0件。日次cadenceは確認できず、CodexはGrok owner/scheduleを変更しない。
 
-同時点のStripe live read-only APIではFactory metadataと同一accountであることを確認し、active subscriptionは完全な1ページ中0件。Factory Product/Priceはactive・live・USD199/月だが、Factory Checkout/webhookはruntimeへ未接続で、売上や顧客subscriptionを意味しない。確認済みのactive recurring MRRはUSD0であり、eBook one-time orderは別途未確認。
+2026-10-25T23:25:20ZのStripe live read-only APIでは、Factory/eBook metadataと一致するaccountのactive subscriptionが全ページreadbackで0件であり、検証済みactive recurring MRRはUSD0。同accountの『The Art of AI Monks』product/priceはactive、USD9.99 one-time。2026-10-22以降の`ai_monk_book` completed paid Checkout sessionは全ページ中0件で、gross paid amountも0。Book pageは公開中だが、実購入・webhook email・PDF/EPUB downloadは未確認。Factory Product/Price USD199/月は別のreadbackでactiveだが、Checkout/webhookはruntime未接続で顧客subscriptionを意味しない。
 
-認証済みFactory Studioの最新readbackはHTTP200だが、generation/social/checkoutすべて`studio_setup`で、完成video 3本・6 attemptsが残り、avatar/Instagram/jobs/videosは0、3主CTAはdisabled。HeyGen専用wallet USD0・auto-reload off、Gemini専用projectはbilling未接続、Meta App credentialsなし、Netlify productionに`MONK_FACTORY_*`なし。従って現在のbutton停止はreadiness gateで説明できる。添付generic errorのaction ID/API codeは未取得のため、その個別errorとの相関は不明。読み取り証拠 → `../../evidence/ai-monk-goal-readback-20261025T231339Z.json`、`../../evidence/ai-monk-factory-authenticated-live-readback-20261026.json`。
+認証済みFactory Studioの最新readbackはHTTP200だが、generation/social/checkoutすべて`studio_setup`で、完成video 3本・6 attemptsが残り、avatar/Instagram/jobs/videosは0、3主CTAはdisabled。HeyGen専用wallet USD0・auto-reload off、Gemini専用projectはbilling未接続、Meta App credentialsなし、Netlify productionに`MONK_FACTORY_*`なし。従って現在のbutton停止はreadiness gateで説明できる。添付generic errorのaction ID/API codeは未取得のため、その個別errorとの相関は不明。Postiz/Stripe/book page readback → `../../evidence/ai-monk-account-readback-20261025T232751Z.json`。Studio readback → `../../evidence/ai-monk-factory-authenticated-live-readback-20261026.json`。
 
 ## Earlier quota release and runtime snapshot — superseded by the 2026-10-26 readback above
 
