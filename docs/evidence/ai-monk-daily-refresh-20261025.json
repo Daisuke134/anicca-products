@@ -1,0 +1,554 @@
+{
+  "schema_version": "anicca.ai-monk-daily-refresh.v1",
+  "automation_id": "ai-monk-database",
+  "trigger_at": "2026-10-24T23:59:58.755Z",
+  "source_base": "29a84055d86fd4dbcf0dc82fb8f6530018125501",
+  "recorded_at": "2026-10-25T00:05:41.582069+00:00",
+  "as_of": "2026-10-25",
+  "changed_accounts": [
+    "yang-mun",
+    "ming-san",
+    "yan-chen-monjechen"
+  ],
+  "added_sources": 6,
+  "sources": 239,
+  "dated_metric_observations_added": 4,
+  "dated_offer_observations_added": 4,
+  "archive_records": 75,
+  "directory_records": 73,
+  "included": 6,
+  "pending": 67,
+  "excluded": 2,
+  "youtube_observations": [
+    {
+      "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+      "captured_at": "2026-10-25T00:03:54.307907+00:00",
+      "command": [
+        "yt-dlp",
+        "--ignore-config",
+        "--dump-single-json",
+        "--skip-download",
+        "--no-playlist",
+        "--no-progress",
+        "--socket-timeout",
+        "12",
+        "--retries",
+        "1",
+        "--extractor-retries",
+        "1",
+        "https://www.youtube.com/shorts/Er2Ig4GM7z0"
+      ],
+      "exit_code": 0,
+      "identity_match": true,
+      "metadata": {
+        "id": "Er2Ig4GM7z0",
+        "title": "Words of Motivation from Yang Mun #yangmun #whoisyangmun #timetohealyangmun #yangmunbook",
+        "channel": "Yang Mun",
+        "channel_id": "UCoMa3p67nJWkk2kk-8hD1jA",
+        "channel_url": "https://www.youtube.com/channel/UCoMa3p67nJWkk2kk-8hD1jA",
+        "uploader_id": "@Yangmunv2",
+        "channel_follower_count": 159000,
+        "view_count": 521616,
+        "duration": 65,
+        "upload_date": "20251129"
+      },
+      "raw_metadata_sha256": "65ff82115812030939647066ff018af984f120dbb2b505c6f8f21c7cecb8de9e",
+      "retrieval_warning": ""
+    },
+    {
+      "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
+      "captured_at": "2026-10-25T00:03:54.512795+00:00",
+      "command": [
+        "yt-dlp",
+        "--ignore-config",
+        "--dump-single-json",
+        "--skip-download",
+        "--no-playlist",
+        "--no-progress",
+        "--socket-timeout",
+        "12",
+        "--retries",
+        "1",
+        "--extractor-retries",
+        "1",
+        "https://www.youtube.com/shorts/Qdv6S7HonSM"
+      ],
+      "exit_code": 0,
+      "identity_match": true,
+      "metadata": {
+        "id": "Qdv6S7HonSM",
+        "title": "1minute  of Yang Mun Wisdom #yangmun #yangmuns #masteryangmun",
+        "channel": "Yang Mun",
+        "channel_id": "UCoMa3p67nJWkk2kk-8hD1jA",
+        "channel_url": "https://www.youtube.com/channel/UCoMa3p67nJWkk2kk-8hD1jA",
+        "uploader_id": "@Yangmunv2",
+        "channel_follower_count": 159000,
+        "view_count": 1102396,
+        "duration": 78,
+        "upload_date": "20251125"
+      },
+      "raw_metadata_sha256": "e268b826ce028e7a672ce7bd4b5163cc4022a485e2a19845f95215ecead0f5aa",
+      "retrieval_warning": ""
+    },
+    {
+      "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
+      "captured_at": "2026-10-25T00:03:56.845080+00:00",
+      "command": [
+        "yt-dlp",
+        "--ignore-config",
+        "--dump-single-json",
+        "--skip-download",
+        "--no-playlist",
+        "--no-progress",
+        "--socket-timeout",
+        "12",
+        "--retries",
+        "1",
+        "--extractor-retries",
+        "1",
+        "https://www.youtube.com/shorts/j8WRhcQvzRM"
+      ],
+      "exit_code": 0,
+      "identity_match": true,
+      "metadata": {
+        "id": "j8WRhcQvzRM",
+        "title": "You’re Drinking Water the WRONG Way 😳 | Yang Mun Chinese Medicine Wisdom #yangmun #masteryangmun",
+        "channel": "Yang Mun",
+        "channel_id": "UCoMa3p67nJWkk2kk-8hD1jA",
+        "channel_url": "https://www.youtube.com/channel/UCoMa3p67nJWkk2kk-8hD1jA",
+        "uploader_id": "@Yangmunv2",
+        "channel_follower_count": 159000,
+        "view_count": 12561649,
+        "duration": 96,
+        "upload_date": "20251110"
+      },
+      "raw_metadata_sha256": "7454bd914bce49ebf29d7d0b2d146a36126beb39556c50274c440319e135ec91",
+      "retrieval_warning": ""
+    }
+  ],
+  "product_observations": [
+    {
+      "account_id": "yang-mun",
+      "requested_url": "https://www.yang-mun.com/pages/journey",
+      "canonical_url": "https://yang-mun.com/pages/journey",
+      "title": "30-Day Healing Journey | Meditation and Breathwork – Yang Mun",
+      "captured_at": "2026-10-25T00:03:34.194458+00:00",
+      "country": "JP",
+      "active_currency": "JPY",
+      "json_ld_offer": null,
+      "observations": [
+        {
+          "name": "30-Day Healing Journey",
+          "source_route": "scrapy-fetch-html",
+          "captured_at": "2026-10-25T00:03:34.194458+00:00",
+          "display_price": "¥8,000",
+          "price": 8000,
+          "currency": "JPY",
+          "country": "JP",
+          "billing": "one_time",
+          "price_evidence": "<div class=\"jz-bar-price\"><strong>¥8,000</strong>",
+          "cta_url": "https://yang-mun.com/cart/56589619102036:1,56592260563284:1,56478055629140:1?checkout",
+          "note": "Localised JPY storefront observation; not a currency conversion performed by this research and not equivalent to the crwl dollar observation.",
+          "main_variant_id": "56589619102036",
+          "bonus_variant_ids": [
+            "56592260563284",
+            "56478055629140"
+          ],
+          "offer_source_body_sha256": "a71679e3efe0cbbebaf88413935f05d5fe7c22c2181bd34775d9054e2b7d71ee"
+        },
+        {
+          "name": "Get everything upgrade",
+          "source_route": "scrapy-fetch-html",
+          "captured_at": "2026-10-25T00:03:34.194458+00:00",
+          "display_price": "¥9,600",
+          "price": 9600,
+          "currency": "JPY",
+          "country": "JP",
+          "billing": null,
+          "price_evidence": "<p class=\"jz-up-price\"><em>¥9,600</em></p>",
+          "cta_url": "https://yang-mun.com/cart/56592501506388:1,56592260563284:1,56478055629140:1?checkout",
+          "note": "Localised JPY storefront observation; upgrade-specific recurring billing not stated.",
+          "main_variant_id": "56592501506388",
+          "bonus_variant_ids": [
+            "56592260563284",
+            "56478055629140"
+          ],
+          "offer_source_body_sha256": "a71679e3efe0cbbebaf88413935f05d5fe7c22c2181bd34775d9054e2b7d71ee"
+        }
+      ],
+      "included_content": [
+        "30-day self-paced browser classroom",
+        "Daily 5–10 minute lesson/practice",
+        "Weekly Yang Mun video teaching",
+        "Inner Circle with weekly Q&A and daily notes",
+        "Breathwork Guide"
+      ],
+      "upgrade_content": [
+        "Time To Heal",
+        "Stillness",
+        "Modern Soul"
+      ],
+      "content_evidence_route": "Both crwl markdown and HTML explicitly list Add the three eBooks and these three abbreviated book names.",
+      "seller_counters_not_verified_revenue": [
+        "5 million followers / 5M+ followers",
+        "30,000+ readers / 30K+ books sold",
+        "2,500 on the Journey / 2.5K+ joined",
+        "4.9/5 rating"
+      ],
+      "availability": "not_transaction_verified",
+      "uncertainties": [
+        "Currency/display differs by retrieval location: crwl dollar prices versus JP HTML yen prices. Keep separate locale-specific observations.",
+        "No offer-level Product JSON-LD priceCurrency in this landing page.",
+        "Checkout contents, charges, fulfilment and actual customer counts remain unverified."
+      ],
+      "cross_route_display_evidence": {
+        "canonical_offer_candidate": false,
+        "captured_at": "2026-10-25T00:03:15.849175+00:00",
+        "source_route": "crwl-markdown-fit",
+        "journey_display_price": "$49.99",
+        "journey_reference_display_price": "$99.99",
+        "upgrade_display_price": "$59.99",
+        "currency": null,
+        "country_hint_from_signin_link": "US",
+        "note": "Retrieval-location difference only; preserve as evidence, do not append these as new null-price canonical offers. Existing selected-USD product-page observations remain unchanged."
+      },
+      "storefront_context_evidence": {
+        "active_currency": "JPY",
+        "country": "JP",
+        "captured_at": "2026-10-25T00:03:34.194458+00:00",
+        "currency_assignment": [
+          "{\"active\":\"JPY\",\"rate\":\"159.234215\"}"
+        ],
+        "country_assignment": [
+          "\"JP\""
+        ],
+        "body_sha256": "a71679e3efe0cbbebaf88413935f05d5fe7c22c2181bd34775d9054e2b7d71ee",
+        "canonical_url": "https://yang-mun.com/pages/journey"
+      }
+    },
+    {
+      "account_id": "ming-san",
+      "requested_url": "https://beraviahealth.com/products/beetroot",
+      "canonical_url": "https://beraviahealth.com/products/beetroot",
+      "title": "Beetroot Capsules – Beravia",
+      "captured_at": "2026-10-25T00:03:33.613682+00:00",
+      "country": "US",
+      "active_currency": "USD",
+      "product_variant_id": "51739327430929",
+      "sku": "VOX4BEET",
+      "observations": [
+        {
+          "name": "Beetroot Capsules one-time variant",
+          "source_route": "scrapy-fetch-html",
+          "display_price": "29.99 USD (Product JSON-LD)",
+          "price": 29.99,
+          "currency": "USD",
+          "billing": "one_time",
+          "reference_price": 44.99,
+          "reference_price_note": "Specific selected variant app metadata compareAtPrice=4499 alongside price=2999; a reference price, not a separately observed sale.",
+          "url": "https://beraviahealth.com/products/beetroot?variant=51739327430929",
+          "captured_at": "2026-10-25T00:03:33.613682+00:00"
+        },
+        {
+          "name": "Beetroot Capsules monthly selling plan",
+          "source_route": "scrapy-fetch-html",
+          "price": 26.99,
+          "currency": "USD",
+          "billing": "subscription",
+          "billing_interval": "month",
+          "billing_interval_count": 1,
+          "selling_plan_id": "12669944081",
+          "selling_plan_name": "Deliver every month, 10% off",
+          "raw_price_minor_units": 2699,
+          "raw_compare_at_price_minor_units": 2999,
+          "discount_percent": 10,
+          "variant_id": "51739327430929",
+          "captured_at": "2026-10-25T00:03:33.613682+00:00"
+        }
+      ],
+      "json_ld_offer": [
+        {
+          "@type": "Offer",
+          "sku": "VOX4BEET",
+          "availability": "http://schema.org/InStock",
+          "price": 29.99,
+          "priceCurrency": "USD",
+          "url": "https://beraviahealth.com/products/beetroot?variant=51739327430929"
+        }
+      ],
+      "availability": "metadata_in_stock_checkout_unverified",
+      "availability_evidence": [
+        "Product JSON-LD http://schema.org/InStock",
+        "Selected variant availableForSale=true",
+        "Add to cart product submit button present without disabled attribute"
+      ],
+      "availability_caveat": "App inventory quantity and continue-policy fields are not evidence of actual warehouse stock or sales. No checkout was tested.",
+      "included_content": [
+        "Beetroot Capsules",
+        "Product metadata lists 60 capsules and suggested two per day; seller content is not an independently validated medical effect."
+      ],
+      "cta": "Add to cart",
+      "excluded_cross_product_prices": [
+        "Cart upsell Moringa Capsules $24.99/$44.99 is a different product; do not attach its current price to Beetroot."
+      ],
+      "uncertainties": [
+        "Affiliate relationship, commission, orders and revenue are not established by this storefront.",
+        "Generic subscription widget defaults must not override the variant-specific monthly 10% selling plan."
+      ]
+    },
+    {
+      "account_id": "yan-chen-monjechen",
+      "requested_url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+      "canonical_url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+      "title": "El Camino de Vuelta a la Calma",
+      "captured_at": "2026-10-25T00:03:34.117135+00:00",
+      "country": "PT",
+      "active_currency": "EUR",
+      "product_variant_id": "64699551678841",
+      "observations": [
+        {
+          "name": "El Camino de Vuelta a la Calma",
+          "source_route": "scrapy-fetch-html",
+          "display_price": "€9,95",
+          "price": 9.95,
+          "currency": "EUR",
+          "billing": null,
+          "reference_display_price": "€19,95",
+          "reference_price": 19.95,
+          "reference_price_note": "Crossed-out reference amount in crwl product section, not a completed transaction.",
+          "captured_at": "2026-10-25T00:03:34.117135+00:00"
+        }
+      ],
+      "json_ld_offer": [
+        {
+          "@type": "Offer",
+          "availability": "http://schema.org/InStock",
+          "price": 9.95,
+          "priceCurrency": "EUR",
+          "url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma?variant=64699551678841"
+        }
+      ],
+      "included_content": [
+        "103-page digital guide",
+        "30 days of guided exercises",
+        "Breathing and meditation exercises",
+        "Daily reflection diary",
+        "Visual checklist calendar"
+      ],
+      "cta": "Añadir al carrito",
+      "availability": "unknown_conflicting_storefront_signals",
+      "availability_evidence": [
+        "crwl and HTML contain Agotado sold-out badge",
+        "Product JSON-LD http://schema.org/InStock",
+        "Product Add to cart button is present without disabled attribute"
+      ],
+      "uncertainties": [
+        "Do not declare purchasable or sold out conclusively from contradictory static metadata; no checkout was performed.",
+        "Shipping section describes physical goods while the guide is called digital; do not infer a physical edition from generic shipping copy.",
+        "The 1,000 lives transformed, review totals, active-buyer count and launch timer are seller claims, not verified orders or revenue.",
+        "The €2.95 and €4.95 cart upsells are separate products; do not combine with the main guide price."
+      ]
+    }
+  ],
+  "retrieval_attempts": [
+    {
+      "account_id": "yang-mun",
+      "url": "https://www.yang-mun.com/pages/journey",
+      "route": "crwl-markdown-fit",
+      "started_at": "2026-10-25T00:03:09.173708+00:00",
+      "captured_at": "2026-10-25T00:03:15.849175+00:00",
+      "exit_code": 0,
+      "body_sha256": "30dd9491bd863f8787f26d4d83865a4fef5d98531dc664bd738ecd62974502f7",
+      "body_characters": 11858,
+      "http_status": null,
+      "http_status_note": "CLI output has no authoritative status/redirect metadata; exit code and complete page content are recorded separately.",
+      "redirect_chain": null,
+      "redirect_note": "Not exposed by the bounded CLI invocation; canonical page URL is recorded where present and is not treated as an observed HTTP redirect."
+    },
+    {
+      "account_id": "ming-san",
+      "url": "https://beraviahealth.com/products/beetroot",
+      "route": "crwl-markdown-fit",
+      "started_at": "2026-10-25T00:03:09.174875+00:00",
+      "captured_at": "2026-10-25T00:03:13.733026+00:00",
+      "exit_code": 0,
+      "body_sha256": "68c9523e9ae943533bf87bec4b17725f139212bf2227208f094af3c7fe00c285",
+      "body_characters": 13823,
+      "http_status": null,
+      "http_status_note": "CLI output has no authoritative status/redirect metadata; exit code and complete page content are recorded separately.",
+      "redirect_chain": null,
+      "redirect_note": "Not exposed by the bounded CLI invocation; canonical page URL is recorded where present and is not treated as an observed HTTP redirect."
+    },
+    {
+      "account_id": "yan-chen-monjechen",
+      "url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+      "route": "crwl-markdown-fit",
+      "started_at": "2026-10-25T00:03:09.175251+00:00",
+      "captured_at": "2026-10-25T00:03:13.833468+00:00",
+      "exit_code": 0,
+      "body_sha256": "82d4054e0fa9c21e70b1e3110ff62a76999f44c2ce1d358fecf4aa07ed96c901",
+      "body_characters": 9446,
+      "http_status": null,
+      "http_status_note": "CLI output has no authoritative status/redirect metadata; exit code and complete page content are recorded separately.",
+      "redirect_chain": null,
+      "redirect_note": "Not exposed by the bounded CLI invocation; canonical page URL is recorded where present and is not treated as an observed HTTP redirect."
+    },
+    {
+      "account_id": "yang-mun",
+      "url": "https://www.yang-mun.com/pages/journey",
+      "route": "scrapy-fetch-html",
+      "started_at": "2026-10-25T00:03:32.475746+00:00",
+      "captured_at": "2026-10-25T00:03:34.194458+00:00",
+      "exit_code": 0,
+      "body_sha256": "a71679e3efe0cbbebaf88413935f05d5fe7c22c2181bd34775d9054e2b7d71ee",
+      "body_characters": 898282,
+      "http_status": null,
+      "http_status_note": "scrapy fetch --nolog outputs body only; response status/redirect chain not exposed by this invocation",
+      "redirect_chain": null,
+      "redirect_note": "Not exposed by the bounded CLI invocation; canonical page URL is recorded where present and is not treated as an observed HTTP redirect."
+    },
+    {
+      "account_id": "ming-san",
+      "url": "https://beraviahealth.com/products/beetroot",
+      "route": "scrapy-fetch-html",
+      "started_at": "2026-10-25T00:03:32.475973+00:00",
+      "captured_at": "2026-10-25T00:03:33.613682+00:00",
+      "exit_code": 0,
+      "body_sha256": "9b204ea2d9522965fe1b40789d1c6b1bf90eb44f53925689860868c0cda2d4be",
+      "body_characters": 427736,
+      "http_status": null,
+      "http_status_note": "scrapy fetch --nolog outputs body only; response status/redirect chain not exposed by this invocation",
+      "redirect_chain": null,
+      "redirect_note": "Not exposed by the bounded CLI invocation; canonical page URL is recorded where present and is not treated as an observed HTTP redirect."
+    },
+    {
+      "account_id": "yan-chen-monjechen",
+      "url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+      "route": "scrapy-fetch-html",
+      "started_at": "2026-10-25T00:03:32.477192+00:00",
+      "captured_at": "2026-10-25T00:03:34.117135+00:00",
+      "exit_code": 0,
+      "body_sha256": "dd68328f4753adcc3eddac1361d25178a1762a12c8216a84d24b9785f966a99e",
+      "body_characters": 320592,
+      "http_status": null,
+      "http_status_note": "scrapy fetch --nolog outputs body only; response status/redirect chain not exposed by this invocation",
+      "redirect_chain": null,
+      "redirect_note": "Not exposed by the bounded CLI invocation; canonical page URL is recorded where present and is not treated as an observed HTTP redirect."
+    }
+  ],
+  "uncollected": [
+    {
+      "metric": "Instagram followers",
+      "status": "not_collected",
+      "reason": "Existing methodology stops automated Instagram HTTP probes after the robots notice. No registered browser lease/session changed. Paid vidIQ lookup not used; dated historical IG observations retained."
+    },
+    {
+      "metric": "current revenue/orders/profit",
+      "status": "not_verified",
+      "reason": "Public seller prices/counters and historical creator claims do not provide accounting/payment receipts. No current revenue is inferred."
+    },
+    {
+      "field": "HTTP response status and redirect chain",
+      "reason": "crwl markdown-fit and scrapy fetch --nolog outputs did not expose authoritative response metadata; no third retrieval was added to the two-route budget."
+    },
+    {
+      "field": "Actual orders, revenue, ownership, affiliate commissions and payment completion",
+      "reason": "The seller pages and product metadata do not establish these business outcomes; no checkout or account access was performed."
+    }
+  ],
+  "preservation_checks": {
+    "old_233_sources_unchanged": true,
+    "old_offers_and_platform_snapshots_preserved": true,
+    "unmodified_72_accounts": true,
+    "all_scope_and_financial_claims_unchanged": true,
+    "source_reference_resolution": true
+  },
+  "learning_notes": [
+    {
+      "account_id": "yang-mun",
+      "observation": "The official page sells a 30-day routine with small daily tasks, weekly video and two named bonuses, then offers a higher-price three-eBook upgrade.",
+      "permitted_use": "Article/Factory learning can describe offer packaging and CTA structure as observed; do not claim this causes sales or repeat medical-effect claims as facts."
+    },
+    {
+      "account_id": "ming-san",
+      "observation": "One selected physical-product variant has both a one-time price and an explicit monthly 10%-off subscription plan.",
+      "permitted_use": "Keep product, variant and billing cadence in the database rather than mixing a cart upsell with the main offer."
+    },
+    {
+      "account_id": "yan-chen-monjechen",
+      "observation": "The guide lists daily exercises and bonuses, but the page contains conflicting availability signals.",
+      "permitted_use": "Explain the offer and observed CTA while leaving payment/stock outcome unknown."
+    }
+  ],
+  "canonical_sha256": "92f178965a967441fe38c5c58d44abfb0b551641fc8180e7b2f874606b761931",
+  "package_version": "0.4.20",
+  "revenue_source_readback": {
+    "url": "https://x.com/i/article/2042242260784537736",
+    "retrieval_attempts": [
+      {
+        "command": [
+          "crwl",
+          "crawl",
+          "https://x.com/i/article/2042242260784537736",
+          "-o",
+          "markdown-fit"
+        ],
+        "exit_code": 0,
+        "captured_at": "2026-10-25T00:04:07.152332+00:00",
+        "body_bytes": 2,
+        "body_sha256": "75a11da44c802486bc6f65640aa48a730f0f684c5c07a42ba3cd1735eb3fb070",
+        "amount_markers": {
+          "$300K": false,
+          "$500K": false,
+          "$450K": false,
+          "$50K": false
+        },
+        "published_metadata": [],
+        "time_datetime": []
+      },
+      {
+        "command": [
+          "scrapy",
+          "fetch",
+          "--nolog",
+          "https://x.com/i/article/2042242260784537736"
+        ],
+        "exit_code": 0,
+        "captured_at": "2026-10-25T00:04:08.303234+00:00",
+        "body_bytes": 200800,
+        "body_sha256": "2dbf248c00b28ffc68998eae3683fd0b3d1b238f24dfcea207871896e175a3bf",
+        "amount_markers": {
+          "$300K": true,
+          "$500K": true,
+          "$450K": true,
+          "$50K": true
+        },
+        "published_metadata": [
+          "<meta property=\"article:published_time\" content=\"2026-04-09T14:04:32.000Z\"/>"
+        ],
+        "time_datetime": []
+      }
+    ],
+    "financial_treatment": "Known historical self-report markers and original publication date re-confirmed. This is not a comprehensive search for new statements. Persona-level total and gross/net/currency basis remain unresolved; no current revenue or profit inferred.",
+    "new_financial_claims_added": 0
+  },
+  "external_actions": {
+    "paid_provider_purchases": 0,
+    "video_generations": 0,
+    "social_posts": 0,
+    "checkout_or_cart_mutations": 0
+  },
+  "status": "source tests passed; independent review, CI, main and public acceptance pending",
+  "validation": {
+    "shared_directory_tests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "cli_stdio_http_package_tests": {
+      "passed": 16,
+      "failed": 0
+    },
+    "diff_check": true,
+    "independent_read_only_review": "in progress"
+  }
+}
