@@ -10,6 +10,10 @@ const ebookWebhookMigration = fs.readFileSync(path.join(
   __dirname,
   '../../_migrations/2026-10-05-ebook-webhook-receipts.sql',
 ), 'utf8');
+const ebookWebhookAclMigration = fs.readFileSync(path.join(
+  __dirname,
+  '../../../../supabase/migrations/20261025031703_ebook_webhook_service_role_only.sql',
+), 'utf8');
 
 function migrationFunction(name) {
   const start = ebookWebhookMigration.indexOf(`CREATE OR REPLACE FUNCTION public.${name}(`);
@@ -1702,4 +1706,17 @@ test("migration and reservation lock subscribers before subscription states", ()
   const subscriberAlter = ebookWebhookMigration.indexOf("ALTER TABLE public.subscribers");
   const stateCreate = ebookWebhookMigration.indexOf("CREATE TABLE IF NOT EXISTS public.ebook_subscription_states");
   assert.ok(migrationLock >= 0 && migrationLock < subscriberAlter && subscriberAlter < stateCreate);
+});
+
+test('ebook webhook tables revoke default grants before restoring service-role access', () => {
+  const revoke = ebookWebhookAclMigration.search(
+    /REVOKE ALL PRIVILEGES ON TABLE public\.ebook_webhook_receipts,\s*public\.ebook_subscription_states\s+FROM PUBLIC, anon, authenticated, service_role;/,
+  );
+  const grant = ebookWebhookAclMigration.search(
+    /GRANT SELECT, INSERT, UPDATE ON TABLE public\.ebook_webhook_receipts,\s*public\.ebook_subscription_states\s+TO service_role;/,
+  );
+
+  assert.ok(revoke >= 0, 'all default table grants must be revoked from client and service roles');
+  assert.ok(grant > revoke, 'service_role receives only the webhook-required privileges after revoke');
+  assert.match(ebookWebhookAclMigration.trimEnd(), /COMMIT;$/);
 });
