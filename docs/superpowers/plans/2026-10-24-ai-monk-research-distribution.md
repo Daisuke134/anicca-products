@@ -7,13 +7,21 @@
 
 ### Current cursor override — 2026-10-26 (JST)
 
-#### Authenticated Studio and catalog readback — 2026-10-25T15:21Z–15:36Z
+#### CTA readiness修正の本番反映と一覧再読込 — 2026-10-25T15:50Z–15:56Z
+
+PR #760（`aebc354f234f0e4bba091db238e11ad80232c14b`）はCI run `40208565137`に合格し、15:50:17Zにmain commit `a02cddb98f648abc34f1d44072de1ac8bd47b9a0`として統合された。mainのNetlify Deploy workflow `40208828000`はproduction money-path smokeを含め15:55:05Zに成功した。readinessのfocused testは13/13 PASS。sourceはreadiness未達または前提条件不足時にgeneration/social/checkoutをdisabledにし、Stopは維持する。actionの再送とFactory runtime/provider設定変更は行っていない。
+
+15:56:11Z–15:56:31Zの公開crawlで、AI Monk Factoryは`/products`のSoftware、`/dais`のWeb products、`/factory`のAnicca Web Appsに引き続き掲載されている。3ページとも準備中と表示され、`/products`にはgenerationとsubscription checkoutがまだ開いていないと明記される。一覧から除外されてはいない。`/dais`は固定されたLife Manager marketing overlayが描画し、重複したlocal `DaisBody.tsx`は公開sourceではなくFactory項目も含まない。認証済みStudioのDOM/button再readbackとNetlify provider deploy IDは取得していない。receipt → `../../evidence/ai-monk-factory-cta-release-readback-20261025T155611Z.json`。
+
+CTA source releaseのcursorは完了。次のcursorはFactory provider支出上限と専用Geminiのbilling/cap確認に戻り、その後runtime/Stripe/Meta readiness、Factory E2Eの順に進む。参照receiptの最新provider readbackはHeyGen wallet USD0、Gemini billing無効。Netlify環境はこのdeploy前の15:36Zに最後に読み、`MONK_FACTORY_*`は0件だった。USD10/dayのjob予約値をproviderの請求上限と扱わず、generation/checkout/postingが稼働中とも報告しない。
+
+#### Authenticated Studio and pre-release catalog readback — 2026-10-25T15:21Z–15:36Z
 
 authenticated Factory Studio GETはHTTP200、generation/checkout/socialが`studio_setup`、quota 3 videos/3 attempts、jobs 0、subscription/Instagram/avatar/autopost未設定を返した。過去のgeneric errorに対応するaction IDやprovider receiptはないため再送せず、現在のStudio状態だけをreadbackした。readback時点のAvatar/video/Instagram CTAは有効だったため、同じreadiness helperをdisabledへ反映し、前工程がないvideo/Instagram actionも止めるsource patchを現在branchに実装した。Stopは維持する。focused tests 13/13 PASS、CIと同じasset staging後のNext production buildは675 pagesでPASS。TypeScript standalone checkにはこの変更外の6 errorが残る。source patchは未push/未merge/未deployで、本番CTA修正とは扱わない。
 
 同窓のprovider readbackではNetlify production variables 58件・`MONK_FACTORY_*` 0件、HeyGen dedicated wallet USD0・auto-reload/top-up off・usage-based spending capなし、Gemini project billing accountなし。HeyGen wallet hard cap/effective limitは未確認で、社内USD10/day reservationはprovider capではない。次のcursorは引き続きprovider-side spend boundaryとGemini billing/cap readback。top-up、auto-reload、`MONK_FACTORY_ENABLED`、generation、OAuth、post、checkoutは行わない。receipt → `../../evidence/ai-monk-factory-studio-catalog-readback-20261025T1536Z.json`。
 
-短期cursorだけを変更した。旧順序は「authenticated Studio GET → provider spend-boundary/Gemini billing → runtime/Stripe/Meta → free-video E2E」でありGETは完了した。新順序は「fail-closed CTA source fixをCI/main/deploy/readback → provider spend-boundary/Gemini billing → runtime/Stripe/Meta → free-video E2E」。理由は、readbackでAPIが`studio_setup`を返す一方CTAがenabledの表示となり、ユーザーにaction errorを起こさせる独立したsource defectを特定したため。UI修正は外部effectやprovider spendを起こさず、Stopを維持し、runtime gateを開かない。現在cursorはCTA fixのPR/deploy readbackであり、完了後はprovider spend boundaryへ戻る。Factory全体のE2E順序やGrok Bot/Postiz ownerは変更しない。
+当時は短期cursorだけを変更した。旧順序は「authenticated Studio GET → provider spend-boundary/Gemini billing → runtime/Stripe/Meta → free-video E2E」でありGETは完了した。新順序は「fail-closed CTA source fixをCI/main/deploy/readback → provider spend-boundary/Gemini billing → runtime/Stripe/Meta → free-video E2E」。理由は、readbackでAPIが`studio_setup`を返す一方CTAがenabledの表示となり、ユーザーにaction errorを起こさせる独立したsource defectを特定したため。UI修正は外部effectやprovider spendを起こさず、Stopを維持し、runtime gateを開かない。CTAのPR/deploy readbackは上記のとおり完了し、現在cursorはprovider spend boundaryへ戻った。Factory全体のE2E順序やGrok Bot/Postiz ownerは変更しない。
 
 2026-10-25T15:36:43Z–15:36:49Zのpublic crawlではFactoryが`/products`のSoftware、`/dais`のWeb products、`/factory`のAnicca Web Appsにすべて掲載され、どれもPreparing statusだった。`/dais`はLife Managerの固定marketing overlayが公開元で、`DaisBody.tsx`はFactoryを含まない非正本の複製。商品が一覧から外れたのではなく、準備中表示とStudio runtime未準備が利用可能一覧から外れたように見せていた。証拠 → `../../evidence/ai-monk-factory-studio-catalog-readback-20261025T1536Z.json`。
 
