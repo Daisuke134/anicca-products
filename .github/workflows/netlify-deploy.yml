@@ -38,11 +38,11 @@ jobs:
       - name: Stage canonical app registry and icons before build
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: 72f1c4150d549e25f98fa0220bffd7c06ba592d9
+          MANAGER_MARKETING_REVISION: 43445aebda6914f8efd9a8d83dfece7d8a0c31d0
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
-          echo "c0d662d0e667acf72a32fa874768d30fe01110cf65767e1ea53b80ba58de3c83  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs --stage
 
       - name: Stage reviewed canonical Manager articles before build
@@ -79,11 +79,11 @@ jobs:
       - name: Apply canonical marketing overlay (immutable revision)
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: 72f1c4150d549e25f98fa0220bffd7c06ba592d9
+          MANAGER_MARKETING_REVISION: 43445aebda6914f8efd9a8d83dfece7d8a0c31d0
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
-          echo "c0d662d0e667acf72a32fa874768d30fe01110cf65767e1ea53b80ba58de3c83  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs
 
       - uses: actions/setup-node@v4
