@@ -1,0 +1,74 @@
+{
+  "schema_version": "anicca.ai-monk-factory-runtime-blocker.v1",
+  "run_id": "ai-monk-factory-runtime-blocker-20261025T084753Z",
+  "observed_at": "2026-10-25T08:47:53Z",
+  "owner_id": "codex-primary",
+  "base_sha": "db1439dda173c0750b7a980a7accee12894e25a1",
+  "source_branch": "fix/ai-monk-factory-free-video-autopost-20261025",
+  "netlify": {
+    "site": "anicca2",
+    "site_id": "d67537f0-21bd-477e-ac1a-323f7ec6d5cd",
+    "latest_deploy_id": "6addb95cf9d5a8de330cc4e4",
+    "deploy_state": "ready",
+    "deploy_context": "production",
+    "branch": "main",
+    "commit_ref": null,
+    "environment_variable_names": 62,
+    "monk_factory_variable_names": 0,
+    "readback": "Netlify API"
+  },
+  "supabase": {
+    "project_ref": "cycgdwndgfgdbnndithc",
+    "migration_name": "monk_factory_free_queue_autopost",
+    "migration_version": "20261025084739",
+    "apply_result": "success",
+    "history_readback": "version present",
+    "functions": [
+      {
+        "name": "monk_factory_schedule_auto",
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "service_role_execute": true
+      },
+      {
+        "name": "monk_factory_set_autopost",
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "service_role_execute": true
+      },
+      {
+        "name": "monk_factory_set_autopost_intent",
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "service_role_execute": true
+      }
+    ],
+    "function_definition_md5": {
+      "monk_factory_schedule_auto": "24b50383f1a58451a6e0dacf52153213",
+      "monk_factory_set_autopost": "41b51cc62f5b84c341a3ce2a2bc31610",
+      "monk_factory_set_autopost_intent": "bd7a55cb906d007c5a9a501b3ac8318c"
+    },
+    "readback": "Supabase migration history and SQL function/privilege query"
+  },
+  "provider_readiness": {
+    "video_provider": "HeyGen",
+    "heygen_factory_api_key_status": "active_verified",
+    "heygen_factory_wallet_usd": 0,
+    "heygen_factory_auto_reload": false,
+    "gemini_factory_project_state": "prepared_unfunded",
+    "gemini_factory_billing_verified": false,
+    "meta_factory_oauth_runtime": "not_configured",
+    "stripe_factory_runtime": "disabled"
+  },
+  "effects": {
+    "database_migration": "confirmed",
+    "video_generation": 0,
+    "instagram_oauth": 0,
+    "instagram_posts": 0,
+    "stripe_checkout_or_charge": 0,
+    "netlify_configuration_change": 0,
+    "source_release": "pending"
+  },
+  "diagnosis": "Production Studio actions remain disabled because no MONK_FACTORY_* variables are configured and required provider/runtime readiness is false. This is not a HeyGen selection issue or a missing button handler.",
+  "next_action": "Release the tested source changes, then provision the Factory-only HeyGen/Gemini runtime and Meta OAuth configuration before production E2E."
+}

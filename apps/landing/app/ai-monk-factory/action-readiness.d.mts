@@ -10,6 +10,7 @@ export type FactoryAllowance = {
   attemptsRemaining?: number | null;
   pendingVideo?: boolean;
   completedVideoReady?: boolean;
+  postableVideoReady?: boolean;
 };
 
 export function factoryQuotaState(usage?: { videosRemaining?: number | null; attemptsRemaining?: number | null } | null): FactoryQuota;

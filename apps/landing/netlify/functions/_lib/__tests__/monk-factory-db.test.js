@@ -276,6 +276,49 @@ test('daily ON consumes an existing preview once and OFF cannot schedule another
   assert.equal(sql(schedule), '');
 });
 
+test('a connected account drains completed free videos at zero quota and keeps consent for paid resume', options, () => {
+  const userId = uid(30);
+  sql('SET ROLE service_role; SELECT monk_factory_usage(' + "'" + userId + "'" + ')');
+  sql('UPDATE monk_factory_accounts SET avatar_id=\'avatar18\',social_profile=\'factory_' + userId
+    + '\',instagram_account_id=\'opaque18\',connected_at=now(),social_checked_at=now() WHERE user_id=\'' + userId + '\'');
+  const videos = [];
+  for (let n = 1; n <= 3; n++) {
+    const job = JSON.parse(sql(reserve(userId, 'free-queue-' + n)));
+    videos.push(job);
+    sql('UPDATE monk_factory_jobs SET status=\'completed\',stage=\'completed\',video_url=\'https://fixture.example/free-' + n
+      + '.mp4\',video_completed_at=now() WHERE id=\'' + job.id + '\'');
+  }
+  const usage = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_usage(' + "'" + userId + "'" + ')'));
+  assert.equal(usage.videosRemaining, 0);
+  assert.equal(usage.attemptsRemaining, 0);
+
+  const intent = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost_intent(' + "'" + userId + "'" + ',true)'));
+  assert.equal(intent.auto_post_intent, true);
+  const enabled = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost(' + "'" + userId + "'" + ')'));
+  assert.equal(enabled.auto_post, true);
+  const schedule = () => JSON.parse(sql('SET ROLE service_role; SELECT coalesce(monk_factory_schedule_auto(' + "'" + userId + "'" + '),\'null\'::jsonb)'));
+  for (let n = 0; n < videos.length; n++) {
+    const job = schedule();
+    assert.equal(job.id, videos[n].id);
+    assert.equal(job.stage, 'post_ready');
+    sql('UPDATE monk_factory_jobs SET status=\'completed\',stage=\'completed\',post_id=\'ig-post-' + (n + 1)
+      + '\',post_url=\'https://instagram.com/p/factory-' + (n + 1) + '\' WHERE id=\'' + job.id + '\'');
+    sql('UPDATE monk_factory_accounts SET auto_job_id=NULL,next_post_at=now()-interval \'1 second\' WHERE user_id=\'' + userId + '\'');
+  }
+  assert.equal(schedule(), null, 'no new generation is scheduled after the three completed free videos are posted');
+  assert.equal(sql('SELECT auto_post FROM monk_factory_accounts WHERE user_id=\'' + userId + '\''), 'f');
+  assert.equal(sql('SELECT auto_post_intent FROM monk_factory_accounts WHERE user_id=\'' + userId + '\''), 't');
+  assert.equal(sql('SELECT count(*) FROM monk_factory_jobs WHERE user_id=\'' + userId + '\' AND kind=\'video\''), '3');
+
+  sql('UPDATE monk_factory_accounts SET stripe_subscription_id=\'sub_paid_30\',subscription_status=\'active\',period_paid=true,period_start=now()-interval \'1 minute\',period_end=now()+interval \'30 days\' WHERE user_id=\'' + userId + '\'');
+  assert.equal(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_set_autopost(' + "'" + userId + "'" + ')')).auto_post, true);
+  const resumed = schedule();
+  assert.equal(resumed.kind, 'video');
+  assert.equal(resumed.origin, 'auto');
+  assert.match(resumed.period_key, /^paid:sub_paid_30:/);
+  assert.equal(sql('SELECT auto_post_intent FROM monk_factory_accounts WHERE user_id=\'' + userId + '\''), 't');
+});
+
 test('a connected free account starts the API schedule without an avatar and stops at three reserved videos', options, () => {
   const userId = uid(17);
   sql('SET ROLE service_role; SELECT monk_factory_usage(' + quoted(userId) + ')');

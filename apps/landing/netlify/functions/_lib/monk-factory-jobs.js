@@ -135,8 +135,10 @@ async function advanceFactoryJob(options) {
   async function allowed(post = false) {
     if (Date.now() >= deadline) throw factoryError('tick_deadline', 503);
     const state = await providers.readiness();
-    if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env) || !providerReady(state, 'generation')) throw factoryError('generation_unavailable', 503);
-    if (post && !providerReady(state, 'social')) throw factoryError('social_unavailable', 503);
+    if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env)) throw factoryError('generation_unavailable', 503);
+    if (!providerReady(state, post ? 'social' : 'generation')) {
+      throw factoryError(post ? 'social_unavailable' : 'generation_unavailable', 503);
+    }
     let account = await store.account(job.user_id);
     if (account?.stripe_subscription_id) account = await syncBilling({ userId: job.user_id, store, stripe, env });
     if (!jobEntitled(account, job)) throw factoryError('subscription_required', 402);
