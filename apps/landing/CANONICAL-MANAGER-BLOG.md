@@ -1,14 +1,16 @@
 # Canonical Manager article source
 
-Source authority: Daisuke134/life-manager, immutable revision `32cb5b84d052de9f2be3b2a3c8e8c21a150c4da1`, merged through [source PR #8518](https://github.com/Daisuke134/life-manager/pull/8518).
-Installer SHA-256: `c0908ffa9f899138f3f342140063b595e3b7bcab72f6e516d704290d3207e141`.
+Initial publication package: `Daisuke134/life-manager` revision `32cb5b84d052de9f2be3b2a3c8e8c21a150c4da1`, merged through [source PR #8518](https://github.com/Daisuke134/life-manager/pull/8518). Current installer code is pinned at `9a60b49e4bd4d288a491f0fb026af74e933c7eba`; current content is independently pinned at `ec903aa16ce2683f59a7a10e67b6cdc994c722ec`.
+Installer SHA-256: `9a00fa62a6048d249b332958c1ee14a2eeeae57f2f33277b538b915bed51dbf0`.
 
-The canonical package at `docs/research/manager/publication/2026-10-19/manifest.json` contains **65 articles and 33 media files**. All 63 previously published articles retain their exact bytes and URLs, and all 29 existing media entries and hashes remain unchanged. This update adds English and Japanese articles explaining humans& Ampersand, plus four original PNG figures showing the learning loop and evaluation-score weighting in both languages.
+The original canonical package at `docs/research/manager/publication/2026-10-19/manifest.json` contained 65 articles and 33 media files. The current content revision contains **67 articles and 34 media files**. It preserves the prior 65 article hashes and 33 media hashes, and adds `manager-ai-assistant-vs-agent-next-task-en`, `manager-artificial-societies-open-behavior-research-ja`, plus one media file. The immutable installer emits all 67 unique article/hash records and 34 media files; the live collection readback has the same 67 unique article slugs.
 
 New article URLs:
 
 - [English: Ampersand Explained](https://aniccaai.com/blog/manager-humansand-ampersand-en)
 - [Japanese: Ampersandを基礎から理解する](https://aniccaai.com/blog/manager-humansand-ampersand-ja)
+- [English: AI assistant or agent?](https://aniccaai.com/blog/manager-ai-assistant-vs-agent-next-task-en)
+- [Japanese: 人工社会を使ったオープンな行動研究](https://aniccaai.com/blog/manager-artificial-societies-open-behavior-research-ja)
 
 The articles explain language models, reinforcement learning, simulated people, and long-term collaboration, with comparisons to research from Simile, Aaru, and Andon Labs. The practical work reanalyzes published evaluation data and records an API-access check. It does not claim an authenticated Ampersand inference or an independently measured model-performance result.
 
@@ -18,4 +20,4 @@ The existing PR and deployment workflows run the canonical pre-build importer. `
 
 This repository contains the publishing bridge only. Do not edit generated Manager copies here. Make content/code changes in the canonical repository, follow its existing checks, then update both immutable workflow pins and verify the installer digest. Existing marketing pins, post-build marketing overlay, and payment smoke remain unchanged.
 
-Source publication does not assert a completed production deploy. After deployment, independently verify `/blog/manager/release.json` against the exact source revision, 65 unique article/hash pairs and 33 media hashes. Confirm all 63 previously deployed article/hash pairs and all 29 prior media hashes remain, read both new public article bodies and their canonical/language metadata, and verify collection/sitemap links and all media bytes. Record the actual deploy and readback separately from source preparation. Publishing research does not establish measured beneficiary improvement.
+Source publication does not assert a completed production deploy. After deployment, independently verify `/blog/manager/release.json` against the exact code/content revisions, 67 unique article/hash pairs and 34 media hashes. Confirm all 65 earlier article/hash pairs and all 33 prior media hashes remain, read the two new public article bodies and their canonical/language metadata, and verify collection/sitemap links and all media bytes. Record the actual deploy and readback separately from source preparation. Publishing research does not establish measured beneficiary improvement.
