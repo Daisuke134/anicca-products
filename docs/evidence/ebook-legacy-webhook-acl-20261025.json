@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-25T03:25:12Z",
+  "environment": "production",
+  "source": "official Supabase migration registry, SQL privilege readback, and PostgREST requests",
+  "migration": {
+    "name": "ebook_webhook_service_role_only",
+    "version": "20261025032324",
+    "applied_once": true
+  },
+  "aggregate_state": {
+    "subscribers": 10,
+    "paid": 0,
+    "paid_without_subscription_pointer": 0,
+    "legacy_hold": 0,
+    "customer_mapping_conflicts": 0,
+    "receipt_rows": 0,
+    "state_rows": 0
+  },
+  "tables": {
+    "receipt_table": {
+      "rls_enabled": true,
+      "policies": 0,
+      "anon_privileges": [],
+      "authenticated_privileges": [],
+      "service_role_privileges": ["SELECT", "INSERT", "UPDATE"]
+    },
+    "state_table": {
+      "rls_enabled": true,
+      "policies": 0,
+      "anon_privileges": [],
+      "authenticated_privileges": [],
+      "service_role_privileges": ["SELECT", "INSERT", "UPDATE"]
+    }
+  },
+  "rpc_functions": {
+    "count": 5,
+    "security_definer": true,
+    "fixed_search_path": "pg_catalog, public, pg_temp",
+    "anon_execute": false,
+    "authenticated_execute": false,
+    "service_role_execute": true
+  },
+  "postgrest": {
+    "receipt_table_select": {
+      "http_status": 200,
+      "rows": 0
+    },
+    "rpc_null_guard": {
+      "http_status": 400,
+      "sqlstate": "P0001",
+      "message": "missing checkout session identity"
+    }
+  },
+  "side_effects": {
+    "migration_ddl_retries": 0,
+    "paid_checkout": 0,
+    "pdf_delivery": 0,
+    "webhook_replay": 0
+  },
+  "notes": [
+    "No customer identifiers, API URLs, keys, tokens, or row data are stored.",
+    "The null-guard RPC request did not create or update data.",
+    "A successful production deploy and deployed webhook-route readback are still pending."
+  ]
+}
