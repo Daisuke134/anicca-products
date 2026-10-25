@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "run_id": "ai-monk-factory-runtime-readback-20261025T110509Z",
+  "owner_id": "codex-primary",
+  "occurrence_id": "ai-monk-factory-runtime-readback-20261025T110509Z",
+  "release_sha": "3f10484ad3678004055f008315072f663ad402bb",
+  "observed_at": "2026-10-25T11:05:09Z",
+  "phase": "factory_runtime_readiness_readonly",
+  "command": "Official provider and deployment GETs using exact credentials from the private credential SSOT; no secret values or environment values were logged.",
+  "loaded_argv": [
+    "GET https://api.heygen.com/v3/users/me",
+    "GET https://generativelanguage.googleapis.com/v1beta/models",
+    "GET Netlify sites list, production environment metadata, and latest deploy metadata",
+    "Read browser inventory and Factory browser identity registry"
+  ],
+  "loaded_env": {
+    "credential_source": "/Users/anicca/.local/share/anicca/credentials.json",
+    "secret_values_logged": false,
+    "netlify_environment_values_logged": false
+  },
+  "exit_code": 0,
+  "effect": "none_read_only",
+  "readback": {
+    "heygen_factory": {
+      "http_status": 200,
+      "wallet_currency": "usd",
+      "wallet_remaining_balance": 0.0,
+      "generation_started": false,
+      "charge_created": false
+    },
+    "gemini_factory": {
+      "http_status": 200,
+      "models_returned": 50,
+      "script_model_present": true,
+      "image_model_present": true,
+      "billing_verified_in_credential_ssot": false,
+      "provider_state_in_credential_ssot": "prepared_unfunded",
+      "generation_started": false,
+      "charge_created": false
+    },
+    "netlify_production": {
+      "site": "aniccaai.com",
+      "site_list_http_status": 200,
+      "site_count_matched": 1,
+      "environment_http_status": 200,
+      "environment_variable_count": 62,
+      "factory_variable_names": [],
+      "latest_deployment_http_status": 200,
+      "latest_deployment": {
+        "id": "6adddb93da46f4fd31fd1992",
+        "state": "ready",
+        "context": "production",
+        "branch": "main",
+        "commit_ref": null,
+        "title_source_commit": "3f10484ad3678004055f008315072f663ad402bb"
+      }
+    },
+    "diagnostic_probe": {
+      "initial_netlify_account_sites_route_http_status": 404,
+      "fallback_sites_route_http_status": 200,
+      "error_class": "route_shape_404_recovered",
+      "retryable": false,
+      "next_action": "Use the provider-supported sites list endpoint; no site state changed."
+    },
+    "credential_ssot_snapshot": {
+      "heygen_ai_monk_factory": {
+        "updated_at": "2026-10-23T20:00:49.344502+00:00",
+        "wallet_auto_reload_enabled": false,
+        "workspace_api_auto_refill_enabled": true,
+        "workspace_api_auto_refill_currently_verified": false
+      },
+      "gemini_ai_monk_factory": {
+        "updated_at": "2026-10-24T00:09:48.049118+00:00",
+        "billing_verified": false,
+        "provider_state": "prepared_unfunded"
+      },
+      "stripe_ai_monk_factory_production": {
+        "updated_at": "2026-10-23T19:30:16.155969+00:00",
+        "account_status": "catalog_prepared_runtime_disabled"
+      }
+    },
+    "factory_studio_browser": {
+      "observed_at": "2026-10-25T11:04:55Z",
+      "authenticated_factory_tab_present": false,
+      "authenticated_studio_get_attempted": false,
+      "unrelated_browser_identity_reused": false
+    },
+    "production_configuration_changed": false,
+    "instagram_oauth_started": false,
+    "instagram_post_published": false,
+    "stripe_checkout_created": false,
+    "payment_created": false
+  },
+  "provider_receipt_id": "6adddb93da46f4fd31fd1992",
+  "evidence_refs": [
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "docs/evidence/ai-monk-factory-studio-schema-error-20261025T1049Z.json"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Keep production generation disabled. First verify Studio using its owner-authorized authenticated browser identity, then read back the current HeyGen workspace auto-refill control and establish actual provider spend limits before configuring runtime, funding, or generating media."
+}
