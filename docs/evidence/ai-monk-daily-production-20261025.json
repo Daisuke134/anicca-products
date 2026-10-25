@@ -1,0 +1,108 @@
+{
+  "schema_version": "anicca.ai-monk-daily-production.v1",
+  "observed_at": "2026-10-25T00:15:42.377Z",
+  "public_json_url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+  "public_json_http_status": 200,
+  "canonical_sha256": "92f178965a967441fe38c5c58d44abfb0b551641fc8180e7b2f874606b761931",
+  "public_json_sha256": "92f178965a967441fe38c5c58d44abfb0b551641fc8180e7b2f874606b761931",
+  "json_bytes": 592026,
+  "remote_mcp_url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+  "tools": [
+    "ai_monk_index_stats",
+    "get_ai_monk",
+    "how_they_monetize",
+    "search_ai_monks",
+    "top_formats",
+    "winning_playbooks"
+  ],
+  "remote_stats": {
+    "metadata": {
+      "schema_version": "anicca.ai-monk-avatar-database.v1",
+      "updated_at": "2026-10-25",
+      "snapshot_sha256": "92f178965a967441fe38c5c58d44abfb0b551641fc8180e7b2f874606b761931",
+      "source_url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "scope": "English-first research on monk profiles and AI monk video avatars such as Yang Mun. The public directory contains 73 profiles: 6 evidence-reviewed video personas and 67 pending research candidates. The 75-record research archive also retains 2 excluded illustrated/watercolor channels. This is not a complete census.",
+      "research_archive_records": 75,
+      "excluded_from_directory": 2,
+      "license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners.",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "methodology": [
+        "Publish explicitly included and pending monk research profiles. Included records carry reviewed video-avatar evidence; pending records remain candidates with their existing unknowns. Exclude illustrated/watercolor accounts and missing-scope records from the directory. An image or discovery lead alone does not establish AI production or video format.",
+        "Do not merge accounts on similar names alone. Unknown handles, creators, launch dates, and product URLs remain null with a reason.",
+        "Store platform, source URL, capture date, and metric beside each number. Instagram followers, YouTube subscribers, views, seller counters, creator statements, orders, and net profit are different measures.",
+        "Summarize video structure without storing full scripts, captions, or downloaded media. Video URLs point to the original platform.",
+        "User-provided screenshots are identified as such; their calendar capture date is unknown unless the screenshot itself shows it.",
+        "Screenshot-visible handles seed unverified leads. Public metadata is dated and source-linked when read through connected research providers. Direct automated HTTP probes stopped after the robots notice was reviewed. Subsequent headers are observed through normal public visible browser UI under an exclusive registered lease; private and age-restricted content is not opened. Unknown AI origin, creator, language and revenue are not inferred from appearance or audience size.",
+        "Audience ordering uses each platform's latest numeric followers/subscribers, never views or historical peaks. All-platform comparisons use the largest single observed audience; cross-platform audiences are not added and may overlap. Provider-rounded figures are labelled in each snapshot status.",
+        "Candidate language labels added in the profile audit reflect the visible bio language, not a full spoken-video audit. Public bio links establish attribution to a destination, not store ownership, orders, medical efficacy or revenue.",
+        "Public offer observations retain displayed price kind, currency (null when unverified), reference/variant prices and availability separately from paid orders and revenue. Shared products reuse an observation_id across attributed accounts; account offer rows are not distinct product counts. Free/PWYW labels, reviews, subscribers, recipe counts and incomplete pricing placeholders do not establish sales. Discovery hubs or redirects establish routes, not ownership or authorship."
+      ],
+      "views_order": "Largest observed view count among sampled videos on the selected platform, not channel totals or recent-period reach. See each sample date and source.",
+      "revenue_order": "Latest reported three-month USD gross-revenue observation, descending. Other currencies, periods, profit, buyout offers, seller counters and prices are excluded. Missing values sort last; claims are not audited sales.",
+      "audience_order": "Latest numeric followers/subscribers per platform; largest single audience when platform=all. Audiences are not added. Views and revenue claims are not audience counts. See each snapshot for date, source and rounding."
+    },
+    "records": 73,
+    "sources": 239,
+    "ai_status": {
+      "confirmed": 0,
+      "reported": 7,
+      "unverified": 66
+    }
+  },
+  "changed_accounts_match": [
+    "yang-mun",
+    "ming-san",
+    "yan-chen-monjechen"
+  ],
+  "public_json_and_mcp_match": true,
+  "source_main": "c2b161aff21bc68a4c24980a75dbb994d79fdd82",
+  "source_pr": "https://github.com/Daisuke134/anicca-products/pull/706",
+  "source_head": "95498fd935db35bdbe07e746d14ddc04f2d70e77",
+  "web_ssr": {
+    "url": "https://aniccaai.com/ai-monk-database",
+    "captured_at": "2026-10-25T00:15:51.294786+00:00",
+    "html_sha256": "1d1098798ddb42c6f3ff4c324b2bf24effe1b17fb288ee9584b97ce5fd2ef60e",
+    "h1": "AI Monk Database",
+    "article_count": 73,
+    "article_ids_match_directory": true,
+    "ai_status_ui_absent": true,
+    "sort_options": [
+      "audience",
+      "views",
+      "revenue",
+      "directory"
+    ],
+    "new_jpy_offers_and_observation_date_visible": true,
+    "limitation": "Static public SSR readback; unchanged images/layout were not re-tested."
+  },
+  "ci": {
+    "landing": {
+      "run_id": 40145424041,
+      "head_sha": "95498fd935db35bdbe07e746d14ddc04f2d70e77",
+      "conclusion": "success",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40145424041"
+    },
+    "package": {
+      "run_id": 40145423944,
+      "head_sha": "95498fd935db35bdbe07e746d14ddc04f2d70e77",
+      "conclusion": "success",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40145423944"
+    },
+    "netlify": {
+      "run_id": 40145657868,
+      "head_sha": "c2b161aff21bc68a4c24980a75dbb994d79fdd82",
+      "conclusion": "success",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40145657868",
+      "post_deploy_smoke": {
+        "completedAt": "2026-10-25T00:15:47Z",
+        "conclusion": "success",
+        "name": "Post-deploy money-path smoke + rollback (prod only)",
+        "number": 11,
+        "startedAt": "2026-10-25T00:15:26Z",
+        "status": "completed"
+      }
+    }
+  },
+  "accepted_at": "2026-10-25T00:16:43.548225+00:00",
+  "acceptance": "public JSON bytes, 73-card SSR, remote MCP stats and changed accounts match canonical; deploy smoke successful"
+}

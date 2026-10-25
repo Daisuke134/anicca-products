@@ -111,7 +111,9 @@ best=対象の明確な小さい一覧を起点に同じ根拠基準で拡大す
 2026-10-24T23:59:58.755Zの定期更新を、base `29a84055d86fd4dbcf0dc82fb8f6530018125501`由来の専用branch `data/ai-monk-daily-20261025`で扱う。現行73公開/75archive・included6/pending67/excluded2・233出典と全履歴を保持する。Yang Munの既存YouTube3動画と丸めsubscriber、Yang Mun/Ming San/Yan Chenの公式商品ページを無料公開sourceで再確認する。取得時刻・出所・通貨・期間・未取得理由を記録し、不明売上を推定しない。公式creator記事の既知申告も再読する。Instagramの直接HTTP停止方針と既存browser leaseを維持し、有料lookup・動画生成・SNS投稿・Factory実装・元のpaused goalの再開を行わない。
 
 - [x] 日付付き観測を追記し、旧source/metric/offer/収益申告と非対象account不変を検証する。
-- [ ] 関連既存testsと独立read-only確認、exact CI/main統合を通す。
-- [ ] 公開JSON/Web/remote MCPと次patch CLIの公式取得を照合し、未取得理由と学びを証拠へ記録する。
+- [x] 関連既存testsと独立read-only確認、exact CI/main統合を通す。
+- [x] 公開JSON/Web/remote MCPと次patch CLIの公式取得を照合し、未取得理由と学びを証拠へ記録する。
 
-現在cursor: 2回目heartbeatのsource受入。3プロフィールに指標4/商品4/出典6を追記、全239出典。helper9＋package16tests PASS。独立確認・CI/mainと公開受入は進行中。仕様・掲載判定・UIの振る舞い変更はなく、データ追記と配布snapshot更新に限定する。
+現在cursor: 2回目heartbeatの公開受入完了。3プロフィールに指標4/商品4/出典6を追記、全239出典。helper9＋package16tests PASS、独立反証0件。仕様・掲載判定・UIの振る舞い変更はなく、データ追記と配布snapshot更新に限定する。
+
+**2回目heartbeatの本番受入:** PR706/head `95498fd935db35bdbe07e746d14ddc04f2d70e77`はLanding40145424041・package40145423944・CodeRabbitがSUCCESS、main `c2b161aff21bc68a4c24980a75dbb994d79fdd82`へ統合する。Netlify40145657868と既存post-deploy smokeはSUCCESS。公開JSONのSHA256 `92f178965a967441fe38c5c58d44abfb0b551641fc8180e7b2f874606b761931`、Web73card/JPY2offer/観測日、remote MCP6tools・73件/239出典/75archiveと変更3accountの完全一致を確認する。CLI v0.4.20の公式tagは同main、asset77,280bytes/SHA256 `de7312cc37ff4f2c9a7653f44f6e9edc371511606270493fa6be62e0580e36ee`。公式assetのdigestと公開URLからの実install・CLI/stdioを照合する。central registry metadataは今回再publishしない。Instagramの自動HTTP停止方針/既存leaseを維持し、有料lookup未使用。現在の売上・注文・利益は未確認のまま。本人記事は既知申告と元公開日を再読しただけで、新規申告の網羅調査とは扱わない。元の長時間goalは再開せず、Factory実装・動画生成・SNS投稿・追加購入は0。証拠 → `docs/evidence/ai-monk-daily-{refresh,production}-20261025.json`、`docs/evidence/ai-monk-cli-mcp-v0420-release-20261025.json`。
