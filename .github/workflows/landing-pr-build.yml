@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'apps/landing/**'
+      - 'netlify.toml'
       - 'packages/ai-monk-index/**'
       - 'scripts/test-ai-monk-factory-db.mjs'
       - '.github/workflows/landing-pr-build.yml'

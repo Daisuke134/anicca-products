@@ -5,6 +5,30 @@
 # The GitHub deploy workflow runs from apps/landing, so keep the Web-first
 # redirect in this deploy-root config as well as the repository-root config.
 [[redirects]]
+  from = "/maritime"
+  to = "https://life-call-production.up.railway.app/maritime"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/maritime/*"
+  to = "https://life-call-production.up.railway.app/maritime/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/auth/google"
+  to = "https://life-call-production.up.railway.app/auth/google"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/auth/google/callback"
+  to = "https://life-call-production.up.railway.app/auth/google/callback"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/life-manager"
   to = "/lm"
   status = 301

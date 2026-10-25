@@ -17,6 +17,30 @@
 # The old Telegram-first landing is no longer the Cloud entry point. Keep old links
 # and their query/UTM parameters, but send every visitor to the canonical Web flow.
 [[redirects]]
+  from = "/maritime"
+  to = "https://life-call-production.up.railway.app/maritime"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/maritime/*"
+  to = "https://life-call-production.up.railway.app/maritime/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/auth/google"
+  to = "https://life-call-production.up.railway.app/auth/google"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/auth/google/callback"
+  to = "https://life-call-production.up.railway.app/auth/google/callback"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/life-manager"
   to = "/lm"
   status = 301
