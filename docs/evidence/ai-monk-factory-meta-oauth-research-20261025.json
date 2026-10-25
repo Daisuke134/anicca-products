@@ -1,0 +1,68 @@
+{
+  "schema_version": "anicca.ai-monk-factory-meta-oauth-research.v1",
+  "run_id": "ai-monk-factory-meta-oauth-research-20261025",
+  "owner_id": "root",
+  "occurrence_id": "factory-meta-unified-login-source-review-20261025T041242Z",
+  "release_sha": "6b0fb5354a394292e66003fec0b19d11d9a1f737",
+  "observed_at": "2026-10-25T04:12:42Z",
+  "phase": "official_api_docs_read_only_research",
+  "command": [
+    "crwl crawl https://developers.facebook.com/docs/instagram-platform/overview/ -o markdown-fit",
+    "crwl crawl https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/content-publishing/ -o markdown-fit",
+    "read credential SSOT service names for Meta, Facebook, and Instagram; never print credential values"
+  ],
+  "loaded_argv": {
+    "provider_operations": "read_only_documentation_and_SSOT_metadata",
+    "meta_app_creation_or_changes": 0,
+    "oauth_authorizations": 0,
+    "instagram_posts": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT was parsed; only matching service names and field names were inspected",
+    "credential_values_printed": 0,
+    "instagram_monkmujo_credential_row_present": true,
+    "meta_or_facebook_oauth_app_credential_row_observed": false
+  },
+  "exit_code": 0,
+  "effect": {
+    "meta_app_changes": 0,
+    "oauth_authorizations": 0,
+    "instagram_posts": 0
+  },
+  "readback": {
+    "official_meta_recommendation": "Instagram API with Unified Login is recommended for new integrations",
+    "supported_account_scope": "Instagram Professional accounts, including Business and Creator accounts",
+    "login_and_page_requirement": "Instagram or Facebook login can link a Professional account without a Facebook Page",
+    "standard_access": "sufficient for accounts the app developer owns or manages and app-role testing",
+    "advanced_access": "needed for customer accounts not owned or managed by the developer; requires App Review and Business Verification",
+    "unified_login_content_publishing_permissions": [
+      "instagram_basic",
+      "instagram_content_publish"
+    ],
+    "media_requirement": "publishing media must be hosted on a publicly accessible server",
+    "factory_adapter_state": "current Factory Instagram adapter uses Upload-Post; Meta Unified Login is not implemented",
+    "test_account_state": "user explicitly authorizes monk.mujo, which is currently listed in Postiz; its Professional account status and Meta app role have not been read back"
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "url": "https://developers.facebook.com/docs/instagram-platform/overview/",
+      "fact": "Meta recommends Unified Login for new integrations; it links Professional accounts without requiring a Facebook Page. Standard Access is for owned/managed or app-role accounts; Advanced Access requires App Review and Business Verification for other accounts."
+    },
+    {
+      "url": "https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/content-publishing/",
+      "fact": "Meta documents Instagram publishing permissions and publicly accessible media requirements; Reels are supported by the content publishing API."
+    },
+    {
+      "path": "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+      "fact": "The current Factory social adapter uses Upload-Post, so implementing Meta Unified Login requires a provider change."
+    },
+    {
+      "path": "docs/evidence/ai-monk-factory-e2e-preflight-20261025.json",
+      "fact": "The user-authorized Instagram integration is present in Postiz; no Factory OAuth connection or post was created."
+    }
+  ],
+  "error_class": "meta_app_and_factory_runtime_not_configured",
+  "retryable": false,
+  "next_action": "Implement Meta Instagram API with Unified Login for owned-account testing, verify monk.mujo is a Professional account and has an app role, replace the Upload-Post adapter, then complete the remaining funded-provider, hard-cap, Stripe test-mode and Factory E2E prerequisites. Obtain Advanced Access, App Review and Business Verification before serving external customer accounts."
+}
