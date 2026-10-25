@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "run_id": "ai-monk-factory-provider-live-readback-20261025T081054Z",
+  "owner_id": "codex-primary",
+  "occurrence_id": "ai-monk-factory-provider-readback-20261025T081054Z",
+  "release_sha": "8cf9f5b6081e57e164c0d16b20d90160e155cf6e",
+  "observed_at": "2026-10-25T08:10:54Z",
+  "phase": "provider_readiness_readonly",
+  "command": "Read-only HeyGen GET /v3/users/me for existing and Factory credentials; read-only Gemini GET /v1beta/models for Factory credential.",
+  "loaded_argv": [
+    "GET https://api.heygen.com/v3/users/me (credentials loaded by exact SSOT service name)",
+    "GET https://generativelanguage.googleapis.com/v1beta/models (credential loaded by exact SSOT service name)"
+  ],
+  "loaded_env": {
+    "credential_source": "/Users/anicca/.local/share/anicca/credentials.json",
+    "secret_values_logged": false
+  },
+  "exit_code": 0,
+  "effect": "none_read_only",
+  "readback": {
+    "heygen_existing_account": {
+      "http_status": 200,
+      "wallet_currency": "usd",
+      "wallet_remaining_balance": 6.53,
+      "auto_reload": {
+        "enabled": true,
+        "threshold_usd": 5.0,
+        "amount_usd": 10.0
+      }
+    },
+    "heygen_factory_account": {
+      "http_status": 200,
+      "wallet_currency": "usd",
+      "wallet_remaining_balance": 0.0,
+      "auto_reload": {
+        "enabled": false
+      }
+    },
+    "gemini_factory_project": {
+      "models_http_status": 200,
+      "models_returned": 50,
+      "script_model_listed": true,
+      "image_model_listed": true,
+      "billing_verified_in_ssot": false,
+      "project_state_in_ssot": "prepared_unfunded"
+    },
+    "generation_started": false,
+    "charge_created": false,
+    "production_configuration_changed": false
+  },
+  "production_deployment_readback": {
+    "run_id": "ai-monk-factory-netlify-readback-20261025T081101Z",
+    "owner_id": "codex-primary",
+    "occurrence_id": "ai-monk-factory-netlify-readback-20261025T081101Z",
+    "release_sha": "f2e13ec4961383611c6499401d5ffca1d1e44fb4",
+    "observed_at": "2026-10-25T08:11:01Z",
+    "phase": "production_env_and_deployment_readback",
+    "command": "Official Netlify API GET for production environment names and latest production deployment; values were not read into output.",
+    "loaded_argv": [
+      "GET Netlify production environment metadata",
+      "GET latest production deploy metadata"
+    ],
+    "loaded_env": {
+      "credential_source": "/Users/anicca/.local/share/anicca/credentials.json",
+      "secret_values_logged": false,
+      "environment_values_logged": false
+    },
+    "exit_code": 0,
+    "effect": "none_read_only",
+    "readback": {
+      "site": "aniccaai.com",
+      "http_status": 200,
+      "environment_variable_count": 58,
+      "factory_variable_count": 0,
+      "latest_deployment": {
+        "id": "6addb95cf9d5a8de330cc4e4",
+        "state": "ready",
+        "context": "production",
+        "branch": "main",
+        "commit_ref": null,
+        "title_sha": "f2e13ec4961383611c6499401d5ffca1d1e44fb4"
+      }
+    },
+    "provider_receipt_id": "6addb95cf9d5a8de330cc4e4",
+    "evidence_refs": [
+      "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md"
+    ],
+    "error_class": null,
+    "retryable": false,
+    "next_action": "Do not enable production generation until the Factory-specific HeyGen and Gemini billing states and effective spend controls are ready; then configure production runtime secrets and verify generation readiness."
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Keep generation disabled until the Factory-specific HeyGen wallet has a verified bounded spend setup and the dedicated Gemini project billing is verified; then configure the Factory runtime and run the three-free-video E2E."
+}
