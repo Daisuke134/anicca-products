@@ -28,6 +28,13 @@ Public crawlで`/factory`のAnicca Web Apps一覧に、eBookへ誘導するcompl
 8. **Evidence and one-time launch:** product/provider/post/Stripe結果を区別して記録し、end-to-end成立後にFactoryをXで一度だけ告知する。
 9. **After MVP:** end-to-end完了後に限り、Database improvementとproduct/distribution iterationを継続loopへ移す。TikTok API、iPhone app、ChatGPT/Muse marketplace listingはこのInstagram-first web MVPのblockerにしない。
 
+### FACTORY-UI-READBACK-1 task ledger
+
+- Spec/acceptance: `../specs/2026-10-24-ai-monk-factory-saas-design.md`「UI action/readback false-failure」。Separate accepted POST from failed status refresh; keep idempotency/pending occurrence; do not claim an accepted request failed.
+- Task: complete locally, source release pending. Dedicated test was RED before implementation (`refreshFactoryActionStatus is not a function`), then GREEN (2/2). Combined Factory/client/API suite: 131 tests, 96 pass, 0 fail, 35 DB fixture skips. Production build: 678 pages, exit 0. TypeScript check retains six baseline errors in unchanged files.
+- Commit range: base `508557e042e7a29ebf152ef9b3fd72e58865b83a`; head `0c7e23da9` before final review amendments. CI/main/production deploy remain required to complete the source-release TODO.
+- Final review: pending read-only review package; no subagent tool is used in this session.
+
 このreleaseではsource、DB schema関数、公開copyのみ反映し、provider設定、HeyGen funding、Gemini billing、Meta OAuth、Instagram投稿、Stripe Checkout/charge、本番Factory envは変更していない。authenticated Studioでボタンを押す実操作も未確認。HeyGen wallet USD0・provider cap未確認のため、runtimeはclosedのままにする。
 
 **Factory flow auditによる過去の順序変更（superseded）:** quota release前の順序は (1) provider spend boundary、(2) `FACTORY-FREE-3-1`のsource実装/release、(3) runtime readiness、(4) generation E2E、(5) Instagram auto-post E2E、(6) Stripe test conversion、(7) evidence/X、(8) improvement/distribution loop。source quotaがattempt 3回で止まり、失敗生成時の3 completed artifact契約と合わなかったためquota releaseを先行した。現在はrelease/readback済みで、上記SaaS-2をcurrent cursorとする。
