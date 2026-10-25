@@ -1,6 +1,6 @@
 "use strict";
 
-const LIFE_MANAGER_WEB_APP_URL = "https://life-call-production.up.railway.app/lm?start_calendar=1";
+const LIFE_MANAGER_WEB_APP_URL = "/maritime?source=landing";
 const WRITER_KEYS = Object.freeze(["product_id", "run_id", "artifact_id", "variant_id", "click_id"]);
 const UTM_LIMITS = Object.freeze({
   utm_source: 120,
@@ -21,7 +21,7 @@ function lifeManagerCtaHref(search) {
     return "/.netlify/functions/writer-cta?" + writerParams.toString();
   }
 
-  const target = new URL(LIFE_MANAGER_WEB_APP_URL);
+  const target = new URL(LIFE_MANAGER_WEB_APP_URL, "https://aniccaai.com");
   for (const [key, maxBytes] of Object.entries(UTM_LIMITS)) {
     const candidates = params.getAll(key);
     if (candidates.length !== 1) continue;
@@ -29,7 +29,7 @@ function lifeManagerCtaHref(search) {
     if (!value || new TextEncoder().encode(value).length > maxBytes) continue;
     target.searchParams.set(key, value);
   }
-  return target.toString();
+  return `${target.pathname}${target.search}`;
 }
 
 export { LIFE_MANAGER_WEB_APP_URL, WRITER_KEYS, lifeManagerCtaHref };

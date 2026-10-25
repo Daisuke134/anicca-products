@@ -7,7 +7,6 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { createRequire } from "node:module";
-import { LIFE_MANAGER_WEB_APP_URL } from "../lib/writer-cta-url.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
@@ -15,6 +14,7 @@ const { assertWebAppHandoff } = require(join(here, "../../life-call/lib/money-pa
 const registry = JSON.parse(readFileSync(join(here, "../monitors/registry.json"), "utf8"));
 
 const BASE = process.argv[2] || "https://aniccaai.com";
+const LIFE_MANAGER_WEB_SERVICE_ORIGIN = "https://life-call-production.up.railway.app";
 const fail = (m) => { console.error("SMOKE FAIL:", m); process.exit(1); };
 
 // 1. core routes 200
@@ -41,7 +41,7 @@ if (chunkPath) {
 const verdict = assertWebAppHandoff({ chunk }, { publicOrigin: BASE });
 if (!verdict.ok) fail(verdict.reason);
 // Verify backend health directly. The public onboarding and authentication path stays on Netlify.
-const webHealth = await fetch(new URL("/health", LIFE_MANAGER_WEB_APP_URL));
+const webHealth = await fetch(new URL("/health", LIFE_MANAGER_WEB_SERVICE_ORIGIN));
 if (webHealth.status !== 200) fail(`Life Manager web app health returned ${webHealth.status}`);
 const health = await webHealth.json().catch(() => null);
 if (!health || health.ok !== true || health.service !== "life-call") fail("Life Manager web app health response is invalid");

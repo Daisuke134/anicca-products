@@ -8,6 +8,7 @@ const { pathToFileURL } = require("node:url");
 
 const LANDING = path.resolve(__dirname, "../../landing");
 const LM_BODY = path.join(LANDING, "app/lm/LmBody.tsx");
+const LM_JA_CTA = path.join(LANDING, "components/lm/LmJaCta.tsx");
 const LAUNCH_STRINGS = path.join(LANDING, "lib/launchStrings.ts");
 
 function localizedLmBlock(source, locale) {
@@ -18,7 +19,7 @@ function localizedLmBlock(source, locale) {
   return source.slice(start, end);
 }
 
-test("public /lm primary CTA starts the same-tab Web app Calendar flow", async () => {
+test("public /lm primary CTA starts same-origin Life Manager Cloud", async () => {
   const source = fs.readFileSync(LM_BODY, "utf8");
   const start = source.indexOf("href={startHref}");
   const end = source.indexOf("</a>", start);
@@ -31,7 +32,8 @@ test("public /lm primary CTA starts the same-tab Web app Calendar flow", async (
   assert.match(anchor, /primaryCta/);
   assert.doesNotMatch(anchor, /target=/);
   assert.equal(lifeManagerCtaHref(""), LIFE_MANAGER_WEB_APP_URL);
-  assert.match(LIFE_MANAGER_WEB_APP_URL, /^https:\/\/life-call-production\.up\.railway\.app\/lm$/);
+  assert.equal(LIFE_MANAGER_WEB_APP_URL, "/maritime?source=landing");
+  assert.doesNotMatch(LIFE_MANAGER_WEB_APP_URL, /life-call-production\.up\.railway\.app|start_calendar/);
   assert.doesNotMatch(source, /TG_DEEPLINK|t\.me\/LifeManagerBotbot/);
 });
 
@@ -41,23 +43,27 @@ test("public /lm carries campaign UTMs to the app entry route", async () => {
   );
   assert.equal(
     lifeManagerCtaHref("?utm_source=instagram&utm_medium=social&utm_campaign=leave-on-time"),
-    `${LIFE_MANAGER_WEB_APP_URL}?utm_source=instagram&utm_medium=social&utm_campaign=leave-on-time`,
+    `${LIFE_MANAGER_WEB_APP_URL}&utm_source=instagram&utm_medium=social&utm_campaign=leave-on-time`,
   );
 });
 
-test("localized /lm copy describes Web Calendar onboarding and the current offer", () => {
+test("Japanese Life Manager CTA also enters Cloud without a Calendar-first prompt", () => {
+  const source = fs.readFileSync(LM_JA_CTA, "utf8");
+  assert.match(source, /Life Manager Cloudを始める/);
+  assert.doesNotMatch(source, /Googleカレンダーに接続|7日間無料|life-call-production\.up\.railway\.app/);
+});
+
+test("localized /lm copy describes one broad Life Manager product and Capafy-first Cloud", () => {
   const source = fs.readFileSync(LAUNCH_STRINGS, "utf8");
   const en = localizedLmBlock(source, "en");
   const ja = localizedLmBlock(source, "ja");
 
-  assert.match(en, /Connect Google Calendar/);
-  assert.match(en, /7-day free trial/);
-  assert.match(en, /card is required/i);
-  assert.match(en, /\$29\/mo/);
-  assert.doesNotMatch(en, /Telegram|home or base|phone calls|coming soon/i);
-  assert.match(ja, /Googleカレンダーに接続/);
-  assert.match(ja, /7日間無料/);
-  assert.match(ja, /カード登録が必要/);
-  assert.match(ja, /月 ?\$29/);
-  assert.doesNotMatch(ja, /Telegram|自宅|拠点|電話|近日公開/);
+  assert.match(en, /work, money, everyday responsibilities, body, and mind/i);
+  assert.match(en, /Google sign-in verifies identity only/i);
+  assert.match(en, /first earning workflow uses Capafy/i);
+  assert.doesNotMatch(en, /Connect Google Calendar|Calendar permission is required|card is required|7-day free trial/i);
+  assert.match(ja, /仕事、お金、日々の用事、体と心/);
+  assert.match(ja, /Googleログインは本人確認のみ/);
+  assert.match(ja, /最初の収益化ワークフローはCapafy/);
+  assert.doesNotMatch(ja, /Googleカレンダーに接続|Calendar権限が必要|7日間無料|カード登録が必要/);
 });
