@@ -1,0 +1,112 @@
+{
+  "observed_at": "2026-10-26T03:48:53+09:00",
+  "scope": "Factory completed-free-video contract release and official production readback; no provider generation, OAuth, posting, checkout, charge, or runtime activation.",
+  "mvp_contract": {
+    "order": [
+      "Generate Monk Avatar",
+      "Generate The Full Video with complete script and voice; up to three completed videos free",
+      "Connect Instagram; successful OAuth consent starts daily generation and posting"
+    ],
+    "free_offer": "Three completed videos, no card, no expiration, no three-day trial.",
+    "failed_attempts": "Do not reduce completed-video allowance; at most six free generation attempts.",
+    "checkout": "Blocked until all three free videos are complete; an incomplete offer never starts a charge.",
+    "ebook_campaign": "The Art of AI Monks",
+    "existing_daily_owner": "Grok Bot/Postiz schedule and accounts remain untouched."
+  },
+  "source_release": {
+    "pull_request": 769,
+    "url": "https://github.com/Daisuke134/anicca-products/pull/769",
+    "branch": "fix/ai-monk-factory-three-completed-free-20261026",
+    "head_commit": "f51b02315d3fb05c2a50146c4743b5d4b6d42eef",
+    "merge_commit": "780875429163509130e54e633784f2268e75fe64",
+    "pr_ci": { "run_id": "40222323537", "conclusion": "success" },
+    "production_deploy": { "run_id": "40222558779", "conclusion": "success", "post_deploy_money_path_smoke": "success" }
+  },
+  "verification": {
+    "factory_node_suite": { "total": 129, "passed": 94, "failed": 0, "skipped_without_database_fixture": 35 },
+    "isolated_postgres": { "passed": 35, "failed": 0 },
+    "production_build": { "exit_code": 0, "static_pages": 677 },
+    "typescript": {
+      "factory_changed_files_with_errors": 0,
+      "unchanged_file_errors": 6
+    },
+    "diff_check": "pass",
+    "evidence_json": "valid"
+  },
+  "supabase_production": {
+    "project": "Anicca",
+    "project_id": "cycgdwndgfgdbnndithc",
+    "migration_name": "monk_factory_completed_video_quota",
+    "migration_version": "20261025184321",
+    "migration_history_readback": "present",
+    "function_readback": {
+      "reserve_job_has_six_free_attempt_limit": true,
+      "usage_reports_completed_video_count": true,
+      "checkout_disables_trial": true,
+      "set_autopost_allows_saved_unposted_free_video": true
+    }
+  },
+  "netlify_production": {
+    "site": "aniccaai.com",
+    "environment_http": 200,
+    "environment_variable_count": 62,
+    "factory_variable_count": 0,
+    "deploy": {
+      "id": "6ade4e85d9632fe4303c52ef",
+      "state": "ready",
+      "context": "production",
+      "branch": "main",
+      "commit_ref": null,
+      "title": "Deploy from GHA prod - 780875429163509130e54e633784f2268e75fe64",
+      "published_at": "2026-10-25T18:47:28.672Z"
+    }
+  },
+  "public_readback": {
+    "studio": {
+      "url": "https://aniccaai.com/ai-monk-factory",
+      "copy": "Three completed videos, up to 20 seconds each. No card, no time limit, and no three-day trial.",
+      "subscription": "USD 199/month after all three completed videos"
+    },
+    "factory_listing": {
+      "url": "https://aniccaai.com/factory",
+      "entry": "AI Monk Factory",
+      "copy": "AI monk avatars and complete scripted Reels that introduce The Art of AI Monks. Three finished videos free; connect Instagram to start daily posting.",
+      "status": "Preparing · 3 videos free · $199/mo after"
+    },
+    "products_listing": {
+      "url": "https://aniccaai.com/products/",
+      "entry": "AI Monk Factory under Software",
+      "status": "Preparing to open; generation and subscription checkout are not open yet."
+    }
+  },
+  "provider_readback": {
+    "heygen": {
+      "endpoint": "GET /v3/users/me",
+      "http": 200,
+      "wallet_currency": "usd",
+      "wallet_remaining_balance": 0,
+      "auto_reload_enabled": false,
+      "provider_hard_spend_cap": "not available in the readback"
+    },
+    "gemini_factory_credential_ssot": {
+      "provider_state": "prepared_unfunded",
+      "billing_verified": false
+    },
+    "stripe": {
+      "factory_catalog": "prepared; runtime disabled",
+      "factory_test_mode_secret_available": false
+    },
+    "meta": {
+      "factory_app_credential_available": false,
+      "instagram_user_login_credential_does_not_prove_oauth_app_readiness": true
+    }
+  },
+  "remaining_todo_order": [
+    "Verify a finite HeyGen spend boundary and dedicated Gemini billing/cap before generation; do not enable wallet auto-reload.",
+    "Configure dedicated Factory runtime secrets and verified billing evidence; configure Meta Instagram Login app/Standard Access/monk.mujo posting and Insights permissions; configure Stripe test Checkout, webhook, and recurring price.",
+    "Run one authenticated avatar plus up-to-three-completed-video acceptance on the deployed app.",
+    "Connect monk.mujo through Factory OAuth and verify daily generation/post URL/available metrics/Pause/Stop without changing Grok Bot/Postiz ownership.",
+    "Verify Stripe test Checkout/webhook and automatic posting resumption after the free quota; no live charge.",
+    "Save product evidence and make the single X launch after end-to-end acceptance; start the improvement/distribution loop only then."
+  ]
+}
