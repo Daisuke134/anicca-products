@@ -7,6 +7,16 @@
 
 ### Current cursor override — 2026-10-25
 
+#### Current live readback — 2026-10-25T10:53Z
+
+添付されたStudio画面の読込失敗を本番ログで読み取り専用照合した。2026-10-25T09:18:55.787Zと09:19:14.639ZにGET /rest/v1/monk_factory_jobsが400となり、PostgreSQL SQLSTATE 42703は「column monk_factory_jobs.metrics_checked_at does not exist」。同じ時刻のaccounts GET、usage RPC、company-budget RPCは200。production information_schemaにはmetrics_checked_atとInstagram OAuth用の5列がなく、monk_factory_fence_instagram_publish関数とmonk_factory_instagram_oauth_state indexもない。source migration 20261025140200_monk_factory_instagram_meta.sqlはmainに存在し、production migration historyにはまだない。よってgeneric Studio errorの直接原因はこの未適用migrationであり、Factory provider未準備によるGenerate disabledとは別の障害である。
+
+Studio GETを止めていたschema defectは解消済み。Supabase公式migration APIはmonk_factory_instagram_metaをversion 20261025105314として適用し、公式migration historyへ記録した。production readbackは6列・OAuth index・publish-fence functionの存在、authenticatedからtoken列を読めないこと、service_roleだけがtoken列を読みfenceを実行できることを確認した。Factory jobs GETと同じ列選択をLIMIT 0で実行し成功、既存行の変更0、generation/OAuth/post/Checkout/chargeは0。スクリーンショット後のauthenticated Studio GETは未観測なので、UI成功を推定しない。旧cursorは既存main migrationの適用とschema readback、新cursorはauthenticated Studio GETのread-only確認を経て、Factory専用HeyGen/Geminiの課金境界とruntime readinessへ進む。変更理由は、直接原因を修復した後の画面readbackとprovider readinessを分離するため。
+
+最新の本番環境・provider公式readback（2026-10-25T07:49Z）ではNetlify productionにFactory variablesがなく、HeyGen専用walletはUSD 0、自動補充off、Gemini projectはprepared_unfunded、Meta OAuth設定なし。通常HeyGen wallet/Grok Bot/Postiz ownerを流用・変更せず、HeyGen provider選定は固定する。ログ相関とschema比較の証拠 → ../../evidence/ai-monk-factory-studio-schema-error-20261025T1049Z.json。
+
+#### Historical 2026-10-25T08:47Z snapshot (superseded by current live readback)
+
 最新の依頼は「Generate Monk Avatar → Generate The Full Video（最大3本無料）→ Connect Your IG to auto post」。動画providerはHeyGenで確定し、選び直さない。monk.mujoの利用もテスト用に許可済み。source reviewでfree quota=0後のOAuth同意保存・autopost開始・既存投稿workerのgeneration readiness依存を修正し、完成済みfree video queueを投稿し、queue終了後はintentを保って新規generationを止める。API/action/job tests 41/41、isolated PostgreSQL 33/33はPASS。migration `monk_factory_free_queue_autopost` は本番Supabase `cycgdwndgfgdbnndithc` に適用済み（version `20261025084739`）。公式migration historyと関数readbackで3関数の存在・service_role限定EXECUTEを確認した。source branchは未merge・未deploy。Netlify本番は62 variables、`MONK_FACTORY_*`は0件。Factory HeyGen API keyは有効だが専用wallet USD0・auto-reload off、Gemini Factory projectは`prepared_unfunded` / `billing_verified=false`、Meta OAuth設定は未登録。本番画面のボタンがdisabledなのは、未設定のFactory runtime readinessがボタンを止めているためで、HeyGenの選択やclick handlerの不足ではない。通常HeyGen walletはFactory用に流用しない。認証済みStudioの実clickは未確認。
 
 最新の公式readback → `../../evidence/ai-monk-factory-runtime-blocker-20261025T084753Z.json`。Netlify latest deploy `6addb95cf9d5a8de330cc4e4`はready/production/main、`commit_ref=null`。migration適用は成功し、DB履歴version `20261025084739`と関数権限をreadbackした。生成・課金・OAuth・投稿・checkoutはいずれも0。
