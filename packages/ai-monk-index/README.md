@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release uses the current dated research snapshot: **73 monk profiles, including 6 evidence-reviewed video personas and 67 pending research candidates**, with **233 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. All six included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the current dated research snapshot: **73 monk profiles, including 6 evidence-reviewed video personas and 67 pending research candidates**, with **239 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. All six included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -40,12 +40,14 @@ v0.4.18 adds two first-party Stan digital-download offers linked to the pending 
 
 v0.4.19 adds explicit MCP initialization guidance to refuse requests for private credentials and payment details and to avoid guarantees or inferences about personal earnings and MRR. The research snapshot and six read-only tools are unchanged.
 
+v0.4.20 appends October 25 observations: three Yang Mun sampled video counts and its rounded 159K subscriber display, plus the Yang Mun, Beravia and Yan Chen public seller pages. The anonymous JP Journey response lists 8000/9600 JPY; dollar displays from a different retrieval context and previous selected-USD observations are kept separate. Beravia retains 29.99 USD one-time and 26.99 USD monthly; Yan Chen remains 9.95 EUR with unresolved availability. All old observations and financial claims are preserved; prices are not sales.
+
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.19/anicca-ai-monk-index-0.4.19.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.20/anicca-ai-monk-index-0.4.20.tgz
 ```
 
 ## CLI
