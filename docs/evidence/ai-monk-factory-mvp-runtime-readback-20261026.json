@@ -1,0 +1,237 @@
+{
+  "schema_version": "anicca.ai-monk-factory-mvp-runtime-readback.v1",
+  "run_id": "factory-mvp-runtime-readback-20261025T194042Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-mvp-runtime-readback-20261025T194042Z",
+  "release_sha": "889846dbafc2da14724cd5c5009853cdcfc615cf",
+  "observed_at": "2026-10-25T19:40:42+00:00",
+  "phase": "post_merge_production_readback_and_provider_cost_estimate",
+  "loaded_argv_env": {
+    "credential_services": [
+      "netlify-anicca-existing-deployment",
+      "heygen-ai-monk-factory",
+      "gemini-ai-monk-factory",
+      "stripe-test-restricted"
+    ],
+    "secret_values_logged": false,
+    "billing_state_source": "Gemini billing status is private SSOT metadata, not provider billing readback"
+  },
+  "commands": [
+    {
+      "command": "GitHub Actions Netlify deploy workflow run 40226235117",
+      "exit_code": 0,
+      "effect": "production deployment completed by main workflow",
+      "readback": {
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "889846dbafc2da14724cd5c5009853cdcfc615cf",
+        "post_deploy_money_path_smoke": "PASS",
+        "unique_deploy_url": "https://6ade5952b85feef47f98ea3a--anicca2.netlify.app"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Confirm official Netlify deploy readback and public Factory pages."
+    },
+    {
+      "command": "GET https://api.netlify.com/api/v1/deploys/6ade5952b85feef47f98ea3a",
+      "exit_code": 0,
+      "effect": "read_only_observation",
+      "provider_receipt_id": "6ade5952b85feef47f98ea3a",
+      "readback": {
+        "http_status": 200,
+        "state": "ready",
+        "context": "production",
+        "branch": "main",
+        "commit_ref": null,
+        "title": "Deploy from GHA prod - 889846dbafc2da14724cd5c5009853cdcfc615cf",
+        "published_at": "2026-10-25T19:33:08.721Z",
+        "url": "https://aniccaai.com"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "No deploy action remains for this SHA."
+    },
+    {
+      "command": "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+      "exit_code": 0,
+      "effect": "read_only_observation; environment values were not logged",
+      "provider_receipt_id": "0432c21c-7277-4dab-8f90-3cd31814fd7e",
+      "readback": {
+        "http_status": 200,
+        "variable_count": 58,
+        "factory_variable_names": []
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Factory runtime cannot enable until dedicated env is configured."
+    },
+    {
+      "command": "GET https://api.heygen.com/v3/users/me using exact SSOT service heygen-ai-monk-factory",
+      "exit_code": 0,
+      "effect": "read_only_observation",
+      "readback": {
+        "http_status": 200,
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0.0,
+        "wallet_auto_reload_enabled": false,
+        "wallet_fields": [
+          "auto_reload",
+          "currency",
+          "remaining_balance"
+        ]
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "A one-time HeyGen API credit purchase is required before avatar/video jobs can run."
+    },
+    {
+      "command": "GET https://generativelanguage.googleapis.com/v1beta/models with exact Factory Gemini key; billing state checked from private SSOT",
+      "exit_code": 0,
+      "effect": "read_only_observation; no generation request",
+      "readback": {
+        "http_status": 200,
+        "models_returned": [
+          "models/gemini-3.1-flash-lite",
+          "models/gemini-3.1-flash-lite-image"
+        ],
+        "billing_project_id": "anicca-monk-factory-20261024",
+        "provider_state": "prepared_unfunded",
+        "billing_verified": false
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Enable dedicated project billing before avatar image or script generation."
+    },
+    {
+      "command": "Scan private Credential SSOT service names for Meta/Facebook Developer App credential",
+      "exit_code": 0,
+      "effect": "read_only_observation; secret values were not logged",
+      "readback": {
+        "matching_app_credential_services": [],
+        "instagram_login_credential_is_not_meta_app_readiness": true
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Create the Instagram Login Developer App and store its App ID/secret in private SSOT."
+    },
+    {
+      "command": "Create Factory subscription Product and recurring Price using exact Stripe test-restricted credential with idempotent requests",
+      "exit_code": 0,
+      "effect": "created Stripe test-mode catalog objects; no Checkout Session or charge",
+      "provider_receipt_id": "prod_VVYG0OJQpZz7ju;price_1UUXA1EeDsUAcaLSq9y7yPiR",
+      "readback": {
+        "product_id": "prod_VVYG0OJQpZz7ju",
+        "price_id": "price_1UUXA1EeDsUAcaLSq9y7yPiR",
+        "mode": "test"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Wire test credentials, price, and webhook into a non-live Factory runtime."
+    },
+    {
+      "command": "GET https://api.stripe.com/v1/prices/price_1UUXA1EeDsUAcaLSq9y7yPiR using exact Stripe test-restricted credential",
+      "exit_code": 0,
+      "effect": "read_only_observation",
+      "provider_receipt_id": "req_3JdUQ2i284FpHS",
+      "readback": {
+        "http_status": 200,
+        "id": "price_1UUXA1EeDsUAcaLSq9y7yPiR",
+        "livemode": false,
+        "active": true,
+        "currency": "usd",
+        "unit_amount": 19900,
+        "recurring_interval": "month",
+        "recurring_interval_count": 1,
+        "trial_period_days": null,
+        "metadata_product": "ai_monk_factory",
+        "product_id": "prod_VVYG0OJQpZz7ju"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "No charge occurred; use this test Price after runtime prerequisites are supplied."
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/ai-monk-factory -o markdown-fit",
+      "exit_code": 0,
+      "effect": "public_page_read_only_crawl",
+      "readback": {
+        "status": 200,
+        "summary": "Shows USD199/month, 3 completed videos free, no card, no time limit, no three-day trial, video-generation and Instagram publishing proposition."
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Keep product page truthful while runtime is closed."
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/products/ -o markdown-fit",
+      "exit_code": 0,
+      "effect": "public_page_read_only_crawl",
+      "readback": {
+        "status": 200,
+        "listed_under_software": true,
+        "status_copy": "Preparing to open; generation and subscription checkout are not open yet; Instagram auto-posting is planned."
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Change listing to available only after Factory runtime is operational."
+    },
+    {
+      "command": "Read current HeyGen and Gemini official API pricing pages and compare with Factory source settings",
+      "exit_code": 0,
+      "effect": "public documentation read_only_research",
+      "readback": {
+        "heygen_source": "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+        "heygen_last_updated": "2026-10-19",
+        "heygen_prices_usd": {
+          "photo_avatar_creation_per_call": 1.32,
+          "avatar_iv_photo_per_minute_actual_seconds": 2.31,
+          "starfish_tts_per_minute": 0.12
+        },
+        "gemini_source": "https://ai.google.dev/gemini-api/docs/pricing",
+        "gemini_last_updated": "2026-10-22",
+        "gemini_prices_usd": {
+          "gemini_3_1_flash_lite_image_1k_per_image": 0.0336,
+          "gemini_3_1_flash_lite_text_input_per_million_tokens": 0.25,
+          "gemini_3_1_flash_lite_text_output_per_million_tokens": 1.5
+        },
+        "heygen_cost_per_free_video_attempt_max_20_seconds_usd": 0.815,
+        "estimated_avatar_plus_three_completed_free_videos_usd": 3.7986,
+        "estimated_avatar_plus_six_maximum_free_attempts_usd": 6.2436,
+        "paid_month_cost_30_max_45_second_videos_usd": 54.825,
+        "usd_199_gross_minus_estimated_generation_usd": 144.175,
+        "gross_contribution_percent_before_other_costs": 72.45,
+        "assumptions": "One 1K image; one HeyGen Photo Avatar; Avatar IV Photo avatar and Starfish speech charged by actual audio/video seconds; Gemini script cost uses current $0.005 internal reservation per job; no failed full-length run measured."
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Compare provider invoices against these estimates after a funded acceptance run."
+    }
+  ],
+  "evidence_refs": [
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+    "https://ai.google.dev/gemini-api/docs/pricing"
+  ],
+  "runtime_readiness": "not_ready",
+  "generation_oauth_post_checkout_charge_attempts": 0,
+  "source_contract_readback": {
+    "method": "read_only_source_inspection",
+    "ui": "The Studio has separate avatar, full-video, and Instagram-connect actions. It shows completed video previews, full scripts/captions, published post URLs, available metrics, quota, and Stop. Readiness gates keep API/job/quota effects off until each capability is ready.",
+    "generation": "The job path creates a fictional portrait with Gemini, a source-grounded script and caption, a HeyGen Photo Avatar, Starfish speech, then a 9:16 1080p Avatar IV video. The free allowance counts completed artifacts, while failed attempts use a bounded retry allowance.",
+    "instagram": "Connect requires an avatar and at least one completed video. It saves explicit auto-post intent before OAuth. An authenticated status read verifies the Instagram account and publishing access, then turns on daily automation. Existing completed videos post first; daily generation continues only with free allowance or an active subscription.",
+    "scheduler": "Netlify schedules monk-factory-tick every minute; the worker selects due accounts and schedules the next daily post. Stop clears auto_post and auto_post_intent.",
+    "source_files": [
+      "apps/landing/app/ai-monk-factory/factory.tsx",
+      "apps/landing/app/ai-monk-factory/action-readiness.mjs",
+      "apps/landing/netlify/functions/monk-factory.js",
+      "apps/landing/netlify/functions/_lib/monk-factory-jobs.js",
+      "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+      "apps/landing/netlify/functions/_lib/monk-factory-instagram.js",
+      "apps/landing/netlify/functions/monk-factory-tick.js",
+      "apps/landing/netlify.toml"
+    ],
+    "limitation": "Static source and existing test paths are present, but production generation, OAuth, posting, metrics, pause/stop, and checkout were not exercised because Factory runtime prerequisites are absent.",
+    "lifecycle_controls": "Stop is implemented and clears auto_post plus auto_post_intent. A separate temporary Pause/Resume control is not present in the current UI/API; tracked as FACTORY-PAUSE-1."
+  }
+}
