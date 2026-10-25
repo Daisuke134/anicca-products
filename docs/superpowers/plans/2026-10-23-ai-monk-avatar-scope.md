@@ -1,5 +1,7 @@
 # AI Monk Avatar掲載範囲
 
+> 履歴用plan。included-only selectorで4プロフィールだけを公開した時点の記録であり、現在の掲載契約ではない。後続の`26f752c15`がpending候補をWeb/CLI/MCPへ復元した。現行snapshotは75 archive / 73 public（included 6、pending 67、excluded 2）で、本番ページは73件を表示する。現在の要件 → `../specs/2026-10-21-ai-monk-avatar-field-guide.md`「Database・Plugin・Factoryの追加契約」。実行順と最新snapshot → `2026-10-24-ai-monk-research-distribution.md`。
+
 ## 目的・範囲・完了条件
 
 Daisの明示指示に従い、Yang Munのような写真に近いAI僧侶の動画avatarへ集中する。水彩・絵画・イラストの僧侶コンテンツを対象avatarとして掲載しない。既存のAI status・未確認・出典は捏造せず、未確認候補を認定済み扱いにしない。

@@ -20,7 +20,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 1. **読者向け記事4本を改稿する。** 既存slugを維持し、本文・H1・descriptionを更新する。中心タイトルは `Yang Munの衝撃` / `The Yang Mun Shock` と `AI僧侶列伝` / `The Art of AI Monks`。副題は読者の好奇心を増す場合だけ付ける。
 2. **履歴・事実・分析を一つの読み物にする。** Yang Mun記事では65秒Shortから人物の正体をめぐる矛盾、動画の仕組み、30日プログラムとeBook、異なる収益主張、宗教的な信頼の問題へ進む。総覧記事ではAI生成の僧侶キャラクター、実在僧侶の仮想アバター、物語アニメーションを分け、文化の前史と現在のSNS型を描く。
 3. **検索可能な公開Webディレクトリ `/ai-monk-database` を維持する。** 画面上部の検索、言語・プラットフォーム・地域の絞り込み、4sort、スクロール可能なプロフィールカードを備える。AI status badge/filterは表示しない。検索対象は表示名、別名、handle、creator、国・地域、言語、SNS、提供物。
-4. **プロフィールに根拠を残す。** 公開73件のうち制作/動画根拠確認4件と調査中69件を区別し、pendingの短い注記とreasonを表示する。creator、プロフィールリンク、投稿言語、地域情報の根拠、見える商品導線、取得時点付き数値、出典、未確認事項を表示する。候補のAI生成状態・運営者・国・言語は推測で埋めず、全73件を確認済みAI動画avatarとは呼ばない。
+4. **プロフィールに根拠を残す。** 現行snapshotでは公開73件のうち制作/動画根拠確認6件と調査中67件を区別し、pendingの短い注記とreasonを表示する。creator、プロフィールリンク、投稿言語、地域情報の根拠、見える商品導線、取得時点付き数値、出典、未確認事項を表示する。候補のAI生成状態・運営者・国・言語は推測で埋めず、全73件を確認済みAI動画avatarとは呼ばない。
 5. **開いたデータへ読者を案内する。** 公開JSONとGitHubのデータファイルをリンクし、プロフィール追加を提案できる導線を置く。更新可能な初期ディレクトリとして公開し、「世界初」「世界最大」「全件網羅」は調査で立証できるまで主張しない。
    コードはAI Monk Indexの実装ファイルに限ってMIT、Anicca執筆のデータ要約・編成はCC BY 4.0で公開し、第三者素材の権利を含めない。
 6. **記事とXを新しいディレクトリへつなぐ。** 2言語の記事から検索UIへリンクし、公開後に既存Postiz経路で新規の告知投稿を行う。本文に直接URLを含め、post receiptとpermalinkを記録する。前回4投稿は重複送信しない。
@@ -216,6 +216,17 @@ Factoryの完成形は、利用者が自分のInstagramを先に接続し、独�
 ## Database・Plugin・Factoryの追加契約
 
 この節はDatabase・Plugin・Factoryのproduct契約を定める。実行順の変更履歴とcurrent cursorの正本は `docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md` とする。OpenAI identity/review待ちでDatabaseやFactoryを停止せず、進行中の公開Release/PRやGrok Bot所有の日次posting effectは中断・重複しない。
+
+### 事業目標と公開状態
+
+1. **AI Monkの専門性と最大級のDatabase:** 既知プロフィールをできるだけ広く収録し、creator・platform・followers/views・商品・価格・期間/通貨付きの売上根拠を継続調査する。世界最大・全件網羅は比較調査で立証するまで公開主張しない。
+2. **Instagram/TikTokの成長:** 日次投稿のownerはGrok Bot。Postiz integration IDはTikTok `cmo5rwq2p00twn10yrsdglng3`、Instagram `cmoopzaak04yop70y1yx1bwr1`。Codexは日次投稿を変更・重複しない。フォロワーや再生数はplatform公式readbackと観測日を添えて追う。
+3. **AI Monk ebook事業の月間継続売上USD10,000超:** 目標は未達。Recurring MRRは実際の有料Stripe invoiceから測る。現在の一回払いebook売上、install数、followers、creator申告はMRRへ換算しない。
+4. **誰でも使える無人運転Factory:** Web SaaSを先に提供し、APIを通じて一度のInstagram OAuth後に既定avatar/profile/scriptと縦動画を生成し、毎日自動投稿する。利用者に初期設定・日々の操作を求めず、profile編集と停止を可能にする。無料枠は完成動画3本・期限なし・カード不要で、3日trialは置かない。Instagramを先行し、TikTokは公式審査後に追加する。CLI/Pluginからの操作はtenant認証済みFactory APIの後続とする。
+
+Databaseはv0.4.20で75件のarchive、73件の公開プロフィール（included 6 / pending 67 / excluded 2）、239出典、120 offer rowを持ち、42プロフィールに商品観測、1プロフィールに売上観測がある。以前4件しか表示されなかった原因は、共有selectorがincludedだけを公開しpendingを隠したこと。PR/main `26f752c15`でincludedとpendingを検索・個別取得・集計へ戻し、現在の本番WebとCLI/MCPは73件を返す。研究archiveの削除は確認されていない。ユーザーが記憶する17件の画面は該当snapshotをまだ特定していないため、古い4件表示と同一原因と断定しない。現在の実測と実行順 → `docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md`。
+
+Codex向けrepo Plugin v0.1.4は公開済み。正式ChatGPT Directory掲載はユーザー提示のPersonal/Default画面でIdentity in reviewのため未提出・未掲載。過去に無効化されたOpenAI accountの状態を今回の画面と同一accountと推定しない。Museは既存submissionの審査中で、最終承認/listingは未確認。Grok Connectorsのpublisher listing経路も未確認。これら外部gateはDatabase/CLIとFactoryの独立作業を止めない。
 
 Databaseは既知の73公開profile/75archiveを対象に、creator・媒体・言語・商品名/価格/URL・出所付き期間/通貨/売上claimを精査し、新しい実在候補も追加する。全世界の全件網羅を証明済みと呼ばず、調査範囲・取得日・未確認を表示する。価格を売上、本人申告を監査済み収益、未知を0へ変換しない。公開中pendingのreasonに残る非掲載という古い説明も正す。
 
