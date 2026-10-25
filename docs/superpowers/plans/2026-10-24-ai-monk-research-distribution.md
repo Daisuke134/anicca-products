@@ -27,7 +27,27 @@ Gemini APIの公式billing docsはAI Studioでproject単位の月間spend capを
 
 Credential SSOTのservice `google`とactive gcloud accountの一致をローカルで確認し、秘密値・emailは出力していない。service `gemini-ai-monk-factory`に紐づくprojectへread-only `gcloud projects describe` / `gcloud billing projects describe`を実行し、project lifecycle `ACTIVE`、`billingEnabled=false`を確認した。projectは存在するがbilling accountはlinkされていない。AI Studioの月間cap値そのものはreadbackしておらず、未設定とは断定しない。billing link、cap、credit購入、generationは変更0。receipt → `../../evidence/ai-monk-factory-gemini-billing-readback-20261025T160700Z.json`。
 
-Provider docsと実コードの支出予約は照合済み。現在cursorは、既存のGoogle sessionでAI Studioの専用project cap状態をread-only確認できる方法を使い、cap値・billing状態を取り直すこと。runtimeはbilling status `false`で閉じたまま。Gemini projectのbilling linkまたはHeyGen credit購入は実支出を有効にし得るため、支払・課金を変更せず、次に必要な最小の外部条件として扱う。設定可能なprovider capとHeyGenの有限wallet条件を確定し、公式readbackを得てからStripe test-mode/Meta runtimeとFactory E2Eへ進む。内部USD10/day予約はprovider hard capの代替にしない。
+Provider docsと実コードの支出予約は照合済み。この16:07Z時点のcursorは、既存Google sessionからAI Studioの専用project cap/billingをread-only確認することだった。これは下記16:27Zのreadbackで完了したが、請求先未linkのためcap値は表示されなかった。runtimeはbilling status `false`で閉じたまま。Gemini projectのbilling linkまたはHeyGen credit購入は実支出を有効にし得るため、設定変更をせず、設定可能なprovider capとHeyGenの有限wallet条件を順に確認する。内部USD10/day予約はprovider hard capの代替にしない。
+
+#### AI Studio専用projectのspend/cap readback — 2026-10-25T16:27:56Z–16:27:59Z
+
+既存Google browserのidentityとactive gcloud identityはFactory専用credential SSOTに一致した。AI Studio Projects画面に既存Cloud projectをimportし、AI Studio上で「AI Monk Factory」として表示されることを確認した。project IDやemailは記録していない。このimportはAI Studioのproject一覧登録だけで、Cloud billing、API key、支払い情報は変更していない。importの正確な時刻は別途記録しておらず、このreadbackより前に完了した。
+
+専用projectを選んだAI Studio Spend画面はFree tierを表示し、「このプロジェクトには現在、請求先が設定されていません」と返した。Usage/Billing routeでも利用可能な月間cap値は表示されなかった。読み取り対象projectはcredential SSOTのprojectとURL/local selected-project stateの両方で一致する。fresh gcloud readbackもproject ACTIVE、billingEnabled=false、billing account未linkを確認した。したがってcap値は未確認であり、cap未設定とは断定しない。billing link、cap変更、credit購入、key変更、生成、OAuth、投稿、checkout/chargeは0。receipt → ../../evidence/ai-monk-factory-ai-studio-cap-readback-20261025T162759Z.json。
+
+AI Studio capのread-only確認自体は完了したが、請求先未linkのためcap値を表示できなかった。この確認は16:27Zに完了した。HeyGen readback後はStripe test-modeとMeta Standard Access/monk.mujo permissionの独立readinessを進める予定だったが、下記の10/26 live readbackとsource auditでcursorを更新した。
+
+#### Factory provider/runtimeとInstagram Login route再確認 — 2026-10-25T16:33Z–16:38Z（2026-10-26 JST）
+
+Factory専用Credential SSOTのservice `heygen-ai-monk-factory`を使ったGET `/v3/users/me`はHTTP200で、provider identityが同じSSOT行に一致し、billing type `wallet`・残高USD0を返した。現endpoint responseにauto-reload fieldとspending-cap fieldはなく、両方の現在値は未確認。billing、wallet購入、generationは0。receipt → `../../evidence/ai-monk-factory-readiness-cursor-readback-20261025T163850Z.json`。
+
+Stripeの`stripe-test-restricted` keyはtest modeで、Factory向けlookup key queryはHTTP200・price 0件。保存済みFactory price IDのGETは404 `resource_missing`、account GETは403 `more_permissions_required`。既存readbackでもCheckout Session read/createが403であり、このkeyではFactory test Checkoutを完了できない。これはFactory本番価格が未作成という証明ではなく、current test keyから対象price/account/Checkoutをreadbackできないという証拠である。charge、Checkout、Stripe mutationは0。同じreceipt → `../../evidence/ai-monk-factory-readiness-cursor-readback-20261025T163850Z.json`。
+
+Netlify公式APIのproduction env GETはHTTP200、site match 1件、変数58件、`MONK_FACTORY_*`は0件。共通`STRIPE_SECRET_KEY`は存在したがFactory専用Stripe keyはなく、Factory HeyGen/Gemini/Meta App ID・secret・callback・Standard Access evidenceも未設定。runtime設定の変更は0。同じreceipt → `../../evidence/ai-monk-factory-readiness-cursor-readback-20261025T163850Z.json`。
+
+Meta OAuth実装は現行main commit `82e2ebf`（PR #731）に存在する。`createMetaInstagramProvider`はInstagram Loginの`https://www.instagram.com/oauth/authorize`を返し、OAuth、token encryption、Reels publish、status/metrics readbackまでsourceとtestsがある。一方、`factoryDestination`は旧Facebook Login URLだけを許可していた。回帰testを先に追加し、変更前に`invalid_destination`で失敗することを確認後、`https://www.instagram.com/oauth/authorize`だけを許可する最小修正を実装した。Facebook Login、Instagram旧path、lookalike hostは引き続き拒否する。対象AI Monk契約test 38/38、Factory隔離DB 33/33、telemetry suite 525件（492 pass / 33 skip / 0 fail）、CIと同じ固定素材をstageしたproduction build 675 routes / exit 0を確認した。buildには既存optional dependencyとTailwind警告がある。生成されたdashboard snapshot差分は製品変更に含めない。receipt → `../../evidence/ai-monk-factory-instagram-login-redirect-source-verification-20261026.json`。
+
+TODO順序を更新する。旧順序は「HeyGen/AI Studio上限のreadback → Stripe/Meta runtime readiness → Factory E2E」。新順序は「Instagram Login redirect修正のsource release（現在cursor）→ 正しいFactory test-mode Stripe権限/resource確認 → Meta app/Standard Access/monk.mujo role readback → enforceable provider spend boundary → runtime readiness → avatar/動画3本無料 → Instagram接続後の自動投稿/URL/metrics/Pause/Stop → free quota後のStripe test conversion → evidence/X初回告知1回 → 反復loop」。順序変更の理由は、runtime設定の前提となるInstagram OAuth URLをclientが拒否するsource defectを確認・修正したため。次の1手は専用branchへcommit/pushし、PR CI、main統合、production deploy/readbackまで完了すること。既存Postiz/Grok Botの日次ownerは変更しない。USD0 wallet、cap不明、Gemini billing無効、Stripe test permission不足のままgeneration/checkout/posting runtimeを開かず、HeyGen credit購入やStripe live chargeを行わない。
 
 #### Authenticated Studio and pre-release catalog readback — 2026-10-25T15:21Z–15:36Z
 
