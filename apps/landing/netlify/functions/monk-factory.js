@@ -143,6 +143,10 @@ async function factoryHandler(event, dependencies = {}) {
     if (body.action === 'checkout') {
       const usage = store.usage ? await store.usage(user.id) : null;
       if (freeQuotaAvailable(usage)) throw factoryError('free_quota_remaining', 409);
+      if (Number.isSafeInteger(usage?.videosRemaining) && usage.videosRemaining > 0
+        && Number.isSafeInteger(usage?.attemptsRemaining) && usage.attemptsRemaining <= 0) {
+        throw factoryError('free_generation_incomplete', 409);
+      }
       const readiness = await factoryReadiness(env, dependencies.providers, store);
       requireCapability(readiness, 'checkout');
       return reply(200, await beginFactoryCheckout({ user, store, stripe: billing(), env }));

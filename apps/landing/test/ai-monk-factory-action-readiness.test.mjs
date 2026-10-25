@@ -67,7 +67,7 @@ test('a ready generation CTA dispatches once', () => {
     false,
     action => actions.push(action),
     message => notices.push(message),
-    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3 },
+    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 6 },
   );
 
   assert.equal(result, true);
@@ -85,7 +85,7 @@ test('a blocked video CTA identifies the missing avatar before dispatch', () => 
     false,
     () => { sent += 1; },
     message => notices.push(message),
-    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3 },
+    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 6 },
   );
 
   assert.equal(result, false);
@@ -114,11 +114,33 @@ test('unknown quota is not classified as exhausted', () => {
   assert.equal(typeof readiness.factoryQuotaState, 'function', 'quota state distinguishes unknown from exhausted');
 
   assert.deepEqual(readiness.factoryQuotaState({ videosRemaining: null, attemptsRemaining: null }), {
-    known: false, available: false, exhausted: false,
+    known: false, available: false, exhausted: false, attemptsExhausted: false,
   });
   assert.deepEqual(readiness.factoryQuotaState({ videosRemaining: 0, attemptsRemaining: 0 }), {
-    known: true, available: false, exhausted: true,
+    known: true, available: false, exhausted: true, attemptsExhausted: true,
   });
+  assert.deepEqual(readiness.factoryQuotaState({ videosRemaining: 1, attemptsRemaining: 0, completedVideos: 2 }), {
+    known: true, available: false, exhausted: false, attemptsExhausted: true,
+  });
+});
+
+test('retry exhaustion does not claim all free videos were delivered or start Checkout', () => {
+  let sent = 0;
+  const notices = [];
+  const result = readiness.requestFactoryAction(
+    'checkout',
+    { checkout: { ready: true } },
+    true,
+    () => { sent += 1; },
+    message => notices.push(message),
+    { quotaKnown: true, videosRemaining: 1, attemptsRemaining: 0, completedVideos: 2 },
+  );
+
+  assert.equal(result, false);
+  assert.equal(sent, 0);
+  assert.match(notices[0], /after 2 of 3 completed free videos/i);
+  assert.match(notices[0], /No charge will start/i);
+  assert.match(notices[0], /No request was sent/i);
 });
 
 test('Instagram connection and autopost need social readiness when finished videos are ready to publish', () => {
@@ -131,7 +153,7 @@ test('Instagram connection and autopost need social readiness when finished vide
       true,
       () => { sent += 1; },
       message => notices.push(message),
-      { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3, completedVideoReady: true },
+    { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 6, completedVideoReady: true },
     );
 
     assert.equal(result, true, `${action} may proceed with completed videos when social is ready`);
@@ -204,7 +226,7 @@ test('an exhausted free allowance blocks new generation actions without consumin
 
   assert.equal(result, false);
   assert.equal(sent, 0);
-  assert.match(notices[0], /used your three free videos/i);
+  assert.match(notices[0], /all three completed free videos/i);
 });
 
 test('an existing pending video request can still be recovered after quota exhaustion', () => {

@@ -66,7 +66,7 @@ test('Stripe setup does not block an authenticated free video and Checkout waits
     store: {
       companyBudgetStatus: async () => ({ ready: true }),
       account: async id => { calls.push(['account', id]); return null; },
-      usage: async id => { calls.push(['usage', id]); return { videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }; },
+      usage: async id => { calls.push(['usage', id]); return { videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20, periodEnd: null }; },
       reserveJob: async (id, occurrence, kind) => { calls.push(['reserve', id, occurrence, kind]); return { id: 'free-job-fixture' }; },
       checkoutContext: async () => assert.fail('free quota must be used before Checkout is created'),
     } };
@@ -80,12 +80,30 @@ test('Stripe setup does not block an authenticated free video and Checkout waits
   assert.deepEqual(calls, [['usage', user.id], ['account', user.id], ['reserve', user.id, 'avatar:lifetime', 'avatar'], ['usage', user.id]]);
 });
 
+test('Checkout stays closed when the retry cap is reached before three free videos are complete', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+  const calls = [];
+  const response = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture-session' },
+    body: JSON.stringify({ action: 'checkout' }) }, {
+    env: configured,
+    fetchImpl: auth,
+    providers: { readiness: async () => { calls.push('readiness'); return { checkout: { ready: true } }; } },
+    store: {
+      usage: async () => ({ videosRemaining: 1, attemptsRemaining: 0, completedVideos: 2 }),
+      checkoutContext: async () => { calls.push('checkout'); throw new Error('Checkout must remain closed'); },
+    },
+  });
+  assert.equal(response.statusCode, 409);
+  assert.equal(JSON.parse(response.body).error, 'free_generation_incomplete');
+  assert.deepEqual(calls, []);
+});
+
 test('checkout readiness is separate from generation readiness', async () => {
   const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
   const response = await factoryHandler({ httpMethod: 'GET', headers: { authorization: 'Bearer fixture-session' } }, {
     env: configured, fetchImpl: auth,
     providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: false } }) },
-    store: { companyBudgetStatus: async () => ({ ready: true }), usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }), account: async () => null, jobs: async () => [] },
+    store: { companyBudgetStatus: async () => ({ ready: true }), usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20 }), account: async () => null, jobs: async () => [] },
   });
   assert.equal(response.statusCode, 200);
   const snapshot = JSON.parse(response.body);
@@ -104,7 +122,7 @@ test('company daily budget exhaustion keeps generation disabled and returns its 
     providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: true } }) },
     store: {
       companyBudgetStatus: async () => ({ ready: false, reason: 'company_budget_exhausted' }),
-      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }),
+      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20 }),
       account: async () => null,
       jobs: async () => [],
       reserveJob: async () => { calls.push('reserve'); return { id: 'should-not-reserve' }; },
@@ -193,7 +211,7 @@ test('a missing company budget guard fails closed before generation', async () =
     fetchImpl: auth,
     providers: { readiness: async () => ({ generation: { ready: true }, social: { ready: true } }) },
     store: {
-      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20 }),
+      usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20 }),
       account: async () => null,
       jobs: async () => [],
       reserveJob: async () => { calls.push('reserve'); return { id: 'should-not-reserve' }; },
@@ -367,7 +385,7 @@ test('Stop during Instagram OAuth prevents a later connection readback from star
   let autopostStarts = 0;
   const store = {
     companyBudgetStatus: async () => ({ ready: true }),
-    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 3, maxSeconds: 20, periodEnd: null }),
+    usage: async () => ({ videosRemaining: 3, attemptsRemaining: 6, maxSeconds: 20, periodEnd: null }),
     account: async () => structuredClone(account),
     reserveProfile: async () => {},
     setAutopostIntent: async (_id, enabled) => { account.auto_post_intent = enabled; return { auto_post_intent: enabled }; },
