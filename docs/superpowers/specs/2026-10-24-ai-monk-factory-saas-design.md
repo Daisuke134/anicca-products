@@ -15,6 +15,9 @@ Databaseの根拠を台本へ戻し、利用者はInstagramを一度OAuth接続�
 ## Database Plugin/CLIとの接続
 Factory Web appを先に提供し、tenant認証付きAPIが稼働した後に、既存CLI/Pluginから自動運転の作成・停止、生成job状態とmetrics取得を追加する。SNS tokenはserver側に保持する。host上でOAuth同意を完結できない場合は、Factory Webの一度限りのOAuth画面へ誘導する。利用者が同意した後の日次生成・投稿・metrics取得はAPIで実行し、毎日の手動操作を要求しない。この連携はFactory Web公開を止める前提ではない。
 
+## ローンチ後の改善と配信
+初回Factoryローンチは実E2E受入後にXへ一度だけ行う。継続するDatabase調査、Factory product iteration、X配信は、親field guideの「継続改善・配信ループ」に従う。内部改善loopは有限runとしてDesktop Scheduled Tasks/既存heartbeatから起動し、顧客ごとの自動生成jobとは分ける。Grok Bot所有の日次IG/TikTok投稿を再スケジュール・再送しない。1runごとに出典・変更・検証・provider receiptを保存し、確かな改善材料がない場合は何も投稿せず終了する。
+
 ## 価格と原価
 有料価格の現行候補はUSD199/月、月30本、1本45秒以内。paidは成功最大30本・課金試行最大36回とし、追加6回を含む予算で管理する。provider/台本のperiod予算をUSD70へ制限する。無料枠は認証アカウントごとに完成動画3本、1本20秒以内、期限なし・カード登録なし・再生成枠なしとし、最初の3本のprovider/台本原価をUSD4.25以内に制限する。Stripe statusが`active`/`trialing`以外の既存userは、以前のtrial使用歴だけを理由に新しい無料枠から排除しない。有効な`active`/`trialing` subscriptionは無料枠より優先する。3本を使い切ると自動生成・投稿を止め、月額subscriptionを案内する。無料枠とpaid期間のquotaは分け、繰越0。未完/費用不明も成功候補枠と原価予約を保持する。初期monk profileは1体。USD199は現行provider原価に基づく候補であり、売上・利益を保証しない。
 
@@ -75,7 +78,9 @@ private SSOTの状態確認では、Factory専用Gemini projectは `prepared_unf
 ## 現在cursor
 2026-10-25のBUDGET-1 release受入は完了。PR #697の会社全体USD10/UTC日estimated reservation capはhead `77037b54ac96f7f77d315075492bb9aae47abf8f`、CI `40118114389` PASSでmain `488452ee0bd87c428933b666a8edadb3fb320524`へ統合。PR #698のmigration source version整合はhead `522c81933d7e061b691b64c43e4046697ffe6c9d`、Landing CI `40118937033` PASS、merge main `c6d90ab4b7c7e570a6549585a2013afe3cc52460`。Netlify deploy `40119267904`とpost-deploy smoke PASS。Supabase公式migration一覧は `monk_factory_company_budget` version `20261024175709`を1件だけ返し、read-only SQLでUSD10/UTC日の予約上限、RLS=true、client SELECT禁止、service_role SELECT許可を確認した。migration DDLの再適用は0。公開ページreadbackは動画3本無料・20秒・カード不要・時間trialなしを表示する。
 
-現在cursorはSaaS-2（provider/runtime readiness）。公式API readback `2026-10-24T18:17:47.897Z`はNetlify env GET 200/62 variables/`MONK_FACTORY_*` 0件、HeyGen GET 200/wallet 0、Upload-Post GET 200/Default/0 of 2 profiles、Gemini models GET 200/required models present/専用project `billing_verified=false`。最新sourceは `MONK_FACTORY_ENABLED=true` をgeneration/checkout/socialの前提とし、Factory envが0件のため `studio_setup` が無効状態の根本理由と推定できる。ただし、このprobeでは認証済みFactory API snapshotは取得していないので、`studio_setup`はsource+envからの推論として保持する。最新readback → `../../evidence/ai-monk-factory-readiness-20261024T181747Z.json`。推定会社上限はprovider実請求/現金支出の上限ではない。日次Grok Bot所有投稿は変更しない。
+実行順と現在cursorの正本は `../plans/2026-10-24-ai-monk-research-distribution.md`。EBOOK-LEGACY-1のPR #710はmain `4c58716b5c6e415040dee39ad5d46a534f9f44cb`へ統合済みで、Netlify deploy/smokeとproduction/immutable deployのwebhook route readbackも完了した。現在cursorはSaaS-2であり、Factoryを有効化する前にprovider/runtime readinessをfresh GETで確認する。
+
+以下のprovider/deploy readbackは観測日時点の履歴であり、現在状態の証明には再利用しない。SaaS-2開始時に公式APIで取り直す。過去readback `2026-10-24T18:17:47.897Z`はNetlify env GET 200/62 variables/`MONK_FACTORY_*` 0件、HeyGen GET 200/wallet 0、Upload-Post GET 200/Default/0 of 2 profiles、Gemini models GET 200/required models present/専用project `billing_verified=false`。当時のsourceは `MONK_FACTORY_ENABLED=true` をgeneration/checkout/socialの前提とし、Factory envが0件のため `studio_setup` が無効状態の根本理由と推定できた。ただし、そのprobeでは認証済みFactory API snapshotを取得していないため、`studio_setup`はsource+envからの推論として保持する。readback → `../../evidence/ai-monk-factory-readiness-20261024T181747Z.json`。推定会社上限はprovider実請求/現金支出の上限ではない。日次Grok Bot所有投稿は変更しない。
 
 2026-10-24T17:20:07Zの公式read-only再確認では、Netlify production env APIはHTTP 200、58 variables、`MONK_FACTORY_*`は0件。最新deploy `6adce42e0d5c44f3fd32870f`はreadyで17:01:27Z公開、titleはmain `f2353829b831325e744868b95adf065cdbc002b8`、`commit_ref=null`。公開ページは3本無料・期限なし・カード不要・$199/月候補を表示する。ユーザー画像のstudio disabled状態は別の症状証拠であり、日付不明の画像をauthenticated live readbackとみなさない。
 
@@ -89,4 +94,4 @@ Fresh provider GETではHeyGen `/v3/users/me`がHTTP 200、wallet USD0.00、bill
 
 今回の画像にあるGenerate/Instagram/Checkoutのdisabledはclick handler障害ではなく、production `MONK_FACTORY_*` 0件、Gemini課金未確認、HeyGen wallet USD0、Upload-Post Default plan/0 profiles、Stripe runtime disabledにより、UIとAPIがfail-closedしている状態である。現行mainではcapabilityごとのreadiness reasonを表示するコードを公開済み。添付画面の日付は不明で、post-deploy authenticated UI readbackではないため、最新表示は未確認として保持する。
 
-旧順序は会社全体上限・provider funding・customer-scale Instagram API/OAuthを一束で受け入れてからFactoryを有効化する。新順序はBUDGET-1（USD10/UTC日の共有job予約上限とreadiness/UI表示を実装・検証）→ provider funding/権限・Meta API/OAuth契約の外部条件確認 → 全runtime readinessが揃った時だけproduction有効化 → PL-FACTORY-1（Web/CLI/Plugin操作）→ 外部Plugin listingと成果計測。順序変更理由は、BUDGET-1がmain deployとSupabase公式readbackまで完了し、次に独立して進められる実測blockerが専用provider funding/runtime・Instagram publishing permissionであるため。現在cursorはSaaS-2。Grok Bot所有の日次投稿effectには触れない。完了後も利用者別USD4.25/70 reservationやこのUSD10/dayの予約上限を、実請求・利益実績と呼ばない。実行順 → `../plans/2026-10-24-ai-monk-research-distribution.md`。
+過去の順序変更では会社全体上限・provider funding・customer-scale Instagram API/OAuthを一束で受け入れてからFactoryを有効化する計画だった。BUDGET-1（USD10/UTC日の共有job予約上限とreadiness/UI表示）はmain deployとSupabase公式readbackまで完了。現在のSaaS-2は専用provider funding/実費上限・Instagram API/OAuth契約・Stripe runtime readinessを確認し、必要条件が揃うまでproductionを有効化しない。Grok Bot所有の日次投稿effectには触れない。利用者別USD4.25/70 reservationやUSD10/day予約上限を、実請求・利益実績と呼ばない。実行順とcursor → `../plans/2026-10-24-ai-monk-research-distribution.md`。

@@ -234,7 +234,13 @@ PluginはDatabase由来の制作手順/台本/format/product researchを検索�
 
 FactoryはDatabaseと一体のcloud Web appとし、詳細契約は `docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md` を正本とする。無料は時間制ではなく、完成したAI Monk動画3本。利用者はInstagramをOAuthで一度接続し、Factoryがmonk avatar・名前・profile・台本を既定値で選び、毎日自動生成・投稿する。初期設定は不要とし、profile編集と自動投稿停止はいつでも可能にする。Instagramを先行し、TikTokはContent Posting APIの公開監査後に追加する。web appを先に完成し、iPhone appは後続とする。料金・月間本数はReelFarmの無料3本/自動運転/分析導線を参考にし、動画生成原価・投稿API・決済費から利益が残る値を決める。3日trialは採用しない。現在のdraft/local plan完成からSaaS提供を達成扱いしない。
 
-各商品の公開後はXでDais所有accountから本人として告知し、Grokにも配布協力を依頼する。具体copy/対象/URLを根拠付きで作り、同目的/媒体の成功例を先に調べる。適切な実績指標が取れない部分は穴を記録し小さい1投稿で計測する。既存の告知を再送せず、新campaignの永続fenceと公式receipt/公開permalinkを確認する。日次IG/TikTok運用は引き続きGrok Bot所有。
+初回のFactoryローンチはE2E受入後、Xへ一度だけ告知する。継続配信は初回ローンチと分け、観測済みの新しい成果・改善だけを扱うループで行う。X向けcopyは同じ対象・媒体・目的の成功事例を先に調べ、導入・構成・見せ方・CTAを自社の確認済み事実で組み直す。既出ローンチの再送や未確認の再生数・売上・利益は使わず、公式receipt/permalinkを残す。既存Grok Botの日次IG/TikTok投稿は引き続きそのownerに任せ、素材・投稿の重複を避ける。
+
+### 継続改善・配信ループ
+
+このsessionの一回限りの出荷目標は、Factory Web/APIの実E2E受入と初回Xローンチ一度だけである。Databaseのsource追加、Factoryの製品改善、継続的な配信は、その2つの完了後に反復loopとして運用する。既存daily Database task/heartbeatのownerと状態を確認して再利用し、現在稼働中の投稿やtaskを中断・重複させない。重複scheduleやMac常駐loopは作らない。
+
+1回のloop起動は有限runとし、Databaseはsource-backedの小さな1batch、製品改善は公式analytics・有料conversion・実費・support/feedbackから最優先の1件、X配信は新しい根拠か出荷差分に基づく最大1投稿までとする。各runはsource・取得時刻・変更・テスト・main/公開readback・投稿receiptを保存して終了する。新しい根拠や改善対象がないrunは投稿・変更を捏造せず、その理由だけを記録する。Follower数、seller claim、未確定売上を0や利益へ換算しない。日次Grok Bot投稿、Factory利用者ごとの日次生成job、内部のDatabase/product/distribution loopは別owner/effectとして扱う。
 
 Database根拠拡充は67IG候補の公開UIから64followersとbio言語を追加し、公式15site中13siteから20商品（18価格/2unknown）を記録する。source139、73public/75archiveと既存収益観測1件を保持し、本人AI開示でreported6/unverified67となる。package15tests/shared helper9testsはPASS。PR614/main fbc141f759c01d0d14269f22e4f75525fcf252c0、最終head package/Landing CI成功、fresh最終blocking0を受入する。CLI v0.4.4の公式asset669669941/digest/公開GET200/公開URL導入/実stdio6toolは完了し、Netlify39985074291はSUCCESS、公開JSONはmain bytesと完全一致し、Web73件/139出典とremote MCP6tools/73件/139出典/reported6/unverified67/snapshot SHA一致を受入する。公開証拠 → docs/evidence/ai-monk-database-v044-production-20261024.json。証拠 → docs/evidence/ai-monk-research-integration-20261024.json。
 
