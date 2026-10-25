@@ -11,6 +11,10 @@
 
 最新の公式readback → `../../evidence/ai-monk-factory-provider-live-readback-20261025T081054Z.json`。Netlify latest deploy `6addb95cf9d5a8de330cc4e4`はready/production/main、`commit_ref=null`、title SHA `f2e13ec4961383611c6499401d5ffca1d1e44fb4`。effectはread-onlyで、生成・課金・OAuth・投稿・checkoutはいずれも0。
 
+追加の公式価格readbackは同じevidence内に保存する。現行コードでavatar1体 + 20秒動画3本の見積もりはHeyGen約USD3.75（Photo Avatar USD1.32 + Avatar IV Photo USD2.31/min × 合計1分 + Starfish USD0.12/min × 合計1分）、Geminiは内部reservation約USD0.155（image USD0.14 + script USD0.005 ×3）で、合計約USD3.91。失敗・再試行は除外し、Gemini値はinvoiceではなくコード上の予約見積もり。HeyGen APIはpay-as-you-goでfree API creditsなし。初回の上限付きtest credit目安はHeyGen USD5一回購入 + Gemini USD5 Prepay一回購入。GeminiはFactory project月間spend capを設定し、auto-reloadをoffにする。
+
+本人操作の正確な入口は[HeyGen API settings](https://app.heygen.com/settings?from=&nav=API)でFactory workspaceのAPI creditsをUSD5購入（自動補充off）、[Google AI Studio projects](https://aistudio.google.com/projects)でFactory projectのSet up billingから専用billing accountを作成/選択してPrepay USD5を購入し、[Spend](https://aistudio.google.com/spend)でproject monthly spend capをUSD5にすること。Google公式docsはPrepay USD5 minimum、optional auto-reload、project spend capを案内する。Prepay残高が0になると同billing account内のGemini API keysが止まるため、既存Google billing accountをPostpay/Prepay切替せず、Factory専用billing accountを使う。API keyはチャットへ貼らない。出典 → [HeyGen API pricing](https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained)、[Gemini API billing](https://ai.google.dev/gemini-api/docs/billing)。
+
 **現在の未完順序**は以下。従来の「Stripe test CheckoutをInstagram接続前に検証」から並べ替えた理由は、無料quotaが残る利用者のInstagram接続と日次投稿開始をCheckoutで妨げないため。顧客はavatarを生成し、完成videoを最大3本無料で作成し、その後Instagram接続を許可する。quotaが残る間は接続後に日次生成・投稿を開始し、3本を使い切った後はStripe subscriptionが有効になるまで次の生成・投稿を止める。
 
 1. **SaaS-2 runtime readiness（current cursor）** — Factory専用HeyGen wallet/keyとGemini projectのbillingを用意し、provider利用料を含む実効daily spend guard、job/storage secret、model/voice設定をproductionへ反映してgeneration readinessをreadbackする。HeyGenを変更しない。
