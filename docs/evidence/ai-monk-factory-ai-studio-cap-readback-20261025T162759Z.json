@@ -1,0 +1,92 @@
+{
+  "schema_version": "anicca.ai-monk-factory-ai-studio-cap-readback.v1",
+  "run_id": "ai-monk-factory-ai-studio-cap-readback-20261025T162759Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "gemini-project-ai-studio-spend-readback-20261025T162759Z",
+  "release_sha": "b4d4c94c5d8a1d1254f502cd26e5efac7342f76a",
+  "loaded_argv": [
+    "browser-guard.sh status interactive:dais",
+    "browser-guard.sh acquire interactive:dais",
+    "Google AI Studio Projects and Spend UI, selected project from private credential SSOT",
+    "gcloud auth list --format=json",
+    "gcloud projects describe <project-from-private-SSOT> --format=json(lifecycleState)",
+    "gcloud billing projects describe <project-from-private-SSOT> --format=json(billingEnabled,billingAccountName)",
+    "browser-guard.sh release interactive:dais"
+  ],
+  "loaded_env": {
+    "browser_identity": "interactive:dais",
+    "credential_project_source": "private credential SSOT exact service gemini-ai-monk-factory",
+    "secret_or_email_emitted": false
+  },
+  "observed_at_window_utc": {
+    "start": "2026-10-25T16:27:56Z",
+    "end": "2026-10-25T16:27:59.805Z"
+  },
+  "phase": "dedicated_gemini_project_ai_studio_spend_cap_readback",
+  "commands": [
+    {
+      "command": "browser-guard.sh status interactive:dais",
+      "exit_code": 0,
+      "readback": "browser reachable, no active lease holder, no identity collision"
+    },
+    {
+      "command": "AI Studio Projects UI import of the existing project named AI Monk Factory",
+      "exit_code": 0,
+      "readback": "project row matched the exact private-SSOT project before import; the Projects table subsequently showed the project, and the Spend page selected the matching project"
+    },
+    {
+      "command": "AI Studio Spend UI for the exact private-SSOT project",
+      "exit_code": 0,
+      "readback": "Free tier; page states that no billing account is configured; no monthly spend cap value is displayed"
+    },
+    {
+      "command": "gcloud auth list --format=json",
+      "exit_code": 0,
+      "readback": "one active gcloud identity; exact identity matches the credential SSOT row"
+    },
+    {
+      "command": "gcloud projects describe and gcloud billing projects describe for the private-SSOT project",
+      "exit_code": 0,
+      "readback": "project lifecycle ACTIVE; billingEnabled false; billing account not linked"
+    }
+  ],
+  "effect": "read_only_recheck_of_the_selected_project_billing_and_cap_state; no billing or provider setting changed during this readback window",
+  "project_import_effect": {
+    "action": "imported_the_existing_cloud_project_into_ai_studio_for_read_only_inspection",
+    "completed_before_this_timed_readback_window": true,
+    "exact_action_timestamp_utc": "not separately captured",
+    "readback": "the AI Studio Projects page showed AI Monk Factory for the matching private-SSOT project; the subsequent Spend route remained selected to that project"
+  },
+  "readback": {
+    "identity_matches_private_credential_ssot": true,
+    "project_matches_private_credential_ssot": true,
+    "project_lifecycle_state": "ACTIVE",
+    "billing_enabled": false,
+    "billing_account_linked": false,
+    "ai_studio_plan": "Free tier",
+    "ai_studio_spend_page_reports_no_billing_account": true,
+    "ai_studio_monthly_spend_cap_value_usd": null,
+    "cap_state": "not_displayed; this does not prove the cap is unset",
+    "usage_and_billing_routes": "opened for the matching project; no cap value was visible"
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/evidence/ai-monk-factory-gemini-billing-readback-20261025T160700Z.json",
+    "docs/evidence/ai-monk-factory-provider-spend-boundary-research-20261025T160147Z.json"
+  ],
+  "effects": {
+    "project_imported_into_ai_studio_before_readback_window": 1,
+    "billing_account_linked": 0,
+    "spend_cap_changed": 0,
+    "credit_purchase": 0,
+    "provider_key_changed": 0,
+    "generation_or_video": 0,
+    "instagram_oauth_or_post": 0,
+    "stripe_checkout_or_charge": 0
+  },
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Read-only refresh the dedicated HeyGen wallet, auto-reload, and provider spending-limit fields. Keep Factory runtime closed; Gemini billing is still disabled and no cap value was verified."
+}

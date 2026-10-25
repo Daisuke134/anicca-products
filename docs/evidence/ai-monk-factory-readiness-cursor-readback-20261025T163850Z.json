@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "run_id": "e0bba704-25a6-453a-8c7f-6626d9634fb1",
+  "owner_id": "codex-ai-monk-factory",
+  "occurrence_id": "2e8a783c-2fc3-4575-a7de-b6a29fb940c8",
+  "release_sha": "b4d4c94c5d8a1d1254f502cd26e5efac7342f76a",
+  "observed_at_window_utc": {
+    "start": "2026-10-25T16:33:38Z",
+    "end": "2026-10-25T16:38:50Z"
+  },
+  "phase": "factory_provider_runtime_and_instagram_route_readonly_preflight",
+  "loaded_argv": [
+    "GET https://api.heygen.com/v3/users/me using Credential SSOT service heygen-ai-monk-factory",
+    "GET Stripe test price catalog by Factory lookup key and GET the recorded Factory price/account",
+    "GET Netlify site catalog and production environment variable metadata",
+    "Read current-main Instagram OAuth adapter and client redirect allowlist"
+  ],
+  "loaded_env": {
+    "credentials_source": "private Credential SSOT; values not emitted",
+    "provider_secrets_emitted": false
+  },
+  "commands": [
+    {
+      "command": "GET /v3/users/me with dedicated HeyGen Factory credential",
+      "http_status": 200,
+      "readback": {
+        "credential_identity_matches_ssot": true,
+        "billing_type": "wallet",
+        "wallet_currency": "usd",
+        "wallet_remaining_balance": 0,
+        "auto_reload_field_returned": false,
+        "spending_cap_field_returned": false
+      },
+      "effect": "read_only"
+    },
+    {
+      "command": "GET Stripe test price catalog by the recorded Factory lookup key",
+      "http_status": 200,
+      "readback": {
+        "key_mode": "test",
+        "factory_price_count": 0
+      },
+      "effect": "read_only"
+    },
+    {
+      "command": "GET Stripe /v1/prices/{recorded Factory price id} with stripe-test-restricted",
+      "http_status": 404,
+      "readback": {
+        "error_code": "resource_missing",
+        "price_visible_to_this_test_key": false,
+        "cause": "account or mode mismatch is not resolved"
+      },
+      "effect": "read_only"
+    },
+    {
+      "command": "GET Stripe /v1/account with stripe-test-restricted",
+      "http_status": 403,
+      "readback": {
+        "error_code": "more_permissions_required",
+        "account_identity_readable": false
+      },
+      "effect": "read_only"
+    },
+    {
+      "command": "GET Netlify production environment variables for aniccaai.com",
+      "http_status": 200,
+      "readback": {
+        "matching_site_count": 1,
+        "production_variable_count": 58,
+        "factory_variable_count": 0,
+        "generic_stripe_secret_key_present": true,
+        "factory_stripe_secret_key_present": false,
+        "factory_heygen_key_present": false,
+        "factory_gemini_key_present": false,
+        "factory_instagram_app_id_present": false,
+        "factory_instagram_app_secret_present": false,
+        "factory_meta_redirect_uri_present": false,
+        "factory_meta_standard_access_evidence_present": false
+      },
+      "effect": "read_only"
+    },
+    {
+      "command": "Read current-main source for Meta Instagram OAuth and browser destination validation",
+      "exit_code": 0,
+      "readback": {
+        "instagram_login_provider_url": "https://www.instagram.com/oauth/authorize",
+        "client_allowlist_host": "www.facebook.com",
+        "client_allowlist_path": "/dialog/oauth",
+        "instagram_login_destination_accepted": false,
+        "meta_adapter_commit": "82e2ebf"
+      },
+      "effect": "read_only"
+    }
+  ],
+  "effect": "read_only; no billing, wallet, key, runtime, OAuth, generation, checkout, or posting settings changed",
+  "readback": {
+    "provider_spend_boundary": "not established",
+    "factory_runtime_ready": false,
+    "meta_oauth_source_implemented": true,
+    "instagram_login_redirect_blocked_by_client_allowlist": true,
+    "stripe_test_checkout_capable_key_verified": false
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "docs/evidence/ai-monk-factory-ai-studio-cap-readback-20261025T162759Z.json",
+    "docs/evidence/ai-monk-factory-stripe-activation-20261024.json",
+    "apps/landing/netlify/functions/_lib/monk-factory-instagram.js",
+    "apps/landing/lib/monk-factory-client.mjs",
+    "apps/landing/lib/monk-factory-client.test.mjs"
+  ],
+  "error_class": "instagram_login_destination_allowlist_mismatch; stripe_test_key_permissions_incomplete",
+  "retryable": false,
+  "next_action": "Test-first update the Factory client allowlist to accept only https://www.instagram.com/oauth/authorize; then continue Stripe test account/key, Meta app role/Standard Access, and provider spend boundary readbacks. Keep Factory runtime closed until spending boundaries are enforceable."
+}
