@@ -4,6 +4,8 @@ const { UUID } = require('./monk-factory.js');
 const ACCOUNT_ID = /^[A-Za-z0-9_.:-]{1,200}$/;
 const POST_URL_HOSTS = new Set(['instagram.com', 'www.instagram.com']);
 const INSIGHT_METRICS = ['views', 'reach', 'likes', 'comments', 'saved', 'shares'];
+const REQUIRED_SCOPES = ['instagram_business_basic', 'instagram_business_content_publish', 'instagram_business_manage_insights'];
+const REFRESH_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 
 function error(code, providerStatus = 503, effect = 'none', retryable = false, extra = {}) {
   return Object.assign(new Error(code), { code, status: providerStatus, provider: 'meta_instagram', effect, retryable, ...extra });
@@ -42,11 +44,11 @@ function decryptToken(value, secret) {
 function createMetaInstagramProvider({ env = process.env, fetchImpl = fetch, store } = {}) {
   const configured = name => typeof env[name] === 'string' && env[name].trim().length > 0;
   const version = env.MONK_FACTORY_META_API_VERSION || 'v26.0';
-  const graphBase = 'https://graph.facebook.com/' + version;
+  const graphBase = 'https://graph.instagram.com/' + version;
   const redirectUri = env.MONK_FACTORY_META_REDIRECT_URI;
 
   function readiness() {
-    const missing = ['MONK_FACTORY_META_APP_ID', 'MONK_FACTORY_META_APP_SECRET', 'MONK_FACTORY_META_CONFIG_ID',
+    const missing = ['MONK_FACTORY_INSTAGRAM_APP_ID', 'MONK_FACTORY_INSTAGRAM_APP_SECRET', 'MONK_FACTORY_META_APP_SECRET',
       'MONK_FACTORY_META_REDIRECT_URI', 'MONK_FACTORY_META_WEBHOOK_VERIFY_TOKEN', 'MONK_FACTORY_JOB_SECRET'].filter(key => !configured(key));
     try {
       if (redirectUri) {
@@ -69,12 +71,12 @@ function createMetaInstagramProvider({ env = process.env, fetchImpl = fetch, sto
     return value;
   }
 
-  async function request(url, { method = 'GET', token, body, timeoutMs = 10000, receiptId } = {}) {
+  async function request(url, { method = 'GET', token, body, form = false, timeoutMs = 10000, receiptId } = {}) {
     const mutating = method !== 'GET';
     let response;
     try {
-      response = await fetchImpl(url, { method, headers: { ...(token ? { Authorization: 'Bearer ' + token } : {}), ...(body ? { 'Content-Type': 'application/json' } : {}) },
-        ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(timeoutMs), redirect: 'error' });
+      response = await fetchImpl(url, { method, headers: { ...(token ? { Authorization: 'Bearer ' + token } : {}), ...(body && !form ? { 'Content-Type': 'application/json' } : {}) },
+        ...(body ? { body: form ? body : JSON.stringify(body) } : {}), signal: AbortSignal.timeout(timeoutMs), redirect: 'error' });
     } catch {
       throw error(mutating ? 'provider_effect_unknown' : 'provider_readback_unavailable', 503, mutating ? 'unknown' : 'none', !mutating, receiptId ? { providerReceiptId: receiptId } : {});
     }
@@ -95,20 +97,41 @@ function createMetaInstagramProvider({ env = process.env, fetchImpl = fetch, sto
     return data;
   }
 
-  async function requireInstagramPermissions(token) {
-    const permissions = await request(graphBase + '/me/permissions', { token });
-    if (!Array.isArray(permissions.data)) throw error('provider_readback_invalid');
-    const granted = new Set(permissions.data.filter(item => item?.status === 'granted').map(item => item.permission));
-    if (!granted.has('instagram_content_publish')) throw error('instagram_publish_permission_required', 409);
-    if (!granted.has('instagram_manage_insights')) throw error('instagram_insights_permission_required', 409);
+  function requireInstagramScopes(permissions) {
+    const granted = new Set(typeof permissions === 'string' ? permissions.split(',').map(scope => scope.trim())
+      : Array.isArray(permissions) ? permissions : []);
+    if (!granted.has('instagram_business_content_publish')) throw error('instagram_publish_permission_required', 409);
+    if (!granted.has('instagram_business_manage_insights')) throw error('instagram_insights_permission_required', 409);
+    if (!granted.has('instagram_business_basic')) throw error('instagram_basic_permission_required', 409);
   }
 
   async function credential(userId) {
     if (!store?.instagramCredential) throw error('store_unavailable');
-    const value = await store.instagramCredential(userId);
+    let value = await store.instagramCredential(userId);
     if (!value?.instagram_access_token_ciphertext || value.instagram_account_id == null) throw error('instagram_required', 409);
-    if (value.instagram_access_token_expires_at && Date.parse(value.instagram_access_token_expires_at) <= Date.now()) throw error('instagram_reconnect_required', 409);
-    const token = decryptToken(value.instagram_access_token_ciphertext, env.MONK_FACTORY_JOB_SECRET);
+    const expiresAt = Date.parse(value.instagram_access_token_expires_at);
+    if (!Number.isFinite(expiresAt) || expiresAt <= Date.now()) throw error('instagram_reconnect_required', 409);
+    let token = decryptToken(value.instagram_access_token_ciphertext, env.MONK_FACTORY_JOB_SECRET);
+    if (expiresAt - Date.now() <= REFRESH_WINDOW_MS) {
+      const refreshUrl = new URL('https://graph.instagram.com/refresh_access_token');
+      refreshUrl.searchParams.set('grant_type', 'ig_refresh_token');
+      refreshUrl.searchParams.set('access_token', token);
+      const refreshed = await request(refreshUrl.toString(), { token });
+      if (typeof refreshed.access_token !== 'string' || refreshed.access_token.length < 16
+        || !Number.isFinite(refreshed.expires_in) || refreshed.expires_in <= 0) throw error('provider_readback_invalid');
+      token = refreshed.access_token;
+      const refreshedExpiresAt = new Date(Date.now() + refreshed.expires_in * 1000).toISOString();
+      const refreshedCiphertext = encryptToken(token, env.MONK_FACTORY_JOB_SECRET);
+      await store.saveInstagramCredential(userId, {
+        instagram_access_token_ciphertext: refreshedCiphertext,
+        instagram_access_token_expires_at: refreshedExpiresAt,
+        instagram_business_id: value.instagram_business_id,
+        instagram_account_id: value.instagram_account_id,
+        instagram_username: value.instagram_username,
+        connected_at: value.connected_at || new Date().toISOString(),
+      });
+      value = { ...value, instagram_access_token_ciphertext: refreshedCiphertext, instagram_access_token_expires_at: refreshedExpiresAt };
+    }
     return { ...value, token, instagram_account_id: accountId(value.instagram_account_id) };
   }
 
@@ -119,13 +142,13 @@ function createMetaInstagramProvider({ env = process.env, fetchImpl = fetch, sto
     const state = randomBytes(32).toString('base64url');
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
     await store.beginInstagramOAuth(userId, stateHash(state), expiresAt);
-    const url = new URL('https://www.facebook.com/dialog/oauth');
-    url.searchParams.set('client_id', env.MONK_FACTORY_META_APP_ID);
-    url.searchParams.set('config_id', env.MONK_FACTORY_META_CONFIG_ID);
+    const url = new URL('https://www.instagram.com/oauth/authorize');
+    url.searchParams.set('client_id', env.MONK_FACTORY_INSTAGRAM_APP_ID);
     url.searchParams.set('redirect_uri', redirectUri);
     url.searchParams.set('response_type', 'code');
+    url.searchParams.set('scope', REQUIRED_SCOPES.join(','));
     url.searchParams.set('state', state);
-    url.searchParams.set('display', 'popup');
+    url.searchParams.set('enable_fb_login', 'false');
     return { profile: profileFor(userId), accessUrl: url.toString() };
   }
 
@@ -137,38 +160,45 @@ function createMetaInstagramProvider({ env = process.env, fetchImpl = fetch, sto
     if (!userId) throw error('instagram_oauth_state_invalid', 400);
     profileFor(userId);
 
-    const tokenUrl = new URL(graphBase + '/oauth/access_token');
-    tokenUrl.searchParams.set('client_id', env.MONK_FACTORY_META_APP_ID);
-    tokenUrl.searchParams.set('client_secret', env.MONK_FACTORY_META_APP_SECRET);
-    tokenUrl.searchParams.set('code', code);
-    const token = await request(tokenUrl.toString());
-    if (typeof token.access_token !== 'string' || token.access_token.length < 16) throw error('provider_readback_invalid');
+    const form = new FormData();
+    form.set('client_id', env.MONK_FACTORY_INSTAGRAM_APP_ID);
+    form.set('client_secret', env.MONK_FACTORY_INSTAGRAM_APP_SECRET);
+    form.set('grant_type', 'authorization_code');
+    form.set('redirect_uri', redirectUri);
+    form.set('code', code);
+    const shortToken = await request('https://api.instagram.com/oauth/access_token', { method: 'POST', body: form, form: true });
+    if (typeof shortToken.access_token !== 'string' || shortToken.access_token.length < 16
+      || typeof shortToken.user_id !== 'string' || !ACCOUNT_ID.test(shortToken.user_id)) throw error('provider_readback_invalid');
+    requireInstagramScopes(shortToken.permissions);
 
-    const business = await request(graphBase + '/me?fields=client_business_id', { token: token.access_token });
-    if (typeof business.client_business_id !== 'string' || !ACCOUNT_ID.test(business.client_business_id)) throw error('provider_readback_invalid');
-    const assigned = await request(graphBase + '/me/assigned_instagram_accounts?fields=id,username', { token: token.access_token });
-    const accounts = Array.isArray(assigned.data) ? assigned.data.filter(item => ACCOUNT_ID.test(item?.id || '') && typeof item.username === 'string' && item.username.length <= 200) : [];
-    if (accounts.length !== 1) throw error(accounts.length ? 'instagram_account_selection_required' : 'instagram_account_required', 409);
-    await requireInstagramPermissions(token.access_token);
-    const selected = accounts[0];
-    const expiresAt = Number.isFinite(token.expires_in) && token.expires_in > 0 ? new Date(Date.now() + token.expires_in * 1000).toISOString() : null;
+    const tokenUrl = new URL('https://graph.instagram.com/access_token');
+    tokenUrl.searchParams.set('grant_type', 'ig_exchange_token');
+    tokenUrl.searchParams.set('client_secret', env.MONK_FACTORY_INSTAGRAM_APP_SECRET);
+    tokenUrl.searchParams.set('access_token', shortToken.access_token);
+    const token = await request(tokenUrl.toString());
+    if (typeof token.access_token !== 'string' || token.access_token.length < 16
+      || !Number.isFinite(token.expires_in) || token.expires_in <= 0) throw error('provider_readback_invalid');
+
+    const selected = await request(graphBase + '/me?fields=user_id,username', { token: token.access_token });
+    if (selected.user_id !== shortToken.user_id || !ACCOUNT_ID.test(selected.user_id || '')
+      || typeof selected.username !== 'string' || selected.username.length > 200) throw error('provider_readback_invalid');
+    const expiresAt = new Date(Date.now() + token.expires_in * 1000).toISOString();
     await store.saveInstagramCredential(userId, {
       instagram_access_token_ciphertext: encryptToken(token.access_token, env.MONK_FACTORY_JOB_SECRET),
       instagram_access_token_expires_at: expiresAt,
-      instagram_business_id: business.client_business_id,
-      instagram_account_id: selected.id,
+      instagram_business_id: null,
+      instagram_account_id: selected.user_id,
       instagram_username: selected.username,
       connected_at: new Date().toISOString(),
     });
-    return { userId, accountId: selected.id, username: selected.username, businessId: business.client_business_id };
+    return { userId, accountId: selected.user_id, username: selected.username };
   }
 
   async function socialState(userId) {
     const saved = await credential(userId);
-    const live = await request(graphBase + '/' + encodeURIComponent(saved.instagram_account_id) + '?fields=id,username', { token: saved.token });
-    if (live.id !== saved.instagram_account_id || live.username !== saved.instagram_username) throw error('provider_readback_invalid');
-    await requireInstagramPermissions(saved.token);
-    return { profile: profileFor(userId), connected: true, accountId: live.id, handle: live.username, reauthRequired: false };
+    const live = await request(graphBase + '/me?fields=user_id,username', { token: saved.token });
+    if (live.user_id !== saved.instagram_account_id || live.username !== saved.instagram_username) throw error('provider_readback_invalid');
+    return { profile: profileFor(userId), connected: true, accountId: live.user_id, handle: live.username, reauthRequired: false };
   }
 
   async function publishInstagram({ userId, accountId: requestedId, videoUrl, caption, requestId }) {

@@ -483,7 +483,8 @@ test('Stop wins the account lock before a pending Meta media_publish fence', opt
 
 const providerEnv = { MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long',
   MONK_FACTORY_GEMINI_API_KEY: 'synthetic-gemini', MONK_FACTORY_HEYGEN_API_KEY: 'synthetic-heygen', MONK_FACTORY_HEYGEN_VOICE_ID: 'synthetic-voice',
-  MONK_FACTORY_META_APP_ID: 'synthetic-app', MONK_FACTORY_META_APP_SECRET: 'synthetic-app-secret', MONK_FACTORY_META_CONFIG_ID: 'synthetic-config',
+  MONK_FACTORY_INSTAGRAM_APP_ID: 'synthetic-instagram-app', MONK_FACTORY_INSTAGRAM_APP_SECRET: 'synthetic-instagram-app-secret',
+  MONK_FACTORY_META_APP_SECRET: 'synthetic-meta-app-secret',
   MONK_FACTORY_META_REDIRECT_URI: 'https://aniccaai.com/.netlify/functions/monk-factory-instagram-oauth',
   MONK_FACTORY_META_WEBHOOK_VERIFY_TOKEN: 'synthetic-webhook-verification-token',
   MONK_FACTORY_META_STANDARD_ACCESS_VERIFIED: 'true', MONK_FACTORY_META_STANDARD_ACCESS_EVIDENCE_REF: 'fixture',

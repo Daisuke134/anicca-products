@@ -10,9 +10,9 @@ const env = {
   MONK_FACTORY_GEMINI_API_KEY: 'factory-gemini-secret',
   MONK_FACTORY_HEYGEN_API_KEY: 'factory-heygen-secret',
   MONK_FACTORY_HEYGEN_VOICE_ID: 'starfish_voice_1',
-  MONK_FACTORY_META_APP_ID: 'meta-app-id',
+  MONK_FACTORY_INSTAGRAM_APP_ID: 'instagram-app-id',
+  MONK_FACTORY_INSTAGRAM_APP_SECRET: 'instagram-app-secret',
   MONK_FACTORY_META_APP_SECRET: 'meta-app-secret',
-  MONK_FACTORY_META_CONFIG_ID: 'meta-config-id',
   MONK_FACTORY_META_REDIRECT_URI: 'https://aniccaai.com/.netlify/functions/monk-factory-instagram-oauth',
   MONK_FACTORY_META_WEBHOOK_VERIFY_TOKEN: 'private-webhook-verification-token',
   MONK_FACTORY_JOB_SECRET: 'a-private-factory-job-secret-for-tests-only',
@@ -40,11 +40,11 @@ test('missing dedicated keys and unverified billing block submissions without us
 
 test('missing social provider setup does not mark image and script generation unavailable', () => {
   const generationOnly = { ...env };
-  delete generationOnly.MONK_FACTORY_META_APP_ID;
+  delete generationOnly.MONK_FACTORY_INSTAGRAM_APP_ID;
   const state = createFactoryProviders({ env: generationOnly }).readiness();
   assert.equal(state.generation.ready, true);
   assert.equal(state.social.ready, false);
-  assert.ok(state.social.missing.includes('MONK_FACTORY_META_APP_ID'));
+  assert.ok(state.social.missing.includes('MONK_FACTORY_INSTAGRAM_APP_ID'));
 });
 
 test('an operator billing flag without its evidence reference remains unverified', async () => {

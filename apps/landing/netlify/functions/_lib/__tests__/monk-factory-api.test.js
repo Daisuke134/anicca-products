@@ -103,7 +103,7 @@ test('Instagram connection follows one generated avatar and one completed full v
     fetchImpl: auth,
     providers: {
       readiness: async () => ({ generation: { ready: true }, social: { ready: true } }),
-      connectInstagram: async () => { oauthRequests++; return { accessUrl: 'https://www.facebook.com/dialog/oauth?fixture=1' }; },
+      connectInstagram: async () => { oauthRequests++; return { accessUrl: 'https://www.instagram.com/oauth/authorize?fixture=1' }; },
     },
     store: {
       companyBudgetStatus: async () => ({ ready: true }),
@@ -127,7 +127,7 @@ test('Instagram connection follows one generated avatar and one completed full v
   jobs = [{ id: 'completed-video-fixture', kind: 'video', status: 'completed', video_url: 'https://cdn.example/fixture.mp4' }];
   const afterVideo = await factoryHandler(request, dependencies);
   assert.equal(afterVideo.statusCode, 200);
-  assert.equal(JSON.parse(afterVideo.body).url, 'https://www.facebook.com/dialog/oauth?fixture=1');
+  assert.equal(JSON.parse(afterVideo.body).url, 'https://www.instagram.com/oauth/authorize?fixture=1');
   assert.equal(oauthRequests, 1);
 });
 
@@ -393,7 +393,7 @@ test('a lost Instagram publishing permission is shown as reconnect-required and 
   const providers = {
     readiness: async () => ({ generation: { ready: true }, social: { ready: true } }),
     socialState: async () => { throw Object.assign(new Error('instagram_publish_permission_required'), { code: 'instagram_publish_permission_required', status: 409 }); },
-    connectInstagram: async () => { oauthCalls++; return { accessUrl: 'https://www.facebook.com/dialog/oauth?reconnect=1' }; },
+    connectInstagram: async () => { oauthCalls++; return { accessUrl: 'https://www.instagram.com/oauth/authorize?reconnect=1' }; },
   };
   const headers = { authorization: 'Bearer fixture-session' };
   const status = await factoryHandler({ httpMethod: 'GET', headers }, { env: configured, fetchImpl: auth, store, providers });
@@ -405,6 +405,6 @@ test('a lost Instagram publishing permission is shown as reconnect-required and 
   const reconnect = await factoryHandler({ httpMethod: 'POST', headers, body: JSON.stringify({ action: 'connect_instagram' }) },
     { env: configured, fetchImpl: auth, store, providers });
   assert.equal(reconnect.statusCode, 200);
-  assert.equal(JSON.parse(reconnect.body).url, 'https://www.facebook.com/dialog/oauth?reconnect=1');
+  assert.equal(JSON.parse(reconnect.body).url, 'https://www.instagram.com/oauth/authorize?reconnect=1');
   assert.equal(oauthCalls, 1);
 });
