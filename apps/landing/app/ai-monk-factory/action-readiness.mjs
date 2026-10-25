@@ -34,6 +34,10 @@ export function factoryCapabilityUnavailable(capability) {
   return blockedMessages[capability?.reason] || fallbackMessages[capability?.name] || 'This service is temporarily unavailable.';
 }
 
+export function factoryActionReady(action, readiness) {
+  return (actionCapabilities[action] || []).every(name => readiness?.[name]?.ready === true);
+}
+
 export function requestFactoryAction(action, readiness, avatarReady, perform, notify, allowance = {}) {
   const capabilities = actionCapabilities[action] || [];
   const blocked = capabilities
