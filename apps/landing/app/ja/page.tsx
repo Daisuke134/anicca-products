@@ -3,10 +3,10 @@ import ManagerHome from "@/components/site/ManagerHome";
 import JsonLd from "@/components/JsonLd";
 
 const DESCRIPTION =
-  "世界を理解し、環境を変え、現実から学ぶ。すべての生命が豊かに生きられる世界を目指す人工知能。";
+  "成田大祐です。苦しみを減らすためのアプリを作っています。時間を整えるLife Managerと、毎日のアファメーションアプリAnicca。";
 
 export const metadata: Metadata = {
-  title: "マネージャー — 世界を理解し、環境を変える",
+  title: "Anicca｜成田大祐がつくる、苦しみを減らすアプリ（Life Manager・アファメーション）",
   description: DESCRIPTION,
   alternates: {
     canonical: "https://aniccaai.com/ja",
@@ -17,17 +17,17 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "マネージャー — 世界を理解し、環境を変える",
+    title: "Anicca｜成田大祐がつくる、苦しみを減らすアプリ（Life Manager・アファメーション）",
     description: DESCRIPTION,
     url: "https://aniccaai.com/ja",
     type: "website",
     locale: "ja_JP",
     alternateLocale: ["en_US"],
-    siteName: "Manager",
+    siteName: "Anicca",
   },
   twitter: {
     card: "summary",
-    title: "マネージャー — 世界を理解し、環境を変える",
+    title: "Anicca｜成田大祐がつくる、苦しみを減らすアプリ（Life Manager・アファメーション）",
     description: DESCRIPTION,
   },
 };
@@ -39,7 +39,7 @@ export default function Page() {
         data={{
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Manager",
+          name: "Anicca",
           url: "https://aniccaai.com/ja",
           description: DESCRIPTION,
           inLanguage: "ja",
@@ -47,6 +47,14 @@ export default function Page() {
             "@type": "Organization",
             name: "Anicca",
             url: "https://aniccaai.com",
+            logo: "https://aniccaai.com/anicca-app-icon.png",
+            founder: {
+              "@type": "Person",
+              name: "Daisuke Narita",
+              alternateName: "成田大祐",
+              url: "https://aniccaai.com/dais",
+              sameAs: ["https://github.com/Daisuke134"],
+            },
           },
         }}
       />

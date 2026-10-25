@@ -1,0 +1,34 @@
+{
+  "observed_at": "2026-10-25T12:09:43Z",
+  "provider": "HeyGen",
+  "credential_scope": "heygen-ai-monk-factory",
+  "request": {
+    "method": "GET",
+    "endpoint": "https://api.heygen.com/v3/users/me",
+    "http_status": 200
+  },
+  "billing_type": "wallet",
+  "wallet": {
+    "currency": "usd",
+    "remaining_balance": 0,
+    "auto_reload_enabled": false,
+    "auto_reload_threshold_usd": null,
+    "auto_reload_amount_usd": null
+  },
+  "usage_based": {
+    "spending_current_usd": null,
+    "spending_cap_usd": null
+  },
+  "interpretation": {
+    "available_wallet_balance_usd": 0,
+    "automatic_wallet_reloads": "disabled",
+    "workspace_api_auto_refill": "not returned by this endpoint; current value remains unverified",
+    "provider_hard_spending_cap": "not present for wallet billing in this response; HeyGen profile documentation places spending_cap_usd under usage_based billing"
+  },
+  "effects": {
+    "purchase": 0,
+    "generation": 0,
+    "configuration_change": 0
+  },
+  "source": "https://developers.heygen.com/user-profile"
+}

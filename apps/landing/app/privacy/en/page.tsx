@@ -98,10 +98,13 @@ export default function PrivacyEN() {
       <h2 className="mt-10 text-xl font-semibold text-foreground">15. Revisions</h2>
       <p className="mt-3 text-muted-foreground">When revisions are made, we will announce them on this page, and important changes will be notified through in-app notifications, etc.</p>
 
+      <h2 className="mt-10 text-xl font-semibold text-foreground">15a. TikTok and YouTube Publishing</h2>
+      <p className="mt-3 text-muted-foreground">Our publishing tool (the &quot;Anicca&quot; app on TikTok for Developers and Google/YouTube) connects only to accounts that we own or that explicitly authorize it. When connected, it may access: TikTok basic profile information (open ID, display name, avatar), TikTok profile and video statistics (follower, like, and view counts), and the TikTok video list; and on YouTube, channel information, the list of uploaded videos, and their view statistics. We use this data only to publish our own content and to show performance statistics to ourselves. We do not sell this data, do not share it with third parties for advertising, and do not use it for any other purpose. Access tokens are stored securely and deleted when access is revoked. You can revoke access at any time in your TikTok or Google account settings, or request deletion by contacting keiodaisuke@gmail.com. Our use of YouTube data complies with the Google API Services User Data Policy.</p>
+
       <h2 className="mt-10 text-xl font-semibold text-foreground">16. Contact</h2>
       <p className="mt-3 text-muted-foreground">Please contact keiodaisuke@gmail.com.</p>
 
-      <p className="mt-12 text-right text-sm text-muted-foreground">Last Updated: October 9, 2026</p>
+      <p className="mt-12 text-right text-sm text-muted-foreground">Last Updated: October 25, 2026</p>
     </main>
   );
 }

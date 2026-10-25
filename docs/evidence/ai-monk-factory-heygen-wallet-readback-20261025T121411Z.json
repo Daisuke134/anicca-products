@@ -1,0 +1,47 @@
+{
+  "run_id": "heygen-profile-readonly-20261025T121411Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "7d14d49ddf9b4b4abcacaf17c892e072",
+  "observed_at": "2026-10-25T12:14:11.468Z",
+  "release_sha": "17cc87af717a17cdcdb4c16823f7c6fd5034b780",
+  "phase": "provider_read_only_profile",
+  "command": "GET https://api.heygen.com/v3/users/me using exact credential service heygen-ai-monk-factory; secret omitted",
+  "exit_code": 0,
+  "http_status": 200,
+  "effect": "read_only_observation; no provider mutation",
+  "provider_request_id": "7d14d49ddf9b4b4abcacaf17c892e072",
+  "credential_scope": "heygen-ai-monk-factory",
+  "field_paths": {
+    "billing_type": "data.billing_type",
+    "wallet.currency": "data.wallet.currency",
+    "wallet.remaining_balance": "data.wallet.remaining_balance",
+    "wallet.auto_reload.enabled": "data.wallet.auto_reload.enabled",
+    "wallet.auto_reload.threshold_usd": "data.wallet.auto_reload.threshold_usd",
+    "wallet.auto_reload.amount_usd": "data.wallet.auto_reload.amount_usd",
+    "usage_based.spending_current_usd": "data.usage_based.spending_current_usd",
+    "usage_based.spending_cap_usd": "data.usage_based.spending_cap_usd"
+  },
+  "sanitized_response": {
+    "billing_type": "wallet",
+    "wallet": {
+      "currency": "usd",
+      "remaining_balance": 0,
+      "auto_reload": {
+        "enabled": false,
+        "threshold_usd": null,
+        "amount_usd": null
+      }
+    },
+    "usage_based": {
+      "spending_current_usd": null,
+      "spending_cap_usd": null
+    }
+  },
+  "sanitized_response_sha256": "e15128d397242920c2cd2b0e037475dff48752b16c9ef0aa12dc81f1ffadefe4",
+  "raw_response": "not persisted; contains unrelated account profile data",
+  "normalization": "Optional provider fields absent from the response are normalized to null by extraction; exact property-presence readback is recorded in ai-monk-factory-heygen-wallet-field-presence-20261025T121531Z.json.",
+  "error_class": null,
+  "retryable": null,
+  "next_action": "Keep the wallet readback as an observed balance only; do not infer API request rejection or attempt generation. Resolve app-level auth/action readback and the explicit Factory budget before any provider effect.",
+  "source": "https://developers.heygen.com/user-profile"
+}

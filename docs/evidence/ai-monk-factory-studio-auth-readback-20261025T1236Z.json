@@ -1,0 +1,84 @@
+{
+  "run_id": "monk-factory-authenticated-studio-readback-20261025T1236Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "f2661e36-6400-42cc-bcbe-d77d0023217b",
+  "observed_at": "2026-10-25T12:36Z",
+  "release_sha": "b33a49b1f2489ac90915d0af5f10c044b5b26d32",
+  "phase": "authenticated_factory_studio_status_readback",
+  "command": "GET https://aniccaai.com/.netlify/functions/monk-factory with the registered Factory operator Google/Supabase session; bearer omitted",
+  "exit_code": 0,
+  "http_status": 200,
+  "effect": "Google OAuth session established and saved to Credential SSOT; monk_factory_usage may insert a minimal account row if absent, but insertion is unknown without a pre-read; no provider generation, Instagram OAuth, post, checkout, or charge",
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "../../evidence/ai-monk-factory-runtime-readback-20261025T110509Z.json",
+    "../../evidence/ai-monk-factory-heygen-wallet-field-presence-20261025T121531Z.json"
+  ],
+  "readback": {
+    "operator_identity_matches_ssot": true,
+    "previous_supabase_refresh_token_result": "HTTP 400 refresh_token_not_found",
+    "fresh_google_oauth_session_saved": true,
+    "netlify": {
+      "site": "aniccaai.com",
+      "production_variable_count": 62,
+      "factory_variable_count": 0,
+      "public_supabase_auth_variables_present": true,
+      "latest_deploy_id": "6addf68c363a41283f2e08fc",
+      "latest_deploy_state": "ready",
+      "deploy_title_source_commit": "b33a49b1f2489ac90915d0af5f10c044b5b26d32",
+      "commit_ref": null
+    },
+    "factory_api": {
+      "ready": false,
+      "readiness": {
+        "generation": { "ready": false, "reason": "studio_setup" },
+        "social": { "ready": false, "reason": "studio_setup" },
+        "checkout": { "ready": false, "reason": "studio_setup" }
+      },
+      "usage": {
+        "videos_remaining": 3,
+        "attempts_remaining": 3,
+        "max_seconds": 20,
+        "period_end": null
+      },
+      "account": {
+        "avatar_ready": false,
+        "instagram_connected": false,
+        "auto_post": false,
+        "auto_post_intent": false,
+        "subscription_status": "none"
+      },
+      "jobs": 0,
+      "studio_generic_error_visible": false,
+      "studio_status_loaded": true
+    },
+    "environment_gate": {
+      "required_toggle": "MONK_FACTORY_ENABLED=true",
+      "toggle_present": false,
+      "reason_source": "apps/landing/netlify/functions/monk-factory.js factoryReadiness"
+    },
+    "provider_boundary": {
+      "heygen_last_profile_readback_at": "2026-10-25T12:15:31Z",
+      "heygen_wallet_usd": 0,
+      "heygen_wallet_auto_reload": false,
+      "heygen_usage_based_cap_fields_present": false,
+      "heygen_workspace_api_autorefill": "unknown",
+      "heygen_wallet_hard_cap": "unknown",
+      "gemini_last_billing_readback_at": "2026-10-25T11:05:09Z",
+      "gemini_project_billing_last_readback": "prepared_unfunded",
+      "gemini_billing_verified_last_readback": false,
+      "gemini_current_billing_status": "not_rechecked_at_12:36Z",
+      "internal_daily_reservation_is_provider_hard_cap": false
+    },
+    "provider_effects": {
+      "generation": 0,
+      "instagram_oauth": 0,
+      "post": 0,
+      "stripe_checkout": 0,
+      "charge": 0
+    }
+  },
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Read back the dedicated HeyGen workspace API refill and effective spend boundary; establish provider-specific HeyGen/Gemini budgets before setting MONK_FACTORY_ENABLED or generating content."
+}

@@ -83,5 +83,5 @@ jobs:
       - name: Apply canonical products catalog routes only
         working-directory: apps/landing
         env:
-          MANAGER_PRODUCTS_REVISION: 6bbef9053bb1feb011c971c2c0eb38d8da9a71ad
+          MANAGER_PRODUCTS_REVISION: 973d3f6e7ae02562fcbfd9c1c0cccca5011a98bd
         run: node scripts/apply-products-overlay.mjs
