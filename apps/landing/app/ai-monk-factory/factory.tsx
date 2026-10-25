@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { getSession, onAuthChange, signInWithGoogle, signOut } from '@/lib/auth';
 import { factoryDestination, factoryRequest, type FactoryAction } from '@/lib/monk-factory-client.mjs';
-import { factoryActionReady, factoryCapabilityUnavailable, factoryQuotaState, refreshFactoryActionStatus, requestFactoryAction } from './action-readiness.mjs';
+import { factoryActionReady, factoryCapabilityUnavailable, factoryErrorMessage, factoryQuotaState, refreshFactoryActionStatus, requestFactoryAction } from './action-readiness.mjs';
 import { FactoryActionNotice } from './factory-action-notice.mjs';
 
 type Account = {
@@ -51,8 +51,7 @@ const messages: Record<string, string> = {
 };
 const unavailable = (capability?: Capability) => factoryCapabilityUnavailable(capability);
 function errorMessage(error: unknown) {
-  const code = error && typeof error === 'object' && 'code' in error ? String(error.code) : '';
-  return messages[code] || 'This action could not finish. Refresh to check its status before trying again.';
+  return factoryErrorMessage(error, messages);
 }
 function stage(job: Job) {
   if (job.status === 'effect_unknown') return 'Checking provider confirmation';

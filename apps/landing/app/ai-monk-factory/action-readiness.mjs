@@ -34,6 +34,15 @@ export function factoryCapabilityUnavailable(capability) {
   return blockedMessages[capability?.reason] || fallbackMessages[capability?.name] || 'This service is temporarily unavailable.';
 }
 
+export function factoryErrorMessage(error, messages = {}) {
+  const code = error && typeof error === 'object' && 'code' in error ? String(error.code) : '';
+  const message = messages[code];
+  if (typeof message === 'string') return message;
+  return code === 'invalid_session'
+    ? 'Please sign in again to continue.'
+    : 'This action could not finish. Refresh to check its status before trying again.';
+}
+
 export function factoryActionReady(action, readiness) {
   return (actionCapabilities[action] || []).every(name => readiness?.[name]?.ready === true);
 }

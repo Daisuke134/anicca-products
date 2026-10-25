@@ -245,3 +245,9 @@ test('an existing pending video request can still be recovered after quota exhau
   assert.equal(sent, 1);
   assert.deepEqual(notices, []);
 });
+
+test('invalid Factory session tells the creator to sign in again instead of showing a generic error', () => {
+  assert.equal(typeof readiness.factoryErrorMessage, 'function', 'Factory API errors map to safe user guidance');
+  assert.equal(readiness.factoryErrorMessage({ code: 'invalid_session' }, {}), 'Please sign in again to continue.');
+  assert.equal(readiness.factoryErrorMessage({ code: 'future_unknown_code' }, {}), 'This action could not finish. Refresh to check its status before trying again.');
+});
