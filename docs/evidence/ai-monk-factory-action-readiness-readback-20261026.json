@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "run_id": "factory-action-readiness-readback-20261025T211642Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-action-readiness-readback-20261025T211642Z",
+  "release_sha": "1e1218f1c976dd7ce899655636ba35ae2add8d9e",
+  "observed_at": "2026-10-25T21:16:42Z",
+  "phase": "source_contract_and_production_action_readiness_audit",
+  "loaded_argv_env": {
+    "credential_services": [
+      "netlify-anicca-existing-deployment",
+      "heygen-ai-monk-factory",
+      "gemini-ai-monk-factory"
+    ],
+    "secret_values_logged": false,
+    "gemini_billing_source": "private credential SSOT metadata, not a provider billing readback"
+  },
+  "commands": [
+    {
+      "command": "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env",
+      "exit_code": 0,
+      "effect": "read_only_observation; environment values were not logged",
+      "readback": {
+        "http_status": 200,
+        "environment_variable_count": 62,
+        "factory_variable_names": []
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Keep Studio generation, Instagram, and Checkout readiness closed until dedicated Factory runtime is configured."
+    },
+    {
+      "command": "GET https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=1",
+      "exit_code": 0,
+      "effect": "read_only_observation",
+      "provider_receipt_id": "6ade6fd6f82906222e0e4698",
+      "readback": {
+        "http_status": 200,
+        "state": "ready",
+        "context": "production",
+        "branch": "main",
+        "commit_ref": null,
+        "updated_at": "2026-10-25T21:09:36.982Z"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Treat the deployment as current production state; exact commit attribution is not exposed by this readback."
+    },
+    {
+      "command": "GET https://api.heygen.com/v3/users/me using exact SSOT service heygen-ai-monk-factory",
+      "exit_code": 0,
+      "effect": "read_only_observation",
+      "readback": {
+        "http_status": 200,
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0,
+        "wallet_auto_reload_enabled": false
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "A Factory-owned funded wallet is unavailable; do not submit a paid avatar or video request."
+    },
+    {
+      "command": "Inspect private credential SSOT metadata for exact service gemini-ai-monk-factory",
+      "exit_code": 0,
+      "effect": "read_only_observation; secret values were not logged",
+      "readback": {
+        "project_id": "anicca-monk-factory-20261024",
+        "provider_state": "prepared_unfunded",
+        "billing_verified": false,
+        "source_is_provider_billing_readback": false
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Dedicated Gemini billing and a verified effective spend boundary remain unready."
+    },
+    {
+      "command": "Scan private Credential SSOT service names for Meta/Facebook app credentials",
+      "exit_code": 0,
+      "effect": "read_only_observation; secret values were not logged",
+      "readback": {
+        "matching_app_credential_services": [],
+        "instagram_login_credential_is_not_meta_app_readiness": true
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Create/configure the Instagram Login Developer App and verify monk.mujo's app-role and publish access."
+    },
+    {
+      "command": "Source inspection of Factory UI, API, provider, job worker, Instagram adapter, and Netlify schedule",
+      "exit_code": 0,
+      "effect": "read_only_source_inspection",
+      "readback": {
+        "ui_order": [
+          "Generate Monk Avatar",
+          "Generate The Full Video (up to three completed videos free)",
+          "Connect your IG to auto post"
+        ],
+        "video_generation": "Gemini produces the fictional avatar image and research-grounded complete script/caption; HeyGen creates Photo Avatar, Starfish voice, and 9:16 1080p Avatar IV video.",
+        "instagram_start": "Connect requires one avatar and at least one completed full video; it persists auto-post intent before OAuth, then verified Instagram connection starts daily automation.",
+        "completed_free_queue": "Completed free videos are posted first; new daily generation runs only while free allowance or active subscription remains.",
+        "readiness_gate": "Generate/Connect controls are disabled unless their production capabilities report ready; the shared action helper sends no request when a capability is unavailable.",
+        "source_paths": [
+          "apps/landing/app/ai-monk-factory/factory.tsx",
+          "apps/landing/app/ai-monk-factory/action-readiness.mjs",
+          "apps/landing/netlify/functions/monk-factory.js",
+          "apps/landing/netlify/functions/_lib/monk-factory-jobs.js",
+          "apps/landing/netlify/functions/_lib/monk-factory-providers.js",
+          "apps/landing/netlify/functions/_lib/monk-factory-instagram.js",
+          "apps/landing/netlify.toml"
+        ]
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "No source change is needed to satisfy the requested order; configure missing production providers before enabling these controls."
+    },
+    {
+      "command": "node --test Factory action-readiness, API, provider, job-worker, and Instagram adapter suites",
+      "exit_code": 0,
+      "effect": "local_test",
+      "readback": {
+        "tests": 75,
+        "passed": 75,
+        "failed": 0,
+        "skipped": 0
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Continue with the first unmet provider-access task."
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/ai-monk-factory -o markdown-fit",
+      "exit_code": 0,
+      "effect": "public_page_read_only_crawl",
+      "readback": {
+        "status": 200,
+        "copy": "Up to three completed videos; no card, time limit, or three-day trial; USD199/month afterward."
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Keep offer copy aligned with runtime availability."
+    },
+    {
+      "command": "crwl crawl https://aniccaai.com/products/ -o markdown-fit",
+      "exit_code": 0,
+      "effect": "public_page_read_only_crawl",
+      "readback": {
+        "status": 200,
+        "listed_under_software": true,
+        "status_copy": "Preparing to open; generation and subscription checkout are not open yet; Instagram auto-posting is planned."
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Keep the listing in preparation state until live Factory acceptance is complete."
+    }
+  ],
+  "evidence_refs": [
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",
+    "docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md",
+    "https://aniccaai.com/ai-monk-factory",
+    "https://aniccaai.com/products/"
+  ],
+  "runtime_readiness": "not_ready",
+  "current_root_cause": "Production Factory actions are unavailable because the production deployment has zero MONK_FACTORY_* variables; the exact dedicated HeyGen wallet has USD0, Gemini billing remains unverified/unfunded in private SSOT, and no Meta Developer App credential exists. The disabled controls are the intended fail-closed behavior, not a broken click handler.",
+  "screenshot_action_error": "unattributed; the screenshot contains no action ID or API error code, and no authenticated production click/retry was attempted.",
+  "factory_post_checkout_or_charge_attempts_in_this_audit": 0,
+  "product_code_changed": false,
+  "current_cursor": "FACTORY-PROVIDER-ACCESS-1",
+  "next_action": "Establish a bounded Factory-specific HeyGen/Gemini spend boundary, configure the Instagram Login Developer App and monk.mujo app-role permission, set dedicated production runtime variables, then execute the Instagram-first E2E without changing Grok Bot/Postiz's existing schedule."
+}
