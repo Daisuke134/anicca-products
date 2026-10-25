@@ -5,3 +5,4 @@
 @media(prefers-reduced-motion:reduce){.mf-button{transition:none}.mf-button:hover:enabled{transform:none}}
 
 .mf-studio-actions{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.mf-studio-actions .mf-text-button{font-size:12px}@media(max-width:600px){.mf-studio-actions{max-width:125px;gap:10px}.mf-studio-actions .mf-text-button{font-size:11px}}
+.mf-action-notice{font-size:12px;line-height:1.55;color:var(--mf-ink);margin:10px 0 0;max-width:480px}

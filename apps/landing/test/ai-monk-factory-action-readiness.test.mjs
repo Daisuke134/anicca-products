@@ -1,7 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 const readiness = await import('../app/ai-monk-factory/action-readiness.mjs');
+const { FactoryActionNotice } = await import('../app/ai-monk-factory/factory-action-notice.mjs');
+
+test('a blocked CTA renders its reason as an inline status beside that action', () => {
+  const notice = { action: 'generate_video', message: 'Generation is not configured. No request was sent.' };
+  const html = renderToStaticMarkup(React.createElement(FactoryActionNotice, { notice, action: 'generate_video' }));
+
+  assert.match(html, /class="mf-action-notice"/);
+  assert.match(html, /role="status"/);
+  assert.match(html, /Generation is not configured\. No request was sent\./);
+  assert.equal(renderToStaticMarkup(React.createElement(FactoryActionNotice, { notice, action: 'connect_instagram' })), '');
+});
 
 test('a blocked generation CTA explains the blocker without sending an API action', () => {
   assert.equal(typeof readiness.requestFactoryAction, 'function', 'readiness action gate is implemented');
