@@ -5,7 +5,7 @@
 
 ## 順序と現在cursor
 
-### Current cursor override — 2026-10-26 JST — UI readback fix shipped; Factory runtime remains closed
+### Current cursor override — 2026-10-26 JST — auth-error UX source fix ready; release pending; Factory runtime remains closed
 
 MVPは「Generate Monk Avatar → Generate The Full Video（完全なscript/voice付きで完成video最大3本無料） → Connect your IG to auto post」。期限なし・カードなし・3日trialなし。Instagram接続が日次自動生成/投稿への明示同意で、Stopを提供し、独立Pause/ResumeはFACTORY-PAUSE-1で追加する。eBook campaignは『The Art of AI Monks』。HeyGenを動画providerに固定し、Grok Bot/Postizの既存日次owner/scheduleを変更しない。
 
@@ -21,18 +21,21 @@ MVPは「Generate Monk Avatar → Generate The Full Video（完全なscript/voic
 
 **順序変更の記録:** 旧cursorはFACTORY-UI-READBACK-1 source fix。PR #771のCI/main/deploy/public readbackが完了したため、新cursorはruntime prerequisite。新順序は (1) HeyGen API prepaid creditsとGemini paid projectを有効化し、既存のsource予約上限内で費用を確認、(2) Meta Developer app/Instagram Loginと`monk.mujo`のProfessional/publish権限をreadback、(3) dedicated Factory Netlify envとtest Stripe key/webhookを設定、(4) Pause/Resume controlを追加しStopと区別、(5) free 3 completed videos E2E、(6) Instagram接続後の日次生成/投稿・URL/metrics/Pause/Stop、(7) free quota後のStripe test Checkout/webhook・paid resume、(8) 顧客公開用Meta Advanced Access/App Review/Business VerificationとStripe live product/price/webhook、(9)安定したauthenticated APIへFactory CLI/Plugin操作を接続、(10)production product listingをavailableにし、実動作を示してXへ一度だけ告知、(11)その後にDatabase/product/distribution improvement loopを開始する。TikTok、iPhone、marketplace掲載はInstagram-first web MVP後。Grok Bot/Postizの既存投稿ownerは維持する。
 
+**2026-10-26 auth-error UX cursor update:** 旧順序はStudioのauthenticated request/log correlation後にprovider/runtime設定へ戻ることだった。新順序は、`FACTORY-AUTH-ERROR-1`で既知の`invalid_session`を再サインイン案内へ変換してからHeyGen/Gemini provider accessとMeta/runtime readinessへ戻る。backendの`authenticateFactoryRequest`は`invalid_session`を返すが、Studio error mapが未対応でgeneric action errorへ落ちるsource defectを確認したため。修正は外部生成・投稿・支出・再送を行わず、次回の診断を明確にする。添付画面で実際に返ったAPI code/actionは未取得なので、画面の原因が`invalid_session`だったとは扱わない。現在cursorは`FACTORY-AUTH-ERROR-1`。
+
 **現在cursor / TODO:**
 1. **[x] FACTORY-UI-READBACK-1:** POST受付とGET refresh失敗を分離し、fresh snapshotが`auto_post`/`auto_post_intent`の期待値と一致するときだけ成功表示。回帰tests、CI、main、production deployとpublic copyを確認済み。
-2. **[x] FACTORY-STRIPE-TEST-CATALOG-1:** USD199/月、Factory metadata、trialなしのtest Priceを作成・official GET readback済み。test checkout/webhook接続は未完了。
-3. **[ ] FACTORY-PROVIDER-ACCESS-1:** HeyGen API creditsを一回購入しauto-reload offを維持する。初回6 attemptのHeyGen概算は最大USD6.18なので、USD10の一回credit top-upを提案する。Gemini専用projectのbillingを有効化し、既存のper-user USD6.76とcompany USD10/day reservationを超える経路がないか確認する。
-4. **[ ] FACTORY-META-APP-1:** Instagram Login Developer appを作成し、Meta App ID/secretをprivate SSOTへ、必要なapp settings/redirect/webhookをFactory runtimeへ設定する。`monk.mujo`をProfessional/Creator accountおよびdev-role/publish permissionとしてreadbackする。
-5. **[ ] FACTORY-RUNTIME-1:** HeyGen/Gemini/Meta/Stripe test secrets・HeyGen voice ID・job secretをdedicated Netlify contextへ設定し、provider readinessをreadbackする。test Priceは上記IDを使用する。live Stripe secret/chargeは使わない。
-6. **[ ] FACTORY-PAUSE-1:** 明示的なPause/Resumeを実装する。PauseはOAuth consentと接続を保ったまま日次generation/postingを停止し、Resumeはreadiness/quota/subscriptionを再確認して再開する。完全停止のStopはintentを解除する。
-7. **[ ] FACTORY-E2E-1:** monk avatar → 3本以下の完成script/voice/video無料生成 → Instagram OAuth connect → 既存Grok/Postiz cadenceと重複しない日次投稿 → official post URL/metrics → Pause/Resume/Stopを検証。
-8. **[ ] FACTORY-BILLING-E2E-1:** 3本後のStripe test Checkout/webhook、paid statusと日次再開を検証。live chargeなし。
-9. **[ ] FACTORY-CUSTOMER-ACCESS-1:** 顧客アカウント向けMeta Advanced Access/App Review/Business Verificationを完了し、Stripe live Product/Price/webhookを設定/readbackする。内部`monk.mujo` Standard Accessとtest Priceを一般販売可能状態と混同しない。
-10. **[ ] FACTORY-CLI-PLUGIN-1:** 安定したtenant-authenticated Factory APIに、CLI/Pluginからautomation start/stop、job status、metricsを接続する。Instagram OAuthはFactory Webで一度行い、provider secretは返さない。
-11. **[ ] FACTORY-LAUNCH-1:** 顧客アクセスと決済をreadback後、product listingをavailableへ更新し、実動作の根拠を示すX告知を一度公開。その後だけDatabase/product/distribution iterationをloopへ移す。
+2. **[ ] FACTORY-AUTH-ERROR-1:** source fix and focused tests/build PASS in the dedicated branch. CI, merge, deploy, and public readback remain. Map `invalid_session` to a safe sign-in-again message; keep the generic fallback for unknown codes. The screenshot's actual API code is unverified.
+3. **[x] FACTORY-STRIPE-TEST-CATALOG-1:** USD199/月、Factory metadata、trialなしのtest Priceを作成・official GET readback済み。test checkout/webhook接続は未完了。
+4. **[ ] FACTORY-PROVIDER-ACCESS-1:** HeyGen API creditsを一回購入しauto-reload offを維持する。初回6 attemptのHeyGen概算は最大USD6.18なので、USD10の一回credit top-upを提案する。Gemini専用projectのbillingを有効化し、既存のper-user USD6.76とcompany USD10/day reservationを超える経路がないか確認する。
+5. **[ ] FACTORY-META-APP-1:** Instagram Login Developer appを作成し、Meta App ID/secretをprivate SSOTへ、必要なapp settings/redirect/webhookをFactory runtimeへ設定する。`monk.mujo`をProfessional/Creator accountおよびdev-role/publish permissionとしてreadbackする。
+6. **[ ] FACTORY-RUNTIME-1:** HeyGen/Gemini/Meta/Stripe test secrets・HeyGen voice ID・job secretをdedicated Netlify contextへ設定し、provider readinessをreadbackする。test Priceは上記IDを使用する。live Stripe secret/chargeは使わない。
+7. **[ ] FACTORY-PAUSE-1:** 明示的なPause/Resumeを実装する。PauseはOAuth consentと接続を保ったまま日次generation/postingを停止し、Resumeはreadiness/quota/subscriptionを再確認して再開する。完全停止のStopはintentを解除する。
+8. **[ ] FACTORY-E2E-1:** monk avatar → 3本以下の完成script/voice/video無料生成 → Instagram OAuth connect → 既存Grok/Postiz cadenceと重複しない日次投稿 → official post URL/metrics → Pause/Resume/Stopを検証。
+9. **[ ] FACTORY-BILLING-E2E-1:** 3本後のStripe test Checkout/webhook、paid statusと日次再開を検証。live chargeなし。
+10. **[ ] FACTORY-CUSTOMER-ACCESS-1:** 顧客アカウント向けMeta Advanced Access/App Review/Business Verificationを完了し、Stripe live Product/Price/webhookを設定/readbackする。内部`monk.mujo` Standard Accessとtest Priceを一般販売可能状態と混同しない。
+11. **[ ] FACTORY-CLI-PLUGIN-1:** 安定したtenant-authenticated Factory APIに、CLI/Pluginからautomation start/stop、job status、metricsを接続する。Instagram OAuthはFactory Webで一度行い、provider secretは返さない。
+12. **[ ] FACTORY-LAUNCH-1:** 顧客アクセスと決済をreadback後、product listingをavailableへ更新し、実動作の根拠を示すX告知を一度公開。その後だけDatabase/product/distribution improvement loopを開始する。
 
 ### FACTORY-UI-READBACK-1 task ledger
 
@@ -40,6 +43,13 @@ MVPは「Generate Monk Avatar → Generate The Full Video（完全なscript/voic
 - Task result: PASS。成功POST後にGETが失敗してもaccepted/unconfirmedを分離し、Stop/auto-postはfresh snapshotの`auto_post`と`auto_post_intent`を検証。regression testを追加。Factory/client/API suiteは140 total, 105 pass, 0 fail, 35 isolated DB fixture skips。production buildは680 pages/exit 0。単独tscに未変更fileのbaseline errorが6件あり、Factory変更fileは0。
 - Release: PR #771, head `5d99cb6de1e4f7989ffc8401ac07faffbb8ff8b9`, merge `889846dbafc2da14724cd5c5009853cdcfc615cf`, Landing CI `40225952751` PASS, Netlify deploy `40226235117` SUCCESS, official deploy `6ade5952b85feef47f98ea3a` ready/production. Independent final re-review passed. CodeRabbit skipped OSS review and requested manual review; independent review completed.
 - Boundary: deployed handler messaging is corrected, but Factory generation and Instagram actions remain unavailable because runtime prerequisites are absent. No authenticated Studio action, provider generation, OAuth, post, checkout, or charge was attempted.
+
+### FACTORY-AUTH-ERROR-1 task ledger
+
+- Spec/acceptance: when the Factory API returns `invalid_session`, show a sign-in-again instruction; retain the existing generic recovery guidance for unknown codes. Do not claim this was the screenshot's actual response without authenticated request correlation.
+- Source result: implemented `factoryErrorMessage` as the single UI mapper and covered known/unknown codes with a regression test.
+- Local verification: Factory suite 129 total / 94 passed / 0 failed / 35 skipped because the isolated DB fixture is unavailable; production build generated all 680 pages and exited 0. CI, merge, deploy, and public readback are pending.
+- Boundary: this clarifies one known error response but does not identify the screenshot's originating request. It performs no generation, OAuth, posting, checkout, charge, or runtime configuration change.
 
 PR #771ではUI sourceのみ本番へ反映し、Factory runtime env、HeyGen funding、Gemini billing、Meta OAuth、Instagram投稿、Stripe Checkout/chargeは変更していない。独立してStripe test Product/Priceを作成・readbackした。authenticated Studioで生成/接続CTAを押す実操作は未実施。HeyGen wallet USD0、Gemini billing未設定、Meta appなしのため、runtimeはclosedのままである。
 
@@ -296,6 +306,7 @@ MuseはOpenAI identityと独立したsubmission/reviewである。[Muse公式doc
 - [x] FACTORY-EBOOK-1 source contract/release: Source-backed spoken ebook CTA, canonical Instagram caption link, and per-video script/caption display are merged in PR #766 and deployed from main. Landing CI `40216699098`, production deploy `40217036260`, and published deploy readback `6ade3e636ae97444c5fd1a52` passed. This source release does not activate Factory runtime actions.
 - [x] FACTORY-EBOOK-1 release (completed): PR #766/main `e6da42e5fd8c9acc5e77e6ff4caaffb6a52c309c`; published page/source readback is recorded in `../../evidence/ai-monk-factory-netlify-release-readback-20261026.json`. Last official production env GET returned 58 variables and zero `MONK_FACTORY_*`.
 - [x] FACTORY-UI-READBACK-1: PR #771 merge 889846dbafc2da14724cd5c5009853cdcfc615cf, CI/deploy/public readback completed; accepted POST and unconfirmed GET states are distinct.
+- [ ] FACTORY-AUTH-ERROR-1: Source fix maps backend `invalid_session` to a safe sign-in-again message and preserves the generic fallback for unknown codes. Focused test and production build pass locally; CI, merge, deploy and public readback remain. Do not infer that this was the screenshot's response without authenticated correlation.
 - [x] FACTORY-STRIPE-TEST-CATALOG-1: test Product/Price USD199 monthly, trial none, active/read back; Checkout/webhook not yet exercised.
 - [ ] FACTORY-PROVIDER-ACCESS-1: HeyGen wallet is USD0 and the API has no verified hard spend cap; fund a bounded one-time wallet (recommended USD10, auto-reload off). Gemini dedicated project remains prepared_unfunded/billing_verified=false; enable dedicated billing and verify budget behavior before generation.
 - [x] FACTORY-FREE-3-1: completed-video lifetime quota of 3, max 6 attempts, USD6.76/user internal reservation, checkout gate, and effect_unknown fence are released in PR #769 and Supabase migration 20261025184321; this reservation is not a provider invoice cap.
