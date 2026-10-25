@@ -8,6 +8,16 @@
 
 今回のdocs unitは既存rebaseの競合解消と、保存済み証拠による本plan・sanitized receiptの事実反映だけを所有する。上流のKeiodaisuke既存accountによる正式Plugin Web提出を最優先cursorとして保持し、X配布は独立並行で追跡する。外部送信・投稿編集・削除・追加投稿とpost-submit-fence.jsonの解除/変更は行わない。PR/main統合はprimaryが所有する。
 
+## Current cursor override — 2026-10-26 JST — Repair the missing book CTA with one X Article
+
+前回の通常X投稿はPostizの作成payloadへ購入URLが入っていたが、公開本文・URL entity・cardから消えていた。Postiz公式の現在のX schemaは、通常postではlinkを除去し、`post_type=article`ではHTML anchorを保持する仕様を示す。したがって旧postは編集・削除せず、同じ本人account `selawmqt` / integration `cmt4l2jld031tqp0y8qtyo983` に、購入LPへ1つのUTM付きanchorを置くX Articleを1本だけ新規公開する。
+
+**順序変更と理由:** 旧cursorは公開URL欠落の原因境界の追加診断・是正を保留し、Keioの正式ChatGPT提出を最優先としていた。現在のschema readbackで、通常postの仕様とArticleのanchor対応が直接確認できたため、原因調査よりも確実なArticleへの置換が最短で購入導線の欠落を直す。新順序は (1) この記事と投稿条件を本specに固定し、mainへ統合、(2) X Articleを1回だけ公開、(3) Postiz `PUBLISHED` と公開author・本文・permalink・購入anchorをreadback、(4) sanitized receiptへ事実を記録、(5) Keio審査状態と他の配布TODOへ戻る。既存のKeio提出state/fenceは変更しない。
+
+**記事案:** title `The Monk Is Only the First Step`。本文は「An AI monk is easy to recognize. The business behind one is harder to see. When I researched AI monk avatars, I kept three questions separate: who created the character, what makes its short videos recognizable and repeatable, and where the audience goes next? A visible product menu, follower count, or creator's sales claim can show a path. None alone proves net revenue. Good research dates audience snapshots and distinguishes what was observed from what remains unverified. I put that approach into *The Art of AI Monks*: a 71-page English guide to Yang Mun and other AI monks, short-form video scripts, product storefronts, and building an original character. It includes 10 chapters and 4 worksheets. The full manuscript and sources are free. The formatted PDF + EPUB is $9.99, one payment, and supports the research. [Get the PDF + EPUB](https://aniccaai.com/the-art-of-ai-monks?utm_source=x&utm_medium=social&utm_campaign=ai_monk_book_x_cta_20261026&utm_content=x_article).」記事はこの事実から逸脱せず、収益や成果を保証しない。Provider設定は`post_type=article`、`article_title=The Monk Is Only the First Step`、`article_status=published`、`made_with_ai=true`。
+
+このunitのTODO: [x] 商品ページの現行表示を確認（71-page PDF+EPUB、$9.99 one-time、原稿/出典無料）; [x] 対象integrationとschemaを公式Postiz readback; [ ] PR/mainへ記事案と是正順を記録; [ ] 既存投稿を変更せずArticleを一度公開; [ ] PostizおよびX公開readbackでauthor・内容・anchor・permalinkを確認; [ ] sanitized receiptに公開結果を保存。UTMはcampaign識別子であり、click・checkout・注文・売上・MRRの証明として扱わない。既存Grok Bot/Postizのdaily owner/schedule、他account、投稿frequencyは変更しない。支出0。
+
 ## 成功事例と採る仕組み
 
 AI monkのX無料roadmap https://x.com/shalevhvs/status/2072997016498815202 は既存観測12,933 views、今回の公開表示12.9Kで、具体的な提供内容の列挙を参考にする。売上の証拠は無い。Daniel Vassalloの書籍告知 https://x.com/dvassallo/status/1209686739146534912 は本人の回顧記事 https://www.linkedin.com/pulse/how-i-made-210822-selling-pdf-video-internet-daniel-vassallo で告知由来16,659 USDのdirect salesを申告するが未監査で、対象分野・時期・読者規模も異なる。得られる内容を具体化して購入LPへ主リンクを1つ置く仕組みだけを採る。完全に同じAI monk/無料tool/9.99 USD書籍の帰属済み転換例は取得できず、小さい配布実験として実測する。
