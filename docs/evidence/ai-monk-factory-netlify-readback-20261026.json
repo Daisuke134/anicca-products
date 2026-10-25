@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "run_id": "factory-netlify-readback-20261025T172324948155+0000",
+  "owner_id": "Codex primary session",
+  "occurrence_id": "02d7f8f8b69141aa9dfb6db3a49e7e0f",
+  "observed_at": "2026-10-25T17:23:24.948155+00:00",
+  "release_sha": null,
+  "phase": "production_runtime_read_only_readback",
+  "command": "GET /sites/{site_id}/env?context=production; GET /sites/{site_id}/deploys?per_page=1; credential omitted",
+  "loaded_argv": [
+    "GET",
+    "Netlify production environment and latest deploy"
+  ],
+  "loaded_env": {
+    "credential_source": "SSOT exact service netlify-anicca-existing-deployment",
+    "secret_values_logged": false
+  },
+  "effect": "read_only_observation",
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Keep Factory runtime closed until dedicated provider spending boundary and runtime integrations are ready.",
+  "exit_code": 0,
+  "readback": {
+    "env_http_status": 200,
+    "production_env_variable_count": 58,
+    "monk_factory_variable_count": 0,
+    "deploy_http_status": 200,
+    "latest_deploy": {
+      "id": "6ade35182e5695e48c0e46a8",
+      "state": "ready",
+      "published_at": "2026-10-25T16:58:33.953Z",
+      "title": "Deploy from GHA prod - 23617ccbc031f372f73ee92033193d32d6e04a8e",
+      "branch": "main",
+      "commit_ref": null
+    },
+    "env_body_sha256": "79fc73b2f0020ac335372982c5aa2c2500a9f881b8387c9dc314bd39fcaa5a5c",
+    "deploy_body_sha256": "dbfb42ec2a4213216ece7b3f0bdcb7f66ef42abce6ac8f4cb04c0650dd2c7988"
+  }
+}

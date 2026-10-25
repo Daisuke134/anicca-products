@@ -3,6 +3,8 @@ const { UUID, FACTORY_PRODUCT, factoryError } = require('./monk-factory.js');
 const { syncFactoryBilling, factoryLiveMode } = require('./monk-factory-billing.js');
 
 const DISCLOSURE = 'Fictional AI-generated monk. ';
+const BOOK_SCRIPT_CTA = 'For the full guide, see The Art of AI Monks at aniccaai.com.';
+const BOOK_CAPTION_CTA = 'Read The Art of AI Monks: the full manuscript and sources are free; formatted PDF + EPUB: https://aniccaai.com/the-art-of-ai-monks';
 const after = ms => new Date(Date.now() + ms).toISOString();
 const codeOf = error => /^[a-z_]{1,60}$/.test(error?.code || '') ? error.code : 'job_unavailable';
 const profileFor = id => 'factory_' + id.toLowerCase();
@@ -204,8 +206,13 @@ async function advanceFactoryJob(options) {
       const account = await store.account(job.user_id);
       if (!account?.avatar_id) throw factoryError('avatar_required', 409);
       const playbooks = await loadPlaybooks();
-      await submit('script_submitting', 'createScript', { playbooks, maxSeconds: job.max_seconds }, result => ({ stage: 'script_ready', status: 'processing', script_receipt_id: result.id, script: result.script,
-        caption: DISCLOSURE + result.caption.slice(0, 2200 - DISCLOSURE.length), source_ids: result.sourceIds }));
+      await submit('script_submitting', 'createScript', { playbooks, maxSeconds: job.max_seconds }, result => {
+        const captionBudget = 2200 - DISCLOSURE.length - 2 - BOOK_CAPTION_CTA.length;
+        const captionBody = result.caption.trim().slice(0, captionBudget).trimEnd();
+        return { stage: 'script_ready', status: 'processing', script_receipt_id: result.id,
+          script: result.script.trim() + ' ' + BOOK_SCRIPT_CTA,
+          caption: DISCLOSURE + captionBody + '\n\n' + BOOK_CAPTION_CTA, source_ids: result.sourceIds };
+      });
     } else if (job.stage === 'script_ready') {
       await submit('speech_submitting', 'createSpeech', { script: job.script }, result => ({ stage: 'speech_ready', status: 'processing', speech_receipt_id: result.id, audio_url: result.audioUrl, audio_seconds: result.duration }));
     } else if (job.stage === 'speech_ready') {

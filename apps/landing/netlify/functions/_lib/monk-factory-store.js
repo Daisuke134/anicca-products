@@ -93,7 +93,7 @@ function createFactoryStore({ env = process.env, fetchImpl = fetch } = {}) {
     releaseUnusedProfile: (id, nonce, session, subscription) => rpc('monk_factory_release_unused_profile', {
       p_user_id: uid(id), p_checkout_nonce: uid(nonce), p_checkout_session_id: session, p_subscription_id: subscription }),
     stop: id => checked(accounts().update({ auto_post: false, auto_post_intent: false }).eq('user_id', uid(id)).select('auto_post').maybeSingle()),
-    jobs: id => checked(db.from('monk_factory_jobs').select('id,kind,status,stage,period_key,max_seconds,video_url,image_url,post_url,post_provider_id,post_id,metrics,metrics_at,metrics_checked_at,error_class,created_at').eq('user_id', uid(id)).order('created_at', { ascending: false }).limit(40)),
+    jobs: id => checked(db.from('monk_factory_jobs').select('id,kind,status,stage,period_key,max_seconds,video_url,image_url,post_url,post_provider_id,post_id,metrics,metrics_at,metrics_checked_at,error_class,script,caption,created_at').eq('user_id', uid(id)).order('created_at', { ascending: false }).limit(40)),
     async claimMetricsRefresh(id, jobId, postId, expectedMetricsAt, expectedCheckedAt, checkedAt) {
       if (typeof postId !== 'string' || !postId || postId.length > 200 || !Number.isFinite(Date.parse(checkedAt))) throw factoryError('invalid_request', 400);
       let query = db.from('monk_factory_jobs').update({ metrics_checked_at: checkedAt }).eq('user_id', uid(id))

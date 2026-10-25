@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "run_id": "factory-mvp-provider-readback-20261025T172109Z",
+  "owner_id": "Codex primary session",
+  "occurrence_id": "0123ebfc2788475790aa2dc38972ebf9",
+  "observed_at": "2026-10-25T17:21:09.258683Z",
+  "release_sha": "23617ccbc031f372f73ee92033193d32d6e04a8e",
+  "phase": "provider_read_only_profile",
+  "command": "GET https://api.heygen.com/v3/users/me using SSOT service heygen-ai-monk-factory; secret omitted",
+  "loaded_argv": [
+    "GET",
+    "/v3/users/me"
+  ],
+  "loaded_env": {
+    "credential_source": "SSOT exact service heygen-ai-monk-factory",
+    "secret_values_logged": false
+  },
+  "effect": "read_only_observation",
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Keep production generation disabled until provider spend boundary and dedicated Gemini billing are verified.",
+  "exit_code": 0,
+  "readback": {
+    "http_status": 200,
+    "provider_receipt_id": null,
+    "billing_type": "wallet",
+    "wallet": {
+      "currency": "usd",
+      "remaining_balance": 0.0,
+      "auto_reload": {
+        "enabled": false,
+        "threshold_usd": null,
+        "amount_usd": null
+      }
+    },
+    "usage_based": {
+      "spending_current_usd": null,
+      "spending_cap_usd": null
+    },
+    "field_presence": {
+      "wallet_auto_reload": true,
+      "usage_based": false,
+      "usage_based_spending_cap": false
+    }
+  }
+}

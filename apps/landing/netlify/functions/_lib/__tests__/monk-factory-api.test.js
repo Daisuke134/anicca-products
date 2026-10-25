@@ -1,6 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { factoryHandler } = require('../../monk-factory.js');
+const { createFactoryStore } = require('../monk-factory-store.js');
 
 const user = { id: 'eaa06ae6-53ec-4a6b-baa4-e6731b129ca8', email: 'fixture@example.com', email_confirmed_at: '2026-01-01' };
 const env = { SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_ANON_KEY: 'public-fixture' };
@@ -13,18 +14,48 @@ test('missing identity never accesses Factory persistence', async () => {
 
 test('API reads and stop updates bind to Auth server ID, ignoring forged body and query IDs', async () => {
   const calls = [];
+  const ownVideo = { id: 'owned-video', kind: 'video', status: 'completed', stage: 'completed', script: 'A complete script.',
+    caption: 'Fictional AI-generated monk. The ebook is linked.', video_url: 'https://cdn.example/video.mp4' };
   const store = {
     account: async id => { calls.push(['account', id]); return { user_id: id, subscription_status: 'none', stripe_customer_id: 'private-internal-fixture', checkout_nonce: 'private-context-fixture' }; },
-    jobs: async id => { calls.push(['jobs', id]); return []; },
+    jobs: async id => { calls.push(['jobs', id]); return [ownVideo]; },
     stop: async id => { calls.push(['stop', id]); return { auto_post: false }; },
   };
   const req = { httpMethod: 'GET', headers: { authorization: 'Bearer fixture-session' }, body: JSON.stringify({ user_id: 'another-user' }), queryStringParameters: { user_id: 'another-user' } };
   const response = await factoryHandler(req, { env, fetchImpl: auth, store });
   assert.equal(response.statusCode, 200);
   assert.equal(response.body.includes('private-'), false);
+  assert.equal(JSON.parse(response.body).jobs[0].script, ownVideo.script);
+  assert.equal(JSON.parse(response.body).jobs[0].caption, ownVideo.caption);
   const stopped = await factoryHandler({ ...req, httpMethod: 'POST', body: JSON.stringify({ action: 'stop', user_id: 'another-user' }) }, { env, fetchImpl: auth, store });
   assert.equal(stopped.statusCode, 200);
   assert.deepEqual(calls, [['account', user.id], ['jobs', user.id], ['stop', user.id]]);
+});
+
+test('Factory job projection returns the owner script and caption without widening the account filter', async () => {
+  let requested;
+  const originalWebSocket = globalThis.WebSocket;
+  if (!globalThis.WebSocket) globalThis.WebSocket = require('ws');
+  try {
+    const store = createFactoryStore({
+      env: { SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_SERVICE_ROLE_KEY: 'fixture-service-role' },
+      fetchImpl: async url => {
+        requested = new URL(url);
+        return new Response(JSON.stringify([{ id: 'owned-video', script: 'Complete script.', caption: 'Book CTA.' }]), {
+          status: 200, headers: { 'content-type': 'application/json', 'content-range': '0-0/*' },
+        });
+      },
+    });
+    const jobs = await store.jobs(user.id);
+    const columns = requested.searchParams.get('select').split(',');
+    assert.ok(columns.includes('script'));
+    assert.ok(columns.includes('caption'));
+    assert.equal(requested.searchParams.get('user_id'), 'eq.' + user.id);
+    assert.deepEqual(jobs, [{ id: 'owned-video', script: 'Complete script.', caption: 'Book CTA.' }]);
+  } finally {
+    if (originalWebSocket === undefined) delete globalThis.WebSocket;
+    else globalThis.WebSocket = originalWebSocket;
+  }
 });
 
 test('Stripe setup does not block an authenticated free video and Checkout waits for the lifetime allowance', async () => {

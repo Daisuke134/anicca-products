@@ -101,6 +101,9 @@ test('script evidence retains only supplied numeric token usage without inventin
         usage: { inputTokens: 0, outputTokens: 4, thoughtTokens: '3', totalTokens: -1, raw: 'private-thought-fixture', apiKey: 'private-key-fixture', reservedUsd: 99 } };
     } } });
   assert.equal(saved.stage, 'script_ready');
+  assert.equal(saved.script, 'Pause. For the full guide, see The Art of AI Monks at aniccaai.com.');
+  assert.match(saved.caption, /The Art of AI Monks/);
+  assert.match(saved.caption, /https:\/\/aniccaai\.com\/the-art-of-ai-monks/);
   assert.equal(posts, 1);
   assert.deepEqual(saved.evidence.script_submitting.usage, { inputTokens: 0, outputTokens: 4 });
   assert.equal(JSON.stringify(saved.evidence).includes('private-'), false);
