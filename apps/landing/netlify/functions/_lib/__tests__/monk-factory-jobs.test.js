@@ -173,7 +173,7 @@ test('a successful Meta media_publish response is saved for metrics recovery aft
     },
   };
   const providers = {
-    readiness: () => ({ generation: { ready: true }, social: { ready: true } }),
+    readiness: () => ({ generation: { ready: false, reason: 'provider_setup' }, social: { ready: true } }),
     postStatus: async () => ({ id: 'container_fixture', status: 'ready_to_publish' }),
     socialState: async () => { socialStateCalls++; return { profile: 'factory_' + user.id, connected: true, accountId: 'ig_fixture', handle: 'monk.mujo' }; },
     publishInstagramContainer: async () => { publishCalls++; return { id: 'media_fixture', status: 'published' }; },

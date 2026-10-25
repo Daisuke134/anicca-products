@@ -12,11 +12,17 @@ function publicAccount(account, instagramReauthRequired = false) {
     social_checked_at: account.social_checked_at || null } : null;
 }
 function publicJobs(jobs) {
-  return (jobs || []).map(({ post_id, metrics_checked_at, ...job }) => job);
+  return (jobs || []).map(({ post_id, post_provider_id, period_key, metrics_checked_at, ...job }) => ({
+    ...job,
+    free_video_postable: job.kind === 'video' && period_key === 'free:lifetime' && job.status === 'completed'
+      && typeof job.video_url === 'string' && !job.post_url && !post_provider_id,
+  }));
 }
 const reply = (statusCode, value) => ({ statusCode, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(value) });
 const freeQuotaAvailable = usage => Number.isSafeInteger(usage?.videosRemaining) && usage.videosRemaining > 0
   && Number.isSafeInteger(usage?.attemptsRemaining) && usage.attemptsRemaining > 0;
+const hasUnpostedFreeVideo = jobs => (jobs || []).some(job => job.kind === 'video' && job.period_key === 'free:lifetime'
+  && job.status === 'completed' && typeof job.video_url === 'string' && !job.post_url && !job.post_provider_id);
 const metricNames = new Set(['views', 'reach', 'likes', 'comments', 'saved', 'shares']);
 function validMetrics(value) {
   return !!value && typeof value === 'object' && !Array.isArray(value)
@@ -60,8 +66,8 @@ async function factoryReadiness(env, providers, store) {
   const runtimeReady = jobRuntimeReady(env);
   const generation = { ready: enabled && runtimeReady && generationProviderReady && companyBudgetReady,
     reason: !enabled ? 'studio_setup' : !runtimeReady ? 'runtime_setup' : !generationProviderReady ? 'provider_setup' : !companyBudgetReady ? companyBudgetReason : null };
-  const social = { ready: enabled && socialProviderReady && generation.ready,
-    reason: !enabled ? 'studio_setup' : !socialProviderReady ? 'social_setup' : !generation.ready ? generation.reason : null };
+  const social = { ready: enabled && runtimeReady && socialProviderReady,
+    reason: !enabled ? 'studio_setup' : !runtimeReady ? 'runtime_setup' : !socialProviderReady ? 'social_setup' : null };
   const checkout = { ready: enabled && factoryBillingReady(env) && generation.ready && social.ready,
     reason: !enabled ? 'studio_setup' : !factoryBillingReady(env) ? 'billing_setup' : !generation.ready ? generation.reason : !social.ready ? social.reason : null };
   return { generation, checkout, social };
@@ -112,12 +118,15 @@ async function factoryHandler(event, dependencies = {}) {
         catch (error) {
           instagramReauthRequired = !!(account?.connected_at && account?.instagram_account_id && instagramReconnectCodes.has(error?.code));
         }
+        let jobs = account ? await store.jobs(user.id) : [];
         const generationAccess = confirmed && readiness.generation.ready && (entitled(account) || freeQuotaAvailable(usage));
-        if (generationAccess && account.auto_post_intent && !account.auto_post && account.connected_at && account.instagram_account_id) {
+        const postingAccess = confirmed && account?.connected_at && account?.instagram_account_id
+          && (generationAccess || hasUnpostedFreeVideo(jobs));
+        if (postingAccess && account.auto_post_intent && !account.auto_post) {
           await store.setAutopost(user.id);
           account = await store.account(user.id);
         }
-        let jobs = account ? await store.jobs(user.id) : [];
+        if (account && postingAccess && account.auto_post) jobs = await store.jobs(user.id);
         if (confirmed && account?.connected_at && account?.instagram_account_id
           && await refreshOneInstagramMetrics({ userId: user.id, jobs, store, providers: socialProviders })) jobs = await store.jobs(user.id);
         if (account?.auto_post && account.connected_at && account.instagram_account_id && generationAccess
@@ -164,12 +173,12 @@ async function factoryHandler(event, dependencies = {}) {
       const account = await getAccount();
       const usage = store.usage ? await store.usage(user.id) : null;
       if (body.action === 'autopost') {
-        if (!entitled(account) && !freeQuotaAvailable(usage)) throw factoryError('subscription_required', 402);
+        const jobs = await store.jobs(user.id);
+        if (!entitled(account) && !freeQuotaAvailable(usage) && !hasUnpostedFreeVideo(jobs)) throw factoryError('subscription_required', 402);
         const api = providerApi();
         const connected = await ensureFactorySocial({ userId: user.id, store, providers: api });
         if (!connected.instagram_account_id || !connected.connected_at) throw factoryError('instagram_required', 409);
         const enabled = await store.setAutopost(user.id);
-        const jobs = await store.jobs(user.id);
         if (!connected.avatar_id && !jobs.some(job => job.kind === 'avatar')) {
           await store.reserveJob(user.id, 'avatar:lifetime', 'avatar', 'auto');
         }

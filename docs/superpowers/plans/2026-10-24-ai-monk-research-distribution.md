@@ -7,21 +7,27 @@
 
 ### Current cursor override — 2026-10-25
 
-最新の依頼は「Generate Monk Avatar → Generate The Full Video（最大3本無料）→ Connect Your IG to auto post」。動画providerはHeyGenで確定し、選び直さない。monk.mujoの利用もテスト用に許可済み。mainのUIにはCTA handlerがあるが、generation readinessがfalseならAPI requestより前に止めてCTA直下に理由を表示する。productionは58 variables中`MONK_FACTORY_*`が0件。HeyGen Factory walletはUSD0・auto-reload off、Gemini Factory projectは`prepared_unfunded` / `billing_verified=false`なので、現状はボタン処理の欠落ではなくruntime/funding未設定で生成できない。通常HeyGen walletのUSD6.53とUSD5未満でUSD10 auto-reloadは、Factoryの上限として流用しない。認証済みStudio内での実clickは未確認。
+最新の依頼は「Generate Monk Avatar → Generate The Full Video（最大3本無料）→ Connect Your IG to auto post」。動画providerはHeyGenで確定し、選び直さない。monk.mujoの利用もテスト用に許可済み。source reviewでfree quota=0後のOAuth同意保存・autopost開始・既存投稿workerのgeneration readiness依存を修正し、完成済みfree video queueを投稿し、queue終了後はintentを保って新規generationを止める。API/action/job tests 41/41、isolated PostgreSQL 33/33はPASS。migration `monk_factory_free_queue_autopost` は本番Supabase `cycgdwndgfgdbnndithc` に適用済み（version `20261025084739`）。公式migration historyと関数readbackで3関数の存在・service_role限定EXECUTEを確認した。source branchは未merge・未deploy。Netlify本番は62 variables、`MONK_FACTORY_*`は0件。Factory HeyGen API keyは有効だが専用wallet USD0・auto-reload off、Gemini Factory projectは`prepared_unfunded` / `billing_verified=false`、Meta OAuth設定は未登録。本番画面のボタンがdisabledなのは、未設定のFactory runtime readinessがボタンを止めているためで、HeyGenの選択やclick handlerの不足ではない。通常HeyGen walletはFactory用に流用しない。認証済みStudioの実clickは未確認。
 
-最新の公式readback → `../../evidence/ai-monk-factory-provider-live-readback-20261025T081054Z.json`。Netlify latest deploy `6addb95cf9d5a8de330cc4e4`はready/production/main、`commit_ref=null`、title SHA `f2e13ec4961383611c6499401d5ffca1d1e44fb4`。effectはread-onlyで、生成・課金・OAuth・投稿・checkoutはいずれも0。
+最新の公式readback → `../../evidence/ai-monk-factory-runtime-blocker-20261025T084753Z.json`。Netlify latest deploy `6addb95cf9d5a8de330cc4e4`はready/production/main、`commit_ref=null`。migration適用は成功し、DB履歴version `20261025084739`と関数権限をreadbackした。生成・課金・OAuth・投稿・checkoutはいずれも0。
 
 追加の公式価格readbackは同じevidence内に保存する。現行コードでavatar1体 + 20秒動画3本の見積もりはHeyGen約USD3.75（Photo Avatar USD1.32 + Avatar IV Photo USD2.31/min × 合計1分 + Starfish USD0.12/min × 合計1分）、Geminiは内部reservation約USD0.155（image USD0.14 + script USD0.005 ×3）で、合計約USD3.91。失敗・再試行は除外し、Gemini値はinvoiceではなくコード上の予約見積もり。HeyGen APIはpay-as-you-goでfree API creditsなし。初回の上限付きtest credit目安はHeyGen USD5一回購入 + Gemini USD5 Prepay一回購入。GeminiはFactory project月間spend capを設定し、auto-reloadをoffにする。
 
 本人操作の正確な入口は[HeyGen API settings](https://app.heygen.com/settings?from=&nav=API)でFactory workspaceのAPI creditsをUSD5購入（自動補充off）、[Google AI Studio projects](https://aistudio.google.com/projects)でFactory projectのSet up billingから専用billing accountを作成/選択してPrepay USD5を購入し、[Spend](https://aistudio.google.com/spend)でproject monthly spend capをUSD5にすること。Google公式docsはPrepay USD5 minimum、optional auto-reload、project spend capを案内する。Prepay残高が0になると同billing account内のGemini API keysが止まるため、既存Google billing accountをPostpay/Prepay切替せず、Factory専用billing accountを使う。API keyはチャットへ貼らない。出典 → [HeyGen API pricing](https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained)、[Gemini API billing](https://ai.google.dev/gemini-api/docs/billing)。
 
-**現在の未完順序**は以下。従来の「Stripe test CheckoutをInstagram接続前に検証」から並べ替えた理由は、無料quotaが残る利用者のInstagram接続と日次投稿開始をCheckoutで妨げないため。顧客はavatarを生成し、完成videoを最大3本無料で作成し、その後Instagram接続を許可する。quotaが残る間は接続後に日次生成・投稿を開始し、3本を使い切った後はStripe subscriptionが有効になるまで次の生成・投稿を止める。
+**現在の未完順序**は以下。すでに適用したDB migrationと一致するsource修正を先にmainへreleaseする。次にFactory専用HeyGen/Gemini runtimeとInstagram Meta OAuthを準備し、Generateボタンを実効可能にする。ユーザーはavatarを生成し、完成videoを最大3本無料で作成した後にInstagramを接続できる。接続すると完成済み未投稿videoはquotaが0でも日次投稿する。新規日次生成は残quotaまたは有効subscription中だけ行い、既存video queueが尽きたら新規effectを止めて接続intentを保持し、Stripe subscription確認後に自動再開する。
 
-1. **SaaS-2 runtime readiness（current cursor）** — Factory専用HeyGen wallet/keyとGemini projectのbillingを用意し、provider利用料を含む実効daily spend guard、job/storage secret、model/voice設定をproductionへ反映してgeneration readinessをreadbackする。HeyGenを変更しない。
-2. **Free generation E2E** — API/UIでfictional monk avatarを生成し、完成videoを最大3本無料（期限なし・カード不要・trialなし）で確認する。実費とquota消費を保存する。
-3. **Instagram auto-post E2E** — 残quotaまたはactive subscriptionがある状態でFactory Meta OAuthから`monk.mujo`を接続し、daily generation/post、post URL、取得できるInsights、Pause/Stopをreadbackする。既存Postiz/Grok Bot scheduleを維持し、検証postは重複しない時刻に限定する。
-4. **Stripe test conversion** — free quota消費後の月額Checkout/webhookをtest modeで確認し、subscription後にdaily postingが再開することを確認する。live chargeは作らない。
-5. **Evidence / launch** — provider原価・投稿結果・Stripe test結果を別々に記録する。Factory CLI/Pluginをつなぎ、本番acceptance後にXで一度だけ告知し、その後に製品反復・配信loopを開始する。
+1. **Free-queue source release（current cursor）** — API/UI/SQL/job runner/Storeの修正を専用branchからPR・mainへ統合し、Netlify releaseをreadbackする。DB migrationは本番適用済み。source acceptanceはAPI/action readiness/job runner 41/41、isolated PostgreSQL 33/33 PASS。全体Next prerenderは別機能の`public/assets/manager-site/published-apps.json`欠落、全体TypeScript checkはFactory外の既存6件で失敗しており、Factory変更箇所からはerrorなし。
+
+2. **SaaS-2 runtime readiness** — HeyGenを既定providerに固定し、Factory専用walletに最小の上限付きcreditを用意する。Gemini Factory projectのbilling/spend cap、job/storage secret、model/voice、Meta app/client/config/webhookと`monk.mujo`用Standard Access/tester/必要permissionをproductionへ反映してgeneration/social readinessをreadbackする。本人が管理する通常HeyGen walletや既存Grok Bot/Postiz接続は流用・変更しない。
+
+3. **Free generation E2E** — API/UIでfictional monk avatarを生成し、完成videoを最大3本無料（期限なし・カードなし・trialなし）で確認する。実費とquota消費を保存する。
+
+4. **Instagram auto-post E2E** — Factory Meta OAuthから`monk.mujo`を接続し、残quota/active subscriptionがある時のgenerationと、quota=0でも既存completed free videoをposting queueから公開する動作を分けてreadbackする。既存Postiz/Grok Bot scheduleを維持し、検証postは重複しない時刻に限定する。queue終了後は新しいprovider jobを作らずconnected intentを残す。post URL、取得できるInsights、Pause/Stopも確認する。
+
+5. **Stripe test conversion** — free quotaと既存completed-video queue消費後にCheckout/webhookをtest modeで確認し、接続済みintentからdaily generation/postingが再開することを確認する。live chargeは作らない。
+
+6. **Evidence / launch** — provider原価・投稿結果・Stripe test結果を別々に記録する。Factory CLI/Pluginをつなぎ、本番acceptance後にXで一度だけ告知し、その後に製品反復・配信loopを開始する。
 
 このoverrideを以下の日時付きFactory readbackより優先する。HeyGenの再選択や追加確認は求めない。実効支出上限の確認前はproduction generationを有効化しない。
 

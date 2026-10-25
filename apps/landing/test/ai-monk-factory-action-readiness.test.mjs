@@ -98,7 +98,7 @@ test('unknown quota is not classified as exhausted', () => {
   });
 });
 
-test('Instagram connection and autopost require both social and generation readiness', () => {
+test('Instagram connection and autopost need social readiness when finished videos are ready to publish', () => {
   for (const action of ['connect_instagram', 'autopost']) {
     let sent = 0;
     const notices = [];
@@ -108,14 +108,30 @@ test('Instagram connection and autopost require both social and generation readi
       true,
       () => { sent += 1; },
       message => notices.push(message),
-      { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3 },
+      { hasAccess: true, quotaKnown: true, videosRemaining: 3, attemptsRemaining: 3, completedVideoReady: true },
     );
 
-    assert.equal(result, false, `${action} must stay local until generation is ready`);
-    assert.equal(sent, 0, `${action} must not send an API request`);
-    assert.match(notices[0], /generation services are not ready yet/i);
-    assert.match(notices[0], /No request was sent/i);
+    assert.equal(result, true, `${action} may proceed with completed videos when social is ready`);
+    assert.equal(sent, 1, `${action} sends the social request`);
+    assert.deepEqual(notices, []);
   }
+});
+
+test('autopost can publish an existing free video after quota exhaustion without generation readiness', () => {
+  let sent = 0;
+  const notices = [];
+  const result = readiness.requestFactoryAction(
+    'autopost',
+    { social: { ready: true }, generation: { ready: false, reason: 'provider_setup' } },
+    true,
+    () => { sent += 1; },
+    message => notices.push(message),
+    { hasAccess: false, quotaKnown: true, videosRemaining: 0, attemptsRemaining: 0, postableVideoReady: true },
+  );
+
+  assert.equal(result, true);
+  assert.equal(sent, 1);
+  assert.deepEqual(notices, []);
 });
 
 test('Instagram OAuth follows the avatar and first completed video steps', () => {

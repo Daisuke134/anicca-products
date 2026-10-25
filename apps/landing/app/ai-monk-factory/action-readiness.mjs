@@ -17,8 +17,8 @@ const fallbackMessages = {
 const actionCapabilities = {
   generate_avatar: ['generation'],
   generate_video: ['generation'],
-  connect_instagram: ['social', 'generation'],
-  autopost: ['social', 'generation'],
+  connect_instagram: ['social'],
+  autopost: ['social'],
   checkout: ['checkout'],
 };
 
@@ -45,7 +45,8 @@ export function requestFactoryAction(action, readiness, avatarReady, perform, no
     return false;
   }
 
-  const allowanceRequired = ['generate_avatar', 'generate_video', 'autopost'].includes(action);
+  const allowanceRequired = ['generate_avatar', 'generate_video'].includes(action)
+    || (action === 'autopost' && !allowance.postableVideoReady);
   const recoveringVideo = action === 'generate_video' && allowance.pendingVideo;
   if (allowanceRequired && !allowance.hasAccess && !recoveringVideo) {
     const message = !allowance.quotaKnown
