@@ -1,0 +1,134 @@
+{
+  "schema_version": "anicca.ai-monk-factory-button-readiness.v1",
+  "run_id": "ai-monk-factory-button-readiness-live-20261025T065058Z",
+  "owner_id": "root",
+  "occurrence_id": "factory-button-readiness-readback-20261025T065058Z",
+  "release_sha": "1b19b689bdde00dfc6f111207fa8d9e55c908e4b",
+  "observed_at": "2026-10-25T06:50:58.067Z",
+  "phase": "factory_button_runtime_diagnosis",
+  "supersedes": "ai-monk-factory-button-readiness-live-20261025.json",
+  "correction_note": "Refreshes the same read-only facts with per-response timestamps. The earlier receipt remains unchanged and is retained as historical data.",
+  "command": [
+    "GET Netlify production environment and latest deployment using exact private credential SSOT service",
+    "GET HeyGen /v3/users/me for the existing general and Factory-specific key",
+    "Read exact Gemini and Stripe Factory credential metadata without printing secret values"
+  ],
+  "loaded_argv": {
+    "provider_operations": "read_only_GET_only",
+    "factory_generation_requests": 0,
+    "oauth_authorizations": 0,
+    "instagram_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT exact service rows; credential values were not printed or copied",
+    "production_secret_values_printed": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "provider_topups_or_account_setting_changes": 0,
+    "factory_generation_requests": 0,
+    "oauth_authorizations": 0,
+    "instagram_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "netlify": {
+      "environment": {
+        "observed_at": "2026-10-25T06:50:58.067Z",
+        "http_status": 200,
+        "production_variable_count": 58,
+        "factory_variable_names": []
+      },
+      "latest_deploy": {
+        "observed_at": "2026-10-25T06:50:58.814Z",
+        "http_status": 200,
+        "id": "6add9df3516614dbb81ea3e4",
+        "state": "ready",
+        "context": "production",
+        "branch": "main",
+        "title_commit_sha": "1b19b689bdde00dfc6f111207fa8d9e55c908e4b",
+        "commit_ref": null,
+        "created_at": "2026-10-25T06:13:07.931Z",
+        "published_at": "2026-10-25T06:13:48.420Z"
+      }
+    },
+    "generation_providers": {
+      "heygen_existing_account": {
+        "observed_at": "2026-10-25T06:50:59.748Z",
+        "users_me_http_status": 200,
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 6.53,
+        "currency": "usd",
+        "auto_reload_enabled": true,
+        "auto_reload_threshold_usd": 5,
+        "auto_reload_amount_usd": 10,
+        "factory_environment_key_configured": false
+      },
+      "heygen_factory_account": {
+        "observed_at": "2026-10-25T06:51:00.380Z",
+        "users_me_http_status": 200,
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0,
+        "currency": "usd",
+        "auto_reload_enabled": false,
+        "factory_environment_key_configured": false
+      },
+      "gemini": {
+        "observed_at": "2026-10-25T06:51:00.380Z",
+        "dedicated_project_id": "anicca-monk-factory-20261024",
+        "dedicated_project_state": "prepared_unfunded",
+        "dedicated_billing_verified": false,
+        "factory_environment_key_configured": false
+      }
+    },
+    "payments_and_social": {
+      "observed_at": "2026-10-25T06:51:00.380Z",
+      "factory_stripe_catalog_status": "catalog_prepared_runtime_disabled",
+      "factory_specific_stripe_api_key_in_ssot": false,
+      "meta_app_credential_service_in_ssot": false,
+      "stripe_test_restricted_credential": {
+        "present_in_ssot": true,
+        "source": "credential SSOT note, not a fresh Stripe API readback",
+        "note": "The restricted test key can read the test price catalog but cannot read or create Checkout Sessions; prior creation attempt returned HTTP 403 more_permissions_required.",
+        "live_permission_probe_this_run": false
+      }
+    },
+    "factory_source": {
+      "deployed_sequence": [
+        "Generate Monk Avatar",
+        "Generate The Full Video",
+        "Connect your IG to auto post"
+      ],
+      "readiness_gate": "generation and social actions require provider/runtime readiness",
+      "blocked_action_behavior": "display local blocker and do not send an API job request",
+      "authenticated_live_click_readback": false,
+      "diagnosis_type": "inference_from_production_configuration_and_source_contract"
+    },
+    "tests": {
+      "command": "node --test test/ai-monk-factory-action-readiness.test.mjs",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "path": "apps/landing/app/ai-monk-factory/factory.tsx",
+      "fact": "The three CTA labels and click handlers are present; generation actions pass through the readiness guard."
+    },
+    {
+      "path": "apps/landing/app/ai-monk-factory/action-readiness.mjs",
+      "fact": "When readiness is false, the guard reports a local blocker and returns before dispatching the API action."
+    },
+    {
+      "path": "docs/evidence/ai-monk-factory-button-readiness-20261025.json",
+      "fact": "Prior source-level and deployment observations retained unchanged; this receipt refreshes the runtime timestamps."
+    }
+  ],
+  "error_class": "factory_runtime_not_configured",
+  "retryable": false,
+  "next_action": "Keep HeyGen as the selected provider. Establish a bounded Factory HeyGen funding path and voice ID, fund/verify the dedicated Gemini image/script project within the budget, configure production runtime secrets and billing evidence refs, and read back generation readiness before rendering. Then finish Stripe test-mode Checkout/webhook and Meta Unified Login for monk.mujo, verify the authorized auto-post and metrics, and Pause/Stop."
+}
