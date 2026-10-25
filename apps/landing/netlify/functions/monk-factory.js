@@ -3,20 +3,51 @@ const { createFactoryStore } = require('./_lib/monk-factory-store.js');
 const { factoryStripeClient, beginFactoryCheckout, syncFactoryBilling, stripeHostedUrl, factoryBillingReady } = require('./_lib/monk-factory-billing.js');
 const { jobRuntimeReady, entitled, ensureFactorySocial } = require('./_lib/monk-factory-jobs.js');
 
+const instagramReconnectCodes = new Set(['instagram_reconnect_required', 'instagram_required', 'instagram_publish_permission_required', 'instagram_insights_permission_required']);
 const publicFields = ['subscription_status', 'period_end', 'period_paid', 'cancel_at_period_end', 'billing_paused', 'auto_post', 'auto_post_intent', 'instagram_username', 'connected_at', 'avatar_image_url', 'next_post_at'];
-function publicAccount(account) {
+function publicAccount(account, instagramReauthRequired = false) {
   return account ? { ...Object.fromEntries(publicFields.filter(key => Object.hasOwn(account, key)).map(key => [key, account[key]])),
-    avatar_ready: !!account.avatar_id, connected: !!account.connected_at && !!account.instagram_account_id,
+    avatar_ready: !!account.avatar_id, connected: !instagramReauthRequired && !!account.connected_at && !!account.instagram_account_id,
+    instagram_reauth_required: instagramReauthRequired,
     social_checked_at: account.social_checked_at || null } : null;
+}
+function publicJobs(jobs) {
+  return (jobs || []).map(({ post_id, metrics_checked_at, ...job }) => job);
 }
 const reply = (statusCode, value) => ({ statusCode, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(value) });
 const freeQuotaAvailable = usage => Number.isSafeInteger(usage?.videosRemaining) && usage.videosRemaining > 0
   && Number.isSafeInteger(usage?.attemptsRemaining) && usage.attemptsRemaining > 0;
+const metricNames = new Set(['views', 'reach', 'likes', 'comments', 'saved', 'shares']);
+function validMetrics(value) {
+  return !!value && typeof value === 'object' && !Array.isArray(value)
+    && Object.entries(value).every(([key, count]) => metricNames.has(key) && typeof count === 'number' && Number.isFinite(count) && count >= 0);
+}
+async function refreshOneInstagramMetrics({ userId, jobs, store, providers, now = Date.now() }) {
+  if (typeof providers?.metrics !== 'function' || typeof store?.claimMetricsRefresh !== 'function' || typeof store?.saveMetrics !== 'function') return false;
+  const metricsCutoff = now - 12 * 60 * 60 * 1000;
+  const retryCutoff = now - 15 * 60 * 1000;
+  const eligible = (job, field, cutoff) => !job[field] || (Number.isFinite(Date.parse(job[field])) && Date.parse(job[field]) <= cutoff);
+  const candidates = jobs.filter(job => job.kind === 'video' && job.status === 'completed' && job.post_id && job.post_url
+    && eligible(job, 'metrics_at', metricsCutoff) && eligible(job, 'metrics_checked_at', retryCutoff))
+    .sort((a, b) => Date.parse(a.metrics_at || a.created_at || 0) - Date.parse(b.metrics_at || b.created_at || 0));
+  const job = candidates[0];
+  if (!job) return false;
+  const checkedAt = new Date(now).toISOString();
+  try {
+    const claimed = await store.claimMetricsRefresh(userId, job.id, job.post_id, job.metrics_at || null, job.metrics_checked_at || null, checkedAt);
+    if (!claimed || claimed.id !== job.id || claimed.post_id !== job.post_id || claimed.post_url !== job.post_url) return false;
+    const result = await providers.metrics({ userId, postId: job.post_id });
+    if (result?.postId !== job.post_id || result.profile !== 'factory_' + userId.toLowerCase()
+      || result.source !== 'platform_api' || result.postUrl !== job.post_url || !validMetrics(result.metrics)) return false;
+    const saved = await store.saveMetrics(userId, job.id, job.post_id, checkedAt, result.metrics, checkedAt);
+    return !!saved;
+  } catch { return false; }
+}
 
 async function factoryReadiness(env, providers, store) {
   let providerState;
   try {
-    const api = providers || require('./_lib/monk-factory-providers.js').createFactoryProviders({ env });
+    const api = providers || require('./_lib/monk-factory-providers.js').createFactoryProviders({ env, socialStore: store });
     providerState = await api.readiness();
   } catch { providerState = {}; }
   const enabled = env.MONK_FACTORY_ENABLED === 'true';
@@ -59,7 +90,7 @@ async function factoryHandler(event, dependencies = {}) {
     }
     const store = dependencies.store || createFactoryStore({ env });
     const syncBilling = dependencies.syncBilling || syncFactoryBilling;
-    const providerApi = () => dependencies.providers || require('./_lib/monk-factory-providers.js').createFactoryProviders({ env });
+  const providerApi = () => dependencies.providers || require('./_lib/monk-factory-providers.js').createFactoryProviders({ env, socialStore: store });
     const billing = () => dependencies.stripe || factoryStripeClient(env);
     const getAccount = async () => {
       await store.usage?.(user.id);
@@ -75,23 +106,28 @@ async function factoryHandler(event, dependencies = {}) {
       if (account?.stripe_subscription_id) account = await syncBilling({ userId: user.id, store,
         stripe: dependencies.syncBilling ? dependencies.stripe : billing(), env });
       if ((account?.social_profile || account?.social_submit_started_at) && readiness.social.ready) {
-        let confirmed = false;
-        try { account = await ensureFactorySocial({ userId: user.id, store, providers: providerApi() }); confirmed = true; }
-        catch { /* Keep the last account readback available, including Stop. */ }
+        let confirmed = false; let instagramReauthRequired = false;
+        let socialProviders;
+        try { socialProviders = providerApi(); account = await ensureFactorySocial({ userId: user.id, store, providers: socialProviders }); confirmed = true; }
+        catch (error) {
+          instagramReauthRequired = !!(account?.connected_at && account?.instagram_account_id && instagramReconnectCodes.has(error?.code));
+        }
         const generationAccess = confirmed && readiness.generation.ready && (entitled(account) || freeQuotaAvailable(usage));
         if (generationAccess && account.auto_post_intent && !account.auto_post && account.connected_at && account.instagram_account_id) {
           await store.setAutopost(user.id);
           account = await store.account(user.id);
         }
         let jobs = account ? await store.jobs(user.id) : [];
+        if (confirmed && account?.connected_at && account?.instagram_account_id
+          && await refreshOneInstagramMetrics({ userId: user.id, jobs, store, providers: socialProviders })) jobs = await store.jobs(user.id);
         if (account?.auto_post && account.connected_at && account.instagram_account_id && generationAccess
           && !account.avatar_id && !jobs.some(job => job.kind === 'avatar')) {
           await store.reserveJob(user.id, 'avatar:lifetime', 'avatar', 'auto');
           jobs = await store.jobs(user.id);
         }
-        return reply(200, { account: publicAccount(account), jobs, ready: readiness.generation.ready, readiness, usage });
+        return reply(200, { account: publicAccount(account, instagramReauthRequired), jobs: publicJobs(jobs), ready: readiness.generation.ready, readiness, usage });
       }
-      return reply(200, { account: publicAccount(account), jobs: account ? await store.jobs(user.id) : [],
+      return reply(200, { account: publicAccount(account), jobs: publicJobs(account ? await store.jobs(user.id) : []),
         ready: readiness.generation.ready, readiness, usage });
     }
     if (body.action === 'stop') { await store.stop(user.id); return reply(200, { auto_post: false }); }
@@ -127,11 +163,10 @@ async function factoryHandler(event, dependencies = {}) {
       requireCapability(readiness, 'social');
       const account = await getAccount();
       const usage = store.usage ? await store.usage(user.id) : null;
-      if (!entitled(account) && !freeQuotaAvailable(usage)) throw factoryError('subscription_required', 402);
-      if (body.action === 'connect_instagram') await store.reserveProfile(user.id);
-      const api = providerApi();
-      const connected = await ensureFactorySocial({ userId: user.id, store, providers: api, create: body.action === 'connect_instagram' });
       if (body.action === 'autopost') {
+        if (!entitled(account) && !freeQuotaAvailable(usage)) throw factoryError('subscription_required', 402);
+        const api = providerApi();
+        const connected = await ensureFactorySocial({ userId: user.id, store, providers: api });
         if (!connected.instagram_account_id || !connected.connected_at) throw factoryError('instagram_required', 409);
         const enabled = await store.setAutopost(user.id);
         const jobs = await store.jobs(user.id);
@@ -140,8 +175,21 @@ async function factoryHandler(event, dependencies = {}) {
         }
         return reply(200, enabled);
       }
+      if (account?.instagram_account_id && account?.connected_at) {
+        try {
+          const checked = await ensureFactorySocial({ userId: user.id, store, providers: providerApi() });
+          if (checked?.instagram_account_id && checked?.connected_at) return reply(200, { connected: true });
+        } catch (error) {
+          if (!instagramReconnectCodes.has(error?.code)) throw error;
+        }
+      }
+      if (!account?.avatar_id) throw factoryError('avatar_required', 409);
+      const jobs = await store.jobs(user.id);
+      if (!jobs.some(job => job.kind === 'video' && job.status === 'completed' && typeof job.video_url === 'string')) throw factoryError('video_required', 409);
+      await store.reserveProfile(user.id);
       await store.setAutopostIntent(user.id, true);
       try {
+        const api = providerApi();
         const result = await api.connectInstagram(user.id);
         return reply(200, { url: result.accessUrl });
       } catch (error) {

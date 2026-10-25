@@ -112,21 +112,13 @@ async function dispatchImage(job, env, fetchImpl = fetch) {
   if (response.status !== 202) throw factoryError('image_dispatch_unavailable', 503);
 }
 
-async function ensureFactorySocial({ userId, store, providers, create = false }) {
+async function ensureFactorySocial({ userId, store, providers }) {
   const account = await store.claimSocial(userId);
   if (!account) throw factoryError('social_sync_in_progress', 409);
   const lease = account.social_lease_id;
   try {
     if (account.user_id !== userId) throw factoryError('social_mismatch', 503);
-    let state;
-    try { state = await providers.socialState(userId); }
-    catch (error) {
-      if (!create || error.providerStatus !== 404) throw error;
-      if (account.social_profile || account.social_submit_started_at || !await store.fenceSocial(userId, lease)) throw factoryError('social_reconciliation_required', 503);
-      const result = await providers.createSocialProfile(userId);
-      if (result.profile !== profileFor(userId)) throw factoryError('social_mismatch', 503);
-      state = await providers.socialState(userId);
-    }
+    const state = await providers.socialState(userId);
     if (state.profile !== profileFor(userId)) throw factoryError('social_mismatch', 503);
     const saved = await store.saveSocial(userId, lease, state);
     if (!saved) throw factoryError('social_sync_in_progress', 409);
@@ -158,13 +150,18 @@ async function advanceFactoryJob(options) {
     return account;
   }
   async function submit(stage, method, input, resultPatch, extra = {}) {
-    await allowed(stage === 'post_submitting');
+    await allowed(stage.startsWith('post_'));
     if (Date.now() + 11000 >= deadline) throw factoryError('tick_deadline', 503);
     await save({ ...extra, stage, status: 'effect_unknown', evidence: evidence(job, stage, env, { effect: 'unknown', nextAction: 'official_readback' }) }, true);
     if (Date.now() >= deadline) throw factoryError('tick_deadline', 503);
     const result = await providers[method]({ ...input, requestId: job.id + ':' + stage });
-    await save({ ...resultPatch(result), error_class: null,
-      evidence: evidence(job, stage, env, { effect: 'confirmed', receipt: result.id, nextAction: 'next_stage', usage: result.usage }) });
+    try {
+      await save({ ...resultPatch(result), error_class: null,
+        evidence: evidence(job, stage, env, { effect: 'confirmed', receipt: result.id, nextAction: 'next_stage', usage: result.usage }) });
+    } catch {
+      throw Object.assign(new Error('provider_effect_unknown'), { code: 'provider_effect_unknown', effect: 'unknown', retryable: false,
+        ...(result.id ? { providerReceiptId: result.id } : {}), ...(stage === 'post_submitting' ? { providerEffectPhase: 'container_create' } : {}) });
+    }
   }
   try {
     // A persisted submit fence is never an invitation to repeat its POST.
@@ -178,7 +175,9 @@ async function advanceFactoryJob(options) {
       }
       const receipt = job.stage === 'avatar_submitting' ? job.avatar_provider_id : job.stage === 'video_submitting' ? job.video_provider_id : null;
       if (receipt) return await save({ stage: job.stage === 'avatar_submitting' ? 'avatar_pending' : 'video_pending', status: 'processing' });
-      if (job.stage === 'post_submitting' && job.post_provider_id) return await save({ stage: 'post_pending', status: 'processing' });
+      if (job.stage === 'post_submitting' && job.post_provider_id && job.post_provider_id !== job.id + ':post_submitting') {
+        return await save({ stage: 'post_pending', status: 'processing' });
+      }
       return await save({ status: 'effect_unknown', error_class: 'provider_effect_unreconciled', next_run_at: after(3600000),
         evidence: evidence(job, 'reconcile', env, { effect: 'unknown', error: 'provider_effect_unreconciled', nextAction: 'provider_receipt_required' }) });
     }
@@ -231,27 +230,61 @@ async function advanceFactoryJob(options) {
       const requestId = job.id + ':post_submitting';
       await submit('post_submitting', 'publishInstagram', { userId: job.user_id, accountId: account.instagram_account_id, videoUrl: job.video_url, caption: job.caption }, result => ({ stage: 'post_pending', status: 'processing', post_provider_id: result.id, provider_id: result.id }), { post_provider_id: requestId });
     } else if (job.stage === 'post_pending') {
-      const result = await providers.postStatus(job.post_provider_id);
-      if (result.profile && result.profile !== profileFor(job.user_id)) throw factoryError('social_mismatch', 503);
+      const result = await providers.postStatus({ userId: job.user_id, id: job.post_provider_id });
       if (result.status === 'failed') throw factoryError('instagram_publish_failed', 422);
-      const done = result.status === 'completed';
-      await save({ status: 'processing', stage: done ? 'published' : 'post_pending', ...(done ? { post_id: result.postId, post_url: result.postUrl } : {}),
-        evidence: evidence(job, 'post_readback', env, { effect: done ? 'confirmed' : 'unknown', receipt: result.id, readback: result.status, nextAction: done ? 'metrics_get' : 'official_get' }) });
+      if (result.status === 'ready_to_publish') {
+        const account = await allowed(true);
+        const freshAccount = await ensureFactorySocial({ userId: job.user_id, store, providers });
+        if (!freshAccount?.auto_post || !freshAccount.instagram_account_id || !freshAccount.connected_at
+          || freshAccount.instagram_account_id !== account?.instagram_account_id) throw factoryError('instagram_required', 409);
+        if (!await store.fenceInstagramPublish(job.id, job.lease_id)) throw factoryError('job_lease_lost', 409);
+        const published = await providers.publishInstagramContainer({ userId: job.user_id, accountId: freshAccount.instagram_account_id,
+          containerId: job.post_provider_id, requestId: job.id + ':media_publish' });
+        if (published.status !== 'published' || !published.id) throw factoryError('provider_readback_invalid', 503);
+        try {
+          await save({ status: 'processing', stage: 'published', post_id: published.id, provider_id: published.id,
+            evidence: { ...evidence(job, 'publish_fence', env, { effect: 'confirmed', receipt: published.id,
+              readback: 'media_publish', nextAction: 'metrics_get' }),
+              ...evidence(job, 'media_publish_readback', env, { effect: 'confirmed', receipt: published.id, readback: 'media_publish', nextAction: 'metrics_get' }) } });
+        } catch {
+          throw Object.assign(new Error('provider_effect_unknown'), { code: 'provider_effect_unknown', effect: 'unknown', retryable: false,
+            providerReceiptId: published.id, providerEffectPhase: 'media_publish' });
+        }
+      } else {
+        await save({ status: 'processing', stage: 'post_pending',
+          evidence: evidence(job, 'post_readback', env, { effect: 'unknown', receipt: result.id, readback: result.status, nextAction: 'official_get' }) });
+      }
     } else if (job.stage === 'published') {
       const result = await providers.metrics({ userId: job.user_id, postId: job.post_id });
       if (result.profile !== profileFor(job.user_id) || result.postId !== job.post_id || result.source !== 'platform_api') throw factoryError('social_mismatch', 503);
-      await save({ status: 'completed', metrics: result.metrics, metrics_at: new Date().toISOString(),
+      await save({ status: 'completed', post_url: result.postUrl, metrics: result.metrics, metrics_at: new Date().toISOString(),
         evidence: evidence(job, 'metrics_readback', env, { effect: 'confirmed', receipt: result.postId, readback: 'platform_api', nextAction: 'complete' }) });
     }
   } catch (error) {
     if (codeOf(error) === 'job_lease_lost') return;
+    if (error.providerEffectPhase === 'container_create' && error.providerReceiptId) {
+      await save({ status: 'processing', stage: 'post_pending', post_provider_id: error.providerReceiptId, provider_id: error.providerReceiptId,
+        error_class: null, evidence: evidence(job, 'container_create_recovery', env, { effect: 'confirmed', receipt: error.providerReceiptId,
+          readback: 'provider_response', nextAction: 'container_status' }) }).catch(() => {});
+      return;
+    }
+    if (error.providerEffectPhase === 'media_publish' && error.providerReceiptId) {
+      await save({ status: 'processing', stage: 'published', post_id: error.providerReceiptId, provider_id: error.providerReceiptId,
+        error_class: null, evidence: { ...evidence(job, 'publish_fence', env, { effect: 'confirmed', receipt: error.providerReceiptId,
+          readback: 'provider_response', nextAction: 'metrics_get' }),
+          ...evidence(job, 'media_publish_recovery', env, { effect: 'confirmed', receipt: error.providerReceiptId,
+            readback: 'provider_response', nextAction: 'metrics_get' }) } }).catch(() => {});
+      return;
+    }
     const submitting = job.stage.endsWith('_submitting');
-    const transient = error.retryable === true || ['factory_unavailable','image_dispatch_unavailable','image_storage_unavailable','tick_deadline','billing_sync_in_progress','social_sync_in_progress','store_unavailable','billing_unavailable'].includes(codeOf(error));
-    const unknown = submitting && error.effect !== 'none';
+    const reauthRequired = ['instagram_reconnect_required', 'instagram_publish_permission_required', 'instagram_insights_permission_required'].includes(codeOf(error))
+      || (codeOf(error) === 'instagram_required' && job.stage.startsWith('post_'));
+    const transient = reauthRequired || error.retryable === true || ['factory_unavailable','image_dispatch_unavailable','image_storage_unavailable','tick_deadline','billing_sync_in_progress','social_sync_in_progress','store_unavailable','billing_unavailable'].includes(codeOf(error));
+    const unknown = error.effect === 'unknown' || (submitting && error.effect !== 'none');
     await save({ status: unknown ? 'effect_unknown' : transient ? job.status : 'failed', stage: unknown || transient ? job.stage : 'failed',
-      error_class: codeOf(error), next_run_at: after(unknown ? 3600000 : 60000),
+      error_class: codeOf(error), next_run_at: after(unknown || reauthRequired ? 3600000 : 60000),
       evidence: evidence(job, job.stage, env, { effect: unknown ? 'unknown' : error.effect || 'none', receipt: error.providerReceiptId,
-        error: codeOf(error), retryable: transient, usage: error.usage, nextAction: unknown ? 'official_readback' : transient ? 'retry_readback' : 'reservation_retained' }) }).catch(() => {});
+        error: codeOf(error), retryable: transient, usage: error.usage, nextAction: unknown ? 'official_readback' : reauthRequired ? 'instagram_reconnect' : transient ? 'retry_readback' : 'reservation_retained' }) }).catch(() => {});
   }
 }
 

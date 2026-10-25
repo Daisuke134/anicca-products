@@ -1,0 +1,97 @@
+{
+  "schema_version": "anicca.ai-monk-factory-button-readback.v1",
+  "run_id": "ai-monk-factory-button-readback-20261025T052217Z",
+  "owner_id": "root",
+  "occurrence_id": "factory-button-readback-20261025T052217Z",
+  "release_sha": null,
+  "source_sha": "33e14cba0ae5e9a351098b258e81ea3e655b5b5b",
+  "source_worktree_dirty": true,
+  "observed_at": "2026-10-25T05:22:17.479477Z",
+  "phase": "production_button_readiness_readonly",
+  "command": [
+    "GET Netlify production env and latest deploy via exact private credential row",
+    "GET HeyGen dedicated Factory and primary account status",
+    "GET Gemini 3.1 Flash Lite model availability",
+    "Read non-secret Factory billing metadata from private credential SSOT"
+  ],
+  "loaded_argv": {
+    "provider_operations": "GET_only",
+    "secret_values_printed": 0,
+    "generation_requests": 0,
+    "oauth_authorizations": 0,
+    "instagram_or_tiktok_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "loaded_env": {
+    "credential_source": "Private credentials SSOT exact service rows",
+    "credential_values_copied_to_repo_or_logs": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "netlify_environment_changes": 0,
+    "provider_topups_or_plan_changes": 0,
+    "generation_requests": 0,
+    "oauth_authorizations": 0,
+    "instagram_or_tiktok_posts": 0,
+    "stripe_checkouts_or_charges": 0
+  },
+  "readback": {
+    "netlify": {
+      "env_http_status": 200,
+      "production_variable_count": 58,
+      "factory_variable_names": [],
+      "latest_deploy_http_status": 200,
+      "latest_deploy_id": "6add8bf5d222e40ff4b71560",
+      "latest_deploy_state": "ready",
+      "latest_deploy_published_at": "2026-10-25T04:57:15.189Z",
+      "latest_deploy_commit_ref": null
+    },
+    "heygen": {
+      "factory_account": {
+        "users_me_http_status": 200,
+        "billing_type": "wallet",
+        "wallet_currency": "usd",
+        "wallet_remaining_balance_usd": 0,
+        "auto_reload_enabled": false
+      },
+      "primary_account": {
+        "users_me_http_status": 200,
+        "billing_type": "wallet",
+        "auto_reload_enabled": true,
+        "used_for_factory": false
+      }
+    },
+    "gemini": {
+      "model_get_http_status": 200,
+      "model": "models/gemini-3.1-flash-lite",
+      "dedicated_billing_verified_in_ssot": false,
+      "project_state_in_ssot": "prepared_unfunded"
+    },
+    "stripe": {
+      "factory_catalog_state_in_ssot": "catalog_prepared_runtime_disabled",
+      "test_mode_runtime_readback": false
+    },
+    "meta": {
+      "meta_named_credential_rows_in_ssot": 0,
+      "oauth_or_post_readback": false
+    },
+    "factory_ui": {
+      "authenticated_live_button_readback": false,
+      "production_source_commit_sha_known": false,
+      "readiness_gate_blocks_generation_social_and_checkout": true
+    }
+  },
+  "provider_receipt_id": {
+    "netlify_env_request_id": "73b6c86b-c246-4914-a1e6-b7b37360bbcf",
+    "netlify_deploy_request_id": "613f7fe8-4b64-4abd-83d5-202354970043"
+  },
+  "evidence_refs": [
+    "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/env?context=production",
+    "https://api.netlify.com/api/v1/sites/d67537f0-21bd-477e-ac1a-323f7ec6d5cd/deploys?per_page=1",
+    "https://api.heygen.com/v3/users/me",
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Release the source CTA/OAuth fix, then configure Factory-only providers with a verified spend cap, Stripe test runtime, and Meta app/tester access before enabling production actions."
+}
