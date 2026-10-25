@@ -39,6 +39,7 @@
   },
   "sanitized_response_sha256": "e15128d397242920c2cd2b0e037475dff48752b16c9ef0aa12dc81f1ffadefe4",
   "raw_response": "not persisted; contains unrelated account profile data",
+  "normalization": "Optional provider fields absent from the response are normalized to null by extraction; exact property-presence readback is recorded in ai-monk-factory-heygen-wallet-field-presence-20261025T121531Z.json.",
   "error_class": null,
   "retryable": null,
   "next_action": "Keep the wallet readback as an observed balance only; do not infer API request rejection or attempt generation. Resolve app-level auth/action readback and the explicit Factory budget before any provider effect.",

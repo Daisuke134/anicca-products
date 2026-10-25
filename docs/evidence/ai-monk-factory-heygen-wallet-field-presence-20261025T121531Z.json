@@ -1,0 +1,23 @@
+{
+  "run_id": "heygen-profile-field-presence-20261025T121531Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "53c477e7b9564ce4bbfd0c143ef64ec9",
+  "observed_at": "2026-10-25T12:15:31.848Z",
+  "phase": "provider_read_only_profile_field_presence",
+  "command": "GET https://api.heygen.com/v3/users/me using exact credential service heygen-ai-monk-factory; secret omitted",
+  "exit_code": 0,
+  "http_status": 200,
+  "effect": "read_only_observation; no provider mutation",
+  "provider_request_id": "53c477e7b9564ce4bbfd0c143ef64ec9",
+  "readback": {
+    "billing_type": "wallet",
+    "wallet_remaining_balance_usd": 0,
+    "wallet_auto_reload_enabled": false,
+    "usage_based_object_present": false,
+    "usage_based_spending_cap_field_present": false
+  },
+  "error_class": null,
+  "retryable": null,
+  "next_action": "Treat absent optional fields as absent, not as a confirmed zero cap; retain the documented distinction between wallet and usage-based billing.",
+  "source": "https://developers.heygen.com/user-profile"
+}
