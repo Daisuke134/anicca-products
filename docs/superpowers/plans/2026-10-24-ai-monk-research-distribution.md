@@ -15,6 +15,16 @@ PR #760（`aebc354f234f0e4bba091db238e11ad80232c14b`）はCI run `40208565137`�
 
 CTA source releaseのcursorは完了。次のcursorはFactory provider支出上限と専用Geminiのbilling/cap確認に戻り、その後runtime/Stripe/Meta readiness、Factory E2Eの順に進む。参照receiptの最新provider readbackはHeyGen wallet USD0、Gemini billing無効。Netlify環境はこのdeploy前の15:36Zに最後に読み、`MONK_FACTORY_*`は0件だった。USD10/dayのjob予約値をproviderの請求上限と扱わず、generation/checkout/postingが稼働中とも報告しない。
 
+#### Provider支出上限の公式資料調査 — 2026-10-25T15:56Z–16:01Z
+
+HeyGenの公式Help CenterはAPIをPay-As-You-Goへ移行し、API creditは購入者が金額を指定して追加、API generationは種類と実生成秒数でUSD課金、API無料creditは2026年2月以降なしと説明する。現行の表ではAvatar IV Photo AvatarがUSD2.31/分、Starfish TTSがUSD0.12/分。Developer docsの10 concurrent jobsは処理量制限で、金銭上限ではない。今回確認した公開資料に日次hard spend capは見つからず、アカウントreadbackでは専用wallet USD0・auto-reload off・spending-cap objectなし。上限を確認できるまでcreditを購入せず、自動補充を使わない。
+
+Factory sourceはGemini `gemini-3.1-flash-lite-image`のavatar画像と台本、HeyGen Avatar IV・1080p/9:16、Starfish TTSを使う。動画と音声の最大durationは45秒、paid quotaは1期間30本。公式単価を45秒へ適用するとAPI費用は約USD1.8225/本（video USD1.7325 + voice USD0.09）。sourceのGemini予約値を加えると約USD1.8275/本。avatar画像のsource予約USD0.14を1回足すと、free 3本は約USD5.6225、paid 30本は約USD54.965、USD199売上からの差額は約USD144.035。これはmax-durationを使った計算でありinvoice/cost capではない。HeyGenのPhoto Avatar作成単価、失敗retry、Stripe、storage、hosting、tax等は未確定なので利益率として扱わない。
+
+Gemini APIの公式billing docsはAI Studioでproject単位の月間spend capを設定でき、専用project内のAPI利用を停止可能とする。ただしbilling計上遅延は最大約10分、長時間taskはcap超過し得る。Cloud Billingのspend capもGemini APIをproject/service単位で対象にできるが、in-flight requestは完了し遅延overageは請求される。Prepayを要求される場合、docs上の最低購入額は通常USD5だが、残高0停止にも請求遅延のoverageがあり、auto-reload月上限は手動credit購入を制限しない。現readbackでは専用projectにbilling accountがなく、cap設定済み状態も未確認。公式根拠と算出条件 → `../../evidence/ai-monk-factory-provider-spend-boundary-research-20261025T160147Z.json`。
+
+現在cursorは、支払・billing linkを変更せず専用Gemini projectに適用可能なproject capと権限をread-only確認し、HeyGen側には公開済みAPI hard capがない前提でアプリ内予約と有限wallet運用を整合すること。課金開始を行わず、次にStripe test-modeとMeta runtimeへ進む前に、provider側capの設定値・課金条件・実際のprovider readbackを記録する。会社USD10/day予約値は別のapp-level fenceとして維持し、provider capの代替とはしない。
+
 #### Authenticated Studio and pre-release catalog readback — 2026-10-25T15:21Z–15:36Z
 
 authenticated Factory Studio GETはHTTP200、generation/checkout/socialが`studio_setup`、quota 3 videos/3 attempts、jobs 0、subscription/Instagram/avatar/autopost未設定を返した。過去のgeneric errorに対応するaction IDやprovider receiptはないため再送せず、現在のStudio状態だけをreadbackした。readback時点のAvatar/video/Instagram CTAは有効だったため、同じreadiness helperをdisabledへ反映し、前工程がないvideo/Instagram actionも止めるsource patchを現在branchに実装した。Stopは維持する。focused tests 13/13 PASS、CIと同じasset staging後のNext production buildは675 pagesでPASS。TypeScript standalone checkにはこの変更外の6 errorが残る。source patchは未push/未merge/未deployで、本番CTA修正とは扱わない。
