@@ -74,14 +74,22 @@
     "photo_avatar_creation_price": "not established by the reviewed official pricing table"
   },
   "modeled_cost_usd": {
-    "assumption": "45-second completed output; current documented HeyGen API rates; source-internal Gemini reservations; excludes photo avatar creation, retries, Stripe, storage, hosting, tax, and other overhead",
+    "assumption": "Free outputs max 20 seconds and paid outputs max 45 seconds; current documented HeyGen API rates and source-internal Gemini reservations; excludes HeyGen photo avatar creation, extra retries, Stripe, storage, hosting, tax, and other overhead",
     "heygen_video_usd_per_max_length_video": 1.7325,
     "heygen_starfish_voice_usd_per_max_length_video": 0.09,
     "gemini_script_reservation_usd_per_video": 0.005,
     "total_per_max_length_video_before_one_time_avatar_image": 1.8275,
-    "three_free_videos_plus_one_avatar_image_reservation": 5.6225,
-    "thirty_paid_videos_plus_one_avatar_image_reservation": 54.965,
-    "gross_199_subscription_minus_modeled_thirty_video_cost_usd": 144.035,
+    "free_video_known_cost_usd_per_20_seconds": 0.815,
+    "three_free_videos_plus_one_avatar_image_reservation_usd": 2.585,
+    "three_free_videos_and_one_avatar_internal_reservation_usd": 4.18,
+    "thirty_paid_videos_plus_one_avatar_image_reservation_usd": 54.965,
+    "thirty_paid_video_attempts_and_one_avatar_internal_reservation_usd": 57.775,
+    "thirty_six_paid_video_attempts_and_one_avatar_internal_reservation_usd": 69.01,
+    "gross_199_minus_thirty_paid_known_costs_before_avatar_creation_and_overhead_usd": 144.035,
+    "gross_199_minus_thirty_paid_app_reservation_before_other_overhead_usd": 141.225,
+    "shared_app_daily_reservation_cap_usd": 10,
+    "free_lifetime_internal_budget_usd": 4.25,
+    "paid_period_internal_budget_usd": 70,
     "invoice_or_profitability_proven": false
   },
   "current_account_readback_refs": {
@@ -90,7 +98,10 @@
     "heygen_provider_spend_cap_object": "not present in previously checked API response",
     "gemini_dedicated_project_billing_enabled": false,
     "gemini_dedicated_project_billing_account_linked": false,
-    "readback_source": "docs/evidence/ai-monk-factory-studio-catalog-readback-20261025T1536Z.json"
+    "gemini_project_lifecycle_state": "ACTIVE",
+    "readback_source": "docs/evidence/ai-monk-factory-gemini-billing-readback-20261025T160700Z.json",
+    "heygen_wallet_readback_source": "docs/evidence/ai-monk-factory-studio-catalog-readback-20261025T1536Z.json",
+    "company_budget_production_readback_source": "docs/evidence/ai-monk-factory-readiness-20261024T181747Z.json"
   },
   "evidence_refs": [
     "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md",

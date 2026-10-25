@@ -19,11 +19,15 @@ CTA source releaseのcursorは完了。次のcursorはFactory provider支出上�
 
 HeyGenの公式Help CenterはAPIをPay-As-You-Goへ移行し、API creditは購入者が金額を指定して追加、API generationは種類と実生成秒数でUSD課金、API無料creditは2026年2月以降なしと説明する。現行の表ではAvatar IV Photo AvatarがUSD2.31/分、Starfish TTSがUSD0.12/分。Developer docsの10 concurrent jobsは処理量制限で、金銭上限ではない。今回確認した公開資料に日次hard spend capは見つからず、アカウントreadbackでは専用wallet USD0・auto-reload off・spending-cap objectなし。上限を確認できるまでcreditを購入せず、自動補充を使わない。
 
-Factory sourceはGemini `gemini-3.1-flash-lite-image`のavatar画像と台本、HeyGen Avatar IV・1080p/9:16、Starfish TTSを使う。動画と音声の最大durationは45秒、paid quotaは1期間30本。公式単価を45秒へ適用するとAPI費用は約USD1.8225/本（video USD1.7325 + voice USD0.09）。sourceのGemini予約値を加えると約USD1.8275/本。avatar画像のsource予約USD0.14を1回足すと、free 3本は約USD5.6225、paid 30本は約USD54.965、USD199売上からの差額は約USD144.035。これはmax-durationを使った計算でありinvoice/cost capではない。HeyGenのPhoto Avatar作成単価、失敗retry、Stripe、storage、hosting、tax等は未確定なので利益率として扱わない。
+Factory sourceはGemini `gemini-3.1-flash-lite-image`のavatar画像と台本、HeyGen Avatar IV・1080p/9:16、Starfish TTSを使う。free動画は最大20秒、paidは最大45秒。公式単価とsource内Gemini script reservationを適用するとfree videoは約USD0.815/本、paid videoは約USD1.8275/本。sourceのimage reservation USD0.14を足した既知費用はfree 3本で約USD2.585、paid 30本で約USD54.965。HeyGenのPhoto Avatar作成単価は未掲載のため加算額を確定できない。DB source migrationはavatar USD1.60、free video USD0.86/attempt、paid video USD1.8725/attemptを予約する。freeのavatar+3 attemptsはUSD4.18（lifetime budget USD4.25）、paidのavatar+30 attemptsはUSD57.775、36 attempts上限まで使う場合はUSD69.01（period budget USD70）。`monk_factory_company_budget`の共有予約上限はUSD10/UTC day。これらはAPI request前の内部予約でありprovider invoiceやhard capではない。USD199から30 attemptsの予約額を引いたUSD141.225も、Stripe/infra/未価格Avatar作成/retry等を含まないため利益額と呼ばない。
 
 Gemini APIの公式billing docsはAI Studioでproject単位の月間spend capを設定でき、専用project内のAPI利用を停止可能とする。ただしbilling計上遅延は最大約10分、長時間taskはcap超過し得る。Cloud Billingのspend capもGemini APIをproject/service単位で対象にできるが、in-flight requestは完了し遅延overageは請求される。Prepayを要求される場合、docs上の最低購入額は通常USD5だが、残高0停止にも請求遅延のoverageがあり、auto-reload月上限は手動credit購入を制限しない。現readbackでは専用projectにbilling accountがなく、cap設定済み状態も未確認。公式根拠と算出条件 → `../../evidence/ai-monk-factory-provider-spend-boundary-research-20261025T160147Z.json`。
 
-現在cursorは、支払・billing linkを変更せず専用Gemini projectに適用可能なproject capと権限をread-only確認し、HeyGen側には公開済みAPI hard capがない前提でアプリ内予約と有限wallet運用を整合すること。課金開始を行わず、次にStripe test-modeとMeta runtimeへ進む前に、provider側capの設定値・課金条件・実際のprovider readbackを記録する。会社USD10/day予約値は別のapp-level fenceとして維持し、provider capの代替とはしない。
+#### Gemini専用project billing状態 — 2026-10-25T16:01Z–16:07Z
+
+Credential SSOTのservice `google`とactive gcloud accountの一致をローカルで確認し、秘密値・emailは出力していない。service `gemini-ai-monk-factory`に紐づくprojectへread-only `gcloud projects describe` / `gcloud billing projects describe`を実行し、project lifecycle `ACTIVE`、`billingEnabled=false`を確認した。projectは存在するがbilling accountはlinkされていない。AI Studioの月間cap値そのものはreadbackしておらず、未設定とは断定しない。billing link、cap、credit購入、generationは変更0。receipt → `../../evidence/ai-monk-factory-gemini-billing-readback-20261025T160700Z.json`。
+
+Provider docsと実コードの支出予約は照合済み。現在cursorは、既存のGoogle sessionでAI Studioの専用project cap状態をread-only確認できる方法を使い、cap値・billing状態を取り直すこと。runtimeはbilling status `false`で閉じたまま。Gemini projectのbilling linkまたはHeyGen credit購入は実支出を有効にし得るため、支払・課金を変更せず、次に必要な最小の外部条件として扱う。設定可能なprovider capとHeyGenの有限wallet条件を確定し、公式readbackを得てからStripe test-mode/Meta runtimeとFactory E2Eへ進む。内部USD10/day予約はprovider hard capの代替にしない。
 
 #### Authenticated Studio and pre-release catalog readback — 2026-10-25T15:21Z–15:36Z
 
