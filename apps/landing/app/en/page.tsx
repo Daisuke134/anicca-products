@@ -3,10 +3,10 @@ import ManagerHome from "@/components/site/ManagerHome";
 import JsonLd from "@/components/JsonLd";
 
 const DESCRIPTION =
-  "Understand the world. Change its conditions. Learn from reality. We are building AI to improve the conditions of life for all living beings.";
+  "I'm Daisuke Narita (成田大祐). I build tools that quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.";
 
 export const metadata: Metadata = {
-  title: "Manager — Understand the world. Change its conditions.",
+  title: "Anicca by Daisuke Narita — Life Manager and daily affirmation apps",
   description: DESCRIPTION,
   alternates: {
     canonical: "https://aniccaai.com/en",
@@ -17,17 +17,17 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Manager — Understand the world. Change its conditions.",
+    title: "Anicca by Daisuke Narita — Life Manager and daily affirmation apps",
     description: DESCRIPTION,
     url: "https://aniccaai.com/en",
     type: "website",
     locale: "en_US",
     alternateLocale: ["ja_JP"],
-    siteName: "Manager",
+    siteName: "Anicca",
   },
   twitter: {
     card: "summary",
-    title: "Manager — Understand the world. Change its conditions.",
+    title: "Anicca by Daisuke Narita — Life Manager and daily affirmation apps",
     description: DESCRIPTION,
   },
 };
@@ -39,7 +39,7 @@ export default function Page() {
         data={{
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Manager",
+          name: "Anicca",
           url: "https://aniccaai.com/en",
           description: DESCRIPTION,
           inLanguage: "en",
@@ -47,6 +47,14 @@ export default function Page() {
             "@type": "Organization",
             name: "Anicca",
             url: "https://aniccaai.com",
+            logo: "https://aniccaai.com/anicca-app-icon.png",
+            founder: {
+              "@type": "Person",
+              name: "Daisuke Narita",
+              alternateName: "成田大祐",
+              url: "https://aniccaai.com/dais",
+              sameAs: ["https://github.com/Daisuke134"],
+            },
           },
         }}
       />
