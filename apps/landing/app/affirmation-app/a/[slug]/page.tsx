@@ -65,7 +65,6 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
     problem.slug,
     problem.campaignPrefix ?? 'seo_en',
   );
-  const published = problem.campaignPrefix === 'seo_geo' ? '2026-10-15' : '2026-10-09';
   const heading = problem.h1 ?? problem.title;
   const hasAffirmations = problem.affirmations.length > 0;
   const hasFaq = Boolean(problem.faq && problem.faq.length > 0);
@@ -77,8 +76,8 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
     headline: problem.title,
     description: problem.metaDescription,
     inLanguage: 'en',
-    datePublished: published,
-    dateModified: published,
+    datePublished: problem.datePublished,
+    dateModified: problem.dateModified,
     mainEntityOfPage: pageUrl,
     author: {
       '@type': 'Organization',
