@@ -49,6 +49,15 @@ export function factoryActionReady(action, readiness) {
   return (actionCapabilities[action] || []).every(name => readiness?.[name]?.ready === true);
 }
 
+export function factoryActionBlockedMessage(action, readiness) {
+  const blocked = (actionCapabilities[action] || [])
+    .map(name => ({ ...readiness?.[name], name }))
+    .find(state => state.ready !== true);
+  return blocked
+    ? `${factoryCapabilityUnavailable(blocked)} No request was sent. Refresh status to check again.`
+    : null;
+}
+
 export async function refreshFactoryActionStatus(refresh, action, onReadbackFailure, onReadbackSuccess) {
   let snapshot;
   try {
@@ -73,13 +82,10 @@ export async function refreshFactoryActionStatus(refresh, action, onReadbackFail
 }
 
 export function requestFactoryAction(action, readiness, avatarReady, perform, notify, allowance = {}) {
-  const capabilities = actionCapabilities[action] || [];
-  const blocked = capabilities
-    .map(name => ({ ...readiness?.[name], name }))
-    .find(state => state.ready !== true);
+  const blockedMessage = factoryActionBlockedMessage(action, readiness);
 
-  if (blocked) {
-    notify(`${factoryCapabilityUnavailable(blocked)} No request was sent. Refresh status to check again.`);
+  if (blockedMessage) {
+    notify(blockedMessage);
     return false;
   }
 

@@ -1,0 +1,132 @@
+{
+  "schema_version": "anicca.ai-monk-factory-cta-blocker-readback.v1",
+  "run_id": "factory-cta-blocker-readback-20261025T235909Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-cta-blocker-readback-20261025T235909Z",
+  "release_sha": null,
+  "observed_at": "2026-10-25T23:59:09Z",
+  "phase": "production_and_provider_read_only_readback",
+  "loaded_argv_env": {
+    "credential_services": [
+      "netlify-anicca-existing-deployment",
+      "heygen-ai-monk-factory",
+      "stripe-test-restricted"
+    ],
+    "secret_values_logged": false
+  },
+  "commands": [
+    {
+      "command": "GET Netlify production environment variable names for the Anicca site",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": null,
+      "readback": {
+        "production_variable_count": 58,
+        "factory_variable_count": 0,
+        "factory_prefix": "MONK_FACTORY_",
+        "environment_values_read_or_logged": false
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Keep Factory runtime closed until dedicated provider, Meta, and runtime prerequisites are ready."
+    },
+    {
+      "command": "GET latest Netlify production deployment",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": "6ade8c103556e2a534e40075",
+      "readback": {
+        "state": "ready",
+        "context": "production",
+        "branch": "main",
+        "published_at": "2026-10-25T23:09:59.197Z",
+        "commit_ref": null,
+        "title_embedded_source_sha": "11cb4bda98e15143f783d9e8c6b896c160a350e0",
+        "url": "https://aniccaai.com"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Use this deployed page only as a public shell; the missing Factory environment keeps actions disabled."
+    },
+    {
+      "command": "GET https://api.heygen.com/v3/users/me with the exact Factory HeyGen credential",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": null,
+      "readback": {
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0.0,
+        "wallet_auto_reload_enabled": false
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "No generation request was sent; provider funding/effective spend boundary remains the first external dependency."
+    },
+    {
+      "command": "GET Factory test Price price_1UUXA1EeDsUAcaLSq9y7yPiR using stripe-test-restricted",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": "req_vF7WNJXHilNJd5",
+      "readback": {
+        "id": "price_1UUXA1EeDsUAcaLSq9y7yPiR",
+        "livemode": false,
+        "active": true,
+        "currency": "usd",
+        "unit_amount": 19900,
+        "recurring_interval": "month"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Test catalog is readable; test Checkout and webhook remain unverified."
+    }
+  ],
+  "correlated_prior_readback": {
+    "evidence_ref": "ai-monk-factory-authenticated-live-readback-20261026.json",
+    "studio_status_http": 200,
+    "studio_ready": false,
+    "readiness_reasons": {
+      "generation": "studio_setup",
+      "social": "studio_setup",
+      "checkout": "studio_setup"
+    },
+    "free_videos_remaining": 3,
+    "free_attempts_remaining": 6,
+    "screenshot_generic_error_attributed": false
+  },
+  "local_verification": {
+    "focused_cta_tests": { "passed": 24, "failed": 0 },
+    "factory_related_tests": { "passed": 107, "skipped_without_db_fixture": 36, "failed": 0 },
+    "production_build": {
+      "factory_compile": "passed",
+      "static_prerender": "passed",
+      "static_pages": 688,
+      "exit_code": 0,
+      "required_ci_stage_revision": "973d3f6e7ae02562fcbfd9c1c0cccca5011a98bd",
+      "warnings": [
+        "existing optional wallet dependencies unresolved",
+        "existing ambiguous Tailwind ease utility"
+      ]
+    },
+    "typescript_check": {
+      "exit_code": 2,
+      "unmodified_file_errors": 6,
+      "changed_factory_file_errors": 0,
+      "unmodified_files": [
+        "app/dashboard/page.tsx",
+        "app/income/wallet/page.tsx",
+        "app/lm/LmBody.tsx",
+        "components/lm/LmJaCta.tsx"
+      ]
+    }
+  },
+  "effect": "read_only_provider_observations_and_local_tests; no production configuration, Factory POST, provider generation, OAuth, Instagram post, Checkout, or charge",
+  "evidence_refs": [
+    "docs/evidence/ai-monk-factory-authenticated-live-readback-20261026.json",
+    "docs/evidence/ai-monk-factory-action-readback-runtime-readback-20261026.json",
+    "docs/evidence/ai-monk-factory-gemini-billing-readback-20261025T160700Z.json",
+    "docs/superpowers/specs/2026-10-24-ai-monk-factory-saas-design.md"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Finish the CTA reason source release, then resolve HeyGen/Gemini access and Meta app setup before configuring or enabling the Factory runtime."
+}

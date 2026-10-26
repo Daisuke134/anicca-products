@@ -16,6 +16,31 @@ test('a blocked CTA renders its reason as an inline status beside that action', 
   assert.equal(renderToStaticMarkup(React.createElement(FactoryActionNotice, { notice, action: 'connect_instagram' })), '');
 });
 
+test('a readiness-disabled CTA shows its blocker without requiring a click', () => {
+  const message = readiness.factoryActionBlockedMessage('generate_video', {
+    generation: { ready: false, reason: 'studio_setup' },
+  });
+  assert.equal(message, 'The studio is not enabled yet. No request was sent. Refresh status to check again.');
+
+  const html = renderToStaticMarkup(React.createElement(FactoryActionNotice, {
+    notice: null,
+    action: 'generate_video',
+    blockedMessage: message,
+  }));
+  assert.match(html, /role="status"/);
+  assert.match(html, /The studio is not enabled yet\. No request was sent\. Refresh status to check again\./);
+});
+
+test('readiness blocker messages follow each disabled action capability', () => {
+  assert.match(readiness.factoryActionBlockedMessage('connect_instagram', {
+    social: { ready: false, reason: 'social_setup' },
+  }), /Instagram publishing is not configured yet/);
+  assert.match(readiness.factoryActionBlockedMessage('checkout', {
+    checkout: { ready: false, reason: 'billing_setup' },
+  }), /Secure checkout is not configured yet/);
+  assert.equal(readiness.factoryActionBlockedMessage('stop', { social: { ready: false } }), null);
+});
+
 test('unready action capabilities disable their CTAs while Stop remains available', () => {
   assert.equal(typeof readiness.factoryActionReady, 'function', 'buttons share the action readiness contract');
 
