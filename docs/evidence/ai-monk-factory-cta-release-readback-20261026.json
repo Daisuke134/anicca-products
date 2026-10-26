@@ -1,0 +1,91 @@
+{
+  "schema_version": "anicca.ai-monk-factory-cta-release-readback.v1",
+  "run_id": "factory-cta-release-readback-20261026T002104Z",
+  "owner_id": "Codex-primary-session",
+  "occurrence_id": "factory-cta-release-readback-20261026T002104Z",
+  "release_sha": "37e59ee405d372dd4c6a3771ea1d7b6b98c5f4d7",
+  "observed_at": "2026-10-26T00:21:04Z",
+  "phase": "production_deploy_readback",
+  "loaded_argv_env": {
+    "credential_services": ["netlify-anicca-existing-deployment"],
+    "secret_values_logged": false
+  },
+  "commands": [
+    {
+      "command": "GET Netlify site deploys for aniccaai.com",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": "6ade9be214d098783478d603",
+      "readback": {
+        "state": "ready",
+        "context": "production",
+        "branch": "main",
+        "commit_ref": null,
+        "title": "Deploy from GHA prod - 37e59ee405d372dd4c6a3771ea1d7b6b98c5f4d7",
+        "published_at": "2026-10-26T00:17:13.690Z",
+        "url": "https://aniccaai.com"
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Continue to FACTORY-PROVIDER-ACCESS-1; keep generation, OAuth, posting, and checkout closed until runtime prerequisites are ready."
+    },
+    {
+      "command": "GET Netlify production environment variable names",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": null,
+      "readback": {
+        "production_variable_count": 58,
+        "factory_variable_count": 0,
+        "factory_prefix": "MONK_FACTORY_",
+        "environment_values_read_or_logged": false
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Keep Factory actions fail-closed; do not partially configure production."
+    },
+    {
+      "command": "Scrapy fetch public Factory JavaScript bundle and inspect blocker copy",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": null,
+      "readback": {
+        "bundle": "/_next/static/chunks/app/ai-monk-factory/page-32ea2c7dbd647978.js",
+        "contains_blocker_reason": true,
+        "contains_no_request_confirmation": true
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Authenticated Studio remains readiness-gated; the public marketing page is not proof of a generation action."
+    },
+    {
+      "command": "GET HeyGen factory wallet GET /v3/users/me",
+      "exit_code": 0,
+      "http_status": 200,
+      "provider_receipt_id": null,
+      "readback": {
+        "billing_type": "wallet",
+        "wallet_remaining_balance_usd": 0.0
+      },
+      "error_class": null,
+      "retryable": false,
+      "next_action": "Provider wallet funding and an effective spend boundary are unresolved; no generation request was sent."
+    }
+  ],
+  "ci": {
+    "landing_pr_build_run_id": "40247856183",
+    "landing_pr_build_conclusion": "success",
+    "netlify_deploy_run_id": "40248249245",
+    "netlify_deploy_conclusion": "success",
+    "post_deploy_money_path_smoke": "success"
+  },
+  "effect": "source merge and production website deploy; read-only provider observations; no generation, OAuth, Instagram post, Stripe checkout, charge, or Factory runtime configuration",
+  "evidence_refs": [
+    "ai-monk-factory-cta-blocker-readback-20261026.json",
+    "ai-monk-factory-authenticated-live-readback-20261026.json",
+    "../../specs/2026-10-24-ai-monk-factory-saas-design.md"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Resolve Factory provider access, then configure and verify the end-to-end MVP in the order recorded in the Factory plan."
+}
