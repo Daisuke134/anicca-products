@@ -30,8 +30,19 @@ class RevenueCatMetrics:
 
 
 @dataclass(frozen=True)
+class OnboardingStepMetrics:
+    """Observed raw step rows, partitioned by version/build; never a cohort."""
+    app_version: Optional[str]
+    app_build_number: Optional[str]
+    step: Optional[str]
+    event_count: int
+    distinct_id_count: int
+    missing_identity_events: int
+
+
+@dataclass(frozen=True)
 class MixpanelMetrics:
-    """7-day unique-user funnel counts from Mixpanel."""
+    """Independent 7-day event distinct-ID counts, not ordered conversion."""
     onboarding_started: Optional[int] = None
     onboarding_welcome_completed: Optional[int] = None
     onboarding_struggles_completed: Optional[int] = None
@@ -46,6 +57,13 @@ class MixpanelMetrics:
     onboarding_paywall_purchased: Optional[int] = None
     trial_started: Optional[int] = None
     onboarding_paywall_dismissed_free: Optional[int] = None
+    # Legacy events remain distinct from current plan-selection/trial events.
+    onboarding_paywall_viewed: Optional[int] = None
+    rc_trial_started_event: Optional[int] = None
+    onboarding_live_demo_completed: Optional[int] = None
+    # None: not queried/old archive. Empty tuple: successful query, no step rows.
+    # Only observed groups exist; missing steps are not synthesized as zeros.
+    onboarding_steps: Optional[tuple[OnboardingStepMetrics, ...]] = None
 
 
 @dataclass(frozen=True)
