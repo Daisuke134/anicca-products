@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { getSession, onAuthChange, signInWithGoogle, signOut } from '@/lib/auth';
 import { factoryDestination, factoryRequest, type FactoryAction } from '@/lib/monk-factory-client.mjs';
-import { factoryActionReady, factoryCapabilityUnavailable, factoryErrorMessage, factoryQuotaState, refreshFactoryActionStatus, requestFactoryAction } from './action-readiness.mjs';
+import { factoryActionBlockedMessage, factoryActionReady, factoryCapabilityUnavailable, factoryErrorMessage, factoryQuotaState, refreshFactoryActionStatus, requestFactoryAction } from './action-readiness.mjs';
 import { FactoryActionNotice } from './factory-action-notice.mjs';
 
 type Account = {
@@ -243,7 +243,13 @@ export default function Factory() {
       pendingVideo: !!pendingVideo, completedVideoReady, postableVideoReady,
     });
   };
-  const actionStatus = (action: FactoryAction) => <FactoryActionNotice notice={actionNotice} action={action} />;
+  const actionStatus = (action: FactoryAction) => (
+    <FactoryActionNotice
+      notice={actionNotice}
+      action={action}
+      blockedMessage={snapshot ? factoryActionBlockedMessage(action, actionReadiness) : null}
+    />
+  );
 
   return <main className="mf-shell">
     <nav className="mf-nav" aria-label="Main navigation">
