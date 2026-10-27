@@ -1,11 +1,11 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 
-const { makeMarketingGoHandler, makeSupabasePersist } = require("../marketing-go");
+const { makeMarketingGoHandler, makePostHogCapture, makeSupabasePersist } = require("../marketing-go");
 const productionHandler = require("../../marketing-go");
 
 const products = {
-  ai: { productId: "aniccaios", kind: "app", appId: "6755129214" },
+  ai: { productId: "aniccaios", kind: "app", appId: "6755129214", slug: "anicca", providerToken: "93486075", mediaType: "8" },
   ho: { productId: "honne", kind: "app", appId: "6759667221" },
   ej: { productId: "ebook-ja", kind: "web", path: "/achan" },
   ee: { productId: "ebook-en", kind: "web", path: "/monk" },
@@ -44,6 +44,98 @@ test("persists a minimal click receipt before redirecting an app campaign", asyn
     product_id: "aniccaios",
     clicked_at: "2026-08-01T00:00:00.000Z",
   }]]);
+});
+
+test("Anicca app slug captures an anonymous PostHog event before preserving Apple campaign parameters", async () => {
+  const captures = [];
+  const handler = makeMarketingGoHandler({
+    products,
+    providerToken: "123456",
+    persist: async () => {},
+    capturePostHog: async (capture) => { captures.push(capture); },
+    distinctId: () => "anon-test-id",
+  });
+  const response = await handler(event("anicca", "GET", { ct: "campaign-test_1" }));
+
+  assert.equal(response.statusCode, 302);
+  const destination = new URL(response.headers.location);
+  assert.equal(destination.origin, "https://apps.apple.com");
+  assert.equal(destination.pathname, "/app/id6755129214");
+  assert.equal(destination.searchParams.get("ct"), "campaign-test_1");
+  assert.equal(destination.searchParams.get("pt"), "93486075");
+  assert.equal(destination.searchParams.get("mt"), "8");
+  assert.deepEqual(captures, [{
+    distinctId: "anon-test-id",
+    event: "app_store_click",
+    properties: {
+      app: "anicca",
+      ct: "campaign-test_1",
+      pt: "93486075",
+      source: "web_redirect",
+      "$process_person_profile": false,
+    },
+  }]);
+});
+
+test("PostHog capture sends a minimal anonymous event to the fixed US endpoint", async () => {
+  let request;
+  const capture = makePostHogCapture({
+    apiKey: "test-project-token",
+    fetchImpl: async (url, options) => {
+      request = { url, options };
+      return { ok: true, status: 200 };
+    },
+  });
+  await capture({
+    distinctId: "anon-test-id",
+    event: "app_store_click",
+    properties: { app: "anicca", ct: "campaign-test", "$process_person_profile": false },
+  });
+
+  assert.equal(request.url, "https://us.i.posthog.com/i/v0/e/");
+  assert.equal(request.options.method, "POST");
+  assert.deepEqual(JSON.parse(request.options.body), {
+    api_key: "test-project-token",
+    distinct_id: "anon-test-id",
+    event: "app_store_click",
+    properties: { app: "anicca", ct: "campaign-test", "$process_person_profile": false },
+  });
+});
+
+test("PostHog capture rejects non-success responses without exposing the project token", async () => {
+  const capture = makePostHogCapture({
+    apiKey: "test-project-token",
+    fetchImpl: async () => ({ ok: false, status: 503 }),
+  });
+  await assert.rejects(
+    capture({ distinctId: "anon-test-id", event: "app_store_click", properties: { ct: "test" } }),
+    (error) => error.message.includes("503") && !error.message.includes("test-project-token"),
+  );
+});
+
+test("Anicca app slug rejects missing ct without capture or redirect", async () => {
+  let captures = 0;
+  const handler = makeMarketingGoHandler({
+    products,
+    persist: async () => {},
+    capturePostHog: async () => { captures += 1; },
+  });
+  const response = await handler(event("anicca", "GET", { ct: " " }));
+  assert.equal(response.statusCode, 400);
+  assert.equal(response.headers.location, undefined);
+  assert.equal(captures, 0);
+});
+
+test("Anicca app slug fails closed if PostHog does not accept the event", async () => {
+  const handler = makeMarketingGoHandler({
+    products,
+    persist: async () => {},
+    capturePostHog: async () => { throw new Error("capture unavailable"); },
+  });
+  const response = await handler(event("anicca", "GET", { ct: "campaign-test" }));
+  assert.equal(response.statusCode, 503);
+  assert.equal(response.headers.location, undefined);
+  assert.doesNotMatch(response.body, /capture unavailable/);
 });
 
 test("routes ebook tokens only to their fixed product page", async () => {
@@ -223,6 +315,42 @@ test("production Hook Lab route records the exact publication token and fixed re
     else process.env.SUPABASE_URL = originalUrl;
     if (originalKey === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY;
     else process.env.SUPABASE_SERVICE_ROLE_KEY = originalKey;
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("production Anicca route captures PostHog before returning the App Store redirect", async () => {
+  const originalUrl = process.env.SUPABASE_URL;
+  const originalServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const originalProviderToken = process.env.ASC_VENDOR_NUMBER;
+  const originalFetch = globalThis.fetch;
+  let posthogRequest;
+  process.env.SUPABASE_URL = "https://project.supabase.co";
+  process.env.SUPABASE_SERVICE_ROLE_KEY = "test-service-key";
+  process.env.ASC_VENDOR_NUMBER = "123456";
+  globalThis.fetch = async (url, options) => {
+    posthogRequest = { url, options };
+    return { ok: true, status: 200 };
+  };
+  try {
+    const response = await productionHandler.handler(event("anicca", "GET", { ct: "codex-test" }));
+    assert.equal(response.statusCode, 302);
+    const destination = new URL(response.headers.location);
+    assert.equal(destination.searchParams.get("ct"), "codex-test");
+    assert.equal(destination.searchParams.get("pt"), "93486075");
+    assert.equal(posthogRequest.url, "https://us.i.posthog.com/i/v0/e/");
+    const capture = JSON.parse(posthogRequest.options.body);
+    assert.equal(capture.api_key.length > 0, true);
+    assert.equal(capture.event, "app_store_click");
+    assert.equal(capture.properties.ct, "codex-test");
+    assert.equal(capture.properties.pt, "93486075");
+  } finally {
+    if (originalUrl === undefined) delete process.env.SUPABASE_URL;
+    else process.env.SUPABASE_URL = originalUrl;
+    if (originalServiceKey === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    else process.env.SUPABASE_SERVICE_ROLE_KEY = originalServiceKey;
+    if (originalProviderToken === undefined) delete process.env.ASC_VENDOR_NUMBER;
+    else process.env.ASC_VENDOR_NUMBER = originalProviderToken;
     globalThis.fetch = originalFetch;
   }
 });

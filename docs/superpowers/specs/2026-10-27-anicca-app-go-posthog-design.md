@@ -1,6 +1,6 @@
 # Anicca App Store redirect and PostHog event
 
-Status: implementation in progress. Owner: Codex.
+Status: implementation complete; exact-head CI and production readback pending. Owner: Codex.
 
 ## Goal
 
@@ -17,6 +17,8 @@ Make `GET /go/anicca?ct=X` record one anonymous `app_store_click` event in the e
 
 The event uses a random anonymous `distinct_id` and `$process_person_profile: false`; it does not identify an app user. The test uses one synthetic campaign value, does not follow the redirect, and does not initiate an install or purchase.
 
+The PostHog project token comes from the existing iOS project configuration, with a deployment environment override. It is not logged or included in event properties.
+
 ## Evidence and design sources
 
 - PostHog, [Capture and batch API endpoints](https://posthog.com/docs/api/capture): “Every event request must contain an `api_key`, `distinct_id`, and `event` field.” The US capture endpoint is `/i/v0/e/`; anonymous capture uses a random ID and `$process_person_profile: false`.
@@ -25,7 +27,7 @@ The event uses a random anonymous `distinct_id` and `$process_person_profile: fa
 
 ## Execution checklist
 
-1. Add a focused failing test for app slug, `ct`/`pt` preservation, PostHog event properties, ordering, and capture failure.
-2. Implement the smallest handler extension while preserving existing token-based routes.
-3. Run the focused telemetry test suite and `git diff --check`.
+1. [x] Add a focused failing test for app slug, `ct`/`pt` preservation, PostHog event properties, ordering, and capture failure; RED confirmed with the existing 404.
+2. [x] Implement the handler extension while preserving existing token-based routes.
+3. [x] Focused `marketing-go.test.js` passes 19/19 and `git diff --check` passes. The broader telemetry script is blocked by an absent local `stripe` dependency in unrelated Factory tests.
 4. Push a PR, wait for exact-head CI, merge through GitHub, and verify the deployed redirect plus one PostHog event carrying the synthetic `ct`.
