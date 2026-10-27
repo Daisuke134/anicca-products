@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { trackEvent } from '@/lib/site-hit';
 
 type Book = { product: string; language: string; unit_amount: number; currency: string };
 
@@ -16,6 +17,7 @@ export default function AiMonkBookPurchase({ book }: { book: Book }) {
 
   async function buy() {
     if (busy) return;
+    trackEvent('checkout_click', { ct: `ai_monk_book_${book.language}_checkout` });
     setBusy(true);
     setError('');
     try {
