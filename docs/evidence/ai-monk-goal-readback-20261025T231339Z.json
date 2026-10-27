@@ -1,0 +1,132 @@
+{
+  "schema_version": "ai-monk-goal-readback.v1",
+  "run_id": "ai-monk-goal-readback-20261025T231339Z",
+  "owner_id": "Codex-primary",
+  "occurrence_id": "ai-monk-goal-readback-20261025T231339Z",
+  "release_sha": "11cb4bda98e15143f783d9e8c6b896c160a350e0",
+  "observed_at": "2026-10-25T23:13:39Z",
+  "phase": "read_only_postiz_and_stripe_business_status",
+  "command": [
+    "Postiz integration list and posts list for the Personal organization",
+    "Stripe live account, active subscriptions, Factory price, and Factory product GET"
+  ],
+  "exit_code": 0,
+  "effect": "read_only",
+  "provider_receipt_id": null,
+  "provider_receipt_id_meaning": "No post, checkout, invoice, or charge was created by these GET requests.",
+  "readback": {
+    "postiz": {
+      "window_start_utc": "2026-10-23T00:00:00Z",
+      "window_end_utc": "2026-11-03T00:00:00Z",
+      "organization_post_count": 204,
+      "target_integrations": [
+        {
+          "id": "cmo5rwq2p00twn10yrsdglng3",
+          "name": "Monk Anicca",
+          "platform": "tiktok"
+        },
+        {
+          "id": "cmoopzaak04yop70y1yx1bwr1",
+          "name": "monk",
+          "platform": "instagram-standalone"
+        }
+      ],
+      "target_posts": [
+        {
+          "id": "cmvkswmg6314hlh0yw1p4b6fh",
+          "integration_id": "cmo5rwq2p00twn10yrsdglng3",
+          "publish_date_utc": "2026-10-23T10:02:00Z",
+          "state": "PUBLISHED"
+        },
+        {
+          "id": "cmvno14rr3hnfp71c9ibjspnt",
+          "integration_id": "cmo5rwq2p00twn10yrsdglng3",
+          "publish_date_utc": "2026-10-25T10:09:00Z",
+          "state": "PUBLISHED"
+        },
+        {
+          "id": "cmvnvzwsp16t8pi1crsapz7w2",
+          "integration_id": "cmo5rwq2p00twn10yrsdglng3",
+          "publish_date_utc": "2026-10-25T12:20:00Z",
+          "state": "PUBLISHED"
+        },
+        {
+          "id": "cmvkw1xjs0tnrmk0yc5anxsp9",
+          "integration_id": "cmoopzaak04yop70y1yx1bwr1",
+          "publish_date_utc": "2026-10-23T11:30:00Z",
+          "state": "PUBLISHED"
+        },
+        {
+          "id": "cmvno14vl3hnjp71c6aenhlx8",
+          "integration_id": "cmoopzaak04yop70y1yx1bwr1",
+          "publish_date_utc": "2026-10-25T10:09:00Z",
+          "state": "PUBLISHED"
+        }
+      ],
+      "target_posts_in_window": 5,
+      "target_future_posts_in_window": 0,
+      "daily_cadence_verified": false,
+      "note": "The Grok Bot remains the owner. This readback did not modify or resend any post."
+    },
+    "stripe_live": {
+      "credential_service": "stripe-life-manager-existing-deployment",
+      "key_mode": "live",
+      "account_get_http_status": 200,
+      "account_matches_factory_metadata": true,
+      "active_subscription_list_complete_pages": 1,
+      "active_subscription_count": 0,
+      "verified_active_subscription_mrr_usd": 0,
+      "factory_price_get_http_status": 200,
+      "factory_product_get_http_status": 200,
+      "factory_price_livemode": true,
+      "factory_price_active": true,
+      "factory_product_active": true,
+      "factory_product_metadata_matches": true,
+      "factory_price_amount_minor": 19900,
+      "factory_price_currency": "usd",
+      "factory_price_interval": "month",
+      "ebook_one_time_orders_checked": false,
+      "note": "This establishes zero active recurring subscriptions on the Stripe account linked by Factory metadata. It does not establish total business revenue or one-time ebook orders."
+    },
+    "factory": {
+      "mvp_ui_order": [
+        "Generate Monk Avatar",
+        "Generate The Full Video",
+        "Connect your IG to auto post"
+      ],
+      "source_contract_status": "matches",
+      "authenticated_production_status": "studio_setup",
+      "production_generation_social_checkout_ready": false,
+      "production_factory_env_count": 0,
+      "free_completed_videos_remaining": 3,
+      "free_attempts_remaining": 6,
+      "avatar_instagram_jobs_videos_count": 0,
+      "primary_ctas_enabled": false,
+      "screenshot_generic_error_action_id": null,
+      "screenshot_generic_error_api_code": null,
+      "screenshot_error_correlation": "unknown",
+      "evidence_ref": "ai-monk-factory-authenticated-live-readback-20261026.json"
+    },
+    "ebook": {
+      "download_guard_release": "PR #704",
+      "legacy_entitlement_release": "PR #710",
+      "paid_checkout_and_pdf_delivery_verified": false
+    },
+    "database": {
+      "release": "AI Monk Index v0.4.20",
+      "public_profiles": 73,
+      "archived_records": 75,
+      "sources": 239,
+      "offer_rows": 120,
+      "unmatched_historical_ids": 17
+    }
+  },
+  "evidence_refs": [
+    "docs/evidence/ai-monk-factory-authenticated-live-readback-20261026.json",
+    "docs/evidence/ai-monk-factory-quota-release-readback-20261026.json",
+    "docs/evidence/ai-monk-factory-action-readiness-readback-20261026.json"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Keep the production Factory closed until provider spend access and Meta application access are available; do not spend, create a charge, or alter Grok Bot's Postiz owner/schedule from this readback."
+}

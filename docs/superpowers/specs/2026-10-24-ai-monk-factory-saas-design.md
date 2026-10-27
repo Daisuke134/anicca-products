@@ -59,6 +59,14 @@ Instagram接続APIはOAuthを始める前に`auto_post_intent`を保存する。
 
 source fixをworktree `fix/ai-monk-ebook-database-resume-20261026`へ実装した。readbackの通信成功だけではなく、stop/autopostのaccount状態が要求値に一致してから成功通知を出す。関連Factory/client/API suiteは140件中105 pass・0 fail・35 DB fixture skip。Next production buildは680ページ / exit 0。全体`tsc --noEmit`は既知の6 errors（dashboard 1、wallet 1、Life Manager CTA 4）のみで、Factory変更箇所にerrorなし。PR #771はCI/re-review/main/productionへ反映済み（merge `889846dbafc2da14724cd5c5009853cdcfc615cf`; deploy `6ade5952b85feef47f98ea3`）。公開readbackと検証境界は上記MVP runtime receiptを参照する。
 
+## 2026-10-26 Postiz・Stripe・Studio readback
+
+2026-10-25T23:21:45ZのPostiz read-only readbackでは、Grok Bot ownerのTikTok `cmo5rwq2p00twn10yrsdglng3` とInstagram `cmoopzaak04yop70y1yx1bwr1` がintegrations一覧にある。2026-10-19〜2026-11-04 UTCのtarget postsは`PUBLISHED`が計5件（TikTok 3、Instagram 2）で、10/23と10/25に存在しfuture queueは0件。日次cadenceは確認できず、CodexはGrok owner/scheduleを変更しない。
+
+2026-10-25T23:25:20ZのStripe live read-only APIでは、Factory/eBook metadataと一致するaccountのactive subscriptionが全ページreadbackで0件であり、検証済みactive recurring MRRはUSD0。同accountの『The Art of AI Monks』product/priceはactive、USD9.99 one-time。2026-10-22以降の`ai_monk_book` completed paid Checkout sessionは全ページ中0件で、gross paid amountも0。Book pageは公開中だが、実購入・webhook email・PDF/EPUB downloadは未確認。Factory Product/Price USD199/月は別のreadbackでactiveだが、Checkout/webhookはruntime未接続で顧客subscriptionを意味しない。
+
+認証済みFactory Studioの最新readbackはHTTP200だが、generation/social/checkoutすべて`studio_setup`で、完成video 3本・6 attemptsが残り、avatar/Instagram/jobs/videosは0、3主CTAはdisabled。HeyGen専用wallet USD0・auto-reload off、Gemini専用projectはbilling未接続、Meta App credentialsなし、Netlify productionに`MONK_FACTORY_*`なし。従って現在のbutton停止はreadiness gateで説明できる。添付generic errorのaction ID/API codeは未取得のため、その個別errorとの相関は不明。Postiz/Stripe/book page readback → `../../evidence/ai-monk-account-readback-20261025T232751Z.json`。Studio readback → `../../evidence/ai-monk-factory-authenticated-live-readback-20261026.json`。
+
 ## Earlier quota release and runtime snapshot — superseded by the 2026-10-26 readback above
 
 ユーザー指定のavatar → 完全な台本/voice付きvideo最大3本無料 → Instagram接続後の日次自動生成・投稿のsource契約を実装した。free success count、attempt cap、Stripe gate、auto-post allowance、Studio copy、Terms、Anicca Web AppsのFactory listing copyを同じ仕様に揃えた。PR #769 / commit `f51b02315d3fb05c2a50146c4743b5d4b6d42eef`はLanding CI `40222323537`成功後main commit `780875429163509130e54e633784f2268e75fe64`へ統合され、deploy run `40222558779`とproduction money-path smokeが成功した。source acceptance receipt → `../../evidence/ai-monk-factory-three-completed-free-readiness-20261026.json`。
