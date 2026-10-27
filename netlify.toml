@@ -40,6 +40,26 @@
   status = 200
   force = true
 
+# Keep billing requests as direct same-origin proxies so authentication/CSRF headers
+# and Stripe's signed webhook request body reach the backend without a Netlify Function.
+[[redirects]]
+  from = "/api/stripe/cloud/checkout"
+  to = "https://life-call-production.up.railway.app/api/stripe/cloud/checkout"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/stripe/cloud/portal"
+  to = "https://life-call-production.up.railway.app/api/stripe/cloud/portal"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/stripe/cloud/webhook"
+  to = "https://life-call-production.up.railway.app/api/stripe/cloud/webhook"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/life-manager"
   to = "/lm"
