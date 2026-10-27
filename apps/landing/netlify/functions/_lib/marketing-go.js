@@ -1,5 +1,7 @@
 const { randomUUID } = require("node:crypto");
 const { isAffiliatePlacement } = require("./affiliate-placement");
+const POSTHOG_CAPTURE_ENDPOINT = "https://us.i.posthog.com/i/v0/e/";
+const POSTHOG_PROJECT_API_KEY = process.env.POSTHOG_PROJECT_API_KEY || "phc_Mw4K3aByYDRuAlfe55u5OYJrTwTcwhPextZjOw8z2nw";
 
 const TOKEN = /^(?:(ai|ho|ej|ee|hl)_[a-z2-7]{20}|af_(elevenlabs-discovered-[a-z0-9][a-z0-9-]*-en(?:-experiment-[a-f0-9]{12})?-1))$/; // AFFILIATE_CTA_V1
 
@@ -37,10 +39,25 @@ function makeSupabasePersist({ url, serviceKey, fetchImpl = fetch }) {
   };
 }
 
+function makePostHogCapture({ apiKey = POSTHOG_PROJECT_API_KEY, fetchImpl = fetch } = {}) {
+  return async ({ distinctId, event, properties }) => {
+    if (!apiKey) throw new Error("PostHog project token is not configured");
+    const response = await fetchImpl(POSTHOG_CAPTURE_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ api_key: apiKey, distinct_id: distinctId, event, properties }),
+      signal: AbortSignal.timeout(2000),
+    });
+    if (!response.ok) throw new Error(`PostHog capture failed: HTTP ${response.status}`);
+  };
+}
+
 function makeMarketingGoHandler({
   products,
   providerToken,
   persist,
+  capturePostHog,
+  distinctId = randomUUID,
   now = () => new Date().toISOString(),
   receiptId = randomUUID,
 }) {
@@ -50,6 +67,37 @@ function makeMarketingGoHandler({
     if (event.httpMethod !== "GET")
       return { statusCode: 405, headers: { allow: "GET" }, body: "Method Not Allowed" };
     const token = decodeURIComponent(String(event.path || "").split("/").filter(Boolean).at(-1) || "");
+    const appProduct = Object.values(products).find(
+      (product) => product.kind === "app" && product.slug === token,
+    );
+    if (appProduct) {
+      const ct = String(event.queryStringParameters?.ct ?? "");
+      if (!ct.trim())
+        return { statusCode: 400, headers: { "cache-control": "no-store" }, body: "Campaign token required" };
+      const configuredProviderToken = appProduct.providerToken || providerToken;
+      if (!configuredProviderToken || typeof capturePostHog !== "function")
+        return { statusCode: 503, headers: { "cache-control": "no-store" }, body: "Attribution unavailable" };
+      try {
+        await capturePostHog({
+          distinctId: distinctId(),
+          event: "app_store_click",
+          properties: {
+            app: appProduct.slug,
+            ct,
+            pt: configuredProviderToken,
+            source: "web_redirect",
+            "$process_person_profile": false,
+          },
+        });
+      } catch {
+        return { statusCode: 503, headers: { "cache-control": "no-store" }, body: "Attribution unavailable" };
+      }
+      const location = new URL(`https://apps.apple.com/app/id${appProduct.appId}`);
+      location.searchParams.set("ct", ct);
+      location.searchParams.set("pt", configuredProviderToken);
+      location.searchParams.set("mt", appProduct.mediaType || "8");
+      return { statusCode: 302, headers: { location: location.toString(), "cache-control": "no-store" }, body: "" };
+    }
     const match = TOKEN.exec(token);
     const product = match && (!match[2] || isAffiliatePlacement(match[2])) && (match[2]
       ? { productId: match[2], kind: "affiliate", placementId: match[2] }
@@ -93,4 +141,4 @@ function makeMarketingGoHandler({
   };
 }
 
-module.exports = { TOKEN, destination, makeMarketingGoHandler, makeSupabasePersist };
+module.exports = { TOKEN, destination, makeMarketingGoHandler, makePostHogCapture, makeSupabasePersist };

@@ -1,7 +1,14 @@
-const { makeMarketingGoHandler, makeSupabasePersist } = require("./_lib/marketing-go");
+const { makeMarketingGoHandler, makePostHogCapture, makeSupabasePersist } = require("./_lib/marketing-go");
 
 const PRODUCTS = {
-  ai: { productId: "aniccaios", kind: "app", appId: "6755129214" },
+  ai: {
+    productId: "aniccaios",
+    kind: "app",
+    appId: "6755129214",
+    slug: "anicca",
+    providerToken: "93486075",
+    mediaType: "8",
+  },
   ho: { productId: "honne", kind: "app", appId: "6759667221" },
   ej: { productId: "ebook-ja", kind: "web", path: "/achan" },
   ee: { productId: "ebook-en", kind: "web", path: "/monk" },
@@ -18,5 +25,6 @@ exports.handler = async (event) => {
     products: PRODUCTS,
     providerToken: providerToken || "",
     persist: makeSupabasePersist({ url: supabaseUrl, serviceKey }),
+    capturePostHog: makePostHogCapture(),
   })(event);
 };
