@@ -51,6 +51,8 @@ jobs:
         run: node --test netlify/functions/__tests__/ai-monk-book.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-checkout.test.js test/ai-monk-book-page.test.mjs
 
       - run: npm run test:telemetry
+      - name: Site hit attribution contracts
+        run: npm run test:site-hit
       - run: npm run test:anicca-app-store-routing
       - name: Stage reviewed canonical Manager articles before build
         working-directory: apps/landing

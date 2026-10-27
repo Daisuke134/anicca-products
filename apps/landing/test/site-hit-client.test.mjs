@@ -1,6 +1,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { trackEvent } from '../lib/site-hit.ts';
+import { readFile } from 'node:fs/promises';
+import ts from 'typescript';
+
+const source = await readFile(new URL('../lib/site-hit.ts', import.meta.url), 'utf8');
+const compiled = ts.transpileModule(source, {
+  compilerOptions: {
+    module: ts.ModuleKind.ESNext,
+    target: ts.ScriptTarget.ES2022,
+  },
+}).outputText;
+const { trackEvent } = await import(
+  `data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`
+);
 
 test('trackEvent forwards source, medium, and campaign from the page URL', async () => {
   const oldWindow = Object.getOwnPropertyDescriptor(globalThis, 'window');
