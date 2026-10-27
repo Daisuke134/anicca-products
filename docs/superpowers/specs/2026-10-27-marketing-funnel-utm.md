@@ -22,8 +22,8 @@ The browser helper reads and sends `utm_source`, `utm_campaign`, `ref`, and `ct`
 - [x] Add failing tests for the four canonical event names, `ct` plus UTM attribution, and event aggregate readback while retaining legacy global totals.
 - [x] Add the four events to the existing allowlist; carry `utm_medium`; add bounded event attribution aggregates for source/medium/campaign/`ct` while retaining legacy global totals.
 - [x] Run focused client/store and `/go` receipt tests: 11/11 and 13/13 pass.
-- [x] Open code PR #789 at head bc7990fdfafce95db0b73ae0c428d1e2a2c9218f.
-- [ ] Add test:site-hit to Landing PR CI and verify all site-hit tests on the workflow's Node 20 runtime.
+- [x] Open code PR #789 at head 35105cbd3af0c11471486584c1124dd1aa2ef4d3.
+- [x] Add test:site-hit to Landing PR CI; the exact-head run is verifying it on the workflow's Node 20 runtime.
 - [ ] After the source is available in staging or production, send exactly one synthetic `paywall_shown` event with `ct=test_codex_1027`. Verify that the event and `ct` appear in the existing aggregate; label it as a test, not a sale or real campaign result.
 
 ## Completion
@@ -32,4 +32,4 @@ PR contains the four canonical funnel events with UTM/`ct` attribution, preserve
 
 ## Status
 
-2026-10-27 12:45 JST: Code PR #789 is open; focused local tests passed. In-app events remain Mixpanel telemetry; the separate web `site-hit` aggregate captures campaign dimensions and does not create a verified user-level join to app installs or RevenueCat. Life Manager metrics SSOT PR #9035 is merged. The Landing PR workflow uses Node 20, so test:site-hit is being wired into CI without Node's v22.6+ type-stripping flag. No live event has been sent yet.
+2026-10-27 12:46 JST: Code PR #789 is open at head 35105cbd3af0c11471486584c1124dd1aa2ef4d3; focused store/receipt tests pass. In-app events remain Mixpanel telemetry; the separate web `site-hit` aggregate captures campaign dimensions and does not create a verified user-level join to app installs or RevenueCat. Life Manager metrics SSOT PR #9035 is merged. The Landing PR workflow now runs test:site-hit on Node 20 using the repository TypeScript compiler. Exact-head CI is pending; no live event has been sent yet.
