@@ -5,6 +5,10 @@
  */
 
 export type SiteHitEventName =
+  | 'onboarding_completed'
+  | 'paywall_shown'
+  | 'trial_started'
+  | 'purchase_completed'
   | 'quiz_start'
   | 'quiz_complete'
   | 'result_view'
@@ -19,6 +23,7 @@ type HitPayload = {
   event?: SiteHitEventName;
   type?: string;
   utm_source?: string;
+  utm_medium?: string;
   utm_campaign?: string;
   ref?: string;
   ct?: string;
@@ -28,12 +33,13 @@ const ENDPOINT = '/.netlify/functions/hit';
 
 function attributionFromLocation(search: string): Pick<
   HitPayload,
-  'utm_source' | 'utm_campaign' | 'ref' | 'ct'
+  'utm_source' | 'utm_medium' | 'utm_campaign' | 'ref' | 'ct'
 > {
   try {
     const q = new URLSearchParams(search);
     return {
       utm_source: q.get('utm_source') || undefined,
+      utm_medium: q.get('utm_medium') || undefined,
       utm_campaign: q.get('utm_campaign') || undefined,
       ref: q.get('ref') || undefined,
       ct: q.get('ct') || undefined,
@@ -87,6 +93,7 @@ export function trackEvent(
     type: extra.type,
     ct: extra.ct || attr.ct,
     utm_source: attr.utm_source,
+    utm_medium: attr.utm_medium,
     utm_campaign: attr.utm_campaign,
     ref: attr.ref,
   });

@@ -14,7 +14,7 @@
     "test:telemetry": "node --test netlify/functions/_lib/__tests__/*.test.js",
     "test:tools": "node --experimental-strip-types --test test/departure-calculator.test.mjs test/wallpaper-wrap.test.mjs test/kokoro-quiz.test.mjs",
     "test:kokoro": "node --test netlify/functions/__tests__/kokoro.test.js && npm run test:tools",
-    "test:site-hit": "node --test netlify/functions/_lib/__tests__/site-hit-store.test.js netlify/functions/__tests__/site-hit.test.js",
+    "test:site-hit": "node --test test/site-hit-client.test.mjs netlify/functions/_lib/__tests__/site-hit-store.test.js netlify/functions/__tests__/site-hit.test.js",
     "test:line-sticker-share-meta": "node --experimental-strip-types --test test/line-sticker-share-meta.test.mjs",
     "test:anicca-app-store-routing": "node --test test/anicca-app-store-routing.test.mjs test/affirmation-landing-campaign-links.test.mjs test/en-affirmation-campaign.test.mjs lib/blog-business.test.mjs test/blog-reading-order.test.mjs test/owned-media.test.mjs test/product-hub-links.test.mjs test/product-catalog.test.mjs test/daily-dhamma-landing.test.mjs test/published-app-landings.test.mjs test/honne-landing.test.mjs test/thankful-landing.test.mjs",
     "indexnow": "node scripts/indexnow-ping.mjs"
