@@ -4,10 +4,15 @@
 const COUNTERS_KEY = 'counters';
 const MAX_PATH_LEN = 180;
 const MAX_ATTR_LEN = 64;
+const MAX_ATTR_VALUES = 200;
 const MAX_PATHS = 400;
 const MAX_EVENTS = 200;
 
 const ALLOWED_EVENTS = new Set([
+  'onboarding_completed',
+  'paywall_shown',
+  'trial_started',
+  'purchase_completed',
   'quiz_start',
   'quiz_complete',
   'result_view',
@@ -22,6 +27,7 @@ function emptyState() {
     total_pageviews: 0,
     paths: {},
     events: {},
+    events_by_campaign: {},
     updated_at: null,
   };
 }
@@ -50,7 +56,14 @@ function sanitizePath(raw) {
 
 function bumpMap(map, key, n = 1) {
   if (!key) return;
-  map[key] = (map[key] || 0) + n;
+  const ownKey = Object.prototype.hasOwnProperty.call(map, key);
+  const current = ownKey && typeof map[key] === 'number' ? map[key] : 0;
+  Object.defineProperty(map, key, {
+    configurable: true,
+    enumerable: true,
+    value: current + n,
+    writable: true,
+  });
 }
 
 function ensurePathEntry(state, path) {
@@ -69,32 +82,48 @@ function ensurePathEntry(state, path) {
       }
       delete state.paths[victim];
     }
-    state.paths[path] = { count: 0, utm_source: {}, utm_campaign: {}, ref: {} };
+    state.paths[path] = {
+      count: 0,
+      utm_source: {},
+      utm_medium: {},
+      utm_campaign: {},
+      ref: {},
+    };
   }
-  return state.paths[path];
+  const entry = state.paths[path];
+  for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'ref']) {
+    if (!entry[key] || typeof entry[key] !== 'object') entry[key] = {};
+  }
+  return entry;
 }
 
-function bumpEvent(state, name, n = 1) {
-  const keys = Object.keys(state.events);
-  if (!state.events[name] && keys.length >= MAX_EVENTS) {
+function bumpBoundedMap(map, key, limit) {
+  if (!key) return;
+  const keys = Object.keys(map);
+  if (!Object.prototype.hasOwnProperty.call(map, key) && keys.length >= limit) {
     let victim = keys[0];
-    let min = state.events[victim] || 0;
+    let min = map[victim] || 0;
     for (const k of keys) {
-      const c = state.events[k] || 0;
+      const c = map[k] || 0;
       if (c < min) {
         min = c;
         victim = k;
       }
     }
-    delete state.events[victim];
+    delete map[victim];
   }
-  bumpMap(state.events, name, n);
+  bumpMap(map, key);
+}
+
+function bumpEvent(state, name) {
+  bumpBoundedMap(state.events, name, MAX_EVENTS);
 }
 
 function normalizeHit(input) {
   const kind = input && input.t === 'event' ? 'event' : 'pageview';
   const path = sanitizePath(input && input.path);
   const utm_source = sanitizeToken(input && input.utm_source);
+  const utm_medium = sanitizeToken(input && input.utm_medium);
   const utm_campaign = sanitizeToken(input && input.utm_campaign);
   const ref = sanitizeToken(input && (input.ref || input.referrer));
   const ct = sanitizeToken(input && input.ct);
@@ -116,13 +145,14 @@ function normalizeHit(input) {
     return null;
   }
 
-  return { kind, path, utm_source, utm_campaign, ref, event, type, ct };
+  return { kind, path, utm_source, utm_medium, utm_campaign, ref, event, type, ct };
 }
 
 function applyHit(state, hit) {
   const next = state && typeof state === 'object' ? state : emptyState();
   if (!next.paths) next.paths = {};
   if (!next.events) next.events = {};
+  if (!next.events_by_campaign) next.events_by_campaign = {};
   if (typeof next.total_pageviews !== 'number') next.total_pageviews = 0;
 
   if (hit.kind === 'pageview') {
@@ -130,6 +160,7 @@ function applyHit(state, hit) {
     const entry = ensurePathEntry(next, hit.path);
     entry.count += 1;
     bumpMap(entry.utm_source, hit.utm_source);
+    bumpBoundedMap(entry.utm_medium, hit.utm_medium, MAX_ATTR_VALUES);
     bumpMap(entry.utm_campaign, hit.utm_campaign);
     bumpMap(entry.ref, hit.ref);
   } else {
@@ -137,6 +168,11 @@ function applyHit(state, hit) {
     // Also keep bare name totals for funnel math.
     const bare = hit.event.split(':')[0];
     if (bare !== hit.event) bumpEvent(next, bare);
+    bumpBoundedMap(
+      next.events_by_campaign,
+      [hit.event, hit.utm_source, hit.utm_medium, hit.utm_campaign, hit.ct].join('|'),
+      MAX_EVENTS,
+    );
   }
 
   next.updated_at = new Date().toISOString();
@@ -168,6 +204,7 @@ function publicStats(state) {
     total_pageviews: src.total_pageviews || 0,
     paths: src.paths || {},
     events: src.events || {},
+    events_by_campaign: src.events_by_campaign || {},
     updated_at: src.updated_at || null,
     note: 'Aggregate counts only. No cookies, IPs, or personal data stored.',
   };

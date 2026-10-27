@@ -1,5 +1,5 @@
 // POST|GET /.netlify/functions/hit — cookieless pageview / named-event counter.
-// Body or query: { t: 'pageview'|'event', path, event?, type?, utm_source?, utm_campaign?, ref?, ct? }
+// Body or query: { t: 'pageview'|'event', path, event?, type?, utm_source?, utm_medium?, utm_campaign?, ref?, ct? }
 const { connectLambda, getStore } = require('@netlify/blobs');
 const { recordHit } = require('./_lib/site-hit-store');
 
