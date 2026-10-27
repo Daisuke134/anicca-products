@@ -30,4 +30,4 @@ PR contains the four canonical funnel events with UTM/`ct` attribution, preserve
 
 ## Status
 
-2026-10-27 12:50 JST: Source and focused tests are in the dedicated worktree. In-app events remain Mixpanel telemetry; the separate web `site-hit` aggregate captures campaign dimensions and does not create a verified user-level join to app installs or RevenueCat. The metrics SSOT is being added to the Life Manager docs branch. No live event has been sent yet.
+2026-10-27 12:42 JST: Source and focused tests are in the dedicated worktree. In-app events remain Mixpanel telemetry; the separate web `site-hit` aggregate captures campaign dimensions and does not create a verified user-level join to app installs or RevenueCat. The metrics SSOT is in Life Manager docs PR #9035. No live event has been sent yet.
