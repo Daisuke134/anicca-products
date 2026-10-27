@@ -43,8 +43,8 @@ const RUNS_ON = {
   },
 } as const;
 
-// The public landing page enters the browser-based Calendar setup. Writer query identity is
-// validated locally and routed through its click-receipt redirect before continuing to the Web app.
+// The public page enters Life Manager Cloud on the same origin. Writer attribution is
+// validated locally and routed through its click-receipt redirect before entering Maritime.
 export default function LmBody() {
   const { locale } = useLaunchLocale();
   const t = launchStrings[locale].lm;

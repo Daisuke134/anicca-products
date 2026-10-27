@@ -2,20 +2,18 @@ import LaunchFrame from '@/components/site/LaunchFrame';
 import LmBody from './LmBody';
 import JsonLd from '@/components/JsonLd';
 
-// /lm is the public Life Manager Cloud landing page. Its CTA enters the Railway Web app's
-// Google identity and Calendar-permission flow. The Google callback starts Calendar consent,
-// then the app scans events, writes travel blocks, and offers the seven-day trial.
-// LaunchFrame owns only the localized site shell; the Web app owns onboarding and billing.
+// /lm is the public page for the one Life Manager product. Cloud is the hosted mode;
+// its same-origin entry is served through the Maritime proxy. Google is used for identity only.
 
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'Life Manager — never be late again: travel time and departure reminders in Google Calendar',
+  title: 'Life Manager — one manager for work, money, body, and mind',
   description:
-    'Connect Google Calendar to add travel time and departure reminders before eligible in-person events. Seven-day free trial, then $29/month.',
+    'One proactive manager for work, money, everyday responsibilities, body, and mind. Life Manager Cloud runs on a dedicated Maritime VM and starts with Google identity only. Capafy is its first earning workflow.',
   other: {
-    'life-manager-context-version': '2026-10-08.1',
-    'life-manager-context-digest': '5b8e34cf01a7cf7589fc6049c080b3eb8458ec28b98103abc2ade395e8d0f90c',
+    'life-manager-context-version': '2026-10-20.1',
+    'life-manager-context-digest': '45f79b184d1048bc643a0db1cf6f1d928f8a426077ac0e489fcaf5bcaa1435ea',
   },
 };
 
@@ -31,8 +29,7 @@ export default function Page() {
           applicationCategory: 'LifestyleApplication',
           operatingSystem: 'Web',
           description:
-            'Adds travel time and departure reminders to Google Calendar before eligible in-person events.',
-          offers: { '@type': 'Offer', price: '29', priceCurrency: 'USD', description: 'Seven-day free trial, then $29/month' },
+            'One proactive manager for work, money, everyday responsibilities, body, and mind. Life Manager Cloud runs on Maritime and begins with identity-only Google sign-in; Capafy is its first earning workflow.',
           author: { '@type': 'Person', name: 'Daisuke Narita', alternateName: '成田大祐', url: 'https://aniccaai.com/dais' },
           publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
         }}
