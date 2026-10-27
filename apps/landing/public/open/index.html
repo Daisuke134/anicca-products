@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anicca Open Startup: live revenue and metrics</title>
+<meta name="description" content="Anicca's numbers in public: revenue, MRR, every business and what each team member is working on today. Updated daily.">
+<link rel="canonical" href="https://aniccaai.com/open"><link rel="icon" href="/favicon.png">
+<style>
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans",sans-serif;background:#faf8f4;color:#1d1b18}
+main{max-width:980px;margin:0 auto;padding:40px 20px 80px}h1{font-size:34px;margin:0 0 6px}h2{font-size:20px;margin:40px 0 12px}
+.mission{font-size:18px;color:#5a544b;margin:0 0 28px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.card{background:#fff;border:1px solid #e8e2d8;border-radius:14px;padding:18px}.card .k{font-size:13px;color:#7a7268}.card .v{font-size:30px;font-weight:700;margin-top:4px}
+.bar{height:14px;background:#ece6dc;border-radius:7px;overflow:hidden;margin:10px 0 4px}.bar>div{height:100%;background:#b8873b;min-width:2px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e8e2d8;border-radius:14px;overflow:hidden;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #f0ebe3;vertical-align:top}th{background:#f4efe7;font-weight:600}
+td.n{text-align:right;white-space:nowrap}.muted{color:#8a8277;font-size:13px}.wrap{overflow-x:auto}
+</style></head><body><main>
+<h1>Anicca, in the open</h1>
+<p class="mission" id="mission">We are building the manager, an AI that ends suffering in this world.</p>
+<div class="card"><div class="k">First goal: $10,000 MRR</div><div class="v" id="goal">—</div><div class="bar"><div id="goalbar" style="width:0"></div></div><div class="muted" id="goalpct"></div></div>
+<h2>Totals</h2><div class="cards">
+<div class="card"><div class="k">Revenue, month to date</div><div class="v" id="mtd">—</div></div>
+<div class="card"><div class="k">Revenue, last 30 days</div><div class="v" id="l30">—</div></div>
+<div class="card"><div class="k">MRR</div><div class="v" id="mrr">—</div></div></div>
+<h2>Every business</h2><div class="wrap"><table><thead><tr><th>Business</th><th>Owner</th><th>Revenue MTD</th><th>MRR</th><th>Key distribution metric</th><th>Status</th></tr></thead><tbody id="biz"></tbody></table></div>
+<h2>What the team is working on today</h2><div class="wrap"><table><thead><tr><th>Role</th><th>Today</th><th>Board updates today</th></tr></thead><tbody id="team"></tbody></table></div>
+<p class="muted" id="upd"></p><p class="muted">Numbers come straight from our payment and analytics sources. “—” means not measured yet; we never estimate. Raw data: <a href="https://anicca-open.surge.sh/metrics.json">metrics.json</a></p>
+</main><script>
+const $=id=>document.getElementById(id),usd=v=>v==null?'—':'$'+Number(v).toLocaleString('en-US',{maximumFractionDigits:2}),num=v=>v==null?'—':Number(v).toLocaleString('en-US');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function render(d){$('mission').textContent='We are building the manager, an AI that ends suffering in this world.';
+$('goal').textContent=usd(d.goal.current_mrr_usd)+' / '+usd(d.goal.mrr_usd);$('goalbar').style.width=Math.min(100,d.goal.progress_pct)+'%';$('goalpct').textContent=d.goal.progress_pct+'% of the way';
+$('mtd').textContent=usd(d.totals.revenue_mtd_usd);$('l30').textContent=usd(d.totals.revenue_last30d_usd);$('mrr').textContent=usd(d.totals.mrr_usd);
+$('biz').innerHTML=d.businesses.map(b=>`<tr><td>${esc(b.name)}</td><td>${esc(b.owner)}</td><td class="n">${usd(b.revenue_mtd)}${b.revenue_lifetime!=null?'<div class="muted">'+usd(b.revenue_lifetime)+' lifetime</div>':''}</td><td class="n">${usd(b.mrr)}</td><td>${esc(b.metric)}${b.metric_value!=null?': <b>'+num(b.metric_value)+'</b>':''}</td><td>${esc(b.status)}</td></tr>`).join('');
+$('team').innerHTML=d.agents.map(a=>`<tr><td>${esc(a.agent)}</td><td>${esc(a.today)}</td><td class="n">${num(a.board_updates_today)}</td></tr>`).join('');
+$('upd').textContent='Last updated '+d.updated_at+'. '+(d.notes||'');}
+fetch('https://anicca-open.surge.sh/metrics.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>fetch('/open/metrics.json',{cache:'no-store'}).then(r=>r.json())).then(render).catch(()=>{$('upd').textContent='Metrics are temporarily unavailable.'});
+</script></body></html>
