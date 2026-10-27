@@ -1,0 +1,160 @@
+{
+ "updated_at": "2026-10-27 13:29 JST",
+ "mission": "Build the manager, an AI that ends suffering in this world.",
+ "goal": {
+  "mrr_usd": 10000,
+  "current_mrr_usd": 24.0,
+  "progress_pct": 0.24
+ },
+ "totals": {
+  "revenue_mtd_usd": 203.86,
+  "revenue_last30d_usd": 203.86,
+  "mrr_usd": 24.0,
+  "currency": "USD"
+ },
+ "businesses": [
+  {
+   "name": "Contract work (freelance platforms)",
+   "owner": "COO",
+   "revenue_mtd": 203.86,
+   "mrr": null,
+   "metric": "proposals sent daily",
+   "metric_value": null,
+   "status": "live"
+  },
+  {
+   "name": "Anicca iOS (affirmation app)",
+   "owner": "CTO / CMO",
+   "revenue_mtd": 0,
+   "mrr": 20.0,
+   "metric": "paying subscribers",
+   "metric_value": 5,
+   "status": "live, update in review"
+  },
+  {
+   "name": "Honne family apps (Honne, Thankful, Daily Dhamma, Sleep Reset)",
+   "owner": "CTO / CMO",
+   "revenue_mtd": null,
+   "mrr": 4.0,
+   "metric": "—",
+   "metric_value": null,
+   "status": "live"
+  },
+  {
+   "name": "Capafy agents (Clip Map, Hook Lab)",
+   "owner": "CTO / COO",
+   "revenue_mtd": null,
+   "revenue_lifetime": 102.75,
+   "mrr": null,
+   "metric": "installs (cumulative)",
+   "metric_value": 1600,
+   "status": "live"
+  },
+  {
+   "name": "Monk e-book / Anicca Reset",
+   "owner": "CMO (Muse)",
+   "revenue_mtd": 0,
+   "mrr": null,
+   "metric": "social views, 7d (monk + app accounts)",
+   "metric_value": 17970,
+   "status": "live"
+  },
+  {
+   "name": "AI Monk Factory / Monk Database (web)",
+   "owner": "CTO / CMO",
+   "revenue_mtd": 0,
+   "mrr": null,
+   "metric": "site pageviews (cumulative)",
+   "metric_value": 1701,
+   "status": "live"
+  },
+  {
+   "name": "PromptBase prompts",
+   "owner": "Digital products",
+   "revenue_mtd": 0,
+   "mrr": null,
+   "metric": "listing views, 7d",
+   "metric_value": 16,
+   "status": "live"
+  },
+  {
+   "name": "LINE stickers",
+   "owner": "Digital products",
+   "revenue_mtd": 0,
+   "mrr": null,
+   "metric": "—",
+   "metric_value": null,
+   "status": "live"
+  },
+  {
+   "name": "note / Substack writing",
+   "owner": "Digital products",
+   "revenue_mtd": 0,
+   "mrr": null,
+   "metric": "—",
+   "metric_value": null,
+   "status": "starting"
+  },
+  {
+   "name": "Life Manager Cloud",
+   "owner": "CTO",
+   "revenue_mtd": 0,
+   "mrr": 0,
+   "metric": "—",
+   "metric_value": null,
+   "status": "building, test billing"
+  },
+  {
+   "name": "The Manager (AI that ends suffering)",
+   "owner": "Head of Research",
+   "revenue_mtd": 0,
+   "mrr": 0,
+   "metric": "X followers (@diceai0)",
+   "metric_value": 493,
+   "status": "research"
+  },
+  {
+   "name": "Accelerators, hackathons, grants",
+   "owner": "CEO",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "—",
+   "metric_value": null,
+   "status": "applying"
+  }
+ ],
+ "agents": [
+  {
+   "agent": "参謀 (CEO)",
+   "today": "Goals, ROI ranking, fundraising and hackathon applications, X distribution",
+   "board_updates_today": 95
+  },
+  {
+   "agent": "Muse (CMO)",
+   "today": "Monk videos on Instagram/TikTok, e-book funnel, competitor-to-script loop",
+   "board_updates_today": 19
+  },
+  {
+   "agent": "Dots (COO)",
+   "today": "Contract-work proposals and listings, marketplace research",
+   "board_updates_today": 21
+  },
+  {
+   "agent": "Codex (CTO, acting)",
+   "today": "Product builds and releases: Anicca iOS update, Capafy pricing, Manager research PR",
+   "board_updates_today": 45
+  },
+  {
+   "agent": "Claude (engineering)",
+   "today": "Paused until Oct 30 (weekly limit); work handed to Codex",
+   "board_updates_today": 24
+  },
+  {
+   "agent": "Life Manager (cloud ops)",
+   "today": "Life Manager Cloud: test-mode billing and end-to-end checks",
+   "board_updates_today": 25
+  }
+ ],
+ "notes": "Revenue = money received (USD at daily FX). null = not measured yet. Updated daily ~21:05 JST.",
+ "missing": []
+}
