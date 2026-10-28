@@ -28,11 +28,11 @@ jobs:
       - name: Stage canonical app registry and icons before build
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: 28371eb53a572be48a11abdabffd6b8253fc910e
+          MANAGER_MARKETING_REVISION: 79362b368f37f6d38614b9be48766d79245ef5a3
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
-          echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          echo "caf84964ec2422ace9cd673a18fbcb661572f3f97137b540dcca7d6220d4c960  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs --stage
 
       - name: AI monk directory contracts
@@ -74,11 +74,11 @@ jobs:
       - name: Apply canonical marketing overlay (immutable revision)
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: 28371eb53a572be48a11abdabffd6b8253fc910e
+          MANAGER_MARKETING_REVISION: 79362b368f37f6d38614b9be48766d79245ef5a3
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
-          echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          echo "caf84964ec2422ace9cd673a18fbcb661572f3f97137b540dcca7d6220d4c960  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs
 
       - name: Apply canonical products catalog routes only

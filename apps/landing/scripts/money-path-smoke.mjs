@@ -1,5 +1,5 @@
 // money-path-smoke.mjs — C5/C6 (VCSDD life-manager-cost-connect-reliability). Post-deploy smoke:
-// assert the live site is up, /lm hands off to the Life Manager web app, and payment stays server-side.
+// assert the live site is up, /lm hands off to the /maritime page, and payment stays server-side.
 // Exit 0 = PASS, exit 1 = FAIL (caller rolls back). Deterministic, no LLM. Usage: node money-path-smoke.mjs [baseUrl]
 // The link-assertion logic is the SINGLE tested source (apps/life-call/lib/money-path.js) — no reimplementation
 // (adversary FIND-006 drift). registry.json is the single known-good SSOT.
@@ -22,7 +22,7 @@ for (const p of ["/", "/life-manager", "/lm"]) {
   const r = await fetch(BASE + p);
   if (r.status !== 200) fail(`${p} returned ${r.status}`);
 }
-// 2. /lm chunk points to the Web app and contains neither a Telegram handoff nor a direct Stripe link.
+// 2. /lm chunk links to the /maritime page and contains neither a Telegram handoff nor a direct Stripe link.
 const html = await (await fetch(`${BASE}/lm?cb=${Date.now()}`)).text();
 if (!html.includes("$29") || !html.includes("7-day free trial") || /\$20\/mo|coming soon|近日公開/i.test(html)) {
   fail("/lm pricing/trial copy is stale or missing the live $29 plan");
@@ -52,5 +52,5 @@ if (pay.status !== 200) fail(`registry Stripe link not reachable (${pay.status})
 const checkout = await fetch(`${BASE}/.netlify/functions/checkout`);
 if (checkout.status !== 405) fail(`checkout function did not load cleanly (${checkout.status})`);
 
-console.log(`SMOKE PASS: ${BASE} up, /lm Web app handoff verified, life-call health is 200, no direct Stripe link, Checkout and legacy Payment Link remain reachable`);
+console.log(`SMOKE PASS: ${BASE} up, /lm Maritime handoff verified, life-call health is 200, no direct Stripe link, Checkout and legacy Payment Link remain reachable`);
 process.exit(0);

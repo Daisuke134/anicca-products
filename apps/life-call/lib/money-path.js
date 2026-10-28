@@ -1,6 +1,6 @@
 // lib/money-path.js — C5/C6 (VCSDD life-manager-cost-connect-reliability). Continuous money-path check
 // so the ¥700k-wrong-link / site-down class (2026-07-03) can never silently survive again.
-// SRE: black-box + CONTENT assertion (200 is not enough — assert the exact Web app handoff and
+// SRE: black-box + CONTENT assertion (200 is not enough — assert the exact /maritime handoff and
 // reject Telegram/direct Stripe links). The registry Stripe URL remains the server-side payment SSOT for
 // reachability checks. The legacy Stripe-value assertion stays available for historical callers.
 // Rollback is gated:
@@ -39,11 +39,9 @@ function assertMoneyPath(bundle, registry) {
 }
 
 // assertWebAppHandoff({ chunk }) → { ok, reason }
-// Public /lm starts in the Life Manager web app; billing remains server-side after Calendar setup.
+// Public /lm hands off to the Life Manager Cloud page on Maritime (/maritime); billing remains server-side after Calendar setup.
 function assertWebAppHandoff(bundle) {
   const chunk = String(bundle && bundle.chunk || "");
-  const webLinks = [];
-  const unexpectedWebLinks = [];
   let telegramLinkFound = false;
   let stripeLinkFound = false;
   for (const raw of chunk.match(HTTPS_URL_RE) || []) {
@@ -56,19 +54,13 @@ function assertWebAppHandoff(bundle) {
     const hostname = parsed.hostname.toLowerCase().replace(/\.+$/, "");
     if (hostname === "t.me" || hostname === "telegram.me") telegramLinkFound = true;
     if (hostname === "stripe.com" || hostname.endsWith(".stripe.com")) stripeLinkFound = true;
-    if (hostname === "life-call-production.up.railway.app") {
-      const canonical = parsed.protocol === "https:" && !parsed.username && !parsed.password
-        && parsed.pathname === "/lm";
-      if (canonical) webLinks.push(`${parsed.origin}${parsed.pathname}`);
-      else unexpectedWebLinks.push(raw);
-    }
   }
   if (telegramLinkFound) return { ok: false, reason: "telegram link found in /lm chunk" };
   if (stripeLinkFound) {
     return { ok: false, reason: "stripe link found in /lm chunk" };
   }
-  if (unexpectedWebLinks.length > 0) return { ok: false, reason: `unexpected web app link in /lm chunk: ${unexpectedWebLinks.join(",")}` };
-  if (!webLinks.includes("https://life-call-production.up.railway.app/lm")) return { ok: false, reason: "web app handoff link missing in /lm chunk" };
+  const maritimeLinkFound = /(?:href\s*=\s*["'])(?:https:\/\/aniccaai\.com)?\/maritime(?=[?#"']|$)/.test(chunk) || /["'`]\/maritime(?=[?#"'`]|$)/.test(chunk);
+  if (!maritimeLinkFound) return { ok: false, reason: "web app handoff link missing in /lm chunk" };
   return { ok: true, reason: "ok" };
 }
 
