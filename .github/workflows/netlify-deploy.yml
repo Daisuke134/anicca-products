@@ -38,7 +38,7 @@ jobs:
       - name: Stage canonical app registry and icons before build
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: 20005c0f4aeffa25915d501f03fe3bfdc34d7f12
+          MANAGER_MARKETING_REVISION: f03e0a5fa6eaeeaf009495d15490ac22709d0f4f
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
@@ -79,7 +79,7 @@ jobs:
       - name: Apply canonical marketing overlay (immutable revision)
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: 20005c0f4aeffa25915d501f03fe3bfdc34d7f12
+          MANAGER_MARKETING_REVISION: f03e0a5fa6eaeeaf009495d15490ac22709d0f4f
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
