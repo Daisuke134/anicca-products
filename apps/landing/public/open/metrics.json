@@ -1,15 +1,351 @@
 {
- "updated_at": "2026-10-30 17:16 JST",
+ "pnl": {
+  "month": "2026-10",
+  "revenue_by_source": {
+   "coconala": 203.86,
+   "capafy (orders)": 26.97
+  },
+  "revenue_total": 230.83,
+  "platform_fees": {
+   "Capafy 20%": 5.39,
+   "Apple 15% (RC MRR)": 3.0
+  },
+  "gross_profit": 222.44,
+  "opex_monthly": {
+   "Grok Bot + Cursor (X Super)": 113.49,
+   "ChatGPT Pro (Codex, Dots)": 191.28,
+   "ChatGPT extra charges (2, under review)": 107.47,
+   "Postiz": 50.6,
+   "HeyGen": 28.69,
+   "Railway": 23.95,
+   "Replit": 20.93,
+   "Telnyx": 20.84,
+   "X Premium": 5.85,
+   "Cursor usage": 0.68,
+   "Adobe": 31.75,
+   "Hetzner": 1.61,
+   "Google Cloud / Gemini API": 177.82,
+   "Apple Developer Program": 8.25,
+   "Sunflower Plus (Apple annual)": 3.19,
+   "DigitalOcean": 0.0
+  },
+  "opex_total": 786.4,
+  "net": -563.96,
+  "burn": 563.96
+ },
+ "mrr_breakdown": {
+  "revenuecat": 20,
+  "capafy": 73.58,
+  "capafy_active_paid_periods": [
+   "NHL Goalie Matchup Brief",
+   "TikTok Storytime Script"
+  ],
+  "stripe": null,
+  "total": 93.58,
+  "method": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs"
+ },
+ "metric_gaps": [
+  {
+   "item": "Capafy renewals",
+   "why": "Capafy emails only the first sale per agent; renewals and 2nd+ buyers need Seller Console (capafy.ai/developer/analytics) login read"
+  },
+  {
+   "item": "Stripe",
+   "why": "no readable live key on box (connector read 2026-10-30: 0 active subs, 0 charges since 10/1)"
+  },
+  {
+   "item": "PromptBase views/sales",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "Coconala/Lancers/CrowdWorks/Upwork earnings",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "App Store downloads (ASC)",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "PostHog product events",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "Instagram/TikTok followers",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "affiliate clicks/earnings",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "App Store category rank",
+   "why": "Apple top-charts RSS only lists top 100-200 per genre; not in chart = no rank number"
+  },
+  {
+   "item": "Capafy category/search position",
+   "why": "no public search-rank endpoint found; only per-seller uses are public"
+  },
+  {
+   "item": "PromptBase rank/sales",
+   "why": "no public API; dashboard login only (last read 10/27: 11 live, 0 sales)"
+  },
+  {
+   "item": "Google SERP for non-GSC sites",
+   "why": "no SERP API key on box"
+  },
+  {
+   "item": "Costs not in total",
+   "why": "Domains, Vercel/Netlify/Supabase usage, Dots(Reason) not billed separately; no receipts found."
+  },
+  {
+   "item": "Per-product cost split",
+   "why": "vendor costs (Grok/ChatGPT/Postiz) are shared; not allocated per product"
+  }
+ ],
+ "monthly": [
+  {
+   "month": "2026-06",
+   "revenue": 9.99,
+   "costs": 0.0,
+   "net": 9.99
+  },
+  {
+   "month": "2026-07",
+   "revenue": 407.72,
+   "costs": 0.0,
+   "net": 407.72
+  },
+  {
+   "month": "2026-08",
+   "revenue": 720.98,
+   "costs": 0.0,
+   "net": 720.98
+  },
+  {
+   "month": "2026-09",
+   "revenue": 459.67,
+   "costs": 1513.71,
+   "net": -1054.04
+  },
+  {
+   "month": "2026-10",
+   "revenue": 230.83,
+   "costs": 636.83,
+   "net": -406.0
+  }
+ ],
+ "mrr_history": [
+  {
+   "date": "2026-10-26",
+   "mrr": 24.0
+  },
+  {
+   "date": "2026-10-30",
+   "mrr": 97.58
+  }
+ ],
+ "rankings": {
+  "app_store": {
+   "Anicca": {
+    "keywords": {
+     "us:affirmations": "圏外(>200)",
+     "us:daily affirmations": "圏外(>200)",
+     "us:affirmation app": "圏外(>200)",
+     "jp:アファメーション": 37,
+     "jp:アファメーション アプリ": 38
+    },
+    "id": 6755129214,
+    "genre": "Health & Fitness",
+    "ratings": 47,
+    "rating": 4.51064,
+    "version": "1.9.4"
+   },
+   "Honne": {
+    "keywords": {
+     "jp:本音翻訳": 1,
+     "jp:LINE 相性": "圏外(>200)",
+     "jp:本音": 38
+    },
+    "id": 6759667221,
+    "genre": "Utilities",
+    "ratings": 2,
+    "rating": 5,
+    "version": "1.0.3"
+   },
+   "Thankful": {
+    "keywords": {
+     "us:gratitude journal": "圏外(>200)",
+     "us:gratitude": "圏外(>200)",
+     "jp:感謝日記": 176
+    },
+    "id": 6759514159,
+    "genre": "Health & Fitness",
+    "ratings": 1,
+    "rating": 5,
+    "version": "1.0.2"
+   }
+  },
+  "gsc": {
+   "https://aniccaai.com/": {
+    "d7": {
+     "clicks": 1,
+     "impressions": 36,
+     "ctr": 0.027777777777777776,
+     "position": 8.083333333333332
+    },
+    "top_queries": [
+     {
+      "q": "anicca",
+      "pos": 32,
+      "impr": 2,
+      "clicks": 0
+     },
+     {
+      "q": "anicca data science solutions",
+      "pos": 70,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "aniccai.com",
+      "pos": 20,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "annca ai",
+      "pos": 6,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "annica",
+      "pos": 84.5,
+      "impr": 2,
+      "clicks": 0
+     },
+     {
+      "q": "annica digital",
+      "pos": 44,
+      "impr": 1,
+      "clicks": 0
+     }
+    ]
+   }
+  },
+  "capafy": {
+   "our_top": [
+    {
+     "rank": 1,
+     "title": "Free Clip Map — 10 Best Shorts From Your Video",
+     "uses": 1960
+    },
+    {
+     "rank": 2,
+     "title": "Hook Grader — Free Hook Score (0-10)",
+     "uses": 53
+    },
+    {
+     "rank": 3,
+     "title": "TikTok Series Continuity Planner — Next Script",
+     "uses": 1
+    },
+    {
+     "rank": 4,
+     "title": "NHL Goalie Matchup Brief",
+     "uses": 1
+    },
+    {
+     "rank": 5,
+     "title": "TikTok Customer Proof Story Script",
+     "uses": 0
+    }
+   ],
+   "winner_saya_top": [
+    [
+     38565,
+     "CloneCut — Viral Clone, Seedance2.0"
+    ],
+    [
+     295,
+     "Seedance 2.0 Video - Generate Instantly"
+    ],
+    [
+     119,
+     "YouTube Scripts — Keep Viewers Watching"
+    ]
+   ]
+  }
+ },
+ "winners": [
+  {
+   "product": "Anicca iOS",
+   "winner": "Daily Affirmations and Widgets (id6758928040)",
+   "metric": "US ratings",
+   "gap_rows": 13,
+   "open": 7,
+   "file": "gaps/GAP-appstore-anicca.md"
+  },
+  {
+   "product": "Honne",
+   "winner": "めろとーく (id6757545135)",
+   "metric": "JP ranking/ratings",
+   "gap_rows": 13,
+   "open": 11,
+   "file": "gaps/GAP-honne-merotalk.md"
+  },
+  {
+   "product": "Capafy",
+   "winner": "saya CloneCut (5133292529)",
+   "metric": "uses / daily demo video",
+   "gap_rows": 17,
+   "open": 11,
+   "file": "gaps/GAP-capafy-Anicca.md"
+  },
+  {
+   "product": "PromptBase",
+   "winner": "@shandra (Rank #1)",
+   "metric": "sales / rank",
+   "gap_rows": 14,
+   "open": 12,
+   "file": "gaps/GAP-promptbase-keipanda.md"
+  },
+  {
+   "product": "PDF Insight",
+   "winner": "ChatPDF",
+   "metric": "traffic / price",
+   "gap_rows": 12,
+   "open": 9,
+   "file": "gaps/GAP-pdfinsight-chatpdf.md"
+  },
+  {
+   "product": "note",
+   "winner": "@yuusan_juusyoku",
+   "metric": "followers / daily posts",
+   "gap_rows": 17,
+   "open": 11,
+   "file": "gaps/GAP-note-anicca123.md"
+  },
+  {
+   "product": "Upwork",
+   "winner": "vivek s. (Top Rated, 258 reviews)",
+   "metric": "reviews / catalog",
+   "gap_rows": 14,
+   "open": 8,
+   "file": "gaps/GAP-upwork-daisukenarita.md"
+  }
+ ],
+ "updated_at": "2026-10-30 20:06 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
-  "current_mrr_usd": 24.0,
-  "progress_pct": 0.24
+  "current_mrr_usd": 97.58,
+  "progress_pct": 0.98
  },
  "totals": {
   "revenue_mtd_usd": 203.86,
   "revenue_last30d_usd": 203.86,
-  "mrr_usd": 24.0,
+  "mrr_usd": 97.58,
   "currency": "USD"
  },
  "businesses": [
@@ -48,7 +384,7 @@
    "revenue_lifetime": 102.75,
    "mrr": null,
    "metric": "installs (cumulative)",
-   "metric_value": 2065,
+   "metric_value": 2069,
    "status": "live; 4 fixed agents resubmitted 10/30, in review",
    "next": "paid tier"
   },
@@ -125,13 +461,13 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 9
+   "board_updates_today": 14
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 4
+   "board_updates_today": 6
   },
   {
    "agent": "Dots (COO)",
@@ -143,19 +479,19 @@
    "agent": "Muse (CMO)",
    "today": "Monk reels, e-book funnel, Whop store, Naïve push",
    "platforms": "Instagram, Threads, TikTok, YouTube, Whop",
-   "board_updates_today": 5
+   "board_updates_today": 9
   },
   {
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 7
+   "board_updates_today": 10
   },
   {
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 3
+   "board_updates_today": 7
   },
   {
    "agent": "Anicca Marketer",
@@ -167,7 +503,7 @@
    "agent": "Muse Relay",
    "today": "Turns Muse's winning reels into X / note / TikTok material",
    "platforms": "none (hands drafts to account owners)",
-   "board_updates_today": 2
+   "board_updates_today": 6
   },
   {
    "agent": "Forensic Writing",
@@ -351,7 +687,7 @@
     "applications_7d": null,
     "status": "71 agents live",
     "revenue_lifetime_usd": 102.75,
-    "note": "we list our own products here; no applications; 2,065 installs"
+    "note": "we list our own products here; no applications; 2,069 installs"
    },
    {
     "platform": "PromptBase (our prompts)",
