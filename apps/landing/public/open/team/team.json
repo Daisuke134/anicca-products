@@ -1,0 +1,1577 @@
+{
+ "built_at": "2026-10-31 07:49 JST",
+ "right_now": [
+  {
+   "agent": "参謀",
+   "last": "2026-10-31 07:24",
+   "source": "LIVE-STATE.md",
+   "task": "5-min check",
+   "blocked": true
+  },
+  {
+   "agent": "Muse",
+   "last": "2026-10-30 20:00",
+   "source": "BOARD",
+   "task": "maritime-demo",
+   "blocked": true
+  },
+  {
+   "agent": "Dots",
+   "last": "2026-10-30 20:25",
+   "source": "BOARD",
+   "task": "ops-chaser",
+   "blocked": true
+  },
+  {
+   "agent": "Codex",
+   "last": "2026-10-31 00:24",
+   "source": "LIVE-STATE.md",
+   "task": "coconala-lancers-loop",
+   "blocked": true
+  },
+  {
+   "agent": "Fucker",
+   "last": "2026-10-30 19:02",
+   "source": "BOARD",
+   "task": "naive-n2",
+   "blocked": true
+  },
+  {
+   "agent": "Anicca Marketer",
+   "last": "2026-10-31 06:50",
+   "source": "LOOPS.md",
+   "task": "loop #39 Anicca 配信＋LM配信＋数値（growth loop）",
+   "blocked": true
+  },
+  {
+   "agent": "dr eggbot",
+   "last": "2026-10-31 06:31",
+   "source": "BOARD",
+   "task": "coconala-18521371",
+   "blocked": true
+  },
+  {
+   "agent": "Forensic Writing",
+   "last": "2026-10-31 06:43",
+   "source": "BOARD",
+   "task": "daily-hook-forensics",
+   "blocked": false
+  },
+  {
+   "agent": "Muse Relay",
+   "last": "2026-10-30 22:10",
+   "source": "BOARD",
+   "task": "diceai0-x-posting",
+   "blocked": false
+  }
+ ],
+ "loops": [
+  {
+   "id": "1",
+   "loop": "Distribution loop (Anicca+LM)",
+   "owner": "参謀",
+   "schedule": "3h",
+   "times": []
+  },
+  {
+   "id": "2",
+   "loop": "X money scout",
+   "owner": "参謀",
+   "schedule": "毎日 7:41",
+   "times": [
+    "07:41"
+   ]
+  },
+  {
+   "id": "3",
+   "loop": "Daily metrics scoreboard",
+   "owner": "参謀",
+   "schedule": "21:05",
+   "times": [
+    "21:05"
+   ]
+  },
+  {
+   "id": "4",
+   "loop": "Hourly status to 成田さん",
+   "owner": "参謀",
+   "schedule": "3h",
+   "times": []
+  },
+  {
+   "id": "5",
+   "loop": "Daily engage pass",
+   "owner": "参謀",
+   "schedule": "11:13",
+   "times": [
+    "11:13"
+   ]
+  },
+  {
+   "id": "6",
+   "loop": "Coconala watch",
+   "owner": "参謀",
+   "schedule": "4h",
+   "times": []
+  },
+  {
+   "id": "7",
+   "loop": "毎日の支出・入金チェック（全口座・全カード・全サブスク）",
+   "owner": "Dots・参謀（全員本番、先に空いた方が実行）",
+   "schedule": "毎日 20:00",
+   "times": [
+    "20:00"
+   ]
+  },
+  {
+   "id": "8",
+   "loop": "X timeline+post metrics",
+   "owner": "参謀",
+   "schedule": "3h",
+   "times": []
+  },
+  {
+   "id": "9",
+   "loop": "Team revenue loop",
+   "owner": "参謀",
+   "schedule": "3h",
+   "times": []
+  },
+  {
+   "id": "10",
+   "loop": "Copy-the-winners teardown",
+   "owner": "参謀",
+   "schedule": "9:00/17:00",
+   "times": [
+    "09:00",
+    "17:00"
+   ]
+  },
+  {
+   "id": "11",
+   "loop": "Gig listings metrics",
+   "owner": "参謀",
+   "schedule": "10:30",
+   "times": [
+    "10:30"
+   ]
+  },
+  {
+   "id": "12",
+   "loop": "Wake 起床/就寝23:00/出発5分前 電話 (team/wake)",
+   "owner": "Dots (daisuke/dots-one)、Dotsの5分ループ稼働確認まで",
+   "schedule": "5分 (06:00–23:55)",
+   "times": [
+    "06:00",
+    "23:55"
+   ]
+  },
+  {
+   "id": "13",
+   "loop": "X distribution @selawmqt",
+   "owner": "参謀・Muse・Codex（全員本番）",
+   "schedule": "1日4回",
+   "times": []
+  },
+  {
+   "id": "14",
+   "loop": "LINE watch",
+   "owner": "参謀",
+   "schedule": "2h",
+   "times": []
+  },
+  {
+   "id": "15",
+   "loop": "Opportunity apply loop",
+   "owner": "参謀",
+   "schedule": "2h",
+   "times": []
+  },
+  {
+   "id": "16",
+   "loop": "Long-term thinking",
+   "owner": "参謀",
+   "schedule": "10:00",
+   "times": [
+    "10:00"
+   ]
+  },
+  {
+   "id": "17",
+   "loop": "Daily Anicca report",
+   "owner": "参謀",
+   "schedule": "8:30",
+   "times": [
+    "08:30"
+   ]
+  },
+  {
+   "id": "18",
+   "loop": "お笑いライブ抽選",
+   "owner": "参謀",
+   "schedule": "10:00",
+   "times": [
+    "10:00"
+   ]
+  },
+  {
+   "id": "19",
+   "loop": "New contract-platform signup",
+   "owner": "参謀",
+   "schedule": "4h",
+   "times": []
+  },
+  {
+   "id": "20",
+   "loop": "Meta loop",
+   "owner": "参謀",
+   "schedule": "9:15/15:15/21:15",
+   "times": [
+    "09:15",
+    "15:15",
+    "21:15"
+   ]
+  },
+  {
+   "id": "21",
+   "loop": "CMO weekly",
+   "owner": "参謀",
+   "schedule": "月曜",
+   "times": []
+  },
+  {
+   "id": "22",
+   "loop": "LM Cloud+Maritime",
+   "owner": "参謀（実装 Codex）",
+   "schedule": "9:50/15:50/21:50",
+   "times": [
+    "09:50",
+    "15:50",
+    "21:50"
+   ]
+  },
+  {
+   "id": "23",
+   "loop": "Investing loop",
+   "owner": "参謀",
+   "schedule": "平日 22:40",
+   "times": [
+    "22:40"
+   ]
+  },
+  {
+   "id": "24",
+   "loop": "Content+SEO+AEO",
+   "owner": "参謀（10/30 担当は Muse に移管）",
+   "schedule": "4h",
+   "times": []
+  },
+  {
+   "id": "25",
+   "loop": "CEO growth loop",
+   "owner": "参謀",
+   "schedule": "8:35/14:35/20:35",
+   "times": [
+    "08:35",
+    "14:35",
+    "20:35"
+   ]
+  },
+  {
+   "id": "26",
+   "loop": "Daily account metrics snapshot",
+   "owner": "参謀",
+   "schedule": "9:15",
+   "times": [
+    "09:15"
+   ]
+  },
+  {
+   "id": "27",
+   "loop": "Mac mini exit loop",
+   "owner": "参謀",
+   "schedule": "11:00",
+   "times": [
+    "11:00"
+   ]
+  },
+  {
+   "id": "28",
+   "loop": "Daily E2E attribution",
+   "owner": "参謀",
+   "schedule": "15:30",
+   "times": [
+    "15:30"
+   ]
+  },
+  {
+   "id": "29",
+   "loop": "YC hackathon watch",
+   "owner": "参謀",
+   "schedule": "8:00/20:00",
+   "times": [
+    "08:00",
+    "20:00"
+   ]
+  },
+  {
+   "id": "30",
+   "loop": "YC acceptance→flight",
+   "owner": "参謀",
+   "schedule": "4h",
+   "times": []
+  },
+  {
+   "id": "31",
+   "loop": "Manager research loop daily（論文1本→小実験→aniccaai.com記事→X-QUEUE案）",
+   "owner": "Codex（Head of Research）",
+   "schedule": "毎日 09:00 JST",
+   "times": [
+    "09:00"
+   ]
+  },
+  {
+   "id": "32",
+   "loop": "参謀 daily self-improvement",
+   "owner": "参謀",
+   "schedule": "7:30",
+   "times": [
+    "07:30"
+   ]
+  },
+  {
+   "id": "33",
+   "loop": "Founder-out-of-loop audit",
+   "owner": "参謀",
+   "schedule": "23:00",
+   "times": [
+    "23:00"
+   ]
+  },
+  {
+   "id": "34",
+   "loop": "Hourly team health check",
+   "owner": "参謀",
+   "schedule": "毎時:50",
+   "times": []
+  },
+  {
+   "id": "35",
+   "loop": "Honne product loop",
+   "owner": "参謀",
+   "schedule": "9:00",
+   "times": [
+    "09:00"
+   ]
+  },
+  {
+   "id": "36",
+   "loop": "Naïve founders email",
+   "owner": "参謀",
+   "schedule": "?",
+   "times": []
+  },
+  {
+   "id": "37",
+   "loop": "Agent recruiting weekly",
+   "owner": "参謀",
+   "schedule": "週1",
+   "times": []
+  },
+  {
+   "id": "38",
+   "loop": "Daily team briefing",
+   "owner": "参謀",
+   "schedule": "8:50",
+   "times": [
+    "08:50"
+   ]
+  },
+  {
+   "id": "39",
+   "loop": "Anicca 配信＋LM配信＋数値（growth loop）",
+   "owner": "Anicca Marketer",
+   "schedule": "3時間ごと 0:47・3:47・6:47…21:47（±15分、10/30 17:58〜 USAGE-CUTS）",
+   "times": [
+    "00:47",
+    "03:47",
+    "06:47",
+    "17:58",
+    "21:47"
+   ]
+  },
+  {
+   "id": "40",
+   "loop": "Fucker revenue loop（Capafy hands-off N2 周回＋PromptBase/Honne・PDF Insigh",
+   "owner": "Fucker",
+   "schedule": "2時間ごと :35（±15分、10/30 17:58〜 使用量削減。Mercor は1日1回）／毎日 10:00／毎日 ",
+   "times": [
+    "10:00",
+    "10:55",
+    "17:58"
+   ]
+  },
+  {
+   "id": "41",
+   "loop": "upwork-skima-loop",
+   "owner": "dr eggbot",
+   "schedule": "3時間ごと24時間（0/3/6/9/12/15/18/21時 JST、10/30 17:53〜）",
+   "times": [
+    "17:53"
+   ]
+  },
+  {
+   "id": "42",
+   "loop": "coconala-lancers-loop（10/30 14:28 移管）",
+   "owner": "dr eggbot",
+   "schedule": "2:30/6:30/10:30/14:30/18:30/22:30 JST",
+   "times": [
+    "02:30",
+    "06:30",
+    "10:30",
+    "14:30",
+    "18:30",
+    "22:30"
+   ]
+  },
+  {
+   "id": "42b",
+   "loop": "inbox-sweep",
+   "owner": "dr eggbot",
+   "schedule": "2時間ごと（10/30 17:56 Grok 残26%のため30分→2時間、ルームの呼び出しでは随時起きる）",
+   "times": [
+    "17:56"
+   ]
+  },
+  {
+   "id": "43",
+   "loop": "Daily HOOKS.md refresh",
+   "owner": "Forensic Writing",
+   "schedule": "毎日 6:08〜6:30 JST（Grok Bot routine daily-hooks-md-refresh）",
+   "times": [
+    "06:08",
+    "06:30"
+   ]
+  },
+  {
+   "id": "44",
+   "loop": "Muse Relay pass",
+   "owner": "Muse Relay",
+   "schedule": "8〜20時 4h（8・12・16・20時±15。10/30 17:58 USAGE-CUTS で夜を止め、2h→4h）",
+   "times": [
+    "17:58"
+   ]
+  },
+  {
+   "id": "45",
+   "loop": "Muse 全レーン（IG 3垢 勝者コピー1日3本・Threads @anicca.en・monk.mujo＋TikTok @anicca_",
+   "owner": "Muse",
+   "schedule": "毎日 03:22〜22:22 の各 :22（distribution 09:22/15:22、threads 12:22",
+   "times": [
+    "03:22",
+    "09:22",
+    "12:22",
+    "14:22",
+    "15:22",
+    "20:22",
+    "21:22",
+    "22:22"
+   ]
+  },
+  {
+   "id": "58",
+   "loop": "X loop @diceai0（Anicca, build in public）",
+   "owner": "参謀・Muse・Codex（全員本番）",
+   "schedule": "1日6回 08:15・11:15・14:15・17:15・20:15・23:15 JST",
+   "times": [
+    "08:15",
+    "11:15",
+    "14:15",
+    "17:15",
+    "20:15",
+    "23:15"
+   ]
+  },
+  {
+   "id": "47",
+   "loop": "APP-SCALING-WINNERS 更新",
+   "owner": "Dots (dots-one)",
+   "schedule": "毎日 14:00（初回 10/31）",
+   "times": [
+    "14:00"
+   ]
+  },
+  {
+   "id": "48",
+   "loop": "Postiz ショート動画ジョブ（LM launchd 各レーン、ebook-*-daily, capafy-reel/ig, x-twee",
+   "owner": "Mac mini（LM local / Muse）",
+   "schedule": "1日1〜5本/垢",
+   "times": []
+  },
+  {
+   "id": "49",
+   "loop": "capafy-autopublish",
+   "owner": "Mac mini Codex",
+   "schedule": "?",
+   "times": []
+  },
+  {
+   "id": "50",
+   "loop": "ops-mirror sync",
+   "owner": "参謀",
+   "schedule": "30分",
+   "times": []
+  },
+  {
+   "id": "51",
+   "loop": "monk_daily.py / obou_daily.py",
+   "owner": "参謀",
+   "schedule": "毎日",
+   "times": []
+  },
+  {
+   "id": "—",
+   "loop": "Mac mini その他 約230 launchd（trading, x-repost, stripe poller, browser jo",
+   "owner": "Mac mini",
+   "schedule": "各種",
+   "times": []
+  },
+  {
+   "id": "—",
+   "loop": "GitHub Actions（Daisuke134 各 repo、self-hosted runner anicca-products）",
+   "owner": "Codex",
+   "schedule": "?",
+   "times": []
+  },
+  {
+   "id": "52",
+   "loop": "capafy-loop-daily",
+   "owner": "Mac mini Codex",
+   "schedule": "毎時 :09/:24/:39/:54",
+   "times": []
+  },
+  {
+   "id": "53",
+   "loop": "capafy-distribute-daily",
+   "owner": "Mac mini Codex",
+   "schedule": "毎時 :04/:19/:34/:49",
+   "times": []
+  },
+  {
+   "id": "54",
+   "loop": "Codex 進捗報告",
+   "owner": "Mac mini Codex",
+   "schedule": "5分ごと",
+   "times": []
+  },
+  {
+   "id": "55",
+   "loop": "contract-platforms daily pass (CONTRACT-PLATFORMS.md + SERVICE-CATALOG",
+   "owner": "dr eggbot (Upwork/Lancers/Coconala), Dot",
+   "schedule": "1日2回 10:45/18:45 JST",
+   "times": [
+    "10:45",
+    "18:45"
+   ]
+  },
+  {
+   "id": "56",
+   "loop": "Public /open refresh (collect_all → metrics.json → anicca-products mai",
+   "owner": "参謀",
+   "schedule": "毎日 21:05（scoreboard と同じ回で bash /workspace/team/scripts/open/",
+   "times": [
+    "21:05"
+   ]
+  },
+  {
+   "id": "57",
+   "loop": "diceai0 follower tracker",
+   "owner": "Forensic Writing",
+   "schedule": "毎日 21:00 JST",
+   "times": [
+    "21:00"
+   ]
+  },
+  {
+   "id": "59",
+   "loop": "LinkedIn（Daisuke Narita / EverFocus Labs）build in public",
+   "owner": "Muse（本物）・全員本番",
+   "schedule": "1日1本",
+   "times": []
+  },
+  {
+   "id": "—",
+   "loop": "Codex 本人（15:2x 申告）",
+   "owner": "Codex",
+   "schedule": "依頼時のみ",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse metrics",
+   "owner": "Muse",
+   "schedule": "毎日 07:22",
+   "times": [
+    "07:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse investment/opportunity",
+   "owner": "Muse",
+   "schedule": "毎日 08:22",
+   "times": [
+    "08:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse distribution",
+   "owner": "Muse",
+   "schedule": "毎日 09:22",
+   "times": [
+    "09:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse seo-aio",
+   "owner": "Muse",
+   "schedule": "毎日 10:22",
+   "times": [
+    "10:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse monk-db",
+   "owner": "Muse",
+   "schedule": "毎日 11:22",
+   "times": [
+    "11:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse apps と threads",
+   "owner": "Muse",
+   "schedule": "毎日 12:22",
+   "times": [
+    "12:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse monk-business",
+   "owner": "Muse",
+   "schedule": "毎日 13:22",
+   "times": [
+    "13:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse articles-affiliate",
+   "owner": "Muse",
+   "schedule": "毎日 14:22",
+   "times": [
+    "14:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse distribution-pm",
+   "owner": "Muse",
+   "schedule": "毎日 15:22",
+   "times": [
+    "15:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse factory-proof",
+   "owner": "Muse",
+   "schedule": "毎日 16:22",
+   "times": [
+    "16:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse life-manager",
+   "owner": "Muse",
+   "schedule": "毎日 17:22",
+   "times": [
+    "17:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse monk-daily",
+   "owner": "Muse",
+   "schedule": "毎日 20:22",
+   "times": [
+    "20:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse daily-report と monk-done",
+   "owner": "Muse",
+   "schedule": "毎日 21:22",
+   "times": [
+    "21:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse manager-research",
+   "owner": "Muse",
+   "schedule": "毎日 22:22",
+   "times": [
+    "22:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse distribution-night",
+   "owner": "Muse",
+   "schedule": "毎日 03:22",
+   "times": [
+    "03:22"
+   ]
+  },
+  {
+   "id": "M",
+   "loop": "Muse capafy",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse coconala",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse contra",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse crowdworks",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse guru",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse mercor",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse meta-platform",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse open-dashboard",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse ops-watch",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse mac-posting-stop-chase",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse sales-platform",
+   "owner": "Muse",
+   "schedule": "3時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse contract-platforms",
+   "owner": "Muse",
+   "schedule": "1時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse distribution-hourly",
+   "owner": "Muse",
+   "schedule": "1時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse global-freelance",
+   "owner": "Muse",
+   "schedule": "6時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse lancers",
+   "owner": "Muse",
+   "schedule": "6時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse lm-cloud",
+   "owner": "Muse",
+   "schedule": "6時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse dots2-coverage",
+   "owner": "Muse",
+   "schedule": "6時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse winner-gap",
+   "owner": "Muse",
+   "schedule": "6時間ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse fast-response-sweep",
+   "owner": "Muse",
+   "schedule": "30分ごと",
+   "times": []
+  },
+  {
+   "id": "M",
+   "loop": "Muse apple-fix-watch",
+   "owner": "Muse",
+   "schedule": "15分ごと",
+   "times": []
+  }
+ ],
+ "accounts": [
+  {
+   "platform": "TikTok",
+   "account": "anicca.jp4",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 119.0,
+   "followers_7d": 0,
+   "posts_7d": 13,
+   "views_7d": 2158.0,
+   "er_7d": "4.0/2158=0.2%",
+   "last_post": "2026-10-29T11:46",
+   "winner": "https://www.tiktok.com/@tsubaki.reading"
+  },
+  {
+   "platform": "TikTok",
+   "account": "monk_anicca",
+   "poster": "参謀",
+   "followers": 130.0,
+   "followers_7d": 28,
+   "posts_7d": 8,
+   "views_7d": 3940.0,
+   "er_7d": "501.0/3940=12.7%",
+   "last_post": "2026-10-30T05:08",
+   "winner": "https://www.tiktok.com/@buddhamotivation1mu"
+  },
+  {
+   "platform": "X",
+   "account": "selawmqt",
+   "poster": "参謀",
+   "followers": 9,
+   "followers_7d": "未取得",
+   "posts_7d": 88,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30T11:00",
+   "winner": "https://x.com/godofprompt"
+  },
+  {
+   "platform": "TikTok",
+   "account": "aniccaaffirmation",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 139.0,
+   "followers_7d": 3,
+   "posts_7d": 20,
+   "views_7d": 4878.0,
+   "er_7d": "108.0/4878=2.2%",
+   "last_post": "2026-10-30T05:17",
+   "winner": "https://www.tiktok.com/@dreamlifecode"
+  },
+  {
+   "platform": "Instagram",
+   "account": "anicca.encards",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 16,
+   "views_7d": 726.0,
+   "er_7d": "0/726=0.0%",
+   "last_post": "2026-10-30T05:10",
+   "winner": "https://www.instagram.com/frequency_mastery/"
+  },
+  {
+   "platform": "Instagram",
+   "account": "anicca.jp.videos",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 14,
+   "views_7d": 4360.0,
+   "er_7d": "0/4360=0.0%",
+   "last_post": "2026-10-29T23:05",
+   "winner": "https://www.instagram.com/selflovejp/"
+  },
+  {
+   "platform": "Instagram",
+   "account": "anicca.ios.jp",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 11,
+   "views_7d": 1275.0,
+   "er_7d": "0/1275=0.0%",
+   "last_post": "2026-10-29T10:10",
+   "winner": "https://www.instagram.com/selflovejp/"
+  },
+  {
+   "platform": "Instagram",
+   "account": "obou.anicca",
+   "poster": "参謀",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 2,
+   "views_7d": 162.0,
+   "er_7d": "0/162=0.0%",
+   "last_post": "2026-10-30T05:48",
+   "winner": "https://www.tiktok.com/@yuusan_juusyoku"
+  },
+  {
+   "platform": "Instagram",
+   "account": "anicca.cemetery",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 0,
+   "views_7d": 0.0,
+   "er_7d": "未取得",
+   "last_post": "未取得",
+   "winner": "未取得"
+  },
+  {
+   "platform": "Instagram",
+   "account": "monk.mujo",
+   "poster": "参謀",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 3,
+   "views_7d": 344.0,
+   "er_7d": "0/344=0.0%",
+   "last_post": "2026-10-26T10:13",
+   "winner": "https://www.instagram.com/mingsanhealing/"
+  },
+  {
+   "platform": "X",
+   "account": "diceai0",
+   "poster": "参謀",
+   "followers": 494,
+   "followers_7d": "未取得",
+   "posts_7d": 10,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30T05:02",
+   "winner": "https://x.com/marclou"
+  },
+  {
+   "platform": "Instagram",
+   "account": "ani.cca1234",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 13,
+   "views_7d": 3.0,
+   "er_7d": "0/3=0.0%",
+   "last_post": "2026-10-30T05:15",
+   "winner": "https://www.instagram.com/selflovejp/"
+  },
+  {
+   "platform": "TikTok",
+   "account": "honnevideo",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 6.0,
+   "followers_7d": 1,
+   "posts_7d": 19,
+   "views_7d": 2124.0,
+   "er_7d": "11.0/2124=0.5%",
+   "last_post": "2026-10-30T03:31",
+   "winner": "https://www.tiktok.com/@kairyu699"
+  },
+  {
+   "platform": "Instagram",
+   "account": "anicca.ios",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 17,
+   "views_7d": 1.0,
+   "er_7d": "0/1=0.0%",
+   "last_post": "2026-10-30T05:49",
+   "winner": "https://www.instagram.com/selflovejp/"
+  },
+  {
+   "platform": "TikTok",
+   "account": "honne_reveal",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 5.0,
+   "followers_7d": 0,
+   "posts_7d": 12,
+   "views_7d": 2614.0,
+   "er_7d": "87.0/2614=3.3%",
+   "last_post": "2026-10-30T02:01",
+   "winner": "https://www.tiktok.com/@kairyu699"
+  },
+  {
+   "platform": "Instagram",
+   "account": "anicca.en",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 13,
+   "views_7d": 18277.0,
+   "er_7d": "0/18277=0.0%",
+   "last_post": "2026-10-30T01:10",
+   "winner": "https://www.instagram.com/frequency_mastery/"
+  },
+  {
+   "platform": "TikTok",
+   "account": "anicca_slideshow",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 3.0,
+   "followers_7d": 0,
+   "posts_7d": 25,
+   "views_7d": 1534.0,
+   "er_7d": "30.0/1534=2.0%",
+   "last_post": "2026-10-30T06:08",
+   "winner": "https://www.tiktok.com/@dreamlifecode"
+  },
+  {
+   "platform": "TikTok",
+   "account": "anicca_buddha",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 3242.0,
+   "followers_7d": -1,
+   "posts_7d": 16,
+   "views_7d": 2854.0,
+   "er_7d": "19.0/2854=0.7%",
+   "last_post": "2026-10-29T22:01",
+   "winner": "https://www.tiktok.com/@yuusan_juusyoku"
+  },
+  {
+   "platform": "TikTok",
+   "account": "aniccaen2",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 34.0,
+   "followers_7d": 0,
+   "posts_7d": 17,
+   "views_7d": 3800.0,
+   "er_7d": "87.0/3800=2.3%",
+   "last_post": "2026-10-30T05:30",
+   "winner": "https://www.tiktok.com/@dreamlifecode"
+  },
+  {
+   "platform": "TikTok",
+   "account": "anicca.he",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 12,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30T04:52",
+   "winner": "https://www.tiktok.com/@tsubaki.reading"
+  },
+  {
+   "platform": "TikTok",
+   "account": "obou_anicca",
+   "poster": "参謀",
+   "followers": 12.0,
+   "followers_7d": 0,
+   "posts_7d": 2,
+   "views_7d": 5.0,
+   "er_7d": "0/5=0.0%",
+   "last_post": "2026-10-30T05:54",
+   "winner": "https://www.tiktok.com/@yuusan_juusyoku"
+  },
+  {
+   "platform": "YouTube",
+   "account": "@anicca-ai",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 8,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-29T10:45",
+   "winner": "https://www.tiktok.com/@yuusan_juusyoku"
+  },
+  {
+   "platform": "TikTok",
+   "account": "anicca.jp",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 248.0,
+   "followers_7d": 1,
+   "posts_7d": 16,
+   "views_7d": 4420.0,
+   "er_7d": "62.0/4420=1.4%",
+   "last_post": "2026-10-30T07:02",
+   "winner": "https://www.tiktok.com/@tsubaki.reading"
+  },
+  {
+   "platform": "TikTok",
+   "account": "anicca.jpx",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 67.0,
+   "followers_7d": 0,
+   "posts_7d": 15,
+   "views_7d": 3862.0,
+   "er_7d": "62.0/3862=1.6%",
+   "last_post": "2026-10-30T03:02",
+   "winner": "https://www.tiktok.com/@tsubaki.reading"
+  },
+  {
+   "platform": "YouTube",
+   "account": "@anicca-affirmation-video",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 7,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-29T11:17",
+   "winner": "https://www.tiktok.com/@yuusan_juusyoku"
+  },
+  {
+   "platform": "X",
+   "account": "Manageraqo",
+   "poster": "参謀",
+   "followers": 0,
+   "followers_7d": "未取得",
+   "posts_7d": 0,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "未取得",
+   "winner": "未取得"
+  },
+  {
+   "platform": "Bluesky",
+   "account": "anicca-affirm.bsky.social",
+   "poster": "Anicca Marketer",
+   "followers": 3,
+   "followers_7d": 0,
+   "posts_7d": 22,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30T08:49",
+   "winner": "https://bsky.app/profile/luigiaffirmations.bsky.social"
+  },
+  {
+   "platform": "Bluesky",
+   "account": "aniccaapp.bsky.social",
+   "poster": "Anicca Marketer",
+   "followers": 3,
+   "followers_7d": 0,
+   "posts_7d": 17,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30T05:49",
+   "winner": "https://bsky.app/profile/luigiaffirmations.bsky.social"
+  },
+  {
+   "platform": "Bluesky",
+   "account": "lifemanager-jp.bsky.social",
+   "poster": "参謀",
+   "followers": 3,
+   "followers_7d": 1,
+   "posts_7d": 15,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30T08:49",
+   "winner": "https://bsky.app/profile/daikore.bsky.social"
+  },
+  {
+   "platform": "Bluesky",
+   "account": "lifemanagerapp.bsky.social",
+   "poster": "参謀",
+   "followers": 4,
+   "followers_7d": 1,
+   "posts_7d": 9,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-26T21:22",
+   "winner": "https://bsky.app/profile/productivitydir.bsky.social"
+  },
+  {
+   "platform": "Mastodon",
+   "account": "[email]",
+   "poster": "Anicca Marketer",
+   "followers": 1,
+   "followers_7d": 0,
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30",
+   "winner": "未取得"
+  },
+  {
+   "platform": "Mastodon",
+   "account": "[email]",
+   "poster": "Anicca Marketer",
+   "followers": 0,
+   "followers_7d": 0,
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30",
+   "winner": "未取得"
+  },
+  {
+   "platform": "Mastodon",
+   "account": "[email]",
+   "poster": "参謀",
+   "followers": 0,
+   "followers_7d": 0,
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30",
+   "winner": "未取得"
+  },
+  {
+   "platform": "Mastodon",
+   "account": "[email]",
+   "poster": "参謀",
+   "followers": 1,
+   "followers_7d": 0,
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-09",
+   "winner": "未取得"
+  },
+  {
+   "platform": "note",
+   "account": "anicca123",
+   "poster": "参謀",
+   "followers": 5,
+   "followers_7d": 0,
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "未取得",
+   "winner": "https://www.tiktok.com/@yuusan_juusyoku"
+  },
+  {
+   "platform": "Substack",
+   "account": "aniccabuddha",
+   "poster": "参謀",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 0,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-18T23:20",
+   "winner": "未取得"
+  },
+  {
+   "platform": "Substack",
+   "account": "aniccaai2026",
+   "poster": "参謀",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 1,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-24T10:17",
+   "winner": "未取得"
+  },
+  {
+   "platform": "Capafy",
+   "account": "Anicca（全エージェント合計）",
+   "poster": "Fucker",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "未取得",
+   "winner": "未取得"
+  },
+  {
+   "platform": "PromptBase",
+   "account": "keiodaisuke",
+   "poster": "Fucker",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "未取得",
+   "winner": "未取得"
+  },
+  {
+   "platform": "Nostr",
+   "account": "npub1jtay3qxp…",
+   "poster": "Anicca Marketer",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 12,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 03:3x",
+   "winner": "未取得"
+  },
+  {
+   "platform": "Telegraph",
+   "account": "anicca-telegraph",
+   "poster": "Anicca Marketer",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 15,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 08:2x",
+   "winner": "未取得"
+  },
+  {
+   "platform": "nostr",
+   "account": "anicca npub1jtay",
+   "poster": "未取得",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-26 17:3x",
+   "winner": "未取得"
+  },
+  {
+   "platform": "telegraph",
+   "account": "Daisuke Narita",
+   "poster": "Muse（本物、自分のサブスク）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-26 15:3x",
+   "winner": "未取得"
+  },
+  {
+   "platform": "bluesky",
+   "account": "bluesky_lm",
+   "poster": "参謀",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30 22:37",
+   "winner": "未取得"
+  },
+  {
+   "platform": "bluesky",
+   "account": "bluesky_anicca",
+   "poster": "Anicca Marketer",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 13:29",
+   "winner": "未取得"
+  },
+  {
+   "platform": "devto",
+   "account": "aniccaapp",
+   "poster": "Anicca Marketer",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-26 12:4x",
+   "winner": "https://threads.com/@manifest.with.words"
+  },
+  {
+   "platform": "mastodon",
+   "account": "mastodon_anicca",
+   "poster": "Anicca Marketer",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 09:25",
+   "winner": "未取得"
+  },
+  {
+   "platform": "bluesky",
+   "account": "bluesky_anicca_en",
+   "poster": "Anicca Marketer",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 13:29",
+   "winner": "未取得"
+  },
+  {
+   "platform": "mastodon",
+   "account": "mastodon_anicca_en",
+   "poster": "Anicca Marketer",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 07:23",
+   "winner": "未取得"
+  },
+  {
+   "platform": "bluesky",
+   "account": "bluesky_lm_en",
+   "poster": "参謀",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 06:22",
+   "winner": "未取得"
+  },
+  {
+   "platform": "bluesky",
+   "account": "lifemanager-jp",
+   "poster": "参謀",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-26 16:2x",
+   "winner": "https://bsky.app/profile/daikore.bsky.social"
+  },
+  {
+   "platform": "bluesky",
+   "account": "anicca-affirm",
+   "poster": "Anicca Marketer",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-26 16:2x",
+   "winner": "https://bsky.app/profile/luigiaffirmations.bsky.social"
+  },
+  {
+   "platform": "mastodon",
+   "account": "mastodon_lm",
+   "poster": "参謀",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-30 14:48",
+   "winner": "未取得"
+  },
+  {
+   "platform": "nostr",
+   "account": "npub1jtay3qxp",
+   "poster": "未取得",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 03:3x",
+   "winner": "未取得"
+  },
+  {
+   "platform": "tiktok",
+   "account": "@aniccaaffirmation (Postiz Affirmation G",
+   "poster": "未取得",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 12:30",
+   "winner": "未取得"
+  },
+  {
+   "platform": "bluesky",
+   "account": "bluesky_lm (lifemanager-jp)",
+   "poster": "未取得",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 08:24",
+   "winner": "未取得"
+  },
+  {
+   "platform": "bluesky",
+   "account": "bluesky_anicca_en (aniccaapp)",
+   "poster": "未取得",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "last_post": "2026-10-27 08:26",
+   "winner": "未取得"
+  }
+ ],
+ "seo": [
+  "- Sitemap /sitemap.xml: success, 678 pages discovered, read 10/26 (resubmitted 10/27).",
+  "- 28d (data 10/17–10/24): 1 click, 34 impressions, CTR 2.9%, avg position 13.",
+  "- Index: 5 indexed / 522 not indexed (518 Discovered-not-indexed, 2 Crawled-not-indexed, 1 duplicate, 1 alternate).",
+  "- Pages: /en pos 5.5; / pos 16.7 (22 imp, 0 clicks); /blog/elevenlabs-voice-cloning... pos 7.8; /privacy 2.5; /dailydharma/support 4.0; /manifesto 3.4."
+ ]
+}

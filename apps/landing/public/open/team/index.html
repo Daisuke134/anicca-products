@@ -1,0 +1,11 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Anicca Team board — 誰が何を</title>
+<style>body{font:14px system-ui;margin:16px;max-width:1100px}table{border-collapse:collapse;width:100%;margin:8px 0 20px}td,th{border:1px solid #ddd;padding:4px 6px;text-align:left;vertical-align:top}th{background:#f4f4f4}.b{color:#c00}</style>
+<h1>Anicca Team board — 誰が何を</h1><p id=t></p>
+<h2>Right now</h2><table id=r></table><h2>Daily schedule (JST)</h2><table id=s></table><h2>Accounts</h2><table id=a></table><h2>SEO</h2><ul id=e></ul>
+<script>
+const T=(id,h,rows)=>{document.getElementById(id).innerHTML='<tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+String(x??'未取得').replace(/</g,'&lt;')+'</td>').join('')+'</tr>').join('')};
+fetch('team.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{document.getElementById('t').textContent='Updated '+d.built_at+' (hourly)';
+T('r',['agent','current','last activity','blocked'],d.right_now.map(x=>[x.agent,x.task,x.last,x.blocked?'⚠':'']));
+const s=[];d.loops.forEach(l=>l.times.length?l.times.forEach(t=>s.push([t,l.loop,l.owner])):s.push(['('+l.schedule+')',l.loop,l.owner]));s.sort((a,b)=>a[0]<b[0]?-1:1);T('s',['JST','loop','owner'],s);
+T('a',['platform','account','poster','followers','7d Δ','posts 7d','views 7d','ER 7d','last post','copy winner'],d.accounts.map(a=>[a.platform,a.account,a.poster,a.followers,a.followers_7d,a.posts_7d,a.views_7d,a.er_7d,a.last_post,a.winner]));
+document.getElementById('e').innerHTML=d.seo.map(x=>'<li>'+x.replace(/</g,'&lt;')+'</li>').join('')})</script>
