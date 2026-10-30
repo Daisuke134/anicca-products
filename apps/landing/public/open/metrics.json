@@ -83,12 +83,12 @@
   },
   {
    "loop": "X distribution @selawmqt",
-   "owner": "参謀",
-   "host": "Grok Bot",
+   "owner": "参謀・Muse・Codex（全員本番）",
+   "host": "参謀の Grok Bot routine",
    "schedule": "1日4回",
    "runs_per_day": null,
-   "posts_to": "X @selawmqt",
-   "status": "OUTAGE-FAIL"
+   "posts_to": "X @selawmqt、素材 marketing/X-QUEUE-selawmqt.md。POST-LOG で二重投稿を確認して誰でも投稿",
+   "status": "10/30 22:40 成田さん訂正"
   },
   {
    "loop": "Opportunity apply loop",
@@ -371,12 +371,12 @@
   },
   {
    "loop": "X loop @diceai0（Anicca, build in public）",
-   "owner": "Muse Relay（唯一の投稿者）",
-   "host": "Grok Bot routine diceai0-x-run",
-   "schedule": "1日6回 08:15・11:15・14:15・17:15・20:15・23:15 JST（-10〜+20分）",
-   "runs_per_day": 72,
-   "posts_to": "box ブラウザで x.comから投稿。Postiz/X コネクタでは投稿しない。手順 runbooks/X-DICEAI0.md、記録 marketing/X",
-   "status": "10/30 22:10 参謀から Muse Relay へ移管。予算: 1回1ブ"
+   "owner": "参謀・Muse・Codex（全員本番）",
+   "host": "参謀の Grok Bot routine",
+   "schedule": "1日6回 08:15・11:15・14:15・17:15・20:15・23:15 JST",
+   "runs_per_day": 6,
+   "posts_to": "box ブラウザで x.com から投稿。手順 runbooks/X-DICEAI0.md、記録 marketing/X-ACTIONS.md・POST-LOG",
+   "status": "10/30 22:40 成田さん訂正"
   },
   {
    "loop": "APP-SCALING-WINNERS 更新",
@@ -469,13 +469,13 @@
    "status": "新設 10/30、初回 21:10 OK"
   },
   {
-   "loop": "X loop @diceai0（Anicca, build in public）",
-   "owner": "X Operator（唯一の投稿者）",
-   "host": "Grok Bot routine（X Operator）",
-   "schedule": "1日6回 08:15・11:15・14:15・17:15・20:15・23:15 JST",
-   "runs_per_day": 6,
-   "posts_to": "box ブラウザで x.comから投稿。Postiz/X コネクタでは投稿しない。手順 runbooks/X-DICEAI0.md、記録 marketing/X",
-   "status": "更新 10/30 22:0x"
+   "loop": "LinkedIn（Daisuke Narita / EverFocus Labs）build in public",
+   "owner": "Muse（本物）・全員本番",
+   "host": "Muse 自前サブスク（Postiz web）",
+   "schedule": "1日1本",
+   "runs_per_day": null,
+   "posts_to": "Postiz → LinkedIn、marketing/POST-LOG.csv で二重確認、runbooks/LINKEDIN.md",
+   "status": "新設 2026-10-30 22:5x、初稿 samples/muse-rela"
   }
  ],
  "pnl": {
@@ -617,6 +617,10 @@
   },
   {
    "date": "2026-10-30",
+   "mrr": 93.58
+  },
+  {
+   "date": "2026-10-31",
    "mrr": 97.58
   }
  ],
@@ -811,7 +815,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-30 22:13 JST",
+ "updated_at": "2026-10-31 00:50 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -860,7 +864,7 @@
    "revenue_lifetime": 102.75,
    "mrr": null,
    "metric": "installs (cumulative)",
-   "metric_value": 2081,
+   "metric_value": 2101,
    "status": "live; 4 fixed agents resubmitted 10/30, in review",
    "next": "paid tier"
   },
@@ -940,49 +944,49 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 20
+   "board_updates_today": 0
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 7
+   "board_updates_today": 0
   },
   {
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 2
+   "board_updates_today": 0
   },
   {
    "agent": "Muse (CMO)",
    "today": "Monk reels, e-book funnel, Whop store, Naïve push",
    "platforms": "Instagram, Threads, TikTok, YouTube, Whop",
-   "board_updates_today": 9
+   "board_updates_today": 0
   },
   {
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 10
+   "board_updates_today": 1
   },
   {
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 11
+   "board_updates_today": 0
   },
   {
    "agent": "Anicca Marketer",
    "today": "Anicca iOS growth: daily posts, directories, metrics",
    "platforms": "TikTok @aniccaaffirmation, Bluesky, Mastodon, Nostr, Telegraph",
-   "board_updates_today": 1
+   "board_updates_today": 0
   },
   {
    "agent": "Muse Relay",
    "today": "Turns Muse's winning reels into X / note / TikTok material",
    "platforms": "none (hands drafts to account owners)",
-   "board_updates_today": 6
+   "board_updates_today": 0
   },
   {
    "agent": "Forensic Writing",
@@ -999,15 +1003,15 @@
  ],
  "contract_work": {
   "applications_today": 0,
-  "applications_7d": 52,
+  "applications_7d": 44,
   "days": [
-   "2026-10-24",
    "2026-10-25",
    "2026-10-26",
    "2026-10-27",
    "2026-10-28",
    "2026-10-29",
-   "2026-10-30"
+   "2026-10-30",
+   "2026-10-31"
   ],
   "platforms": [
    {
@@ -1015,13 +1019,13 @@
     "owner": "dr eggbot",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-10-24": 0,
      "2026-10-25": 3,
      "2026-10-26": 12,
      "2026-10-27": 3,
      "2026-10-28": 0,
      "2026-10-29": 0,
-     "2026-10-30": 0
+     "2026-10-30": 0,
+     "2026-10-31": 0
     },
     "applications_7d": 18,
     "status": "active; trial order in progress (10/30)",
@@ -1032,15 +1036,15 @@
     "owner": "dr eggbot",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-10-24": 6,
      "2026-10-25": 6,
      "2026-10-26": 9,
      "2026-10-27": 0,
      "2026-10-28": 0,
      "2026-10-29": 0,
-     "2026-10-30": 0
+     "2026-10-30": 0,
+     "2026-10-31": 0
     },
-    "applications_7d": 21,
+    "applications_7d": 15,
     "status": "active",
     "revenue_lifetime_usd": null
    },
@@ -1069,15 +1073,15 @@
     "owner": "Dots",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-10-24": 2,
      "2026-10-25": 3,
      "2026-10-26": 6,
      "2026-10-27": 0,
      "2026-10-28": 0,
      "2026-10-29": 0,
-     "2026-10-30": 0
+     "2026-10-30": 0,
+     "2026-10-31": 0
     },
-    "applications_7d": 11,
+    "applications_7d": 9,
     "status": "active; 3 client replies waiting (login needed)",
     "revenue_lifetime_usd": null
    },
@@ -1136,13 +1140,13 @@
     "owner": "Fucker",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-10-24": 0,
      "2026-10-25": 2,
      "2026-10-26": 0,
      "2026-10-27": 0,
      "2026-10-28": 0,
      "2026-10-29": 0,
-     "2026-10-30": 0
+     "2026-10-30": 0,
+     "2026-10-31": 0
     },
     "applications_7d": 2,
     "status": "applied, awaiting offers",
@@ -1166,7 +1170,7 @@
     "applications_7d": null,
     "status": "71 agents live",
     "revenue_lifetime_usd": 102.75,
-    "note": "we list our own products here; no applications; 2,081 installs"
+    "note": "we list our own products here; no applications; 2,101 installs"
    },
    {
     "platform": "PromptBase (our prompts)",
