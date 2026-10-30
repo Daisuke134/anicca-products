@@ -690,7 +690,7 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 1960
+     "uses": 1962
     },
     {
      "rank": 2,
@@ -715,11 +715,11 @@
    ],
    "winner_saya_top": [
     [
-     38565,
+     38586,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
-     295,
+     296,
      "Seedance 2.0 Video - Generate Instantly"
     ],
     [
@@ -787,7 +787,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-30 20:12 JST",
+ "updated_at": "2026-10-30 20:26 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -913,7 +913,7 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 14
+   "board_updates_today": 15
   },
   {
    "agent": "Codex (CTO, Head of Research)",
