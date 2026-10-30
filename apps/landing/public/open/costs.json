@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-10-30 15:00 JST",
+ "updated_at": "2026-10-30 17:10 JST",
  "basis": "Verified against bank debit notices and receipts on 2026-10-30. Monthly run-rate from November, USD at 156.84 JPY",
  "items": [
   {
-   "name": "Grok Bot + Cursor (X Super)",
+   "name": "Grok Bot + Cursor",
    "use": "AI agent team",
    "monthly_usd": 113.49,
    "status": "active"
@@ -51,70 +51,21 @@
    "status": "active"
   },
   {
-   "name": "X Premium",
-   "use": "duplicate of X Super - being cut",
-   "monthly_usd": 5.85,
-   "status": "cutting"
-  },
-  {
    "name": "Cursor usage",
    "use": "coding",
    "monthly_usd": 0.68,
    "status": "active"
-  },
-  {
-   "name": "Adobe",
-   "use": "no Anicca loop uses it - cut",
-   "monthly_usd": 0,
-   "status": "cut"
-  },
-  {
-   "name": "LinkedIn Premium",
-   "use": "ended 2026-10-12",
-   "monthly_usd": 0,
-   "status": "cancelled"
-  },
-  {
-   "name": "Google One AI Pro",
-   "use": "ended 2026-10-28",
-   "monthly_usd": 0,
-   "status": "cancelled"
-  },
-  {
-   "name": "Claude Max",
-   "use": "cancelled, no Oct charge",
-   "monthly_usd": 0,
-   "status": "cancelled"
   }
  ],
- "total_monthly_usd": 563.78,
+ "total_monthly_usd": 557.93,
  "revenue_last30d_usd": 203.86,
- "gross_profit_monthly_usd": -359.92,
+ "gross_profit_monthly_usd": -354.07,
  "unknown": "Google Cloud / Gemini API usage: October bill not received yet (leaked key removed, budget cap set). Hosting, domains and free-tier tools: no bills found",
- "ended": [
+ "one_off": [
   {
-   "name": "Adobe",
-   "use": "no Anicca loop uses it - cut",
-   "monthly_usd": 31.75,
-   "status": "cut"
-  },
-  {
-   "name": "LinkedIn Premium",
-   "use": "ended 2026-10-12",
-   "monthly_usd": 0,
-   "status": "cancelled"
-  },
-  {
-   "name": "Google One AI Pro",
-   "use": "ended 2026-10-28",
-   "monthly_usd": 0,
-   "status": "cancelled"
-  },
-  {
-   "name": "Claude Max",
-   "use": "cancelled, no Oct charge",
-   "monthly_usd": 0,
-   "status": "cancelled"
+   "name": "HeyGen API credits",
+   "use": "monk videos (one-off, paid 2026-10-30)",
+   "amount_usd": 10.0
   }
  ]
 }
