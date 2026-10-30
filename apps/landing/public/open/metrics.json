@@ -449,6 +449,24 @@
    "runs_per_day": 288,
    "posts_to": "Telegram",
    "status": "稼働状態未確認"
+  },
+  {
+   "loop": "Public /open refresh (collect_all → metrics.json → anicca-products main)",
+   "owner": "参謀",
+   "host": "Grok Bot（box）→ Mac mini git push → GitHub Actions deploy → Netlify",
+   "schedule": "毎日 21:05（scoreboard と同じ回で bash /workspace/team/scripts/open/update_open.sh）",
+   "runs_per_day": 1,
+   "posts_to": "https://aniccaai.com/open＋ anicca-open.surge.sh",
+   "status": "2026-10-30 20:26 手動テスト OK"
+  },
+  {
+   "loop": "diceai0 follower tracker",
+   "owner": "Forensic Writing",
+   "host": "Grok Bot routine diceai0-follower-tracker",
+   "schedule": "毎日 21:00 JST",
+   "runs_per_day": 1,
+   "posts_to": "x/FOLLOWERS.md, x/TOPIC-QUEUE.md, metrics/x-followers.csv",
+   "status": "新設 10/30、初回 21:10 OK"
   }
  ],
  "pnl": {
@@ -690,7 +708,7 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 1962
+     "uses": 1971
     },
     {
      "rank": 2,
@@ -700,22 +718,22 @@
     {
      "rank": 3,
      "title": "TikTok Series Continuity Planner — Next Script",
-     "uses": 1
+     "uses": 2
     },
     {
      "rank": 4,
-     "title": "NHL Goalie Matchup Brief",
+     "title": "TikTok Storytime Script — Scene-by-Scene",
      "uses": 1
     },
     {
      "rank": 5,
-     "title": "TikTok Customer Proof Story Script",
-     "uses": 0
+     "title": "NHL Goalie Matchup Brief",
+     "uses": 1
     }
    ],
    "winner_saya_top": [
     [
-     38586,
+     38643,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
@@ -751,7 +769,7 @@
    "winner": "saya CloneCut (5133292529)",
    "metric": "uses / daily demo video",
    "gap_rows": 17,
-   "open": 11,
+   "open": 10,
    "file": "gaps/GAP-capafy-Anicca.md"
   },
   {
@@ -787,7 +805,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-30 20:26 JST",
+ "updated_at": "2026-10-30 21:38 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -836,7 +854,7 @@
    "revenue_lifetime": 102.75,
    "mrr": null,
    "metric": "installs (cumulative)",
-   "metric_value": 2069,
+   "metric_value": 2081,
    "status": "live; 4 fixed agents resubmitted 10/30, in review",
    "next": "paid tier"
   },
@@ -856,7 +874,7 @@
    "revenue_mtd": null,
    "mrr": null,
    "metric": "site pageviews (cumulative)",
-   "metric_value": 1903,
+   "metric_value": 1924,
    "status": "live",
    "next": "search traffic (SEO loop)"
   },
@@ -894,7 +912,7 @@
    "revenue_mtd": null,
    "mrr": null,
    "metric": "X followers (@diceai0)",
-   "metric_value": 493,
+   "metric_value": 494,
    "status": "research (Manager Lab)",
    "next": "first public research note"
   },
@@ -913,7 +931,7 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 15
+   "board_updates_today": 16
   },
   {
    "agent": "Codex (CTO, Head of Research)",
@@ -925,7 +943,7 @@
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 1
+   "board_updates_today": 2
   },
   {
    "agent": "Muse (CMO)",
@@ -1139,7 +1157,7 @@
     "applications_7d": null,
     "status": "71 agents live",
     "revenue_lifetime_usd": 102.75,
-    "note": "we list our own products here; no applications; 2,069 installs"
+    "note": "we list our own products here; no applications; 2,081 installs"
    },
    {
     "platform": "PromptBase (our prompts)",
