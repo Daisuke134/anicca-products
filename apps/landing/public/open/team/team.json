@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-31 08:05 JST",
+ "built_at": "2026-10-31 08:08 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -109,10 +109,14 @@
   },
   {
    "id": "6",
-   "loop": "Coconala watch",
+   "loop": "Gig platforms pass 9/15/21（Lancers・CrowdWorks・Coconala、参謀が唯一の担当）",
    "owner": "参謀",
-   "schedule": "4h",
-   "times": []
+   "schedule": "毎日 9:00/15:00/21:00 JST（スクリプト高頻度アクセス禁止：Lancers 警告 10/27）",
+   "times": [
+    "09:00",
+    "15:00",
+    "21:00"
+   ]
   },
   {
    "id": "7",
@@ -169,7 +173,7 @@
   {
    "id": "13",
    "loop": "X distribution @selawmqt",
-   "owner": "参謀・Muse・Codex（全員本番）",
+   "owner": "参謀（唯一の投稿者）",
    "schedule": "1日4回",
    "times": []
   },
@@ -424,15 +428,8 @@
    "id": "42",
    "loop": "coconala-lancers-loop（10/30 14:28 移管）",
    "owner": "dr eggbot",
-   "schedule": "2:30/6:30/10:30/14:30/18:30/22:30 JST",
-   "times": [
-    "02:30",
-    "06:30",
-    "10:30",
-    "14:30",
-    "18:30",
-    "22:30"
-   ]
+   "schedule": "—",
+   "times": []
   },
   {
    "id": "42b",
@@ -481,7 +478,7 @@
   {
    "id": "58",
    "loop": "X loop @diceai0（Anicca, build in public）",
-   "owner": "参謀・Muse・Codex（全員本番）",
+   "owner": "参謀（唯一の投稿者。他は X-QUEUE-diceai0.md に下書きだけ）",
    "schedule": "1日6回 08:15・11:15・14:15・17:15・20:15・23:15 JST",
    "times": [
     "08:15",
@@ -567,7 +564,7 @@
   {
    "id": "55",
    "loop": "contract-platforms daily pass (CONTRACT-PLATFORMS.md + SERVICE-CATALOG",
-   "owner": "dr eggbot (Upwork/Lancers/Coconala), Dot",
+   "owner": "dr eggbot (Upwork), Dots (Contra/Guru), ",
    "schedule": "1日2回 10:45/18:45 JST",
    "times": [
     "10:45",
@@ -743,42 +740,7 @@
   },
   {
    "id": "M",
-   "loop": "Muse capafy",
-   "owner": "Muse",
-   "schedule": "3時間ごと",
-   "times": []
-  },
-  {
-   "id": "M",
-   "loop": "Muse coconala",
-   "owner": "Muse",
-   "schedule": "3時間ごと",
-   "times": []
-  },
-  {
-   "id": "M",
-   "loop": "Muse contra",
-   "owner": "Muse",
-   "schedule": "3時間ごと",
-   "times": []
-  },
-  {
-   "id": "M",
-   "loop": "Muse crowdworks",
-   "owner": "Muse",
-   "schedule": "3時間ごと",
-   "times": []
-  },
-  {
-   "id": "M",
    "loop": "Muse guru",
-   "owner": "Muse",
-   "schedule": "3時間ごと",
-   "times": []
-  },
-  {
-   "id": "M",
-   "loop": "Muse mercor",
    "owner": "Muse",
    "schedule": "3時間ごと",
    "times": []
@@ -835,13 +797,6 @@
   {
    "id": "M",
    "loop": "Muse global-freelance",
-   "owner": "Muse",
-   "schedule": "6時間ごと",
-   "times": []
-  },
-  {
-   "id": "M",
-   "loop": "Muse lancers",
    "owner": "Muse",
    "schedule": "6時間ごと",
    "times": []
