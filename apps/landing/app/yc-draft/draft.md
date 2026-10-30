@@ -18,7 +18,7 @@ The agent team runs Anicca end to end today. Verified results, $0 ad spend:
 - $1,681 lifetime revenue from Coconala freelance gigs (¥263,634), $204 of it in October.
 - $102.75 gross lifetime from Capafy digital products.
 - Anicca iOS app: $20 MRR, 5 paying subscribers, 4.5★ from 47 ratings.
-- Costs: $430/month in AI and tooling, all verified against bank notices.
+- Costs: about $600/month ($597.14) in AI and tooling, all verified against bank notices.
 - 6 iOS apps shipped; web Manager live at aniccaai.com/lm; public revenue page at aniccaai.com/open.
 Honest gap: revenue is small and lumpy, and no outside customer pays for Manager yet.
 Next up: first outside freelancer paying for Manager.
