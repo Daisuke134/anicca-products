@@ -1,279 +1,371 @@
 {
-  "updated_at": "2026-10-30 12:02 JST",
-  "mission": "Build the manager, an AI that ends suffering in this world.",
-  "goal": {
-    "current_mrr_usd": 24.0,
-    "mrr_usd": 10000,
-    "progress_pct": 0.24
+ "updated_at": "2026-10-30 17:05 JST",
+ "mission": "Build the manager, an AI that ends suffering in this world.",
+ "goal": {
+  "mrr_usd": 10000,
+  "current_mrr_usd": 24.0,
+  "progress_pct": 0.24
+ },
+ "totals": {
+  "revenue_mtd_usd": 203.86,
+  "revenue_last30d_usd": 203.86,
+  "mrr_usd": 24.0,
+  "currency": "USD"
+ },
+ "businesses": [
+  {
+   "name": "Contract work (freelance platforms)",
+   "owner": "dr eggbot, Dots, Fucker",
+   "revenue_mtd": 203.86,
+   "mrr": null,
+   "metric": "paid Upwork contract (Labelbox) active since 10/30; Coconala trial order in progress",
+   "status": "live",
+   "next": "first Upwork payout; more Coconala repeat orders"
   },
-  "totals": {
-    "revenue_mtd_usd": 203.86,
-    "revenue_last30d_usd": 203.86,
-    "mrr_usd": 24.0,
-    "costs_mtd_usd": 636.93,
-    "profit_mtd_usd": -433.03,
-    "burn_monthly_usd": 1130,
-    "runway_months": 1.7,
-    "currency": "USD"
+  {
+   "name": "Anicca iOS (affirmation app)",
+   "owner": "Codex (build), Anicca Marketer (growth)",
+   "revenue_mtd": null,
+   "mrr": 20.0,
+   "metric": "paying subscribers",
+   "metric_value": 5,
+   "status": "live, update 1.9.6 in review",
+   "next": "1.9.6 approval"
   },
-  "businesses": [
-    {
-      "metric": "proposals sent today",
-      "metric_value": 4,
-      "mrr": null,
-      "name": "Contract work (freelance platforms)",
-      "owner": "COO",
-      "revenue_mtd": 203.86,
-      "status": "live"
-    },
-    {
-      "metric": "paying subscribers",
-      "metric_value": 5,
-      "mrr": 20.0,
-      "name": "Anicca iOS (affirmation app)",
-      "owner": "CTO / CMO",
-      "revenue_mtd": 0,
-      "status": "live, update 1.9.6 in review"
-    },
-    {
-      "metric": "—",
-      "metric_value": null,
-      "mrr": 4.0,
-      "name": "Honne family apps (Honne, Thankful, Daily Dhamma, Sleep Reset)",
-      "owner": "CTO / CMO",
-      "revenue_mtd": null,
-      "status": "live"
-    },
-    {
-      "metric": "installs (cumulative)",
-      "metric_value": 1600,
-      "mrr": null,
-      "name": "Capafy agents (Clip Map, Hook Lab)",
-      "owner": "CTO / COO",
-      "revenue_lifetime": 112.74,
-      "revenue_mtd": null,
-      "status": "live"
-    },
-    {
-      "metric": "social views, 7d (monk + app accounts)",
-      "metric_value": 23116,
-      "mrr": null,
-      "name": "Monk e-book / Anicca Reset",
-      "owner": "CMO (Muse)",
-      "revenue_mtd": 0,
-      "status": "live"
-    },
-    {
-      "metric": "site pageviews (cumulative)",
-      "metric_value": 1701,
-      "mrr": null,
-      "name": "AI Monk Factory / Monk Database (web)",
-      "owner": "CTO / CMO",
-      "revenue_mtd": 0,
-      "status": "live"
-    },
-    {
-      "metric": "listing views, 7d",
-      "metric_value": 14,
-      "mrr": null,
-      "name": "PromptBase prompts",
-      "owner": "Digital products",
-      "revenue_mtd": 0,
-      "status": "live"
-    },
-    {
-      "metric": "—",
-      "metric_value": null,
-      "mrr": null,
-      "name": "LINE stickers",
-      "owner": "Digital products",
-      "revenue_mtd": 0,
-      "status": "live"
-    },
-    {
-      "metric": "—",
-      "metric_value": null,
-      "mrr": null,
-      "name": "note / Substack writing",
-      "owner": "Digital products",
-      "revenue_mtd": 0,
-      "status": "starting"
-    },
-    {
-      "metric": "—",
-      "metric_value": null,
-      "mrr": 0,
-      "name": "Life Manager Cloud",
-      "owner": "CTO",
-      "revenue_mtd": 0,
-      "status": "building, test billing"
-    },
-    {
-      "metric": "X followers (@diceai0)",
-      "metric_value": 493,
-      "mrr": 0,
-      "name": "The Manager (AI that ends suffering)",
-      "owner": "Head of Research",
-      "revenue_mtd": 0,
-      "status": "research"
-    },
-    {
-      "metric": "—",
-      "metric_value": null,
-      "mrr": null,
-      "name": "Accelerators, hackathons, grants",
-      "owner": "CEO",
-      "revenue_mtd": null,
-      "status": "applying"
-    }
+  {
+   "name": "Honne family apps (Honne, Thankful, Daily Dhamma, Sleep Reset)",
+   "owner": "Codex / Fucker",
+   "revenue_mtd": null,
+   "mrr": 4.0,
+   "metric": "live on the App Store",
+   "status": "live",
+   "next": "Honne 1.0.5 release"
+  },
+  {
+   "name": "Capafy agents (Clip Map, Hook Lab and others)",
+   "owner": "Fucker",
+   "revenue_mtd": null,
+   "revenue_lifetime": 102.75,
+   "mrr": null,
+   "metric": "installs (cumulative)",
+   "metric_value": 2065,
+   "status": "live; 4 fixed agents resubmitted 10/30, in review",
+   "next": "paid tier"
+  },
+  {
+   "name": "Monk e-book / Anicca Reset",
+   "owner": "Muse",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "social views, 7d (monk + app accounts)",
+   "metric_value": 17970,
+   "status": "live; Whop store created 10/30, listing next",
+   "next": "first e-book sale"
+  },
+  {
+   "name": "AI Monk Factory / Monk Database (web)",
+   "owner": "参謀",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "site pageviews (cumulative)",
+   "metric_value": 1701,
+   "status": "live",
+   "next": "search traffic (SEO loop)"
+  },
+  {
+   "name": "PromptBase prompts",
+   "owner": "Fucker",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "listing views, 7d",
+   "metric_value": 16,
+   "status": "live, no sales yet",
+   "next": "first sale"
+  },
+  {
+   "name": "LINE stickers",
+   "owner": "Digital products",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "38 sets on sale",
+   "status": "live, no sales yet",
+   "next": "first sale"
+  },
+  {
+   "name": "Life Manager Cloud",
+   "owner": "Codex (CTO)",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "shipped: aniccaai.com/maritime live; billing in test mode",
+   "status": "building; no paying users yet",
+   "next": "first paid signup end to end"
+  },
+  {
+   "name": "The Manager (AI that ends suffering)",
+   "owner": "Codex (Head of Research)",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "X followers (@diceai0)",
+   "metric_value": 493,
+   "status": "research (Manager Lab)",
+   "next": "first public research note"
+  },
+  {
+   "name": "Accelerators, hackathons, grants",
+   "owner": "参謀 / Codex",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "accepted: Meta Global AI Developer Hackathon, Vultr Agent Rush; applied: YC Haunted Hacks; in progress: YC W27",
+   "status": "applying",
+   "next": "YC W27 due 11/3 12:00 JST; Meta build due 11/5"
+  }
+ ],
+ "agents": [
+  {
+   "agent": "参謀 (CEO)",
+   "today": "Priorities, delegation, YC W27, this page, SEO writing",
+   "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
+   "board_updates_today": 9
+  },
+  {
+   "agent": "Codex (CTO, Head of Research)",
+   "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
+   "platforms": "GitHub, App Store Connect",
+   "board_updates_today": 4
+  },
+  {
+   "agent": "Dots (COO)",
+   "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
+   "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
+   "board_updates_today": 1
+  },
+  {
+   "agent": "Muse (CMO)",
+   "today": "Monk reels, e-book funnel, Whop store, Naïve push",
+   "platforms": "Instagram, Threads, TikTok, YouTube, Whop",
+   "board_updates_today": 5
+  },
+  {
+   "agent": "dr eggbot",
+   "today": "Proposals and client work; designs new agents",
+   "platforms": "Coconala, Lancers, Upwork, SKIMA",
+   "board_updates_today": 7
+  },
+  {
+   "agent": "Fucker",
+   "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
+   "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
+   "board_updates_today": 3
+  },
+  {
+   "agent": "Anicca Marketer",
+   "today": "Anicca iOS growth: daily posts, directories, metrics",
+   "platforms": "TikTok @aniccaaffirmation, Bluesky, Mastodon, Nostr, Telegraph",
+   "board_updates_today": 1
+  },
+  {
+   "agent": "Muse Relay",
+   "today": "Turns Muse's winning reels into X / note / TikTok material",
+   "platforms": "none (hands drafts to account owners)",
+   "board_updates_today": 2
+  },
+  {
+   "agent": "Forensic Writing",
+   "today": "Viral-hook analysis for X (drafts only)",
+   "platforms": "none (drafts only)",
+   "board_updates_today": 0
+  },
+  {
+   "agent": "Manus (trial)",
+   "today": "New external teammate, first trial task starting 10/30",
+   "platforms": "none yet",
+   "board_updates_today": 0
+  }
+ ],
+ "contract_work": {
+  "applications_today": 0,
+  "applications_7d": 52,
+  "days": [
+   "2026-10-24",
+   "2026-10-25",
+   "2026-10-26",
+   "2026-10-27",
+   "2026-10-28",
+   "2026-10-29",
+   "2026-10-30"
   ],
-  "contract_work": {
-    "as_of": "2026-10-30 12:02 JST",
-    "applications_today": 8,
+  "platforms": [
+   {
+    "platform": "Coconala",
+    "owner": "dr eggbot",
+    "applications_today": 0,
     "applications_by_day": {
-      "2026-10-28": 28,
-      "2026-10-29": 5,
-      "2026-10-30": 8
+     "2026-10-24": 0,
+     "2026-10-25": 3,
+     "2026-10-26": 12,
+     "2026-10-27": 3,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0
     },
-    "applications_total_recent_3d": 41,
-    "note": "Applications are proposals sent, not orders or revenue. The 2026-10-28 per-platform split was not measured, so only the daily total is published for that day. Revenue is shown per platform only where measured on the platform itself; null = not measured.",
-    "platforms": [
-      {
-        "platform": "CrowdWorks",
-        "status": "live - signed in (saved login); all proposals under client review",
-        "applications_today": 4,
-        "applications_by_day": {
-          "2026-10-29": 1,
-          "2026-10-30": 4
-        },
-        "contracts_in_progress": 10,
-        "revenue_mtd_usd": null,
-        "note": "Today: proposals 311215155, 311218754, 311221741 (incl. fixed-price JPY 88,000 and JPY 110,000 offers, proposal stage only)."
-      },
-      {
-        "platform": "Coconala",
-        "status": "live - signed in; 1 deal in progress, 1 awaiting evaluation",
-        "applications_today": 4,
-        "applications_by_day": {
-          "2026-10-29": 4,
-          "2026-10-30": 4
-        },
-        "applications_in_progress": 221,
-        "revenue_mtd_usd": null,
-        "revenue_mtd_jpy": 43000,
-        "revenue_mtd_deals": 4,
-        "revenue_lifetime_jpy": 265194,
-        "balance_jpy": 1560,
-        "note": "October sales JPY 43,000 across 4 deals on the dashboard (sales-management view: JPY 33,540 for October); cumulative JPY 265,194. Today: application 5351142."
-      },
-      {
-        "platform": "Mercor",
-        "status": "contract active (Odin - Writer, $40/hr base, since 2026-10-28); Studio entry pending MFA setup; web session expired",
-        "applications_today": 0,
-        "revenue_mtd_usd": null,
-        "note": "Earnings not measured yet."
-      },
-      {
-        "platform": "Lancers",
-        "status": "blocked - sign-in unavailable (human verification, no saved login)",
-        "applications_today": 0,
-        "revenue_mtd_usd": null,
-        "note": "10 proposal receipts reported by the Lancers office are unconfirmed and not counted."
-      },
-      {
-        "platform": "Guru",
-        "status": "blocked - not signed in (11 consecutive stops)",
-        "applications_today": 0,
-        "revenue_mtd_usd": null,
-        "note": "6 initial proposals unverified; not counted."
-      },
-      {
-        "platform": "Contra",
-        "status": "blocked - Google device verification",
-        "applications_today": 0,
-        "applications_by_day": {
-          "2026-10-28": 1
-        },
-        "revenue_mtd_usd": null
-      },
-      {
-        "platform": "Upwork",
-        "status": "blocked - Cloudflare",
-        "applications_today": 0,
-        "revenue_mtd_usd": null
-      },
-      {
-        "platform": "Fiverr",
-        "status": "registered 2026-10-30 (anicca_jp); seller onboarding 35% complete, no gig published yet",
-        "applications_today": 0,
-        "revenue_mtd_usd": null
-      },
-      {
-        "platform": "Workana",
-        "status": "blocked - Cloudflare verification reset",
-        "applications_today": 0,
-        "revenue_mtd_usd": null
-      },
-      {
-        "platform": "Freelancer.com",
-        "status": "blocked - Google device verification",
-        "applications_today": 0,
-        "revenue_mtd_usd": null
-      },
-      {
-        "platform": "PeoplePerHour",
-        "status": "blocked - Google challenge",
-        "applications_today": 0,
-        "revenue_mtd_usd": null
-      },
-      {
-        "platform": "PromptBase",
-        "status": "live - signed in (@keipanda); 11 listings published",
-        "applications_today": 0,
-        "listing_views_7d": 14,
-        "gross_revenue_usd": 0.0,
-        "job_applications": 0
-      },
-      {
-        "platform": "Whop",
-        "status": "registered 2026-10-30; no product listed yet",
-        "applications_today": null,
-        "balance_usd": 0.0
-      }
-    ]
-  },
-  "agents": [
-    {
-      "agent": "参謀 (CEO)",
-      "board_updates_today": 95,
-      "today": "Goals, ROI ranking, fundraising and hackathon applications, X distribution"
+    "applications_7d": 18,
+    "status": "active; trial order in progress (10/30)",
+    "revenue_lifetime_usd": 1680.57
+   },
+   {
+    "platform": "Lancers",
+    "owner": "dr eggbot",
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-10-24": 6,
+     "2026-10-25": 6,
+     "2026-10-26": 9,
+     "2026-10-27": 0,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0
     },
-    {
-      "agent": "Muse (CMO)",
-      "board_updates_today": 19,
-      "today": "Monk videos on Instagram/TikTok, e-book funnel, competitor-to-script loop"
+    "applications_7d": 21,
+    "status": "active",
+    "revenue_lifetime_usd": null
+   },
+   {
+    "platform": "Upwork",
+    "owner": "dr eggbot",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "contract active (Labelbox, 10/30); ID check due 11/6",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "SKIMA",
+    "owner": "dr eggbot",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "CrowdWorks",
+    "owner": "Dots",
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-10-24": 2,
+     "2026-10-25": 3,
+     "2026-10-26": 6,
+     "2026-10-27": 0,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0
     },
-    {
-      "agent": "Dots (COO)",
-      "board_updates_today": 21,
-      "today": "Contract-work proposals and listings, marketplace research"
+    "applications_7d": 11,
+    "status": "active; 3 client replies waiting (login needed)",
+    "revenue_lifetime_usd": null
+   },
+   {
+    "platform": "Contra",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Freelancer.com",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Malt",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Workana",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "account in review (10/26)",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Guru",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "signup retry assigned to Dots",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Mercor",
+    "owner": "Fucker",
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-10-24": 0,
+     "2026-10-25": 2,
+     "2026-10-26": 0,
+     "2026-10-27": 0,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0
     },
-    {
-      "agent": "Codex (CTO, acting)",
-      "board_updates_today": 45,
-      "today": "Product builds and releases: Anicca iOS update, Capafy pricing, Manager research PR"
-    },
-    {
-      "agent": "Claude (engineering)",
-      "board_updates_today": 24,
-      "today": "Paused until Oct 30 (weekly limit); work handed to Codex"
-    },
-    {
-      "agent": "Life Manager (cloud ops)",
-      "board_updates_today": 25,
-      "today": "Life Manager Cloud: test-mode billing and end-to-end checks"
-    }
+    "applications_7d": 2,
+    "status": "applied, awaiting offers",
+    "revenue_lifetime_usd": null
+   },
+   {
+    "platform": "Fiverr",
+    "owner": "Fucker",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Capafy (our agents)",
+    "owner": "Fucker",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "71 agents live",
+    "revenue_lifetime_usd": 102.75,
+    "note": "we list our own products here; no applications; 2,065 installs"
+   },
+   {
+    "platform": "PromptBase (our prompts)",
+    "owner": "Fucker",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "live, no sales yet",
+    "revenue_lifetime_usd": null,
+    "note": "we list our own products here; no applications; 16 views in 7 days"
+   }
   ],
-  "notes": "Revenue = money received (USD at daily FX). null = not measured yet. Costs and profit are now published: October costs $636.93 and October profit -$433.03 (revenue $203.86 minus costs), monthly burn $1,130, runway about 1.7 months (cost ledger, figures as of the 2026-10-25 close, from the Mac daily report 2026-10-26). Contract work 2026-10-30: 4 proposals (CrowdWorks 311215155, 311218754, 311221741; Coconala 5351142), all at proposal stage, no new orders or sales today; per-platform detail in contract_work. 2026-10-29 closed at 5, 2026-10-28 at 28 (3-day total 37). Capafy dashboard through 2026-10-28 UTC: 7d impressions 46.7K, detail views 3.1K, purchase rate 0.03%, new buyers 5, sales $19.98, units 5; 90d sales $112.74 (lifetime shown on the business row). Capafy myAgent at 2026-10-30 09:13: Published 49 / In Review 22 / Draft 5 / Removed 12 / total 88. Capafy 7d sales are not yet added to totals MTD pending attribution confirmation; Capafy MRR remains uncounted because the dashboard does not separate new purchases from renewals and shows no active-plan count. Anicca iOS 1.9.6 (build 815) entered Waiting for Review on 2026-10-30 10:36 JST. Social views 7d 23,116 = anicca.en 16,505 + anicca.jp.videos 4,717 + anicca.ios.jp 1,531 + monk 363. Stripe (anicca, live): balance JPY 0, active subscriptions 0. AI Monk Database verified 2026-10-29: 58 accounts, 9,902,365 followers.",
-  "missing": []
+  "source": "Counted from dated team-board entries that state how many proposals were sent, plus metrics/applications.csv. Applications are proposals, not orders."
+ },
+ "notes": "Revenue = money received (USD at daily FX). null = not measured yet. Rebuilt by a GitHub Actions schedule from the team files (every 3h).",
+ "missing": []
 }
