@@ -21,6 +21,7 @@ svg{background:#fff;border:1px solid #e5e5e5;border-radius:10px;width:100%}
 <h2>This month P&amp;L</h2><div id="pnl"></div>
 <h2>Rankings</h2><div id="rank"></div>
 <h2>Copying the winner in each niche</h2><div id="win"></div>
+<h2>Who runs what, when</h2><p class="muted">Every agent loop in the company (from team/LOOPS.md). Times are JST. Private/personal loops are left out.</p><div id="loops"></div>
 <h2>What we can't read yet</h2><div id="gaps"></div>
 <script>
 const $=id=>document.getElementById(id),f=n=>n==null?'unknown':(n<0?'−$':'$')+Math.abs(n).toLocaleString('en-US',{maximumFractionDigits:2});
@@ -40,6 +41,7 @@ Object.entries(r.gsc||{}).forEach(([s,x])=>{if(x.d7)rows.push(['Google Search (7
 ((r.capafy||{}).our_top||[]).forEach(x=>rows.push(['Capafy (our listings by uses)','#'+x.rank,x.title,x.uses+' uses']));((r.capafy||{}).winner_saya_top||[]).slice(0,1).forEach(x=>rows.push(['Capafy niche winner','saya',x[1],x[0]+' uses']));
 $('rank').innerHTML=tbl(['Where','Product','Keyword / item','Position'],rows);
 $('win').innerHTML=tbl(['Product','Winner we copy','Metric','Differences listed','Still open'],(d.winners||[]).map(w=>[w.product,w.winner,w.metric,w.gap_rows,w.open]));
+$('loops').innerHTML=tbl(['Agent','Loop','Runs on','Schedule (JST)','Runs/day','Writes / posts to','Status'],(d.loops||[]).map(x=>[x.owner,x.loop,x.host,x.schedule,x.runs_per_day,x.posts_to,x.status]));
 $('gaps').innerHTML=tbl(['Source','Why'],(d.metric_gaps||[]).map(g=>[g.item,g.why]));
 });
 </script></body></html>

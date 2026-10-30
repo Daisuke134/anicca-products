@@ -1,4 +1,456 @@
 {
+ "loops": [
+  {
+   "loop": "Distribution loop (Anicca+LM)",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "3h",
+   "runs_per_day": 8.0,
+   "posts_to": "LM SNS→ marketing/POST-LOG.csv",
+   "status": "PAUSED 10/30 15:4x"
+  },
+  {
+   "loop": "X money scout",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "毎日 7:41",
+   "runs_per_day": 1,
+   "posts_to": "LEARNINGS.md",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Daily metrics scoreboard",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "21:05",
+   "runs_per_day": 1,
+   "posts_to": "SCOREBOARD.md",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Hourly status to 成田さん",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "3h",
+   "runs_per_day": 8.0,
+   "posts_to": "成田さんDM",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Daily engage pass",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "11:13",
+   "runs_per_day": 1,
+   "posts_to": "X 2垢の返信/いいね",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Coconala watch",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "4h",
+   "runs_per_day": 6.0,
+   "posts_to": "gig-metrics.csv / 返信",
+   "status": "OUTAGE-FAIL "
+  },
+  {
+   "loop": "Team revenue loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "3h",
+   "runs_per_day": 8.0,
+   "posts_to": "gig-metrics.csv、提案",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Copy-the-winners teardown",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "9:00/17:00",
+   "runs_per_day": 2,
+   "posts_to": "gaps/, WINNERS.md",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Gig listings metrics",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "10:30",
+   "runs_per_day": 1,
+   "posts_to": "gig-metrics.csv",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "X distribution @diceai0/@selawmqt",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "1日4回",
+   "runs_per_day": null,
+   "posts_to": "X @diceai0/@selawmqt",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Opportunity apply loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "2h",
+   "runs_per_day": 12.0,
+   "posts_to": "opportunities/",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Long-term thinking",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "10:00",
+   "runs_per_day": 1,
+   "posts_to": "LONG-TERM-STRATEGY.md",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Daily Anicca report",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "8:30",
+   "runs_per_day": 1,
+   "posts_to": "成田さんDM",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "お笑いライブ抽選",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "10:00",
+   "runs_per_day": 1,
+   "posts_to": "comedy-lives.md",
+   "status": "?"
+  },
+  {
+   "loop": "New contract-platform signup",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "4h",
+   "runs_per_day": 6.0,
+   "posts_to": "gig-platforms.md",
+   "status": "?"
+  },
+  {
+   "loop": "Meta loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "9:15/15:15/21:15",
+   "runs_per_day": 3,
+   "posts_to": "LOOP-MAP.md 等",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "CMO weekly",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "月曜",
+   "runs_per_day": null,
+   "posts_to": "marketing/",
+   "status": "?"
+  },
+  {
+   "loop": "LM Cloud+Maritime",
+   "owner": "参謀（実装 Codex）",
+   "host": "Grok Bot",
+   "schedule": "9:50/15:50/21:50",
+   "runs_per_day": 3,
+   "posts_to": "Codex 依頼、PR",
+   "status": "OK 10/30 15:4x"
+  },
+  {
+   "loop": "Investing loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "平日 22:40",
+   "runs_per_day": 1,
+   "posts_to": "INVESTING-LOG.md",
+   "status": "?"
+  },
+  {
+   "loop": "Content+SEO+AEO",
+   "owner": "参謀（10/30 担当は Muse に移管）",
+   "host": "Grok Bot",
+   "schedule": "4h",
+   "runs_per_day": 6.0,
+   "posts_to": "SEO-GSC.md, note",
+   "status": "OK "
+  },
+  {
+   "loop": "CEO growth loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "8:35/14:35/20:35",
+   "runs_per_day": 3,
+   "posts_to": "LOOPS-PRODUCT-TURNS.md, LOOP-HEALTH.md",
+   "status": "OK "
+  },
+  {
+   "loop": "Daily account metrics snapshot",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "9:15",
+   "runs_per_day": 1,
+   "posts_to": "ACCOUNTS.md / metrics/",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Mac mini exit loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "11:00",
+   "runs_per_day": 1,
+   "posts_to": "MACMINI-EXIT.md",
+   "status": "?"
+  },
+  {
+   "loop": "Daily E2E attribution",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "15:30",
+   "runs_per_day": 1,
+   "posts_to": "metrics/",
+   "status": "?"
+  },
+  {
+   "loop": "YC hackathon watch",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "8:00/20:00",
+   "runs_per_day": 2,
+   "posts_to": "hackathons/",
+   "status": "?"
+  },
+  {
+   "loop": "YC acceptance→flight",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "4h",
+   "runs_per_day": 6.0,
+   "posts_to": "成田さんDM",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Manager Lab daily",
+   "owner": "参謀（研究 Codex）",
+   "host": "Grok Bot",
+   "schedule": "7:00",
+   "runs_per_day": 1,
+   "posts_to": "manager/MANAGER-LAB",
+   "status": "?"
+  },
+  {
+   "loop": "参謀 daily self-improvement",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "7:30",
+   "runs_per_day": 1,
+   "posts_to": "SELF-IMPROVEMENT.md",
+   "status": "?"
+  },
+  {
+   "loop": "Founder-out-of-loop audit",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "23:00",
+   "runs_per_day": 1,
+   "posts_to": "HUMAN-DEPENDENCIES.md",
+   "status": "?"
+  },
+  {
+   "loop": "Hourly team health check",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "毎時:50",
+   "runs_per_day": null,
+   "posts_to": "LOOP-HEALTH.md, health/",
+   "status": "本当の故障あり"
+  },
+  {
+   "loop": "Honne product loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "9:00",
+   "runs_per_day": 1,
+   "posts_to": "PRODUCT-LOOPS.md",
+   "status": "?"
+  },
+  {
+   "loop": "Naïve founders email",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "?",
+   "runs_per_day": null,
+   "posts_to": "メール",
+   "status": "?"
+  },
+  {
+   "loop": "Agent recruiting weekly",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "週1",
+   "runs_per_day": null,
+   "posts_to": "TEAM.md",
+   "status": "?"
+  },
+  {
+   "loop": "Daily team briefing",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "8:50",
+   "runs_per_day": 1,
+   "posts_to": "briefings/、部屋",
+   "status": "?"
+  },
+  {
+   "loop": "Anicca 配信＋LM配信＋数値（growth loop）",
+   "owner": "Anicca Marketer",
+   "host": "Grok Bot",
+   "schedule": "3時間ごと 0:47・3:47・6:47…21:47（±15分、10/30 17:58〜 USAGE-CUTS）",
+   "runs_per_day": 96,
+   "posts_to": "Bluesky JP/EN・Mastodon @anicca_affirm/@aniccaapp・Tumblr、LM の Bluesky/Mastodon/Tu",
+   "status": "OK "
+  },
+  {
+   "loop": "Fucker revenue loop（Capafy hands-off N2 周回＋PromptBase/Honne・PDF Insight/Mercor/Fiverr）＋ Fucker daily revenue step ＋ Honne/PDF Insight daily distribution",
+   "owner": "Fucker",
+   "host": "Grok Bot",
+   "schedule": "2時間ごと :35（±15分、10/30 17:58〜 使用量削減。Mercor は1日1回）／毎日 10:00／毎日 10:55",
+   "runs_per_day": 96,
+   "posts_to": "Capafy 出品・提出、opportunities/naive-hackathon/AUTONOMY-LEDGER.csv・CAPAFY-CYCLES.md、",
+   "status": "毎時ループ OK "
+  },
+  {
+   "loop": "upwork-skima-loop",
+   "owner": "dr eggbot",
+   "host": "Grok Bot（重い下書きは codex-run.sh）",
+   "schedule": "3時間ごと24時間（0/3/6/9/12/15/18/21時 JST、10/30 17:53〜）",
+   "runs_per_day": 1,
+   "posts_to": "Upwork/SKIMA 応募、LBLX134 workroom と Alignerr 招待の監視、Freelancer/Malt の受信を参謀へ転送",
+   "status": "稼働中。応募は本人確認待ちで停止"
+  },
+  {
+   "loop": "coconala-lancers-loop（10/30 14:28 移管）",
+   "owner": "dr eggbot",
+   "host": "Grok Bot",
+   "schedule": "2:30/6:30/10:30/14:30/18:30/22:30 JST",
+   "runs_per_day": 6,
+   "posts_to": "ココナラ/Lancers の提案・返信・納品。order 18521371 は評価待ち",
+   "status": "稼働中。重複に注意：Coconala watch は停止予定"
+  },
+  {
+   "loop": "Daily HOOKS.md refresh",
+   "owner": "Forensic Writing",
+   "host": "Grok Bot（重い処理は box codex-run.sh）",
+   "schedule": "毎日 6:08〜6:30 JST（Grok Bot routine daily-hooks-md-refresh）",
+   "runs_per_day": 2,
+   "posts_to": "marketing/HOOKS.md, hook-forensics/hook-formulas.md, WINS.md, 参謀へDMで上位3件",
+   "status": "10/28〜30 使用量切れで失敗、10/31 に3日分まとめて回収。今のタスク"
+  },
+  {
+   "loop": "Muse Relay pass",
+   "owner": "Muse Relay",
+   "host": "Grok Bot routine muse-relay-pass（書き直しは box の codex-run.sh）",
+   "schedule": "8〜20時 4h（8・12・16・20時±15。10/30 17:58 USAGE-CUTS で夜を止め、2h→4h）",
+   "runs_per_day": 6.0,
+   "posts_to": "自分では投稿しない。勝ち投稿を WINS.md に1行、素材を marketing/samples/muse-relay/ と X-QUEUE-diceai0.",
+   "status": "OK"
+  },
+  {
+   "loop": "Muse 全レーン（IG 3垢 勝者コピー1日3本・Threads @anicca.en・monk.mujo＋TikTok @anicca_cemetery・受託・Capafy・SEO/AIO・/open）",
+   "owner": "Muse",
+   "host": "Muse クラウドVM（定義 goals/anicca-revenue-growth-as-life-manager/crons/）",
+   "schedule": "毎日 03:22〜22:22 の各 :22（distribution 09:22/15:22、threads 12:22、articles 14:22、monk-daily 20:22、daily-report 21:22 ほか）／3h・1h・6h・30分・15分のループあり。詳細は §Muse",
+   "runs_per_day": 8.0,
+   "posts_to": "IG・Threads・僧侶TikTok・note/Substack・aniccaai.com・LEARNINGS.md",
+   "status": "行を記入済み 16:12"
+  },
+  {
+   "loop": "SEO・note 長文（10/30 移管）",
+   "owner": "Muse",
+   "host": "Muse VM",
+   "schedule": "期限 10/30 21:00〜",
+   "runs_per_day": 1,
+   "posts_to": "note/SEO",
+   "status": "開始"
+  },
+  {
+   "loop": "APP-SCALING-WINNERS 更新",
+   "owner": "Dots (dots-one)",
+   "host": "Mac mini（Reason）",
+   "schedule": "毎日 14:00（初回 10/31）",
+   "runs_per_day": 1,
+   "posts_to": "research/APP-SCALING-WINNERS.md",
+   "status": "未開始"
+  },
+  {
+   "loop": "Postiz ショート動画ジョブ（LM launchd 各レーン、ebook-*-daily, capafy-reel/ig, x-tweeter 等）",
+   "owner": "Mac mini（LM local / Muse）",
+   "host": "Mac mini launchd",
+   "schedule": "1日1〜5本/垢",
+   "runs_per_day": null,
+   "posts_to": "TikTok 9垢・IG 6垢・YT 2垢・X @selawmqt",
+   "status": "投稿は出ている"
+  },
+  {
+   "loop": "capafy-autopublish",
+   "owner": "Mac mini Codex",
+   "host": "Mac mini",
+   "schedule": "?",
+   "runs_per_day": null,
+   "posts_to": "Capafy 下書き",
+   "status": "故障：空の下書きだけ作って止まる"
+  },
+  {
+   "loop": "ops-mirror sync",
+   "owner": "参謀",
+   "host": "box（loop.sh、crond なし）",
+   "schedule": "30分",
+   "runs_per_day": 48,
+   "posts_to": "/tmp/ops-sync.log",
+   "status": "稼働中"
+  },
+  {
+   "loop": "monk_daily.py / obou_daily.py",
+   "owner": "参謀",
+   "host": "box（routine 経由）",
+   "schedule": "毎日",
+   "runs_per_day": null,
+   "posts_to": "IG @monk.mujo/@obou.anicca、TikTok @monk_anicca/@obou_anicca",
+   "status": "?"
+  },
+  {
+   "loop": "capafy-loop-daily",
+   "owner": "Mac mini Codex",
+   "host": "Mac mini launchd",
+   "schedule": "毎時 :09/:24/:39/:54",
+   "runs_per_day": null,
+   "posts_to": "Capafy へ提出",
+   "status": "稼働状態未確認"
+  },
+  {
+   "loop": "capafy-distribute-daily",
+   "owner": "Mac mini Codex",
+   "host": "Mac mini launchd",
+   "schedule": "毎時 :04/:19/:34/:49",
+   "runs_per_day": null,
+   "posts_to": "自社記事の配信",
+   "status": "稼働状態未確認"
+  },
+  {
+   "loop": "Codex 進捗報告",
+   "owner": "Mac mini Codex",
+   "host": "Mac mini launchd",
+   "schedule": "5分ごと",
+   "runs_per_day": 288,
+   "posts_to": "Telegram",
+   "status": "稼働状態未確認"
+  }
+ ],
  "pnl": {
   "month": "2026-10",
   "revenue_by_source": {
@@ -335,7 +787,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-30 20:06 JST",
+ "updated_at": "2026-10-30 20:12 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -404,7 +856,7 @@
    "revenue_mtd": null,
    "mrr": null,
    "metric": "site pageviews (cumulative)",
-   "metric_value": 1701,
+   "metric_value": 1903,
    "status": "live",
    "next": "search traffic (SEO loop)"
   },
