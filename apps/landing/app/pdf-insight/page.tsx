@@ -89,7 +89,7 @@ export default function PdfInsightLanding() {
       <JsonLd data={softwareLd} />
       <JsonLd data={faqLd} />
       <SplitHero
-        eyebrow="Web app · PDF summarizer · by Daisuke Narita"
+        eyebrow="Web app · PDF summarizer · by Anicca"
         headline={
           <>
             PDF Insight:
@@ -215,7 +215,7 @@ export default function PdfInsightLanding() {
               clear-pdf-converter.com
             </a>
           </p>
-          <p>© 2026 Daisuke Narita. All rights reserved.</p>
+          <p>© 2026 Anicca. All rights reserved.</p>
         </div>
       </footer>
     </main>

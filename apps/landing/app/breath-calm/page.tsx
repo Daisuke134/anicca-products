@@ -76,7 +76,7 @@ export default function BreathCalmLanding() {
             {' · '}
             <a href="mailto:keiodaisuke@gmail.com" className="underline hover:text-[hsl(var(--text-primary))]">Support</a>
           </p>
-          <p>© 2026 Daisuke Narita. All rights reserved.</p>
+          <p>© 2026 Anicca. All rights reserved.</p>
         </div>
       </footer>
     </main>

@@ -119,6 +119,6 @@ export default function HonneLandingEn() {
       <h2 id="honne-close">Have a message to think through?</h2><p>Take a second look with Honne, then choose a reply that sounds like you.</p><Download />
       <p className="honne-note">Three free analyses per day. Optional Premium. Requires iOS 18 or later.</p>
     </div></section>
-    <footer className="honne-footer honne-wrap"><a href="/dais">More from Anicca</a><nav aria-label="Honne support"><a href="/honne/privacy">Privacy Policy</a><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use (EULA)</a><a href="/honne/support">Support</a><a href="/honne/ja" lang="ja">日本語</a></nav><p>© 2026 Daisuke Narita. All rights reserved.</p></footer>
+    <footer className="honne-footer honne-wrap"><a href="/dais">More from Anicca</a><nav aria-label="Honne support"><a href="/honne/privacy">Privacy Policy</a><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use (EULA)</a><a href="/honne/support">Support</a><a href="/honne/ja" lang="ja">日本語</a></nav><p>© 2026 Anicca. All rights reserved.</p></footer>
   </main>;
 }

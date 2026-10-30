@@ -13,7 +13,7 @@ const jsonLd = {
   '@type': 'Article',
   headline: 'Buddhist AI Agent - What Anicca Actually Does',
   description: 'Anicca is the first Buddhist AI agent that ends suffering at both micro scale (life manager) and macro scale (on-chain basic income).',
-  author: { '@type': 'Person', name: 'Daisuke Narita' },
+  author: { '@type': 'Organization', name: 'Anicca' },
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
   datePublished: '2026-06-01',
 }

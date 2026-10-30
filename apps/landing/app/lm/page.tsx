@@ -33,7 +33,7 @@ export default function Page() {
           description:
             'Adds travel time and departure reminders to Google Calendar before eligible in-person events.',
           offers: { '@type': 'Offer', price: '29', priceCurrency: 'USD', description: 'Seven-day free trial, then $29/month' },
-          author: { '@type': 'Person', name: 'Daisuke Narita', alternateName: '成田大祐', url: 'https://aniccaai.com/dais' },
+          author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
           publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
         }}
       />

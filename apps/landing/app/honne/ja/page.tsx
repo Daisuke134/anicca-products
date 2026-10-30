@@ -36,7 +36,7 @@ export default function HonneLandingJa() {
   return (
     <main className="min-h-screen bg-[hsl(var(--background))]">
       <SplitHero
-        eyebrow="iOS · ユーティリティ · 成田大祐"
+        eyebrow="iOS · ユーティリティ · Anicca"
         headline={
           <>
             チャットの本音を、
@@ -135,7 +135,7 @@ export default function HonneLandingJa() {
               English
             </a>
           </p>
-          <p>© 2026 成田大祐. All rights reserved.</p>
+          <p>© 2026 Anicca. All rights reserved.</p>
         </div>
       </footer>
     </main>

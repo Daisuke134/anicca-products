@@ -140,8 +140,8 @@ export default function BestAiToolsForStartupFoundersPage() {
             description:
               "Discover the best AI tools for startup founders in 2026. From agentic coding assistants to proactive life managers, these 10 tools help solo founders ship products, automate marketing, and reduce burnout.",
             author: {
-              "@type": "Person",
-              name: "Daisuke Narita",
+              "@type": "Organization",
+              name: "Anicca",
             },
             datePublished: "2026-06-03",
             dateModified: "2026-06-03",

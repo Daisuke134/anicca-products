@@ -298,7 +298,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Honest affirmations for imposter syndrome, plus a two-minute exercise for when you feel like a fraud at work. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I have a stake in this topic. Here is the short version first. Imposter syndrome is the persistent feeling that your results are luck or an error, and that people will soon notice. It is not an official diagnosis, and it shows up in people who are objectively doing the work. The practical question is not "how do I feel confident?" but "what can I say to myself that I can actually believe today?"',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we have a stake in this topic. Here is the short version first. Imposter syndrome is the persistent feeling that your results are luck or an error, and that people will soon notice. It is not an official diagnosis, and it shows up in people who are objectively doing the work. The practical question is not "how do I feel confident?" but "what can I say to myself that I can actually believe today?"',
       'The feeling tends to grow when the bar keeps moving. You finish a project and immediately look at what you missed. You get praise and file it under "they are just being nice." Over time your mind collects every doubt as evidence and discards every success as an exception. Nothing about this means you are secretly unqualified. It means your attention has a filter, and the filter is set to look for flaws.',
       'That is why "I am the best" style affirmations often backfire. Your mind argues, and the argument wins. Lines that work better are factual and modest: things you did, things you are learning, things that can be true at the same time as the doubt. You are allowed to feel like a beginner and to be competent at the same time.',
       'Anicca is built around that kind of line. It sends one short affirmation at the time of day you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -334,7 +334,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Gentle affirmations for burnout and exhaustion, plus a two-minute reset for the end of a draining day. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral here. The short version: affirmations cannot fix burnout. If you are worn out because of workload, caring for others, or long stretches without rest, the real fixes are rest, support, and changes to the load. What a short line can do is make a hard evening a little less harsh, so you are not also fighting yourself.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral here. The short version: affirmations cannot fix burnout. If you are worn out because of workload, caring for others, or long stretches without rest, the real fixes are rest, support, and changes to the load. What a short line can do is make a hard evening a little less harsh, so you are not also fighting yourself.',
       'Burnout is usually described as exhaustion that does not fully go away with a normal weekend, often with cynicism about work and a feeling that nothing you do is enough. It is not a character flaw, and it is not laziness. It tends to build quietly, and the common reaction is to push harder, which makes the tiredness worse.',
       'When you are this tired, long self-help routines become one more task. So the useful lines are short and permission-giving: you can stop for today, you can do less, resting is not failing. They should sound like something a kind friend would say, not a motivational poster.',
       'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks that punish you for missing a day, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -370,7 +370,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Kind affirmations for loneliness, plus a two-minute exercise for reaching out in a small way. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so take my view with that in mind. The short version: an affirmation cannot replace people. What it can do is soften the voice that says "something is wrong with me" when you feel alone, so you have a little more energy to reach out.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so take our view with that in mind. The short version: an affirmation cannot replace people. What it can do is soften the voice that says "something is wrong with me" when you feel alone, so you have a little more energy to reach out.',
       'Loneliness is the gap between the connection you want and the connection you have. It is not the same as being alone, and you can feel it in a crowd, in a relationship, or after moving to a new city. It is common, it is painful, and it often gets louder in the evening and on weekends when the structure of the day falls away.',
       'A trap many people fall into is reading loneliness as proof that they are unlikable. That story makes reaching out feel riskier, which keeps the loneliness going. Lines that help are warm and slightly practical: you are allowed to want company, one small message counts, and connection grows slowly.',
       'Anicca sends one short line at the time of day you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -406,7 +406,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Honest affirmations for finding a little motivation when you are tired, plus a two-minute five-minute-start exercise. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I am not a neutral source. The short version: when you are genuinely tired, a pep talk will not give you energy. If the tiredness is from lack of sleep or overload, rest comes first. But on an ordinary low-energy day, the right small line can help you make a start, and starting is often the hardest part.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not a neutral source. The short version: when you are genuinely tired, a pep talk will not give you energy. If the tiredness is from lack of sleep or overload, rest comes first. But on an ordinary low-energy day, the right small line can help you make a start, and starting is often the hardest part.',
       'Many people wait for motivation before they begin, then feel worse when it does not show up. In practice, motivation often follows action rather than preceding it. A very small start, such as five minutes, lowers the cost of beginning, and once you are moving the task often feels less heavy. This is a common observation, not a guarantee.',
       'That is why "you can do anything!" lines tend to fail when you are drained. Believable lines work better: they lower the bar, give you permission to do the small version, and separate "I am tired" from "I am failing."',
       'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -442,7 +442,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Honest affirmations for procrastination, plus a two-minute exercise for starting the task you keep avoiding. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I have a stake in this topic. The short version first: affirmations will not do the task for you. What they can do is soften the self-criticism that often sits on top of procrastination, so starting feels a little less heavy.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we have a stake in this topic. The short version first: affirmations will not do the task for you. What they can do is soften the self-criticism that often sits on top of procrastination, so starting feels a little less heavy.',
       'Procrastination is often less about time management and more about avoiding a feeling: boredom, fear of doing it badly, or the sense that the task is too big. Putting it off gives short relief, then guilt arrives, and the guilt makes the task feel even worse. That loop is common, and it is not a sign that you are lazy.',
       'That is why "just do it" lines tend to bounce off. Lines that work better are small and permission-giving: you can start badly, you can do ten minutes, and you can feel resistance and begin anyway.',
       'Anicca sends one short line at the time of day you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -478,7 +478,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Grounded affirmations for self-worth, plus a two-minute exercise for separating your value from your output. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral. The short version: repeating "I am worthy" will not by itself change how you feel. It tends to help more when the line is believable and you pair it with small actions that match it.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral. The short version: repeating "I am worthy" will not by itself change how you feel. It tends to help more when the line is believable and you pair it with small actions that match it.',
       'Low self-worth often comes from conditional rules learned early: I am okay when I perform, when people approve, or when I do not make mistakes. When worth is tied to results, every bad day becomes a verdict, and every good day feels temporary.',
       'Lines that help are steady rather than grand. They say that worth is not earned daily, that you can be imperfect and still deserve care, and that you can treat yourself the way you would treat a friend in the same spot.',
       'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -514,7 +514,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Calm affirmations for perfectionism, plus a two-minute exercise for shipping something good enough. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I have a stake here. The short version: affirmations will not remove high standards, and you may not want them to. They can help with the harsh part, the voice that treats every flaw as a failure.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we have a stake here. The short version: affirmations will not remove high standards, and you may not want them to. They can help with the harsh part, the voice that treats every flaw as a failure.',
       'Perfectionism is often described as setting very high standards combined with harsh self-judgment when they are missed. It can look like rewriting things many times, avoiding starting, or never feeling finished. It can come from a wish to be safe from criticism, which is understandable.',
       'The cost is that it eats time and energy and can feed procrastination. Lines that help are not "lower your standards"; they separate quality from fear. Good enough for now can be a real, deliberate choice.',
       'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -550,7 +550,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Steady affirmations for fear of failure, plus a two-minute exercise for taking one small risk. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so take my view with that in mind. The short version: an affirmation will not guarantee success. It can make the cost of trying feel a little smaller, which is often what is needed to begin.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so take our view with that in mind. The short version: an affirmation will not guarantee success. It can make the cost of trying feel a little smaller, which is often what is needed to begin.',
       'Fear of failure is the worry that getting something wrong will say something bad about you, or cost you respect. It is common and it often shows up as avoidance, over-preparing, or not trying at all. Avoiding the risk feels safe in the moment but can keep you from things you care about.',
       'Believable lines separate the outcome from your worth. They admit that failing is uncomfortable, and that you can survive it, learn from it, and try again. They do not promise it will go well.',
       'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -876,7 +876,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Calm affirmations for Sunday scaries, plus a two-minute exercise for easing Monday dread. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I have a stake in this topic. The short version first: affirmations will not change your job or your Monday. They can make the dread a little quieter so Sunday evening is less of a loss.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we have a stake in this topic. The short version first: affirmations will not change your job or your Monday. They can make the dread a little quieter so Sunday evening is less of a loss.',
       'Sunday scaries are the anxious, heavy feeling many people get as the weekend ends. It often comes from anticipating the week: an unfinished task, a hard conversation, or a long to-do list your mind keeps rehearsing. Dreading the future steals the present, which makes the last hours of the weekend feel worse.',
       'Lines that help are modest. They do not claim Monday will be great. They acknowledge the dread, remind you that the week arrives one task at a time, and give you permission to enjoy what is left of today.',
       'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -912,7 +912,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Steady affirmations for social anxiety at work, plus a two-minute exercise before a meeting or conversation. Anicca is a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral. The short version: affirmations will not remove nerves or replace professional support. They can give you a calmer thing to say to yourself right before a meeting, a message, or a conversation.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral. The short version: affirmations will not remove nerves or replace professional support. They can give you a calmer thing to say to yourself right before a meeting, a message, or a conversation.',
       'Social anxiety at work often looks like rehearsing what to say, staying quiet in meetings, avoiding small talk, or replaying a conversation afterward. It is common, and it usually comes from a fear of being judged rather than from any lack of ability.',
       'Lines that help are realistic. They do not say you will feel confident. They say you can be nervous and still speak, that a pause or an imperfect sentence is fine, and that people are mostly thinking about their own work.',
       'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
@@ -948,7 +948,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Do affirmations help anxiety? An honest answer: what they can and cannot do, which kinds of lines tend to work better, and a two-minute exercise. From the maker of Anicca, a free-to-download iPhone app.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral. The honest short answer: affirmations are not a treatment for anxiety, and they will not make it disappear. For some people they are a small, calming habit that changes what you say to yourself in a tense moment.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral. The honest short answer: affirmations are not a treatment for anxiety, and they will not make it disappear. For some people they are a small, calming habit that changes what you say to yourself in a tense moment.',
       'What they seem to do best is interrupt a loop. Anxious thinking tends to repeat the same worst-case sentence. Replacing it with a steadier, believable sentence gives your mind something else to hold for a moment. It is a pause, not a cure.',
       'Lines tend to work better when you can believe them. "I am completely calm" often rings false when you are not, and can make you feel worse. Modest lines such as "I can feel anxious and still take the next step" are easier to accept because they do not argue with how you feel.',
       'They also work best alongside other basics: slow breathing, sleep, movement, talking with someone you trust. If anxiety is frequent or heavy, professional support such as therapy is the thing with real evidence behind it, and affirmations are at most a companion to it.',
@@ -988,7 +988,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     metaDescription:
       'Calm affirmations to fall asleep to, how to use them at bedtime, and a two-minute wind-down. From the maker of Anicca, a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
-      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral. The honest short answer: affirmations will not put you to sleep on command, and they are not a treatment for sleep problems. For some people, a few quiet lines at bedtime are a gentle way to set the day down.',
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral. The honest short answer: affirmations will not put you to sleep on command, and they are not a treatment for sleep problems. For some people, a few quiet lines at bedtime are a gentle way to set the day down.',
       'A common reason sleep stalls is a busy mind: replaying the day, rehearsing tomorrow, or arguing with a worry. A short, steady sentence gives your mind something simple to rest on instead of the loop. It is a pause, not a switch.',
       'Lines tend to work better when they are soft and believable. "I will sleep perfectly tonight" can create pressure. Lines like "I do not have to solve tomorrow tonight" or "Resting is enough for now" do not demand a result, so there is nothing to fail at.',
       'Keep it low-stimulation: dim light, phone on night mode or set down after reading a line, and a slow pace. Affirmations sit alongside the basics, such as a regular schedule, a dark and cool room, and winding down before bed.',

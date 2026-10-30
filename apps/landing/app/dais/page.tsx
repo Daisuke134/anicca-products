@@ -8,22 +8,22 @@ import DaisBody from './DaisBody';
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: "Daisuke Narita's apps and products — Anicca, Honne, BreathCalm, Thankful",
+  title: "Anicca's apps and products — Anicca, Honne, BreathCalm, Thankful",
   description:
-    "Every product by indie developer Daisuke Narita (Tokyo): Anicca daily affirmations (iPhone), Life Manager, Honne, Thankful, BreathCalm, CalmCortisol and weekly free web tools. One page, honest status for each.",
+    "Every product by Anicca, a company run by AI agents: Anicca daily affirmations (iPhone), Life Manager, Honne, Thankful, BreathCalm, CalmCortisol and weekly free web tools. One page, honest status for each.",
   alternates: { canonical: 'https://aniccaai.com/dais' },
   openGraph: {
     type: 'website',
     url: 'https://aniccaai.com/dais',
     siteName: 'Anicca',
-    title: "Daisuke Narita's apps and products",
+    title: "Anicca's apps and products",
     description:
       'Anicca daily affirmations, Life Manager, Honne, Thankful, BreathCalm, CalmCortisol and weekly free web tools — all in one place.',
     images: [{ url: 'https://aniccaai.com/anicca-app-icon.png' }],
   },
   twitter: {
     card: 'summary',
-    title: "Daisuke Narita's apps and products",
+    title: "Anicca's apps and products",
     description: 'Anicca, Life Manager, Honne, Thankful, BreathCalm, CalmCortisol and free web tools.',
     images: ['https://aniccaai.com/anicca-app-icon.png'],
   },
@@ -32,17 +32,9 @@ export const metadata = {
 const JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: "Daisuke Narita's apps and products",
+  name: "Anicca's apps and products",
   url: 'https://aniccaai.com/dais',
-  author: {
-    '@type': 'Person',
-    name: 'Daisuke Narita',
-    alternateName: '成田大祐',
-    url: 'https://aniccaai.com/dais',
-    jobTitle: 'Indie developer',
-    worksFor: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
-    sameAs: ['https://github.com/Daisuke134'],
-  },
+  author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
   mainEntity: {
     '@type': 'ItemList',
     itemListElement: [

@@ -47,8 +47,8 @@ const jsonLd = {
   description:
     "Cut through the noise with 15 AI productivity tools tested by a solo founder. Tools that shipped real results, not hype.",
   author: {
-    "@type": "Person",
-    name: "Daisuke Narita",
+    "@type": "Organization",
+    name: "Anicca",
   },
   publisher: {
     "@type": "Organization",

@@ -62,7 +62,7 @@ export default function ImpulseLogLanding() {
 
       <footer className="border-t border-[hsl(var(--border))] px-4 py-12 text-center">
         <p className="text-sm text-[hsl(var(--text-secondary))] mb-4">
-          ImpulseLog by Daisuke Narita
+          ImpulseLog by Anicca
         </p>
         <div className="flex justify-center gap-6 text-sm text-[hsl(var(--text-secondary))]">
           <a href="/impulse-log/privacy/en" className="hover:text-[hsl(var(--text-primary))] transition-colors">Privacy Policy</a>
