@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Anicca Open Startup: live revenue and metrics</title>
-<meta name="description" content="Anicca's numbers in public: revenue, MRR, every business and what each team member is working on today. Updated daily.">
+<meta name="description" content="Anicca's numbers in public: revenue, costs and gross profit for every business. Our one principle: maximize gross profit — maximize revenue, minimize cost. Updated daily.">
 <link rel="canonical" href="https://aniccaai.com/open"><link rel="icon" href="/favicon.png">
 <style>
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans",sans-serif;background:#faf8f4;color:#1d1b18}
@@ -13,22 +13,27 @@ th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #f0ebe3;vertical
 td.n{text-align:right;white-space:nowrap}.muted{color:#8a8277;font-size:13px}.wrap{overflow-x:auto}
 </style></head><body><main>
 <h1>Anicca, in the open</h1>
-<p class="mission" id="mission">We are building the manager, an AI that ends suffering in this world.</p>
+<p class="mission" id="mission">We are building the manager, an AI that ends suffering in this world. As a business, we do one thing: maximize gross profit (revenue − cost) — maximize revenue, minimize cost, and stay profitable.</p>
 <div class="card"><div class="k">First goal: $10,000 MRR</div><div class="v" id="goal">—</div><div class="bar"><div id="goalbar" style="width:0"></div></div><div class="muted" id="goalpct"></div></div>
 <h2>Totals</h2><div class="cards">
 <div class="card"><div class="k">Revenue, month to date</div><div class="v" id="mtd">—</div></div>
 <div class="card"><div class="k">Revenue, last 30 days</div><div class="v" id="l30">—</div></div>
-<div class="card"><div class="k">MRR</div><div class="v" id="mrr">—</div></div></div>
+<div class="card"><div class="k">MRR</div><div class="v" id="mrr">—</div></div>
+<div class="card"><div class="k">Costs, month to date</div><div class="v" id="costs">—</div></div>
+<div class="card"><div class="k">Profit, month to date</div><div class="v" id="profit">—</div></div></div>
 <h2>Every business</h2><div class="wrap"><table><thead><tr><th>Business</th><th>Owner</th><th>Revenue MTD</th><th>MRR</th><th>Key distribution metric</th><th>Status</th></tr></thead><tbody id="biz"></tbody></table></div>
+<h2>Contract work, by platform</h2><p class="muted" id="cwsum"></p><div class="wrap"><table><thead><tr><th>Platform</th><th>Applications today</th><th>Applications by day</th><th>Revenue</th><th>Status</th></tr></thead><tbody id="cw"></tbody></table></div>
 <h2>What the team is working on today</h2><div class="wrap"><table><thead><tr><th>Role</th><th>Today</th><th>Board updates today</th></tr></thead><tbody id="team"></tbody></table></div>
 <p class="muted" id="upd"></p><p class="muted">Numbers come straight from our payment and analytics sources. “—” means not measured yet; we never estimate. Raw data: <a href="https://anicca-open.surge.sh/metrics.json">metrics.json</a></p>
 </main><script>
 const $=id=>document.getElementById(id),usd=v=>v==null?'—':'$'+Number(v).toLocaleString('en-US',{maximumFractionDigits:2}),num=v=>v==null?'—':Number(v).toLocaleString('en-US');
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function render(d){$('mission').textContent='We are building the manager, an AI that ends suffering in this world.';
+function render(d){$('mission').textContent='We are building the manager, an AI that ends suffering in this world. As a business, we do one thing: maximize gross profit (revenue − cost) — maximize revenue, minimize cost, and stay profitable.';
 $('goal').textContent=usd(d.goal.current_mrr_usd)+' / '+usd(d.goal.mrr_usd);$('goalbar').style.width=Math.min(100,d.goal.progress_pct)+'%';$('goalpct').textContent=d.goal.progress_pct+'% of the way';
 $('mtd').textContent=usd(d.totals.revenue_mtd_usd);$('l30').textContent=usd(d.totals.revenue_last30d_usd);$('mrr').textContent=usd(d.totals.mrr_usd);
 $('biz').innerHTML=d.businesses.map(b=>`<tr><td>${esc(b.name)}</td><td>${esc(b.owner)}</td><td class="n">${usd(b.revenue_mtd)}${b.revenue_lifetime!=null?'<div class="muted">'+usd(b.revenue_lifetime)+' lifetime</div>':''}</td><td class="n">${usd(b.mrr)}</td><td>${esc(b.metric)}${b.metric_value!=null?': <b>'+num(b.metric_value)+'</b>':''}</td><td>${esc(b.status)}</td></tr>`).join('');
+if(d.totals.costs_mtd_usd!=null)$('costs').textContent=usd(d.totals.costs_mtd_usd);if(d.totals.profit_mtd_usd!=null)$('profit').textContent=usd(d.totals.profit_mtd_usd);
+if(d.contract_work){const cw=d.contract_work;$('cwsum').textContent='Applications (proposals sent): today '+num(cw.applications_today)+', last 3 days '+num(cw.applications_total_recent_3d)+' total. Applications are proposals, not orders or revenue.';$('cw').innerHTML=cw.platforms.map(p=>{const rev=[p.revenue_mtd_usd!=null?usd(p.revenue_mtd_usd):'',p.revenue_mtd_jpy!=null?'¥'+num(p.revenue_mtd_jpy)+' MTD ('+num(p.revenue_mtd_deals)+' deals)':'',p.revenue_lifetime_jpy!=null?'¥'+num(p.revenue_lifetime_jpy)+' lifetime':'',p.gross_revenue_usd!=null?usd(p.gross_revenue_usd)+' gross (7d)':'',p.balance_usd!=null?usd(p.balance_usd)+' balance':''].filter(Boolean).join('<br>')||'—';const days=p.applications_by_day?Object.entries(p.applications_by_day).map(([k,v])=>k.slice(5)+': '+v).join(', '):'—';return `<tr><td>${esc(p.platform)}</td><td class="n">${num(p.applications_today)}</td><td>${esc(days)}</td><td class="n">${rev}</td><td>${esc(p.status)}${p.note?'<div class="muted">'+esc(p.note)+'</div>':''}</td></tr>`}).join('');}
 $('team').innerHTML=d.agents.map(a=>`<tr><td>${esc(a.agent)}</td><td>${esc(a.today)}</td><td class="n">${num(a.board_updates_today)}</td></tr>`).join('');
 $('upd').textContent='Last updated '+d.updated_at+'. '+(d.notes||'');}
 fetch('https://anicca-open.surge.sh/metrics.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>fetch('/open/metrics.json',{cache:'no-store'}).then(r=>r.json())).then(render).catch(()=>{$('upd').textContent='Metrics are temporarily unavailable.'});
