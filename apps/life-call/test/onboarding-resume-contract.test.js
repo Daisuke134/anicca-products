@@ -31,7 +31,7 @@ test("public /lm primary CTA starts the same-tab Web app Calendar flow", async (
   assert.match(anchor, /primaryCta/);
   assert.doesNotMatch(anchor, /target=/);
   assert.equal(lifeManagerCtaHref(""), LIFE_MANAGER_WEB_APP_URL);
-  assert.match(LIFE_MANAGER_WEB_APP_URL, /^https:\/\/life-call-production\.up\.railway\.app\/lm$/);
+  assert.equal(LIFE_MANAGER_WEB_APP_URL, "https://life-call-production.up.railway.app/lm?start_calendar=1");
   assert.doesNotMatch(source, /TG_DEEPLINK|t\.me\/LifeManagerBotbot/);
 });
 
@@ -41,7 +41,7 @@ test("public /lm carries campaign UTMs to the app entry route", async () => {
   );
   assert.equal(
     lifeManagerCtaHref("?utm_source=instagram&utm_medium=social&utm_campaign=leave-on-time"),
-    `${LIFE_MANAGER_WEB_APP_URL}?utm_source=instagram&utm_medium=social&utm_campaign=leave-on-time`,
+    "https://life-call-production.up.railway.app/lm?start_calendar=1&utm_source=instagram&utm_medium=social&utm_campaign=leave-on-time",
   );
 });
 
