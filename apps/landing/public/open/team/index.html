@@ -7,5 +7,5 @@ const T=(id,h,rows)=>{document.getElementById(id).innerHTML='<tr>'+h.map(x=>'<th
 fetch('team.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{document.getElementById('t').textContent='Updated '+d.built_at+' (hourly)';
 T('r',['agent','current','last activity','blocked'],d.right_now.map(x=>[x.agent,x.task,x.last,x.blocked?'⚠':'']));
 const s=[];d.loops.forEach(l=>l.times.length?l.times.forEach(t=>s.push([t,l.loop,l.owner])):s.push(['('+l.schedule+')',l.loop,l.owner]));s.sort((a,b)=>a[0]<b[0]?-1:1);T('s',['JST','loop','owner'],s);
-T('a',['platform','account','poster','followers','7d Δ','posts 7d','views 7d','ER 7d','last post','copy winner'],d.accounts.map(a=>[a.platform,a.account,a.poster,a.followers,a.followers_7d,a.posts_7d,a.views_7d,a.er_7d,a.last_post,a.winner]));
+T('a',['platform','account','poster','followers','7d Δ','posts 7d','views 7d','ER 7d','avg views last 5','last post','copy winner'],d.accounts.map(a=>[a.platform,a.account,a.poster,a.followers,a.followers_7d,a.posts_7d,a.views_7d,a.er_7d,a.avg_views_last5,a.last_post,a.winner]));
 document.getElementById('e').innerHTML=d.seo.map(x=>'<li>'+x.replace(/</g,'&lt;')+'</li>').join('')})</script>
