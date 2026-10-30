@@ -1,70 +1,120 @@
 {
- "updated_at": "2026-10-30 14:00 JST",
- "basis": "October 2026 charges, monthly run-rate, USD at 156.84 JPY",
+ "updated_at": "2026-10-30 15:00 JST",
+ "basis": "Verified against bank debit notices and receipts on 2026-10-30. Monthly run-rate from November, USD at 156.84 JPY",
  "items": [
   {
    "name": "Grok Bot + Cursor (X Super)",
    "use": "AI agent team",
-   "monthly_usd": 113.49
+   "monthly_usd": 113.49,
+   "status": "active"
   },
   {
-   "name": "ChatGPT (Codex, Dots)",
+   "name": "ChatGPT Pro (Codex, Dots)",
    "use": "AI agents: engineering, operations",
-   "monthly_usd": 298.74
+   "monthly_usd": 191.28,
+   "status": "active"
   },
   {
-   "name": "Google Cloud / Gemini API",
-   "use": "AI generation (usage)",
-   "monthly_usd": 291.23
+   "name": "ChatGPT extra charges (2, under review)",
+   "use": "Oct 22 + Oct 24 charges; plan being checked",
+   "monthly_usd": 107.47,
+   "status": "under review"
   },
   {
    "name": "Postiz",
-   "use": "social posting",
-   "monthly_usd": 51.29
-  },
-  {
-   "name": "Adobe",
-   "use": "design",
-   "monthly_usd": 31.75
+   "use": "social posting (moving to self-host)",
+   "monthly_usd": 50.6,
+   "status": "active"
   },
   {
    "name": "HeyGen",
-   "use": "video",
-   "monthly_usd": 28.69
-  },
-  {
-   "name": "LinkedIn Premium",
-   "use": "hiring/jobs",
-   "monthly_usd": 28.63
+   "use": "monk videos",
+   "monthly_usd": 28.69,
+   "status": "active"
   },
   {
    "name": "Railway",
    "use": "hosting (usage)",
-   "monthly_usd": 27.24
+   "monthly_usd": 23.95,
+   "status": "active"
   },
   {
    "name": "Replit",
-   "use": "dev tools",
-   "monthly_usd": 20.0
+   "use": "dev tools - still billing, being cut",
+   "monthly_usd": 20.93,
+   "status": "cutting"
   },
   {
-   "name": "Google One AI",
-   "use": "AI plan",
-   "monthly_usd": 18.49
+   "name": "Telnyx",
+   "use": "phone (usage)",
+   "monthly_usd": 20.84,
+   "status": "active"
   },
   {
    "name": "X Premium",
-   "use": "creator program",
-   "monthly_usd": 5.85
+   "use": "duplicate of X Super - being cut",
+   "monthly_usd": 5.85,
+   "status": "cutting"
   },
   {
    "name": "Cursor usage",
-   "use": "dev tools (usage)",
-   "monthly_usd": 0.68
+   "use": "coding",
+   "monthly_usd": 0.68,
+   "status": "active"
+  },
+  {
+   "name": "Adobe",
+   "use": "no Anicca loop uses it - cut",
+   "monthly_usd": 0,
+   "status": "cut"
+  },
+  {
+   "name": "LinkedIn Premium",
+   "use": "ended 2026-10-12",
+   "monthly_usd": 0,
+   "status": "cancelled"
+  },
+  {
+   "name": "Google One AI Pro",
+   "use": "ended 2026-10-28",
+   "monthly_usd": 0,
+   "status": "cancelled"
+  },
+  {
+   "name": "Claude Max",
+   "use": "cancelled, no Oct charge",
+   "monthly_usd": 0,
+   "status": "cancelled"
   }
  ],
- "total_monthly_usd": 916.08,
+ "total_monthly_usd": 563.78,
  "revenue_last30d_usd": 203.86,
- "gross_profit_monthly_usd": -712.22,
- "unknown": "Hosting, domains and other free-tier tools: no bills found yet"
+ "gross_profit_monthly_usd": -359.92,
+ "unknown": "Google Cloud / Gemini API usage: October bill not received yet (leaked key removed, budget cap set). Hosting, domains and free-tier tools: no bills found",
+ "ended": [
+  {
+   "name": "Adobe",
+   "use": "no Anicca loop uses it - cut",
+   "monthly_usd": 31.75,
+   "status": "cut"
+  },
+  {
+   "name": "LinkedIn Premium",
+   "use": "ended 2026-10-12",
+   "monthly_usd": 0,
+   "status": "cancelled"
+  },
+  {
+   "name": "Google One AI Pro",
+   "use": "ended 2026-10-28",
+   "monthly_usd": 0,
+   "status": "cancelled"
+  },
+  {
+   "name": "Claude Max",
+   "use": "cancelled, no Oct charge",
+   "monthly_usd": 0,
+   "status": "cancelled"
+  }
+ ]
 }
