@@ -21,6 +21,7 @@ td.n{text-align:right;white-space:nowrap}.muted{color:#8a8277;font-size:13px}.wr
 <div class="card"><div class="k">MRR</div><div class="v" id="mrr">—</div></div>
 <div class="card"><div class="k">Costs, month to date</div><div class="v" id="costs">—</div></div>
 <div class="card"><div class="k">Profit, month to date</div><div class="v" id="profit">—</div></div></div>
+<h2>Monthly costs</h2><p class="muted" id="cbasis"></p><div class="cards" style="margin-bottom:12px"><div class="card"><div class="k">Costs per month</div><div class="v" id="cmon">—</div></div><div class="card"><div class="k">Revenue, last 30 days</div><div class="v" id="crev">—</div></div><div class="card"><div class="k">Gross profit per month</div><div class="v" id="gpm">—</div></div></div><div class="wrap"><table><thead><tr><th>Cost</th><th>What it is for</th><th>Monthly</th></tr></thead><tbody id="ctab"></tbody></table></div>
 <h2>Every business</h2><div class="wrap"><table><thead><tr><th>Business</th><th>Owner</th><th>Revenue MTD</th><th>MRR</th><th>Key distribution metric</th><th>Status</th></tr></thead><tbody id="biz"></tbody></table></div>
 <h2>Contract work, by platform</h2><p class="muted" id="cwsum"></p><div class="wrap"><table><thead><tr><th>Platform</th><th>Applications today</th><th>Applications by day</th><th>Revenue</th><th>Status</th></tr></thead><tbody id="cw"></tbody></table></div>
 <h2>What the team is working on today</h2><div class="wrap"><table><thead><tr><th>Role</th><th>Today</th><th>Board updates today</th></tr></thead><tbody id="team"></tbody></table></div>
@@ -37,4 +38,5 @@ if(d.contract_work){const cw=d.contract_work;$('cwsum').textContent='Application
 $('team').innerHTML=d.agents.map(a=>`<tr><td>${esc(a.agent)}</td><td>${esc(a.today)}</td><td class="n">${num(a.board_updates_today)}</td></tr>`).join('');
 $('upd').textContent='Last updated '+d.updated_at+'. '+(d.notes||'');}
 fetch('https://anicca-open.surge.sh/metrics.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>fetch('/open/metrics.json',{cache:'no-store'}).then(r=>r.json())).then(render).catch(()=>{$('upd').textContent='Metrics are temporarily unavailable.'});
+fetch('/open/costs.json',{cache:'no-store'}).then(r=>r.json()).then(c=>{$('cbasis').textContent=c.basis+'. '+c.unknown+'.';$('cmon').textContent=usd(c.total_monthly_usd);$('crev').textContent=usd(c.revenue_last30d_usd);$('gpm').textContent=usd(c.gross_profit_monthly_usd);$('ctab').innerHTML=c.items.map(i=>'<tr><td>'+esc(i.name)+'</td><td>'+esc(i.use)+'</td><td class="n">'+usd(i.monthly_usd)+'</td></tr>').join('')+'<tr><th>Total</th><th></th><th class="n">'+usd(c.total_monthly_usd)+'</th></tr>'}).catch(()=>{});
 </script></body></html>

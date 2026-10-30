@@ -1,0 +1,70 @@
+{
+ "updated_at": "2026-10-30 14:00 JST",
+ "basis": "October 2026 charges, monthly run-rate, USD at 156.84 JPY",
+ "items": [
+  {
+   "name": "Grok Bot + Cursor (X Super)",
+   "use": "AI agent team",
+   "monthly_usd": 113.49
+  },
+  {
+   "name": "ChatGPT (Codex, Dots)",
+   "use": "AI agents: engineering, operations",
+   "monthly_usd": 298.74
+  },
+  {
+   "name": "Google Cloud / Gemini API",
+   "use": "AI generation (usage)",
+   "monthly_usd": 291.23
+  },
+  {
+   "name": "Postiz",
+   "use": "social posting",
+   "monthly_usd": 51.29
+  },
+  {
+   "name": "Adobe",
+   "use": "design",
+   "monthly_usd": 31.75
+  },
+  {
+   "name": "HeyGen",
+   "use": "video",
+   "monthly_usd": 28.69
+  },
+  {
+   "name": "LinkedIn Premium",
+   "use": "hiring/jobs",
+   "monthly_usd": 28.63
+  },
+  {
+   "name": "Railway",
+   "use": "hosting (usage)",
+   "monthly_usd": 27.24
+  },
+  {
+   "name": "Replit",
+   "use": "dev tools",
+   "monthly_usd": 20.0
+  },
+  {
+   "name": "Google One AI",
+   "use": "AI plan",
+   "monthly_usd": 18.49
+  },
+  {
+   "name": "X Premium",
+   "use": "creator program",
+   "monthly_usd": 5.85
+  },
+  {
+   "name": "Cursor usage",
+   "use": "dev tools (usage)",
+   "monthly_usd": 0.68
+  }
+ ],
+ "total_monthly_usd": 916.08,
+ "revenue_last30d_usd": 203.86,
+ "gross_profit_monthly_usd": -712.22,
+ "unknown": "Hosting, domains and other free-tier tools: no bills found yet"
+}
