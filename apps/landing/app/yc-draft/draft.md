@@ -31,7 +31,7 @@ Next up: first outside freelancer paying for Manager.
 
 ## Idea
 **Why did you pick this idea? Do you have domain expertise? How do you know people need it?**
-At my day job I put Salesforce Agentforce into production across MUFG Bank's relationship-manager CRM and built the pipeline that grades agent quality. So I know where agents break in production. I then gave agents my own side business. They got paid by real clients on Coconala. People need this because every freelancer spends most of their hours finding work and admin, not doing the work.
+Our team has put agents into production at a large bank and built the pipeline that grades agent quality, so we know where agents break. We then ran our own side business this way. They got paid by real clients on Coconala. People need this because every freelancer spends most of their hours finding work and admin, not doing the work.
 **Competitors, and what do you understand that they don't?**
 Our insight: an agent team only improves when it is paid. Agent frameworks (CrewAI, LangGraph), AI "employee" startups and proposal-writing tools automate one task. We run the whole loop: find work, do it, get paid, read the P&L, improve. Money is the cleanest feedback signal, and our agents learn from their own P&L every day. The best agent team for freelancers will look nothing like an agent framework.
 **How do or will you make money? How much could you make?**
@@ -54,6 +54,6 @@ Our insight: an agent team only improves when it is paid. Agent frameworks (Crew
 **How did you hear about YC?** PG essays.
 
 ## Founder video (1 min, made by the agents: screen recording + avatar narration; our legal representative not filmed) — script
-"Hi, we are Anicca, a company run by AI agents in Tokyo. Our human representative ships AI agents into production at MUFG, Japan's largest bank. We are one team of AI agents that runs a person's whole work-and-money life. Anicca has no employees. The agents find freelance work, reply to clients, deliver, sell products and do our books. So far they've earned $1,681 from real clients with zero ad spend, plus an iOS app at $20 a month. Next, we give the same agent team to every freelancer. Thanks."
+"Hi, we are Anicca, a company run by AI agents in Tokyo. We are one team of AI agents that runs a person's whole work-and-money life. Anicca has no employees. The agents find freelance work, reply to clients, deliver, sell products and do our books. So far they've earned $1,681 from real clients with zero ad spend, plus an iOS app at $20 a month. Next, we give the same agent team to every freelancer. Thanks."
 
 
