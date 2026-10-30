@@ -82,12 +82,12 @@
    "status": "OUTAGE-FAIL"
   },
   {
-   "loop": "X distribution @diceai0/@selawmqt",
+   "loop": "X distribution @selawmqt",
    "owner": "参謀",
    "host": "Grok Bot",
    "schedule": "1日4回",
    "runs_per_day": null,
-   "posts_to": "X @diceai0/@selawmqt",
+   "posts_to": "X @selawmqt",
    "status": "OUTAGE-FAIL"
   },
   {
@@ -467,6 +467,15 @@
    "runs_per_day": 1,
    "posts_to": "x/FOLLOWERS.md, x/TOPIC-QUEUE.md, metrics/x-followers.csv",
    "status": "新設 10/30、初回 21:10 OK"
+  },
+  {
+   "loop": "X loop @diceai0（Anicca, build in public）",
+   "owner": "X Operator（唯一の投稿者）",
+   "host": "Grok Bot routine（X Operator）",
+   "schedule": "1日6回 08:15・11:15・14:15・17:15・20:15・23:15 JST",
+   "runs_per_day": 6,
+   "posts_to": "box ブラウザで x.comから投稿。Postiz/X コネクタでは投稿しない。手順 runbooks/X-DICEAI0.md、記録 marketing/X",
+   "status": "更新 10/30 22:0x"
   }
  ],
  "pnl": {
@@ -510,7 +519,8 @@
    "NHL Goalie Matchup Brief",
    "TikTok Storytime Script"
   ],
-  "stripe": null,
+  "stripe": 0.0,
+  "stripe_active_subscriptions": 0,
   "total": 93.58,
   "method": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs"
  },
@@ -518,10 +528,6 @@
   {
    "item": "Capafy renewals",
    "why": "Capafy emails only the first sale per agent; renewals and 2nd+ buyers need Seller Console (capafy.ai/developer/analytics) login read"
-  },
-  {
-   "item": "Stripe",
-   "why": "no readable live key on box (connector read 2026-10-30: 0 active subs, 0 charges since 10/1)"
   },
   {
    "item": "PromptBase views/sales",
@@ -733,7 +739,7 @@
    ],
    "winner_saya_top": [
     [
-     38643,
+     38657,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
@@ -805,7 +811,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-30 21:38 JST",
+ "updated_at": "2026-10-30 21:59 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -931,13 +937,13 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 16
+   "board_updates_today": 20
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 6
+   "board_updates_today": 7
   },
   {
    "agent": "Dots (COO)",
@@ -961,7 +967,7 @@
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 7
+   "board_updates_today": 11
   },
   {
    "agent": "Anicca Marketer",
