@@ -1,9 +1,9 @@
 {
- "built_at": "2026-10-31 07:49 JST",
+ "built_at": "2026-10-31 08:05 JST",
  "right_now": [
   {
    "agent": "参謀",
-   "last": "2026-10-31 07:24",
+   "last": "2026-10-31 07:52",
    "source": "LIVE-STATE.md",
    "task": "5-min check",
    "blocked": true
@@ -59,9 +59,9 @@
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-10-30 22:10",
-   "source": "BOARD",
-   "task": "diceai0-x-posting",
+   "last": "2026-10-31 08:05",
+   "source": "LIVE-STATE.md",
+   "task": "relay pass 08",
    "blocked": false
   }
  ],
