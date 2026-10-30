@@ -17,6 +17,7 @@ svg{background:#fff;border:1px solid #e5e5e5;border-radius:10px;width:100%}
 <h2>MRR over time</h2><div id="c_mrr"></div>
 <h2>Revenue, costs and net per month</h2><div id="c_month"></div>
 <p class="muted">Costs before Sep 2026 were not recorded in our ledger (shown as 0 = not recorded, not zero spend).</p>
+<h2>Businesses</h2><div id="biz"></div>
 <h2>MRR breakdown</h2><div id="mrr"></div>
 <h2>This month P&amp;L</h2><div id="pnl"></div>
 <h2>Rankings</h2><div id="rank"></div>
@@ -42,6 +43,7 @@ Object.entries(r.gsc||{}).forEach(([s,x])=>{if(x.d7)rows.push(['Google Search (7
 $('rank').innerHTML=tbl(['Where','Product','Keyword / item','Position'],rows);
 $('win').innerHTML=tbl(['Product','Winner we copy','Metric','Differences listed','Still open'],(d.winners||[]).map(w=>[w.product,w.winner,w.metric,w.gap_rows,w.open]));
 $('loops').innerHTML=tbl(['Agent','Loop','Runs on','Schedule (JST)','Runs/day','Writes / posts to','Status'],(d.loops||[]).map(x=>[x.owner,x.loop,x.host,x.schedule,x.runs_per_day,x.posts_to,x.status]));
+$('biz').innerHTML=tbl(['Business','Owner','MRR','Metric','Value','Status','Next'],(d.businesses||[]).map(b=>[b.name,b.owner,b.mrr==null?'—':f(b.mrr),b.metric,(b.metric_value??'—')+(b.latest_article_url?' · <a href="'+b.latest_article_url+'">latest article</a>':''),b.status,b.next]));
 $('gaps').innerHTML=tbl(['Source','Why'],(d.metric_gaps||[]).map(g=>[g.item,g.why]));
 });
 </script></body></html>

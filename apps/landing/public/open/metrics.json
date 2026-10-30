@@ -235,13 +235,13 @@
    "status": "OUTAGE-FAIL"
   },
   {
-   "loop": "Manager Lab daily",
-   "owner": "参謀（研究 Codex）",
-   "host": "Grok Bot",
-   "schedule": "7:00",
+   "loop": "Manager research loop daily（論文1本→小実験→aniccaai.com記事→X-QUEUE案）",
+   "owner": "Codex（Head of Research）",
+   "host": "Grok Bot（box routine、重い処理は /workspace/team/bin/codex-run.sh）",
+   "schedule": "毎日 09:00 JST",
    "runs_per_day": 1,
-   "posts_to": "manager/MANAGER-LAB",
-   "status": "?"
+   "posts_to": "research/manager-lab/manifest.json",
+   "status": "OK"
   },
   {
    "loop": "参謀 daily self-improvement",
@@ -370,13 +370,13 @@
    "status": "行を記入済み 16:12"
   },
   {
-   "loop": "SEO・note 長文（10/30 移管）",
-   "owner": "Muse",
-   "host": "Muse VM",
-   "schedule": "期限 10/30 21:00〜",
-   "runs_per_day": 1,
-   "posts_to": "note/SEO",
-   "status": "開始"
+   "loop": "X loop @diceai0（Anicca, build in public）",
+   "owner": "Muse Relay（唯一の投稿者）",
+   "host": "Grok Bot routine diceai0-x-run",
+   "schedule": "1日6回 08:15・11:15・14:15・17:15・20:15・23:15 JST（-10〜+20分）",
+   "runs_per_day": 72,
+   "posts_to": "box ブラウザで x.comから投稿。Postiz/X コネクタでは投稿しない。手順 runbooks/X-DICEAI0.md、記録 marketing/X",
+   "status": "10/30 22:10 参謀から Muse Relay へ移管。予算: 1回1ブ"
   },
   {
    "loop": "APP-SCALING-WINNERS 更新",
@@ -739,7 +739,7 @@
    ],
    "winner_saya_top": [
     [
-     38657,
+     38671,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
@@ -811,7 +811,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-30 21:59 JST",
+ "updated_at": "2026-10-30 22:13 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -917,10 +917,13 @@
    "owner": "Codex (Head of Research)",
    "revenue_mtd": null,
    "mrr": null,
-   "metric": "X followers (@diceai0)",
-   "metric_value": 494,
-   "status": "research (Manager Lab)",
-   "next": "first public research note"
+   "metric": "published research articles / experiments run (team/research/manager-lab)",
+   "metric_value": "1 articles / 1 experiments",
+   "research_articles": 1,
+   "experiments_run": 1,
+   "latest_article_url": "https://aniccaai.com/blog/lab-habituation-nudge-bandit-2026-10-31-ja",
+   "status": "research (Manager Lab, daily 09:00 JST)",
+   "next": "next daily research note"
   },
   {
    "name": "Accelerators, hackathons, grants",
