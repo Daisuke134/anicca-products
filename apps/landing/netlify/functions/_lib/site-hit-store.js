@@ -88,10 +88,11 @@ function ensurePathEntry(state, path) {
       utm_medium: {},
       utm_campaign: {},
       ref: {},
+      ct: {},
     };
   }
   const entry = state.paths[path];
-  for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'ref']) {
+  for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'ref', 'ct']) {
     if (!entry[key] || typeof entry[key] !== 'object') entry[key] = {};
   }
   return entry;
@@ -163,6 +164,7 @@ function applyHit(state, hit) {
     bumpBoundedMap(entry.utm_medium, hit.utm_medium, MAX_ATTR_VALUES);
     bumpMap(entry.utm_campaign, hit.utm_campaign);
     bumpMap(entry.ref, hit.ref);
+    bumpBoundedMap(entry.ct, hit.ct, MAX_ATTR_VALUES);
   } else {
     bumpEvent(next, hit.event);
     // Also keep bare name totals for funnel math.
