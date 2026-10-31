@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-31 09:22 JST",
+ "built_at": "2026-10-31 12:26 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -59,9 +59,9 @@
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-10-31 08:05",
-   "source": "LIVE-STATE.md",
-   "task": "relay pass 08",
+   "last": "2026-10-31 12:05",
+   "source": "LOOPS.md",
+   "task": "loop #44 Muse Relay pass",
    "blocked": false
   }
  ],
@@ -1029,7 +1029,7 @@
    "posts_7d": 12,
    "views_7d": 2614.0,
    "er_7d": "87.0/2614=3.3%",
-   "avg_views_last5": 173,
+   "avg_views_last5": 142,
    "last_post": "2026-10-30T02:01",
    "winner": "https://www.tiktok.com/@kairyu699"
   },
@@ -1042,7 +1042,7 @@
    "posts_7d": 13,
    "views_7d": 18277.0,
    "er_7d": "0/18277=0.0%",
-   "avg_views_last5": 1600,
+   "avg_views_last5": 1308,
    "last_post": "2026-10-30T01:10",
    "winner": "https://www.instagram.com/frequency_mastery/"
   },
@@ -1146,7 +1146,7 @@
    "posts_7d": 15,
    "views_7d": 3862.0,
    "er_7d": "62.0/3862=1.6%",
-   "avg_views_last5": 213,
+   "avg_views_last5": 182,
    "last_post": "2026-10-30T03:02",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
