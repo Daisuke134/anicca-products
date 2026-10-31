@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-01 03:05 JST",
+ "built_at": "2026-11-01 06:05 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -31,7 +31,7 @@
   },
   {
    "agent": "Fucker",
-   "last": "2026-10-30 19:02",
+   "last": "2026-11-01 02:33",
    "source": "BOARD",
    "task": "naive-n2",
    "blocked": true
@@ -52,16 +52,16 @@
   },
   {
    "agent": "Forensic Writing",
-   "last": "2026-11-01 01:50",
-   "source": "LIVE-STATE.md",
+   "last": "2026-11-01 04:53",
+   "source": "BOARD",
    "task": "hook-forensics-24h",
-   "blocked": false
+   "blocked": true
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-11-01 00:35",
-   "source": "LIVE-STATE.md",
-   "task": "relay pass 00",
+   "last": "2026-11-01 04:26",
+   "source": "BOARD",
+   "task": "anicca-ct-links",
    "blocked": true
   }
  ],
@@ -1503,7 +1503,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 21:17",
+   "last_post": "2026-11-01 03:19",
    "winner": "未取得"
   },
   {
@@ -1607,7 +1607,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-11-01 00:2x",
+   "last_post": "2026-11-01 03:2x",
    "winner": "https://www.tiktok.com/@yuusan_juusyoku"
   }
  ],
