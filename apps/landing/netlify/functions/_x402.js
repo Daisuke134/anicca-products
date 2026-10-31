@@ -31,6 +31,8 @@ function createSeller(cfg) {
   const v2Req = () => ({
     scheme: 'exact', network: 'eip155:8453', amount: price, asset: USDC_BASE,
     payTo, maxTimeoutSeconds: 60, extra: EXTRA,
+    // Not required by the v2 spec, but x402scan and other indexers read these from accepts[].
+    description: cfg.description, mimeType: 'application/json',
   });
   const v1Req = () => ({
     scheme: 'exact', network: 'base', maxAmountRequired: price, resource: cfg.url,
