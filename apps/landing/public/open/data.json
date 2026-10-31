@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 08:12 JST",
+ "updated_at": "2026-11-01 08:59 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 156.84,
@@ -205,6 +205,34 @@
    "asset": "USDC",
    "address": "0x7E8b13B7c080465903874352887656314A267E3c",
    "source": "Base chain (read live in your browser)"
+  }
+ ],
+ "balances": [
+  {
+   "item": "Bank balance total",
+   "usd": null,
+   "as_of": "2026-11-01T08:58",
+   "source": "cfo ledger 2026-11-01 (Alpaca API, Twilio API)",
+   "note": "unknown (source error)"
+  },
+  {
+   "item": "Known balances total",
+   "usd": 76.54,
+   "as_of": "2026-11-01T08:58",
+   "source": "cfo ledger 2026-11-01 (Alpaca API, Twilio API)"
+  },
+  {
+   "item": "Net worth (cash+balances-liabilities)",
+   "usd": null,
+   "note": "unknown (source error): liabilities not tracked",
+   "as_of": "2026-11-01T08:58",
+   "source": "cfo ledger"
+  },
+  {
+   "item": "Revenue all-time",
+   "usd": 1771.43,
+   "as_of": "2026-10-31",
+   "source": "cfo/history.csv revenue rows (12 rows; each row cites its receipt/API); 4 rows without JPY amount (USD from source)"
   }
  ]
 }
