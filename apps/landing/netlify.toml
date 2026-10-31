@@ -159,3 +159,10 @@
   for = "/openapi.json"
   [headers.values]
     Access-Control-Allow-Origin = "*"
+
+# x402 sellers share ./_x402.js; esbuild inlines it into each bundle.
+[functions.x402-affirm]
+  node_bundler = "esbuild"
+
+[functions.x402-capafy-skill]
+  node_bundler = "esbuild"
