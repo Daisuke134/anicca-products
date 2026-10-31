@@ -1,9 +1,9 @@
 {
- "built_at": "2026-10-31 08:14 JST",
+ "built_at": "2026-10-31 09:07 JST",
  "right_now": [
   {
    "agent": "参謀",
-   "last": "2026-10-31 07:52",
+   "last": "2026-10-31 08:48",
    "source": "LIVE-STATE.md",
    "task": "5-min check",
    "blocked": true
@@ -24,9 +24,9 @@
   },
   {
    "agent": "Codex",
-   "last": "2026-10-31 00:24",
-   "source": "LIVE-STATE.md",
-   "task": "coconala-lancers-loop",
+   "last": "2026-10-31 08:49",
+   "source": "BOARD",
+   "task": "en-quiz-affirmation",
    "blocked": true
   },
   {
@@ -899,7 +899,7 @@
    "posts_7d": 16,
    "views_7d": 726.0,
    "er_7d": "0/726=0.0%",
-   "avg_views_last5": 34,
+   "avg_views_last5": 36,
    "last_post": "2026-10-30T05:10",
    "winner": "https://www.instagram.com/frequency_mastery/"
   },
@@ -912,7 +912,7 @@
    "posts_7d": 14,
    "views_7d": 4360.0,
    "er_7d": "0/4360=0.0%",
-   "avg_views_last5": 374,
+   "avg_views_last5": 372,
    "last_post": "2026-10-29T23:05",
    "winner": "https://www.instagram.com/selflovejp/"
   },
@@ -977,7 +977,7 @@
    "posts_7d": 10,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 30,
+   "avg_views_last5": 31,
    "last_post": "2026-10-30T05:02",
    "winner": "https://x.com/marclou"
   },
@@ -1042,7 +1042,7 @@
    "posts_7d": 13,
    "views_7d": 18277.0,
    "er_7d": "0/18277=0.0%",
-   "avg_views_last5": 1611,
+   "avg_views_last5": 1600,
    "last_post": "2026-10-30T01:10",
    "winner": "https://www.instagram.com/frequency_mastery/"
   },
@@ -1133,7 +1133,7 @@
    "posts_7d": 16,
    "views_7d": 4420.0,
    "er_7d": "62.0/4420=1.4%",
-   "avg_views_last5": 170,
+   "avg_views_last5": 167,
    "last_post": "2026-10-30T07:02",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
