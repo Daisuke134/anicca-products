@@ -1,14 +1,14 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 06:12 JST",
+ "updated_at": "2026-11-01 06:19 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
   "revenue_7d_usd": 0.0,
   "revenue_30d_usd": 203.9,
   "revenue_mtd_usd": 0.0,
-  "costs_mtd_usd": null,
-  "gross_profit_mtd_usd": null,
+  "costs_mtd_usd": 12.0,
+  "gross_profit_mtd_usd": -12.0,
   "margin_pct": null,
   "mrr_usd": 93.58,
   "active_costs_monthly_usd": 705.78
@@ -41,8 +41,8 @@
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 0.0,
-   "cost_usd": null,
-   "gross_profit_usd": null,
+   "cost_usd": 12.0,
+   "gross_profit_usd": -12.0,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 1 receipt lines (see costs)"
   }
  ],

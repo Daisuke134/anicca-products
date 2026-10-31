@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 06:12 JST",
+ "updated_at": "2026-11-01 06:19 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 156.84,
@@ -29,13 +29,13 @@
   {
    "key": "cost",
    "label": "Costs this month",
-   "usd": null,
+   "usd": 12.0,
    "source": "1 observed receipt lines; coverage incomplete; unknown USD is not zero"
   },
   {
    "key": "gp",
    "label": "Gross profit",
-   "usd": null,
+   "usd": -12.0,
    "source": "revenue this month minus observed costs; unavailable when USD costs unknown"
   },
   {
@@ -75,8 +75,8 @@
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 0.0,
-   "cost_usd": null,
-   "gross_profit_usd": null,
+   "cost_usd": 12.0,
+   "gross_profit_usd": -12.0,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 1 receipt lines (see costs)"
   }
  ],
@@ -88,7 +88,7 @@
  "costs_month": [
   {
    "item": "Upwork payment notice (primary event)",
-   "usd": null,
+   "usd": 12.0,
    "native_amount": 2000.0,
    "native_currency": "JPY",
    "source": "Provider payment/refund evidence (private receipt retained)",
@@ -96,7 +96,7 @@
   }
  ],
  "costs_month_total": {
-  "usd": null,
+  "usd": 12.0,
   "source": "Observed subtotal; coverage incomplete; USD unavailable if any conversion missing"
  },
  "active_costs": [
@@ -193,8 +193,8 @@
   {
    "agent": "Shared (all agents: models, hosting, tools)",
    "earns_usd": 0.0,
-   "spends_usd": null,
-   "net_usd": null,
+   "spends_usd": 12.0,
+   "net_usd": -12.0,
    "source": "costs this month (receipt lines without a single agent)"
   }
  ],
