@@ -743,7 +743,7 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2087
+     "uses": 2089
     },
     {
      "rank": 2,
@@ -768,7 +768,7 @@
    ],
    "winner_saya_top": [
     [
-     39776,
+     39789,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
@@ -840,7 +840,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-31 21:50 JST",
+ "updated_at": "2026-10-31 22:12 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -1016,19 +1016,19 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 30
+   "board_updates_today": 31
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 21
+   "board_updates_today": 23
   },
   {
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 12
+   "board_updates_today": 13
   },
   {
    "agent": "Muse (CMO)",
@@ -1040,7 +1040,7 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 16
+   "board_updates_today": 18
   },
   {
    "agent": "Fucker",
@@ -1074,8 +1074,8 @@
   }
  ],
  "contract_work": {
-  "applications_today": 12,
-  "applications_7d": 56,
+  "applications_today": 13,
+  "applications_7d": 57,
   "days": [
    "2026-10-25",
    "2026-10-26",
@@ -1123,7 +1123,7 @@
    {
     "platform": "Upwork",
     "owner": "dr eggbot",
-    "applications_today": 4,
+    "applications_today": 5,
     "applications_by_day": {
      "2026-10-25": 0,
      "2026-10-26": 0,
@@ -1131,9 +1131,9 @@
      "2026-10-28": 0,
      "2026-10-29": 0,
      "2026-10-30": 0,
-     "2026-10-31": 4
+     "2026-10-31": 5
     },
-    "applications_7d": 4,
+    "applications_7d": 5,
     "status": "contract active (Labelbox, 10/30); ID check due 11/6",
     "revenue_lifetime_usd": null
    },
