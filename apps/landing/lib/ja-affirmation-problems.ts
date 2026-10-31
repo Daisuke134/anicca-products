@@ -26,6 +26,9 @@ export function jaAffirmationAppStoreUrl(slug: string): string {
   url.searchParams.set('utm_medium', 'seo');
   url.searchParams.set('utm_campaign', 'anicca_ja_problem');
   url.searchParams.set('utm_content', slug);
+  url.searchParams.set('pt', '93486075');
+  url.searchParams.set('ct', `seo_ja_${slug}`.slice(0, 40));
+  url.searchParams.set('mt', '8');
   return url.toString();
 }
 

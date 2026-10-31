@@ -18,7 +18,7 @@ const jsonLd = {
   url: 'https://aniccaai.com/affirmation-app',
   description: metadata.description,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  downloadUrl: APP_STORE_URL,
+  downloadUrl: `${APP_STORE_URL}?pt=93486075&ct=affirmation_app_en&mt=8`,
   sameAs: [APP_STORE_URL],
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
 };
