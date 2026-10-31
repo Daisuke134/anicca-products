@@ -815,7 +815,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-31 09:12 JST",
+ "updated_at": "2026-10-31 14:25 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -864,7 +864,7 @@
    "revenue_lifetime": null,
    "mrr": null,
    "metric": "installs (cumulative)",
-   "metric_value": 2142,
+   "metric_value": 2154,
    "status": "live; 4 fixed agents resubmitted 10/30, in review",
    "next": "paid tier"
   },
@@ -944,19 +944,19 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 5
+   "board_updates_today": 10
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 1
+   "board_updates_today": 3
   },
   {
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 1
+   "board_updates_today": 4
   },
   {
    "agent": "Muse (CMO)",
@@ -968,13 +968,13 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 5
+   "board_updates_today": 6
   },
   {
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 2
+   "board_updates_today": 5
   },
   {
    "agent": "Anicca Marketer",
@@ -1002,8 +1002,8 @@
   }
  ],
  "contract_work": {
-  "applications_today": 0,
-  "applications_7d": 44,
+  "applications_today": 1,
+  "applications_7d": 45,
   "days": [
    "2026-10-25",
    "2026-10-26",
@@ -1138,7 +1138,7 @@
    {
     "platform": "Mercor",
     "owner": "Fucker",
-    "applications_today": 0,
+    "applications_today": 1,
     "applications_by_day": {
      "2026-10-25": 2,
      "2026-10-26": 0,
@@ -1146,9 +1146,9 @@
      "2026-10-28": 0,
      "2026-10-29": 0,
      "2026-10-30": 0,
-     "2026-10-31": 0
+     "2026-10-31": 1
     },
-    "applications_7d": 2,
+    "applications_7d": 3,
     "status": "applied, awaiting offers",
     "revenue_lifetime_usd": null
    },
@@ -1170,7 +1170,7 @@
     "applications_7d": null,
     "status": "71 agents live",
     "revenue_lifetime_usd": null,
-    "note": "we list our own products here; no applications; 2,142 installs"
+    "note": "we list our own products here; no applications; 2,154 installs"
    },
    {
     "platform": "PromptBase (our prompts)",
