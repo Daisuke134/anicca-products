@@ -25,14 +25,16 @@ function json(statusCode, body, headers = {}) {
 }
 
 function createSeller(cfg) {
-  // cfg: { url, description, queryParams (json-schema props), required, queryExample, outputSchema, outputExample }
+  const payTo = cfg.payTo || PAY_TO;
+  const price = cfg.price || PRICE_ATOMIC;
+  // cfg: { url, payTo?, price? (atomic USDC), description, queryParams (json-schema props), required, queryExample, outputSchema, outputExample }
   const v2Req = () => ({
-    scheme: 'exact', network: 'eip155:8453', amount: PRICE_ATOMIC, asset: USDC_BASE,
-    payTo: PAY_TO, maxTimeoutSeconds: 60, extra: EXTRA,
+    scheme: 'exact', network: 'eip155:8453', amount: price, asset: USDC_BASE,
+    payTo, maxTimeoutSeconds: 60, extra: EXTRA,
   });
   const v1Req = () => ({
-    scheme: 'exact', network: 'base', maxAmountRequired: PRICE_ATOMIC, resource: cfg.url,
-    description: cfg.description, mimeType: 'application/json', payTo: PAY_TO, maxTimeoutSeconds: 60,
+    scheme: 'exact', network: 'base', maxAmountRequired: price, resource: cfg.url,
+    description: cfg.description, mimeType: 'application/json', payTo, maxTimeoutSeconds: 60,
     asset: USDC_BASE,
     outputSchema: {
       input: { type: 'http', method: 'GET', discoverable: true, queryParams: cfg.queryParamsV1 },

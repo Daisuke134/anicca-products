@@ -2,6 +2,8 @@
   "version": 1,
   "resources": [
     "https://aniccaai.com/.netlify/functions/x402-affirm",
-    "https://aniccaai.com/.netlify/functions/x402-capafy-skill"
+    "https://aniccaai.com/.netlify/functions/x402-capafy-skill",
+    "https://aniccaai.com/.netlify/functions/x402-maritime-nudge",
+    "https://aniccaai.com/.netlify/functions/x402-naive-reflect"
   ]
 }
