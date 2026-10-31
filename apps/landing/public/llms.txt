@@ -55,6 +55,13 @@
 
 - [Free social jet lag & wake-time calculator](https://aniccaai.com/tools/social-jet-lag-calculator): no signup, runs in the browser (by Sleep Reset)
 
+## Articles
+- [Zero-human companies in 2026: 12 agent-run businesses and what they really earn](https://aniccaai.com/blog/zero-human-companies-2026?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): dated, sourced list; verified vs founder-reported revenue and which companies publish costs.
+- [Good agent evals measure work done, not answers given](https://aniccaai.com/blog/good-agent-evals-measure-outcomes?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Anicca public P&L (/open)](https://aniccaai.com/open?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): monthly revenue, every cost line and gross profit.
+- [Zero-human company playbook (Japanese ebook)](https://aniccaai.com/zero-human-company?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Life Manager guides (Japanese): Google Calendar travel time and departure reminders](https://aniccaai.com/lm/guide?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
 ## Optional
 - [Sitemap](https://aniccaai.com/sitemap.xml)
 

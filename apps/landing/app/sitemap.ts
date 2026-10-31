@@ -42,7 +42,7 @@ const STATIC_PATHS = [
   "/lm/ja/departure-calculator",
   "/lm/guide",
   "/tools/social-jet-lag-calculator",
-  "/ai-monk-factory/",
+  "/ai-monk-factory", // canonical has no trailing slash (the slash form 301s; GSC "Redirect error" 10/27–11/1)
 ];
 
 function tripleLanguagesForEnSlug(enSlug: string) {

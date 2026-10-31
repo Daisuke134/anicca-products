@@ -749,10 +749,10 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
   {
     slug: 'i-am-app-alternative',
     jaSlug: 'self-esteem',
-    title: 'I Am app alternative: a neutral comparison with Anicca',
+    title: 'I Am app alternative (2026): no-streak daily affirmations on iPhone',
     shortTitle: 'I Am app alternative',
     metaDescription:
-      'Neutral comparison of I am - Daily Affirmations and Anicca, based on public App Store listing facts only (dated). Links to both apps. No invented ratings, counts, or prices.',
+      'Looking for an I Am app alternative? A dated side-by-side of I am - Daily Affirmations and Anicca: widgets and many reminders vs one timed line with no streaks. Public App Store facts only, links to both.',
     h1: 'I Am app alternative',
     campaignPrefix: 'seo_geo',
     directAnswer: [
@@ -798,6 +798,10 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
       {
         q: 'Where did these comparison facts come from?',
         a: 'From the public US App Store pages / iTunes lookup for id874656917 (I am) and id6755129214 (Anicca), read on 2026-10-15. We omit ratings tallies and dollar prices here so this page does not go stale or invent numbers.',
+      },
+      {
+        q: 'Is there a free I Am app alternative?',
+        a: 'Both I am - Daily Affirmations and Anicca are free to download on the App Store, with optional paid plans. If you mainly want fewer notifications and no streak count, Anicca’s free download sends one line at the time you choose.',
       },
       {
         q: 'Who wrote this page?',
