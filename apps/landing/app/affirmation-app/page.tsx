@@ -2,9 +2,16 @@ import AffirmationLanding from '@/components/affirmation/AffirmationLanding';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
-  title: "Daily affirmations for a kinder inner voice | Anicca",
+  title: "Free Daily Affirmations App for iPhone, No Streaks | Anicca",
   description:
-    "Anicca is an iPhone affirmation app with short cards for self-criticism, overthinking, and difficult days. Choose your topics and enable notifications. Free to download with optional in-app subscriptions.",
+    "Anicca is a free daily affirmations app for iPhone: pick your topics (self-criticism, overthinking, anxiety) and get short, kind affirmation cards by notification. No streaks. Optional in-app subscription.",
+  alternates: {
+    canonical: 'https://aniccaai.com/affirmation-app',
+    languages: {
+      en: 'https://aniccaai.com/affirmation-app',
+      ja: 'https://aniccaai.com/affirmation-app/ja',
+    },
+  },
 };
 
 const APP_STORE_URL = 'https://apps.apple.com/app/id6755129214';

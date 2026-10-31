@@ -11,6 +11,7 @@ import {
   EN_AFFIRMATION_PROBLEMS,
   allEnAffirmationSlugs,
   enAffirmationAppStoreUrl,
+  enAffirmationFaq,
   getEnAffirmationProblem,
 } from '@/lib/en-affirmation-problems';
 
@@ -68,7 +69,8 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
   const published = problem.campaignPrefix === 'seo_geo' ? '2026-10-15' : '2026-10-09';
   const heading = problem.h1 ?? problem.title;
   const hasAffirmations = problem.affirmations.length > 0;
-  const hasFaq = Boolean(problem.faq && problem.faq.length > 0);
+  const faqItems = enAffirmationFaq(problem);
+  const hasFaq = faqItems.length > 0;
   const comparison = problem.comparison;
 
   const articleLd = {
@@ -119,11 +121,11 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
   };
 
   const faqLd =
-    hasFaq && problem.faq
+    hasFaq
       ? {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
-          mainEntity: problem.faq.map((item) => ({
+          mainEntity: faqItems.map((item) => ({
             '@type': 'Question',
             name: item.q,
             acceptedAnswer: {
@@ -249,11 +251,11 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
             </ol>
           </section>
 
-          {hasFaq && problem.faq ? (
+          {hasFaq ? (
             <section className="mt-12">
               <h2 className="text-[20px] font-semibold tracking-tight">FAQ</h2>
               <dl className="mt-6 space-y-5">
-                {problem.faq.map((item) => (
+                {faqItems.map((item) => (
                   <div key={item.q}>
                     <dt className="text-[16px] font-semibold tracking-tight">{item.q}</dt>
                     <dd className="mt-2 text-[15px] leading-relaxed text-[#5c5956]">

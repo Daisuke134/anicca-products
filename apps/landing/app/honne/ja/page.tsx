@@ -7,6 +7,7 @@ export const metadata = {
   description:
     'LINEや会話文を貼るだけで、隠れた感情をAIが分析し、関係を壊さない返答を提案。無料は1日3回まで。',
   alternates: {
+    canonical: 'https://aniccaai.com/honne/ja',
     languages: {
       en: 'https://aniccaai.com/honne',
       ja: 'https://aniccaai.com/honne/ja',

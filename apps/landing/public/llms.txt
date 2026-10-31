@@ -68,6 +68,14 @@ Pay per call with x402: no account or API key. An unpaid GET returns HTTP 402 wi
 - [Zero-human company playbook (Japanese ebook)](https://aniccaai.com/zero-human-company?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
 - [Life Manager guides (Japanese): Google Calendar travel time and departure reminders](https://aniccaai.com/lm/guide?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
 
+## Short-video hook guides (free)
+- [Curiosity gap examples: 36 hooks that make the swipe pause](https://aniccaai.com/blog/curiosity-gap-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [36 contrarian hook examples](https://aniccaai.com/blog/contrarian-hook-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Question hooks for TikTok: 40 openers](https://aniccaai.com/blog/question-hooks-for-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [First line of a TikTok: 36 hooks](https://aniccaai.com/blog/first-line-of-a-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Retention hooks for Shorts: 36 openers](https://aniccaai.com/blog/retention-hooks-for-shorts?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Pattern interrupt examples for video](https://aniccaai.com/blog/pattern-interrupt-examples-video?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
 ## Optional
 - [Sitemap](https://aniccaai.com/sitemap.xml)
 

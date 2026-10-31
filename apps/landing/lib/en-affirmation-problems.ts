@@ -1032,3 +1032,35 @@ export function getEnAffirmationProblem(
 export function allEnAffirmationSlugs(): string[] {
   return EN_AFFIRMATION_PROBLEMS.map((p) => p.slug);
 }
+
+/**
+ * FAQ shown on every /affirmation-app/a/* page (visible + FAQPage JSON-LD).
+ * Pages with a hand-written `faq` keep it; others get questions built only
+ * from their own on-page content (no new claims).
+ */
+export function enAffirmationFaq(problem: EnAffirmationProblem): EnAffirmationFaq[] {
+  if (problem.faq && problem.faq.length > 0) return problem.faq;
+  const out: EnAffirmationFaq[] = [];
+  const st = problem.shortTitle;
+  const topic = /^affirmations?\b/i.test(st)
+    ? st.charAt(0).toLowerCase() + st.slice(1)
+    : `affirmations for ${st.charAt(0).toLowerCase() + st.slice(1)}`;
+  if (problem.affirmations.length >= 3) {
+    const [a, b, c] = problem.affirmations;
+    out.push({
+      q: `What are good ${topic}?`,
+      a: `Short, believable lines work best, for example: “${a}” “${b}” “${c}” Pick one and say it slowly, once, instead of repeating a long list.`,
+    });
+  }
+  if (problem.practice.steps.length > 0) {
+    out.push({
+      q: `How do I use ${topic} in about two minutes?`,
+      a: problem.practice.steps.join(' '),
+    });
+  }
+  out.push({
+    q: 'Is the Anicca affirmation app free?',
+    a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. Available plans and local prices are shown on the purchase screen. There are no streaks.',
+  });
+  return out;
+}
