@@ -22,8 +22,8 @@
 
 - [x] 既存Stripe accountと既存電子書籍のprivate配信経路を照合。
 - [x] 未払い・通貨違い・低額・tier違いを拒否する最小テストを先に失敗させ、既存回帰を含む10件をPASS。
-- [ ] 本文とテンプレートを制作してPDFの見た目と内容を検証。
-- [ ] liveカタログとPayment Linksをidempotencyキー付きで作成しGETで照合。
+- [x] 本文33ページ・全12章・12313文字とテンプレート12ファイルを制作。PDF日本語表示・埋め込みfont・文字化けなしを確認。
+- [x] liveカタログとPayment Linksをidempotencyキー付きで作成し、公式product/price/link/line-items GETでUSD29/99・一回払い・active・live・redirect・metadataを照合。自己chargeは行わない。
 - [ ] private納品gate、LP、最小の関連回帰をPASS。
 - [ ] 専用branchをpushしてPR/main統合、main由来のNetlify公開を公式readback。
 

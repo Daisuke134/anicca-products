@@ -1,0 +1,68 @@
+{
+  "observed_at": "2026-10-31T15:02:53.111930+00:00",
+  "provider": "Stripe",
+  "account_id": "acct_1RT5QgEeDsUAcaLS",
+  "live_charges_executed": false,
+  "paid_orders": null,
+  "revenue": null,
+  "offers": [
+    {
+      "edition": "standard",
+      "name": "ゼロヒューマン会社の運営本 - 本文版",
+      "currency": "usd",
+      "unit_amount": 2900,
+      "type": "one_time",
+      "product_id": "prod_VXjGzBWiMnYPcZ",
+      "price_id": "price_1UWdo3EeDsUAcaLS1xNLb5eK",
+      "payment_link_id": "plink_1UWdo3EeDsUAcaLSzgtjYVQG",
+      "payment_url": "https://buy.stripe.com/5kQ6oHgcCeZMe9y0VU2880Y",
+      "active": true,
+      "livemode": true,
+      "after_completion": {
+        "redirect": {
+          "url": "https://aniccaai.com/zero-human-company?edition=standard&session_id={CHECKOUT_SESSION_ID}"
+        },
+        "type": "redirect"
+      },
+      "metadata": {
+        "edition": "standard",
+        "owner": "codex",
+        "product": "ops_playbook",
+        "version": "v1"
+      },
+      "quantity": 1,
+      "amount_total": 2900,
+      "verification": "official product, price, payment-link, and line-item GET"
+    },
+    {
+      "edition": "templates",
+      "name": "ゼロヒューマン会社の運営本 - テンプレート版",
+      "currency": "usd",
+      "unit_amount": 9900,
+      "type": "one_time",
+      "product_id": "prod_VXjGucQrcWvhn6",
+      "price_id": "price_1UWdo5EeDsUAcaLS5VdKW8vi",
+      "payment_link_id": "plink_1UWdo5EeDsUAcaLSLlPNjc6M",
+      "payment_url": "https://buy.stripe.com/dRm4gz5xY6tgaXmdIG2880Z",
+      "active": true,
+      "livemode": true,
+      "after_completion": {
+        "redirect": {
+          "url": "https://aniccaai.com/zero-human-company?edition=templates&session_id={CHECKOUT_SESSION_ID}"
+        },
+        "type": "redirect"
+      },
+      "metadata": {
+        "edition": "templates",
+        "owner": "codex",
+        "product": "ops_playbook",
+        "version": "v1"
+      },
+      "quantity": 1,
+      "amount_total": 9900,
+      "verification": "official product, price, payment-link, and line-item GET"
+    }
+  ],
+  "charges_enabled": true,
+  "payouts_enabled": true
+}
