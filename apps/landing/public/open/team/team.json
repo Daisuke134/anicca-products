@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-31 19:28 JST",
+ "built_at": "2026-10-31 21:05 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -52,16 +52,16 @@
   },
   {
    "agent": "Forensic Writing",
-   "last": "2026-10-31 06:43",
-   "source": "BOARD",
-   "task": "daily-hook-forensics",
+   "last": "2026-10-31 19:52",
+   "source": "LIVE-STATE.md",
+   "task": "hook-forensics-24h",
    "blocked": false
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-10-31 16:05",
+   "last": "2026-10-31 20:24",
    "source": "LIVE-STATE.md",
-   "task": "relay pass 16",
+   "task": "relay pass 20",
    "blocked": false
   }
  ],
@@ -878,7 +878,7 @@
    "posts_7d": 8,
    "views_7d": 3940.0,
    "er_7d": "501.0/3940=12.7%",
-   "avg_views_last5": 177,
+   "avg_views_last5": 180,
    "last_post": "2026-10-30T05:08",
    "winner": "https://www.tiktok.com/@buddhamotivation1mu"
   },
@@ -891,7 +891,7 @@
    "posts_7d": 88,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 5,
+   "avg_views_last5": 2,
    "last_post": "2026-10-30T11:00",
    "winner": "https://x.com/godofprompt"
   },
