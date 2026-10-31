@@ -46,13 +46,13 @@
    "status": "OUTAGE-FAIL"
   },
   {
-   "loop": "Coconala watch",
+   "loop": "Gig platforms pass 9/15/21（Lancers・CrowdWorks・Coconala、参謀が唯一の担当）",
    "owner": "参謀",
    "host": "Grok Bot",
-   "schedule": "4h",
-   "runs_per_day": 6.0,
-   "posts_to": "gig-metrics.csv / 返信",
-   "status": "OUTAGE-FAIL "
+   "schedule": "毎日 9:00/15:00/21:00 JST（スクリプト高頻度アクセス禁止：Lancers 警告 10/27）",
+   "runs_per_day": 3,
+   "posts_to": "gig-metrics.csv / 返信・承諾・納品 / BOARD.md",
+   "status": "稼働 2026-10-31〜"
   },
   {
    "loop": "Team revenue loop",
@@ -83,12 +83,12 @@
   },
   {
    "loop": "X distribution @selawmqt",
-   "owner": "参謀・Muse・Codex（全員本番）",
+   "owner": "参謀（唯一の投稿者）",
    "host": "参謀の Grok Bot routine",
    "schedule": "1日4回",
    "runs_per_day": null,
-   "posts_to": "X @selawmqt、素材 marketing/X-QUEUE-selawmqt.md。POST-LOG で二重投稿を確認して誰でも投稿",
-   "status": "10/30 22:40 成田さん訂正"
+   "posts_to": "X @selawmqt、素材 marketing/X-QUEUE-selawmqt.md、記録 POST-LOG.csv",
+   "status": "2026-10-31 成田さん: 投稿者は参謀だけ"
   },
   {
    "loop": "Opportunity apply loop",
@@ -337,10 +337,10 @@
    "loop": "coconala-lancers-loop（10/30 14:28 移管）",
    "owner": "dr eggbot",
    "host": "Grok Bot",
-   "schedule": "2:30/6:30/10:30/14:30/18:30/22:30 JST",
-   "runs_per_day": 6,
-   "posts_to": "ココナラ/Lancers の提案・返信・納品。order 18521371 は評価待ち",
-   "status": "稼働中。重複に注意：Coconala watch は停止予定"
+   "schedule": "—",
+   "runs_per_day": null,
+   "posts_to": "ココナラ/Lancers",
+   "status": "**STOPPED 2026-10-31**"
   },
   {
    "loop": "Daily HOOKS.md refresh",
@@ -361,7 +361,7 @@
    "status": "OK"
   },
   {
-   "loop": "Muse 全レーン（IG 3垢 勝者コピー1日3本・Threads @anicca.en・monk.mujo＋TikTok @anicca_cemetery・受託・Capafy・SEO/AIO・/open）",
+   "loop": "Muse 全レーン（IG 3垢 勝者コピー1日3本・Threads @anicca.en・monk.mujo＋TikTok @anicca_cemetery（受託・Capafy は 2026-10-31 停止）・SEO/AIO・/open）",
    "owner": "Muse",
    "host": "Muse クラウドVM（定義 goals/anicca-revenue-growth-as-life-manager/crons/）",
    "schedule": "毎日 03:22〜22:22 の各 :22（distribution 09:22/15:22、threads 12:22、articles 14:22、monk-daily 20:22、daily-report 21:22 ほか）／3h・1h・6h・30分・15分のループあり。詳細は §Muse",
@@ -371,12 +371,12 @@
   },
   {
    "loop": "X loop @diceai0（Anicca, build in public）",
-   "owner": "参謀・Muse・Codex（全員本番）",
+   "owner": "参謀（唯一の投稿者。他は X-QUEUE-diceai0.md に下書きだけ）",
    "host": "参謀の Grok Bot routine",
    "schedule": "1日6回 08:15・11:15・14:15・17:15・20:15・23:15 JST",
    "runs_per_day": 6,
    "posts_to": "box ブラウザで x.com から投稿。手順 runbooks/X-DICEAI0.md、記録 marketing/X-ACTIONS.md・POST-LOG",
-   "status": "10/30 22:40 成田さん訂正"
+   "status": "2026-10-31 成田さん: 投稿者は参謀だけ"
   },
   {
    "loop": "APP-SCALING-WINNERS 更新",
@@ -393,7 +393,7 @@
    "host": "Mac mini launchd",
    "schedule": "1日1〜5本/垢",
    "runs_per_day": null,
-   "posts_to": "TikTok 9垢・IG 6垢・YT 2垢・X @selawmqt",
+   "posts_to": "TikTok 9垢・IG 6垢・YT 2垢・",
    "status": "投稿は出ている"
   },
   {
@@ -403,7 +403,7 @@
    "schedule": "?",
    "runs_per_day": null,
    "posts_to": "Capafy 下書き",
-   "status": "故障：空の下書きだけ作って止まる"
+   "status": "STOPPED 2026-10-31 要請"
   },
   {
    "loop": "ops-mirror sync",
@@ -430,7 +430,7 @@
    "schedule": "毎時 :09/:24/:39/:54",
    "runs_per_day": null,
    "posts_to": "Capafy へ提出",
-   "status": "稼働状態未確認"
+   "status": "STOPPED 2026-10-31 要請"
   },
   {
    "loop": "capafy-distribute-daily",
@@ -439,7 +439,7 @@
    "schedule": "毎時 :04/:19/:34/:49",
    "runs_per_day": null,
    "posts_to": "自社記事の配信",
-   "status": "稼働状態未確認"
+   "status": "STOPPED 2026-10-31 要請"
   },
   {
    "loop": "Codex 進捗報告",
@@ -482,14 +482,14 @@
   "month": "2026-10",
   "revenue_by_source": {
    "coconala": 203.86,
-   "capafy (orders)": 26.97
+   "capafy": 6.99
   },
-  "revenue_total": 230.83,
+  "revenue_total": 210.85,
   "platform_fees": {
-   "Capafy 20%": 5.39,
+   "Capafy 20%": 1.4,
    "Apple 15% (RC MRR)": 3.0
   },
-  "gross_profit": 222.44,
+  "gross_profit": 206.45,
   "opex_monthly": {
    "Grok Bot + Cursor (X Super)": 113.49,
    "ChatGPT Pro (Codex, Dots)": 191.28,
@@ -509,8 +509,8 @@
    "DigitalOcean": 0.0
   },
   "opex_total": 786.4,
-  "net": -563.96,
-  "burn": 563.96
+  "net": -579.95,
+  "burn": 579.95
  },
  "mrr_breakdown": {
   "revenuecat": 20,
@@ -605,9 +605,9 @@
   },
   {
    "month": "2026-10",
-   "revenue": 230.83,
-   "costs": 636.83,
-   "net": -406.0
+   "revenue": 237.82,
+   "costs": 659.82,
+   "net": -422.0
   }
  ],
  "mrr_history": [
@@ -668,10 +668,10 @@
   "gsc": {
    "https://aniccaai.com/": {
     "d7": {
-     "clicks": 1,
-     "impressions": 36,
-     "ctr": 0.027777777777777776,
-     "position": 8.083333333333332
+     "clicks": 0,
+     "impressions": 33,
+     "ctr": 0,
+     "position": 8.303030303030303
     },
     "top_queries": [
      {
@@ -718,7 +718,7 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 1971
+     "uses": 2025
     },
     {
      "rank": 2,
@@ -743,15 +743,15 @@
    ],
    "winner_saya_top": [
     [
-     38671,
+     39341,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
-     296,
+     302,
      "Seedance 2.0 Video - Generate Instantly"
     ],
     [
-     119,
+     121,
      "YouTube Scripts — Keep Viewers Watching"
     ]
    ]
@@ -815,7 +815,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-31 07:14 JST",
+ "updated_at": "2026-10-31 09:12 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -823,8 +823,8 @@
   "progress_pct": 0.98
  },
  "totals": {
-  "revenue_mtd_usd": 203.86,
-  "revenue_last30d_usd": 203.86,
+  "revenue_mtd_usd": 210.85,
+  "revenue_last30d_usd": 210.85,
   "mrr_usd": 97.58,
   "currency": "USD"
  },
@@ -861,10 +861,10 @@
    "name": "Capafy agents (Clip Map, Hook Lab and others)",
    "owner": "Fucker",
    "revenue_mtd": null,
-   "revenue_lifetime": 102.75,
+   "revenue_lifetime": null,
    "mrr": null,
    "metric": "installs (cumulative)",
-   "metric_value": 2130,
+   "metric_value": 2142,
    "status": "live; 4 fixed agents resubmitted 10/30, in review",
    "next": "paid tier"
   },
@@ -922,10 +922,10 @@
    "revenue_mtd": null,
    "mrr": null,
    "metric": "published research articles / experiments run (team/research/manager-lab)",
-   "metric_value": "1 articles / 1 experiments",
-   "research_articles": 1,
-   "experiments_run": 1,
-   "latest_article_url": "https://aniccaai.com/blog/lab-habituation-nudge-bandit-2026-10-31-ja",
+   "metric_value": "2 articles / 2 experiments",
+   "research_articles": 2,
+   "experiments_run": 2,
+   "latest_article_url": "https://aniccaai.com/blog/lab-wcls-causal-excursion-2026-10-31-ja",
    "status": "research (Manager Lab, daily 09:00 JST)",
    "next": "next daily research note"
   },
@@ -944,19 +944,19 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 0
+   "board_updates_today": 5
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 0
+   "board_updates_today": 1
   },
   {
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 0
+   "board_updates_today": 1
   },
   {
    "agent": "Muse (CMO)",
@@ -968,19 +968,19 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 4
+   "board_updates_today": 5
   },
   {
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 0
+   "board_updates_today": 2
   },
   {
    "agent": "Anicca Marketer",
    "today": "Anicca iOS growth: daily posts, directories, metrics",
    "platforms": "TikTok @aniccaaffirmation, Bluesky, Mastodon, Nostr, Telegraph",
-   "board_updates_today": 0
+   "board_updates_today": 1
   },
   {
    "agent": "Muse Relay",
@@ -992,7 +992,7 @@
    "agent": "Forensic Writing",
    "today": "Viral-hook analysis for X (drafts only)",
    "platforms": "none (drafts only)",
-   "board_updates_today": 0
+   "board_updates_today": 3
   },
   {
    "agent": "Manus (trial)",
@@ -1169,8 +1169,8 @@
     "applications_by_day": null,
     "applications_7d": null,
     "status": "71 agents live",
-    "revenue_lifetime_usd": 102.75,
-    "note": "we list our own products here; no applications; 2,130 installs"
+    "revenue_lifetime_usd": null,
+    "note": "we list our own products here; no applications; 2,142 installs"
    },
    {
     "platform": "PromptBase (our prompts)",
