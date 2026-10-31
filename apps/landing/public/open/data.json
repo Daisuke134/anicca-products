@@ -63,7 +63,7 @@
  ],
  "fx_note": "USD/JPY 156.84 (team finance rate, finance/REVENUE-BY-SOURCE.json fx_jpy_per_usd, 2026-10-31)",
  "x402": {
-  "treasury": "0xFdB5e57946546baD5960a1946102306Ffd04aC00",
+  "treasury": "0x7E8b13B7c080465903874352887656314A267E3c",
   "chain": "base",
   "asset": "USDC",
   "live_in_browser": true

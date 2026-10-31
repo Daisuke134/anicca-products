@@ -4,7 +4,7 @@
 // PayAI facilitator verifies, then settles the buyer-signed EIP-3009 transfer. No private key here.
 
 const FACILITATOR = 'https://facilitator.payai.network';
-const PAY_TO = '0xFdB5e57946546baD5960a1946102306Ffd04aC00';
+const PAY_TO = '0x7E8b13B7c080465903874352887656314A267E3c';
 const USDC_BASE = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
 const PRICE_ATOMIC = '5000'; // $0.005 USDC (6 decimals)
 const EXTRA = { name: 'USD Coin', version: '2' };
