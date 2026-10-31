@@ -411,3 +411,40 @@ export function getJaAffirmationProblem(
 export function allJaAffirmationSlugs(): string[] {
   return JA_AFFIRMATION_PROBLEMS.map((p) => p.slug);
 }
+
+export type JaAffirmationFaq = { q: string; a: string };
+
+/**
+ * FAQ shown on every /affirmation-app/ja/a/* page (visible + FAQPage JSON-LD).
+ * Built only from each page's own lines and steps (no new claims).
+ */
+export function jaAffirmationFaq(problem: JaAffirmationProblem): JaAffirmationFaq[] {
+  const out: JaAffirmationFaq[] = [];
+  const st = problem.shortTitle;
+  const topicQ = /アファメーション$/.test(st)
+    ? `${st}の例は？`
+    : `${st}に使えるアファメーションの例は？`;
+  if (problem.affirmations.length >= 3) {
+    const [a, b, c] = problem.affirmations;
+    out.push({
+      q: topicQ,
+      a: `短く、自分が信じられる言葉が向いています。たとえば「${a}」「${b}」「${c}」。長いリストをくり返すより、一つ選んでゆっくり一回読むのがおすすめです。`,
+    });
+  }
+  if (problem.practice && problem.practice.steps.length > 0) {
+    out.push({
+      q: `${st}のとき、アファメーションはどう使えばいい？`,
+      a: problem.practice.steps.join(' '),
+    });
+  } else {
+    out.push({
+      q: `${st}のとき、アファメーションはどう使えばいい？`,
+      a: 'このページの言葉から、いちばん信じられる一行を選び、息をゆっくり吐きながら一回読みます。気持ちが変わらなくても大丈夫です。必要なら別の一行を試してください。',
+    });
+  }
+  out.push({
+    q: 'アニッチャのアファメーションアプリは無料ですか？',
+    a: 'アニッチャは iPhone 向けに App Store から無料でダウンロードできます。アプリ内には任意のサブスクリプションがあり、プランと価格は購入画面に表示されます。ストリークはありません。',
+  });
+  return out;
+}

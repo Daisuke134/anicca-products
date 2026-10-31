@@ -42,6 +42,15 @@
 - [日曜夜の憂うつ(サザエさん症候群)にそっと効くアファメーション](https://aniccaai.com/affirmation-app/ja/a/sunday-scaries)
 - [職場での対人不安(会議・雑談・チャット)のためのアファメーション](https://aniccaai.com/affirmation-app/ja/a/social-anxiety-at-work)
 - [不安を消すアファメーション?正直な答えと、不安がやわらぐ10の言葉](https://aniccaai.com/affirmation-app/ja/a/affirmations-for-anxiety-relief)
+- [寝る前の不安に効くアファメーション](https://aniccaai.com/affirmation-app/ja/a/night-anxiety)
+- [自己肯定感をやさしく整えるアファメーション](https://aniccaai.com/affirmation-app/ja/a/self-esteem)
+- [燃え尽き・仕事疲れのためのアファメーション](https://aniccaai.com/affirmation-app/ja/a/burnout)
+- [自分を責めてしまうときのアファメーション](https://aniccaai.com/affirmation-app/ja/a/self-blame)
+- [失恋・人間関係の痛みに寄り添うアファメーション](https://aniccaai.com/affirmation-app/ja/a/heartbreak)
+- [朝のアファメーション｜やさしく一日を始める言葉](https://aniccaai.com/affirmation-app/ja/a/morning)
+- [お金の不安をやわらげるアファメーション](https://aniccaai.com/affirmation-app/ja/a/money-worry)
+- [比較して落ち込むときのアファメーション](https://aniccaai.com/affirmation-app/ja/a/comparison)
+(各ページに「よくある質問」あり)
 
 ## Guides (Spanish)
 - [Afirmaciones para la ansiedad del domingo](https://aniccaai.com/affirmation-app/es/a/afirmaciones-para-la-ansiedad-del-domingo)
@@ -75,6 +84,13 @@ Pay per call with x402: no account or API key. An unpaid GET returns HTTP 402 wi
 - [First line of a TikTok: 36 hooks](https://aniccaai.com/blog/first-line-of-a-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
 - [Retention hooks for Shorts: 36 openers](https://aniccaai.com/blog/retention-hooks-for-shorts?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
 - [Pattern interrupt examples for video](https://aniccaai.com/blog/pattern-interrupt-examples-video?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## YouTube script guides (free)
+- [YouTube script hook for the first 30 seconds: 36 openings that earn the next minute](https://aniccaai.com/blog/youtube-script-hook-first-30-seconds?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [10 Minute YouTube Script: 36 Ready-to-Use Structures for Faster Uploads](https://aniccaai.com/blog/10-minute-youtube-script?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [YouTube Video Outline Template: 36 Structures You Can Script Today](https://aniccaai.com/blog/youtube-video-outline-template?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [YouTube storytelling script: 35 ready-to-use hooks and story beats](https://aniccaai.com/blog/youtube-storytelling-script?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [YouTube educational video script: 40 ready-to-use openings and beats](https://aniccaai.com/blog/youtube-educational-video-script?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
 
 ## Optional
 - [Sitemap](https://aniccaai.com/sitemap.xml)
