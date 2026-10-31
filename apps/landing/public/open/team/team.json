@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-31 15:24 JST",
+ "built_at": "2026-10-31 18:28 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -38,16 +38,16 @@
   },
   {
    "agent": "Anicca Marketer",
-   "last": "2026-10-31 13:00",
+   "last": "2026-10-31 15:50",
    "source": "LOOPS.md",
    "task": "loop #39 Anicca 配信＋LM配信＋数値（growth loop）",
    "blocked": true
   },
   {
    "agent": "dr eggbot",
-   "last": "2026-10-31 06:31",
-   "source": "BOARD",
-   "task": "coconala-18521371",
+   "last": "2026-10-31 18:14",
+   "source": "LIVE-STATE.md",
+   "task": "dr-eggbot-upwork",
    "blocked": true
   },
   {
@@ -59,9 +59,9 @@
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-10-31 12:05",
-   "source": "LOOPS.md",
-   "task": "loop #44 Muse Relay pass",
+   "last": "2026-10-31 16:05",
+   "source": "LIVE-STATE.md",
+   "task": "relay pass 16",
    "blocked": false
   }
  ],
@@ -873,7 +873,7 @@
    "posts_7d": 88,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 6,
+   "avg_views_last5": 5,
    "last_post": "2026-10-30T11:00",
    "winner": "https://x.com/godofprompt"
   },
@@ -977,7 +977,7 @@
    "posts_7d": 10,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 25,
+   "avg_views_last5": 71,
    "last_post": "2026-10-30T05:02",
    "winner": "https://x.com/marclou"
   },
