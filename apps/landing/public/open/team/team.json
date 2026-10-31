@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-01 06:05 JST",
+ "built_at": "2026-11-01 08:56 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -45,23 +45,23 @@
   },
   {
    "agent": "dr eggbot",
-   "last": "2026-10-31 18:47",
-   "source": "LIVE-STATE.md",
-   "task": "dr-eggbot-gig",
+   "last": "2026-11-01 07:06",
+   "source": "BOARD",
+   "task": "dr-eggbot-upwork",
    "blocked": true
   },
   {
    "agent": "Forensic Writing",
-   "last": "2026-11-01 04:53",
+   "last": "2026-11-01 07:48",
    "source": "BOARD",
    "task": "hook-forensics-24h",
    "blocked": true
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-11-01 04:26",
-   "source": "BOARD",
-   "task": "anicca-ct-links",
+   "last": "2026-11-01 08:25",
+   "source": "LIVE-STATE.md",
+   "task": "relay pass 08",
    "blocked": true
   }
  ],
@@ -904,7 +904,7 @@
    "posts_7d": 20,
    "views_7d": 4878.0,
    "er_7d": "108.0/4878=2.2%",
-   "avg_views_last5": 319,
+   "avg_views_last5": 321,
    "last_post": "2026-10-30T05:17",
    "winner": "https://www.tiktok.com/@dreamlifecode"
   },
@@ -1073,7 +1073,7 @@
    "posts_7d": 25,
    "views_7d": 1534.0,
    "er_7d": "30.0/1534=2.0%",
-   "avg_views_last5": 95,
+   "avg_views_last5": 92,
    "last_post": "2026-10-30T06:08",
    "winner": "https://www.tiktok.com/@dreamlifecode"
   },
@@ -1099,7 +1099,7 @@
    "posts_7d": 17,
    "views_7d": 3800.0,
    "er_7d": "87.0/3800=2.3%",
-   "avg_views_last5": 206,
+   "avg_views_last5": 205,
    "last_post": "2026-10-30T05:30",
    "winner": "https://www.tiktok.com/@dreamlifecode"
   },
@@ -1425,7 +1425,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-30 22:37",
+   "last_post": "2026-10-31 03:55",
    "winner": "未取得"
   },
   {
@@ -1438,7 +1438,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-30 17:49",
+   "last_post": "2026-10-31 01:00",
    "winner": "未取得"
   },
   {
@@ -1464,7 +1464,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-30 19:01",
+   "last_post": "2026-10-31 01:00",
    "winner": "未取得"
   },
   {
@@ -1477,7 +1477,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-30 14:50",
+   "last_post": "2026-10-31 03:55",
    "winner": "未取得"
   },
   {
@@ -1490,7 +1490,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-30 14:50",
+   "last_post": "2026-10-31 03:55",
    "winner": "未取得"
   },
   {
@@ -1542,7 +1542,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-30 14:48",
+   "last_post": "2026-10-31 01:00",
    "winner": "未取得"
   },
   {
@@ -1607,8 +1607,21 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-11-01 03:2x",
+   "last_post": "2026-11-01 06:2x",
    "winner": "https://www.tiktok.com/@yuusan_juusyoku"
+  },
+  {
+   "platform": "tumblr",
+   "account": "dailyanicca",
+   "poster": "Anicca Marketer",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "avg_views_last5": "未取得",
+   "last_post": "2026-11-02",
+   "winner": "未取得"
   }
  ],
  "seo": [
