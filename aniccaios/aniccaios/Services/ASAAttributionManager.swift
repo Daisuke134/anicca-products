@@ -12,7 +12,12 @@ final class ASAAttributionManager {
     static let shared = ASAAttributionManager()
     private let logger = Logger(subsystem: "com.anicca.ios", category: "ASAAttribution")
 
-    private let hasCheckedKey = "asa_attribution_checked"
+    /// v2 key: the legacy "asa_attribution_checked" flag was set before the network call and never
+    /// sent anything to PostHog, so upgraded installs must run this new path once regardless of it.
+    private let hasCheckedKey = "asa_attribution_posthog_v2_checked"
+    private let attemptsKey = "asa_attribution_posthog_v2_attempts"
+    /// Transient failures retry on later launches, but at most this many times (no endless retries).
+    private let maxAttempts = 3
 
     private init() {}
 
@@ -23,6 +28,13 @@ final class ASAAttributionManager {
         guard !UserDefaults.standard.bool(forKey: hasCheckedKey) else {
             logger.debug("ASA attribution already checked, skipping")
             return
+        }
+
+        let attempts = UserDefaults.standard.integer(forKey: attemptsKey) + 1
+        UserDefaults.standard.set(attempts, forKey: attemptsKey)
+        if attempts >= maxAttempts {
+            // Final attempt: mark checked up front so a failure here is not retried again.
+            UserDefaults.standard.set(true, forKey: hasCheckedKey)
         }
 
         do {
