@@ -1,546 +1,334 @@
 {
- "updated_at": "2026-10-31 22:12 JST",
- "source_updated_at": "2026-10-31 22:12 JST",
+ "version": 2,
+ "updated_at": "2026-10-31 22:21 JST",
  "month": "2026-10",
- "currency": "JPY",
- "display_currency": "USD",
+ "currency": "USD",
  "fx_usdjpy": 156.84,
- "kpis": {
-  "income_month_jpy": 36210,
-  "spend_month_jpy": 123472,
-  "spend_month_usd": 787.25,
-  "spend_status": "partial",
-  "income_month_usd": 230.87,
-  "gross_profit_month_usd": -556.38,
-  "gross_profit_status": "partial",
-  "all_time_status": "unverified",
-  "mrr_jpy": 14677,
-  "mrr_usd": 93.58,
-  "gross_profit_month_jpy": -87263,
-  "income_today_jpy": 0,
-  "income_all_time_jpy": 358665,
-  "pending_jpy": 2500
- },
- "kpi_sources": {
-  "income": "team/finance/REVENUE-BY-SOURCE.json",
-  "spend": "Dots money pass ledger 2026-10-31 (receipts, month to date)",
-  "mrr": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs"
- },
- "expense_items_usd": {
-  "X Subscription (Super, Grok Bot+Cursor bundle) prorated upgrade": 67.99,
-  "X Premium (X CORP. PAID FEATURES)": 5.81,
-  "OpenAI ChatGPT subscription": 296.78,
-  "HeyGen Creator Credit Monthly (Apple)": 28.5,
-  "Adobe KK": 31.54,
-  "Cursor usage": 0.68,
-  "X Subscription Premium (charged+refunded)": 0,
-  "Grok Bot Pro (Apple) prorated refund": -20.4,
-  "Grok Bot Pro (Apple)": 25.34,
-  "Replit Core": 20.0,
-  "Google Cloud (Sep usage, GOOGLE*CLOUD QJC7LF)": 176.65,
-  "Upwork Connects (80, dr eggbot)": 24.0,
-  "Grok Bot Ultra (paid 2026-10-31, invoice 766D3D820C)": 130.36
- },
- "grok_ultra": [
+ "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
+ "model": "Layout modelled on felixcraft.ai/dashboard",
+ "spec": "team/OPEN-PAGE-V2.md",
+ "kpis": [
   {
-   "item": "Grok Bot Ultra — this month (actual spend)",
-   "label_ja": "Grok Bot Ultra 今月の実支出",
-   "date": "2026-10-31",
-   "invoice": "766D3D820C",
-   "amount_usd": 130.36,
-   "amount_jpy": 20445,
-   "kind": "paid"
+   "key": "rev7",
+   "label": "Revenue (7d)",
+   "usd": 16.98,
+   "source": "finance/REVENUE-BY-SOURCE.csv dated rows"
   },
   {
-   "item": "Grok Bot Ultra — recurring from 2026-11-30",
-   "label_ja": "Grok Bot Ultra 11/30からの固定費",
-   "starts": "2026-11-30",
-   "monthly_usd": 221.88,
-   "monthly_jpy": 34800,
-   "kind": "recurring",
-   "replaces": "X Super ¥17,800/month (not double-counted)"
+   "key": "rev30",
+   "label": "Revenue (30d)",
+   "usd": 230.87,
+   "source": "finance/REVENUE-BY-SOURCE.csv dated rows"
+  },
+  {
+   "key": "revm",
+   "label": "Revenue this month",
+   "usd": 230.87,
+   "source": "finance/REVENUE-BY-SOURCE.csv dated rows; Dots reconciliation 2026-10-31 22:05 JST"
+  },
+  {
+   "key": "cost",
+   "label": "Costs this month",
+   "usd": 902.64,
+   "source": "16 receipt lines (table below)"
+  },
+  {
+   "key": "gp",
+   "label": "Gross profit",
+   "usd": -671.77,
+   "source": "revenue this month minus costs this month"
+  },
+  {
+   "key": "margin",
+   "label": "Margin",
+   "pct": -291.0,
+   "source": "gross profit / revenue this month"
+  },
+  {
+   "key": "mrr",
+   "label": "MRR",
+   "usd": 93.58,
+   "source": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs"
+  },
+  {
+   "key": "run",
+   "label": "Active costs / month",
+   "usd": 705.78,
+   "source": "active cost list (table below)"
   }
  ],
- "fx_note": "USD/JPY 156.84 (team finance rate, finance/REVENUE-BY-SOURCE.json fx_jpy_per_usd, 2026-10-31)",
- "x402": {
-  "treasury": "0x7E8b13B7c080465903874352887656314A267E3c",
-  "chain": "base",
-  "asset": "USDC",
-  "live_in_browser": true
+ "monthly": [
+  {
+   "month": "2026-09",
+   "revenue_usd": 421.59,
+   "cost_usd": 1513.71,
+   "gross_profit_usd": -1092.12,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (see costs)"
+  },
+  {
+   "month": "2026-10",
+   "revenue_usd": 230.87,
+   "cost_usd": 902.64,
+   "gross_profit_usd": -671.77,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 16 receipt lines (see costs)"
+  }
+ ],
+ "streams": [
+  {
+   "stream": "Coconala",
+   "owner": "dr eggbot",
+   "ordered_usd": 261.41,
+   "earned_usd": 203.9,
+   "paid_out_usd": null,
+   "paid_out_note": "awaiting Coconala payout cycle",
+   "note": "ordered ¥41,000 incl. ¥9,000 accepted, not yet paid; earned ¥31,980",
+   "source": "Coconala order mails (Dots ledger, reconciled 2026-10-31 22:05 JST)"
+  },
+  {
+   "stream": "Capafy (3 orders)",
+   "owner": "Fucker (agent skills)",
+   "ordered_usd": 26.97,
+   "earned_usd": 26.97,
+   "paid_out_usd": null,
+   "paid_out_note": "payout not received yet",
+   "note": "9.99 + 9.99 + 6.99 gross",
+   "source": "Capafy order notices, Gmail 1a166faac1614e9b, 1a182f601331c46e, 1a18c045b2be816d"
+  },
+  {
+   "stream": "App Store (Anicca, Honne)",
+   "owner": "Codex",
+   "ordered_usd": 0.0,
+   "earned_usd": 0.0,
+   "paid_out_usd": 0.0,
+   "source": "RevenueCat revenue metric, Oct 2026"
+  },
+  {
+   "stream": "Stripe",
+   "owner": "Codex",
+   "ordered_usd": 0.0,
+   "earned_usd": 0.0,
+   "paid_out_usd": 0.0,
+   "source": "Stripe balance transactions, Oct 2026"
+  },
+  {
+   "stream": "x402 (Base USDC)",
+   "owner": "Codex",
+   "ordered_usd": 0.0,
+   "earned_usd": 0.0,
+   "paid_out_usd": 0.0,
+   "source": "Base chain, treasury transfers Oct 2026"
+  }
+ ],
+ "streams_total": {
+  "earned_usd": 230.87,
+  "source": "sum of streams"
  },
- "freelance": [
+ "costs_month": [
   {
-   "key": "coconala",
-   "label": "Coconala",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 31980,
-   "all_time_jpy": 263634,
-   "pending_jpy": 2500,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 2,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "dr eggbot"
+   "item": "OpenAI ChatGPT subscription",
+   "usd": 296.78,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
   },
   {
-   "key": "lancers",
-   "label": "Lancers",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 3,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "dr eggbot"
+   "item": "Google Cloud (Sep usage, GOOGLE*CLOUD QJC7LF)",
+   "usd": 176.65,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
   },
   {
-   "key": "upwork",
-   "label": "Upwork",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 5,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "dr eggbot"
+   "item": "Grok Bot Ultra (first charge)",
+   "usd": 130.36,
+   "source": "xAI invoice 766D3D820C, 2026-10-31"
   },
   {
-   "key": "mercor",
-   "label": "Mercor",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 1,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "Fucker"
+   "item": "X Subscription (Super, Grok Bot+Cursor bundle) prorated upgrade",
+   "usd": 67.99,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
   },
   {
-   "key": "fiverr",
-   "label": "Fiverr",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "Fucker"
+   "item": "Postiz Pro",
+   "usd": 50.6,
+   "source": "MUFG debit notice, Gmail 1a175869bbb3e4de"
   },
   {
-   "key": "contra",
-   "label": "Contra",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "Fucker"
+   "item": "Adobe KK",
+   "usd": 31.54,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
   },
   {
-   "key": "guru",
-   "label": "Guru",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "Fucker"
+   "item": "HeyGen Creator Credit Monthly (Apple)",
+   "usd": 28.5,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
   },
   {
-   "key": "truelancer",
-   "label": "Truelancer",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "Fucker"
+   "item": "Grok Bot Pro (Apple)",
+   "usd": 25.34,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
   },
   {
-   "key": "skima",
-   "label": "SKIMA",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "dr eggbot"
+   "item": "Upwork Connects (80, dr eggbot)",
+   "usd": 24.0,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
   },
   {
-   "key": "freelancer-com",
-   "label": "Freelancer.com",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "Dots"
+   "item": "Railway (usage)",
+   "usd": 23.95,
+   "source": "MUFG debit notice, Gmail 1a17fd3ca7d09c33"
   },
   {
-   "key": "malt",
-   "label": "Malt",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "Dots"
+   "item": "Telnyx",
+   "usd": 20.84,
+   "source": "MUFG debit notice, Gmail 1a12f39dfb6d107f"
   },
   {
-   "key": "workana",
-   "label": "Workana",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "Dots"
+   "item": "Replit Core",
+   "usd": 20.0,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
   },
   {
-   "key": "alignerr",
-   "label": "Alignerr",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "dr eggbot"
+   "item": "Relixir, Inc. (not yet classified)",
+   "usd": 20.0,
+   "source": "receipt #1445-2619, 2026-10-31"
+  },
+  {
+   "item": "X Premium (X CORP. PAID FEATURES)",
+   "usd": 5.81,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
+  },
+  {
+   "item": "Cursor usage",
+   "usd": 0.68,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
+  },
+  {
+   "item": "Grok Bot Pro (Apple) prorated refund",
+   "usd": -20.4,
+   "source": "Dots money ledger 2026-10-31.json (receipts)"
   }
  ],
- "platforms": [
+ "costs_month_total": {
+  "usd": 902.64,
+  "source": "sum of lines"
+ },
+ "active_costs": [
   {
-   "key": "appstore",
-   "label": "App Store (RevenueCat)",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 74612,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": 3137
+   "item": "Grok Bot Ultra",
+   "uses": "agents runtime (replaces X Super)",
+   "usd_mo": 221.88,
+   "next_charge": "11/30",
+   "source": "xAI receipt #1151-6309 (\"You're now on Ultra\", 10/31)"
   },
   {
-   "key": "capafy",
-   "label": "Capafy",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 4230,
-   "all_time_jpy": 12219,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": 11540
+   "item": "ChatGPT Pro",
+   "uses": "agents (ChatGPT)",
+   "usd_mo": 191.28,
+   "next_charge": "11/02",
+   "source": "MUFG debit notice, Gmail 1a0f9efcbe04cd23"
   },
   {
-   "key": "stripe",
-   "label": "Stripe",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 8200,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": 0
+   "item": "ChatGPT extra plans (¥3,596 + ¥13,259)",
+   "uses": "agents (ChatGPT)",
+   "usd_mo": 107.47,
+   "next_charge": "~11/22-24",
+   "source": "Gmail 1a160ebfb3cae501, 1a16b9dbea84cbba"
   },
   {
-   "key": "x402",
-   "label": "x402 (Base USDC)",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null
+   "item": "Postiz Pro",
+   "uses": "social posting",
+   "usd_mo": 50.6,
+   "next_charge": "11/25",
+   "source": "MUFG debit notice, Gmail 1a175869bbb3e4de"
   },
   {
-   "key": "promptbase",
-   "label": "PromptBase",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null
+   "item": "Google Cloud / Gemini (capped)",
+   "uses": "model API",
+   "usd_mo": 32.0,
+   "next_charge": "~11/02",
+   "source": "Google Cloud budget cap (monthly limit)"
   },
   {
-   "key": "line-creators-market",
-   "label": "LINE Creators Market",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null
+   "item": "HeyGen Creator (Apple)",
+   "uses": "video",
+   "usd_mo": 28.69,
+   "next_charge": "11/21",
+   "source": "Apple receipt, Gmail 1a15d47ebb8e5182"
+  },
+  {
+   "item": "Railway (usage)",
+   "uses": "hosting",
+   "usd_mo": 23.95,
+   "next_charge": "11/28",
+   "source": "MUFG debit notice, Gmail 1a17fd3ca7d09c33"
+  },
+  {
+   "item": "Replit Core",
+   "uses": "coding",
+   "usd_mo": 20.93,
+   "next_charge": "11/07-09",
+   "source": "MUFG debit notice, Gmail 1a11dfb1b010b0fe"
+  },
+  {
+   "item": "Telnyx",
+   "uses": "phone calls",
+   "usd_mo": 20.84,
+   "next_charge": "~11/12",
+   "source": "MUFG debit notice, Gmail 1a12f39dfb6d107f"
+  },
+  {
+   "item": "X Premium (basic)",
+   "uses": "X account",
+   "usd_mo": 5.85,
+   "next_charge": "11/24",
+   "source": "Gmail 1a16da1dfe3968d1"
+  },
+  {
+   "item": "Hetzner",
+   "uses": "server",
+   "usd_mo": 1.61,
+   "next_charge": "11/02",
+   "source": "MUFG debit notice HETZNER, Gmail 1a0fb99236f1142d"
+  },
+  {
+   "item": "Cursor usage",
+   "uses": "coding",
+   "usd_mo": 0.68,
+   "next_charge": "usage",
+   "source": "Gmail 1a1472c55e279777"
   }
  ],
- "products": [
+ "active_costs_total": {
+  "usd_mo": 705.78,
+  "source": "sum of lines"
+ },
+ "by_agent": [
   {
-   "key": "anicca",
-   "label": "Anicca affirmation app",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 61420,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": 3137,
-   "items": null
+   "agent": "dr eggbot",
+   "earns_usd": 203.9,
+   "spends_usd": 24.0,
+   "net_usd": 179.9,
+   "source": "Coconala order mails (Dots ledger, reconciled 2026-10-31 22:05 JST); Dots money ledger 2026-10-31.json (receipts)"
   },
   {
-   "key": "honne",
-   "label": "Honne",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 13192,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
+   "agent": "Fucker",
+   "earns_usd": 26.97,
+   "spends_usd": 0.0,
+   "net_usd": 26.97,
+   "source": "Capafy order notices, Gmail 1a166faac1614e9b, 1a182f601331c46e, 1a18c045b2be816d"
   },
   {
-   "key": "capafy-skills",
-   "label": "Capafy skills (all agents)",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 4230,
-   "all_time_jpy": 12219,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": 11540,
-   "items": [
-    {
-     "label": "Academic Results Humanizer",
-     "month_jpy": 0,
-     "all_time_jpy": 1568
-    },
-    {
-     "label": "Academic Humanizer",
-     "month_jpy": 0,
-     "all_time_jpy": 1567
-    },
-    {
-     "label": "Hook Lab",
-     "month_jpy": 0,
-     "all_time_jpy": 1567
-    },
-    {
-     "label": "Slide Maker",
-     "month_jpy": 0,
-     "all_time_jpy": 1567
-    },
-    {
-     "label": "TikTok Series Continuity Planner",
-     "month_jpy": 1567,
-     "all_time_jpy": 1567
-    },
-    {
-     "label": "NHL Goalie Matchup Brief",
-     "month_jpy": 1567,
-     "all_time_jpy": 1567
-    },
-    {
-     "label": "Marketing Strategist",
-     "month_jpy": 0,
-     "all_time_jpy": 1096
-    },
-    {
-     "label": "TikTok Storytime Script",
-     "month_jpy": 1096,
-     "all_time_jpy": 1096
-    },
-    {
-     "label": "TikTok Script Pro",
-     "month_jpy": 0,
-     "all_time_jpy": 312
-    },
-    {
-     "label": "YouTube Script Writer",
-     "month_jpy": 0,
-     "all_time_jpy": 312
-    }
-   ]
-  },
-  {
-   "key": "stripe-web-subscription-2025-product-not-labelled",
-   "label": "Stripe web subscription (2025, product not labelled)",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 6515,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "stripe-payment-product-not-labelled",
-   "label": "Stripe payment (product not labelled)",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 1685,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "x402-endpoints-affirmation-capafy-skill",
-   "label": "x402 endpoints (affirmation, capafy-skill)",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "thankful-daily-dhamma-sleep-reset-other-rc-apps-15-projects",
-   "label": "Thankful / Daily Dhamma / Sleep Reset / other RC apps (15 projects)",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "promptbase-prompts",
-   "label": "PromptBase prompts",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "line-stickers",
-   "label": "LINE stickers",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "life-manager-cloud",
-   "label": "Life Manager Cloud",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "ai-monk-factory-monk-db-obou",
-   "label": "AI Monk Factory / Monk DB / OBOU",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "the-manager",
-   "label": "The Manager",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "studio-cherie-app",
-   "label": "STUDIO CHERIE app",
-   "status": "live",
-   "today_jpy": 0,
-   "month_jpy": 0,
-   "all_time_jpy": 0,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
+   "agent": "Shared (all agents: models, hosting, tools)",
+   "earns_usd": 0.0,
+   "spends_usd": 878.64,
+   "net_usd": -878.64,
+   "source": "costs this month (receipt lines without a single agent)"
   }
  ],
- "notes": "All amounts in USD (sources stored in JPY, converted at fx_usdjpy). Sources without a connected revenue feed are hidden. All-time totals are unverified until backed by payment records. Expenses and gross profit are partial (receipts found so far). x402 is read live from Base."
+ "wallets": [
+  {
+   "label": "Treasury (x402 receipts)",
+   "chain": "base",
+   "asset": "USDC",
+   "address": "0x7E8b13B7c080465903874352887656314A267E3c",
+   "source": "Base chain (read live in your browser)"
+  }
+ ]
 }

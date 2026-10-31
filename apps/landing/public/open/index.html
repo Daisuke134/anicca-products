@@ -1,65 +1,50 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Anicca Open — revenue by platform and product</title>
-<meta name="description" content="Anicca open startup dashboard: this month's income, spend, gross profit and MRR, by platform and by product.">
+<title>Anicca — open P&amp;L of a zero-human company</title>
+<meta name="description" content="Anicca's open P&L: revenue by stage, costs, gross profit, margin, MRR and per-agent numbers. Every number links to its source.">
 <style>
-:root{--fg:#111;--mut:#6b7280;--line:#e5e7eb;--bg:#fafafa;--pos:#059669;--neg:#dc2626}
-*{box-sizing:border-box}body{margin:0;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Segoe UI",sans-serif;color:var(--fg);background:var(--bg)}
-main{max-width:1040px;margin:0 auto;padding:40px 20px 80px}
-h1{font-size:28px;margin:0 0 4px}h2{font-size:18px;margin:40px 0 12px}.sub{color:var(--mut);margin:0}
+:root{--fg:#0f172a;--mut:#64748b;--line:#e2e8f0;--bg:#f8fafc;--pos:#059669;--neg:#dc2626}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--fg);background:var(--bg)}
+main{max-width:1080px;margin:0 auto;padding:40px 20px 80px}h1{font-size:28px;margin:0 0 6px}h2{font-size:18px;margin:40px 0 12px}
+.sub{color:var(--mut);margin:0;font-size:14px}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}
-.card .l{color:var(--mut);font-size:13px}.card .v{font-size:32px;font-weight:700;letter-spacing:-.02em;margin-top:4px}
-.card .n{color:var(--mut);font-size:12px;margin-top:4px}
-@media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.card .v{font-size:24px}}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+.card .l{color:var(--mut);font-size:13px}.card .v{font-size:28px;font-weight:700;letter-spacing:-.02em;margin-top:4px}
+.card .s{color:var(--mut);font-size:11px;margin-top:6px}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.card .v{font-size:22px}}
 .tw{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:12px}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
-th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
-th{font-size:12px;color:var(--mut);font-weight:600;background:#f9fafb}th:first-child,td:first-child{text-align:left}
-tr:last-child td{border-bottom:0}.na{color:#9ca3af}.pos{color:var(--pos)}.neg{color:var(--neg)}
-.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:#f3f4f6;color:var(--mut);margin-left:6px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{font-size:12px;color:var(--mut);font-weight:600;background:#f1f5f9}th:first-child,td:first-child{text-align:left}
+td.src{text-align:left;color:var(--mut);font-size:12px;white-space:normal;min-width:220px}
+tr.tot td{font-weight:700}.pos{color:var(--pos)}.neg{color:var(--neg)}.mut{color:var(--mut)}
 footer{color:var(--mut);font-size:13px;margin-top:32px}a{color:inherit}
 </style></head><body><main>
-<h1>Anicca Open</h1>
-<p class="sub">All of our revenue and costs, by platform and by product. Last updated: <b id="upd">…</b></p>
-<section class="kpis">
- <div class="card"><div class="l">Revenue this month</div><div class="v" id="k-inc">—</div><div class="n" id="k-inc-n"></div></div>
- <div class="card"><div class="l">Expenses this month <span class="tag">partial</span></div><div class="v" id="k-sp">—</div><div class="n">receipts found so far, month to date</div></div>
- <div class="card"><div class="l">Gross profit this month <span class="tag">partial</span></div><div class="v" id="k-gp">—</div><div class="n">revenue minus known expenses</div></div>
- <div class="card"><div class="l">MRR</div><div class="v" id="k-mrr">—</div><div class="n">recurring revenue, monthly</div></div>
-</section>
-<h2>Expenses this month <span class="tag">partial</span></h2><div class="tw"><table id="t-exp"></table></div>
-<h2>Monthly recurring costs (run-rate)</h2><div class="tw"><table id="t-opex"></table></div>
-<h2>Grok Bot Ultra</h2><div class="tw"><table id="t-grok"></table></div>
-<h2>Contract work, by platform</h2><p class="sub" style="margin:-6px 0 10px;font-size:13px">x402 wallet balance (live): <b id="x402">…</b></p><div class="tw"><table id="t-free"></table></div>
-<h2>Other platforms</h2><div class="tw"><table id="t-plat"></table></div>
-<h2>By product</h2><div class="tw"><table id="t-prod"></table></div>
-<footer><p id="notes"></p><p>Data: <a href="data.json">data.json</a> and <a href="metrics.json">metrics.json</a> (updated automatically). Sources without a connected revenue feed are hidden; nothing is estimated.</p></footer>
+<h1>Anicca — open P&amp;L of a zero-human company</h1>
+<p class="sub">Updated <b id="upd">…</b> · sources: <span id="srcs"></span></p>
+<section class="kpis" id="kpis"></section>
+<h2>By month</h2><div class="tw"><table id="t-month"></table></div>
+<h2>Revenue by stream (<span id="m1"></span>)</h2><div class="tw"><table id="t-str"></table></div>
+<h2>Costs this month (<span id="m2"></span>)</h2><div class="tw"><table id="t-cm"></table></div>
+<h2>Active costs (recurring, per month)</h2><div class="tw"><table id="t-act"></table></div>
+<h2>By agent (<span id="m3"></span>)</h2><div class="tw"><table id="t-ag"></table></div>
+<h2>Wallets (live from Base)</h2><div class="tw"><table id="t-w"></table></div>
+<footer><p>Ordered = order placed · Earned = work delivered / sale confirmed · Paid out = money received in our account. Every row carries its source; rows without one are not published. All amounts in USD (JPY converted at USD/JPY <span id="fx"></span>).</p>
+<p>Raw data: <a href="data.json">data.json</a> · <a href="metrics.json">metrics.json</a> · rebuilt daily. Layout modelled on <a href="https://felixcraft.ai/dashboard">felixcraft.ai/dashboard</a>.</p></footer>
 </main><script>
 const $=id=>document.getElementById(id);
-// DISPLAY CURRENCY IS USD. Sources are stored in JPY; converted with data.json fx_usdjpy. Do not switch to ¥ (成田さん 2026-10-31).
-const DISPLAY_CURRENCY='USD';const usd=v=>v==null?'<span class="na">—</span>':(v<0?'−':'')+'$'+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});let FX=null;
-const yen=v=>v==null?'<span class="na">—</span>':(FX?(v<0?'−':'')+'$'+(Math.abs(v)/FX).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'<span class="na">—</span>');
-const chg=v=>v==null?'<span class="na">—</span>':v===0?'±$0.00':`<span class="${v>0?'pos':'neg'}">${v>0?'+':''}${yen(v)}</span>`;
-const num=v=>v==null?'<span class="na">—</span>':v;
-const NA0=`<td>$0.00</td><td>$0.00</td><td>$0.00</td><td>—</td>`;
-function free(el,rows){let h='<tr><th>Platform</th><th>Today</th><th>This month</th><th>All time <span class="tag">unverified</span></th><th>vs yesterday</th><th>Applications (7d)</th><th>Replies</th><th>Reply rate</th><th>Contracts</th><th>Owner</th></tr>';
- for(const r of rows){const on=r.status==='live';const rr=r.reply_rate==null?'<span class="na">—</span>':Math.round(r.reply_rate*100)+'%';
-  const pend=r.pending_jpy?`<span class="tag">booked ${yen(r.pending_jpy)}</span>`:'';
-  h+=`<tr><td>${r.label}${pend}${on?'':''}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:NA0)+`<td>${num(r.applications_7d)}</td><td>${num(r.replies)}</td><td>${rr}</td><td>${num(r.contracts)}</td><td>${r.owner||'—'}</td></tr>`}el.innerHTML=h}
-function money(el,rows,first){let h=`<tr><th>${first}</th><th>Today</th><th>This month</th><th>All time <span class="tag">unverified</span></th><th>vs yesterday</th><th>MRR</th></tr>`;
- for(const r of rows){const on=r.status==='live';
-  h+=`<tr><td>${r.label}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:NA0)+`<td>${r.mrr_jpy==null?'<span class="na">—</span>':yen(r.mrr_jpy)}</td></tr>`;
-  for(const i of r.items||[])h+=`<tr><td style="padding-left:30px;color:#6b7280;font-size:13px">${i.label}</td><td></td><td>${yen(i.month_jpy)}</td><td>${yen(i.all_time_jpy)}</td><td></td><td></td></tr>`}el.innerHTML=h}
-function x402(d){const a=d.x402.treasury;fetch('https://mainnet.base.org',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',data:'0x70a08231'+a.slice(2).toLowerCase().padStart(64,'0')},'latest']})}).then(r=>r.json()).then(j=>{const u=parseInt(j.result,16)/1e6;$('x402').textContent=u.toFixed(2)+' USDC ($'+u.toFixed(2)+') · '+new Date().toLocaleTimeString('en-US',{timeZone:'Asia/Tokyo'})+' JST'}).catch(()=>{$('x402').textContent='failed to load'})}
-fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{const k=d.kpis;FX=d.fx_usdjpy;if(!FX){$('upd').textContent='FX missing';return}$('upd').textContent=d.updated_at;
- $('k-inc').innerHTML=yen(k.income_month_jpy);$('k-inc-n').innerHTML=d.month+' · today '+yen(k.income_today_jpy)+' · all time '+yen(k.income_all_time_jpy)+' (unverified)';
- $('k-sp').innerHTML=usd(k.spend_month_usd);$('k-gp').innerHTML=k.gross_profit_month_usd==null?'—':`<span class="${k.gross_profit_month_usd<0?'neg':'pos'}">${usd(k.gross_profit_month_usd)}</span>`;
- $('k-mrr').innerHTML=usd(k.mrr_usd);
- $('t-exp').innerHTML='<tr><th>Item</th><th>USD</th></tr>'+Object.entries(d.expense_items_usd||{}).sort((x,y)=>y[1]-x[1]).map(([n,v])=>`<tr><td>${n}</td><td>${usd(v)}</td></tr>`).join('')+`<tr><td><b>Total (partial)</b></td><td><b>${usd(k.spend_month_usd)}</b></td></tr>`;
- $('t-grok').innerHTML='<tr><th>Item</th><th>USD</th><th>JPY (reference)</th><th>Note</th></tr>'+(d.grok_ultra||[]).map(g=>g.kind=='paid'?`<tr><td>This month (actual spend)</td><td>${usd(g.amount_usd)}</td><td>¥${g.amount_jpy.toLocaleString()}</td><td>paid ${g.date}, invoice ${g.invoice}</td></tr>`:`<tr><td>Recurring from ${g.starts}</td><td>${usd(g.monthly_usd)}/mo</td><td>¥${g.monthly_jpy.toLocaleString()}/mo</td><td>replaces X Super ¥17,800/mo (not double-counted)</td></tr>`).join('')+`<tr><td colspan="4" style="font-size:12px;color:#6b7280">${d.fx_note||''}</td></tr>`;
- fetch('metrics.json',{cache:'no-store'}).then(r=>r.json()).then(m=>{const p=m.pnl||{};$('t-opex').innerHTML='<tr><th>Item</th><th>USD / month</th></tr>'+Object.entries(p.opex_monthly||{}).sort((x,y)=>y[1]-x[1]).map(([n,v])=>`<tr><td>${n}</td><td>${usd(v)}</td></tr>`).join('')+`<tr><td><b>Run-rate total</b></td><td><b>${usd(p.opex_total)}</b></td></tr>`}).catch(()=>{});
- free($('t-free'),d.freelance);money($('t-plat'),d.platforms,'Platform');money($('t-prod'),d.products,'Product');
- $('notes').textContent=d.notes+' (USD/JPY '+(d.fx_usdjpy||'—')+')';x402(d);
+const usd=v=>v==null?'<span class="mut">—</span>':`<span class="${v<0?'neg':''}">${v<0?'−':''}$${Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</span>`;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tbl=(el,head,rows)=>{el.innerHTML='<tr>'+head.map(h=>`<th>${h}</th>`).join('')+'</tr>'+rows.join('')};
+fetch('data.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
+ $('upd').textContent=d.updated_at;$('srcs').textContent=d.sources_line;$('fx').textContent=d.fx_usdjpy;['m1','m2','m3'].forEach(i=>$(i).textContent=d.month);
+ $('kpis').innerHTML=d.kpis.map(k=>`<div class="card"><div class="l">${esc(k.label)}</div><div class="v">${k.pct!=null?`<span class="${k.pct<0?'neg':'pos'}">${k.pct}%</span>`:k.count!=null?k.count:usd(k.usd)}</div><div class="s">source: ${esc(k.source)}</div></div>`).join('');
+ tbl($('t-month'),['Month','Revenue','Cost','Gross profit','Source'],d.monthly.map(m=>`<tr><td>${m.month}</td><td>${usd(m.revenue_usd)}</td><td>${usd(m.cost_usd)}</td><td>${usd(m.gross_profit_usd)}</td><td class="src">${esc(m.source)}</td></tr>`));
+ tbl($('t-str'),['Stream','Owner agent','Ordered','Earned','Paid out','Source'],d.streams.map(s=>`<tr><td>${esc(s.stream)}</td><td>${esc(s.owner)}</td><td>${usd(s.ordered_usd)}</td><td>${usd(s.earned_usd)}</td><td>${s.paid_out_usd==null?`<span class="mut">${esc(s.paid_out_note||'not yet')}</span>`:usd(s.paid_out_usd)}</td><td class="src">${esc(s.source)}${s.note?' · '+esc(s.note):''}</td></tr>`).concat([`<tr class="tot"><td>Total</td><td></td><td></td><td>${usd(d.streams_total.earned_usd)}</td><td></td><td class="src">${esc(d.streams_total.source)}</td></tr>`]));
+ tbl($('t-cm'),['Item','USD','Source'],d.costs_month.map(c=>`<tr><td>${esc(c.item)}</td><td>${usd(c.usd)}</td><td class="src">${esc(c.source)}</td></tr>`).concat([`<tr class="tot"><td>Total</td><td>${usd(d.costs_month_total.usd)}</td><td></td></tr>`]));
+ tbl($('t-act'),['Item','Used for','USD / month','Next charge','Source'],d.active_costs.map(c=>`<tr><td>${esc(c.item)}</td><td>${esc(c.uses)}</td><td>${usd(c.usd_mo)}</td><td>${esc(c.next_charge)}</td><td class="src">${esc(c.source)}</td></tr>`).concat([`<tr class="tot"><td>Total</td><td></td><td>${usd(d.active_costs_total.usd_mo)}</td><td></td><td></td></tr>`]));
+ tbl($('t-ag'),['Agent','Earns','Spends','Net','Source'],d.by_agent.map(a=>`<tr><td>${esc(a.agent)}</td><td>${usd(a.earns_usd)}</td><td>${usd(a.spends_usd)}</td><td>${usd(a.net_usd)}</td><td class="src">${esc(a.source)}</td></tr>`));
+ tbl($('t-w'),['Wallet','Address','USDC','Source'],d.wallets.map((w,i)=>`<tr><td>${esc(w.label)}</td><td><a href="https://basescan.org/address/${w.address}">${w.address.slice(0,6)}…${w.address.slice(-4)}</a></td><td id="w${i}">…</td><td class="src">${esc(w.source)}</td></tr>`));
+ d.wallets.forEach((w,i)=>fetch('https://mainnet.base.org',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',data:'0x70a08231'+w.address.slice(2).toLowerCase().padStart(64,'0')},'latest']})}).then(r=>r.json()).then(j=>{$('w'+i).textContent=(parseInt(j.result,16)/1e6).toFixed(2)}).catch(()=>{$('w'+i).textContent='could not load'}));
 }).catch(()=>{$('upd').textContent='failed to load'});
 </script></body></html>
