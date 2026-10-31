@@ -28,3 +28,12 @@
 - [ ] 専用branchをpushしてPR/main統合、main由来のNetlify公開を公式readback。
 
 Capafyの価格変更は別のprovider境界として、`team-outbox/PAID-PRODUCTS-TASK.md` に記録する。
+
+## 検証記録
+
+- PRは https://github.com/Daisuke134/anicca-products/pull/815 。
+- 新しい3つの納品テストは、既存CIが選択する `ebook-download.test.js` に置く。計10件をPASS。
+- `npm run test:telemetry`: 543件中507件PASS・36件SKIP・FAILなし。初回の1件はsparse checkoutに `.github/workflows` が無かったためで、同パスを取得して再実行する。
+- 2本の公開購入リンクは匿名GETで HTTP 200・Stripe Checkout のHTMLを取得する。画面への入力や実chargeは行わない。
+- 最初のローカル全体ビルドはコンパイル後、既存canonical app registry未stageによる5ページのprerender失敗とwebpack cacheのENOSPCを記録する。自分で生成したnpm cacheとwebpack cacheを削除し、既存CIと同じimmutable pinのstageを使う。依存更新・他商品の修正は加えない。
+- `npm ci` の既存lockは117件の脆弱性警告を表示する。今回は依存ファイルを変更しない。

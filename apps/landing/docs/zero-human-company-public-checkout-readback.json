@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-10-31T15:04:38.790300+00:00",
+  "method": "anonymous public GET",
+  "charges_executed": false,
+  "pages": [
+    {
+      "edition": "standard",
+      "http": 200,
+      "url": "https://buy.stripe.com/5kQ6oHgcCeZMe9y0VU2880Y",
+      "html_bytes": 621593,
+      "title": [
+        "Stripe Checkout"
+      ],
+      "contains_checkout_js": true
+    },
+    {
+      "edition": "templates",
+      "http": 200,
+      "url": "https://buy.stripe.com/dRm4gz5xY6tgaXmdIG2880Z",
+      "html_bytes": 621593,
+      "title": [
+        "Stripe Checkout"
+      ],
+      "contains_checkout_js": true
+    }
+  ]
+}
