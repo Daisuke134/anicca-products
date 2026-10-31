@@ -1,6 +1,8 @@
 import Foundation
 import AdServices
 import Mixpanel
+import PostHog
+import RevenueCat
 import OSLog
 
 /// Apple Search Ads Attribution Manager
@@ -23,9 +25,6 @@ final class ASAAttributionManager {
             return
         }
 
-        // チェック済みフラグを立てる（次回以降スキップ）
-        UserDefaults.standard.set(true, forKey: hasCheckedKey)
-
         do {
             // Step 1: AdServicesからトークンを取得
             let token = try AAAttribution.attributionToken()
@@ -36,15 +35,40 @@ final class ASAAttributionManager {
 
             // Step 3: Mixpanelにユーザープロパティとして設定
             setMixpanelProperties(attribution: attribution)
+            setPostHogProperties(attribution: attribution)
+
+            // Apple が応答した時だけチェック済みにする（通信失敗は次回起動で再試行）
+            UserDefaults.standard.set(true, forKey: hasCheckedKey)
 
         } catch {
             // ASA経由でないインストール（Organic）の場合はエラーになる
             // これは正常な挙動なのでdebugログのみ
             logger.debug("ASA attribution not available: \(error.localizedDescription)")
 
-            // Organicインストールとしてマーク
-            AnalyticsManager.shared.setUserProperty("asa_attribution", value: false)
+            // トークン取得/通信失敗は organic と区別して記録（asa_attribution は立てない）
+            AnalyticsManager.shared.setUserProperty("asa_attribution_status", value: "unavailable")
+            AttributionPersonProperties.apply(["asa_attribution_status": "unavailable"])
         }
+    }
+
+    /// PostHog の person プロパティにも asa_* を設定（distinct_id = RevenueCat appUserID）
+    private func setPostHogProperties(attribution: ASAAttributionData) {
+        var props: [String: Any] = [
+            "asa_attribution": attribution.attribution,
+            "asa_attribution_status": attribution.attribution ? "attributed" : "organic",
+        ]
+        if let v = attribution.orgId { props["asa_org_id"] = v }
+        if let v = attribution.campaignId { props["asa_campaign_id"] = v }
+        if let v = attribution.adGroupId { props["asa_ad_group_id"] = v }
+        if let v = attribution.keywordId { props["asa_keyword_id"] = v }
+        if let v = attribution.adId { props["asa_ad_id"] = v }
+        if let v = attribution.countryOrRegion { props["asa_country"] = v }
+        if let v = attribution.conversionType { props["asa_conversion_type"] = v }
+        if let v = attribution.claimType { props["asa_claim_type"] = v }
+        if let v = attribution.clickDate { props["asa_click_date"] = v }
+        if attribution.attribution { props["source"] = "apple_search_ads" }
+        AttributionPersonProperties.apply(props)
+        PostHogSDK.shared.capture("apple_adservices_attribution", properties: props)
     }
 
     /// AppleのAttribution APIにトークンを送信
@@ -101,6 +125,41 @@ final class ASAAttributionManager {
 
         AnalyticsManager.shared.setUserProperties(properties)
         logger.info("ASA attribution properties set in Mixpanel")
+    }
+}
+
+// MARK: - PostHog person properties
+
+/// 流入元プロパティを保存し、PostHog の person（distinct_id = Purchases.shared.appUserID）に $set する。
+/// RevenueCat の logIn で appUserID が変わったら reidentify() で同じプロパティを付け直す。
+enum AttributionPersonProperties {
+    private static let storeKey = "attribution_person_properties"
+
+    static var stored: [String: Any] {
+        UserDefaults.standard.dictionary(forKey: storeKey) ?? [:]
+    }
+
+    static func apply(_ props: [String: Any]) {
+        var merged = stored
+        props.forEach { merged[$0.key] = $0.value }
+        UserDefaults.standard.set(merged, forKey: storeKey)
+        PostHogSDK.shared.identify(Purchases.shared.appUserID, userProperties: props)
+    }
+
+    static func reidentify() {
+        PostHogSDK.shared.identify(Purchases.shared.appUserID, userProperties: stored)
+    }
+
+    /// ランディング/ディープリンクの ct・source を person プロパティにする（初回値は $set_once 相当で保持）
+    static func recordCampaign(from url: URL) {
+        guard let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems else { return }
+        var props: [String: Any] = [:]
+        for key in ["ct", "source", "utm_source", "utm_medium", "utm_campaign"] {
+            if let v = items.first(where: { $0.name == key })?.value, !v.isEmpty { props[key] = v }
+        }
+        guard !props.isEmpty else { return }
+        if let ct = props["ct"], stored["first_ct"] == nil { props["first_ct"] = ct }
+        apply(props)
     }
 }
 
