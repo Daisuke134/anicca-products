@@ -632,31 +632,31 @@
      "us:daily affirmations": "圏外(>200)",
      "us:affirmation app": "圏外(>200)",
      "jp:アファメーション": 37,
-     "jp:アファメーション アプリ": 37
+     "jp:アファメーション アプリ": 38
     },
     "id": 6755129214,
     "genre": "Health & Fitness",
-    "ratings": 48,
-    "rating": 4.52083,
+    "ratings": 47,
+    "rating": 4.51064,
     "version": "1.9.4"
    },
    "Honne": {
     "keywords": {
      "jp:本音翻訳": 1,
      "jp:LINE 相性": "圏外(>200)",
-     "jp:本音": 28
+     "jp:本音": 38
     },
     "id": 6759667221,
     "genre": "Utilities",
     "ratings": 2,
     "rating": 5,
-    "version": "1.0.5"
+    "version": "1.0.3"
    },
    "Thankful": {
     "keywords": {
      "us:gratitude journal": "圏外(>200)",
      "us:gratitude": "圏外(>200)",
-     "jp:感謝日記": 174
+     "jp:感謝日記": 176
     },
     "id": 6759514159,
     "genre": "Health & Fitness",
@@ -668,10 +668,10 @@
   "gsc": {
    "https://aniccaai.com/": {
     "d7": {
-     "clicks": 2,
-     "impressions": 38,
-     "ctr": 0.05263157894736842,
-     "position": 8.157894736842106
+     "clicks": 0,
+     "impressions": 33,
+     "ctr": 0,
+     "position": 8.303030303030303
     },
     "top_queries": [
      {
@@ -709,12 +709,6 @@
       "pos": 44,
       "impr": 1,
       "clicks": 0
-     },
-     {
-      "q": "googleカレンダー 移動時間",
-      "pos": 11,
-      "impr": 1,
-      "clicks": 0
      }
     ]
    }
@@ -724,12 +718,12 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2085
+     "uses": 2025
     },
     {
      "rank": 2,
      "title": "Hook Grader — Free Hook Score (0-10)",
-     "uses": 55
+     "uses": 53
     },
     {
      "rank": 3,
@@ -749,15 +743,15 @@
    ],
    "winner_saya_top": [
     [
-     39753,
+     39341,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
-     304,
+     302,
      "Seedance 2.0 Video - Generate Instantly"
     ],
     [
-     122,
+     121,
      "YouTube Scripts — Keep Viewers Watching"
     ]
    ]
@@ -821,7 +815,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-31 21:12 JST",
+ "updated_at": "2026-10-31 21:13 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -870,7 +864,7 @@
    "revenue_lifetime": null,
    "mrr": null,
    "metric": "installs (cumulative)",
-   "metric_value": 2198,
+   "metric_value": 2184,
    "status": "live; 4 fixed agents resubmitted 10/30, in review",
    "next": "paid tier"
   },
@@ -890,7 +884,7 @@
    "revenue_mtd": null,
    "mrr": null,
    "metric": "site pageviews (cumulative)",
-   "metric_value": 2026,
+   "metric_value": 1924,
    "status": "live",
    "next": "search traffic (SEO loop)"
   },
@@ -950,49 +944,49 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 26
+   "board_updates_today": 20
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 17
+   "board_updates_today": 8
   },
   {
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 10
+   "board_updates_today": 8
   },
   {
    "agent": "Muse (CMO)",
    "today": "Monk reels, e-book funnel, Whop store, Naïve push",
    "platforms": "Instagram, Threads, TikTok, YouTube, Whop",
-   "board_updates_today": 1
+   "board_updates_today": 0
   },
   {
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 13
+   "board_updates_today": 10
   },
   {
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 7
+   "board_updates_today": 6
   },
   {
    "agent": "Anicca Marketer",
    "today": "Anicca iOS growth: daily posts, directories, metrics",
    "platforms": "TikTok @aniccaaffirmation, Bluesky, Mastodon, Nostr, Telegraph",
-   "board_updates_today": 2
+   "board_updates_today": 1
   },
   {
    "agent": "Muse Relay",
    "today": "Turns Muse's winning reels into X / note / TikTok material",
    "platforms": "none (hands drafts to account owners)",
-   "board_updates_today": 1
+   "board_updates_today": 0
   },
   {
    "agent": "Forensic Writing",
@@ -1008,8 +1002,8 @@
   }
  ],
  "contract_work": {
-  "applications_today": 12,
-  "applications_7d": 56,
+  "applications_today": 9,
+  "applications_7d": 53,
   "days": [
    "2026-10-25",
    "2026-10-26",
@@ -1040,7 +1034,7 @@
    {
     "platform": "Lancers",
     "owner": "dr eggbot",
-    "applications_today": 3,
+    "applications_today": 1,
     "applications_by_day": {
      "2026-10-25": 6,
      "2026-10-26": 9,
@@ -1048,16 +1042,16 @@
      "2026-10-28": 0,
      "2026-10-29": 0,
      "2026-10-30": 0,
-     "2026-10-31": 3
+     "2026-10-31": 1
     },
-    "applications_7d": 18,
+    "applications_7d": 16,
     "status": "active",
     "revenue_lifetime_usd": null
    },
    {
     "platform": "Upwork",
     "owner": "dr eggbot",
-    "applications_today": 4,
+    "applications_today": 3,
     "applications_by_day": {
      "2026-10-25": 0,
      "2026-10-26": 0,
@@ -1065,9 +1059,9 @@
      "2026-10-28": 0,
      "2026-10-29": 0,
      "2026-10-30": 0,
-     "2026-10-31": 4
+     "2026-10-31": 3
     },
-    "applications_7d": 4,
+    "applications_7d": 3,
     "status": "contract active (Labelbox, 10/30); ID check due 11/6",
     "revenue_lifetime_usd": null
    },
@@ -1183,7 +1177,7 @@
     "applications_7d": null,
     "status": "71 agents live",
     "revenue_lifetime_usd": null,
-    "note": "we list our own products here; no applications; 2,198 installs"
+    "note": "we list our own products here; no applications; 2,184 installs"
    },
    {
     "platform": "PromptBase (our prompts)",
