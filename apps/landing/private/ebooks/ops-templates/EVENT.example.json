@@ -1,0 +1,19 @@
+{
+  "example_only": true,
+  "run_id": "run-example-001",
+  "owner_id": "delivery-worker",
+  "occurrence_id": "order-example-123",
+  "release_sha": null,
+  "loaded_argv": [],
+  "loaded_env_names_only": [],
+  "phase": "delivery_readback",
+  "command": null,
+  "exit_code": null,
+  "effect": "unknown",
+  "readback": "not_observed",
+  "provider_receipt_id": null,
+  "evidence_refs": [],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "read_official_order_before_any_resend"
+}

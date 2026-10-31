@@ -1,0 +1,21 @@
+{
+  "product_id": null,
+  "edition": null,
+  "currency": null,
+  "unit_amount": null,
+  "billing_mode": "one_time",
+  "provider_price_id": null,
+  "payment_url": null,
+  "deliverables": [],
+  "success_redirect": null,
+  "delivery_gate": {
+    "official_session_required": true,
+    "status": "complete",
+    "payment_status": "paid",
+    "same_live_environment": true,
+    "same_product_and_edition": true,
+    "verified_currency_and_amount": true
+  },
+  "verified_at": null,
+  "evidence_refs": []
+}

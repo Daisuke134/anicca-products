@@ -1,0 +1,53 @@
+{
+  "product": "ops_playbook",
+  "title": "ゼロヒューマン会社の運営本",
+  "subtitle": "エージェントが仕事を引き継ぎ、結果を確かめるための実務ガイド",
+  "language": "ja",
+  "slug": "zero-human-company",
+  "author": "Anicca",
+  "chapters": [
+    "無人という目標と、現在の運用",
+    "成果を一つに決める",
+    "役割と所有権を分ける",
+    "短い実行を積み重ねる",
+    "事実を残して再開する",
+    "重複した外部操作を防ぐ",
+    "認証と予算の境界を置く",
+    "失敗から次の一手を決める",
+    "販売と納品をつなぐ",
+    "日次の数字で順序を変える",
+    "最初の一週間を組み立てる",
+    "引き継げる会社にする"
+  ],
+  "editions": {
+    "standard": {
+      "label": "本文版",
+      "unit_amount": 2900,
+      "currency": "usd",
+      "payment_url": "https://buy.stripe.com/5kQ6oHgcCeZMe9y0VU2880Y",
+      "formats": {
+        "pdf": "zero-human-company-ja.pdf",
+        "md": "zero-human-company-ja.md"
+      },
+      "stripe_product_id": "prod_VXjGzBWiMnYPcZ",
+      "stripe_price_id": "price_1UWdo3EeDsUAcaLS1xNLb5eK",
+      "payment_link_id": "plink_1UWdo3EeDsUAcaLSzgtjYVQG"
+    },
+    "templates": {
+      "label": "テンプレート版",
+      "unit_amount": 9900,
+      "currency": "usd",
+      "payment_url": "https://buy.stripe.com/dRm4gz5xY6tgaXmdIG2880Z",
+      "formats": {
+        "pdf": "zero-human-company-ja.pdf",
+        "md": "zero-human-company-ja.md",
+        "zip": "zero-human-company-templates.zip"
+      },
+      "stripe_product_id": "prod_VXjGucQrcWvhn6",
+      "stripe_price_id": "price_1UWdo5EeDsUAcaLS5VdKW8vi",
+      "payment_link_id": "plink_1UWdo5EeDsUAcaLSLlPNjc6M"
+    }
+  },
+  "pages": 33,
+  "character_count": 12313
+}

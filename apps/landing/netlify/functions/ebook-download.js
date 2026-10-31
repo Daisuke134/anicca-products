@@ -4,9 +4,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const { AI_MONK_BOOK_PRODUCT, getAiMonkBook } = require('./_lib/ai-monk-books.js');
+const { OPS_PLAYBOOK_PRODUCT, getOpsPlaybook } = require('./_lib/ops-playbook.js');
 
 const SESSION_ID = /^cs_(?:live|test)_[A-Za-z0-9_]{4,200}$/;
-const FORMATS = new Set(['pdf', 'epub', 'md', 'html', 'css']);
+const FORMATS = new Set(['pdf', 'epub', 'md', 'html', 'css', 'zip']);
 
 const CONTENT_TYPES = {
   pdf: 'application/pdf',
@@ -14,6 +15,7 @@ const CONTENT_TYPES = {
   md: 'text/markdown; charset=utf-8',
   html: 'text/html; charset=utf-8',
   css: 'text/css; charset=utf-8',
+  zip: 'application/zip',
 };
 
 function forbidden() {
@@ -32,13 +34,18 @@ function badRequest(message) {
   };
 }
 
-function resolveFile({ lang, format, product }) {
+function resolveFile({ lang, format, product, edition }) {
+  if (product === OPS_PLAYBOOK_PRODUCT) {
+    const fileName = getOpsPlaybook(edition)?.formats[format];
+    if (!fileName) return null;
+    return { fileName, downloadName: fileName, absolutePath: path.join(__dirname, '../../private/ebooks', fileName) };
+  }
   if (product === AI_MONK_BOOK_PRODUCT) {
     const fileName = getAiMonkBook(lang)?.formats[format];
     if (!fileName) return null;
     return { fileName, downloadName: fileName, absolutePath: path.join(__dirname, '../../private/ebooks', fileName) };
   }
-  if (format === 'epub') return null;
+  if (format === 'epub' || format === 'zip') return null;
   if (format === 'css') {
     return {
       fileName: 'book.css',
@@ -60,6 +67,10 @@ function isPaidEbookSession(session, liveMode) {
     || session.livemode !== liveMode || session.mode !== 'payment') return false;
   const meta = session.metadata || {};
   const product = meta.product;
+  if (product === OPS_PLAYBOOK_PRODUCT) {
+    const offer = getOpsPlaybook(meta.edition);
+    return Boolean(offer && session.currency === offer.currency && session.amount_total === offer.unit_amount);
+  }
   if (product === AI_MONK_BOOK_PRODUCT) {
     const book = getAiMonkBook(meta.lang);
     return Boolean(book && meta.book_sku === book.sku);
@@ -140,7 +151,7 @@ async function ebookDownloadHandler(event, dependencies = {}) {
   if (!isPaidEbookSession(session, liveMode)) return forbidden();
 
   const lang = sessionLang(session);
-  const resolved = resolveFile({ lang, format, product: session.metadata?.product });
+  const resolved = resolveFile({ lang, format, product: session.metadata?.product, edition: session.metadata?.edition });
   if (!resolved) return badRequest('format unavailable for this edition');
   const { absolutePath, downloadName } = resolved;
   const readFile = dependencies.readFile || ((p) => fs.readFileSync(p));
