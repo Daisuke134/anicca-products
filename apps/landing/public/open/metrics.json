@@ -7,7 +7,7 @@
    "schedule": "3h",
    "runs_per_day": 8.0,
    "posts_to": "LM SNS→ marketing/POST-LOG.csv",
-   "status": "PAUSED 10/30 15:4x"
+   "status": "ACTIVE again 10/31 21:2x"
   },
   {
    "loop": "X money scout",
@@ -489,9 +489,8 @@
    "Capafy 20%": 1.4,
    "Apple 15% (RC MRR)": 3.0
   },
-  "gross_profit": 206.45,
+  "gross_profit": null,
   "opex_monthly": {
-   "Grok Bot + Cursor (X Super)": 113.49,
    "ChatGPT Pro (Codex, Dots)": 191.28,
    "ChatGPT extra charges (2, under review)": 107.47,
    "Postiz": 50.6,
@@ -506,11 +505,14 @@
    "Google Cloud / Gemini API": 177.82,
    "Apple Developer Program": 8.25,
    "Sunflower Plus (Apple annual)": 3.19,
-   "DigitalOcean": 0.0
+   "DigitalOcean": 0.0,
+   "Grok Bot Ultra (from 2026-11-30, replaces X Super)": 221.88
   },
-  "opex_total": 786.4,
-  "net": -579.95,
-  "burn": 579.95
+  "opex_total": 894.79,
+  "net": null,
+  "burn": null,
+  "gross_profit_status": "unconfirmed (partial)",
+  "note": "opex = recurring monthly run-rate; month-to-date expenses are a partial total"
  },
  "mrr_breakdown": {
   "revenuecat": 20,
@@ -621,7 +623,7 @@
   },
   {
    "date": "2026-10-31",
-   "mrr": 97.58
+   "mrr": 93.58
   }
  ],
  "rankings": {
@@ -724,7 +726,7 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2085
+     "uses": 2087
     },
     {
      "rank": 2,
@@ -749,7 +751,7 @@
    ],
    "winner_saya_top": [
     [
-     39755,
+     39768,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
@@ -821,19 +823,50 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-31 21:16 JST",
+ "updated_at": "2026-10-31 21:38 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
-  "current_mrr_usd": 97.58,
-  "progress_pct": 0.98
+  "current_mrr_usd": 93.58,
+  "progress_pct": 0.94
  },
  "totals": {
   "revenue_mtd_usd": 210.85,
   "revenue_last30d_usd": 210.85,
-  "mrr_usd": 97.58,
+  "mrr_usd": 93.58,
   "currency": "USD"
  },
+ "expenses": {
+  "mtd_usd": 656.89,
+  "status": "partial",
+  "note": "partial total of receipts found so far (month to date)"
+ },
+ "gross_profit": {
+  "mtd_usd": null,
+  "status": "unconfirmed (partial)",
+  "status_ja": "未確定（部分集計）"
+ },
+ "grok_ultra": [
+  {
+   "item": "Grok Bot Ultra — this month (actual spend)",
+   "label_ja": "Grok Bot Ultra 今月の実支出",
+   "date": "2026-10-31",
+   "invoice": "766D3D820C",
+   "amount_usd": 130.36,
+   "amount_jpy": 20445,
+   "kind": "paid"
+  },
+  {
+   "item": "Grok Bot Ultra — recurring from 2026-11-30",
+   "label_ja": "Grok Bot Ultra 11/30からの固定費",
+   "starts": "2026-11-30",
+   "monthly_usd": 221.88,
+   "monthly_jpy": 34800,
+   "kind": "recurring",
+   "replaces": "X Super ¥17,800/month (not double-counted)"
+  }
+ ],
+ "fx": "USD/JPY 156.84 (team finance rate, finance/REVENUE-BY-SOURCE.json fx_jpy_per_usd, 2026-10-31)",
  "businesses": [
   {
    "name": "Contract work (freelance platforms)",
@@ -858,7 +891,7 @@
    "name": "Honne family apps (Honne, Thankful, Daily Dhamma, Sleep Reset)",
    "owner": "Codex / Fucker",
    "revenue_mtd": null,
-   "mrr": 4.0,
+   "mrr": null,
    "metric": "live on the App Store",
    "status": "live",
    "next": "Honne 1.0.5 release"
@@ -950,19 +983,19 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 27
+   "board_updates_today": 29
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 18
+   "board_updates_today": 19
   },
   {
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 11
+   "board_updates_today": 12
   },
   {
    "agent": "Muse (CMO)",
@@ -974,7 +1007,7 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 14
+   "board_updates_today": 15
   },
   {
    "agent": "Fucker",
