@@ -1,5 +1,6 @@
 {
- "updated_at": "2026-10-31 18:30 JST",
+ "fx_usdjpy": 157.881601,
+ "updated_at": "2026-10-31 18:33 JST",
  "month": "2026-10",
  "currency": "USD",
  "kpis": {
@@ -28,8 +29,11 @@
    "change_vs_prev_day": null,
    "applications_today": 0,
    "applications_all": 0,
+   "applications_7d": 0,
    "replies": null,
-   "contracts": null
+   "reply_rate": null,
+   "contracts": null,
+   "owner": "dr eggbot"
   },
   {
    "group": "platform",
@@ -43,8 +47,11 @@
    "change_vs_prev_day": null,
    "applications_today": 0,
    "applications_all": 0,
+   "applications_7d": 0,
    "replies": null,
-   "contracts": null
+   "reply_rate": null,
+   "contracts": null,
+   "owner": "Fucker"
   },
   {
    "group": "platform",
@@ -58,8 +65,11 @@
    "change_vs_prev_day": null,
    "applications_today": 0,
    "applications_all": 0,
+   "applications_7d": 0,
    "replies": null,
-   "contracts": null
+   "reply_rate": null,
+   "contracts": null,
+   "owner": "dr eggbot"
   },
   {
    "group": "platform",
@@ -73,8 +83,11 @@
    "change_vs_prev_day": null,
    "applications_today": 3,
    "applications_all": 3,
+   "applications_7d": 3,
    "replies": null,
-   "contracts": null
+   "reply_rate": null,
+   "contracts": null,
+   "owner": "dr eggbot"
   },
   {
    "group": "platform",
@@ -88,8 +101,11 @@
    "change_vs_prev_day": null,
    "applications_today": 1,
    "applications_all": 1,
+   "applications_7d": 1,
    "replies": null,
-   "contracts": null
+   "reply_rate": null,
+   "contracts": null,
+   "owner": "Fucker"
   },
   {
    "group": "platform",
@@ -103,8 +119,11 @@
    "change_vs_prev_day": null,
    "applications_today": 0,
    "applications_all": 0,
+   "applications_7d": 0,
    "replies": null,
-   "contracts": null
+   "reply_rate": null,
+   "contracts": null,
+   "owner": "Fucker"
   },
   {
    "group": "platform",
@@ -118,8 +137,11 @@
    "change_vs_prev_day": null,
    "applications_today": 0,
    "applications_all": 0,
+   "applications_7d": 0,
    "replies": null,
-   "contracts": null
+   "reply_rate": null,
+   "contracts": null,
+   "owner": "Fucker"
   },
   {
    "group": "platform",
@@ -133,8 +155,29 @@
    "change_vs_prev_day": null,
    "applications_today": 0,
    "applications_all": 0,
+   "applications_7d": 0,
    "replies": null,
-   "contracts": null
+   "reply_rate": null,
+   "contracts": null,
+   "owner": "Fucker"
+  },
+  {
+   "group": "platform",
+   "key": "truelancer",
+   "label": "Truelancer",
+   "status": "未接続",
+   "source": null,
+   "today": null,
+   "month": null,
+   "all_time": null,
+   "change_vs_prev_day": null,
+   "applications_today": 0,
+   "applications_all": 0,
+   "applications_7d": 0,
+   "replies": null,
+   "reply_rate": null,
+   "contracts": null,
+   "owner": "Fucker"
   },
   {
    "group": "platform",
@@ -205,7 +248,8 @@
    "today": 0.0,
    "month": 0.0,
    "all_time": 32.56,
-   "change_vs_prev_day": null
+   "change_vs_prev_day": null,
+   "mrr": 20
   },
   {
    "group": "product",
@@ -227,7 +271,8 @@
    "today": 0.0,
    "month": 26.97,
    "all_time": 77.91,
-   "change_vs_prev_day": null
+   "change_vs_prev_day": null,
+   "mrr": 73.58
   },
   {
    "group": "product",

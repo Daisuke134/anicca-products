@@ -28,30 +28,31 @@ footer{color:var(--mut);font-size:13px;margin-top:32px}a{color:inherit}
  <div class="card"><div class="l">今月の粗利（収入−支出）</div><div class="v" id="k-gp">—</div><div class="n"></div></div>
  <div class="card"><div class="l">MRR</div><div class="v" id="k-mrr">—</div><div class="n">定期課金の月額換算</div></div>
 </section>
-<h2>プラットフォーム別</h2><div class="tw"><table id="t-plat"></table></div>
+<h2>受託プラットフォーム別</h2><div class="tw"><table id="t-free"></table></div>
+<h2>その他のプラットフォーム</h2><div class="tw"><table id="t-plat"></table></div>
 <h2>プロダクト別</h2><div class="tw"><table id="t-prod"></table></div>
 <footer><p id="notes"></p><p>データ: <a href="data.json">data.json</a>（毎日 自動更新）。数字のないものは「未接続」と表示し、推計はしていません。</p></footer>
 </main><script>
-const $=id=>document.getElementById(id);
-const usd=v=>v==null?'<span class="na">—</span>':'$'+Number(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-const chg=v=>v==null?'<span class="na">—</span>':v===0?'±$0.00':`<span class="${v>0?'pos':'neg'}">${v>0?'+':'−'}$${Math.abs(v).toFixed(2)}</span>`;
+const $=id=>document.getElementById(id);let FX=null;
+const yen=v=>v==null?'<span class="na">—</span>':(v===0?'¥0':(FX?'¥'+Math.round(v*FX).toLocaleString('ja-JP'):'$'+v.toFixed(2)));
+const chg=v=>v==null?'<span class="na">—</span>':v===0?'±¥0':`<span class="${v>0?'pos':'neg'}">${v>0?'+':'−'}${yen(Math.abs(v))}</span>`;
 const num=v=>v==null?'<span class="na">—</span>':v;
-function table(el,rows,showApps){
- const ha=showApps?'<th>応募（今日／累計）</th><th>返信</th><th>契約</th>':'';
- let h=`<tr><th>名前</th><th>今日</th><th>今月</th><th>累計</th><th>前日比</th>${ha}</tr>`;
- for(const r of rows){
-  const off=r.status!=='live', apps=showApps?(r.applications_all!=null?`<td>${r.applications_today} ／ ${r.applications_all}</td><td>${num(r.replies)}</td><td>${num(r.contracts)}</td>`:'<td class="na">—</td><td class="na">—</td><td class="na">—</td>'):'';
-  const tag=off?'<span class="tag">未接続</span>':(r.mrr?`<span class="tag">MRR ${usd(r.mrr)}</span>`:'');
-  h+=off?`<tr><td>${r.label}${tag}</td><td colspan="4" class="na">未接続</td>${apps}</tr>`:`<tr><td>${r.label}${tag}</td><td>${usd(r.today)}</td><td>${usd(r.month)}</td><td>${usd(r.all_time)}</td><td>${chg(r.change_vs_prev_day)}</td>${apps}</tr>`;
- }
- el.innerHTML=h;
-}
-fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
- const k=d.kpis;$('upd').textContent=d.updated_at;
- $('k-inc').innerHTML=usd(k.income_month_usd);$('k-inc-n').textContent=d.month+' ・ 今日 '+(k.income_today_usd==null?'—':'$'+k.income_today_usd.toFixed(2));
- $('k-sp').innerHTML=usd(k.spend_month_usd);$('k-gp').innerHTML=k.gross_profit_month_usd==null?'—':`<span class="${k.gross_profit_month_usd<0?'neg':'pos'}">${usd(k.gross_profit_month_usd)}</span>`;
- $('k-mrr').innerHTML=usd(k.mrr_usd);
- table($('t-plat'),d.platforms,true);table($('t-prod'),d.products.map(r=>r.key==='contract-work'?r:Object.assign({},r,{applications_all:undefined})),true);
- $('notes').textContent=d.notes;
+const NA='<span class="tag">未接続</span>';
+const FREE=['lancers','crowdworks','coconala','upwork','mercor','fiverr','contra','guru','truelancer'];
+function free(el,rows){let h='<tr><th>プラットフォーム</th><th>今月の売上</th><th>累計の売上</th><th>前日比</th><th>応募（7日）</th><th>返信率</th><th>契約</th><th>担当</th></tr>';
+ for(const r of rows){const on=r.status==='live';const rr=r.reply_rate==null?'<span class="na">—</span>':Math.round(r.reply_rate*100)+'%';
+  h+=`<tr><td>${r.label}</td><td>${on?yen(r.month):NA}</td><td>${on?yen(r.all_time):NA}</td><td>${on?chg(r.change_vs_prev_day):'<span class="na">—</span>'}</td><td>${num(r.applications_7d)}</td><td>${rr}</td><td>${num(r.contracts)}</td><td>${r.owner||'—'}</td></tr>`}el.innerHTML=h}
+function money(el,rows,first){let h=`<tr><th>${first}</th><th>今日</th><th>今月</th><th>累計</th><th>前日比</th><th>MRR</th></tr>`;
+ for(const r of rows){const on=r.status==='live';let x=`<td>${r.label}</td>`;
+  x+=on?`<td>${yen(r.today)}</td><td>${yen(r.month)}</td><td>${yen(r.all_time)}</td><td>${chg(r.change_vs_prev_day)}</td>`:`<td colspan="4">${NA}</td>`;
+  x+=`<td>${r.mrr==null?'<span class="na">—</span>':yen(r.mrr)}</td>`;
+  if(r.key==='contract-work')x+=`</tr><tr><td colspan="6" class="na" style="text-align:left;font-size:13px">応募 累計 ${r.applications_all}（今日 ${r.applications_today}）・返信 ${r.replies??'—'}・契約 ${r.contracts??'—'}</td>`;
+  h+=`<tr>${x}</tr>`}el.innerHTML=h}
+fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{FX=d.fx_usdjpy;const k=d.kpis;$('upd').textContent=d.updated_at;
+ $('k-inc').innerHTML=yen(k.income_month_usd);$('k-inc-n').innerHTML=d.month+' ・ 今日 '+yen(k.income_today_usd);
+ $('k-sp').innerHTML=yen(k.spend_month_usd);$('k-gp').innerHTML=k.gross_profit_month_usd==null?'—':`<span class="${k.gross_profit_month_usd<0?'neg':'pos'}">${k.gross_profit_month_usd<0?'−'+yen(-k.gross_profit_month_usd):yen(k.gross_profit_month_usd)}</span>`;
+ $('k-mrr').innerHTML=yen(k.mrr_usd);
+ free($('t-free'),d.platforms.filter(r=>FREE.includes(r.key)));money($('t-plat'),d.platforms.filter(r=>!FREE.includes(r.key)),'プラットフォーム');money($('t-prod'),d.products,'プロダクト');
+ $('notes').textContent='金額は円（マネーパスの当日レート USD/JPY '+(FX?FX.toFixed(2):'—')+' で換算）。未接続 = 売上の取得元がまだない。前日比 = 累計の前日スナップショットとの差。';
 }).catch(()=>{$('upd').textContent='読み込みに失敗しました'});
 </script></body></html>
