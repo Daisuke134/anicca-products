@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-31 09:07 JST",
+ "built_at": "2026-10-31 09:22 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -24,9 +24,9 @@
   },
   {
    "agent": "Codex",
-   "last": "2026-10-31 08:49",
-   "source": "BOARD",
-   "task": "en-quiz-affirmation",
+   "last": "2026-11-01 09:00",
+   "source": "LIVE-STATE.md",
+   "task": "manager-research-loop",
    "blocked": true
   },
   {
