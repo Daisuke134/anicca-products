@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-31 18:28 JST",
+ "built_at": "2026-10-31 19:28 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -38,16 +38,16 @@
   },
   {
    "agent": "Anicca Marketer",
-   "last": "2026-10-31 15:50",
+   "last": "2026-10-31 19:00",
    "source": "LOOPS.md",
-   "task": "loop #39 Anicca 配信＋LM配信＋数値（growth loop）",
+   "task": "loop #39b Anicca JP 固定枠投稿（RULE 0i）",
    "blocked": true
   },
   {
    "agent": "dr eggbot",
-   "last": "2026-10-31 18:14",
+   "last": "2026-10-31 18:47",
    "source": "LIVE-STATE.md",
-   "task": "dr-eggbot-upwork",
+   "task": "dr-eggbot-gig",
    "blocked": true
   },
   {
@@ -405,6 +405,24 @@
    ]
   },
   {
+   "id": "39b",
+   "loop": "Anicca JP 固定枠投稿（RULE 0i）",
+   "owner": "Anicca Marketer",
+   "schedule": "毎日 7:00・8:30・10:00・12:00・15:00・18:30・20:00・21:00・22:00・23:00",
+   "times": [
+    "07:00",
+    "08:30",
+    "10:00",
+    "12:00",
+    "15:00",
+    "18:30",
+    "20:00",
+    "21:00",
+    "22:00",
+    "23:00"
+   ]
+  },
+  {
    "id": "40",
    "loop": "Fucker revenue loop（Capafy hands-off N2 周回＋PromptBase/Honne・PDF Insigh",
    "owner": "Fucker",
@@ -454,9 +472,9 @@
    "id": "44",
    "loop": "Muse Relay pass",
    "owner": "Muse Relay",
-   "schedule": "8〜20時 4h（8・12・16・20時±15。10/30 17:58 USAGE-CUTS で夜を止め、2h→4h）",
+   "schedule": "24時間 4h（0・4・8・12・16・20時±15。10/31 18:43 RULE 0g で夜間停止を廃止）",
    "times": [
-    "17:58"
+    "18:43"
    ]
   },
   {
@@ -1420,7 +1438,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-27 13:29",
+   "last_post": "2026-10-30 17:49",
    "winner": "未取得"
   },
   {
@@ -1446,7 +1464,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-27 09:25",
+   "last_post": "2026-10-30 19:01",
    "winner": "未取得"
   },
   {
@@ -1459,7 +1477,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-27 13:29",
+   "last_post": "2026-10-30 14:50",
    "winner": "未取得"
   },
   {
@@ -1472,7 +1490,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-27 07:23",
+   "last_post": "2026-10-30 14:50",
    "winner": "未取得"
   },
   {
