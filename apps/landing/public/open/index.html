@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Anicca Open — revenue by platform and product</title>
 <meta name="description" content="Anicca open startup dashboard: this month's income, spend, gross profit and MRR, by platform and by product.">
 <style>
@@ -21,42 +21,45 @@ tr:last-child td{border-bottom:0}.na{color:#9ca3af}.pos{color:var(--pos)}.neg{co
 footer{color:var(--mut);font-size:13px;margin-top:32px}a{color:inherit}
 </style></head><body><main>
 <h1>Anicca Open</h1>
-<p class="sub">収益をプラットフォーム別・プロダクト別にすべて公開しています。最終更新: <b id="upd">…</b></p>
+<p class="sub">All of our revenue and costs, by platform and by product. Last updated: <b id="upd">…</b></p>
 <section class="kpis">
- <div class="card"><div class="l">今月の収入</div><div class="v" id="k-inc">—</div><div class="n" id="k-inc-n"></div></div>
- <div class="card"><div class="l">今月の支出</div><div class="v" id="k-sp">—</div><div class="n">領収書ベース・月初から ・ <b id="k-sp-st">partial</b>（部分集計）</div></div>
- <div class="card"><div class="l">今月の粗利（収入−支出）</div><div class="v" id="k-gp">—</div><div class="n" id="k-gp-n"></div></div>
- <div class="card"><div class="l">MRR</div><div class="v" id="k-mrr">—</div><div class="n">定期課金の月額換算</div></div>
+ <div class="card"><div class="l">Revenue this month</div><div class="v" id="k-inc">—</div><div class="n" id="k-inc-n"></div></div>
+ <div class="card"><div class="l">Expenses this month <span class="tag">partial</span></div><div class="v" id="k-sp">—</div><div class="n">receipts found so far, month to date</div></div>
+ <div class="card"><div class="l">Gross profit this month <span class="tag">partial</span></div><div class="v" id="k-gp">—</div><div class="n">revenue minus known expenses</div></div>
+ <div class="card"><div class="l">MRR</div><div class="v" id="k-mrr">—</div><div class="n">recurring revenue, monthly</div></div>
 </section>
-<h2>Grok Bot Ultra（費用）</h2><div class="tw"><table id="t-grok"></table></div>
-<h2>受託プラットフォーム別</h2><p class="sub" style="margin:-6px 0 10px;font-size:13px">x402 財布残高（ライブ）: <b id="x402">…</b></p><div class="tw"><table id="t-free"></table></div>
-<h2>その他のプラットフォーム</h2><div class="tw"><table id="t-plat"></table></div>
-<h2>プロダクト別</h2><div class="tw"><table id="t-prod"></table></div>
-<footer><p id="notes"></p><p>データ: <a href="data.json">data.json</a>（毎日 自動更新）。数字のないものは「未接続」と表示し、推計はしていません。</p></footer>
+<h2>Expenses this month <span class="tag">partial</span></h2><div class="tw"><table id="t-exp"></table></div>
+<h2>Monthly recurring costs (run-rate)</h2><div class="tw"><table id="t-opex"></table></div>
+<h2>Grok Bot Ultra</h2><div class="tw"><table id="t-grok"></table></div>
+<h2>Contract work, by platform</h2><p class="sub" style="margin:-6px 0 10px;font-size:13px">x402 wallet balance (live): <b id="x402">…</b></p><div class="tw"><table id="t-free"></table></div>
+<h2>Other platforms</h2><div class="tw"><table id="t-plat"></table></div>
+<h2>By product</h2><div class="tw"><table id="t-prod"></table></div>
+<footer><p id="notes"></p><p>Data: <a href="data.json">data.json</a> and <a href="metrics.json">metrics.json</a> (updated automatically). Sources without a connected revenue feed are hidden; nothing is estimated.</p></footer>
 </main><script>
 const $=id=>document.getElementById(id);
 // DISPLAY CURRENCY IS USD. Sources are stored in JPY; converted with data.json fx_usdjpy. Do not switch to ¥ (成田さん 2026-10-31).
-const DISPLAY_CURRENCY='USD';let FX=null;
+const DISPLAY_CURRENCY='USD';const usd=v=>v==null?'<span class="na">—</span>':(v<0?'−':'')+'$'+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});let FX=null;
 const yen=v=>v==null?'<span class="na">—</span>':(FX?(v<0?'−':'')+'$'+(Math.abs(v)/FX).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'<span class="na">—</span>');
 const chg=v=>v==null?'<span class="na">—</span>':v===0?'±$0.00':`<span class="${v>0?'pos':'neg'}">${v>0?'+':''}${yen(v)}</span>`;
 const num=v=>v==null?'<span class="na">—</span>':v;
 const NA0=`<td>$0.00</td><td>$0.00</td><td>$0.00</td><td>—</td>`;
-function free(el,rows){let h='<tr><th>プラットフォーム</th><th>今日</th><th>今月の売上</th><th>累計の売上</th><th>前日比</th><th>応募（7日）</th><th>返信</th><th>返信率</th><th>契約</th><th>担当</th></tr>';
+function free(el,rows){let h='<tr><th>Platform</th><th>Today</th><th>This month</th><th>All time <span class="tag">unverified</span></th><th>vs yesterday</th><th>Applications (7d)</th><th>Replies</th><th>Reply rate</th><th>Contracts</th><th>Owner</th></tr>';
  for(const r of rows){const on=r.status==='live';const rr=r.reply_rate==null?'<span class="na">—</span>':Math.round(r.reply_rate*100)+'%';
-  const pend=r.pending_jpy?`<span class="tag">受注済み ${yen(r.pending_jpy)}</span>`:'';
-  h+=`<tr><td>${r.label}${pend}${on?'':'<span class="tag">未接続・確認済み入金なし</span>'}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:NA0)+`<td>${num(r.applications_7d)}</td><td>${num(r.replies)}</td><td>${rr}</td><td>${num(r.contracts)}</td><td>${r.owner||'—'}</td></tr>`}el.innerHTML=h}
-function money(el,rows,first){let h=`<tr><th>${first}</th><th>今日</th><th>今月</th><th>累計</th><th>前日比</th><th>MRR</th></tr>`;
+  const pend=r.pending_jpy?`<span class="tag">booked ${yen(r.pending_jpy)}</span>`:'';
+  h+=`<tr><td>${r.label}${pend}${on?'':''}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:NA0)+`<td>${num(r.applications_7d)}</td><td>${num(r.replies)}</td><td>${rr}</td><td>${num(r.contracts)}</td><td>${r.owner||'—'}</td></tr>`}el.innerHTML=h}
+function money(el,rows,first){let h=`<tr><th>${first}</th><th>Today</th><th>This month</th><th>All time <span class="tag">unverified</span></th><th>vs yesterday</th><th>MRR</th></tr>`;
  for(const r of rows){const on=r.status==='live';
   h+=`<tr><td>${r.label}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:NA0)+`<td>${r.mrr_jpy==null?'<span class="na">—</span>':yen(r.mrr_jpy)}</td></tr>`;
   for(const i of r.items||[])h+=`<tr><td style="padding-left:30px;color:#6b7280;font-size:13px">${i.label}</td><td></td><td>${yen(i.month_jpy)}</td><td>${yen(i.all_time_jpy)}</td><td></td><td></td></tr>`}el.innerHTML=h}
-function x402(d){const a=d.x402.treasury;fetch('https://mainnet.base.org',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',data:'0x70a08231'+a.slice(2).toLowerCase().padStart(64,'0')},'latest']})}).then(r=>r.json()).then(j=>{const u=parseInt(j.result,16)/1e6;$('x402').textContent=u.toFixed(2)+' USDC（'+'$'+u.toFixed(2)+'）・'+new Date().toLocaleTimeString('ja-JP',{timeZone:'Asia/Tokyo'})+' JST 時点'}).catch(()=>{$('x402').textContent='読み込み失敗'})}
+function x402(d){const a=d.x402.treasury;fetch('https://mainnet.base.org',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',data:'0x70a08231'+a.slice(2).toLowerCase().padStart(64,'0')},'latest']})}).then(r=>r.json()).then(j=>{const u=parseInt(j.result,16)/1e6;$('x402').textContent=u.toFixed(2)+' USDC ($'+u.toFixed(2)+') · '+new Date().toLocaleTimeString('en-US',{timeZone:'Asia/Tokyo'})+' JST'}).catch(()=>{$('x402').textContent='failed to load'})}
 fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{const k=d.kpis;FX=d.fx_usdjpy;if(!FX){$('upd').textContent='FX missing';return}$('upd').textContent=d.updated_at;
- $('k-inc').innerHTML=yen(k.income_month_jpy);$('k-inc-n').innerHTML=d.month+' ・ 今日 '+yen(k.income_today_jpy)+' ・ 累計 '+yen(k.income_all_time_jpy);
- $('k-sp').innerHTML=yen(k.spend_month_jpy);$('k-gp').innerHTML=k.gross_profit_month_jpy==null?(k.gross_profit_status_ja||'—'):`<span class="${k.gross_profit_month_jpy<0?'neg':'pos'}">${yen(k.gross_profit_month_jpy)}</span>`;
- $('k-mrr').innerHTML=yen(k.mrr_jpy);$('k-sp-st').textContent=k.spend_status||'';$('k-gp-n').textContent=k.gross_profit_status?('unconfirmed (partial) / '+k.gross_profit_status_ja):'';
- const usd=v=>'$'+Number(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
- $('t-grok').innerHTML='<tr><th>項目</th><th>USD</th><th>円（参考）</th><th>メモ</th></tr>'+(d.grok_ultra||[]).map(g=>g.kind=='paid'?`<tr><td>${g.label_ja}</td><td>${usd(g.amount_usd)}</td><td>¥${g.amount_jpy.toLocaleString()}</td><td>${g.date} 決済・請求書 ${g.invoice}</td></tr>`:`<tr><td>${g.label_ja}</td><td>${usd(g.monthly_usd)}/月</td><td>¥${g.monthly_jpy.toLocaleString()}/月</td><td>${g.starts} から。旧 X Super ¥17,800/月 の置き換え（二重計上なし）</td></tr>`).join('')+`<tr><td colspan="4" style="font-size:12px;color:#6b7280">${d.fx_note||''}</td></tr>`;
- free($('t-free'),d.freelance);money($('t-plat'),d.platforms,'プラットフォーム');money($('t-prod'),d.products,'プロダクト');
- $('notes').textContent=d.notes+'（USD/JPY '+(d.fx_usdjpy||'—')+'）';x402(d);
-}).catch(()=>{$('upd').textContent='読み込みに失敗しました'});
+ $('k-inc').innerHTML=yen(k.income_month_jpy);$('k-inc-n').innerHTML=d.month+' · today '+yen(k.income_today_jpy)+' · all time '+yen(k.income_all_time_jpy)+' (unverified)';
+ $('k-sp').innerHTML=usd(k.spend_month_usd);$('k-gp').innerHTML=k.gross_profit_month_usd==null?'—':`<span class="${k.gross_profit_month_usd<0?'neg':'pos'}">${usd(k.gross_profit_month_usd)}</span>`;
+ $('k-mrr').innerHTML=usd(k.mrr_usd);
+ $('t-exp').innerHTML='<tr><th>Item</th><th>USD</th></tr>'+Object.entries(d.expense_items_usd||{}).sort((x,y)=>y[1]-x[1]).map(([n,v])=>`<tr><td>${n}</td><td>${usd(v)}</td></tr>`).join('')+`<tr><td><b>Total (partial)</b></td><td><b>${usd(k.spend_month_usd)}</b></td></tr>`;
+ $('t-grok').innerHTML='<tr><th>Item</th><th>USD</th><th>JPY (reference)</th><th>Note</th></tr>'+(d.grok_ultra||[]).map(g=>g.kind=='paid'?`<tr><td>This month (actual spend)</td><td>${usd(g.amount_usd)}</td><td>¥${g.amount_jpy.toLocaleString()}</td><td>paid ${g.date}, invoice ${g.invoice}</td></tr>`:`<tr><td>Recurring from ${g.starts}</td><td>${usd(g.monthly_usd)}/mo</td><td>¥${g.monthly_jpy.toLocaleString()}/mo</td><td>replaces X Super ¥17,800/mo (not double-counted)</td></tr>`).join('')+`<tr><td colspan="4" style="font-size:12px;color:#6b7280">${d.fx_note||''}</td></tr>`;
+ fetch('metrics.json',{cache:'no-store'}).then(r=>r.json()).then(m=>{const p=m.pnl||{};$('t-opex').innerHTML='<tr><th>Item</th><th>USD / month</th></tr>'+Object.entries(p.opex_monthly||{}).sort((x,y)=>y[1]-x[1]).map(([n,v])=>`<tr><td>${n}</td><td>${usd(v)}</td></tr>`).join('')+`<tr><td><b>Run-rate total</b></td><td><b>${usd(p.opex_total)}</b></td></tr>`}).catch(()=>{});
+ free($('t-free'),d.freelance);money($('t-plat'),d.platforms,'Platform');money($('t-prod'),d.products,'Product');
+ $('notes').textContent=d.notes+' (USD/JPY '+(d.fx_usdjpy||'—')+')';x402(d);
+}).catch(()=>{$('upd').textContent='failed to load'});
 </script></body></html>

@@ -1,19 +1,22 @@
 {
- "updated_at": "2026-10-31 21:38 JST",
- "source_updated_at": "2026-10-31 21:38 JST",
+ "updated_at": "2026-10-31 21:50 JST",
+ "source_updated_at": "2026-10-31 21:50 JST",
  "month": "2026-10",
  "currency": "JPY",
  "display_currency": "USD",
  "fx_usdjpy": 156.84,
  "kpis": {
   "income_month_jpy": 36210,
-  "spend_month_jpy": 103027,
-  "spend_month_usd": 656.89,
+  "spend_month_jpy": 123472,
+  "spend_month_usd": 787.25,
   "spend_status": "partial",
-  "gross_profit_month_jpy": null,
-  "gross_profit_status": "unconfirmed (partial)",
-  "gross_profit_status_ja": "未確定（部分集計）",
+  "income_month_usd": 230.87,
+  "gross_profit_month_usd": -556.38,
+  "gross_profit_status": "partial",
+  "all_time_status": "unverified",
   "mrr_jpy": 14677,
+  "mrr_usd": 93.58,
+  "gross_profit_month_jpy": -87263,
   "income_today_jpy": 0,
   "income_all_time_jpy": 358665,
   "pending_jpy": 2500
@@ -22,6 +25,21 @@
   "income": "team/finance/REVENUE-BY-SOURCE.json",
   "spend": "Dots money pass ledger 2026-10-31 (receipts, month to date)",
   "mrr": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs"
+ },
+ "expense_items_usd": {
+  "X Subscription (Super, Grok Bot+Cursor bundle) prorated upgrade": 67.99,
+  "X Premium (X CORP. PAID FEATURES)": 5.81,
+  "OpenAI ChatGPT subscription": 296.78,
+  "HeyGen Creator Credit Monthly (Apple)": 28.5,
+  "Adobe KK": 31.54,
+  "Cursor usage": 0.68,
+  "X Subscription Premium (charged+refunded)": 0,
+  "Grok Bot Pro (Apple) prorated refund": -20.4,
+  "Grok Bot Pro (Apple)": 25.34,
+  "Replit Core": 20.0,
+  "Google Cloud (Sep usage, GOOGLE*CLOUD QJC7LF)": 176.65,
+  "Upwork Connects (80, dr eggbot)": 24.0,
+  "Grok Bot Ultra (paid 2026-10-31, invoice 766D3D820C)": 130.36
  },
  "grok_ultra": [
   {
@@ -80,21 +98,6 @@
    "reply_rate": null,
    "contracts": null,
    "owner": "dr eggbot"
-  },
-  {
-   "key": "crowdworks",
-   "label": "CrowdWorks",
-   "status": "未接続",
-   "today_jpy": null,
-   "month_jpy": null,
-   "all_time_jpy": null,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "applications_7d": 2,
-   "replies": null,
-   "reply_rate": null,
-   "contracts": null,
-   "owner": "Fucker"
   },
   {
    "key": "upwork",
@@ -328,28 +331,6 @@
    "pending_jpy": null,
    "change_vs_prev_day_jpy": null,
    "mrr_jpy": null
-  },
-  {
-   "key": "note-substack",
-   "label": "note / Substack",
-   "status": "未接続",
-   "today_jpy": null,
-   "month_jpy": null,
-   "all_time_jpy": null,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null
-  },
-  {
-   "key": "whop-gumroad",
-   "label": "Whop / Gumroad",
-   "status": "未接続",
-   "today_jpy": null,
-   "month_jpy": null,
-   "all_time_jpy": null,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null
   }
  ],
  "products": [
@@ -513,30 +494,6 @@
    "items": null
   },
   {
-   "key": "note-kit-articles",
-   "label": "note kit / articles",
-   "status": "未接続",
-   "today_jpy": null,
-   "month_jpy": null,
-   "all_time_jpy": null,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
-   "key": "monk-e-book-anicca-reset",
-   "label": "Monk e-book / Anicca Reset",
-   "status": "未接続",
-   "today_jpy": null,
-   "month_jpy": null,
-   "all_time_jpy": null,
-   "pending_jpy": null,
-   "change_vs_prev_day_jpy": null,
-   "mrr_jpy": null,
-   "items": null
-  },
-  {
    "key": "life-manager-cloud",
    "label": "Life Manager Cloud",
    "status": "live",
@@ -585,5 +542,5 @@
    "items": null
   }
  ],
- "notes": "USD表示（各ソースの円額を fx_usdjpy で換算）。$0 = 確認済みのゼロ。未接続 = 売上の取得元がまだない。前日比 = 累計の前日スナップショットとの差。x402 はページ表示時に Base の公開RPCから直接読みます。"
+ "notes": "All amounts in USD (sources stored in JPY, converted at fx_usdjpy). Sources without a connected revenue feed are hidden. All-time totals are unverified until backed by payment records. Expenses and gross profit are partial (receipts found so far). x402 is read live from Base."
 }

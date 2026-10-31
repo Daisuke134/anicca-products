@@ -489,7 +489,7 @@
    "Capafy 20%": 1.4,
    "Apple 15% (RC MRR)": 3.0
   },
-  "gross_profit": null,
+  "gross_profit": -556.38,
   "opex_monthly": {
    "ChatGPT Pro (Codex, Dots)": 191.28,
    "ChatGPT extra charges (2, under review)": 107.47,
@@ -506,13 +506,30 @@
    "Apple Developer Program": 8.25,
    "Sunflower Plus (Apple annual)": 3.19,
    "DigitalOcean": 0.0,
-   "Grok Bot Ultra (from 2026-11-30, replaces X Super)": 221.88
+   "X Super (ends 2026-11-29, replaced by Ultra; not in run-rate)": 113.49,
+   "Grok Bot Ultra (recurring from 2026-11-30)": 221.88
   },
   "opex_total": 894.79,
-  "net": null,
-  "burn": null,
-  "gross_profit_status": "unconfirmed (partial)",
-  "note": "opex = recurring monthly run-rate; month-to-date expenses are a partial total"
+  "net": -688.34,
+  "burn": 688.34,
+  "gross_profit_status": "partial",
+  "expenses_mtd_items": {
+   "X Subscription (Super, Grok Bot+Cursor bundle) prorated upgrade": 67.99,
+   "X Premium (X CORP. PAID FEATURES)": 5.81,
+   "OpenAI ChatGPT subscription": 296.78,
+   "HeyGen Creator Credit Monthly (Apple)": 28.5,
+   "Adobe KK": 31.54,
+   "Cursor usage": 0.68,
+   "X Subscription Premium (charged+refunded)": 0,
+   "Grok Bot Pro (Apple) prorated refund": -20.4,
+   "Grok Bot Pro (Apple)": 25.34,
+   "Replit Core": 20.0,
+   "Google Cloud (Sep usage, GOOGLE*CLOUD QJC7LF)": 176.65,
+   "Upwork Connects (80, dr eggbot)": 24.0,
+   "Grok Bot Ultra (paid 2026-10-31, invoice 766D3D820C)": 130.36
+  },
+  "expenses_mtd_total": 787.25,
+  "note": "opex_monthly = recurring run-rate (Ultra replaces X Super, no double count). gross_profit = revenue MTD minus known expenses MTD (partial)."
  },
  "mrr_breakdown": {
   "revenuecat": 20,
@@ -751,7 +768,7 @@
    ],
    "winner_saya_top": [
     [
-     39768,
+     39776,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
@@ -823,7 +840,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-31 21:38 JST",
+ "updated_at": "2026-10-31 21:50 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -837,14 +854,30 @@
   "currency": "USD"
  },
  "expenses": {
-  "mtd_usd": 656.89,
+  "mtd_usd": 787.25,
   "status": "partial",
-  "note": "partial total of receipts found so far (month to date)"
+  "items": {
+   "X Subscription (Super, Grok Bot+Cursor bundle) prorated upgrade": 67.99,
+   "X Premium (X CORP. PAID FEATURES)": 5.81,
+   "OpenAI ChatGPT subscription": 296.78,
+   "HeyGen Creator Credit Monthly (Apple)": 28.5,
+   "Adobe KK": 31.54,
+   "Cursor usage": 0.68,
+   "X Subscription Premium (charged+refunded)": 0,
+   "Grok Bot Pro (Apple) prorated refund": -20.4,
+   "Grok Bot Pro (Apple)": 25.34,
+   "Replit Core": 20.0,
+   "Google Cloud (Sep usage, GOOGLE*CLOUD QJC7LF)": 176.65,
+   "Upwork Connects (80, dr eggbot)": 24.0,
+   "Grok Bot Ultra (paid 2026-10-31, invoice 766D3D820C)": 130.36
+  },
+  "note": "receipts found so far (month to date) + Grok Ultra 10/31"
  },
  "gross_profit": {
-  "mtd_usd": null,
-  "status": "unconfirmed (partial)",
-  "status_ja": "未確定（部分集計）"
+  "mtd_usd": -556.38,
+  "status": "partial",
+  "revenue_mtd_usd": 230.87,
+  "method": "revenue MTD (REVENUE-BY-SOURCE) minus known expenses MTD"
  },
  "grok_ultra": [
   {
@@ -983,13 +1016,13 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 29
+   "board_updates_today": 30
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 19
+   "board_updates_today": 21
   },
   {
    "agent": "Dots (COO)",
@@ -1007,7 +1040,7 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 15
+   "board_updates_today": 16
   },
   {
    "agent": "Fucker",
