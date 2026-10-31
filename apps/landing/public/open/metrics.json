@@ -724,12 +724,12 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2075
+     "uses": 2085
     },
     {
      "rank": 2,
      "title": "Hook Grader — Free Hook Score (0-10)",
-     "uses": 54
+     "uses": 55
     },
     {
      "rank": 3,
@@ -749,7 +749,7 @@
    ],
    "winner_saya_top": [
     [
-     39716,
+     39753,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
@@ -757,7 +757,7 @@
      "Seedance 2.0 Video - Generate Instantly"
     ],
     [
-     121,
+     122,
      "YouTube Scripts — Keep Viewers Watching"
     ]
    ]
@@ -821,7 +821,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-31 20:12 JST",
+ "updated_at": "2026-10-31 21:12 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -870,7 +870,7 @@
    "revenue_lifetime": null,
    "mrr": null,
    "metric": "installs (cumulative)",
-   "metric_value": 2184,
+   "metric_value": 2198,
    "status": "live; 4 fixed agents resubmitted 10/30, in review",
    "next": "paid tier"
   },
@@ -890,7 +890,7 @@
    "revenue_mtd": null,
    "mrr": null,
    "metric": "site pageviews (cumulative)",
-   "metric_value": 1924,
+   "metric_value": 2026,
    "status": "live",
    "next": "search traffic (SEO loop)"
   },
@@ -950,49 +950,49 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 23
+   "board_updates_today": 26
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 11
+   "board_updates_today": 17
   },
   {
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 8
+   "board_updates_today": 10
   },
   {
    "agent": "Muse (CMO)",
    "today": "Monk reels, e-book funnel, Whop store, Naïve push",
    "platforms": "Instagram, Threads, TikTok, YouTube, Whop",
-   "board_updates_today": 0
+   "board_updates_today": 1
   },
   {
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 11
+   "board_updates_today": 13
   },
   {
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 6
+   "board_updates_today": 7
   },
   {
    "agent": "Anicca Marketer",
    "today": "Anicca iOS growth: daily posts, directories, metrics",
    "platforms": "TikTok @aniccaaffirmation, Bluesky, Mastodon, Nostr, Telegraph",
-   "board_updates_today": 1
+   "board_updates_today": 2
   },
   {
    "agent": "Muse Relay",
    "today": "Turns Muse's winning reels into X / note / TikTok material",
    "platforms": "none (hands drafts to account owners)",
-   "board_updates_today": 0
+   "board_updates_today": 1
   },
   {
    "agent": "Forensic Writing",
@@ -1008,8 +1008,8 @@
   }
  ],
  "contract_work": {
-  "applications_today": 10,
-  "applications_7d": 54,
+  "applications_today": 12,
+  "applications_7d": 56,
   "days": [
    "2026-10-25",
    "2026-10-26",
@@ -1040,7 +1040,7 @@
    {
     "platform": "Lancers",
     "owner": "dr eggbot",
-    "applications_today": 1,
+    "applications_today": 3,
     "applications_by_day": {
      "2026-10-25": 6,
      "2026-10-26": 9,
@@ -1048,9 +1048,9 @@
      "2026-10-28": 0,
      "2026-10-29": 0,
      "2026-10-30": 0,
-     "2026-10-31": 1
+     "2026-10-31": 3
     },
-    "applications_7d": 16,
+    "applications_7d": 18,
     "status": "active",
     "revenue_lifetime_usd": null
    },
@@ -1183,7 +1183,7 @@
     "applications_7d": null,
     "status": "71 agents live",
     "revenue_lifetime_usd": null,
-    "note": "we list our own products here; no applications; 2,184 installs"
+    "note": "we list our own products here; no applications; 2,198 installs"
    },
    {
     "platform": "PromptBase (our prompts)",

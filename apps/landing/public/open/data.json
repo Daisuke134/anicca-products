@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-10-31 20:12 JST",
- "source_updated_at": "2026-10-31 20:12 JST",
+ "updated_at": "2026-10-31 21:12 JST",
+ "source_updated_at": "2026-10-31 21:12 JST",
  "month": "2026-10",
  "currency": "JPY",
  "display_currency": "USD",
@@ -11,7 +11,7 @@
   "gross_profit_month_jpy": -66817,
   "mrr_jpy": 14677,
   "income_today_jpy": 0,
-  "income_all_time_jpy": 356980,
+  "income_all_time_jpy": 358665,
   "pending_jpy": 2500
  },
  "kpi_sources": {
@@ -50,7 +50,7 @@
    "all_time_jpy": 0,
    "pending_jpy": null,
    "change_vs_prev_day_jpy": null,
-   "applications_7d": 1,
+   "applications_7d": 3,
    "replies": null,
    "reply_rate": null,
    "contracts": null,
@@ -266,7 +266,7 @@
    "status": "live",
    "today_jpy": 0,
    "month_jpy": 0,
-   "all_time_jpy": 6515,
+   "all_time_jpy": 8200,
    "pending_jpy": null,
    "change_vs_prev_day_jpy": null,
    "mrr_jpy": 0
@@ -422,6 +422,18 @@
    "today_jpy": 0,
    "month_jpy": 0,
    "all_time_jpy": 6515,
+   "pending_jpy": null,
+   "change_vs_prev_day_jpy": null,
+   "mrr_jpy": null,
+   "items": null
+  },
+  {
+   "key": "stripe-payment-product-not-labelled",
+   "label": "Stripe payment (product not labelled)",
+   "status": "live",
+   "today_jpy": 0,
+   "month_jpy": 0,
+   "all_time_jpy": 1685,
    "pending_jpy": null,
    "change_vs_prev_day_jpy": null,
    "mrr_jpy": null,
