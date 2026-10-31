@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-10-31 22:21 JST",
+ "updated_at": "2026-10-31 22:50 JST",
  "month": "2026-10",
  "currency": "USD",
  "totals": {
@@ -21,7 +21,8 @@
   "gp": "revenue this month minus costs this month",
   "margin": "gross profit / revenue this month",
   "mrr": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs",
-  "run": "active cost list (table below)"
+  "run": "active cost list (table below)",
+  "human": "metrics/human-interventions.csv"
  },
  "monthly": [
   {
