@@ -421,9 +421,9 @@ export type JaAffirmationFaq = { q: string; a: string };
 export function jaAffirmationFaq(problem: JaAffirmationProblem): JaAffirmationFaq[] {
   const out: JaAffirmationFaq[] = [];
   const st = problem.shortTitle;
-  const topicQ = /アファメーション$/.test(st)
-    ? `${st}の例は？`
-    : `${st}に使えるアファメーションの例は？`;
+  const isAff = /アファメーション$/.test(st);
+  const topicQ = isAff ? `${st}の例は？` : `${st}に使えるアファメーションの例は？`;
+  const howQ = isAff ? `${st}はどう使えばいい？` : `${st}のとき、アファメーションはどう使えばいい？`;
   if (problem.affirmations.length >= 3) {
     const [a, b, c] = problem.affirmations;
     out.push({
@@ -433,12 +433,12 @@ export function jaAffirmationFaq(problem: JaAffirmationProblem): JaAffirmationFa
   }
   if (problem.practice && problem.practice.steps.length > 0) {
     out.push({
-      q: `${st}のとき、アファメーションはどう使えばいい？`,
+      q: howQ,
       a: problem.practice.steps.join(' '),
     });
   } else {
     out.push({
-      q: `${st}のとき、アファメーションはどう使えばいい？`,
+      q: howQ,
       a: 'このページの言葉から、いちばん信じられる一行を選び、息をゆっくり吐きながら一回読みます。気持ちが変わらなくても大丈夫です。必要なら別の一行を試してください。',
     });
   }
