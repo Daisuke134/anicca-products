@@ -1,7 +1,7 @@
 {
  "version": 2,
- "updated_at": "2026-10-31 22:50 JST",
- "month": "2026-10",
+ "updated_at": "2026-11-01 00:12 JST",
+ "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 156.84,
  "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -23,26 +23,20 @@
   {
    "key": "revm",
    "label": "Revenue this month",
-   "usd": 230.87,
-   "source": "finance/REVENUE-BY-SOURCE.csv dated rows; Dots reconciliation 2026-10-31 22:05 JST"
+   "usd": 0.0,
+   "source": "finance/REVENUE-BY-SOURCE.csv dated rows"
   },
   {
    "key": "cost",
    "label": "Costs this month",
-   "usd": 902.64,
-   "source": "16 receipt lines (table below)"
+   "usd": 0.0,
+   "source": "0 receipt lines (table below)"
   },
   {
    "key": "gp",
    "label": "Gross profit",
-   "usd": -671.77,
+   "usd": 0.0,
    "source": "revenue this month minus costs this month"
-  },
-  {
-   "key": "margin",
-   "label": "Margin",
-   "pct": -291.0,
-   "source": "gross profit / revenue this month"
   },
   {
    "key": "mrr",
@@ -79,140 +73,14 @@
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 16 receipt lines (see costs)"
   }
  ],
- "streams": [
-  {
-   "stream": "Coconala",
-   "owner": "dr eggbot",
-   "ordered_usd": 261.41,
-   "earned_usd": 203.9,
-   "paid_out_usd": null,
-   "paid_out_note": "awaiting Coconala payout cycle",
-   "note": "ordered ¥41,000 incl. ¥9,000 accepted, not yet paid; earned ¥31,980",
-   "source": "Coconala order mails (Dots ledger, reconciled 2026-10-31 22:05 JST)"
-  },
-  {
-   "stream": "Capafy (3 orders)",
-   "owner": "Fucker (agent skills)",
-   "ordered_usd": 26.97,
-   "earned_usd": 26.97,
-   "paid_out_usd": null,
-   "paid_out_note": "payout not received yet",
-   "note": "9.99 + 9.99 + 6.99 gross",
-   "source": "Capafy order notices, Gmail 1a166faac1614e9b, 1a182f601331c46e, 1a18c045b2be816d"
-  },
-  {
-   "stream": "App Store (Anicca, Honne)",
-   "owner": "Codex",
-   "ordered_usd": 0.0,
-   "earned_usd": 0.0,
-   "paid_out_usd": 0.0,
-   "source": "RevenueCat revenue metric, Oct 2026"
-  },
-  {
-   "stream": "Stripe",
-   "owner": "Codex",
-   "ordered_usd": 0.0,
-   "earned_usd": 0.0,
-   "paid_out_usd": 0.0,
-   "source": "Stripe balance transactions, Oct 2026"
-  },
-  {
-   "stream": "x402 (Base USDC)",
-   "owner": "Codex",
-   "ordered_usd": 0.0,
-   "earned_usd": 0.0,
-   "paid_out_usd": 0.0,
-   "source": "Base chain, treasury transfers Oct 2026"
-  }
- ],
+ "streams": [],
  "streams_total": {
-  "earned_usd": 230.87,
+  "earned_usd": 0.0,
   "source": "sum of streams"
  },
- "costs_month": [
-  {
-   "item": "OpenAI ChatGPT subscription",
-   "usd": 296.78,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "Google Cloud (Sep usage, GOOGLE*CLOUD QJC7LF)",
-   "usd": 176.65,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "Grok Bot Ultra (first charge)",
-   "usd": 130.36,
-   "source": "xAI invoice 766D3D820C, 2026-10-31"
-  },
-  {
-   "item": "X Subscription (Super, Grok Bot+Cursor bundle) prorated upgrade",
-   "usd": 67.99,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "Postiz Pro",
-   "usd": 50.6,
-   "source": "MUFG debit notice, Gmail 1a175869bbb3e4de"
-  },
-  {
-   "item": "Adobe KK",
-   "usd": 31.54,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "HeyGen Creator Credit Monthly (Apple)",
-   "usd": 28.5,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "Grok Bot Pro (Apple)",
-   "usd": 25.34,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "Upwork Connects (80, dr eggbot)",
-   "usd": 24.0,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "Railway (usage)",
-   "usd": 23.95,
-   "source": "MUFG debit notice, Gmail 1a17fd3ca7d09c33"
-  },
-  {
-   "item": "Telnyx",
-   "usd": 20.84,
-   "source": "MUFG debit notice, Gmail 1a12f39dfb6d107f"
-  },
-  {
-   "item": "Replit Core",
-   "usd": 20.0,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "Relixir, Inc. (not yet classified)",
-   "usd": 20.0,
-   "source": "receipt #1445-2619, 2026-10-31"
-  },
-  {
-   "item": "X Premium (X CORP. PAID FEATURES)",
-   "usd": 5.81,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "Cursor usage",
-   "usd": 0.68,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "item": "Grok Bot Pro (Apple) prorated refund",
-   "usd": -20.4,
-   "source": "Dots money ledger 2026-10-31.json (receipts)"
-  }
- ],
+ "costs_month": [],
  "costs_month_total": {
-  "usd": 902.64,
+  "usd": 0.0,
   "source": "sum of lines"
  },
  "active_costs": [
@@ -307,24 +175,10 @@
  },
  "by_agent": [
   {
-   "agent": "dr eggbot",
-   "earns_usd": 203.9,
-   "spends_usd": 24.0,
-   "net_usd": 179.9,
-   "source": "Coconala order mails (Dots ledger, reconciled 2026-10-31 22:05 JST); Dots money ledger 2026-10-31.json (receipts)"
-  },
-  {
-   "agent": "Fucker",
-   "earns_usd": 26.97,
-   "spends_usd": 0.0,
-   "net_usd": 26.97,
-   "source": "Capafy order notices, Gmail 1a166faac1614e9b, 1a182f601331c46e, 1a18c045b2be816d"
-  },
-  {
    "agent": "Shared (all agents: models, hosting, tools)",
    "earns_usd": 0.0,
-   "spends_usd": 878.64,
-   "net_usd": -878.64,
+   "spends_usd": 0.0,
+   "net_usd": 0.0,
    "source": "costs this month (receipt lines without a single agent)"
   }
  ],

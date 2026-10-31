@@ -1,25 +1,24 @@
 {
  "version": 2,
- "updated_at": "2026-10-31 22:50 JST",
- "month": "2026-10",
+ "updated_at": "2026-11-01 00:12 JST",
+ "month": "2026-11",
  "currency": "USD",
  "totals": {
   "revenue_7d_usd": 16.98,
   "revenue_30d_usd": 230.87,
-  "revenue_mtd_usd": 230.87,
-  "costs_mtd_usd": 902.64,
-  "gross_profit_mtd_usd": -671.77,
-  "margin_pct": -291.0,
+  "revenue_mtd_usd": 0.0,
+  "costs_mtd_usd": 0.0,
+  "gross_profit_mtd_usd": 0.0,
+  "margin_pct": null,
   "mrr_usd": 93.58,
   "active_costs_monthly_usd": 705.78
  },
  "sources": {
   "rev7": "finance/REVENUE-BY-SOURCE.csv dated rows",
   "rev30": "finance/REVENUE-BY-SOURCE.csv dated rows",
-  "revm": "finance/REVENUE-BY-SOURCE.csv dated rows; Dots reconciliation 2026-10-31 22:05 JST",
-  "cost": "16 receipt lines (table below)",
+  "revm": "finance/REVENUE-BY-SOURCE.csv dated rows",
+  "cost": "0 receipt lines (table below)",
   "gp": "revenue this month minus costs this month",
-  "margin": "gross profit / revenue this month",
   "mrr": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs",
   "run": "active cost list (table below)",
   "human": "metrics/human-interventions.csv"
