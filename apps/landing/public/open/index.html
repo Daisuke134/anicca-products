@@ -28,31 +28,30 @@ footer{color:var(--mut);font-size:13px;margin-top:32px}a{color:inherit}
  <div class="card"><div class="l">今月の粗利（収入−支出）</div><div class="v" id="k-gp">—</div><div class="n"></div></div>
  <div class="card"><div class="l">MRR</div><div class="v" id="k-mrr">—</div><div class="n">定期課金の月額換算</div></div>
 </section>
-<h2>受託プラットフォーム別</h2><div class="tw"><table id="t-free"></table></div>
+<h2>受託プラットフォーム別</h2><p class="sub" style="margin:-6px 0 10px;font-size:13px">x402 財布残高（ライブ）: <b id="x402">…</b></p><div class="tw"><table id="t-free"></table></div>
 <h2>その他のプラットフォーム</h2><div class="tw"><table id="t-plat"></table></div>
 <h2>プロダクト別</h2><div class="tw"><table id="t-prod"></table></div>
 <footer><p id="notes"></p><p>データ: <a href="data.json">data.json</a>（毎日 自動更新）。数字のないものは「未接続」と表示し、推計はしていません。</p></footer>
 </main><script>
-const $=id=>document.getElementById(id);let FX=null;
-const yen=v=>v==null?'<span class="na">—</span>':(v===0?'¥0':(FX?'¥'+Math.round(v*FX).toLocaleString('ja-JP'):'$'+v.toFixed(2)));
-const chg=v=>v==null?'<span class="na">—</span>':v===0?'±¥0':`<span class="${v>0?'pos':'neg'}">${v>0?'+':'−'}${yen(Math.abs(v))}</span>`;
+const $=id=>document.getElementById(id);
+const yen=v=>v==null?'<span class="na">—</span>':(v<0?'−':'')+'¥'+Math.abs(Math.round(v)).toLocaleString('ja-JP');
+const chg=v=>v==null?'<span class="na">—</span>':v===0?'±¥0':`<span class="${v>0?'pos':'neg'}">${v>0?'+':''}${yen(v)}</span>`;
 const num=v=>v==null?'<span class="na">—</span>':v;
 const NA='<span class="tag">未接続</span>';
-const FREE=['lancers','crowdworks','coconala','upwork','mercor','fiverr','contra','guru','truelancer'];
-function free(el,rows){let h='<tr><th>プラットフォーム</th><th>今月の売上</th><th>累計の売上</th><th>前日比</th><th>応募（7日）</th><th>返信率</th><th>契約</th><th>担当</th></tr>';
+function free(el,rows){let h='<tr><th>プラットフォーム</th><th>今日</th><th>今月の売上</th><th>累計の売上</th><th>前日比</th><th>応募（7日）</th><th>返信</th><th>返信率</th><th>契約</th><th>担当</th></tr>';
  for(const r of rows){const on=r.status==='live';const rr=r.reply_rate==null?'<span class="na">—</span>':Math.round(r.reply_rate*100)+'%';
-  h+=`<tr><td>${r.label}</td><td>${on?yen(r.month):NA}</td><td>${on?yen(r.all_time):NA}</td><td>${on?chg(r.change_vs_prev_day):'<span class="na">—</span>'}</td><td>${num(r.applications_7d)}</td><td>${rr}</td><td>${num(r.contracts)}</td><td>${r.owner||'—'}</td></tr>`}el.innerHTML=h}
+  const pend=r.pending_jpy?`<span class="tag">受注済み ${yen(r.pending_jpy)}</span>`:'';
+  h+=`<tr><td>${r.label}${pend}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:`<td colspan="4">${NA}</td>`)+`<td>${num(r.applications_7d)}</td><td>${num(r.replies)}</td><td>${rr}</td><td>${num(r.contracts)}</td><td>${r.owner||'—'}</td></tr>`}el.innerHTML=h}
 function money(el,rows,first){let h=`<tr><th>${first}</th><th>今日</th><th>今月</th><th>累計</th><th>前日比</th><th>MRR</th></tr>`;
- for(const r of rows){const on=r.status==='live';let x=`<td>${r.label}</td>`;
-  x+=on?`<td>${yen(r.today)}</td><td>${yen(r.month)}</td><td>${yen(r.all_time)}</td><td>${chg(r.change_vs_prev_day)}</td>`:`<td colspan="4">${NA}</td>`;
-  x+=`<td>${r.mrr==null?'<span class="na">—</span>':yen(r.mrr)}</td>`;
-  if(r.key==='contract-work')x+=`</tr><tr><td colspan="6" class="na" style="text-align:left;font-size:13px">応募 累計 ${r.applications_all}（今日 ${r.applications_today}）・返信 ${r.replies??'—'}・契約 ${r.contracts??'—'}</td>`;
-  h+=`<tr>${x}</tr>`}el.innerHTML=h}
-fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{FX=d.fx_usdjpy;const k=d.kpis;$('upd').textContent=d.updated_at;
- $('k-inc').innerHTML=yen(k.income_month_usd);$('k-inc-n').innerHTML=d.month+' ・ 今日 '+yen(k.income_today_usd);
- $('k-sp').innerHTML=yen(k.spend_month_usd);$('k-gp').innerHTML=k.gross_profit_month_usd==null?'—':`<span class="${k.gross_profit_month_usd<0?'neg':'pos'}">${k.gross_profit_month_usd<0?'−'+yen(-k.gross_profit_month_usd):yen(k.gross_profit_month_usd)}</span>`;
- $('k-mrr').innerHTML=yen(k.mrr_usd);
- free($('t-free'),d.platforms.filter(r=>FREE.includes(r.key)));money($('t-plat'),d.platforms.filter(r=>!FREE.includes(r.key)),'プラットフォーム');money($('t-prod'),d.products,'プロダクト');
- $('notes').textContent='金額は円（マネーパスの当日レート USD/JPY '+(FX?FX.toFixed(2):'—')+' で換算）。未接続 = 売上の取得元がまだない。前日比 = 累計の前日スナップショットとの差。';
+ for(const r of rows){const on=r.status==='live';
+  h+=`<tr><td>${r.label}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:`<td colspan="4">${NA}</td>`)+`<td>${r.mrr_jpy==null?'<span class="na">—</span>':yen(r.mrr_jpy)}</td></tr>`;
+  for(const i of r.items||[])h+=`<tr><td style="padding-left:30px;color:#6b7280;font-size:13px">${i.label}</td><td></td><td>${yen(i.month_jpy)}</td><td>${yen(i.all_time_jpy)}</td><td></td><td></td></tr>`}el.innerHTML=h}
+function x402(d){const a=d.x402.treasury;fetch('https://mainnet.base.org',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',data:'0x70a08231'+a.slice(2).toLowerCase().padStart(64,'0')},'latest']})}).then(r=>r.json()).then(j=>{const u=parseInt(j.result,16)/1e6;$('x402').textContent=u.toFixed(2)+' USDC（'+(d.fx_usdjpy?'¥'+Math.round(u*d.fx_usdjpy).toLocaleString('ja-JP'):'')+'）・'+new Date().toLocaleTimeString('ja-JP',{timeZone:'Asia/Tokyo'})+' JST 時点'}).catch(()=>{$('x402').textContent='読み込み失敗'})}
+fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{const k=d.kpis;$('upd').textContent=d.updated_at;
+ $('k-inc').innerHTML=yen(k.income_month_jpy);$('k-inc-n').innerHTML=d.month+' ・ 今日 '+yen(k.income_today_jpy)+' ・ 累計 '+yen(k.income_all_time_jpy);
+ $('k-sp').innerHTML=yen(k.spend_month_jpy);$('k-gp').innerHTML=k.gross_profit_month_jpy==null?'—':`<span class="${k.gross_profit_month_jpy<0?'neg':'pos'}">${yen(k.gross_profit_month_jpy)}</span>`;
+ $('k-mrr').innerHTML=yen(k.mrr_jpy);
+ free($('t-free'),d.freelance);money($('t-plat'),d.platforms,'プラットフォーム');money($('t-prod'),d.products,'プロダクト');
+ $('notes').textContent=d.notes+'（USD/JPY '+(d.fx_usdjpy||'—')+'）';x402(d);
 }).catch(()=>{$('upd').textContent='読み込みに失敗しました'});
 </script></body></html>
