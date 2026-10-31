@@ -55,6 +55,12 @@
 
 - [Free social jet lag & wake-time calculator](https://aniccaai.com/tools/social-jet-lag-calculator): no signup, runs in the browser (by Sleep Reset)
 
+## Paid API for AI agents (x402, USDC on Base)
+Pay per call with x402: no account or API key. An unpaid GET returns HTTP 402 with the payment requirements (`PAYMENT-REQUIRED` header + JSON body; scheme `exact`, network eip155:8453 Base mainnet, asset USDC 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, facilitator https://facilitator.payai.network). Retry with an x402 v2 payment header. Machine-readable: https://aniccaai.com/openapi.json and https://aniccaai.com/.well-known/x402
+- [Maritime habit nudge](https://aniccaai.com/.netlify/functions/x402-maritime-nudge?goal=sleep&lang=en): $0.01 per call. Returns a behavior-change nudge plus a 3-step habit plan (JSON: goal, lang, nudge, plan[], agent). goal=sleep|exercise|focus|phone|stress, lang=en|ja.
+- [Naïve mood reflection](https://aniccaai.com/.netlify/functions/x402-naive-reflect?mood=anxious&lang=en): $0.01 per call. Returns a reflection prompt plus a 2-minute exercise (JSON: mood, lang, prompt, exercise, agent). mood=anxious|low|angry|scattered|grateful, lang=en|ja.
+- [Affirmation](https://aniccaai.com/.netlify/functions/x402-affirm?topic=calm&lang=en): $0.005 per call. One affirmation; topic=calm|confidence|selflove|impermanence, lang=en|ja.
+
 ## Articles
 - [Zero-human companies in 2026: 12 agent-run businesses and what they really earn](https://aniccaai.com/blog/zero-human-companies-2026?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): dated, sourced list; verified vs founder-reported revenue and which companies publish costs.
 - [Good agent evals measure work done, not answers given](https://aniccaai.com/blog/good-agent-evals-measure-outcomes?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
