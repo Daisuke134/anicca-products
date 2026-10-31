@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-10-31 19:27 JST",
- "source_updated_at": "2026-10-31 19:27 JST",
+ "updated_at": "2026-10-31 20:12 JST",
+ "source_updated_at": "2026-10-31 20:12 JST",
  "month": "2026-10",
  "currency": "JPY",
  "display_currency": "USD",
@@ -80,7 +80,7 @@
    "all_time_jpy": 0,
    "pending_jpy": null,
    "change_vs_prev_day_jpy": null,
-   "applications_7d": 3,
+   "applications_7d": 4,
    "replies": null,
    "reply_rate": null,
    "contracts": null,

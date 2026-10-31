@@ -636,8 +636,8 @@
     },
     "id": 6755129214,
     "genre": "Health & Fitness",
-    "ratings": 47,
-    "rating": 4.51064,
+    "ratings": 48,
+    "rating": 4.52083,
     "version": "1.9.4"
    },
    "Honne": {
@@ -656,7 +656,7 @@
     "keywords": {
      "us:gratitude journal": "圏外(>200)",
      "us:gratitude": "圏外(>200)",
-     "jp:感謝日記": 176
+     "jp:感謝日記": 174
     },
     "id": 6759514159,
     "genre": "Health & Fitness",
@@ -668,10 +668,10 @@
   "gsc": {
    "https://aniccaai.com/": {
     "d7": {
-     "clicks": 0,
-     "impressions": 33,
-     "ctr": 0,
-     "position": 8.303030303030303
+     "clicks": 2,
+     "impressions": 38,
+     "ctr": 0.05263157894736842,
+     "position": 8.157894736842106
     },
     "top_queries": [
      {
@@ -709,6 +709,12 @@
       "pos": 44,
       "impr": 1,
       "clicks": 0
+     },
+     {
+      "q": "googleカレンダー 移動時間",
+      "pos": 11,
+      "impr": 1,
+      "clicks": 0
      }
     ]
    }
@@ -718,7 +724,7 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2070
+     "uses": 2075
     },
     {
      "rank": 2,
@@ -743,7 +749,7 @@
    ],
    "winner_saya_top": [
     [
-     39695,
+     39716,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
@@ -815,7 +821,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-31 19:27 JST",
+ "updated_at": "2026-10-31 20:12 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -944,13 +950,13 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 20
+   "board_updates_today": 23
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 8
+   "board_updates_today": 11
   },
   {
    "agent": "Dots (COO)",
@@ -968,7 +974,7 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 10
+   "board_updates_today": 11
   },
   {
    "agent": "Fucker",
@@ -1002,8 +1008,8 @@
   }
  ],
  "contract_work": {
-  "applications_today": 9,
-  "applications_7d": 53,
+  "applications_today": 10,
+  "applications_7d": 54,
   "days": [
    "2026-10-25",
    "2026-10-26",
@@ -1051,7 +1057,7 @@
    {
     "platform": "Upwork",
     "owner": "dr eggbot",
-    "applications_today": 3,
+    "applications_today": 4,
     "applications_by_day": {
      "2026-10-25": 0,
      "2026-10-26": 0,
@@ -1059,9 +1065,9 @@
      "2026-10-28": 0,
      "2026-10-29": 0,
      "2026-10-30": 0,
-     "2026-10-31": 3
+     "2026-10-31": 4
     },
-    "applications_7d": 3,
+    "applications_7d": 4,
     "status": "contract active (Labelbox, 10/30); ID check due 11/6",
     "revenue_lifetime_usd": null
    },
