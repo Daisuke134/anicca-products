@@ -1,11 +1,11 @@
 {
- "built_at": "2026-10-31 21:05 JST",
+ "built_at": "2026-11-01 03:05 JST",
  "right_now": [
   {
    "agent": "参謀",
-   "last": "2026-10-31 08:48",
-   "source": "LIVE-STATE.md",
-   "task": "5-min check",
+   "last": "2026-10-31 21:20",
+   "source": "LOOPS.md",
+   "task": "loop #1 Distribution loop (Anicca+LM)",
    "blocked": true
   },
   {
@@ -52,17 +52,17 @@
   },
   {
    "agent": "Forensic Writing",
-   "last": "2026-10-31 19:52",
+   "last": "2026-11-01 01:50",
    "source": "LIVE-STATE.md",
    "task": "hook-forensics-24h",
    "blocked": false
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-10-31 20:24",
+   "last": "2026-11-01 00:35",
    "source": "LIVE-STATE.md",
-   "task": "relay pass 20",
-   "blocked": false
+   "task": "relay pass 00",
+   "blocked": true
   }
  ],
  "loops": [
@@ -865,7 +865,7 @@
    "posts_7d": 13,
    "views_7d": 2158.0,
    "er_7d": "4.0/2158=0.2%",
-   "avg_views_last5": 91,
+   "avg_views_last5": 92,
    "last_post": "2026-10-29T11:46",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
@@ -891,7 +891,7 @@
    "posts_7d": 88,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 2,
+   "avg_views_last5": 1,
    "last_post": "2026-10-30T11:00",
    "winner": "https://x.com/godofprompt"
   },
@@ -904,7 +904,7 @@
    "posts_7d": 20,
    "views_7d": 4878.0,
    "er_7d": "108.0/4878=2.2%",
-   "avg_views_last5": 300,
+   "avg_views_last5": 319,
    "last_post": "2026-10-30T05:17",
    "winner": "https://www.tiktok.com/@dreamlifecode"
   },
@@ -995,7 +995,7 @@
    "posts_7d": 10,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 71,
+   "avg_views_last5": 84,
    "last_post": "2026-10-30T05:02",
    "winner": "https://x.com/marclou"
   },
@@ -1021,7 +1021,7 @@
    "posts_7d": 19,
    "views_7d": 2124.0,
    "er_7d": "11.0/2124=0.5%",
-   "avg_views_last5": 96,
+   "avg_views_last5": 97,
    "last_post": "2026-10-30T03:31",
    "winner": "https://www.tiktok.com/@kairyu699"
   },
@@ -1047,7 +1047,7 @@
    "posts_7d": 12,
    "views_7d": 2614.0,
    "er_7d": "87.0/2614=3.3%",
-   "avg_views_last5": 142,
+   "avg_views_last5": 137,
    "last_post": "2026-10-30T02:01",
    "winner": "https://www.tiktok.com/@kairyu699"
   },
@@ -1451,7 +1451,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-26 12:4x",
+   "last_post": "2026-11-01 00:3x",
    "winner": "https://threads.com/@manifest.with.words"
   },
   {
@@ -1503,7 +1503,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-27 06:22",
+   "last_post": "2026-10-31 21:17",
    "winner": "未取得"
   },
   {
@@ -1596,6 +1596,19 @@
    "avg_views_last5": "未取得",
    "last_post": "2026-10-27 08:26",
    "winner": "未取得"
+  },
+  {
+   "platform": "nostr",
+   "account": "anicca",
+   "poster": "Mac mini LM jobs",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "avg_views_last5": "未取得",
+   "last_post": "2026-11-01 00:2x",
+   "winner": "https://www.tiktok.com/@yuusan_juusyoku"
   }
  ],
  "seo": [
