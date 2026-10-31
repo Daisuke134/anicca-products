@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 01:12 JST",
+ "updated_at": "2026-11-01 02:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 156.84,
@@ -11,13 +11,13 @@
   {
    "key": "rev7",
    "label": "Revenue (7d)",
-   "usd": 16.98,
+   "usd": 0.0,
    "source": "finance/REVENUE-BY-SOURCE.csv dated rows"
   },
   {
    "key": "rev30",
    "label": "Revenue (30d)",
-   "usd": 230.87,
+   "usd": 203.9,
    "source": "finance/REVENUE-BY-SOURCE.csv dated rows"
   },
   {
@@ -60,16 +60,16 @@
  "monthly": [
   {
    "month": "2026-09",
-   "revenue_usd": 421.59,
+   "revenue_usd": 390.63,
    "cost_usd": 1513.71,
-   "gross_profit_usd": -1092.12,
+   "gross_profit_usd": -1123.08,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (see costs)"
   },
   {
    "month": "2026-10",
-   "revenue_usd": 230.87,
+   "revenue_usd": 203.9,
    "cost_usd": 902.64,
-   "gross_profit_usd": -671.77,
+   "gross_profit_usd": -698.74,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 16 receipt lines (see costs)"
   }
  ],
