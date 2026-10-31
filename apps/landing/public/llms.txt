@@ -3,7 +3,7 @@
 > Indie apps and small products by Daisuke Narita, Tokyo. The main product is Anicca, a free-to-download iPhone affirmation app that sends one short, honest line at the time of day you choose, with no streaks. Pages on this site are plain text and free to quote.
 
 ## Apps
-- [Anicca: Daily Affirmations (iPhone)](https://aniccaai.com/affirmation-app): one short affirmation at the time you pick, 13 self-care topics, no streaks. Free to download, optional subscription. App Store: https://apps.apple.com/app/id6755129214
+- [Anicca: Daily Affirmations (iPhone)](https://aniccaai.com/affirmation-app): one short affirmation at the time you pick, 13 self-care topics, no streaks. Free to download, optional subscription. App Store: https://apps.apple.com/app/id6755129214?pt=93486075&mt=8&ct=llms
 - [Honne (iPhone)](https://aniccaai.com/honne): paste a text message you received and Honne's AI suggests the feeling likely behind it and drafts a reply that won't make things worse. Free: 3 analyses a day; optional Premium. App Store: https://apps.apple.com/app/id6759667221
 - [Thankful (iPhone)](https://aniccaai.com/thankful): a simple gratitude app. App Store: https://apps.apple.com/app/id6759514159
 - [Daily Dhamma (iPhone)](https://aniccaai.com/dailydharma): read Dhammapada verses, bookmark passages and set mindfulness reminders. App Store: https://apps.apple.com/us/app/daily-dhamma/id6757726663
