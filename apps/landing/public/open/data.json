@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 04:12 JST",
+ "updated_at": "2026-11-01 05:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 156.84,
@@ -29,14 +29,14 @@
   {
    "key": "cost",
    "label": "Costs this month",
-   "usd": 0.0,
-   "source": "0 receipt lines (table below)"
+   "usd": null,
+   "source": "1 observed receipt lines; coverage incomplete; unknown USD is not zero"
   },
   {
    "key": "gp",
    "label": "Gross profit",
-   "usd": 0.0,
-   "source": "revenue this month minus costs this month"
+   "usd": null,
+   "source": "revenue this month minus observed costs; unavailable when USD costs unknown"
   },
   {
    "key": "mrr",
@@ -70,7 +70,14 @@
    "revenue_usd": 203.9,
    "cost_usd": 902.64,
    "gross_profit_usd": -698.74,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 16 receipt lines (see costs)"
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 17 receipt lines (see costs)"
+  },
+  {
+   "month": "2026-11 (to date)",
+   "revenue_usd": 0.0,
+   "cost_usd": null,
+   "gross_profit_usd": null,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 1 receipt lines (see costs)"
   }
  ],
  "streams": [],
@@ -78,10 +85,19 @@
   "earned_usd": 0.0,
   "source": "sum of streams"
  },
- "costs_month": [],
+ "costs_month": [
+  {
+   "item": "Upwork payment notice (primary event)",
+   "usd": null,
+   "native_amount": 2000.0,
+   "native_currency": "JPY",
+   "source": "Provider payment/refund evidence (private receipt retained)",
+   "coverage": "Observed payments; coverage incomplete"
+  }
+ ],
  "costs_month_total": {
-  "usd": 0.0,
-  "source": "sum of lines"
+  "usd": null,
+  "source": "Observed subtotal; coverage incomplete; USD unavailable if any conversion missing"
  },
  "active_costs": [
   {
@@ -96,21 +112,21 @@
    "uses": "agents (ChatGPT)",
    "usd_mo": 191.28,
    "next_charge": "11/02",
-   "source": "MUFG debit notice, Gmail 1a0f9efcbe04cd23"
+   "source": "MUFG debit notice, private receipt"
   },
   {
    "item": "ChatGPT extra plans (¥3,596 + ¥13,259)",
    "uses": "agents (ChatGPT)",
    "usd_mo": 107.47,
    "next_charge": "~11/22-24",
-   "source": "Gmail 1a160ebfb3cae501, 1a16b9dbea84cbba"
+   "source": "private receipt, private receipt"
   },
   {
    "item": "Postiz Pro",
    "uses": "social posting",
    "usd_mo": 50.6,
    "next_charge": "11/25",
-   "source": "MUFG debit notice, Gmail 1a175869bbb3e4de"
+   "source": "MUFG debit notice, private receipt"
   },
   {
    "item": "Google Cloud / Gemini (capped)",
@@ -124,49 +140,49 @@
    "uses": "video",
    "usd_mo": 28.69,
    "next_charge": "11/21",
-   "source": "Apple receipt, Gmail 1a15d47ebb8e5182"
+   "source": "Apple receipt, private receipt"
   },
   {
    "item": "Railway (usage)",
    "uses": "hosting",
    "usd_mo": 23.95,
    "next_charge": "11/28",
-   "source": "MUFG debit notice, Gmail 1a17fd3ca7d09c33"
+   "source": "MUFG debit notice, private receipt"
   },
   {
    "item": "Replit Core",
    "uses": "coding",
    "usd_mo": 20.93,
    "next_charge": "11/07-09",
-   "source": "MUFG debit notice, Gmail 1a11dfb1b010b0fe"
+   "source": "MUFG debit notice, private receipt"
   },
   {
    "item": "Telnyx",
    "uses": "phone calls",
    "usd_mo": 20.84,
    "next_charge": "~11/12",
-   "source": "MUFG debit notice, Gmail 1a12f39dfb6d107f"
+   "source": "MUFG debit notice, private receipt"
   },
   {
    "item": "X Premium (basic)",
    "uses": "X account",
    "usd_mo": 5.85,
    "next_charge": "11/24",
-   "source": "Gmail 1a16da1dfe3968d1"
+   "source": "private receipt"
   },
   {
    "item": "Hetzner",
    "uses": "server",
    "usd_mo": 1.61,
    "next_charge": "11/02",
-   "source": "MUFG debit notice HETZNER, Gmail 1a0fb99236f1142d"
+   "source": "MUFG debit notice HETZNER, private receipt"
   },
   {
    "item": "Cursor usage",
    "uses": "coding",
    "usd_mo": 0.68,
    "next_charge": "usage",
-   "source": "Gmail 1a1472c55e279777"
+   "source": "private receipt"
   }
  ],
  "active_costs_total": {
@@ -177,8 +193,8 @@
   {
    "agent": "Shared (all agents: models, hosting, tools)",
    "earns_usd": 0.0,
-   "spends_usd": 0.0,
-   "net_usd": 0.0,
+   "spends_usd": null,
+   "net_usd": null,
    "source": "costs this month (receipt lines without a single agent)"
   }
  ],
