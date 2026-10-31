@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 export type JaAffirmationProblem = {
   slug: string;
   title: string;
@@ -27,7 +28,12 @@ export function jaAffirmationAppStoreUrl(slug: string): string {
   url.searchParams.set('utm_campaign', 'anicca_ja_problem');
   url.searchParams.set('utm_content', slug);
   url.searchParams.set('pt', '93486075');
-  url.searchParams.set('ct', `seo_ja_${slug}`.slice(0, 40));
+  // App Store campaign tokens must be <= 30 chars; hash long identities to keep them unique.
+  const identity = `seo_ja_${slug}`;
+  const campaign = identity.length <= 30
+    ? identity
+    : `${identity.slice(0, 13)}-${createHash('sha256').update(identity, 'utf8').digest('hex').slice(0, 16)}`;
+  url.searchParams.set('ct', campaign);
   url.searchParams.set('mt', '8');
   return url.toString();
 }
