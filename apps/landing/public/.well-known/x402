@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "resources": [
+    "https://aniccaai.com/.netlify/functions/x402-affirm",
+    "https://aniccaai.com/.netlify/functions/x402-capafy-skill"
+  ]
+}

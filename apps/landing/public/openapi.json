@@ -1,0 +1,197 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Anicca x402 API",
+    "version": "1.0.0",
+    "description": "Pay-per-call JSON endpoints by Anicca. $0.005 USDC on Base per call, x402 exact scheme, PayAI facilitator.",
+    "x-guidance": "GET /.netlify/functions/x402-affirm?topic=calm&lang=en returns one affirmation (topics: calm, confidence, selflove, impermanence; lang ja|en). GET /.netlify/functions/x402-capafy-skill?id=<Capafy agent id> returns details and a buy link for an Anicca Capafy AI skill (ids at https://capafy.ai/publisher/Anicca). Call without payment to get the 402 challenge, then retry with X-PAYMENT."
+  },
+  "servers": [
+    {
+      "url": "https://aniccaai.com"
+    }
+  ],
+  "paths": {
+    "/.netlify/functions/x402-affirm": {
+      "get": {
+        "operationId": "getAffirmation",
+        "summary": "Anicca affirmation (ja/en) as JSON",
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.005"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ]
+        },
+        "parameters": [
+          {
+            "name": "topic",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "calm",
+                "confidence",
+                "selflove",
+                "impermanence"
+              ]
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ja",
+                "en"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paid result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "affirmation": {
+                      "type": "string"
+                    },
+                    "topic": {
+                      "type": "string"
+                    },
+                    "lang": {
+                      "type": "string"
+                    },
+                    "source": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "affirmation",
+                    "topic",
+                    "lang",
+                    "source"
+                  ]
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required (x402 v1, exact, Base USDC, PayAI facilitator)"
+          }
+        }
+      }
+    },
+    "/.netlify/functions/x402-capafy-skill": {
+      "get": {
+        "operationId": "getCapafySkill",
+        "summary": "Capafy AI skill details (Anicca publisher) with tracked buy link",
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.005"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ]
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{6,20}$",
+              "example": "6839055303"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paid result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "agentType": {
+                      "type": "string"
+                    },
+                    "estimatedExecutionMinutes": {
+                      "type": "number"
+                    },
+                    "pricing": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "rating": {
+                      "type": "number"
+                    },
+                    "salesVolume": {
+                      "type": "number"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "buy_link": {
+                      "type": "string"
+                    },
+                    "source": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "title",
+                    "description",
+                    "url",
+                    "buy_link",
+                    "source"
+                  ]
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required (x402 v1, exact, Base USDC, PayAI facilitator)"
+          }
+        }
+      }
+    }
+  }
+}

@@ -148,3 +148,14 @@
 # ep_3FBcXGwrcP575GjLm46jCMj2TYr (client_id b-ask-reply-webhook).
 # Required env (this function): GOOGLE_REFRESH_TOKEN, GOOGLE_CLIENT_ID,
 #                               GOOGLE_CLIENT_SECRET (or GOOGLE_CALENDAR_TOKEN), GCAL_ID.
+
+[[headers]]
+  for = "/.well-known/x402"
+  [headers.values]
+    Content-Type = "application/json"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/openapi.json"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
