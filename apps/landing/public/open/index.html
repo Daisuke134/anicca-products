@@ -34,20 +34,22 @@ footer{color:var(--mut);font-size:13px;margin-top:32px}a{color:inherit}
 <footer><p id="notes"></p><p>データ: <a href="data.json">data.json</a>（毎日 自動更新）。数字のないものは「未接続」と表示し、推計はしていません。</p></footer>
 </main><script>
 const $=id=>document.getElementById(id);
-const yen=v=>v==null?'<span class="na">—</span>':(v<0?'−':'')+'¥'+Math.abs(Math.round(v)).toLocaleString('ja-JP');
-const chg=v=>v==null?'<span class="na">—</span>':v===0?'±¥0':`<span class="${v>0?'pos':'neg'}">${v>0?'+':''}${yen(v)}</span>`;
+// DISPLAY CURRENCY IS USD. Sources are stored in JPY; converted with data.json fx_usdjpy. Do not switch to ¥ (成田さん 2026-10-31).
+const DISPLAY_CURRENCY='USD';let FX=null;
+const yen=v=>v==null?'<span class="na">—</span>':(FX?(v<0?'−':'')+'$'+(Math.abs(v)/FX).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'<span class="na">—</span>');
+const chg=v=>v==null?'<span class="na">—</span>':v===0?'±$0.00':`<span class="${v>0?'pos':'neg'}">${v>0?'+':''}${yen(v)}</span>`;
 const num=v=>v==null?'<span class="na">—</span>':v;
-const NA='<span class="tag">未接続</span>';
+const NA0=`<td>$0.00</td><td>$0.00</td><td>$0.00</td><td>—</td>`;
 function free(el,rows){let h='<tr><th>プラットフォーム</th><th>今日</th><th>今月の売上</th><th>累計の売上</th><th>前日比</th><th>応募（7日）</th><th>返信</th><th>返信率</th><th>契約</th><th>担当</th></tr>';
  for(const r of rows){const on=r.status==='live';const rr=r.reply_rate==null?'<span class="na">—</span>':Math.round(r.reply_rate*100)+'%';
   const pend=r.pending_jpy?`<span class="tag">受注済み ${yen(r.pending_jpy)}</span>`:'';
-  h+=`<tr><td>${r.label}${pend}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:`<td colspan="4">${NA}</td>`)+`<td>${num(r.applications_7d)}</td><td>${num(r.replies)}</td><td>${rr}</td><td>${num(r.contracts)}</td><td>${r.owner||'—'}</td></tr>`}el.innerHTML=h}
+  h+=`<tr><td>${r.label}${pend}${on?'':'<span class="tag">未接続・確認済み入金なし</span>'}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:NA0)+`<td>${num(r.applications_7d)}</td><td>${num(r.replies)}</td><td>${rr}</td><td>${num(r.contracts)}</td><td>${r.owner||'—'}</td></tr>`}el.innerHTML=h}
 function money(el,rows,first){let h=`<tr><th>${first}</th><th>今日</th><th>今月</th><th>累計</th><th>前日比</th><th>MRR</th></tr>`;
  for(const r of rows){const on=r.status==='live';
-  h+=`<tr><td>${r.label}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:`<td colspan="4">${NA}</td>`)+`<td>${r.mrr_jpy==null?'<span class="na">—</span>':yen(r.mrr_jpy)}</td></tr>`;
+  h+=`<tr><td>${r.label}</td>`+(on?`<td>${yen(r.today_jpy)}</td><td>${yen(r.month_jpy)}</td><td>${yen(r.all_time_jpy)}</td><td>${chg(r.change_vs_prev_day_jpy)}</td>`:NA0)+`<td>${r.mrr_jpy==null?'<span class="na">—</span>':yen(r.mrr_jpy)}</td></tr>`;
   for(const i of r.items||[])h+=`<tr><td style="padding-left:30px;color:#6b7280;font-size:13px">${i.label}</td><td></td><td>${yen(i.month_jpy)}</td><td>${yen(i.all_time_jpy)}</td><td></td><td></td></tr>`}el.innerHTML=h}
-function x402(d){const a=d.x402.treasury;fetch('https://mainnet.base.org',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',data:'0x70a08231'+a.slice(2).toLowerCase().padStart(64,'0')},'latest']})}).then(r=>r.json()).then(j=>{const u=parseInt(j.result,16)/1e6;$('x402').textContent=u.toFixed(2)+' USDC（'+(d.fx_usdjpy?'¥'+Math.round(u*d.fx_usdjpy).toLocaleString('ja-JP'):'')+'）・'+new Date().toLocaleTimeString('ja-JP',{timeZone:'Asia/Tokyo'})+' JST 時点'}).catch(()=>{$('x402').textContent='読み込み失敗'})}
-fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{const k=d.kpis;$('upd').textContent=d.updated_at;
+function x402(d){const a=d.x402.treasury;fetch('https://mainnet.base.org',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',data:'0x70a08231'+a.slice(2).toLowerCase().padStart(64,'0')},'latest']})}).then(r=>r.json()).then(j=>{const u=parseInt(j.result,16)/1e6;$('x402').textContent=u.toFixed(2)+' USDC（'+'$'+u.toFixed(2)+'）・'+new Date().toLocaleTimeString('ja-JP',{timeZone:'Asia/Tokyo'})+' JST 時点'}).catch(()=>{$('x402').textContent='読み込み失敗'})}
+fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{const k=d.kpis;FX=d.fx_usdjpy;if(!FX){$('upd').textContent='FX missing';return}$('upd').textContent=d.updated_at;
  $('k-inc').innerHTML=yen(k.income_month_jpy);$('k-inc-n').innerHTML=d.month+' ・ 今日 '+yen(k.income_today_jpy)+' ・ 累計 '+yen(k.income_all_time_jpy);
  $('k-sp').innerHTML=yen(k.spend_month_jpy);$('k-gp').innerHTML=k.gross_profit_month_jpy==null?'—':`<span class="${k.gross_profit_month_jpy<0?'neg':'pos'}">${yen(k.gross_profit_month_jpy)}</span>`;
  $('k-mrr').innerHTML=yen(k.mrr_jpy);

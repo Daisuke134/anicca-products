@@ -312,7 +312,7 @@
    "host": "Grok Bot",
    "schedule": "3時間ごと 0:47・3:47・6:47…21:47（±15分、10/30 17:58〜 USAGE-CUTS）",
    "runs_per_day": 96,
-   "posts_to": "Bluesky JP/EN・Mastodon @anicca_affirm/@aniccaapp・Tumblr、LM の Bluesky/Mastodon/Tu",
+   "posts_to": " Bluesky JP/EN・Mastodon @anicca_affirm/@aniccaapp・Tumblr、LM の Bluesky/Mastodon/T",
    "status": "OK "
   },
   {
@@ -355,7 +355,7 @@
    "loop": "Muse Relay pass",
    "owner": "Muse Relay",
    "host": "Grok Bot routine muse-relay-pass（書き直しは box の codex-run.sh）",
-   "schedule": "8〜20時 4h（8・12・16・20時±15。10/30 17:58 USAGE-CUTS で夜を止め、2h→4h）",
+   "schedule": "24時間 4h（0・4・8・12・16・20時±15。10/31 18:43 RULE 0g で夜間停止を廃止）",
    "runs_per_day": 6.0,
    "posts_to": "自分では投稿しない。勝ち投稿を WINS.md に1行、素材を marketing/samples/muse-relay/ と X-QUEUE-diceai0.",
    "status": "OK"
@@ -632,7 +632,7 @@
      "us:daily affirmations": "圏外(>200)",
      "us:affirmation app": "圏外(>200)",
      "jp:アファメーション": 37,
-     "jp:アファメーション アプリ": 38
+     "jp:アファメーション アプリ": 37
     },
     "id": 6755129214,
     "genre": "Health & Fitness",
@@ -644,13 +644,13 @@
     "keywords": {
      "jp:本音翻訳": 1,
      "jp:LINE 相性": "圏外(>200)",
-     "jp:本音": 38
+     "jp:本音": 28
     },
     "id": 6759667221,
     "genre": "Utilities",
     "ratings": 2,
     "rating": 5,
-    "version": "1.0.3"
+    "version": "1.0.5"
    },
    "Thankful": {
     "keywords": {
@@ -718,12 +718,12 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2025
+     "uses": 2070
     },
     {
      "rank": 2,
      "title": "Hook Grader — Free Hook Score (0-10)",
-     "uses": 53
+     "uses": 54
     },
     {
      "rank": 3,
@@ -743,11 +743,11 @@
    ],
    "winner_saya_top": [
     [
-     39341,
+     39695,
      "CloneCut — Viral Clone, Seedance2.0"
     ],
     [
-     302,
+     304,
      "Seedance 2.0 Video - Generate Instantly"
     ],
     [
@@ -815,7 +815,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-10-31 14:25 JST",
+ "updated_at": "2026-10-31 19:27 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -864,7 +864,7 @@
    "revenue_lifetime": null,
    "mrr": null,
    "metric": "installs (cumulative)",
-   "metric_value": 2154,
+   "metric_value": 2184,
    "status": "live; 4 fixed agents resubmitted 10/30, in review",
    "next": "paid tier"
   },
@@ -944,19 +944,19 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 10
+   "board_updates_today": 20
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 3
+   "board_updates_today": 8
   },
   {
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 4
+   "board_updates_today": 8
   },
   {
    "agent": "Muse (CMO)",
@@ -968,13 +968,13 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 6
+   "board_updates_today": 10
   },
   {
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 5
+   "board_updates_today": 6
   },
   {
    "agent": "Anicca Marketer",
@@ -1002,8 +1002,8 @@
   }
  ],
  "contract_work": {
-  "applications_today": 1,
-  "applications_7d": 45,
+  "applications_today": 9,
+  "applications_7d": 53,
   "days": [
    "2026-10-25",
    "2026-10-26",
@@ -1017,7 +1017,7 @@
    {
     "platform": "Coconala",
     "owner": "dr eggbot",
-    "applications_today": 0,
+    "applications_today": 2,
     "applications_by_day": {
      "2026-10-25": 3,
      "2026-10-26": 12,
@@ -1025,16 +1025,16 @@
      "2026-10-28": 0,
      "2026-10-29": 0,
      "2026-10-30": 0,
-     "2026-10-31": 0
+     "2026-10-31": 2
     },
-    "applications_7d": 18,
+    "applications_7d": 20,
     "status": "active; trial order in progress (10/30)",
     "revenue_lifetime_usd": 1680.57
    },
    {
     "platform": "Lancers",
     "owner": "dr eggbot",
-    "applications_today": 0,
+    "applications_today": 1,
     "applications_by_day": {
      "2026-10-25": 6,
      "2026-10-26": 9,
@@ -1042,21 +1042,28 @@
      "2026-10-28": 0,
      "2026-10-29": 0,
      "2026-10-30": 0,
-     "2026-10-31": 0
+     "2026-10-31": 1
     },
-    "applications_7d": 15,
+    "applications_7d": 16,
     "status": "active",
     "revenue_lifetime_usd": null
    },
    {
     "platform": "Upwork",
     "owner": "dr eggbot",
-    "applications_today": null,
-    "applications_by_day": null,
-    "applications_7d": null,
+    "applications_today": 3,
+    "applications_by_day": {
+     "2026-10-25": 0,
+     "2026-10-26": 0,
+     "2026-10-27": 0,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0,
+     "2026-10-31": 3
+    },
+    "applications_7d": 3,
     "status": "contract active (Labelbox, 10/30); ID check due 11/6",
-    "revenue_lifetime_usd": null,
-    "note": "no applications recorded in the last 7 days (not tracked yet)"
+    "revenue_lifetime_usd": null
    },
    {
     "platform": "SKIMA",
@@ -1071,7 +1078,7 @@
    {
     "platform": "CrowdWorks",
     "owner": "Dots",
-    "applications_today": 0,
+    "applications_today": 2,
     "applications_by_day": {
      "2026-10-25": 3,
      "2026-10-26": 6,
@@ -1079,9 +1086,9 @@
      "2026-10-28": 0,
      "2026-10-29": 0,
      "2026-10-30": 0,
-     "2026-10-31": 0
+     "2026-10-31": 2
     },
-    "applications_7d": 9,
+    "applications_7d": 11,
     "status": "active; 3 client replies waiting (login needed)",
     "revenue_lifetime_usd": null
    },
@@ -1170,7 +1177,7 @@
     "applications_7d": null,
     "status": "71 agents live",
     "revenue_lifetime_usd": null,
-    "note": "we list our own products here; no applications; 2,154 installs"
+    "note": "we list our own products here; no applications; 2,184 installs"
    },
    {
     "platform": "PromptBase (our prompts)",

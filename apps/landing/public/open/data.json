@@ -1,8 +1,9 @@
 {
- "updated_at": "2026-10-31 18:47 JST",
- "source_updated_at": "2026-10-31 18:47 JST",
+ "updated_at": "2026-10-31 19:27 JST",
+ "source_updated_at": "2026-10-31 19:27 JST",
  "month": "2026-10",
  "currency": "JPY",
+ "display_currency": "USD",
  "fx_usdjpy": 156.84,
  "kpis": {
   "income_month_jpy": 36210,
@@ -34,7 +35,7 @@
    "all_time_jpy": 263634,
    "pending_jpy": 2500,
    "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
+   "applications_7d": 2,
    "replies": null,
    "reply_rate": null,
    "contracts": null,
@@ -64,7 +65,7 @@
    "all_time_jpy": null,
    "pending_jpy": null,
    "change_vs_prev_day_jpy": null,
-   "applications_7d": 0,
+   "applications_7d": 2,
    "replies": null,
    "reply_rate": null,
    "contracts": null,
@@ -547,5 +548,5 @@
    "items": null
   }
  ],
- "notes": "円表示。¥0 = 確認済みのゼロ。未接続 = 売上の取得元がまだない。前日比 = 累計の前日スナップショットとの差。x402 はページ表示時に Base の公開RPCから直接読みます。"
+ "notes": "USD表示（各ソースの円額を fx_usdjpy で換算）。$0 = 確認済みのゼロ。未接続 = 売上の取得元がまだない。前日比 = 累計の前日スナップショットとの差。x402 はページ表示時に Base の公開RPCから直接読みます。"
 }
