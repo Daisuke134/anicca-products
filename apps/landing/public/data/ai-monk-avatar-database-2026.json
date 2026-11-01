@@ -1,8 +1,8 @@
 {
   "schema_version": "anicca.ai-monk-avatar-database.v1",
-  "updated_at": "2026-10-25",
+  "updated_at": "2026-10-31",
   "license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners.",
-  "scope": "English-first research on monk profiles and AI monk video avatars such as Yang Mun. The public directory contains 73 profiles: 6 evidence-reviewed video personas and 67 pending research candidates. The 75-record research archive also retains 2 excluded illustrated/watercolor channels. This is not a complete census.",
+  "scope": "English-first research on monk profiles and AI monk video avatars such as Yang Mun. The public directory contains 76 profiles: 6 evidence-reviewed video personas and 70 pending research candidates. The 78-record research archive also retains 2 excluded illustrated/watercolor channels. This is not a complete census. Follower counts refreshed 2026-10-31 from dated Instagram connector measurements (research-loop batches, 2026-10-27 to 2026-10-31); accounts without a newer measurement keep their 2026-10-23 snapshots.",
   "methodology": [
     "Publish explicitly included and pending monk research profiles. Included records carry reviewed video-avatar evidence; pending records remain candidates with their existing unknowns. Exclude illustrated/watercolor accounts and missing-scope records from the directory. An image or discovery lead alone does not establish AI production or video format.",
     "Do not merge accounts on similar names alone. Unknown handles, creators, launch dates, and product URLs remain null with a reason.",
@@ -2439,6 +2439,483 @@
       "capture_method": "crwl markdown-fit, then Scrapy HTML",
       "evidence_sha256": "dd68328f4753adcc3eddac1361d25178a1762a12c8216a84d24b9785f966a99e",
       "notes": "JSON-LD and storefront identify 9.95 EUR. Agotado text coexists with InStock schema and a cart button. Purchase availability and billing recurrence remain unknown."
+    },
+    {
+      "id": "anicca-ig-cli-yangmunus-20261031",
+      "title": "Yang Mun Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/yangmunus/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-mingsanhealing-20261031",
+      "title": "Ming San | Healing Guide Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/mingsanhealing/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monjechen-20261031",
+      "title": "Yan Chen | Sabiduría sanadora Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/monjechen/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-shenmuhealer-20261031",
+      "title": "Shen Mu Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/shenmuhealer/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monkshen-20261031",
+      "title": "Shen Yu Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/monkshen/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monkcheen-20261031",
+      "title": "Shen Yu Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/monkcheen/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-elmaestrolin-20261031",
+      "title": "Monje Lin Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/elmaestrolin/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-yunlobsang-20261031",
+      "title": "Maestro Yun Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/yunlobsang/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-tempiovita-20261031",
+      "title": "Maestro Ananta Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/tempiovita/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monjeananda-20261031",
+      "title": "Ananda Vijaya Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/monjeananda/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-masteryunsage-20261031",
+      "title": "Master Yun Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/masteryunsage/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-maestroananta-20261031",
+      "title": "Maestro Ananta Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/maestroananta/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-masterlinghao-20261031",
+      "title": "Ling Hao Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/masterlinghao/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-masterjiao-20261031",
+      "title": "Master Jiao Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/masterjiao/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monktashirok-20261031",
+      "title": "Monk Tashirok Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/monktashirok/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monacogendun-20261030",
+      "title": "Monaco Gendun Instagram connector measurement 2026-10-30",
+      "url": "https://www.instagram.com/monacogendun/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-30",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-ming-tao32-20261030",
+      "title": "Ming Tao Instagram connector measurement 2026-10-30",
+      "url": "https://www.instagram.com/ming_tao32/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-30",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-liangmaster4u-20261030",
+      "title": "Master Liang Instagram connector measurement 2026-10-30",
+      "url": "https://www.instagram.com/liangmaster4u/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-30",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-its-yang-chen-20261030",
+      "title": "Maitre Chen Instagram connector measurement 2026-10-30",
+      "url": "https://www.instagram.com/its.yang.chen/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-30",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-thezhenwu-20261030",
+      "title": "Zhen Wu Instagram connector measurement 2026-10-30",
+      "url": "https://www.instagram.com/thezhenwu/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-30",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-kael-wisdom-20261030",
+      "title": "Master Kael Instagram connector measurement 2026-10-30",
+      "url": "https://www.instagram.com/kael.wisdom/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-30",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-oldmonktenzin-20261030",
+      "title": "Tenzin | Old Monk's Wisdom Instagram connector measurement 2026-10-30",
+      "url": "https://www.instagram.com/oldmonktenzin/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-30",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-innerequelle-20261029",
+      "title": "Li Ming Instagram connector measurement 2026-10-29",
+      "url": "https://www.instagram.com/innerequelle/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-29",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-haku-shinn-20261029",
+      "title": "Haku Shin Instagram connector measurement 2026-10-29",
+      "url": "https://www.instagram.com/haku.shinn/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-29",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monacochenn-20261029",
+      "title": "Monaco Chen Instagram connector measurement 2026-10-29",
+      "url": "https://www.instagram.com/monacochenn/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-29",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monjaalma-20261029",
+      "title": "Monja Alma Instagram connector measurement 2026-10-29",
+      "url": "https://www.instagram.com/monjaalma/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-29",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-mongejinmiao-20261029",
+      "title": "Jin Miao Instagram connector measurement 2026-10-29",
+      "url": "https://www.instagram.com/mongejinmiao/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-29",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-maitrelidao-20261029",
+      "title": "Maitre Li Dao Instagram connector measurement 2026-10-29",
+      "url": "https://www.instagram.com/maitrelidao/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-29",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-master-li-shen-20261029",
+      "title": "Li Shen Instagram connector measurement 2026-10-29",
+      "url": "https://www.instagram.com/master.li.shen/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-29",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monge-bento-20261028",
+      "title": "Monge Bento Instagram connector measurement 2026-10-28",
+      "url": "https://www.instagram.com/monge.bento/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-28",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-mestremushen-20261028",
+      "title": "Mestre Mu Shen Instagram connector measurement 2026-10-28",
+      "url": "https://www.instagram.com/mestremushen/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-28",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-mongedapaz-20261028",
+      "title": "Monge Shanti Instagram connector measurement 2026-10-28",
+      "url": "https://www.instagram.com/mongedapaz/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-28",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-maestroyunkai-20261028",
+      "title": "Yun Kai Instagram connector measurement 2026-10-28",
+      "url": "https://www.instagram.com/maestroyunkai/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-28",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monjewu-20261028",
+      "title": "Monje Wu Instagram connector measurement 2026-10-28",
+      "url": "https://www.instagram.com/monjewu/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-28",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-mestreshentao-20261028",
+      "title": "Mestre Shen Tao Instagram connector measurement 2026-10-28",
+      "url": "https://www.instagram.com/mestreshentao/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-28",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-shentaoes-20261028",
+      "title": "Maestro Shen Tao Instagram connector measurement 2026-10-28",
+      "url": "https://www.instagram.com/shentaoes/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-28",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-maitre-ping-lin-20261028",
+      "title": "Maitre Lin Instagram connector measurement 2026-10-28",
+      "url": "https://www.instagram.com/maitre_ping.lin/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-28",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-mestre-jin-20261027",
+      "title": "Mestre Jin Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/mestre.jin/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-yonchenhealing-20261027",
+      "title": "Yon Chen Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/yonchenhealing/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-ken-lu-monk-20261027",
+      "title": "Ken Lu Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/ken.lu.monk/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-linchenhealing-20261027",
+      "title": "Lin Chen Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/linchenhealing/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-elmonjekai-20261027",
+      "title": "Monje Kai Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/elmonjekai/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monjechang-20261027",
+      "title": "Monje Chang Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/monjechang/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-master-kaion-20261027",
+      "title": "Master Kaion Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/master_kaion/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-thekaizenhealing-20261027",
+      "title": "Kaizen Healing Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/thekaizenhealing/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-alte-weisheit-20261027",
+      "title": "Meister Lin Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/alte.weisheit/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-maitreyun--20261027",
+      "title": "Maitre Yun Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/maitreyun_/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monge-zhen-20261027",
+      "title": "Monge Zhen Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/monge.zhen/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-chenweihealing-20261027",
+      "title": "Chen Wei Healing Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/chenweihealing/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-masterlianancient-20261027",
+      "title": "Master Lian Instagram connector measurement 2026-10-27",
+      "url": "https://www.instagram.com/masterlianancient/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-27",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-chentaomed-20261031",
+      "title": "Chen Tao Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/chentaomed/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monjedaojin-20261031",
+      "title": "Monje Dao Jin Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/monjedaojin/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
+    },
+    {
+      "id": "anicca-ig-cli-monktenzinwellness-20261031",
+      "title": "Monk Tenzin Instagram connector measurement 2026-10-31",
+      "url": "https://www.instagram.com/monktenzinwellness/",
+      "source_type": "Instagram connector (instagram-cli) read-only measurement; dated observation",
+      "published_at": null,
+      "checked_at": "2026-10-31",
+      "notes": "Exact follower count returned by the Instagram connector during the Anicca AI-monk research loop (read-only, via the monk.mujo connection). Supersedes the 2026-10-23 rounded public-header snapshot where one exists. A follower count is an audience snapshot only; it does not verify AI production, identity, medical efficacy, orders or revenue."
     }
   ],
   "accounts": [
@@ -2577,6 +3054,13 @@
               "display_value": "252.3万人",
               "source_id": "yangmun-ig-20261023",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 2519967,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-yangmunus-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         },
@@ -3837,6 +4321,13 @@
               "display_value": "137.8万人",
               "source_id": "mingsan-ig-20261023",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 1382967,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-mingsanhealing-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -4244,6 +4735,13 @@
               "display_value": "134.2万人",
               "source_id": "monjechen-ig-20261023",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 1418058,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-monjechen-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -4382,6 +4880,13 @@
               "display_value": "13.5万人",
               "source_id": "lead-instagram-tempiovita-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 136026,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-tempiovita-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -4573,6 +5078,13 @@
               "display_value": "4.1万人",
               "source_id": "lead-instagram-monacochenn-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 41731,
+              "metric": "followers",
+              "as_of": "2026-10-29",
+              "source_id": "anicca-ig-cli-monacochenn-20261029",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -4642,6 +5154,13 @@
               "display_value": "1.9万人",
               "source_id": "lead-instagram-linchenhealing-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 19543,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-linchenhealing-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -4934,6 +5453,13 @@
               "display_value": "6763人",
               "source_id": "lead-instagram-masteryunsage-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 6757,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-masteryunsage-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -5116,6 +5642,13 @@
               "display_value": "8.1万人",
               "source_id": "lead-instagram-maitre-ping-lin-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 82260,
+              "metric": "followers",
+              "as_of": "2026-10-28",
+              "source_id": "anicca-ig-cli-maitre-ping-lin-20261028",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -5233,6 +5766,13 @@
               "display_value": "1401人",
               "source_id": "lead-instagram-master-kaion-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 1408,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-master-kaion-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -5326,6 +5866,13 @@
               "display_value": "5.7万人",
               "source_id": "lead-instagram-maestroyunkai-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 59248,
+              "metric": "followers",
+              "as_of": "2026-10-28",
+              "source_id": "anicca-ig-cli-maestroyunkai-20261028",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -5440,6 +5987,13 @@
               "display_value": "17.7万人",
               "source_id": "lead-instagram-ming-tao32-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 177151,
+              "metric": "followers",
+              "as_of": "2026-10-30",
+              "source_id": "anicca-ig-cli-ming-tao32-20261030",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -5766,6 +6320,13 @@
               "display_value": "1.1万人",
               "source_id": "lead-instagram-mestreshentao-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 9905,
+              "metric": "followers",
+              "as_of": "2026-10-28",
+              "source_id": "anicca-ig-cli-mestreshentao-20261028",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -5833,6 +6394,13 @@
               "display_value": "13.8万人",
               "source_id": "lead-instagram-mongedapaz-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 138618,
+              "metric": "followers",
+              "as_of": "2026-10-28",
+              "source_id": "anicca-ig-cli-mongedapaz-20261028",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -5949,6 +6517,13 @@
               "display_value": "1126人",
               "source_id": "lead-instagram-masterlinghao-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 1134,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-masterlinghao-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -6098,6 +6673,13 @@
               "display_value": "14.4万人",
               "source_id": "lead-instagram-mestre-jin-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 145638,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-mestre-jin-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -6198,6 +6780,13 @@
               "display_value": "5.7万人",
               "source_id": "lead-instagram-haku-shinn-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 65042,
+              "metric": "followers",
+              "as_of": "2026-10-29",
+              "source_id": "anicca-ig-cli-haku-shinn-20261029",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -6264,6 +6853,13 @@
               "display_value": "698人",
               "source_id": "lead-instagram-monktashirok-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 699,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-monktashirok-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -6331,6 +6927,13 @@
               "display_value": "18.6万人",
               "source_id": "lead-instagram-monacogendun-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 191326,
+              "metric": "followers",
+              "as_of": "2026-10-30",
+              "source_id": "anicca-ig-cli-monacogendun-20261030",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -6449,6 +7052,13 @@
               "display_value": "4991人",
               "source_id": "lead-instagram-master-li-shen-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 4988,
+              "metric": "followers",
+              "as_of": "2026-10-29",
+              "source_id": "anicca-ig-cli-master-li-shen-20261029",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -6560,6 +7170,13 @@
               "display_value": "42.4万人",
               "source_id": "lead-instagram-innerequelle-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 427687,
+              "metric": "followers",
+              "as_of": "2026-10-29",
+              "source_id": "anicca-ig-cli-innerequelle-20261029",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -6627,6 +7244,13 @@
               "display_value": "7万人",
               "source_id": "lead-instagram-ken-lu-monk-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 70174,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-ken-lu-monk-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -6731,6 +7355,13 @@
               "display_value": "10.1万人",
               "source_id": "lead-instagram-yonchenhealing-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 101047,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-yonchenhealing-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -7002,6 +7633,13 @@
               "display_value": "2.3万人",
               "source_id": "lead-instagram-mongejinmiao-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 25956,
+              "metric": "followers",
+              "as_of": "2026-10-29",
+              "source_id": "anicca-ig-cli-mongejinmiao-20261029",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -7110,6 +7748,13 @@
               "display_value": "7727人",
               "source_id": "lead-instagram-its-yang-chen-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 7726,
+              "metric": "followers",
+              "as_of": "2026-10-30",
+              "source_id": "anicca-ig-cli-its-yang-chen-20261030",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -7583,6 +8228,13 @@
               "display_value": "19.7万人",
               "source_id": "lead-instagram-monkcheen-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 197361,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-monkcheen-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -7708,6 +8360,13 @@
               "display_value": "3.6万人",
               "source_id": "lead-instagram-monjaalma-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 36292,
+              "metric": "followers",
+              "as_of": "2026-10-29",
+              "source_id": "anicca-ig-cli-monjaalma-20261029",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -7801,6 +8460,13 @@
               "display_value": "12.3万人",
               "source_id": "lead-instagram-yunlobsang-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 123907,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-yunlobsang-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -7918,6 +8584,13 @@
               "display_value": "33.2万人",
               "source_id": "lead-instagram-mestremushen-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 332669,
+              "metric": "followers",
+              "as_of": "2026-10-28",
+              "source_id": "anicca-ig-cli-mestremushen-20261028",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -7984,6 +8657,13 @@
               "display_value": "2.9万人",
               "source_id": "lead-instagram-thezhenwu-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 29725,
+              "metric": "followers",
+              "as_of": "2026-10-30",
+              "source_id": "anicca-ig-cli-thezhenwu-20261030",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -8050,6 +8730,13 @@
               "display_value": "1.9万人",
               "source_id": "lead-instagram-maitrelidao-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 20019,
+              "metric": "followers",
+              "as_of": "2026-10-29",
+              "source_id": "anicca-ig-cli-maitrelidao-20261029",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -8118,6 +8805,13 @@
               "display_value": "5467人",
               "source_id": "lead-instagram-maestroananta-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 5472,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-maestroananta-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -8451,6 +9145,13 @@
               "display_value": "4.8万人",
               "source_id": "lead-instagram-monjewu-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 48821,
+              "metric": "followers",
+              "as_of": "2026-10-28",
+              "source_id": "anicca-ig-cli-monjewu-20261028",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -8651,6 +9352,13 @@
               "display_value": "16.8万人",
               "source_id": "lead-instagram-monge-bento-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 332432,
+              "metric": "followers",
+              "as_of": "2026-10-28",
+              "source_id": "anicca-ig-cli-monge-bento-20261028",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -8751,6 +9459,13 @@
               "display_value": "1.7万人",
               "source_id": "lead-instagram-liangmaster4u-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 17718,
+              "metric": "followers",
+              "as_of": "2026-10-30",
+              "source_id": "anicca-ig-cli-liangmaster4u-20261030",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -8993,6 +9708,13 @@
               "display_value": "362人",
               "source_id": "lead-instagram-oldmonktenzin-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 361,
+              "metric": "followers",
+              "as_of": "2026-10-30",
+              "source_id": "anicca-ig-cli-oldmonktenzin-20261030",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -9075,6 +9797,13 @@
               "display_value": "844人",
               "source_id": "lead-instagram-thekaizenhealing-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 845,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-thekaizenhealing-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -9144,6 +9873,13 @@
               "display_value": "3517人",
               "source_id": "lead-instagram-shentaoes-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 3514,
+              "metric": "followers",
+              "as_of": "2026-10-28",
+              "source_id": "anicca-ig-cli-shentaoes-20261028",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -9378,7 +10114,15 @@
           "platform": "Instagram",
           "handle": "masterjiao",
           "profile_url": "https://www.instagram.com/masterjiao/",
-          "snapshots": [],
+          "snapshots": [
+            {
+              "value": 1027,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-masterjiao-20261031",
+              "status": "public_connector_snapshot"
+            }
+          ],
           "unknown_reason": "Public profile check returned age_restricted; audience, content and current offers could not be verified."
         }
       ],
@@ -9446,6 +10190,13 @@
               "display_value": "1.7万人",
               "source_id": "lead-instagram-elmonjekai-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 17827,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-elmonjekai-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -9795,6 +10546,13 @@
               "display_value": "2556人",
               "source_id": "lead-instagram-kael-wisdom-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 2567,
+              "metric": "followers",
+              "as_of": "2026-10-30",
+              "source_id": "anicca-ig-cli-kael-wisdom-20261030",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -9935,6 +10693,13 @@
               "display_value": "7131人",
               "source_id": "lead-instagram-monjechang-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 7253,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-monjechang-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -10121,6 +10886,13 @@
               "display_value": "68万人",
               "source_id": "lead-instagram-shenmuhealer-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 681052,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-shenmuhealer-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -10255,6 +11027,13 @@
               "display_value": "6829人",
               "source_id": "lead-instagram-monge-zhen-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 6828,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-monge-zhen-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -10461,6 +11240,13 @@
               "display_value": "2.2万人",
               "source_id": "lead-instagram-alte-weisheit-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 22700,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-alte-weisheit-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -10602,6 +11388,13 @@
               "display_value": "9151人",
               "source_id": "lead-instagram-maitreyun-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 9145,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-maitreyun--20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -10685,6 +11478,13 @@
               "display_value": "6256人",
               "source_id": "lead-instagram-chenweihealing-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 6274,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-chenweihealing-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -10752,6 +11552,13 @@
               "display_value": "2637人",
               "source_id": "lead-instagram-masterlianancient-ig-header-20261024",
               "status": "public_page_readback"
+            },
+            {
+              "value": 2639,
+              "metric": "followers",
+              "as_of": "2026-10-27",
+              "source_id": "anicca-ig-cli-masterlianancient-20261027",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -10854,6 +11661,13 @@
               "display_value": "1.1万人",
               "source_id": "lead-instagram-monjeananda-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 11843,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-monjeananda-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -10982,6 +11796,13 @@
               "display_value": "11.7万人",
               "source_id": "lead-instagram-monkshen-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 117896,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-monkshen-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -11049,6 +11870,13 @@
               "display_value": "26.3万人",
               "source_id": "lead-instagram-elmaestrolin-ig-header-20261024",
               "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 263170,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-elmaestrolin-20261031",
+              "status": "public_connector_snapshot"
             }
           ]
         }
@@ -12001,6 +12829,224 @@
         "status": "pending",
         "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Displayed as a research candidate; AI production and video format remain unverified.",
         "source_ids": []
+      }
+    },
+    {
+      "id": "lead-instagram-chentaomed",
+      "display_name": "Chen Tao",
+      "aliases": [
+        "chentaomed"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "anicca-ig-cli-chentaomed-20261031",
+          "summary": "Measured via the Instagram connector on 2026-10-31 in the Anicca AI-monk research loop (DB expansion batch 9), discovered from monk.mujo's following list. Recent sampled reels use body-check hooks (e.g. 'Squeeze LIME on cucumber', 26,161 likes / 18,472 comments at capture). AI production is not established by this measurement."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "anicca-ig-cli-chentaomed-20261031"
+          ],
+          "basis": "visible profile bio; spoken-video language not audited"
+        }
+      ],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/chentaomed/",
+        "https://topnurex.com/products/moringa-pure"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "chentaomed",
+          "profile_url": "https://www.instagram.com/chentaomed/",
+          "snapshots": [
+            {
+              "value": 976220,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-chentaomed-20261031",
+              "status": "public_connector_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [
+        {
+          "type": "supplement",
+          "name": "Moringa product via topnurex.com (bio: 'The pure moringa i trust')",
+          "price": null,
+          "currency": null,
+          "source_id": "anicca-ig-cli-chentaomed-20261031",
+          "status": "displayed_offer_price_not_obtained",
+          "url": "https://topnurex.com/products/moringa-pure"
+        }
+      ],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "Product price on topnurex.com was not obtained; do not infer it.",
+        "Post count was not returned by the connector on 2026-10-31.",
+        "Profile image has not been collected for the directory; the page falls back to initials.",
+        "AI production, operator identity, physical location and revenue are unverified."
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Displayed as a research candidate; AI production and video format remain unverified.",
+        "source_ids": [
+          "anicca-ig-cli-chentaomed-20261031"
+        ]
+      }
+    },
+    {
+      "id": "lead-instagram-monjedaojin",
+      "display_name": "Monje Dao Jin",
+      "aliases": [
+        "monjedaojin"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "anicca-ig-cli-monjedaojin-20261031",
+          "summary": "Measured via the Instagram connector on 2026-10-31 in the Anicca AI-monk research loop (DB expansion batch 9), discovered from monk.mujo's following list. Recent sampled posts drew 5-17 likes. AI production is not established by this measurement."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [
+        {
+          "label": "Spanish",
+          "source_ids": [
+            "anicca-ig-cli-monjedaojin-20261031"
+          ],
+          "basis": "visible profile bio; spoken-video language not audited"
+        }
+      ],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monjedaojin/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monjedaojin",
+          "profile_url": "https://www.instagram.com/monjedaojin/",
+          "snapshots": [
+            {
+              "value": 5334,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-monjedaojin-20261031",
+              "status": "public_connector_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "No external offer link was observed in the bio (a 'diario de paz' mention only); no product or price is recorded.",
+        "Post count was not returned by the connector on 2026-10-31.",
+        "Profile image has not been collected for the directory; the page falls back to initials.",
+        "AI production, operator identity, physical location and revenue are unverified.",
+        "Not to be merged with @mongedaojin (Portuguese, 9,956 followers measured 2026-10-28), a separate handle also absent from this directory."
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Displayed as a research candidate; AI production and video format remain unverified.",
+        "source_ids": [
+          "anicca-ig-cli-monjedaojin-20261031"
+        ]
+      }
+    },
+    {
+      "id": "lead-instagram-monktenzinwellness",
+      "display_name": "Monk Tenzin",
+      "aliases": [
+        "monktenzinwellness"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "anicca-ig-cli-monktenzinwellness-20261031",
+          "summary": "First measured via the Instagram connector on 2026-10-27 (4,477 followers) and re-measured on 2026-10-31 (4,478) in the Anicca AI-monk research loop (DB expansion batch 9). Recent sampled posts drew 2-5 likes. AI production is not established by this measurement."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "anicca-ig-cli-monktenzinwellness-20261031"
+          ],
+          "basis": "visible profile bio; spoken-video language not audited"
+        }
+      ],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monktenzinwellness/",
+        "https://a.co/d/beXRWAk"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monktenzinwellness",
+          "profile_url": "https://www.instagram.com/monktenzinwellness/",
+          "snapshots": [
+            {
+              "value": 4478,
+              "metric": "followers",
+              "as_of": "2026-10-31",
+              "source_id": "anicca-ig-cli-monktenzinwellness-20261031",
+              "status": "public_connector_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [
+        {
+          "type": "shortlink_offer",
+          "name": "Amazon short link (a.co/d/beXRWAk) - target product not identified",
+          "price": null,
+          "currency": null,
+          "source_id": "anicca-ig-cli-monktenzinwellness-20261031",
+          "status": "shortlink_target_product_and_price_not_obtained",
+          "url": "https://a.co/d/beXRWAk"
+        }
+      ],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "The Amazon short link's target product and price were not obtained; do not infer them.",
+        "Post count: 121 posts were recorded by the connector on 2026-10-27; a 2026-10-31 post count was not returned.",
+        "Profile image has not been collected for the directory; the page falls back to initials.",
+        "AI production, operator identity, physical location and revenue are unverified."
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Displayed as a research candidate; AI production and video format remain unverified.",
+        "source_ids": [
+          "anicca-ig-cli-monktenzinwellness-20261031"
+        ]
       }
     }
   ],
