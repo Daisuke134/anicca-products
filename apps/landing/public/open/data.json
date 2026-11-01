@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 15:12 JST",
+ "updated_at": "2026-11-01 16:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -1130,7 +1130,7 @@
     ]
    },
    "posts": {
-    "read_at": "2026-11-01 13:10 JST",
+    "read_at": "2026-11-01 15:38 JST",
     "note": "TikTok: POST-LOG has 1 row (10/27, postiz id). TikTok metrics only via Postiz analytics (views/likes/comments/shares; no saves); no TikTok Display API token on box.",
     "source": "X API v2, YouTube Data API v3, Postiz analytics",
     "top": [
@@ -1200,9 +1200,9 @@
      {
       "platform": "tiktok",
       "account": "aniccaaffirmation",
-      "post_url": "https://www.tiktok.com/@aniccaaffirmation/photo/7702046976078204178",
-      "views": "822",
-      "likes": "19",
+      "post_url": "https://www.tiktok.com/@aniccaaffirmation/video/7702684515269020948",
+      "views": "854",
+      "likes": "12",
       "saves": "unknown (source error: Postiz tiktok analytics has no saves field)",
       "checkpoint": "24h"
      }
