@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 19:12 JST",
+ "updated_at": "2026-11-01 20:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -11,7 +11,7 @@
   {
    "key": "rev7",
    "label": "Revenue (7d)",
-   "usd": 0,
+   "usd": 0.0,
    "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB"
   },
   {
@@ -23,7 +23,7 @@
   {
    "key": "revm",
    "label": "Revenue this month",
-   "usd": 0,
+   "usd": 0.0,
    "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB"
   },
   {
@@ -91,7 +91,7 @@
   },
   {
    "month": "2026-11 (to date)",
-   "revenue_usd": 0,
+   "revenue_usd": 0.0,
    "cost_usd": 12.0,
    "gross_profit_usd": -12.0,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
@@ -583,7 +583,7 @@
   "jpy": -2000,
   "usd": -12.0,
   "revenue_jpy": 0,
-  "revenue_usd": 0,
+  "revenue_usd": 0.0,
   "cost_jpy": 2000,
   "cost_usd": 12.0,
   "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
@@ -667,8 +667,8 @@
    "item": "Revenue all-time (confirmed deposits)",
    "usd": 1701.7,
    "jpy": 271834,
-   "as_of": "2026-10-12",
-   "source": "cfo/revenue_facts.py (11 paid rows in REVENUE-BY-SOURCE; USD via dated ECB); notice-only orders excluded (cfo/notices.csv)"
+   "as_of": "2026-11-01",
+   "source": "cfo/revenue_facts.py (12 paid rows in REVENUE-BY-SOURCE; USD via dated ECB); notice-only orders excluded (cfo/notices.csv)"
   }
  ],
  "products": [
@@ -685,6 +685,16 @@
  ],
  "company": {
   "platforms": [
+   {
+    "month": "2026-11",
+    "platform": "x402 (Base USDC)",
+    "sales_jpy": 0,
+    "deposit_jpy": null,
+    "fee_pct": null,
+    "take_home_jpy": null,
+    "note": "",
+    "source": "sales: finance/REVENUE-BY-SOURCE.csv; deposits: BANK-BALANCE.md に該当月の明細合計なし"
+   },
    {
     "month": "2026-10",
     "platform": "App Store (RevenueCat)",

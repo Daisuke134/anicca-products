@@ -1,12 +1,12 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 19:12 JST",
+ "updated_at": "2026-11-01 20:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
-  "revenue_7d_usd": 0,
+  "revenue_7d_usd": 0.0,
   "revenue_30d_usd": 201.82,
-  "revenue_mtd_usd": 0,
+  "revenue_mtd_usd": 0.0,
   "costs_mtd_usd": 12.0,
   "gross_profit_mtd_usd": -12.0,
   "margin_pct": null,
@@ -43,7 +43,7 @@
   },
   {
    "month": "2026-11 (to date)",
-   "revenue_usd": 0,
+   "revenue_usd": 0.0,
    "cost_usd": 12.0,
    "gross_profit_usd": -12.0,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
