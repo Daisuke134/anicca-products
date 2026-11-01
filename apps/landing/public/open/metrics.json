@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 10:58 JST",
+ "updated_at": "2026-11-01 11:00 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
@@ -11,17 +11,17 @@
   "gross_profit_mtd_usd": -12.72,
   "margin_pct": null,
   "mrr_usd": 93.58,
-  "active_costs_monthly_usd": 630.44
+  "active_costs_monthly_usd": 1259.49
  },
  "sources": {
   "rev7": "finance/REVENUE-BY-SOURCE.csv dated rows",
   "rev30": "finance/REVENUE-BY-SOURCE.csv dated rows",
   "revm": "finance/REVENUE-BY-SOURCE.csv dated rows",
-  "cost": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company withdrawals to date)",
-  "costl": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company vendors only; personal spend excluded)",
-  "gp": "revenue this month (REVENUE-BY-SOURCE.csv) − MUFG company withdrawals this month",
+  "cost": "MUFG via Moneytree (finance/BANK-BALANCE.md), personal items excluded per finance/COST-CUTS.md (company withdrawals to date)",
+  "costl": "MUFG via Moneytree (finance/BANK-BALANCE.md), personal items excluded per finance/COST-CUTS.md",
+  "gp": "revenue this month − costs this month (same numbers as the cards)",
   "mrr": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs",
-  "run": "sum of 有効 rows (incl. 解約検討中, still billing) in COST-CUTS.md; 解約済み・解約予定日付き excluded",
+  "run": "subscriptions + rent still billing; cancelled rows count ¥0",
   "human": "metrics/human-interventions.csv"
  },
  "monthly": [
@@ -30,20 +30,20 @@
    "revenue_usd": 390.63,
    "cost_usd": 1513.71,
    "gross_profit_usd": -1123.08,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)"
   },
   {
    "month": "2026-10",
    "revenue_usd": 203.9,
-   "cost_usd": 2045.96,
-   "gross_profit_usd": -1842.06,
+   "cost_usd": 1567.23,
+   "gross_profit_usd": -1363.33,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
   },
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 0.0,
-   "cost_usd": 12.75,
-   "gross_profit_usd": -12.75,
+   "cost_usd": 12.72,
+   "gross_profit_usd": -12.72,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
   }
  ],
