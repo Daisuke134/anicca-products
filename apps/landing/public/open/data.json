@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 10:23 JST",
+ "updated_at": "2026-11-01 10:37 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 156.84,
@@ -256,12 +256,6 @@
    "usd": null,
    "as_of": "2026-11-01 10:10 JST",
    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-  },
-  {
-   "item": "Known balances total",
-   "usd": 3636.43,
-   "as_of": "2026-11-01T09:08",
-   "source": "cfo ledger 2026-11-01 (Alpaca API, private receipt (10/27 08:16 JST 財務レポート, Moneytree読取), Twilio API)"
   },
   {
    "item": "Revenue all-time",
