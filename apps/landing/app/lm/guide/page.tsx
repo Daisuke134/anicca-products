@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import LaunchFrame from '@/components/site/LaunchFrame';
+import LmGuideView from '@/components/lm/LmGuideView';
 import { LM_JA_GUIDES, lmHref } from '@/lib/lm-ja-guides';
 
 // /lm/guide — index of the Japanese Life Manager guides.
@@ -34,6 +35,7 @@ export default function Page() {
   };
   return (
     <LaunchFrame active="/lm">
+      <LmGuideView />
       <main lang="ja" className="mx-auto max-w-3xl px-4 pb-24 pt-12 font-noto-sans-jp md:pt-20">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd).replace(/</g, '\\u003c') }} />
         <h1 className="font-display text-3xl font-semibold text-[hsl(var(--text-primary))] md:text-5xl">Googleカレンダーの移動時間ガイド</h1>
