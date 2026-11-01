@@ -5,5 +5,642 @@
     "https://aniccaai.com/.netlify/functions/x402-capafy-skill",
     "https://aniccaai.com/.netlify/functions/x402-maritime-nudge",
     "https://aniccaai.com/.netlify/functions/x402-naive-reflect"
+  ],
+  "x402Version": 2,
+  "serviceName": "Anicca",
+  "description": "Pay-per-call behavior-change and reflection agents (Maritime, Naive) plus Anicca affirmations. USDC on Base (eip155:8453) via x402 exact; no API key, no signup.",
+  "docs": {
+    "openapi": "https://aniccaai.com/openapi.json",
+    "llms": "https://aniccaai.com/llms.txt"
+  },
+  "items": [
+    {
+      "resource": "https://aniccaai.com/.netlify/functions/x402-affirm",
+      "type": "http",
+      "x402Version": 2,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "5000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0x7E8b13B7c080465903874352887656314A267E3c",
+          "maxTimeoutSeconds": 60,
+          "extra": {
+            "name": "USD Coin",
+            "version": "2"
+          },
+          "description": "Anicca daily affirmation (Buddhist-inspired, ja/en) as JSON. $0.005 per call.",
+          "mimeType": "application/json"
+        }
+      ],
+      "description": "Anicca daily affirmation (Buddhist-inspired, ja/en) as JSON. $0.005 per call.",
+      "mimeType": "application/json",
+      "serviceName": "Anicca",
+      "tags": [
+        "wellness",
+        "affirmation",
+        "ja",
+        "en"
+      ],
+      "facilitator": "https://facilitator.payai.network",
+      "extensions": {
+        "bazaar": {
+          "info": {
+            "input": {
+              "type": "http",
+              "method": "GET",
+              "queryParams": {
+                "topic": "calm",
+                "lang": "en"
+              }
+            },
+            "output": {
+              "type": "json",
+              "example": {
+                "affirmation": "I breathe in, I breathe out, and this moment is enough.",
+                "topic": "calm",
+                "lang": "en",
+                "source": "Anicca"
+              }
+            }
+          },
+          "schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "required": [
+              "input"
+            ],
+            "properties": {
+              "input": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "method"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "http"
+                  },
+                  "method": {
+                    "type": "string",
+                    "enum": [
+                      "GET"
+                    ]
+                  },
+                  "queryParams": {
+                    "type": "object",
+                    "properties": {
+                      "topic": {
+                        "type": "string",
+                        "enum": [
+                          "calm",
+                          "confidence",
+                          "selflove",
+                          "impermanence"
+                        ],
+                        "description": "One of: calm, confidence, selflove, impermanence (default calm)"
+                      },
+                      "lang": {
+                        "type": "string",
+                        "enum": [
+                          "ja",
+                          "en"
+                        ],
+                        "description": "ja or en (default en)"
+                      }
+                    },
+                    "required": []
+                  }
+                }
+              },
+              "output": {
+                "type": "object",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "type": "object",
+                    "properties": {
+                      "affirmation": {
+                        "type": "string"
+                      },
+                      "topic": {
+                        "type": "string"
+                      },
+                      "lang": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "affirmation",
+                      "topic",
+                      "lang",
+                      "source"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "resource": "https://aniccaai.com/.netlify/functions/x402-capafy-skill",
+      "type": "http",
+      "x402Version": 2,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "5000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0x7E8b13B7c080465903874352887656314A267E3c",
+          "maxTimeoutSeconds": 60,
+          "extra": {
+            "name": "USD Coin",
+            "version": "2"
+          },
+          "description": "Capafy AI skill/agent details (Anicca publisher) as JSON: title, description, pricing, model, tracked buy link. $0.005 per call.",
+          "mimeType": "application/json"
+        }
+      ],
+      "description": "Capafy AI skill/agent details (Anicca publisher) as JSON: title, description, pricing, model, tracked buy link. $0.005 per call.",
+      "mimeType": "application/json",
+      "serviceName": "Anicca",
+      "tags": [
+        "ai-skills",
+        "marketplace",
+        "catalog"
+      ],
+      "facilitator": "https://facilitator.payai.network",
+      "extensions": {
+        "bazaar": {
+          "info": {
+            "input": {
+              "type": "http",
+              "method": "GET",
+              "queryParams": {
+                "id": "6839055303"
+              }
+            },
+            "output": {
+              "type": "json",
+              "example": {
+                "id": "6839055303",
+                "title": "Academic Humanizer — Human Voice, No AI Tells",
+                "description": "Rewrite AI-sounding academic drafts in a careful human voice.",
+                "tags": [
+                  "humanizer"
+                ],
+                "model": "DeepSeek V4.1 Flash",
+                "agentType": "run_online",
+                "estimatedExecutionMinutes": 5,
+                "pricing": [
+                  {
+                    "mode": "subscription",
+                    "cycle": "week",
+                    "price": 9.99,
+                    "currency": "usd",
+                    "maxMessages": 20
+                  }
+                ],
+                "rating": null,
+                "salesVolume": 0,
+                "url": "https://capafy.ai/agent/6839055303",
+                "buy_link": "https://capafy-skills-daily.netlify.app/go/6839055303/x402/api",
+                "source": "Capafy public API via Anicca"
+              }
+            }
+          },
+          "schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "required": [
+              "input"
+            ],
+            "properties": {
+              "input": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "method"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "http"
+                  },
+                  "method": {
+                    "type": "string",
+                    "enum": [
+                      "GET"
+                    ]
+                  },
+                  "queryParams": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^[0-9]{6,20}$",
+                        "description": "Capafy agent id (digits), e.g. 6839055303. Anicca catalog: https://capafy.ai/publisher/Anicca"
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ]
+                  }
+                }
+              },
+              "output": {
+                "type": "object",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "model": {
+                        "type": "string"
+                      },
+                      "agentType": {
+                        "type": "string"
+                      },
+                      "estimatedExecutionMinutes": {
+                        "type": "number"
+                      },
+                      "pricing": {
+                        "type": "array",
+                        "items": {
+                          "type": "object"
+                        }
+                      },
+                      "rating": {
+                        "type": "number"
+                      },
+                      "salesVolume": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "buy_link": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "description",
+                      "url",
+                      "buy_link",
+                      "source"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "resource": "https://aniccaai.com/.netlify/functions/x402-maritime-nudge",
+      "type": "http",
+      "x402Version": 2,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "10000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0x7a004fBbc3037371321B9f41875B7782971efE76",
+          "maxTimeoutSeconds": 60,
+          "extra": {
+            "name": "USD Coin",
+            "version": "2"
+          },
+          "description": "Maritime agent: one behavior-change nudge plus a 3-step habit plan as JSON (en/ja). $0.01 per call.",
+          "mimeType": "application/json"
+        }
+      ],
+      "description": "Maritime agent: one behavior-change nudge plus a 3-step habit plan as JSON (en/ja). $0.01 per call.",
+      "mimeType": "application/json",
+      "serviceName": "Anicca",
+      "tags": [
+        "behavior-change",
+        "habits",
+        "wellness",
+        "coaching",
+        "ja",
+        "en"
+      ],
+      "facilitator": "https://facilitator.payai.network",
+      "extensions": {
+        "bazaar": {
+          "info": {
+            "input": {
+              "type": "http",
+              "method": "GET",
+              "queryParams": {
+                "goal": "sleep",
+                "lang": "en"
+              }
+            },
+            "output": {
+              "type": "json",
+              "example": {
+                "goal": "sleep",
+                "lang": "en",
+                "nudge": "Put your phone outside the bedroom tonight.",
+                "plan": [
+                  "Set a fixed lights-out time",
+                  "No screens 30 min before bed",
+                  "Same wake time for 7 days"
+                ],
+                "agent": "Maritime"
+              }
+            }
+          },
+          "schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "required": [
+              "input"
+            ],
+            "properties": {
+              "input": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "method"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "http"
+                  },
+                  "method": {
+                    "type": "string",
+                    "enum": [
+                      "GET"
+                    ]
+                  },
+                  "queryParams": {
+                    "type": "object",
+                    "properties": {
+                      "goal": {
+                        "type": "string",
+                        "enum": [
+                          "sleep",
+                          "exercise",
+                          "focus",
+                          "phone",
+                          "stress"
+                        ],
+                        "description": "One of: sleep, exercise, focus, phone, stress (default focus)"
+                      },
+                      "lang": {
+                        "type": "string",
+                        "enum": [
+                          "en",
+                          "ja"
+                        ],
+                        "description": "en or ja (default en)"
+                      }
+                    },
+                    "required": []
+                  }
+                }
+              },
+              "output": {
+                "type": "object",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "type": "object",
+                    "properties": {
+                      "goal": {
+                        "type": "string"
+                      },
+                      "lang": {
+                        "type": "string"
+                      },
+                      "nudge": {
+                        "type": "string"
+                      },
+                      "plan": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "agent": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "goal",
+                      "lang",
+                      "nudge",
+                      "plan",
+                      "agent"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "resource": "https://aniccaai.com/.netlify/functions/x402-naive-reflect",
+      "type": "http",
+      "x402Version": 2,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "10000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0xB32b13226Fc4601Dd85140cf9815D79d63006ca0",
+          "maxTimeoutSeconds": 60,
+          "extra": {
+            "name": "USD Coin",
+            "version": "2"
+          },
+          "description": "Naive agent: one reflection/journaling prompt plus a 2-minute exercise for a given mood, as JSON (en/ja). $0.01 per call.",
+          "mimeType": "application/json"
+        }
+      ],
+      "description": "Naive agent: one reflection/journaling prompt plus a 2-minute exercise for a given mood, as JSON (en/ja). $0.01 per call.",
+      "mimeType": "application/json",
+      "serviceName": "Anicca",
+      "tags": [
+        "journaling",
+        "mental-health",
+        "reflection",
+        "wellness",
+        "ja",
+        "en"
+      ],
+      "facilitator": "https://facilitator.payai.network",
+      "extensions": {
+        "bazaar": {
+          "info": {
+            "input": {
+              "type": "http",
+              "method": "GET",
+              "queryParams": {
+                "mood": "anxious",
+                "lang": "en"
+              }
+            },
+            "output": {
+              "type": "json",
+              "example": {
+                "mood": "anxious",
+                "lang": "en",
+                "prompt": "What is one thing within your control in the next hour?",
+                "exercise": "Feel your feet on the floor and count 10 slow breaths.",
+                "agent": "Naive"
+              }
+            }
+          },
+          "schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "required": [
+              "input"
+            ],
+            "properties": {
+              "input": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "method"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "http"
+                  },
+                  "method": {
+                    "type": "string",
+                    "enum": [
+                      "GET"
+                    ]
+                  },
+                  "queryParams": {
+                    "type": "object",
+                    "properties": {
+                      "mood": {
+                        "type": "string",
+                        "enum": [
+                          "anxious",
+                          "low",
+                          "angry",
+                          "scattered",
+                          "grateful"
+                        ],
+                        "description": "One of: anxious, low, angry, scattered, grateful (default scattered)"
+                      },
+                      "lang": {
+                        "type": "string",
+                        "enum": [
+                          "en",
+                          "ja"
+                        ],
+                        "description": "en or ja (default en)"
+                      }
+                    },
+                    "required": []
+                  }
+                }
+              },
+              "output": {
+                "type": "object",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "type": "object",
+                    "properties": {
+                      "mood": {
+                        "type": "string"
+                      },
+                      "lang": {
+                        "type": "string"
+                      },
+                      "prompt": {
+                        "type": "string"
+                      },
+                      "exercise": {
+                        "type": "string"
+                      },
+                      "agent": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "mood",
+                      "lang",
+                      "prompt",
+                      "exercise",
+                      "agent"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   ]
 }
