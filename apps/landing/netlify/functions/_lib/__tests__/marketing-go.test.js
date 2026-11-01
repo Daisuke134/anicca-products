@@ -12,11 +12,14 @@ const products = {
   hl: { productId: "hook-lab", kind: "capafy", agentId: "8123079349", ct: "hooklab_ig" },
 };
 
+const BROWSER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15";
+
 function event(token, method = "GET", queryStringParameters) {
   const result = {
     httpMethod: method,
     path: `/go/${token}`,
     rawUrl: `https://aniccaai.com/go/${token}`,
+    headers: { "user-agent": BROWSER_UA },
   };
   if (queryStringParameters) result.queryStringParameters = queryStringParameters;
   return result;
@@ -72,6 +75,14 @@ test("Anicca app slug captures an anonymous PostHog event before preserving Appl
       ct: "campaign-test_1",
       pt: "93486075",
       source: "web_redirect",
+      human: true,
+      traffic_class: "human",
+      bot_reason: "",
+      visitor_ip: "",
+      user_agent: BROWSER_UA,
+      http_method: "GET",
+      referrer: "",
+      $raw_user_agent: BROWSER_UA,
       "$process_person_profile": false,
     },
   }]);
@@ -395,4 +406,38 @@ test("affiliate storage failure still redirects to the fixed affiliate host and 
     persist: async () => { throw new Error("down"); },
   });
   assert.equal((await web(event("ej_abcdefghijklmnopqrst"))).statusCode, 503);
+});
+
+function goEvent(ua, extra = {}) {
+  return {
+    httpMethod: extra.method || "GET",
+    path: "/go/anicca",
+    queryStringParameters: { ct: extra.ct || "bluesky_x_bio" },
+    headers: { "user-agent": ua, "x-nf-client-connection-ip": extra.ip || "203.0.113.9", "x-forwarded-for": "203.0.113.9, 10.0.0.1" },
+  };
+}
+
+test("classifies human, bot, internal and test clicks and records the real visitor IP", async () => {
+  const captures = [];
+  const handler = makeMarketingGoHandler({ products, providerToken: "1", persist: async () => {}, capturePostHog: async (c) => { captures.push(c); }, distinctId: () => "d" });
+  const iphone = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1";
+  for (const [ev, cls] of [
+    [goEvent(iphone), "human"],
+    [goEvent("Mozilla/5.0 (compatible; Bluesky Cardyb/1.1; +mailto:support@bsky.app)"), "bot"],
+    [goEvent("facebookexternalhit/1.1"), "bot"],
+    [goEvent(""), "bot"],
+    [goEvent(iphone, { method: "HEAD" }), "bot"],
+    [goEvent("curl/8.5.0"), "bot"],
+    [goEvent(iphone + " AniccaCheck"), "internal"],
+    [goEvent(iphone, { ct: "test_tracking_check" }), "test"],
+  ]) {
+    const response = await handler(ev);
+    assert.equal(response.statusCode, 302);
+    assert.match(response.headers.location, /ct=/);
+    const c = captures.at(-1);
+    assert.equal(c.properties.traffic_class, cls, ev.headers["user-agent"]);
+    assert.equal(c.event, cls === "human" ? "app_store_click" : "app_store_click_nonhuman");
+    assert.equal(c.properties.visitor_ip, "203.0.113.9");
+    assert.equal(c.properties.$ip, "203.0.113.9");
+  }
 });

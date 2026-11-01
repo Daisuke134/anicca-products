@@ -5,6 +5,39 @@ const POSTHOG_PROJECT_API_KEY = process.env.POSTHOG_PROJECT_API_KEY || "phc_Mw4K
 
 const TOKEN = /^(?:(ai|ho|ej|ee|hl)_[a-z2-7]{20}|af_(elevenlabs-discovered-[a-z0-9][a-z0-9-]*-en(?:-experiment-[a-f0-9]{12})?-1))$/; // AFFILIATE_CTA_V1
 
+
+// Click classification (2026-11-01): count only human clicks as app_store_click.
+const BOT_UA = /bot\b|bot\/|crawler|spider|crawl|slurp|facebookexternalhit|facebookcatalog|meta-externalagent|twitterbot|slackbot|slack-imgproxy|discordbot|telegrambot|whatsapp|linkedinbot|bluesky|cardyb|mastodon|pleroma|misskey|akkoma|googlebot|google-inspectiontool|googleother|bingbot|bingpreview|yandex|baiduspider|duckduckbot|applebot|petalbot|embedly|iframely|skypeuripreview|redditbot|pinterest|vkshare|w3c_validator|preview|headless|phantomjs|python|curl\/|wget|go-http-client|okhttp|axios|node-fetch|undici|libwww|java\/|httpclient|postman|insomnia|scrapy|aiohttp|httpx|ahrefs|semrush|mj12bot|dotbot|gptbot|claudebot|perplexity|bytespider|amazonbot|chatgpt|oai-searchbot|uptime|pingdom|statuscake|monitor/i;
+const INTERNAL_UA = /aniccacheck/i;
+const INTERNAL_IPS = new Set(String(process.env.GO_INTERNAL_IPS || "220.26.108.31,104.28.211.106").split(",").map((v) => v.trim()).filter(Boolean));
+
+function header(event, name) {
+  const headers = event.headers || {};
+  const key = Object.keys(headers).find((k) => k.toLowerCase() === name);
+  return key ? String(headers[key] ?? "") : "";
+}
+
+function visitorIp(event) {
+  const direct = header(event, "x-nf-client-connection-ip") || header(event, "cf-connecting-ip") || header(event, "x-real-ip");
+  if (direct.trim()) return direct.trim();
+  return header(event, "x-forwarded-for").split(",")[0].trim();
+}
+
+function classifyClick(event, ct) {
+  const ua = header(event, "user-agent");
+  const ip = visitorIp(event);
+  const q = event.queryStringParameters || {};
+  if (/^test_/i.test(ct) || q.check === "1") return { trafficClass: "test", reason: "test_ct_or_flag", ua, ip };
+  if (INTERNAL_UA.test(ua) || header(event, "x-anicca-check")) return { trafficClass: "internal", reason: "internal_marker", ua, ip };
+  if (ip && INTERNAL_IPS.has(ip)) return { trafficClass: "internal", reason: "internal_ip", ua, ip };
+  if (event.httpMethod === "HEAD") return { trafficClass: "bot", reason: "head_request", ua, ip };
+  if (!ua.trim()) return { trafficClass: "bot", reason: "empty_ua", ua, ip };
+  if (BOT_UA.test(ua)) return { trafficClass: "bot", reason: "bot_ua", ua, ip };
+  if (header(event, "purpose") === "prefetch" || /prefetch|preview/i.test(header(event, "sec-purpose") || header(event, "x-purpose")))
+    return { trafficClass: "bot", reason: "prefetch", ua, ip };
+  return { trafficClass: "human", reason: "", ua, ip };
+}
+
 function destination(product, token, providerToken) {
   if (product.kind === "affiliate") return `https://try.elevenlabs.io/${product.placementId}`;
   if (product.kind === "capafy")
@@ -64,12 +97,12 @@ function makeMarketingGoHandler({
   if (!products || typeof persist !== "function") // AFFILIATE_CTA_V2
     throw new Error("marketing-go dependencies are required");
   return async (event) => {
-    if (event.httpMethod !== "GET")
-      return { statusCode: 405, headers: { allow: "GET" }, body: "Method Not Allowed" };
     const token = decodeURIComponent(String(event.path || "").split("/").filter(Boolean).at(-1) || "");
     const appProduct = Object.values(products).find(
       (product) => product.kind === "app" && product.slug === token,
     );
+    if (event.httpMethod !== "GET" && !(appProduct && event.httpMethod === "HEAD"))
+      return { statusCode: 405, headers: { allow: "GET" }, body: "Method Not Allowed" };
     if (appProduct) {
       const ct = String(event.queryStringParameters?.ct ?? "");
       if (!ct.trim())
@@ -77,15 +110,27 @@ function makeMarketingGoHandler({
       const configuredProviderToken = appProduct.providerToken || providerToken;
       if (!configuredProviderToken || typeof capturePostHog !== "function")
         return { statusCode: 503, headers: { "cache-control": "no-store" }, body: "Attribution unavailable" };
+      const click = classifyClick(event, ct);
+      const human = click.trafficClass === "human";
+      console.log(`go-click ct=${ct} class=${click.trafficClass} reason=${click.reason || "-"} ip=${click.ip || "-"} method=${event.httpMethod} ua=${JSON.stringify(click.ua.slice(0, 200))}`);
       try {
         await capturePostHog({
           distinctId: distinctId(),
-          event: "app_store_click",
+          event: human ? "app_store_click" : "app_store_click_nonhuman",
           properties: {
             app: appProduct.slug,
             ct,
             pt: configuredProviderToken,
             source: "web_redirect",
+            human,
+            traffic_class: click.trafficClass,
+            bot_reason: click.reason,
+            visitor_ip: click.ip,
+            user_agent: click.ua.slice(0, 400),
+            http_method: event.httpMethod,
+            referrer: header(event, "referer").slice(0, 300),
+            ...(click.ip && { $ip: click.ip }),
+            ...(click.ua && { $raw_user_agent: click.ua.slice(0, 400) }),
             "$process_person_profile": false,
           },
         });
@@ -141,4 +186,4 @@ function makeMarketingGoHandler({
   };
 }
 
-module.exports = { TOKEN, destination, makeMarketingGoHandler, makePostHogCapture, makeSupabasePersist };
+module.exports = { TOKEN, classifyClick, visitorIp, destination, makeMarketingGoHandler, makePostHogCapture, makeSupabasePersist };
