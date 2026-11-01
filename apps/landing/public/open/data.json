@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 12:21 JST",
+ "updated_at": "2026-11-01 12:32 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -29,34 +29,30 @@
   {
    "key": "cost",
    "label": "Costs this month",
-   "usd": 12.72,
+   "usd": 12.0,
    "jpy": 2000,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company costs to date) (company withdrawals to date)"
+   "source": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date) (company withdrawals to date)"
   },
   {
    "key": "costl",
    "label": "Costs last month (2026-10)",
-   "usd": 1448.78,
-   "jpy": 227820,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company costs; personal spend excluded)"
+   "usd": 1583.91,
+   "jpy": 249729,
+   "source": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual)"
   },
   {
    "key": "gp",
-   "label": "Gross profit",
-   "usd": null,
-   "jpy": null,
-   "source": "revenue this month (REVENUE-BY-SOURCE.csv) − costs this month (rows above)",
-   "pct": null,
-   "pending": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+   "label": "Profit this month",
+   "usd": -12.0,
+   "jpy": -2000,
+   "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
   },
   {
-   "key": "margin",
-   "label": "Margin",
-   "pct": null,
-   "source": "gross profit / revenue this month",
-   "usd": null,
-   "jpy": null,
-   "pending": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+   "key": "gpl",
+   "label": "Profit last month (2026-10)",
+   "usd": -1380.01,
+   "jpy": -217749,
+   "source": "same basis, last month"
   },
   {
    "key": "mrr",
@@ -69,7 +65,7 @@
    "label": "Active costs / month",
    "usd": 1210.67,
    "jpy": 190378,
-   "source": "sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded"
+   "source": "FORWARD-LOOKING list, not actuals: sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded"
   },
   {
    "key": "human",
@@ -83,25 +79,22 @@
    "month": "2026-09",
    "revenue_usd": 390.63,
    "cost_usd": 1513.71,
-   "gross_profit_usd": null,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)",
-   "gross_profit_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+   "gross_profit_usd": -1123.08,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)"
   },
   {
    "month": "2026-10",
    "revenue_usd": 203.9,
-   "cost_usd": null,
-   "gross_profit_usd": null,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded",
-   "gross_profit_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+   "cost_usd": 1583.91,
+   "gross_profit_usd": -1380.01,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   },
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 0.0,
-   "cost_usd": null,
-   "gross_profit_usd": null,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded",
-   "gross_profit_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+   "cost_usd": 12.0,
+   "gross_profit_usd": -12.0,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   }
  ],
  "streams": [],
@@ -113,56 +106,144 @@
   {
    "item": "Upwork",
    "jpy": 2000,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
-   "usd": 12.72
-  },
-  {
-   "item": "OpenAI (2026-10)",
-   "jpy": 46855,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
-   "usd": 297.97
-  },
-  {
-   "item": "Grok (2026-10)",
-   "jpy": 31180,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
-   "usd": 198.28
-  },
-  {
-   "item": "Google (2026-10)",
-   "jpy": 27889,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
-   "usd": 177.35
-  },
-  {
-   "item": "Adobe (2026-10)",
-   "jpy": 9960,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
-   "usd": 63.34
-  },
-  {
-   "item": "Postiz (2026-10)",
-   "jpy": 7936,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
-   "usd": 50.47
-  },
-  {
-   "item": "Upwork (2026-10)",
-   "jpy": 4000,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
-   "usd": 25.44
+   "usd": 12.0,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
   },
   {
    "item": "Rent to 成田 (bank + Mac mini) (2026-10)",
    "jpy": 100000,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) + finance/COST-CUTS.md rent row (RULE 0n)",
-   "usd": 635.93
+   "usd": 635.93,
+   "payments": 1,
+   "unknown": false,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) transfer + finance/COST-CUTS.md rent row (RULE 0n)"
+  },
+  {
+   "item": "OpenAI (2026-10)",
+   "jpy": 46855,
+   "usd": 297.73,
+   "payments": 3,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Grok (2026-10)",
+   "jpy": 31959,
+   "usd": 203.38,
+   "payments": 6,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Google Cloud (2026-10)",
+   "jpy": 27889,
+   "usd": 176.88,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Adobe (2026-10)",
+   "jpy": 9960,
+   "usd": 63.18,
+   "payments": 2,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Postiz (2026-10)",
+   "jpy": 7936,
+   "usd": 50.4,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "HeyGen (2026-10)",
+   "jpy": 6129,
+   "usd": 38.86,
+   "payments": 2,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Upwork (2026-10)",
+   "jpy": 4000,
+   "usd": 24.0,
+   "payments": 2,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Railway (2026-10)",
+   "jpy": 3756,
+   "usd": 23.78,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Replit (2026-10)",
+   "jpy": 3283,
+   "usd": 20.0,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Telnyx (2026-10)",
+   "jpy": 3268,
+   "usd": 20.61,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Relixir (2026-10)",
+   "jpy": 3254,
+   "usd": 20.0,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "X Premium (2026-10)",
+   "jpy": 918,
+   "usd": 5.85,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Hetzner (2026-10)",
+   "jpy": 253,
+   "usd": 1.6,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "DigitalOcean (2026-10)",
+   "jpy": 162,
+   "usd": 1.03,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
+  {
+   "item": "Cursor (2026-10)",
+   "jpy": 107,
+   "usd": 0.68,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
   }
  ],
  "costs_month_total": {
-  "usd": 12.72,
+  "usd": 12.0,
   "jpy": 2000,
-  "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company costs to date)"
+  "source": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date)"
  },
  "active_costs": [
   {
@@ -448,9 +529,10 @@
  ],
  "cost_reconciliation": {
   "this_month": "Upwork 2,000 = 2,000",
-  "last_month": "OpenAI 46,855 + Grok 31,180 + Google 27,889 + Adobe 9,960 + Postiz 7,936 + Upwork 4,000 + Rent to 成田 (bank + Mac mini) 100,000 = 227,820",
+  "last_month": "Rent to 成田 (bank + Mac mini) 100,000 + OpenAI 46,855 + Grok 31,959 + Google Cloud 27,889 + Adobe 9,960 + Postiz 7,936 + HeyGen 6,129 + Upwork 4,000 + Railway 3,756 + Replit 3,283 + Telnyx 3,268 + Relixir 3,254 + X Premium 918 + Hetzner 253 + DigitalOcean 162 + Cursor 107 = 249,729",
   "active": "Rent to 成田 (bank + Mac mini) 100,000 + Grok — X Ultra (upgraded 10/31) 34,800 + Postiz Pro 7,936 + HeyGen Creator (Apple) 4,500 + Telnyx 3,268 + X Premium (dup) 918 + Hetzner 253 + DigitalOcean 162 + ChatGPT Pro (2nd-of-month ¥30,000) 30,000 + ChatGPT Plus 3,596 + Railway 3,756 + Moneytree Grow 0 + Apple Developer 1,082 + Cursor usage 107 + Vercel / Twilio / Netlify / Supabase 0 = 190,378",
   "gross_profit": "revenue ¥0 − costs this month ¥2,000 = ¥-2,000",
+  "gross_profit_last": "2026-10: revenue ¥31,980 − costs ¥249,729 = ¥-217,749",
   "excluded": [
    "Google Cloud (Gemini/Maps): 最終請求（~11/02、一回だけ）",
    "ChatGPT charge ¥13,259 (10/24): 一回限りの請求（10/24、用途不明）、月額に含めない",
@@ -458,18 +540,58 @@
    "Replit: 解約済み（11/08終了）",
    "Upwork Connects: amount データなし"
   ],
-  "bridge": "10月実績 ¥227,820 −OpenAI 一回限り¥13,259を除外 13,259 +Grok プラン変更 3,620 −Google Cloud 最終請求のみ 27,889 −Adobe 解約 9,960 −Upwork Connects 従量(月額データなし) 4,000 +HeyGen Creator (Apple)（10月の大口明細に無し） 4,500 +Telnyx（10月の大口明細に無し） 3,268 +X Premium (dup)（10月の大口明細に無し） 918 +Hetzner（10月の大口明細に無し） 253 +DigitalOcean（10月の大口明細に無し） 162 +Railway（10月の大口明細に無し） 3,756 +Apple Developer（10月の大口明細に無し） 1,082 +Cursor usage（10月の大口明細に無し） 107 = Active ¥190,378",
-  "openai": "OpenAI 10月 MUFG ¥46,855 = Pro ¥30,000 + Plus ¥3,596 + 一回限り ¥13,259"
+  "bridge": "10月実績 ¥249,729 (expenses.json+家賃) −OpenAI 一回限り¥13,259を除外 13,259 +Grok プラン変更(Pro/Super→Ultra) 2,841 −Google Cloud 一回限りの最終請求 27,889 −Adobe 解約 9,960 −HeyGen API 一回分を除く 1,629 −Upwork Connects 従量(月額データなし) 4,000 −Replit 解約 3,283 −Relixir 一回購入 3,254 +Apple Developer 1,082 = Active ¥190,378",
+  "openai": "OpenAI 10月 実支払 ¥46,855(expenses.json 3件、MUFG OpenAI ¥46,855 と一致) = Pro ¥30,000 + Plus ¥3,596 + 一回限り ¥13,259"
  },
- "reconciliation_complete": false,
+ "notices_unpaid": [
+  {
+   "date": "2026-10-30",
+   "source": "capafy",
+   "usd": 6.99,
+   "jpy": null,
+   "status": "通知のみ・未入金",
+   "note": "cfo/notices.csv (not revenue until payout)"
+  },
+  {
+   "date": "2026-10-28",
+   "source": "capafy",
+   "usd": 9.99,
+   "jpy": null,
+   "status": "通知のみ・未入金",
+   "note": "cfo/notices.csv (not revenue until payout)"
+  },
+  {
+   "date": "2026-10-31",
+   "source": "coconala",
+   "usd": 3.17,
+   "jpy": 500,
+   "status": "通知のみ・未入金",
+   "note": "cfo/notices.csv (not revenue until payout)"
+  },
+  {
+   "date": "2026-10-23",
+   "source": "capafy",
+   "usd": 9.99,
+   "jpy": null,
+   "status": "通知のみ・未入金",
+   "note": "cfo/notices.csv (not revenue until payout)"
+  }
+ ],
+ "reconciliation_complete": true,
  "gross_profit_detail": {
-  "status": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+  "jpy": -2000,
+  "usd": -12.0,
+  "revenue_jpy": 0,
+  "revenue_usd": 0.0,
+  "cost_jpy": 2000,
+  "cost_usd": 12.0,
+  "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
  },
  "active_costs_total": {
   "usd_mo": 1210.67,
   "jpy": 190378,
   "jpy_mo": 190378,
-  "source": "sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded"
+  "source": "FORWARD-LOOKING list, not actuals: sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded"
  },
  "fx_note": "USD/JPY 157.25 (Frankfurter API (ECB reference rate), 2026-10-30)",
  "by_agent": [
@@ -478,8 +600,7 @@
    "earns_usd": 0.0,
    "spends_usd": null,
    "net_usd": null,
-   "source": "costs this month (receipt lines without a single agent)",
-   "net_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+   "source": "costs this month (receipt lines without a single agent)"
   }
  ],
  "wallets": [
@@ -543,9 +664,9 @@
   },
   {
    "item": "Revenue all-time",
-   "usd": 1771.43,
-   "as_of": "2026-10-31",
-   "source": "cfo/history.csv revenue rows (12 rows; each row cites its receipt/API); 4 rows without JPY amount (USD from source)"
+   "usd": 1751.32,
+   "as_of": "2026-10-12",
+   "source": "cfo/history.csv revenue rows (9 rows; each row cites its receipt/API); 2 rows without JPY amount (USD from source)"
   }
  ],
  "products": [

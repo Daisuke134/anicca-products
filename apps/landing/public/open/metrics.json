@@ -1,16 +1,16 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 12:21 JST",
+ "updated_at": "2026-11-01 12:32 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
   "revenue_7d_usd": 0.0,
   "revenue_30d_usd": 203.9,
   "revenue_mtd_usd": 0.0,
-  "costs_mtd_usd": 12.72,
-  "gross_profit_mtd_usd": null,
+  "costs_mtd_usd": 12.0,
+  "gross_profit_mtd_usd": -12.0,
   "margin_pct": null,
-  "reconciliation_complete": false,
+  "reconciliation_complete": true,
   "mrr_usd": 93.58,
   "active_costs_monthly_usd": 1210.67
  },
@@ -18,12 +18,12 @@
   "rev7": "finance/REVENUE-BY-SOURCE.csv dated rows",
   "rev30": "finance/REVENUE-BY-SOURCE.csv dated rows",
   "revm": "finance/REVENUE-BY-SOURCE.csv dated rows",
-  "cost": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company costs to date) (company withdrawals to date)",
-  "costl": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company costs; personal spend excluded)",
-  "gp": "revenue this month (REVENUE-BY-SOURCE.csv) − costs this month (rows above)",
-  "margin": "gross profit / revenue this month",
+  "cost": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date) (company withdrawals to date)",
+  "costl": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual)",
+  "gp": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis",
+  "gpl": "same basis, last month",
   "mrr": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs",
-  "run": "sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded",
+  "run": "FORWARD-LOOKING list, not actuals: sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded",
   "human": "metrics/human-interventions.csv"
  },
  "monthly": [
@@ -31,25 +31,22 @@
    "month": "2026-09",
    "revenue_usd": 390.63,
    "cost_usd": 1513.71,
-   "gross_profit_usd": null,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)",
-   "gross_profit_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+   "gross_profit_usd": -1123.08,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)"
   },
   {
    "month": "2026-10",
    "revenue_usd": 203.9,
-   "cost_usd": null,
-   "gross_profit_usd": null,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded",
-   "gross_profit_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+   "cost_usd": 1583.91,
+   "gross_profit_usd": -1380.01,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   },
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 0.0,
-   "cost_usd": null,
-   "gross_profit_usd": null,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded",
-   "gross_profit_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+   "cost_usd": 12.0,
+   "gross_profit_usd": -12.0,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   }
  ],
  "see": "data.json for every row and its source"
