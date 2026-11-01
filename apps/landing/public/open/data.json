@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 13:07 JST",
+ "updated_at": "2026-11-01 13:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -1029,6 +1029,326 @@
      "Investing — distribution loop (n/a)"
     ],
     "source": "PRODUCT-LOOPS.md (2026-11-01 09:11 JST)"
+   }
+  },
+  "tracking": {
+   "ios": {
+    "date": "2026-10-31",
+    "read_at": "2026-11-01 13:07 JST",
+    "source": "RevenueCat v2 charts + ASC Sales",
+    "rows": [
+     {
+      "app": "ASC (all apps)",
+      "revenue_usd": null,
+      "trials": null,
+      "paid": null,
+      "downloads": null,
+      "proceeds": null,
+      "note": "unknown (source error: HTTP 404 no sales report for this date (Apple: report not available / no sales))"
+     },
+     {
+      "app": "BreathReset",
+      "revenue_usd": 0.0,
+      "trials": 0.0,
+      "paid": 0.0,
+      "downloads": null,
+      "proceeds": null,
+      "note": ""
+     },
+     {
+      "app": "Desk Stretch Timer",
+      "revenue_usd": 0.0,
+      "trials": 0.0,
+      "paid": 0.0,
+      "downloads": null,
+      "proceeds": null,
+      "note": ""
+     },
+     {
+      "app": "Dhamma",
+      "revenue_usd": 0.0,
+      "trials": 0.0,
+      "paid": 0.0,
+      "downloads": null,
+      "proceeds": null,
+      "note": ""
+     },
+     {
+      "app": "HonneAI",
+      "revenue_usd": 0.0,
+      "trials": 0.0,
+      "paid": 0.0,
+      "downloads": null,
+      "proceeds": null,
+      "note": ""
+     },
+     {
+      "app": "Micro Mood",
+      "revenue_usd": 0.0,
+      "trials": 0.0,
+      "paid": 0.0,
+      "downloads": null,
+      "proceeds": null,
+      "note": ""
+     },
+     {
+      "app": "Sleep Reset",
+      "revenue_usd": 0.0,
+      "trials": 0.0,
+      "paid": 0.0,
+      "downloads": null,
+      "proceeds": null,
+      "note": ""
+     },
+     {
+      "app": "SleepRitual",
+      "revenue_usd": 0.0,
+      "trials": 0.0,
+      "paid": 0.0,
+      "downloads": null,
+      "proceeds": null,
+      "note": ""
+     },
+     {
+      "app": "Thankful",
+      "revenue_usd": 0.0,
+      "trials": 0.0,
+      "paid": 0.0,
+      "downloads": null,
+      "proceeds": null,
+      "note": ""
+     },
+     {
+      "app": "anicca",
+      "revenue_usd": 0.0,
+      "trials": 0.0,
+      "paid": 0.0,
+      "downloads": null,
+      "proceeds": null,
+      "note": ""
+     }
+    ]
+   },
+   "posts": {
+    "read_at": "2026-11-01 13:10 JST",
+    "note": "TikTok: POST-LOG has 1 row (10/27, postiz id). TikTok metrics only via Postiz analytics (views/likes/comments/shares; no saves); no TikTok Display API token on box.",
+    "source": "X API v2, YouTube Data API v3, Postiz analytics",
+    "top": [
+     {
+      "platform": "x",
+      "account": "@diceai0",
+      "post_url": "https://x.com/diceai0/status/2116311371772289130",
+      "views": "4956",
+      "likes": "218",
+      "saves": "4",
+      "checkpoint": "24h"
+     },
+     {
+      "platform": "x",
+      "account": "diceai0",
+      "post_url": "https://x.com/diceai0/status/2116402708857180518",
+      "views": "2208",
+      "likes": "73",
+      "saves": "1",
+      "checkpoint": "24h"
+     },
+     {
+      "platform": "instagram",
+      "account": "anicca.en",
+      "post_url": "https://www.instagram.com/reel/DfDufEZlNh1/",
+      "views": "1835",
+      "likes": "5",
+      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
+      "checkpoint": "24h"
+     },
+     {
+      "platform": "instagram",
+      "account": "anicca.en",
+      "post_url": "https://www.instagram.com/reel/DfDgn8ZAXKJ/",
+      "views": "1553",
+      "likes": "1",
+      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
+      "checkpoint": "late_49h"
+     },
+     {
+      "platform": "instagram",
+      "account": "anicca.en",
+      "post_url": "https://www.instagram.com/reel/DfGFe3YD64O/",
+      "views": "1521",
+      "likes": "3",
+      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
+      "checkpoint": "24h"
+     },
+     {
+      "platform": "instagram",
+      "account": "anicca.en",
+      "post_url": "https://www.instagram.com/reel/DfEvweJjrmD/",
+      "views": "1477",
+      "likes": "1",
+      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
+      "checkpoint": "24h"
+     },
+     {
+      "platform": "instagram",
+      "account": "anicca.jp.videos",
+      "post_url": "https://www.instagram.com/reel/DfEHGD8CF9g/",
+      "views": "1332",
+      "likes": "2",
+      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
+      "checkpoint": "24h"
+     },
+     {
+      "platform": "tiktok",
+      "account": "aniccaaffirmation",
+      "post_url": "https://www.tiktok.com/@aniccaaffirmation/photo/7702046976078204178",
+      "views": "822",
+      "likes": "19",
+      "saves": "unknown (source error: Postiz tiktok analytics has no saves field)",
+      "checkpoint": "24h"
+     }
+    ]
+   },
+   "capafy": {
+    "read_at": "2026-11-01 13:09 JST",
+    "last7_orders": 906,
+    "last7_gross_usd": 26.97,
+    "mtd_orders": 10,
+    "mtd_gross_usd": 0.0,
+    "paid_out_usd": 0.0,
+    "views": "データなし",
+    "note": "gross = Capafy-recorded buyer payments; not bank-received until totalPayout>0 (notices.csv 通知のみ・未入金)",
+    "source": "api.capafy.ai publisher API"
+   },
+   "seo": {
+    "read_at": "2026-11-01 13:07 JST",
+    "range": "2026-10-03..2026-10-30",
+    "last7": {
+     "clicks": 2,
+     "impressions": 44
+    },
+    "prev7": {
+     "clicks": 1,
+     "impressions": 30
+    },
+    "days": [
+     {
+      "date": "2026-10-17",
+      "clicks": 0,
+      "impressions": 5,
+      "position": 7.6
+     },
+     {
+      "date": "2026-10-18",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 1
+     },
+     {
+      "date": "2026-10-19",
+      "clicks": 0,
+      "impressions": 3,
+      "position": 7.33
+     },
+     {
+      "date": "2026-10-20",
+      "clicks": 0,
+      "impressions": 4,
+      "position": 51
+     },
+     {
+      "date": "2026-10-21",
+      "clicks": 0,
+      "impressions": 6,
+      "position": 15.33
+     },
+     {
+      "date": "2026-10-22",
+      "clicks": 1,
+      "impressions": 3,
+      "position": 5.67
+     },
+     {
+      "date": "2026-10-23",
+      "clicks": 0,
+      "impressions": 7,
+      "position": 8.43
+     },
+     {
+      "date": "2026-10-24",
+      "clicks": 0,
+      "impressions": 4,
+      "position": 2
+     },
+     {
+      "date": "2026-10-25",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+     },
+     {
+      "date": "2026-10-26",
+      "clicks": 0,
+      "impressions": 4,
+      "position": 3.75
+     },
+     {
+      "date": "2026-10-27",
+      "clicks": 0,
+      "impressions": 7,
+      "position": 7.71
+     },
+     {
+      "date": "2026-10-28",
+      "clicks": 0,
+      "impressions": 11,
+      "position": 12.55
+     },
+     {
+      "date": "2026-10-29",
+      "clicks": 2,
+      "impressions": 5,
+      "position": 7.2
+     },
+     {
+      "date": "2026-10-30",
+      "clicks": 0,
+      "impressions": 13,
+      "position": 18.15
+     }
+    ],
+    "top_pages": [
+     {
+      "page": "https://aniccaai.com/",
+      "clicks": 2,
+      "impressions": 35,
+      "position": 12.8
+     },
+     {
+      "page": "https://aniccaai.com/en",
+      "clicks": 1,
+      "impressions": 17,
+      "position": 13.06
+     },
+     {
+      "page": "https://aniccaai.com/affirmation-app",
+      "clicks": 0,
+      "impressions": 6,
+      "position": 4.33
+     },
+     {
+      "page": "https://aniccaai.com/affirmation-app/a/affirmations-for-anxiety",
+      "clicks": 0,
+      "impressions": 3,
+      "position": 4.33
+     },
+     {
+      "page": "https://aniccaai.com/affirmation-app/a/affirmations-for-overthinking",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 8
+     }
+    ],
+    "source": "Google Search Console searchAnalytics sc property https://aniccaai.com/"
    }
   },
   "na": "データなし"
