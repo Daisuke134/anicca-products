@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-01 15:05 JST",
+ "built_at": "2026-11-01 18:05 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -52,16 +52,16 @@
   },
   {
    "agent": "Forensic Writing",
-   "last": "2026-11-01 13:54",
+   "last": "2026-11-01 16:52",
    "source": "BOARD",
    "task": "hook-forensics-24h",
    "blocked": true
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-11-01 12:18",
+   "last": "2026-11-01 16:13",
    "source": "LIVE-STATE.md",
-   "task": "12",
+   "task": "relay pass 16",
    "blocked": true
   }
  ],
@@ -891,7 +891,7 @@
    "posts_7d": 80,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 1,
+   "avg_views_last5": 2,
    "last_post": "2026-10-31T21:58",
    "winner": "https://x.com/godofprompt"
   },
