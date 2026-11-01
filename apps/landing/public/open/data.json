@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 11:36 JST",
+ "updated_at": "2026-11-01 12:10 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -43,9 +43,20 @@
   {
    "key": "gp",
    "label": "Gross profit",
-   "usd": -12.72,
-   "jpy": -2000,
-   "source": "revenue this month (REVENUE-BY-SOURCE.csv) − costs this month (rows above)"
+   "usd": null,
+   "jpy": null,
+   "source": "revenue this month (REVENUE-BY-SOURCE.csv) − costs this month (rows above)",
+   "pct": null,
+   "pending": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+  },
+  {
+   "key": "margin",
+   "label": "Margin",
+   "pct": null,
+   "source": "gross profit / revenue this month",
+   "usd": null,
+   "jpy": null,
+   "pending": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
   },
   {
    "key": "mrr",
@@ -72,22 +83,25 @@
    "month": "2026-09",
    "revenue_usd": 390.63,
    "cost_usd": 1513.71,
-   "gross_profit_usd": -1123.08,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)"
+   "gross_profit_usd": null,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)",
+   "gross_profit_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
   },
   {
    "month": "2026-10",
    "revenue_usd": 203.9,
    "cost_usd": null,
    "gross_profit_usd": null,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded",
+   "gross_profit_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
   },
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 0.0,
    "cost_usd": null,
    "gross_profit_usd": null,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded",
+   "gross_profit_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
   }
  ],
  "streams": [],
@@ -447,6 +461,10 @@
   "bridge": "10月実績 ¥227,820 −OpenAI 一回限り¥13,259を除外 13,259 +Grok プラン変更 3,620 −Google Cloud 最終請求のみ 27,889 −Adobe 解約 9,960 −Upwork Connects 従量(月額データなし) 4,000 +HeyGen Creator (Apple)（10月の大口明細に無し） 4,500 +Telnyx（10月の大口明細に無し） 3,268 +X Premium (dup)（10月の大口明細に無し） 918 +Hetzner（10月の大口明細に無し） 253 +DigitalOcean（10月の大口明細に無し） 162 +Railway（10月の大口明細に無し） 3,756 +Apple Developer（10月の大口明細に無し） 1,082 +Cursor usage（10月の大口明細に無し） 107 = Active ¥190,378",
   "openai": "OpenAI 10月 MUFG ¥46,855 = Pro ¥30,000 + Plus ¥3,596 + 一回限り ¥13,259"
  },
+ "reconciliation_complete": false,
+ "gross_profit_detail": {
+  "status": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
+ },
  "active_costs_total": {
   "usd_mo": 1210.67,
   "jpy": 190378,
@@ -460,7 +478,8 @@
    "earns_usd": 0.0,
    "spends_usd": null,
    "net_usd": null,
-   "source": "costs this month (receipt lines without a single agent)"
+   "source": "costs this month (receipt lines without a single agent)",
+   "net_note": "未確定（照合中: cfo レポート・ledger・history.csv の突合 2026-11-01）"
   }
  ],
  "wallets": [
@@ -524,9 +543,9 @@
   },
   {
    "item": "Revenue all-time",
-   "usd": 1771.43,
+   "usd": 1781.42,
    "as_of": "2026-10-31",
-   "source": "cfo/history.csv revenue rows (12 rows; each row cites its receipt/API); 4 rows without JPY amount (USD from source)"
+   "source": "cfo/history.csv revenue rows (13 rows; each row cites its receipt/API); 5 rows without JPY amount (USD from source)"
   }
  ],
  "products": [
