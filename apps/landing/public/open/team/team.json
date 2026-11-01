@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-01 12:05 JST",
+ "built_at": "2026-11-01 15:05 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -52,16 +52,16 @@
   },
   {
    "agent": "Forensic Writing",
-   "last": "2026-11-01 10:50",
+   "last": "2026-11-01 13:54",
    "source": "BOARD",
    "task": "hook-forensics-24h",
    "blocked": true
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-11-01 08:25",
-   "source": "BOARD",
-   "task": "anicca-ct-links",
+   "last": "2026-11-01 12:18",
+   "source": "LIVE-STATE.md",
+   "task": "12",
    "blocked": true
   }
  ],
@@ -904,7 +904,7 @@
    "posts_7d": 20,
    "views_7d": 5681.0,
    "er_7d": "110.0/5681=1.9%",
-   "avg_views_last5": 321,
+   "avg_views_last5": 457,
    "last_post": "2026-10-31T04:30",
    "winner": "https://www.tiktok.com/@dreamlifecode"
   },
@@ -1164,7 +1164,7 @@
    "posts_7d": 14,
    "views_7d": 3912.0,
    "er_7d": "62.0/3912=1.6%",
-   "avg_views_last5": 182,
+   "avg_views_last5": 185,
    "last_post": "2026-10-31T04:12",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
