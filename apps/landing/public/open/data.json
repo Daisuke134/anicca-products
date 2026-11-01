@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 16:12 JST",
+ "updated_at": "2026-11-01 17:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -953,10 +953,10 @@
    "seo_geo": [
     {
      "area": "SEO (Search Console loop)",
-     "count": 10,
+     "count": 11,
      "unit": "loop passes",
-     "latest": "2026-11-01 08:2x JST loop pass (Anicca Marketer)",
-     "source": "marketing/SEO-GSC.md (2026-11-01 08:32 JST)"
+     "latest": "2026-11-01 16:2x JST loop pass (Anicca Marketer)",
+     "source": "marketing/SEO-GSC.md (2026-11-01 16:25 JST)"
     },
     {
      "area": "GEO / AEO (AI-answer visibility)",
