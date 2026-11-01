@@ -1,12 +1,12 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 12:32 JST",
+ "updated_at": "2026-11-01 13:07 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
-  "revenue_7d_usd": 0.0,
-  "revenue_30d_usd": 203.9,
-  "revenue_mtd_usd": 0.0,
+  "revenue_7d_usd": 0,
+  "revenue_30d_usd": 201.82,
+  "revenue_mtd_usd": 0,
   "costs_mtd_usd": 12.0,
   "gross_profit_mtd_usd": -12.0,
   "margin_pct": null,
@@ -15,9 +15,9 @@
   "active_costs_monthly_usd": 1210.67
  },
  "sources": {
-  "rev7": "finance/REVENUE-BY-SOURCE.csv dated rows",
-  "rev30": "finance/REVENUE-BY-SOURCE.csv dated rows",
-  "revm": "finance/REVENUE-BY-SOURCE.csv dated rows",
+  "rev7": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB",
+  "rev30": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB",
+  "revm": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB",
   "cost": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date) (company withdrawals to date)",
   "costl": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual)",
   "gp": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis",
@@ -29,21 +29,21 @@
  "monthly": [
   {
    "month": "2026-09",
-   "revenue_usd": 390.63,
+   "revenue_usd": 356.37,
    "cost_usd": 1513.71,
-   "gross_profit_usd": -1123.08,
+   "gross_profit_usd": -1157.34,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)"
   },
   {
    "month": "2026-10",
-   "revenue_usd": 203.9,
+   "revenue_usd": 201.82,
    "cost_usd": 1583.91,
-   "gross_profit_usd": -1380.01,
+   "gross_profit_usd": -1382.09,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   },
   {
    "month": "2026-11 (to date)",
-   "revenue_usd": 0.0,
+   "revenue_usd": 0,
    "cost_usd": 12.0,
    "gross_profit_usd": -12.0,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"

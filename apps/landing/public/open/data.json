@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 12:32 JST",
+ "updated_at": "2026-11-01 13:07 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -11,20 +11,20 @@
   {
    "key": "rev7",
    "label": "Revenue (7d)",
-   "usd": 0.0,
-   "source": "finance/REVENUE-BY-SOURCE.csv dated rows"
+   "usd": 0,
+   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB"
   },
   {
    "key": "rev30",
    "label": "Revenue (30d)",
-   "usd": 203.9,
-   "source": "finance/REVENUE-BY-SOURCE.csv dated rows"
+   "usd": 201.82,
+   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB"
   },
   {
    "key": "revm",
    "label": "Revenue this month",
-   "usd": 0.0,
-   "source": "finance/REVENUE-BY-SOURCE.csv dated rows"
+   "usd": 0,
+   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB"
   },
   {
    "key": "cost",
@@ -50,7 +50,7 @@
   {
    "key": "gpl",
    "label": "Profit last month (2026-10)",
-   "usd": -1380.01,
+   "usd": -1382.09,
    "jpy": -217749,
    "source": "same basis, last month"
   },
@@ -77,21 +77,21 @@
  "monthly": [
   {
    "month": "2026-09",
-   "revenue_usd": 390.63,
+   "revenue_usd": 356.37,
    "cost_usd": 1513.71,
-   "gross_profit_usd": -1123.08,
+   "gross_profit_usd": -1157.34,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)"
   },
   {
    "month": "2026-10",
-   "revenue_usd": 203.9,
+   "revenue_usd": 201.82,
    "cost_usd": 1583.91,
-   "gross_profit_usd": -1380.01,
+   "gross_profit_usd": -1382.09,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   },
   {
    "month": "2026-11 (to date)",
-   "revenue_usd": 0.0,
+   "revenue_usd": 0,
    "cost_usd": 12.0,
    "gross_profit_usd": -12.0,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
@@ -117,7 +117,8 @@
    "usd": 635.93,
    "payments": 1,
    "unknown": false,
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) transfer + finance/COST-CUTS.md rent row (RULE 0n)"
+   "verify": "未検証（MUFG 10月の出金 ¥100,000 は記録にあるが日付なし）",
+   "source": "未検証（MUFG 10月の出金 ¥100,000 は記録にあるが日付なし）; MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) transfer + finance/COST-CUTS.md rent row (RULE 0n)"
   },
   {
    "item": "OpenAI (2026-10)",
@@ -582,7 +583,7 @@
   "jpy": -2000,
   "usd": -12.0,
   "revenue_jpy": 0,
-  "revenue_usd": 0.0,
+  "revenue_usd": 0,
   "cost_jpy": 2000,
   "cost_usd": 12.0,
   "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
@@ -663,10 +664,11 @@
    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
   },
   {
-   "item": "Revenue all-time",
-   "usd": 1751.32,
+   "item": "Revenue all-time (confirmed deposits)",
+   "usd": 1701.7,
+   "jpy": 271834,
    "as_of": "2026-10-12",
-   "source": "cfo/history.csv revenue rows (9 rows; each row cites its receipt/API); 2 rows without JPY amount (USD from source)"
+   "source": "cfo/revenue_facts.py (11 paid rows in REVENUE-BY-SOURCE; USD via dated ECB); notice-only orders excluded (cfo/notices.csv)"
   }
  ],
  "products": [
