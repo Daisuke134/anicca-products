@@ -185,10 +185,21 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
   {
     slug: 'affirmations-for-overthinking',
     jaSlug: 'night-anxiety',
-    title: 'Affirmations for overthinking: short lines to interrupt the loop',
+    title: 'Affirmations for overthinking: 10 calm lines to stop the loop (2026)',
+    h1: 'Affirmations for overthinking: 10 calm lines that interrupt the loop',
+    directAnswer: [
+      'The short answer: affirmations help with overthinking when they interrupt the loop instead of fighting it. A believable, slightly boring line such as "I do not need to solve the whole story today" gives your attention somewhere else to stand for a moment. Read one slowly, then take one small action or do something with your hands.',
+    ],
+    faq: [
+      { q: "What are good affirmations for overthinking?", a: 'Believable, calm lines work better than big positive ones, for example: "A thought repeated ten times is still just one thought." "I do not need to solve the whole story today." "Not knowing yet is allowed." Pick one you could say to a friend without wincing.' },
+      { q: 'Do affirmations stop overthinking?', a: 'No phrase switches thoughts off. An affirmation works as a small interruption: one calm sentence, read slowly, gives your attention somewhere else to stand for a moment. Pair it with one small action, because some things only get clearer when you act, ask a person, or let time pass.' },
+      { q: 'How do I break an overthinking loop in two minutes?', a: 'Write the looping thought as one plain sentence. Ask whether there is an action you can take in the next ten minutes; if yes, do only that, if no, write "nothing to do right now." Then read one affirmation twice, slowly, and do something with your hands, such as washing a cup or stretching.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
     shortTitle: 'Affirmations for overthinking',
     metaDescription:
-      'Short affirmations for overthinking, plus a two-minute practice for when your mind replays everything. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+      '10 calm affirmations for overthinking that interrupt the loop instead of fighting it, plus a two-minute loop breaker for when your mind replays everything. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
     whyItHappens: [
       'Overthinking is the habit of turning one thought over and over: replaying a conversation, rehearsing a message, or running every possible outcome of a decision that has not happened yet. It can feel like problem solving, because your mind is busy and the topic feels important. But the loop often has no new information in it. You finish the tenth lap knowing what you knew on the first, and you are more tired.',
       'It helps to notice what overthinking is trying to do. Usually it is trying to buy certainty or protect you from a mistake. If you think about it enough, maybe you will not be surprised, embarrassed, or wrong. That is an understandable goal, and it is also one that thinking alone rarely delivers. Some things only get clearer when you act, ask a person, or let time pass.',
@@ -1020,6 +1031,73 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     },
     closing:
       'Related guides: affirmations for overthinking at night and affirmations for anxiety, linked below. If trouble sleeping lasts for weeks, affects your daytime life or health, or comes with low mood or panic, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+// Target query: "morning affirmations" (2026-11-02). Winners copied: answer-first definition, grouped short lines, before-the-phone routine, "how many" FAQ (see team/marketing/SEO-WINNERS.md).
+  {
+    slug: 'morning-affirmations',
+    jaSlug: 'self-esteem',
+    title: 'Morning affirmations (2026): 12 calm lines to start the day, plus a two-minute routine',
+    shortTitle: 'Morning affirmations',
+    h1: 'Morning affirmations: 12 calm, believable lines to start the day',
+    metaDescription:
+      'Morning affirmations are short, present-tense lines you say soon after waking to set the tone for the day. Here are 12 calm, believable ones, how many to use, and a two-minute routine before you check your phone. From Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    directAnswer: [
+      'Morning affirmations are short, first-person, present-tense sentences you say soon after waking, before messages and news set the tone for you. The ones that tend to work are calm and believable, such as "I can take today one step at a time," not lines that argue with how you feel. Pick one to three, say each slowly, and come back to one of them later in the day.',
+    ],
+    whyItHappens: [
+      'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral. The honest short answer: a morning affirmation will not change your day by itself, and it is not a treatment for low mood or anxiety. For some people it is a small, steady way to choose the first sentence of the day instead of letting a notification choose it.',
+      'Mornings matter because the first things you read often set the emotional tone. Scrolling news or social feeds first tends to pull attention toward comparison and urgency. One chosen line, read before the phone, gives your mind a calmer starting point.',
+      'Lines tend to work better when you can believe them today. "Today will be perfect" can feel false on a hard morning. Modest lines such as "I can do the next small thing" or "I do not have to feel ready to begin" do not demand a result, so there is nothing to fail at.',
+      'Fewer is better. Most people remember one to three lines; a list of fifty is easy to read and easy to forget. Keep the one that lands and bring it back at midday, which is where a reminder helps more than willpower.',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I can take today one step at a time.',
+      'I do not have to feel ready to begin.',
+      'I can do the next small thing.',
+      'Today does not need to be perfect to be good.',
+      'I have handled hard mornings before.',
+      'I am allowed to start slowly.',
+      'I can choose where my attention goes first.',
+      'One kind sentence to myself is a good start.',
+      'I can be calm and still get things done.',
+      'Whatever happens today, I can come back to my breath.',
+      'I do not need to finish everything today.',
+      'I am grateful for one small thing this morning.',
+    ],
+    practice: {
+      heading: 'A two-minute morning routine, before you check your phone',
+      steps: [
+        'Before opening messages or news, sit up, put both feet on the floor, and breathe out slowly for a count of six, three times.',
+        'Read the list once and pick one line that feels believable today, not the most positive one. Say it slowly, out loud or quietly, twice.',
+        'Write that line on paper or set it as a midday reminder, so you meet it again when the day gets busy. If it stops fitting, swap it for another line tomorrow.',
+      ],
+    },
+    faq: [
+      {
+        q: 'What are morning affirmations?',
+        a: 'Morning affirmations are short, first-person, present-tense sentences you say soon after waking, before messages and news set the tone. Calm, believable lines tend to work better than lines that argue with how you feel.',
+      },
+      {
+        q: 'What are good morning affirmations to start the day?',
+        a: 'Short, believable lines, for example: "I can take today one step at a time." "I do not have to feel ready to begin." "I can do the next small thing." Pick one to three and say each slowly.',
+      },
+      {
+        q: 'How many morning affirmations should I say?',
+        a: 'One to three is enough. A short set is easier to remember and bring back later in the day than a long list read once and forgotten.',
+      },
+      {
+        q: 'Should I say affirmations before checking my phone?',
+        a: 'If you can, yes. The first things you read often set the emotional tone, and news or social feeds tend to pull attention toward comparison and urgency. One chosen line first gives you a calmer starting point.',
+      },
+      {
+        q: 'Is the Anicca affirmation app free?',
+        a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.',
+      },
+    ],
+    campaignPrefix: 'seo_geo',
+    closing:
+      'Related guides: affirmations for motivation when tired and affirmations to fall asleep to, linked below. If low mood or anxiety makes mornings hard for weeks, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
 ];
 
