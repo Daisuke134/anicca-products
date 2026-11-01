@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 11:15 JST",
+ "updated_at": "2026-11-01 11:35 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -327,7 +327,7 @@
    "label": "継続中",
    "counted": true,
    "next_charge": "11/02",
-   "note": "未確認：MUFG 記録は OpenAI 10月合計 ¥46,855 のみで内訳なし",
+   "note": "確認済み（MUFG OpenAI 10月合計と一致）",
    "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
    "usd": 190.78,
    "usd_mo": 190.78,
@@ -341,7 +341,7 @@
    "label": "継続中",
    "counted": true,
    "next_charge": "~11/20",
-   "note": "未確認：MUFG 記録は OpenAI 10月合計 ¥46,855 のみで内訳なし",
+   "note": "確認済み（MUFG OpenAI 10月合計と一致）",
    "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
    "usd": 22.87,
    "usd_mo": 22.87,
@@ -444,7 +444,8 @@
    "Replit: 解約済み（11/08終了）",
    "Upwork Connects: amount データなし"
   ],
-  "bridge": "10月実績 ¥227,820 −OpenAI 一回限り¥13,259を除外 13,259 +Grok プラン変更 3,620 −Google Cloud 最終請求のみ 27,889 −Adobe 解約 9,960 −Upwork Connects 従量(月額データなし) 4,000 +HeyGen Creator (Apple)（10月の大口明細に無し） 4,500 +Telnyx（10月の大口明細に無し） 3,268 +X Premium (dup)（10月の大口明細に無し） 918 +Hetzner（10月の大口明細に無し） 253 +DigitalOcean（10月の大口明細に無し） 162 +Railway（10月の大口明細に無し） 3,756 +Apple Developer（10月の大口明細に無し） 1,082 +Cursor usage（10月の大口明細に無し） 107 = Active ¥190,378"
+  "bridge": "10月実績 ¥227,820 −OpenAI 一回限り¥13,259を除外 13,259 +Grok プラン変更 3,620 −Google Cloud 最終請求のみ 27,889 −Adobe 解約 9,960 −Upwork Connects 従量(月額データなし) 4,000 +HeyGen Creator (Apple)（10月の大口明細に無し） 4,500 +Telnyx（10月の大口明細に無し） 3,268 +X Premium (dup)（10月の大口明細に無し） 918 +Hetzner（10月の大口明細に無し） 253 +DigitalOcean（10月の大口明細に無し） 162 +Railway（10月の大口明細に無し） 3,756 +Apple Developer（10月の大口明細に無し） 1,082 +Cursor usage（10月の大口明細に無し） 107 = Active ¥190,378",
+  "openai": "OpenAI 10月 MUFG ¥46,855 = Pro ¥30,000 + Plus ¥3,596 + 一回限り ¥13,259"
  },
  "active_costs_total": {
   "usd_mo": 1210.67,
