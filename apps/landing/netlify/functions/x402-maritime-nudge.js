@@ -1,6 +1,6 @@
 // x402 paid endpoint for the Maritime agent: one behavior-change nudge + 3-step habit plan.
 // GET /.netlify/functions/x402-maritime-nudge?goal=sleep|exercise|focus|phone|stress&lang=en|ja
-// Pays $0.01 USDC on Base to the Maritime agent wallet (public address only).
+// Pays $0.005 USDC on Base to the Maritime agent wallet (public address only).
 const { createSeller } = require('./_x402');
 
 const PLANS = {
@@ -15,8 +15,8 @@ const GOALS = Object.keys(PLANS);
 const seller = createSeller({
   url: 'https://aniccaai.com/.netlify/functions/x402-maritime-nudge',
   payTo: '0x7a004fBbc3037371321B9f41875B7782971efE76',
-  price: '10000', // $0.01 USDC
-  description: 'Maritime agent: one behavior-change nudge plus a 3-step habit plan as JSON (en/ja). $0.01 per call.',
+  price: '5000', // $0.005 USDC
+  description: 'Maritime agent: one behavior-change nudge plus a 3-step habit plan as JSON (en/ja). $0.005 per call.',
   queryParams: {
     goal: { type: 'string', enum: GOALS, description: 'One of: ' + GOALS.join(', ') + ' (default focus)' },
     lang: { type: 'string', enum: ['en', 'ja'], description: 'en or ja (default en)' },
