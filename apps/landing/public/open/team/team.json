@@ -1,11 +1,11 @@
 {
- "built_at": "2026-11-01 08:56 JST",
+ "built_at": "2026-11-01 09:05 JST",
  "right_now": [
   {
    "agent": "参謀",
-   "last": "2026-10-31 21:20",
-   "source": "LOOPS.md",
-   "task": "loop #1 Distribution loop (Anicca+LM)",
+   "last": "2026-11-01 08:59",
+   "source": "LIVE-STATE.md",
+   "task": "copy-the-winners",
    "blocked": true
   },
   {
@@ -60,8 +60,8 @@
   {
    "agent": "Muse Relay",
    "last": "2026-11-01 08:25",
-   "source": "LIVE-STATE.md",
-   "task": "relay pass 08",
+   "source": "BOARD",
+   "task": "anicca-ct-links",
    "blocked": true
   }
  ],
