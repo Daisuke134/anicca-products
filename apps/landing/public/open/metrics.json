@@ -1,15 +1,15 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 06:12 JST",
+ "updated_at": "2026-11-02 06:19 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
-  "revenue_7d_usd": 15.85,
-  "revenue_30d_usd": 217.67,
-  "revenue_mtd_usd": 0.0,
+  "revenue_7d_usd": 47.66,
+  "revenue_30d_usd": 249.47,
+  "revenue_mtd_usd": 31.8,
   "costs_mtd_usd": 12.0,
-  "gross_profit_mtd_usd": -12.0,
-  "margin_pct": null,
+  "gross_profit_mtd_usd": 19.8,
+  "margin_pct": 62.3,
   "reconciliation_complete": true,
   "mrr_usd": 97.58,
   "active_costs_monthly_usd": 1210.67
@@ -22,6 +22,7 @@
   "costl": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual)",
   "gp": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis",
   "gpl": "same basis, last month",
+  "margin": "gross profit / revenue this month",
   "mrr": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs",
   "run": "FORWARD-LOOKING list, not actuals: sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded",
   "human": "metrics/human-interventions.csv"
@@ -43,9 +44,9 @@
   },
   {
    "month": "2026-11 (to date)",
-   "revenue_usd": 0.0,
+   "revenue_usd": 31.8,
    "cost_usd": 12.0,
-   "gross_profit_usd": -12.0,
+   "gross_profit_usd": 19.8,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   }
  ],
