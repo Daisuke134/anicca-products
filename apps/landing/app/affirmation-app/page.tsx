@@ -49,6 +49,7 @@ export default function Page() {
       <JsonLd data={jsonLd} />
       <JsonLd data={faqLd} />
       <AffirmationLanding locale="en" />
+      <nav aria-label="Guides and FAQ" style={{ maxWidth: 960, margin: "0 auto", padding: "24px 16px 48px" }}><h2>Guides and FAQ</h2><ul><li><a href="/affirmation-app-faq/">Anicca FAQ</a></li><li><a href="/guides/best-free-affirmation-app-iphone/">Best free daily affirmation app for iPhone</a></li><li><a href="/guides/affirmation-reminder-app/">How to set daily affirmation reminders on iPhone</a></li><li><a href="/ja/best-affirmation-apps">アファメーションアプリおすすめ比較（日本語）</a></li></ul></nav>
     </>
   );
 }
