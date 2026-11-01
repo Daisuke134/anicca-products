@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 21:12 JST",
+ "updated_at": "2026-11-01 21:22 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -11,20 +11,20 @@
   {
    "key": "rev7",
    "label": "Revenue (7d)",
-   "usd": 0.0,
-   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB"
+   "usd": 15.85,
+   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
   },
   {
    "key": "rev30",
    "label": "Revenue (30d)",
-   "usd": 201.82,
-   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB"
+   "usd": 217.67,
+   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
   },
   {
    "key": "revm",
    "label": "Revenue this month",
    "usd": 0.0,
-   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB"
+   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
   },
   {
    "key": "cost",
@@ -50,8 +50,8 @@
   {
    "key": "gpl",
    "label": "Profit last month (2026-10)",
-   "usd": -1382.09,
-   "jpy": -217749,
+   "usd": -1366.24,
+   "jpy": -215249,
    "source": "same basis, last month"
   },
   {
@@ -84,9 +84,9 @@
   },
   {
    "month": "2026-10",
-   "revenue_usd": 201.82,
+   "revenue_usd": 217.67,
    "cost_usd": 1583.91,
-   "gross_profit_usd": -1382.09,
+   "gross_profit_usd": -1366.24,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   },
   {
@@ -533,7 +533,7 @@
   "last_month": "Rent to 成田 (bank + Mac mini) 100,000 + OpenAI 46,855 + Grok 31,959 + Google Cloud 27,889 + Adobe 9,960 + Postiz 7,936 + HeyGen 6,129 + Upwork 4,000 + Railway 3,756 + Replit 3,283 + Telnyx 3,268 + Relixir 3,254 + X Premium 918 + Hetzner 253 + DigitalOcean 162 + Cursor 107 = 249,729",
   "active": "Rent to 成田 (bank + Mac mini) 100,000 + Grok — X Ultra (upgraded 10/31) 34,800 + Postiz Pro 7,936 + HeyGen Creator (Apple) 4,500 + Telnyx 3,268 + X Premium (dup) 918 + Hetzner 253 + DigitalOcean 162 + ChatGPT Pro (2nd-of-month ¥30,000) 30,000 + ChatGPT Plus 3,596 + Railway 3,756 + Moneytree Grow 0 + Apple Developer 1,082 + Cursor usage 107 + Vercel / Twilio / Netlify / Supabase 0 = 190,378",
   "gross_profit": "revenue ¥0 − costs this month ¥2,000 = ¥-2,000",
-  "gross_profit_last": "2026-10: revenue ¥31,980 − costs ¥249,729 = ¥-217,749",
+  "gross_profit_last": "2026-10: revenue ¥34,480 − costs ¥249,729 = ¥-215,249",
   "excluded": [
    "Google Cloud (Gemini/Maps): 最終請求（~11/02、一回だけ）",
    "ChatGPT charge ¥13,259 (10/24): 一回限りの請求（10/24、用途不明）、月額に含めない",
@@ -558,14 +558,6 @@
    "source": "capafy",
    "usd": 9.99,
    "jpy": null,
-   "status": "通知のみ・未入金",
-   "note": "cfo/notices.csv (not revenue until payout)"
-  },
-  {
-   "date": "2026-10-31",
-   "source": "coconala",
-   "usd": 3.17,
-   "jpy": 500,
    "status": "通知のみ・未入金",
    "note": "cfo/notices.csv (not revenue until payout)"
   },
@@ -664,11 +656,11 @@
    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
   },
   {
-   "item": "Revenue all-time (confirmed deposits)",
-   "usd": 1701.7,
-   "jpy": 271834,
+   "item": "Revenue all-time (deposits + Coconala accepted, payout pending)",
+   "usd": 1717.55,
+   "jpy": 274334,
    "as_of": "2026-11-01",
-   "source": "cfo/revenue_facts.py (12 paid rows in REVENUE-BY-SOURCE; USD via dated ECB); notice-only orders excluded (cfo/notices.csv)"
+   "source": "cfo/revenue_facts.py (14 paid/検収済み rows in REVENUE-BY-SOURCE; USD via dated ECB); notice-only orders excluded (cfo/notices.csv); Coconala ¥2,500 検収済み・入金予定 10/27+10/31, 入金予定日 不明（記録なし）"
   }
  ],
  "products": [

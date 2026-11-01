@@ -1,11 +1,11 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 21:12 JST",
+ "updated_at": "2026-11-01 21:22 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
-  "revenue_7d_usd": 0.0,
-  "revenue_30d_usd": 201.82,
+  "revenue_7d_usd": 15.85,
+  "revenue_30d_usd": 217.67,
   "revenue_mtd_usd": 0.0,
   "costs_mtd_usd": 12.0,
   "gross_profit_mtd_usd": -12.0,
@@ -15,9 +15,9 @@
   "active_costs_monthly_usd": 1210.67
  },
  "sources": {
-  "rev7": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB",
-  "rev30": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB",
-  "revm": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid rows, USD via dated ECB",
+  "rev7": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB",
+  "rev30": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB",
+  "revm": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB",
   "cost": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date) (company withdrawals to date)",
   "costl": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual)",
   "gp": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis",
@@ -36,9 +36,9 @@
   },
   {
    "month": "2026-10",
-   "revenue_usd": 201.82,
+   "revenue_usd": 217.67,
    "cost_usd": 1583.91,
-   "gross_profit_usd": -1382.09,
+   "gross_profit_usd": -1366.24,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   },
   {
