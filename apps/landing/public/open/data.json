@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 09:08 JST",
+ "updated_at": "2026-11-01 09:09 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 156.84,
@@ -209,23 +209,22 @@
  ],
  "balances": [
   {
-   "item": "Bank balance total",
-   "usd": null,
-   "as_of": "2026-11-01T08:58",
-   "source": "cfo ledger 2026-11-01 (Alpaca API, Twilio API)",
-   "note": "unknown (source error)"
+   "item": "Bank balance total (MUFG)",
+   "usd": 3559.89,
+   "as_of": "2026-10-25",
+   "source": "Moneytree statement in daily report email (receipt evidence private receipt); latest real record"
   },
   {
    "item": "Known balances total",
-   "usd": 76.54,
-   "as_of": "2026-11-01T08:58",
-   "source": "cfo ledger 2026-11-01 (Alpaca API, Twilio API)"
+   "usd": 3636.43,
+   "as_of": "2026-11-01T09:08",
+   "source": "cfo ledger 2026-11-01 (Alpaca API, private receipt (10/27 08:16 JST 財務レポート, Moneytree読取), Twilio API)"
   },
   {
    "item": "Net worth (cash+balances-liabilities)",
    "usd": null,
-   "note": "unknown (source error): liabilities not tracked",
-   "as_of": "2026-11-01T08:58",
+   "note": "unknown (source error): liabilities missing (SMBC card payment amount not in notice email; no loan/card statement record)",
+   "as_of": "2026-11-01T09:08",
    "source": "cfo ledger"
   },
   {
@@ -233,6 +232,18 @@
    "usd": 1771.43,
    "as_of": "2026-10-31",
    "source": "cfo/history.csv revenue rows (12 rows; each row cites its receipt/API); 4 rows without JPY amount (USD from source)"
+  }
+ ],
+ "products": [
+  {
+   "product": "The Manager",
+   "owner": "Codex (Head of Research)",
+   "stage": "research (Manager Lab, daily 09:00 JST)",
+   "research_articles": 3,
+   "experiments_run": 3,
+   "latest_article_url": "https://aniccaai.com/blog/lab-action-centered-bandit-2026-11-01-ja",
+   "metric": "3 articles / 3 experiments",
+   "source": "team/research/manager-lab/manifest.json (article list) + experiment folders"
   }
  ]
 }
