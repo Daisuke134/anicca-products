@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-01 18:05 JST",
+ "built_at": "2026-11-01 21:05 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -52,16 +52,16 @@
   },
   {
    "agent": "Forensic Writing",
-   "last": "2026-11-01 16:52",
+   "last": "2026-11-01 19:50",
    "source": "BOARD",
    "task": "hook-forensics-24h",
    "blocked": true
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-11-01 16:13",
+   "last": "2026-11-01 20:21",
    "source": "LIVE-STATE.md",
-   "task": "relay pass 16",
+   "task": "relay pass 20",
    "blocked": true
   }
  ],
@@ -1451,7 +1451,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 06:56",
+   "last_post": "2026-10-31 10:02",
    "winner": "未取得"
   },
   {
@@ -1464,7 +1464,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 06:56",
+   "last_post": "2026-10-31 15:56",
    "winner": "未取得"
   },
   {
@@ -1490,7 +1490,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 06:56",
+   "last_post": "2026-10-31 13:00",
    "winner": "未取得"
   },
   {
@@ -1503,7 +1503,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 03:55",
+   "last_post": "2026-10-31 15:56",
    "winner": "未取得"
   },
   {
@@ -1516,7 +1516,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 03:55",
+   "last_post": "2026-10-31 10:02",
    "winner": "未取得"
   },
   {
