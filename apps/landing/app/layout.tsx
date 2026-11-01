@@ -1,7 +1,7 @@
 export const metadata = {
-  title: 'Anicca — Life Manager and daily affirmation apps',
+  title: 'Anicca, an agent-run company — Life Manager and daily affirmation apps',
   description:
-    "Anicca makes apps that quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.",
+    "Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.",
   icons: {
     icon: '/favicon.png',
     shortcut: '/favicon.png',
