@@ -1,50 +1,1266 @@
 {
- "version": 2,
- "updated_at": "2026-11-01 08:59 JST",
- "month": "2026-11",
- "currency": "USD",
- "totals": {
-  "revenue_7d_usd": 0.0,
-  "revenue_30d_usd": 203.9,
-  "revenue_mtd_usd": 0.0,
-  "costs_mtd_usd": 12.0,
-  "gross_profit_mtd_usd": -12.0,
-  "margin_pct": null,
-  "mrr_usd": 93.58,
-  "active_costs_monthly_usd": 705.78
+ "loops": [
+  {
+   "loop": "Distribution loop (Anicca+LM)",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "3h",
+   "runs_per_day": 8.0,
+   "posts_to": "LM SNS→ marketing/POST-LOG.csv",
+   "status": "ACTIVE again 10/31 21:2x"
+  },
+  {
+   "loop": "X money scout",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "毎日 7:41",
+   "runs_per_day": 1,
+   "posts_to": "LEARNINGS.md",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Daily metrics scoreboard",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "21:05",
+   "runs_per_day": 1,
+   "posts_to": "SCOREBOARD.md",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Hourly status to 成田さん",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "3h",
+   "runs_per_day": 8.0,
+   "posts_to": "成田さんDM",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Daily engage pass",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "11:13",
+   "runs_per_day": 1,
+   "posts_to": "X 2垢の返信/いいね",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Gig platforms pass 9/15/21（Lancers・CrowdWorks・Coconala、参謀が唯一の担当）",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "毎日 9:00/15:00/21:00 JST（スクリプト高頻度アクセス禁止：Lancers 警告 10/27）",
+   "runs_per_day": 3,
+   "posts_to": "gig-metrics.csv / 返信・承諾・納品 / BOARD.md",
+   "status": "稼働 2026-10-31〜"
+  },
+  {
+   "loop": "Team revenue loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "3h",
+   "runs_per_day": 8.0,
+   "posts_to": "gig-metrics.csv、提案",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Copy-the-winners teardown",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "9:00/17:00",
+   "runs_per_day": 2,
+   "posts_to": "gaps/, WINNERS.md",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Gig listings metrics",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "10:30",
+   "runs_per_day": 1,
+   "posts_to": "gig-metrics.csv",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "X distribution @selawmqt",
+   "owner": "参謀（唯一の投稿者）",
+   "host": "参謀の Grok Bot routine",
+   "schedule": "1日4回",
+   "runs_per_day": null,
+   "posts_to": "X @selawmqt、素材 marketing/X-QUEUE-selawmqt.md、記録 POST-LOG.csv",
+   "status": "2026-10-31 成田さん: 投稿者は参謀だけ"
+  },
+  {
+   "loop": "Opportunity apply loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "2h",
+   "runs_per_day": 12.0,
+   "posts_to": "opportunities/",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Long-term thinking",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "10:00",
+   "runs_per_day": 1,
+   "posts_to": "LONG-TERM-STRATEGY.md",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Daily Anicca report",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "8:30",
+   "runs_per_day": 1,
+   "posts_to": "成田さんDM",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "お笑いライブ抽選",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "10:00",
+   "runs_per_day": 1,
+   "posts_to": "comedy-lives.md",
+   "status": "?"
+  },
+  {
+   "loop": "New contract-platform signup",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "4h",
+   "runs_per_day": 6.0,
+   "posts_to": "gig-platforms.md",
+   "status": "?"
+  },
+  {
+   "loop": "Meta loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "9:15/15:15/21:15",
+   "runs_per_day": 3,
+   "posts_to": "LOOP-MAP.md 等",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "CMO weekly",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "月曜",
+   "runs_per_day": null,
+   "posts_to": "marketing/",
+   "status": "?"
+  },
+  {
+   "loop": "LM Cloud+Maritime",
+   "owner": "参謀（実装 Codex）",
+   "host": "Grok Bot",
+   "schedule": "9:50/15:50/21:50",
+   "runs_per_day": 3,
+   "posts_to": "Codex 依頼、PR",
+   "status": "OK 10/30 15:4x"
+  },
+  {
+   "loop": "Investing loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "平日 22:40",
+   "runs_per_day": 1,
+   "posts_to": "INVESTING-LOG.md",
+   "status": "?"
+  },
+  {
+   "loop": "Content+SEO+AEO",
+   "owner": "参謀（10/30 担当は Muse に移管）",
+   "host": "Grok Bot",
+   "schedule": "4h",
+   "runs_per_day": 6.0,
+   "posts_to": "SEO-GSC.md, note",
+   "status": "OK "
+  },
+  {
+   "loop": "CEO growth loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "8:35/14:35/20:35",
+   "runs_per_day": 3,
+   "posts_to": "LOOPS-PRODUCT-TURNS.md, LOOP-HEALTH.md",
+   "status": "OK "
+  },
+  {
+   "loop": "Daily account metrics snapshot",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "9:15",
+   "runs_per_day": 1,
+   "posts_to": "ACCOUNTS.md / metrics/",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Mac mini exit loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "11:00",
+   "runs_per_day": 1,
+   "posts_to": "MACMINI-EXIT.md",
+   "status": "?"
+  },
+  {
+   "loop": "Daily E2E attribution",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "15:30",
+   "runs_per_day": 1,
+   "posts_to": "metrics/",
+   "status": "?"
+  },
+  {
+   "loop": "YC hackathon watch",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "8:00/20:00",
+   "runs_per_day": 2,
+   "posts_to": "hackathons/",
+   "status": "?"
+  },
+  {
+   "loop": "YC acceptance→flight",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "4h",
+   "runs_per_day": 6.0,
+   "posts_to": "成田さんDM",
+   "status": "OUTAGE-FAIL"
+  },
+  {
+   "loop": "Manager research loop daily（論文1本→小実験→aniccaai.com記事→X-QUEUE案）",
+   "owner": "Codex（Head of Research）",
+   "host": "Grok Bot（box routine、重い処理は /workspace/team/bin/codex-run.sh）",
+   "schedule": "毎日 09:00 JST",
+   "runs_per_day": 1,
+   "posts_to": "research/manager-lab/manifest.json",
+   "status": "OK"
+  },
+  {
+   "loop": "参謀 daily self-improvement",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "7:30",
+   "runs_per_day": 1,
+   "posts_to": "SELF-IMPROVEMENT.md",
+   "status": "?"
+  },
+  {
+   "loop": "Founder-out-of-loop audit",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "23:00",
+   "runs_per_day": 1,
+   "posts_to": "HUMAN-DEPENDENCIES.md",
+   "status": "?"
+  },
+  {
+   "loop": "Hourly team health check",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "毎時:50",
+   "runs_per_day": null,
+   "posts_to": "LOOP-HEALTH.md, health/",
+   "status": "本当の故障あり"
+  },
+  {
+   "loop": "Honne product loop",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "9:00",
+   "runs_per_day": 1,
+   "posts_to": "PRODUCT-LOOPS.md",
+   "status": "?"
+  },
+  {
+   "loop": "Naïve founders email",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "?",
+   "runs_per_day": null,
+   "posts_to": "メール",
+   "status": "?"
+  },
+  {
+   "loop": "Agent recruiting weekly",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "週1",
+   "runs_per_day": null,
+   "posts_to": "TEAM.md",
+   "status": "?"
+  },
+  {
+   "loop": "Daily team briefing",
+   "owner": "参謀",
+   "host": "Grok Bot",
+   "schedule": "8:50",
+   "runs_per_day": 1,
+   "posts_to": "briefings/、部屋",
+   "status": "?"
+  },
+  {
+   "loop": "Anicca 配信＋LM配信＋数値（growth loop）",
+   "owner": "Anicca Marketer",
+   "host": "Grok Bot",
+   "schedule": "3時間ごと 0:47・3:47・6:47…21:47（±15分、10/30 17:58〜 USAGE-CUTS）",
+   "runs_per_day": 96,
+   "posts_to": " Bluesky JP/EN・Mastodon @anicca_affirm/@aniccaapp・Tumblr、LM の Bluesky/Mastodon/T",
+   "status": "OK "
+  },
+  {
+   "loop": "Fucker revenue loop（Capafy hands-off N2 周回＋PromptBase/Honne・PDF Insight/Mercor/Fiverr）＋ Fucker daily revenue step ＋ Honne/PDF Insight daily distribution",
+   "owner": "Fucker",
+   "host": "Grok Bot",
+   "schedule": "2時間ごと :35（±15分、10/30 17:58〜 使用量削減。Mercor は1日1回）／毎日 10:00／毎日 10:55",
+   "runs_per_day": 96,
+   "posts_to": "Capafy 出品・提出、opportunities/naive-hackathon/AUTONOMY-LEDGER.csv・CAPAFY-CYCLES.md、",
+   "status": "毎時ループ OK "
+  },
+  {
+   "loop": "upwork-skima-loop",
+   "owner": "dr eggbot",
+   "host": "Grok Bot（重い下書きは codex-run.sh）",
+   "schedule": "3時間ごと24時間（0/3/6/9/12/15/18/21時 JST、10/30 17:53〜）",
+   "runs_per_day": 1,
+   "posts_to": "Upwork/SKIMA 応募、LBLX134 workroom と Alignerr 招待の監視、Freelancer/Malt の受信を参謀へ転送",
+   "status": "稼働中。応募は本人確認待ちで停止"
+  },
+  {
+   "loop": "coconala-lancers-loop（10/30 14:28 移管）",
+   "owner": "dr eggbot",
+   "host": "Grok Bot",
+   "schedule": "—",
+   "runs_per_day": null,
+   "posts_to": "ココナラ/Lancers",
+   "status": "**STOPPED 2026-10-31**"
+  },
+  {
+   "loop": "Daily HOOKS.md refresh",
+   "owner": "Forensic Writing",
+   "host": "Grok Bot（重い処理は box codex-run.sh）",
+   "schedule": "毎日 6:08〜6:30 JST（Grok Bot routine daily-hooks-md-refresh）",
+   "runs_per_day": 2,
+   "posts_to": "marketing/HOOKS.md, hook-forensics/hook-formulas.md, WINS.md, 参謀へDMで上位3件",
+   "status": "10/28〜30 使用量切れで失敗、10/31 に3日分まとめて回収。今のタスク"
+  },
+  {
+   "loop": "Muse Relay pass",
+   "owner": "Muse Relay",
+   "host": "Grok Bot routine muse-relay-pass（書き直しは box の codex-run.sh）",
+   "schedule": "24時間 4h（0・4・8・12・16・20時±15。10/31 18:43 RULE 0g で夜間停止を廃止）",
+   "runs_per_day": 6.0,
+   "posts_to": "自分では投稿しない。勝ち投稿を WINS.md に1行、素材を marketing/samples/muse-relay/ と X-QUEUE-diceai0.",
+   "status": "OK"
+  },
+  {
+   "loop": "Muse 全レーン（IG 3垢 勝者コピー1日3本・Threads @anicca.en・monk.mujo＋TikTok @anicca_cemetery（受託・Capafy は 2026-10-31 停止）・SEO/AIO・/open）",
+   "owner": "Muse",
+   "host": "Muse クラウドVM（定義 goals/anicca-revenue-growth-as-life-manager/crons/）",
+   "schedule": "毎日 03:22〜22:22 の各 :22（distribution 09:22/15:22、threads 12:22、articles 14:22、monk-daily 20:22、daily-report 21:22 ほか）／3h・1h・6h・30分・15分のループあり。詳細は §Muse",
+   "runs_per_day": 8.0,
+   "posts_to": "IG・Threads・僧侶TikTok・note/Substack・aniccaai.com・LEARNINGS.md",
+   "status": "行を記入済み 16:12"
+  },
+  {
+   "loop": "X loop @diceai0（Anicca, build in public）",
+   "owner": "参謀（唯一の投稿者。他は X-QUEUE-diceai0.md に下書きだけ）",
+   "host": "参謀の Grok Bot routine",
+   "schedule": "1日6回 08:15・11:15・14:15・17:15・20:15・23:15 JST",
+   "runs_per_day": 6,
+   "posts_to": "box ブラウザで x.com から投稿。手順 runbooks/X-DICEAI0.md、記録 marketing/X-ACTIONS.md・POST-LOG",
+   "status": "2026-10-31 成田さん: 投稿者は参謀だけ"
+  },
+  {
+   "loop": "APP-SCALING-WINNERS 更新",
+   "owner": "Dots (dots-one)",
+   "host": "Mac mini（Reason）",
+   "schedule": "毎日 14:00（初回 10/31）",
+   "runs_per_day": 1,
+   "posts_to": "research/APP-SCALING-WINNERS.md",
+   "status": "未開始"
+  },
+  {
+   "loop": "Postiz ショート動画ジョブ（LM launchd 各レーン、ebook-*-daily, capafy-reel/ig, x-tweeter 等）",
+   "owner": "Mac mini（LM local / Muse）",
+   "host": "Mac mini launchd",
+   "schedule": "1日1〜5本/垢",
+   "runs_per_day": null,
+   "posts_to": "TikTok 9垢・IG 6垢・YT 2垢・",
+   "status": "投稿は出ている"
+  },
+  {
+   "loop": "capafy-autopublish",
+   "owner": "Mac mini Codex",
+   "host": "Mac mini",
+   "schedule": "?",
+   "runs_per_day": null,
+   "posts_to": "Capafy 下書き",
+   "status": "STOPPED 2026-10-31 要請"
+  },
+  {
+   "loop": "ops-mirror sync",
+   "owner": "参謀",
+   "host": "box（loop.sh、crond なし）",
+   "schedule": "30分",
+   "runs_per_day": 48,
+   "posts_to": "/tmp/ops-sync.log",
+   "status": "稼働中"
+  },
+  {
+   "loop": "monk_daily.py / obou_daily.py",
+   "owner": "参謀",
+   "host": "box（routine 経由）",
+   "schedule": "毎日",
+   "runs_per_day": null,
+   "posts_to": "IG @monk.mujo/@obou.anicca、TikTok @monk_anicca/@obou_anicca",
+   "status": "?"
+  },
+  {
+   "loop": "capafy-loop-daily",
+   "owner": "Mac mini Codex",
+   "host": "Mac mini launchd",
+   "schedule": "毎時 :09/:24/:39/:54",
+   "runs_per_day": null,
+   "posts_to": "Capafy へ提出",
+   "status": "STOPPED 2026-10-31 要請"
+  },
+  {
+   "loop": "capafy-distribute-daily",
+   "owner": "Mac mini Codex",
+   "host": "Mac mini launchd",
+   "schedule": "毎時 :04/:19/:34/:49",
+   "runs_per_day": null,
+   "posts_to": "自社記事の配信",
+   "status": "STOPPED 2026-10-31 要請"
+  },
+  {
+   "loop": "Codex 進捗報告",
+   "owner": "Mac mini Codex",
+   "host": "Mac mini launchd",
+   "schedule": "5分ごと",
+   "runs_per_day": 288,
+   "posts_to": "Telegram",
+   "status": "稼働状態未確認"
+  },
+  {
+   "loop": "Public /open refresh (collect_all → metrics.json → anicca-products main)",
+   "owner": "参謀",
+   "host": "Grok Bot（box）→ Mac mini git push → GitHub Actions deploy → Netlify",
+   "schedule": "毎日 21:05（scoreboard と同じ回で bash /workspace/team/scripts/open/update_open.sh）",
+   "runs_per_day": 1,
+   "posts_to": "https://aniccaai.com/open＋ anicca-open.surge.sh",
+   "status": "2026-10-30 20:26 手動テスト OK"
+  },
+  {
+   "loop": "diceai0 follower tracker",
+   "owner": "Forensic Writing",
+   "host": "Grok Bot routine diceai0-follower-tracker",
+   "schedule": "毎日 21:00 JST",
+   "runs_per_day": 1,
+   "posts_to": "x/FOLLOWERS.md, x/TOPIC-QUEUE.md, metrics/x-followers.csv",
+   "status": "新設 10/30、初回 21:10 OK"
+  },
+  {
+   "loop": "LinkedIn（Daisuke Narita / EverFocus Labs）build in public",
+   "owner": "Muse（本物）・全員本番",
+   "host": "Muse 自前サブスク（Postiz web）",
+   "schedule": "1日1本",
+   "runs_per_day": null,
+   "posts_to": "Postiz → LinkedIn、marketing/POST-LOG.csv で二重確認、runbooks/LINKEDIN.md",
+   "status": "新設 2026-10-30 22:5x、初稿 samples/muse-rela"
+  }
+ ],
+ "pnl": {
+  "month": "2026-11",
+  "revenue_by_source": {},
+  "revenue_total": 0,
+  "platform_fees": {
+   "Capafy 20%": 0.0,
+   "Apple 15% (RC MRR)": 3.0
+  },
+  "gross_profit": -12.0,
+  "opex_monthly": {
+   "ChatGPT Pro (Codex, Dots)": 191.28,
+   "ChatGPT extra charges (2, under review)": 107.47,
+   "Postiz": 50.6,
+   "HeyGen": 28.69,
+   "Railway": 23.95,
+   "Replit": 20.93,
+   "Telnyx": 20.84,
+   "X Premium": 5.85,
+   "Cursor usage": 0.68,
+   "Adobe": 31.75,
+   "Hetzner": 1.61,
+   "Google Cloud / Gemini API": 177.82,
+   "Apple Developer Program": 8.25,
+   "Sunflower Plus (Apple annual)": 3.19,
+   "DigitalOcean": 0.0,
+   "X Super (ends 2026-11-29, replaced by Ultra; not in run-rate)": 113.49,
+   "Grok Bot Ultra (recurring from 2026-11-30)": 221.88
+  },
+  "opex_total": 894.79,
+  "net": -897.79,
+  "burn": 897.79,
+  "gross_profit_status": "partial",
+  "expenses_mtd_items": {
+   "Upwork payment notice (primary event)": 12.0
+  },
+  "expenses_mtd_total": 12.0,
+  "note": "opex_monthly = recurring run-rate (Ultra replaces X Super, no double count). gross_profit = revenue MTD minus known expenses MTD (partial)."
  },
- "sources": {
-  "rev7": "finance/REVENUE-BY-SOURCE.csv dated rows",
-  "rev30": "finance/REVENUE-BY-SOURCE.csv dated rows",
-  "revm": "finance/REVENUE-BY-SOURCE.csv dated rows",
-  "cost": "1 observed receipt lines; coverage incomplete; unknown USD is not zero",
-  "gp": "revenue this month minus observed costs; unavailable when USD costs unknown",
-  "mrr": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs",
-  "run": "active cost list (table below)",
-  "human": "metrics/human-interventions.csv"
+ "mrr_breakdown": {
+  "revenuecat": 20,
+  "capafy": 73.58,
+  "capafy_active_paid_periods": [
+   "NHL Goalie Matchup Brief",
+   "TikTok Storytime Script"
+  ],
+  "stripe": 0.0,
+  "stripe_active_subscriptions": 0,
+  "total": 93.58,
+  "method": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs"
  },
+ "metric_gaps": [
+  {
+   "item": "Capafy renewals",
+   "why": "Capafy emails only the first sale per agent; renewals and 2nd+ buyers need Seller Console (capafy.ai/developer/analytics) login read"
+  },
+  {
+   "item": "PromptBase views/sales",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "Coconala/Lancers/CrowdWorks/Upwork earnings",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "App Store downloads (ASC)",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "PostHog product events",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "Instagram/TikTok followers",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "affiliate clicks/earnings",
+   "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "App Store category rank",
+   "why": "Apple top-charts RSS only lists top 100-200 per genre; not in chart = no rank number"
+  },
+  {
+   "item": "Capafy category/search position",
+   "why": "no public search-rank endpoint found; only per-seller uses are public"
+  },
+  {
+   "item": "PromptBase rank/sales",
+   "why": "no public API; dashboard login only (last read 10/27: 11 live, 0 sales)"
+  },
+  {
+   "item": "Google SERP for non-GSC sites",
+   "why": "no SERP API key on box"
+  },
+  {
+   "item": "Costs not in total",
+   "why": "Domains, Vercel/Netlify/Supabase usage, Dots(Reason) not billed separately; no receipts found."
+  },
+  {
+   "item": "Per-product cost split",
+   "why": "vendor costs (Grok/ChatGPT/Postiz) are shared; not allocated per product"
+  }
+ ],
  "monthly": [
   {
+   "month": "2026-06",
+   "revenue": 9.99,
+   "costs": 0.0,
+   "net": 9.99
+  },
+  {
+   "month": "2026-07",
+   "revenue": 407.72,
+   "costs": 0.0,
+   "net": 407.72
+  },
+  {
+   "month": "2026-08",
+   "revenue": 720.98,
+   "costs": 0.0,
+   "net": 720.98
+  },
+  {
    "month": "2026-09",
-   "revenue_usd": 390.63,
-   "cost_usd": 1513.71,
-   "gross_profit_usd": -1123.08,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (see costs)"
+   "revenue": 459.67,
+   "costs": 1513.71,
+   "net": -1054.04
   },
   {
    "month": "2026-10",
-   "revenue_usd": 203.9,
-   "cost_usd": 902.64,
-   "gross_profit_usd": -698.74,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 17 receipt lines (see costs)"
+   "revenue": 250.98,
+   "costs": 789.63,
+   "net": -538.65
   },
   {
-   "month": "2026-11 (to date)",
-   "revenue_usd": 0.0,
-   "cost_usd": 12.0,
-   "gross_profit_usd": -12.0,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 1 receipt lines (see costs)"
+   "month": "2026-11",
+   "revenue": 0.0,
+   "costs": 12.7,
+   "net": -12.7
   }
  ],
- "see": "data.json for every row and its source"
+ "mrr_history": [
+  {
+   "date": "2026-10-26",
+   "mrr": 24.0
+  },
+  {
+   "date": "2026-10-30",
+   "mrr": 93.58
+  },
+  {
+   "date": "2026-10-31",
+   "mrr": 93.58
+  },
+  {
+   "date": "2026-11-01",
+   "mrr": 93.58
+  }
+ ],
+ "rankings": {
+  "app_store": {
+   "Anicca": {
+    "keywords": {
+     "us:affirmations": "圏外(>200)",
+     "us:daily affirmations": "圏外(>200)",
+     "us:affirmation app": "圏外(>200)",
+     "jp:アファメーション": 37,
+     "jp:アファメーション アプリ": 37
+    },
+    "id": 6755129214,
+    "genre": "Health & Fitness",
+    "ratings": 48,
+    "rating": 4.52083,
+    "version": "1.9.4"
+   },
+   "Honne": {
+    "keywords": {
+     "jp:本音翻訳": 1,
+     "jp:LINE 相性": "圏外(>200)",
+     "jp:本音": 28
+    },
+    "id": 6759667221,
+    "genre": "Utilities",
+    "ratings": 2,
+    "rating": 5,
+    "version": "1.0.5"
+   },
+   "Thankful": {
+    "keywords": {
+     "us:gratitude journal": "圏外(>200)",
+     "us:gratitude": "圏外(>200)",
+     "jp:感謝日記": 174
+    },
+    "id": 6759514159,
+    "genre": "Health & Fitness",
+    "ratings": 1,
+    "rating": 5,
+    "version": "1.0.2"
+   }
+  },
+  "gsc": {
+   "https://aniccaai.com/": {
+    "d7": {
+     "clicks": 2,
+     "impressions": 31,
+     "ctr": 0.06451612903225806,
+     "position": 8.096774193548388
+    },
+    "top_queries": [
+     {
+      "q": "anicca",
+      "pos": 32,
+      "impr": 2,
+      "clicks": 0
+     },
+     {
+      "q": "anicca data science solutions",
+      "pos": 70,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "aniccai.com",
+      "pos": 20,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "annca ai",
+      "pos": 6,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "annica",
+      "pos": 84.5,
+      "impr": 2,
+      "clicks": 0
+     },
+     {
+      "q": "annica digital",
+      "pos": 44,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "googleカレンダー 移動時間",
+      "pos": 11,
+      "impr": 1,
+      "clicks": 0
+     }
+    ]
+   }
+  },
+  "capafy": {
+   "our_top": [
+    {
+     "rank": 1,
+     "title": "Free Clip Map — 10 Best Shorts From Your Video",
+     "uses": 2151
+    },
+    {
+     "rank": 2,
+     "title": "Hook Grader — Free Hook Score (0-10)",
+     "uses": 57
+    },
+    {
+     "rank": 3,
+     "title": "TikTok Series Continuity Planner — Next Script",
+     "uses": 2
+    },
+    {
+     "rank": 4,
+     "title": "TikTok Storytime Script — Scene-by-Scene",
+     "uses": 1
+    },
+    {
+     "rank": 5,
+     "title": "NHL Goalie Matchup Brief",
+     "uses": 1
+    }
+   ],
+   "winner_saya_top": [
+    [
+     40346,
+     "CloneCut — Viral Clone, Seedance2.0"
+    ],
+    [
+     305,
+     "Seedance 2.0 Video - Generate Instantly"
+    ],
+    [
+     123,
+     "YouTube Scripts — Keep Viewers Watching"
+    ]
+   ]
+  }
+ },
+ "winners": [
+  {
+   "product": "Anicca iOS",
+   "winner": "Daily Affirmations and Widgets (id6758928040)",
+   "metric": "US ratings",
+   "gap_rows": 13,
+   "open": 7,
+   "file": "gaps/GAP-appstore-anicca.md"
+  },
+  {
+   "product": "Honne",
+   "winner": "めろとーく (id6757545135)",
+   "metric": "JP ranking/ratings",
+   "gap_rows": 13,
+   "open": 11,
+   "file": "gaps/GAP-honne-merotalk.md"
+  },
+  {
+   "product": "Capafy",
+   "winner": "saya CloneCut (5133292529)",
+   "metric": "uses / daily demo video",
+   "gap_rows": 17,
+   "open": 10,
+   "file": "gaps/GAP-capafy-Anicca.md"
+  },
+  {
+   "product": "PromptBase",
+   "winner": "@shandra (Rank #1)",
+   "metric": "sales / rank",
+   "gap_rows": 14,
+   "open": 12,
+   "file": "gaps/GAP-promptbase-keipanda.md"
+  },
+  {
+   "product": "PDF Insight",
+   "winner": "ChatPDF",
+   "metric": "traffic / price",
+   "gap_rows": 12,
+   "open": 9,
+   "file": "gaps/GAP-pdfinsight-chatpdf.md"
+  },
+  {
+   "product": "note",
+   "winner": "@yuusan_juusyoku",
+   "metric": "followers / daily posts",
+   "gap_rows": 17,
+   "open": 11,
+   "file": "gaps/GAP-note-anicca123.md"
+  },
+  {
+   "product": "Upwork",
+   "winner": "vivek s. (Top Rated, 258 reviews)",
+   "metric": "reviews / catalog",
+   "gap_rows": 14,
+   "open": 8,
+   "file": "gaps/GAP-upwork-daisukenarita.md"
+  }
+ ],
+ "updated_at": "2026-11-01 09:02 JST",
+ "mission": "Build the manager, an AI that ends suffering in this world.",
+ "goal": {
+  "mrr_usd": 10000,
+  "current_mrr_usd": 93.58,
+  "progress_pct": 0.94
+ },
+ "totals": {
+  "revenue_mtd_usd": 0.0,
+  "revenue_last30d_usd": 224.01,
+  "mrr_usd": 93.58,
+  "currency": "USD"
+ },
+ "expenses": {
+  "mtd_usd": 12.0,
+  "status": "partial",
+  "items": {
+   "Upwork payment notice (primary event)": 12.0
+  },
+  "coverage": {
+   "month": "2026-11",
+   "status": "partial",
+   "ledger_month_available": true,
+   "unknown_vendor_count": 0,
+   "unknown_amount_row_count": 0,
+   "known_partial_usd": 12.0,
+   "observed_payment_subset_jpy": 2000,
+   "observed_payment_row_count": 1,
+   "observed_payment_as_of": "2026-11-01T03:46:00+09:00",
+   "coverage_complete": false,
+   "company_total_usd": null,
+   "note": "Observed payment subset only; missing USD values remain unknown. Native JPY is not a complete company expense total."
+  },
+  "note": "Observed payment subset; unknown amounts are not zero"
+ },
+ "gross_profit": {
+  "mtd_usd": -12.0,
+  "status": "partial",
+  "revenue_mtd_usd": 0.0,
+  "method": "revenue MTD (REVENUE-BY-SOURCE) minus known expenses MTD"
+ },
+ "grok_ultra": [
+  {
+   "item": "Grok Bot Ultra — this month (actual spend)",
+   "label_ja": "Grok Bot Ultra 今月の実支出",
+   "date": "2026-10-31",
+   "invoice": "766D3D820C",
+   "amount_usd": 130.36,
+   "amount_jpy": 20445,
+   "kind": "paid"
+  },
+  {
+   "item": "Grok Bot Ultra — recurring from 2026-11-30",
+   "label_ja": "Grok Bot Ultra 11/30からの固定費",
+   "starts": "2026-11-30",
+   "monthly_usd": 221.88,
+   "monthly_jpy": 34800,
+   "kind": "recurring",
+   "replaces": "X Super ¥17,800/month (not double-counted)"
+  }
+ ],
+ "fx": "USD/JPY 156.84 (team finance rate, finance/REVENUE-BY-SOURCE.json fx_jpy_per_usd, 2026-10-31)",
+ "businesses": [
+  {
+   "name": "Contract work (freelance platforms)",
+   "owner": "dr eggbot, Dots, Fucker",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "paid Upwork contract (Labelbox) active since 10/30; Coconala trial order in progress",
+   "status": "live",
+   "next": "first Upwork payout; more Coconala repeat orders"
+  },
+  {
+   "name": "Anicca iOS (affirmation app)",
+   "owner": "Codex (build), Anicca Marketer (growth)",
+   "revenue_mtd": null,
+   "mrr": 20.0,
+   "metric": "paying subscribers",
+   "metric_value": 5,
+   "status": "live, update 1.9.6 in review",
+   "next": "1.9.6 approval"
+  },
+  {
+   "name": "Honne family apps (Honne, Thankful, Daily Dhamma, Sleep Reset)",
+   "owner": "Codex / Fucker",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "live on the App Store",
+   "status": "live",
+   "next": "Honne 1.0.5 release"
+  },
+  {
+   "name": "Capafy agents (Clip Map, Hook Lab and others)",
+   "owner": "Fucker",
+   "revenue_mtd": null,
+   "revenue_lifetime": null,
+   "mrr": null,
+   "metric": "installs (cumulative)",
+   "metric_value": 2275,
+   "status": "live; 4 fixed agents resubmitted 10/30, in review",
+   "next": "paid tier"
+  },
+  {
+   "name": "Monk e-book / Anicca Reset",
+   "owner": "Muse",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "social views, 7d (monk + app accounts)",
+   "metric_value": 17970,
+   "status": "live; Whop store created 10/30, listing next",
+   "next": "first e-book sale"
+  },
+  {
+   "name": "AI Monk Factory / Monk Database (web)",
+   "owner": "参謀",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "site pageviews (cumulative)",
+   "metric_value": 2040,
+   "status": "live",
+   "next": "search traffic (SEO loop)"
+  },
+  {
+   "name": "PromptBase prompts",
+   "owner": "Fucker",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "listing views, 7d",
+   "metric_value": 16,
+   "status": "live, no sales yet",
+   "next": "first sale"
+  },
+  {
+   "name": "LINE stickers",
+   "owner": "Digital products",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "38 sets on sale",
+   "status": "live, no sales yet",
+   "next": "first sale"
+  },
+  {
+   "name": "Life Manager Cloud",
+   "owner": "Codex (CTO)",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "shipped: aniccaai.com/maritime live; billing in test mode",
+   "status": "building; no paying users yet",
+   "next": "first paid signup end to end"
+  },
+  {
+   "name": "The Manager (AI that ends suffering)",
+   "owner": "Codex (Head of Research)",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "published research articles / experiments run (team/research/manager-lab)",
+   "metric_value": "2 articles / 2 experiments",
+   "research_articles": 2,
+   "experiments_run": 2,
+   "latest_article_url": "https://aniccaai.com/blog/lab-wcls-causal-excursion-2026-10-31-ja",
+   "status": "research (Manager Lab, daily 09:00 JST)",
+   "next": "next daily research note"
+  },
+  {
+   "name": "Accelerators, hackathons, grants",
+   "owner": "参謀 / Codex",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "accepted: Meta Global AI Developer Hackathon, Vultr Agent Rush; applied: YC Haunted Hacks; in progress: YC W27",
+   "status": "applying",
+   "next": "YC W27 due 11/3 12:00 JST; Meta build due 11/5"
+  }
+ ],
+ "agents": [
+  {
+   "agent": "参謀 (CEO)",
+   "today": "Priorities, delegation, YC W27, this page, SEO writing",
+   "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
+   "board_updates_today": 17
+  },
+  {
+   "agent": "Codex (CTO, Head of Research)",
+   "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
+   "platforms": "GitHub, App Store Connect",
+   "board_updates_today": 9
+  },
+  {
+   "agent": "Dots (COO)",
+   "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
+   "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
+   "board_updates_today": 4
+  },
+  {
+   "agent": "Muse (CMO)",
+   "today": "Monk reels, e-book funnel, Whop store, Naïve push",
+   "platforms": "Instagram, Threads, TikTok, YouTube, Whop",
+   "board_updates_today": 3
+  },
+  {
+   "agent": "dr eggbot",
+   "today": "Proposals and client work; designs new agents",
+   "platforms": "Coconala, Lancers, Upwork, SKIMA",
+   "board_updates_today": 13
+  },
+  {
+   "agent": "Fucker",
+   "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
+   "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
+   "board_updates_today": 0
+  },
+  {
+   "agent": "Anicca Marketer",
+   "today": "Anicca iOS growth: daily posts, directories, metrics",
+   "platforms": "TikTok @aniccaaffirmation, Bluesky, Mastodon, Nostr, Telegraph",
+   "board_updates_today": 7
+  },
+  {
+   "agent": "Muse Relay",
+   "today": "Turns Muse's winning reels into X / note / TikTok material",
+   "platforms": "none (hands drafts to account owners)",
+   "board_updates_today": 3
+  },
+  {
+   "agent": "Forensic Writing",
+   "today": "Viral-hook analysis for X (drafts only)",
+   "platforms": "none (drafts only)",
+   "board_updates_today": 3
+  },
+  {
+   "agent": "Manus (trial)",
+   "today": "New external teammate, first trial task starting 10/30",
+   "platforms": "none yet",
+   "board_updates_today": 0
+  }
+ ],
+ "contract_work": {
+  "applications_today": 9,
+  "applications_7d": 52,
+  "days": [
+   "2026-10-26",
+   "2026-10-27",
+   "2026-10-28",
+   "2026-10-29",
+   "2026-10-30",
+   "2026-10-31",
+   "2026-11-01"
+  ],
+  "platforms": [
+   {
+    "platform": "Coconala",
+    "owner": "dr eggbot",
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-10-26": 12,
+     "2026-10-27": 3,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0,
+     "2026-10-31": 2,
+     "2026-11-01": 0
+    },
+    "applications_7d": 17,
+    "status": "active; trial order in progress (10/30)",
+    "revenue_lifetime_usd": 1683.74
+   },
+   {
+    "platform": "Lancers",
+    "owner": "dr eggbot",
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-10-26": 9,
+     "2026-10-27": 0,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0,
+     "2026-10-31": 3,
+     "2026-11-01": 0
+    },
+    "applications_7d": 12,
+    "status": "active",
+    "revenue_lifetime_usd": null
+   },
+   {
+    "platform": "Upwork",
+    "owner": "dr eggbot",
+    "applications_today": 9,
+    "applications_by_day": {
+     "2026-10-26": 0,
+     "2026-10-27": 0,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0,
+     "2026-10-31": 5,
+     "2026-11-01": 9
+    },
+    "applications_7d": 14,
+    "status": "contract active (Labelbox, 10/30); ID check due 11/6",
+    "revenue_lifetime_usd": null
+   },
+   {
+    "platform": "SKIMA",
+    "owner": "dr eggbot",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "CrowdWorks",
+    "owner": "Dots",
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-10-26": 6,
+     "2026-10-27": 0,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0,
+     "2026-10-31": 2,
+     "2026-11-01": 0
+    },
+    "applications_7d": 8,
+    "status": "active; 3 client replies waiting (login needed)",
+    "revenue_lifetime_usd": null
+   },
+   {
+    "platform": "Contra",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Freelancer.com",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Malt",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Workana",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "account in review (10/26)",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Guru",
+    "owner": "Dots",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "signup retry assigned to Dots",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Mercor",
+    "owner": "Fucker",
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-10-26": 0,
+     "2026-10-27": 0,
+     "2026-10-28": 0,
+     "2026-10-29": 0,
+     "2026-10-30": 0,
+     "2026-10-31": 1,
+     "2026-11-01": 0
+    },
+    "applications_7d": 1,
+    "status": "applied, awaiting offers",
+    "revenue_lifetime_usd": null
+   },
+   {
+    "platform": "Fiverr",
+    "owner": "Fucker",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "status not tracked yet",
+    "revenue_lifetime_usd": null,
+    "note": "no applications recorded in the last 7 days (not tracked yet)"
+   },
+   {
+    "platform": "Capafy (our agents)",
+    "owner": "Fucker",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "71 agents live",
+    "revenue_lifetime_usd": null,
+    "note": "we list our own products here; no applications; 2,275 installs"
+   },
+   {
+    "platform": "PromptBase (our prompts)",
+    "owner": "Fucker",
+    "applications_today": null,
+    "applications_by_day": null,
+    "applications_7d": null,
+    "status": "live, no sales yet",
+    "revenue_lifetime_usd": null,
+    "note": "we list our own products here; no applications; 16 views in 7 days"
+   }
+  ],
+  "source": "Counted from dated team-board entries that state how many proposals were sent, plus metrics/applications.csv. Applications are proposals, not orders."
+ },
+ "notes": "Revenue = money received (USD at daily FX). null = not measured yet. Rebuilt by a GitHub Actions schedule from the team files (every 3h).",
+ "missing": []
 }
