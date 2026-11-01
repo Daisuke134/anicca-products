@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 10:14 JST",
+ "updated_at": "2026-11-01 10:23 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 156.84,
@@ -281,5 +281,355 @@
    "metric": "3 articles / 3 experiments",
    "source": "team/research/manager-lab/manifest.json (article list) + experiment folders"
   }
- ]
+ ],
+ "company": {
+  "platforms": [
+   {
+    "month": "2026-10",
+    "platform": "App Store (RevenueCat)",
+    "sales_jpy": null,
+    "deposit_jpy": 4250,
+    "fee_pct": null,
+    "take_home_jpy": null,
+    "note": "",
+    "source": "sales: finance/REVENUE-BY-SOURCE.csv; deposits: MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+   },
+   {
+    "month": "2026-10",
+    "platform": "Coconala",
+    "sales_jpy": 34480,
+    "deposit_jpy": 87360,
+    "fee_pct": null,
+    "take_home_jpy": null,
+    "note": "入金に前月以前の売上の振込を含むため手数料率は算出不可",
+    "source": "sales: finance/REVENUE-BY-SOURCE.csv; deposits: MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+   }
+  ],
+  "subscriptions": [
+   {
+    "month": "2026-11",
+    "item": "OpenAI",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-11",
+    "item": "Grok",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-11",
+    "item": "Google",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-11",
+    "item": "Postiz",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-11",
+    "item": "Adobe",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-11",
+    "item": "HeyGen",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-11",
+    "item": "Railway",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-11",
+    "item": "Telnyx",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-11",
+    "item": "Upwork",
+    "jpy": 2000,
+    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+   },
+   {
+    "month": "2026-10",
+    "item": "OpenAI",
+    "jpy": 46855,
+    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+   },
+   {
+    "month": "2026-10",
+    "item": "Grok",
+    "jpy": 31180,
+    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+   },
+   {
+    "month": "2026-10",
+    "item": "Google",
+    "jpy": 27889,
+    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+   },
+   {
+    "month": "2026-10",
+    "item": "Postiz",
+    "jpy": 7936,
+    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+   },
+   {
+    "month": "2026-10",
+    "item": "Adobe",
+    "jpy": 9960,
+    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+   },
+   {
+    "month": "2026-10",
+    "item": "HeyGen",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-10",
+    "item": "Railway",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-10",
+    "item": "Telnyx",
+    "jpy": null,
+    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
+   },
+   {
+    "month": "2026-10",
+    "item": "Upwork",
+    "jpy": 4000,
+    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+   }
+  ],
+  "growth": {
+   "rows": [
+    {
+     "platform": "TikTok",
+     "accounts": 12,
+     "with_numbers": 12,
+     "followers": 4047,
+     "views_7d": 35364,
+     "followers_delta": 54,
+     "views_delta": -434
+    },
+    {
+     "platform": "X",
+     "accounts": 3,
+     "with_numbers": 3,
+     "followers": 503,
+     "views_7d": null,
+     "followers_delta": null,
+     "views_delta": null
+    },
+    {
+     "platform": "Bluesky",
+     "accounts": 4,
+     "with_numbers": 4,
+     "followers": 14,
+     "views_7d": null,
+     "followers_delta": 3,
+     "views_delta": null
+    },
+    {
+     "platform": "note",
+     "accounts": 1,
+     "with_numbers": 1,
+     "followers": 5,
+     "views_7d": null,
+     "followers_delta": 0,
+     "views_delta": null
+    },
+    {
+     "platform": "Mastodon",
+     "accounts": 4,
+     "with_numbers": 4,
+     "followers": 2,
+     "views_7d": null,
+     "followers_delta": 0,
+     "views_delta": null
+    },
+    {
+     "platform": "Instagram",
+     "accounts": 8,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": 19410,
+     "followers_delta": null,
+     "views_delta": 1248
+    },
+    {
+     "platform": "linkedin",
+     "accounts": 1,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": null,
+     "followers_delta": null,
+     "views_delta": null
+    },
+    {
+     "platform": "linkedin-page",
+     "accounts": 1,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": null,
+     "followers_delta": null,
+     "views_delta": null
+    },
+    {
+     "platform": "YouTube",
+     "accounts": 2,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": null,
+     "followers_delta": null,
+     "views_delta": null
+    },
+    {
+     "platform": "Substack",
+     "accounts": 2,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": null,
+     "followers_delta": null,
+     "views_delta": null
+    },
+    {
+     "platform": "Capafy",
+     "accounts": 1,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": null,
+     "followers_delta": null,
+     "views_delta": null
+    },
+    {
+     "platform": "PromptBase",
+     "accounts": 1,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": null,
+     "followers_delta": null,
+     "views_delta": null
+    },
+    {
+     "platform": "Nostr",
+     "accounts": 1,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": null,
+     "followers_delta": null,
+     "views_delta": null
+    },
+    {
+     "platform": "Telegraph",
+     "accounts": 1,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": null,
+     "followers_delta": null,
+     "views_delta": null
+    }
+   ],
+   "as_of": "2026-11-01 09:17 JST",
+   "vs": "2026-10-27",
+   "source": "metrics/accounts-snapshot-2026-11-01.json vs 2026-10-27 snapshot (team/ACCOUNTS.md account list)"
+  },
+  "status": {
+   "seo_geo": [
+    {
+     "area": "SEO (Search Console loop)",
+     "count": 10,
+     "unit": "loop passes",
+     "latest": "2026-11-01 08:2x JST loop pass (Anicca Marketer)",
+     "source": "marketing/SEO-GSC.md (2026-11-01 08:32 JST)"
+    },
+    {
+     "area": "GEO / AEO (AI-answer visibility)",
+     "count": 3,
+     "unit": "passes",
+     "latest": "2026-10-27 14:2x JST pass 3",
+     "source": "marketing/AEO.md (2026-10-30 17:16 JST)"
+    },
+    {
+     "area": "SEO plan",
+     "count": 4,
+     "unit": "sections",
+     "latest": "Prioritized actions",
+     "source": "distribution/SEO-PLAN.md (2026-10-30 17:41 JST)"
+    }
+   ],
+   "channels": {
+    "total": 14,
+    "verified": 4,
+    "list": [
+     "Bluesky @lifemanager-jp ✓",
+     "Bluesky @lifemanagerapp ✓",
+     "Bluesky @aniccaapp ✓",
+     "Bluesky @anicca-affirm (testing/blocked)",
+     "Mastodon @aniccaapp ✓",
+     "Mastodon @anicca_affirm, @lifemanager_jp (testing/blocked)",
+     "X @diceai0, @selawmqt, @Manageraqo (testing/blocked)",
+     "X @lifemanager1234 (testing/blocked)",
+     "TikTok ×12 (testing/blocked)",
+     "Instagram ×9 (testing/blocked)",
+     "YouTube @anicca-affirmation-video, @anic (testing/blocked)",
+     "Threads (testing/blocked)",
+     "Pinterest, Tumblr, Reddit, Nostr (testing/blocked)",
+     "LinkedIn (testing/blocked)"
+    ],
+    "source": "distribution/CHANNEL-MATRIX.md (2026-10-30 17:41 JST)"
+   },
+   "products": {
+    "count": 30,
+    "list": [
+     "Contract work (Coconala/Lancers/CW/Upwork/Appen) — product loop (dots-one)",
+     "Contract work — distribution loop (dots-one + dr eggbot)",
+     "Anicca iOS — product loop (life-manager-main-claude)",
+     "Anicca iOS — distribution loop (CMO)",
+     "Capafy (Clip Map, Hook Lab) — product loop (CTO ← Fucker)",
+     "Capafy — distribution loop (COO ← Fucker)",
+     "Honne (+Thankful, Daily Dhamma, Sleep, PDF Insight) — product loop (CTO)",
+     "Honne family — distribution loop (CMO)",
+     "Monk e-book / Anicca Reset — product loop (Muse)",
+     "Monk e-book / Anicca Reset — distribution loop (Muse)",
+     "Life Manager Cloud/Local — product loop (CTO)",
+     "Life Manager Cloud/Local — distribution loop (参謀)",
+     "The Manager (main business) — product (research/build) loop (Codex)",
+     "The Manager — distribution (articles/X/waitlist/revenue) loop (参謀)",
+     "PromptBase — product loop (Muse)",
+     "PromptBase — distribution loop (Muse ← Fucker)",
+     "LINE stamps — product loop (Muse)",
+     "LINE stamps — distribution loop (Muse → CMO)",
+     "note / Substack — product loop (Muse)",
+     "note / Substack — distribution loop (Muse)",
+     "STUDIO CHERIE — product loop (CTO)",
+     "STUDIO CHERIE — distribution loop (CMO)",
+     "AI Monk Factory / Monk DB / OBOU — product loop (CTO)",
+     "AI Monk Factory / OBOU — distribution loop (CMO)",
+     "Accelerators / hackathons / grants — product (applications) loop (参謀)",
+     "Accelerators — distribution (ledger/visibility) loop (COO)",
+     "Bounties / other marketplaces / KDP / templates — product loop (dots-one)",
+     "Bounties / other marketplaces — distribution loop (dots-one)",
+     "Investing (≤¥10k/mo) — product loop (参謀)",
+     "Investing — distribution loop (n/a)"
+    ],
+    "source": "PRODUCT-LOOPS.md (2026-11-01 09:11 JST)"
+   }
+  },
+  "na": "データなし"
+ }
 }

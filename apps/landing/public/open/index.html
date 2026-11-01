@@ -30,6 +30,14 @@ footer{color:var(--mut);font-size:13px;margin-top:32px}a{color:inherit}
 <h2>Products &amp; research</h2><div class="tw"><table id="t-prod"></table></div>
 <h2>By agent (<span id="m3"></span>)</h2><div class="tw"><table id="t-ag"></table></div>
 <h2>Balances, net worth &amp; all-time revenue (totals only)</h2><div class="tw"><table id="t-bal"></table></div>
+<h2>Whole company (totals only; missing = データなし)</h2>
+<h3>Platform sales vs bank deposits</h3><div class="tw"><table id="t-plat"></table></div>
+<h3>Subscriptions paid from the bank</h3><div class="tw"><table id="t-sub"></table></div>
+<h3>Growth by platform <span id="g-asof" class="mut"></span></h3><div class="tw"><table id="t-gr"></table></div>
+<h3>SEO / GEO</h3><div class="tw"><table id="t-seo"></table></div>
+<h3>Distribution channels <span id="ch-c" class="mut"></span></h3><ul id="ch-l" class="src"></ul>
+<h3>Products and improvements in progress <span id="pr-c" class="mut"></span></h3><ul id="pr-l" class="src"></ul>
+
 <h2>Wallets (live from Base)</h2><div class="tw"><table id="t-w"></table></div>
 <footer><p>Ordered = order placed · Earned = work delivered / sale confirmed · Paid out = money received in our account. Every row carries its source; rows without one are not published. USD where conversion is available; otherwise native currency is shown. Observed costs have incomplete coverage and are not a complete company total. Reference USD/JPY <span id="fx"></span>.</p>
 <p>Raw data: <a href="data.json">data.json</a> · <a href="metrics.json">metrics.json</a> · rebuilt daily. Layout modelled on <a href="https://felixcraft.ai/dashboard">felixcraft.ai/dashboard</a>.</p></footer>
@@ -49,6 +57,14 @@ fetch('data.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
  tbl($('t-prod'),['Product','Owner agent','Stage','Articles','Experiments','Latest article','Source'],(d.products||[]).map(p=>`<tr><td>${esc(p.product)}</td><td>${esc(p.owner)}</td><td>${esc(p.stage||'')}</td><td>${p.research_articles??''}</td><td>${p.experiments_run??''}</td><td>${p.latest_article_url?`<a href="${esc(p.latest_article_url)}">${esc(p.latest_article_url.replace('https://aniccaai.com',''))}</a>`:''}</td><td class="src">${esc(p.source)}</td></tr>`));
  tbl($('t-ag'),['Agent','Earns','Spends','Net','Source'],d.by_agent.map(a=>`<tr><td>${esc(a.agent)}</td><td>${usd(a.earns_usd)}</td><td>${usd(a.spends_usd)}</td><td>${usd(a.net_usd)}</td><td class="src">${esc(a.source)}</td></tr>`));
  tbl($('t-bal'),['Item','Amount','As of','Source'],(d.balances||[]).map(b=>`<tr><td>${esc(b.item)}</td><td>${b.jpy!=null?`<span class="${b.jpy<0?'neg':''}">${b.jpy<0?'−':''}¥${Math.abs(b.jpy).toLocaleString('en-US')}</span>`:b.usd==null?esc(b.note||'unknown'):'$'+Number(b.usd).toLocaleString('en-US',{maximumFractionDigits:2})}</td><td>${esc(b.as_of||'')}</td><td>${esc(b.source)}</td></tr>`));
+ {const C=d.company||{},NA='データなし',y=v=>v==null?`<span class="mut">${NA}</span>`:`${v<0?'−':''}¥${Math.abs(v).toLocaleString('en-US')}`,nn=v=>v==null?`<span class="mut">${NA}</span>`:(v>0?'+':'')+Number(v).toLocaleString('en-US'),q=v=>v==null?`<span class="mut">${NA}</span>`:Number(v).toLocaleString('en-US');
+ tbl($('t-plat'),['Month','Platform','Sales','Bank deposits','Fee rate','Take-home','Source'],(C.platforms||[]).map(r=>`<tr><td>${r.month}</td><td>${esc(r.platform)}</td><td>${y(r.sales_jpy)}</td><td>${y(r.deposit_jpy)}</td><td>${r.fee_pct==null?`<span class="mut">${esc(r.note||NA)}</span>`:r.fee_pct+'%'}</td><td>${y(r.take_home_jpy)}</td><td class="src">${esc(r.source)}</td></tr>`));
+ tbl($('t-sub'),['Month','Item','JPY','Source'],(C.subscriptions||[]).map(r=>`<tr><td>${r.month}</td><td>${esc(r.item)}</td><td>${y(r.jpy)}</td><td class="src">${esc(r.source)}</td></tr>`));
+ const G=C.growth||{};$('g-asof').textContent=`as of ${G.as_of||NA}; Δ vs ${G.vs||NA} · source: ${G.source||NA}`;
+ tbl($('t-gr'),['Platform','Accounts','Followers','Δ followers','Views 7d','Δ views 7d'],(G.rows||[]).map(r=>`<tr><td>${esc(r.platform)}</td><td>${r.accounts}</td><td>${q(r.followers)}</td><td>${nn(r.followers_delta)}</td><td>${q(r.views_7d)}</td><td>${nn(r.views_delta)}</td></tr>`));
+ const S=C.status||{};tbl($('t-seo'),['Area','Count','Latest','Source'],(S.seo_geo||[]).map(r=>`<tr><td>${esc(r.area)}</td><td>${r.count} ${esc(r.unit)}</td><td>${esc(r.latest)}</td><td class="src">${esc(r.source)}</td></tr>`));
+ const ch=S.channels||{};$('ch-c').textContent=`${ch.total??NA} channels, ${ch.verified??NA} verified · source: ${ch.source||NA}`;$('ch-l').innerHTML=(ch.list||[]).map(x=>`<li>${esc(x)}</li>`).join('');
+ const pr=S.products||{};$('pr-c').textContent=`${pr.count??NA} loops · source: ${pr.source||NA}`;$('pr-l').innerHTML=(pr.list||[]).map(x=>`<li>${esc(x)}</li>`).join('');}
  tbl($('t-w'),['Wallet','Address','USDC','Source'],d.wallets.map((w,i)=>`<tr><td>${esc(w.label)}</td><td><a href="https://basescan.org/address/${w.address}">${w.address.slice(0,6)}…${w.address.slice(-4)}</a></td><td id="w${i}">…</td><td class="src">${esc(w.source)}</td></tr>`));
  d.wallets.forEach((w,i)=>fetch('https://mainnet.base.org',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',data:'0x70a08231'+w.address.slice(2).toLowerCase().padStart(64,'0')},'latest']})}).then(r=>r.json()).then(j=>{$('w'+i).textContent=(parseInt(j.result,16)/1e6).toFixed(2)}).catch(()=>{$('w'+i).textContent='could not load'}));
 }).catch(()=>{$('upd').textContent='failed to load'});
