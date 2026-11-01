@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 06:12 JST",
+ "updated_at": "2026-11-02 06:19 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -11,19 +11,19 @@
   {
    "key": "rev7",
    "label": "Revenue (7d)",
-   "usd": 15.85,
+   "usd": 47.66,
    "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
   },
   {
    "key": "rev30",
    "label": "Revenue (30d)",
-   "usd": 217.67,
+   "usd": 249.47,
    "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
   },
   {
    "key": "revm",
    "label": "Revenue this month",
-   "usd": 0.0,
+   "usd": 31.8,
    "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
   },
   {
@@ -43,8 +43,8 @@
   {
    "key": "gp",
    "label": "Profit this month",
-   "usd": -12.0,
-   "jpy": -2000,
+   "usd": 19.8,
+   "jpy": 3000,
    "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
   },
   {
@@ -53,6 +53,12 @@
    "usd": -1366.24,
    "jpy": -215249,
    "source": "same basis, last month"
+  },
+  {
+   "key": "margin",
+   "label": "Margin",
+   "pct": 62.3,
+   "source": "gross profit / revenue this month"
   },
   {
    "key": "mrr",
@@ -91,9 +97,9 @@
   },
   {
    "month": "2026-11 (to date)",
-   "revenue_usd": 0.0,
+   "revenue_usd": 31.8,
    "cost_usd": 12.0,
-   "gross_profit_usd": -12.0,
+   "gross_profit_usd": 19.8,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   }
  ],
@@ -532,7 +538,7 @@
   "this_month": "Upwork 2,000 = 2,000",
   "last_month": "Rent to 成田 (bank + Mac mini) 100,000 + OpenAI 46,855 + Grok 31,959 + Google Cloud 27,889 + Adobe 9,960 + Postiz 7,936 + HeyGen 6,129 + Upwork 4,000 + Railway 3,756 + Replit 3,283 + Telnyx 3,268 + Relixir 3,254 + X Premium 918 + Hetzner 253 + DigitalOcean 162 + Cursor 107 = 249,729",
   "active": "Rent to 成田 (bank + Mac mini) 100,000 + Grok — X Ultra (upgraded 10/31) 34,800 + Postiz Pro 7,936 + HeyGen Creator (Apple) 4,500 + Telnyx 3,268 + X Premium (dup) 918 + Hetzner 253 + DigitalOcean 162 + ChatGPT Pro (2nd-of-month ¥30,000) 30,000 + ChatGPT Plus 3,596 + Railway 3,756 + Moneytree Grow 0 + Apple Developer 1,082 + Cursor usage 107 + Vercel / Twilio / Netlify / Supabase 0 = 190,378",
-  "gross_profit": "revenue ¥0 − costs this month ¥2,000 = ¥-2,000",
+  "gross_profit": "revenue ¥5,000 − costs this month ¥2,000 = ¥3,000",
   "gross_profit_last": "2026-10: revenue ¥34,480 − costs ¥249,729 = ¥-215,249",
   "excluded": [
    "Google Cloud (Gemini/Maps): 最終請求（~11/02、一回だけ）",
@@ -572,10 +578,10 @@
  ],
  "reconciliation_complete": true,
  "gross_profit_detail": {
-  "jpy": -2000,
-  "usd": -12.0,
-  "revenue_jpy": 0,
-  "revenue_usd": 0.0,
+  "jpy": 3000,
+  "usd": 19.8,
+  "revenue_jpy": 5000,
+  "revenue_usd": 31.8,
   "cost_jpy": 2000,
   "cost_usd": 12.0,
   "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
@@ -657,18 +663,10 @@
   },
   {
    "item": "Revenue all-time (deposits + Coconala accepted, payout pending)",
-   "usd": 1717.55,
-   "jpy": 274334,
-   "as_of": "2026-11-01",
-   "source": "cfo/revenue_facts.py (14 paid/検収済み rows in REVENUE-BY-SOURCE; USD via dated ECB); notice-only orders excluded (cfo/notices.csv); Coconala ¥2,500 検収済み・入金予定 10/27+10/31 (gross; net after fees ¥1,950: にーぴょ様 ¥1,560 振込申請中, 振込手数料 ¥160, 振込予定日 2026-11-05; たくわーん様 ¥390 in 売上金残高, no transfer request yet; source ココナラ売上管理画面 2026-11-01 21:40 JST read by dr eggbot)"
-  },
-  {
-   "item": "Coconala 納品済み・検収待ち 2026-11-01 (not in revenue total)",
-   "jpy": 5000,
-   "usd": 31.8,
-   "as_of": "2026-11-01",
-   "note": "納品済み・検収待ち: MAHANA Festival logo, paid 2026-11-01 23:09:57 JST, 正式な納品 23:25 JST, auto-検収 2026-11-05 00:00 JST; not revenue until 検収",
-   "source": "private receipt (ココナラ 提案したサービスが購入されました, talkroom 18542678, ¥5,000); delivery: BOARD.md dr eggbot 2026-11-01 23:25 JST + deliveries/coconala-dm-10323535/upload/; USD JPY/ECB 157.25 (2026-10-30) via cfo/fx_basis.py"
+   "usd": 1749.36,
+   "jpy": 279334.78,
+   "as_of": "2026-11-02",
+   "source": "cfo/revenue_facts.py (15 paid/検収済み rows in REVENUE-BY-SOURCE; USD via dated ECB); notice-only orders excluded (cfo/notices.csv); Coconala ¥2,500 検収済み・入金予定 10/27+10/31 (gross; net after fees ¥1,950: にーぴょ様 ¥1,560 振込申請中, 振込手数料 ¥160, 振込予定日 2026-11-05; たくわーん様 ¥390 in 売上金残高, no transfer request yet; source ココナラ売上管理画面 2026-11-01 21:40 JST read by dr eggbot)"
   }
  ],
  "products": [
