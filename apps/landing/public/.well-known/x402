@@ -345,7 +345,7 @@
         {
           "scheme": "exact",
           "network": "eip155:8453",
-          "amount": "10000",
+          "amount": "5000",
           "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
           "payTo": "0x7a004fBbc3037371321B9f41875B7782971efE76",
           "maxTimeoutSeconds": 60,
@@ -353,11 +353,11 @@
             "name": "USD Coin",
             "version": "2"
           },
-          "description": "Maritime agent: one behavior-change nudge plus a 3-step habit plan as JSON (en/ja). $0.01 per call.",
+          "description": "Maritime agent: one behavior-change nudge plus a 3-step habit plan as JSON (en/ja). $0.005 per call.",
           "mimeType": "application/json"
         }
       ],
-      "description": "Maritime agent: one behavior-change nudge plus a 3-step habit plan as JSON (en/ja). $0.01 per call.",
+      "description": "Maritime agent: one behavior-change nudge plus a 3-step habit plan as JSON (en/ja). $0.005 per call.",
       "mimeType": "application/json",
       "serviceName": "Anicca",
       "tags": [
@@ -501,7 +501,7 @@
         {
           "scheme": "exact",
           "network": "eip155:8453",
-          "amount": "10000",
+          "amount": "5000",
           "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
           "payTo": "0xB32b13226Fc4601Dd85140cf9815D79d63006ca0",
           "maxTimeoutSeconds": 60,
@@ -509,11 +509,11 @@
             "name": "USD Coin",
             "version": "2"
           },
-          "description": "Naive agent: one reflection/journaling prompt plus a 2-minute exercise for a given mood, as JSON (en/ja). $0.01 per call.",
+          "description": "Naive agent: one reflection/journaling prompt plus a 2-minute exercise for a given mood, as JSON (en/ja). $0.005 per call.",
           "mimeType": "application/json"
         }
       ],
-      "description": "Naive agent: one reflection/journaling prompt plus a 2-minute exercise for a given mood, as JSON (en/ja). $0.01 per call.",
+      "description": "Naive agent: one reflection/journaling prompt plus a 2-minute exercise for a given mood, as JSON (en/ja). $0.005 per call.",
       "mimeType": "application/json",
       "serviceName": "Anicca",
       "tags": [
