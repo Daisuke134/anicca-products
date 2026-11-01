@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 09:12 JST",
+ "updated_at": "2026-11-01 10:14 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 156.84,
@@ -209,23 +209,59 @@
  ],
  "balances": [
   {
-   "item": "Bank balance total (MUFG)",
-   "usd": 3559.89,
-   "as_of": "2026-10-25",
-   "source": "Moneytree statement in daily report email (receipt evidence private receipt); latest real record"
+   "item": "Bank balance (MUFG)",
+   "jpy": 253335,
+   "usd": null,
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+  },
+  {
+   "item": "Net worth (= bank balance; liabilities: 記録なし)",
+   "jpy": 253335,
+   "usd": null,
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+  },
+  {
+   "item": "Bank inflow last month (2026-10)",
+   "jpy": 394382,
+   "usd": null,
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+  },
+  {
+   "item": "Bank outflow last month (2026-10)",
+   "jpy": 538956,
+   "usd": null,
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+  },
+  {
+   "item": "Bank net last month (2026-10)",
+   "jpy": -144574,
+   "usd": null,
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+  },
+  {
+   "item": "Bank inflow this month (2026-11 to 11/01)",
+   "jpy": 0,
+   "usd": null,
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
+  },
+  {
+   "item": "Bank outflow this month (2026-11 to 11/01)",
+   "jpy": 2000,
+   "usd": null,
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
   },
   {
    "item": "Known balances total",
    "usd": 3636.43,
    "as_of": "2026-11-01T09:08",
    "source": "cfo ledger 2026-11-01 (Alpaca API, private receipt (10/27 08:16 JST 財務レポート, Moneytree読取), Twilio API)"
-  },
-  {
-   "item": "Net worth (cash+balances-liabilities)",
-   "usd": null,
-   "note": "unknown (source error): liabilities missing (SMBC card payment amount not in notice email; no loan/card statement record)",
-   "as_of": "2026-11-01T09:08",
-   "source": "cfo ledger"
   },
   {
    "item": "Revenue all-time",
