@@ -8,6 +8,7 @@ import AffiliateEntryReceipt from "../../../components/blog/AffiliateEntryReceip
 import { affiliatePlacement, renderMarkdown } from "../../../lib/render-article-markdown";
 import { buildLineStickerShareMetadata } from "../../../lib/line-sticker-share-meta";
 import { buildArticleJsonLd } from "../../../lib/article-jsonld.mjs";
+import { articleFaq, isJapanese } from "../../../lib/article-faq.mjs";
 import { BUSINESSES, businessOf } from "../../../lib/blog-business.mjs";
 import { loadAllBlogPosts } from "../../../lib/blog-posts";
 import { resolveArticleAttribution } from "../../../lib/article-attribution";
@@ -141,6 +142,8 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
     : post.markdown;
   const hasYouTubeEmbed = /\[youtube-(?:embed|short):[A-Za-z0-9_-]{11}/.test(articleMarkdown);
   const html = renderMarkdown(articleMarkdown);
+  const faq = articleFaq(post);
+  const faqJa = isJapanese(post);
   const affiliatePlacementId = affiliatePlacement(articleMarkdown);
   const m = post.mirrors ?? {};
   const hasMirrors = Boolean(m.x || m.substack || m.newsletter);
@@ -193,6 +196,20 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
           className="mt-6"
           dangerouslySetInnerHTML={{ __html: html }}
         />
+
+        {faq.visible && (
+          <section id="faq" className="mt-16 border-t border-bone pt-10">
+            <h2 className="font-display text-[26px] leading-snug text-ink">{faqJa ? "よくある質問" : "FAQ"}</h2>
+            <dl className="mt-6 space-y-6">
+              {faq.pairs.map(([q, a]) => (
+                <div key={q}>
+                  <dt className="font-display text-[19px] leading-snug text-ink">{q}</dt>
+                  <dd className="mt-2 text-[16px] leading-relaxed text-ink/80">{a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
 
         {post.access_model && post.paid_sha256 && post.run_id && post.artifact_id && post.lang && (
           <WriterUnlock
