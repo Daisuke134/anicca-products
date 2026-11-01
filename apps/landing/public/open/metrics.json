@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 11:03 JST",
+ "updated_at": "2026-11-01 11:06 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
@@ -11,17 +11,17 @@
   "gross_profit_mtd_usd": -12.72,
   "margin_pct": null,
   "mrr_usd": 93.58,
-  "active_costs_monthly_usd": 1259.49
+  "active_costs_monthly_usd": 1535.68
  },
  "sources": {
   "rev7": "finance/REVENUE-BY-SOURCE.csv dated rows",
   "rev30": "finance/REVENUE-BY-SOURCE.csv dated rows",
   "revm": "finance/REVENUE-BY-SOURCE.csv dated rows",
-  "cost": "MUFG via Moneytree (finance/BANK-BALANCE.md), personal items excluded per finance/COST-CUTS.md (company withdrawals to date)",
-  "costl": "MUFG via Moneytree (finance/BANK-BALANCE.md), personal items excluded per finance/COST-CUTS.md",
-  "gp": "revenue this month − costs this month (same numbers as the cards)",
+  "cost": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company costs to date) (company withdrawals to date)",
+  "costl": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company costs; personal spend excluded)",
+  "gp": "revenue this month (REVENUE-BY-SOURCE.csv) − costs this month (rows above)",
   "mrr": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs",
-  "run": "subscriptions + rent still billing; cancelled rows count ¥0",
+  "run": "sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded",
   "human": "metrics/human-interventions.csv"
  },
  "monthly": [
@@ -35,15 +35,15 @@
   {
    "month": "2026-10",
    "revenue_usd": 203.9,
-   "cost_usd": 1567.23,
-   "gross_profit_usd": -1363.33,
+   "cost_usd": null,
+   "gross_profit_usd": null,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
   },
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 0.0,
-   "cost_usd": 12.72,
-   "gross_profit_usd": -12.72,
+   "cost_usd": null,
+   "gross_profit_usd": null,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
   }
  ],
