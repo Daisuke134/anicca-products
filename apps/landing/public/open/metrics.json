@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 11:12 JST",
+ "updated_at": "2026-11-01 11:15 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
@@ -11,7 +11,7 @@
   "gross_profit_mtd_usd": -12.72,
   "margin_pct": null,
   "mrr_usd": 93.58,
-  "active_costs_monthly_usd": 1535.68
+  "active_costs_monthly_usd": 1210.67
  },
  "sources": {
   "rev7": "finance/REVENUE-BY-SOURCE.csv dated rows",
