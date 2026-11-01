@@ -42,9 +42,7 @@ const STATIC_PATHS = [
   "/lm/ja/departure-calculator",
   "/lm/guide",
   "/tools/social-jet-lag-calculator",
-  "/ai-monk-factory",
-  "/achan",
-  "/monk", // canonical has no trailing slash (the slash form 301s; GSC "Redirect error" 10/27–11/1)
+  "/ai-monk-factory", // canonical has no trailing slash (the slash form 301s; GSC "Redirect error" 10/27–11/1)
 ];
 
 function tripleLanguagesForEnSlug(enSlug: string) {
@@ -62,7 +60,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // lists only hand-picked hubs and evergreen pages. Timestamped auto posts,
   // sticker posts and archive pagination stay live (and linked) but are not
   // advertised here. Cap blog entries at the 40 newest evergreen posts.
-  const blogEntries: MetadataRoute.Sitemap = loadAllBlogPosts().map((post) => ({
+  const isEvergreen = (slug: string) =>
+    !/\d{4}-\d{2}-\d{2}/.test(slug) && !/^line-sticker/.test(slug);
+  const blogEntries: MetadataRoute.Sitemap = loadAllBlogPosts().filter((post) => isEvergreen(post.slug)).slice(0, 40).map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: post.date || undefined,
   }));
@@ -113,13 +113,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE_URL}/affirmation-app/ja/shindan/${type}`,
   }));
 
+  void esAffirmationEntries;
+  void kokoroTypeEntries;
 
   const all = [
     ...staticEntries,
     ...jaAffirmationEntries,
     ...enAffirmationEntries,
-    ...esAffirmationEntries,
-    ...kokoroTypeEntries,
 
     ...lmGuideEntries,
     ...blogEntries,
