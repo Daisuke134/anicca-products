@@ -1,13 +1,34 @@
 // Shared x402 seller for Anicca Netlify functions.
 // 402 challenge = x402 v2 (body + PAYMENT-REQUIRED header, Bazaar `extensions.bazaar`).
 // Paid retry: v2 PAYMENT-SIGNATURE header, or legacy v1 X-PAYMENT header (still accepted).
-// PayAI facilitator verifies, then settles the buyer-signed EIP-3009 transfer. No private key here.
+// Facilitator verifies, then settles the buyer-signed EIP-3009 transfer. No private key here.
+// With CDP_API_KEY_ID + CDP_API_KEY_SECRET set, verify/settle go through Coinbase's CDP facilitator
+// (createFacilitatorConfig from @coinbase/x402), which is what indexes the endpoint in the CDP
+// x402 Bazaar after a settled payment. Without the keys we fall back to PayAI so nothing breaks.
 
-const FACILITATOR = 'https://facilitator.payai.network';
+const PAYAI_FACILITATOR = 'https://facilitator.payai.network';
 const PAY_TO = '0x7E8b13B7c080465903874352887656314A267E3c';
 const USDC_BASE = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
 const PRICE_ATOMIC = '5000'; // $0.005 USDC (6 decimals)
 const EXTRA = { name: 'USD Coin', version: '2' };
+
+// Resolved once per cold start. Keys come only from env; never logged.
+let facilitatorPromise;
+function facilitatorConfig() {
+  if (!facilitatorPromise) {
+    facilitatorPromise = (async () => {
+      const id = process.env.CDP_API_KEY_ID;
+      const secret = process.env.CDP_API_KEY_SECRET;
+      if (id && secret) {
+        const { createFacilitatorConfig } = await import('@coinbase/x402');
+        const config = createFacilitatorConfig(id, secret);
+        return { name: 'cdp', url: config.url, createAuthHeaders: config.createAuthHeaders };
+      }
+      return { name: 'payai', url: PAYAI_FACILITATOR };
+    })().catch((e) => { facilitatorPromise = undefined; throw e; });
+  }
+  return facilitatorPromise;
+}
 
 const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64');
 
@@ -79,9 +100,15 @@ function createSeller(cfg) {
   };
 
   async function facilitator(path, version, paymentPayload, paymentRequirements) {
-    const r = await fetch(FACILITATOR + path, {
+    const fc = await facilitatorConfig();
+    let authHeaders = {};
+    if (fc.createAuthHeaders) {
+      const all = await fc.createAuthHeaders();
+      authHeaders = all[path.replace('/', '')] || {};
+    }
+    const r = await fetch(fc.url + path, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...authHeaders },
       body: JSON.stringify({ x402Version: version, paymentPayload, paymentRequirements }),
     });
     return r.json();
@@ -108,6 +135,13 @@ function createSeller(cfg) {
       }
       const version = v2Header ? 2 : 1;
       const req = version === 2 ? v2Req() : v1Req();
+      if (version === 2 && payload && typeof payload === 'object') {
+        // CDP Bazaar indexes on settle only when the payload carries resource + extensions.bazaar.
+        // Standard v2 clients echo them from the 402; fill them in for clients that don't.
+        const pr = paymentRequired();
+        if (!payload.resource) payload.resource = pr.resource;
+        payload.extensions = { ...pr.extensions, ...(payload.extensions || {}) };
+      }
       try {
         const v = await facilitator('/verify', version, payload, req);
         if (!v.isValid) return challenge(v.invalidReason || 'payment verification failed');
@@ -127,4 +161,4 @@ function createSeller(cfg) {
   return make;
 }
 
-module.exports = { createSeller, json, PAY_TO, USDC_BASE, PRICE_ATOMIC };
+module.exports = { createSeller, json, facilitatorConfig, PAYAI_FACILITATOR, PAY_TO, USDC_BASE, PRICE_ATOMIC };

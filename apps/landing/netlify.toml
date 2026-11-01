@@ -166,3 +166,9 @@
 
 [functions.x402-capafy-skill]
   node_bundler = "esbuild"
+
+[functions.x402-maritime-nudge]
+  node_bundler = "esbuild"
+
+[functions.x402-naive-reflect]
+  node_bundler = "esbuild"
