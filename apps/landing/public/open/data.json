@@ -1,9 +1,9 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 10:37 JST",
+ "updated_at": "2026-11-01 10:58 JST",
  "month": "2026-11",
  "currency": "USD",
- "fx_usdjpy": 156.84,
+ "fx_usdjpy": 157.25,
  "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
  "model": "Layout modelled on felixcraft.ai/dashboard",
  "spec": "team/OPEN-PAGE-V2.md",
@@ -29,14 +29,23 @@
   {
    "key": "cost",
    "label": "Costs this month",
-   "usd": 12.0,
-   "source": "1 observed receipt lines; coverage incomplete; unknown USD is not zero"
+   "usd": 12.72,
+   "jpy": 2000,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company withdrawals to date)"
+  },
+  {
+   "key": "costl",
+   "label": "Costs last month (2026-10)",
+   "usd": 812.85,
+   "jpy": 127820,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) (company vendors only; personal spend excluded)"
   },
   {
    "key": "gp",
    "label": "Gross profit",
-   "usd": -12.0,
-   "source": "revenue this month minus observed costs; unavailable when USD costs unknown"
+   "usd": -12.72,
+   "jpy": -2000,
+   "source": "revenue this month (REVENUE-BY-SOURCE.csv) − MUFG company withdrawals this month"
   },
   {
    "key": "mrr",
@@ -47,8 +56,9 @@
   {
    "key": "run",
    "label": "Active costs / month",
-   "usd": 705.78,
-   "source": "active cost list (table below)"
+   "usd": 630.44,
+   "jpy": 99137,
+   "source": "sum of 有効 rows (incl. 解約検討中, still billing) in COST-CUTS.md; 解約済み・解約予定日付き excluded"
   },
   {
    "key": "human",
@@ -63,21 +73,21 @@
    "revenue_usd": 390.63,
    "cost_usd": 1513.71,
    "gross_profit_usd": -1123.08,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (see costs)"
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
   },
   {
    "month": "2026-10",
    "revenue_usd": 203.9,
-   "cost_usd": 902.64,
-   "gross_profit_usd": -698.74,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 17 receipt lines (see costs)"
+   "cost_usd": 2045.96,
+   "gross_profit_usd": -1842.06,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
   },
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 0.0,
-   "cost_usd": 12.0,
-   "gross_profit_usd": -12.0,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 1 receipt lines (see costs)"
+   "cost_usd": 12.75,
+   "gross_profit_usd": -12.75,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: MUFG company charges, personal excluded"
   }
  ],
  "streams": [],
@@ -87,114 +97,276 @@
  },
  "costs_month": [
   {
-   "item": "Upwork payment notice (primary event)",
-   "usd": 12.0,
-   "native_amount": 2000.0,
-   "native_currency": "JPY",
-   "source": "Provider payment/refund evidence (private receipt retained)",
-   "coverage": "Observed payments; coverage incomplete"
+   "item": "Upwork",
+   "jpy": 2000,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
+   "usd": 12.72
+  },
+  {
+   "item": "OpenAI (2026-10)",
+   "jpy": 46855,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
+   "usd": 297.97
+  },
+  {
+   "item": "Grok (2026-10)",
+   "jpy": 31180,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
+   "usd": 198.28
+  },
+  {
+   "item": "Google (2026-10)",
+   "jpy": 27889,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
+   "usd": 177.35
+  },
+  {
+   "item": "Adobe (2026-10)",
+   "jpy": 9960,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
+   "usd": 63.34
+  },
+  {
+   "item": "Postiz (2026-10)",
+   "jpy": 7936,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
+   "usd": 50.47
+  },
+  {
+   "item": "Upwork (2026-10)",
+   "jpy": 4000,
+   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)",
+   "usd": 25.44
   }
  ],
  "costs_month_total": {
-  "usd": 12.0,
-  "source": "Observed subtotal; coverage incomplete; USD unavailable if any conversion missing"
+  "usd": 12.72,
+  "jpy": 2000,
+  "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
  },
  "active_costs": [
   {
-   "item": "Grok Bot Ultra",
-   "uses": "agents runtime (replaces X Super)",
-   "usd_mo": 221.88,
-   "next_charge": "11/30",
-   "source": "xAI receipt #1151-6309 (\"You're now on Ultra\", 10/31)"
+   "item": "Google Cloud (Gemini/Maps)",
+   "uses": "LM call voice, lateness, scouts",
+   "jpy": 27889,
+   "status": "解約済み（請求停止、最終請求 ~11/02）",
+   "counted": false,
+   "next_charge": "~11/02 invoice",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 177.35
   },
   {
-   "item": "ChatGPT Pro",
-   "uses": "agents (ChatGPT)",
-   "usd_mo": 191.28,
-   "next_charge": "11/02",
-   "source": "MUFG debit notice, private receipt"
+   "item": "Grok — X Ultra (upgraded 10/31)",
+   "uses": "all Grok Bots",
+   "jpy": 34800,
+   "status": "有効",
+   "counted": true,
+   "next_charge": "11/30 ¥34,800",
+   "note": "現行プラン",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 221.3
   },
   {
-   "item": "ChatGPT extra plans (¥3,596 + ¥13,259)",
-   "uses": "agents (ChatGPT)",
-   "usd_mo": 107.47,
-   "next_charge": "~11/22-24",
-   "source": "private receipt, private receipt"
+   "item": "ChatGPT charge ¥13,259 (10/24)",
+   "uses": "unknown (likely prorated upgrade)",
+   "jpy": 13259,
+   "status": "有効",
+   "counted": true,
+   "next_charge": "~11/24?",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 84.32
+  },
+  {
+   "item": "Adobe CC ×2",
+   "uses": "nothing",
+   "jpy": 9960,
+   "status": "解約済み（11/16・11/29終了）",
+   "counted": false,
+   "next_charge": "ends 11/16 & 11/29 PT",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 63.34
   },
   {
    "item": "Postiz Pro",
-   "uses": "social posting",
-   "usd_mo": 50.6,
+   "uses": "TikTok 11 accts + other channels",
+   "jpy": 7936,
+   "status": "有効（解約検討中）",
+   "counted": true,
    "next_charge": "11/25",
-   "source": "MUFG debit notice, private receipt"
-  },
-  {
-   "item": "Google Cloud / Gemini (capped)",
-   "uses": "model API",
-   "usd_mo": 32.0,
-   "next_charge": "~11/02",
-   "source": "Google Cloud budget cap (monthly limit)"
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 50.47
   },
   {
    "item": "HeyGen Creator (Apple)",
-   "uses": "video",
-   "usd_mo": 28.69,
+   "uses": "Muse monk videos",
+   "jpy": 4500,
+   "status": "解約予定 11/19",
+   "counted": false,
    "next_charge": "11/21",
-   "source": "Apple receipt, private receipt"
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 28.62
   },
   {
-   "item": "Railway (usage)",
-   "uses": "hosting",
-   "usd_mo": 23.95,
-   "next_charge": "11/28",
-   "source": "MUFG debit notice, private receipt"
-  },
-  {
-   "item": "Replit Core",
-   "uses": "coding",
-   "usd_mo": 20.93,
-   "next_charge": "11/07-09",
-   "source": "MUFG debit notice, private receipt"
+   "item": "Replit",
+   "uses": "nothing (成田さん: unused)",
+   "jpy": 3283,
+   "status": "解約済み（11/08終了）",
+   "counted": false,
+   "next_charge": "11/09",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 20.88
   },
   {
    "item": "Telnyx",
-   "uses": "phone calls",
-   "usd_mo": 20.84,
-   "next_charge": "~11/12",
-   "source": "MUFG debit notice, private receipt"
+   "uses": "life-call wake calls",
+   "jpy": 3268,
+   "status": "有効（解約検討中）",
+   "counted": true,
+   "next_charge": "usage/top-up",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 20.78
   },
   {
-   "item": "X Premium (basic)",
-   "uses": "X account",
-   "usd_mo": 5.85,
+   "item": "X Premium (dup)",
+   "uses": "duplicate of Super/Ultra",
+   "jpy": 918,
+   "status": "有効（解約検討中）",
+   "counted": true,
    "next_charge": "11/24",
-   "source": "private receipt"
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 5.84
   },
   {
    "item": "Hetzner",
-   "uses": "server",
-   "usd_mo": 1.61,
+   "uses": "unknown server",
+   "jpy": 253,
+   "status": "有効（解約検討中）",
+   "counted": true,
    "next_charge": "11/02",
-   "source": "MUFG debit notice HETZNER, private receipt"
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 1.61
+  },
+  {
+   "item": "DigitalOcean",
+   "uses": "nothing (0 droplets)",
+   "jpy": 162,
+   "status": "有効",
+   "counted": true,
+   "next_charge": "11/01",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 1.03
+  },
+  {
+   "item": "ChatGPT Pro (2nd-of-month ¥30,000)",
+   "uses": "Codex (CTO), Dots (CFO)",
+   "jpy": 30000,
+   "status": "有効",
+   "counted": true,
+   "next_charge": "11/02",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 190.78
+  },
+  {
+   "item": "ChatGPT Plus",
+   "uses": "family",
+   "jpy": 3596,
+   "status": "有効",
+   "counted": true,
+   "next_charge": "~11/20",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 22.87
+  },
+  {
+   "item": "Railway",
+   "uses": "LM/Capafy hosting",
+   "jpy": 3756,
+   "status": "有効",
+   "counted": true,
+   "next_charge": "11/28",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 23.89
+  },
+  {
+   "item": "Moneytree Grow",
+   "uses": "balance updates (CFO, /open)",
+   "jpy": 0,
+   "status": "有効",
+   "counted": true,
+   "next_charge": "trial ends ~11/25 (started 10/26, 30 days, no auto-bill)",
+   "note": "トライアル中",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 0.0
+  },
+  {
+   "item": "Upwork Connects",
+   "uses": "proposals",
+   "jpy": null,
+   "status": "有効",
+   "counted": false,
+   "next_charge": "on demand",
+   "note": "従量/概算のため",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": null
+  },
+  {
+   "item": "Apple Developer",
+   "uses": "iOS apps",
+   "jpy": 1082,
+   "status": "有効",
+   "counted": true,
+   "next_charge": "2027-06-02",
+   "note": "年額÷12",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 6.88
   },
   {
    "item": "Cursor usage",
    "uses": "coding",
-   "usd_mo": 0.68,
+   "jpy": 107,
+   "status": "有効",
+   "counted": true,
    "next_charge": "usage",
-   "source": "private receipt"
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 0.68
+  },
+  {
+   "item": "Vercel / Twilio / Netlify / Supabase",
+   "uses": "hosting/phone",
+   "jpy": 0,
+   "status": "有効",
+   "counted": true,
+   "next_charge": "–",
+   "note": "",
+   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
+   "usd": 0.0
   }
  ],
  "active_costs_total": {
-  "usd_mo": 705.78,
-  "source": "sum of lines"
+  "usd_mo": 630.44,
+  "jpy": 99137,
+  "source": "sum of 有効 rows (incl. 解約検討中, still billing) in COST-CUTS.md; 解約済み・解約予定日付き excluded"
  },
+ "fx_note": "USD/JPY 157.25 (Frankfurter API (ECB reference rate), 2026-10-30)",
  "by_agent": [
   {
    "agent": "Shared (all agents: models, hosting, tools)",
    "earns_usd": 0.0,
-   "spends_usd": 12.0,
-   "net_usd": -12.0,
+   "spends_usd": 12.75,
+   "net_usd": -12.75,
    "source": "costs this month (receipt lines without a single agent)"
   }
  ],
