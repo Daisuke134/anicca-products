@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-01 17:12 JST",
+ "updated_at": "2026-11-01 18:13 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
@@ -11,7 +11,7 @@
   "gross_profit_mtd_usd": -12.0,
   "margin_pct": null,
   "reconciliation_complete": true,
-  "mrr_usd": 93.58,
+  "mrr_usd": 73.58,
   "active_costs_monthly_usd": 1210.67
  },
  "sources": {
