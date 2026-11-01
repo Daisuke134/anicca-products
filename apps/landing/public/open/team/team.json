@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-01 21:05 JST",
+ "built_at": "2026-11-02 06:05 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -24,9 +24,9 @@
   },
   {
    "agent": "Codex",
-   "last": "2026-11-01 09:24",
-   "source": "LIVE-STATE.md",
-   "task": "manager-research-loop",
+   "last": "2026-11-02 01:12",
+   "source": "BOARD",
+   "task": "maritime-m1",
    "blocked": true
   },
   {
@@ -52,16 +52,16 @@
   },
   {
    "agent": "Forensic Writing",
-   "last": "2026-11-01 19:50",
+   "last": "2026-11-02 04:50",
    "source": "BOARD",
    "task": "hook-forensics-24h",
    "blocked": true
   },
   {
    "agent": "Muse Relay",
-   "last": "2026-11-01 20:21",
+   "last": "2026-11-02 04:15",
    "source": "LIVE-STATE.md",
-   "task": "relay pass 20",
+   "task": "relay pass",
    "blocked": true
   }
  ],
@@ -878,7 +878,7 @@
    "posts_7d": 10,
    "views_7d": 4233.0,
    "er_7d": "585.0/4233=13.8%",
-   "avg_views_last5": 180,
+   "avg_views_last5": 189,
    "last_post": "2026-10-31T12:20",
    "winner": "https://www.tiktok.com/@buddhamotivation1mu"
   },
@@ -891,7 +891,7 @@
    "posts_7d": 80,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 2,
+   "avg_views_last5": 3,
    "last_post": "2026-10-31T21:58",
    "winner": "https://x.com/godofprompt"
   },
@@ -1451,7 +1451,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 10:02",
+   "last_post": "2026-11-01 01:01",
    "winner": "未取得"
   },
   {
@@ -1464,7 +1464,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 15:56",
+   "last_post": "2026-10-31 23:00",
    "winner": "未取得"
   },
   {
@@ -1490,7 +1490,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 13:00",
+   "last_post": "2026-10-31 21:56",
    "winner": "未取得"
   },
   {
@@ -1503,7 +1503,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 15:56",
+   "last_post": "2026-11-01 01:01",
    "winner": "未取得"
   },
   {
@@ -1568,7 +1568,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31 01:00",
+   "last_post": "2026-11-01 01:01",
    "winner": "未取得"
   },
   {
