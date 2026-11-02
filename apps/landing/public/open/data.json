@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 21:12 JST",
+ "updated_at": "2026-11-02 21:22 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -984,7 +984,7 @@
     ]
    },
    "posts": {
-    "read_at": "2026-11-02 15:28 JST",
+    "read_at": "2026-11-02 21:21 JST",
     "note": "TikTok: POST-LOG has 1 row (10/27, postiz id). TikTok metrics only via Postiz analytics (views/likes/comments/shares; no saves); no TikTok Display API token on box.",
     "source": "X API v2, YouTube Data API v3, Postiz analytics",
     "top": [
@@ -1063,11 +1063,11 @@
     ]
    },
    "capafy": {
-    "read_at": "2026-11-01 21:24 JST",
-    "last7_orders": 932,
-    "last7_gross_usd": 26.97,
-    "mtd_orders": 36,
-    "mtd_gross_usd": 0.0,
+    "read_at": "2026-11-02 21:21 JST",
+    "last7_orders": 828,
+    "last7_gross_usd": 36.96,
+    "mtd_orders": 123,
+    "mtd_gross_usd": 9.99,
     "paid_out_usd": 0.0,
     "views": "データなし",
     "note": "gross = Capafy-recorded buyer payments; not bank-received until totalPayout>0 (notices.csv 通知のみ・未入金)",
