@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-03 01:59 JST",
+ "updated_at": "2026-11-03 02:07 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.9,
@@ -471,17 +471,21 @@
   },
   "all_time_confirmed": 1749.36,
   "bank": {
-   "usd": null,
-   "jpy": null,
-   "status": "unknown (source error)"
+   "usd": 1611.03,
+   "jpy": 253335,
+   "fx": "JPY/ECB 157.25 (2026-10-30)",
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG via Moneytree (BANK-BALANCE.md), total only"
   },
   "net_worth": {
-   "usd": null,
-   "jpy": null,
-   "status": "unknown (source error)",
+   "usd": 1611.03,
+   "jpy": 253335,
+   "fx": "JPY/ECB 157.25 (2026-10-30)",
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG via Moneytree (BANK-BALANCE.md), total only",
    "basis": "Bank total; no debt on record"
   },
-  "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 01:59 JST",
+  "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 02:07 JST",
   "all_time_usd": 2223.84
  },
  "coverage_note": "Coverage incomplete; company revenue and profit are not established."
