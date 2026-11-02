@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-03 02:07 JST",
+ "updated_at": "2026-11-03 02:17 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.9,
@@ -353,6 +353,16 @@
     "note": "no revenue recorded"
    },
    {
+    "platform": "RapidAPI",
+    "type": "API marketplace",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "App Store Top Charts JP & Global API; subscribers unknown (source error), calls unknown (source error); earnings unknown (source error)"
+   },
+   {
     "platform": "SKIMA",
     "type": "Contract work",
     "this_month": null,
@@ -485,7 +495,7 @@
    "source": "MUFG via Moneytree (BANK-BALANCE.md), total only",
    "basis": "Bank total; no debt on record"
   },
-  "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 02:07 JST",
+  "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 02:17 JST",
   "all_time_usd": 2223.84
  },
  "coverage_note": "Coverage incomplete; company revenue and profit are not established."
