@@ -17,6 +17,7 @@ on:
         required: false
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: ebook-articles
   cancel-in-progress: false
@@ -60,6 +61,12 @@ jobs:
             sleep 10
           done
           git fetch origin main && git merge-base --is-ancestor HEAD origin/main
+      - name: Trigger Netlify deploy
+        # GITHUB_TOKEN pushes do not fire push-triggered workflows; dispatch is allowed.
+        if: steps.compose.outputs.url != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run netlify-deploy.yml --ref main -R "$GITHUB_REPOSITORY"
       - name: Verify live
         if: steps.compose.outputs.url != ''
         run: |
