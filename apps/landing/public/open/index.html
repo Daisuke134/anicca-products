@@ -29,7 +29,7 @@ footer{color:var(--mut);font-size:13px;margin-top:32px}a{color:inherit}
 <h2>Costs this month (<span id="m2"></span>)</h2><div class="tw"><table id="t-cm"></table></div>
 <h2>Active costs — forward-looking recurring list (not actuals)</h2><div class="tw"><table id="t-act"></table></div>
 <h3>通知のみ・未入金 (not counted as revenue)</h3><ul id="ntc" class="src"></ul>
-<h3>Cost reconciliation (each total = sum of rows, ¥)</h3><ul id="rec" class="src"></ul>
+<h3>Cost reconciliation (each total = sum of rows; USD primary, ¥ in parentheses where shown)</h3><ul id="rec" class="src"></ul>
 <h2>Products &amp; research</h2><div class="tw"><table id="t-prod"></table></div>
 <h2>By agent (<span id="m3"></span>)</h2><div class="tw"><table id="t-ag"></table></div>
 <h2>Balances, net worth &amp; all-time revenue (totals only)</h2><div class="tw"><table id="t-bal"></table></div>
@@ -50,7 +50,7 @@ footer{color:var(--mut);font-size:13px;margin-top:32px}a{color:inherit}
 <p>Raw data: <a href="data.json">data.json</a> · <a href="metrics.json">metrics.json</a> · rebuilt daily. Layout modelled on <a href="https://felixcraft.ai/dashboard">felixcraft.ai/dashboard</a>.</p></footer>
 </main><script>
 const $=id=>document.getElementById(id);
-const JY=(j,u)=>j==null?'<span class="mut">データなし</span>':`${j<0?'−':''}¥${Math.abs(j).toLocaleString('en-US')} <span class="mut">(${u==null?'USD データなし':(u<0?'−':'')+'$'+Math.abs(u).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})})</span>`;
+const JY=(j,u)=>(j==null&&u==null)?'<span class="mut">データなし</span>':`${u==null?'<span class="mut">USD データなし</span>':`<span class="${u<0?'neg':''}">${u<0?'−':''}$${Math.abs(u).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</span>`} <span class="mut">(${j==null?'¥ データなし':(j<0?'−':'')+'¥'+Math.abs(j).toLocaleString('en-US')})</span>`;
 const usd=v=>v==null?'<span class="mut">—</span>':`<span class="${v<0?'neg':''}">${v<0?'−':''}$${Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</span>`;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const costAmount=c=>c.usd!=null?usd(c.usd):(c.native_amount!=null&&c.native_currency?`${esc(Number(c.native_amount).toLocaleString('en-US'))} ${esc(c.native_currency)} <span class="mut">(USD conversion unavailable)</span>`:usd(null));

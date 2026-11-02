@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 09:12 JST",
+ "updated_at": "2026-11-02 09:21 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -124,135 +124,6 @@
    "payments": 1,
    "unknown": false,
    "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Rent to 成田 (bank + Mac mini) (2026-10)",
-   "jpy": 100000,
-   "usd": 635.93,
-   "payments": 1,
-   "unknown": false,
-   "verify": "未検証（MUFG 10月の出金 ¥100,000 は記録にあるが日付なし）",
-   "source": "未検証（MUFG 10月の出金 ¥100,000 は記録にあるが日付なし）; MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md) transfer + finance/COST-CUTS.md rent row (RULE 0n)"
-  },
-  {
-   "item": "OpenAI (2026-10)",
-   "jpy": 46855,
-   "usd": 297.73,
-   "payments": 3,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Grok (2026-10)",
-   "jpy": 31959,
-   "usd": 203.38,
-   "payments": 6,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Google Cloud (2026-10)",
-   "jpy": 27889,
-   "usd": 176.88,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Adobe (2026-10)",
-   "jpy": 9960,
-   "usd": 63.18,
-   "payments": 2,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Postiz (2026-10)",
-   "jpy": 7936,
-   "usd": 50.4,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "HeyGen (2026-10)",
-   "jpy": 6129,
-   "usd": 38.86,
-   "payments": 2,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Upwork (2026-10)",
-   "jpy": 4000,
-   "usd": 24.0,
-   "payments": 2,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Railway (2026-10)",
-   "jpy": 3756,
-   "usd": 23.78,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Replit (2026-10)",
-   "jpy": 3283,
-   "usd": 20.0,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Telnyx (2026-10)",
-   "jpy": 3268,
-   "usd": 20.61,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Relixir (2026-10)",
-   "jpy": 3254,
-   "usd": 20.0,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "X Premium (2026-10)",
-   "jpy": 918,
-   "usd": 5.85,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Hetzner (2026-10)",
-   "jpy": 253,
-   "usd": 1.6,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "DigitalOcean (2026-10)",
-   "jpy": 162,
-   "usd": 1.03,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
-  },
-  {
-   "item": "Cursor (2026-10)",
-   "jpy": 107,
-   "usd": 0.68,
-   "payments": 1,
-   "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
   }
  ],
  "costs_month_total": {
@@ -276,20 +147,6 @@
    "jpy_mo": 100000
   },
   {
-   "item": "Google Cloud (Gemini/Maps)",
-   "uses": "LM call voice, lateness, scouts",
-   "jpy": 27889,
-   "status": "one-time",
-   "label": "最終請求（~11/02、一回だけ）",
-   "counted": false,
-   "next_charge": "~11/02 invoice",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 177.35,
-   "usd_mo": 177.35,
-   "jpy_mo": 27889
-  },
-  {
    "item": "Grok — X Ultra (upgraded 10/31)",
    "uses": "all Grok Bots",
    "jpy": 34800,
@@ -302,34 +159,6 @@
    "usd": 221.3,
    "usd_mo": 221.3,
    "jpy_mo": 34800
-  },
-  {
-   "item": "ChatGPT charge ¥13,259 (10/24)",
-   "uses": "unknown (likely prorated upgrade)",
-   "jpy": 13259,
-   "status": "one-time",
-   "label": "一回限りの請求（10/24、用途不明）、月額に含めない",
-   "counted": false,
-   "next_charge": "~11/24?",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 84.32,
-   "usd_mo": 84.32,
-   "jpy_mo": 13259
-  },
-  {
-   "item": "Adobe CC ×2",
-   "uses": "nothing",
-   "jpy": 9960,
-   "status": "cancelled",
-   "label": "解約済み・利用は終了日まで（11/16・11/29）",
-   "counted": false,
-   "next_charge": "ends 11/16 & 11/29 PT",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 63.34,
-   "usd_mo": 63.34,
-   "jpy_mo": 9960
   },
   {
    "item": "Postiz Pro",
@@ -358,20 +187,6 @@
    "usd": 28.62,
    "usd_mo": 28.62,
    "jpy_mo": 4500
-  },
-  {
-   "item": "Replit",
-   "uses": "nothing (成田さん: unused)",
-   "jpy": 3283,
-   "status": "cancelled",
-   "label": "解約済み（11/08終了）",
-   "counted": false,
-   "next_charge": "11/09",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 20.88,
-   "usd_mo": 20.88,
-   "jpy_mo": 3283
   },
   {
    "item": "Telnyx",
@@ -486,20 +301,6 @@
    "jpy_mo": 0
   },
   {
-   "item": "Upwork Connects",
-   "uses": "proposals",
-   "jpy": null,
-   "status": "active",
-   "label": "継続中",
-   "counted": false,
-   "next_charge": "on demand",
-   "note": "従量/概算のため",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": null,
-   "usd_mo": null,
-   "jpy_mo": null
-  },
-  {
    "item": "Apple Developer",
    "uses": "iOS apps",
    "jpy": 1082,
@@ -546,13 +347,13 @@
   "this_month": "Google Cloud 44,298 + Upwork 2,000 = 46,298",
   "last_month": "Rent to 成田 (bank + Mac mini) 100,000 + OpenAI 46,855 + Grok 31,959 + Google Cloud 27,889 + Adobe 9,960 + Postiz 7,936 + HeyGen 6,129 + Upwork 4,000 + Railway 3,756 + Replit 3,283 + Telnyx 3,268 + Relixir 3,254 + X Premium 918 + Hetzner 253 + DigitalOcean 162 + Cursor 107 = 249,729",
   "active": "Rent to 成田 (bank + Mac mini) 100,000 + Grok — X Ultra (upgraded 10/31) 34,800 + Postiz Pro 7,936 + HeyGen Creator (Apple) 4,500 + Telnyx 3,268 + X Premium (dup) 918 + Hetzner 253 + DigitalOcean 162 + ChatGPT Pro (2nd-of-month ¥30,000) 30,000 + ChatGPT Plus 3,596 + Railway 3,756 + Moneytree Grow 0 + Apple Developer 1,082 + Cursor usage 107 + Vercel / Twilio / Netlify / Supabase 0 = 190,378",
-  "gross_profit": "revenue ¥5,000 − costs this month ¥46,298 = ¥-41,298",
+  "gross_profit": "revenue $31.80 (¥5,000) − costs this month $293.70 (¥46,298) = −$261.90 (−¥41,298)",
   "gross_profit_last": "2026-10: revenue ¥34,480 − costs ¥249,729 = ¥-215,249",
   "excluded": [
-   "Google Cloud (Gemini/Maps): 最終請求（~11/02、一回だけ）",
+   "Google Cloud (Gemini/Maps): 解約済み（cfo/expenses.json status=cancelled, 2026-11-01）",
    "ChatGPT charge ¥13,259 (10/24): 一回限りの請求（10/24、用途不明）、月額に含めない",
-   "Adobe CC ×2: 解約済み・利用は終了日まで（11/16・11/29）",
-   "Replit: 解約済み（11/08終了）",
+   "Adobe CC ×2: 解約済み（cfo/expenses.json status=cancelled, 2026-10-31, ends 2026-11-29）",
+   "Replit: 解約済み（cfo/expenses.json status=cancelled, ends 2026-11-08）",
    "Upwork Connects: amount データなし"
   ],
   "bridge": "10月実績 ¥249,729 (expenses.json+家賃) −OpenAI 一回限り¥13,259を除外 13,259 +Grok プラン変更(Pro/Super→Ultra) 2,841 −Google Cloud 一回限りの最終請求 27,889 −Adobe 解約 9,960 −HeyGen API 一回分を除く 1,629 −Upwork Connects 従量(月額データなし) 4,000 −Replit 解約 3,283 −Relixir 一回購入 3,254 +Apple Developer 1,082 = Active ¥190,378",
@@ -848,10 +649,10 @@
      "platform": "TikTok",
      "accounts": 12,
      "with_numbers": 12,
-     "followers": 4047,
-     "views_7d": 35364,
-     "followers_delta": 54,
-     "views_delta": -434
+     "followers": 4061,
+     "views_7d": 35964,
+     "followers_delta": 68,
+     "views_delta": 1112
     },
     {
      "platform": "X",
@@ -866,9 +667,9 @@
      "platform": "Bluesky",
      "accounts": 4,
      "with_numbers": 4,
-     "followers": 14,
+     "followers": 16,
      "views_7d": null,
-     "followers_delta": 3,
+     "followers_delta": 5,
      "views_delta": null
     },
     {
@@ -884,9 +685,18 @@
      "platform": "Mastodon",
      "accounts": 4,
      "with_numbers": 4,
-     "followers": 2,
+     "followers": 3,
      "views_7d": null,
-     "followers_delta": 0,
+     "followers_delta": 1,
+     "views_delta": null
+    },
+    {
+     "platform": "YouTube",
+     "accounts": 2,
+     "with_numbers": 0,
+     "followers": null,
+     "views_7d": null,
+     "followers_delta": null,
      "views_delta": null
     },
     {
@@ -894,9 +704,9 @@
      "accounts": 8,
      "with_numbers": 0,
      "followers": null,
-     "views_7d": 19410,
+     "views_7d": 13470,
      "followers_delta": null,
-     "views_delta": 1248
+     "views_delta": -5498
     },
     {
      "platform": "linkedin",
@@ -917,8 +727,8 @@
      "views_delta": null
     },
     {
-     "platform": "YouTube",
-     "accounts": 2,
+     "platform": "tiktok-business",
+     "accounts": 1,
      "with_numbers": 0,
      "followers": null,
      "views_7d": null,
@@ -971,9 +781,9 @@
      "views_delta": null
     }
    ],
-   "as_of": "2026-11-01 09:17 JST",
+   "as_of": "2026-11-02 09:18 JST",
    "vs": "2026-10-27",
-   "source": "metrics/accounts-snapshot-2026-11-01.json vs 2026-10-27 snapshot (team/ACCOUNTS.md account list)"
+   "source": "metrics/accounts-snapshot-2026-11-02.json vs 2026-10-27 snapshot (team/ACCOUNTS.md account list)"
   },
   "status": {
    "seo_geo": [
@@ -1174,7 +984,7 @@
     ]
    },
    "posts": {
-    "read_at": "2026-11-01 21:24 JST",
+    "read_at": "2026-11-02 09:18 JST",
     "note": "TikTok: POST-LOG has 1 row (10/27, postiz id). TikTok metrics only via Postiz analytics (views/likes/comments/shares; no saves); no TikTok Display API token on box.",
     "source": "X API v2, YouTube Data API v3, Postiz analytics",
     "top": [
@@ -1218,19 +1028,19 @@
       "platform": "instagram",
       "account": "anicca.en",
       "post_url": "https://www.instagram.com/reel/DfGFe3YD64O/",
-      "views": "1521",
+      "views": "1523",
       "likes": "3",
       "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
-      "checkpoint": "24h"
+      "checkpoint": "72h"
      },
      {
       "platform": "instagram",
       "account": "anicca.en",
       "post_url": "https://www.instagram.com/reel/DfEvweJjrmD/",
-      "views": "1477",
+      "views": "1478",
       "likes": "1",
       "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
-      "checkpoint": "24h"
+      "checkpoint": "72h"
      },
      {
       "platform": "instagram",
