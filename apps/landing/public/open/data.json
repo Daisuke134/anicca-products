@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 15:12 JST",
+ "updated_at": "2026-11-02 19:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -864,7 +864,7 @@
      "Investing (≤¥10k/mo) — product loop (参謀)",
      "Investing — distribution loop (n/a)"
     ],
-    "source": "PRODUCT-LOOPS.md (2026-11-02 09:10 JST)"
+    "source": "PRODUCT-LOOPS.md (2026-11-02 17:34 JST)"
    }
   },
   "tracking": {
@@ -984,7 +984,7 @@
     ]
    },
    "posts": {
-    "read_at": "2026-11-02 09:18 JST",
+    "read_at": "2026-11-02 15:28 JST",
     "note": "TikTok: POST-LOG has 1 row (10/27, postiz id). TikTok metrics only via Postiz analytics (views/likes/comments/shares; no saves); no TikTok Display API token on box.",
     "source": "X API v2, YouTube Data API v3, Postiz analytics",
     "top": [
