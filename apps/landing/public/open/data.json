@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 19:12 JST",
+ "updated_at": "2026-11-02 19:35 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -429,7 +429,7 @@
    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
   },
   {
-   "item": "Net worth (= bank balance; liabilities: 記録なし)",
+   "item": "Net worth (= bank balance; no liabilities on record)",
    "jpy": 253335,
    "usd": null,
    "as_of": "2026-11-01 10:10 JST",
@@ -1206,5 +1206,389 @@
    }
   },
   "na": "データなし"
+ },
+ "summary": {
+  "platforms": [
+   {
+    "platform": "Coconala",
+    "type": "Contract work",
+    "this_month": 31.8,
+    "last_month": 217.67,
+    "all_time": 1694.54,
+    "pending": 47.65,
+    "status": "pending payout",
+    "note": ""
+   },
+   {
+    "platform": "App Store (iOS)",
+    "type": "iOS apps",
+    "this_month": null,
+    "last_month": 0.0,
+    "all_time": 474.48,
+    "pending": 0.0,
+    "status": "paid",
+    "note": "lifetime gross (RevenueCat); 2 apps with paying subs"
+   },
+   {
+    "platform": "Stripe",
+    "type": "Web payments",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 54.81,
+    "pending": 0.0,
+    "status": "paid",
+    "note": ""
+   },
+   {
+    "platform": "x402 (USDC on Base)",
+    "type": "API (crypto)",
+    "this_month": 0.005,
+    "last_month": 0.0,
+    "all_time": 0.005,
+    "pending": 0.0,
+    "status": "paid",
+    "note": ""
+   },
+   {
+    "platform": "Alignerr",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Apify",
+    "type": "API marketplace",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "2 users, 7 runs; paid pricing starts 2026-11-16; earnings unknown (source error)"
+   },
+   {
+    "platform": "Capafy",
+    "type": "AI skill marketplace",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 26.97,
+    "status": "pending payout",
+    "note": "3 orders (gross), payout not received yet"
+   },
+   {
+    "platform": "Contra",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "CrowdWorks",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Fiverr",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Freelancer.com",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Guru",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "LINE Stickers",
+    "type": "Digital marketplace",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Lancers",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Malt",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Mercor",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "PromptBase",
+    "type": "Digital marketplace",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "SKIMA",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Truelancer",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Upwork",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Whop / Gumroad",
+    "type": "Digital marketplace",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "Workana",
+    "type": "Contract work",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   },
+   {
+    "platform": "note / Substack",
+    "type": "Digital marketplace",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "no revenue recorded"
+   }
+  ],
+  "trend": [
+   {
+    "month": "2025-10",
+    "total": 39.15,
+    "by_platform": {
+     "Stripe": 39.15
+    }
+   },
+   {
+    "month": "2025-11",
+    "total": 4.9,
+    "by_platform": {
+     "Stripe": 4.9
+    }
+   },
+   {
+    "month": "2025-12",
+    "total": 0,
+    "by_platform": {}
+   },
+   {
+    "month": "2026-01",
+    "total": 0,
+    "by_platform": {}
+   },
+   {
+    "month": "2026-02",
+    "total": 0,
+    "by_platform": {}
+   },
+   {
+    "month": "2026-03",
+    "total": 0,
+    "by_platform": {}
+   },
+   {
+    "month": "2026-04",
+    "total": 0,
+    "by_platform": {}
+   },
+   {
+    "month": "2026-05",
+    "total": 10.76,
+    "by_platform": {
+     "Stripe": 10.76
+    }
+   },
+   {
+    "month": "2026-06",
+    "total": 0,
+    "by_platform": {}
+   },
+   {
+    "month": "2026-07",
+    "total": 390.43,
+    "by_platform": {
+     "Coconala": 390.43
+    }
+   },
+   {
+    "month": "2026-08",
+    "total": 698.27,
+    "by_platform": {
+     "Coconala": 698.27
+    }
+   },
+   {
+    "month": "2026-09",
+    "total": 356.37,
+    "by_platform": {
+     "Coconala": 356.37
+    }
+   },
+   {
+    "month": "2026-10",
+    "total": 217.67,
+    "by_platform": {
+     "Coconala": 217.67
+    }
+   },
+   {
+    "month": "2026-11",
+    "total": 31.8,
+    "by_platform": {
+     "Coconala": 31.8,
+     "x402 (USDC on Base)": 0.005
+    }
+   }
+  ],
+  "products": [
+   {
+    "product": "Coconala contract work",
+    "platform": "Coconala",
+    "all_time": 1694.54,
+    "this_month": 31.8
+   },
+   {
+    "product": "Anicca (iOS)",
+    "platform": "App Store (iOS)",
+    "all_time": 390.59,
+    "this_month": null
+   },
+   {
+    "product": "Honne (iOS)",
+    "platform": "App Store (iOS)",
+    "all_time": 83.89,
+    "this_month": null
+   },
+   {
+    "product": "Web subscriptions (product not labelled)",
+    "platform": "Stripe",
+    "all_time": 54.81,
+    "this_month": 0.0
+   },
+   {
+    "product": "x402 endpoints (affirmation, capafy-skill)",
+    "platform": "x402 (USDC on Base)",
+    "all_time": 0.005,
+    "this_month": 0.005
+   },
+   {
+    "product": "Capafy skills",
+    "platform": "Capafy",
+    "all_time": 0.0,
+    "this_month": 0.0,
+    "note": "$26.97 pending payout"
+   },
+   {
+    "product": "Apify actor (S7JAoTNiztat9Qwuq)",
+    "platform": "Apify",
+    "all_time": null,
+    "this_month": null,
+    "note": "pricing starts 2026-11-16"
+   }
+  ],
+  "mrr_split": {
+   "revenuecat": 24,
+   "capafy": 73.58,
+   "stripe": 0.0,
+   "stripe_active_subscriptions": 0,
+   "total": 97.58
+  },
+  "bank": {
+   "jpy": 253335,
+   "usd": 1611.03,
+   "fx": "JPY/ECB 157.25 (2026-10-30)",
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG via Moneytree (BANK-BALANCE.md), total only"
+  },
+  "all_time_confirmed": 1749.36
  }
 }
