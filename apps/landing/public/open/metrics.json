@@ -1,18 +1,18 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 21:22 JST",
+ "updated_at": "2026-11-03 01:59 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
-  "revenue_7d_usd": 47.66,
-  "revenue_30d_usd": 249.47,
-  "revenue_mtd_usd": 31.8,
+  "revenue_7d_usd": null,
+  "revenue_30d_usd": null,
+  "revenue_mtd_usd": null,
   "costs_mtd_usd": 293.7,
-  "gross_profit_mtd_usd": -261.9,
-  "margin_pct": -823.6,
-  "reconciliation_complete": true,
+  "gross_profit_mtd_usd": null,
+  "margin_pct": null,
+  "reconciliation_complete": false,
   "mrr_usd": 97.58,
-  "active_costs_monthly_usd": 1210.67
+  "active_costs_monthly_usd": null
  },
  "sources": {
   "rev7": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB",
@@ -30,25 +30,29 @@
  "monthly": [
   {
    "month": "2026-09",
-   "revenue_usd": 356.37,
+   "revenue_usd": null,
    "cost_usd": 1513.71,
-   "gross_profit_usd": -1157.34,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)"
+   "gross_profit_usd": null,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)",
+   "coverage_note": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "month": "2026-10",
-   "revenue_usd": 217.67,
-   "cost_usd": 1583.91,
-   "gross_profit_usd": -1366.24,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
+   "revenue_usd": null,
+   "cost_usd": 1581.29,
+   "gross_profit_usd": null,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)",
+   "coverage_note": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "month": "2026-11 (to date)",
-   "revenue_usd": 31.8,
+   "revenue_usd": null,
    "cost_usd": 293.7,
-   "gross_profit_usd": -261.9,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
+   "gross_profit_usd": null,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)",
+   "coverage_note": "Coverage incomplete; company revenue and profit are not established."
   }
  ],
- "see": "data.json for every row and its source"
+ "see": "data.json for every row and its source",
+ "coverage_note": "Coverage incomplete; company revenue and profit are not established."
 }

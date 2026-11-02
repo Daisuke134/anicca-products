@@ -1,9 +1,9 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 21:22 JST",
+ "updated_at": "2026-11-03 01:59 JST",
  "month": "2026-11",
  "currency": "USD",
- "fx_usdjpy": 157.25,
+ "fx_usdjpy": 157.9,
  "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
  "model": "Layout modelled on felixcraft.ai/dashboard",
  "spec": "team/OPEN-PAGE-V2.md",
@@ -11,14 +11,20 @@
   {
    "key": "rev7",
    "label": "Revenue (7d)",
-   "usd": 47.66,
-   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
+   "usd": null,
+   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB",
+   "jpy": null,
+   "pct": null,
+   "pending": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "key": "rev30",
    "label": "Revenue (30d)",
-   "usd": 249.47,
-   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
+   "usd": null,
+   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB",
+   "jpy": null,
+   "pct": null,
+   "pending": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "key": "revm",
@@ -28,37 +34,44 @@
   },
   {
    "key": "cost",
-   "label": "Costs this month",
+   "label": "Observed payment notices (current month)",
    "usd": 293.7,
    "jpy": 46298,
-   "source": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date) (company withdrawals to date)"
+   "source": "Provider/payment notices; coverage incomplete; not accrual expenses or final bank settlement"
   },
   {
    "key": "costl",
-   "label": "Costs last month (2026-10)",
-   "usd": 1583.91,
+   "label": "Observed payment notices (prior month)",
+   "usd": 1581.29,
    "jpy": 249729,
-   "source": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual)"
+   "source": "Provider/payment notices; coverage incomplete; not accrual expenses or final bank settlement"
   },
   {
    "key": "gp",
    "label": "Profit this month",
-   "usd": -261.9,
-   "jpy": -41298,
-   "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
+   "usd": null,
+   "jpy": null,
+   "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis",
+   "pct": null,
+   "pending": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "key": "gpl",
    "label": "Profit last month (2026-10)",
-   "usd": -1366.24,
-   "jpy": -215249,
-   "source": "same basis, last month"
+   "usd": null,
+   "jpy": null,
+   "source": "same basis, last month",
+   "pct": null,
+   "pending": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "key": "margin",
    "label": "Margin",
-   "pct": -823.6,
-   "source": "gross profit / revenue this month"
+   "pct": null,
+   "source": "gross profit / revenue this month",
+   "usd": null,
+   "jpy": null,
+   "pending": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "key": "mrr",
@@ -69,9 +82,11 @@
   {
    "key": "run",
    "label": "Active costs / month",
-   "usd": 1210.67,
-   "jpy": 190378,
-   "source": "FORWARD-LOOKING list, not actuals: sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded"
+   "usd": null,
+   "jpy": null,
+   "source": "FORWARD-LOOKING list, not actuals: sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded",
+   "pct": null,
+   "pending": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "key": "human",
@@ -83,30 +98,33 @@
  "monthly": [
   {
    "month": "2026-09",
-   "revenue_usd": 356.37,
+   "revenue_usd": null,
    "cost_usd": 1513.71,
-   "gross_profit_usd": -1157.34,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)"
+   "gross_profit_usd": null,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: 18 receipt lines (cfo/history.csv)",
+   "coverage_note": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "month": "2026-10",
-   "revenue_usd": 217.67,
-   "cost_usd": 1583.91,
-   "gross_profit_usd": -1366.24,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
+   "revenue_usd": null,
+   "cost_usd": 1581.29,
+   "gross_profit_usd": null,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)",
+   "coverage_note": "Coverage incomplete; company revenue and profit are not established."
   },
   {
    "month": "2026-11 (to date)",
-   "revenue_usd": 31.8,
+   "revenue_usd": null,
    "cost_usd": 293.7,
-   "gross_profit_usd": -261.9,
-   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
+   "gross_profit_usd": null,
+   "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)",
+   "coverage_note": "Coverage incomplete; company revenue and profit are not established."
   }
  ],
  "streams": [],
  "streams_total": {
-  "earned_usd": 0.0,
-  "source": "sum of streams"
+  "earned_usd": null,
+  "source": "Coverage incomplete; company revenue and profit are not established."
  },
  "costs_month": [
   {
@@ -115,7 +133,8 @@
    "usd": 281.7,
    "payments": 1,
    "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py",
+   "period_note": "October 2026 usage; November payment notice; JPY 40,271 + tax 4,027; final settlement not established"
   },
   {
    "item": "Upwork",
@@ -123,7 +142,8 @@
    "usd": 12.0,
    "payments": 1,
    "unknown": false,
-   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py",
+   "period_note": "Payment-notice month 2026-11; service period varies"
   }
  ],
  "costs_month_total": {
@@ -131,353 +151,18 @@
   "jpy": 46298,
   "source": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date)"
  },
- "active_costs": [
-  {
-   "item": "Rent to 成田 (bank + Mac mini)",
-   "uses": "bank account + Mac mini use (RULE 0n)",
-   "jpy": 100000,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "monthly",
-   "note": "",
-   "source": "finance/COST-CUTS.md rent row (¥100,000, RULE 0n)",
-   "usd": 635.93,
-   "usd_mo": 635.93,
-   "jpy_mo": 100000
-  },
-  {
-   "item": "Grok — X Ultra (upgraded 10/31)",
-   "uses": "all Grok Bots",
-   "jpy": 34800,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "11/30 ¥34,800",
-   "note": "現行プラン",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 221.3,
-   "usd_mo": 221.3,
-   "jpy_mo": 34800
-  },
-  {
-   "item": "Postiz Pro",
-   "uses": "TikTok 11 accts + other channels",
-   "jpy": 7936,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "11/25",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 50.47,
-   "usd_mo": 50.47,
-   "jpy_mo": 7936
-  },
-  {
-   "item": "HeyGen Creator (Apple)",
-   "uses": "Muse monk videos",
-   "jpy": 4500,
-   "status": "active",
-   "label": "継続中（解約予定 11/19）",
-   "counted": true,
-   "next_charge": "11/21",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 28.62,
-   "usd_mo": 28.62,
-   "jpy_mo": 4500
-  },
-  {
-   "item": "Telnyx",
-   "uses": "life-call wake calls",
-   "jpy": 3268,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "usage/top-up",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 20.78,
-   "usd_mo": 20.78,
-   "jpy_mo": 3268
-  },
-  {
-   "item": "X Premium (dup)",
-   "uses": "duplicate of Super/Ultra",
-   "jpy": 918,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "11/24",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 5.84,
-   "usd_mo": 5.84,
-   "jpy_mo": 918
-  },
-  {
-   "item": "Hetzner",
-   "uses": "unknown server",
-   "jpy": 253,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "11/02",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 1.61,
-   "usd_mo": 1.61,
-   "jpy_mo": 253
-  },
-  {
-   "item": "DigitalOcean",
-   "uses": "nothing (0 droplets)",
-   "jpy": 162,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "11/01",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 1.03,
-   "usd_mo": 1.03,
-   "jpy_mo": 162
-  },
-  {
-   "item": "ChatGPT Pro (2nd-of-month ¥30,000)",
-   "uses": "Codex (CTO), Dots (CFO)",
-   "jpy": 30000,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "11/02",
-   "note": "確認済み（MUFG OpenAI 10月合計と一致）",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 190.78,
-   "usd_mo": 190.78,
-   "jpy_mo": 30000
-  },
-  {
-   "item": "ChatGPT Plus",
-   "uses": "family",
-   "jpy": 3596,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "~11/20",
-   "note": "確認済み（MUFG OpenAI 10月合計と一致）",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 22.87,
-   "usd_mo": 22.87,
-   "jpy_mo": 3596
-  },
-  {
-   "item": "Railway",
-   "uses": "LM/Capafy hosting",
-   "jpy": 3756,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "11/28",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 23.89,
-   "usd_mo": 23.89,
-   "jpy_mo": 3756
-  },
-  {
-   "item": "Moneytree Grow",
-   "uses": "balance updates (CFO, /open)",
-   "jpy": 0,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "trial ends ~11/25 (started 10/26, 30 days, no auto-bill)",
-   "note": "トライアル中",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 0.0,
-   "usd_mo": 0.0,
-   "jpy_mo": 0
-  },
-  {
-   "item": "Apple Developer",
-   "uses": "iOS apps",
-   "jpy": 1082,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "2027-06-02",
-   "note": "年額÷12",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 6.88,
-   "usd_mo": 6.88,
-   "jpy_mo": 1082
-  },
-  {
-   "item": "Cursor usage",
-   "uses": "coding",
-   "jpy": 107,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "usage",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 0.68,
-   "usd_mo": 0.68,
-   "jpy_mo": 107
-  },
-  {
-   "item": "Vercel / Twilio / Netlify / Supabase",
-   "uses": "hosting/phone",
-   "jpy": 0,
-   "status": "active",
-   "label": "継続中",
-   "counted": true,
-   "next_charge": "–",
-   "note": "",
-   "source": "finance/COST-CUTS.md (2026-11-01 10:50 JST)",
-   "usd": 0.0,
-   "usd_mo": 0.0,
-   "jpy_mo": 0
-  }
- ],
- "cost_reconciliation": {
-  "this_month": "Google Cloud 44,298 + Upwork 2,000 = 46,298",
-  "last_month": "Rent to 成田 (bank + Mac mini) 100,000 + OpenAI 46,855 + Grok 31,959 + Google Cloud 27,889 + Adobe 9,960 + Postiz 7,936 + HeyGen 6,129 + Upwork 4,000 + Railway 3,756 + Replit 3,283 + Telnyx 3,268 + Relixir 3,254 + X Premium 918 + Hetzner 253 + DigitalOcean 162 + Cursor 107 = 249,729",
-  "active": "Rent to 成田 (bank + Mac mini) 100,000 + Grok — X Ultra (upgraded 10/31) 34,800 + Postiz Pro 7,936 + HeyGen Creator (Apple) 4,500 + Telnyx 3,268 + X Premium (dup) 918 + Hetzner 253 + DigitalOcean 162 + ChatGPT Pro (2nd-of-month ¥30,000) 30,000 + ChatGPT Plus 3,596 + Railway 3,756 + Moneytree Grow 0 + Apple Developer 1,082 + Cursor usage 107 + Vercel / Twilio / Netlify / Supabase 0 = 190,378",
-  "gross_profit": "revenue $31.80 (¥5,000) − costs this month $293.70 (¥46,298) = −$261.90 (−¥41,298)",
-  "gross_profit_last": "2026-10: revenue ¥34,480 − costs ¥249,729 = ¥-215,249",
-  "excluded": [
-   "Google Cloud (Gemini/Maps): 解約済み（cfo/expenses.json status=cancelled, 2026-11-01）",
-   "ChatGPT charge ¥13,259 (10/24): 一回限りの請求（10/24、用途不明）、月額に含めない",
-   "Adobe CC ×2: 解約済み（cfo/expenses.json status=cancelled, 2026-10-31, ends 2026-11-29）",
-   "Replit: 解約済み（cfo/expenses.json status=cancelled, ends 2026-11-08）",
-   "Upwork Connects: amount データなし"
-  ],
-  "bridge": "10月実績 ¥249,729 (expenses.json+家賃) −OpenAI 一回限り¥13,259を除外 13,259 +Grok プラン変更(Pro/Super→Ultra) 2,841 −Google Cloud 一回限りの最終請求 27,889 −Adobe 解約 9,960 −HeyGen API 一回分を除く 1,629 −Upwork Connects 従量(月額データなし) 4,000 −Replit 解約 3,283 −Relixir 一回購入 3,254 +Apple Developer 1,082 = Active ¥190,378",
-  "openai": "OpenAI 10月 実支払 ¥46,855(expenses.json 3件、MUFG OpenAI ¥46,855 と一致) = Pro ¥30,000 + Plus ¥3,596 + 一回限り ¥13,259"
- },
- "notices_unpaid": [
-  {
-   "date": "2026-10-30",
-   "source": "capafy",
-   "usd": 6.99,
-   "jpy": null,
-   "status": "通知のみ・未入金",
-   "note": "cfo/notices.csv (not revenue until payout)"
-  },
-  {
-   "date": "2026-10-28",
-   "source": "capafy",
-   "usd": 9.99,
-   "jpy": null,
-   "status": "通知のみ・未入金",
-   "note": "cfo/notices.csv (not revenue until payout)"
-  },
-  {
-   "date": "2026-10-23",
-   "source": "capafy",
-   "usd": 9.99,
-   "jpy": null,
-   "status": "通知のみ・未入金",
-   "note": "cfo/notices.csv (not revenue until payout)"
-  }
- ],
- "reconciliation_complete": true,
+ "active_costs": [],
+ "notices_unpaid": [],
+ "reconciliation_complete": false,
  "gross_profit_detail": {
-  "jpy": -41298,
-  "usd": -261.9,
-  "revenue_jpy": 5000,
-  "revenue_usd": 31.8,
-  "cost_jpy": 46298,
-  "cost_usd": 293.7,
-  "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
+  "usd": null,
+  "jpy": null,
+  "status": "Coverage incomplete; company revenue and profit are not established."
  },
- "active_costs_total": {
-  "usd_mo": 1210.67,
-  "jpy": 190378,
-  "jpy_mo": 190378,
-  "source": "FORWARD-LOOKING list, not actuals: sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded"
- },
- "fx_note": "USD/JPY 157.25 (Frankfurter API (ECB reference rate), 2026-10-30)",
- "by_agent": [
-  {
-   "agent": "Shared (all agents: models, hosting, tools)",
-   "earns_usd": 0.0,
-   "spends_usd": null,
-   "net_usd": null,
-   "source": "costs this month (receipt lines without a single agent)"
-  }
- ],
- "wallets": [
-  {
-   "label": "Treasury (x402 receipts)",
-   "chain": "base",
-   "asset": "USDC",
-   "address": "0x7E8b13B7c080465903874352887656314A267E3c",
-   "source": "Base chain (read live in your browser)"
-  }
- ],
- "balances": [
-  {
-   "item": "Bank balance (MUFG)",
-   "jpy": 253335,
-   "usd": null,
-   "as_of": "2026-11-01 10:10 JST",
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-  },
-  {
-   "item": "Net worth (= bank balance; no liabilities on record)",
-   "jpy": 253335,
-   "usd": null,
-   "as_of": "2026-11-01 10:10 JST",
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-  },
-  {
-   "item": "Bank inflow last month (2026-10)",
-   "jpy": 394382,
-   "usd": null,
-   "as_of": "2026-11-01 10:10 JST",
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-  },
-  {
-   "item": "Bank outflow last month (2026-10)",
-   "jpy": 538956,
-   "usd": null,
-   "as_of": "2026-11-01 10:10 JST",
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-  },
-  {
-   "item": "Bank net last month (2026-10)",
-   "jpy": -144574,
-   "usd": null,
-   "as_of": "2026-11-01 10:10 JST",
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-  },
-  {
-   "item": "Bank inflow this month (2026-11 to 11/01)",
-   "jpy": 0,
-   "usd": null,
-   "as_of": "2026-11-01 10:10 JST",
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-  },
-  {
-   "item": "Bank outflow this month (2026-11 to 11/01)",
-   "jpy": 2000,
-   "usd": null,
-   "as_of": "2026-11-01 10:10 JST",
-   "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-  },
-  {
-   "item": "Revenue all-time (deposits + Coconala accepted, payout pending)",
-   "usd": 1749.36,
-   "jpy": 279334.78,
-   "as_of": "2026-11-02",
-   "source": "cfo/revenue_facts.py (15 paid/検収済み rows in REVENUE-BY-SOURCE; USD via dated ECB); notice-only orders excluded (cfo/notices.csv); Coconala ¥2,500 検収済み・入金予定 10/27+10/31 (gross; net after fees ¥1,950: にーぴょ様 ¥1,560 振込申請中, 振込手数料 ¥160, 振込予定日 2026-11-05; たくわーん様 ¥390 in 売上金残高, no transfer request yet; source ココナラ売上管理画面 2026-11-01 21:40 JST read by dr eggbot)"
-  }
- ],
+ "fx_note": "USD/JPY 157.9 (Frankfurter API (ECB reference rate), 2026-11-02)",
+ "by_agent": [],
+ "wallets": [],
+ "balances": [],
  "products": [
   {
    "product": "The Manager",
@@ -490,734 +175,20 @@
    "source": "team/research/manager-lab/manifest.json (article list) + experiment folders"
   }
  ],
- "company": {
-  "platforms": [
-   {
-    "month": "2026-11",
-    "platform": "Coconala",
-    "sales_jpy": 5000,
-    "deposit_jpy": null,
-    "fee_pct": null,
-    "take_home_jpy": null,
-    "note": "",
-    "source": "sales: finance/REVENUE-BY-SOURCE.csv; deposits: BANK-BALANCE.md に該当月の明細合計なし"
-   },
-   {
-    "month": "2026-11",
-    "platform": "x402 (Base USDC)",
-    "sales_jpy": 0,
-    "deposit_jpy": null,
-    "fee_pct": null,
-    "take_home_jpy": null,
-    "note": "",
-    "source": "sales: finance/REVENUE-BY-SOURCE.csv; deposits: BANK-BALANCE.md に該当月の明細合計なし"
-   },
-   {
-    "month": "2026-10",
-    "platform": "App Store (RevenueCat)",
-    "sales_jpy": null,
-    "deposit_jpy": 4250,
-    "fee_pct": null,
-    "take_home_jpy": null,
-    "note": "",
-    "source": "sales: finance/REVENUE-BY-SOURCE.csv; deposits: MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-   },
-   {
-    "month": "2026-10",
-    "platform": "Coconala",
-    "sales_jpy": 34480,
-    "deposit_jpy": 87360,
-    "fee_pct": null,
-    "take_home_jpy": null,
-    "note": "入金に前月以前の売上の振込を含むため手数料率は算出不可",
-    "source": "sales: finance/REVENUE-BY-SOURCE.csv; deposits: MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-   }
-  ],
-  "subscriptions": [
-   {
-    "month": "2026-11",
-    "item": "OpenAI",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-11",
-    "item": "Grok",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-11",
-    "item": "Google",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-11",
-    "item": "Postiz",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-11",
-    "item": "Adobe",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-11",
-    "item": "HeyGen",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-11",
-    "item": "Railway",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-11",
-    "item": "Telnyx",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-11",
-    "item": "Upwork",
-    "jpy": 2000,
-    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-   },
-   {
-    "month": "2026-10",
-    "item": "OpenAI",
-    "jpy": 46855,
-    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-   },
-   {
-    "month": "2026-10",
-    "item": "Grok",
-    "jpy": 31180,
-    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-   },
-   {
-    "month": "2026-10",
-    "item": "Google",
-    "jpy": 27889,
-    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-   },
-   {
-    "month": "2026-10",
-    "item": "Postiz",
-    "jpy": 7936,
-    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-   },
-   {
-    "month": "2026-10",
-    "item": "Adobe",
-    "jpy": 9960,
-    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-   },
-   {
-    "month": "2026-10",
-    "item": "HeyGen",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-10",
-    "item": "Railway",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-10",
-    "item": "Telnyx",
-    "jpy": null,
-    "source": "BANK-BALANCE.md の大口出金に記載なし(少額は team/COSTS.md 参照)"
-   },
-   {
-    "month": "2026-10",
-    "item": "Upwork",
-    "jpy": 4000,
-    "source": "MUFG (Moneytree, 2026-11-01 10:10 JST, BANK-BALANCE.md)"
-   }
-  ],
-  "growth": {
-   "rows": [
-    {
-     "platform": "TikTok",
-     "accounts": 12,
-     "with_numbers": 12,
-     "followers": 4061,
-     "views_7d": 35964,
-     "followers_delta": 68,
-     "views_delta": 1112
-    },
-    {
-     "platform": "X",
-     "accounts": 3,
-     "with_numbers": 3,
-     "followers": 503,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    },
-    {
-     "platform": "Bluesky",
-     "accounts": 4,
-     "with_numbers": 4,
-     "followers": 16,
-     "views_7d": null,
-     "followers_delta": 5,
-     "views_delta": null
-    },
-    {
-     "platform": "note",
-     "accounts": 1,
-     "with_numbers": 1,
-     "followers": 5,
-     "views_7d": null,
-     "followers_delta": 0,
-     "views_delta": null
-    },
-    {
-     "platform": "Mastodon",
-     "accounts": 4,
-     "with_numbers": 4,
-     "followers": 3,
-     "views_7d": null,
-     "followers_delta": 1,
-     "views_delta": null
-    },
-    {
-     "platform": "YouTube",
-     "accounts": 2,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    },
-    {
-     "platform": "Instagram",
-     "accounts": 8,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": 13470,
-     "followers_delta": null,
-     "views_delta": -5498
-    },
-    {
-     "platform": "linkedin",
-     "accounts": 1,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    },
-    {
-     "platform": "linkedin-page",
-     "accounts": 1,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    },
-    {
-     "platform": "tiktok-business",
-     "accounts": 1,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    },
-    {
-     "platform": "Substack",
-     "accounts": 2,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    },
-    {
-     "platform": "Capafy",
-     "accounts": 1,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    },
-    {
-     "platform": "PromptBase",
-     "accounts": 1,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    },
-    {
-     "platform": "Nostr",
-     "accounts": 1,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    },
-    {
-     "platform": "Telegraph",
-     "accounts": 1,
-     "with_numbers": 0,
-     "followers": null,
-     "views_7d": null,
-     "followers_delta": null,
-     "views_delta": null
-    }
-   ],
-   "as_of": "2026-11-02 09:18 JST",
-   "vs": "2026-10-27",
-   "source": "metrics/accounts-snapshot-2026-11-02.json vs 2026-10-27 snapshot (team/ACCOUNTS.md account list)"
-  },
-  "status": {
-   "seo_geo": [
-    {
-     "area": "SEO (Search Console loop)",
-     "count": 17,
-     "unit": "loop passes",
-     "latest": "2026-11-02 08:20 JST retry (Anicca Marketer)",
-     "source": "marketing/SEO-GSC.md (2026-11-02 08:21 JST)"
-    },
-    {
-     "area": "GEO / AEO (AI-answer visibility)",
-     "count": 3,
-     "unit": "passes",
-     "latest": "2026-10-27 14:2x JST pass 3",
-     "source": "marketing/AEO.md (2026-10-30 17:16 JST)"
-    },
-    {
-     "area": "SEO plan",
-     "count": 4,
-     "unit": "sections",
-     "latest": "Prioritized actions",
-     "source": "distribution/SEO-PLAN.md (2026-10-30 17:41 JST)"
-    }
-   ],
-   "channels": {
-    "total": 14,
-    "verified": 4,
-    "list": [
-     "Bluesky @lifemanager-jp ✓",
-     "Bluesky @lifemanagerapp ✓",
-     "Bluesky @aniccaapp ✓",
-     "Bluesky @anicca-affirm (testing/blocked)",
-     "Mastodon @aniccaapp ✓",
-     "Mastodon @anicca_affirm, @lifemanager_jp (testing/blocked)",
-     "X @diceai0, @selawmqt, @Manageraqo (testing/blocked)",
-     "X @lifemanager1234 (testing/blocked)",
-     "TikTok ×12 (testing/blocked)",
-     "Instagram ×9 (testing/blocked)",
-     "YouTube @anicca-affirmation-video, @anic (testing/blocked)",
-     "Threads (testing/blocked)",
-     "Pinterest, Tumblr, Reddit, Nostr (testing/blocked)",
-     "LinkedIn (testing/blocked)"
-    ],
-    "source": "distribution/CHANNEL-MATRIX.md (2026-10-30 17:41 JST)"
-   },
-   "products": {
-    "count": 30,
-    "list": [
-     "Contract work (Coconala/Lancers/CW/Upwork/Appen) — product loop (dots-one)",
-     "Contract work — distribution loop (dots-one + dr eggbot)",
-     "Anicca iOS — product loop (life-manager-main-claude)",
-     "Anicca iOS — distribution loop (CMO)",
-     "Capafy (Clip Map, Hook Lab) — product loop (CTO ← Fucker)",
-     "Capafy — distribution loop (COO ← Fucker)",
-     "Honne (+Thankful, Daily Dhamma, Sleep, PDF Insight) — product loop (CTO)",
-     "Honne family — distribution loop (CMO)",
-     "Monk e-book / Anicca Reset — product loop (Muse)",
-     "Monk e-book / Anicca Reset — distribution loop (Muse)",
-     "Life Manager Cloud/Local — product loop (CTO)",
-     "Life Manager Cloud/Local — distribution loop (参謀)",
-     "The Manager (main business) — product (research/build) loop (Codex)",
-     "The Manager — distribution (articles/X/waitlist/revenue) loop (参謀)",
-     "PromptBase — product loop (Muse)",
-     "PromptBase — distribution loop (Muse ← Fucker)",
-     "LINE stamps — product loop (Muse)",
-     "LINE stamps — distribution loop (Muse → CMO)",
-     "note / Substack — product loop (Muse)",
-     "note / Substack — distribution loop (Muse)",
-     "STUDIO CHERIE — product loop (CTO)",
-     "STUDIO CHERIE — distribution loop (CMO)",
-     "AI Monk Factory / Monk DB / OBOU — product loop (CTO)",
-     "AI Monk Factory / OBOU — distribution loop (CMO)",
-     "Accelerators / hackathons / grants — product (applications) loop (参謀)",
-     "Accelerators — distribution (ledger/visibility) loop (COO)",
-     "Bounties / other marketplaces / KDP / templates — product loop (dots-one)",
-     "Bounties / other marketplaces — distribution loop (dots-one)",
-     "Investing (≤¥10k/mo) — product loop (参謀)",
-     "Investing — distribution loop (n/a)"
-    ],
-    "source": "PRODUCT-LOOPS.md (2026-11-02 17:34 JST)"
-   }
-  },
-  "tracking": {
-   "ios": {
-    "date": "2026-10-31",
-    "read_at": "2026-11-02 08:42 JST",
-    "source": "RevenueCat v2 charts + ASC Sales",
-    "rows": [
-     {
-      "app": "ASC: Daily Affirmations - Anicca",
-      "revenue_usd": null,
-      "trials": null,
-      "paid": null,
-      "downloads": 1,
-      "proceeds": 0.0,
-      "note": ""
-     },
-     {
-      "app": "ASC: Dhamma Quotes",
-      "revenue_usd": null,
-      "trials": null,
-      "paid": null,
-      "downloads": 1,
-      "proceeds": 0.0,
-      "note": ""
-     },
-     {
-      "app": "ASC: Honne",
-      "revenue_usd": null,
-      "trials": null,
-      "paid": null,
-      "downloads": 1,
-      "proceeds": 0.0,
-      "note": ""
-     },
-     {
-      "app": "BreathReset",
-      "revenue_usd": 0.0,
-      "trials": 0.0,
-      "paid": 0.0,
-      "downloads": null,
-      "proceeds": null,
-      "note": ""
-     },
-     {
-      "app": "Desk Stretch Timer",
-      "revenue_usd": 0.0,
-      "trials": 0.0,
-      "paid": 0.0,
-      "downloads": null,
-      "proceeds": null,
-      "note": ""
-     },
-     {
-      "app": "Dhamma",
-      "revenue_usd": 0.0,
-      "trials": 0.0,
-      "paid": 0.0,
-      "downloads": null,
-      "proceeds": null,
-      "note": ""
-     },
-     {
-      "app": "HonneAI",
-      "revenue_usd": 0.0,
-      "trials": 0.0,
-      "paid": 0.0,
-      "downloads": null,
-      "proceeds": null,
-      "note": ""
-     },
-     {
-      "app": "Micro Mood",
-      "revenue_usd": 0.0,
-      "trials": 0.0,
-      "paid": 0.0,
-      "downloads": null,
-      "proceeds": null,
-      "note": ""
-     },
-     {
-      "app": "Sleep Reset",
-      "revenue_usd": 0.0,
-      "trials": 0.0,
-      "paid": 0.0,
-      "downloads": null,
-      "proceeds": null,
-      "note": ""
-     },
-     {
-      "app": "SleepRitual",
-      "revenue_usd": 0.0,
-      "trials": 0.0,
-      "paid": 0.0,
-      "downloads": null,
-      "proceeds": null,
-      "note": ""
-     },
-     {
-      "app": "Thankful",
-      "revenue_usd": 0.0,
-      "trials": 0.0,
-      "paid": 0.0,
-      "downloads": null,
-      "proceeds": null,
-      "note": ""
-     },
-     {
-      "app": "anicca",
-      "revenue_usd": 0.0,
-      "trials": 0.0,
-      "paid": 0.0,
-      "downloads": null,
-      "proceeds": null,
-      "note": ""
-     }
-    ]
-   },
-   "posts": {
-    "read_at": "2026-11-02 21:21 JST",
-    "note": "TikTok: POST-LOG has 1 row (10/27, postiz id). TikTok metrics only via Postiz analytics (views/likes/comments/shares; no saves); no TikTok Display API token on box.",
-    "source": "X API v2, YouTube Data API v3, Postiz analytics",
-    "top": [
-     {
-      "platform": "x",
-      "account": "@diceai0",
-      "post_url": "https://x.com/diceai0/status/2116311371772289130",
-      "views": "4956",
-      "likes": "218",
-      "saves": "4",
-      "checkpoint": "24h"
-     },
-     {
-      "platform": "x",
-      "account": "diceai0",
-      "post_url": "https://x.com/diceai0/status/2116402708857180518",
-      "views": "2208",
-      "likes": "73",
-      "saves": "1",
-      "checkpoint": "24h"
-     },
-     {
-      "platform": "instagram",
-      "account": "anicca.en",
-      "post_url": "https://www.instagram.com/reel/DfDufEZlNh1/",
-      "views": "1835",
-      "likes": "5",
-      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
-      "checkpoint": "24h"
-     },
-     {
-      "platform": "instagram",
-      "account": "anicca.en",
-      "post_url": "https://www.instagram.com/reel/DfDgn8ZAXKJ/",
-      "views": "1553",
-      "likes": "1",
-      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
-      "checkpoint": "late_49h"
-     },
-     {
-      "platform": "instagram",
-      "account": "anicca.en",
-      "post_url": "https://www.instagram.com/reel/DfGFe3YD64O/",
-      "views": "1523",
-      "likes": "3",
-      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
-      "checkpoint": "72h"
-     },
-     {
-      "platform": "instagram",
-      "account": "anicca.en",
-      "post_url": "https://www.instagram.com/reel/DfEvweJjrmD/",
-      "views": "1478",
-      "likes": "1",
-      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
-      "checkpoint": "72h"
-     },
-     {
-      "platform": "instagram",
-      "account": "anicca.jp.videos",
-      "post_url": "https://www.instagram.com/reel/DfEHGD8CF9g/",
-      "views": "1332",
-      "likes": "2",
-      "saves": "unknown (source error: Postiz instagram analytics has no saves field)",
-      "checkpoint": "24h"
-     },
-     {
-      "platform": "tiktok",
-      "account": "aniccaaffirmation",
-      "post_url": "https://www.tiktok.com/@aniccaaffirmation/video/7702684515269020948",
-      "views": "854",
-      "likes": "12",
-      "saves": "unknown (source error: Postiz tiktok analytics has no saves field)",
-      "checkpoint": "24h"
-     }
-    ]
-   },
-   "capafy": {
-    "read_at": "2026-11-02 21:21 JST",
-    "last7_orders": 828,
-    "last7_gross_usd": 36.96,
-    "mtd_orders": 123,
-    "mtd_gross_usd": 9.99,
-    "paid_out_usd": 0.0,
-    "views": "データなし",
-    "note": "gross = Capafy-recorded buyer payments; not bank-received until totalPayout>0 (notices.csv 通知のみ・未入金)",
-    "source": "api.capafy.ai publisher API"
-   },
-   "seo": {
-    "read_at": "2026-11-02 08:42 JST",
-    "range": "2026-10-04..2026-10-31",
-    "last7": {
-     "clicks": 2,
-     "impressions": 40
-    },
-    "prev7": {
-     "clicks": 1,
-     "impressions": 29
-    },
-    "days": [
-     {
-      "date": "2026-10-18",
-      "clicks": 0,
-      "impressions": 2,
-      "position": 1
-     },
-     {
-      "date": "2026-10-19",
-      "clicks": 0,
-      "impressions": 3,
-      "position": 7.33
-     },
-     {
-      "date": "2026-10-20",
-      "clicks": 0,
-      "impressions": 4,
-      "position": 51
-     },
-     {
-      "date": "2026-10-21",
-      "clicks": 0,
-      "impressions": 6,
-      "position": 15.33
-     },
-     {
-      "date": "2026-10-22",
-      "clicks": 1,
-      "impressions": 3,
-      "position": 5.67
-     },
-     {
-      "date": "2026-10-23",
-      "clicks": 0,
-      "impressions": 7,
-      "position": 8.43
-     },
-     {
-      "date": "2026-10-24",
-      "clicks": 0,
-      "impressions": 4,
-      "position": 2
-     },
-     {
-      "date": "2026-10-25",
-      "clicks": 0,
-      "impressions": 0,
-      "position": 0
-     },
-     {
-      "date": "2026-10-26",
-      "clicks": 0,
-      "impressions": 4,
-      "position": 3.75
-     },
-     {
-      "date": "2026-10-27",
-      "clicks": 0,
-      "impressions": 7,
-      "position": 7.71
-     },
-     {
-      "date": "2026-10-28",
-      "clicks": 0,
-      "impressions": 11,
-      "position": 12.55
-     },
-     {
-      "date": "2026-10-29",
-      "clicks": 2,
-      "impressions": 5,
-      "position": 7.2
-     },
-     {
-      "date": "2026-10-30",
-      "clicks": 0,
-      "impressions": 13,
-      "position": 18.15
-     },
-     {
-      "date": "2026-10-31",
-      "clicks": 0,
-      "impressions": 0,
-      "position": ""
-     }
-    ],
-    "top_pages": [
-     {
-      "page": "https://aniccaai.com/",
-      "clicks": 2,
-      "impressions": 35,
-      "position": 12.8
-     },
-     {
-      "page": "https://aniccaai.com/en",
-      "clicks": 1,
-      "impressions": 17,
-      "position": 13.06
-     },
-     {
-      "page": "https://aniccaai.com/affirmation-app",
-      "clicks": 0,
-      "impressions": 6,
-      "position": 4.33
-     },
-     {
-      "page": "https://aniccaai.com/affirmation-app/a/affirmations-for-anxiety",
-      "clicks": 0,
-      "impressions": 3,
-      "position": 4.33
-     },
-     {
-      "page": "https://aniccaai.com/affirmation-app/a/affirmations-for-overthinking",
-      "clicks": 0,
-      "impressions": 2,
-      "position": 8
-     }
-    ],
-    "source": "Google Search Console searchAnalytics sc property https://aniccaai.com/"
-   }
-  },
-  "na": "データなし"
- },
  "summary": {
   "platforms": [
    {
     "platform": "Coconala",
     "type": "Contract work",
-    "this_month": 31.8,
-    "last_month": 217.67,
-    "all_time": 1694.54,
-    "pending": 47.65,
-    "status": "pending payout",
-    "note": ""
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": null,
+    "status": "stage reconciliation",
+    "note": "Accepted order gross shown separately; fees, net sales and payout require matched platform statements",
+    "observed_accepted_gross_usd": 31.8,
+    "net_sales_usd": null,
+    "paid_out_usd": null
    },
    {
     "platform": "App Store (iOS)",
@@ -1232,12 +203,12 @@
    {
     "platform": "Stripe",
     "type": "Web payments",
-    "this_month": 0.0,
+    "this_month": null,
     "last_month": 0.0,
     "all_time": 54.81,
     "pending": 0.0,
     "status": "paid",
-    "note": ""
+    "note": "Current coverage incomplete"
    },
    {
     "platform": "x402 (USDC on Base)",
@@ -1272,12 +243,14 @@
    {
     "platform": "Capafy",
     "type": "AI skill marketplace",
-    "this_month": 0.0,
-    "last_month": 0.0,
-    "all_time": 0.0,
-    "pending": 26.97,
-    "status": "pending payout",
-    "note": "3 orders (gross), payout not received yet"
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": null,
+    "status": "stage reconciliation",
+    "note": "Order notices, publisher settlement credits and bank payouts are distinct; current complete period not established",
+    "net_sales_usd": null,
+    "paid_out_usd": null
    },
    {
     "platform": "Contra",
@@ -1440,101 +413,14 @@
     "note": "no revenue recorded"
    }
   ],
-  "trend": [
-   {
-    "month": "2025-10",
-    "total": 39.15,
-    "by_platform": {
-     "Stripe": 39.15
-    }
-   },
-   {
-    "month": "2025-11",
-    "total": 4.9,
-    "by_platform": {
-     "Stripe": 4.9
-    }
-   },
-   {
-    "month": "2025-12",
-    "total": 0,
-    "by_platform": {}
-   },
-   {
-    "month": "2026-01",
-    "total": 0,
-    "by_platform": {}
-   },
-   {
-    "month": "2026-02",
-    "total": 0,
-    "by_platform": {}
-   },
-   {
-    "month": "2026-03",
-    "total": 0,
-    "by_platform": {}
-   },
-   {
-    "month": "2026-04",
-    "total": 0,
-    "by_platform": {}
-   },
-   {
-    "month": "2026-05",
-    "total": 10.76,
-    "by_platform": {
-     "Stripe": 10.76
-    }
-   },
-   {
-    "month": "2026-06",
-    "total": 0,
-    "by_platform": {}
-   },
-   {
-    "month": "2026-07",
-    "total": 390.43,
-    "by_platform": {
-     "Coconala": 390.43
-    }
-   },
-   {
-    "month": "2026-08",
-    "total": 698.27,
-    "by_platform": {
-     "Coconala": 698.27
-    }
-   },
-   {
-    "month": "2026-09",
-    "total": 356.37,
-    "by_platform": {
-     "Coconala": 356.37
-    }
-   },
-   {
-    "month": "2026-10",
-    "total": 217.67,
-    "by_platform": {
-     "Coconala": 217.67
-    }
-   },
-   {
-    "month": "2026-11",
-    "total": 31.8,
-    "by_platform": {
-     "Coconala": 31.8,
-     "x402 (USDC on Base)": 0.005
-    }
-   }
-  ],
+  "trend": [],
   "products": [
    {
     "product": "Coconala contract work",
     "platform": "Coconala",
-    "all_time": 1694.54,
-    "this_month": 31.8
+    "all_time": null,
+    "this_month": null,
+    "note": "See platform stage reconciliation; unknown is not zero"
    },
    {
     "product": "Anicca (iOS)",
@@ -1551,8 +437,9 @@
    {
     "product": "Web subscriptions (product not labelled)",
     "platform": "Stripe",
-    "all_time": 54.81,
-    "this_month": 0.0
+    "all_time": null,
+    "this_month": null,
+    "note": "See platform stage reconciliation; unknown is not zero"
    },
    {
     "product": "x402 endpoints (affirmation, capafy-skill)",
@@ -1563,9 +450,9 @@
    {
     "product": "Capafy skills",
     "platform": "Capafy",
-    "all_time": 0.0,
-    "this_month": 0.0,
-    "note": "$26.97 pending payout"
+    "all_time": null,
+    "this_month": null,
+    "note": "See platform stage reconciliation; unknown is not zero"
    },
    {
     "product": "Apify actor (S7JAoTNiztat9Qwuq)",
@@ -1582,13 +469,20 @@
    "stripe_active_subscriptions": 0,
    "total": 97.58
   },
+  "all_time_confirmed": 1749.36,
   "bank": {
-   "jpy": 253335,
-   "usd": 1611.03,
-   "fx": "JPY/ECB 157.25 (2026-10-30)",
-   "as_of": "2026-11-01 10:10 JST",
-   "source": "MUFG via Moneytree (BANK-BALANCE.md), total only"
+   "usd": null,
+   "jpy": null,
+   "status": "unknown (source error)"
   },
-  "all_time_confirmed": 1749.36
- }
+  "net_worth": {
+   "usd": null,
+   "jpy": null,
+   "status": "unknown (source error)",
+   "basis": "Bank total; no debt on record"
+  },
+  "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 01:59 JST",
+  "all_time_usd": 2223.84
+ },
+ "coverage_note": "Coverage incomplete; company revenue and profit are not established."
 }

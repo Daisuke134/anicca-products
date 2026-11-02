@@ -34,10 +34,11 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
  const B=S.bank;
  $('kpi').innerHTML=[
   card('MRR',U(K.mrr&&K.mrr.usd),`App Store $${S.mrr_split.revenuecat} + Capafy $${S.mrr_split.capafy} + Stripe $${S.mrr_split.stripe}`),
-  card('Revenue, '+mon+' to date',U(K.revm.usd),lm?'Last month: '+U(lm.total):''),
+  card('Revenue, '+mon+' to date',K.revm.usd==null?'<span class="m">unknown (source error)</span>':U(K.revm.usd),'Paid + buyer-accepted, ECB FX · as of '+esc(d.updated_at)),
   card('Costs, '+mon+' to date',U(K.cost.usd)+Y(K.cost.jpy),'Observed payment notices; coverage incomplete'),
   card('Profit, '+mon+' to date',`<span class="${K.gp.usd<0?'neg':'pos'}">${U(K.gp.usd)}</span>`,K.gpl?'Last month: '+U(K.gpl.usd):''),
-  card('All-time revenue',U(null),'Mixed historical scopes; total not established'),
+  card('All-time revenue',S.all_time_confirmed==null?'<span class="m">unknown (source error)</span>':U(S.all_time_usd),S.all_time_confirmed==null?'':`Booked $${S.all_time_confirmed} + App Store lifetime $${(S.all_time_usd-S.all_time_confirmed).toFixed(2)} · as of ${esc(d.updated_at)}`),
+  card('Bank balance / net worth',B&&B.usd!=null?U(B.usd)+Y(B.jpy):'<span class="m">unknown (source error)</span>',B&&B.usd!=null?'Total only · as of '+esc(B.as_of)+' · MUFG via Moneytree · no debt on record':''),
   card('Coverage', 'Incomplete', esc(d.coverage_note))].join('');
  const act=S.platforms.filter(p=>p.all_time||p.pending||p.status==='stage reconciliation'||p.type.startsWith('API')),zero=S.platforms.filter(p=>!act.includes(p));
  $('plat').innerHTML='<tr><th>#</th><th>Platform</th><th class="hm">Type</th><th class="r">This month</th><th class="r hm">Last month</th><th class="r">All-time</th><th>Status</th></tr>'+act.map((p,i)=>`<tr><td class="m">${i+1}</td><td><b>${esc(p.platform)}</b>${p.note?'<div class="m" style="font-size:11px">'+esc(p.note)+(p.observed_accepted_gross_usd!=null?' · Accepted gross '+U(p.observed_accepted_gross_usd):'')+'</div>':''}</td><td class="hm">${esc(p.type)}</td><td class="r">${U(p.this_month)}</td><td class="r hm">${U(p.last_month)}</td><td class="r"><b>${U(p.all_time)}</b></td><td>${p.status==='pending payout'?`<span class="pill p">${U(p.pending)} pending payout</span>`:p.status==='paid'?'<span class="pill">paid</span>':'<span class="m">'+esc(p.status==='stage reconciliation'?'net / payout unknown':'coverage unknown')+'</span>'}</td></tr>`).join('');
