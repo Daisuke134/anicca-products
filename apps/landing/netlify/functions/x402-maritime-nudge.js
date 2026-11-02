@@ -14,7 +14,7 @@ const GOALS = Object.keys(PLANS);
 
 const seller = createSeller({
   url: 'https://aniccaai.com/.netlify/functions/x402-maritime-nudge',
-  payTo: '0x7a004fBbc3037371321B9f41875B7782971efE76',
+  payTo: '0x7E8b13B7c080465903874352887656314A267E3c',
   price: '5000', // $0.005 USDC
   description: 'Maritime agent: one behavior-change nudge plus a 3-step habit plan as JSON (en/ja). $0.005 per call.',
   queryParams: {

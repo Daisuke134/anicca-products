@@ -14,7 +14,7 @@ const MOODS = Object.keys(P);
 
 const seller = createSeller({
   url: 'https://aniccaai.com/.netlify/functions/x402-naive-reflect',
-  payTo: '0xB32b13226Fc4601Dd85140cf9815D79d63006ca0',
+  payTo: '0x7E8b13B7c080465903874352887656314A267E3c',
   price: '5000', // $0.005 USDC
   description: 'Naive agent: one reflection/journaling prompt plus a 2-minute exercise for a given mood, as JSON (en/ja). $0.005 per call.',
   queryParams: {
