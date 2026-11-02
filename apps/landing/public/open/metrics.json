@@ -1,15 +1,15 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 08:12 JST",
+ "updated_at": "2026-11-02 09:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "totals": {
   "revenue_7d_usd": 47.66,
   "revenue_30d_usd": 249.47,
   "revenue_mtd_usd": 31.8,
-  "costs_mtd_usd": 12.0,
-  "gross_profit_mtd_usd": 19.8,
-  "margin_pct": 62.3,
+  "costs_mtd_usd": 293.7,
+  "gross_profit_mtd_usd": -261.9,
+  "margin_pct": -823.6,
   "reconciliation_complete": true,
   "mrr_usd": 97.58,
   "active_costs_monthly_usd": 1210.67
@@ -45,8 +45,8 @@
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 31.8,
-   "cost_usd": 12.0,
-   "gross_profit_usd": 19.8,
+   "cost_usd": 293.7,
+   "gross_profit_usd": -261.9,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   }
  ],

@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-02 08:12 JST",
+ "updated_at": "2026-11-02 09:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.25,
@@ -29,8 +29,8 @@
   {
    "key": "cost",
    "label": "Costs this month",
-   "usd": 12.0,
-   "jpy": 2000,
+   "usd": 293.7,
+   "jpy": 46298,
    "source": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date) (company withdrawals to date)"
   },
   {
@@ -43,8 +43,8 @@
   {
    "key": "gp",
    "label": "Profit this month",
-   "usd": 19.8,
-   "jpy": 3000,
+   "usd": -261.9,
+   "jpy": -41298,
    "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
   },
   {
@@ -57,7 +57,7 @@
   {
    "key": "margin",
    "label": "Margin",
-   "pct": 62.3,
+   "pct": -823.6,
    "source": "gross profit / revenue this month"
   },
   {
@@ -98,8 +98,8 @@
   {
    "month": "2026-11 (to date)",
    "revenue_usd": 31.8,
-   "cost_usd": 12.0,
-   "gross_profit_usd": 19.8,
+   "cost_usd": 293.7,
+   "gross_profit_usd": -261.9,
    "source": "revenue: finance/REVENUE-BY-SOURCE.csv dated rows; cost: cfo/expenses.json actuals + rent (fx_basis)"
   }
  ],
@@ -109,6 +109,14 @@
   "source": "sum of streams"
  },
  "costs_month": [
+  {
+   "item": "Google Cloud",
+   "jpy": 44298,
+   "usd": 281.7,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py"
+  },
   {
    "item": "Upwork",
    "jpy": 2000,
@@ -248,8 +256,8 @@
   }
  ],
  "costs_month_total": {
-  "usd": 12.0,
-  "jpy": 2000,
+  "usd": 293.7,
+  "jpy": 46298,
   "source": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date)"
  },
  "active_costs": [
@@ -535,10 +543,10 @@
   }
  ],
  "cost_reconciliation": {
-  "this_month": "Upwork 2,000 = 2,000",
+  "this_month": "Google Cloud 44,298 + Upwork 2,000 = 46,298",
   "last_month": "Rent to 成田 (bank + Mac mini) 100,000 + OpenAI 46,855 + Grok 31,959 + Google Cloud 27,889 + Adobe 9,960 + Postiz 7,936 + HeyGen 6,129 + Upwork 4,000 + Railway 3,756 + Replit 3,283 + Telnyx 3,268 + Relixir 3,254 + X Premium 918 + Hetzner 253 + DigitalOcean 162 + Cursor 107 = 249,729",
   "active": "Rent to 成田 (bank + Mac mini) 100,000 + Grok — X Ultra (upgraded 10/31) 34,800 + Postiz Pro 7,936 + HeyGen Creator (Apple) 4,500 + Telnyx 3,268 + X Premium (dup) 918 + Hetzner 253 + DigitalOcean 162 + ChatGPT Pro (2nd-of-month ¥30,000) 30,000 + ChatGPT Plus 3,596 + Railway 3,756 + Moneytree Grow 0 + Apple Developer 1,082 + Cursor usage 107 + Vercel / Twilio / Netlify / Supabase 0 = 190,378",
-  "gross_profit": "revenue ¥5,000 − costs this month ¥2,000 = ¥3,000",
+  "gross_profit": "revenue ¥5,000 − costs this month ¥46,298 = ¥-41,298",
   "gross_profit_last": "2026-10: revenue ¥34,480 − costs ¥249,729 = ¥-215,249",
   "excluded": [
    "Google Cloud (Gemini/Maps): 最終請求（~11/02、一回だけ）",
@@ -578,12 +586,12 @@
  ],
  "reconciliation_complete": true,
  "gross_profit_detail": {
-  "jpy": 3000,
-  "usd": 19.8,
+  "jpy": -41298,
+  "usd": -261.9,
   "revenue_jpy": 5000,
   "revenue_usd": 31.8,
-  "cost_jpy": 2000,
-  "cost_usd": 12.0,
+  "cost_jpy": 46298,
+  "cost_usd": 293.7,
   "source": "confirmed revenue (REVENUE-BY-SOURCE paid rows) − actual costs incl. rent (rows above); USD = revenue USD as booked − cost USD per fx_basis"
  },
  "active_costs_total": {
@@ -971,10 +979,10 @@
    "seo_geo": [
     {
      "area": "SEO (Search Console loop)",
-     "count": 15,
+     "count": 17,
      "unit": "loop passes",
-     "latest": "2026-11-02 04:23 JST loop pass (Anicca Marketer)",
-     "source": "marketing/SEO-GSC.md (2026-11-02 04:23 JST)"
+     "latest": "2026-11-02 08:20 JST retry (Anicca Marketer)",
+     "source": "marketing/SEO-GSC.md (2026-11-02 08:21 JST)"
     },
     {
      "area": "GEO / AEO (AI-answer visibility)",
@@ -1046,21 +1054,39 @@
      "Investing (≤¥10k/mo) — product loop (参謀)",
      "Investing — distribution loop (n/a)"
     ],
-    "source": "PRODUCT-LOOPS.md (2026-11-01 20:51 JST)"
+    "source": "PRODUCT-LOOPS.md (2026-11-02 09:10 JST)"
    }
   },
   "tracking": {
    "ios": {
-    "date": "2026-10-30",
-    "read_at": "2026-11-01 13:11 JST",
+    "date": "2026-10-31",
+    "read_at": "2026-11-02 08:42 JST",
     "source": "RevenueCat v2 charts + ASC Sales",
     "rows": [
      {
-      "app": "ASC: For Better Sleep - Sleep Reset",
+      "app": "ASC: Daily Affirmations - Anicca",
       "revenue_usd": null,
       "trials": null,
       "paid": null,
-      "downloads": 2,
+      "downloads": 1,
+      "proceeds": 0.0,
+      "note": ""
+     },
+     {
+      "app": "ASC: Dhamma Quotes",
+      "revenue_usd": null,
+      "trials": null,
+      "paid": null,
+      "downloads": 1,
+      "proceeds": 0.0,
+      "note": ""
+     },
+     {
+      "app": "ASC: Honne",
+      "revenue_usd": null,
+      "trials": null,
+      "paid": null,
+      "downloads": 1,
       "proceeds": 0.0,
       "note": ""
      },
@@ -1238,23 +1264,17 @@
     "source": "api.capafy.ai publisher API"
    },
    "seo": {
-    "read_at": "2026-11-01 13:07 JST",
-    "range": "2026-10-03..2026-10-30",
+    "read_at": "2026-11-02 08:42 JST",
+    "range": "2026-10-04..2026-10-31",
     "last7": {
      "clicks": 2,
-     "impressions": 44
+     "impressions": 40
     },
     "prev7": {
      "clicks": 1,
-     "impressions": 30
+     "impressions": 29
     },
     "days": [
-     {
-      "date": "2026-10-17",
-      "clicks": 0,
-      "impressions": 5,
-      "position": 7.6
-     },
      {
       "date": "2026-10-18",
       "clicks": 0,
@@ -1332,6 +1352,12 @@
       "clicks": 0,
       "impressions": 13,
       "position": 18.15
+     },
+     {
+      "date": "2026-10-31",
+      "clicks": 0,
+      "impressions": 0,
+      "position": ""
      }
     ],
     "top_pages": [
