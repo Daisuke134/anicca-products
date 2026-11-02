@@ -1,0 +1,70 @@
+name: ebook-articles
+# Free aniccaai.com articles selling The Anicca Reset. Moved from Mac mini launchd
+# ai.anicca.ebook-articles on 2026-11-02. Slots 01:05/02:05/04:05/05:05 JST.
+on:
+  schedule:
+    - cron: "5 16 * * *"  # 01:05 JST
+    - cron: "5 17 * * *"  # 02:05 JST
+    - cron: "5 19 * * *"  # 04:05 JST
+    - cron: "5 20 * * *"  # 05:05 JST
+  workflow_dispatch:
+    inputs:
+      hour:
+        description: "JST slot hour (blank = current hour)"
+        required: false
+      product:
+        description: "ebook-en or ebook-ja (blank = slot default)"
+        required: false
+permissions:
+  contents: write
+concurrency:
+  group: ebook-articles
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Resolve slot
+        id: slot
+        env:
+          SCHED: ${{ github.event.schedule }}
+          IN_HOUR: ${{ inputs.hour }}
+          IN_PRODUCT: ${{ inputs.product }}
+        run: |
+          case "$SCHED" in
+            "5 16 * * *") H=1;; "5 17 * * *") H=2;; "5 19 * * *") H=4;; "5 20 * * *") H=5;;
+            *) H="$IN_HOUR";;
+          esac
+          if [ -z "$H" ]; then H=$(TZ=Asia/Tokyo date +%-H); fi
+          P="$IN_PRODUCT"
+          if [ -z "$P" ]; then case "$H" in 1|4) P=ebook-en;; 2|5) P=ebook-ja;; *) if [ $((H%2)) -eq 1 ]; then P=ebook-en; else P=ebook-ja; fi;; esac; fi
+          echo "hour=$H" >> "$GITHUB_OUTPUT"; echo "product=$P" >> "$GITHUB_OUTPUT"
+      - name: Compose article
+        id: compose
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python3 scripts/ebook-articles/ebook_article_daily.py --hour "${{ steps.slot.outputs.hour }}" --product "${{ steps.slot.outputs.product }}"
+      - name: Commit and push
+        if: steps.compose.outputs.path != ''
+        run: |
+          git config user.name "Anicca Agent"
+          git config user.email "anicca@aniccaai.com"
+          git add "${{ steps.compose.outputs.path }}"
+          git commit -m "feat(capafy-distribute): publish free article ${{ steps.compose.outputs.slug }}"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && break
+            sleep 10
+          done
+          git fetch origin main && git merge-base --is-ancestor HEAD origin/main
+      - name: Verify live
+        if: steps.compose.outputs.url != ''
+        run: |
+          for i in $(seq 1 60); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "${{ steps.compose.outputs.url }}")
+            echo "attempt $i: $code"; [ "$code" = "200" ] && exit 0; sleep 15
+          done
+          echo "::warning::article not live after 15 min: ${{ steps.compose.outputs.url }}"
