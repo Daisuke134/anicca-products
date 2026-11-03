@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-03 21:08 JST",
+  "updated_at": "2026-11-03 21:37 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -238,7 +238,7 @@
         "all_time": null,
         "pending": null,
         "status": "stage reconciliation",
-        "note": "Dashboard through 2026-11-02 UTC: 7d $49.95, 30d $59.94, 90d $152.70, Proceeds 7d $36.80, 90d $112.58, October statement $83.78 (booked here as last_month). Published 57 / In Review 7 / Draft 4 / Removed 12 / Review Failed 6 / Ready to Publish 3, total 89 (2026-11-03 19:58-20:14 run). Order notices, publisher settlement credits and bank payouts are distinct; this-month and all-time are not booked from dashboard windows because new vs renewal is unconfirmed, and the 90d window is not all-time. Payout: none scheduled, below $100 minimum.",
+        "note": "Dashboard through 2026-11-02 UTC: 7d $49.95, 30d $59.94, 90d $152.70, Proceeds 7d $36.80, 90d $112.58, October statement $83.78 (booked here as last_month). Published 57 / In Review 10 / Draft 4 / Removed 12 / Review Failed 6 / Ready to Publish 0, total 89 (2026-11-03 21:13: Ready to Publish 3 manually published; 3 polished listings submitted for review, so Published stayed 57 and In Review rose 7 to 10). MTD and MRR not booked: new vs renewal unconfirmed. No new sales signal.",
         "net_sales_usd": null,
         "paid_out_usd": null,
         "dashboard_7d_usd": 49.95,
@@ -395,7 +395,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Whop bundle $29 once: all-time revenue $0.00, 0 successful payments, product page 6 views (2026-11-03 18:33); owner-view Buy now disabled, buyer view unverified. Gumroad not separately measured this frame."
+        "note": "Whop bundle $29 once: all-time revenue $0.00, 0 successful payments, product page 8 views (2026-11-03 21:33, was 6; visitors still 1, so not counted as external inflow growth); FAQ added to description 2026-11-03 21:33. Owner-view Buy now disabled, buyer view unverified (4th consecutive frame). Gumroad not separately measured this frame."
       },
       {
         "platform": "Workana",
