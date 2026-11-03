@@ -20,6 +20,7 @@
     "indexnow": "node scripts/indexnow-ping.mjs"
   },
   "dependencies": {
+    "@coinbase/x402": "^2.1.0",
     "@crossmint/client-sdk-react-ui": "^4.2.11",
     "@modelcontextprotocol/server": "2.3.1",
     "@netlify/blobs": "^8.2.0",
