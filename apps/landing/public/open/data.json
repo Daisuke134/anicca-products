@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-03 23:37 JST",
+  "updated_at": "2026-11-04 00:07 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -175,7 +175,7 @@
         "all_time": 1706.68,
         "pending": null,
         "status": "stage reconciliation",
-        "note": "Accepted order gross $31.80 this month (live-booked); fees, net sales and payout require matched platform statements. Last month (2026-10) dashboard gross $272.32, converted at build time from the platform dashboard figure. All-time $1,706.68 is the sales-management cumulative net figure through 2026-11-03, converted at build time; the dashboard-gross basis differs, so the two bases are not added together. The dashboard vs sales-management monthly gap is unresolved and no gap amount is added as revenue. Re-read 2026-11-03 19:34-20:06: applications 253 (+1 vs 17:35, not from this loop, which sent 0 new proposals), ukulele review reply sent 19:48. Selection pending: 5358259 (deadline 2026-11-03, still undecided at 19:50), 5357876 (closed, 1 contract, self-contract unconfirmed). 22:34 loop: 3 listings polished (no price change, publish confirmed), 1 new proposal sent 22:49 (5360356, HP writing, pending client confirmation); 5358259 still undecided at 22:50 (deadline 2026-11-03, about 1 hour left at that check); 5357876 and 5359455 each closed with 1 contract, self-contract unconfirmed, no formal notice. No new sales or orders. Ledger watch 23:16 confirmed applications 255 after the 22:34 send (254 at loop start); 5358259 still undecided at the 23:16 watch, deadline 2026-11-03; Gmail sweep 22:52 found no selection notice for 5358259/5357876/5359455/5360356. No new sales or orders.",
+        "note": "Accepted order gross $31.80 this month (live-booked); fees, net sales and payout require matched platform statements. Last month (2026-10) dashboard gross $272.32, converted at build time from the platform dashboard figure. All-time $1,706.68 is the sales-management cumulative net figure through 2026-11-03, converted at build time; the dashboard-gross basis differs, so the two bases are not added together. The dashboard vs sales-management monthly gap is unresolved and no gap amount is added as revenue. Re-read 2026-11-03 19:34-20:06: applications 253 (+1 vs 17:35, not from this loop, which sent 0 new proposals), ukulele review reply sent 19:48. Selection pending: 5358259 (deadline 2026-11-03, still undecided at 19:50), 5357876 (closed, 1 contract, self-contract unconfirmed). 22:34 loop: 3 listings polished (no price change, publish confirmed), 1 new proposal sent 22:49 (5360356, HP writing, pending client confirmation); 5358259 still undecided at 22:50 (deadline 2026-11-03, about 1 hour left at that check); 5357876 and 5359455 each closed with 1 contract, self-contract unconfirmed, no formal notice. No new sales or orders. Ledger watch 23:16 confirmed applications 255 after the 22:34 send (254 at loop start); 5358259 still undecided at the 23:16 watch, deadline 2026-11-03; Gmail sweep 22:52 found no selection notice for 5358259/5357876/5359455/5360356. No new sales or orders. Revenue-growth Gmail sweep 23:52 found no selection notice for 5358259/5357876/5359455/5360356; 5358259 deadline 2026-11-03 has passed with no selection or rejection notice in Gmail, so expiry vs selection remains unconfirmed pending platform check (not counted as revenue).",
         "observed_accepted_gross_usd": 31.8,
         "net_sales_usd": null,
         "paid_out_usd": null
@@ -255,7 +255,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Earned $0, balance $0, Hired 0, applied 4 total, 0 new 2026-11-03 (20:59). New service published 2026-11-03: Monthly AI Automation Retainer $450/mo (services now 6); no inquiry or order yet. No revenue recorded."
+        "note": "Earned $0, balance $0, Hired 0, applied 4 total, 0 new 2026-11-03 (20:59). New service published 2026-11-03: Monthly AI Automation Retainer $450/mo (services now 6); no inquiry or order yet. No revenue recorded. 23:59 loop (2026-11-04 00:00-00:05): 30-day views 1 to 2, headline updated to 'n8n x OpenAI | AI agents & automations for founders' (display confirmed); Earned $0, balance $0, applied 4 total unchanged; no new order or inquiry."
       },
       {
         "platform": "CrowdWorks",
@@ -572,6 +572,6 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not added into the booked trend total, because new vs renewal is unconfirmed."
   },
-  "coverage_note": "Coverage incomplete; company revenue and profit are not established. Monthly and platform rows now show measured values from the 2026-11-03 rebuild, including $0 where no revenue is recorded. Platform last-month and all-time are filled from ledgers where a past record exists (Coconala, Capafy October statement, App Store, Stripe, x402); all-time for Capafy is not established and is kept unknown rather than set to the 90-day window. Exceptions kept as unknown (not $0): Capafy this-month/all-time (new vs renewal unconfirmed), RapidAPI earnings (source error), and the $0.07 gross-profit variant (31.81 vs 31.88). All amounts in this file are USD; platform figures originally shown in another currency were converted at build time. Missing coverage is not zero except where a row explicitly states $0 recorded.",
+  "coverage_note": "Coverage incomplete; company revenue and profit are not established. Monthly and platform rows now show measured values from the 2026-11-03 rebuild, including $0 where no revenue is recorded. Platform last-month and all-time are filled from ledgers where a past record exists (Coconala, Capafy October statement, App Store, Stripe, x402); all-time for Capafy is not established and is kept unknown rather than set to the 90-day window. Exceptions kept as unknown (not $0): Capafy this-month/all-time (new vs renewal unconfirmed), RapidAPI earnings (source error), and the $0.07 gross-profit variant (31.81 vs 31.88). All amounts in this file are USD; platform figures originally shown in another currency were converted at build time. Missing coverage is not zero except where a row explicitly states $0 recorded. 2026-11-04 00:07 check confirmed live data.json at 2026-11-03 23:37 before this update.",
   "currency_note": "USD only. This file contains no non-USD currency amounts."
 }
