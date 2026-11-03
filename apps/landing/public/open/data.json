@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-03 10:12 JST",
+ "updated_at": "2026-11-03 11:12 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.9,
@@ -495,7 +495,7 @@
    "source": "MUFG via Moneytree (BANK-BALANCE.md), total only",
    "basis": "Bank total; no debt on record"
   },
-  "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 10:12 JST",
+  "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 11:12 JST",
   "all_time_usd": 2223.84
  },
  "coverage_note": "Coverage incomplete; company revenue and profit are not established."
