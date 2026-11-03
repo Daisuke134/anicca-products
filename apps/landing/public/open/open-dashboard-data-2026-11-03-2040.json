@@ -1,0 +1,566 @@
+{
+  "version": 2,
+  "updated_at": "2026-11-03 20:40 JST",
+  "month": "2026-11",
+  "currency": "USD",
+  "fx_usdjpy": 157.9,
+  "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
+  "model": "Layout modelled on felixcraft.ai/dashboard",
+  "spec": "team/OPEN-PAGE-V2.md",
+  "kpis": [
+    {
+      "key": "rev7",
+      "label": "Revenue (7d)",
+      "usd": null,
+      "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB",
+      "jpy": null,
+      "pct": null,
+      "pending": "Coverage incomplete; company revenue and profit are not established."
+    },
+    {
+      "key": "rev30",
+      "label": "Revenue (30d)",
+      "usd": 249.48,
+      "source": "metrics.json 2026-11-03 15:35 JST totals revenue_last30d_usd (partial series); data.json reconciliation series for 30d is null",
+      "jpy": null,
+      "pct": null
+    },
+    {
+      "key": "revm",
+      "label": "Revenue this month",
+      "usd": 31.8,
+      "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
+    },
+    {
+      "key": "cost",
+      "label": "Observed payment notices (current month)",
+      "usd": 293.7,
+      "jpy": 46298,
+      "source": "Provider/payment notices; coverage incomplete; not accrual expenses or final bank settlement"
+    },
+    {
+      "key": "costl",
+      "label": "Observed payment notices (prior month)",
+      "usd": 1581.29,
+      "jpy": 249729,
+      "source": "Provider/payment notices; coverage incomplete; not accrual expenses or final bank settlement"
+    },
+    {
+      "key": "gp",
+      "label": "Profit this month",
+      "usd": -261.82,
+      "jpy": null,
+      "source": "metrics.json 2026-11-03 15:35 JST gross_profit mtd (partial: revenue basis 31.88 vs totals 31.81, $0.07 variant unresolved) minus observed costs 293.70",
+      "pct": -823.6
+    },
+    {
+      "key": "gpl",
+      "label": "Profit last month (2026-10)",
+      "usd": -681.84,
+      "jpy": null,
+      "source": "metrics.json 2026-11-03 15:35 JST monthly series for 2026-10 (revenue 244.64, costs 926.48); data.json reconciliation cost series for Oct is 1581.29 on a different basis",
+      "pct": null
+    },
+    {
+      "key": "margin",
+      "label": "Margin",
+      "pct": -823.6,
+      "source": "gross profit (partial) / revenue this month, live-booked values; revenue variants 31.81 vs 31.88 unresolved",
+      "usd": -261.82,
+      "jpy": null
+    },
+    {
+      "key": "mrr",
+      "label": "MRR",
+      "usd": 97.58,
+      "source": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs"
+    },
+    {
+      "key": "run",
+      "label": "Active costs / month",
+      "usd": null,
+      "jpy": null,
+      "source": "FORWARD-LOOKING list, not actuals: sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded",
+      "pct": null,
+      "pending": "Coverage incomplete; company revenue and profit are not established."
+    },
+    {
+      "key": "human",
+      "label": "Human interventions",
+      "count": 2,
+      "source": "metrics/human-interventions.csv"
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2026-09",
+      "revenue_usd": 459.67,
+      "cost_usd": 1513.71,
+      "gross_profit_usd": -1054.04,
+      "source": "metrics.json 2026-11-03 15:35 JST monthly series",
+      "coverage_note": "Coverage incomplete; company revenue and profit are not established."
+    },
+    {
+      "month": "2026-10",
+      "revenue_usd": 244.64,
+      "cost_usd": 926.48,
+      "gross_profit_usd": -681.84,
+      "source": "metrics.json 2026-11-03 15:35 JST monthly series; data.json reconciliation cost series for Oct is 1581.29 on a different basis",
+      "coverage_note": "Coverage incomplete; company revenue and profit are not established."
+    },
+    {
+      "month": "2026-11 (to date)",
+      "revenue_usd": 31.81,
+      "cost_usd": 293.7,
+      "gross_profit_usd": -261.89,
+      "source": "metrics.json 2026-11-03 15:35 JST monthly series (31.81 - 293.70 = -261.89; same file's gross_profit block is -261.82 on revenue 31.88, $0.07 variant unresolved)",
+      "coverage_note": "Coverage incomplete; company revenue and profit are not established."
+    }
+  ],
+  "streams": [],
+  "streams_total": {
+    "earned_usd": null,
+    "source": "Coverage incomplete; company revenue and profit are not established."
+  },
+  "costs_month": [
+    {
+      "item": "Google Cloud",
+      "jpy": 44298,
+      "usd": 281.7,
+      "payments": 1,
+      "unknown": false,
+      "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py",
+      "period_note": "October 2026 usage; November payment notice; JPY 40,271 + tax 4,027; final settlement not established"
+    },
+    {
+      "item": "Upwork",
+      "jpy": 2000,
+      "usd": 12.0,
+      "payments": 1,
+      "unknown": false,
+      "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py",
+      "period_note": "Payment-notice month 2026-11; service period varies"
+    }
+  ],
+  "costs_month_total": {
+    "usd": 293.7,
+    "jpy": 46298,
+    "source": "cfo/expenses.json observed payments (grouped by provider) + rent; USD per fx_basis.py (actual, to date)"
+  },
+  "active_costs": [],
+  "notices_unpaid": [
+    {
+      "item": "fal - Features & Labels, Inc. invoice #DQFHGK-00028",
+      "usd": 10.95,
+      "due": "2026-11-07",
+      "status": "unpaid",
+      "source": "Gmail fal invoice notice 2026-11-03 04:17 JST; observed payment, not accrual, is the costs basis, so it is not folded into costs_mtd 293.70"
+    }
+  ],
+  "reconciliation_complete": false,
+  "gross_profit_detail": {
+    "usd": null,
+    "jpy": null,
+    "status": "Coverage incomplete; company revenue and profit are not established."
+  },
+  "fx_note": "USD/JPY 157.9 (Frankfurter API (ECB reference rate), 2026-11-02)",
+  "by_agent": [],
+  "wallets": [],
+  "balances": [],
+  "products": [
+    {
+      "product": "The Manager",
+      "owner": "Codex (Head of Research)",
+      "stage": "research (Manager Lab, daily 09:00 JST)",
+      "research_articles": 3,
+      "experiments_run": 3,
+      "latest_article_url": "https://aniccaai.com/blog/lab-action-centered-bandit-2026-11-01-ja",
+      "metric": "3 articles / 3 experiments",
+      "source": "team/research/manager-lab/manifest.json (article list) + experiment folders"
+    }
+  ],
+  "summary": {
+    "platforms": [
+      {
+        "platform": "Coconala",
+        "type": "Contract work",
+        "this_month": 31.8,
+        "last_month": null,
+        "all_time": null,
+        "pending": null,
+        "status": "stage reconciliation",
+        "note": "Accepted order gross $31.80 this month (live-booked); fees, net sales and payout require matched platform statements. Dashboard Nov JPY 5,000 vs sales-management JPY 3,900 gap unresolved; JPY figures are not converted into this USD row. Re-read 2026-11-03 19:34-20:06: applications 253 (+1 vs 17:35, not from this loop, which sent 0 new proposals), balance JPY 4,290, transfer pending JPY 1,560 due 2026-11-05, ukulele review reply sent 19:48.",
+        "observed_accepted_gross_usd": 31.8,
+        "net_sales_usd": null,
+        "paid_out_usd": null
+      },
+      {
+        "platform": "App Store (iOS)",
+        "type": "iOS apps",
+        "this_month": 0.0,
+        "last_month": 0.0,
+        "all_time": 474.48,
+        "pending": 0.0,
+        "status": "paid",
+        "note": "No November app purchase signal (apps-revenue 2026-11-03); lifetime gross (RevenueCat) $474.48. Daily Affirmations 1.9.6 Waiting for Review; C-group subs approved 2026-11-03 10:26 JST (product approval only, not app approval)."
+      },
+      {
+        "platform": "Stripe",
+        "type": "Web payments",
+        "this_month": 0.0,
+        "last_month": 0.0,
+        "all_time": 54.81,
+        "pending": 0.0,
+        "status": "paid",
+        "note": "Connector reauthorization_required 2026-11-03, so no fresh Stripe value is claimed; prior carried values are balance JPY 0, active subs 0. Current coverage incomplete."
+      },
+      {
+        "platform": "x402 (USDC on Base)",
+        "type": "API (crypto)",
+        "this_month": 0.005,
+        "last_month": 0.0,
+        "all_time": 0.005,
+        "pending": 0.0,
+        "status": "paid",
+        "note": ""
+      },
+      {
+        "platform": "Alignerr",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "Apify",
+        "type": "API marketplace",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "2 users, 7 runs; paid pricing starts 2026-11-16; no revenue recorded."
+      },
+      {
+        "platform": "Capafy",
+        "type": "AI skill marketplace",
+        "this_month": null,
+        "last_month": null,
+        "all_time": null,
+        "pending": null,
+        "status": "stage reconciliation",
+        "note": "Dashboard through 2026-11-02 UTC: 7d $49.95, 30d $59.94, 90d $152.70, Proceeds 7d $36.80, 90d $112.58, October statement $83.78. Published 57 / In Review 7 / Draft 4 / Removed 12 / Review Failed 6 / Ready to Publish 3, total 89 (2026-11-03 19:58-20:14 run: 12 approvals reflected, Published 51->60, then 3 polish submissions moved Published 60->57 and In Review 4->7). Order notices, publisher settlement credits and bank payouts are distinct; MTD/MRR are not booked (new vs renewal unconfirmed). Payout: none scheduled, below $100 minimum.",
+        "net_sales_usd": null,
+        "paid_out_usd": null
+      },
+      {
+        "platform": "Contra",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "Earned $0, balance $0, Hired 0, applied 4 total, 0 new 2026-11-03 (19:12). No revenue recorded."
+      },
+      {
+        "platform": "CrowdWorks",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "4 proposals 2026-11-03 pending client confirmation (311747112, 311747340, 311755623, 311755861; last two deadline 2026-11-04); no revenue recorded."
+      },
+      {
+        "platform": "Fiverr",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "Freelancer.com",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "Guru",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "LINE Stickers",
+        "type": "Digital marketplace",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "38 sets on sale; no sales recorded."
+      },
+      {
+        "platform": "Lancers",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "Login unrecovered 2026-11-03 (18:26), 0 applications today; no revenue confirmed (not estimated)."
+      },
+      {
+        "platform": "Malt",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "Mercor",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "PromptBase",
+        "type": "Digital marketplace",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "Total Views 68, 7d views 8, Gross $0.00, no sales (2026-11-03 18:22); new listing $4.99 still Pending, not counted as published."
+      },
+      {
+        "platform": "RapidAPI",
+        "type": "API marketplace",
+        "this_month": null,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "App Store Top Charts JP & Global API; subscribers unknown (source error), calls unknown (source error); earnings unknown (source error) - not $0, unknown."
+      },
+      {
+        "platform": "SKIMA",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "Truelancer",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "Upwork",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "Whop / Gumroad",
+        "type": "Digital marketplace",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "Whop bundle $29 once: all-time revenue $0.00, 0 successful payments, product page 6 views (2026-11-03 18:33); owner-view Buy now disabled, buyer view unverified. Gumroad not separately measured this frame."
+      },
+      {
+        "platform": "Workana",
+        "type": "Contract work",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "no revenue recorded"
+      },
+      {
+        "platform": "note / Substack",
+        "type": "Digital marketplace",
+        "this_month": 0.0,
+        "last_month": null,
+        "all_time": null,
+        "pending": 0.0,
+        "status": "—",
+        "note": "starting; no revenue recorded"
+      }
+    ],
+    "trend": [
+      {
+        "month": "2026-09",
+        "total": 459.67,
+        "by_platform": {
+          "Booked (platform split not established)": 459.67
+        }
+      },
+      {
+        "month": "2026-10",
+        "total": 244.64,
+        "by_platform": {
+          "Booked (platform split not established)": 244.64
+        }
+      },
+      {
+        "month": "2026-11",
+        "total": 31.81,
+        "by_platform": {
+          "Coconala": 31.8,
+          "x402 (USDC on Base)": 0.005
+        }
+      }
+    ],
+    "products": [
+      {
+        "product": "Coconala contract work",
+        "platform": "Coconala",
+        "all_time": null,
+        "this_month": 31.8,
+        "note": "Accepted order gross $31.80; net sales and payout unknown (see platform row)."
+      },
+      {
+        "product": "Anicca (iOS)",
+        "platform": "App Store (iOS)",
+        "all_time": 390.59,
+        "this_month": 0.0,
+        "note": "No November purchase signal; 1.9.6 Waiting for Review."
+      },
+      {
+        "product": "Honne (iOS)",
+        "platform": "App Store (iOS)",
+        "all_time": 83.89,
+        "this_month": 0.0,
+        "note": "Honne 1.0.6 distributing; no November purchase signal."
+      },
+      {
+        "product": "Web subscriptions (product not labelled)",
+        "platform": "Stripe",
+        "all_time": null,
+        "this_month": 0.0,
+        "note": "Stripe active subs 0."
+      },
+      {
+        "product": "x402 endpoints (affirmation, capafy-skill)",
+        "platform": "x402 (USDC on Base)",
+        "all_time": 0.005,
+        "this_month": 0.005
+      },
+      {
+        "product": "Capafy skills",
+        "platform": "Capafy",
+        "all_time": null,
+        "this_month": null,
+        "note": "Dashboard through 2026-11-02 UTC: 7d $49.95, 30d $59.94, 90d $152.70; MTD/MRR not booked (new vs renewal unconfirmed)."
+      },
+      {
+        "product": "Apify actor (S7JAoTNiztat9Qwuq)",
+        "platform": "Apify",
+        "all_time": null,
+        "this_month": 0.0,
+        "note": "pricing starts 2026-11-16; 2 users, 7 runs; no revenue recorded."
+      },
+      {
+        "product": "Whop bundle (AI Monk Database + The Art of AI Monks)",
+        "platform": "Whop",
+        "all_time": 0.0,
+        "this_month": 0.0,
+        "note": "$29 once; product page 6 views; 0 successful payments (2026-11-03 18:33)."
+      },
+      {
+        "product": "PromptBase prompts",
+        "platform": "PromptBase",
+        "all_time": 0.0,
+        "this_month": 0.0,
+        "note": "Total Views 68, 7d views 8, Gross $0.00, no sales (2026-11-03 18:22)."
+      },
+      {
+        "product": "Monk e-books (The Anicca Reset / The Art of AI Monks)",
+        "platform": "Whop / Web",
+        "all_time": 0.0,
+        "this_month": 0.0,
+        "note": "The Anicca Reset $10.99, The Art of AI Monks $9.99; no sale signal 2026-11-03."
+      },
+      {
+        "product": "Life Manager Cloud",
+        "platform": "Stripe / Web",
+        "all_time": 0.0,
+        "this_month": 0.0,
+        "note": "Test billing only; no paying users yet."
+      },
+      {
+        "product": "LINE stickers",
+        "platform": "LINE Stickers",
+        "all_time": 0.0,
+        "this_month": 0.0,
+        "note": "38 sets on sale; no sales recorded."
+      }
+    ],
+    "mrr_split": {
+      "revenuecat": 24,
+      "capafy": 73.58,
+      "stripe": 0.0,
+      "stripe_active_subscriptions": 0,
+      "total": 97.58
+    },
+    "all_time_confirmed": 1749.36,
+    "bank": {
+      "usd": 1611.03,
+      "jpy": 253335,
+      "fx": "JPY/ECB 157.25 (2026-10-30)",
+      "as_of": "2026-11-01 10:10 JST",
+      "source": "MUFG via Moneytree (BANK-BALANCE.md), total only"
+    },
+    "net_worth": {
+      "usd": 1611.03,
+      "jpy": 253335,
+      "fx": "JPY/ECB 157.25 (2026-10-30)",
+      "as_of": "2026-11-01 10:10 JST",
+      "source": "MUFG via Moneytree (BANK-BALANCE.md), total only",
+      "basis": "Bank total; no debt on record"
+    },
+    "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 12:12 JST",
+    "all_time_usd": 2223.84
+  },
+  "coverage_note": "Coverage incomplete; company revenue and profit are not established. Monthly and platform rows now show measured values from the 2026-11-03 19:37 dashboard rebuild, including $0 where no revenue is recorded. Exceptions kept as unknown (not $0): Capafy MTD/MRR (new vs renewal unconfirmed), RapidAPI earnings (source error), and the $0.07 gross-profit variant (31.81 vs 31.88). Missing coverage is not zero except where a row explicitly states $0 recorded. Monthly bars use summary.trend (metrics.json 15:35 monthly totals; Sep/Oct platform splits are not established, so those months are shown as a single booked total; November is split Coconala $31.80 + x402 $0.005; App Store is not split by month). 2026-11-03 20:40 update: Capafy counts to Published 57 / In Review 7 / Ready to Publish 3 (total 89), CrowdWorks proposals to 4 pending today, Coconala re-read 19:34-20:06 (applications 253, no new proposals sent). Revenue MTD $31.80, costs $293.70 (partial), profit -$261.82, MRR $97.58 (data.json basis) unchanged; no new sale signal in any loop since the 20:14 live version."
+}
