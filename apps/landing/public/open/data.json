@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-03 21:37 JST",
+  "updated_at": "2026-11-03 22:07 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -315,7 +315,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Login unrecovered 2026-11-03 (18:26), 0 applications today; no revenue confirmed (not estimated)."
+        "note": "Login recovered 2026-11-03 21:26 via Gmail-web reset-link route (no new Google sign-in; password-save dialog not confirmed, vault landing unverified). 3 new proposals pending client confirmation (5624276 AI tutoring, 5624666 SNS management, 5624237 AI video ads); 1 reply sent 21:44 (mbrsmti thread); Kai project 3796499 cancellation approved, project ended (provisional payment refund destination/timing unconfirmed). Evaluation from stjb0m9 noted as 'satisfied' (star count unconfirmed). No revenue or contract confirmed; $0 recorded, not estimated."
       },
       {
         "platform": "Malt",
@@ -503,7 +503,7 @@
         "platform": "Whop",
         "all_time": 0.0,
         "this_month": 0.0,
-        "note": "$29 once; product page 6 views; 0 successful payments (2026-11-03 18:33).",
+        "note": "$29 once; product page 8 views (2026-11-03 21:33, was 6; visitors still 1, so not counted as external inflow growth); FAQ added to description 2026-11-03 21:33; 0 successful payments.",
         "last_month": 0.0
       },
       {
@@ -537,6 +537,14 @@
         "this_month": 0.0,
         "note": "38 sets on sale; no sales recorded.",
         "last_month": 0.0
+      },
+      {
+        "product": "AI Monk Factory",
+        "platform": "Web",
+        "all_time": 0.0,
+        "this_month": 0.0,
+        "last_month": 0.0,
+        "note": "$199/mo plan; no paying users and no sale signal 2026-11-03."
       }
     ],
     "mrr_split": {
