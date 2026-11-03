@@ -78,4 +78,4 @@ export default async (req, ctx) => {
   }
 };
 
-export const config = { path: ['/apple-rss/*'] };
+export const config = { path: ['/apple-rss/*', '/.netlify/functions/rapidapi-apple-rss/*'] };
