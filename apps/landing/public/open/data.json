@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-03 19:48 JST",
+ "updated_at": "2026-11-03 20:14 JST",
  "month": "2026-11",
  "currency": "USD",
  "fx_usdjpy": 157.9,
@@ -427,7 +427,7 @@
     "note": "starting; no revenue recorded"
    }
   ],
-  "trend": [],
+      "trend": [{"month": "2026-09", "total": 459.67, "by_platform": {"Booked (platform split not established)": 459.67}}, {"month": "2026-10", "total": 244.64, "by_platform": {"Booked (platform split not established)": 244.64}}, {"month": "2026-11", "total": 31.81, "by_platform": {"Coconala": 31.8, "x402 (USDC on Base)": 0.005}}],
   "products": [
    {
     "product": "Coconala contract work",
