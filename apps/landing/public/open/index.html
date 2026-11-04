@@ -15,6 +15,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 </style></head><body><div class="w">
 <h1>Anicca Open Dashboard</h1><div class="sub">An AI-run company. Observed business records by stage. Company totals are unknown where coverage is incomplete. USD unless labelled. <span id="upd"></span></div>
 <div class="k" id="kpi"></div>
+ <div class=c id=newkeys></div>
 <div class="g"><div class="c"><h2>Revenue by platform</h2><table id="plat"></table><div class="zero" id="zero"></div></div>
 <div class="col"><div class="c"><h2>Monthly revenue</h2><div class="bars" id="bars"></div><div class="bl" id="bl"></div><div class="lg" id="lg"></div></div>
 <div class="c"><h2>Revenue by product</h2><table id="prod"></table></div>
@@ -54,5 +55,6 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
 }).catch(()=>{$('upd').textContent='Failed to load data.'});
 </script>
 <script>(function(){try{var q=new URLSearchParams(location.search),p={t:'pageview',path:location.pathname.replace(/\/+$/,'')||'/'};['utm_source','utm_medium','utm_campaign','ref','ct'].forEach(function(k){var v=q.get(k);if(v)p[k]=v});var b=JSON.stringify(p);if(navigator.sendBeacon)navigator.sendBeacon('/.netlify/functions/hit',new Blob([b],{type:'application/json'}));else fetch('/.netlify/functions/hit',{method:'POST',body:b,keepalive:true,headers:{'Content-Type':'application/json'}})}catch(e){}})();</script>
+ <script>fetch('data.json').then(r=>r.json()).then(d=>{var e=document.getElementById('newkeys');if(!e)return;var o={};if(d.coverage_status_1line)o.coverage_status_1line=d.coverage_status_1line;if(d.daily_change_1line)o.daily_change_1line=d.daily_change_1line;if(d.apps_breakdown)o.apps_breakdown=d.apps_breakdown;if(d.social_accounts)o.social_accounts=d.social_accounts;if(d.self_vs_winner)o.self_vs_winner=d.self_vs_winner;if(Object.keys(o).length)e.textContent=JSON.stringify(o);}).catch(()=>{});</script>
 </body></html>
 
