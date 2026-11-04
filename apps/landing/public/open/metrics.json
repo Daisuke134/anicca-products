@@ -650,7 +650,7 @@
    "mrr": 97.58
   },
   {
-   "date": "2026-11-04",
+   "date": "2026-11-05",
    "mrr": 93.58
   }
  ],
@@ -863,7 +863,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-04 23:22 JST",
+ "updated_at": "2026-11-05 06:15 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -1054,7 +1054,7 @@
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 1
+   "board_updates_today": 0
   },
   {
    "agent": "Muse (CMO)",
@@ -1100,16 +1100,16 @@
   }
  ],
  "contract_work": {
-  "applications_today": 13,
-  "applications_7d": 46,
+  "applications_today": 1,
+  "applications_7d": 47,
   "days": [
-   "2026-10-29",
    "2026-10-30",
    "2026-10-31",
    "2026-11-01",
    "2026-11-02",
    "2026-11-03",
-   "2026-11-04"
+   "2026-11-04",
+   "2026-11-05"
   ],
   "platforms": [
    {
@@ -1117,13 +1117,13 @@
     "owner": "dr eggbot",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-10-29": 0,
      "2026-10-30": 0,
      "2026-10-31": 2,
      "2026-11-01": 2,
      "2026-11-02": 1,
      "2026-11-03": 0,
-     "2026-11-04": 0
+     "2026-11-04": 0,
+     "2026-11-05": 0
     },
     "applications_7d": 5,
     "status": "active; trial order in progress (10/30)",
@@ -1132,17 +1132,17 @@
    {
     "platform": "Lancers",
     "owner": "dr eggbot",
-    "applications_today": 13,
+    "applications_today": 1,
     "applications_by_day": {
-     "2026-10-29": 0,
      "2026-10-30": 0,
      "2026-10-31": 3,
      "2026-11-01": 2,
      "2026-11-02": 0,
      "2026-11-03": 3,
-     "2026-11-04": 13
+     "2026-11-04": 13,
+     "2026-11-05": 1
     },
-    "applications_7d": 21,
+    "applications_7d": 22,
     "status": "active",
     "revenue_lifetime_usd": null
    },
@@ -1151,13 +1151,13 @@
     "owner": "dr eggbot",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-10-29": 0,
      "2026-10-30": 0,
      "2026-10-31": 5,
      "2026-11-01": 10,
      "2026-11-02": 0,
      "2026-11-03": 0,
-     "2026-11-04": 0
+     "2026-11-04": 0,
+     "2026-11-05": 0
     },
     "applications_7d": 15,
     "status": "contract active (Labelbox, 10/30); ID check due 11/6",
@@ -1178,13 +1178,13 @@
     "owner": "Dots",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-10-29": 0,
      "2026-10-30": 0,
      "2026-10-31": 2,
      "2026-11-01": 1,
      "2026-11-02": 1,
      "2026-11-03": 0,
-     "2026-11-04": 0
+     "2026-11-04": 0,
+     "2026-11-05": 0
     },
     "applications_7d": 4,
     "status": "active; 3 client replies waiting (login needed)",
@@ -1245,13 +1245,13 @@
     "owner": "Fucker",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-10-29": 0,
      "2026-10-30": 0,
      "2026-10-31": 1,
      "2026-11-01": 0,
      "2026-11-02": 0,
      "2026-11-03": 0,
-     "2026-11-04": 0
+     "2026-11-04": 0,
+     "2026-11-05": 0
     },
     "applications_7d": 1,
     "status": "applied, awaiting offers",
@@ -1262,13 +1262,13 @@
     "owner": "Fucker",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-10-29": 0,
      "2026-10-30": 0,
      "2026-10-31": 0,
      "2026-11-01": 0,
      "2026-11-02": 0,
      "2026-11-03": 0,
-     "2026-11-04": 0
+     "2026-11-04": 0,
+     "2026-11-05": 0
     },
     "applications_7d": 0,
     "status": "status not tracked yet",
