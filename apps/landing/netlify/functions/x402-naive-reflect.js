@@ -1,6 +1,6 @@
 // x402 paid endpoint for the Naive agent: one journaling/reflection prompt plus a 2-minute exercise.
 // GET /.netlify/functions/x402-naive-reflect?mood=anxious|low|angry|scattered|grateful&lang=en|ja
-// Pays $0.005 USDC on Base to the Naive agent wallet (public address only).
+// Pays $0.005 USDC on Base to the dedicated Naive company-agent receiving wallet (public address only).
 const { createSeller } = require('./_x402');
 
 const P = {
@@ -14,7 +14,7 @@ const MOODS = Object.keys(P);
 
 const seller = createSeller({
   url: 'https://aniccaai.com/.netlify/functions/x402-naive-reflect',
-  payTo: '0x7E8b13B7c080465903874352887656314A267E3c',
+  payTo: '0x7De1D49Ec3f71f6FF5B920AE15A67aF7410c161c',
   price: '5000', // $0.005 USDC
   description: 'Naive agent: one reflection/journaling prompt plus a 2-minute exercise for a given mood, as JSON (en/ja). $0.005 per call.',
   queryParams: {
@@ -42,4 +42,4 @@ function build(q) {
 }
 
 exports.handler = seller(async (q) => ({ status: 200, body: build(q) }));
-exports._test = { build, paymentRequired: seller.paymentRequired };
+exports._test = { build, paymentRequired: seller.paymentRequired, v1Req: seller.v1Req };
