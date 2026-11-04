@@ -12,7 +12,7 @@ Sell a useful, current report about Capafy’s public agent marketplace. A Naive
 
 1. The buyer opens the public product endpoint and sees an x402 price, USDC/Base network, description, and sample output without an account or Google login.
 2. The buyer asks for a Capafy market report and pays using a wallet-supported x402 client.
-3. After payment verification, the Naive cloud agent opens Capafy in its managed browser, reads public marketplace pages, and returns a short report with observed page URLs and retrieval time.
+3. After payment verification, the Naive cloud agent opens Capafy in its managed browser, reads public marketplace pages, and returns a short report with observed page URLs and retrieval time. The caller adds trusted `generated_at` and `agent_session_id` fields from server/session state.
 4. The facilitator settles the buyer-authorized payment only after the report succeeds. A provider error, timeout, invalid response, or unverified page evidence must not settle payment.
 5. The operator can correlate endpoint request, Vetta session, x402 verify/settle response, payer, amount, and Base transaction without storing private wallet keys.
 
@@ -42,7 +42,7 @@ The response must distinguish page observations from agent inferences. If the ag
 ## Acceptance criteria
 
 1. Unpaid requests return a valid x402 challenge and do not start a Vetta session.
-2. An independently authorized, valid payment triggers one bounded Naive session with the browser tool as its only allowed tool and the Capafy domain allowlist.
+2. An independently authorized, valid payment triggers one bounded Naive session with the browser tool as its only allowed tool and the Capafy domain allowlist. The Vetta event stream must show a browser session opened and closed; a dedicated `computer_id` is recorded if Vetta supplies one.
 3. The session uses the managed browser with writes, CAPTCHA solving, human login, and persistent context disabled.
 4. A successful response contains nonempty findings and source URLs observed by the session; a failed or malformed run is not settled.
 5. A successful paid request returns the facilitator settlement receipt and payment transaction reference; the matching transaction is independently readable on Base and matches recipient, payer, asset, and amount.
