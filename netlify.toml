@@ -29,6 +29,12 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/open/data.json"
+  to = "/.netlify/functions/open-dashboard-data"
+  status = 200
+  force = true
+
 # ===== Anicca SAO install endpoint (issue #48) =====
 # Lets visitors run `curl -fsSL https://aniccaai.com/install.sh | bash`
 # without anyone needing to remember the github raw URL.

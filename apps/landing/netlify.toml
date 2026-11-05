@@ -10,6 +10,12 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/open/data.json"
+  to = "/.netlify/functions/open-dashboard-data"
+  status = 200
+  force = true
+
 [functions.checkout]
   included_files = ["private/writer-articles/**"]
 

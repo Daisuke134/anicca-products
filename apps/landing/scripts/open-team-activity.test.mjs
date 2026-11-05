@@ -66,6 +66,129 @@ test('shows recorded app totals and their period', async () => {
   assert.match(rendered, /2026-10-26 to 2026-11-01 week/);
 });
 
+test('shows App Store daily analytics, coverage, and missing download rows as unknown', async () => {
+  const fixture = structuredClone(data);
+  fixture.app_store_analytics_status = 'live-snapshot';
+  fixture.app_store_analytics = {
+    measured_at: '2026-11-05T13:11:41.659Z',
+    period: { start_date: '2026-10-29', end_date: '2026-11-04', processing_date: '2026-11-05' },
+    coverage: { app_days_expected: 35, discovery_app_days: 30, download_app_days: 15 },
+    summary: {
+      discovery: { impressions: 1064, unique_impressions: null, page_views: 48, unique_page_views: null, taps: 17, unique_taps: null },
+      downloads: { events: 163, first_time: 11, auto_update: 146, redownload: 2, restore: 1, manual_update: 3 },
+    },
+    apps: [{
+      app: 'Anicca',
+      metrics: { impressions: 133, unique_impressions: null, page_views: 13, unique_page_views: null, taps: 5, unique_taps: null },
+      download_metrics: { events: 134, first_time: 3, auto_update: 126, manual_update: 2, redownload: 2, restore: 1 },
+      download_events: 134,
+      discovery_days: 6,
+      download_days: 4,
+      daily: [{
+        date: '2026-10-29',
+        discovery: { impressions: 10, unique_impressions: null, page_views: 2, unique_page_views: null, taps: 1, unique_taps: null },
+        downloads: null,
+        source_rows: { discovery: [{ Event: 'Impression', 'Source Type': 'App Store search', Territory: 'US', Counts: '10', 'Unique Counts': '8' }], downloads: [] },
+      }, { date: '2026-11-04', processing_date: null, discovery: null, downloads: null, source_rows: { discovery: [], downloads: [] } }],
+    }],
+  };
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, { document, fetch: async () => ({ ok: true, json: async () => fixture }), Date, Intl, URLSearchParams });
+  await new Promise(resolve => setImmediate(resolve));
+  const rendered = elements.get('asc-analytics').innerHTML;
+  assert.match(rendered, /App Store Connect Analytics/);
+  assert.match(rendered, /Live Netlify snapshot/);
+  assert.match(rendered, /2026-10-29 to 2026-11-04/);
+  assert.match(rendered, /Impressions 1,064/);
+  assert.match(rendered, /Unique impressions —/);
+  assert.match(rendered, /Unique page views —/);
+  assert.match(rendered, /Unique taps —/);
+  assert.match(rendered, /Unique page views/);
+  assert.match(rendered, /Unique taps<\/th>/);
+  assert.match(rendered, /Discovery status/);
+  assert.match(rendered, /<td>Not reported<\/td>/);
+  assert.match(rendered, /Source dimensions/);
+  assert.match(rendered, /Unique counts/);
+  assert.match(rendered, /App Store search/);
+  assert.match(rendered, /Unique counts stay on source rows/);
+  assert.match(rendered, /Downloads 163 observed events/);
+  assert.match(rendered, /Discovery 30\/35 app-days reported/);
+  assert.match(rendered, /Downloads 15\/35 app-days reported/);
+  assert.match(rendered, /6\/7 discovery days · 4\/7 download days/);
+  assert.match(rendered, /Anicca/);
+  assert.match(rendered, /Not reported/);
+  assert.doesNotMatch(rendered, /Downloads 0\b/);
+});
+
+test('keeps the newest App Store processing date per app-day and leaves absent downloads null', async () => {
+  let aggregateDailyMetrics;
+  try {
+    ({ aggregateDailyMetrics } = await import('./open-app-store-analytics.mjs'));
+  } catch {
+    assert.fail('App Store analytics aggregator has not been implemented');
+  }
+  const result = aggregateDailyMetrics({
+    apps: [{ id: 'a', name: 'Anicca' }, { id: 'b', name: 'Daily Dhamma' }],
+    period: { start_date: '2026-11-01', end_date: '2026-11-02' },
+    discoveryRows: [
+      { app_id: 'a', date: '2026-11-01', processing_date: '2026-11-02', metrics: { impressions: 90, unique_impressions: 80 } },
+      { app_id: 'a', date: '2026-11-01', processing_date: '2026-11-03', metrics: { impressions: 4, unique_impressions: 3 } },
+      { app_id: 'a', date: '2026-11-01', processing_date: '2026-11-03', metrics: { impressions: 6, unique_impressions: 5 } },
+      { app_id: 'b', date: '2026-11-02', processing_date: '2026-11-03', metrics: { impressions: 7, unique_impressions: 6 } },
+    ],
+    downloadRows: [
+      { app_id: 'b', date: '2026-11-02', processing_date: '2026-11-03', metrics: { events: 2, first_time: 1 } },
+    ],
+    measured_at: '2026-11-05T12:00:00.000Z',
+  });
+
+  assert.equal(result.apps.find(app => app.app === 'Anicca').daily[0].discovery.impressions, 10);
+  assert.equal(result.apps.find(app => app.app === 'Anicca').daily[0].processing_date, '2026-11-03');
+  assert.equal(result.apps.find(app => app.app === 'Anicca').daily[0].downloads, null);
+  assert.equal(result.apps.find(app => app.app === 'Daily Dhamma').daily[1].downloads.events, 2);
+  assert.equal(result.coverage.app_days_expected, 4);
+  assert.equal(result.coverage.download_app_days, 1);
+  assert.equal(result.summary.discovery.impressions, 17);
+});
+
+test('does not add per-dimension Apple unique counts into a total', async () => {
+  const { aggregateDailyMetrics } = await import('./open-app-store-analytics.mjs');
+  const result = aggregateDailyMetrics({
+    apps: [{ id: 'a', name: 'Anicca' }],
+    period: { start_date: '2026-11-01', end_date: '2026-11-01' },
+    discoveryRows: [
+      { app_id: 'a', date: '2026-11-01', processing_date: '2026-11-02', metrics: { impressions: 10, unique_impressions: 9 }, source_row: { 'Source Type': 'App Store search', Counts: '10', 'Unique Counts': '9' } },
+      { app_id: 'a', date: '2026-11-01', processing_date: '2026-11-02', metrics: { impressions: 7, unique_impressions: 6 }, source_row: { 'Source Type': 'App Store browse', Counts: '7', 'Unique Counts': '6' } },
+    ],
+    downloadRows: [],
+  });
+
+  assert.equal(result.summary.discovery.impressions, 17);
+  assert.equal(result.summary.discovery.unique_impressions, null);
+  assert.equal(result.apps[0].daily[0].discovery.unique_impressions, null);
+  assert.deepEqual(result.apps[0].daily[0].source_rows.discovery.map(row => row['Unique Counts']), ['9', '6']);
+});
+
+test('parses Apple report event rows and preserves source dimensions', async () => {
+  const { parseAnalyticsTsv } = await import('./open-app-store-analytics.mjs');
+  const discovery = parseAnalyticsTsv(
+    'Date\tApp Apple Identifier\tEvent\tPage Type\tSource Type\tTerritory\tCounts\tUnique Counts\n2026-11-01\t6755129214\tImpression\tNo page\tApp Store search\tUS\t12\t10\n2026-11-01\t6755129214\tPage view\tProduct page\tApp Store search\tUS\t4\t3\n2026-11-01\t6755129214\tTap\tProduct page\tApp Store search\tUS\t2\t2',
+    { appId: 'fallback', processingDate: '2026-11-03', report: 'discovery' },
+  );
+  assert.deepEqual(discovery.map(row => row.metrics), [
+    { impressions: 12, unique_impressions: 10, page_views: null, unique_page_views: null, taps: null, unique_taps: null },
+    { impressions: null, unique_impressions: null, page_views: 4, unique_page_views: 3, taps: null, unique_taps: null },
+    { impressions: null, unique_impressions: null, page_views: null, unique_page_views: null, taps: 2, unique_taps: 2 },
+  ]);
+  assert.equal(discovery[0].app_id, '6755129214');
+  assert.equal(discovery[0].source_row.Territory, 'US');
+});
+
 test('labels unreconciled revenue, costs, and profit as observed values', async () => {
   const fixture = structuredClone(data);
   fixture.reconciliation_complete = false;
@@ -179,6 +302,43 @@ test('main deploy refreshes Capafy rather than republishing the committed stale 
   const collector = workflow.slice(start, end);
   assert.match(collector, /if:\s*github\.ref == 'refs\/heads\/main'/);
   assert.doesNotMatch(collector, /github\.event_name\s*!=\s*'push'/);
+});
+
+test('Netlify scheduled function refreshes ASC outside GitHub and Open data.json serves the merged snapshot', async () => {
+  const workflow = readFileSync(new URL('../../../.github/workflows/netlify-deploy.yml', import.meta.url), 'utf8');
+  const refresh = readFileSync(new URL('../netlify/functions/open-asc-refresh.mjs', import.meta.url), 'utf8');
+  const route = readFileSync(new URL('../netlify/functions/open-dashboard-data.mjs', import.meta.url), 'utf8');
+  const deployConfig = readFileSync(new URL('../netlify.toml', import.meta.url), 'utf8');
+  const rootConfig = readFileSync(new URL('../../../netlify.toml', import.meta.url), 'utf8');
+  assert.match(workflow, /cron: '17 \* \* \* \*'/);
+  assert.doesNotMatch(workflow, /APP_STORE_CONNECT_(?:ISSUER_ID|KEY_ID|PRIVATE_KEY)/);
+  assert.match(refresh, /schedule: '37 \* \* \* \*'/);
+  assert.match(refresh, /process\.env\.APP_STORE_CONNECT_PRIVATE_KEY/);
+  assert.match(route, /app_store_analytics: analytics/);
+  for (const config of [deployConfig, rootConfig]) {
+    assert.match(config, /from = "\/open\/data\.json"[\s\S]*?to = "\/.netlify\/functions\/open-dashboard-data"[\s\S]*?status = 200[\s\S]*?force = true/);
+  }
+});
+
+test('only stores a complete App Store refresh and preserves the last snapshot on collector failure', async () => {
+  const { APP_STORE_SNAPSHOT_KEY, collectAndStoreAppStoreAnalytics, readAppStoreAnalytics } = await import('../netlify/functions/_lib/open-asc-store.mjs');
+  const snapshot = { period: { start_date: '2026-11-01', end_date: '2026-11-07' }, apps: [{ app_id: 'a', daily: [] }] };
+  const writes = [];
+  const store = {
+    get: async key => { assert.equal(key, APP_STORE_SNAPSHOT_KEY); return null; },
+    setJSON: async (key, value) => writes.push({ key, value }),
+  };
+  const saved = await collectAndStoreAppStoreAnalytics({ store, collect: async () => snapshot, credentials: {} });
+  assert.equal(saved, snapshot);
+  assert.equal(writes.length, 1);
+  assert.equal(writes[0].key, APP_STORE_SNAPSHOT_KEY);
+  assert.equal(await readAppStoreAnalytics({ get: async () => null }, snapshot), snapshot);
+  await assert.rejects(() => collectAndStoreAppStoreAnalytics({
+    store,
+    collect: async () => { throw new Error('source unavailable'); },
+    credentials: {},
+  }), /source unavailable/);
+  assert.equal(writes.length, 1, 'the last good snapshot remains unchanged');
 });
 
 test('Open JSON-only pushes are included in main deployment paths', () => {
