@@ -5,6 +5,8 @@ import vm from 'node:vm';
 
 const html = readFileSync(new URL('../public/open/index.html', import.meta.url), 'utf8');
 const data = JSON.parse(readFileSync(new URL('../public/open/data.json', import.meta.url), 'utf8'));
+const capafyData = JSON.parse(readFileSync(new URL('../public/open/capafy.json', import.meta.url), 'utf8'));
+const portfolioSnapshot = JSON.parse(readFileSync(new URL('../public/open/metrics.json', import.meta.url), 'utf8'));
 
 async function renderKpis(kpiData) {
   const elements = new Map();
@@ -464,4 +466,149 @@ test('Open JSON-only pushes are included in main deployment paths', () => {
   assert.ok(push, 'push trigger is present');
   assert.match(push, /paths:[\s\S]*?apps\/landing\/\*\*/);
   assert.doesNotMatch(push, /!apps\/landing\/public\/open\/(?:\*\.json|\*\*\/\*\.json)/);
+});
+
+test('renders the timestamped business and loop snapshot without converting missing revenue to zero', async () => {
+  const fixture = structuredClone(portfolioSnapshot);
+  fixture.updated_at = '2026-11-06 02:18 JST';
+  fixture.businesses = [structuredClone(portfolioSnapshot.businesses.find(row => row.name.startsWith('Capafy agents')))];
+  fixture.businesses[0].revenue_mtd = null;
+  fixture.businesses[0].mrr = null;
+  fixture.agents = [structuredClone(portfolioSnapshot.agents.find(row => row.agent.startsWith('Muse')))];
+  fixture.loops = [structuredClone(portfolioSnapshot.loops[0])];
+  fixture.metric_gaps = [structuredClone(portfolioSnapshot.metric_gaps[0])];
+
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const urls = [];
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, {
+    document,
+    fetch: async url => {
+      urls.push(String(url));
+      const filename = String(url).split('?')[0].split('/').at(-1);
+      const response = filename === 'data.json' ? data : filename === 'capafy.json' ? capafyData : fixture;
+      return { ok: true, json: async () => response };
+    },
+    Date: class extends Date { static now() { return Date.parse('2026-11-05T18:45:00Z'); } },
+    Intl,
+    URLSearchParams,
+    setInterval: () => 1,
+  });
+  await new Promise(resolve => setImmediate(resolve));
+
+  assert.ok(urls.some(url => /metrics\.json\?v=/.test(url)), 'the public metrics feed is requested with a cache buster');
+  assert.match(elements.get('portfolio-snapshot').textContent, /2026-11-06 02:18 JST/);
+  assert.match(elements.get('portfolio-snapshot').textContent, /1h 27m ago/);
+  const summary = elements.get('portfolio-summary').innerHTML;
+  assert.match(summary, /1 business/);
+  assert.match(summary, /1 agent/);
+  assert.match(summary, /1 loop/);
+  assert.match(summary, /1 metric gap/);
+  assert.match(elements.get('portfolio-businesses').innerHTML, /Capafy agents/);
+  assert.match(elements.get('portfolio-businesses').innerHTML, /no data/);
+  assert.doesNotMatch(elements.get('portfolio-businesses').innerHTML, /\$0\.00/);
+  assert.match(elements.get('portfolio-agents').innerHTML, /Muse/);
+  const loopTable = elements.get('portfolio-loops').innerHTML;
+  assert.match(loopTable, /Distribution loop/);
+  for (const label of ['Loop', 'Owner', 'Host', 'Schedule', 'Runs per day', 'Status as of snapshot']) {
+    assert.match(loopTable, new RegExp(`data-label="${label}"`));
+  }
+  assert.match(elements.get('portfolio-gaps').innerHTML, /Capafy renewals/);
+});
+
+test('refreshes all Open feeds in place every fifteen minutes', async () => {
+  const fixture = structuredClone(portfolioSnapshot);
+  fixture.businesses = [structuredClone(portfolioSnapshot.businesses.find(row => row.name.startsWith('Capafy agents')))];
+  fixture.agents = [structuredClone(portfolioSnapshot.agents.find(row => row.agent.startsWith('Muse')))];
+  fixture.loops = [structuredClone(portfolioSnapshot.loops[0])];
+  fixture.metric_gaps = [structuredClone(portfolioSnapshot.metric_gaps[0])];
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const fetchCounts = new Map();
+  const intervals = [];
+  let reloads = 0;
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, {
+    document,
+    fetch: async url => {
+      const filename = String(url).split('?')[0].split('/').at(-1);
+      fetchCounts.set(filename, (fetchCounts.get(filename) || 0) + 1);
+      const response = filename === 'data.json' ? data : filename === 'capafy.json' ? capafyData : fixture;
+      return { ok: true, json: async () => response };
+    },
+    Date,
+    Intl,
+    URLSearchParams,
+    location: { reload() { reloads += 1; } },
+    setInterval: (handler, milliseconds) => { intervals.push({ handler, milliseconds }); return intervals.length; },
+  });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(elements.get('portfolio-agents').innerHTML.includes('Updated activity'), false);
+  fixture.agents[0].today = 'Updated activity';
+  fixture.updated_at = '2026-11-06 03:18 JST';
+  const refreshes = intervals.filter(interval => interval.milliseconds === 15 * 60 * 1000);
+  assert.equal(refreshes.length, 3, 'all three source feeds receive a 15-minute refresh');
+  await Promise.all(refreshes.map(interval => interval.handler()));
+
+  for (const filename of ['data.json', 'capafy.json', 'metrics.json']) assert.equal(fetchCounts.get(filename), 2, filename);
+  assert.match(elements.get('portfolio-agents').innerHTML, /Updated activity/);
+  assert.equal(reloads, 0, 'refreshing feed data does not reload the page and re-emit pageview telemetry');
+});
+
+test('reveals team activity after a later snapshot adds activity rows', async () => {
+  const currentData = structuredClone(data);
+  currentData.by_agent = [];
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const intervals = [];
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, {
+    document,
+    fetch: async url => {
+      const filename = String(url).split('?')[0].split('/').at(-1);
+      const response = filename === 'data.json' ? currentData : filename === 'capafy.json' ? capafyData : portfolioSnapshot;
+      return { ok: true, json: async () => response };
+    },
+    Date,
+    Intl,
+    URLSearchParams,
+    setInterval: (handler, milliseconds) => { intervals.push({ handler, milliseconds }); return intervals.length; },
+  });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(elements.get('card-team').style.display, 'none');
+  currentData.by_agent = [{ agent: 'New agent', surfaces: 'New work', status: 'Verified result' }];
+  await intervals.find(interval => interval.milliseconds === 15 * 60 * 1000).handler();
+  assert.equal(elements.get('card-team').style.display, '');
+  assert.match(elements.get('team-activity').innerHTML, /New agent/);
+});
+
+test('shows the portfolio section as unavailable when its snapshot fetch fails', async () => {
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, {
+    document,
+    fetch: async url => String(url).includes('metrics.json')
+      ? { ok: false, json: async () => ({}) }
+      : { ok: true, json: async () => String(url).includes('capafy.json') ? capafyData : data },
+    Date,
+    Intl,
+    URLSearchParams,
+    setInterval: () => 1,
+  });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.match(elements.get('portfolio-snapshot').textContent, /Portfolio snapshot unavailable/);
 });

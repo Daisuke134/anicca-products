@@ -26,3 +26,10 @@ This connects the already-published portfolio snapshot. It does not repair its s
 1. Focused Node tests prove the portfolio snapshot is rendered with its timestamp/counts, missing values remain unknown, and a refresh replaces rendered values without page reload.
 2. `data.json`, `capafy.json`, and `metrics.json` each receive an in-place 15-minute refresh schedule.
 3. The deployed public UI shows the feed timestamp and the same key values on desktop and mobile; source feeds remain visually separate.
+
+## Progress
+
+- Local implementation and 21 focused tests pass; all three feeds have separate 15-minute refresh handlers and refresh does not reload the page.
+- Local desktop and mobile screenshots show the portfolio snapshot, business cards, and agent roster. Mobile operating loops use labelled cards so all six fields are readable without horizontal scrolling.
+- The checked-in `metrics.json` snapshot is dated `2026-11-06 02:18 JST` and contains 11 businesses, 10 agents, 53 loops, and 13 metric gaps. This is registry data, not live loop status.
+- Remaining: publish through the normal PR/deploy path, inspect the deployed public UI on desktop and mobile, and record public readback. Provider/source completeness remains outside this feature and follows the Life Manager SSOT cursor.
