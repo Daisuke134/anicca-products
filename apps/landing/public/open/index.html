@@ -39,12 +39,12 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
  $('upd').textContent='Updated '+d.updated_at+'.';
  const ats=S.platforms.reduce((a,p)=>a+(p.all_time||0),0),lm=S.trend.length>1?S.trend[S.trend.length-2]:null;
  const card=(t,v,n)=>`<div class="c"><h3>${t}</h3><div class="v">${v}</div><div class="n">${n}</div></div>`;
- const B=S.bank;
+ const B=S.bank,coverageIncomplete=d.reconciliation_complete!==true;
  $('kpi').innerHTML=[
   card('MRR',U(K.mrr&&K.mrr.usd),`App Store $${S.mrr_split.revenuecat} + Capafy $${S.mrr_split.capafy} + Stripe $${S.mrr_split.stripe}`),
-  card('Revenue, '+mon+' to date',K.revm.usd==null?'<span class="m">unknown (source error)</span>':U(K.revm.usd),'Paid + buyer-accepted, ECB FX · as of '+esc(d.updated_at)),
-  card('Costs, '+mon+' to date',U(K.cost.usd)+Y(K.cost.jpy),'Observed payment notices; coverage incomplete'),
-  card('Profit, '+mon+' to date',`<span class="${K.gp.usd<0?'neg':'pos'}">${U(K.gp.usd)}</span>`,K.gpl?'Last month: '+U(K.gpl.usd):''),
+  card('Revenue, '+mon+' to date',K.revm.usd==null?'<span class="m">unknown (source error)</span>':U(K.revm.usd),(coverageIncomplete?'Observed subtotal · incomplete coverage':'Reconciled company total')+' · Paid + buyer-accepted, ECB FX · as of '+esc(d.updated_at)),
+  card('Costs, '+mon+' to date',U(K.cost.usd)+Y(K.cost.jpy),coverageIncomplete?'Observed payment notices · incomplete coverage':'Observed payment notices; not accrual expenses or final settlement'),
+  card('Profit, '+mon+' to date',`<span class="${K.gp.usd<0?'neg':'pos'}">${U(K.gp.usd)}</span>`,(coverageIncomplete?'Observed difference only · full-company profit unknown':'Revenue less observed payment notices')+(K.gpl?' · Last month: '+U(K.gpl.usd):'')),
   card('All-time revenue',S.all_time_confirmed==null?'<span class="m">unknown (source error)</span>':U(S.all_time_usd),S.all_time_confirmed==null?'':`Booked $${S.all_time_confirmed} + App Store lifetime $${(S.all_time_usd-S.all_time_confirmed).toFixed(2)} · as of ${esc(d.updated_at)}`),
   card('Bank balance / net worth',B&&B.usd!=null?U(B.usd)+Y(B.jpy):'<span class="m">unknown (source error)</span>',B&&B.usd!=null?'Total only · as of '+esc(B.as_of)+' · MUFG via Moneytree · no debt on record':'')].join('');
  const act=S.platforms.filter(p=>p.all_time||p.pending||p.this_month!=null||p.status==='stage reconciliation'||p.type.startsWith('API')),zero=S.platforms.filter(p=>!act.includes(p));
