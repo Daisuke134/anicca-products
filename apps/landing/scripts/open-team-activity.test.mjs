@@ -440,7 +440,7 @@ test('hourly production deploy retains the previous ASC window and refreshes it 
   const seedIndex = workflow.indexOf('      - name: Seed previous App Store analytics snapshot', stageIndex);
   const collectIndex = workflow.indexOf('      - name: Collect App Store Connect analytics', seedIndex);
   const verifyIndex = workflow.indexOf('      - name: Verify Open dashboard data before deploy', collectIndex);
-  assert.match(workflow, /cron: '17 \* \* \* \*'/);
+  assert.match(workflow, /cron: '32 \* \* \* \*'/);
   assert.ok(stageIndex >= 0 && seedIndex > stageIndex && collectIndex > seedIndex && verifyIndex > collectIndex);
   const seed = workflow.slice(seedIndex, collectIndex);
   const collect = workflow.slice(collectIndex, verifyIndex);
