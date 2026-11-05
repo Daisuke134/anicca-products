@@ -33,7 +33,7 @@ function groups(en: boolean): Group[] {
         {
           name: 'Anicca iOS',
           tagline: en ? 'iOS · the first Anicca · App Store' : 'iOS · 最初のアニッチャ · App Store',
-          href: '/affirmation-app',
+          href: en ? '/affirmation-app' : '/affirmation-app/ja',
         },
         {
           name: 'Life Manager',
@@ -75,7 +75,7 @@ function groups(en: boolean): Group[] {
           tagline: en
             ? 'chat intent revealed by AI · App Store'
             : 'AIがチャットの本音を読み解く · App Store',
-          href: '/honne',
+          href: en ? '/honne' : '/honne/ja',
         },
         {
           name: 'BreathCalm',
