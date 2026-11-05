@@ -59,3 +59,19 @@ test('shows Capafy account observations with their collection time', async () =>
   assert.match(rendered, /12,384/);
   assert.match(rendered, /2026-11-05T05:55:02Z/);
 });
+
+
+test('reports unavailable Capafy data rather than hiding the section', async () => {
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, { document, fetch: async url => {
+    if (url.startsWith('capafy.json')) throw new Error('offline');
+    return { ok: true, json: async () => data };
+  }, Date, URLSearchParams });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(elements.get('capafy-activity')?.textContent, 'Capafy data unavailable');
+});
