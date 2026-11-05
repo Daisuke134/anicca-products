@@ -176,7 +176,7 @@ const loadPortfolio=()=>fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)th
  const rc=d.revenuecat_charts;
  if(!rc||!Array.isArray(rc.projects)){$('revenuecat-charts').innerHTML='<div class="m">RevenueCat chart source has not been collected.</div>';return}
  const rcValue=(v,unit)=>v==null?'<span class="m">not reported</span>':unit==='$'?U(Number(v)):unit==='%'?`${Number(v).toLocaleString('en-US')}%`:Number(v).toLocaleString('en-US');
- const rcSummary=(chart,name,aggregate)=>{const values=(chart&&chart.summary&&chart.summary[aggregate])||{};if(Object.prototype.hasOwnProperty.call(values,name))return [['Project',values[name]]];return Object.entries(values).flatMap(([label,row])=>row&&Object.prototype.hasOwnProperty.call(row,name)?[[label,row[name]]]:[])};
+ const rcSummary=(chart,name,aggregate)=>{const measures=(chart&&chart.measures)||[],measure=measures.find(measure=>measure.display_name===name)||measures[0],sourceName=measure?.display_name||name,values=(chart&&chart.summary&&chart.summary[aggregate])||{};if(Object.prototype.hasOwnProperty.call(values,sourceName))return [['Project',values[sourceName]]];return Object.entries(values).flatMap(([label,row])=>row&&Object.prototype.hasOwnProperty.call(row,sourceName)?[[label,row[sourceName]]]:[])};
  const rcUnit=(chart,name)=>((chart&&chart.measures)||[]).find(measure=>measure.display_name===name)?.unit;
  const featured=[['mrr','MRR','average'],['actives','Active Subscriptions','average'],['trials','Active Trials','average'],['revenue','Proceeds','total'],['refunds','Refunded Revenue','total']];
  const projects=rc.projects.map(project=>{
