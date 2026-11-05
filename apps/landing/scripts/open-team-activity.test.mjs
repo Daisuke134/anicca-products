@@ -272,15 +272,24 @@ test('shows Capafy Developer Overview beside the separate traffic feed and prese
       observed_at: new Date().toISOString(),
       windows: { last_7d: {
         start_date: '2026-10-30', end_date: '2026-11-05', granularity: 'daily',
-        exposure: { total_count: 32542, total_unique_device_count: 13488, total_count_change_percent: -36.1, unique_device_change_percent: -35.0 },
-        detail_views: { total_count: 1938, total_unique_device_count: 1089, total_count_change_percent: -42.9, unique_device_change_percent: -41.2 },
-        conversion: { total_conversion_rate: 0.04, conversion_rate_change: 0.02, total_order_count: 5, total_user_id_exposure_count: 13489 },
-        new_users: { total_new_user_count: 4, new_user_change_percent: 0.0 },
+        exposure: { total_count: 32674, total_unique_device_count: 13530, total_count_change_percent: -35.8, unique_device_change_percent: -34.8, contains_unknown_country: true },
+        detail_views: { total_count: 1947, total_unique_device_count: 1091, total_count_change_percent: -42.7, unique_device_change_percent: -41.1, contains_unknown_country: false },
+        conversion: { total_conversion_rate: 0.04, conversion_rate_change: 0.02, total_order_count: 5, total_user_id_exposure_count: 13531, contains_unknown_country: true },
+        new_users: { total_new_user_count: 4, new_user_change_percent: 0.0, contains_unknown_country: false },
         daily: [{
           date: '2026-11-03', exposure_count: 3974, exposure_unique_devices: 1772,
           detail_view_count: 227, detail_view_unique_devices: 139,
           conversion_rate: -0.06, order_count: -1, exposed_user_ids: 1772, new_user_count: 0,
         }],
+      }, last_30d: {
+        start_date: '2026-10-07', end_date: '2026-11-05', granularity: 'daily',
+        exposure: { total_count: 126531, total_unique_device_count: 49850, total_count_change_percent: 40.6, unique_device_change_percent: 81.4, contains_unknown_country: true },
+        detail_views: { total_count: 8756, total_unique_device_count: 4828, total_count_change_percent: 51.9, unique_device_change_percent: 121.2, contains_unknown_country: true },
+        conversion: { total_conversion_rate: 0.03, conversion_rate_change: -0.22, total_order_count: 15, total_user_id_exposure_count: 49850, contains_unknown_country: true },
+        new_users: { total_new_user_count: 14, new_user_change_percent: -75.9, contains_unknown_country: false },
+        daily: [{ date: '2026-11-03', exposure_count: 3974, exposure_unique_devices: 1772,
+          detail_view_count: 227, detail_view_unique_devices: 139,
+          conversion_rate: -0.06, order_count: -1, exposed_user_ids: 1772, new_user_count: 0 }],
       } },
     },
   };
@@ -297,14 +306,21 @@ test('shows Capafy Developer Overview beside the separate traffic feed and prese
   const rendered = elements.get('capafy-activity').innerHTML;
   assert.match(rendered, /Capafy Developer Overview/);
   assert.match(rendered, /Last 7 days.*2026-10-30.*2026-11-05/);
-  assert.match(rendered, /Impressions 32,542/);
-  assert.match(rendered, /Unique devices 13,488/);
-  assert.match(rendered, /−36\.1%/);
-  assert.match(rendered, /Detail page views 1,938/);
+  assert.match(rendered, /Impressions 32,674/);
+  assert.match(rendered, /Unique devices 13,530/);
+  assert.match(rendered, /Unique devices 13,530 \(−34\.8%\)/);
+  assert.match(rendered, /Impressions change −35\.8%/);
+  assert.match(rendered, /Unknown country data: yes/);
+  assert.match(rendered, /Unknown country data: no/);
+  assert.match(rendered, /Detail page views 1,947/);
   assert.match(rendered, /Conversion rate 0\.04%/);
   assert.match(rendered, /Provider change \+0\.02/);
   assert.match(rendered, /Orders 5/);
   assert.match(rendered, /New users 4/);
+  assert.match(rendered, /Last 30 days.*2026-10-07.*2026-11-05/);
+  assert.match(rendered, /Impressions 126,531/);
+  assert.match(rendered, /Detail page views 8,756/);
+  assert.match(rendered, /Provider change −0\.22/);
   assert.match(rendered, /Daily Developer Overview/);
   assert.match(rendered, /2026-11-03/);
   assert.match(rendered, /−0\.06/);
