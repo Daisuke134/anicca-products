@@ -13,7 +13,9 @@ on:
       - '.github/workflows/netlify-deploy.yml'
   workflow_dispatch:
   schedule:
-    - cron: '17 * * * *'
+    # Snapshot pushes cluster near :12-:20 and :48-:50 UTC; collect between those observed bursts.
+    # GitHub scheduled events remain best-effort; verify schedule receipts independently.
+    - cron: '32 * * * *'
 
 # One deploy per branch at a time; a newer push replaces any queued older one.
 # Without this, concurrent runs finished out of order and an older commit's
