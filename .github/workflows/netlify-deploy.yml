@@ -120,9 +120,12 @@ jobs:
           tmp="$(mktemp -d)"
           trap 'rm -rf "$tmp"' EXIT
           base="https://raw.githubusercontent.com/Daisuke134/life-manager/$LIFE_MANAGER_REVISION/skills/earn/capafy-marketing/scripts"
-          curl --fail --silent --show-error --location "$base/capafy_open_snapshot.py" -o "$tmp/capafy_open_snapshot.py"
-          curl --fail --silent --show-error --location "$base/capafy_hourly_reconcile.py" -o "$tmp/capafy_hourly_reconcile.py"
-          python3 "$tmp/capafy_open_snapshot.py" --output out/open/capafy.json
+          script_dir="$tmp/skills/earn/capafy-marketing/scripts"
+          mkdir -p "$script_dir" "$tmp/skills/capafy" out/open
+          curl --fail --silent --show-error --location "$base/capafy_open_snapshot.py" -o "$script_dir/capafy_open_snapshot.py"
+          curl --fail --silent --show-error --location "$base/capafy_hourly_reconcile.py" -o "$script_dir/capafy_hourly_reconcile.py"
+          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$LIFE_MANAGER_REVISION/skills/capafy/FROZEN.json" -o "$tmp/skills/capafy/FROZEN.json"
+          python3 "$script_dir/capafy_open_snapshot.py" --output out/open/capafy.json
 
       # 2026-06-07 V14-2 fix: replaced nwtgck/actions-netlify@v3.0 (= 5 連続 ISE)
       # with direct netlify-cli call (= validated via manual deploy locally)
