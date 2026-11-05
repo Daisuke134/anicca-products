@@ -106,6 +106,10 @@ jobs:
       # with direct netlify-cli call (= validated via manual deploy locally)
       # Spec: 2026-06-07-cron-role-clarification-design.md §12.4 → V14-2
       # Security: env vars for all template inputs (= injection防止)
+      - name: Verify Open dashboard data before deploy
+        working-directory: apps/landing
+        run: node scripts/check-open-data.mjs out/open/data.json
+
       - name: Deploy to Netlify
         working-directory: apps/landing
         env:
