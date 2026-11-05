@@ -78,7 +78,7 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
 fetch('capafy.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Capafy data unavailable');return r.json()}).then(d=>{
  const rows=Object.entries(d.windows||{}), n=v=>v==null?'—':Number(v).toLocaleString('en-US');
  if(!rows.length)return;
- $('capafy-activity').innerHTML=`<div class="m">Observed ${esc(d.observed_at)} · ${esc(d.source)} · UTC</div>`+rows.map(([key,w])=>`<div style="margin-top:8px"><b>${key==='last_7d'?'Last 7 days':key==='last_30d'?'Last 30 days':esc(key)}</b> <span class="m">${esc(w.start_utc?.slice(0,10))} – ${esc(w.end_utc?.slice(0,10))}</span><div>Views ${n(w.views)} · Paid orders ${n(w.paid_orders)} · Trial orders ${n(w.trial_orders)} · Attributed sales ${U(w.sales_usd==null?null:Number(w.sales_usd))}</div><div class="m">Impressions by source: ${(w.impressions||[]).map(i=>esc(i.name)+' '+n(i.count)).join(' · ')}</div></div>`).join('');
+ $('capafy-activity').innerHTML=`<div class="m">Last checked ${esc(d.observed_at)} · ${esc(d.source)} · Automatic updates not connected</div>`+rows.map(([key,w])=>`<div style="margin-top:8px"><b>${key==='last_7d'?'Last 7 days':key==='last_30d'?'Last 30 days':esc(key)}</b> <span class="m">${esc(w.start_utc?.slice(0,10))} – ${esc(w.end_utc?.slice(0,10))}</span><div>Views ${n(w.views)} · Paid orders ${n(w.paid_orders)} · Trial orders ${n(w.trial_orders)} · Attributed sales ${U(w.sales_usd==null?null:Number(w.sales_usd))}</div><div class="m">Impressions by source: ${(w.impressions||[]).map(i=>esc(i.name)+' '+n(i.count)).join(' · ')}</div></div>`).join('');
  $('card-capafy').style.display='block';
 }).catch(()=>{});
 
