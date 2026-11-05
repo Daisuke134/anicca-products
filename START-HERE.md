@@ -39,6 +39,12 @@ quiet.
   measured and saved.
 - PLAYBOOK-TEAM-OPERATIONS.md — how the agent team runs: one brain,
   many computers, no hub, replies in under a minute.
+- PLAYBOOK-X.md — how X is scouted for winners, and the rules for
+  our own accounts there.
+- PLAYBOOK-ENGLISH-DISTRIBUTION.md — free, English-first organic
+  distribution: ranking, platform checks, pacing, ASO.
+- PLAYBOOK-10K-MRR-CASES.md — the graded evidence base: what
+  founders who reached $10K MRR actually did.
 
 ## 5. Rules that never bend
 
