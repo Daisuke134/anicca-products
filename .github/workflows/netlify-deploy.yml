@@ -127,6 +127,10 @@ jobs:
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$LIFE_MANAGER_REVISION/skills/capafy/FROZEN.json" -o "$tmp/skills/capafy/FROZEN.json"
           python3 "$script_dir/capafy_open_snapshot.py" --output out/open/capafy.json
 
+      - name: Stage latest Open dashboard data snapshot
+        working-directory: apps/landing
+        run: node scripts/stage-open-data.mjs
+
       # 2026-06-07 V14-2 fix: replaced nwtgck/actions-netlify@v3.0 (= 5 連続 ISE)
       # with direct netlify-cli call (= validated via manual deploy locally)
       # Spec: 2026-06-07-cron-role-clarification-design.md §12.4 → V14-2
