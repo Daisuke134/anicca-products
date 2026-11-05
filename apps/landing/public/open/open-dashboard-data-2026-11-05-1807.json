@@ -1,0 +1,1227 @@
+{
+ "version": 2,
+ "updated_at": "2026-11-05 18:07 JST",
+ "month": "2026-11",
+ "currency": "USD",
+ "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
+ "model": "Layout modelled on felixcraft.ai/dashboard",
+ "spec": "team/OPEN-PAGE-V2.md",
+ "kpis": [
+  {
+   "key": "rev7",
+   "label": "Revenue (7d)",
+   "usd": null,
+   "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB",
+   "pct": null,
+   "pending": "Coverage incomplete; company revenue and profit are not established."
+  },
+  {
+   "key": "rev30",
+   "label": "Revenue (30d)",
+   "usd": 249.48,
+   "source": "metrics.json 2026-11-03 15:35 JST totals revenue_last30d_usd (partial series); data.json reconciliation series for 30d is null",
+   "pct": null
+  },
+  {
+   "key": "revm",
+   "label": "Revenue this month",
+   "usd": 31.81,
+   "source": "Audit 2026-11-05 15:25: Coconala $31.80 + x402 $0.005 = $31.81; $31.88 not used (undecomposable)"
+  },
+  {
+   "key": "cost",
+   "label": "Observed payment notices (current month)",
+   "usd": 313.7,
+   "source": "Observed payment notices Nov, incl. Relixir $20.00 paid 2026-11-02; audit 2026-11-05"
+  },
+  {
+   "key": "costl",
+   "label": "Observed payment notices (prior month)",
+   "usd": 1581.29,
+   "source": "Provider/payment notices; coverage incomplete; not accrual expenses or final bank settlement"
+  },
+  {
+   "key": "gp",
+   "label": "Profit this month",
+   "usd": -281.89,
+   "source": "Revenue $31.81 minus costs $313.70 (audit 2026-11-05); $31.88 variant not used",
+   "pct": -886.1
+  },
+  {
+   "key": "gpl",
+   "label": "Profit last month (2026-10)",
+   "usd": -681.84,
+   "source": "metrics.json 2026-11-03 monthly 2026-10 (-681.84 / 244.64 x 100, same method as margin row; audit candidate)",
+   "pct": -278.7
+  },
+  {
+   "key": "margin",
+   "label": "Margin",
+   "pct": -886.1,
+   "source": "Gross profit $ -281.89 / revenue $31.81; audit 2026-11-05",
+   "usd": -281.89
+  },
+  {
+   "key": "mrr",
+   "label": "MRR",
+   "usd": 97.58,
+   "source": "RC MRR (all projects) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs"
+  },
+  {
+   "key": "run",
+   "label": "Active costs / month",
+   "usd": null,
+   "source": "FORWARD-LOOKING list, not actuals: sum of 継続中 rows in finance/COST-CUTS.md incl. rent; 解約済み and amounts データなし excluded",
+   "pct": null,
+   "pending": "Coverage incomplete; company revenue and profit are not established."
+  },
+  {
+   "key": "human",
+   "label": "Human interventions",
+   "count": 2,
+   "source": "metrics/human-interventions.csv"
+  }
+ ],
+ "monthly": [
+  {
+   "month": "2026-09",
+   "revenue_usd": 459.67,
+   "cost_usd": 1513.71,
+   "gross_profit_usd": -1054.04,
+   "source": "metrics.json 2026-11-03 15:35 JST monthly series",
+   "coverage_note": "Coverage incomplete; company revenue and profit are not established."
+  },
+  {
+   "month": "2026-10",
+   "revenue_usd": 244.64,
+   "cost_usd": 926.48,
+   "gross_profit_usd": -681.84,
+   "source": "metrics.json 2026-11-03 15:35 JST monthly series; data.json reconciliation cost series for Oct is 1581.29 on a different basis",
+   "coverage_note": "Coverage incomplete; company revenue and profit are not established."
+  },
+  {
+   "month": "2026-11 (to date)",
+   "revenue_usd": 31.81,
+   "cost_usd": 313.7,
+   "gross_profit_usd": -281.89,
+   "source": "Monthly series + audit 2026-11-05: revenue 31.81, costs incl. Relixir $20.00 = 313.70",
+   "coverage_note": "Coverage incomplete; company revenue and profit are not established."
+  }
+ ],
+ "streams": [],
+ "streams_total": {
+  "earned_usd": null,
+  "source": "Coverage incomplete; company revenue and profit are not established."
+ },
+ "costs_month": [
+  {
+   "item": "Google Cloud",
+   "usd": 281.7,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py",
+   "period_note": "October 2026 usage; November payment notice; settled 2026-11-02"
+  },
+  {
+   "item": "Upwork",
+   "usd": 12.0,
+   "payments": 1,
+   "unknown": false,
+   "source": "cfo/expenses.json observed payments; USD per cfo/fx_basis.py",
+   "period_note": "Payment-notice month 2026-11; service period varies"
+  },
+  {
+   "item": "Relixir",
+   "usd": 20.0,
+   "payments": 1,
+   "unknown": false,
+   "source": "Stripe receipt paid 2026-11-02; audit 2026-11-05",
+   "period_note": "Paid 2026-11-02; counted in Nov costs"
+  }
+ ],
+ "costs_month_total": {
+  "usd": 313.7,
+  "source": "Observed payments Nov incl. Relixir $20.00; audit 2026-11-05"
+ },
+ "active_costs": [],
+ "notices_unpaid": [
+  {
+   "item": "fal - Features & Labels, Inc. invoice #DQFHGK-00028",
+   "usd": 10.95,
+   "due": "2026-11-07",
+   "status": "unpaid",
+   "source": "Gmail fal invoice notice 2026-11-03 04:17 JST; observed payment, not accrual, is the costs basis, so it is not folded into costs_mtd 293.70"
+  }
+ ],
+ "reconciliation_complete": false,
+ "gross_profit_detail": {
+  "usd": -281.89,
+  "source": "Revenue $31.81 minus costs $313.70; audit 2026-11-05"
+ },
+ "by_agent": [
+  {
+   "agent": "Muse",
+   "board_updates_today": 97,
+   "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
+   "status": "Active. 18:07 frame built; repo 17:37 confirmed live at frame start; Lancers auto-cancel, Guru 47th, rankings/social refreshed, no new sale/order/MRR."
+  },
+  {
+   "agent": "Dots",
+   "board_updates_today": 0,
+   "surfaces": "No new action observed in 17:37-18:07 window (Reason inbox: No messages)",
+   "status": "No new action observed in 17:37-18:07 window (Reason inbox empty; Dots #2 coverage 15:53 JST was sent by Muse dots2-coverage-loop, not Dots)."
+  },
+  {
+   "agent": "Codex",
+   "board_updates_today": 0,
+   "surfaces": "PR #855 merged 16:23, PR #856 merged 16:38 (Capafy collector); PR #858 opened 17:24 (Open snapshot staging); PR #857 noted 17:02; no Reason message in 17:37-18:07 window",
+   "status": "No new action observed in 17:37-18:07 window; PR #855/#856 merged, PR #857/#858 noted (owner maintained)."
+  },
+  {
+   "agent": "Grok (参謀)",
+   "board_updates_today": 0,
+   "surfaces": "Stopped since 2026-11-03 for about 3 days",
+   "status": "Stopped; no message sent to Grok counted as coordination."
+  }
+ ],
+ "wallets": [],
+ "balances": [],
+ "products": [
+  {
+   "product": "The Manager",
+   "owner": "Codex (Head of Research)",
+   "stage": "research (Manager Lab, daily 09:00 JST)",
+   "research_articles": 3,
+   "experiments_run": 3,
+   "latest_article_url": "https://aniccaai.com/blog/lab-action-centered-bandit-2026-11-01-ja",
+   "metric": "3 articles / 3 experiments",
+   "source": "team/research/manager-lab/manifest.json (article list) + experiment folders"
+  }
+ ],
+ "summary": {
+  "platforms": [
+   {
+    "platform": "Coconala",
+    "type": "Contract work",
+    "this_month": 31.8,
+    "last_month": 272.32,
+    "all_time": 1706.68,
+    "pending": 9.95,
+    "status": "stage reconciliation",
+    "note": "Status: transfer pending $9.95 scheduled 2026-11-05; no deposit notice in 18:08 JST Gmail sweep; 3 new proposals, 1 case closed 5.0/5.0. Last measured 2026-11-05 18:08 JST.",
+    "observed_accepted_gross_usd": 31.8,
+    "net_sales_usd": 1706.68,
+    "paid_out_usd": null
+   },
+   {
+    "platform": "App Store (iOS)",
+    "type": "iOS apps",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 474.48,
+    "pending": 0.0,
+    "status": "paid",
+    "note": "Status: Daily Affirmations 1.9.6 public, Lifetime $59.99; no Nov purchase signal; 2026-11-04 installs 2 total (provisional, weekly ASC to replace). Last measured 2026-11-05 00:03 JST."
+   },
+   {
+    "platform": "Stripe",
+    "type": "Web payments",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 54.81,
+    "pending": 0.0,
+    "status": "paid",
+    "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "x402 (USDC on Base)",
+    "type": "API (crypto)",
+    "this_month": 0.005,
+    "last_month": 0.0,
+    "all_time": 0.005,
+    "pending": 0.0,
+    "status": "paid",
+    "note": "Status: $0.005 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Alignerr",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Apify",
+    "type": "API marketplace",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: 2 users, 7 runs; paid pricing from 2026-11-16; $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Capafy",
+    "type": "AI skill marketplace",
+    "this_month": 22.98,
+    "last_month": 83.78,
+    "all_time": 162.69,
+    "pending": 0.0,
+    "status": "booked",
+    "note": "Status: 3 Ready published, 3 polished to review; In Review 7 (agent-unit count, differs from prior 45/21 version count); 7d $39.96, 30d $59.94, 90d $152.70. Last measured 2026-11-05 15:30 JST.",
+    "net_sales_usd": 120.58,
+    "paid_out_usd": 0.0,
+    "dashboard_7d_usd": 39.96,
+    "dashboard_30d_usd": 59.94,
+    "dashboard_90d_usd": 152.7,
+    "dashboard_proceeds_7d_usd": 29.2,
+    "dashboard_proceeds_90d_usd": 112.58,
+    "dashboard_proceeds_30d_usd": 44.4,
+    "net_sales_basis": "Proceeds since listing, 2026-11-04 UTC; 90d window $112.58 differs by window (audit note)"
+   },
+   {
+    "platform": "Contra",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: Earned $0, Jobs Applied 6, Hired 0, 30d views 2, followers 0; All 112; title changed, no new sale. Last measured 2026-11-05 14:59 JST."
+   },
+   {
+    "platform": "CrowdWorks",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: 16:34 loop: 4 new proposals, 0 replies, no new sale/order; 63989657 in inspection. Last measured 2026-11-05 16:34 JST."
+   },
+   {
+    "platform": "Fiverr",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0. Last measured 2026-11-04 13:34 JST."
+   },
+   {
+    "platform": "Freelancer.com",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: session recovered 13:34 after 7 losses; balance $0.00, bids 0/6, no new bid. Last measured 2026-11-05 13:34 JST."
+   },
+   {
+    "platform": "Guru",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: signed out 47th consecutive time at 17:25 loop (17:37 frame said 46th, corrected); 7-day consecutive zero; proposals 0, sales 0. Last measured 2026-11-05 17:25 JST."
+   },
+   {
+    "platform": "LINE Stickers",
+    "type": "Digital marketplace",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Lancers",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: auto-cancel 5616465 at 18:02 Gmail (client missed deadline); 5622329 selecting due 2026-11-15; 5624776 unpressed; 5624276 result pending. Last measured 2026-11-05 18:08 JST."
+   },
+   {
+    "platform": "Malt",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Mercor",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: Odin paused; session expired, 11th consecutive time per 16:43 loop; count discrepancy vs 8 in 17:37 frame unresolved. Last measured 2026-11-04 16:43 JST."
+   },
+   {
+    "platform": "PromptBase",
+    "type": "Digital marketplace",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: sign-in recovered 13:34 via saved session; Today Views 0, 7d Views 11, Gross $0.00, 2 pending ($5.99/$4.99). Last measured 2026-11-05 13:34 JST."
+   },
+   {
+    "platform": "RapidAPI",
+    "type": "API marketplace",
+    "this_month": null,
+    "last_month": null,
+    "all_time": null,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "SKIMA",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Truelancer",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Upwork",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Whop / Gumroad",
+    "type": "Digital marketplace",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: revenue $0, product page views 36 (+2, visitors 1); payout settings: No payouts connected; buyer-view Buy now still unverified. Last measured 2026-11-05 15:33 JST."
+   },
+   {
+    "platform": "Workana",
+    "type": "Contract work",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded; Cloudflare gate. Last measured 2026-11-04 13:34 JST."
+   },
+   {
+    "platform": "note / Substack",
+    "type": "Digital marketplace",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "AI Monk Factory",
+    "type": "Web app",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Life Manager Cloud",
+    "type": "Web app",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: demo pack v12 published 17:40 JST (commit 8d5f39c); $0 recorded. Last measured 2026-11-05 17:40 JST."
+   },
+   {
+    "platform": "AI Monk e-books",
+    "type": "Digital products",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "AI Monk Database",
+    "type": "Free database",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+   },
+   {
+    "platform": "Payhip",
+    "type": "Digital marketplace",
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "all_time": 0.0,
+    "pending": 0.0,
+    "status": "—",
+    "note": "Status: store payhip.com/anicca live, $29 Life Manager guide public (payhip.com/b/oUB1t); orders 0, sales $0; Stripe/PayPal not connected, purchase unavailable. Last measured 2026-11-05 17:19 JST."
+   }
+  ],
+  "trend": [
+   {
+    "month": "2026-09",
+    "total": 459.67,
+    "by_platform": {
+     "Booked (platform split not established)": 459.67
+    }
+   },
+   {
+    "month": "2026-10",
+    "total": 244.64,
+    "by_platform": {
+     "Booked (platform split not established)": 244.64
+    }
+   },
+   {
+    "month": "2026-11",
+    "total": 31.81,
+    "by_platform": {
+     "Coconala": 31.8,
+     "x402 (USDC on Base)": 0.005
+    }
+   }
+  ],
+  "products": [
+   {
+    "product": "Coconala contract work",
+    "platform": "Coconala",
+    "all_time": 1706.68,
+    "this_month": 31.8,
+    "note": "Accepted order gross $31.80 this month; last month dashboard gross $272.32; all-time sales-management cumulative net $1,706.68 (bases differ, see platform row).",
+    "last_month": 272.32
+   },
+   {
+    "product": "Anicca (iOS)",
+    "platform": "App Store (iOS)",
+    "all_time": 390.59,
+    "this_month": 0.0,
+    "note": "No November purchase signal; 1.9.6 public.",
+    "last_month": 0.0
+   },
+   {
+    "product": "Honne (iOS)",
+    "platform": "App Store (iOS)",
+    "all_time": 83.89,
+    "this_month": 0.0,
+    "note": "Honne 1.0.6 distributing; no November purchase signal.",
+    "last_month": 0.0
+   },
+   {
+    "product": "Web subscriptions (product not labelled)",
+    "platform": "Stripe",
+    "all_time": 54.81,
+    "this_month": 0.0,
+    "note": "Stripe active subs 0; all-time $54.81 per Stripe platform row.",
+    "last_month": 0.0
+   },
+   {
+    "product": "x402 endpoints (affirmation, capafy-skill)",
+    "platform": "x402 (USDC on Base)",
+    "all_time": 0.005,
+    "this_month": 0.005,
+    "last_month": 0.0
+   },
+   {
+    "product": "Capafy skills",
+    "platform": "Capafy",
+    "all_time": 162.69,
+    "this_month": 22.98,
+    "note": "Nov 1-4 Sales $22.98; Since listing Sales $162.69; Proceeds Since listing $120.58; Nov statement not issued yet. Data through Nov 4 UTC.",
+    "last_month": 83.78
+   },
+   {
+    "product": "Apify actor (S7JAoTNiztat9Qwuq)",
+    "platform": "Apify",
+    "all_time": 0.0,
+    "this_month": 0.0,
+    "note": "pricing starts 2026-11-16; 2 users, 7 runs; no revenue recorded.",
+    "last_month": 0.0
+   },
+   {
+    "product": "Whop bundle (AI Monk Database + The Art of AI Monks)",
+    "platform": "Whop",
+    "all_time": 0.0,
+    "this_month": 0.0,
+    "note": "$29 once; product page 36 views (15:33, visitors 1); 0 payments; payout not connected. Last measured 2026-11-05 15:33 JST.",
+    "last_month": 0.0
+   },
+   {
+    "product": "PromptBase prompts",
+    "platform": "PromptBase",
+    "all_time": 0.0,
+    "this_month": 0.0,
+    "note": "Today Views 0, 7d Views 11, Gross $0.00, 2 pending listings. Last measured 2026-11-05 13:34 JST.",
+    "last_month": 0.0
+   },
+   {
+    "product": "Monk e-books (The Anicca Reset / The Art of AI Monks)",
+    "platform": "Whop / Web",
+    "all_time": 0.0,
+    "this_month": 0.0,
+    "note": "The Anicca Reset $10.99, The Art of AI Monks $9.99; no sale signal 2026-11-03.",
+    "last_month": 0.0
+   },
+   {
+    "product": "Life Manager Cloud",
+    "platform": "Stripe / Web",
+    "all_time": 0.0,
+    "this_month": 0.0,
+    "note": "Test billing only; no paying users yet.",
+    "last_month": 0.0
+   },
+   {
+    "product": "LINE stickers",
+    "platform": "LINE Stickers",
+    "all_time": 0.0,
+    "this_month": 0.0,
+    "note": "38 sets on sale; no sales recorded.",
+    "last_month": 0.0
+   },
+   {
+    "product": "AI Monk Factory",
+    "platform": "Web",
+    "all_time": 0.0,
+    "this_month": 0.0,
+    "last_month": 0.0,
+    "note": "$199/mo plan; no paying users and no sale signal 2026-11-03."
+   }
+  ],
+  "mrr_split": {
+   "revenuecat": 24,
+   "capafy": 73.58,
+   "stripe": 0.0,
+   "stripe_active_subscriptions": 0,
+   "total": 97.58
+  },
+  "all_time_confirmed": 1749.36,
+  "bank": {
+   "usd": 1611.03,
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG via Moneytree (BANK-BALANCE.md), total only",
+   "note": "USD only; converted at build time from the bank total figure."
+  },
+  "net_worth": {
+   "usd": 1611.03,
+   "as_of": "2026-11-01 10:10 JST",
+   "source": "MUFG via Moneytree (BANK-BALANCE.md), total only",
+   "basis": "Bank total; no debt on record",
+   "note": "USD only; converted at build time from the bank total figure."
+  },
+  "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 12:12 JST",
+  "all_time_usd": 2223.84,
+  "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
+ },
+ "coverage_note": "Status: 29 platforms with amounts, 37 social rows, 5 apps + total, rankings included; audit restatement applied; 18:07 build publishing.",
+ "currency_note": "USD only. This file contains no non-USD currency amounts.",
+ "coverage_status_1line": "Status: repo 17:37 confirmed live at 18:07 start (curl 18:07). | Revenue MTD $31.81 | Costs MTD $313.70 | Profit -$281.89 | MRR $97.58.",
+ "daily_change_1line": "Status: 17:37-18:07 window: Lancers auto-cancel 5616465, Guru 47th sign-out, LM v12 published; no new sale, order, or MRR change.",
+ "daily_trend_note": "Yesterday to today: KPIs restated by audit; Capafy Nov $22.98 / Since listing $162.69 booked; anicca back in Google top 10 for 'affirmation app' (8th).",
+ "apps_breakdown": [
+  {
+   "app": "Daily Affirmations (Anicca, iOS)",
+   "this_month_usd": 0.0,
+   "all_time_gross_usd": 390.59,
+   "impressions": 241,
+   "units": 4,
+   "proceeds_usd": 0.0,
+   "period": "2026-10-26 to 2026-11-01 week",
+   "note": "Status: 1.9.6 public, Lifetime $59.99; week impressions 241, units 4, Proceeds $0. Trials/active subs unmeasured. Last measured 2026-11-04 14:47 JST."
+  },
+  {
+   "app": "Honne (iOS)",
+   "this_month_usd": 0.0,
+   "all_time_gross_usd": 83.89,
+   "impressions": 831,
+   "units": 2,
+   "proceeds_usd": 0.0,
+   "period": "2026-10-26 to 2026-11-01 week",
+   "note": "Status: 1.0.6 distributing; week impressions 831, units 2, Proceeds $0. Trials/active subs unmeasured. Last measured 2026-11-04 14:47 JST."
+  },
+  {
+   "app": "Dhamma Quotes (iOS)",
+   "this_month_usd": 0.0,
+   "all_time_gross_usd": 0.0,
+   "impressions": 207,
+   "units": 3,
+   "proceeds_usd": 0.0,
+   "period": "2026-10-26 to 2026-11-01 week",
+   "note": "Status: week impressions 207, units 3, Proceeds $0. All-time gross unmeasured in this frame, not claimed as $0. Last measured 2026-11-04 14:47 JST."
+  },
+  {
+   "app": "For Better Sleep - Sleep Reset (iOS)",
+   "this_month_usd": 0.0,
+   "all_time_gross_usd": 0.0,
+   "impressions": 60,
+   "units": 2,
+   "proceeds_usd": 0.0,
+   "period": "2026-10-26 to 2026-11-01 week",
+   "note": "Status: week impressions 60, units 2, Proceeds $0. All-time gross unmeasured in this frame. Last measured 2026-11-04 14:47 JST."
+  },
+  {
+   "app": "Thankful - Gratitude Journal (iOS)",
+   "this_month_usd": 0.0,
+   "all_time_gross_usd": 0.0,
+   "impressions": 71,
+   "units": 0,
+   "proceeds_usd": 0.0,
+   "period": "2026-10-26 to 2026-11-01 week",
+   "note": "Status: week impressions 71, units 0, Proceeds $0. All-time gross unmeasured in this frame. Last measured 2026-11-04 14:47 JST."
+  }
+ ],
+ "social_accounts": [
+  {
+   "account": "Threads @anicca.en",
+   "posts": 41,
+   "note": "Status: 42 posts; 09:30 post 0 likes, followers 0 at 18:01 read. Last measured 2026-11-05 18:01 JST.",
+   "followers": 0
+  },
+  {
+   "account": "IG anicca.en",
+   "latest_post": "https://www.instagram.com/p/DfWB0ZNDyCT/",
+   "likes": 0,
+   "comments": 0,
+   "followers": 3,
+   "note": "Status: 12:07 YES copy, 0/0 at 18:01 read, first-move anomaly continues, unchanged. Last measured 2026-11-05 18:01 JST; followers 3."
+  },
+  {
+   "account": "IG anicca.ios.jp",
+   "latest_post": "https://www.instagram.com/p/DfWWdlCD1hD/",
+   "likes": 0,
+   "comments": 0,
+   "followers": 2,
+   "note": "Status: 15:07 copy, 0/0 at 18:01 read, first-move anomaly continues, unchanged. Last measured 2026-11-05 18:01 JST; followers 2."
+  },
+  {
+   "account": "IG anicca.jp.videos",
+   "latest_post": "https://www.instagram.com/p/DfWWkgvD8uy/",
+   "likes": 1,
+   "comments": 0,
+   "followers": 12,
+   "note": "Status: 15:08 copy, 1 like / 0 comments at 18:01 read, non-zero held; 12:04 copy 2/1. Last measured 2026-11-05 18:01 JST; followers 12."
+  },
+  {
+   "account": "IG monk.mujo",
+   "latest_post": "https://www.instagram.com/reel/DfWFuR0DwhN/",
+   "likes": 1,
+   "comments": 0,
+   "note": "Status: 12:41 monk reel, 1 like / 0 comments at 18:01 read. Last measured 2026-11-05 18:01 JST; followers 14.",
+   "followers": 14
+  },
+  {
+   "account": "IG obou.anicca",
+   "latest_post": "https://www.instagram.com/reel/DfWZDg0jyYr/",
+   "likes": 0,
+   "comments": 0,
+   "followers": 10,
+   "note": "Status: 15:30 fill post, Yang Mun copy, 52.52s, subtitle + BGM + audio gate passed; 0/0 at 18:01 read. Last measured 2026-11-05 18:01 JST; followers 10."
+  },
+  {
+   "account": "IG anicca.app",
+   "latest_post": "https://www.instagram.com/p/DfWWYGCDxY5/",
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: 15:06 grounded copy, 0/0 at 18:01 read, first-move anomaly continues, unchanged, 3 posts today; morning posts 1-1. Followers 0 (audit 2026-11-05 14:50 JST).",
+   "followers": 0
+  },
+  {
+   "account": "IG ani.cca1234",
+   "latest_post": "https://www.instagram.com/p/DfWWZhGD7ew/",
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: 15:07 changing copy, 0/0 at 18:01 read, first-move anomaly continues, unchanged, 3 posts today; morning posts 1-1. Followers 1 (audit 2026-11-05 14:50 JST).",
+   "followers": 1
+  },
+  {
+   "account": "IG anicca.bochi",
+   "latest_post": "https://www.instagram.com/p/DfWTYPmj3IA/",
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: 14:40 copy, 0/0 at 18:01 read, first-move anomaly continues, unchanged. Last measured 2026-11-05 18:01 JST; followers 2.",
+   "followers": 2
+  },
+  {
+   "account": "IG anicca.app2 (BIP)",
+   "latest_post": "https://www.instagram.com/p/DfWWfhsD3Zk/",
+   "note": "Status: 15:07 news carousel copy, 0/0 at 18:01 read, first-move anomaly continues, unchanged, 3/4 posts today. Followers 0 (audit 2026-11-05 14:50 JST).",
+   "likes": 0,
+   "comments": 0,
+   "followers": 0
+  },
+  {
+   "account": "TikTok honnevideo 12:00 wave",
+   "views": 86,
+   "likes": 1,
+   "comments": 0,
+   "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok anicca.jp 12:00 wave",
+   "views": 112,
+   "likes": 4,
+   "comments": 0,
+   "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok anicca jp4 12:00 wave",
+   "views": 650,
+   "likes": 28,
+   "comments": 0,
+   "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok anicca he 12:00 wave",
+   "views": 451,
+   "likes": 17,
+   "comments": 0,
+   "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok anicca jpx 12:00 wave",
+   "views": 173,
+   "likes": 7,
+   "comments": 1,
+   "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok anicca_buddha 12:00 wave",
+   "views": 201,
+   "likes": 9,
+   "comments": 0,
+   "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok anicca en2 12:00 wave",
+   "views": 76,
+   "likes": 2,
+   "comments": 0,
+   "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok anicca_slideshow 12:00 wave",
+   "views": 58,
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok honne_reveal 12:00 wave",
+   "views": 67,
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok monk 2026-11-03 post",
+   "views": 183,
+   "likes": 37,
+   "comments": 1,
+   "shares": 1,
+   "note": "Status: 183 views, 37 likes, 1 comment, 1 share, flat 6th interval. Last measured 2026-11-04 19:20 JST."
+  },
+  {
+   "account": "TikTok @aniccaaffirmation 11:30 wave",
+   "views": 0,
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 15:20 JST."
+  },
+  {
+   "account": "TikTok @aniccaaffirmation 13:00 wave",
+   "views": 0,
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 15:20 JST."
+  },
+  {
+   "account": "TikTok @aniccaaffirmation 2026-11-04 09:30 post",
+   "views": 0,
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: Postiz PUBLISHED; YouTube rescheduled to 2026-11-05 09:30 JST. Last measured 2026-11-04 13:20 JST."
+  },
+  {
+   "account": "TikTok obou_anicca 2026-11-04 post",
+   "views": 0,
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: OBOU TikTok post, 0 views at 18:01 read, about 34h after publish. Last measured 2026-11-05 18:01 JST."
+  },
+  {
+   "account": "YouTube @aniccaffirmations",
+   "latest_post": "https://youtube.com/shorts/6bxHn2Uz-oU",
+   "note": "Status: 3rd Innertune-copy Short published 15:53-15:57 JST; 3/3 today maintained at 18:01. Last measured 2026-11-05 18:01 JST."
+  },
+  {
+   "account": "YouTube monk.mujo",
+   "latest_post": "https://youtube.com/shorts/BWFyJs31r1M",
+   "note": "Status: monk Shorts 3/3 today; #2 BZjOb4RD1Ko and #3 BWFyJs31r1M published 17:14-17:20; +1h due 18:14-18:20. Last measured 2026-11-05 18:01 JST."
+  },
+  {
+   "account": "YouTube Postiz channels (@anicca-ai / @anicca-affirmation-video)",
+   "note": "Status: Postiz YouTube posts blocked by daily quota errors on 2026-11-04; no new published post via Postiz. Last measured 2026-11-04 14:20 JST."
+  },
+  {
+   "account": "TikTok monk 2026-11-04 post",
+   "views": 60,
+   "likes": 9,
+   "comments": 1,
+   "shares": 0,
+   "note": "Status: 60 views, 9 likes, 1 comment, 0 shares (was 41/7/0/0). Last measured 2026-11-04 18:01 JST."
+  },
+  {
+   "account": "TikTok @anicca.jp photo 17:13 post",
+   "note": "Status: Postiz PUBLISHED 2026-11-04 17:13 JST; views unmeasured, not counted as reach. Last measured 2026-11-04 18:01 JST."
+  },
+  {
+   "account": "TikTok @anicca.jp HYBRID #1",
+   "latest_post": "https://www.tiktok.com/@anicca.jp/photo/7704225952990169109",
+   "views": 830,
+   "likes": 27,
+   "comments": 1,
+   "note": "Status: hybrid 830 views, 27 likes, first comment; +24h B2 828-27-1-0 at 18:01. Last measured 2026-11-05 18:01 JST."
+  },
+  {
+   "account": "TikTok @honne_reveal Part 1",
+   "latest_post": "https://www.tiktok.com/@honne_reveal/video/7704240762645481493",
+   "views": 183,
+   "likes": 7,
+   "comments": 0,
+   "note": "Status: texting-story Part 1, 183 views, 7 likes at 18:01, flat; +24h due 18:11. Last measured 2026-11-05 18:01 JST."
+  },
+  {
+   "account": "IG @tryhonne",
+   "latest_post": "https://www.instagram.com/p/DfUIinzoBL6/",
+   "likes": 0,
+   "comments": 0,
+   "note": "Status: v3 published ~18:32 JST, still public; v2 deletion confirmed 22:01 browser read. Last measured 2026-11-04 22:01 JST."
+  },
+  {
+   "account": "TikTok @honnevideo rino_renai copy",
+   "latest_post": "https://www.tiktok.com/@honnevideo/video/7704243010157955093",
+   "views": 408,
+   "likes": 5,
+   "comments": 0,
+   "note": "Status: rino_renai-type copy, 408 views, 5 likes at 18:01; +24h due 18:19. Last measured 2026-11-05 18:01 JST."
+  },
+  {
+   "account": "TikTok @monk_anicca 2026-11-05 post",
+   "note": "Status: 2026-11-05 monk TikTok PUBLISHED (Postiz cmw3022gl0ufqmk08cyxgu02u); 36 views, 5 likes at 18:01 read. Last measured 2026-11-05 18:01 JST.",
+   "views": 36,
+   "likes": 5,
+   "comments": 0
+  },
+  {
+   "account": "LinkedIn (Postiz)",
+   "latest_post": "https://www.linkedin.com/feed/update/urn:li:share:7523993840454848513",
+   "note": "Status: cmw358hb80x verified real 16:47 (LinkedIn urn), still absent from Postiz list; 2 verifiable today. Last measured 2026-11-05 18:01 JST."
+  },
+  {
+   "account": "TikTok EN 15:30 batch (5 posts)",
+   "note": "Status: 5 posts QUEUE->PUBLISHED at 17:01 Postiz read; 17:30 batch 5/5 PUBLISHED at 18:01; individual video URLs pending. Last measured 2026-11-05 18:01 JST."
+  },
+  {
+   "account": "TikTok anicca jp4 14:08 batch",
+   "views": 221,
+   "likes": 7,
+   "comments": 0,
+   "note": "Status: 14:08 batch best, 221 views / 7 likes at 17:20 read; batch comments all 0. Last measured 2026-11-05 17:20 JST."
+  }
+ ],
+ "self_vs_winner": [
+  {
+   "pair": "Affirmations EN: self anicca.en vs @iam.affirmations YES-type",
+   "self": "New YES copy 0/0 flat at 18:01 read; prior reel 2 likes / 0 comments",
+   "winner": "7,397 likes / 68 comments (2026-11-05 17:20 frame, @iam.affirmations DeLBX6NGT5j, save/lockscreen type)",
+   "gap": "Winner save/lockscreen type; self 0/0, gap unclosed."
+  },
+  {
+   "pair": "Monk: self monk.mujo vs @yangmunus one-word type",
+   "self": "1 like / 0 comments, 14 followers; monk TikTok 183 views / 37 likes / 1 comment (flat 7th interval at 21:0x (+24h confirmed))",
+   "winner": "1,745 likes / 328 comments (2026-11-05 04:20 frame, @yangmunus DfSx5nSCQAp)",
+   "gap": "Gap unclosed; winner post +40 likes / +8 comments in 04:20 frame; self reel flat."
+  },
+  {
+   "pair": "Affirmations JP slideshows: self ios.jp/jp.videos vs @motto_app_jp",
+   "self": "0 likes / 0 comments at publish (both new carousels)",
+   "winner": "Recent 10 carousels median 6,680 likes; example post 97,948 likes / 333 comments",
+   "gap": "Format copied (11-card carousel), wording is own new text, so not a zero-difference copy; gap unclosed. 11:07 frame: no new winner re-measurement in this window; 10:20 values carried."
+  },
+  {
+   "pair": "YouTube Affirmations: self @aniccaffirmations vs Innertune Daily Affirmations",
+   "self": "3 Innertune-copy Shorts published (c2qBe1nNd90, v4dg2Q8lrxo, 6bxHn2Uz-oU); daily target 3/3 reached",
+   "winner": "Top Short 4_IWiF4si0Y, 6,618,466 views, 53s",
+   "gap": "3 copies published; residual differences recorded (sunset background, generic watermark, own TTS); gap unclosed."
+  },
+  {
+   "pair": "Honne JP: self anicca.bochi vs @meri_tn",
+   "self": "First copy DfT_WAJj9gj, 0 likes / 0 comments at publish",
+   "winner": "Original DD6x1VVSiSW, 466 likes / 3 comments, 10-card carousel, verified 2026-11-04 17:5x",
+   "gap": "Gap unclosed; verified form copy, engagement 0 at publish."
+  },
+  {
+   "pair": "AI info: self anicca.app2 vs @chatgptricks",
+   "self": "First copy DfUIL08j33M published ~18:2x, 0/0 at 20:20; +1h anomaly confirmed",
+   "winner": "@chatgptricks, 2,758,845 followers (01:20 return), 2,656 posts; first copy target DeNGNq1HV3Y, 25,177 likes / 125 comments, 10-card carousel",
+   "gap": "Gap unclosed; first copy published, 0 engagement at 01:20; funnel staircase not built."
+  }
+ ],
+ "apps_total": {
+  "period": "2026-10-26 to 2026-11-01 week",
+  "impressions": 1410,
+  "units": 11,
+  "proceeds_usd": 0.0,
+  "note": "Status: 5-app total impressions 1,410, units 11, Proceeds $0 (prior week 1,792 / 19 / $0). Last measured 2026-11-04 14:47 JST."
+ },
+ "rankings": {
+  "note": "Measured ranks only. out = not in the measured result set.",
+  "seo": {
+   "engine": "Google (search snapshot)",
+   "measured_at": "2026-11-05 17:57 JST",
+   "anicca_in_top": 1,
+   "queries_total": 7,
+   "rows": [
+    {
+     "query": "best affirmation apps for iPhone",
+     "anicca": "out",
+     "winner": "thevisionboard.app",
+     "winner_position": 2
+    },
+    {
+     "query": "best affirmation apps",
+     "anicca": "out",
+     "winner": "thevisionboard.app",
+     "winner_position": 4
+    },
+    {
+     "query": "affirmation app",
+     "anicca": 8,
+     "winner": "thevisionboard.app",
+     "winner_position": 1
+    },
+    {
+     "query": "best daily affirmation apps",
+     "anicca": "out",
+     "winner": "thevisionboard.app",
+     "winner_position": 2
+    },
+    {
+     "query": "daily affirmations",
+     "anicca": "out",
+     "winner": "thevisionboard.app",
+     "winner_position": "out"
+    },
+    {
+     "query": "best meditation affirmation app",
+     "anicca": "out",
+     "winner": "thevisionboard.app",
+     "winner_position": "out"
+    },
+    {
+     "query": "what is the best affirmation app",
+     "anicca": "out",
+     "winner": "thevisionboard.app",
+     "winner_position": 4
+    }
+   ],
+   "bing": {
+    "engine": "Bing (script, top 30)",
+    "measured_at": "2026-11-05 17:56 JST",
+    "anicca_in_top": 0,
+    "queries_total": 7
+   },
+   "gsc": {
+    "period": "28-day window ending 2026-11-05",
+    "clicks": 4,
+    "impressions": 206,
+    "ctr_pct": 1.9,
+    "avg_position": 16.7,
+    "measured_at": "2026-11-05"
+   }
+  },
+  "aso": {
+   "source": "iTunes Search API, top 200 per keyword",
+   "measured_at": "2026-11-05 17:55 JST",
+   "us": [
+    {
+     "keyword": "affirmation",
+     "anicca": "out",
+     "winner_position": 1,
+     "top1": "I am - Daily Affirmations"
+    },
+    {
+     "keyword": "affirmations",
+     "anicca": "out",
+     "winner_position": 1,
+     "top1": "I am - Daily Affirmations"
+    },
+    {
+     "keyword": "daily affirmations",
+     "anicca": "out",
+     "winner_position": 1,
+     "top1": "I am - Daily Affirmations"
+    },
+    {
+     "keyword": "positive affirmations",
+     "anicca": "out",
+     "winner_position": 2,
+     "top1": "Ella Daily Affirmations Widget"
+    },
+    {
+     "keyword": "i am affirmations",
+     "anicca": "out",
+     "winner_position": 1,
+     "top1": "I am - Daily Affirmations"
+    },
+    {
+     "keyword": "self love",
+     "anicca": "out",
+     "winner_position": 4,
+     "top1": "Self Love - Daily Affirmations"
+    },
+    {
+     "keyword": "meditation",
+     "anicca": "out",
+     "winner_position": "out",
+     "top1": "Insight Timer: Meditate, Sleep"
+    },
+    {
+     "keyword": "gratitude",
+     "anicca": "out",
+     "winner_position": 6,
+     "top1": "Gratitude Plus – Journal"
+    },
+    {
+     "keyword": "motivation",
+     "anicca": "out",
+     "winner_position": 3,
+     "top1": "Motivation - Daily quotes"
+    },
+    {
+     "keyword": "mindfulness",
+     "anicca": "out",
+     "winner_position": "out",
+     "top1": "The Mindfulness App"
+    }
+   ],
+   "jp": [
+    {
+     "keyword": "アファメーション",
+     "anicca": 97,
+     "winner_position": 1,
+     "top1": "I am - 前向きなアファメーション"
+    },
+    {
+     "keyword": "自己肯定感",
+     "anicca": 60,
+     "winner_position": "out",
+     "top1": "全肯定オネエ"
+    },
+    {
+     "keyword": "瞑想",
+     "anicca": "out",
+     "winner_position": "out",
+     "top1": "Upmind - 自律神経・瞑想・マインドフルネス・睡眠"
+    },
+    {
+     "keyword": "ポジティブ",
+     "anicca": 126,
+     "winner_position": 19,
+     "top1": "ポジティブ変換 - AIで自己肯定感アップを習慣に"
+    },
+    {
+     "keyword": "感謝",
+     "anicca": 174,
+     "winner_position": 11,
+     "top1": "My感謝日記 -毎日のありがとうを習慣化するSNSアプリ"
+    },
+    {
+     "keyword": "モチベーション",
+     "anicca": "out",
+     "winner_position": 26,
+     "top1": "Motivation - 今日の名言"
+    },
+    {
+     "keyword": "マインドフルネス",
+     "anicca": "out",
+     "winner_position": "out",
+     "top1": "Upmind - 自律神経・瞑想・マインドフルネス・睡眠"
+    }
+   ],
+   "winner": "I am (id 874656917)"
+  },
+  "geo": {
+   "source": "Pollinations keyless-llm-api (gpt-oss-20b), 7 prompts answered",
+   "measured_at": "2026-11-05 17:56 JST",
+   "recommended": 0,
+   "recommended_of": 7,
+   "cited": 0,
+   "cited_of": 7,
+   "winners": "ThinkUp / Motion"
+  }
+ },
+ "handoffs": [
+  "RapidAPI earnings unknown: read Nokia API Hub provider dashboard for revenue/subscribers (audit #19).",
+  "RevenueCat read path unopened: open RC API v2 read for trials/active subs by app (audit #20-21).",
+  "rev7 aggregation missing: add revenue_last7d from same series as rev30 (audit #1-3).",
+  "Bank balance stale (2026-11-01 $1611.03): refresh via Moneytree/Mac BANK-BALANCE (audit #34).",
+  "Stripe connector reauthorization required since 2026-11-02: reauthorize via agent session (audit #35).",
+  "GEO 2026-11-05 17:56 JST: 7 prompts answered, mentioned 0/7, cited 0/7; old 4-prompt ChatGPT+Perplexity series retired.",
+  "Meta hackathon submission status unconfirmed (deadline 2026-11-05 11:00 JST passed); verify via funding/LM-cloud loop.",
+  "Netlify deploy failed 2026-11-05 16:33 JST for main 4cf49e3 (PR #855 merge, Prevent Open snapshots from starving refresh deploys): check Actions annotations; next /open deploy may also fail.",
+  "PR #854 (Capafy hourly refresh, anicca-products) and PR #9227 (Capafy export, life-manager) noted 2026-11-05 15:09/15:25 JST; /open loop does not merge or execute; owner maintained.",
+  "Payhip S3 published: store payhip.com/anicca, $29 Life Manager guide public at payhip.com/b/oUB1t (orders 0, sales $0); Stripe/PayPal not connected, purchase unavailable; re-login verified, durable vault save still unconfirmed.",
+  "Coconala transfer pending $9.95 scheduled 2026-11-05; no deposit notice in 18:08 JST Gmail sweep; transfer still pending at 16:59 loop read.",
+  "PR #858 (Stage the newest Open dashboard snapshot on deploy, anicca-products) noted 2026-11-05 17:24 JST; /open loop does not merge or execute; owner maintained.",
+  "Netlify Deploy run-failed notice for main 2310c3f arrived 2026-11-05 16:56 JST (Gmail); live 17:37 confirmed landed at 18:07 start, so failure concerns another commit; watch next deploy.",
+  "Lancers auto-cancel 5616465 (beauty-clinic WordPress job) at 18:02 JST Gmail: client missed selection deadline; proposal lost, no sale.",
+  "Guru signed out 47th consecutive time at 17:25 loop (17:37 frame said 46th; corrected per guru-loop-2026-11-05-1725.md).",
+  "Longform 0/2 (9th consecutive); @monkmujo Shorts #2/#3 +1h due 18:14-18:20 JST, next frame check.",
+  "PR #857 (Update MANAGER_MARKETING_REVISION to 8181a4f9, culture text) noted 2026-11-05 17:02 JST; /open loop does not merge or execute; owner maintained."
+ ]
+}
