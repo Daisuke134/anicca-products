@@ -21,6 +21,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 <div class="c"><h2>Observed payment notices this month</h2><table id="cost"></table></div></div></div>
 <div class="c" id="status" style="margin-top:12px"></div>
 <div class="c" style="margin-top:12px"><h2>Daily trend</h2><div id="dchange"></div><div class="zero" id="dtnote"></div></div>
+<div class="c" id="card-team" style="margin-top:12px"><h2>Team activity</h2><table id="team-activity"></table></div>
 <div class="c" id="card-apps" style="margin-top:12px"><h2>Apps</h2><table id="apps"></table></div>
 <div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts</h2><table id="soc"></table></div>
 <div class="c" id="card-svw" style="margin-top:12px"><h2>Self vs winner</h2><table id="svw"></table></div>
@@ -56,6 +57,7 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
  $('prod').innerHTML='<tr><th>Product</th><th class="hm">Platform</th><th class="r">This month</th><th class="r">All-time</th></tr>'+S.products.map(p=>`<tr><td>${esc(p.product)}${p.note?' <span class="m">· '+esc(p.note)+'</span>':''}</td><td class="hm">${esc(p.platform)}</td><td class="r">${U(p.this_month)}</td><td class="r">${U(p.all_time)}</td></tr>`).join('');
  $('cost').innerHTML=d.costs_month.map(c=>`<tr><td>${esc(c.item)}<div class="m">${esc(c.period_note)}</div></td><td class="r">${U(c.usd)}${Y(c.jpy)}</td></tr>`).join('')+`<tr><td><b>Observed payment subtotal</b></td><td class="r"><b>${U(K.cost.usd)}</b>${Y(K.cost.jpy)}</td></tr>`;
  const tr=(s,n)=>esc(s==null?'':(String(s).length>n?String(s).slice(0,n)+'…':String(s)));
+ if(Array.isArray(d.by_agent)&&d.by_agent.length){$('team-activity').innerHTML='<tr><th>Agent</th><th>Work</th><th>Latest observed result</th></tr>'+d.by_agent.map(a=>`<tr><td><b>${esc(a.agent)}</b></td><td>${esc(a.surfaces)}</td><td>${esc(a.status)}</td></tr>`).join('')}else{$('card-team').style.display='none'}
  const st=$('status');if(d.coverage_status_1line){st.textContent=d.coverage_status_1line}else{st.style.display='none'}
  $('dchange').textContent=d.daily_change_1line||'';$('dtnote').textContent=d.daily_trend_note||'';
  if(d.apps_breakdown&&d.apps_breakdown.length){$('apps').innerHTML='<tr><th>App</th><th class="r">This month</th><th class="r">All-time gross</th><th>Latest measured</th></tr>'+d.apps_breakdown.map(a=>`<tr><td><b>${esc(a.app)}</b></td><td class="r">${U(a.this_month_usd)}</td><td class="r">${U(a.all_time_gross_usd)}</td><td class="m" style="font-size:11px">${tr(a.note,180)}</td></tr>`).join('')}else{$('card-apps').style.display='none'}
