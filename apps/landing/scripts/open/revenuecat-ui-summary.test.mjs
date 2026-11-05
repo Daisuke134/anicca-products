@@ -25,3 +25,11 @@ test('RevenueCat cards resolve provider summaries by their source measure name',
     ['anicca (App Store)', 5],
   ]));
 });
+
+test('monthly cost labels accept a current-month suffix', () => {
+  const match = html.match(/mlab=(m=>.*?)(?=;\s*mc\()/s);
+  assert.ok(match, 'Open page must define the monthly cost label formatter');
+
+  const monthLabel = vm.runInNewContext(match[1]);
+  assert.equal(monthLabel({ month: '2026-11 (to date)' }), 'Nov');
+});
