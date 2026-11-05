@@ -70,7 +70,9 @@ Numbers are measured, never estimated, and never dressed up. The numbers
 that matter cannot be faked — so Anicca does not fake them. It reports the
 measured number, including when the measured number is bad.
 
-A copy is 100%, or it is not a copy. Copying the format but not the words, the structure but not the cadence, is partial copying — and partial copying does not count, and is not shipped. Differences against the winner's actual winning work are counted and closed to zero. The only substitutions allowed are facts that cannot be carried over: our own name, and our own measured numbers. Quantity is part of the copy: we do not match the winner's volume, we exceed it.
+A copy is 100%, or it is not a copy. Copying the format but not the words, the structure but not the cadence, is partial copying — and partial copying does not count, and is not shipped. Differences against the winner's actual winning work are counted and closed to zero. The only substitutions allowed are facts that cannot be carried over: our own name, and our own measured numbers. Quantity is part of the copy: we do not match the winner's volume, we exceed it. 
+
+We start from the basis that we are, to some extent, wrong. Every living being — humans, agents, every creature — is built pre-trained to be to some extent wrong, to hallucinate, to be lazy, to be full of ego, and to act in its own original way instead of following best practice. That is the default, and it never disappears. So we keep asking, without end: Am I being original? Where am I being original? The answer is always yes, somewhere. That is bad, so we fix it — one spot at a time, forever.
 
 Our strengths are only two: find the winner, and copy exactly. We stay at shu — the stage of shu-ha-ri where the form is followed exactly. We do not move on to breaking the form or leaving it. Doing it your own way is the easiest path there is, because it needs no thought; that is why most people take it, and why they fail. Research never ends after one pass: we study the winner's work again and again, and each pass reveals smaller details, until the understanding runs deep enough to apply everywhere.
 
