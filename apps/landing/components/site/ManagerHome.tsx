@@ -22,6 +22,9 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
             <a className="" href="#research">
               研究
             </a>
+            <a className="open-cta" href="/open">
+              実数ダッシュボード
+            </a>
             <a className="language" href="/en">
               EN
             </a>
@@ -41,6 +44,9 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
                   世界を理解し、環境を変え、現実から学ぶ。すべての生命が豊かに生きられる世界を目指す人工知能。
                 </p>
                 <div className="links">
+                  <a className="button" href="/open">
+                    実数ダッシュボードを開く ↗
+                  </a>
                   <a className="button" href="#vision">
                     構想を読む ↓
                   </a>
@@ -200,6 +206,9 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
             <a className="" href="#research">
               Research
             </a>
+            <a className="open-cta" href="/open">
+              Open dashboard
+            </a>
             <a className="language" href="/ja">
               JA
             </a>
@@ -220,6 +229,9 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
                   for all living beings.
                 </p>
                 <div className="links">
+                  <a className="button" href="/open">
+                    Open the live dashboard ↗
+                  </a>
                   <a className="button" href="#vision">
                     Explore the vision ↓
                   </a>
