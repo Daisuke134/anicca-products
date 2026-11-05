@@ -471,6 +471,7 @@ test('Open JSON-only pushes are included in main deployment paths', () => {
 test('renders the timestamped business and loop snapshot without converting missing revenue to zero', async () => {
   const fixture = structuredClone(portfolioSnapshot);
   fixture.updated_at = '2026-11-06 02:18 JST';
+  fixture.source_updated_at = '2026-11-03 12:12 JST';
   fixture.businesses = [structuredClone(portfolioSnapshot.businesses.find(row => row.name.startsWith('Capafy agents')))];
   fixture.businesses[0].revenue_mtd = null;
   fixture.businesses[0].mrr = null;
@@ -478,31 +479,37 @@ test('renders the timestamped business and loop snapshot without converting miss
   fixture.loops = [structuredClone(portfolioSnapshot.loops[0])];
   fixture.metric_gaps = [structuredClone(portfolioSnapshot.metric_gaps[0])];
 
-  const elements = new Map();
-  const document = { getElementById(id) {
-    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
-    return elements.get(id);
-  } };
   const urls = [];
   const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
-  vm.runInNewContext(code, {
-    document,
-    fetch: async url => {
-      urls.push(String(url));
-      const filename = String(url).split('?')[0].split('/').at(-1);
-      const response = filename === 'data.json' ? data : filename === 'capafy.json' ? capafyData : fixture;
-      return { ok: true, json: async () => response };
-    },
-    Date: class extends Date { static now() { return Date.parse('2026-11-05T18:45:00Z'); } },
-    Intl,
-    URLSearchParams,
-    setInterval: () => 1,
-  });
-  await new Promise(resolve => setImmediate(resolve));
+  const render = async snapshot => {
+    const elements = new Map();
+    const document = { getElementById(id) {
+      if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+      return elements.get(id);
+    } };
+    vm.runInNewContext(code, {
+      document,
+      fetch: async url => {
+        urls.push(String(url));
+        const filename = String(url).split('?')[0].split('/').at(-1);
+        const response = filename === 'data.json' ? data : filename === 'capafy.json' ? capafyData : snapshot;
+        return { ok: true, json: async () => response };
+      },
+      Date: class extends Date { static now() { return Date.parse('2026-11-05T18:45:00Z'); } },
+      Intl,
+      URLSearchParams,
+      setInterval: () => 1,
+    });
+    await new Promise(resolve => setImmediate(resolve));
+    return elements;
+  };
+  const elements = await render(fixture);
 
   assert.ok(urls.some(url => /metrics\.json\?v=/.test(url)), 'the public metrics feed is requested with a cache buster');
-  assert.match(elements.get('portfolio-snapshot').textContent, /2026-11-06 02:18 JST/);
+  assert.match(elements.get('portfolio-snapshot').textContent, /Dashboard exported 2026-11-06 02:18 JST/);
   assert.match(elements.get('portfolio-snapshot').textContent, /1h 27m ago/);
+  assert.match(elements.get('portfolio-snapshot').textContent, /Source observed 2026-11-03 12:12 JST/);
+  assert.match(elements.get('portfolio-snapshot').textContent, /2d 15h 33m ago/);
   const summary = elements.get('portfolio-summary').innerHTML;
   assert.match(summary, /1 business/);
   assert.match(summary, /1 agent/);
@@ -518,6 +525,12 @@ test('renders the timestamped business and loop snapshot without converting miss
     assert.match(loopTable, new RegExp(`data-label="${label}"`));
   }
   assert.match(elements.get('portfolio-gaps').innerHTML, /Capafy renewals/);
+
+  const missingSource = structuredClone(fixture);
+  delete missingSource.source_updated_at;
+  const withoutObservationTime = await render(missingSource);
+  assert.match(withoutObservationTime.get('portfolio-snapshot').textContent, /Source observation time unknown/);
+  assert.doesNotMatch(withoutObservationTime.get('portfolio-snapshot').textContent, /Source observed 2026-11-06 02:18 JST/);
 });
 
 test('refreshes all Open feeds in place every fifteen minutes', async () => {
