@@ -36,7 +36,7 @@ test('canonical Open JSON keeps the verified ASC snapshot as the bootstrap for t
   const analytics = data.app_store_analytics;
   assert.equal(data.app_store_analytics_status, 'scheduled-snapshot');
   assert.equal(analytics.source, 'App Store Connect Analytics Reports');
-  assert.equal(analytics.measured_at, '2026-11-05T13:23:55.343Z');
+  assert.ok(Number.isFinite(Date.parse(analytics.measured_at)), 'ASC bootstrap has a valid source measurement time');
   assert.deepEqual(analytics.apps.map(app => app.app_id).sort(), ['6755129214', '6757726663', '6759514159', '6762143790', '6759667221'].sort());
   assert.ok(analytics.apps.every(app => app.daily.length > 0));
 });
@@ -269,6 +269,52 @@ test('reports unavailable Capafy data rather than hiding the section', async () 
   }, Date, URLSearchParams });
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(elements.get('capafy-activity')?.textContent, 'Capafy data unavailable');
+});
+
+test('renders platform and ASC summaries as labelled mobile cards with fresh source details', async () => {
+  const fixture = structuredClone(data);
+  fixture.summary.platforms = [{
+    platform: 'Coconala', type: 'Services', this_month: 31.8, last_month: null,
+    all_time: 203.9, status: 'paid', note: 'Payout cycle is still pending.', observed_accepted_gross_usd: 31.8,
+  }];
+  fixture.app_store_analytics_status = 'scheduled-snapshot';
+  fixture.app_store_analytics = {
+    measured_at: '2026-11-05T14:06:00.982Z',
+    period: { start_date: '2026-10-29', end_date: '2026-11-04', processing_date: '2026-11-05' },
+    coverage: { app_days_expected: 35, discovery_app_days: 30, download_app_days: 15 },
+    summary: { discovery: { impressions: 1064 }, downloads: { events: 163 } },
+    apps: [{
+      app: 'Anicca', metrics: { impressions: 133, page_views: 13, taps: 5 },
+      download_metrics: { events: 134, first_time: 3, auto_update: 126 }, download_events: 134,
+      discovery_days: 6, download_days: 4, daily: [],
+    }],
+  };
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, { document, fetch: async url => {
+    if (url.startsWith('capafy.json')) throw new Error('not needed for this test');
+    return { ok: true, json: async () => fixture };
+  }, Date, Intl, URLSearchParams });
+  await new Promise(resolve => setImmediate(resolve));
+
+  const platform = elements.get('plat').innerHTML;
+  assert.match(platform, /data-label="This month"/);
+  assert.match(platform, /data-label="All-time"/);
+  assert.match(platform, /data-label="Status"/);
+  assert.match(platform, /<details class="pnote">/);
+  assert.match(platform, /Payout cycle is still pending/);
+  const apps = elements.get('asc-analytics').innerHTML;
+  assert.match(apps, /class="asc-apps"/);
+  assert.match(apps, /data-label="Impressions"/);
+  assert.match(elements.get('upd').textContent, /Ledger snapshot/);
+  assert.match(elements.get('ft').innerHTML, /hourly/i);
+  assert.doesNotMatch(elements.get('ft').innerHTML, /30 minutes/i);
+  assert.match(html, /@media\(max-width:600px\)[\s\S]*#plat/);
+  assert.match(html, /#asc-analytics table\.asc-apps/);
 });
 
 test('monthly revenue label follows the dashboard month in every viewer timezone', async () => {
