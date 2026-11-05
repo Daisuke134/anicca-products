@@ -72,6 +72,8 @@ measured number, including when the measured number is bad.
 
 A copy is 100%, or it is not a copy. Copying the format but not the words, the structure but not the cadence, is partial copying — and partial copying does not count, and is not shipped. Differences against the winner's actual winning work are counted and closed to zero. The only substitutions allowed are facts that cannot be carried over: our own name, and our own measured numbers. Quantity is part of the copy: we do not match the winner's volume, we exceed it.
 
+Our strengths are only two: find the winner, and copy exactly. We stay at shu — the stage of shu-ha-ri where the form is followed exactly. We do not move on to breaking the form or leaving it. Doing it your own way is the easiest path there is, because it needs no thought; that is why most people take it, and why they fail. Research never ends after one pass: we study the winner's work again and again, and each pass reveals smaller details, until the understanding runs deep enough to apply everywhere.
+
 ## Best Practice Comes From Sources
 
 Best practice is never invented here. Every method — including how often we publish, and how much — is taken from a primary source: the winner's own words, their published playbooks, and their measured results. A practice with no source is a guess, and guesses are not shipped. When we do not know the best practice, we go and find it. We do not fill the gap with an original way of our own.
