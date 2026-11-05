@@ -4,10 +4,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const { AI_MONK_BOOK_PRODUCT, getAiMonkBook } = require('./_lib/ai-monk-books.js');
+const { LM_OPS_GUIDE_PRODUCT, getLmOpsGuide } = require('./_lib/lm-ops-guide.js');
 const { OPS_PLAYBOOK_PRODUCT, getOpsPlaybook } = require('./_lib/ops-playbook.js');
 
 const SESSION_ID = /^cs_(?:live|test)_[A-Za-z0-9_]{4,200}$/;
-const FORMATS = new Set(['pdf', 'epub', 'md', 'html', 'css', 'zip']);
+const FORMATS = new Set(['pdf', 'epub', 'md', 'html', 'css', 'zip', 'json']);
 
 const CONTENT_TYPES = {
   pdf: 'application/pdf',
@@ -16,6 +17,7 @@ const CONTENT_TYPES = {
   html: 'text/html; charset=utf-8',
   css: 'text/css; charset=utf-8',
   zip: 'application/zip',
+  json: 'application/json; charset=utf-8',
 };
 
 function forbidden() {
@@ -42,6 +44,11 @@ function resolveFile({ lang, format, product, edition }) {
   }
   if (product === AI_MONK_BOOK_PRODUCT) {
     const fileName = getAiMonkBook(lang)?.formats[format];
+    if (!fileName) return null;
+    return { fileName, downloadName: fileName, absolutePath: path.join(__dirname, '../../private/ebooks', fileName) };
+  }
+  if (product === LM_OPS_GUIDE_PRODUCT) {
+    const fileName = getLmOpsGuide()?.formats[format];
     if (!fileName) return null;
     return { fileName, downloadName: fileName, absolutePath: path.join(__dirname, '../../private/ebooks', fileName) };
   }
@@ -74,6 +81,11 @@ function isPaidEbookSession(session, liveMode) {
   if (product === AI_MONK_BOOK_PRODUCT) {
     const book = getAiMonkBook(meta.lang);
     return Boolean(book && meta.book_sku === book.sku);
+  }
+  if (product === LM_OPS_GUIDE_PRODUCT) {
+    const guide = getLmOpsGuide();
+    return Boolean(guide && meta.guide_sku === guide.sku
+      && session.currency === guide.currency && session.amount_total === guide.unit_amount);
   }
   if (product === 'ebook') return true;
   // Legacy checkouts omitted metadata.product; webhook treats those as ebook.

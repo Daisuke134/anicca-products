@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import book from '@/data/books/zero-human-company.json';
+import lmGuide from '@/data/books/life-manager-ops-guide.json';
 import OpsPlaybookPurchase from '@/components/OpsPlaybookPurchase';
+import LmOpsGuidePurchase from '@/components/LmOpsGuidePurchase';
 
 const description = 'Aniccaの運用から作った全12章・33ページの日本語実務ガイド。エージェントの役割、再開、重複防止、認証、予算、販売と納品を、一つの業務から設計する。本文版29ドル、編集用テンプレート版99ドル。';
 export const metadata: Metadata = {
@@ -17,9 +19,12 @@ export default function ZeroHumanCompanyBook() {
     '@context': 'https://schema.org', '@type': 'Book', name: book.title,
     author: { '@type': 'Organization', name: book.author }, inLanguage: 'ja',
     numberOfPages: book.pages, bookFormat: 'https://schema.org/EBook',
-    offers: offers.map(([, offer]) => ({ '@type': 'Offer', name: offer.label,
+    offers: offers.map(([edition, offer]) => ({ '@type': 'Offer', name: offer.label,
       price: (offer.unit_amount / 100).toFixed(2), priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock', url: offer.payment_url })),
+      availability: 'https://schema.org/InStock',
+      // The standard edition's payment link is dead; its purchase now runs
+      // through the Life Manager ops guide checkout on /life-manager/guide.
+      url: edition === 'standard' ? 'https://aniccaai.com/life-manager/guide' : offer.payment_url })),
   };
   return <main lang="ja" className="min-h-screen bg-[#f5f1e7] text-[#28352b]">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structured).replace(/</g, '\\u003c') }} />
@@ -63,8 +68,10 @@ export default function ZeroHumanCompanyBook() {
         <p className="mt-4 text-sm leading-7 text-[#64705f]">同じ本文に、すぐ編集できる運用ファイルを付けるかを選べます。両方とも一回払いです。</p>
         <div className="mt-8 grid gap-6 md:grid-cols-2">{offers.map(([edition, offer]) => <article key={edition} className="flex flex-col rounded-2xl border border-[#cbd0be] bg-white/40 p-8">
           <h3 className="font-serif text-2xl">{offer.label}</h3><p className="mt-5 font-serif text-5xl">${offer.unit_amount / 100}<span className="ml-2 font-sans text-sm text-[#64705f]">USD・一回払い</span></p>
-          <ul className="my-7 flex-1 space-y-3 text-sm leading-7"><li>本文PDF {book.pages}ページ・全12章</li><li>本文Markdown・付録の記入用シート</li>{edition === 'templates' && <><li>編集可能なテンプレート12ファイルのZIP</li><li>役割契約、タスク、所有権、実行記録、外部効果台帳</li><li>予算・商品設定、実行手順、失敗対応、引き継ぎ、日次報告</li></>}</ul>
-          <a href={offer.payment_url} className="block rounded-full bg-[#203b2e] px-6 py-4 text-center text-sm font-semibold text-white hover:bg-[#31503d]">{offer.label}を購入 · ${offer.unit_amount / 100}</a>
+          <ul className="my-7 flex-1 space-y-3 text-sm leading-7"><li>本文PDF {book.pages}ページ・全12章</li><li>本文Markdown・付録の記入用シート</li>{edition === 'standard' && <li>事業実例の素材（書籍『The Art of AI Monks』EPUB・AI Monk Database フルデータJSON）付き</li>}{edition === 'templates' && <><li>編集可能なテンプレート12ファイルのZIP</li><li>役割契約、タスク、所有権、実行記録、外部効果台帳</li><li>予算・商品設定、実行手順、失敗対応、引き継ぎ、日次報告</li></>}</ul>
+          {edition === 'standard'
+            ? <LmOpsGuidePurchase guide={lmGuide} />
+            : <a href={offer.payment_url} className="block rounded-full bg-[#203b2e] px-6 py-4 text-center text-sm font-semibold text-white hover:bg-[#31503d]">{offer.label}を購入 · ${offer.unit_amount / 100}</a>}
         </article>)}</div>
         <p className="mt-5 text-sm leading-7 text-[#64705f]">支払い後、このページに戻ってダウンロードできます。テンプレートは文書・設定の雛形で、実行エンジン、認証機能、スケジューラ、決済機能、個別導入は含みません。自分の環境に合わせた設定が必要です。</p>
       </section>

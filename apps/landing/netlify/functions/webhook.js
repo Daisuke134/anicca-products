@@ -2,6 +2,7 @@
 const crypto = require('crypto');
 const { ebookDownloadUrl } = require('./ebook-download.js');
 const AI_MONK_BOOK = require('../../data/books/the-art-of-ai-monks-en.json');
+const LM_OPS_GUIDE = require('../../data/books/life-manager-ops-guide.json');
 
 const WRITER_EVENT_TYPES = new Set([
   'checkout.session.completed',
@@ -129,6 +130,10 @@ async function webhookHandler(event, dependencies = {}) {
   // The book uses paid Checkout entitlement and downloads on the return page.
   if (payload.type === 'checkout.session.completed' && sessionProduct(payload) === AI_MONK_BOOK.product) {
     return { statusCode: 200, body: 'ok ai-monk-book' };
+  }
+  // The Life Manager ops guide uses the same paid Checkout entitlement and return-page downloads.
+  if (payload.type === 'checkout.session.completed' && sessionProduct(payload) === LM_OPS_GUIDE.product) {
+    return { statusCode: 200, body: 'ok lm-ops-guide' };
   }
   if (isKokoroEvent(payload)) return { statusCode: 200, body: 'ok kokoro' };
   if (isRetreatBuildEvent(payload)) return { statusCode: 200, body: 'ok retreat-build' };
