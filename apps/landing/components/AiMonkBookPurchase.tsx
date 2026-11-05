@@ -53,6 +53,7 @@ export default function AiMonkBookPurchase({ book }: { book: Book }) {
       {busy ? (japanese ? '購入画面を開いています…' : 'Opening checkout…') : (japanese ? `PDF・EPUBを購入 · ${price}` : `Buy PDF + EPUB · ${price}`)}
     </button>
     <p className="mt-3 text-xs text-[#706c5d]">{japanese ? '一回払い・日本語版・支払い後にダウンロード・米ドル建て' : 'One payment · English edition · Download after checkout'}</p>
+  <p className="mt-3 text-sm"><a href="https://whop.com/anicca-ac43/ai-monk-database-full-data-the-art-of-ai-monks-bundle/" className="font-medium text-[#203b2e] underline underline-offset-4 hover:text-[#31503d]">{japanese ? 'フルデータ＋書籍のバンドルをWhopで購入 · $29（一回払い）' : 'Get the full data + book bundle on Whop — $29 one-time'}</a></p>
     <p role="status" aria-live="polite" className="mt-2 text-sm text-[#94442f]">{error}</p>
   </div>;
 }
