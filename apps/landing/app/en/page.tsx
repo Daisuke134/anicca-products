@@ -4,6 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import Link from "next/link";
 
 const KEY_LINKS: [string, string][] = [
+  ["/open", "Open dashboard: live revenue, costs, profit and metrics"],
   ["/affirmation-app", "Anicca: daily affirmation app for iPhone"],
   ["/best-affirmation-apps", "Best affirmation apps compared"],
   ["/guides/", "Guides"],
