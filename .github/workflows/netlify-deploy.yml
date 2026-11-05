@@ -127,6 +127,43 @@ jobs:
         working-directory: apps/landing
         run: node scripts/stage-open-data.mjs
 
+      - name: Seed previous App Store analytics snapshot
+        if: github.ref == 'refs/heads/main'
+        working-directory: apps/landing
+        run: |
+          set -euo pipefail
+          previous="$(mktemp)"
+          trap 'rm -f "$previous"' EXIT
+          if curl --fail --silent --show-error --location --max-time 20 --header 'Cache-Control: no-cache' 'https://aniccaai.com/open/data.json' -o "$previous"; then
+            node --input-type=module - "$previous" <<'NODE'
+          import { readFile, writeFile } from 'node:fs/promises';
+          const prior = JSON.parse(await readFile(process.argv[2], 'utf8'));
+          const targetPath = 'out/open/data.json';
+          const target = JSON.parse(await readFile(targetPath, 'utf8'));
+          const snapshot = prior.app_store_analytics;
+          const expectedApps = ['6755129214', '6757726663', '6759514159', '6762143790', '6759667221'];
+          const actualApps = (snapshot?.apps ?? []).map(app => app.app_id).sort();
+          if (snapshot?.source === 'App Store Connect Analytics Reports' && actualApps.length === expectedApps.length && actualApps.join(',') === [...expectedApps].sort().join(',')) {
+            target.app_store_analytics = snapshot;
+            console.log(`Seeded prior App Store snapshot measured at ${snapshot.measured_at}.`);
+          } else {
+            console.log('No valid deployed App Store snapshot; keeping the canonical bootstrap snapshot.');
+          }
+          await writeFile(targetPath, `${JSON.stringify(target, null, 2)}\n`);
+          NODE
+          else
+            echo 'Previous public dashboard snapshot was unavailable; keeping the canonical bootstrap snapshot.'
+          fi
+
+      - name: Collect App Store Connect analytics
+        if: github.ref == 'refs/heads/main'
+        working-directory: apps/landing
+        env:
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+        run: node scripts/open-app-store-analytics.mjs --input out/open/data.json
+
       # 2026-06-07 V14-2 fix: replaced nwtgck/actions-netlify@v3.0 (= 5 連続 ISE)
       # with direct netlify-cli call (= validated via manual deploy locally)
       # Spec: 2026-06-07-cron-role-clarification-design.md §12.4 → V14-2
