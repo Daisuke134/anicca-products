@@ -166,3 +166,6 @@
 
 [functions.x402-capafy-skill]
   node_bundler = "esbuild"
+
+[functions.x402-capafy-market-report]
+  node_bundler = "esbuild"

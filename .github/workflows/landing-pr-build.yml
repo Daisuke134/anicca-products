@@ -52,7 +52,7 @@ jobs:
 
       - name: Naive x402 receiving-wallet contract
         working-directory: apps/landing
-        run: node --test netlify/functions/__tests__/x402-naive-reflect.test.js
+        run: node --test netlify/functions/__tests__/x402-naive-reflect.test.js netlify/functions/__tests__/x402-capafy-market-report.test.js
 
       - run: npm run test:telemetry
       - name: Site hit attribution contracts

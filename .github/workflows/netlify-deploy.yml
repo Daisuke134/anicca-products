@@ -102,6 +102,22 @@ jobs:
         working-directory: apps/landing
         run: npm ci --prefix scripts/netlify-cli
 
+      - name: Configure Naive Capafy report runtime (production)
+        if: github.ref == 'refs/heads/main'
+        working-directory: apps/landing
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NAIVE_VETTA_API_KEY: ${{ secrets.NAIVE_VETTA_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "$NAIVE_VETTA_API_KEY" ]; then
+            echo "::warning::NAIVE_VETTA_API_KEY is not configured; the Capafy report endpoint will fail closed until runtime credentials are installed."
+          else
+            ./scripts/netlify-cli/node_modules/.bin/netlify env:set NAIVE_VETTA_API_KEY "$NAIVE_VETTA_API_KEY" --context production --scope functions --secret --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --force
+            ./scripts/netlify-cli/node_modules/.bin/netlify env:set NAIVE_CAPAFY_AGENT_ID "agt_y3zd3mkztbr079xc7xsg7wq5c7" --context production --scope functions --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --force
+          fi
+
       # 2026-06-07 V14-2 fix: replaced nwtgck/actions-netlify@v3.0 (= 5 連続 ISE)
       # with direct netlify-cli call (= validated via manual deploy locally)
       # Spec: 2026-06-07-cron-role-clarification-design.md §12.4 → V14-2

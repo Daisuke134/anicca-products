@@ -26,6 +26,7 @@
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/supabase-js": "^2.45.0",
+    "@usenaive-sdk/vetta": "0.10.0",
     "@worldcoin/idkit-core": "^4.1.8",
     "bs58": "^5.0.0",
     "class-variance-authority": "^0.7.0",

@@ -111,7 +111,7 @@ function createSeller(cfg) {
       try {
         const v = await facilitator('/verify', version, payload, req);
         if (!v.isValid) return challenge(v.invalidReason || 'payment verification failed');
-        const out = await handle(event.queryStringParameters || {});
+        const out = await handle(event.queryStringParameters || {}, event);
         if (out.status !== 200) return json(out.status, out.body);
         const s = await facilitator('/settle', version, payload, req);
         if (!s.success) return challenge(s.errorReason || 'payment settlement failed');
