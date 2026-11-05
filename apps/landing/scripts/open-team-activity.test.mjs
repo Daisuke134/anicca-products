@@ -23,15 +23,7 @@ async function renderKpis(kpiData) {
     URLSearchParams,
   });
   await new Promise(resolve => setImmediate(resolve));
-  return elements.get('kpi').innerHTML;
-}
-
-function renderedCard(rendered, title) {
-  const heading = `<h3>${title}</h3>`;
-  const start = rendered.indexOf(heading);
-  assert.notEqual(start, -1, `Missing KPI card: ${title}`);
-  const next = rendered.indexOf('<div class="c"><h3>', start + heading.length);
-  return rendered.slice(start, next < 0 ? undefined : next);
+  return Object.fromEntries(['slot-rev', 'slot-cost', 'slot-gp'].map(id => [id, elements.get(id).innerHTML]));
 }
 
 test('canonical Open JSON keeps the verified ASC snapshot as the bootstrap for the scheduled collector', () => {
@@ -63,7 +55,7 @@ test('shows recorded team activity without treating unobserved work as zero comp
 });
 
 
-test('shows recorded app totals and their period', async () => {
+test('shows recorded app totals and their source measurement time', async () => {
   const elements = new Map();
   const document = { getElementById(id) {
     if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
@@ -73,8 +65,11 @@ test('shows recorded app totals and their period', async () => {
   vm.runInNewContext(code, { document, fetch: async () => ({ ok: true, json: async () => data }), Date, URLSearchParams });
   await new Promise(resolve => setImmediate(resolve));
   const rendered = elements.get('apps').innerHTML;
-  assert.match(rendered, /1,410/);
-  assert.match(rendered, /2026-10-26 to 2026-11-01 week/);
+  const app = data.apps_breakdown[0];
+  assert.ok(app, 'the fixture contains an app source row');
+  assert.ok(rendered.includes(app.app), 'the row identifies its app');
+  assert.ok(rendered.includes(app.note.slice(0, 180)), 'the row retains its source-backed detail');
+  assert.match(rendered, /Last measured \d{4}-\d{2}-\d{2}/);
 });
 
 test('shows App Store daily analytics, coverage, and missing download rows as unknown', async () => {
@@ -205,9 +200,11 @@ test('labels unreconciled revenue, costs, and profit as observed values', async 
   fixture.reconciliation_complete = false;
   const rendered = await renderKpis(fixture);
 
-  assert.match(renderedCard(rendered, 'Revenue, November 2026 to date'), /Observed subtotal · incomplete coverage/);
-  assert.match(renderedCard(rendered, 'Costs, November 2026 to date'), /Observed payment notices · incomplete coverage/);
-  assert.match(renderedCard(rendered, 'Profit, November 2026 to date'), /Observed difference only · full-company profit unknown/);
+  assert.match(rendered['slot-rev'], /Revenue, November 2026 to date/);
+  assert.match(rendered['slot-rev'], /Observed subtotal · incomplete coverage/);
+  assert.match(rendered['slot-cost'], /Observed payment notices · incomplete coverage/);
+  assert.match(rendered['slot-gp'], /Gross profit, November 2026 to date/);
+  assert.match(rendered['slot-gp'], /Observed difference only · full-company profit unknown/);
 });
 
 test('does not label reconciled revenue and profit as incomplete observations', async () => {
@@ -215,8 +212,8 @@ test('does not label reconciled revenue and profit as incomplete observations', 
   fixture.reconciliation_complete = true;
   const rendered = await renderKpis(fixture);
 
-  assert.doesNotMatch(renderedCard(rendered, 'Revenue, November 2026 to date'), /Observed subtotal · incomplete coverage/);
-  assert.doesNotMatch(renderedCard(rendered, 'Profit, November 2026 to date'), /full-company profit unknown/);
+  assert.doesNotMatch(rendered['slot-rev'], /Observed subtotal · incomplete coverage/);
+  assert.doesNotMatch(rendered['slot-gp'], /full-company profit unknown/);
 });
 
 
@@ -413,9 +410,10 @@ test('monthly revenue label follows the dashboard month in every viewer timezone
         URLSearchParams,
       });
       await new Promise(resolve => setImmediate(resolve));
-      const rendered = elements.get('kpi').innerHTML;
+      const rendered = ['slot-rev', 'slot-cost', 'slot-gp'].map(id => elements.get(id).innerHTML).join('\n');
       for (const label of ['Revenue', 'Costs', 'Profit']) {
-        assert.match(rendered, new RegExp(`${label}, November 2026 to date`), timezone);
+        const displayLabel = label === 'Profit' ? 'Gross profit' : label;
+        assert.match(rendered, new RegExp(`${displayLabel}, November 2026 to date`), timezone);
       }
     }
   } finally {
@@ -475,7 +473,6 @@ test('renders the timestamped business and loop snapshot without converting miss
   fixture.businesses = [structuredClone(portfolioSnapshot.businesses.find(row => row.name.startsWith('Capafy agents')))];
   fixture.businesses[0].revenue_mtd = null;
   fixture.businesses[0].mrr = null;
-  fixture.agents = [structuredClone(portfolioSnapshot.agents.find(row => row.agent.startsWith('Muse')))];
   fixture.loops = [structuredClone(portfolioSnapshot.loops[0])];
   fixture.metric_gaps = [structuredClone(portfolioSnapshot.metric_gaps[0])];
 
@@ -512,13 +509,11 @@ test('renders the timestamped business and loop snapshot without converting miss
   assert.match(elements.get('portfolio-snapshot').textContent, /2d 15h 33m ago/);
   const summary = elements.get('portfolio-summary').innerHTML;
   assert.match(summary, /1 business/);
-  assert.match(summary, /1 agent/);
   assert.match(summary, /1 loop/);
   assert.match(summary, /1 metric gap/);
   assert.match(elements.get('portfolio-businesses').innerHTML, /Capafy agents/);
   assert.match(elements.get('portfolio-businesses').innerHTML, /no data/);
   assert.doesNotMatch(elements.get('portfolio-businesses').innerHTML, /\$0\.00/);
-  assert.match(elements.get('portfolio-agents').innerHTML, /Muse/);
   const loopTable = elements.get('portfolio-loops').innerHTML;
   assert.match(loopTable, /Distribution loop/);
   for (const label of ['Loop', 'Owner', 'Host', 'Schedule', 'Runs per day', 'Status as of snapshot']) {
@@ -536,7 +531,6 @@ test('renders the timestamped business and loop snapshot without converting miss
 test('refreshes all Open feeds in place every fifteen minutes', async () => {
   const fixture = structuredClone(portfolioSnapshot);
   fixture.businesses = [structuredClone(portfolioSnapshot.businesses.find(row => row.name.startsWith('Capafy agents')))];
-  fixture.agents = [structuredClone(portfolioSnapshot.agents.find(row => row.agent.startsWith('Muse')))];
   fixture.loops = [structuredClone(portfolioSnapshot.loops[0])];
   fixture.metric_gaps = [structuredClone(portfolioSnapshot.metric_gaps[0])];
   const elements = new Map();
@@ -563,15 +557,15 @@ test('refreshes all Open feeds in place every fifteen minutes', async () => {
     setInterval: (handler, milliseconds) => { intervals.push({ handler, milliseconds }); return intervals.length; },
   });
   await new Promise(resolve => setImmediate(resolve));
-  assert.equal(elements.get('portfolio-agents').innerHTML.includes('Updated activity'), false);
-  fixture.agents[0].today = 'Updated activity';
+  assert.equal(elements.get('portfolio-businesses').innerHTML.includes('Updated activity'), false);
+  fixture.businesses[0].status = 'Updated activity';
   fixture.updated_at = '2026-11-06 03:18 JST';
   const refreshes = intervals.filter(interval => interval.milliseconds === 15 * 60 * 1000);
   assert.equal(refreshes.length, 3, 'all three source feeds receive a 15-minute refresh');
   await Promise.all(refreshes.map(interval => interval.handler()));
 
   for (const filename of ['data.json', 'capafy.json', 'metrics.json']) assert.equal(fetchCounts.get(filename), 2, filename);
-  assert.match(elements.get('portfolio-agents').innerHTML, /Updated activity/);
+  assert.match(elements.get('portfolio-businesses').innerHTML, /Updated activity/);
   assert.equal(reloads, 0, 'refreshing feed data does not reload the page and re-emit pageview telemetry');
 });
 
@@ -624,4 +618,69 @@ test('shows the portfolio section as unavailable when its snapshot fetch fails',
   });
   await new Promise(resolve => setImmediate(resolve));
   assert.match(elements.get('portfolio-snapshot').textContent, /Portfolio snapshot unavailable/);
+});
+
+test('renders RevenueCat source time and keeps an unreadable project unknown', async () => {
+  const fixture = structuredClone(portfolioSnapshot);
+  fixture.revenuecat_charts = {
+    source: 'RevenueCat Charts API v2',
+    observed_at: '2026-11-06T00:00:00Z',
+    window: { start_date: '2026-10-07', end_date: '2026-11-05', resolution: 'day' },
+    projects: [{
+      name: 'Anicca',
+      status: 'observed',
+      charts: {
+        mrr: {
+          id: 'mrr', status: 'observed', display_name: 'MRR', start_date: '2026-10-07', end_date: '2026-11-05',
+          summary: { average: { Anicca: { MRR: 20.34 } } },
+          measures: [{ display_name: 'MRR', unit: '$' }],
+          segments: [{ display_name: 'Anicca', is_total: false }],
+          values: [{ cohort: 1793836800, measure: 0, segment: 0, value: 20.34, incomplete: true }],
+          incomplete: true,
+        },
+        prediction_explorer: {
+          id: 'prediction_explorer', status: 'observed', display_name: 'Prediction Explorer', value_format: 'cohort_matrix',
+          segments: [{ display_name: 'New customers', unit: '#' }, { display_name: 'Month 0', unit: '$' }],
+          values: [{ cohort: 1791331200, cells: [{ segment: 0, value: 3 }, { segment: 1, value: 0.0 }], incomplete: null }],
+          incomplete: null,
+        },
+      },
+    }, {
+      name: 'Honne',
+      status: 'credential_missing',
+      reason: 'project_scoped_key_unavailable',
+      charts: {},
+    }],
+  };
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, {
+    document,
+    fetch: async url => {
+      const filename = String(url).split('?')[0].split('/').at(-1);
+      const response = filename === 'data.json' ? data : filename === 'capafy.json' ? capafyData : fixture;
+      return { ok: true, json: async () => response };
+    },
+    Date,
+    Intl,
+    URLSearchParams,
+    setInterval: () => 1,
+  });
+  await new Promise(resolve => setImmediate(resolve));
+
+  assert.ok(elements.has('revenuecat-charts'), 'RevenueCat chart section is wired into the page');
+  const rendered = elements.get('revenuecat-charts').innerHTML;
+  assert.match(rendered, /2026-11-06T00:00:00Z/);
+  assert.match(rendered, /Anicca/);
+  assert.match(rendered, /20\.34/);
+  assert.match(rendered, /incomplete/i);
+  assert.match(rendered, /Month 0/);
+  assert.match(rendered, />3</);
+  assert.match(rendered, /Honne/);
+  assert.match(rendered, /unknown/i);
+  assert.doesNotMatch(rendered, /Honne[\s\S]{0,200}0\.00/);
 });
