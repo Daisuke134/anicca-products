@@ -7,11 +7,7 @@ on:
       - main
     paths:
       - 'apps/landing/**'
-      # Open metric snapshots are committed frequently. The hourly schedule
-      # deploys the latest JSON while HTML page changes still deploy immediately.
-      # Excluding data-only pushes avoids replacing a queued source-refresh run.
-      - '!apps/landing/public/open/*.json'
-      - '!apps/landing/public/open/**/*.json'
+      # Open snapshots are public dashboard data, so JSON-only pushes deploy too.
       - 'packages/ai-monk-index/**'
       - 'netlify.toml'
       - '.github/workflows/netlify-deploy.yml'

@@ -180,3 +180,11 @@ test('main deploy refreshes Capafy rather than republishing the committed stale 
   assert.match(collector, /if:\s*github\.ref == 'refs\/heads\/main'/);
   assert.doesNotMatch(collector, /github\.event_name\s*!=\s*'push'/);
 });
+
+test('Open JSON-only pushes are included in main deployment paths', () => {
+  const workflow = readFileSync(new URL('../../../.github/workflows/netlify-deploy.yml', import.meta.url), 'utf8');
+  const push = workflow.match(/\n  push:\n([\s\S]*?)\n  workflow_dispatch:/)?.[1];
+  assert.ok(push, 'push trigger is present');
+  assert.match(push, /paths:[\s\S]*?apps\/landing\/\*\*/);
+  assert.doesNotMatch(push, /!apps\/landing\/public\/open\/(?:\*\.json|\*\*\/\*\.json)/);
+});
