@@ -109,7 +109,7 @@ jobs:
         working-directory: apps/landing
         env:
           CAPAFY_WEB_TOKEN: ${{ secrets.CAPAFY_WEB_TOKEN }}
-          LIFE_MANAGER_REVISION: ef7f969d9deb4eda7466acbfb24707a9f0a554df
+          LIFE_MANAGER_REVISION: 30a18647a61e63f2370c84bc5f1bbee5434a713e
         run: |
           set -euo pipefail
           tmp="$(mktemp -d)"

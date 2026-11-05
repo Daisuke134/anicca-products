@@ -47,15 +47,22 @@ test('shows Capafy account observations with their collection time', async () =>
     if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
     return elements.get(id);
   } };
-  const capafy = { observed_at: new Date().toISOString(), windows: { last_7d: {
-    views: 1864, paid_orders: 4, sales_usd: '39.96', impressions: [{ name: 'search', count: 12384 }]
+  const capafy = { observed_at: new Date().toISOString(), source: 'Capafy developer traffic analytics', windows: { last_7d: {
+    views: 1864, page_views: 1200, detail_views: 664, attributed_unique_visitors: 1000,
+    paid_orders: 4, sales_usd: '39.96', platform_orders: 5, platform_revenue_usd: '39.96',
+    refunds_usd: '0.00', unit_sales: 5, trial_units: 1,
+    daily: [{ date: '2026-11-05', orders: 1, revenue_usd: '9.99', refunds_usd: '0.00', units: 1 }],
+    impressions: [{ name: 'search', count: 12384 }]
   } } };
   const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
   vm.runInNewContext(code, { document, fetch: async url => ({ ok: true, json: async () => url.startsWith('capafy.json') ? capafy : data }), Date, URLSearchParams });
   await new Promise(resolve => setImmediate(resolve));
   assert.ok(elements.has('capafy-activity'), 'Capafy observation is rendered');
   const rendered = elements.get('capafy-activity').innerHTML;
-  assert.match(rendered, /1,864/);
+  assert.match(rendered, /Page views 1,200/);
+  assert.match(rendered, /Detail views 664/);
+  assert.match(rendered, /Units 5/);
+  assert.match(rendered, /Unique buyers and conversion rate are not returned/);
   assert.match(rendered, /12,384/);
   assert.match(rendered, /Hourly refresh · current/);
   assert.match(rendered, new RegExp(new Date().toISOString().slice(0, 10)));
