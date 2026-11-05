@@ -6,6 +6,32 @@ import vm from 'node:vm';
 const html = readFileSync(new URL('../public/open/index.html', import.meta.url), 'utf8');
 const data = JSON.parse(readFileSync(new URL('../public/open/data.json', import.meta.url), 'utf8'));
 
+async function renderKpis(kpiData) {
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, {
+    document,
+    fetch: async () => ({ ok: true, json: async () => kpiData }),
+    Date,
+    Intl,
+    URLSearchParams,
+  });
+  await new Promise(resolve => setImmediate(resolve));
+  return elements.get('kpi').innerHTML;
+}
+
+function renderedCard(rendered, title) {
+  const heading = `<h3>${title}</h3>`;
+  const start = rendered.indexOf(heading);
+  assert.notEqual(start, -1, `Missing KPI card: ${title}`);
+  const next = rendered.indexOf('<div class="c"><h3>', start + heading.length);
+  return rendered.slice(start, next < 0 ? undefined : next);
+}
+
 test('shows recorded team activity without treating unobserved work as zero completed tasks', async () => {
   const elements = new Map();
   const document = { getElementById(id) {
@@ -38,6 +64,25 @@ test('shows recorded app totals and their period', async () => {
   const rendered = elements.get('apps').innerHTML;
   assert.match(rendered, /1,410/);
   assert.match(rendered, /2026-10-26 to 2026-11-01 week/);
+});
+
+test('labels unreconciled revenue, costs, and profit as observed values', async () => {
+  const fixture = structuredClone(data);
+  fixture.reconciliation_complete = false;
+  const rendered = await renderKpis(fixture);
+
+  assert.match(renderedCard(rendered, 'Revenue, November 2026 to date'), /Observed subtotal · incomplete coverage/);
+  assert.match(renderedCard(rendered, 'Costs, November 2026 to date'), /Observed payment notices · incomplete coverage/);
+  assert.match(renderedCard(rendered, 'Profit, November 2026 to date'), /Observed difference only · full-company profit unknown/);
+});
+
+test('does not label reconciled revenue and profit as incomplete observations', async () => {
+  const fixture = structuredClone(data);
+  fixture.reconciliation_complete = true;
+  const rendered = await renderKpis(fixture);
+
+  assert.doesNotMatch(renderedCard(rendered, 'Revenue, November 2026 to date'), /Observed subtotal · incomplete coverage/);
+  assert.doesNotMatch(renderedCard(rendered, 'Profit, November 2026 to date'), /full-company profit unknown/);
 });
 
 
