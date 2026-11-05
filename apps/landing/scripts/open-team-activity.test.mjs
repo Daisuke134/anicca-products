@@ -249,10 +249,67 @@ test('shows Capafy account observations with their collection time', async () =>
   assert.match(rendered, /Negative daily values are returned by Capafy/);
   assert.match(rendered, /does not document their transaction meaning/);
   assert.match(rendered, /revenue basis is not established/i);
-  assert.match(rendered, /Unique buyers and conversion rate are not returned/);
+  assert.match(rendered, /Traffic source and Developer Overview are separate Capafy feeds/);
+  assert.match(rendered, /Developer Overview not collected yet/);
+  assert.doesNotMatch(rendered, /Unique buyers and conversion rate are not returned/);
   assert.match(rendered, /12,384/);
   assert.match(rendered, /Hourly refresh · current/);
   assert.match(rendered, new RegExp(new Date().toISOString().slice(0, 10)));
+});
+
+test('shows Capafy Developer Overview beside the separate traffic feed and preserves signed daily values', async () => {
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const capafy = {
+    observed_at: new Date().toISOString(),
+    source: 'Capafy developer traffic analytics',
+    windows: { last_7d: { start_utc: '2026-10-30T00:00:00+00:00', end_utc: '2026-11-05T23:59:59+00:00' } },
+    overview: {
+      source: 'Capafy Developer Overview API',
+      observed_at: new Date().toISOString(),
+      windows: { last_7d: {
+        start_date: '2026-10-30', end_date: '2026-11-05', granularity: 'daily',
+        exposure: { total_count: 32542, total_unique_device_count: 13488, total_count_change_percent: -36.1, unique_device_change_percent: -35.0 },
+        detail_views: { total_count: 1938, total_unique_device_count: 1089, total_count_change_percent: -42.9, unique_device_change_percent: -41.2 },
+        conversion: { total_conversion_rate: 0.04, conversion_rate_change: 0.02, total_order_count: 5, total_user_id_exposure_count: 13489 },
+        new_users: { total_new_user_count: 4, new_user_change_percent: 0.0 },
+        daily: [{
+          date: '2026-11-03', exposure_count: 3974, exposure_unique_devices: 1772,
+          detail_view_count: 227, detail_view_unique_devices: 139,
+          conversion_rate: -0.06, order_count: -1, exposed_user_ids: 1772, new_user_count: 0,
+        }],
+      } },
+    },
+  };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, {
+    document,
+    fetch: async url => ({ ok: true, json: async () => url.startsWith('capafy.json') ? capafy : data }),
+    Date,
+    Intl,
+    URLSearchParams,
+  });
+  await new Promise(resolve => setImmediate(resolve));
+
+  const rendered = elements.get('capafy-activity').innerHTML;
+  assert.match(rendered, /Capafy Developer Overview/);
+  assert.match(rendered, /Last 7 days.*2026-10-30.*2026-11-05/);
+  assert.match(rendered, /Impressions 32,542/);
+  assert.match(rendered, /Unique devices 13,488/);
+  assert.match(rendered, /−36\.1%/);
+  assert.match(rendered, /Detail page views 1,938/);
+  assert.match(rendered, /Conversion rate 0\.04%/);
+  assert.match(rendered, /Provider change \+0\.02/);
+  assert.match(rendered, /Orders 5/);
+  assert.match(rendered, /New users 4/);
+  assert.match(rendered, /Daily Developer Overview/);
+  assert.match(rendered, /2026-11-03/);
+  assert.match(rendered, /−0\.06/);
+  assert.match(rendered, /−1/);
+  assert.doesNotMatch(rendered, /Unique buyers and conversion rate are not returned/);
 });
 
 
