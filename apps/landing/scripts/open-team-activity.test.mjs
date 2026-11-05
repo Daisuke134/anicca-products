@@ -625,3 +625,68 @@ test('shows the portfolio section as unavailable when its snapshot fetch fails',
   await new Promise(resolve => setImmediate(resolve));
   assert.match(elements.get('portfolio-snapshot').textContent, /Portfolio snapshot unavailable/);
 });
+
+test('renders RevenueCat source time and keeps an unreadable project unknown', async () => {
+  const fixture = structuredClone(portfolioSnapshot);
+  fixture.revenuecat_charts = {
+    source: 'RevenueCat Charts API v2',
+    observed_at: '2026-11-06T00:00:00Z',
+    window: { start_date: '2026-10-07', end_date: '2026-11-05', resolution: 'day' },
+    projects: [{
+      name: 'Anicca',
+      status: 'observed',
+      charts: {
+        mrr: {
+          id: 'mrr', status: 'observed', display_name: 'MRR', start_date: '2026-10-07', end_date: '2026-11-05',
+          summary: { average: { Anicca: { MRR: 20.34 } } },
+          measures: [{ display_name: 'MRR', unit: '$' }],
+          segments: [{ display_name: 'Anicca', is_total: false }],
+          values: [{ cohort: 1793836800, measure: 0, segment: 0, value: 20.34, incomplete: true }],
+          incomplete: true,
+        },
+        prediction_explorer: {
+          id: 'prediction_explorer', status: 'observed', display_name: 'Prediction Explorer', value_format: 'cohort_matrix',
+          segments: [{ display_name: 'New customers', unit: '#' }, { display_name: 'Month 0', unit: '$' }],
+          values: [{ cohort: 1791331200, cells: [{ segment: 0, value: 3 }, { segment: 1, value: 0.0 }], incomplete: null }],
+          incomplete: null,
+        },
+      },
+    }, {
+      name: 'Honne',
+      status: 'credential_missing',
+      reason: 'project_scoped_key_unavailable',
+      charts: {},
+    }],
+  };
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, {
+    document,
+    fetch: async url => {
+      const filename = String(url).split('?')[0].split('/').at(-1);
+      const response = filename === 'data.json' ? data : filename === 'capafy.json' ? capafyData : fixture;
+      return { ok: true, json: async () => response };
+    },
+    Date,
+    Intl,
+    URLSearchParams,
+    setInterval: () => 1,
+  });
+  await new Promise(resolve => setImmediate(resolve));
+
+  assert.ok(elements.has('revenuecat-charts'), 'RevenueCat chart section is wired into the page');
+  const rendered = elements.get('revenuecat-charts').innerHTML;
+  assert.match(rendered, /2026-11-06T00:00:00Z/);
+  assert.match(rendered, /Anicca/);
+  assert.match(rendered, /20\.34/);
+  assert.match(rendered, /incomplete/i);
+  assert.match(rendered, /Month 0/);
+  assert.match(rendered, />3</);
+  assert.match(rendered, /Honne/);
+  assert.match(rendered, /unknown/i);
+  assert.doesNotMatch(rendered, /Honne[\s\S]{0,200}0\.00/);
+});
