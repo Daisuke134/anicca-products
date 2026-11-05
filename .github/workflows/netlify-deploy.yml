@@ -110,7 +110,7 @@ jobs:
         run: npm ci --prefix scripts/netlify-cli
 
       - name: Collect current Capafy metrics for Open dashboard
-        if: github.ref == 'refs/heads/main' && github.event_name != 'push'
+        if: github.ref == 'refs/heads/main'
         working-directory: apps/landing
         env:
           CAPAFY_WEB_TOKEN: ${{ secrets.CAPAFY_WEB_TOKEN }}

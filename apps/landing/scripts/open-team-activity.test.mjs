@@ -125,3 +125,13 @@ test('monthly revenue label follows the dashboard month in every viewer timezone
     else process.env.TZ = previousTimezone;
   }
 });
+
+test('main deploy refreshes Capafy rather than republishing the committed stale feed', () => {
+  const workflow = readFileSync(new URL('../../../.github/workflows/netlify-deploy.yml', import.meta.url), 'utf8');
+  const start = workflow.indexOf('      - name: Collect current Capafy metrics for Open dashboard');
+  const end = workflow.indexOf('      - name: Stage latest Open dashboard data snapshot', start);
+  assert.ok(start >= 0 && end > start, 'Capafy collection step is present before snapshot staging');
+  const collector = workflow.slice(start, end);
+  assert.match(collector, /if:\s*github\.ref == 'refs\/heads\/main'/);
+  assert.doesNotMatch(collector, /github\.event_name\s*!=\s*'push'/);
+});
