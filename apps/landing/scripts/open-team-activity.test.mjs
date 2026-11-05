@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
 const html = readFileSync(new URL('../public/open/index.html', import.meta.url), 'utf8');
@@ -31,6 +31,15 @@ function renderedCard(rendered, title) {
   const next = rendered.indexOf('<div class="c"><h3>', start + heading.length);
   return rendered.slice(start, next < 0 ? undefined : next);
 }
+
+test('canonical Open JSON keeps the verified ASC snapshot as the bootstrap for the scheduled collector', () => {
+  const analytics = data.app_store_analytics;
+  assert.equal(data.app_store_analytics_status, 'scheduled-snapshot');
+  assert.equal(analytics.source, 'App Store Connect Analytics Reports');
+  assert.equal(analytics.measured_at, '2026-11-05T13:23:55.343Z');
+  assert.deepEqual(analytics.apps.map(app => app.app_id).sort(), ['6755129214', '6757726663', '6759514159', '6762143790', '6759667221'].sort());
+  assert.ok(analytics.apps.every(app => app.daily.length > 0));
+});
 
 test('shows recorded team activity without treating unobserved work as zero completed tasks', async () => {
   const elements = new Map();
@@ -68,7 +77,7 @@ test('shows recorded app totals and their period', async () => {
 
 test('shows App Store daily analytics, coverage, and missing download rows as unknown', async () => {
   const fixture = structuredClone(data);
-  fixture.app_store_analytics_status = 'live-snapshot';
+  fixture.app_store_analytics_status = 'scheduled-snapshot';
   fixture.app_store_analytics = {
     measured_at: '2026-11-05T13:11:41.659Z',
     period: { start_date: '2026-10-29', end_date: '2026-11-04', processing_date: '2026-11-05' },
@@ -102,7 +111,7 @@ test('shows App Store daily analytics, coverage, and missing download rows as un
   await new Promise(resolve => setImmediate(resolve));
   const rendered = elements.get('asc-analytics').innerHTML;
   assert.match(rendered, /App Store Connect Analytics/);
-  assert.match(rendered, /Live Netlify snapshot/);
+  assert.match(rendered, /Scheduled snapshot/);
   assert.match(rendered, /2026-10-29 to 2026-11-04/);
   assert.match(rendered, /Impressions 1,064/);
   assert.match(rendered, /Unique impressions —/);
@@ -304,41 +313,30 @@ test('main deploy refreshes Capafy rather than republishing the committed stale 
   assert.doesNotMatch(collector, /github\.event_name\s*!=\s*'push'/);
 });
 
-test('Netlify scheduled function refreshes ASC outside GitHub and Open data.json serves the merged snapshot', async () => {
+test('hourly production deploy retains the previous ASC window and refreshes it before publishing static JSON', () => {
   const workflow = readFileSync(new URL('../../../.github/workflows/netlify-deploy.yml', import.meta.url), 'utf8');
-  const refresh = readFileSync(new URL('../netlify/functions/open-asc-refresh.mjs', import.meta.url), 'utf8');
-  const route = readFileSync(new URL('../netlify/functions/open-dashboard-data.mjs', import.meta.url), 'utf8');
   const deployConfig = readFileSync(new URL('../netlify.toml', import.meta.url), 'utf8');
   const rootConfig = readFileSync(new URL('../../../netlify.toml', import.meta.url), 'utf8');
+  const stageIndex = workflow.indexOf('      - name: Stage latest Open dashboard data snapshot');
+  const seedIndex = workflow.indexOf('      - name: Seed previous App Store analytics snapshot', stageIndex);
+  const collectIndex = workflow.indexOf('      - name: Collect App Store Connect analytics', seedIndex);
+  const verifyIndex = workflow.indexOf('      - name: Verify Open dashboard data before deploy', collectIndex);
   assert.match(workflow, /cron: '17 \* \* \* \*'/);
-  assert.doesNotMatch(workflow, /APP_STORE_CONNECT_(?:ISSUER_ID|KEY_ID|PRIVATE_KEY)/);
-  assert.match(refresh, /schedule: '37 \* \* \* \*'/);
-  assert.match(refresh, /process\.env\.APP_STORE_CONNECT_PRIVATE_KEY/);
-  assert.match(route, /app_store_analytics: analytics/);
-  for (const config of [deployConfig, rootConfig]) {
-    assert.match(config, /from = "\/open\/data\.json"[\s\S]*?to = "\/.netlify\/functions\/open-dashboard-data"[\s\S]*?status = 200[\s\S]*?force = true/);
+  assert.ok(stageIndex >= 0 && seedIndex > stageIndex && collectIndex > seedIndex && verifyIndex > collectIndex);
+  const seed = workflow.slice(seedIndex, collectIndex);
+  const collect = workflow.slice(collectIndex, verifyIndex);
+  assert.match(seed, /https:\/\/aniccaai\.com\/open\/data\.json/);
+  assert.match(seed, /app_store_analytics/);
+  for (const key of ['APP_STORE_CONNECT_ISSUER_ID', 'APP_STORE_CONNECT_KEY_ID', 'APP_STORE_CONNECT_PRIVATE_KEY']) {
+    assert.match(collect, new RegExp(`${key}: \\$\\{\\{ secrets\\.${key} \\}\\}`));
   }
-});
-
-test('only stores a complete App Store refresh and preserves the last snapshot on collector failure', async () => {
-  const { APP_STORE_SNAPSHOT_KEY, collectAndStoreAppStoreAnalytics, readAppStoreAnalytics } = await import('../netlify/functions/_lib/open-asc-store.mjs');
-  const snapshot = { period: { start_date: '2026-11-01', end_date: '2026-11-07' }, apps: [{ app_id: 'a', daily: [] }] };
-  const writes = [];
-  const store = {
-    get: async key => { assert.equal(key, APP_STORE_SNAPSHOT_KEY); return null; },
-    setJSON: async (key, value) => writes.push({ key, value }),
-  };
-  const saved = await collectAndStoreAppStoreAnalytics({ store, collect: async () => snapshot, credentials: {} });
-  assert.equal(saved, snapshot);
-  assert.equal(writes.length, 1);
-  assert.equal(writes[0].key, APP_STORE_SNAPSHOT_KEY);
-  assert.equal(await readAppStoreAnalytics({ get: async () => null }, snapshot), snapshot);
-  await assert.rejects(() => collectAndStoreAppStoreAnalytics({
-    store,
-    collect: async () => { throw new Error('source unavailable'); },
-    credentials: {},
-  }), /source unavailable/);
-  assert.equal(writes.length, 1, 'the last good snapshot remains unchanged');
+  assert.match(collect, /node scripts\/open-app-store-analytics\.mjs/);
+  assert.doesNotMatch(collect, /console\.log\(.*APP_STORE_CONNECT/);
+  for (const config of [deployConfig, rootConfig]) {
+    assert.doesNotMatch(config, /open-dashboard-data/);
+  }
+  assert.equal(existsSync(new URL('../netlify/functions/open-dashboard-data.mjs', import.meta.url)), false);
+  assert.equal(existsSync(new URL('../netlify/functions/open-asc-refresh.mjs', import.meta.url)), false);
 });
 
 test('Open JSON-only pushes are included in main deployment paths', () => {

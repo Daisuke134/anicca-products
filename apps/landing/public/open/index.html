@@ -68,7 +68,7 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
   const count=v=>v==null?'—':Number(v).toLocaleString('en-US'),period=A.period||{},coverage=A.coverage||{},summary=A.summary||{},discovery=summary.discovery||{},downloads=summary.downloads||{};
   const days=Math.max(1,Math.round((Date.parse(period.end_date+'T00:00:00Z')-Date.parse(period.start_date+'T00:00:00Z'))/86400000)+1);
   const types=[['First-time',downloads.first_time],['Auto-update',downloads.auto_update],['Manual update',downloads.manual_update],['Redownload',downloads.redownload],['Restore',downloads.restore],['Other',downloads.other]].filter(([,value])=>value!=null).map(([label,value])=>`${label} ${count(value)}`).join(' · ');
-  const snapshotStatus=d.app_store_analytics_status==='live-snapshot'?'Live Netlify snapshot':'Last deployed snapshot';
+  const snapshotStatus=d.app_store_analytics_status==='scheduled-snapshot'?'Scheduled snapshot':'Last recorded snapshot';
   let content=`<div><b>App Store Connect Analytics</b> · ${snapshotStatus} · ${esc(period.start_date)} to ${esc(period.end_date)} · processing ${esc(period.processing_date||'—')} · measured ${esc(A.measured_at||'—')}</div>`;
   content+=`<div>Impressions ${count(discovery.impressions)} · Unique impressions ${count(discovery.unique_impressions)} · Product page views ${count(discovery.page_views)} · Unique page views ${count(discovery.unique_page_views)} · Taps ${count(discovery.taps)} · Unique taps ${count(discovery.unique_taps)}</div>`;
   content+=`<div>Downloads ${count(downloads.events)} observed events${types?` · ${esc(types)}`:''}</div>`;

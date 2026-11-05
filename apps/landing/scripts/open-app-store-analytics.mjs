@@ -402,6 +402,7 @@ export async function main(args = process.argv.slice(2), env = process.env) {
   const current = await collectAnalytics(credentials);
   const data = JSON.parse(await readFile(inputPath, 'utf8'));
   data.app_store_analytics = mergeAppStoreAnalytics(data.app_store_analytics, current);
+  data.app_store_analytics_status = 'scheduled-snapshot';
   await writeFile(inputPath, `${JSON.stringify(data, null, 2)}\n`);
   const { period, coverage, summary } = data.app_store_analytics;
   console.log(`App Store analytics updated: ${period.start_date} to ${period.end_date}; discovery ${coverage.discovery_app_days}/${coverage.app_days_expected} app-days; downloads ${coverage.download_app_days}/${coverage.app_days_expected} app-days; impressions ${summary.discovery.impressions ?? 'unknown'}.`);
