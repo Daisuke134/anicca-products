@@ -23,7 +23,9 @@ async function renderKpis(kpiData) {
     URLSearchParams,
   });
   await new Promise(resolve => setImmediate(resolve));
-  return elements.get('kpi').innerHTML;
+  // Open now renders individual KPI cards, not the retired #kpi container.
+  return ['slot-rev', 'slot-cost', 'slot-gp']
+    .map(id => `<div class="c">${elements.get(id)?.innerHTML || ''}</div>`).join('');
 }
 
 function renderedCard(rendered, title) {
@@ -73,8 +75,11 @@ test('shows recorded app totals and their period', async () => {
   vm.runInNewContext(code, { document, fetch: async () => ({ ok: true, json: async () => data }), Date, URLSearchParams });
   await new Promise(resolve => setImmediate(resolve));
   const rendered = elements.get('apps').innerHTML;
-  assert.match(rendered, /1,410/);
-  assert.match(rendered, /2026-10-26 to 2026-11-01 week/);
+  // Check the actual measured snapshot, not an obsolete hardcoded 1,410 total.
+  const expected = Number(data.apps_breakdown[0].all_time_gross_usd).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  assert.match(rendered, new RegExp(expected.replace('.', '\\.'), 'i'));
+  assert.match(rendered, /Daily Affirmations/);
+  assert.ok(rendered.includes(data.apps_breakdown[0].period), 'app period follows the actual observed snapshot');
 });
 
 test('shows App Store daily analytics, coverage, and missing download rows as unknown', async () => {
@@ -207,7 +212,7 @@ test('labels unreconciled revenue, costs, and profit as observed values', async 
 
   assert.match(renderedCard(rendered, 'Revenue, November 2026 to date'), /Observed subtotal · incomplete coverage/);
   assert.match(renderedCard(rendered, 'Costs, November 2026 to date'), /Observed payment notices · incomplete coverage/);
-  assert.match(renderedCard(rendered, 'Profit, November 2026 to date'), /Observed difference only · full-company profit unknown/);
+  assert.match(renderedCard(rendered, 'Gross profit, November 2026 to date'), /Observed difference only · full-company profit unknown/);
 });
 
 test('does not label reconciled revenue and profit as incomplete observations', async () => {
@@ -216,7 +221,7 @@ test('does not label reconciled revenue and profit as incomplete observations', 
   const rendered = await renderKpis(fixture);
 
   assert.doesNotMatch(renderedCard(rendered, 'Revenue, November 2026 to date'), /Observed subtotal · incomplete coverage/);
-  assert.doesNotMatch(renderedCard(rendered, 'Profit, November 2026 to date'), /full-company profit unknown/);
+  assert.doesNotMatch(renderedCard(rendered, 'Gross profit, November 2026 to date'), /full-company profit unknown/);
 });
 
 
@@ -413,8 +418,9 @@ test('monthly revenue label follows the dashboard month in every viewer timezone
         URLSearchParams,
       });
       await new Promise(resolve => setImmediate(resolve));
-      const rendered = elements.get('kpi').innerHTML;
-      for (const label of ['Revenue', 'Costs', 'Profit']) {
+      const rendered = ['slot-rev', 'slot-cost', 'slot-gp']
+        .map(id => elements.get(id)?.innerHTML || '').join(' ');
+      for (const label of ['Revenue', 'Costs', 'Gross profit']) {
         assert.match(rendered, new RegExp(`${label}, November 2026 to date`), timezone);
       }
     }
@@ -512,13 +518,14 @@ test('renders the timestamped business and loop snapshot without converting miss
   assert.match(elements.get('portfolio-snapshot').textContent, /2d 15h 33m ago/);
   const summary = elements.get('portfolio-summary').innerHTML;
   assert.match(summary, /1 business/);
-  assert.match(summary, /1 agent/);
+  assert.doesNotMatch(summary, /agent/, 'agents remain in Team activity rather than duplicated in portfolio');
+  assert.match(html, /id="team-activity"/);
   assert.match(summary, /1 loop/);
   assert.match(summary, /1 metric gap/);
   assert.match(elements.get('portfolio-businesses').innerHTML, /Capafy agents/);
   assert.match(elements.get('portfolio-businesses').innerHTML, /no data/);
   assert.doesNotMatch(elements.get('portfolio-businesses').innerHTML, /\$0\.00/);
-  assert.match(elements.get('portfolio-agents').innerHTML, /Muse/);
+  assert.match(html, /Team activity/);
   const loopTable = elements.get('portfolio-loops').innerHTML;
   assert.match(loopTable, /Distribution loop/);
   for (const label of ['Loop', 'Owner', 'Host', 'Schedule', 'Runs per day', 'Status as of snapshot']) {
@@ -563,15 +570,15 @@ test('refreshes all Open feeds in place every fifteen minutes', async () => {
     setInterval: (handler, milliseconds) => { intervals.push({ handler, milliseconds }); return intervals.length; },
   });
   await new Promise(resolve => setImmediate(resolve));
-  assert.equal(elements.get('portfolio-agents').innerHTML.includes('Updated activity'), false);
-  fixture.agents[0].today = 'Updated activity';
+  assert.equal(elements.get('portfolio-loops').innerHTML.includes('Updated activity'), false);
+  fixture.loops[0].status = 'Updated activity';
   fixture.updated_at = '2026-11-06 03:18 JST';
   const refreshes = intervals.filter(interval => interval.milliseconds === 15 * 60 * 1000);
   assert.equal(refreshes.length, 3, 'all three source feeds receive a 15-minute refresh');
   await Promise.all(refreshes.map(interval => interval.handler()));
 
   for (const filename of ['data.json', 'capafy.json', 'metrics.json']) assert.equal(fetchCounts.get(filename), 2, filename);
-  assert.match(elements.get('portfolio-agents').innerHTML, /Updated activity/);
+  assert.match(elements.get('portfolio-loops').innerHTML, /Updated activity/);
   assert.equal(reloads, 0, 'refreshing feed data does not reload the page and re-emit pageview telemetry');
 });
 
