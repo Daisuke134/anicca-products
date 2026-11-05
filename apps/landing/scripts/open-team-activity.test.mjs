@@ -47,17 +47,35 @@ test('shows Capafy account observations with their collection time', async () =>
     if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
     return elements.get(id);
   } };
-  const capafy = { observed_at: '2026-11-05T05:55:02Z', windows: { last_7d: {
-    views: 1864, paid_orders: 4, sales_usd: '39.96', impressions: [{ name: 'search', count: 12384 }]
+  const capafy = { observed_at: new Date().toISOString(), source: 'Capafy developer traffic analytics', windows: { last_7d: {
+    views: 1864, page_views: 1200, detail_views: 664, attributed_unique_visitors: 1000,
+    paid_orders: 4, sales_usd: '39.96', platform_orders: 0, platform_revenue_usd: '0.00',
+    refunds_usd: '0.00', unit_sales: 0, trial_units: 0,
+    daily: [
+      { date: '2026-11-03', orders: -1, revenue_usd: '-9.99', refunds_usd: '0.00', units: -1, trial_units: 0 },
+      { date: '2026-11-05', orders: 1, revenue_usd: '9.99', refunds_usd: '0.00', units: 1, trial_units: 0 }
+    ],
+    impressions: [{ name: 'search', count: 12384 }]
   } } };
   const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
   vm.runInNewContext(code, { document, fetch: async url => ({ ok: true, json: async () => url.startsWith('capafy.json') ? capafy : data }), Date, URLSearchParams });
   await new Promise(resolve => setImmediate(resolve));
   assert.ok(elements.has('capafy-activity'), 'Capafy observation is rendered');
   const rendered = elements.get('capafy-activity').innerHTML;
-  assert.match(rendered, /1,864/);
+  assert.match(rendered, /Page views 1,200/);
+  assert.match(rendered, /Detail views 664/);
+  assert.match(rendered, /Net units 0/);
+  assert.match(rendered, /Platform net orders 0/);
+  assert.match(rendered, /Platform-reported revenue/);
+  assert.match(rendered, /Daily net orders, revenue, refunds and net units/);
+  assert.match(rendered, /−\$9\.99/);
+  assert.match(rendered, /Negative daily values are returned by Capafy/);
+  assert.match(rendered, /does not document their transaction meaning/);
+  assert.match(rendered, /revenue basis is not established/i);
+  assert.match(rendered, /Unique buyers and conversion rate are not returned/);
   assert.match(rendered, /12,384/);
-  assert.match(rendered, /2026-11-05T05:55:02Z/);
+  assert.match(rendered, /Hourly refresh · current/);
+  assert.match(rendered, new RegExp(new Date().toISOString().slice(0, 10)));
 });
 
 
