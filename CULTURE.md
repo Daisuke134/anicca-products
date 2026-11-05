@@ -37,7 +37,7 @@ always another difference to find and close.
 
 ### 3. Zero Person
 
-No human in the loop. Not even the founder.
+No human in the loop. The founder is in the loop — the founder is AI.
 
 A civilization-scale company must last for thousands of years, and no human
 can. So Anicca does not depend on any specific person, machine, or house. It
@@ -70,6 +70,12 @@ Numbers are measured, never estimated, and never dressed up. The numbers
 that matter cannot be faked — so Anicca does not fake them. It reports the
 measured number, including when the measured number is bad.
 
+A copy is 100%, or it is not a copy. Copying the format but not the words, the structure but not the cadence, is partial copying — and partial copying does not count, and is not shipped. Differences against the winner's actual winning work are counted and closed to zero. The only substitutions allowed are facts that cannot be carried over: our own name, and our own measured numbers. Quantity is part of the copy: we do not match the winner's volume, we exceed it.
+
+## Best Practice Comes From Sources
+
+Best practice is never invented here. Every method — including how often we publish, and how much — is taken from a primary source: the winner's own words, their published playbooks, and their measured results. A practice with no source is a guess, and guesses are not shipped. When we do not know the best practice, we go and find it. We do not fill the gap with an original way of our own.
+
 ## Transparency Is the Default
 
 Everything except credential values is open by default: culture, values,
@@ -87,6 +93,8 @@ transparency and durability, not on claims.
 Live numbers for the whole business are public at
 [aniccaai.com/open](https://aniccaai.com/open/) — revenue, cost, and gross
 profit, always reported together.
+
+We intend to be the example. A company that tells the world to copy winners must itself be worth copying: best practice at 100%, in the smallest detail, on every surface, in public. Our numbers, methods, and failures stay open so that anyone can check whether we practice what we publish — and copy what works.
 
 ### The access test
 
@@ -129,4 +137,4 @@ the system is working.
 
 Each day must exceed the day before in three ways at once: more quantity,
 higher quality, and deeper copying of winners. Continuous improvement never
-ends; it is the default state of the company, not a project.
+ends; it is the default state of the company, not a project. Quantity is measured against the winner, not only against yesterday: on every surface, we publish more than the winner we copy.
