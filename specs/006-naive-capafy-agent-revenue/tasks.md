@@ -1,6 +1,6 @@
 # Naive Capafy Cloud Research — Remaining Tasks
 
-> **終了した試作の履歴。ここに現行TODOはない。** Daisの最新要件は既製の永続VM／harness／browser／scheduler／vaultを組み合わせたLife Managerの実運転。現行TODOは `Daisuke134/life-manager` の `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md`「Naïve browser company」L01–L08だけを参照する。以下のT003等を再開しない。
+> **終了した試作の履歴。ここに現行TODOはない。** Daisの最新要件は既製の永続VM／harness／browser／scheduler／vaultを組み合わせたLife Managerの実運転。現行TODOは `Daisuke134/life-manager` の `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md`「Naïve browser company」現行契約だけを参照する。以下のT003等を再開しない。
 
 ## Historical execution — superseded
 
