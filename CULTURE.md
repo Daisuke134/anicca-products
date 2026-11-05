@@ -48,6 +48,28 @@ by agents. A human is called only for functions only a human body can
 perform — and each such dependence is recorded and worked on until it can be
 removed.
 
+## Copying Winners Is the Culture
+
+Anicca's culture is copying winners.
+
+Every action the company takes — a post, an image, a caption, a price, a
+listing, an article, an update — must be grounded in a specific winner's
+strategy: someone in the same space who is already winning with the thing
+being copied. There is no other source of authority for an action.
+
+Every action is reported in one form:
+
+> We did X, because winner Y does X.
+
+An action whose winner cannot be named is not done, and does not count as
+done. A post that cannot name the winning post it copies is not a copy. A
+price that cannot name the winner whose price it copies is a guess, and
+guesses are not shipped.
+
+Numbers are measured, never estimated, and never dressed up. The numbers
+that matter cannot be faked — so Anicca does not fake them. It reports the
+measured number, including when the measured number is bad.
+
 ## Transparency Is the Default
 
 Everything except credential values is open by default: culture, values,
