@@ -93,3 +93,35 @@ test('reports unavailable Capafy data rather than hiding the section', async () 
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(elements.get('capafy-activity')?.textContent, 'Capafy data unavailable');
 });
+
+test('monthly revenue label follows the dashboard month in every viewer timezone', async () => {
+  const previousTimezone = process.env.TZ;
+  const monthData = { ...data, month: '2026-11' };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+
+  try {
+    for (const timezone of ['America/Los_Angeles', 'Asia/Tokyo', 'UTC']) {
+      process.env.TZ = timezone;
+      const elements = new Map();
+      const document = { getElementById(id) {
+        if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+        return elements.get(id);
+      } };
+      vm.runInNewContext(code, {
+        document,
+        fetch: async () => ({ ok: true, json: async () => monthData }),
+        Date,
+        Intl,
+        URLSearchParams,
+      });
+      await new Promise(resolve => setImmediate(resolve));
+      const rendered = elements.get('kpi').innerHTML;
+      for (const label of ['Revenue', 'Costs', 'Profit']) {
+        assert.match(rendered, new RegExp(`${label}, November 2026 to date`), timezone);
+      }
+    }
+  } finally {
+    if (previousTimezone === undefined) delete process.env.TZ;
+    else process.env.TZ = previousTimezone;
+  }
+});

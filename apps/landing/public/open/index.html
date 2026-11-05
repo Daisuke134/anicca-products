@@ -35,7 +35,7 @@ const U=v=>v==null?'<span class="m">no data</span>':(v<0?'−':'')+'$'+Math.abs(
 const Y=v=>v==null?'':' <span class="m">(¥'+(v<0?'−':'')+Math.abs(v).toLocaleString('en-US')+')</span>';
 const COL=['#4f46e5','#0ea5e9','#10b981','#f59e0b','#ef4444','#8b5cf6'];
 fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
- const S=d.summary,K=Object.fromEntries(d.kpis.map(k=>[k.key,k])),mon=new Date(d.month+'-01').toLocaleString('en-US',{month:'long',year:'numeric'});
+ const S=d.summary,K=Object.fromEntries(d.kpis.map(k=>[k.key,k])),mon=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(d.month+'-01T12:00:00Z'));
  $('upd').textContent='Updated '+d.updated_at+'.';
  const ats=S.platforms.reduce((a,p)=>a+(p.all_time||0),0),lm=S.trend.length>1?S.trend[S.trend.length-2]:null;
  const card=(t,v,n)=>`<div class="c"><h3>${t}</h3><div class="v">${v}</div><div class="n">${n}</div></div>`;
