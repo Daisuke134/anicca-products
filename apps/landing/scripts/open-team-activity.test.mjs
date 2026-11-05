@@ -24,3 +24,18 @@ test('shows recorded team activity without treating unobserved work as zero comp
   assert.match(rendered, /No new action observed/);
   assert.doesNotMatch(rendered, /0 tasks completed/);
 });
+
+
+test('shows recorded app totals and their period', async () => {
+  const elements = new Map();
+  const document = { getElementById(id) {
+    if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
+    return elements.get(id);
+  } };
+  const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(code, { document, fetch: async () => ({ json: async () => data }), Date, URLSearchParams });
+  await new Promise(resolve => setImmediate(resolve));
+  const rendered = elements.get('apps').innerHTML;
+  assert.match(rendered, /1,410/);
+  assert.match(rendered, /2026-10-26 to 2026-11-01 week/);
+});
