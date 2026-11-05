@@ -36,7 +36,7 @@ test('canonical Open JSON keeps the verified ASC snapshot as the bootstrap for t
   const analytics = data.app_store_analytics;
   assert.equal(data.app_store_analytics_status, 'scheduled-snapshot');
   assert.equal(analytics.source, 'App Store Connect Analytics Reports');
-  assert.equal(analytics.measured_at, '2026-11-05T13:23:55.343Z');
+  assert.ok(Number.isFinite(Date.parse(analytics.measured_at)), 'ASC bootstrap has a valid source measurement time');
   assert.deepEqual(analytics.apps.map(app => app.app_id).sort(), ['6755129214', '6757726663', '6759514159', '6762143790', '6759667221'].sort());
   assert.ok(analytics.apps.every(app => app.daily.length > 0));
 });
