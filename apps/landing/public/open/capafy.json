@@ -1,0 +1,50 @@
+{
+  "observed_at": "2026-11-05T05:55:02+00:00",
+  "source": "Capafy developer traffic analytics",
+  "windows": {
+    "last_30d": {
+      "start_utc": "2026-10-07T00:00:00.000Z",
+      "end_utc": "2026-11-05T23:59:59.999Z",
+      "views": 8195,
+      "paid_orders": 6,
+      "trial_orders": 9,
+      "sales_usd": "59.94",
+      "impressions": [
+        {
+          "name": "category",
+          "count": 2921
+        },
+        {
+          "name": "search",
+          "count": 61870
+        },
+        {
+          "name": "hot",
+          "count": 14827
+        }
+      ]
+    },
+    "last_7d": {
+      "start_utc": "2026-10-30T00:00:00.000Z",
+      "end_utc": "2026-11-05T23:59:59.999Z",
+      "views": 1866,
+      "paid_orders": 4,
+      "trial_orders": 1,
+      "sales_usd": "39.96",
+      "impressions": [
+        {
+          "name": "category",
+          "count": 558
+        },
+        {
+          "name": "search",
+          "count": 12388
+        },
+        {
+          "name": "hot",
+          "count": 6791
+        }
+      ]
+    }
+  }
+}

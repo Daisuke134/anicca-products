@@ -21,6 +21,8 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 <div class="c"><h2>Observed payment notices this month</h2><table id="cost"></table></div></div></div>
 <div class="c" id="status" style="margin-top:12px"></div>
 <div class="c" style="margin-top:12px"><h2>Daily trend</h2><div id="dchange"></div><div class="zero" id="dtnote"></div></div>
+<div class="c" id="card-capafy" style="margin-top:12px"><h2>Capafy activity</h2><div id="capafy-activity">Loading…</div></div>
+<div class="c" id="card-team" style="margin-top:12px"><h2>Team activity</h2><table id="team-activity"></table></div>
 <div class="c" id="card-apps" style="margin-top:12px"><h2>Apps</h2><table id="apps"></table></div>
 <div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts</h2><table id="soc"></table></div>
 <div class="c" id="card-svw" style="margin-top:12px"><h2>Self vs winner</h2><table id="svw"></table></div>
@@ -56,9 +58,11 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
  $('prod').innerHTML='<tr><th>Product</th><th class="hm">Platform</th><th class="r">This month</th><th class="r">All-time</th></tr>'+S.products.map(p=>`<tr><td>${esc(p.product)}${p.note?' <span class="m">· '+esc(p.note)+'</span>':''}</td><td class="hm">${esc(p.platform)}</td><td class="r">${U(p.this_month)}</td><td class="r">${U(p.all_time)}</td></tr>`).join('');
  $('cost').innerHTML=d.costs_month.map(c=>`<tr><td>${esc(c.item)}<div class="m">${esc(c.period_note)}</div></td><td class="r">${U(c.usd)}${Y(c.jpy)}</td></tr>`).join('')+`<tr><td><b>Observed payment subtotal</b></td><td class="r"><b>${U(K.cost.usd)}</b>${Y(K.cost.jpy)}</td></tr>`;
  const tr=(s,n)=>esc(s==null?'':(String(s).length>n?String(s).slice(0,n)+'…':String(s)));
+ if(Array.isArray(d.by_agent)&&d.by_agent.length){$('team-activity').innerHTML='<tr><th>Agent</th><th>Work</th><th>Latest observed result</th></tr>'+d.by_agent.map(a=>`<tr><td><b>${esc(a.agent)}</b></td><td>${esc(a.surfaces)}</td><td>${esc(a.status)}</td></tr>`).join('')}else{$('card-team').style.display='none'}
  const st=$('status');if(d.coverage_status_1line){st.textContent=d.coverage_status_1line}else{st.style.display='none'}
  $('dchange').textContent=d.daily_change_1line||'';$('dtnote').textContent=d.daily_trend_note||'';
  if(d.apps_breakdown&&d.apps_breakdown.length){$('apps').innerHTML='<tr><th>App</th><th class="r">This month</th><th class="r">All-time gross</th><th>Latest measured</th></tr>'+d.apps_breakdown.map(a=>`<tr><td><b>${esc(a.app)}</b></td><td class="r">${U(a.this_month_usd)}</td><td class="r">${U(a.all_time_gross_usd)}</td><td class="m" style="font-size:11px">${tr(a.note,180)}</td></tr>`).join('')}else{$('card-apps').style.display='none'}
+ if(d.apps_total&&d.apps_breakdown?.length){const t=d.apps_total, count=v=>v==null?'—':Number(v).toLocaleString('en-US');$('apps').innerHTML+=`<tr><td colspan="4"><b>App total · ${esc(t.period)}</b><div class="m">Impressions ${count(t.impressions)} · Units ${count(t.units)} · Proceeds ${U(t.proceeds_usd)}</div><div class="m">${esc(t.note)}</div></td></tr>`}
  const N=v=>v==null?'<span class="m">—</span>':esc(v);
  if(d.social_accounts&&d.social_accounts.length){$('soc').innerHTML='<tr><th>Account</th><th class="r">Followers</th><th class="r">Posts</th><th class="r">Likes</th><th class="r">Comments</th><th>Latest post</th></tr>'+d.social_accounts.map(a=>`<tr><td><b>${esc(a.account)}</b>${a.note?'<div class="m" style="font-size:11px">'+tr(a.note,110)+'</div>':''}</td><td class="r">${N(a.followers)}</td><td class="r">${N(a.posts)}</td><td class="r">${N(a.likes)}</td><td class="r">${N(a.comments)}</td><td>${a.latest_post?`<a href="${esc(a.latest_post)}" target="_blank" rel="noopener">open</a>`:'<span class="m">—</span>'}</td></tr>`).join('')}else{$('card-soc').style.display='none'}
  if(d.self_vs_winner&&d.self_vs_winner.length){$('svw').innerHTML='<tr><th>Matchup</th><th>Self</th><th>Winner</th><th>Gap</th></tr>'+d.self_vs_winner.map(a=>`<tr><td><b>${esc(a.pair)}</b></td><td>${esc(a.self)}</td><td>${esc(a.winner)}</td><td class="m" style="font-size:11.5px">${tr(a.gap,240)}</td></tr>`).join('')}else{$('card-svw').style.display='none'}
@@ -71,6 +75,13 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
  $('rank').innerHTML=h}else{$('card-rank').style.display='none'}
  $('ft').innerHTML=`Sources: Coconala sales dashboard, RevenueCat, Stripe, Base chain (x402), Capafy order notices, Apify API, provider receipts, MUFG (Moneytree). FX: ECB reference rate per date. Updated ${esc(d.updated_at)}, rebuilt every 30 minutes.`;
 }).catch(()=>{$('upd').textContent='Failed to load data.'});
+fetch('capafy.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Capafy data unavailable');return r.json()}).then(d=>{
+ const rows=Object.entries(d.windows||{}), n=v=>v==null?'—':Number(v).toLocaleString('en-US');
+ if(!rows.length)throw new Error('Capafy data unavailable');
+ $('capafy-activity').innerHTML=`<div class="m">Last checked ${esc(d.observed_at)} · ${esc(d.source)} · Automatic updates not connected</div>`+rows.map(([key,w])=>`<div style="margin-top:8px"><b>${key==='last_7d'?'Last 7 days':key==='last_30d'?'Last 30 days':esc(key)}</b> <span class="m">${esc(w.start_utc?.slice(0,10))} – ${esc(w.end_utc?.slice(0,10))}</span><div>Views ${n(w.views)} · Paid orders ${n(w.paid_orders)} · Trial orders ${n(w.trial_orders)} · Attributed sales ${U(w.sales_usd==null?null:Number(w.sales_usd))}</div><div class="m">Impressions by source: ${(w.impressions||[]).map(i=>esc(i.name)+' '+n(i.count)).join(' · ')}</div></div>`).join('');
+ $('card-capafy').style.display='block';
+}).catch(()=>{$('capafy-activity').textContent='Capafy data unavailable'});
+
 </script>
 <script>(function(){try{var q=new URLSearchParams(location.search),p={t:'pageview',path:location.pathname.replace(/\/+$/,'')||'/'};['utm_source','utm_medium','utm_campaign','ref','ct'].forEach(function(k){var v=q.get(k);if(v)p[k]=v});var b=JSON.stringify(p);if(navigator.sendBeacon)navigator.sendBeacon('/.netlify/functions/hit',new Blob([b],{type:'application/json'}));else fetch('/.netlify/functions/hit',{method:'POST',body:b,keepalive:true,headers:{'Content-Type':'application/json'}})}catch(e){}})();</script>
 </body></html>
