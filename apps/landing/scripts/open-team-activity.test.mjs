@@ -32,6 +32,15 @@ function renderedCard(rendered, title) {
   return rendered.slice(start, next < 0 ? undefined : next);
 }
 
+test('canonical Open JSON keeps the verified ASC snapshot as the bootstrap for the scheduled collector', () => {
+  const analytics = data.app_store_analytics;
+  assert.equal(data.app_store_analytics_status, 'scheduled-snapshot');
+  assert.equal(analytics.source, 'App Store Connect Analytics Reports');
+  assert.equal(analytics.measured_at, '2026-11-05T13:23:55.343Z');
+  assert.deepEqual(analytics.apps.map(app => app.app_id).sort(), ['6755129214', '6757726663', '6759514159', '6762143790', '6759667221'].sort());
+  assert.ok(analytics.apps.every(app => app.daily.length > 0));
+});
+
 test('shows recorded team activity without treating unobserved work as zero completed tasks', async () => {
   const elements = new Map();
   const document = { getElementById(id) {
