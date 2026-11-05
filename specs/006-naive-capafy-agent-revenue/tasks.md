@@ -1,6 +1,8 @@
 # Naive Capafy Cloud Research — Remaining Tasks
 
-## Ordered execution
+> **終了した試作の履歴。ここに現行TODOはない。** Daisの最新要件は既製の永続VM／harness／browser／scheduler／vaultを組み合わせたLife Managerの実運転。現行TODOは `Daisuke134/life-manager` の `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md`「Naïve browser company」L01–L08だけを参照する。以下のT003等を再開しない。
+
+## Historical execution — superseded
 
 - [x] T001 Verify Naive model/tool/API capabilities and provision the scoped Capafy agent. Readback: `agt_y3zd3mkztbr079xc7xsg7wq5c7`, DeepSeek V4.1 Flash, deny-by-default, browser scoped to Capafy with writes, CAPTCHA, saved login, and proxy disabled.
 - [x] T002 Run bounded real cloud-browser sessions and verify session IDs, browser evidence, output sources, and spend. Version-5 session `ses_anq4yrf8wqt2paqkzbsbje4qe9` used `14318` micro-USD, returned two findings, and successfully called `ls` and `browser`; Computer ID `cmp_01a1a8f268e9758098a55b78f69a0abb`; Browser Session ID `brw_zqba5ngyntadqfm83g7bk14nfq`; browser event Computer ID empty; Computer `browser: null`. Browser-only comparison `ses_vm5zz6qehhvmv5tdqqdyhh2mjw` did not call `ls`, had no Computer ID, consumed `14076` micro-USD, and produced no structured output. Do not claim same-VM execution.
@@ -11,7 +13,7 @@
 - [ ] T007 Deploy from merged main, publish the endpoint where x402 buyers can find it, and verify one independent paid request, facilitator receipt, and matching Base transaction. Record any settled-charge/report-delivery failure and refund handling.
 - [ ] T008 Record and publish the demo only after T007 has a third-party revenue receipt; keep the recording free of secrets.
 
-## Current cursor
+## Historical cursor — inactive
 
 T003. Two successful bounded Naive sessions prove cloud-browser report generation, not sales. No independent buyer, settled payment, Base transaction, or revenue has been verified. The current endpoint implementation performs costly Naive work between `/verify` and `/settle`, contrary to PayAI's current exact-payment guidance, and has no durable recovery path for an ambiguous settlement. No production Vetta key is configured.
 

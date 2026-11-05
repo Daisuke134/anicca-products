@@ -1,8 +1,10 @@
 # Naive Capafy Cloud Research — Feature Specification
 
 **Feature Branch**: `feat/naive-capafy-agent-revenue-20261105`  
-**Status**: Draft  
+**Status**: Superseded / archival prototype — do not implement or deploy as Life Manager Cloud
 **Owner**: Life Manager / Naive cloud agent
+
+> このレポート販売試作はDaisの最新要件に合わないため終了する。現行の製品契約・部品選択・実行順・残TODOはLife Manager本体の `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md`「Naïve browser company」現行契約だけを参照する。調査根拠は同repoの `docs/research/2026-11-05-cloud-runtime-lego.md`。以下は履歴であり、独自x402 endpoint・snapshot cache・決済サービスの追加開発を再開しない。既存の他x402製品はこの終了判断の対象外。
 
 ## Goal
 
