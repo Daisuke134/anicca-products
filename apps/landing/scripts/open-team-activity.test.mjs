@@ -47,7 +47,7 @@ test('shows Capafy account observations with their collection time', async () =>
     if (!elements.has(id)) elements.set(id, { innerHTML: '', textContent: '', style: {} });
     return elements.get(id);
   } };
-  const capafy = { observed_at: '2026-11-05T05:55:02Z', windows: { last_7d: {
+  const capafy = { observed_at: new Date().toISOString(), windows: { last_7d: {
     views: 1864, paid_orders: 4, sales_usd: '39.96', impressions: [{ name: 'search', count: 12384 }]
   } } };
   const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
@@ -57,7 +57,8 @@ test('shows Capafy account observations with their collection time', async () =>
   const rendered = elements.get('capafy-activity').innerHTML;
   assert.match(rendered, /1,864/);
   assert.match(rendered, /12,384/);
-  assert.match(rendered, /2026-11-05T05:55:02Z/);
+  assert.match(rendered, /Hourly refresh · current/);
+  assert.match(rendered, new RegExp(new Date().toISOString().slice(0, 10)));
 });
 
 
