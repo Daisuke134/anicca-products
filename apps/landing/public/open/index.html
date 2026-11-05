@@ -21,6 +21,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 <div class="c"><h2>Observed payment notices this month</h2><table id="cost"></table></div></div></div>
 <div class="c" id="status" style="margin-top:12px"></div>
 <div class="c" style="margin-top:12px"><h2>Daily trend</h2><div id="dchange"></div><div class="zero" id="dtnote"></div></div>
+<div class="c" id="card-capafy" style="margin-top:12px;display:none"><h2>Capafy activity</h2><div id="capafy-activity"></div></div>
 <div class="c" id="card-team" style="margin-top:12px"><h2>Team activity</h2><table id="team-activity"></table></div>
 <div class="c" id="card-apps" style="margin-top:12px"><h2>Apps</h2><table id="apps"></table></div>
 <div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts</h2><table id="soc"></table></div>
@@ -74,6 +75,13 @@ fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
  $('rank').innerHTML=h}else{$('card-rank').style.display='none'}
  $('ft').innerHTML=`Sources: Coconala sales dashboard, RevenueCat, Stripe, Base chain (x402), Capafy order notices, Apify API, provider receipts, MUFG (Moneytree). FX: ECB reference rate per date. Updated ${esc(d.updated_at)}, rebuilt every 30 minutes.`;
 }).catch(()=>{$('upd').textContent='Failed to load data.'});
+fetch('capafy.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Capafy data unavailable');return r.json()}).then(d=>{
+ const rows=Object.entries(d.windows||{}), n=v=>v==null?'—':Number(v).toLocaleString('en-US');
+ if(!rows.length)return;
+ $('capafy-activity').innerHTML=`<div class="m">Observed ${esc(d.observed_at)} · ${esc(d.source)} · UTC</div>`+rows.map(([key,w])=>`<div style="margin-top:8px"><b>${key==='last_7d'?'Last 7 days':key==='last_30d'?'Last 30 days':esc(key)}</b> <span class="m">${esc(w.start_utc?.slice(0,10))} – ${esc(w.end_utc?.slice(0,10))}</span><div>Views ${n(w.views)} · Paid orders ${n(w.paid_orders)} · Trial orders ${n(w.trial_orders)} · Attributed sales ${U(w.sales_usd==null?null:Number(w.sales_usd))}</div><div class="m">Impressions by source: ${(w.impressions||[]).map(i=>esc(i.name)+' '+n(i.count)).join(' · ')}</div></div>`).join('');
+ $('card-capafy').style.display='block';
+}).catch(()=>{});
+
 </script>
 <script>(function(){try{var q=new URLSearchParams(location.search),p={t:'pageview',path:location.pathname.replace(/\/+$/,'')||'/'};['utm_source','utm_medium','utm_campaign','ref','ct'].forEach(function(k){var v=q.get(k);if(v)p[k]=v});var b=JSON.stringify(p);if(navigator.sendBeacon)navigator.sendBeacon('/.netlify/functions/hit',new Blob([b],{type:'application/json'}));else fetch('/.netlify/functions/hit',{method:'POST',body:b,keepalive:true,headers:{'Content-Type':'application/json'}})}catch(e){}})();</script>
 </body></html>
