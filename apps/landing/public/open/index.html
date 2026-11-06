@@ -80,7 +80,11 @@ const snapshotTime=stamp=>{
  return Date.parse(jst?`${jst[1]}T${jst[2]}:00+09:00`:stamp);
 };
 // Published fields must be scrubbed upstream too; never expand arbitrary row keys.
-const privatePublicText=value=>typeof value==='string'&&/\b(?:LINE|contacts?|credentials?|password|passkey|secret|token\s*[:=]|R[-/ ]?1|comedy)\b|お笑い|[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\+?\d[\s().-]*){9,}|(?:file:\/\/|\/(?:Users|home|workspace|private|tmp)\/|~\/)|anicca-ops/i.test(value);
+const privatePublicText=value=>{
+ if(typeof value!=='string')return false;
+ const structural=value.replace(/https?:\/\/\S+/gi,' ').replace(/\b20\d{2}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2})?)?\b/g,' ').replace(/\b[0-9a-f]{32,}\b/gi,' ');
+ return /\b(?:LINE|contacts?|credentials?|password|passkey|secret|token\s*[:=]|R[-/ ]?1|comedy)\b|お笑い|[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\+\d[\d\s().-]{8,}|\(\d{3}\)[\s.-]*\d{3}[\s.-]*\d{4})|(?:file:\/\/|\/(?:Users|home|workspace|private|tmp)\/|~\/)|anicca-ops/i.test(structural);
+};
 const publicCell=value=>value==null||value===''||privatePublicText(value)?'<span class="m">unknown</span>':esc(value);
 const publicRows=(rows,fields)=>Array.isArray(rows)?rows.filter(row=>row&&typeof row==='object'&&fields.every(key=>!privatePublicText(row[key]))):[];
 const renderPublicWork=rows=>{
@@ -317,10 +321,12 @@ if(typeof setInterval==='function')setInterval(loadCapafy,REFRESH_MS);
 const loadPortfolio=()=>Promise.all([
  fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Portfolio snapshot unavailable');return r.json()}),
  fetch('claims-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
- fetch('usage-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([d,claims,usageFile])=>{
+ fetch('usage-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+ fetch('company-todo.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([d,claims,usageFile,todoFile])=>{
  const businesses=publicRows(d.businesses,['name','status','metric','metric_value','next']),agents=Array.isArray(d.agents)?d.agents:[],loops=publicRows(d.loops,['loop','owner','host','schedule','status']),gaps=publicRows(d.metric_gaps,['item','why']);
- $('public-work').innerHTML=renderPublicWork(d.public_work);
+ const sidecarWork=todoFile&&Array.isArray(todoFile.public_work)&&todoFile.public_work.length?todoFile.public_work:null;
+ $('public-work').innerHTML=renderPublicWork(sidecarWork||d.public_work);
  $('usage-snapshot').innerHTML=renderUsageSnapshot(usageFile||d.usage_snapshot);
  $('claims-snapshot').innerHTML=renderClaimsSnapshot(claims||d.claims_snapshot);
 

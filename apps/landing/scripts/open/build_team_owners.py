@@ -181,6 +181,39 @@ def latest_for(owner: str, lines: list[tuple[str, str, datetime | None]], now: d
     }
 
 
+def join_roles(owners: list[dict], role_rows: list[dict] | None) -> list[dict]:
+    """Attach role notes by owner name.
+
+    A missing name is skipped. It must not become index -1, which would
+    overwrite the last owner (Reason Dots) and can fold X Operator into 参謀.
+    """
+    out = [dict(owner) for owner in owners]
+    positions: dict[str, int] = {}
+    for index, owner in enumerate(out):
+        name = owner.get("owner")
+        if not isinstance(name, str) or not name or name in positions or index < 0:
+            raise SystemExit(f"owner name missing or duplicated: {name!r}")
+        positions[name] = index
+    for row in role_rows or []:
+        if not isinstance(row, dict):
+            raise SystemExit("role join requires a named record, not a positional index")
+        name = str(row.get("owner") or row.get("agent") or "").strip()
+        index = positions.get(name)
+        if index is None or index < 0:
+            continue
+        if out[index]["owner"] != name:
+            raise SystemExit("refusing to retarget an owner through a negative or mismatched index")
+        out[index]["current_task"] = {"text": "unknown", "kind": "unknown"}
+        cadence = out[index].get("cadence") or {}
+        out[index]["cadence"] = {"text": cadence.get("text") or "unknown", "kind": "schedule"}
+    names = [owner["owner"] for owner in out]
+    if names.count("X Operator") != 1 or names.count("Reason Dots") != 1:
+        raise SystemExit("roster join dropped X Operator or Reason Dots")
+    if len(out) != len(owners) or out[-1]["owner"] != owners[-1]["owner"]:
+        raise SystemExit("roster join rewrote the last owner")
+    return out
+
+
 def build_owners(team_root: Path, now: datetime) -> list[dict]:
     lines = load_daily_lines(team_root)
     owners = []
@@ -196,7 +229,7 @@ def build_owners(team_root: Path, now: datetime) -> list[dict]:
             "current_task": current,
             "latest_outcome": outcome,
         })
-    return owners
+    return join_roles(owners, [])
 
 
 def merge_public(existing: dict, owners: list[dict], built_at: str) -> dict:

@@ -70,12 +70,47 @@ class OpenTeamFactsTest(unittest.TestCase):
         self.assertIn("1.9.6", by["Anicca Marketer"]["outcome"])
         self.assertIn("Review Failed", by["Fucker"]["outcome"])
         self.assertIn("CrowdWorks", by["Fucker"]["outcome"])  # access blocker remains; not a revenue claim
-        self.assertIn("missing demo source", by["dr eggbot"]["outcome"])
+        self.assertNotIn("missing demo source", by["dr eggbot"]["outcome"])
+        self.assertIn("src/cycle.ts", by["dr eggbot"]["outcome"])
+        self.assertIn("19.564708", by["dr eggbot"]["outcome"])
+        self.assertIn("a642df1374", by["Codex"]["outcome"])
+        self.assertIn("9283", by["Codex"]["outcome"])
+        self.assertIn("No live production", by["Codex"]["outcome"])
         self.assertIn("DRAFT_READY", by["Muse Relay"]["outcome"])
-        self.assertIn("0 rows", by["Reporter"]["outcome"])
+        self.assertIn("paid rows 0", by["Reporter"]["outcome"])
+        self.assertIn("83.78", by["Reporter"]["outcome"])
+        self.assertIn("not revenue", by["Reporter"]["outcome"])
         self.assertIn("affiliate comparison", by["Citation Scout"]["outcome"])
-        self.assertIn("YouTube Shorts", by["Muse"]["outcome"])
-        self.assertEqual(by["X Operator"]["last_event_at"], "2026-11-06 17:07 JST")
+        self.assertIn("not a direct verified publish", by["Muse"]["outcome"])
+        self.assertEqual(by["X Operator"]["last_event_at"], "2026-11-06 20:17 JST")
+        self.assertIn("80imp/2like/1reply", by["X Operator"]["outcome"])
+        self.assertIn("HTTP 403", by["X Operator"]["outcome"])
+        self.assertIn("publication 0", by["X Operator"]["outcome"])
+        self.assertNotEqual(by["X Operator"]["agent"], by["参謀"]["agent"])
+        self.assertIn("review_failed", by["Fucker"]["proof"])
+        self.assertIn("no hosted", by["Fucker"]["outcome"])
+
+    def test_existing_owners_board_is_not_replaced(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            board = {
+                "owners": [{"owner": name, "current_task": {"text": "unknown", "kind": "unknown"}, "cadence": {"kind": "schedule", "text": "schedule"}} for name in [
+                    "参謀", "Anicca Marketer", "Fucker", "dr eggbot", "Forensic Writing", "Muse Relay",
+                    "Muse（中継 bot）", "Codex（中継 bot）", "Dots（中継 bot）", "Pause", "Applications", "Reporter", "X Operator",
+                    "Codex CLI (Mac mini)", "Muse VM", "Reason Dots",
+                ]],
+                "loops": [{"loop": f"loop-{i}"} for i in range(92)],
+            }
+            dest_dir = Path(tmp) / "team"
+            dest_dir.mkdir()
+            dest = dest_dir / "team.json"
+            dest.write_text(json.dumps(board), encoding="utf-8")
+            before = dest.read_text(encoding="utf-8")
+            loaded = TF.write_team_json(tmp)
+            self.assertEqual(dest.read_text(encoding="utf-8"), before)
+            self.assertEqual(len(loaded["owners"]), 16)
+            self.assertEqual(len(loaded["loops"]), 92)
+            self.assertEqual(loaded["owners"][-1]["owner"], "Reason Dots")
+            self.assertIn("X Operator", [row["owner"] for row in loaded["owners"]])
 
 
 if __name__ == "__main__":
