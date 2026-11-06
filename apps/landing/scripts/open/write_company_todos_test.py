@@ -42,7 +42,8 @@ class NumberedOwnerTodoWriterTest(unittest.TestCase):
   self.assertIn('11/11 pass', by[20])
   self.assertIn('No live production delivery', by[20])
   self.assertIn('PR891', by[27])
-  self.assertIn('PR896 is open and not merged', by[27])
+  self.assertIn('44494e2f9ac66e2c55e2f78386f4e7b7f6b46628', by[27])
+  self.assertIn('not merged', by[27])
   self.assertNotIn(15, by)
   self.assertIn('57.5%', by[1])
   self.assertIn('49 enabled (job success/reduction not proven)', by[1])
@@ -58,10 +59,32 @@ class NumberedOwnerTodoWriterTest(unittest.TestCase):
   self.assertIn('NOT DEPLOYED', by[9])
   self.assertIn('HTTP 404', by[9])
   self.assertNotIn('five indexed', by[9])
-  self.assertIn('NOT LIVE', by[25])
-  self.assertIn('21.1', by[25])
-  self.assertIn('16:26:52 GMT', by[25])
-  self.assertIn('21.1', by[27])
+  self.assertIn('SOURCE ON MAIN, LIVE PENDING', by[25])
+  self.assertIn('57.5', by[25])
+  self.assertIn('16:57:33 GMT', by[25])
+  self.assertIn('metrics.json usage_snapshot', by[25])
+  self.assertIn('in_progress', by[27])
+  self.assertIn('TOKEN_MEASUREMENT.csv is absent', by[30])
+ def test_replace_evidence_keeps_owner_and_order(self):
+  import importlib.util
+  spec=importlib.util.spec_from_file_location('write_company_todos', SCRIPT)
+  mod=importlib.util.module_from_spec(spec)
+  spec.loader.exec_module(mod)
+  source='Updated: 2026-11-06 (America/Los_Angeles)\n| 1 | a | Owner A | old |\n| 2 | b | Owner B | keep |\n'
+  updated=mod.replace_evidence(source, 1, 'Owner A', 'new evidence')
+  self.assertIn('| 1 | a | Owner A | new evidence |', updated)
+  self.assertIn('| 2 | b | Owner B | keep |', updated)
+  with self.assertRaises(SystemExit):
+   mod.replace_evidence(source, 2, 'Owner A', 'stolen')
+ def test_repo_usage_path_matches_metrics(self):
+  root=Path(__file__).resolve().parents[4]/'apps/landing/public/open'
+  usage=json.loads((root/'usage-snapshot.json').read_text())
+  metrics=json.loads((root/'metrics.json').read_text())
+  todo=json.loads((root/'company-todo.json').read_text())
+  self.assertEqual(usage['weekly_usage_percent'], metrics['usage_snapshot']['weekly_usage_percent'])
+  self.assertEqual(usage['measured_at'], metrics['usage_snapshot']['measured_at'])
+  self.assertEqual(usage['weekly_usage_percent'], todo['usage_snapshot']['weekly_usage_percent'])
+  self.assertEqual(usage['measured_at'], todo['usage_snapshot']['measured_at'])
  def test_finance_refresh_cannot_drop_projection_or_rewrite_finance(self):
   source=(Path(__file__).resolve().parents[4]/'COMPANY_TODO.md').read_text()
   with tempfile.TemporaryDirectory() as temp:
