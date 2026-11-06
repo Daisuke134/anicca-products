@@ -146,13 +146,13 @@ PUBLIC_FACTS = {
         source="DAILY-LOG/2026-11-06.md",
     ),
     "SEO Refresher": dict(
-        task="#9 existing-page refresh artifact (no deploy claimed)",
+        task="#9 separate the open /en PR from unpushed page claims",
         cadence="request-based",
-        last_event_at="2026-11-06 17:00 JST",
-        outcome="Five indexed low-click pages selected by impressions; GSC 2026-10-08–11-04 site 294 impressions / 6 clicks. Proposals are unverified hypotheses, not proven winners; no after-results and no deployment claimed in this snapshot.",
-        proof="marketing/seo/refresh-2026-11-06.md",
+        last_event_at="2026-11-06 08:26 PT",
+        outcome="NOT DEPLOYED. The open change is life-manager PR 9287 head 6f86b325, /en source only, still OPEN. anicca-products branch cursor/seo-refresh-20261106-2882 is HTTP 404 and commit b2a35e78 is HTTP 422. Production HTTP 200 titles are unchanged. No five-page deployment.",
+        proof="https://github.com/Daisuke134/life-manager/pull/9287",
         status="observed",
-        source="COMPANY_TODO.md #9",
+        source="GitHub PR 9287 file list plus production title curl",
     ),
     "Muse Relay": dict(
         task="TODO #8: next approved winner adaptation",
@@ -193,9 +193,9 @@ PUBLIC_FACTS = {
     "参謀": dict(
         task="Coordination / verification only — COMPANY_TODO + /open owner facts",
         cadence="two weekday TODO syncs; LINE watch every 4h (label only, no content); revenue paid-receipts daily",
-        last_event_at="2026-11-06 00:20 PT",
-        outcome="Canonical TODO + public owner facts update. ENABLED: weekday TODO sync, LINE label-only, daily revenue receipts (last FAILURE 2026-11-05 14:40 PT). Naive Grok routine PAUSED; other listed 参謀 routines paused. External Codex Naive daily 14:00 JST config only — first run unproven. Schedule ≠ actual execution.",
-        proof="COMPANY_TODO.md runtime + #1/#3/#25/#27 (public)",
+        last_event_at="2026-11-06 08:26 PT",
+        outcome="49 routines remain enabled (finished one-off tax/refund excluded). Schedule does not prove success. Historical failures still stand: revenue receipts FAILURE 2026-11-05 14:40 PT, and the 2026-11-06 00:00 PT wake/schedule call failed. One existing routine was rewritten as x-money-tactics-scout, not a 51st: daily around 07:30 PT, only new public posts from @ErnestoSOFTWARE and @maubaron, one mobile-growth candidate with its exact source or silence. As of 2026-11-06 08:22 PT the connected @selawmqt connector created private list Mobile Growth Watch id 2118740781213053290; both members returned is_member true. This PR did not call X. The list and schedule are not revenue and not measured savings. Latest supported shared-plan reading remains 57.5% at 08:16 PT.",
+        proof="COMPANY_TODO.md runtime + #1/#25/#27/#30 (public)",
         status="observed",
         source="COMPANY_TODO.md + founder cadence",
     ),
@@ -229,11 +229,11 @@ RECORDED_LOOPS = [
     ),
     dict(
         owner="参謀",
-        loop="Live team board / hourly-2h team loop / Marine / Naive Grok routine (参謀-side)",
-        schedule="paused",
-        state="paused",
+        loop="49 periodic routines, including rewritten x-money-tactics-scout",
+        schedule="49 enabled; scout daily around 07:30 PT",
+        state="enabled",
         proof_of_run=False,
-        note="Explicitly paused including Naive Grok routine; schedule ≠ execution",
+        note="Schedule does not prove success. Historical failures still stand. Not a 51st routine. Not revenue or measured savings.",
     ),
     dict(
         owner="Codex",
@@ -312,8 +312,27 @@ def build_team_facts(now: dt.datetime | None = None) -> dict:
     return out
 
 
+ENABLED_ROUTINE_COUNT = 49
+STALE_PAUSE_OVERWRITE = (
+    "other listed 参謀 routines paused",
+    "other 参謀 routines paused",
+    "all daily routines are stopped",
+    "Naive Grok routine PAUSED",
+)
+
+
 def validate_public_team(data: dict) -> None:
     fail = []
+    blob = json.dumps(data, ensure_ascii=False)
+    for phrase in STALE_PAUSE_OVERWRITE:
+        if phrase in blob:
+            fail.append(f"stale paused fact would overwrite {ENABLED_ROUTINE_COUNT} enabled: {phrase}")
+    sanbo = next((r for r in data.get("current_status") or [] if r.get("agent") == "参謀"), None)
+    if not sanbo or f"{ENABLED_ROUTINE_COUNT} routines remain enabled" not in str(sanbo.get("outcome") or ""):
+        fail.append(f"facts fallback missing canonical {ENABLED_ROUTINE_COUNT} enabled setting")
+    for loop in data.get("loops") or []:
+        if loop.get("owner") == "参謀" and loop.get("state") == "paused":
+            fail.append("stale paused loop would overwrite the 49 enabled setting")
     if "right_now" in data:
         fail.append("right_now key forbidden (stale-implies-active)")
     agents = [r.get("agent") for r in data.get("current_status") or []]

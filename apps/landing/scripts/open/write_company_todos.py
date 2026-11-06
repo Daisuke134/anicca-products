@@ -63,7 +63,7 @@ def load_usage(path):
     usage = json.loads(Path(path).read_text(encoding='utf-8'))
     if not 0 <= usage['weekly_usage_percent'] <= 100:
         raise SystemExit('weekly_usage_percent out of range')
-    for field in ['measured_at', 'timezone', 'weekly_usage_percent', 'grok_bot_share_percent', 'reset_at', 'plan', 'source', 'bots']:
+    for field in ['measured_at', 'timezone', 'weekly_usage_percent', 'reset_at', 'plan', 'source', 'bots']:
         if field not in usage:
             raise SystemExit(f'usage record missing {field}')
     return usage
