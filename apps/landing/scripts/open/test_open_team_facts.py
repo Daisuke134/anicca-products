@@ -89,6 +89,24 @@ class OpenTeamFactsTest(unittest.TestCase):
         self.assertNotEqual(by["X Operator"]["agent"], by["参謀"]["agent"])
         self.assertIn("review_failed", by["Fucker"]["proof"])
         self.assertIn("no hosted", by["Fucker"]["outcome"])
+        self.assertIn("49 routines remain enabled", by["参謀"]["outcome"])
+        self.assertIn("2118740781213053290", by["参謀"]["outcome"])
+        self.assertIn("not revenue and not measured savings", by["参謀"]["outcome"])
+        self.assertIn("x-money-tactics-scout", by["参謀"]["outcome"])
+        self.assertNotIn("routines paused", by["参謀"]["outcome"])
+        self.assertIn("PR 9287", by["SEO Refresher"]["outcome"])
+        self.assertIn("NOT DEPLOYED", by["SEO Refresher"]["outcome"])
+        self.assertNotIn("Five indexed", by["SEO Refresher"]["outcome"])
+        paused = [loop for loop in data["loops"] if loop.get("owner") == "参謀" and loop.get("state") == "paused"]
+        self.assertEqual(paused, [])
+
+    def test_stale_paused_facts_cannot_overwrite_enabled_count(self):
+        data = TF.build_team_facts()
+        bad = json.loads(json.dumps(data))
+        sanbo = next(r for r in bad["current_status"] if r["agent"] == "参謀")
+        sanbo["outcome"] = "other 参謀 routines paused"
+        with self.assertRaises(SystemExit):
+            TF.validate_public_team(bad)
 
     def test_existing_owners_board_is_not_replaced(self):
         with tempfile.TemporaryDirectory() as tmp:

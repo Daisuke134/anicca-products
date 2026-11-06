@@ -110923,7 +110923,7 @@
    "action": "SEO・GEO調査と記事公開を勝者から継続する。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 9",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "IN PROGRESS: 2026-11-06 existing-page edit artifact ready; five indexed low-click pages selected by impressions. GSC 2026-10-08–11-04: site 294 impressions / 6 clicks; proposals are unverified hypotheses, not proven winners and no after-results yet. Existing pages only; no deployment. Codex to apply and date the 14-day comparison. Team path: marketing/seo/refresh-2026-11-06.md.",
+   "last_evidence_public": "NOT DEPLOYED. Open change is only life-manager PR 9287 head 6f86b325 branch cursor/seo-refresh-20261106-2882: pages/en.html, route-manifest.json, publish-overlay.mjs, two tests, BOARD.md. /en source, still OPEN (https://github.com/Daisuke134/life-manager/pull/9287). anicca-products same branch HTTP 404; commit b2a35e78 HTTP 422, so the other three local pages are not on GitHub. marketing/seo/refresh-2026-11-06.md is absent here. Production HTTP 200 titles unchanged. No deployment.",
    "blocker_public": "Priority 9: no DONE proof"
   },
   {
@@ -111058,7 +111058,7 @@
    "action": "公開 /open にcompany TODO・実測usage・silent failuresを表示。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 25",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "ACTIVE: existing writer exports 29 public priority rows (private #15 excluded). Production must be independently curl-verified after deploy; no live real-time claim. Usage baseline remains existing snapshot 21.1 / grok 21 at 11/5 23:00 PT.",
+   "last_evidence_public": "NOT LIVE. Curl Date Fri, 06 Nov 2026 16:26:52 GMT (08:26 PT): https://aniccaai.com/open/company-todo.json and usage-snapshot.json HTTP 200 still show weekly 21.1 at 2026-11-05T23:00:00-08:00, and production #1 still says other 参謀 routines paused. This branch generates 29 rows, 57.5% at 08:16 PT, and 49 enabled. An open PR is not a live update.",
    "blocker_public": "Priority 25: no DONE proof"
   },
   {
@@ -111076,7 +111076,7 @@
    "action": "GitHub更新とCIの実証を公開、本人merge確認後に公開。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 27",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "PR887, PR888, and PR891 are merged on main. This follow-up corrects stale evidence and is not merged yet. Independent production curl after deploy is still required. No live outcome before that deploy.",
+   "last_evidence_public": "PR887, PR888, and PR891 are merged on main. PR896 is open and not merged. Curl Date Fri, 06 Nov 2026 16:26:52 GMT: production /open/company-todo.json and usage-snapshot.json HTTP 200 still serve weekly 21.1 at 2026-11-05T23:00:00-08:00. Do not infer a live update from this open PR.",
    "blocker_public": "Priority 27: no DONE proof"
   },
   {
@@ -111240,6 +111240,6 @@
   "declared_updated": "2026-11-06",
   "timezone": "America/Los_Angeles",
   "rows": 29,
-  "source_updated_at": "2026-11-06T16:20:04.962671+00:00"
+  "source_updated_at": "2026-11-06T16:28:04.712842+00:00"
  }
 }
