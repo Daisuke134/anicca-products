@@ -24,6 +24,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 .portfolio-counts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}.portfolio-count{padding:8px;background:#f8f8f9;border-radius:8px}.portfolio-count strong{display:block;font-size:17px}.portfolio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}.portfolio-item{min-width:0;padding:10px;border:1px solid #eee;border-radius:9px}.portfolio-item h3{margin:0 0 5px;font-size:13px}.portfolio-item .m{font-size:11px;line-height:1.45}.portfolio-table-wrap{max-width:100%;overflow-x:auto}.portfolio-table{min-width:620px}.portfolio-gaps{padding-left:20px}.portfolio-gaps li{margin:8px 0}
 .rc-project{margin-top:12px;padding-top:10px;border-top:1px solid #eee}.rc-project h3{font-size:13px;margin:0 0 4px}.rc-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin-top:8px}.rc-metric{padding:8px;background:#f8f8f9;border-radius:8px;min-width:0}.rc-metric strong{display:block;font-size:15px;font-variant-numeric:tabular-nums}.rc-metric .m{font-size:11px}.rc-details{margin-top:7px}.rc-table-wrap{max-width:100%;overflow-x:auto}.rc-table{min-width:560px}
 .post-metrics-wrap{max-width:100%;overflow-x:auto}.post-metrics-table{min-width:760px;margin-top:8px}.post-metrics-table td strong{display:block;font-variant-numeric:tabular-nums}.post-metrics-table td .m{display:block;font-size:10px;margin-top:2px}
+.stripe-metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:10px}.stripe-metrics-block{min-width:0;padding:10px;border:1px solid #eee;border-radius:9px}.stripe-metrics-block h3{font-size:12px;margin:0 0 6px}.stripe-metrics-wrap{max-width:100%;overflow-x:auto}.stripe-metrics-table{min-width:520px}.stripe-metrics-block .m{font-size:11px;line-height:1.45}.stripe-metrics-daily{margin-top:10px}
 @media(max-width:900px){.hm{display:none}.bl{font-size:8px}.bar span{font-size:8px!important}.k{grid-template-columns:repeat(2,1fr)}.g{grid-template-columns:1fr}.c .v{font-size:19px}}
 @media(max-width:600px){.capafy-overview-grid,.portfolio-counts{grid-template-columns:repeat(2,minmax(0,1fr))}.portfolio-grid{grid-template-columns:1fr}#plat{display:block;table-layout:fixed}#plat tr:first-child,#asc-analytics table.asc-apps tr:first-child{display:none}#plat tr:not(:first-child){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 12px;padding:10px 0;border-bottom:1px solid #eee}#plat td,#asc-analytics table.asc-apps td{display:block;min-width:0;padding:0;border:0;text-align:left!important;overflow-wrap:anywhere}#plat td:first-child{display:none}#plat td:nth-child(2),#plat td:last-child,#asc-analytics table.asc-apps td:first-child{grid-column:1/-1}#plat .mlabel,#asc-analytics table.asc-apps .mlabel{display:block;color:#888;font-size:10px;margin-bottom:2px}#plat .pnote{margin-top:4px}#plat .pnote summary{cursor:pointer}#asc-analytics table.asc-apps{width:100%;table-layout:fixed}#asc-analytics table.asc-apps tr:not(:first-child){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;border:1px solid #eee;border-radius:10px;margin:8px 0}#asc-analytics table.asc-apps td:not(:first-child) .mlabel{display:block}}
 @media(max-width:600px){.portfolio-table-wrap{overflow:visible}.portfolio-table{min-width:0;table-layout:fixed}.portfolio-table thead{display:none}.portfolio-table tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px;padding:10px;border:1px solid #eee;border-radius:10px;margin:8px 0}.portfolio-table tbody td{display:block;min-width:0;padding:0;border:0;overflow-wrap:anywhere}.portfolio-table tbody td::before{content:attr(data-label);display:block;color:#888;font-size:10px;margin-bottom:2px}.portfolio-table tbody td:first-child,.portfolio-table tbody td[colspan]{grid-column:1/-1}.portfolio-table tbody td.r{text-align:left}}
@@ -51,6 +52,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 <div class="c" id="card-capafy" style="margin-top:12px"><h2>Capafy activity</h2><div id="capafy-activity">Loading…</div></div>
 <div class="c" id="card-post-metrics" style="margin-top:12px"><h2>Social post metrics</h2><div id="post-metrics">Loading…</div></div>
 <div class="c" id="card-revenuecat" style="margin-top:12px"><h2>RevenueCat app metrics</h2><div id="revenuecat-charts">Loading…</div></div>
+<div class="c" id="card-stripe-metrics" style="margin-top:12px"><h2>Stripe account metrics</h2><div id="stripe-metrics">Loading…</div></div>
 <div class="c" id="card-team" style="margin-top:12px"><h2>Team activity</h2><table id="team-activity"></table></div>
 <div class="c" id="card-portfolio" style="margin-top:12px"><h2>Business & loop snapshot</h2><div class="m" id="portfolio-snapshot">Loading…</div><div class="portfolio-counts" id="portfolio-summary"></div><details><summary>Business portfolio</summary><div class="portfolio-grid" id="portfolio-businesses"></div></details><details><summary>Operating loops</summary><div class="portfolio-table-wrap"><table class="portfolio-table" id="portfolio-loops"></table></div></details><details><summary>Metric gaps</summary><ul class="portfolio-gaps" id="portfolio-gaps"></ul></details></div>
 <div class="c" id="card-apps" style="margin-top:12px"><h2>Apps</h2><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div></div>
@@ -66,6 +68,50 @@ const Y=v=>v==null?'':' <span class="m">(¥'+(v<0?'−':'')+Math.abs(v).toLocale
 const COL=['#4f46e5','#0ea5e9','#10b981','#f59e0b','#ef4444','#8b5cf6'];
 const REFRESH_MS=15*60*1000;
 const NN=v=>v==null?'—':Number(v).toLocaleString('en-US');
+const stripeMoney=(minor,currency)=>{
+ const code=String(currency||'').toUpperCase(),amount=Number(minor);
+ if(!/^[A-Z]{3}$/.test(code)||!Number.isSafeInteger(amount))return 'no data';
+ let displayDigits=2;
+ try{displayDigits=new Intl.NumberFormat('en-US',{style:'currency',currency:code}).resolvedOptions().maximumFractionDigits}catch(e){return `${code} ${NN(amount)} minor units`}
+ const apiDigits=code==='ISK'||code==='UGX'?2:displayDigits;
+ return new Intl.NumberFormat('en-US',{style:'currency',currency:code,minimumFractionDigits:displayDigits,maximumFractionDigits:displayDigits}).format(amount/10**apiDigits);
+};
+const renderStripeMetrics=feed=>{
+ if(!feed)return '<div class="m">Stripe source has not been collected; values are unknown.</div>';
+ const status=feed.status||'unknown',window=feed.window||{},coverage=feed.coverage||{};
+ const stamp=esc(feed.observed_at||'unknown'),period=window.start&&window.end?`${esc(window.start)} – ${esc(window.end)} UTC`:'90-day window unavailable';
+ if(status==='unavailable'){
+  const message=feed.reason==='restricted_read_key_missing'||feed.reason==='restricted_live_key_required'?'A restricted live key is not configured. Stripe values are unknown.':'Stripe source is unavailable. Stripe values are unknown.';
+  return `<div class="m">${esc(feed.source||'Stripe API')} · unavailable · measured ${stamp}</div><div style="margin-top:6px">${message}</div>`;
+ }
+ const balance=feed.balance||{},subscriptions=feed.subscriptions||{},transactions=feed.balance_transactions||{},refunds=feed.refunds||{},payouts=feed.payouts||{};
+ const index=rows=>new Map((rows?.currencies||[]).map(row=>[row.currency,row]));
+ const balances=index(balance),subs=index(subscriptions),txs=index(transactions),refundMap=index(refunds),payoutMap=index(payouts);
+ const currencySet=new Set([...balances.keys(),...subs.keys(),...txs.keys(),...refundMap.keys(),...payoutMap.keys()]);
+ const currencies=[...currencySet].sort();
+ const endpointStatus=value=>value==='observed'?'observed':value==='observed_empty'?'observed, no rows':value==='partial'?'partial coverage':'unavailable';
+ const metricMoney=(source,row,key,currency)=>{
+  const value=row?.[key];
+  if(value!=null)return stripeMoney(value,currency);
+  return ['observed','observed_empty'].includes(source?.status)?stripeMoney(0,currency):'<span class="m">unknown</span>';
+ };
+ const metricCount=(source,row,key)=>{
+  const value=row?.[key];
+  if(!source?.status||source.status==='unavailable')return '<span class="m">unknown</span>';
+  if(value!=null)return NN(value);
+  return ['observed','observed_empty'].includes(source?.status)?'0':'<span class="m">unknown</span>';
+ };
+ const panels=currencies.map(currency=>{
+  const b=balances.get(currency),s=subs.get(currency),t=txs.get(currency),r=refundMap.get(currency),p=payoutMap.get(currency);
+  const refundRows=r?.statuses||[],payoutRows=p?.statuses||[];
+  const statusRows=(rows,source)=>rows.length?rows.map(row=>`${esc(row.status)} ${NN(row.count)} · ${stripeMoney(row.amount_minor,currency)}`).join(' · '):(['observed','observed_empty'].includes(source?.status)?'0 rows':'<span class="m">unknown</span>');
+  return `<section class="stripe-metrics-block"><h3>${esc(currency)}</h3><div>Balance · available ${metricMoney(balance,b,'available_minor',currency)} · pending ${metricMoney(balance,b,'pending_minor',currency)}</div><div>Subscriptions · ${metricCount({status:coverage.subscriptions_active?.status},s,'active')} active · ${metricCount({status:coverage.subscriptions_trialing?.status},s,'trialing')} trialing</div><div>90-day balance activity · ${metricMoney(transactions,t,'amount_minor',currency)} amount · ${metricMoney(transactions,t,'fee_minor',currency)} fees · ${metricMoney(transactions,t,'net_minor',currency)} net · ${metricCount(transactions,t,'count')} transactions</div><div>Refunds · ${statusRows(refundRows,refunds)}</div><div>Payouts · ${statusRows(payoutRows,payouts)}</div></section>`;
+ }).join('');
+ const coverageRows=[['balance',balance.status],['active subscriptions',coverage.subscriptions_active?.status],['trialing subscriptions',coverage.subscriptions_trialing?.status],['balance transactions',transactions.status],['refunds',refunds.status],['payouts',payouts.status]].map(([label,value])=>`<span>${esc(label)} · ${esc(endpointStatus(value))}</span>`).join(' · ');
+ const daily=(transactions.daily||[]).map(row=>`<tr><td>${esc(row.date)}</td><td>${esc(row.currency)}</td><td>${esc(row.reporting_category)}</td><td>${esc(row.type)}</td><td class="r">${NN(row.count)}</td><td class="r">${stripeMoney(row.amount_minor,row.currency)}</td><td class="r">${stripeMoney(row.fee_minor,row.currency)}</td><td class="r">${stripeMoney(row.net_minor,row.currency)}</td></tr>`).join('');
+ const dailyDetails=daily?`<details class="stripe-metrics-daily"><summary>Daily balance activity (${(transactions.daily||[]).length} grouped rows)</summary><div class="stripe-metrics-wrap"><table class="stripe-metrics-table"><thead><tr><th>Date UTC</th><th>Currency</th><th>Category</th><th>Type</th><th class="r">Transactions</th><th class="r">Amount</th><th class="r">Fees</th><th class="r">Net</th></tr></thead><tbody>${daily}</tbody></table></div></details>`:'';
+ return `<div class="m">${esc(feed.source||'Stripe API')} · ${esc(status)} · measured ${stamp} · ${period}</div><div class="stripe-metrics-grid">${panels||'<div class="stripe-metrics-block m">No currency rows returned.</div>'}</div><div class="m" style="margin-top:8px">Coverage · ${coverageRows}</div>${dailyDetails}<div class="m" style="margin-top:8px">Amounts are shown by currency using Stripe's minor-unit rules; currencies are not combined. Balance activity and payout/refund lists are separate provider views.</div>`;
+};
 const spark=(vals,color)=>{const vs=vals.filter(v=>v!=null);if(vs.length<2)return '';const w=132,h=36,mx=Math.max(...vs),mn=Math.min(...vs),rg=(mx-mn)||1,X=i=>(i/(vals.length-1)*w).toFixed(1),Yv=v=>(h-4-((v-mn)/rg)*(h-8)).toFixed(1);const segs=[];let cur=[];vals.forEach((v,i)=>{if(v==null){if(cur.length>1)segs.push(cur);cur=[]}else cur.push(X(i)+','+Yv(v))});if(cur.length>1)segs.push(cur);if(!segs.length)return '';const fill=segs.length===1?`<polygon points="0,${h} ${segs[0].join(' ')} ${w},${h}" fill="${color}" opacity="0.10" stroke="none"/>`:'';return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${fill}${segs.map(s=>`<polyline points="${s.join(' ')}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linejoin="round"/>`).join('')}</svg>`};
 const chip=(txt,dir)=>`<span class="delta ${dir}">${txt}</span>`;
 const provChip=(p,label)=>{if(p==null||!isFinite(p))return '';const dir=p>0.05?'up':p<-0.05?'down':'flat';return chip(`${p>0.05?'▲':p<-0.05?'▼':'■'} ${Math.abs(p).toFixed(1)}% ${label}`,dir)};
@@ -199,6 +245,7 @@ const loadPortfolio=()=>fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)th
  $('portfolio-loops').innerHTML='<thead><tr><th>Loop</th><th>Owner</th><th>Host</th><th>Schedule</th><th class="r">Runs/day</th><th>Status as of snapshot</th></tr></thead><tbody>'+ (loops.length?loops.map(l=>`<tr><td data-label="Loop">${esc(l.loop||'—')}</td><td data-label="Owner">${show(l.owner)}</td><td data-label="Host">${show(l.host)}</td><td data-label="Schedule">${show(l.schedule)}</td><td class="r" data-label="Runs per day">${show(l.runs_per_day)}</td><td data-label="Status as of snapshot">${show(l.status)}</td></tr>`).join(''):'<tr><td colspan="6" class="m">No loop rows in this snapshot.</td></tr>')+'</tbody>';
  $('portfolio-gaps').innerHTML=gaps.length?gaps.map(g=>`<li><b>${esc(g.item||'Unspecified gap')}</b><div class="m">${show(g.why)}</div></li>`).join(''):'<li class="m">No metric gaps listed in this snapshot.</li>';
  $('post-metrics').innerHTML=renderPostMetrics(d.post_metrics);
+ $('stripe-metrics').innerHTML=renderStripeMetrics(d.stripe_metrics);
  const rc=d.revenuecat_charts;
  if(!rc||!Array.isArray(rc.projects)){$('revenuecat-charts').innerHTML='<div class="m">RevenueCat chart source has not been collected.</div>';return}
  const rcValue=(v,unit)=>v==null?'<span class="m">not reported</span>':unit==='$'?U(Number(v)):unit==='%'?`${Number(v).toLocaleString('en-US')}%`:Number(v).toLocaleString('en-US');
