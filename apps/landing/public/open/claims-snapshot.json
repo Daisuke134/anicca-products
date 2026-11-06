@@ -1,0 +1,9 @@
+{
+  "generated_at": null,
+  "refresh_hint_seconds": 900,
+  "note": "public snapshot not application permission; claim API not hosted on aniccaai.com/open yet",
+  "claim_api": "python apps/landing/scripts/open/claim_board.py (repo-local; RED until a runtime host is attached)",
+  "tasks": [],
+  "alerts": [],
+  "hosting": "RED: static /open serves this file read-only; atomic claims require the SQLite claim_board.py process"
+}

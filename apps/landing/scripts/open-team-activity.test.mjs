@@ -475,7 +475,9 @@ test('renders the timestamped business and loop snapshot without converting miss
   fixture.businesses[0].revenue_mtd = null;
   fixture.businesses[0].mrr = null;
   fixture.loops = [structuredClone(portfolioSnapshot.loops[0])];
-  fixture.metric_gaps = [structuredClone(portfolioSnapshot.metric_gaps[0])];
+  // Privacy scrub removes personal/private gap rows from the public count.
+  // Use a sanitized private-looking fixture so CI/local both expect 0, not a misreported production 1.
+  fixture.metric_gaps = [{ item: 'LINE contacts', why: 'personal private track' }];
 
   const urls = [];
   const code = html.match(/<script>([\s\S]*?)<\/script>/)[1];
@@ -511,7 +513,7 @@ test('renders the timestamped business and loop snapshot without converting miss
   const summary = elements.get('portfolio-summary').innerHTML;
   assert.match(summary, /1 business/);
   assert.match(summary, /1 loop/);
-  assert.match(summary, /1 metric gap/);
+  assert.match(summary, /0 metric gaps/);
   assert.match(elements.get('portfolio-businesses').innerHTML, /Capafy agents/);
   assert.match(elements.get('portfolio-businesses').innerHTML, /no data/);
   assert.doesNotMatch(elements.get('portfolio-businesses').innerHTML, /\$0\.00/);
@@ -520,7 +522,8 @@ test('renders the timestamped business and loop snapshot without converting miss
   for (const label of ['Loop', 'Owner', 'Host', 'Schedule', 'Runs per day', 'Status as of snapshot']) {
     assert.match(loopTable, new RegExp(`data-label="${label}"`));
   }
-  assert.match(elements.get('portfolio-gaps').innerHTML, /Capafy renewals/);
+  assert.match(elements.get('portfolio-gaps').innerHTML, /No metric gaps listed in this snapshot/);
+  assert.doesNotMatch(elements.get('portfolio-gaps').innerHTML, /LINE|contacts|Capafy renewals/);
 
   const missingSource = structuredClone(fixture);
   delete missingSource.source_updated_at;

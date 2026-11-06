@@ -91,3 +91,11 @@ and explicit remaining published-data limitations; it never means deployed.
 
 Current cursor: push verified follow-up to PR #887; screenshot remains unverified
 under the concrete browser/approval constraints above.
+
+## Atomic claims (follow-up)
+
+- Service: `apps/landing/scripts/open/claim_board.py` (SQLite, expected_revision + lease token).
+- Tests: `apps/landing/scripts/open/claim_board_test.py` (race, duplicate lease, expiry, stale worker, silent dedupe).
+- Public view: `apps/landing/public/open/claims-snapshot.json` + `/open/` Task claims section.
+- **Hosting RED:** static Netlify `/open` cannot run the claim writer. Snapshot file is read-only until a repo-owned runtime hosts `claim_board.py`. Do not treat empty/red claim API as operational success.
+- Bots claim only via CLI/tool; lease tokens never published.

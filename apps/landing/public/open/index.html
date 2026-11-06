@@ -54,7 +54,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 <div class="c" id="card-revenuecat" style="margin-top:12px"><h2>RevenueCat app metrics</h2><div id="revenuecat-charts">Loading…</div></div>
 <div class="c" id="card-stripe-metrics" style="margin-top:12px"><h2>Stripe account metrics</h2><div id="stripe-metrics">Loading…</div></div>
 <div class="c" id="card-team" style="margin-top:12px"><h2>Team activity</h2><table id="team-activity"></table></div>
-<div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO</h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div><h2>Shared targets</h2><div id="public-work" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO</h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div><h2>Shared targets</h2><div id="public-work" aria-live="polite">Loading…</div><h2>Task claims</h2><div class="m">Public snapshot not application permission. Claim via claim_board.py only; lease tokens never appear here. Snapshot refresh follows the same 15-minute JSON reload.</div><div id="claims-snapshot" aria-live="polite">Loading…</div></div>
 <div class="c" id="card-usage-snapshot" style="margin-top:12px"><h2>Aggregate usage snapshot</h2><div id="usage-snapshot" aria-live="polite">Loading…</div></div>
 <div class="c" id="card-portfolio" style="margin-top:12px"><h2>Business & loop snapshot</h2><div class="m" id="portfolio-snapshot">Loading…</div><div class="portfolio-counts" id="portfolio-summary"></div><details><summary>Business portfolio</summary><div class="portfolio-grid" id="portfolio-businesses"></div></details><details><summary>Operating loops</summary><div class="portfolio-table-wrap"><table class="portfolio-table" id="portfolio-loops"></table></div></details><details><summary>Metric gaps</summary><ul class="portfolio-gaps" id="portfolio-gaps"></ul></details></div>
 <div class="c" id="card-apps" style="margin-top:12px"><h2>Apps</h2><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div></div>
@@ -95,6 +95,32 @@ const renderUsageSnapshot=feed=>{
  const stamp=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$/.test(value)&&Number.isFinite(Date.parse(value))?esc(value):'unknown';
  const bots=publicRows(feed.bots,['owner']);
  return `${feed.fixture_only===true?'<p class="status-red">Test fixture only — not current published usage.</p>':''}<p>Plan ${publicCell(feed.plan)} · ${publicCell(feed.source)} · measured <time>${stamp(feed.measured_at)}</time> · ${publicCell(feed.timezone)}</p><p>Weekly usage limit: ${percent(feed.weekly_usage_percent)} used (shared with other plan apps)</p><p>Grok Bot share of total usage: ${percent(feed.grok_bot_share_percent)}</p><p>Within Grok Bot: ${bots.length?bots.map(bot=>`${publicCell(bot.owner)} ${percent(bot.percent)}`).join(' · '):'unknown'}</p><p>Reset: <time>${stamp(feed.reset_at)}</time> · ${publicCell(feed.timezone)} local</p><div class="m">Measured snapshot; no current usage is inferred between measurements.</div>`;
+};
+const renderClaimsSnapshot=feed=>{
+ if(!feed||typeof feed!=='object'||Array.isArray(feed))return '<p class="m">Claims snapshot is not published yet</p>';
+ const tasks=publicRows(feed.tasks||[],['task_id','title']);
+ const alerts=Array.isArray(feed.alerts)?feed.alerts:[];
+ const gen=typeof feed.generated_at==='string'&&Number.isFinite(Date.parse(feed.generated_at))?esc(feed.generated_at):'unknown';
+ const api=typeof feed.claim_api==='string'?esc(feed.claim_api):'unknown';
+ let body='';
+ if(!tasks.length)body+='<p class="m">No claimable public tasks in this snapshot</p>';
+ else{
+  const fields=['task_id','title','lease_state','owner','revision','last_public_at','blocker_public','quantity_done','publish_blocked_zero'];
+  body+='<div class="portfolio-table-wrap"><table class="portfolio-table"><thead><tr>'+fields.map(k=>`<th>${k}</th>`).join('')+'</tr></thead><tbody>'+tasks.map(row=>{
+   const last=row.last_public_at==null||row.last_public_at===''||row.last_public_at==='unknown';
+   const blocked=row.publish_blocked_zero===true;
+   const cls=last||blocked||row.lease_state==='expired'||row.lease_state==='stale_unknown_expiry'?'status-red':'';
+   return '<tr class="'+cls+'">'+fields.map(k=>{
+    let v=row[k];
+    if(k==='last_public_at'&&(v==null||v===''))v='unknown';
+    if(k==='quantity_done'&&blocked)v=0;
+    if(k==='publish_blocked_zero')v=blocked?'yes (0 posted)':(v===true?'yes':'no');
+    return `<td data-label="${k}" class="${(k==='last_public_at'&&(v==='unknown')||(k==='publish_blocked_zero'&&blocked)||(k==='lease_state'&&/expired|stale/.test(String(row.lease_state||''))))?'status-red':''}">${publicCell(v)}</td>`;
+   }).join('')+'</tr>';
+  }).join('')+'</tbody></table></div>';
+ }
+ const alertHtml=alerts.length?'<ul class="failure-list">'+alerts.slice(0,20).map(a=>`<li class="status-red"><b>${esc(a.kind||'alert')}</b> · ${esc(a.message||'')} · <time>${esc(a.created_at||'unknown')}</time></li>`).join('')+'</ul>':'<p class="m">No claim alerts in this snapshot</p>';
+ return `<p class="m">generated ${gen} · ${esc(feed.note||'public snapshot not application permission')} · API: ${api}</p>${body}<h2>Claim alerts</h2>${alertHtml}`;
 };
 const NN=v=>v==null?'—':Number(v).toLocaleString('en-US');
 const stripeMoney=(minor,currency)=>{
@@ -259,10 +285,15 @@ const loadCapafy=()=>fetch('capafy.json?v='+Date.now()).then(r=>{if(!r.ok)throw 
 }).catch(()=>{$('capafy-activity').textContent='Capafy data unavailable'});
 loadCapafy();
 if(typeof setInterval==='function')setInterval(loadCapafy,REFRESH_MS);
-const loadPortfolio=()=>fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Portfolio snapshot unavailable');return r.json()}).then(d=>{
+const loadPortfolio=()=>Promise.all([
+ fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Portfolio snapshot unavailable');return r.json()}),
+ fetch('claims-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([d,claims])=>{
  const businesses=publicRows(d.businesses,['name','status','metric','metric_value','next']),agents=Array.isArray(d.agents)?d.agents:[],loops=publicRows(d.loops,['loop','owner','host','schedule','status']),gaps=publicRows(d.metric_gaps,['item','why']);
  $('public-work').innerHTML=renderPublicWork(d.public_work);
  $('usage-snapshot').innerHTML=renderUsageSnapshot(d.usage_snapshot);
+ $('claims-snapshot').innerHTML=renderClaimsSnapshot(claims||d.claims_snapshot);
+
  const plural=(n,word)=>`${n} ${word}${n===1?'':'s'}`;
  const age=stamp=>{if(!stamp)return 'age unavailable';const jst=stamp.match(/^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) JST$/),measured=Date.parse(jst?`${jst[1]}T${jst[2]}:00+09:00`:stamp),elapsed=Date.now()-measured;if(!Number.isFinite(measured)||elapsed<0)return 'age unavailable';const minutes=Math.floor(elapsed/60000),days=Math.floor(minutes/1440),hours=Math.floor((minutes%1440)/60),remainder=minutes%60;return minutes<1?'less than 1 min ago':minutes<60?`${minutes} min ago`:days?`${days}d ${hours}h ${remainder}m ago`:`${hours}h ${remainder}m ago`};
  const exportStamp=typeof d.updated_at==='string'&&d.updated_at.trim()?d.updated_at:null,sourceStamp=typeof d.source_updated_at==='string'&&d.source_updated_at.trim()?d.source_updated_at:null;
@@ -277,6 +308,11 @@ const loadPortfolio=()=>fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)th
  const exported=snapshotTime(exportStamp),observed=snapshotTime(sourceStamp);
  if(Number.isFinite(exported)&&Number.isFinite(observed)&&exported-observed>24*60*60*1000)failures.push(`<li class="status-red"><b>Registry snapshot stale:</b> source observed ${esc(sourceStamp)}; dashboard exported ${esc(exportStamp)} · more than 24 hours apart.</li>`);
  const todos=gaps.map(g=>`<li><b>Unverified / TODO: ${esc(g.item||'Unspecified gap')}</b><div class="m">${show(g.why)}</div></li>`);
+  const claimFeed=claims||d.claims_snapshot;
+ const claimAlerts=Array.isArray(claimFeed?.alerts)?claimFeed.alerts:[];
+ for(const a of claimAlerts){if(a&&a.message)failures.push(`<li class="status-red"><b>Claim:</b> ${esc(a.message)}</li>`);}
+ const claimTasks=Array.isArray(claimFeed?.tasks)?claimFeed.tasks:[];
+ for(const t of claimTasks){if(t&&(t.last_public_at==null||t.last_public_at===''||t.last_public_at==='unknown'))failures.push(`<li class="status-red"><b>${esc(t.task_id||'task')} last_public_at unknown</b> · not running-success · blocker ${esc(t.blocker_public||'unknown')}</li>`); if(t&&t.publish_blocked_zero===true)failures.push(`<li class="status-red"><b>${esc(t.task_id||'task')} blocked publish quantity_done=0</b> · not posted</li>`);}
  $('silent-failures').innerHTML=`<ul class="failure-list">${failures.join('')||'<li class="m">No failure signals listed in this published snapshot; current health is not verified.</li>'}${todos.join('')}</ul>`;
  $('portfolio-snapshot').textContent=`${exportLabel} · ${sourceLabel} · registry snapshot, not live process state`;
  $('portfolio-summary').innerHTML=[[businesses.length,'business'],[loops.length,'loop'],[gaps.length,'metric gap']].map(([n,label])=>`<div class="portfolio-count"><strong>${n.toLocaleString('en-US')}</strong><span class="m">${esc(plural(n,label))}</span></div>`).join('');
@@ -328,7 +364,7 @@ const loadPortfolio=()=>fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)th
   return `<section class="rc-project"><h3>${esc(project.name||'Unnamed project')}</h3>${content}<div class="rc-summary">${cards}</div>${failed}<details class="rc-details"><summary>Daily RevenueCat charts (${Object.keys(charts).length})</summary>${details}</details></section>`;
  }).join('');
  $('revenuecat-charts').innerHTML=`<div class="m">${esc(rc.source||'RevenueCat Charts API')} · last checked ${esc(rc.observed_at||'unknown')} · <a href="${esc(rc.source_docs||'https://www.revenuecat.com/docs/api-v2/charts-and-metrics')}" target="_blank" rel="noopener">source definition</a></div>${projects||'<div class="m">No project rows reported.</div>'}`;
-}).catch(()=>{$('public-work').innerHTML='<p class="status-red">Shared targets unavailable; state unknown.</p>';$('usage-snapshot').innerHTML='<p class="status-red">Usage snapshot unavailable; values unknown.</p>';$('silent-failures').innerHTML='<p class="status-red">Portfolio metrics unavailable; failures and TODO state are unknown.</p>';$('portfolio-snapshot').textContent='Portfolio snapshot unavailable';$('portfolio-summary').innerHTML='';$('portfolio-businesses').textContent='';$('portfolio-loops').innerHTML='';$('portfolio-gaps').innerHTML='';});
+}).catch(()=>{$('public-work').innerHTML='<p class="status-red">Shared targets unavailable; state unknown.</p>';$('usage-snapshot').innerHTML='<p class="status-red">Usage snapshot unavailable; values unknown.</p>';$('claims-snapshot').innerHTML='<p class="status-red">Claims snapshot unavailable; state unknown.</p>';$('silent-failures').innerHTML='<p class="status-red">Portfolio metrics unavailable; failures and TODO state are unknown.</p>';$('portfolio-snapshot').textContent='Portfolio snapshot unavailable';$('portfolio-summary').innerHTML='';$('portfolio-businesses').textContent='';$('portfolio-loops').innerHTML='';$('portfolio-gaps').innerHTML='';});
 loadPortfolio();
 if(typeof setInterval==='function')setInterval(loadPortfolio,REFRESH_MS);
 
