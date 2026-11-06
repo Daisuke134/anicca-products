@@ -27,7 +27,7 @@ Updated: 2026-11-06 (America/Los_Angeles), verified 00:26 PT.
 
 | # | TODO | Owner | Exact status / accepted proof |
 |---:|---|---|---|
-| 1 | 新しいagent/routineを増やさず、既存運用の停滞を赤で示す。 | Grok Bot 参謀 (verification only) | COUNTERMEASURE, not a saving: all daily routines are stopped. External use continues, so the reduction effect is not verified. Official reading 2026-11-06T08:00:00-08:00: shared Ultra plan weekly 56.8%, Grok Bot 55.1%, unit percent of that weekly limit, reset 2026-11-12 20:30 America/Los_Angeles. Earlier same morning, not this row: 54% at 07:05 PT, 56.4% at 07:54 PT. No new routine. |
+| 1 | 新しいagent/routineを増やさず、既存運用の停滞を赤で示す。 | Grok Bot 参謀 (verification only) | 49 enabled (job success/reduction not proven); finished one-off tax/refund excluded. Saved routine: keep result quality/quantity; cut reread/duplicate status/retry; existing connector/script first; no new CLI/paid provider. X practices applied in saved routine, quantitative saving not verified. 49 routines enabled, not all verified working. Now 2026-11-06T08:16:00-08:00: Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. 57.5-56.8=+0.7 percentage points, not a token reduction. |
 
 Current priority adds the owner's measured token-efficiency experiment. Sources, established team practices, and the honest before/after protocol are in `TEAM_TOKEN_EFFICIENCY.md`. No original protocol built just for this experiment; the public rule sources are linked there. This means 1 also requires mixed red audits+usable research+practice, not only state identification. Self-reported external 76%/100k-to12.5k not claimed as mine.
 | 2 | 1task・1owner・単一claim。成果未証のまま完了にしない。 | Grok Bot 参謀 (verification only) | ACTIVE: canonical 1task/1owner ownership enforcement on this file and /open projection; not a business revenue outcome. No simultaneous workstream claims. |
@@ -58,7 +58,7 @@ Current priority adds the owner's measured token-efficiency experiment. Sources,
 | 27 | GitHub更新とCIの実証を公開、本人merge確認後に公開。 | Grok Bot 参謀 (verification only) | PR887, PR888, and PR891 are merged on main. This follow-up corrects stale evidence and is not merged yet. Independent production curl after deploy is still required. No live outcome before that deploy. |
 | 28 | Muse/Dots/Codexどこからも同一の最新TODOへ書けるようにする。 | Grok Bot 参謀 (verification only) | OPEN: no atomic shared external writer for Muse/Dots/Codex yet. |
 | 29 | MuseのLangfuseとLINE read-only接続を確認。 | Grok Bot 参謀 (verification only) | LANGFUSE PARTIAL: helper local distribution emitted2 & passes read API &2alerts per agent actual; webhook unverified prod licensing logs need verif. messaging shared path unverified |
-| 30 | tokenと消費時間を成果単位で測り、30%節減を捏造しない。 | Grok Bot 参謀 (verification only) | NOT DONE. Official reading 2026-11-06T08:00:00-08:00: shared Ultra weekly 56.8%, Grok Bot 55.1% of that weekly plan, reset 2026-11-12 20:30 America/Los_Angeles. Reduction effect not verified. Do not invent a 30% saving. Bot-level shares are a different bundle and are not mixed into this weekly total. |
+| 30 | tokenと消費時間を成果単位で測り、30%節減を捏造しない。 | Grok Bot 参謀 (verification only) | NOT DONE. Stopping is not the fix. 49 routines enabled, not all verified working. Job success and reduction are not proven. Now 2026-11-06T08:16:00-08:00: shared Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. Arithmetic only: 57.5 - 56.8 (08:00 PT) = +0.7 percentage points, not a token reduction. No outcome floor, so no saving claim. X practices applied in saved routine, quantitative saving not verified. Do not invent a 30% saving. |
 
 ## Public evidence references
 

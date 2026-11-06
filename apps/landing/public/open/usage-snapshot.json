@@ -1,11 +1,10 @@
 {
   "source": "CheckSubscriptionUsage",
-  "measured_at": "2026-11-06T08:00:00-08:00",
+  "measured_at": "2026-11-06T08:16:00-08:00",
   "timezone": "America/Los_Angeles",
   "plan": "Ultra",
-  "weekly_usage_percent": 56.8,
-  "grok_bot_share_percent": 55.1,
-  "remaining_percent": 43.2,
+  "weekly_usage_percent": 57.5,
+  "remaining_percent": 42.5,
   "reset_at": "2026-11-12T20:30:00-08:00",
   "week_window_start_at": "2026-11-05T20:30:00-08:00",
   "additional_usage_credits": {
@@ -54,18 +53,36 @@
       "name": "Kevin Logan",
       "url": "https://x.com/Kevin_Logan/status/2115077015569048015",
       "claim": "Script This Routine candidate. NOT imported or adopted by this team."
+    },
+    {
+      "name": "Brian Roemmele",
+      "url": "https://x.com/BrianRoemmele/status/2112249592133935133",
+      "claim": "External method: identify same context, reread, and no-change reporting in an actual trace, then verify with matched usage. Raw trace is not claimed here."
+    },
+    {
+      "name": "_ketsana",
+      "url": "https://x.com/_ketsana/status/2112729353926619607",
+      "claim": "External method: orchestrator offloads work to scripts/CLI plus webhook. Unobservable external CLI usage is not claimed as ours."
+    },
+    {
+      "name": "samijuhanii",
+      "url": "https://x.com/samijuhanii/status/2117296412983791782",
+      "claim": "External method: move repeat tasks to a Python script while keeping the same results. Not our measured saving."
     }
   ],
   "projection_scenarios": [],
   "bots": [],
   "notes": [
-    "Shared plan: Ultra. Current row: weekly 56.8% and Grok Bot 55.1%, both percent of that shared weekly plan limit, measured_at 2026-11-06T08:00:00-08:00 America/Los_Angeles (UTC-8). Reset 2026-11-12 20:30 America/Los_Angeles.",
-    "measured_at is the stated time of this official reading, about 08:00 PT in this conversation. This public path did not open a live token stream.",
-    "Earlier official weekly readings the same morning are not this row: 54% at 07:05 PT and 56.4% at 07:54 PT.",
-    "All daily routines are stopped. External use continues, so the reduction effect is not verified. No 30% saving is claimed.",
-    "Bot-level week shares were not mixed in. They are not this weekly cumulative.",
-    "Remaining 43.2% is 100 minus the measured weekly 56.8. It is not a second official reading.",
-    "The 2026-11-05 23:00 PT record (21.1% / Grok Bot 21%) is an older baseline, not this row."
+    "Shared plan: Ultra. Now reading 2026-11-06T08:16:00-08:00: weekly 57.5% used, percent of that shared weekly plan limit. Reset 2026-11-12 20:30 PT. This Now reading has no new Grok Bot share.",
+    "Previous official row, not this Now reading: 2026-11-06T08:00:00-08:00 weekly 56.8%, Grok Bot 55.1%.",
+    "Arithmetic difference only: 57.5 - 56.8 = +0.7 percentage points. That is not a token reduction. Outcome floor is absent, so no saving claim.",
+    "Earlier official weekly readings, not this row: 54% at 07:05 PT and 56.4% at 07:54 PT.",
+    "49 enabled (job success/reduction not proven). Finished one-off tax/refund excluded. Stopping work is not the fix.",
+    "X practices applied in saved routine, quantitative saving not verified.",
+    "49 routines enabled, not all verified working.",
+    "Saved routine keeps outcome quality and quantity, cuts reread/duplicate status/retry, prefers existing connector/script, and adds no new CLI or paid provider.",
+    "Remaining 42.5% is 100 minus the measured weekly 57.5. It is not a second official reading.",
+    "Bot-level week shares were not mixed in. They are not this weekly cumulative."
   ],
   "relay_migration": {
     "status": "APPLIED",
@@ -73,9 +90,9 @@
     "note": "Stand-in Grok Bot profiles for Codex/Muse/Dots are legacy contacts only: no group-chat relays, no polling loops, no duplicate pretend-relay work. Direct work uses each owner machine/Slack/Reason path. Migration status: APPLIED. Token/usage savings from this change: UNVERIFIED (not counted as savings; not routine-reduction evidence)."
   },
   "unit": "percent of the shared weekly plan limit",
-  "period": "weekly window through reset 2026-11-12 20:30 America/Los_Angeles",
-  "reduction_effect": "not verified",
-  "countermeasure": "All daily routines are stopped. External use continues, so the reduction effect is not verified.",
+  "period": "weekly window through reset 2026-11-12 20:30 PT",
+  "reduction_effect": "quantitative saving not verified",
+  "countermeasure": "49 enabled (job success/reduction not proven). Stopping work is not the fix.",
   "bot_shares_omitted": "Bot-level week shares are a different 7-day bundle from this weekly cumulative and are not shown here.",
   "prior_official_weekly_readings": [
     {
@@ -87,6 +104,23 @@
       "weekly_usage_percent": 56.4,
       "observed_at": "2026-11-06T07:54:00-08:00",
       "label": "earlier official weekly reading the same morning; not this row"
+    },
+    {
+      "weekly_usage_percent": 56.8,
+      "grok_bot_share_percent": 55.1,
+      "observed_at": "2026-11-06T08:00:00-08:00",
+      "label": "previous official row; not this Now reading"
     }
-  ]
+  ],
+  "percentage_point_change": {
+    "from_percent": 56.8,
+    "to_percent": 57.5,
+    "from_measured_at": "2026-11-06T08:00:00-08:00",
+    "to_measured_at": "2026-11-06T08:16:00-08:00",
+    "arithmetic_difference_percentage_points": 0.7,
+    "formula": "57.5 - 56.8 = 0.7",
+    "meaning": "percentage-point change only, not a token reduction",
+    "outcome_floor": "absent",
+    "saving_claim": "not allowed"
+  }
 }
