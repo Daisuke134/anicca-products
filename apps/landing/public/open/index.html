@@ -54,7 +54,8 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 <div class="c" id="card-revenuecat" style="margin-top:12px"><h2>RevenueCat app metrics</h2><div id="revenuecat-charts">Loading…</div></div>
 <div class="c" id="card-stripe-metrics" style="margin-top:12px"><h2>Stripe account metrics</h2><div id="stripe-metrics">Loading…</div></div>
 <div class="c" id="card-team" style="margin-top:12px"><h2>Team activity</h2><table id="team-activity"></table></div>
-<div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO</h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO</h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div><h2>Shared targets</h2><div id="public-work" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-usage-snapshot" style="margin-top:12px"><h2>Aggregate usage snapshot</h2><div id="usage-snapshot" aria-live="polite">Loading…</div></div>
 <div class="c" id="card-portfolio" style="margin-top:12px"><h2>Business & loop snapshot</h2><div class="m" id="portfolio-snapshot">Loading…</div><div class="portfolio-counts" id="portfolio-summary"></div><details><summary>Business portfolio</summary><div class="portfolio-grid" id="portfolio-businesses"></div></details><details><summary>Operating loops</summary><div class="portfolio-table-wrap"><table class="portfolio-table" id="portfolio-loops"></table></div></details><details><summary>Metric gaps</summary><ul class="portfolio-gaps" id="portfolio-gaps"></ul></details></div>
 <div class="c" id="card-apps" style="margin-top:12px"><h2>Apps</h2><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div></div>
 <div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts</h2><table id="soc"></table></div>
@@ -77,6 +78,23 @@ const snapshotTime=stamp=>{
  if(typeof stamp!=='string'||!stamp.trim())return NaN;
  const jst=stamp.match(/^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) JST$/);
  return Date.parse(jst?`${jst[1]}T${jst[2]}:00+09:00`:stamp);
+};
+// Published fields must be scrubbed upstream too; never expand arbitrary row keys.
+const privatePublicText=value=>typeof value==='string'&&/\b(?:LINE|contacts?|credentials?|password|passkey|secret|token\s*[:=]|R[-/ ]?1|comedy)\b|お笑い|[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\+?\d[\s().-]*){9,}|(?:file:\/\/|\/(?:Users|home|workspace|private|tmp)\/|~\/)|anicca-ops/i.test(value);
+const publicCell=value=>value==null||value===''||privatePublicText(value)?'<span class="m">unknown</span>':esc(value);
+const publicRows=(rows,fields)=>Array.isArray(rows)?rows.filter(row=>row&&typeof row==='object'&&fields.every(key=>!privatePublicText(row[key]))):[];
+const renderPublicWork=rows=>{
+ const fields=['priority','owner','action','quantity_goal','done_criteria','last_evidence_public','blocker_public'];
+ const work=publicRows(rows,['owner','action']);
+ if(!work.length)return '<p class="m">Shared targets are not published yet</p>';
+ return '<div class="portfolio-table-wrap"><table class="portfolio-table"><thead><tr>'+fields.map(key=>`<th>${key}</th>`).join('')+'</tr></thead><tbody>'+work.map(row=>'<tr>'+fields.map(key=>`<td data-label="${key}">${publicCell(row[key])}</td>`).join('')+'</tr>').join('')+'</tbody></table></div>';
+};
+const renderUsageSnapshot=feed=>{
+ if(!feed||typeof feed!=='object'||Array.isArray(feed))return '<p class="m">Usage snapshot is not published yet</p>';
+ const percent=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0&&value<=100?`${value}%`:'unknown';
+ const stamp=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$/.test(value)&&Number.isFinite(Date.parse(value))?esc(value):'unknown';
+ const bots=publicRows(feed.bots,['owner']);
+ return `${feed.fixture_only===true?'<p class="status-red">Test fixture only — not current published usage.</p>':''}<p>Plan ${publicCell(feed.plan)} · ${publicCell(feed.source)} · measured <time>${stamp(feed.measured_at)}</time> · ${publicCell(feed.timezone)}</p><p>Weekly usage limit: ${percent(feed.weekly_usage_percent)} used (shared with other plan apps)</p><p>Grok Bot share of total usage: ${percent(feed.grok_bot_share_percent)}</p><p>Within Grok Bot: ${bots.length?bots.map(bot=>`${publicCell(bot.owner)} ${percent(bot.percent)}`).join(' · '):'unknown'}</p><p>Reset: <time>${stamp(feed.reset_at)}</time> · ${publicCell(feed.timezone)} local</p><div class="m">Measured snapshot; no current usage is inferred between measurements.</div>`;
 };
 const NN=v=>v==null?'—':Number(v).toLocaleString('en-US');
 const stripeMoney=(minor,currency)=>{
@@ -242,7 +260,9 @@ const loadCapafy=()=>fetch('capafy.json?v='+Date.now()).then(r=>{if(!r.ok)throw 
 loadCapafy();
 if(typeof setInterval==='function')setInterval(loadCapafy,REFRESH_MS);
 const loadPortfolio=()=>fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Portfolio snapshot unavailable');return r.json()}).then(d=>{
- const businesses=Array.isArray(d.businesses)?d.businesses:[],agents=Array.isArray(d.agents)?d.agents:[],loops=Array.isArray(d.loops)?d.loops:[],gaps=Array.isArray(d.metric_gaps)?d.metric_gaps:[];
+ const businesses=publicRows(d.businesses,['name','status','metric','metric_value','next']),agents=Array.isArray(d.agents)?d.agents:[],loops=publicRows(d.loops,['loop','owner','host','schedule','status']),gaps=publicRows(d.metric_gaps,['item','why']);
+ $('public-work').innerHTML=renderPublicWork(d.public_work);
+ $('usage-snapshot').innerHTML=renderUsageSnapshot(d.usage_snapshot);
  const plural=(n,word)=>`${n} ${word}${n===1?'':'s'}`;
  const age=stamp=>{if(!stamp)return 'age unavailable';const jst=stamp.match(/^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) JST$/),measured=Date.parse(jst?`${jst[1]}T${jst[2]}:00+09:00`:stamp),elapsed=Date.now()-measured;if(!Number.isFinite(measured)||elapsed<0)return 'age unavailable';const minutes=Math.floor(elapsed/60000),days=Math.floor(minutes/1440),hours=Math.floor((minutes%1440)/60),remainder=minutes%60;return minutes<1?'less than 1 min ago':minutes<60?`${minutes} min ago`:days?`${days}d ${hours}h ${remainder}m ago`:`${hours}h ${remainder}m ago`};
  const exportStamp=typeof d.updated_at==='string'&&d.updated_at.trim()?d.updated_at:null,sourceStamp=typeof d.source_updated_at==='string'&&d.source_updated_at.trim()?d.source_updated_at:null;
@@ -250,7 +270,7 @@ const loadPortfolio=()=>fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)th
  const sourceLabel=sourceStamp?`Source observed ${sourceStamp} · ${age(sourceStamp)}`:'Source observation time unknown';
  const show=v=>v==null?'<span class="m">no data</span>':esc(String(v));
  const failures=loops.filter(l=>loopStatusClass(l.status)==='status-red').map(l=>`<li class="status-red"><b>Loop: ${esc(l.loop||'Unnamed loop')}</b> · ${esc(l.status)}</li>`);
- const missing=Array.isArray(d.missing)?d.missing:[];
+ const missing=Array.isArray(d.missing)?d.missing.filter(item=>!privatePublicText(item)):[];
  failures.push(...missing.map(item=>`<li class="status-red"><b>Missing:</b> ${esc(item)}</li>`));
  const stripe=d.stripe_metrics;
  if(!['observed','observed_empty'].includes(stripe?.status))failures.push(`<li class="status-red"><b>Stripe:</b> ${esc(stripe?.status||'unknown')} · measured ${esc(stripe?.observed_at||'unknown')} · values remain unverified.</li>`);
@@ -308,7 +328,7 @@ const loadPortfolio=()=>fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)th
   return `<section class="rc-project"><h3>${esc(project.name||'Unnamed project')}</h3>${content}<div class="rc-summary">${cards}</div>${failed}<details class="rc-details"><summary>Daily RevenueCat charts (${Object.keys(charts).length})</summary>${details}</details></section>`;
  }).join('');
  $('revenuecat-charts').innerHTML=`<div class="m">${esc(rc.source||'RevenueCat Charts API')} · last checked ${esc(rc.observed_at||'unknown')} · <a href="${esc(rc.source_docs||'https://www.revenuecat.com/docs/api-v2/charts-and-metrics')}" target="_blank" rel="noopener">source definition</a></div>${projects||'<div class="m">No project rows reported.</div>'}`;
-}).catch(()=>{$('silent-failures').innerHTML='<p class="status-red">Portfolio metrics unavailable; failures and TODO state are unknown.</p>';$('portfolio-snapshot').textContent='Portfolio snapshot unavailable';$('portfolio-summary').innerHTML='';$('portfolio-businesses').textContent='';$('portfolio-loops').innerHTML='';$('portfolio-gaps').innerHTML='';});
+}).catch(()=>{$('public-work').innerHTML='<p class="status-red">Shared targets unavailable; state unknown.</p>';$('usage-snapshot').innerHTML='<p class="status-red">Usage snapshot unavailable; values unknown.</p>';$('silent-failures').innerHTML='<p class="status-red">Portfolio metrics unavailable; failures and TODO state are unknown.</p>';$('portfolio-snapshot').textContent='Portfolio snapshot unavailable';$('portfolio-summary').innerHTML='';$('portfolio-businesses').textContent='';$('portfolio-loops').innerHTML='';$('portfolio-gaps').innerHTML='';});
 loadPortfolio();
 if(typeof setInterval==='function')setInterval(loadPortfolio,REFRESH_MS);
 
