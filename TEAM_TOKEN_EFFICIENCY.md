@@ -23,11 +23,13 @@ The first public source search including named Grok Bot usage practitioners was 
 
 ## Evidence protocol / measurements permitted
 
-Current baseline observed from `CheckSubscriptionUsage`, recorded `usage-snapshot.json` at 2026-11-05 23:00 PT (supersedes the earlier 22:28 PT 12.7%/12.5% record):
+Current official reading from `CheckSubscriptionUsage`, recorded in `usage-snapshot.json` at `2026-11-06T08:00:00-08:00` (America/Los_Angeles, UTC-8; about 08:00 PT in this conversation). The 2026-11-05 23:00 PT record (21.1% / Grok Bot 21%) and the 22:28 PT 12.7%/12.5% record are older baselines, not this row.
 
-- Ultra weekly usage is 21.1%, Grok Bot share 21%, remaining 78.9%, weekly reset 2026-11-12 20:30 PT. Additional usage credits exist; remaining credit amount is not exposed.
-- Within Grok Bot shares (rounded): 参謀 47, Codex 18, X Operator 11, dr eggbot 6, Reporter 3, Dots 3, Applications 3, Fucker 3, Muse 3, Muse Relay 2, Anicca Marketer 1, Forensic Writing <1, other <1. These are percentages of Grok Bot usage, not of the whole plan, and not token counts.
-- Public /open shows labeled arithmetic remaining-time scenarios with explicit assumptions. They are not a supported forecast. Admin API / OTel exact tokens remain UNAVAILABLE on this public path.
+- Shared plan: Ultra. Weekly usage 56.8%. Grok Bot 55.1%. Both numbers are percent of that shared weekly plan limit, not tokens and not dollars. Reset 2026-11-12 20:30 America/Los_Angeles. Remaining 43.2 is only 100 minus 56.8.
+- Earlier official weekly readings the same morning are not this row: 54% at 07:05 PT and 56.4% at 07:54 PT.
+- All daily routines are stopped. External use continues, so the reduction effect is not verified. This is not a 30% saving and #30 is not DONE.
+- Bot-level week shares that were offered separately (they do not add up to this 56.8 / 55.1 weekly cumulative) are not mixed into this row. The older within-Grok-Bot table from 2026-11-05 23:00 PT is also not attached to this reading.
+- No arithmetic exhaustion forecast is published for this reading. Admin API / OTel exact tokens remain UNAVAILABLE on this public path. This is not a realtime monitor.
 
 We cannot honestly claim token acceleration or aggregate token reduction from these percentages alone. Do not calculate product burn rate, previous token total, saving, or an annual dollar outcome from them.
 

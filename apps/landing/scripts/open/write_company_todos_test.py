@@ -44,6 +44,12 @@ class NumberedOwnerTodoWriterTest(unittest.TestCase):
   self.assertIn('PR891', by[27])
   self.assertIn('not merged yet', by[27])
   self.assertNotIn(15, by)
+  self.assertIn('56.8%', by[1])
+  self.assertIn('55.1%', by[1])
+  self.assertIn('not verified', by[1])
+  self.assertIn('NOT DONE', by[30])
+  self.assertIn('not verified', by[30])
+  self.assertNotIn('30% saving is achieved', by[30])
  def test_finance_refresh_cannot_drop_projection_or_rewrite_finance(self):
   source=(Path(__file__).resolve().parents[4]/'COMPANY_TODO.md').read_text()
   with tempfile.TemporaryDirectory() as temp:

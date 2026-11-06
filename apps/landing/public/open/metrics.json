@@ -110851,7 +110851,7 @@
    "action": "新しいagent/routineを増やさず、既存運用の停滞を赤で示す。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 1",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "RED remains. ENABLED: weekday Team todos sync; label-only messaging watch; daily revenue paid-receipts (FAILURE 11/5 14:40 PT). PAUSED: Naive Grok routine and other 参謀 routines. RED: revenue run failed; 00:00 wake-call failed; Naive product/paid unproven after read-only SDK check; X selawmqt auth missing; M3 fresh nonowner result unknown. Schedule is not execution.",
+   "last_evidence_public": "COUNTERMEASURE, not a saving: all daily routines are stopped. External use continues, so the reduction effect is not verified. Official reading 2026-11-06T08:00:00-08:00: shared Ultra plan weekly 56.8%, Grok Bot 55.1%, unit percent of that weekly limit, reset 2026-11-12 20:30 America/Los_Angeles. Earlier same morning, not this row: 54% at 07:05 PT, 56.4% at 07:54 PT. No new routine.",
    "blocker_public": "Priority 1: no DONE proof"
   },
   {
@@ -111103,18 +111103,18 @@
    "action": "tokenと消費時間を成果単位で測り、30%節減を捏造しない。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 30",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "MEASURED baseline only: weekly_usage_percent 21.1 / grok_bot_share_percent 21 at 11/5 23:00 PT (existing usage-snapshot). Do not invent savings. No re-query this turn.",
+   "last_evidence_public": "NOT DONE. Official reading 2026-11-06T08:00:00-08:00: shared Ultra weekly 56.8%, Grok Bot 55.1% of that weekly plan, reset 2026-11-12 20:30 America/Los_Angeles. Reduction effect not verified. Do not invent a 30% saving. Bot-level shares are a different bundle and are not mixed into this weekly total.",
    "blocker_public": "Priority 30: no DONE proof"
   }
  ],
  "usage_snapshot": {
   "source": "CheckSubscriptionUsage",
-  "measured_at": "2026-11-05T23:00:00-08:00",
+  "measured_at": "2026-11-06T08:00:00-08:00",
   "timezone": "America/Los_Angeles",
   "plan": "Ultra",
-  "weekly_usage_percent": 21.1,
-  "grok_bot_share_percent": 21,
-  "remaining_percent": 78.9,
+  "weekly_usage_percent": 56.8,
+  "grok_bot_share_percent": 55.1,
+  "remaining_percent": 43.2,
   "reset_at": "2026-11-12T20:30:00-08:00",
   "week_window_start_at": "2026-11-05T20:30:00-08:00",
   "additional_usage_credits": {
@@ -111125,8 +111125,8 @@
   "freshness": {
    "kind": "measured_snapshot",
    "page_json_reload_minutes": 15,
-   "live_token_stream": "UNVERIFIED",
-   "note": "Public /open re-reads JSON every 15 minutes. Values stay at this measured snapshot until a newer usage-snapshot is published. Not realtime token telemetry."
+   "live_token_stream": "not monitored",
+   "note": "One measured snapshot. Not a realtime monitor and not a progress animation. Values stay here until a newer usage-snapshot is published."
   },
   "token_detail_adapters": {
    "admin_api": {
@@ -111165,127 +111165,39 @@
     "claim": "Script This Routine candidate. NOT imported or adopted by this team."
    }
   ],
-  "projection_scenarios": [
-   {
-    "id": "user_stated_8h",
-    "label": "If 21.1% accrued over ~8h (user-stated; no verified zero read)",
-    "assumed_elapsed_hours": 8,
-    "used_percent": 21.1,
-    "remaining_percent": 78.9,
-    "hours_to_exhaust_at_constant_pace": 30,
-    "hours_until_reset_at_measurement": 165,
-    "assumption": "Arithmetic only: 8 × (78.9 / 21.1) ≈ 30h forward to 100%. Not a supported forecast. Pace can change with nonconstant work and other shared plan apps."
-   },
-   {
-    "id": "assumed_27h_elapsed",
-    "label": "If 21.1% accrued over ~27h elapsed (alternate wall assumption)",
-    "assumed_elapsed_hours": 27,
-    "used_percent": 21.1,
-    "remaining_percent": 78.9,
-    "hours_to_exhaust_at_constant_pace": 105,
-    "hours_until_reset_at_measurement": 165,
-    "assumption": "Arithmetic only: 27 × (78.9 / 21.1) ≈ 105h forward to 100%. Not a supported forecast. First real 0% boundary is not known."
-   },
-   {
-    "id": "official_week_window_2_5h",
-    "label": "Official weekly window from reset boundary Thu Nov 5 20:30 PT to this measurement",
-    "assumed_elapsed_hours": 2.5,
-    "used_percent": 21.1,
-    "remaining_percent": 78.9,
-    "hours_until_reset_at_measurement": 165,
-    "assumption": "Calendar elapsed from week_window_start_at is 2.5h. A 2.5h sample is not published as an exhaustion forecast. Short-window 22:28→23:00 delta is not used as an official linear forecast."
-   }
-  ],
-  "bots": [
-   {
-    "owner": "Grok Bot 参謀",
-    "percent": 47,
-    "non_routine_percent": 47,
-    "routine_percent": null,
-    "routine_note": "ONE zero-cash routine <1"
-   },
-   {
-    "owner": "Codex",
-    "percent": 18,
-    "non_routine_percent": 17,
-    "routine_percent": 1,
-    "routine_note": "deleted routines 1"
-   },
-   {
-    "owner": "X Operator",
-    "percent": 11,
-    "non_routine_percent": 9,
-    "routine_percent": 2,
-    "routine_note": "posting routine 2; metrics routine <1 paused"
-   },
-   {
-    "owner": "dr eggbot",
-    "percent": 6,
-    "non_routine_percent": 5,
-    "routine_percent": 1,
-    "routine_note": "gig-audit 1; inbox <1; coconala <1"
-   },
-   {
-    "owner": "Reporter",
-    "percent": 3,
-    "non_routine_percent": 2,
-    "routine_percent": 1,
-    "routine_note": "daily 1"
-   },
-   {
-    "owner": "Dots",
-    "percent": 3,
-    "non_routine_percent": 2,
-    "routine_percent": 1,
-    "routine_note": "relay 1"
-   },
-   {
-    "owner": "Applications",
-    "percent": 3
-   },
-   {
-    "owner": "Fucker",
-    "percent": 3,
-    "non_routine_percent": 2,
-    "routine_percent": 1,
-    "routine_note": "revenue loop 1"
-   },
-   {
-    "owner": "Muse",
-    "percent": 3
-   },
-   {
-    "owner": "Muse Relay",
-    "percent": 2
-   },
-   {
-    "owner": "Anicca Marketer",
-    "percent": 1
-   },
-   {
-    "owner": "Forensic Writing",
-    "percent": null,
-    "percent_label": "<1",
-    "routine_note": "24hr routine <1"
-   },
-   {
-    "owner": "other",
-    "percent": null,
-    "percent_label": "<1"
-   }
-  ],
+  "projection_scenarios": [],
+  "bots": [],
   "notes": [
-   "Bot shares are Grok Bot-account usage on the same Ultra plan (chats, bot-to-bot, and group activity). They are not independently measured external/CLI costs for Codex, Dots, Muse, or other named bots. Handing work to another bot does not necessarily make it cheaper. Raw external provider costs are not measured here.",
-   "Stand-in Grok Bot profiles for Codex/Muse/Dots are legacy contacts only: no group-chat relays, no polling loops, no duplicate pretend-relay work. Direct work uses each owner machine/Slack/Reason path. Migration status: APPLIED. Token/usage savings from this change: UNVERIFIED (not counted as savings; not routine-reduction evidence).",
-   "Percentages are subscription shares from CheckSubscriptionUsage, not raw tokens or dollars.",
-   "Within-Grok-Bot bot shares are rounded and may sum near 100.",
-   "Older 22:28 PT snapshot (12.7% / Grok Bot 12.5%) is superseded by this 23:00 PT record."
+   "Shared plan: Ultra. Current row: weekly 56.8% and Grok Bot 55.1%, both percent of that shared weekly plan limit, measured_at 2026-11-06T08:00:00-08:00 America/Los_Angeles (UTC-8). Reset 2026-11-12 20:30 America/Los_Angeles.",
+   "measured_at is the stated time of this official reading, about 08:00 PT in this conversation. This public path did not open a live token stream.",
+   "Earlier official weekly readings the same morning are not this row: 54% at 07:05 PT and 56.4% at 07:54 PT.",
+   "All daily routines are stopped. External use continues, so the reduction effect is not verified. No 30% saving is claimed.",
+   "Bot-level week shares were not mixed in. They are not this weekly cumulative.",
+   "Remaining 43.2% is 100 minus the measured weekly 56.8. It is not a second official reading.",
+   "The 2026-11-05 23:00 PT record (21.1% / Grok Bot 21%) is an older baseline, not this row."
   ],
   "relay_migration": {
    "status": "APPLIED",
    "savings": "UNVERIFIED",
    "note": "Stand-in Grok Bot profiles for Codex/Muse/Dots are legacy contacts only: no group-chat relays, no polling loops, no duplicate pretend-relay work. Direct work uses each owner machine/Slack/Reason path. Migration status: APPLIED. Token/usage savings from this change: UNVERIFIED (not counted as savings; not routine-reduction evidence)."
-  }
+  },
+  "unit": "percent of the shared weekly plan limit",
+  "period": "weekly window through reset 2026-11-12 20:30 America/Los_Angeles",
+  "reduction_effect": "not verified",
+  "countermeasure": "All daily routines are stopped. External use continues, so the reduction effect is not verified.",
+  "bot_shares_omitted": "Bot-level week shares are a different 7-day bundle from this weekly cumulative and are not shown here.",
+  "prior_official_weekly_readings": [
+   {
+    "weekly_usage_percent": 54,
+    "observed_at": "2026-11-06T07:05:00-08:00",
+    "label": "earlier official weekly reading the same morning; not this row"
+   },
+   {
+    "weekly_usage_percent": 56.4,
+    "observed_at": "2026-11-06T07:54:00-08:00",
+    "label": "earlier official weekly reading the same morning; not this row"
+   }
+  ]
  },
  "public_company_todo": {
   "repository": "Daisuke134/anicca-products",
@@ -111294,6 +111206,6 @@
   "declared_updated": "2026-11-06",
   "timezone": "America/Los_Angeles",
   "rows": 29,
-  "source_updated_at": "2026-11-06T12:05:55.259600+00:00"
+  "source_updated_at": "2026-11-06T16:09:10.685139+00:00"
  }
 }
