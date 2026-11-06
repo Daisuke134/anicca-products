@@ -1,0 +1,66 @@
+name: Company TODO owner row
+
+# Manual only. No schedule, so this does not add a routine.
+# A mapped verification actor can open a pull request for their own row.
+# The job never pushes main. Unmapped actors fail before any write.
+on:
+  workflow_dispatch:
+    inputs:
+      priority:
+        description: Public company TODO priority
+        required: true
+        type: string
+      evidence:
+        description: Replacement evidence cell, 500 characters or fewer
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  owner-row:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Apply one owned evidence cell
+        id: row
+        env:
+          ACTOR: ${{ github.actor }}
+          PRIORITY: ${{ inputs.priority }}
+          EVIDENCE: ${{ inputs.evidence }}
+        run: |
+          set -euo pipefail
+          python3 apps/landing/scripts/open/owner_row.py \
+            --actors apps/landing/scripts/open/row_actors.json \
+            --todo COMPANY_TODO.md \
+            --actor "$ACTOR" \
+            --priority "$PRIORITY" \
+            --evidence "$EVIDENCE" \
+            --out /tmp/COMPANY_TODO.md
+          cp /tmp/COMPANY_TODO.md COMPANY_TODO.md
+          python3 apps/landing/scripts/open/write_company_todos.py . \
+            --usage-record apps/landing/public/open/usage-snapshot.json
+          branch="owner-row-${PRIORITY}-${GITHUB_RUN_ID}"
+          git checkout -b "$branch"
+          git add COMPANY_TODO.md apps/landing/public/open/company-todo.json apps/landing/public/open/metrics.json
+          git -c user.name="$ACTOR" -c user.email="${ACTOR}@users.noreply.github.com" \
+            commit -m "todo: update priority ${PRIORITY} evidence for ${ACTOR}"
+          git push origin "HEAD:${branch}"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open a pull request and do not push main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.row.outputs.branch }}
+          PRIORITY: ${{ inputs.priority }}
+        run: |
+          set -euo pipefail
+          test "$BRANCH" != main
+          gh pr create --base main --head "$BRANCH" \
+            --title "todo: priority ${PRIORITY} evidence" \
+            --body "Verification-only owner path. One numbered row. Not merged by this workflow."

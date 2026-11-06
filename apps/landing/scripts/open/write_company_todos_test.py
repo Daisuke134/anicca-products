@@ -64,7 +64,7 @@ class NumberedOwnerTodoWriterTest(unittest.TestCase):
   self.assertIn('16:57:33 GMT', by[25])
   self.assertIn('metrics.json usage_snapshot', by[25])
   self.assertIn('in_progress', by[27])
-  self.assertIn('TOKEN_MEASUREMENT.csv is absent', by[30])
+  self.assertIn('savings is blank', by[30])
  def test_replace_evidence_keeps_owner_and_order(self):
   import importlib.util
   spec=importlib.util.spec_from_file_location('write_company_todos', SCRIPT)

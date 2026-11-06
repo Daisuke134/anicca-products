@@ -1,0 +1,14 @@
+{
+  "actors": {
+    "cursor[bot]": {
+      "verification_only": true,
+      "owners": ["Grok Bot 参謀 (verification only)"]
+    }
+  },
+  "unmapped_reason": {
+    "Muse": "No GitHub login for Muse is recorded in this repository.",
+    "Dots": "Dots has no numbered company TODO row and no GitHub login here.",
+    "Codex": "No GitHub login for Codex is recorded in this repository.",
+    "anicca-open-bot": "A past commit author only. This token cannot act as that bot."
+  }
+}

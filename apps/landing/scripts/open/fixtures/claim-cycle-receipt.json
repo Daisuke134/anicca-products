@@ -1,0 +1,43 @@
+{
+  "github_viewer": "cursor[bot]",
+  "github_user_endpoint_status": 403,
+  "authenticated_request": false,
+  "different_agent_call": false,
+  "synthetic_fixture": true,
+  "hosted_claim_api": false,
+  "live_http": {
+    "claims": {
+      "status": 200,
+      "date": "Fri, 06 Nov 2026 17:12:27 GMT",
+      "claim_api_hosted": null,
+      "tasks": 0
+    },
+    "usage": {
+      "status": 200,
+      "date": "Fri, 06 Nov 2026 17:12:28 GMT",
+      "weekly_usage_percent": 57.5,
+      "measured_at": "2026-11-06T08:16:00-08:00"
+    },
+    "metrics": {
+      "status": 200,
+      "date": "Fri, 06 Nov 2026 17:12:28 GMT",
+      "weekly_usage_percent": 57.5,
+      "measured_at": "2026-11-06T08:16:00-08:00"
+    },
+    "function": {
+      "status": 404,
+      "date": "HTTPError"
+    }
+  },
+  "cycle": {
+    "claim": true,
+    "stale_rejected": true,
+    "release": true,
+    "expired_count": 1,
+    "owner_after_expiry": null,
+    "lease_state_after_expiry": "open",
+    "lease_token_published": false
+  },
+  "started_at": "2026-11-06T17:12:26Z",
+  "ended_at": "2026-11-06T17:12:28Z"
+}

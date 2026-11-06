@@ -222,7 +222,7 @@
       "action": "claim writerを実運用へ接続し、未接続のまま「運用中」と呼ばない。",
       "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 26",
       "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-      "last_evidence_public": "NOT OPERATIONAL. claim_board.py project-public-work wrote 29 unclaimed tasks from public_work into claims-snapshot.json. No lease was taken. The claim API is not hosted, so this is not a live writer. Previous static file had tasks [].",
+      "last_evidence_public": "NOT HOSTED. Live claims-snapshot Date Fri, 06 Nov 2026 17:12:27 GMT HTTP 200 has tasks 0 and no claim_api_hosted. /.netlify/functions/open-claim HTTP 404. Viewer cursor[bot]; REST /user 403. Private sqlite claim, stale reject, release, and expiry passed. synthetic_fixture true. Not a second agent.",
       "blocker_public": "Priority 26: no DONE proof"
     },
     {
@@ -240,7 +240,7 @@
       "action": "Muse/Dots/Codexどこからも同一の最新TODOへ書けるようにする。",
       "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 28",
       "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-      "last_evidence_public": "PARTIAL TOOL ONLY. write_company_todos.replace_evidence changes one evidence cell only when the owner matches and refuses another owner or a renumber. Muse, Dots, and Codex have not called it. Not a shared live session.",
+      "last_evidence_public": "PULL REQUEST ONLY. cursor[bot] may change a Grok Bot 参謀 row through company-todo-owner.yml and that workflow never pushes main. Muse, Dots, and Codex have no GitHub login in row_actors.json, so they are refused. anicca-open-bot cannot be used by this token.",
       "blocker_public": "Priority 28: no DONE proof"
     },
     {
@@ -258,7 +258,7 @@
       "action": "tokenと消費時間を成果単位で測り、30%節減を捏造しない。",
       "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 30",
       "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-      "last_evidence_public": "NOT DONE. Stopping is not the fix. 49 routines enabled, not all verified working. Job success and reduction are not proven. Now 2026-11-06T08:16:00-08:00: shared Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. Arithmetic only: 57.5 - 56.8 (08:00 PT) = +0.7 percentage points, not a token reduction. TOKEN_MEASUREMENT.csv is absent, so there is no output floor and no token before/after. quantitative saving not verified. claim_board tasks 0 to 29 is not a percent saving.",
+      "last_evidence_public": "NOT DONE. 49 routines enabled, not all verified working. No output floor and no token before/after. 2026-11-06T08:16:00-08:00 Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. 57.5-56.8=+0.7 percentage points, not a token reduction. quantitative saving not verified. Baseline task-output-baseline.csv has 2 rows and savings is blank.",
       "blocker_public": "Priority 30: no DONE proof"
     }
   ],
@@ -395,6 +395,6 @@
     "declared_updated": "2026-11-06",
     "timezone": "America/Los_Angeles",
     "rows": 29,
-    "source_updated_at": "2026-11-06T17:01:02.079609+00:00"
+    "source_updated_at": "2026-11-06T17:12:46.854125+00:00"
   }
 }
