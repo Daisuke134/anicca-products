@@ -252,7 +252,7 @@ test('shows Capafy account observations with their collection time', async () =>
   assert.match(rendered, /Developer Overview not collected yet/);
   assert.doesNotMatch(rendered, /Unique buyers and conversion rate are not returned/);
   assert.match(rendered, /12,384/);
-  assert.match(rendered, /Hourly refresh · current/);
+  assert.match(rendered, /Provider snapshot · current/);
   assert.match(rendered, new RegExp(new Date().toISOString().slice(0, 10)));
 });
 
@@ -383,7 +383,8 @@ test('renders platform and ASC summaries as labelled mobile cards with fresh sou
   assert.match(apps, /class="asc-apps"/);
   assert.match(apps, /data-label="Impressions"/);
   assert.match(elements.get('upd').textContent, /Ledger snapshot/);
-  assert.match(elements.get('ft').innerHTML, /hourly/i);
+  assert.match(elements.get('ft').innerHTML, /Collection cadence varies by source/);
+  assert.doesNotMatch(elements.get('ft').innerHTML, /Collection runs hourly|rebuilt every 30 minutes/i);
   assert.doesNotMatch(elements.get('ft').innerHTML, /30 minutes/i);
   assert.match(html, /@media\(max-width:600px\)[\s\S]*#plat/);
   assert.match(html, /#asc-analytics table\.asc-apps/);
