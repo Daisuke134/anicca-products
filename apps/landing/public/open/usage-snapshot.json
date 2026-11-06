@@ -166,6 +166,7 @@
     }
   ],
   "notes": [
+    "Bot shares are Grok Bot-account usage on the same Ultra plan (chats, bot-to-bot, and group activity). They are not independently measured external/CLI costs for Codex, Dots, Muse, or other named bots. Handing work to another bot does not necessarily make it cheaper. Raw external provider costs are not measured here.",
     "Percentages are subscription shares from CheckSubscriptionUsage, not raw tokens or dollars.",
     "Within-Grok-Bot bot shares are rounded and may sum near 100.",
     "Older 22:28 PT snapshot (12.7% / Grok Bot 12.5%) is superseded by this 23:00 PT record."
