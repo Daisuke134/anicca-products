@@ -6,7 +6,7 @@
       "action": "新しいagent/routineを増やさず、既存運用の停滞を赤で示す。",
       "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 1",
       "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-      "last_evidence_public": "49 enabled (job success/reduction not proven); finished one-off tax/refund excluded. Saved routine: keep result quality/quantity; cut reread/duplicate status/retry; existing connector/script first; no new CLI/paid provider. X practices applied in saved routine, quantitative saving not verified. 49 routines enabled, not all verified working. Now 2026-11-06T08:16:00-08:00: Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. 57.5-56.8=+0.7 percentage points, not a token reduction.",
+      "last_evidence_public": "GUARDS ACTIVE on Nov 6 09:30-09:33 PT. 45 regular enabled (4 paused); finished one-offs outside count. Reason team coordinator hourly broad transcript scan paused; X distribution 15min duplicate paused while existing X Operator remains publisher/live url verification; hourly no-change status paused while real outcomes still delivered; LINE 4h known no-tab errors paused pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227. Sync weekday 8AM guard bounded no full histories. Results guarded no sneaky cutting output.",
       "blocker_public": "Priority 1: no DONE proof"
     },
     {
@@ -258,17 +258,17 @@
       "action": "tokenと消費時間を成果単位で測り、30%節減を捏造しない。",
       "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 30",
       "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-      "last_evidence_public": "NOT DONE. 49 routines enabled, not all verified working. No output floor and no token before/after. 2026-11-06T08:16:00-08:00 Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. 57.5-56.8=+0.7 percentage points, not a token reduction. quantitative saving not verified. Baseline task-output-baseline.csv has 2 rows and savings is blank.",
-      "blocker_public": "Priority 30: no DONE proof"
+      "last_evidence_public": "GUARDS ACTIVE; saving percentage unmeasured. Actual shared usage at Nov6 09:24PT was 64.7 used,35.3 remain resetNov12 20:30PT. Of total plan GrokBot portion61.1. Private share Grok usage periodstartNov6UTC: 参謀40 all nonroutine/X15/Codex9/Fucker8/other23. Not exact tokens or dollars and no matched before after basis, never claim30%saved. Four duplicate/failing periodic runs paused real actions at09:30-33PT; X Operator retains publishing, all client outcomes kept.",
+      "blocker_public": "Known budget guard; exact saved percentage unavailable, not failure of guard"
     }
   ],
   "usage_snapshot": {
     "source": "CheckSubscriptionUsage",
-    "measured_at": "2026-11-06T08:16:00-08:00",
+    "measured_at": "2026-11-06T09:24:00-08:00",
     "timezone": "America/Los_Angeles",
     "plan": "Ultra",
-    "weekly_usage_percent": 57.5,
-    "remaining_percent": 42.5,
+    "weekly_usage_percent": 64.7,
+    "remaining_percent": 35.3,
     "reset_at": "2026-11-12T20:30:00-08:00",
     "week_window_start_at": "2026-11-05T20:30:00-08:00",
     "additional_usage_credits": {
@@ -280,7 +280,7 @@
       "kind": "measured_snapshot",
       "page_json_reload_minutes": 15,
       "live_token_stream": "not monitored",
-      "note": "One measured snapshot. Not a realtime monitor and not a progress animation. Values stay here until a newer usage-snapshot is published."
+      "note": "Not realtime. One measured snapshot. Not a realtime monitor and not a progress animation. Values stay here until a newer usage-snapshot is published."
     },
     "token_detail_adapters": {
       "admin_api": {
@@ -337,16 +337,17 @@
     "projection_scenarios": [],
     "bots": [],
     "notes": [
-      "Shared plan: Ultra. Now reading 2026-11-06T08:16:00-08:00: weekly 57.5% used, percent of that shared weekly plan limit. Reset 2026-11-12 20:30 PT. This Now reading has no new Grok Bot share.",
-      "Previous official row, not this Now reading: 2026-11-06T08:00:00-08:00 weekly 56.8%, Grok Bot 55.1%.",
-      "Arithmetic difference only: 57.5 - 56.8 = +0.7 percentage points. That is not a token reduction. Outcome floor is absent, so no saving claim.",
-      "Earlier official weekly readings, not this row: 54% at 07:05 PT and 56.4% at 07:54 PT.",
-      "49 enabled (job success/reduction not proven). Finished one-off tax/refund excluded. Stopping work is not the fix.",
-      "X practices applied in saved routine, quantitative saving not verified.",
-      "49 routines enabled, not all verified working.",
-      "Saved routine keeps outcome quality and quantity, cuts reread/duplicate status/retry, prefers existing connector/script, and adds no new CLI or paid provider.",
-      "Remaining 42.5% is 100 minus the measured weekly 57.5. It is not a second official reading.",
-      "Bot-level week shares were not mixed in. They are not this weekly cumulative."
+      "Shared plan: Ultra. Now reading 2026-11-06T09:24:00-08:00: weekly 64.7% used, 35.3% remain. Reset 2026-11-12 20:30 PT. GrokBot portion 61.1 percentage points. Not realtime.",
+      "Previous official row, not this Now reading: 2026-11-06T08:16:00-08:00 weekly 57.5%. Earlier 2026-11-06T08:00:00-08:00 weekly 56.8%, Grok Bot 55.1%.",
+      "Savings UNKNOWN. No matched before/after basis. Not exact tokens or dollars. No raw savings percentage. Never claim 30% saved.",
+      "Earlier official weekly readings, not this row: 54% at 07:05 PT, 56.4% at 07:54 PT, and 57.5% at 08:16 PT.",
+      "45 regular enabled (4 paused); finished one-offs outside count. GUARDS ACTIVE 2026-11-06 09:30-09:33 PT.",
+      "Paused: Reason team coordinator hourly broad transcript scan.",
+      "Paused: X distribution 15min duplicate; existing X Operator remains publisher and live url verification.",
+      "Paused: hourly no-change status; real outcomes still delivered.",
+      "Paused: LINE 4h known no-tab errors pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227.",
+      "Private share of Grok usage, period start 2026-11-06 UTC, not exact tokens or dollars: 参謀 40 all nonroutine, X 15, Codex 9, Fucker 8, other 23.",
+      "Remaining 35.3% is 100 minus the measured weekly 64.7. It is not a second official reading. Not realtime."
     ],
     "relay_migration": {
       "status": "APPLIED",
@@ -355,9 +356,9 @@
     },
     "unit": "percent of the shared weekly plan limit",
     "period": "weekly window through reset 2026-11-12 20:30 PT",
-    "reduction_effect": "quantitative saving not verified",
-    "countermeasure": "49 enabled (job success/reduction not proven). Stopping work is not the fix.",
-    "bot_shares_omitted": "Bot-level week shares are a different 7-day bundle from this weekly cumulative and are not shown here.",
+    "reduction_effect": "savings UNKNOWN",
+    "countermeasure": "45 regular enabled (4 paused); finished one-offs outside count. GUARDS ACTIVE 2026-11-06 09:30-09:33 PT. Savings UNKNOWN.",
+    "bot_shares_omitted": "Private Grok shares since 2026-11-06 UTC are not this weekly cumulative and are not exact tokens or dollars.",
     "prior_official_weekly_readings": [
       {
         "weekly_usage_percent": 54,
@@ -373,20 +374,50 @@
         "weekly_usage_percent": 56.8,
         "grok_bot_share_percent": 55.1,
         "observed_at": "2026-11-06T08:00:00-08:00",
+        "label": "earlier official row; not this Now reading"
+      },
+      {
+        "weekly_usage_percent": 57.5,
+        "observed_at": "2026-11-06T08:16:00-08:00",
         "label": "previous official row; not this Now reading"
       }
     ],
     "percentage_point_change": {
-      "from_percent": 56.8,
-      "to_percent": 57.5,
-      "from_measured_at": "2026-11-06T08:00:00-08:00",
-      "to_measured_at": "2026-11-06T08:16:00-08:00",
-      "arithmetic_difference_percentage_points": 0.7,
-      "formula": "57.5 - 56.8 = 0.7",
-      "meaning": "percentage-point change only, not a token reduction",
+      "from_percent": null,
+      "to_percent": 64.7,
+      "from_measured_at": null,
+      "to_measured_at": "2026-11-06T09:24:00-08:00",
+      "arithmetic_difference_percentage_points": null,
+      "formula": "no matched before/after basis",
+      "meaning": "not a matched before/after; not tokens or dollars; no raw savings percentage",
       "outcome_floor": "absent",
-      "saving_claim": "not allowed"
-    }
+      "saving_claim": "not allowed",
+      "savings": "UNKNOWN"
+    },
+    "grok_bot_share_percent": 61.1,
+    "evidence": [
+      {
+        "observed_at": "2026-11-06T09:24:00-08:00",
+        "weekly_usage_percent": 64.7,
+        "remaining_percent": 35.3,
+        "grok_bot_share_percent": 61.1,
+        "reset_at": "2026-11-12T20:30:00-08:00",
+        "note": "Not realtime."
+      },
+      {
+        "observed_at": "2026-11-06T09:30:00-08:00",
+        "enabled": 45,
+        "paused": 4,
+        "finished_one_offs": "outside count",
+        "savings": "UNKNOWN",
+        "statuses": [
+          "Reason team coordinator hourly broad transcript scan paused",
+          "X distribution 15min duplicate paused; X Operator remains publisher/live url verification",
+          "hourly no-change status paused; real outcomes still delivered",
+          "LINE 4h known no-tab errors paused pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227"
+        ]
+      }
+    ]
   },
   "public_company_todo": {
     "repository": "Daisuke134/anicca-products",
