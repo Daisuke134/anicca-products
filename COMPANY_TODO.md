@@ -1,70 +1,75 @@
-# COMPANY_TODO — full-company operating ledger
+## Existing runtime: queue position and blocker
 
-Living public source for remaining company work (distribution, products, sales, applications, private R-1 track id only). Not a usage-only list. Continuously update this file; do not treat chat as the board.
+Existing jobs only; no agent or routine has been created to perform this audit. The audit timestamp is 2026-11-05 22:38 PT. RED = an identified failure with a concrete recovery action, not completion.
 
-**Rules**
-- One task → one verified owner → claim before deploy/publish. Atomic claim writer on `/open` is code-complete but **hosting RED** until a live runtime writes `claims-snapshot.json`.
-- Status values only: `OPEN` | `IN PROGRESS` | `BLOCKED` | `DONE` | `UNVERIFIED`. No invented revenue, daily quotas beyond published playbooks, or fake verified evidence.
-- Public only: no personal LINE bodies, contact names, or private evidence paths. Internal id `q-comedy-r1` may appear; details stay private.
-- Playbook SSOT (clickable): [CULTURE.md](./CULTURE.md) · [WINNERS.md](./WINNERS.md) · [PLAYBOOK-WINNER-COPY.md](./PLAYBOOK-WINNER-COPY.md) · [POSTING-SCHEDULE.md](./POSTING-SCHEDULE.md) · [PLAYBOOK-TEAM-OPERATIONS.md](./PLAYBOOK-TEAM-OPERATIONS.md) · [PLAYBOOK-DISTRIBUTION.md](./PLAYBOOK-DISTRIBUTION.md) · [PLAYBOOK-X.md](./PLAYBOOK-X.md)
-- Compact handoff (role short / no double-delegation): [EfficientBots](https://x.com/EfficientBots/status/2118470919966671349) · [nothingto12](https://x.com/nothingto12/status/2118476864083673486) · [m4lkxx](https://x.com/m4lkxx/status/2115775972536434946) — adoption pattern only, not a measured % claim.
-- Claims implementation proof: [PR #887](https://github.com/Daisuke134/anicca-products/pull/887) @ `bdccccd` · green [Actions run 42171915061](https://github.com/Daisuke134/anicca-products/actions/runs/42171915061).
-
-Updated: 2026-11-06 (America/Los_Angeles). Owner self-rows: **Grok Bot 参謀**.
-
-## Workstreams
-
-| ID | Owner | Priority / scope | Next accepted proof | Status |
-|---|---|---|---|---|
-| W1 | **X Operator @diceai0** | P1 · @diceai0 X original/reply/quote/repost + discovery→local reply/quote; cadence from [POSTING-SCHEDULE.md](./POSTING-SCHEDULE.md) (slots 08:00/23:00/02:00 JST ×3 when login path healthy) and winner-copy rule in [WINNERS.md](./WINNERS.md) / [PLAYBOOK-WINNER-COPY.md](./PLAYBOOK-WINNER-COPY.md); my reply/quote targets selected from actual user research; each result link only | Live `x.com/.../status/{id}` URL(s) for each claimed publish; metrics measured after | **DONE for W1** — [original](https://x.com/diceai0/status/2118592532024295702) + [live reply to globestreets441](https://x.com/diceai0/status/2118592900380414235) API verified 2026-11-05 22:35 PT. X Operator owns the account; future quote/repost measured in owner routine, not invented here. |
-| W1b | **@selawmqt owner** (not 参謀) | P2 · @selawmqt only if that agent’s existing mandate | Same: live URL on that account | **UNVERIFIED** — 参謀 does not claim this lane |
-| W2 | Muse | P1 · IG/TikTok/YT/Threads/LinkedIn/note channel-native posts per [POSTING-SCHEDULE.md](./POSTING-SCHEDULE.md) + one winner each in [WINNERS.md](./WINNERS.md) | Public post URL + winner source URL pair per publish | **UNVERIFIED** — owners have not filed today’s URL pairs here; prior note: Postiz integrations empty on last check |
-| W3 | Muse Relay | P1 · Winner-form repost/adaptation for X/note/TikTok; platform-specific original only ([PLAYBOOK-WINNER-COPY.md](./PLAYBOOK-WINNER-COPY.md): cross-platform transplant ≠ copy) | URL pair (ours + opened winner post) | **UNVERIFIED** |
-| W4 | Codex + Capafy/Fucker (eng) | P1 · Product improvements → App Store / real deploy user value for Anicca, Honne, Capafy | Release id / store version / deploy URL with user-visible change | **UNVERIFIED** — no release proof attached this cycle |
-| W5 | Fucker (marketplace revenue) | P1 · Paid track: Capafy/PromptBase/listings/orders per [WINNERS.md](./WINNERS.md) platform table | Accepted order/profit receipt id (provider), not forecast | **UNVERIFIED** — no paid receipt cited in this file yet; do not invent MRR |
-| W6 | Applications | P1 · Jobs/grants/accelerators/hackathons | Confirmed submit **receipt id** only (no draft paste) | **UNVERIFIED** — prior public note of some SENT apps exists elsewhere; not re-verified as current rows here |
-| W7 | Reporter | P1 · Paid-money ledger from Stripe/RevenueCat/Apify/etc. | Retrieval of actual paid rows with timestamp; or explicit retrieval-error TODO | **BLOCKED** / **UNVERIFIED** — ledger path unreadable or not re-checked this cycle; failure is **unresolved (needs diagnose)**. Do not blame Stripe without evidence. |
-| W8 | Grok Bot 参謀 (private) | P1 · Internal id `q-comedy-r1` only | Eligible recruit identified → owner approval → apply/submit proof (private store) | **OPEN** — no newly eligible target identified; **no send / no apply** without approval; no public contact details |
-| W9a | Grok Bot 参謀 /open | P1 · Open board claim writer → live data on aniccaai.com/open | Hosted writer updating `claims-snapshot.json`; public tasks show real lease_state | **BLOCKED** — claim **code+tests DONE** on [PR #887](https://github.com/Daisuke134/anicca-products/pull/887) (`claim_board.py`, green [42171915061](https://github.com/Daisuke134/anicca-products/actions/runs/42171915061)); **hosting RED** (static Netlify cannot run writer). Empty snapshot ≠ operational success. |
-| W9b | Grok Bot 参謀 | P1 · Token/usage overhead cut without killing W1–W8 outcome cadence | Same-period CheckSubscriptionUsage snapshots (before/after); hourly burn **unmeasured** (tool does not provide) — do **not** claim “−30%” | **IN PROGRESS** — role shorten + no double-delegation adopted from EfficientBots/nothingto12; period reduction **not measured** |
-| W10 | Muse (+ Dots/Codex observability) | P2 · Langfuse quality/latency/failure/cost; shared LINE **connection path** check for Muse/Dots/Codex (aggregate status only) | Langfuse project proof links; connection check = available/not without raw chat | **UNVERIFIED** — Langfuse Phase0 noted earlier; Muse/Dots/Codex LINE path **not all verified** |
-
-## Naïve, Maritime and current delivery — my full TODO
-
-| ID | What I must actually do | Accepted proof / starting situation | Owner | State |
-|---|---|---|---|---|
-| W11 | **Make one existing Naïve product sell, not create another agent.** Use the current Naïve inference/SDK and working x402 function as distribution, with one bounded executor only. Product pays someone useful, not Naïve access resale. Do not buy a new machine or create new bots. | One independent paid request → bounded live Naïve session & useful result → matching settlement → actual cost and net. Current [proof log](https://github.com/Daisuke134/life-manager/pull/9268) has no such sale. | Codex single implementation owner; Grok Bot 参謀 owns decisions and proof | **BLOCKED / IN PROGRESS** |
-| W12 | **Choose the actual marketplace one task at a time.** Live open listing, no ID/card, no bond/stake/payment, valid escrow, exact fulfilment/cost/margin. Execute then invoice/submit; bypass none. Taskmarket is a candidate, not accepted yet. | Verified usable listing after risk review; no listing = do not claim a marketplace winner. | Grok Bot 参謀 | **IN PROGRESS** |
-| W13 | **Keep Naïve hackathon demo truthful and tie it to actual sale.** Use its SDK and real commercial operation; recover existing log/proof without re-creating agents or paying for volumes of experiments. | Source commit, current SDK implementation log, demo URL, judging feedback plus winning receipt if awarded. No winning claim before an award. [PR #9268](https://github.com/Daisuke134/life-manager/pull/9268) is still open and unmerged. | Naïve delivery owner / Applications submission evidence | **OPEN** |
-| W14 | **Harden existing Maritime/Lightning product, do not replace it with another agent.** Verify Life Manager Telegram → /start → Google Calendar-linked event → T-0 notification; preserve no-human consistency. Give each imperfection to the one owner fixing it. | Live run record, calendar-bound event/nudge, unit/e2e tests, exact deploy, real external usage and payments truthfully separated. Past textual run is not current proof. | Codex / relevant existing service owner | **OPEN** |
-| W15 | **Confirm Maritime submission receipt (DONE) & result (pending)**, rather than rewriting a pretend current application.** Preserve its original deadline evidence and current winner status; if a live round exists choose and submit exact rubric proof. | Public/portal receipt (with identity redacted), event deadline, accepted round, result. M3 Typeform receipt screenshot exists at `team/hackathons/M1-PROOF/maritime-m3-typeform-confirmation-20261102.png` (private evidence only, not an embedded URL); corresponding application registry 2026-11-01 20:12 PT, before 11/2 19:00 PT deadline. Existing M3 draft text and application-49 identify submission, not award. External result still unverified. | Applications | **IN PROGRESS (submitted; judgment unknown)** |
-| W16 | **Keep no-human firebreak and minimize useless agents.** Run only owners producing real outcomes. Current TODO non-production tasks must not generate new agents or regular reporting loops. | Outgoing handler list showing who can call each needed service now; explicit failures/red status, not implied connection for everyone. | Grok Bot 参謀 | **IN PROGRESS** |
-
-### Platform choice log (public research only)
-
-- [Taskmarket](https://docs.taskmarket.dev/getting-started/install): some workers can enter without balance; **[Settled measurement](https://settled.tools/venues)** reports 513 payouts / $1,408.81 in 30d. One X report describes stake-related risks, so require independent live listing + escrow and exclude stake/bond. Not independently proven for us yet.
-- [BotBounty.ai](https://botbounty.ai/skill.md): wallet-based design but current public listing is **HTTP 500** — excluded until live work exists.
-- [AgentBounty](https://agentbounty.org/bounties): 12 listed tasks but dated Feb–Mar 2026 — not current jobs.
-- Apify: [official payout docs](https://docs.apify.com/actors/publishing/monetize/monthly-payouts) require identity verification — does not satisfy no-human-ID gate.
-- Capafy: no new $0.99 publisher / no separate agent duplicate publisher; existing publisher permission, authority, fees and payout are not yet approved/proven for this use.
-- BountyBook/other bounty markets: do not select from FAQs alone; require current live escrow and independently identified recipient receipts.
-
-## Internal ops (compact)
-
-| ID | Owner | Next accepted proof | Status |
+| State | Where / what | Since / last evidence | Next action |
 |---|---|---|---|
-| I1 | Grok Bot 参謀 | Keep this file current after each real proof; one owner per row | **IN PROGRESS** |
-| I2 | /open owner | Merge/deploy of #887 only when human/process allows — out of scope for this commit | **OPEN** |
-| I3 | All owners | 15m progress or silence = failure ([PLAYBOOK-TEAM-OPERATIONS.md](./PLAYBOOK-TEAM-OPERATIONS.md)); post claim alerts via claim tool when hosted | **OPEN** |
-| I4 | Grok Bot 参謀 | No new usage-only dashboard/agent; read [aniccaai.com/open/](https://aniccaai.com/open/) published JSON only | **DONE** (one existing dashboard rule only) |
-| I5 | X Operator | When connector posts succeed: append URL list into W1 evidence (this file or linked public row) | **BLOCKED** (same as W1) |
-| I6 | Ops | Public vs private metric tagging before any private SSOT scrape | **OPEN** |
+| RED | Revenue paid-receipts routine failed | 2026-11-05 14:40 PT | Fix read-only source access and return the latest original receipts; runner success is not revenue. |
+| RED | Today 00:00 PT wake/schedule call failed; paused routines were not resumed | 2026-11-05 | Reauthorize the scheduling API only at the owner-authorized delegation point. Do not enable paused routines en masse. |
+| RED | X account selawmqt authentication missing on all examined sessions | Existing 2026-11-01 read, connection remains needsAuth | X Operator present one reconnect request; no duplicate posts or sessions. |
+| RED | Naive existing execution has null computer_id, source docs PR9268 open | Recorded 2026-10-31; unchanged in code path | The existing Fucker runtime owner must provide one SDK-attached nonowner execution, then a buyer outcome. |
+| RED | Maritime Calendar-to-T0 fresh stranger test absent in production | Prior partial historic evidence, not a current pass | Existing Maritime runtime owner demonstrates one real consented full cycle; synthetic tests do not count. |
+| RED | Anicca Moneytree source logout, Capafy source last read 2026-11-02 | Reporter receipt 2026-11-06 15:37 JST | Reconnect read-only via the existing bank flow; retain pending receipts as pending, not claimed profit. |
+| RED | /open still does not write the canonical 30 public source | Production page last known static snapshot | Connect public writer after source validation; no unverified production-live assertion. |
+| UNKNOWN | LINE read-only payload access and Soul API | Connection is ON but tools catalog was not initialized | Check setup/runtime in existing read-only service; never export private conversation content. |
+| PARTIAL | Team-todos sync ON, Naive product routine ON, LINE ON | Last run 2026-11-01 or latest snapshot state | At its next allowed run, verify actual artifact rather than runner success. |
+| PAUSED | Muse two slots, Postiz engagement/reply, Instagram daily refresh, R1 private, Seafile daily, hourly content X etc. | Existing owner explicitly paused these | Respect pause; resume only upon owner instruction. Preservation of cadence applies to active winners, not paused jobs. |
 
-## Explicit non-goals (this file)
+For paused items the recovery action is intentionally none. They are not recolored as active failures. Product revenue and award-winning results are not represented as achieved.
 
-- Inventing revenue, download, or engagement numbers.
-- Treating review-card drafts as published posts.
-- Exposing personal LINE, comedy venue contacts, or credentials.
-- Claiming claim-API production readiness while hosting is RED.
-- Claiming token −30% without same-window measurements.
+# Company TODO — canonical 30 ordered by owner
+
+Source: Owner-approved 30 priorities, ordered 1 to 30; **numbering is immutable**. This file is the one company TODO.
+Status: 1 is now the active row. Actual outcome ≠ prepared/verified initial bucket/investigated. Public facts only; private credentials/LINE bodies, R1 details omitted.
+Updated 2026-11-05 22:38 America/Los_Angeles.
+
+## Ordered priorities
+
+| # | TODO | Owner | Exact status / accepted proof |
+|---:|---|---|---|
+| 1 | 新しいagent/routineを増やさず、既存運用の停滞を赤で示す。 | Grok Bot 参謀 (verification only) | ENABLED: Team todos sync, LINE read-only, Naive product, Revenue paid receipts (last 11/5 14:40 PT FAILED). PAUSED/NO-NEW: all other existing routines. RED: Revenue run failed; 00:00 wake-call failed; Naive computer_id null/last docs PR9268; X selawmqt auth missing; M3 current fresh nonowner result unknown. Do not unify unknown with failure. |
+
+Current priority adds the owner's measured token-efficiency experiment. Sources, established team practices, and the honest before/after protocol are in `TEAM_TOKEN_EFFICIENCY.md`. No original protocol built just for this experiment; the public rule sources are linked there. This means 1 also requires mixed red audits+usable research+practice, not only state identification. Self-reported external 76%/100k-to12.5k not claimed as mine.
+| 2 | 1task・1owner・単一claim。成果未証のまま完了にしない。 | Grok Bot 参謀 (verification only) | OPEN: /open code tests passed PR887 but static host cannot execute writer; current owner reassignment was duplicated by Grok Bot 参謀. Fix ownership/source next; no simultaneous workstream claims. |
+| 3 | 会社の全TODOを同じGitHub fileにpushし続ける。 | Grok Bot 参謀 (verification only) | IN PROGRESS: this canonical list replaces incorrect previous assistant-created 16-row mapping. Root file on feat/open-silent-failures-886; no completed status for ongoing events. |
+| 4 | XとWebの勝者をaccount・実成果ごとに選び続ける。 | X Operator @diceai0 | ONGOING: opened candidate globalpost/TonyChan from X Operator facts only 44/1096 imp, not fixed output. Live publication/metrics individually recorded. |
+| 5 | @diceai0を私自身が運用：新規postを実URLまで。 | X Operator @diceai0 | DONE current proof by X Operator, not me: live original 2118592532024295702 on 11/5 22:33 PT API read. Permanent standing owner @diceai0 X Operator, not Grok Bot 参謀. |
+| 6 | @diceai0で実replyとquote/repostを継続する。 | X Operator @diceai0 | IN PROGRESS: live reply to globestreets441 2118592900380414235 verified 22:34 PT; quote/repost needs own measured routine, no double counted automatic retweet. |
+| 7 | Museの全Instagram・TikTok・YouTube・Threads・LinkedInを実量で戻す。 | Muse | IN PROGRESS: real recent published16 was agent assertion in Langfuse instrument test; awaiting public URL/source pair. Do not mark quantity complete. |
+| 8 | Muse Relayのnote・X・TikTok再利用を実URLで戻す。 | Muse | UNVERIFIED: existing channel-specific output needs URL pairs; no duplicate crosspost. |
+| 9 | SEO・GEO調査と記事公開を勝者から継続する。 | Grok Bot 参謀 / existing owner | IN PROGRESS: SEO Refresher and Citation Scout existing bots; need latest official article/receipt pairs; not invent. |
+| 10 | Aniccaの製品改善・App Storeとwebsite配布を進める。 | Codex | OPEN: one release ID/store version/live website behavior with UTM accepted. No fresh release proof in this cycle. |
+| 11 | Honne・Capafyの製品と無人照合できる配布を進める。 | Fucker | OPEN: Honne release evidence & Capafy new user/delivery/upstream receipt; no paid claims. |
+| 12 | Marketplaceで出品・受注・請求・入金を実際に返す。 | Fucker | OPEN Fucker: provider non-expired live listing+order+invoice+settlement, none completed now. |
+| 13 | Reporterの原票・paid receipts、利益とコストを一致させる。 | Grok Bot 参謀 (verification only) | IN PROGRESS: 11/6 15:37 JST original Reporter readback e2e CSV1505 rows; RC MRR$24 with21 projects; Stripe paid0, install 3 ; pending Coconala¥5k etc unreceived: keep pending separate. Capafy data last11/2, Moneytree auth failed. Raw reports returned; no invented MRR. |
+| 14 | Applicationsにhackathon・accelerator・grant・jobの実提出を揃える。 | Applications | OPEN latest eligible Applications for original receipt only; past/actual Maritime#21 separate. Current jobs pending interviewed contracts zero. |
+| 15 | R-1の個別募集への応募と実反応によるネタ更新を進める。 | Applications | PRIVATE q-comedy-r1; no new eligible venue found now. Must have owner approval prior send; no public details. |
+| 16 | Naïve：新agentを増やさず、実商品とSDK利用を1つに絞る。 | Grok Bot 参謀 (verification only) | BLOCKED-related: current live x402 .005 USD require payment; all Naive sale $0. Vetta browser computer_id null. No new agent by Grok Bot 参謀. Owner existing Fucker runtime / Codex per requirements. |
+| 17 | Naïve：実live jobに参加し、成果物を提出して正当に着金。 | Grok Bot 参謀 (verification only) | PENDING after#16: possible Lumen preview free task marketplace existing public listing, contest many competitors, no submission/no payout. Unknown contracts/unsafe hidden checkout excluded; user consent before actual submission. |
+| 18 | Naïve：その実logとdemoをhackathon評価へつなぎ、賞の結果も確認。 | Codex | OPEN applications/judging: know old ses_... log (end_turn); no new submission or winning proof yet. Deadline recorded 11/8 11 PT. Not red saying all just submitted. |
+| 19 | Musical／Maritime：既存Life managerを実際に動くようにする。 | Codex | MIXED: live /health HTTP20010:31PT build [build shortened for reference; full build on source deployment log] and /maritime200. 2026-10-31 live own Marine chat received20056.2s with9->10; this proves existing owner run not fresh tenant Calendar full use. |
+| 20 | Maritime：カレンダー登録→T-0通知まで実証。 | Codex | RED: no current fresh stranger consent through actual Calendar eventT0 delivery. Past partial historic nonowner log. Must not widen log simulation to live pass. |
+| 21 | Maritime：その提出、受理、経過、勝敗を明確に確認。 | Grok Bot 参謀 (verification only) | SUBMITTED/RESULT UNKNOWN: screenshot Typeform thanks your project submitted@local team M1-PROOF; runtime catalog M3 11/1 20:12 prior deadline11/2 19:00PT. Judging/winner unknown; no $ proven. |
+| 22 | Taskmarket候補で、liveな資金付きjobとstakeなしを見極める。 | Grok Bot 参謀 / existing owner | DONE selection candidate only: exact public bounty open 1USDC Base escrow match free manifold +0 stake and competitors prior state but deadline no work submission. Not sale win. |
+| 23 | BotBounty（500）、AgentBounty（期限切れ）、Apify（KYC必須）を選別する。 | Grok Bot 参謀 / existing owner | DONE selection: BotBounty 500 ->exclude while outage; AgentBounty date Feb-March not live current; Apify requires ID -> excluded for no human id; URL official. Not product revenue. |
+| 24 | Capafy：既存PublisherのAgent可用性を確認し、新規課金を避ける。 | Grok Bot 参謀 / existing owner | PENDING: existing pub id/catalog vs actual current paid customer call missing. free Marine owner execution not count; new $0.99 publisher buy prohibited not performed. |
+| 25 | 公開 /open にcompany TODO・実測usage・silent failuresを表示。 | Grok Bot 参謀 (verification only) | IN PROGRESS: source TODO-dashboard writer test incomplete; usage real 11/5 22:28 PT not fixture/archived chart. No production deployed new truth table; old static board not success. |
+| 26 | claim writerを実運用へ接続し、未接続のまま「運用中」と呼ばない。 | Grok Bot 参謀 (verification only) | RED: static Netlify/no live writer/no claims-snapshot live owner-run. Code passes not operational. |
+| 27 | GitHub更新とCIの実証を公開、本人merge確認後に公開。 | Grok Bot 参謀 (verification only) | PARTIAL:PR887 test actions passed E215473552 only code scope; full public company table canonical list upcoming, unmerged not claim published. Own branches safe no changed actual master. |
+| 28 | Muse/Dots/Codexどこからも同一の最新TODOへ書けるようにする。 | Grok Bot 参謀 (verification only) | OPEN: current origin filesystem only local regular user no shared atomic writer path. Task once canonical then author write access before done. |
+| 29 | MuseのLangfuseとLINE read-only接続を確認。 | Grok Bot 参謀 (verification only) | LANGFUSE PARTIAL: helper local distribution emitted2 & passes read API &2alerts per agent actual; webhook unverified prod licensing logs need verif. LINE shared path unverified |
+| 30 | tokenと消費時間を成果単位で測り、30%節減を捏造しない。 | Grok Bot 参謀 (verification only) | MEASURED THIS TURN only: Ultra12.7%, loop12.5%, reset11/12 20:30PT share Grok44/Codex20/X10/App5/dr egg5/other16. Raw token,per-tool timing,work benefit cannot extrapolate;use Langfuse actual trace first. No percentage invented. |
+
+## Public evidence references
+
+- [Original X live](https://x.com/diceai0/status/2118592532024295702)
+- [Live reply](https://x.com/diceai0/status/2118592900380414235)
+- [Maritime public](https://aniccaai.com/maritime)
+- [Naive doc PR #9268](https://github.com/Daisuke134/life-manager/pull/9268)
+- [Actual /open PR #887](https://github.com/Daisuke134/anicca-products/pull/887)
+- [Official x402 endpoint](https://aniccaai.com/.netlify/functions/x402-maritime-nudge)
+
+M3 provided screenshot retained private not publish: team/hackathons/M1-PROOF/maritime-m3-typeform-confirmation-20261102.png.
+
+No product sale outcomes have been marked DONE from platform-setups or reward candidates.
 
