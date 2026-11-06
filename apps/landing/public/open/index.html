@@ -55,7 +55,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 <div class="c" id="card-stripe-metrics" style="margin-top:12px"><h2>Stripe account metrics</h2><div id="stripe-metrics">Loading…</div></div>
 <div class="c" id="card-team" style="margin-top:12px"><h2>Team activity</h2><table id="team-activity"></table></div>
 <div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO</h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div><h2>Shared targets</h2><div id="public-work" aria-live="polite">Loading…</div><h2>Task claims</h2><div class="m">Public snapshot not application permission. Claim via claim_board.py only; lease tokens never appear here. Snapshot refresh follows the same 15-minute JSON reload.</div><div id="claims-snapshot" aria-live="polite">Loading…</div></div>
-<div class="c" id="card-usage-snapshot" style="margin-top:12px"><h2>Aggregate usage snapshot</h2><div id="usage-snapshot" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-usage-snapshot" style="margin-top:12px"><h2>Grok Bot / plan usage snapshot</h2><div class="m">Measured CheckSubscriptionUsage shares on the existing public /open board. Page re-reads JSON every 15 minutes; not live token telemetry. Raw tokens stay UNAVAILABLE on this path.</div><div id="usage-snapshot" aria-live="polite">Loading…</div></div>
 <div class="c" id="card-portfolio" style="margin-top:12px"><h2>Business & loop snapshot</h2><div class="m" id="portfolio-snapshot">Loading…</div><div class="portfolio-counts" id="portfolio-summary"></div><details><summary>Business portfolio</summary><div class="portfolio-grid" id="portfolio-businesses"></div></details><details><summary>Operating loops</summary><div class="portfolio-table-wrap"><table class="portfolio-table" id="portfolio-loops"></table></div></details><details><summary>Metric gaps</summary><ul class="portfolio-gaps" id="portfolio-gaps"></ul></details></div>
 <div class="c" id="card-apps" style="margin-top:12px"><h2>Apps</h2><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div></div>
 <div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts</h2><table id="soc"></table></div>
@@ -93,8 +93,35 @@ const renderUsageSnapshot=feed=>{
  if(!feed||typeof feed!=='object'||Array.isArray(feed))return '<p class="m">Usage snapshot is not published yet</p>';
  const percent=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0&&value<=100?`${value}%`:'unknown';
  const stamp=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$/.test(value)&&Number.isFinite(Date.parse(value))?esc(value):'unknown';
+ const botPercent=bot=>{
+  if(typeof bot.percent_label==='string'&&bot.percent_label.trim())return esc(bot.percent_label.trim());
+  return percent(bot.percent);
+ };
+ const botDetail=bot=>{
+  const bits=[];
+  if(typeof bot.non_routine_percent==='number')bits.push(`non-routine ${percent(bot.non_routine_percent)}`);
+  if(typeof bot.routine_percent==='number')bits.push(`routine ${percent(bot.routine_percent)}`);
+  if(typeof bot.routine_note==='string'&&bot.routine_note.trim()&&!privatePublicText(bot.routine_note))bits.push(esc(bot.routine_note.trim()));
+  return bits.length?` (${bits.join('; ')})`:'';
+ };
  const bots=publicRows(feed.bots,['owner']);
- return `${feed.fixture_only===true?'<p class="status-red">Test fixture only — not current published usage.</p>':''}<p>Plan ${publicCell(feed.plan)} · ${publicCell(feed.source)} · measured <time>${stamp(feed.measured_at)}</time> · ${publicCell(feed.timezone)}</p><p>Weekly usage limit: ${percent(feed.weekly_usage_percent)} used (shared with other plan apps)</p><p>Grok Bot share of total usage: ${percent(feed.grok_bot_share_percent)}</p><p>Within Grok Bot: ${bots.length?bots.map(bot=>`${publicCell(bot.owner)} ${percent(bot.percent)}`).join(' · '):'unknown'}</p><p>Reset: <time>${stamp(feed.reset_at)}</time> · ${publicCell(feed.timezone)} local</p><div class="m">Measured snapshot; no current usage is inferred between measurements.</div>`;
+ const botLine=bots.length?`<div class="portfolio-table-wrap"><table class="portfolio-table"><thead><tr><th>Bot</th><th class="r">Share within Grok Bot</th><th>Non-routine / routine</th></tr></thead><tbody>${bots.map(bot=>`<tr><td data-label="Bot">${publicCell(bot.owner)}</td><td class="r" data-label="Share">${botPercent(bot)}</td><td data-label="Split">${botDetail(bot)||'<span class="m">no split published</span>'}</td></tr>`).join('')}</tbody></table></div>`:'<p class="m">Within Grok Bot shares unknown</p>';
+ const adapters=feed.token_detail_adapters&&typeof feed.token_detail_adapters==='object'?feed.token_detail_adapters:{};
+ const adapterLine=Object.keys(adapters).length?`<ul>${Object.entries(adapters).map(([key,row])=>{
+  if(!row||typeof row!=='object')return '';
+  const docs=typeof row.docs==='string'&&/^https:\/\/cursor\.com\//.test(row.docs)?`<a href="${esc(row.docs)}">${esc(row.docs)}</a>`:'no docs';
+  return `<li><b>${esc(key)}</b> · status ${publicCell(row.status)} · tokens ${publicCell(row.public_tokens)} · ${docs}<div class="m">${publicCell(row.eligibility)}</div></li>`;
+ }).join('')}</ul>`:'<p class="m">Token-detail adapter eligibility not published</p>';
+ const practices=Array.isArray(feed.practice_sources)?feed.practice_sources.filter(row=>row&&typeof row==='object'&&typeof row.url==='string'&&/^https:\/\/x\.com\//.test(row.url)):[];
+ const practiceLine=practices.length?`<ul>${practices.map(row=>`<li><a href="${esc(row.url)}">${publicCell(row.name||row.url)}</a><div class="m">${publicCell(row.claim)}</div></li>`).join('')}</ul>`:'<p class="m">Practice source links not published</p>';
+ const scenarios=Array.isArray(feed.projection_scenarios)?feed.projection_scenarios.filter(row=>row&&typeof row==='object'):[];
+ const scenarioLine=scenarios.length?`<ul>${scenarios.map(row=>`<li><b>${publicCell(row.label||row.id)}</b> · assumed elapsed ${publicCell(row.assumed_elapsed_hours)}h · remaining ${percent(row.remaining_percent)} · hours-to-exhaust@constant ${publicCell(row.hours_to_exhaust_at_constant_pace)} · hours-to-reset ${publicCell(row.hours_until_reset_at_measurement)}<div class="m">${publicCell(row.assumption)}</div></li>`).join('')}</ul>`:'<p class="m">No arithmetic projection scenarios published</p>';
+ const credits=feed.additional_usage_credits&&typeof feed.additional_usage_credits==='object'?feed.additional_usage_credits:null;
+ const creditLine=credits?`<p>Additional usage credits: ${credits.present===true?'present':'unknown'} · remaining amount exposed: ${credits.remaining_amount_exposed===true?'yes':'no'}<span class="m"> · ${publicCell(credits.note)}</span></p>`:'';
+ const freshness=feed.freshness&&typeof feed.freshness==='object'?feed.freshness:null;
+ const freshLine=freshness?`<p class="m">Freshness · ${publicCell(freshness.kind)} · page JSON reload ${publicCell(freshness.page_json_reload_minutes)} min · live token stream ${publicCell(freshness.live_token_stream)} · ${publicCell(freshness.note)}</p>`:'<p class="m">Measured snapshot; no current usage is inferred between measurements.</p>';
+ const notes=Array.isArray(feed.notes)?feed.notes.filter(n=>typeof n==='string'&&!privatePublicText(n)):[];
+ return `${feed.fixture_only===true?'<p class="status-red">Test fixture only — not current published usage.</p>':''}<p><span class="status-red">SNAPSHOT</span> · live token APIs <span class="status-red">UNVERIFIED / UNAVAILABLE</span> in this public path</p><p>Plan ${publicCell(feed.plan)} · ${publicCell(feed.source)} · measured <time>${stamp(feed.measured_at)}</time> · ${publicCell(feed.timezone)}</p><p>Weekly usage limit: ${percent(feed.weekly_usage_percent)} used · remaining ${percent(feed.remaining_percent)} (shared with other plan apps)</p><p>Grok Bot share of total usage: ${percent(feed.grok_bot_share_percent)}</p><p>Week window start: <time>${stamp(feed.week_window_start_at)}</time> · Reset: <time>${stamp(feed.reset_at)}</time> · ${publicCell(feed.timezone)} local</p>${creditLine}<h3 style="font-size:13px;margin:10px 0 6px">Within Grok Bot</h3>${botLine}<h3 style="font-size:13px;margin:10px 0 6px">Arithmetic remaining-time scenarios (assumptions, not a supported forecast)</h3>${scenarioLine}<h3 style="font-size:13px;margin:10px 0 6px">Token-detail adapters</h3>${adapterLine}<h3 style="font-size:13px;margin:10px 0 6px">External / self-reported practice sources</h3>${practiceLine}${freshLine}${notes.length?`<ul class="m">${notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`:''}`;
 };
 const renderClaimsSnapshot=feed=>{
  if(!feed||typeof feed!=='object'||Array.isArray(feed))return '<p class="m">Claims snapshot is not published yet</p>';
@@ -287,11 +314,12 @@ loadCapafy();
 if(typeof setInterval==='function')setInterval(loadCapafy,REFRESH_MS);
 const loadPortfolio=()=>Promise.all([
  fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Portfolio snapshot unavailable');return r.json()}),
- fetch('claims-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([d,claims])=>{
+ fetch('claims-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+ fetch('usage-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([d,claims,usageFile])=>{
  const businesses=publicRows(d.businesses,['name','status','metric','metric_value','next']),agents=Array.isArray(d.agents)?d.agents:[],loops=publicRows(d.loops,['loop','owner','host','schedule','status']),gaps=publicRows(d.metric_gaps,['item','why']);
  $('public-work').innerHTML=renderPublicWork(d.public_work);
- $('usage-snapshot').innerHTML=renderUsageSnapshot(d.usage_snapshot);
+ $('usage-snapshot').innerHTML=renderUsageSnapshot(usageFile||d.usage_snapshot);
  $('claims-snapshot').innerHTML=renderClaimsSnapshot(claims||d.claims_snapshot);
 
  const plural=(n,word)=>`${n} ${word}${n===1?'':'s'}`;

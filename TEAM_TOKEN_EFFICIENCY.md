@@ -23,10 +23,11 @@ The first public source search including named Grok Bot usage practitioners was 
 
 ## Evidence protocol / measurements permitted
 
-Current baseline observed from `CheckSubscriptionUsage`, recorded `usage-snapshot.json` at 2026-11-05 22:28 PT:
+Current baseline observed from `CheckSubscriptionUsage`, recorded `usage-snapshot.json` at 2026-11-05 23:00 PT (supersedes the earlier 22:28 PT 12.7%/12.5% record):
 
-- Ultra weekly usage is 12.7%, Grok Bot share 12.5%, weekly reset 2026-11-12 20:30 PT.
-- Internal share is 参謀 44%, Codex 20%, X Operator 10%, Applications 5%, dr eggbot 5%, other 16%. This is not 44% of the user's total plan. These are percentages, not token counts.
+- Ultra weekly usage is 21.1%, Grok Bot share 21%, remaining 78.9%, weekly reset 2026-11-12 20:30 PT. Additional usage credits exist; remaining credit amount is not exposed.
+- Within Grok Bot shares (rounded): 参謀 47, Codex 18, X Operator 11, dr eggbot 6, Reporter 3, Dots 3, Applications 3, Fucker 3, Muse 3, Muse Relay 2, Anicca Marketer 1, Forensic Writing <1, other <1. These are percentages of Grok Bot usage, not of the whole plan, and not token counts.
+- Public /open shows labeled arithmetic remaining-time scenarios with explicit assumptions. They are not a supported forecast. Admin API / OTel exact tokens remain UNAVAILABLE on this public path.
 
 We cannot honestly claim token acceleration or aggregate token reduction from these percentages alone. Do not calculate product burn rate, previous token total, saving, or an annual dollar outcome from them.
 

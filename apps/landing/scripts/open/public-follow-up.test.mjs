@@ -13,7 +13,17 @@ async function render(feed) {
     if (!nodes.has(id)) nodes.set(id, { innerHTML: '', textContent: '', style: {} });
     return nodes.get(id);
   } };
-  const context = vm.createContext({ document, fetch: async () => ({ ok: true, json: async () => feed }) });
+  const context = vm.createContext({ document, fetch: async (url='') => {
+    const href = String(url);
+    if (href.includes('usage-snapshot.json')) {
+      const body = feed && typeof feed === 'object' && 'usage_snapshot' in feed ? feed.usage_snapshot : (feed && feed.source === 'CheckSubscriptionUsage' ? feed : null);
+      return { ok: !!body, json: async () => body };
+    }
+    if (href.includes('claims-snapshot.json')) {
+      return { ok: false, json: async () => null };
+    }
+    return { ok: true, json: async () => feed };
+  } });
   vm.runInContext(script.slice(0, script.indexOf('const loadData=')) + script.slice(script.indexOf('const loadPortfolio='), script.indexOf('\nloadPortfolio();')), context);
   await vm.runInContext('loadPortfolio()', context);
   return { nodes, context };
@@ -59,12 +69,14 @@ test('unsafe personal rows and private cells are withheld; HTML is escaped', asy
 test('usage snapshot keeps measured timezone and reset separate from export and percent denominators', async () => {
   const { nodes } = await render(fixture);
   const output = nodes.get('usage-snapshot')?.innerHTML || '';
-  for (const text of ['Ultra', 'CheckSubscriptionUsage', '2026-11-05T21:27:00-08:00', 'America/Los_Angeles', '2026-11-12T20:30:00-08:00', '10.6%', '10.4%', '39%', '21%', '10%', '6%', '参謀', 'dr eggbot']) assert.ok(output.includes(text), text);
+  for (const text of ['Ultra', 'CheckSubscriptionUsage', '2026-11-05T21:27:00-08:00', 'America/Los_Angeles', '2026-11-12T20:30:00-08:00', '10.6%', '10.4%', '89.4%', '39%', '21%', '10%', '6%', '参謀', 'dr eggbot', 'SNAPSHOT', 'UNAVAILABLE', 'Fixture arithmetic only', 'Michael Fenech']) assert.ok(output.includes(text), text);
   assert.match(output, /shared with other plan apps/);
   assert.match(output, /Grok Bot share of total usage/);
   assert.match(output, /Within Grok Bot/);
   assert.match(output, /Test fixture only/);
-  assert.doesNotMatch(output, /2026-11-06T05:27:00Z|9\.4%|live usage|100%/);
+  assert.match(output, /Arithmetic remaining-time scenarios/);
+  assert.match(output, /Token-detail adapters/);
+  assert.doesNotMatch(output, /2026-11-06T05:27:00Z|(?<![0-9])9\.4%|live usage|(?<![0-9])100%/);
 });
 
 test('missing, invalid percentages and offset-free timestamps are unknown without reconstructing shares', async () => {
@@ -103,4 +115,26 @@ test('existing public portfolio surfaces also withhold personal rows and private
   });
   const output = ['silent-failures', 'portfolio-loops', 'portfolio-businesses', 'portfolio-gaps'].map(id => nodes.get(id)?.innerHTML || '').join('');
   assert.doesNotMatch(output, /R-1|comedy|LINE|credential|secret|\/workspace\/|person@/);
+});
+
+test('dedicated usage-snapshot.json wins over stale metrics usage_snapshot', async () => {
+  const feed = structuredClone(fixture);
+  feed.usage_snapshot = { ...feed.usage_snapshot, weekly_usage_percent: 1.1, fixture_only: true };
+  const dedicated = { ...fixture.usage_snapshot, weekly_usage_percent: 10.6, source: 'CheckSubscriptionUsage' };
+  const nodes = new Map();
+  const document = { getElementById(id) {
+    if (!nodes.has(id)) nodes.set(id, { innerHTML: '', textContent: '', style: {} });
+    return nodes.get(id);
+  } };
+  const context = vm.createContext({ document, fetch: async (url='') => {
+    const href = String(url);
+    if (href.includes('usage-snapshot.json')) return { ok: true, json: async () => dedicated };
+    if (href.includes('claims-snapshot.json')) return { ok: false, json: async () => null };
+    return { ok: true, json: async () => feed };
+  } });
+  vm.runInContext(script.slice(0, script.indexOf('const loadData=')) + script.slice(script.indexOf('const loadPortfolio='), script.indexOf('\nloadPortfolio();')), context);
+  await vm.runInContext('loadPortfolio()', context);
+  const output = nodes.get('usage-snapshot')?.innerHTML || '';
+  assert.match(output, /10\.6%/);
+  assert.doesNotMatch(output, /1\.1%/);
 });

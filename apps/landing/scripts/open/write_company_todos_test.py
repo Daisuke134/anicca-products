@@ -17,7 +17,7 @@ def run_writer(source):
 
 class NumberedOwnerTodoWriterTest(unittest.TestCase):
  def test_real_source_preserves_original_one_based_priority_and_single_owner(self):
-  result=run_writer(Path(__file__).with_name('COMPANY_TODO.md').read_text())
+  result=run_writer((Path(__file__).resolve().parents[4]/'COMPANY_TODO.md').read_text())
   rows=result['public_work']
   self.assertEqual([r['priority'] for r in rows], [i for i in range(1,31) if i!=15])
   self.assertNotIn('R-1', json.dumps(rows,ensure_ascii=False))
