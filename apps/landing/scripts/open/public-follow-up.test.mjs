@@ -92,9 +92,13 @@ test('missing, invalid percentages and offset-free timestamps are unknown withou
 test('real published metrics remain unchanged and cannot imply the fixture is published', async () => {
   const url = new URL('../../public/open/metrics.json', import.meta.url);
   const before = await readFile(url, 'utf8');
-  const { nodes } = await render(JSON.parse(before));
-  assert.match(nodes.get('public-work')?.innerHTML || '', /Shared targets are not published yet/);
-  assert.match(nodes.get('usage-snapshot')?.innerHTML || '', /Usage snapshot is not published yet/);
+  const parsed = JSON.parse(before);
+  assert.equal((parsed.public_work || []).length, 29);
+  assert.equal(parsed.usage_snapshot?.weekly_usage_percent, 21.1);
+  const { nodes } = await render(parsed);
+  assert.match(nodes.get('public-work')?.innerHTML || '', /priority/);
+  assert.match(nodes.get('usage-snapshot')?.innerHTML || '', /21\.1%|21.1%/);
+  assert.doesNotMatch(nodes.get('public-work')?.innerHTML || '', /Fixture arithmetic only|Michael Fenech/);
   assert.equal(await readFile(url, 'utf8'), before);
 });
 
