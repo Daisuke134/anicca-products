@@ -14,6 +14,11 @@ on:
         description: Replacement evidence cell, 500 characters or fewer
         required: true
         type: string
+      proof:
+        description: Optional Ed25519 proof for an actor whose public key is already in row_actors.json
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: write
@@ -33,8 +38,12 @@ jobs:
           ACTOR: ${{ github.actor }}
           PRIORITY: ${{ inputs.priority }}
           EVIDENCE: ${{ inputs.evidence }}
+          PROOF: ${{ inputs.proof }}
         run: |
           set -euo pipefail
+          if [ -n "${PROOF}" ]; then
+            ACTOR="$(node apps/landing/netlify/functions/_lib/owner-row-write.js verify-proof)"
+          fi
           python3 apps/landing/scripts/open/owner_row.py \
             --actors apps/landing/scripts/open/row_actors.json \
             --todo COMPANY_TODO.md \

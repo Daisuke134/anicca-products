@@ -60,7 +60,7 @@ jobs:
       - run: npm run test:anicca-app-store-routing
       - name: Open dashboard data and UI contracts
         working-directory: apps/landing
-        run: node --test scripts/stage-open-data.test.mjs scripts/check-open-data.test.mjs scripts/open-team-activity.test.mjs
+        run: node --test scripts/stage-open-data.test.mjs scripts/check-open-data.test.mjs scripts/open-team-activity.test.mjs netlify/functions/_lib/__tests__/owner-row-write.test.js
       - name: Stage reviewed canonical Manager articles before build
         working-directory: apps/landing
         env:

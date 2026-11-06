@@ -1,4 +1,9 @@
 {
+  "authorization": {
+    "hmac_env": "OPEN_OWNER_ROW_HMAC_SECRET",
+    "ed25519_public_key_field": "ed25519_public_key",
+    "note": "Keys are added by the owner from an existing actor key. Muse, Dots, and Codex have no key here."
+  },
   "actors": {
     "cursor[bot]": {
       "verification_only": true,
