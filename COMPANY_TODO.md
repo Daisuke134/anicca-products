@@ -21,7 +21,7 @@ For paused items the recovery action is intentionally none. They are not recolor
 
 Source: Owner-approved 30 priorities, ordered 1 to 30; **numbering is immutable**. This file is the one company TODO.
 Status: 1 is now the active row. Actual outcome ≠ prepared/verified initial bucket/investigated. Public facts only; private credentials/LINE bodies, R1 details omitted.
-Updated 2026-11-05 22:38 America/Los_Angeles.
+Updated: 2026-11-05 (America/Los_Angeles), verified 22:38 PT.
 
 ## Ordered priorities
 
