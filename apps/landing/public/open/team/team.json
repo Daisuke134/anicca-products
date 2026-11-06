@@ -1,1 +1,595 @@
-{"version":3,"built_at":"2026-11-06 16:44 JST","schema":"current_status","honesty":"No universal self-update writer exists until each external worker publishes. Recorded loops are schedules only, not proof of a run. Historical BOARD/LIVE-STATE tasks are not shown as right_now.","current_status":[{"agent":"Anicca Marketer","runtime":"Grok Bot","task":"not reported","cadence":"unknown","last_event_at":null,"outcome":"No public self-published outcome in DAILY-LOG 2026-11-06.","proof":null,"status":"unknown","source":"DAILY-LOG/2026-11-06.md (no Anicca Marketer row)"},{"agent":"Pause","runtime":"Grok Bot","task":"not reported","cadence":"unknown","last_event_at":null,"outcome":"Owner has not published a public task or outcome.","proof":null,"status":"unknown","source":"TEAM.md Pause row; no DAILY-LOG public row"},{"agent":"Applications","runtime":"Grok Bot","task":"not reported","cadence":"unknown","last_event_at":null,"outcome":"COMPANY_TODO lists Applications open with zero interviewed contracts; no dated public run proof here.","proof":null,"status":"unknown","source":"COMPANY_TODO.md #14 (public)"},{"agent":"Fucker","runtime":"Grok Bot","task":"Capafy cycle (public one-line)","cadence":"unknown","last_event_at":"2026-11-06 14:30 JST","outcome":"Reported Capafy cycle steps; sales unit +1; no paid settlement claimed.","proof":"DAILY-LOG/2026-11-06.md Fucker 14:30 JST row","status":"observed","source":"DAILY-LOG/2026-11-06.md"},{"agent":"Reporter","runtime":"Grok Bot","task":"Paid receipts / cost-revenue readback","cadence":"unknown","last_event_at":"2026-11-06 15:37 JST","outcome":"Original Reporter readback recorded on COMPANY_TODO (raw reports; MRR not invented).","proof":"COMPANY_TODO.md #13 (public on anicca-products)","status":"observed","source":"COMPANY_TODO.md"},{"agent":"Dots","runtime":"Reason","task":"not reported","cadence":"unknown","last_event_at":"2026-11-05 07:46 JST","outcome":"Last public DAILY-LOG rows are 2026-11-05 activity checks (not treated as live right now).","proof":"DAILY-LOG/2026-11-05.md Dots rows","status":"stale","source":"DAILY-LOG/2026-11-05.md"},{"agent":"dr eggbot","runtime":"Grok Bot","task":"gig-audit / coconala-lancers-loop (reported)","cadence":"unknown","last_event_at":"2026-11-06 15:54 JST","outcome":"Gig-audit run logged; applications 0; login/browser blockers noted; no new paid claim.","proof":"DAILY-LOG/2026-11-06.md dr eggbot rows","status":"observed","source":"DAILY-LOG/2026-11-06.md"},{"agent":"Codex","runtime":"external Codex CLI","task":"not reported","cadence":"Naive product routine configured daily 14:00 JST (config only)","last_event_at":null,"outcome":"First scheduled Naive CLI run not proven. Configured cadence is not a run.","proof":null,"status":"unknown","source":"Founder cadence note + COMPANY_TODO Naive rows"},{"agent":"Forensic Writing","runtime":"Grok Bot","task":"hook-forensics-24h","cadence":"unknown","last_event_at":"2026-11-06 14:19 JST","outcome":"Reported 14:00 hook-forensics pass: winners 0; no draft; followers 924 (+0).","proof":"DAILY-LOG/2026-11-06.md Forensic Writing 14:19 JST","status":"observed","source":"DAILY-LOG/2026-11-06.md"},{"agent":"SEO Refresher","runtime":"Grok Bot","task":"not reported","cadence":"unknown","last_event_at":null,"outcome":"Existing bot; no latest public article/receipt pair published in this snapshot.","proof":null,"status":"unknown","source":"COMPANY_TODO.md #9"},{"agent":"Muse Relay","runtime":"Grok Bot","task":"Relay / mis-send prevention","cadence":"unknown","last_event_at":"2026-11-06 14:10 JST","outcome":"Reported Muse/Codex transfer check complete; 02:00 pass still unrecovered from usage limit.","proof":"DAILY-LOG/2026-11-06.md Muse Relay 14:10 JST","status":"observed","source":"DAILY-LOG/2026-11-06.md"},{"agent":"Citation Scout","runtime":"Grok Bot","task":"not reported","cadence":"unknown","last_event_at":null,"outcome":"Existing bot; no latest public citation/index receipt in this snapshot.","proof":null,"status":"unknown","source":"COMPANY_TODO.md #9"},{"agent":"Muse","runtime":"Muse VM","task":"SNS / Langfuse recovery (via relay reports)","cadence":"unknown","last_event_at":"2026-11-06 14:05 JST","outcome":"Relay-published Muse updates; YouTube Shorts identity dialog still blocking some slots.","proof":"DAILY-LOG/2026-11-06.md Muse (via relay) rows","status":"observed","source":"DAILY-LOG/2026-11-06.md"},{"agent":"X Operator","runtime":"Grok Bot","task":"@diceai0 original / reply","cadence":"unknown","last_event_at":"2026-11-05 22:33 PT","outcome":"Live original + reply recorded on COMPANY_TODO; schedule alone is not continuous activity.","proof":"https://x.com/diceai0/status/2118592532024295702","status":"stale","source":"COMPANY_TODO.md #5/#6"},{"agent":"参謀","runtime":"Grok Bot","task":"Coordination / verification only","cadence":"two weekday TODO syncs; LINE watch every 4h (label only, no content); revenue paid-receipts daily","last_event_at":"2026-11-05 14:40 PT","outcome":"Revenue paid-receipts routine last FAILURE at 2026-11-05 14:40 PT. Other listed 参謀 routines paused (old Live team board, hourly/2h team loop, Marine, Naive).","proof":"COMPANY_TODO.md runtime RED row (public)","status":"observed","source":"COMPANY_TODO.md + founder cadence"}],"loops":[{"owner":"参謀","loop":"Team todos sync","schedule":"two weekday syncs","state":"configured","proof_of_run":false,"note":"Recorded schedule only"},{"owner":"参謀","loop":"LINE watch","schedule":"every 4h","state":"configured","proof_of_run":false,"note":"Label only; private LINE bodies never published"},{"owner":"参謀","loop":"Revenue paid receipts","schedule":"daily","state":"configured","proof_of_run":false,"note":"Last public result: FAILURE 2026-11-05 14:40 PT"},{"owner":"参謀","loop":"Live team board / hourly-2h team loop / Marine / Naive (参謀-side)","schedule":"paused","state":"paused","proof_of_run":false,"note":"Explicitly paused; not active"},{"owner":"Codex","loop":"Naive product routine (CLI)","schedule":"daily 14:00 JST (config)","state":"configured","proof_of_run":false,"note":"First scheduled run not proven"}],"accounts":[],"seo":["Public team board shows last reported facts + freshness only."]}
+{
+ "version": 3,
+ "built_at": "2026-11-06 16:53 JST",
+ "schema": "current_status",
+ "honesty": "No universal self-update writer exists until each external worker publishes. Recorded loops are schedules only, not proof of a run. Historical BOARD/LIVE-STATE tasks are not shown as right_now.",
+ "current_status": [
+  {
+   "agent": "Anicca Marketer",
+   "runtime": "Grok Bot",
+   "task": "not reported",
+   "cadence": "unknown",
+   "last_event_at": null,
+   "outcome": "No public self-published outcome in DAILY-LOG 2026-11-06.",
+   "proof": null,
+   "status": "unknown",
+   "source": "DAILY-LOG/2026-11-06.md (no Anicca Marketer row)"
+  },
+  {
+   "agent": "Pause",
+   "runtime": "Grok Bot",
+   "task": "not reported",
+   "cadence": "unknown",
+   "last_event_at": null,
+   "outcome": "Owner has not published a public task or outcome.",
+   "proof": null,
+   "status": "unknown",
+   "source": "TEAM.md Pause row; no DAILY-LOG public row"
+  },
+  {
+   "agent": "Applications",
+   "runtime": "Grok Bot",
+   "task": "not reported",
+   "cadence": "unknown",
+   "last_event_at": null,
+   "outcome": "COMPANY_TODO lists Applications open with zero interviewed contracts; no dated public run proof here.",
+   "proof": null,
+   "status": "unknown",
+   "source": "COMPANY_TODO.md #14 (public)"
+  },
+  {
+   "agent": "Fucker",
+   "runtime": "Grok Bot",
+   "task": "Capafy cycle (public one-line)",
+   "cadence": "unknown",
+   "last_event_at": "2026-11-06 14:30 JST",
+   "outcome": "Reported Capafy cycle steps; sales unit +1; no paid settlement claimed.",
+   "proof": "DAILY-LOG/2026-11-06.md Fucker 14:30 JST row",
+   "status": "observed",
+   "source": "DAILY-LOG/2026-11-06.md"
+  },
+  {
+   "agent": "Reporter",
+   "runtime": "Grok Bot",
+   "task": "Paid receipts / cost-revenue readback",
+   "cadence": "unknown",
+   "last_event_at": "2026-11-06 15:37 JST",
+   "outcome": "Original Reporter readback recorded on COMPANY_TODO (raw reports; MRR not invented).",
+   "proof": "COMPANY_TODO.md #13 (public on anicca-products)",
+   "status": "observed",
+   "source": "COMPANY_TODO.md"
+  },
+  {
+   "agent": "Dots",
+   "runtime": "Reason",
+   "task": "not reported",
+   "cadence": "unknown",
+   "last_event_at": "2026-11-05 07:46 JST",
+   "outcome": "Last public DAILY-LOG rows are 2026-11-05 activity checks (not treated as live right now).",
+   "proof": "DAILY-LOG/2026-11-05.md Dots rows",
+   "status": "stale",
+   "source": "DAILY-LOG/2026-11-05.md"
+  },
+  {
+   "agent": "dr eggbot",
+   "runtime": "Grok Bot",
+   "task": "gig-audit / coconala-lancers-loop (reported)",
+   "cadence": "unknown",
+   "last_event_at": "2026-11-06 15:54 JST",
+   "outcome": "Gig-audit run logged; applications 0; login/browser blockers noted; no new paid claim.",
+   "proof": "DAILY-LOG/2026-11-06.md dr eggbot rows",
+   "status": "observed",
+   "source": "DAILY-LOG/2026-11-06.md"
+  },
+  {
+   "agent": "Codex",
+   "runtime": "external Codex CLI",
+   "task": "not reported",
+   "cadence": "Naive product routine configured daily 14:00 JST (config only)",
+   "last_event_at": null,
+   "outcome": "First scheduled Naive CLI run not proven. Configured cadence is not a run.",
+   "proof": null,
+   "status": "unknown",
+   "source": "Founder cadence note + COMPANY_TODO Naive rows"
+  },
+  {
+   "agent": "Forensic Writing",
+   "runtime": "Grok Bot",
+   "task": "hook-forensics-24h",
+   "cadence": "unknown",
+   "last_event_at": "2026-11-06 14:19 JST",
+   "outcome": "Reported 14:00 hook-forensics pass: winners 0; no draft; followers 924 (+0).",
+   "proof": "DAILY-LOG/2026-11-06.md Forensic Writing 14:19 JST",
+   "status": "observed",
+   "source": "DAILY-LOG/2026-11-06.md"
+  },
+  {
+   "agent": "SEO Refresher",
+   "runtime": "Grok Bot",
+   "task": "not reported",
+   "cadence": "unknown",
+   "last_event_at": null,
+   "outcome": "Existing bot; no latest public article/receipt pair published in this snapshot.",
+   "proof": null,
+   "status": "unknown",
+   "source": "COMPANY_TODO.md #9"
+  },
+  {
+   "agent": "Muse Relay",
+   "runtime": "Grok Bot",
+   "task": "Relay / mis-send prevention",
+   "cadence": "unknown",
+   "last_event_at": "2026-11-06 14:10 JST",
+   "outcome": "Reported Muse/Codex transfer check complete; 02:00 pass still unrecovered from usage limit.",
+   "proof": "DAILY-LOG/2026-11-06.md Muse Relay 14:10 JST",
+   "status": "observed",
+   "source": "DAILY-LOG/2026-11-06.md"
+  },
+  {
+   "agent": "Citation Scout",
+   "runtime": "Grok Bot",
+   "task": "not reported",
+   "cadence": "unknown",
+   "last_event_at": null,
+   "outcome": "Existing bot; no latest public citation/index receipt in this snapshot.",
+   "proof": null,
+   "status": "unknown",
+   "source": "COMPANY_TODO.md #9"
+  },
+  {
+   "agent": "Muse",
+   "runtime": "Muse VM",
+   "task": "SNS / Langfuse recovery (via relay reports)",
+   "cadence": "unknown",
+   "last_event_at": "2026-11-06 14:05 JST",
+   "outcome": "Relay-published Muse updates; YouTube Shorts identity dialog still blocking some slots.",
+   "proof": "DAILY-LOG/2026-11-06.md Muse (via relay) rows",
+   "status": "observed",
+   "source": "DAILY-LOG/2026-11-06.md"
+  },
+  {
+   "agent": "X Operator",
+   "runtime": "Grok Bot",
+   "task": "@diceai0 original / reply",
+   "cadence": "unknown",
+   "last_event_at": "2026-11-05 22:33 PT",
+   "outcome": "Live original + reply recorded on COMPANY_TODO; schedule alone is not continuous activity.",
+   "proof": "https://x.com/diceai0/status/2118592532024295702",
+   "status": "stale",
+   "source": "COMPANY_TODO.md #5/#6"
+  },
+  {
+   "agent": "参謀",
+   "runtime": "Grok Bot",
+   "task": "Coordination / verification only",
+   "cadence": "two weekday TODO syncs; LINE watch every 4h (label only, no content); revenue paid-receipts daily",
+   "last_event_at": "2026-11-05 14:40 PT",
+   "outcome": "Revenue paid-receipts routine last FAILURE at 2026-11-05 14:40 PT. Other listed 参謀 routines paused (old Live team board, hourly/2h team loop, Marine, Naive).",
+   "proof": "COMPANY_TODO.md runtime RED row (public)",
+   "status": "observed",
+   "source": "COMPANY_TODO.md + founder cadence"
+  }
+ ],
+ "loops": [
+  {
+   "owner": "参謀",
+   "loop": "Team todos sync",
+   "schedule": "two weekday syncs",
+   "state": "configured",
+   "proof_of_run": false,
+   "note": "Recorded schedule only"
+  },
+  {
+   "owner": "参謀",
+   "loop": "LINE watch",
+   "schedule": "every 4h",
+   "state": "configured",
+   "proof_of_run": false,
+   "note": "Label only; private LINE bodies never published"
+  },
+  {
+   "owner": "参謀",
+   "loop": "Revenue paid receipts",
+   "schedule": "daily",
+   "state": "configured",
+   "proof_of_run": false,
+   "note": "Last public result: FAILURE 2026-11-05 14:40 PT"
+  },
+  {
+   "owner": "参謀",
+   "loop": "Live team board / hourly-2h team loop / Marine / Naive (参謀-side)",
+   "schedule": "paused",
+   "state": "paused",
+   "proof_of_run": false,
+   "note": "Explicitly paused; not active"
+  },
+  {
+   "owner": "Codex",
+   "loop": "Naive product routine (CLI)",
+   "schedule": "daily 14:00 JST (config)",
+   "state": "configured",
+   "proof_of_run": false,
+   "note": "First scheduled run not proven"
+  }
+ ],
+ "accounts": [],
+ "seo": [
+  "Public team board shows last reported facts + freshness only."
+ ],
+ "timezone": "Asia/Tokyo",
+ "owners": [
+  {
+   "owner": "参謀",
+   "kind": "grok_bot",
+   "task": {
+    "text": "優先順位・割り振り・成田さんの窓口",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "朝会 09:00／X 投稿枠／Content+SEO／受託検証／revenue／CEO／team board（詳細は LOOPS.md）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "Anicca Marketer",
+   "kind": "grok_bot",
+   "task": {
+    "text": "Anicca iOS の配信と数値",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "growth 02:00・14:00 JST／JP 固定枠 7:00–23:00（LOOPS #39/#39b）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "Fucker",
+   "kind": "grok_bot",
+   "task": {
+    "text": "Capafy・PromptBase 販売",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "revenue 2時間ごと :35／10:00 daily revenue／10:55 Honne/PDF（LOOPS #40）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "- 14:30 JST｜Fucker｜Capafy cycle: 311cd disable + NHL Goalie 1→2 + X-queue q1106a + Mercor niche0｜結果 キー無効化確認済・販売単位+1・配信1行｜理由 usage_daily 3.709>0.22 / 売上検知 / 最多クリック押し｜詰まり 旧キー4本停止・Sto",
+    "kind": "observed",
+    "observed_at": "2026-11-06 14:30 JST",
+    "freshness": "2h 23m ago",
+    "source": "DAILY-LOG/2026-11-06.md"
+   }
+  },
+  {
+   "owner": "dr eggbot",
+   "kind": "grok_bot",
+   "task": {
+    "text": "Grok Bot の設計・作成（入札ループは paused、受信確認）",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "upwork-skima 3h／inbox-sweep 2h／gig-audit（LOOPS #41/#42b）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "- 15:54 JST｜dr eggbot｜通知由来の未回答表示を訂正｜designyaは11/6 10:29実画面確認済の既送；アシストはSpir確定済だがprimary calendar未追加；動画5625250は仮払い待ちで工作・入金なし。本人のログイン選択未了、新送信0。一次証拠=Gmail 1a1af56ff67651c2/1a1af90bc54f",
+    "kind": "observed",
+    "observed_at": "2026-11-06 15:54 JST",
+    "freshness": "59m ago",
+    "source": "DAILY-LOG/2026-11-06.md"
+   }
+  },
+  {
+   "owner": "Forensic Writing",
+   "kind": "grok_bot",
+   "task": {
+    "text": "X バイラルフック分析（下書きのみ）",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "HOOKS 06:08／フォロワー 21:00／分析 3h :45（LOOPS #43/#57）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "14:19 JST | Forensic Writing | did 14:00 hook-forensics-24h (cheap gate+2 searches+followers+RULE 0j) | result 勝者0・公式更新なし・下書きなし・COPY-DEPTH2行・followers924(+0) | 売上¥0／費用¥0 | stuck なし",
+    "kind": "observed",
+    "observed_at": "2026-11-06 14:19 JST",
+    "freshness": "2h 34m ago",
+    "source": "DAILY-LOG/2026-11-06.md"
+   }
+  },
+  {
+   "owner": "Muse Relay",
+   "kind": "grok_bot",
+   "task": {
+    "text": "Muse のリール勝ちを X/note/TikTok に書き直す",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "00・04・08・12・16・20時（LOOPS #44）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "- 2026-11-06 14:10 JST｜Muse Relay｜Muse/Codex/Dots転送確認と誤送信防止｜完了｜Naïve単一収益業務はMuseのReasonへqueued、Muse–Codex Slack thread https://dais-45u3124.slack.com/archives/C0CBLBGSBJN/p179394086",
+    "kind": "observed",
+    "observed_at": "2026-11-06 14:10 JST",
+    "freshness": "2h 43m ago",
+    "source": "DAILY-LOG/2026-11-06.md"
+   }
+  },
+  {
+   "owner": "Muse（中継 bot）",
+   "kind": "legacy_standin",
+   "task": {
+    "text": "部屋の発言を本物の Muse へ中継（stand-in；直作業は Muse VM）",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "依頼ベース（stand-in contact）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "Codex（中継 bot）",
+   "kind": "legacy_standin",
+   "task": {
+    "text": "部屋の発言を Mac mini Codex へ中継（stand-in；直作業は Codex CLI）",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "依頼ベース（stand-in contact）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "Dots（中継 bot）",
+   "kind": "legacy_standin",
+   "task": {
+    "text": "部屋の発言を本物の Dots へ中継（stand-in；直作業は Reason Dots）",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "依頼ベース（stand-in contact）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "Pause",
+   "kind": "grok_bot",
+   "task": {
+    "text": "unknown（本人が記入）",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "unknown",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "Applications",
+   "kind": "grok_bot",
+   "task": {
+    "text": "求人応募（超知能・行動シミュレーション企業だけ）",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "依頼ベース",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "Reporter",
+   "kind": "grok_bot",
+   "task": {
+    "text": "アカウント数値・財務レポート",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "依頼ベース",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "X Operator",
+   "kind": "grok_bot",
+   "task": {
+    "text": "X @diceai0・@selawmqt の唯一の投稿者",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "X 投稿枠（参謀配下）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "Codex CLI (Mac mini)",
+   "kind": "legacy_contact",
+   "task": {
+    "text": "実装・リリース・GitHub・プロダクト/ペイウォール",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "依頼ベース／09:00 research（WHO-DOES-WHAT / TEAM.md）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
+   }
+  },
+  {
+   "owner": "Muse VM",
+   "kind": "legacy_contact",
+   "task": {
+    "text": "リール企画・制作、IG 投稿、monk TikTok/note",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "毎日 :22 帯／3h・1h・6h・30分・15分ループ（LOOPS #45）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "- 2026-11-06 16:15 JST Muse (via relay)｜#7/#8のSNS公開URL/sourceペア待ち。新agent/routine/mergeなし。証拠=https://github.com/Daisuke134/anicca-products/blob/feat/open-silent-failures-886/COMPANY",
+    "kind": "observed",
+    "observed_at": "2026-11-06 16:15 JST",
+    "freshness": "38m ago",
+    "source": "DAILY-LOG/2026-11-06.md"
+   }
+  },
+  {
+   "owner": "Reason Dots",
+   "kind": "legacy_contact",
+   "task": {
+    "text": "お金・Moneytree・支出上限・アプリ数値",
+    "kind": "assigned_lane"
+   },
+   "cadence": {
+    "text": "毎時:10 Ops chaser・20:00 money check（WHO-DOES-WHAT；未検証表記あり）",
+    "kind": "schedule"
+   },
+   "current_task": {
+    "text": "unknown",
+    "kind": "unknown"
+   },
+   "latest_outcome": {
+    "text": "07:18 JST | Dots | さわだ1111の新条件通知を同名の旧案件と分離し、既存照合に新証拠を追補 | 10/28かわ6666の旧通知324173069が同名。旧message434643481は3〜5分の試用1件・税抜50円/税込55円・その他詳細は契約後。旧proposal310932052のindexとcrowdworks-three-th",
+    "kind": "observed",
+    "observed_at": "2026-11-05 07:18 JST",
+    "freshness": "1d 9h ago",
+    "source": "DAILY-LOG/2026-11-05.md"
+   }
+  }
+ ],
+ "notes": [
+  "Cadence is schedule only; it is not proof that the work ran.",
+  "current_task is unknown unless a fresh live observation exists. BOARD and DAILY-LOG lines are latest_outcome facts with freshness — not claims of current execution.",
+  "All known Grok bots are listed. Muse/Codex/Dots Grok profiles are legacy stand-in contacts (migration APPLIED). Real Codex CLI, Muse VM, and Reason Dots are separate rows with unknown current tasks."
+ ]
+}
