@@ -40,6 +40,8 @@ class OwnerRowTest(unittest.TestCase):
         self.assertNotIn('schedule:', text)
         self.assertNotIn('git push origin main', text)
         self.assertIn('gh pr create --base main', text)
+        self.assertIn('verify-proof', text)
+        self.assertNotIn('OPEN_OWNER_ROW_HMAC_SECRET', text)
 
 
 class ClaimCycleTest(unittest.TestCase):

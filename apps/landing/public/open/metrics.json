@@ -111067,7 +111067,7 @@
    "action": "claim writerを実運用へ接続し、未接続のまま「運用中」と呼ばない。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 26",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "NOT HOSTED. Live claims-snapshot Date Fri, 06 Nov 2026 17:12:27 GMT HTTP 200 has tasks 0 and no claim_api_hosted. /.netlify/functions/open-claim HTTP 404. Viewer cursor[bot]; REST /user 403. Private sqlite claim, stale reject, release, and expiry passed. synthetic_fixture true. Not a second agent.",
+   "last_evidence_public": "NOT HOSTED. GET https://aniccaai.com/.netlify/functions/open-claim at Date Fri, 06 Nov 2026 17:37:43 GMT returned HTTP 404. open-claim.js is source in this PR only. No OPEN_OWNER_ROW_HMAC_SECRET and no Netlify token in this runner, so no blob write. GitHub workflow_dispatch returned 403 (actions=write denied). Local node:test 7 passed for missing/invalid auth, row scope, evidence bounds, concurrent CAS, lease expiry, and idempotent completion. Not an authenticated live write. Not DONE.",
    "blocker_public": "Priority 26: no DONE proof"
   },
   {
@@ -111085,7 +111085,7 @@
    "action": "Muse/Dots/Codexどこからも同一の最新TODOへ書けるようにする。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 28",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "PULL REQUEST ONLY. cursor[bot] may change a Grok Bot 参謀 row through company-todo-owner.yml and that workflow never pushes main. Muse, Dots, and Codex have no GitHub login in row_actors.json, so they are refused. anicca-open-bot cannot be used by this token.",
+   "last_evidence_public": "NOT LIVE. company-todo-owner.yml still opens a pull request and does not push main. Muse, Dots, and Codex remain unmapped: no ed25519_public_key was added and no GitHub login was invented. HMAC on open-claim accepts only actors already in row_actors.json and is not a GitHub login. cursor[bot] is still the only mapped actor. Dispatch of the workflow was HTTP 403. Not DONE.",
    "blocker_public": "Priority 28: no DONE proof"
   },
   {
@@ -111240,6 +111240,6 @@
   "declared_updated": "2026-11-06",
   "timezone": "America/Los_Angeles",
   "rows": 29,
-  "source_updated_at": "2026-11-06T17:12:46.854125+00:00"
+  "source_updated_at": "2026-11-06T17:38:03.013358+00:00"
  }
 }
