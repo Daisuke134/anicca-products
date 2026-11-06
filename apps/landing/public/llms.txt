@@ -73,6 +73,8 @@ Pay per call with x402: no account or API key. An unpaid GET returns HTTP 402 wi
 - [Affirmation](https://aniccaai.com/.netlify/functions/x402-affirm?topic=calm&lang=en): $0.005 per call. One affirmation; topic=calm|confidence|selflove|impermanence, lang=en|ja.
 
 ## Articles
+- [25 Positive Daily Affirmations To Support Your Mental Health and Self-Esteem](https://aniccaai.com/blog/25-positive-daily-affirmations-2026-11-07?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [35 Positive Affirmations To Say Each Day](https://aniccaai.com/blog/35-positive-affirmations-to-say-each-day-2026-11-06?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
 - [8 Best Affirmation Apps for iPhone 2027 (Free & Paid), Tested](https://aniccaai.com/blog/best-affirmation-apps-2026-11-05?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): 8 iOS affirmation apps compared on price, free plan, AI affirmations, widgets and ratings, with Anicca (our app) first for Lock Screen daily affirmations.
 - [Zero-human companies in 2026: 12 agent-run businesses and what they really earn](https://aniccaai.com/blog/zero-human-companies-2026?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): dated, sourced list; verified vs founder-reported revenue and which companies publish costs.
 - [Good agent evals measure work done, not answers given](https://aniccaai.com/blog/good-agent-evals-measure-outcomes?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
