@@ -29,14 +29,19 @@ def project_rows(text):
         number = int(number)
         if not 1 <= number <= 30 or PRIVATE_LANE.search(match.group(0)):
             continue
+        evidence_text = strip_cell(evidence)
+        if number == 1 and evidence_text.startswith('GUARDS ACTIVE'):
+            blocker = 'Guard controls active; quantitative saving and measured output not yet proven, not marked DONE'
+        else:
+            blocker = f'Priority {number}: no DONE proof'
         rows.append(dict(
             priority=number,
             owner=strip_cell(owner),
             action=strip_cell(todo)[:500],
             quantity_goal=f'Accepted proof in public COMPANY_TODO.md priority {number}',
             done_criteria='Only evidence-backed DONE; preparation/draft/tests are not outcomes.',
-            last_evidence_public=strip_cell(evidence)[:500],
-            blocker_public=f'Priority {number}: no DONE proof',
+            last_evidence_public=evidence_text[:500],
+            blocker_public=blocker,
         ))
     expected = [i for i in range(1, max(r['priority'] for r in rows) + 1) if i != 15]
     if not rows or [r['priority'] for r in rows] != expected:

@@ -51,6 +51,8 @@ class NumberedOwnerTodoWriterTest(unittest.TestCase):
   self.assertIn('request_id3adfa6bb-e297-4a52-af5f-89dae4753227', by[1])
   self.assertNotIn('49 enabled', by[1])
   self.assertNotIn('all daily routines are stopped', by[1])
+  self.assertEqual(next(r['blocker_public'] for r in rows if r['priority']==1), 'Guard controls active; quantitative saving and measured output not yet proven, not marked DONE')
+  self.assertNotEqual(next(r['blocker_public'] for r in rows if r['priority']==1), 'Priority 1: no DONE proof')
   self.assertIn('GUARDS ACTIVE', by[30])
   self.assertIn('64.7', by[30])
   self.assertIn('saving percentage unmeasured', by[30])
