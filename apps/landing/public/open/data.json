@@ -749,8 +749,8 @@
  },
  "coverage_note": "Status: 34 platforms, 53 social rows, 5 apps + total, rankings; live 13:07 landed; cost $398.18 (CLIPPER duplicate, not double-counted); SEO 5/7 top 5 (8th batch); ASO JP affirmation 111->97; TikTok buddha 269/16; Reason 13:34 message held (safety check); no sale. 13:37 build publishing.",
  "currency_note": "USD only. This file contains no non-USD currency amounts.",
- "coverage_status_1line": "Status: live 13:07 landed; costs $398.18; rankings SEO 13:27 / ASO 13:25 / GEO 13:26; SEO anicca #1 iPhone, #2 affirmation app (8th batch); ASO JP affirmation 111->97; TikTok buddha 269/16; Reason 13:34 held; no sale. | Rev $31.81 | Cost $398.18 | Profit -$366.37 | MRR $97.58.",
- "daily_change_1line": "Status: 13:07-13:37 window: live 13:07 confirmed landed; Gmail 13:39: no new sale; user Capafy support emails read (refund mismatch + publisher access); costs unchanged $398.18; SEO 8th batch 5/7 top 5; ASO JP affirmation 111->97; Reason 13:34 message held.",
+ "coverage_status_1line": "JSON generated 2026-11-06 13:07 JST: revenue accumulated $31.81 vs observed payment notices $398.18",
+ "daily_change_1line": "latest: no new confirmed sale",
  "daily_trend_note": "Yesterday to today: costs $385.89->$398.18 (CLIPPER $12.29, 2nd notice judged duplicate); profit -$354.08->-$366.37; Rev $31.81 unchanged; SEO anicca in top 5 for 5/7 queries (8th consecutive batch); ASO JP affirmation 111->97; fal $10.95 due 11-07.",
  "apps_breakdown": [
   {
