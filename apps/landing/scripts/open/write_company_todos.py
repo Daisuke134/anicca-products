@@ -22,6 +22,14 @@ def strip_cell(value):
     return re.sub(r'[*`]', '', value).strip()
 
 
+def blocker_for(number, evidence):
+    if number == 25 and evidence.startswith('DONE public display accepted'):
+        return 'Priority 25: public display accepted; not a company outcome'
+    if number == 27 and evidence.startswith('DONE public CI delivery accepted'):
+        return 'Priority 27: public CI delivery accepted; not a company outcome'
+    return f'Priority {number}: no DONE proof'
+
+
 def project_rows(text):
     rows = []
     for match in re.finditer(r'^\| (\d{1,2}) \| ([^|]+?) \| ([^|]+?) \| ([^|]+?) \|[ \t]*$', text, re.M):
@@ -36,7 +44,7 @@ def project_rows(text):
             quantity_goal=f'Accepted proof in public COMPANY_TODO.md priority {number}',
             done_criteria='Only evidence-backed DONE; preparation/draft/tests are not outcomes.',
             last_evidence_public=strip_cell(evidence)[:500],
-            blocker_public=f'Priority {number}: no DONE proof',
+            blocker_public=blocker_for(number, strip_cell(evidence)),
         ))
     expected = [i for i in range(1, max(r['priority'] for r in rows) + 1) if i != 15]
     if not rows or [r['priority'] for r in rows] != expected:
