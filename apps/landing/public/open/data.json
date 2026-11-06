@@ -1,6 +1,6 @@
 {
  "version": 2,
- "updated_at": "2026-11-06 20:37 JST",
+ "updated_at": "2026-11-07 00:37 JST",
  "month": "2026-11",
  "currency": "USD",
  "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -206,7 +206,7 @@
    "usd": 10.95,
    "due": "2026-11-07",
    "status": "unpaid",
-   "source": "Gmail fal invoice notice 2026-11-03 04:17 JST; observed payment, not accrual, is the costs basis, so it is not folded into costs_mtd 401.14"
+   "source": "Gmail fal invoice notice 2026-11-03 04:17 JST; observed payment, not accrual, is the costs basis, so it is not folded into costs_mtd 410.46; deletion requested 21:13 JST (fal Support Gmail 1a1b0c751140db46, verifying); $10.95 debt remains per fal terms §10.1 (todo11); deletion per user instruction 04:11 PST (fal cancel), API keys revoked (revenue-growth 21:52)"
   }
  ],
  "reconciliation_complete": false,
@@ -217,27 +217,27 @@
  "by_agent": [
   {
    "agent": "Muse",
-   "board_updates_today": 148,
+   "board_updates_today": 156,
    "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-   "status": "Active. 20:37 frame built; live 20:07 landed at slot start; Gmail 20:38 sweep: GCP 77148001 REPLIED 20:29 (ticket, 2-3 biz days); CW declines x2; no new sale; night obs 20:22 IG unchanged; note article_06 REPUBLISHED new URL; Capafy Storytime v1.0.4 REJECTED; costs $410.46, profit -$378.65; SEO 20:28 24th batch 5/7 top 5; Reason inbox empty; held 13:34 message still pending."
+   "status": "Active. 00:37 frame built; live 00:07 landed at slot start; Gmail 00:39 sweep: no new sale/payment; rankings 00:25-00:28 (SEO 4/7 6th consecutive; ASO JP affirmation 111 swing; GEO 0/8); IG 23:00 4/6 landed, monk/obou unfilled (INC-27); Threads 23:00 landed, INC-28 resolved; RenderHub 6th listing; Capafy Test Run blocked; costs $410.46, profit -$378.65; Reason inbox empty."
   },
   {
    "agent": "Dots",
    "board_updates_today": 0,
-   "surfaces": "No new action observed in 20:07-20:37 window (Reason inbox empty at slot start). Dots #1 last trace 2026-11-05 12:21/12:33, ~32.3h at 20:37 slot start - 24h line crossed; treat as HP-down/stopped per 12:07 frame rule; handover via dots2-coverage-loop.",
-   "status": "No new action observed in 20:07-20:37 window (Reason inbox empty at slot start). Dots #1 last trace 2026-11-05 12:21/12:33, ~32.3h - 24h line crossed; treat as HP-down/stopped per 12:07 frame rule; handover via dots2-coverage-loop."
+   "surfaces": "No new action observed in 00:07-00:37 window (Reason inbox empty at slot start). Dots #1 last trace 2026-11-05 12:21/12:33, ~36.3h at 00:37 slot start - 24h line crossed; treat as HP-down/stopped per 12:07 frame rule; handover via dots2-coverage-loop. Dots #2 active (Slack #agents-hq 21:51 report).",
+   "status": "No new action observed in 00:07-00:37 window (Reason inbox empty at slot start). Dots #1 last trace 2026-11-05 12:21/12:33, ~36.3h - 24h line crossed; treat as HP-down/stopped per 12:07 frame rule; handover via dots2-coverage-loop. Dots #2 active (Slack #agents-hq 21:51)."
   },
   {
    "agent": "Codex",
    "board_updates_today": 0,
    "surfaces": "anicca-products PR #868 (Capafy Developer Overview metrics) 01:06 + PR #867 00:25; life-manager PR #9242 (Capafy overview) 00:42 + PR #9241 00:12; anicca-products PR #866 (23:41) merge still unconfirmed; anicca-ops PR #17 comments 23:55",
-   "status": "GCP case 77148001 support REPLIED 20:29 JST (internal ticket created, update in 2-3 business days; no refund/adjustment yet); Google security notice 19:43 (blocked password login attempt to keiodaisuke@gmail.com; account management owns); fal $10.95 due 11-07 (unpaid, not counted); Relixir refund reply still awaited (~18.5h, refund would cut costs to $390.46); Capafy refund inquiry ANSWERED 17:28 JST (settlement corrected; Capafy loop to re-read Refunds page); GitHub Security Scan PR run failed 18:46 JST (docs ASC 1.9.8 version gate); PR #9272 Codex review failed - usage limits exhausted, no retries until reset; PR #886 Landing PR build failed (Gmail 14:38); PR #9283 Maritime T-0 wake notices (Gmail 17:31); Xcode Build 817 failed, ASC 1.9.8 (817/818) processing complete; SBI VC staking Oct reward notice (amount unread, SBI VC login read needed)."
+   "status": "Codex usage limits reached for code reviews on PR #892 (GitHub bot emails 21:08 JST); PR #9272 review failed (usage limits); Railway life-call PR #9283 deploy failed BUILD_IMAGE; GCP case 77148001 support REPLIED 20:29 (internal ticket, update in 2-3 business days); Google security notice 19:43 (blocked password login attempt; account management owns); fal $10.95 due 11-07 (unpaid, not counted; deletion per user instruction 04:11 PST, API keys revoked, support verifying since 21:13); Relixir refund reply still awaited (~20h; refund would cut costs to $390.46); ASC v1.9.8 Developer Rejected 21:53 (was Ready For Review 21:00); Stripe reauthorization_required (fresh 22:52); SBI VC staking Oct reward amount unread; revenue-growth 23:52 carried (no new revenue-growth file since 23:52): Capafy ZIP WALL, Upwork Skyna G. proposal NOT sent (Google 2FA 00:02, deadline 15:47 JST ~14.7h); GitHub PR #9287 notifications 00:10 (life-manager /en SEO). Checked 00:37."
   },
   {
    "agent": "Grok (参謀)",
    "board_updates_today": 0,
    "surfaces": "Stopped since 2026-11-03 for about 3 days",
-   "status": "Returned 2026-11-06 (MEMORY.md update: Slack #agents-hq post + Mac Reason session sanbou-conversation created). Muse sent Manager receipt + recent measurements via Reason (sanbou-conversation / sanbo-2 / muse-relay-2, delivered). Catchball collaboration resumed; reply landing via reason-inbox-wake + 15-min loop."
+   "status": "Returned 2026-11-06 (MEMORY.md update: Slack #agents-hq post + Mac Reason session sanbou-conversation created). Muse sent Manager receipt + recent measurements via Reason (sanbou-conversation / sanbo-2 / muse-relay-2, delivered). Catchball collaboration resumed; reply landing via reason-inbox-wake + 15-min loop. Correction 2026-11-06 04:38 PST: 参謀 is the representative name; Grok side has multiple agents - contact each directly, no hub via 参謀 alone. NEW: 12 judgment requests unanswered (五十嵐 李帆 added 22:44; fast-response Reason sent, queued, arrival unconfirmed); ops-watch sent Reason re /open KPI mismatch + Upwork + ASC + Mac disk 21:55, no reply yet; contract-watch 22:16 confirms no reply; 13:53 All hands body safety-check unpassed/unread. Checked 00:37."
   }
  ],
  "wallets": [],
@@ -264,7 +264,7 @@
     "all_time": 1706.68,
     "pending": 9.95,
     "status": "stage reconciliation",
-    "note": "Status: addendum notice 20:26 JST (Gmail); Assist interview 11/10 13:45-14:15 confirmed; ZG025 overlap conditional; 応募中 233; transfer 1,560 unconfirmed (no deposit notice in 20:38 sweep). 20:37 JST.",
+    "note": "Status: まりえ 5362865 CLOSED; Assist interview 11/10 confirmed; 応募中 234; 5 new continuing applications (応募管理 45); transfer 1,560 unconfirmed (no deposit notice in 00:39 Gmail sweep). 00:37 JST.",
     "observed_accepted_gross_usd": 31.8,
     "net_sales_usd": 1706.68,
     "paid_out_usd": null
@@ -327,7 +327,7 @@
     "all_time": 162.69,
     "pending": 0.0,
     "status": "booked",
-    "note": "Status: Storytime v1.0.4 REJECTED (2.2 accuracy; Capafy loop owns); $12.99 refund fixed 17:28; 7 approvals 18:28-18:37; 7d $26.97 / 30d $46.95 / 90d $139.71; dash 2026-11-05 UTC. 20:37 JST.",
+    "note": "Status: Test Run BLOCKED on 3 listings ('Choose a plan' modal, NEW); saya 47,307 Sold (+138); 3 C1 In Review (10 total); Drafts 4; Refunds 5/$47.96; 7d $26.97, 30d $46.95, 90d $139.71. 00:37 JST.",
     "net_sales_usd": 120.58,
     "paid_out_usd": 0.0,
     "dashboard_7d_usd": 26.97,
@@ -346,7 +346,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: Applied 11 (Xueteng Gao new, $1,500-$2,000); Earned $0.00; balance $0.00; Available until Dec 06, 2026; 112 jobs behind Pro wall. 17:59 JST."
+    "note": "Status: NEW community post njDVtun9 (PDF Insight Before/After, views 1); views tySEQ9B1 7, cuGeGg3p 7, uiLIzdfs 9, 9ZlYlp9G 16; Applied 14 (+2 Jonnel, Rohan); Earned $0.00. 00:01 JST; checked 00:37."
    },
    {
     "platform": "CrowdWorks",
@@ -356,7 +356,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: NEW buyer msg mioriiiiiii 20:12 JST (off-platform contact, reply NOT sent, fast-response owns); 2 applications declined 20:17/20:22; rui reply SENT 19:38; sanbou replies awaited. 20:37 JST."
+    "note": "Status: 11-06 cumulative 178 (+10, CW 00:13 loop); buyer msgs handled (fast-response 23:41); syu_2022 closed; Gmail 00:39: 10+ recruitment-closed notices. 00:37 JST."
    },
    {
     "platform": "Fiverr",
@@ -366,7 +366,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Last measured 2026-11-06 19:35 JST; checked 20:37 JST."
+    "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Last measured 2026-11-06 19:35 JST; checked 00:37 JST."
    },
    {
     "platform": "Freelancer.com",
@@ -376,7 +376,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: balance $0.00; bids 0/6, no new bid; open bids 6; Eastman bid quality warning NEW; session @Rasi4op. Last measured 2026-11-06 19:35 JST; checked 20:37 JST."
+    "note": "Status: balance $0.00; bids 0/6, no new bid; open bids 6; Eastman bid quality warning NEW; session @Rasi4op. Last measured 2026-11-06 19:35 JST; checked 00:37 JST."
    },
    {
     "platform": "GoLance",
@@ -386,7 +386,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: session recovered via password reset 16:01; 5 applications all Pending; 4 hourly jobs blocked by video-response gate; vault landing unconfirmed. 16:16 JST."
+    "note": "Status: session recovered by password reset 21:57; 7 applications all Pending (unchanged); es5ae5wayr assessment webcam-gated, not taken; 4 hourly jobs blocked by video gate. 21:57 JST; checked 00:37."
    },
    {
     "platform": "Guru",
@@ -396,7 +396,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: 17:25 loop: session directly reached (3h expiry hypothesis overturned); 0 new proposals; 7 sent, 0 responses; 3 bids left; Cash $0.00. 18:07 JST."
+    "note": "Status: 23:25 loop: session recovered via Google OAuth (no number prompt); 0 new proposals; 3 bids left; Cash $0.00; 7 sent (3 Quote sent), 0 responses. 00:37 JST."
    },
    {
     "platform": "LINE Stickers",
@@ -416,7 +416,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: 5625250 escrow done, briefing Zoom booking pending today; 5624776 won-display hold; 5624276 SHUN rejected; proposals today 14. No new loop. 20:37 JST."
+    "note": "Status: HIMAFreee 11/11 DECLINED; correction msg CONFIRMED (fast-response 22:41, RESOLVED); 4 proposal-received notices 01:37-01:43 PST; 5625250 formally started ($7.01 not counted). 00:37 JST."
    },
    {
     "platform": "Legiit",
@@ -426,7 +426,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: S3 achieved 2026-11-06 06:19 JST; 2 listings ACTIVE ($99 + $50); revenue $0.00; 0 reviews; in-platform search shows neither. Last measured 2026-11-06 06:19 JST."
+    "note": "Status: 20:19 loop: 2 listings ACTIVE ($99 + $50); revenue $0.00; 0 reviews; category display 3,397->9 services (cause unconfirmed). 20:19 JST; checked 00:37."
    },
    {
     "platform": "Malt",
@@ -446,7 +446,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: Applications In progress 7 (unchanged); Earnings $0.00; Billing Nov 1-Nov 6; Odin Paused; Check-In 11/9-11/15 submitted 01:51. Last measured 2026-11-06 19:47 JST; checked 20:37 JST."
+    "note": "Status: Odin Paused; Earnings $0.00; Billing Nov 1-Nov 6; availability notice deadline Sun Nov 8 8:00 AM PT; Check-In 11/9-11/15 submitted 01:51. Last measured 2026-11-06 22:49 JST; checked 00:37 JST."
    },
    {
     "platform": "PromptBase",
@@ -456,7 +456,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: Moon Bakery APPROVED/Scheduled $5.99 (Fri Nov 06, no URL yet); Paper Lantern Pending; Lighthouse Declined confirmed; 7d views 9 (was 16, -43.75%); Gross $0.00. 19:35 JST; checked 20:37."
+    "note": "Status: Moon Bakery APPROVED/Scheduled $5.99 (Fri Nov 06, no URL yet); Paper Lantern Pending; Lighthouse Declined confirmed; 7d views 9 (was 16, -43.75%); Gross $0.00. 19:35 JST; checked 00:37."
    },
    {
     "platform": "RapidAPI",
@@ -496,7 +496,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: Skyna G. interview invite 15:47 JST (JP conversation recording, hourly, 1-3mo); deadline ~11-07 15:47 JST; browser Cloudflare-blocked, session lost; owner loop record missing. 18:07 JST."
+    "note": "Status: Skyna G. proposal NOT sent - Google 2FA number matching stopped browser task 00:02 JST; deadline ~11-07 15:47 JST (~14.7h); no tap request (hard rule). 00:37 JST."
    },
    {
     "platform": "Whop / Gumroad",
@@ -506,7 +506,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: revenue $0; balance $0.00; description 1,447 chars; US views 22->28; Visitors 1; tax due 2026-11-30. Checked 2026-11-06 18:33 JST."
+    "note": "Status: 21:33 loop: product page 63 views (+3), US views 28->31, balance $0.00, revenue $0; Level 0; tax due 2026-11-30. 21:33 JST; checked 00:37."
    },
    {
     "platform": "Workana",
@@ -516,7 +516,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: Cloudflare gate + Google 2FA stop (number 11); login incomplete; inbox unverified; $0. Last measured 2026-11-06 19:35 JST; checked 20:37 JST."
+    "note": "Status: Cloudflare gate + Google 2FA stop (number 11); login incomplete; inbox unverified; $0. Last measured 2026-11-06 19:35 JST; checked 00:37 JST."
    },
    {
     "platform": "note / Substack",
@@ -526,7 +526,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: article_06 REPUBLISHED new URL n761d05542010 20:27 JST (HTTP 200, full text verified; recovery complete); femcare #4 published 2026-11-05 20:11; note total 10; sales $0. 20:37 JST."
+    "note": "Status: article_06 new URL survives (HTTP 200, obs 23:01); note 21:30 BIP published 21:32 (n46ada73262da, HTTP 200); blog 20:00 slot LANDED (obs 23:01); sales $0. 00:37 JST."
    },
    {
     "platform": "AI Monk Factory",
@@ -596,7 +596,7 @@
     "pending": 0.0,
     "net_sales_usd": null,
     "paid_out_usd": null,
-    "note": "Status: prove-once achieved 2026-11-02 09:27 (b9u9u0 reached client); dedicated loop anicca-twine-loop, next 03:30 JST; Applied 2 / Won 0; sales $0. Last measured 2026-11-06 01:16 JST."
+    "note": "Status: 21:30-21:34 loop: Applied 2 / Won 0; sales $0; b9u9u0 Sent to client, b9u9v0 not sent; 1 free application left. 21:34 JST; checked 00:37."
    },
    {
     "platform": "RenderHub",
@@ -606,7 +606,7 @@
     "all_time": 0.0,
     "pending": 0.0,
     "status": "—",
-    "note": "Status: 4 listings published (bundle 418987 $12.00 added 18:18); sales $0, Earnings $0.00; payment setup at $20. 19:37 JST."
+    "note": "Status: 6 listings (cushion 419145 $5.00 published 00:18); bowl previews 3->5; sales $0, Earnings $0.00; Karma 142->170. 00:18 JST; checked 00:37."
    }
   ],
   "trend": [
@@ -763,11 +763,11 @@
   "all_time_usd": 2223.84,
   "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
  },
- "coverage_note": "Status: 34 platforms, 53 social rows, 5 apps + total, rankings; live 20:07 landed; costs $410.46 unchanged; GCP 77148001 reply 20:29 (ticket, 2-3 biz days); SEO 5/7 top 5 (24th batch); ASO JP gratitude 174->181; note article_06 REPUBLISHED new URL; Capafy Storytime v1.0.4 REJECTED; Shorts 58th miss; no sale. 20:37 build.",
+ "coverage_note": "Status: 34 platforms, 53 social rows, 5 apps + total, rankings; live 00:07 landed; costs $410.46 unchanged; IG 23:00 4/6 landed (monk/obou unfilled, INC-27); Threads 23:00 landed, INC-28 resolved; RenderHub 6th listing; Capafy Test Run blocked; SEO 4/7 (6th consecutive); ASO JP affirmation 111 swing; no sale. 00:37 build.",
  "currency_note": "USD only. This file contains no non-USD currency amounts.",
- "coverage_status_1line": "Status: live 20:07 landed; costs $410.46 unchanged; rankings SEO 20:28 / ASO 20:25 / GEO 20:26 complete; SEO anicca #1 iPhone, #3 best daily (24th batch); ASO JP gratitude 174->181; GCP reply 20:29 (2-3 biz days); note 06 republished; Reason inbox empty. | Rev $31.81 | Cost $410.46 | Profit -$378.65 | MRR $97.58.",
- "daily_change_1line": "Status: 20:07-20:37 window: live 20:07 confirmed landed; Gmail 20:38: GCP 77148001 REPLIED 20:29 (ticket, 2-3 biz days); CW declines x2; Coconala addendum 20:26; no new sale; night obs 20:22 IG unchanged; note 06 republished; Capafy Storytime v1.0.4 REJECTED; rankings 20:25-20:28 (24th).",
- "daily_trend_note": "Yesterday to today: costs unchanged $410.46; profit -$378.65; Rev $31.81 unchanged; GCP 77148001 reply 20:29 (ticket, update in 2-3 biz days); SEO anicca in top 5 for 5/7 queries (24th consecutive batch); ASO JP gratitude 174->181, positive 115->126; note article_06 REPUBLISHED new URL 20:27; Capafy Storytime v1.0.4 REJECTED; fal $10.95 due 11-07.",
+ "coverage_status_1line": "Status: live 00:07 landed; costs $410.46 unchanged; rankings SEO 00:28 / ASO 00:25 / GEO 00:26 complete; SEO anicca #1 iPhone, #4 best-daily (4/7); ASO JP affirmation 111; IG 23:00 4/6 landed; Threads landed; no sale. | Rev $31.81 | Cost $410.46 | Profit -$378.65 | MRR $97.58.",
+ "daily_change_1line": "Status: 00:07-00:37 window: live 00:07 confirmed landed; Gmail 00:39: no new sale/payment; CW cumulative 178 (+10); RenderHub 6th listing published; Capafy Test Run blocked (Choose a plan modal); rankings 00:25-00:28 (SEO 4/7; ASO JP affirmation 111); IG 23:00 4/6 landed, monk/obou unfilled; Threads 23:00 landed.",
+ "daily_trend_note": "Yesterday to today: costs unchanged $410.46; profit -$378.65; Rev $31.81 unchanged; Upwork Skyna G. proposal NOT sent (Google 2FA 00:02, deadline 15:47 JST ~14.7h); CW cumulative 178; SEO anicca in top 5 for 4/7 queries (6th consecutive batch at 4/7); ASO JP affirmation 111 (swing); IG 23:00 4/6 landed, monk/obou unfilled.",
  "apps_breakdown": [
   {
    "app": "Daily Affirmations (Anicca, iOS)",
@@ -777,7 +777,7 @@
    "units": 4,
    "proceeds_usd": 0.0,
    "period": "2026-10-26 to 2026-11-01 week",
-   "note": "Status: 1.9.6 public, Lifetime $59.99; week impressions 241, units 4, Proceeds $0. Trials/active subs unmeasured. Last measured 2026-11-04 14:47 JST."
+   "note": "Status: v1.9.8 Developer Rejected 21:53 JST (ASC mail); 1.9.6 public; week impressions 241, units 4, Proceeds $0. Trials/subs unmeasured. Apps loop owns. Checked 00:37."
   },
   {
    "app": "Honne (iOS)",
@@ -824,7 +824,7 @@
   {
    "account": "Threads @anicca.en",
    "posts": 44,
-   "note": "Status: 44 posts; newest t/18642008629050935 15:38 JST; 15:38 DfY-yTAj2Ro +1h = first-move anomaly; today 2/3, 23:00 queued; followers 0 (audit 0). Last measured 2026-11-06 20:22 JST.",
+   "note": "Status: 45 posts (23:00 LANDED 00:11 DfZ5dGnDi6Z, 0/0; INC-28 resolved, today 3/3); newest 15:38; followers 0 (audit 0). Last measured 2026-11-07 00:20 JST.",
    "followers": 0
   },
   {
@@ -833,7 +833,7 @@
    "likes": 2,
    "comments": 1,
    "followers": 3,
-   "note": "Status: 08:26 post 2/1 at 20:01 (first comment held); today 2. Last measured 2026-11-06 20:22 JST."
+   "note": "Status: 08:26 post 2/1 at 00:01; today 3 (23:00 LANDED 00:17 DfZ6ODGDoD6, 0/0 at landing; caption verbatim vs DfNAP4Pln3G, image residual 5). Last measured 2026-11-07 00:20 JST."
   },
   {
    "account": "IG anicca.ios.jp",
@@ -841,7 +841,7 @@
    "likes": 0,
    "comments": 0,
    "followers": 2,
-   "note": "Status: 06:13 post 0/0 at 20:22; today 2. Last measured 2026-11-06 20:22 JST."
+   "note": "Status: 06:13 post 0/0 at 00:01; today 3 (23:45 LANDED 00:30 DfZ7rzKDlob; @motto_app_jp copy, residual 4). Last measured 2026-11-07 00:20 JST."
   },
   {
    "account": "IG anicca.jp.videos",
@@ -849,14 +849,14 @@
    "likes": 3,
    "comments": 0,
    "followers": 12,
-   "note": "Status: 06:12 copy DfX-CsWDzA- 3/0 at 20:22; 03:12 copy DfXpZ0FDim3 2/0; today 2. Last measured 2026-11-06 20:22 JST."
+   "note": "Status: 06:12 copy DfX-CsWDzA- 3/0 at 00:01; 03:12 copy DfXpZ0FDim3 2/0; today 3 (23:45 LANDED 00:29 DfZ7j-gjvx7, residual 4). Last measured 2026-11-07 00:20 JST."
   },
   {
    "account": "IG monk.mujo",
    "latest_post": "https://www.instagram.com/reel/DfYtVpFD1SM/",
    "likes": 1,
    "comments": 0,
-   "note": "Status: 13:06 fill DfYtVpFD1SM 1/0 at 20:01 (unchanged); 08:05 copy DfYK8feDLJa 4/0; today 2. Last measured 2026-11-06 20:22 JST.",
+   "note": "Status: 13:06 fill DfYtVpFD1SM 1/0 at 00:01 (unchanged at 00:20); 08:05 copy DfYK8feDLJa 5/0; today 2; 23:00 slot UNFILLED (INC-27, 3rd detection). Last measured 2026-11-07 00:20 JST.",
    "followers": 14
   },
   {
@@ -865,14 +865,14 @@
    "likes": 0,
    "comments": 0,
    "followers": 10,
-   "note": "Status: 13:07 fill DfYtcMED9Ft 0/0 at 20:22; 08:06 post 0/0; today 2. Last measured 2026-11-06 20:22 JST."
+   "note": "Status: 13:07 fill DfYtcMED9Ft 0/0 at 00:01 (unchanged at 00:20); 08:06 post 0/0; today 2; 23:00 slot UNFILLED (INC-27, 3rd detection). Last measured 2026-11-07 00:20 JST."
   },
   {
    "account": "IG anicca.app",
    "latest_post": "https://www.instagram.com/p/DfYNbswjDwW/",
    "likes": 1,
    "comments": 1,
-   "note": "Status: 08:27 post 1/1 at 20:22; today 2. Last measured 2026-11-06 20:22 JST.",
+   "note": "Status: 08:27 post 1/1 at 00:01; today 3 (23:00 LANDED 00:18 DfZ6PswDtOv, 0/0 at landing; caption verbatim, image residual 5). Last measured 2026-11-07 00:20 JST.",
    "followers": 0
   },
   {
@@ -880,21 +880,21 @@
    "latest_post": "https://www.instagram.com/p/DfYNfeBjMCt/",
    "likes": 1,
    "comments": 1,
-   "note": "Status: 08:27 post 1/1 at 20:22; today 2. Last measured 2026-11-06 20:22 JST.",
+   "note": "Status: 08:27 post 1/1 at 00:01; today 3 (23:00 LANDED 00:19 DfZ6RhQDjlC, 0/0 at landing; caption verbatim, image residual 5). Last measured 2026-11-07 00:20 JST.",
    "followers": 1
   },
   {
    "account": "IG anicca.bochi",
-   "latest_post": "https://www.instagram.com/p/DfYnQP1j7Qc/",
+   "latest_post": "https://www.instagram.com/p/DfZktSNjmQH/",
    "likes": 0,
    "comments": 0,
-   "note": "Status: 12:12 fill DfYnQP1j7Qc 0/0 at 20:22; 07:28 post 0/0; today 2. Last measured 2026-11-06 20:22 JST.",
+   "note": "Status: 21:09 fill DfZktSNjmQH 0/0 at 00:01 (unchanged at 00:20); today 3/3 maintained. Last measured 2026-11-07 00:20 JST.",
    "followers": 2
   },
   {
    "account": "IG anicca.app2 (BIP)",
    "latest_post": "https://www.instagram.com/p/DfYnCtCj0JT/",
-   "note": "Status: 12:10 fill DfYnCtCj0JT 0/0 at 20:22; 08:30 fill 0/0; today 3. Last measured 2026-11-06 20:22 JST.",
+   "note": "Status: 12:10 fill DfYnCtCj0JT 0/0 at 00:01; today 4 (23:00 LANDED 00:20 DfZ6jPwjoSs, 0/0; form diff 0, verification gap 1). Last measured 2026-11-07 00:20 JST.",
    "likes": 0,
    "comments": 0,
    "followers": 0
@@ -1001,12 +1001,12 @@
   {
    "account": "YouTube @aniccaffirmations",
    "latest_post": "https://youtube.com/shorts/6bxHn2Uz-oU",
-   "note": "Status: Shorts 11:30 MISSING 58th (Studio dialog); kick c1ec8a43 20:30; long-form MISSING 58th; ZnmRfbJY6GE public; LinkedIn 20:48 QUEUE; TikTok 21:00 12 QUEUE. Last measured 2026-11-06 20:22 JST."
+   "note": "Status: Shorts 11:30 MISSING 64th (distribution-max 00:04); Studio login dead both profiles (Cookies 0); voiceless remake material delegated. Last measured 2026-11-07 00:04 JST."
   },
   {
    "account": "YouTube monk.mujo",
    "latest_post": "https://youtube.com/shorts/BWFyJs31r1M",
-   "note": "Status: monk Shorts 3/3 today; CXzSPrf5ZJg published 18:40 (Postiz email 19:40 confirms); #2 BZjOb4RD1Ko, #3 BWFyJs31r1M +1h arrived 18:14/18:20. Last measured 2026-11-06 20:22 JST."
+   "note": "Status: monk Shorts 2/3 today (CXzSPrf5ZJg NOT counted: still+zoompan, HeyGen-only rule); IG monk 13:06 1/0 at 00:01; Innertune remake CANCELLED (Todo38). Last measured 2026-11-07 00:01 JST."
   },
   {
    "account": "YouTube Postiz channels (@anicca-ai / @anicca-affirmation-video)",
@@ -1198,21 +1198,21 @@
  "self_vs_winner": [
   {
    "pair": "Affirmations EN: self anicca.en vs @iam.affirmations YES-type",
-   "self": "IG obs 20:22: unchanged (en 2/1, app 1/1, cca 1/1, jp.videos 3/0, monk.mujo DfYK8feDLJa 4/0; app2/bochi/ios.jp/obou 0/0); Postiz total 1,261, today 37 published (TikTok 32, YouTube 3); TikTok 17:30 batch 5/5 live, honnevideo 344/6; 19:45-anicca.jp +24h 160/8/1/0 (formal)",
-   "winner": "@iam.affirmations YES-type DfNAP4Pln3G (5,420 likes / 142 comments, ~2.62% comment rate) stays main axis; DfYG7L_nT2b 1,189/3 matured at 20:20 (candidate, not fixed); new obs DfX8vuKS30C 204/4 (small base, tracking only); DfPlZ_gHJHh 7,598/22 reach-type, not fixed",
-   "gap": "IG 08:00: 3 of 4 escaped (first comments), holding; monk 13:06 fill escaped at +1h (0->1); app2/bochi 12:00/12:15 fills +1h both anomalous; TikTok 09:30 buddha partial escape (97/4); gap partly closing."
+   "self": "IG 23:00 en/app/cca/app2 LANDED 00:17-00:20 (0/0 at landing; caption verbatim vs DfNAP4Pln3G, image residual 5, not zero-diff); 23:45 jp.videos/ios.jp LANDED 00:29-00:30 (residual 4); TikTok 23:30 5/5 published, +1h 4 escaped; honnevideo 17:30 2,478/25 (Views 2,400 breakthrough, 5th consecutive)",
+   "winner": "@iam.affirmations YES-type DfNAP4Pln3G (5,426 likes / 142 comments, ~2.62% comment rate) stays main axis; DfYG7L_nT2b 1,335/4 matured at 00:20 (candidate, not fixed); DfZjy5PIhP8 243/13 (tracking, ~5.35%); new DfZ4Z58t-UB 12/0 (CTA-less, tracking only)",
+   "gap": "IG 23:00 4/6 landed (monk/obou still missing, INC-27); 23:45 2/2 landed; TikTok 23:30 +1h 4/5 escaped; honnevideo 17:30 2,478/25; gap partly closing."
   },
   {
    "pair": "Monk: self monk.mujo vs @yangmunus one-word type",
-   "self": "monk.mujo 13:06 fill DfYtVpFD1SM 1/0 at 20:22 (unchanged); 08:05 DfYK8feDLJa 4/0; YouTube monk Shorts 3/3 today (CXzSPrf5ZJg 18:40); TikTok anicca_buddha 06:04 623/29, 09:30 520/15, 12:30 331/10 at 20:20; OBOU 0 about 59h",
-   "winner": "Yang Mun one-word comment CTA type; re-read @yangmunus DfSx5nSCQAp (2,366 likes / 452 comments, ~19.1% comment rate)",
-   "gap": "OBOU fills zero at +1h/+53h; buddha 312/18 and cemetery escape are the only escape signals; monk 13:06 fill escaped at +1h; gap unclosed."
+   "self": "monk IG 13:06 1/0 at 00:20 (unchanged); 08:05 DfYK8feDLJa 5/0; YouTube monk Shorts 2/3 today (CXzSPrf5ZJg NOT counted, HeyGen-only rule); TikTok buddha 06:04 830/41, 09:30 716/29, 12:30 608/19 at 00:20; OBOU 0 ~63h",
+   "winner": "Yang Mun one-word comment CTA type; re-read @yangmunus DfSx5nSCQAp (2,392 likes / 460 comments, ~19.2% comment rate)",
+   "gap": "OBOU fills zero at +1h/+63h; buddha 830/41, 716/29, 608/19 all growing; monk 13:06 fill escaped at +1h; gap unclosed."
   },
   {
    "pair": "Affirmations JP slideshows: self ios.jp/jp.videos vs @motto_app_jp",
-   "self": "0 likes / 0 comments at publish (both new carousels)",
-   "winner": "Recent 10 carousels median 6,680 likes; example post 97,948 likes / 333 comments",
-   "gap": "Format copied (11-card carousel), wording is own new text, so not a zero-difference copy; gap unclosed. 11:07 frame: no new winner re-measurement in this window; 10:20 values carried."
+   "self": "23:45 jp.videos/ios.jp LANDED 00:29-00:30 (DfZ7j-gjvx7 / DfZ7rzKDlob, 0/0 at landing; residual 4, not zero-diff); 06:12 copy 3/0, 06:13 post 0/0 at 00:01",
+   "winner": "Copy source @motto_app_jp DfOzQX3j7AZ (4,061 likes / 5 comments); recent 10 carousels median 6,680 likes",
+   "gap": "Format copied (11-card carousel), wording is own new text, so not a zero-difference copy; residual 4; gap unclosed. 00:20 frame: 23:45 fills landed."
   },
   {
    "pair": "YouTube Affirmations: self @aniccaffirmations vs Innertune Daily Affirmations",
@@ -1228,9 +1228,9 @@
   },
   {
    "pair": "AI info: self anicca.app2 vs @chatgptricks",
-   "self": "12:00 fill DfYnCtCj0JT +1h 0/0 anomalous at 13:20 (@chatgptricks DeNGNq1HV3Y copy); bochi 12:15 fill +1h 0/0 anomalous; 08:00 fill 0/0; app2 followers 0; obs 15:01 unchanged",
-   "winner": "@chatgptricks, 2,758,845 followers (01:20 return), 2,656 posts; first copy target DeNGNq1HV3Y, 25,177 likes / 125 comments, 10-card carousel",
-   "gap": "Gap unclosed; 12:00 fill +1h anomalous; bochi 12:15 fill +1h anomalous; 08:00 fill 0/0; app2 still 0."
+   "self": "app2 23:00 LANDED 00:20 (DfZ6jPwjoSs, 0/0 at landing; form diff 0, verification gap 1); 12:00 fill DfYnCtCj0JT +1h 0/0 anomalous at 13:20; app2 followers 0; hourly 00:20",
+   "winner": "@chatgptricks, 2,758,845 followers (01:20 return), 2,656 posts; first copy target DeNGNq1HV3Y, 25,184 likes / 125 comments, 10-card carousel",
+   "gap": "Gap unclosed; 23:00 fill landed 00:20 (form diff 0, gap 1); 12:00 fill +1h anomalous; app2 still 0."
   }
  ],
  "apps_total": {
@@ -1244,8 +1244,8 @@
   "note": "Measured ranks only. out = not in the measured result set.",
   "seo": {
    "engine": "Google (search snapshot)",
-   "measured_at": "2026-11-06 20:28 JST",
-   "anicca_in_top": 5,
+   "measured_at": "2026-11-07 00:28 JST",
+   "anicca_in_top": 4,
    "queries_total": 7,
    "rows": [
     {
@@ -1268,9 +1268,9 @@
     },
     {
      "query": "best daily affirmation apps",
-     "anicca": 3,
+     "anicca": 4,
      "winner": "thevisionboard.app",
-     "winner_position": "out"
+     "winner_position": 3
     },
     {
      "query": "daily affirmations",
@@ -1286,17 +1286,17 @@
     },
     {
      "query": "what is the best affirmation app",
-     "anicca": 5,
+     "anicca": "out",
      "winner": "thevisionboard.app",
      "winner_position": "out"
     }
    ],
    "bing": {
     "engine": "Bing (script, top 30)",
-    "measured_at": "2026-11-06 20:25 JST",
+    "measured_at": "2026-11-07 00:26 JST",
     "anicca_in_top": 0,
     "queries_total": 7,
-    "happierhuman": "1 in 7 queries (6 in 'daily affirmations'; was 7 at 19:56, 6 at 20:25)"
+    "happierhuman": "out (was 6 at 23:25, out since 23:56) in 'daily affirmations'"
    },
    "gsc": {
     "period": "28-day window ending 2026-11-05",
@@ -1309,7 +1309,7 @@
   },
   "aso": {
    "source": "iTunes Search API, top 200 per keyword",
-   "measured_at": "2026-11-06 20:25 JST",
+   "measured_at": "2026-11-07 00:25 JST",
    "us": [
     {
      "keyword": "affirmation",
@@ -1332,8 +1332,8 @@
     {
      "keyword": "positive affirmations",
      "anicca": "out",
-     "winner_position": 2,
-     "top1": "Ella Daily Affirmations Widget"
+     "winner_position": 1,
+     "top1": "I am - Daily Affirmations"
     },
     {
      "keyword": "i am affirmations",
@@ -1344,7 +1344,7 @@
     {
      "keyword": "self love",
      "anicca": "out",
-     "winner_position": 5,
+     "winner_position": 4,
      "top1": "Self Love - Daily Affirmations"
     },
     {
@@ -1381,9 +1381,9 @@
     },
     {
      "keyword": "自己肯定感",
-     "anicca": 56,
+     "anicca": 62,
      "winner_position": "out",
-     "top1": "Awarefy:AIメンタルパートナー・自己理解＆セルフケア"
+     "top1": "幸せの記録アプリ"
     },
     {
      "keyword": "瞑想",
@@ -1393,20 +1393,20 @@
     },
     {
      "keyword": "ポジティブ",
-     "anicca": 126,
-     "winner_position": 19,
+     "anicca": 114,
+     "winner_position": 17,
      "top1": "ポジティブ変換 - AIで自己肯定感アップを習慣に"
     },
     {
      "keyword": "感謝",
-     "anicca": 181,
+     "anicca": 174,
      "winner_position": 11,
      "top1": "My感謝日記 -毎日のありがとうを習慣化するSNSアプリ"
     },
     {
      "keyword": "モチベーション",
      "anicca": "out",
-     "winner_position": 23,
+     "winner_position": 22,
      "top1": "Motivation - 今日の名言"
     },
     {
@@ -1419,13 +1419,13 @@
    "winner": "I am (id 874656917)"
   },
   "geo": {
-   "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered, 0 engine errors; complete 20:26 batch",
-   "measured_at": "2026-11-06 20:26 JST",
+   "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered, 0 engine errors; complete 00:26 batch",
+   "measured_at": "2026-11-07 00:26 JST",
    "recommended": 0,
    "recommended_of": 8,
    "cited": 0,
    "cited_of": 8,
-   "winners": "ThinkUp"
+   "winners": "ThinkUp (5/8 first-mentioned), Motion (1/8)"
   }
  },
  "handoffs": [
@@ -1443,7 +1443,7 @@
   "PR #858 (Stage the newest Open dashboard snapshot on deploy, anicca-products) noted 2026-11-05 17:24 JST; /open loop does not merge or execute; owner maintained.",
   "Lancers auto-cancel 5616465 (beauty-clinic WordPress job) at 18:02 JST Gmail: client missed selection deadline; proposal lost, no sale.",
   "Guru signed out 50th consecutive time at 02:25 loop; 7-day consecutive zero line reached; frequency decision made by revenue-growth 02:52 loop (hourly -> 1x/day session check).",
-  "Long-form 0/2 (obs 20:22; Shorts 11:30 MISSING 58th; long-form @AIEntitiesClub MISSING 58th; manual kick c1ec8a43 running at 20:30; ZnmRfbJY6GE still public; Postiz YouTube quota ERROR persists; @AIEntitiesClub/@life-manager-m4p channels not in this Google account).",
+  "Long-form 0/2 (hourly 00:20; Shorts 11:30 MISSING 64th; long-form @AIEntitiesClub MISSING; Studio login dead both profiles (Cookies 0); voiceless remake material delegated, no publish; monk CXzSPrf5ZJg NOT counted (still+zoompan, HeyGen-only rule) -> monk 2/3; Postiz YouTube quota ERROR persists. Innertune remake CANCELLED (Todo38); YouTube affirmations winner is @iam.affirmations (voiceless).)",
   "PR #857 (Update MANAGER_MARKETING_REVISION to 8181a4f9, culture text) noted 2026-11-05 17:02 JST; /open loop does not merge or execute; owner maintained.",
   "PR #859 (Fix Open dashboard month labels across timezones, anicca-products) noted 2026-11-05 18:15 JST; /open loop does not merge or execute; owner maintained.",
   "Life-manager Security Scan run failed for main 202644c at 2026-11-05 18:28 JST (Gmail); /open loop does not act on life-manager CI; watch.",
@@ -1503,9 +1503,9 @@
   "TikTok 19:00 batch measurement gap RESOLVED: values landed at 23:20 (851 views / 23 likes / 0 comments, 5 posts).",
   "IG 23:06 fills posted (app2 DfXOG_yDl2J, monk DfXOA8wji91, obou DfXOGXyDtRl; baselines 0/0); distribution-max manual kick 23:06 (run 3facf951) filled the missed 23:00 slots; Threads 23:00 still not posted.",
   "OBOU 4th TikTok +1h 0/0/0/0 at 01:04 (Postiz values returned, not empty); initial anomaly confirmed; PUBLISHED 23:55 JST (cmw3nrfvp, white-water Yang Mun copy, 82.84s).",
-  "Gmail sweep 23:38 JST (20 newest): no Coconala deposit notice; no new sale/payment notice; Netlify failure notices 22:53/22:40 are the known 4KB-error runs; anicca-ops PR #16 comments 23:20.",
-  "Contract watch 23:16: no new sale/order/MRR; today 43 proposals submitted / 41 new; CrowdWorks 4 new applications (22:45-22:53), harutaskroom declined + replied; 63989657 inspection pending.",
-  "Live 23:07 landed at 23:37 slot start (browser read); 14:25 override check satisfied; Netlify jam cleared by PR #865.",
+  "Gmail sweep 00:39 JST (hatch_gws_cli gmail +triage, after:2026/11/06, 20 newest): newest CW recruitment-closed notices 00:39 JST + Postiz notifications 00:30; GitHub PR #9287 notifications 00:10; no new sale/payment/deposit notice since 00:10 sweep; no Relixir reply; no Coconala deposit notice; no new MUFG debit.",
+  "Contract watch 00:16 (contract-ledger-watch-2026-11-07-0016.md): no new sale/order/MRR; Coconala transfer 1,560 still no deposit notice; CW cumulative 178 (confirm on /open this frame); Lancers 5625250 escrow done, formally started ($7.01 not counted); Mercor availability deadline Sun Nov 8 8:00 AM PT, Check-In due 11/8 12:59 JST; Upwork Skyna G. deadline 15:47 JST; fal $10.95 due 11-07; Relixir refund ~20h no reply; GCP 77148001 waiting; Dots #1 ~35.5h. Checked 00:37.",
+  "Live 00:07 landed at 00:37 slot start (curl read, live-snapshot-0037.json; matches 0007 draft except ASC measured_at 15:28:57Z vs 14:57:50Z, period 2026-10-30~11-05 unchanged, values identical; 14:25 override check satisfied).",
   "TikTok JP 23:45 batch 5 posts PUBLISHED (obs-0001, Postiz total 1,213); +1h due 00:45 JST.",
   "IG 23:06 fills +1h due 00:13-00:15 JST (next frame); obs-0001 IG followers unchanged (app 0, cca 1, bochi 2, app2 0, en 3, ios.jp 2, jp.videos 12, monk 14, obou 10).",
   "LinkedIn daily 2/2 both live (15:25 cmw358hb direct-read confirmed); Postiz-list absence was a record artifact, not a missing post.",
@@ -1543,7 +1543,7 @@
   "PromptBase Moon Bakery re-review submitted 01:34 (global-freelance loop); Lighthouse still Declined, re-review pending; Workana Cloudflare gate continues; Freelancer.com 6 open bids confirmed.",
   "Winner re-read: @iam.affirmations DfPlZ_gHJHh 7,454 likes / 22 comments at 04:20 hourly loop (was 7,450/22 at 04:06; +4 likes). The 05:20-frame 2,054/41 mismatch is RESOLVED: it was a mix-up with DfSo3nbswvk.",
   "Live 05:07 landed at 05:37 slot start (curl read); 14:25 override check satisfied.",
-  "Gmail sweep 20:38 JST (hatch_gws_cli gmail +triage, after:2026/11/06, 25 msgs): NEW: GCP case 77148001 support REPLIED (2 emails 20:29/20:30 JST; full read of 1a1b0a0212d17b91: internal ticket created, update in 2-3 business days; no refund/adjustment yet). CW applications declined x2 (20:17/20:22 JST); Coconala addendum notice 20:26 JST. No new sale/payment notice; no Relixir reply; no Coconala deposit notice; no new MUFG debit. TikTok MCP promo; bitbank/BUYMA/SBC/Peatix promos.",
+  "Gmail sweep 23:11 JST (hatch_gws_cli gmail +triage, payment keywords, after:2026/11/06): newest is Anicca daily report 21:28 JST + fal support 21:13 JST; no new sale/payment/deposit notice since 22:53 sweep; no Relixir reply; no Coconala deposit notice; no new MUFG debit.",
   "Postiz CANCELLED 2026-11-06 03:25-03:26 JST (user direct order): Pro $49.00/mo, period 2026-10-25-2026-11-25 Paid, invoice 8Z3I3XTJ-0012; access until 2026-11-25, no next charge. TikTok 13 + LinkedIn 2 migration deadline 2026-11-25. Rule added 03:28: future cancellations only AFTER a free alternative is proven end-to-end; this cancel is the user-ordered exception. (Grok Ultra->Super downgrade stands; receipt at next billing.)",
   "Obs 07:01: IG values unchanged from 06:20 read (en DfXpMMPjvA0 1/0, jp.videos DfXpZ0FDim3 1/0, monk.mujo DfXOA8wji91 1/0/14, app2 DfXpLSKDv2g 0/0/0); no new hourly-distribution frame since 06:20.",
   "Contract-ledger-watch 03:16: no new sale/order/MRR in 02:16-03:16 window; 11-06 new applications still 23 total; Contra 02:59: Automation Sprint description rewritten in English and published, Ashly YP Applied ($8,000-$9,000 one-time 8 weeks), Work covers still wrong, community post views 6; Coconala transfer Y1,560 still unconfirmed.",
@@ -1583,7 +1583,7 @@
   "Revenue-growth 06:52: Grok Super first charge about $113.50 on 2026-11-30; no new sale; GCP refund case 77148001 reply SENT 05:12, support reply awaited; Relixir no reply in 07:08 sweep; Coconala transfer still unconfirmed.",
   "No new sale, order, or MRR change in 04:37-05:07 window; KPIs unchanged (Rev $31.81, Cost $350.15, Profit -$318.34, MRR $97.58).",
   "Handoff carry: GCP case 77148001 answer, Relixir reply, Coconala transfer, fal $10.95 (due 11/07), PR #861/#862/#866 merges, Lancers 5624276, Stripe re-auth, MRR $97.58 vs $93.58 gap, GoLance gates, Guru daily check - all still open, owned by their loops.",
-  "Live 20:07 landed at 20:37 slot start (curl read, live-snapshot-2037.json; parsed-equal to 2007 draft; 14:25 override check satisfied).",
+  "Live 22:37 landed at 23:07 slot start (curl read, live-snapshot-2307.json; matches 2237 draft except ASC measured_at 13:56:30Z vs 13:28:38Z, period 2026-10-30~11-05 unchanged, values identical; 14:25 override check satisfied).",
   "Gmail sweep 05:39 JST (15 newest, after:2026/11/05): no Coconala deposit notice; no new sale/payment notice; no Netlify failure notice; no Relixir reply; newest is GitHub PR notifications 05:37 (#9255, #9254, #875, #19).",
   "Rankings 05:25-05:28 batch: SEO Google 05:28 (anicca out all 7, 12th batch); ASO 05:25: JP affirmation 111, self-esteem 61, positive 126, gratitude 174, motivation winner 26; US self-love winner 4, gratitude 5, motivation winner 3; GEO 05:26: 8 answered, 0 mentioned, 0 cited; Bing 05:25, 0.",
   "Hourly-distribution 05:20: IG 6 new 03:10-03:13 posts still 0/0 at 05:22 (+~2h10m); 23:06 fills still 0 at 05:22 (+6h10m); Threads DfXy1BTDxhs +1h ~05:34 (next slot); TikTok 14:08-jp4 866/28 (7th stall), 19:45-anicca.jp 71/5/comment 1 (+12); cmvw85xwn [] empty again; OBOU 3 still 0.",
@@ -1591,7 +1591,7 @@
   "Revenue-growth 06:52: Grok Super first charge about $113.50 on 2026-11-30 (X Subscription mail, Ultra continues to 11/30); no Nov cost change; no new sale; GCP 77148001 reply awaited; Relixir no reply; Coconala transfer unconfirmed.",
   "Apify/PromptBase audit 06:12/06:15 (no new audit since): Apify 30d runs 3 all TIMED-OUT; PromptBase Moon Bakery re-review rejected, Lighthouse $4.99 unconfirmed; sign-in blocked 2 days; sales unmeasured both.",
   "Revenue-growth 04:52: GCP refund case 77148001 reply SENT 05:12 JST (id 1a1ad577ad88c4f8); refund unconfirmed, not counted; Relixir no reply; Coconala transfer still unconfirmed.",
-  "No new sale, order, or MRR change in 20:07-20:37 window; Rev $31.81, Cost $410.46, Profit -$378.65, MRR $97.58, 30d $249.48. GCP 77148001 REPLIED 20:29 (ticket, 2-3 biz days); CW declines x2; Coconala addendum 20:26; note article_06 republished; Capafy Storytime v1.0.4 REJECTED; SBI VC staking Oct notice (amount unread, October income, not Nov MTD).",
+  "No new sale, order, or MRR change in 00:07-00:37 window; Rev $31.81, Cost $410.46, Profit -$378.65, MRR $97.58, 30d $249.48. Upwork Skyna G. proposal NOT sent (Google 2FA 00:02, deadline 15:47 JST ~14.7h); RenderHub 6th listing published; Capafy Test Run blocked (Choose a plan modal); RevenueCat Nov 5 new customers 0 (emergency continues).",
   "Handoff carry: GCP 77148001 support reply watch, Relixir reply, Coconala transfer, fal $10.95 (due 11/07), PR #861/#862/#866/#875/#876/#877/#878/#9254/#9255/#9260/#9261/#9262/#9263 merges, landing PR build failures, Lancers 5624276, Stripe re-auth, MRR $97.58 vs $93.58 gap, GoLance gates, Guru daily check, RenderHub password save, Grok Super 11-30 charge watch, monk icon unification Todo, Whop balance $39.07 one-off, Lancers total 41, Legiit S3 in-platform visibility - all still open, owned by their loops.",
   "Live 05:37 landed at 06:07 slot start (curl read); 14:25 override check satisfied (commit 05:53, live within 14 min).",
   "Gmail sweep 06:08 JST (15 newest, after:2026/11/05): no Coconala deposit notice; no new sale/payment notice; no Netlify failure notice; no Relixir reply; newest is GitHub notifications 06:00-06:01 (#876 release, landing PR build failures, #9261/#9260).",
@@ -1605,19 +1605,19 @@
   "Gmail sweep 06:38 JST (15 newest, after:2026/11/05): no Coconala deposit notice; no new sale/payment notice; no Netlify failure notice; no Relixir reply; newest is Postiz 06:36 + GitHub PR #878 (run failed) / #877 / #9263 / #9262.",
   "Rankings 06:25-06:28 batch: SEO Google 06:28 (anicca out all 7, 14th batch); ASO 06:25: JP affirmation 111, self-esteem 60, positive 126, gratitude 174, motivation winner 20 (was 26); US self-love winner 4, gratitude 5, motivation winner 3; GEO 06:26: 8 answered, 0 mentioned, 0 cited; Bing 06:26, 0.",
   "Hourly-distribution 06:20: IG first likes (en DfXpMMPjvA0 1/0, jp.videos DfXpZ0FDim3 1/0, monk.mujo 23:06 fill 1/0/14); Threads DfXy1BTDxhs +1h 0/0 (first-move anomaly); TikTok jp4 866/28 (8th stall), 19:45-anicca.jp 80/5/1 (+9); cmvw85xwn [] 14th empty; new 06:04 TikTok honne_reveal 0 views, anicca_buddha 1 view.",
-  "Guru 20:25 loop (guru-loop-2026-11-06-2025.md): no change; profile visible, $30/hr, Starting at $50; 7 proposals sent (3 Quote sent: Data Entry $100, UGC $100, Office Secretary $100), 0 responses; 3 bids left; Cash $0.00; All-Time Earnings $0; Current Jobs 0. Checked 20:37.",
+  "Guru 23:25 loop (guru-loop-2026-11-06-2325.md): session recovered via Google OAuth (no number prompt); 0 new proposals; 3 bids left; Cash $0.00; 7 sent (3 Quote sent), 0 responses; Office Secretary quotes 58->62; profile visible $30/hr. Checked 00:37.",
   "RenderHub S2 registered 06:03-06:13 (Anicca, agent email, session live); no listings yet; password durable save unconfirmed (119); added to /open as 33rd platform ($0).",
-  "Contra 17:59 loop carried (no new loop since; contra-loop-2026-11-06-1759.md): login via shared-profile session as Daisuke Narita; application Xueteng Gao 'Freelance Growth Marketing Specialist' ($1,500-$2,000, One-time, 1 month); Applied 11 (was 10); inbox General 0, Requests 0; Earned $0.00, balance $0.00. Checked 20:37.",
+  "Contra 00:01 loop (contra-loop-2026-11-07-0001.md): NEW community post njDVtun9 (PDF Insight Before/After, views 1 at publish); views tySEQ9B1 7, cuGeGg3p 7, uiLIzdfs 9, 9ZlYlp9G 16; Applied 14 (+2 Jonnel Cayabyab, Rohan Radhakrishnan); Earned $0.00, balance $0.00; profile views 3 (30d), Work impressions 583 (+13). Checked 00:37.",
   "Contract-ledger-watch 06:16: no new sale/order/MRR; 11-06 applications corrected to 39 (Lancers 2 + CW 25 + Coconala 12); Coconala transfer display gone but deposit unconfirmed; CW reply sent (first since 10-20); Apify/PromptBase audit 06:12/06:15 (Moon Bakery rejected, Lighthouse $4.99 unconfirmed).",
   "No new sale, order, or MRR change in 06:07-06:37 window; Rev $31.81, Cost $355.25, Profit -$323.44, MRR $97.58, 30d $249.48.",
   "Handoff carry: GCP 77148001 support reply watch, Relixir reply, Coconala transfer, fal $10.95 (due 11/07), PR #861/#862/#866/#875/#876/#877/#878/#9254/#9255/#9260/#9261/#9262/#9263 merges, landing PR build failures, Lancers 5624276, Stripe re-auth, MRR $97.58 vs $93.58 gap, GoLance gates, Guru daily check, RenderHub password save - all still open, owned by their loops.",
   "Live 06:37 landed at 07:07 slot start (curl read); 14:25 override check satisfied (commit 06:46, live within ~21 min).",
   "Gmail sweep 07:08 JST (15 newest, after:2026/11/05, sale/payment keywords): no Coconala deposit notice; no new sale/payment notice; no Netlify failure notice; no Relixir reply; newest is Mendi 04:45 JST + SemiAnalysis.",
-  "Rankings 20:25-20:28 batch: SEO Google 20:28 (anicca 1/5/2/3/out/out/5, 5/7 in top 5; 24th consecutive batch; 'best daily affirmation apps' stays 3); ASO 20:25: JP affirmation 111 (held), self-esteem 56, positive 115->126, gratitude 174->181, mindfulness out; US self-love iam 5, gratitude iam 6, motivation iam 2; GEO 20:26 COMPLETE batch (8 answered, 0 mentioned, 0 cited; winner ThinkUp, 5/8 first-mentioned); Bing 20:25, anicca 0/7, happierhuman 7->6 in 'daily affirmations'.",
+  "Rankings 00:25-00:28 batch: SEO Google 00:28 (anicca 1/5/2/4/out/out/out, 4/7 in top 5; 6th consecutive at 4/7; 'best daily affirmation apps' 3->4, thevisionboard re-entered at 3; 'what is the best affirmation app' OUT again); ASO 00:25: JP affirmation 32->111 (swing 32->111->32->111->32->32->111), self-esteem 62, positive 114, gratitude 174; US gratitude iam 6, self-love iam 4, motivation iam 2; GEO 00:26 COMPLETE (8 answered, 0 mentioned, 0 cited; ThinkUp 5/8, Motion 1/8); Bing 00:26, anicca 0/7, happierhuman out.",
   "Monk TikTok renamed @monk_anicca -> @anicca_cemetery (Yang Sutta), 197 followers; latest post cmw3022gl0ufqmk08cyxgu02u 61 views / 8 likes / 0 comments at 07:07 (Postiz + TikTok page agree; audit #32 resolved).",
-  "Obs 20:22 (distribution-loop-night-2026-11-06-2022.md): IG unchanged (all 9 rows same values as 19:20); Threads 44 posts, latest 15:38; TikTok 19:45-anicca.jp +24h formally collected (160/8/1/0); honnevideo 17:30 -> 344/6; buddha 06:04 623/29, 09:30 520/15, 12:30 331/10; jp4 14:08 868/28 (23 frames stopped); OBOU 0 about 59h; note article_06 REPUBLISHED new URL 20:27; blog 20:00 repair COMPLETE; distribution-max c1ec8a43 running at 20:30; LinkedIn 20:48 QUEUE; TikTok 21:00 12 posts QUEUE. Checked 20:37.",
+  "Hourly 00:20 (hourly-distribution-loop-2026-11-07-0020.md): IG 23:00 en/app/cca/app2 LANDED 00:17-00:20 (0/0 at landing; caption verbatim vs DfNAP4Pln3G, image residual 5, not zero-diff); monk/obou still UNFILLED (INC-27, 3rd detection); IG 23:45 jp.videos/ios.jp LANDED 00:29-00:30 (residual 4); Threads 23:00 LANDED 00:11 (INC-28 resolved, 3/3); TikTok 23:30 5/5 published, +1h 4 escaped; honnevideo 17:30 2,478/25 (Views 2,400 breakthrough, 5th consecutive); buddha 830/41, 716/29, 608/19. Checked 00:37.",
   "Revenue-growth 06:52: Grok Super first charge about $113.50 on 2026-11-30 (X Subscription mail); no Nov cost change; no new sale; GCP 77148001 reply awaited.",
-  "Whop 18:33 loop carried (no new loop since; whop-loop-2026-11-06-1833.md): revenue $0; balance $0.00 confirmed; product page description 1,447 chars (was 1,403); US views 22->28; Visitors 1; guest Buy-now verified; tax due 2026-11-30. Checked 20:37.",
+  "Whop 21:33 loop (whop-loop-2026-11-06-2133.md): revenue $0; balance $0.00 confirmed; product page 63 views (+3 from 60), store 18 views; US views 28->31, Japan 88 views; Visitors 1; Level 0 ($0/$1,000); guest Buy-now verified; tax due 2026-11-30. (264) resolved: row now reflects 21:33 read. Checked 00:37.",
   "MUFG 02:52 JST notices resolved in cost-ledger 05:52: ZIPAIR $5.10 counted; GOOGLE*CHROME TEMP +200/-200 offset, net 0, no cost impact.",
   "No new sale, order, or MRR change in 06:37-07:07 window; Rev $31.81, Cost $355.25, Profit -$323.44, MRR $97.58, 30d $249.48.",
   "Handoff carry: GCP 77148001 support reply watch, Relixir reply, Coconala transfer, fal $10.95 (due 11/07), PR #861/#862/#866/#875/#876/#877/#878/#9254/#9255/#9260/#9261/#9262/#9263 merges, landing PR build failures, Lancers 5624276, Stripe re-auth, MRR $97.58 vs $93.58 gap, GoLance gates, Guru daily check, RenderHub password save, Grok Super 11-30 charge watch, monk icon unification Todo, Whop balance $39.07 one-off - all still open, owned by their loops.",
@@ -1633,16 +1633,16 @@
   "Note winner reselection (MEMORY.md 08:36-08:38 JST): けんすう is OUT as note winner (user: look for someone other than けんすう; personal-business-dependent, not reproducible as brand account); reselection in progress (note-winner-reselection-2026-11-06.md); Substack winner Packy McCormick unchanged.",
   "Distribution 08:37-09:07: CrowdWorks 9 new applications (Nov 6 total 50); Guru 0 new proposals; Legiit visibility cause determined (official help: 2025-02-12 market change, zero orders/reviews/customers = hidden from search/category); fal $10.95 due 11-07 (unpaid, not counted).",
   "Relixir 2nd $20 bank-settled: MUFG debit notice 09:04 JST (3,271 local units, RELIXIR, INC.) matches receipt #2480-9759; costs unchanged $355.25 (already counted $40.00); refund still awaited, no Relixir reply in 09:09 Gmail sweep.",
-  "SEO jump CONFIRMED (24th batch): 20:28 batch anicca 1/5/2/3/out/out/5 (5/7 top 5, #1 iPhone, #2 affirmation app), 24th consecutive batch after 09:29, 09:59, 10:28, 10:58, 11:29, 11:58, 13:13, 13:27, 13:59, 14:29, 14:44, 14:58, 15:27, 15:58, 16:27, 16:59, 17:28, 17:58, 18:27, 18:58, 19:13, 19:27 and 19:58; 'best daily affirmation apps' stays 3; thevisionboard out in that query.",
-  "Distribution 20:07-20:37: night obs 20:22 IG unchanged; Threads 44; TikTok 19:45-anicca.jp +24h 160/8/1/0, honnevideo 344/6; Postiz total 1,261, today 37 published; Shorts 11:30 MISSING 58th, long-form 58th; kick c1ec8a43 running at 20:30; note article_06 REPUBLISHED new URL; blog 20:00 repair COMPLETE; TikTok 21:00 12 posts QUEUE.",
-  "Capafy 18:13 loop carried (no new loop since; capafy-loop-2026-11-06-1813.md): dashboard freshness still 2026-11-05 UTC; 7d $26.97 / 30d $46.95 / 90d $139.71 (each -$12.99: Storytime refund now counted in sales windows); Proceeds 7d $20.40 / 30d $35.60 / 90d $103.78; Published 54 / In Review 8; NHL v1.0.4 + Slide Maker v1.0.7 submitted (C1); CloneCut 47,082 (+64); OpenRouter usage 0.0034, remaining $9.9966; 7 approval emails 18:28-18:37; support replied 17:28 ($12.99 refund corrected); Refunds-page re-read still pending (Capafy loop owns). NEW: Storytime v1.0.4 REJECTED (2.2 accuracy, notified 11-05 20:05 PST; Capafy loop owns fix/re-list decision). Checked 20:37.",
+  "SEO 4/7 (22:29 batch): anicca 1/5/2/3/out/out/out; 'best daily affirmation apps' improved 4->3, thevisionboard fell OUT in all 7 queries (was 3 in that query at 22:14); 'what is the best affirmation app' OUT again (was 5 at 22:14); #1 iPhone, #2 affirmation app held. 5/7 streak (16th-17th batches) broken at 22:29.",
+  "Distribution 22:07-22:37: hourly 22:20 (TikTok 21:00 +1h 10/12 escaped; honnevideo 17:30 1,474/15; bochi +1h anomaly); Shorts 11:30 MISSING 64th; monk 2/3 (HeyGen-only rule); Threads 44 (23:00 queued); no new distribution-max loop since 22:04.",
+  "Capafy 23:13 loop (capafy-loop-2026-11-06-2313.md): metrics identical to 21:13 (freshness 2026-11-05 UTC); 7d $26.97 / 30d $46.95 / 90d $139.71; no new sale/renewal; saya/CloneCut 47,307 Sold (+138); 3 C1 submissions In Review (In Review 10); Drafts 4; Refunds 5/$47.96; Test Run BLOCKED on all 3 flagship listings by 'Choose a plan' modal (new, top priority next loop); 30d/90d Proceeds -$8.80 unexplained. Checked 00:37.",
   "Revenue-growth 09:52: no new sale/order/MRR in 08:52-09:52; Relixir 2nd $20 debit confirmed (already counted); Coconala 12 '募集終了' notices 09:02 (past applications, no selection notice); Legiit coupon handoff unexecuted (09:19 meta was read-only) -> re-handoff to meta 12:19.",
   "Capafy: user sent 2 support emails 11:20/11:36 JST (refund aggregate mismatch: dispute table 5/$47.96 vs Lifetime 4/$34.97, Storytime $12.99 payout deduction unconfirmed; agent-operated publisher access + $0.99 certification fee + selfie check); no Capafy reply in 14:40 Gmail sweep; Storytime Script rejected (notice 20:05 PST), reason/relist pending Capafy loop; dashboard freshness still 2026-11-04 UTC; Published 41/In Review 25 (09:13) minus 15 decisions - counts pending Capafy loop re-read; refunds 5/$47.96 unchanged.",
-  "Reason inbox: No messages at 20:38 slot start (verified via ~/.local/bin/reason network inbox); held 13:34 message still pending verification (safety check failed, reply deferred to main agent). Grok (sanbou) returned 2026-11-06; Muse sent Manager receipt via Reason (delivered).",
+  "Reason inbox: No messages at 00:37 slot start (verified via ~/.local/bin/reason network inbox); 参謀 judgments 12 unanswered (unchanged; fast-response Reason sent, queued, arrival unconfirmed); ops-watch sent Reason re /open KPI mismatch + Upwork + ASC + Mac disk 21:55, no reply yet; contract-watch 22:16 confirms no reply; 13:53 All hands body safety-check unpassed/unread. Grok (sanbou) returned 2026-11-06; MEMORY.md correction 04:38 PST: 参謀 is the representative name, Grok side has multiple agents - contact each directly, no hub.",
   "trifa $23.21 added to Nov costs (receipt #1804-2116, Gmail 09:58:56 JST, 3,640 local units Apple Pay, rate 156.84; cost-ledger 10:53): costs $355.25->$378.46, profit -$323.44->-$346.65. Relixir refund, if confirmed, would take costs to $358.46. fal $10.95 due 11-07 (tomorrow), unpaid, not counted.",
   "Dots #1 last trace ~22.5h ago (2026-11-05 12:21/12:33 Reason contact, ops-watch 09:55): approaching 24h line; if no trace next frame, treat as HP-down/stopped and note handover lanes on the board (dots2-coverage-loop continues #2 handover).",
   "OpenRouter $7.43 added to Nov costs (cost-ledger 11:3x audit, API direct query: credits $105, cumulative usage $74.89, balance $30.11; Nov $7.43 = capafy-host-live $6.93 + spare $0.045 + old $0.45): costs $378.46->$385.89, profit -$346.65->-$354.08. OpenRouter was previously uncounted in the ledger. Host key daily cap $10; at current pace balance lasts ~9 days.",
-  "Dots #1 HP-down/stopped: last trace 2026-11-05 12:21/12:33 Reason contact, ~32.3h at 20:37 slot start, no trace in Reason inbox; treat as HP-down/stopped per 12:07 frame rule; handover lanes via dots2-coverage-loop; #2 handover continues.",
+  "Dots #1 HP-down/stopped: last trace 2026-11-05 12:21/12:33 Reason contact, ~36.3h at 00:37 slot start, no trace in Reason inbox; treat as HP-down/stopped per 12:07 frame rule; handover lanes via dots2-coverage-loop; #2 handover continues (Dots #2 active, Slack #agents-hq 21:51).",
   "Capafy LLM API issue email 11:10 JST (Capafy notify, TikTok Storytime Script v1.0.3 LLM API issue): same event as the OpenRouter host-key limit raise ($3->$10); no sale impact recorded; Capafy loop owns the fix.",
   "anicca-products Landing PR build failed 03:24 JST: no impact on /open publish path (13:37 commit succeeded after the notice; live 13:37 landed at 14:07 slot start). NEW: PR #886 Landing PR build failed (Gmail 14:38 JST, f657e57) - Codex owns landing PRs; /open publish path is direct main commit, unaffected.",
   "CLIPPER $12.29 added to Nov costs (cost-ledger 11:54, MUFG debit 11:36:19 JST id 1a1aeb6f0988c338, CLIPPER-TRANSIT FARE 1,928 local units, rate 156.84): costs $385.89->$398.18, profit -$354.08->-$366.37.",
@@ -1650,7 +1650,7 @@
   "Apple HeyGen expiry notice 11:55 JST (id 1a1aec8dcb428aa7, +read in full): HeyGen Creator Credit Monthly 4,500 local units ends 2026-11-20; cancellation already known, no new charge, no cost change.",
   "PromptBase: 3D Paper Lantern Festival Game Builder $9.99 submitted, Pending review (promptbase loop ~12:0x); Lighthouse 'Cancel edit' freed 1 cap slot; Moon Bakery still Declined holding 1 slot; cap 2/2; weekly streak 3. Revenue still $0.",
   "app2 12:00 fill published 12:08-12:12 (DfYnCtCj0JT, @chatgptricks DeNGNq1HV3Y copy, 7 slides vs winner 10, 3 diffs, 0/0 at readback); app2 today 3/4; winner DeNGNq1HV3Y 25,183/125.",
-  "Coconala Assist 133713: 4-point procedures ALL COMPLETE 14:46 JST (completion message sent to talkroom 01M6NNK0M1DQMZDM4AXF10KFRA); interview 11/10 13:45-14:15 JST confirmed (yoko osawa); overlap with ZG025 flight is conditional (flight on hold per user 2026-11-05 17:10, to be rebooked). New application 5364086 selection pending; 5364228 applied; 応募中 233; transfer 1,560 unconfirmed (no deposit notice in 20:38 Gmail sweep); addendum notice 20:26 JST. Checked 20:37. (Duplicate #237 removed this frame.)",
+  "Coconala Assist 133713: 4-point procedures ALL COMPLETE 14:46 JST (completion message sent to talkroom 01M6NNK0M1DQMZDM4AXF10KFRA); interview 11/10 13:45-14:15 JST confirmed (yoko osawa); overlap with ZG025 flight is conditional (flight on hold per user 2026-11-05 17:10, to be rebooked). New application 5364086 selection pending; 5364228 applied; 応募中 234; transfer 1,560 unconfirmed (no deposit notice in 22:39 Gmail sweep); まりえ 5362865 CLOSED (deadline passed + video-chat required); addendum notice 20:26 JST. Checked 00:37.",
   "User sent 2 Capafy support emails 11:20/11:36 JST (Gmail +read in full 13:40): (1) refund aggregate mismatch - dispute table 5/$47.96 vs Lifetime 4/$34.97, Storytime order str-2117234818954448896 $12.99 missing from aggregates, payout deduction unconfirmed; (2) agent-operated publisher access, $0.99 certification fee zero-upfront route, live-camera/selfie check. Both replies awaited (no reply in 14:40 sweep).",
   "Blog: 3 new Nov 6 slugs (ebook-en-2026-11-06-01, ebook-en-2026-11-06-04, life-manager-cloud-one-proactive-manager-2026-11-06); index identical to 11:01 (12:01 obs).",
   "Capafy approvals batch 13:05-13:08 JST (Gmail notify@notify.capafy.ai, 15 messages): 14 approved (TikTok Product Demo — Proof-to-Script, TikTok Customer Proof Story Script, YouTube Script Writer, TikTok Script Pro, Slide Maker, Reels Hook Lab, Shorts Hook Lab, Amazon Listing Images, User Interview Synthesizer, AI Evaluation Failure Triage Brief, Earnings Call Brief, Launch Readiness Gate Deck, Privacy Notice Change Brief Deck, Talent Review Deck Writer) + 1 rejected (TikTok Storytime Script — Scene-by-Scene); approvals are not sales; In Review queue draining — counts pending Capafy loop re-read.",
@@ -1660,7 +1660,7 @@
   "TikTok 12:30 batch (12 posts) PUBLISHED 12:30 JST (posts-ledger direct read, 13:20 loop): +1h formal at 14:20: 5 zero, 5 reach-only, 2 breakout (buddha 19/1, he 4/1); better start than 09:30 batch.",
   "12:07 frame log entry still missing from open-dashboard-loop-log.md (gap recorded in 13:07 frame, not backfilled; 13:37 frame appended this handoff).",
   "PR #9272 Codex review re-attempt FAILED (revenue-growth 13:52 loop): Codex usage limits exhausted (bot comment 21:01 PST); no more retries until reset; merge gates (a) limit reset + review pass, (b) CI of head 5aed039; iOS growth loop owns merge. Still blocked at 14:37.",
-  "CrowdWorks (fast-response latest sweep + Gmail 20:38): NEW buyer msg mioriiiiiii 20:12 JST (online interview off-platform contact request, message 436342035, reply NOT sent, fast-response owns); 2 applications declined 20:17/20:22 JST; rui reply SENT 19:38 via another route (no duplicate); sanbou judgment replies still not arrived (nao_6565, cw_agent, career_revenge, yushi, momosensei, talki-dai, J_worldtravel); EY Parthenon interview 11/11 18:00-18:30 confirmed (Jun Kai Ho / Francesco Fumarola); Shizuka interview booked 11/11 11:45-12:30 JST. Checked 20:37.",
+  "CrowdWorks 00:13 loop (crowdworks-loop-2026-11-07-0013.md): 11-06 cumulative 178 (+10 this run); tentative total 212 (Lancers 14 + CW 178 + Coconala 20); toad 312261453 due 11-08; TL.oka/waku 4th consecutive undelivered; cw_agent form jam continues; Gmail 00:39: 10+ recruitment-closed notices. Checked 00:37.",
   "(176)/(192) staleness fixed this frame: 11-06 total 59 (4+39+16), Coconala 5364086 new, Whop row 56 views/Visitors 2 (name-mismatch bug fixed), GoLance S4 + 5 applications, Mercor Applications 3->7, Fiverr 13:34, PromptBase Moon Bakery resubmitted 13:58 - platform rows updated from contract-watch 14:16 + Gmail 14:40.",
   "Grok (sanbou) returned 2026-11-06 (MEMORY.md update; Slack #agents-hq post + Mac Reason session sanbou-conversation created). Muse sent Manager receipt + recent measurements via Reason (sanbou-conversation/sanbo-2/muse-relay-2, delivered). Catchball collaboration resumed; reply landing via reason-inbox-wake + 15-min loop.",
   "NEW COST: CLIPPER 465 local units ($2.96) added to Nov observed costs (MUFG debit 2026-11-06 14:28:19 JST, Gmail id 1a1af5476e9d89a6, full read; 465 / 156.84 team rate; cost-ledger 14:4x). Costs $398.18 -> $401.14, profit -$366.37 -> -$369.33. Distinct amount from the 1,928 fare; not a duplicate.",
@@ -1681,8 +1681,8 @@
   "CrowdWorks new message from たきだいさん 15:05 JST (Gmail sweep 15:1x, unread, not full-read). CW/fast-response loop owns; no duplicate sends.",
   "NEW COST 15:37 frame: CLIPPER transit fare 3rd, 1,462 local units = $9.32 (MUFG debit notice 2026-11-06 15:18:29 JST, Gmail id 1a1af8264003121f, full read; distinct amount from 1,928 and 465, not a duplicate). Costs $401.14 -> $410.46, profit -$369.33 -> -$378.65. Cost-ledger 15:4x entry appended by this frame.",
   "Capafy approvals 13:03-13:08 JST (Gmail, 24 mails: 22 approvals + 1 Storytime rejection + 1 LLM API issue notice for Storytime v1.0.3): all 22 approved names listed in the Capafy handoff above. Next Capafy loop to re-read the dashboard (Published/In Review counts) - freshness still 2026-11-05 UTC.",
-  "fal $10.95 (invoice #DQFHGK-00028) due 2026-11-07 (tomorrow), still unpaid and not counted in costs. Payment is an approval-gated action; no card shown to the user per hard rule; recorded as internal jam. Checked 20:37.",
-  "Live app_store_analytics fresher in live again (11:33:53Z vs 2007 draft 10:53:33Z; same period 2026-10-29~11-04; raw-check-2007 confirmed 10:53:33Z at publish, so the ASC section was refreshed in the live file after the 2007 commit without updated_at changing; live file parsed-equal to draft otherwise). Inherited live value this frame; apps-revenue loop owns the ASC write path. Checked 20:37.",
+  "fal $10.95 (invoice #DQFHGK-00028) due 2026-11-07 (tomorrow), still unpaid and not counted in costs. Deletion per user instruction 04:11 PST ('falはきちんとキャンセルする'); API keys revoked (3 keys, 0 remaining, verified on dashboard); account-deletion request received by fal Support 21:13 JST (Gmail 1a1b0c751140db46, verifying; remaining credit forfeited). $10.95 debt remains per fal terms §10.1 (todo11) - deactivation does not erase it. Payment is an approval-gated action; no card shown to the user per hard rule; recorded as internal jam. Checked 00:37.",
+  "Live app_store_analytics fresher in live again (15:28:57Z vs 0007 draft 14:57:50Z; period 2026-10-30~11-05 unchanged; live file differs from draft only in ASC measured_at, values identical). Inherited live value this frame; apps-revenue loop owns the ASC write path. Checked 00:37.",
   "Lancers 5625250 ACCEPTED 15:34 JST (Gmail id 1a1af90bc54f9631, full read + order confirmation PDF 3810447): video editing (study-group recording cut), 1,100 local units = $7.01 at team rate 156.84, deadline 2026-12-04; step 3/9, client escrow pending - NOT revenue yet. Lancers loop owns escrow/delivery tracking.",
   "Capafy host-key outage (14:52 loop): OpenRouter host key 'capafy-host-live' deleted 11:3x-15:10 JST (deleter unknown); all 44 published agents return 401 for buyers until the new key (capafy-host-2026-11-06) is replaced in the Capafy console. Mac holds the new key value, VM browser holds the Capafy session - no transfer path yet (no vault write path). Next Capafy loop owns the console replace; new Capafy sales blocked until fixed.",
   "Lancers 5625250 ESCROW DONE 16:24 JST (Gmail id 1a1afbe958469924, full read): HIMAFreee paid escrow for 5625250 (video editing, study-group recording cut, $7.01 at team rate 156.84, deadline 2026-12-04); project formally started; payment confirmed only after completion report + payment determination - NOT revenue yet. Lancers loop owns delivery tracking.",
@@ -1710,8 +1710,8 @@
   "GitHub Security Scan PR run failed 18:46 JST (Gmail id 1a1b0410c466c6bd): 'PR run failed: Security Scan - docs(anicca): record ASC 1.9.8 version gate (4fc7a18)'. Codex owns the failure cause; ASC 1.9.8 (817/818) processing complete is unaffected.",
   "CrowdWorks buyer message rui 医療SNS 19:36 JST (Gmail id 1a1b06e9ad0b7a0a, full read): questionnaire for long-term work (name, age, job incl. employment type and weekly hours, living environment incl. marriage/cohabitation/children/caregiving, income goal 30-50k/50-100k/same-as-main-job/quit-to-freelance, 4-5 available dates). Fast-response loop owns the reply; not revenue. Message link crowdworks.jp/messages/436336007.",
   "RenderHub 4 listings (was 3): Low Poly Meditation Props Bundle - 3 Game-Ready Models (id 418987, $12.00, Published Nov 06, 2026, 20% off $15.00 bundle; README.txt included; gallery post 106159). Existing 3 items: Views 3/2/1, Likes 0, sales $0. (241) resolved. Checked 19:37.",
-  "YouTube Shorts 11:30 BLOCKED 8th consecutive time at identity-verification dialog (distribution-max browser task 19:09-19:11; manual run 47203d9a failed 19:31:44 JST on the same dialog). Shorts 58th consecutive miss, long-form 58th; manual kick c1ec8a43 running at 20:30 (not finished at 20:30 check). Not touched this frame (distribution-max loop owns). Checked 20:37.",
-  "ASO JP swing: affirmation anicca 111 held in 20:25 batch; positive 115->126, gratitude 174->181 (both moved up). SEO 'best daily affirmation apps' stays 3; thevisionboard out in that query. Bing happierhuman 7->6 in 'daily affirmations' (7 at 19:56 did not hold).",
+  "YouTube Shorts 11:30 BLOCKED 8th consecutive time at identity-verification dialog (distribution-max browser task 19:09-19:11; manual run 47203d9a failed 19:31:44 JST on the same dialog). Shorts MISSING 68th consecutive (obs 23:01; hourly 22:20 counted 64th - counting differs, reconcile next hourly); long-form missing; distribution-max manual run d949ed01 kicked 22:04:13 in_flight ~1h (YouTube sub-task working). Root cause per 2104-yt + hourly 22:20: SSH-headed Chrome https wedged + headless Google login does not carry (DBSC); Google login dead both profiles (Cookies 0). Not touched this frame (distribution-max loop owns). Checked 00:37.",
+  "ASO JP swing: affirmation anicca 111 in 00:25 batch (was 32 in 23:55, swung 32->111->32->111->32->32->111 across last seven batches); self-esteem 62, positive 114, gratitude 174, mindfulness held. SEO 'best daily affirmation apps' 4 (thevisionboard back at 3); 'what is the best affirmation app' OUT again. Bing happierhuman out.",
   "Global-freelance 19:35 loop (global-freelance-loop-2026-11-06-1935.md): PromptBase Moon Bakery APPROVED/Scheduled ($5.99, Fri Nov 06 2026, no public URL yet; 13:58 re-review approved); Paper Lantern Pending; Lighthouse Declined confirmed (re-review conclusion, Bad test prompt 3.8, Dispute button only); PromptBase dashboard Today 0/Yesterday 0/7d views 9 (was 16, -43.75%)/All time 74/Gross $0.00/Payouts $0.00; Fiverr draft, Inbox 0; Freelancer.com $0.00, 0 bids left, Eastman quality warning NEW; PeoplePerHour paywall gate; Workana Cloudflare + Google 2FA stop; 0 sends (unfinished: send-evidence condition unmet). Checked 20:07.",
   "SBI VC staking reward Oct 2026 notice (Gmail id 1a1b07ce205ebdc2, 19:52 JST, full read): reward granted for October; amount NOT in email (check via SBI VC login); October income, not November MTD - not counted in Nov revenue. Owner loop to read the amount and record October crypto income.",
   "note article_06 DELETED from public view (obs 20:01: curl 404, browser.open 404, absent from profile listing; banner 'この記事は削除されています。現在、作者と購入者のみ閲覧可能です。'). Published claim 2026-11-06 07:34 JST (affiliate loop log). Articles-affiliate loop owns.",
@@ -1721,41 +1721,69 @@
   "note article_06 DELETED from public view (obs 20:01: curl 404, browser.open 404, absent from profile listing; banner 'この記事は削除されています。現在、作者と購入者のみ閲覧可能です。'). Published claim 2026-11-06 07:34 JST (affiliate loop log). Articles-affiliate loop owns.",
   "Mercor 19:47 loop (mercor-loop-log.md): Earnings $0.00; Billing Date Nov 1-Nov 6 (advanced 1 day); Applications In progress 7 (unchanged); Odin Paused (reopen notice awaited); Weekly Check-In 11/9-11/15 submitted 01:51 JST; availability update notice due Sun Nov 8 8:00 AM PT. Checked 20:37.",
   "GCP case 77148001 support REPLIED 20:29 JST (Gmail ids 1a1b0a0212d17b91 and 1a1b09e9c205425f; full read of 1a1b0a0212d17b91): internal ticket created with dedicated team, update expected in 2-3 business days; no refund/adjustment yet. ~15h wait resolved. Next update due by ~2026-11-11. Checked 20:37.",
-  "note article_06 REPUBLISHED at new URL https://note.com/anicca_agent/n/n761d05542010 at 20:27 JST (articles-affiliate manual run 986b4a9f; HTTP 200 + full text independently verified; recovery complete). Old URL nc3d98a1c3966 stays 404. Check the new URL's survival in the morning run. Checked 20:37.",
+  "note article_06 REPUBLISHED at new URL https://note.com/anicca_agent/n/n761d05542010 at 20:27 JST (articles-affiliate manual run 986b4a9f; HTTP 200 + full text independently verified; recovery complete). Old URL nc3d98a1c3966 stays 404. New URL SURVIVES at obs 23:01 (HTTP 200). note 21:30 BIP/daily-report published 21:32 (https://note.com/anicca_agent/n/n46ada73262da, HTTP 200 at obs 23:01). Blog 20:00 slot LANDED (obs 23:01). Check survival again in the morning run. Carried, no new check this frame beyond obs 23:01; last verified obs 23:01 (HTTP 200). Checked 00:37.",
   "Google security notification 19:43 JST (Gmail id 1a1b08ff7f7977c1): password login attempt to keiodaisuke@gmail.com BLOCKED. New observation (not in 19:52 log). Account management owns source verification; this frame takes no action. Checked 20:37.",
   "Capafy Storytime Script v1.0.4 REJECTED (reason 2.2 Information accuracy, Agent ID 4699090343, notified 2026-11-05 20:05:56 PST). Fix/re-list decision owned by Capafy loop (next run 21:13 JST). Checked 20:37.",
-  "Guru 20:25 loop (guru-loop-2026-11-06-2025.md): no change; profile visible ($30/hr, Starting at $50); 7 proposals sent (3 Quote sent), 0 responses; 3 bids left; Cash $0.00; All-Time Earnings $0; member since Oct 2026. Checked 20:37."
+  "Guru 20:25 loop entry superseded by the 23:25 loop entry above (session recovered via Google OAuth; 0 new proposals). Checked 00:37.",
+  "ASC v1.9.8 Ready For Review 21:00 JST (App Store Connect emails 12:00 UTC, full read of 1a1b0bbbcb759d04; Waiting for Review -> Ready For Review; build processing complete). Anicca iOS 1.9.8 now in Apple review queue. Checked 21:07.",
+  "Lancers 5619078 NOT selected (Gmail id 1a1b0bdb1a975dff, 21:03 JST, full read): 'クリニックHPのTOPページデザイン制作' selection ended, proposal not chosen. Lancers loop owns follow-up. Checked 21:07.",
+  "CW GROWBASE1: approval COMPLETED 20:47 JST (Gmail id 1a1b0af8fcc68ad1, full read); '本日中に回答いたします' reply SENT 21:14 JST (fast-response 21:11 sweep); entry form https://forms.gle/8zyDrTFYnh5Pn9Kr7 still unanswered (sanbou judgment pending on personal-info questions). Judgment requests now 11 (ayanonn added). Fast-response owns; do not duplicate. Checked 00:37.",
+  "Codex usage limits reached for code reviews on anicca-products PR #892 'open: restore public comparison' (GitHub bot emails 21:08 JST, full read of 1a1b0c2756710cc3; coderabbit + codex-connector comments). PR #9272 review also failed on usage limits. Codex review capacity is the bottleneck; no retries until reset. Checked 21:07.",
+  "RevenueCat Nov 5 = 0 new customers (Nov 4 = 2, down); Nov 6 unconfirmed; API v2 NOT OPEN (internal jam); Gmail check: 0 new-customer notifications from RevenueCat after 2026/11/05. Emergency continues (obs 21:01). Checked 21:07.",
+  "Stripe reauthorization_required (fresh, revenue-growth 20:52 loop via /opt/hatch/bin/stripe status). Stripe re-authorization is an open item; no new sale/payment notice in Gmail 21:08 sweep. Checked 21:07.",
+  "Blog new article landed 21:01: https://aniccaai.com/blog/35-positive-affirmations-to-say-each-day-2026-11-06 (HTTP 200, in index); slot 20:00 LANDED (resolved by seo-aio manual run ca0259f8, succeeded 20:25 JST). Checked 21:07.",
+  "IG bochi 21:00 slot filled LATE 21:09 (DfZktSNjmQH, 9-card carousel, 0/0; hourly 21:20 loop verified); caption fixed 21:37 (missing line '' inserted, full text matches, Edited shown; residual diffs 8->7). bochi 3/3 complete per distribution-max 22:04. +1h formal anomaly at 22:09 (0/0, hourly 22:20). The 21:01 NOT-filled incident is closed as a late fill, not a miss. Checked 00:37.",
+  "Lancers HIMAFreee 11/11 meeting DECLINED per user instruction 05:01 PST (himafreee-meeting-decline-2026-11-06.md): AI-avatar attendance unproven, no client consent for AI attendance; calendar event shc44shqp800dm8mja2kcegstc corrected 05:03 PST; 21:26 loop had booked 11/11 10:00 BEFORE the decline (reservation + 21:31 confirmation sent); correction message to Lancers thread (boardId=9140190) sent 22:13 - arrival CONFIRMED on display by fast-response 22:41 sweep (re-read after reload; RESOLVED). The 04:44 PST Gmail confirmation reply (keiodaisuke@gmail.com) is superseded. Contract loop owns calendar + thread. Checked 00:37.",
+  "CW buyer msgs 23:24-23:37 JST (fast-response 23:41 sweep, full reads + replies done there): shizuka declined 23:56 (TimeRex cancel pending), Ito answered 23:45 + supplement 23:58, popo1025 conditions 23:33; no new buyer msg in 00:39 Gmail sweep. Checked 00:37.",
+  "fal account-deletion: per user instruction 04:11 PST ('falはきちんとキャンセルする'); API keys revoked (3 keys, 0 remaining, verified on dashboard); deletion request sent; fal Support confirms request received 21:13 JST (Gmail 1a1b0c751140db46, verifying; remaining credit forfeited). $10.95 invoice #DQFHGK-00028 debt remains per fal terms §10.1 (todo11). fal/todo11 loop owns follow-up. Checked 00:37.",
+  "GoLance 21:57 (platform-expansion-log.md 21:57 + contract-watch 22:16): session recovered via password reset (anicca-agent mail, 05:00 PST; new password set, value not recorded); dashboard reached (Proposals 3, Contracts 0, Balance $0.00); 7 applications all Pending (unchanged); es5ae5wayr Hard Skills assessment webcam-gated - NOT taken (determined); 4 hourly jobs blocked by video gate; new proposals 0 (target 5-8 missed). Checked 00:37.",
+  "RenderHub 00:18 loop (renderhub-loop-2026-11-07-0018.md): 6th listing published - Low Poly Meditation Cushion (ID 419145, $5.00, Published Nov 06, 2026, 66.6 KB, Polygons 3,168, Vertices 1,656); singing bowl previews 3->5; sales $0, Earnings $0.00, balance $0; payment method unset (needed at $20); Tier 1 = 55% (1-50 items). Checked 00:37.",
+  "revenue-growth-loop 22:52 frame (revenue-growth-loop-2026-11-06-2252.md): Capafy ZIP WALL identified (Series P1/P2 FROZEN seller 9425449917; TikTok Product Demo original only on Mac); Upwork Skyna G. application still unsubmitted (deadline 2026-11-07 15:47 JST, ~16h at 23:07; browser credential service reports NO saved 1Password login for upwork.com; Mac Chrome Google session dead); Gmail sweep 22:53: Link code (not used); Stripe reauthorization_required (fresh); 1Password connected (fresh); Mac disk 5.8Gi. No revenue movement. Next scheduled run 23:52 JST. Checked 00:37.",
+  "ASC: Daily Affirmations - Anicca v1.9.8 Developer Rejected 21:53 JST (App Store Connect Gmail 1a1b0ec16b3a69d1, full read; App Apple ID 6755129214, SKU anicca-ios-001; was Ready For Review 21:00 at the 21:07 frame). obs 22:01 notes fast-response 21:11 reported 'Developer Rejected -> Ready For Review' - sequence unresolved, latest primary fact is Developer Rejected. Apps-revenue loop owns; no intervention from this loop. Checked 00:37.",
+  "Postiz 23:01 obs read (obs-2026-11-06-2301/summary-jst.json): total 1,249 (was 1,253 at 21:55; -3 rolling 30-day window aging-out, not asserted as deletions); today published 53 (TikTok 45, YouTube 5, LinkedIn 2, X 1); TikTok 21:00 12/12 PUBLISHED, 23:00 cmvw8628t PUBLISHED, 23:30 5 QUEUE; errors today: cmw4lsxvg 17:30 tiktok photo-pull (republished 17:37 as cmw4q1mc4 PUBLISHED), cmw4c6syl 11:12 youtube quota, cmw4gld2z 13:21 youtube quota. Postiz解约 03:26 - no Postiz posting after 11-25; direct-browser / alternative routes must be proven by then. Checked 00:37.",
+  "Threads 23:00 slot LANDED 00:11 (INC-28 resolved, hourly 00:20): DfZ5dGnDi6Z, 0/0 at landing; today 3/3; post count 45. Checked 00:37.",
+  "Twine 21:30-21:34 loop (platform-expansion-log.md): Applied 2 / Won 0; sales $0; b9u9u0 Sent to client (Sent 1st Nov), b9u9v0 'interest wasn't sent' (experience mismatch); inbox 1 thread (own pitches only, no client reply); 1 free application left today. (272) resolved: row now reflects 21:30-21:34 read. Checked 22:37.",
+  "Legiit 20:19 loop (platform-expansion-log.md): 2 listings ACTIVE ($99 + $50); revenue $0.00; 0 reviews; category 'AI Agents & Automation' default display changed 3,397 -> 9 services (cause unconfirmed); support inquiry (2026-11-05 06:32) still unanswered. (273) resolved: row now reflects 20:19 read. Checked 22:37.",
+  "Contract-watch 22:16 (contract-ledger-watch-2026-11-06-2216.md): (268) live-vs-draft KPI mismatch NOT reproduced by this frame's direct curl (live 22:07 = MRR $97.58 / costs $410.46, matching draft) - stale browser-cache read; (264) Whop, (272) Twine, (273) Legiit stale rows fixed this frame; GoLance 21:57 session recovered via password reset; Capafy saya 47,169 Sold (+4). Checked 22:37.",
+  "Mercor 22:44-22:49 loop (mercor-loop-log.md): Odin - Writer $40/hour Paused (Updated 3 days ago); Earnings $0.00; Billing Nov 1-Nov 6; availability update notice unread (deadline Sun Nov 8 8:00 AM PT); Weekly Check-In 11/9-11/15 submitted 01:51; Generalist applications In progress 7 (unchanged); session recovered via saved Google login (1 click). No reactivation notice. Checked 00:37.",
+  "RevenueCat Nov 5 new customers 0 (obs 23:01: Nov 4 = 2, down); emergency continues; API v2 NOT OPEN (internal jam); Gmail 00:39 check: 0 new-customer notifications after 2026/11/05. Emergency action: hourly 00:20 fills landed (IG 23:00 4/6, 23:45 2/2, Threads 23:00); monk/obou still unfilled (INC-27). Checked 00:37.",
+  "IG 23:00 slots PARTIALLY FILLED (INC-27, hourly 00:20): en/app/cca/app2 LANDED 00:17-00:20 (0/0 at landing); monk/obou still UNFILLED (3rd detection); bochi 3/3 maintained; jp.videos/ios.jp 23:45 LANDED 00:29-00:30. Checked 00:37.",
+  "Shorts count discrepancy: obs 23:01 counts Shorts 11:30 MISSING 68th consecutive; hourly 22:20 counted 64th. Counting method differs between loops; reconcile at next hourly run. Do not treat as 4 new misses in 40 minutes. Checked 00:37.",
+  "Coconala 22:34 loop (coconala-loop-2026-11-06-2234.md): 5 new continuing applications (applied-management 45, unreads 3 system notices); 応募中 234 unchanged; transfer 1,560 still unconfirmed (no '振込申請中' display; no deposit notice in 23:39 Gmail sweep); dashboard vs revenue 1,100 discrepancy continues; Assist interview 11/10 13:45-14:15 confirmed. Checked 23:37.",
+  "Revenue-growth 23:52 loop (revenue-growth-loop-2026-11-06-2352.md): Upwork Skyna G. proposal NOT sent - browser task stopped at Google 2-Step Verification (number matching) 00:02 JST; only gate left is the user's iPhone tap; NO tap request per hard rule; Cloudflare block cleared via bot-challenge; deadline 2026-11-07 15:47 JST (~15.7h at handoff). No new sale/order/MRR; costs unchanged $410.46. Checked 00:37.",
+  "Fast-response 23:41 sweep (fast-response-log.md): CW buyer msgs handled (shizuka declined 23:56, TimeRex cancel pending; Ito answered 23:45 + hold 23:47 + supplement 23:58; popo1025 conditions 23:33); Capafy support refund mismatch order str-2117234818954448896 (01:28 PST, Capafy loop to check); Google security notice 02:43 PST (blocked password login attempt to keiodaisuke@gmail.com, account management owns); fal deletion request 04:13 PST in process. Checked 00:37.",
+  "Social-metrics-ledger 00:20 (hourly-distribution-loop-2026-11-07-0020.md): IG 26, TikTok 50 published, YouTube 5, Threads 3/3, LinkedIn 2/2, blog 4 + note 1; honnevideo 17:30 2,478/25 (5th consecutive max); buddha 830/41, 716/29, 608/19; jp4 flagship 868/28, 27th consecutive no-growth frame; OBOU 0 ~63h; Postiz gaps 16:15-honnevideo 30x, 21:00-yday 34x. Checked 00:37."
  ],
  "app_store_analytics": {
   "source": "App Store Connect Analytics Reports",
-  "measured_at": "2026-11-06T11:33:53.054Z",
+  "measured_at": "2026-11-06T15:28:57.480Z",
   "period": {
-   "start_date": "2026-10-29",
-   "end_date": "2026-11-04",
-   "processing_date": "2026-11-05"
+   "start_date": "2026-10-30",
+   "end_date": "2026-11-05",
+   "processing_date": "2026-11-06"
   },
   "coverage": {
    "app_days_expected": 35,
-   "discovery_app_days": 35,
+   "discovery_app_days": 30,
    "download_app_days": 15
   },
   "summary": {
    "discovery": {
-    "impressions": 1169,
+    "impressions": 1010,
     "unique_impressions": null,
-    "page_views": 53,
+    "page_views": 31,
     "unique_page_views": null,
-    "taps": 24,
+    "taps": 18,
     "unique_taps": null
    },
    "downloads": {
-    "events": 163,
+    "events": 168,
     "unique_events": null,
-    "first_time": 11,
-    "auto_update": 146,
+    "first_time": 10,
+    "auto_update": 152,
     "manual_update": 3,
-    "redownload": 2,
-    "restore": 1,
+    "redownload": 1,
+    "restore": 2,
     "other": null
    }
   },
@@ -3554,9 +3582,9 @@
      },
      {
       "date": "2026-11-04",
-      "processing_date": "2026-11-05",
+      "processing_date": "2026-11-06",
       "discovery_processing_date": "2026-11-05",
-      "downloads_processing_date": "2026-11-05",
+      "downloads_processing_date": "2026-11-06",
       "discovery": {
        "impressions": 38,
        "unique_impressions": null,
@@ -4006,110 +4034,12 @@
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
-         "Platform Version": "iOS 26.5",
-         "Source Type": "App referrer",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.4",
-         "Source Type": "App referrer",
-         "Page Type": "Store sheet",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.5",
-         "Source Type": "App referrer",
-         "Page Type": "Store sheet",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "5"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.6",
+         "Platform Version": "iOS 27.0",
          "Source Type": "App Store search",
          "Page Type": "Product page",
          "Pre-Order": "",
          "Territory": "US",
          "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.5",
-         "Source Type": "App Store search",
-         "Page Type": "No page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "2"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.7",
-         "Source Type": "App referrer",
-         "Page Type": "Store sheet",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Manual update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.6",
-         "Source Type": "App Store search",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.6",
-         "Source Type": "App referrer",
-         "Page Type": "Store sheet",
-         "Pre-Order": "",
-         "Territory": "US",
-         "Counts": "2"
         },
         {
          "Date": "2026-11-04",
@@ -4159,13 +4089,13 @@
          "App Apple Identifier": "6755129214",
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
-         "Device": "iPad",
-         "Platform Version": "iOS 26.6",
-         "Source Type": "App referrer",
+         "Device": "iPhone",
+         "Platform Version": "iOS 27.0",
+         "Source Type": "App Store search",
          "Page Type": "No page",
          "Pre-Order": "",
          "Territory": "JP",
-         "Counts": "1"
+         "Counts": "12"
         },
         {
          "Date": "2026-11-04",
@@ -4174,9 +4104,23 @@
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
-         "Platform Version": "iOS 26.7",
-         "Source Type": "App Store browse",
-         "Page Type": "Store sheet",
+         "Platform Version": "iOS 27.0",
+         "Source Type": "App Store search",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Redownload",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App Store search",
+         "Page Type": "Product page",
          "Pre-Order": "",
          "Territory": "JP",
          "Counts": "1"
@@ -4188,12 +4132,26 @@
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
-         "Platform Version": "iOS 27.2",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App Store search",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "US",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.5",
          "Source Type": "App referrer",
          "Page Type": "Store sheet",
          "Pre-Order": "",
          "Territory": "JP",
-         "Counts": "1"
+         "Counts": "5"
         },
         {
          "Date": "2026-11-04",
@@ -4207,188 +4165,6 @@
          "Page Type": "No page",
          "Pre-Order": "",
          "Territory": "JP",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPad",
-         "Platform Version": "iOS 27.2",
-         "Source Type": "App Store search",
-         "Page Type": "No page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.6",
-         "Source Type": "App Store search",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "5"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.6",
-         "Source Type": "App referrer",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "7"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 27.0",
-         "Source Type": "App Store search",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "US",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.5",
-         "Source Type": "App Store search",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "PL",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 27.2",
-         "Source Type": "App Store search",
-         "Page Type": "No page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "2"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.5",
-         "Source Type": "App Store search",
-         "Page Type": "No page",
-         "Pre-Order": "",
-         "Territory": "US",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.6",
-         "Source Type": "App referrer",
-         "Page Type": "Store sheet",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "20"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPad",
-         "Platform Version": "iOS 16.6",
-         "Source Type": "App Store search",
-         "Page Type": "No page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.7",
-         "Source Type": "App Store search",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 27.0",
-         "Source Type": "App referrer",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "GB",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 18.6",
-         "Source Type": "App referrer",
-         "Page Type": "Store sheet",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.6",
-         "Source Type": "App Store search",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "IT",
          "Counts": "1"
         },
         {
@@ -4426,53 +4202,11 @@
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
-         "Platform Version": "iOS 26.6",
-         "Source Type": "App Store search",
+         "Platform Version": "iOS 27.0",
+         "Source Type": "App referrer",
          "Page Type": "No page",
          "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "9"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPad",
-         "Platform Version": "iOS 16.7",
-         "Source Type": "App Store search",
-         "Page Type": "No page",
-         "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "2"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 18.7",
-         "Source Type": "App Store search",
-         "Page Type": "Product page",
-         "Pre-Order": "",
-         "Territory": "CO",
-         "Counts": "1"
-        },
-        {
-         "Date": "2026-11-04",
-         "App Name": "Daily Affirmations - Anicca",
-         "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
-         "App Version": "1.9.6",
-         "Device": "iPhone",
-         "Platform Version": "iOS 26.3",
-         "Source Type": "App Store search",
-         "Page Type": "No page",
-         "Pre-Order": "",
-         "Territory": "JP",
+         "Territory": "US",
          "Counts": "1"
         },
         {
@@ -4511,11 +4245,11 @@
          "App Version": "1.9.6",
          "Device": "iPhone",
          "Platform Version": "iOS 26.6",
-         "Source Type": "App Store browse",
-         "Page Type": "Store sheet",
+         "Source Type": "App referrer",
+         "Page Type": "Product page",
          "Pre-Order": "",
          "Territory": "JP",
-         "Counts": "1"
+         "Counts": "7"
         },
         {
          "Date": "2026-11-04",
@@ -4524,18 +4258,18 @@
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
-         "Platform Version": "iOS 27.0",
+         "Platform Version": "iOS 26.5",
          "Source Type": "App Store search",
-         "Page Type": "No page",
+         "Page Type": "Product page",
          "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "12"
+         "Territory": "PL",
+         "Counts": "1"
         },
         {
          "Date": "2026-11-04",
          "App Name": "Daily Affirmations - Anicca",
          "App Apple Identifier": "6755129214",
-         "Download Type": "Auto-update",
+         "Download Type": "Manual update",
          "App Version": "1.9.6",
          "Device": "iPhone",
          "Platform Version": "iOS 27.0",
@@ -4552,12 +4286,40 @@
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
-         "Platform Version": "iOS 27.0",
-         "Source Type": "App referrer",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App Store search",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "5"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPad",
+         "Platform Version": "iOS 27.2",
+         "Source Type": "App Store search",
          "Page Type": "No page",
          "Pre-Order": "",
          "Territory": "JP",
          "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.5",
+         "Source Type": "App referrer",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "2"
         },
         {
          "Date": "2026-11-04",
@@ -4580,8 +4342,50 @@
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
-         "Platform Version": "iOS 26.5",
+         "Platform Version": "iOS 27.0",
          "Source Type": "App referrer",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App referrer",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "US",
+         "Counts": "2"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Manual update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App Store search",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.5",
+         "Source Type": "App Store search",
          "Page Type": "No page",
          "Pre-Order": "",
          "Territory": "JP",
@@ -4591,15 +4395,15 @@
          "Date": "2026-11-04",
          "App Name": "Daily Affirmations - Anicca",
          "App Apple Identifier": "6755129214",
-         "Download Type": "Redownload",
+         "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
          "Platform Version": "iOS 26.6",
          "Source Type": "App Store search",
-         "Page Type": "Product page",
+         "Page Type": "No page",
          "Pre-Order": "",
-         "Territory": "JP",
-         "Counts": "1"
+         "Territory": "US",
+         "Counts": "5"
         },
         {
          "Date": "2026-11-04",
@@ -4650,21 +4454,91 @@
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
-         "Platform Version": "iOS 26.6",
-         "Source Type": "App Store search",
-         "Page Type": "No page",
+         "Platform Version": "iOS 26.7",
+         "Source Type": "App referrer",
+         "Page Type": "Store sheet",
          "Pre-Order": "",
-         "Territory": "US",
-         "Counts": "5"
+         "Territory": "JP",
+         "Counts": "1"
         },
         {
          "Date": "2026-11-04",
          "App Name": "Daily Affirmations - Anicca",
          "App Apple Identifier": "6755129214",
-         "Download Type": "Manual update",
+         "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
-         "Platform Version": "iOS 27.0",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App Store browse",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.5",
+         "Source Type": "App referrer",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 27.2",
+         "Source Type": "App referrer",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.7",
+         "Source Type": "App Store browse",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPad",
+         "Platform Version": "iOS 16.7",
+         "Source Type": "App Store search",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "2"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.7",
          "Source Type": "App Store search",
          "Page Type": "Product page",
          "Pre-Order": "",
@@ -4678,8 +4552,162 @@
          "Download Type": "Auto-update",
          "App Version": "1.9.6",
          "Device": "iPhone",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App referrer",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "20"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App Store search",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "IT",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
          "Platform Version": "iOS 27.0",
          "Source Type": "App referrer",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "GB",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPad",
+         "Platform Version": "iOS 16.6",
+         "Source Type": "App Store search",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 18.6",
+         "Source Type": "App referrer",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPad",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App referrer",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.3",
+         "Source Type": "App Store search",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 18.7",
+         "Source Type": "App Store search",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "CO",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App Store search",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "9"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.4",
+         "Source Type": "App referrer",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 27.2",
+         "Source Type": "App Store search",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "2"
+        },
+        {
+         "Date": "2026-11-04",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.5",
+         "Source Type": "App Store search",
          "Page Type": "No page",
          "Pre-Order": "",
          "Territory": "US",
@@ -4687,28 +4715,148 @@
         }
        ]
       }
+     },
+     {
+      "date": "2026-11-05",
+      "processing_date": "2026-11-06",
+      "discovery_processing_date": null,
+      "downloads_processing_date": "2026-11-06",
+      "discovery": null,
+      "downloads": {
+       "events": 7,
+       "unique_events": null,
+       "first_time": null,
+       "auto_update": 6,
+       "manual_update": null,
+       "redownload": null,
+       "restore": 1,
+       "other": null
+      },
+      "source_rows": {
+       "discovery": [],
+       "downloads": [
+        {
+         "Date": "2026-11-05",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Restore",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 27.0",
+         "Source Type": "App referrer",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-05",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.2",
+         "Source Type": "App referrer",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-05",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPad",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App referrer",
+         "Page Type": "Store sheet",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-05",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPad",
+         "Platform Version": "iOS 16.7",
+         "Source Type": "App Store search",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-05",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App referrer",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-05",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 17.6",
+         "Source Type": "App Store search",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "JP",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-05",
+         "App Name": "Daily Affirmations - Anicca",
+         "App Apple Identifier": "6755129214",
+         "Download Type": "Auto-update",
+         "App Version": "1.9.6",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.3",
+         "Source Type": "App Store search",
+         "Page Type": "No page",
+         "Pre-Order": "",
+         "Territory": "RO",
+         "Counts": "1"
+        }
+       ]
+      }
      }
     ],
     "metrics": {
-     "impressions": 171,
+     "impressions": 155,
      "unique_impressions": null,
-     "page_views": 14,
+     "page_views": 10,
      "unique_page_views": null,
-     "taps": 10,
+     "taps": 7,
      "unique_taps": null
     },
     "download_metrics": {
-     "events": 134,
+     "events": 138,
      "unique_events": null,
-     "first_time": 3,
-     "auto_update": 126,
+     "first_time": 1,
+     "auto_update": 132,
      "manual_update": 2,
-     "redownload": 2,
-     "restore": 1,
+     "redownload": 1,
+     "restore": 2,
      "other": null
     },
-    "download_events": 134,
-    "discovery_days": 7,
+    "download_events": 138,
+    "discovery_days": 6,
     "download_days": 4
    },
    {
@@ -6347,9 +6495,9 @@
      },
      {
       "date": "2026-11-04",
-      "processing_date": "2026-11-05",
+      "processing_date": "2026-11-06",
       "discovery_processing_date": "2026-11-05",
-      "downloads_processing_date": "2026-11-05",
+      "downloads_processing_date": "2026-11-06",
       "discovery": {
        "impressions": 24,
        "unique_impressions": null,
@@ -6640,28 +6788,78 @@
         }
        ]
       }
+     },
+     {
+      "date": "2026-11-05",
+      "processing_date": "2026-11-06",
+      "discovery_processing_date": null,
+      "downloads_processing_date": "2026-11-06",
+      "discovery": null,
+      "downloads": {
+       "events": 2,
+       "unique_events": null,
+       "first_time": 2,
+       "auto_update": null,
+       "manual_update": null,
+       "redownload": null,
+       "restore": null,
+       "other": null
+      },
+      "source_rows": {
+       "discovery": [],
+       "downloads": [
+        {
+         "Date": "2026-11-05",
+         "App Name": "Dhamma Quotes",
+         "App Apple Identifier": "6757726663",
+         "Download Type": "First-time download",
+         "App Version": "1.1.1",
+         "Device": "iPhone",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "Web referrer",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "IE",
+         "Counts": "1"
+        },
+        {
+         "Date": "2026-11-05",
+         "App Name": "Dhamma Quotes",
+         "App Apple Identifier": "6757726663",
+         "Download Type": "First-time download",
+         "App Version": "1.1.1",
+         "Device": "iPad",
+         "Platform Version": "iOS 26.6",
+         "Source Type": "App Store search",
+         "Page Type": "Product page",
+         "Pre-Order": "",
+         "Territory": "US",
+         "Counts": "1"
+        }
+       ]
+      }
      }
     ],
     "metrics": {
-     "impressions": 152,
+     "impressions": 131,
      "unique_impressions": null,
-     "page_views": 7,
+     "page_views": 6,
      "unique_page_views": null,
-     "taps": 7,
+     "taps": 5,
      "unique_taps": null
     },
     "download_metrics": {
-     "events": 6,
+     "events": 7,
      "unique_events": null,
-     "first_time": 4,
+     "first_time": 5,
      "auto_update": 2,
      "manual_update": null,
      "redownload": null,
      "restore": null,
      "other": null
     },
-    "download_events": 6,
-    "discovery_days": 7,
+    "download_events": 7,
+    "discovery_days": 6,
     "download_days": 5
    },
    {
@@ -7573,14 +7771,26 @@
        ],
        "downloads": []
       }
+     },
+     {
+      "date": "2026-11-05",
+      "processing_date": null,
+      "discovery_processing_date": null,
+      "downloads_processing_date": null,
+      "discovery": null,
+      "downloads": null,
+      "source_rows": {
+       "discovery": [],
+       "downloads": []
+      }
      }
     ],
     "metrics": {
-     "impressions": 73,
+     "impressions": 61,
      "unique_impressions": null,
-     "page_views": 13,
+     "page_views": 4,
      "unique_page_views": null,
-     "taps": 2,
+     "taps": 1,
      "unique_taps": null
     },
     "download_metrics": {
@@ -7594,7 +7804,7 @@
      "other": null
     },
     "download_events": 1,
-    "discovery_days": 7,
+    "discovery_days": 6,
     "download_days": 1
    },
    {
@@ -8432,12 +8642,24 @@
        ],
        "downloads": []
       }
+     },
+     {
+      "date": "2026-11-05",
+      "processing_date": null,
+      "discovery_processing_date": null,
+      "downloads_processing_date": null,
+      "discovery": null,
+      "downloads": null,
+      "source_rows": {
+       "discovery": [],
+       "downloads": []
+      }
      }
     ],
     "metrics": {
-     "impressions": 69,
+     "impressions": 60,
      "unique_impressions": null,
-     "page_views": 4,
+     "page_views": 2,
      "unique_page_views": null,
      "taps": 3,
      "unique_taps": null
@@ -8453,7 +8675,7 @@
      "other": null
     },
     "download_events": 2,
-    "discovery_days": 7,
+    "discovery_days": 6,
     "download_days": 2
    },
    {
@@ -11611,12 +11833,24 @@
        ],
        "downloads": []
       }
+     },
+     {
+      "date": "2026-11-05",
+      "processing_date": null,
+      "discovery_processing_date": null,
+      "downloads_processing_date": null,
+      "discovery": null,
+      "downloads": null,
+      "source_rows": {
+       "discovery": [],
+       "downloads": []
+      }
      }
     ],
     "metrics": {
-     "impressions": 704,
+     "impressions": 603,
      "unique_impressions": null,
-     "page_views": 15,
+     "page_views": 9,
      "unique_page_views": null,
      "taps": 2,
      "unique_taps": null
@@ -11632,7 +11866,7 @@
      "other": null
     },
     "download_events": 20,
-    "discovery_days": 7,
+    "discovery_days": 6,
     "download_days": 3
    }
   ]
