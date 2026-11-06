@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-03 12:05 JST",
+ "built_at": "2026-11-06 14:06 JST",
  "right_now": [
   {
    "agent": "参謀",
@@ -17,9 +17,9 @@
   },
   {
    "agent": "Dots",
-   "last": "2026-10-30 20:25",
+   "last": "2026-11-05 01:07",
    "source": "BOARD",
-   "task": "ops-chaser",
+   "task": "paid-gigs-to-revenue",
    "blocked": true
   },
   {
@@ -45,9 +45,9 @@
   },
   {
    "agent": "dr eggbot",
-   "last": "2026-11-01 09:54",
+   "last": "2026-11-04 19:54",
    "source": "BOARD",
-   "task": "codex-3tier-1999-price",
+   "task": "coconala-18521371",
    "blocked": true
   },
   {
@@ -875,7 +875,7 @@
    "posts_7d": 4,
    "views_7d": 2316.0,
    "er_7d": "5.0/2316=0.2%",
-   "avg_views_last5": 105,
+   "avg_views_last5": 1222,
    "last_post": "2026-10-30T12:40",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
@@ -901,7 +901,7 @@
    "posts_7d": 38,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 16,
+   "avg_views_last5": 72,
    "last_post": "2026-11-03T00:00",
    "winner": "https://x.com/godofprompt"
   },
@@ -914,7 +914,7 @@
    "posts_7d": 24,
    "views_7d": 4774.0,
    "er_7d": "48.0/4774=1.0%",
-   "avg_views_last5": 194,
+   "avg_views_last5": 72,
    "last_post": "2026-11-02T23:00",
    "winner": "https://www.tiktok.com/@dreamlifecode"
   },
@@ -953,7 +953,7 @@
    "posts_7d": 0,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": "未取得",
+   "avg_views_last5": 69,
    "last_post": "未取得",
    "winner": "未取得"
   },
@@ -966,7 +966,7 @@
    "posts_7d": 5,
    "views_7d": 1805.0,
    "er_7d": "0/1805=0.0%",
-   "avg_views_last5": 372,
+   "avg_views_last5": 432,
    "last_post": "2026-10-29T23:05",
    "winner": "https://www.instagram.com/selflovejp/"
   },
@@ -979,7 +979,7 @@
    "posts_7d": 3,
    "views_7d": 243.0,
    "er_7d": "0/243=0.0%",
-   "avg_views_last5": 122,
+   "avg_views_last5": 121,
    "last_post": "2026-10-29T10:10",
    "winner": "https://www.instagram.com/selflovejp/"
   },
@@ -992,7 +992,7 @@
    "posts_7d": 1,
    "views_7d": 53.0,
    "er_7d": "0/53=0.0%",
-   "avg_views_last5": 18,
+   "avg_views_last5": 4,
    "last_post": "2026-10-30T05:48",
    "winner": "https://www.tiktok.com/@yuusan_juusyoku"
   },
@@ -1018,7 +1018,7 @@
    "posts_7d": 0,
    "views_7d": 98.0,
    "er_7d": "0/98=0.0%",
-   "avg_views_last5": 40,
+   "avg_views_last5": "未取得",
    "last_post": "未取得",
    "winner": "https://www.instagram.com/mingsanhealing/"
   },
@@ -1031,7 +1031,7 @@
    "posts_7d": 5,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": 92,
+   "avg_views_last5": "未取得",
    "last_post": "2026-10-30T12:29",
    "winner": "https://x.com/marclou"
   },
@@ -1057,7 +1057,7 @@
    "posts_7d": 10,
    "views_7d": 2227.0,
    "er_7d": "12.0/2227=0.5%",
-   "avg_views_last5": 133,
+   "avg_views_last5": 461,
    "last_post": "2026-10-31T00:21",
    "winner": "https://www.tiktok.com/@kairyu699"
   },
@@ -1083,7 +1083,7 @@
    "posts_7d": 3,
    "views_7d": 2607.0,
    "er_7d": "99.0/2607=3.8%",
-   "avg_views_last5": 138,
+   "avg_views_last5": 178,
    "last_post": "2026-10-30T12:38",
    "winner": "https://www.tiktok.com/@kairyu699"
   },
@@ -1109,7 +1109,7 @@
    "posts_7d": 8,
    "views_7d": 2936.0,
    "er_7d": "23.0/2936=0.8%",
-   "avg_views_last5": 115,
+   "avg_views_last5": 605,
    "last_post": "2026-10-31T01:18",
    "winner": "https://www.tiktok.com/@yuusan_juusyoku"
   },
@@ -1122,7 +1122,7 @@
    "posts_7d": 10,
    "views_7d": 4394.0,
    "er_7d": "655.0/4394=14.9%",
-   "avg_views_last5": 186,
+   "avg_views_last5": 181,
    "last_post": "2026-11-02T11:41",
    "winner": "https://www.tiktok.com/@buddhamotivation1mu"
   },
@@ -1135,7 +1135,7 @@
    "posts_7d": 8,
    "views_7d": 1465.0,
    "er_7d": "20.0/1465=1.4%",
-   "avg_views_last5": 100,
+   "avg_views_last5": 181,
    "last_post": "2026-10-30T23:00",
    "winner": "https://www.tiktok.com/@dreamlifecode"
   },
@@ -1148,7 +1148,7 @@
    "posts_7d": 9,
    "views_7d": 3993.0,
    "er_7d": "90.0/3993=2.3%",
-   "avg_views_last5": 211,
+   "avg_views_last5": 215,
    "last_post": "2026-10-30T22:52",
    "winner": "https://www.tiktok.com/@dreamlifecode"
   },
@@ -1174,7 +1174,7 @@
    "posts_7d": 9,
    "views_7d": 4401.0,
    "er_7d": "64.0/4401=1.5%",
-   "avg_views_last5": 177,
+   "avg_views_last5": 665,
    "last_post": "2026-10-31T00:14",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
@@ -1187,7 +1187,7 @@
    "posts_7d": 8,
    "views_7d": 4099.0,
    "er_7d": "69.0/4099=1.7%",
-   "avg_views_last5": 188,
+   "avg_views_last5": 636,
    "last_post": "2026-10-31T04:12",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
@@ -1200,7 +1200,7 @@
    "posts_7d": 5,
    "views_7d": 1939.0,
    "er_7d": "7.0/1939=0.4%",
-   "avg_views_last5": 107,
+   "avg_views_last5": 614,
    "last_post": "2026-10-31T22:00",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
@@ -1474,7 +1474,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-11-02 03:25",
+   "last_post": "2026-11-03 03:34",
    "winner": "未取得"
   },
   {
@@ -1500,7 +1500,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-11-01 21:00",
+   "last_post": "2026-11-02 21:04",
    "winner": "未取得"
   },
   {
