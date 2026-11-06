@@ -43,7 +43,7 @@ jobs:
       - name: Stage canonical app registry and icons before build
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: e91e927a4a5437e132aa61aea67d9c7f6d40c2c1
+          MANAGER_MARKETING_REVISION: 9d0d79ca7b104fde4d40142a5ea563ea6fdb3e1e
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
@@ -55,7 +55,7 @@ jobs:
         env:
           MANAGER_BLOG_REVISION: 357212f82ac46fc9a147eed36a29dc70c0c37700
           # Reviewed content pin; installer and module revision remain independently pinned.
-          MANAGER_BLOG_CONTENT_REVISION: 8f20f3c5e13c3dbc554a8cbad3a7b24f18e128df
+          MANAGER_BLOG_CONTENT_REVISION: b2a548bb82288128839ac8b61174d5e6ea60e106
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_BLOG_REVISION/apps/landing/manager-blog/scripts/install.mjs" -o /tmp/manager-blog-install.mjs
@@ -84,7 +84,7 @@ jobs:
       - name: Apply canonical marketing overlay (immutable revision)
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: e91e927a4a5437e132aa61aea67d9c7f6d40c2c1
+          MANAGER_MARKETING_REVISION: 9d0d79ca7b104fde4d40142a5ea563ea6fdb3e1e
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
