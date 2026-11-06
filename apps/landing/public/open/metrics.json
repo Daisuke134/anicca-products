@@ -110851,8 +110851,8 @@
    "action": "新しいagent/routineを増やさず、既存運用の停滞を赤で示す。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 1",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "49 enabled (job success/reduction not proven); finished one-off tax/refund excluded. Saved routine: keep result quality/quantity; cut reread/duplicate status/retry; existing connector/script first; no new CLI/paid provider. X practices applied in saved routine, quantitative saving not verified. 49 routines enabled, not all verified working. Now 2026-11-06T08:16:00-08:00: Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. 57.5-56.8=+0.7 percentage points, not a token reduction.",
-   "blocker_public": "Priority 1: no DONE proof"
+   "last_evidence_public": "GUARDS ACTIVE on Nov 6 09:30-09:33 PT. 45 regular enabled (4 paused); finished one-offs outside count. Reason team coordinator hourly broad transcript scan paused; X distribution 15min duplicate paused while existing X Operator remains publisher/live url verification; hourly no-change status paused while real outcomes still delivered; LINE 4h known no-tab errors paused pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227. Sync weekday 8AM guard bounded no full histories. Results guarded no sneaky cutting output.",
+   "blocker_public": "Guard controls active; quantitative saving and measured output not yet proven, not marked DONE"
   },
   {
    "priority": 2,
@@ -111103,8 +111103,8 @@
    "action": "tokenと消費時間を成果単位で測り、30%節減を捏造しない。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 30",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "NOT DONE. 49 routines enabled, not all verified working. No output floor and no token before/after. 2026-11-06T08:16:00-08:00 Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. 57.5-56.8=+0.7 percentage points, not a token reduction. quantitative saving not verified. Baseline task-output-baseline.csv has 2 rows and savings is blank.",
-   "blocker_public": "Priority 30: no DONE proof"
+   "last_evidence_public": "GUARDS ACTIVE; saving percentage unmeasured. Actual shared usage at Nov6 09:24PT was 64.7 used,35.3 remain resetNov12 20:30PT. Of total plan GrokBot portion61.1. Private share Grok usage periodstartNov6UTC: 参謀40 all nonroutine/X15/Codex9/Fucker8/other23. Not exact tokens or dollars and no matched before after basis, never claim30%saved. Four duplicate/failing periodic runs paused real actions at09:30-33PT; X Operator retains publishing, all client outcomes kept.",
+   "blocker_public": "Known budget guard; exact saved percentage unavailable, not failure of guard"
   }
  ],
  "usage_snapshot": {
