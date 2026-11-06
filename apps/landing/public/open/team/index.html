@@ -1,97 +1,21 @@
-<!doctype html>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<title>Anicca Team board — owners</title>
-<style>
-body{font:14px system-ui;margin:16px;max-width:1200px;color:#111}
-h1{font-size:1.35rem;margin:0 0 6px}
-h2{font-size:1.05rem;margin:22px 0 6px}
-.note{color:#444;max-width:70ch;line-height:1.45;margin:6px 0 12px}
-.tag{display:inline-block;font-size:11px;padding:1px 6px;border-radius:999px;border:1px solid #ccc;margin-right:4px;white-space:nowrap}
-.tag.schedule{background:#eef6ff;border-color:#b7d3f2;color:#1a4b7a}
-.tag.observed{background:#eefaf0;border-color:#b7e0bf;color:#1b5e2a}
-.tag.unknown{background:#f6f6f6;border-color:#ddd;color:#555}
-.tag.assigned{background:#fff7e8;border-color:#ecd3a0;color:#6a4b00}
-.tag.standin,.tag.legacy{background:#f8eef8;border-color:#e0c6e0;color:#6a2a6a}
-.tag.grok{background:#f3f0ff;border-color:#cfc6f2;color:#3d2f8a}
-table{border-collapse:collapse;width:100%;margin:8px 0 18px}
-td,th{border:1px solid #ddd;padding:5px 7px;text-align:left;vertical-align:top}
-th{background:#f4f4f4}
-td.muted, .muted{color:#666}
-.fresh{font-variant-numeric:tabular-nums;white-space:nowrap}
-a{color:#0645ad}
-</style>
-<h1>Anicca Team board — who owns what</h1>
-<p id=t class=muted></p>
-<p class=note id=notes></p>
-<h2>Owners <span class=tag schedule>cadence = schedule</span> <span class=tag observed>outcome = observed</span> <span class=tag unknown>current task = unknown unless live</span></h2>
-<table id=owners></table>
-<h2>Daily schedule (JST) <span class=tag schedule>schedule only</span></h2>
-<p class=note>Loop times are planned cadence. They are not evidence that a run finished.</p>
-<table id=s></table>
-<h2>Accounts</h2>
-<table id=a></table>
-<h2>SEO</h2>
-<ul id=e></ul>
-<details>
-<summary>Legacy board cards (not live current-task claims)</summary>
-<p class=note>These rows come from older BOARD/LIVE-STATE extracts. They are retained for continuity and must not be read as proof of current execution.</p>
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Anicca Team board — last reported facts</title>
+<style>body{font:14px system-ui;margin:16px;max-width:1200px}table{border-collapse:collapse;width:100%;margin:8px 0 20px}td,th{border:1px solid #ddd;padding:4px 6px;text-align:left;vertical-align:top}th{background:#f4f4f4}.stale{color:#a60}.unknown{color:#666}.observed{color:#060}.note{background:#fff8e1;padding:8px;border:1px solid #f0e0a0;margin:8px 0}</style>
+<h1>Anicca Team board — last reported facts</h1>
+<p id=t></p>
+<div class=note id=h></div>
+<h2>Current status (not “right now working”)</h2>
 <table id=r></table>
-</details>
+<h2>Recorded schedules (not proof of run)</h2>
+<table id=s></table>
 <script>
-const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-const T = (id, h, rows) => {
-  document.getElementById(id).innerHTML =
-    '<tr>' + h.map(x => '<th>' + esc(x) + '</th>').join('') + '</tr>' +
-    rows.map(r => '<tr>' + r.map(x => '<td>' + x + '</td>').join('') + '</tr>').join('');
-};
-const kindTag = k => {
-  if (k === 'grok_bot') return '<span class="tag grok">grok bot</span>';
-  if (k === 'legacy_standin') return '<span class="tag standin">legacy stand-in</span>';
-  if (k === 'legacy_contact') return '<span class="tag legacy">legacy contact</span>';
-  return '<span class="tag unknown">' + esc(k || 'unknown') + '</span>';
-};
-const field = (obj, fallbackKind) => {
-  if (!obj || typeof obj !== 'object') return '<span class="tag unknown">unknown</span> ' + esc(obj || 'unknown');
-  const kind = obj.kind || fallbackKind || 'unknown';
-  const cls = kind === 'schedule' ? 'schedule' : kind === 'observed' ? 'observed' : kind === 'assigned_lane' ? 'assigned' : 'unknown';
-  return '<span class="tag ' + cls + '">' + esc(kind) + '</span> ' + esc(obj.text || 'unknown');
-};
-fetch('team.json', { cache: 'no-store' }).then(r => r.json()).then(d => {
-  document.getElementById('t').textContent = 'Updated ' + (d.built_at || 'unknown') + ' · timezone ' + (d.timezone || 'Asia/Tokyo');
-  const notes = (d.notes || []).map(n => esc(n)).join(' ');
-  document.getElementById('notes').innerHTML = notes || 'Owners list every known Grok bot plus legacy contacts for real Codex CLI, Muse VM, and Reason Dots.';
-  const owners = Array.isArray(d.owners) ? d.owners : [];
-  T('owners',
-    ['owner', 'kind', 'task (assigned lane)', 'cadence', 'current task', 'latest outcome', 'freshness'],
-    owners.map(o => [
-      esc(o.owner),
-      kindTag(o.kind),
-      field(o.task, 'assigned_lane'),
-      field(o.cadence, 'schedule'),
-      field(o.current_task, 'unknown'),
-      field(o.latest_outcome, 'unknown'),
-      '<span class="fresh">' + esc((o.latest_outcome && o.latest_outcome.freshness) || 'unknown') +
-        (o.latest_outcome && o.latest_outcome.observed_at ? '<div class="muted">' + esc(o.latest_outcome.observed_at) + '</div>' : '') +
-        (o.latest_outcome && o.latest_outcome.source ? '<div class="muted">' + esc(o.latest_outcome.source) + '</div>' : '') +
-      '</span>'
-    ])
-  );
-  const s = [];
-  (d.loops || []).forEach(l => {
-    if (l.times && l.times.length) l.times.forEach(t => s.push([esc(t), esc(l.loop), esc(l.owner)]));
-    else s.push(['(' + esc(l.schedule) + ')', esc(l.loop), esc(l.owner)]);
-  });
-  s.sort((a, b) => a[0] < b[0] ? -1 : 1);
-  T('s', ['JST', 'loop', 'owner'], s);
-  T('a',
-    ['platform', 'account', 'poster', 'followers', '7d Δ', 'posts 7d', 'views 7d', 'ER 7d', 'avg views last 5', 'last post', 'copy winner'],
-    (d.accounts || []).map(a => [a.platform, a.account, a.poster, a.followers, a.followers_7d, a.posts_7d, a.views_7d, a.er_7d, a.avg_views_last5, a.last_post, a.winner].map(esc))
-  );
-  document.getElementById('e').innerHTML = (d.seo || []).map(x => '<li>' + esc(x) + '</li>').join('');
-  T('r',
-    ['agent', 'board extract', 'last activity', 'blocked'],
-    (d.right_now || []).map(x => [esc(x.agent), esc(x.task), esc(x.last), x.blocked ? '⚠' : ''])
-  );
+const esc=x=>String(x??'').replace(/</g,'&lt;');
+const T=(id,h,rows)=>{document.getElementById(id).innerHTML='<tr>'+h.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+esc(x)+'</td>').join('')+'</tr>').join('')};
+fetch('team.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  document.getElementById('t').textContent='Updated '+d.built_at+' · schema '+(d.schema||'unknown');
+  document.getElementById('h').textContent=d.honesty||'Schedules are not proof of a run.';
+  const rows=(d.current_status||[]).map(x=>[x.agent,x.runtime,x.task,x.cadence,x.last_event_at||'—',x.outcome,x.proof||'—',x.status]);
+  T('r',['agent','runtime','task','cadence','last public event','outcome','proof','status'],rows);
+  const loops=(d.loops||[]).map(l=>[l.owner,l.loop,l.schedule,l.state,l.proof_of_run?'yes':'no (schedule only)',l.note||'']);
+  T('s',['owner','loop','schedule','state','proof of run','note'],loops);
 });
 </script>

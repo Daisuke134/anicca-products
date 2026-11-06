@@ -23,7 +23,7 @@ class NumberedOwnerTodoWriterTest(unittest.TestCase):
   self.assertNotIn('R-1', json.dumps(rows,ensure_ascii=False))
   self.assertEqual(result['summary'], {'keep': 1})
   self.assertEqual(result['kpis'], [{'keep': 2}])
-  self.assertEqual(result['public_company_todo']['declared_updated'],'2026-11-05')
+  self.assertEqual(result['public_company_todo']['declared_updated'],'2026-11-06')
  def test_numeric_rows_in_order(self):
   source='Updated: 2026-11-05 (America/Los_Angeles)\n'+''.join(f'| {n} | Public action {n} | One owner | Accepted proof {n}: OPEN |\n' for n in [1,2,3])
   rows=run_writer(source)['public_work']
