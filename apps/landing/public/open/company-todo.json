@@ -213,7 +213,7 @@
       "action": "公開 /open にcompany TODO・実測usage・silent failuresを表示。",
       "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 25",
       "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-      "last_evidence_public": "SOURCE ON MAIN, LIVE PENDING. origin/main cb6e2e2a4 has weekly 57.5 at 2026-11-06T08:16:00-08:00 in metrics.json usage_snapshot, usage-snapshot.json, and company-todo.json. Live curl Date Fri, 06 Nov 2026 16:57:33 GMT is still 21.1 on all three. Netlify deploy 42257042331 for 44494e2 is in_progress. Deploy 42257092165 for cb6e2e2 is cancelled. Not a live 57.5 claim.",
+      "last_evidence_public": "DONE for public display only. https://aniccaai.com/open/company-todo.json Date Fri, 06 Nov 2026 17:16:04 GMT weekly_usage_percent 57.5 at 2026-11-06T08:16:00-08:00. Row 1 has 49 enabled. The previous paused-routines sentence is absent. Netlify 42257042331 success for 44494e2 at 2026-11-06T17:03:17Z. Netlify 42258559761 success for f7fd02c at 2026-11-06T17:14:52Z. Not all outcomes and not savings.",
       "blocker_public": "Priority 25: no DONE proof"
     },
     {
@@ -231,7 +231,7 @@
       "action": "GitHub更新とCIの実証を公開、本人merge確認後に公開。",
       "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 27",
       "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-      "last_evidence_public": "PR887, PR888, and PR891 are merged. PR896 squash 44494e2f9ac66e2c55e2f78386f4e7b7f6b46628 is on main. That PR CI is not evidence for later commits. Netlify deploy 42257042331 was in_progress and 42257092165 was cancelled at this read. This follow-up is not merged.",
+      "last_evidence_public": "DONE for public delivery of the merged TODO. PR896 squash 44494e2f9ac66e2c55e2f78386f4e7b7f6b46628, Netlify 42257042331 success at 2026-11-06T17:03:17Z. PR897 squash f7fd02c88cb7e490be30f04aeea3c259cb1a425e, PR CI 42257791184 success on 8460555446d9e2a0d1b5b9ff3a499818bfce7446, Netlify 42258559761 success at 2026-11-06T17:14:52Z. Not all company outcomes.",
       "blocker_public": "Priority 27: no DONE proof"
     },
     {
@@ -249,7 +249,7 @@
       "action": "MuseのLangfuseとLINE read-only接続を確認。",
       "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 29",
       "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-      "last_evidence_public": "NOT VERIFIED. This run has no Langfuse host or key and no LINE channel token. No message body was read. Owner auth is required before any read-only connector check.",
+      "last_evidence_public": "NOT VERIFIED. Owner-reported /workspace/team/line-read.sh: NO_LINE_TAB ERR_BLOCKED_BY_CLIENT at 04:31:49 PT. That file is absent in this checkout. No bodies read. Muse direct Langfuse health proof is pending. emitted2 is not success.",
       "blocker_public": "Priority 29: no DONE proof"
     },
     {
@@ -395,6 +395,6 @@
     "declared_updated": "2026-11-06",
     "timezone": "America/Los_Angeles",
     "rows": 29,
-    "source_updated_at": "2026-11-06T17:01:02.079609+00:00"
+    "source_updated_at": "2026-11-06T17:16:50.590163+00:00"
   }
 }
