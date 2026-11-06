@@ -1,11 +1,21 @@
-<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Anicca Team board — 誰が何を</title>
-<style>body{font:14px system-ui;margin:16px;max-width:1100px}table{border-collapse:collapse;width:100%;margin:8px 0 20px}td,th{border:1px solid #ddd;padding:4px 6px;text-align:left;vertical-align:top}th{background:#f4f4f4}.b{color:#c00}</style>
-<h1>Anicca Team board — 誰が何を</h1><p id=t></p>
-<h2>Right now</h2><table id=r></table><h2>Daily schedule (JST)</h2><table id=s></table><h2>Accounts</h2><table id=a></table><h2>SEO</h2><ul id=e></ul>
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Anicca Team board — last reported facts</title>
+<style>body{font:14px system-ui;margin:16px;max-width:1200px}table{border-collapse:collapse;width:100%;margin:8px 0 20px}td,th{border:1px solid #ddd;padding:4px 6px;text-align:left;vertical-align:top}th{background:#f4f4f4}.stale{color:#a60}.unknown{color:#666}.observed{color:#060}.note{background:#fff8e1;padding:8px;border:1px solid #f0e0a0;margin:8px 0}</style>
+<h1>Anicca Team board — last reported facts</h1>
+<p id=t></p>
+<div class=note id=h></div>
+<h2>Current status (not “right now working”)</h2>
+<table id=r></table>
+<h2>Recorded schedules (not proof of run)</h2>
+<table id=s></table>
 <script>
-const T=(id,h,rows)=>{document.getElementById(id).innerHTML='<tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+String(x??'未取得').replace(/</g,'&lt;')+'</td>').join('')+'</tr>').join('')};
-fetch('team.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{document.getElementById('t').textContent='Updated '+d.built_at+' (hourly)';
-T('r',['agent','current','last activity','blocked'],d.right_now.map(x=>[x.agent,x.task,x.last,x.blocked?'⚠':'']));
-const s=[];d.loops.forEach(l=>l.times.length?l.times.forEach(t=>s.push([t,l.loop,l.owner])):s.push(['('+l.schedule+')',l.loop,l.owner]));s.sort((a,b)=>a[0]<b[0]?-1:1);T('s',['JST','loop','owner'],s);
-T('a',['platform','account','poster','followers','7d Δ','posts 7d','views 7d','ER 7d','avg views last 5','last post','copy winner'],d.accounts.map(a=>[a.platform,a.account,a.poster,a.followers,a.followers_7d,a.posts_7d,a.views_7d,a.er_7d,a.avg_views_last5,a.last_post,a.winner]));
-document.getElementById('e').innerHTML=d.seo.map(x=>'<li>'+x.replace(/</g,'&lt;')+'</li>').join('')})</script>
+const esc=x=>String(x??'').replace(/</g,'&lt;');
+const T=(id,h,rows)=>{document.getElementById(id).innerHTML='<tr>'+h.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+esc(x)+'</td>').join('')+'</tr>').join('')};
+fetch('team.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  document.getElementById('t').textContent='Updated '+d.built_at+' · schema '+(d.schema||'unknown');
+  document.getElementById('h').textContent=d.honesty||'Schedules are not proof of a run.';
+  const rows=(d.current_status||[]).map(x=>[x.agent,x.runtime,x.task,x.cadence,x.last_event_at||'—',x.outcome,x.proof||'—',x.status]);
+  T('r',['agent','runtime','task','cadence','last public event','outcome','proof','status'],rows);
+  const loops=(d.loops||[]).map(l=>[l.owner,l.loop,l.schedule,l.state,l.proof_of_run?'yes':'no (schedule only)',l.note||'']);
+  T('s',['owner','loop','schedule','state','proof of run','note'],loops);
+});
+</script>
