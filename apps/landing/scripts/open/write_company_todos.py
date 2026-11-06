@@ -32,6 +32,8 @@ def project_rows(text):
         evidence_text = strip_cell(evidence)
         if number == 1 and evidence_text.startswith('GUARDS ACTIVE'):
             blocker = 'Guard controls active; quantitative saving and measured output not yet proven, not marked DONE'
+        elif number == 30 and evidence_text.startswith('GUARDS ACTIVE'):
+            blocker = 'Known budget guard; exact saved percentage unavailable, not failure of guard'
         else:
             blocker = f'Priority {number}: no DONE proof'
         rows.append(dict(
