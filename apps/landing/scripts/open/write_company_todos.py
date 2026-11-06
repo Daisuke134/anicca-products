@@ -119,6 +119,30 @@ def embed_projection(text, projection):
     return merged
 
 
+def replace_evidence(text, priority, owner, evidence):
+    """Replace one evidence cell only when the caller is that row's owner."""
+    priority = int(priority)
+    if not 1 <= priority <= 30 or priority == 15:
+        raise SystemExit('priority is outside the public company TODO')
+    if not owner or not evidence or len(evidence) > 500:
+        raise SystemExit('evidence must be one non-empty public cell of at most 500 characters')
+    pattern = re.compile(
+        r'^(\| ' + str(priority) + r' \| [^|]+? \| )([^|]+?)( \| )([^|]+?)( \|[ \t]*)$',
+        re.M,
+    )
+    match = pattern.search(text)
+    if not match:
+        raise SystemExit(f'priority {priority} is missing')
+    if strip_cell(match.group(2)) != owner:
+        raise SystemExit('owner mismatch; refusing to write another owner row')
+    updated = text[:match.start()] + f'{match.group(1)}{match.group(2)}{match.group(3)}{evidence}{match.group(5)}' + text[match.end():]
+    if [r['priority'] for r in project_rows(text)] != [r['priority'] for r in project_rows(updated)]:
+        raise SystemExit('row order changed')
+    if [r['owner'] for r in project_rows(text)] != [r['owner'] for r in project_rows(updated)]:
+        raise SystemExit('row owner changed')
+    return updated
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('repository', type=Path)

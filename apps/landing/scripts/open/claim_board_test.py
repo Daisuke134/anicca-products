@@ -147,6 +147,23 @@ class ClaimBoardTests(unittest.TestCase):
         self.assertTrue(task["publish_blocked_zero"])
         self.assertNotIn("lease_token", task)
 
+    def test_project_public_work_does_not_claim_or_renumber(self):
+        rows = [
+            {"priority": 1, "action": "show red failures", "last_evidence_public": "49 enabled", "quantity_goal": "proof", "owner": "Grok Bot 参謀 (verification only)"},
+            {"priority": 2, "action": "one owner", "last_evidence_public": "ACTIVE", "quantity_goal": "proof", "owner": "Grok Bot 参謀 (verification only)"},
+        ]
+        priorities = cb.project_public_work(self.conn, rows, "2026-11-06T08:16:00-08:00")
+        self.assertEqual(priorities, [1, 2])
+        snap = cb.snapshot(self.conn)
+        projected = [t for t in snap["tasks"] if t["task_id"].startswith("todo-")]
+        self.assertEqual([t["task_id"] for t in projected], ["todo-1", "todo-2"])
+        self.assertTrue(all(t["owner"] is None and t["lease_state"] == "open" for t in projected))
+        self.assertTrue(all("lease_token" not in t for t in projected))
+        self.assertFalse(snap["claim_api_hosted"])
+        again = cb.project_public_work(self.conn, rows, "2026-11-06T08:16:00-08:00")
+        self.assertEqual(again, [1, 2])
+        self.assertEqual(len([t for t in cb.snapshot(self.conn)["tasks"] if t["task_id"].startswith("todo-")]), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

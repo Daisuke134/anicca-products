@@ -116,14 +116,15 @@ def upsert_task(conn: sqlite3.Connection, task_id: str, title: str, **fields: An
     existing = conn.execute("SELECT revision FROM tasks WHERE task_id=?", (task_id,)).fetchone()
     if existing is None:
         conn.execute(
-            """INSERT INTO tasks(task_id,title,status,revision,updated_at,last_public_at,blocker_public,quantity_goal_public,quantity_done)
-               VALUES(?,?,?,?,?,?,?,?,?)""",
+            """INSERT INTO tasks(task_id,title,status,revision,updated_at,last_evidence_public,last_public_at,blocker_public,quantity_goal_public,quantity_done)
+               VALUES(?,?,?,?,?,?,?,?,?,?)""",
             (
                 task_id,
                 title,
                 fields.get("status") or "open",
                 0,
                 now,
+                fields.get("last_evidence_public"),
                 fields.get("last_public_at"),
                 fields.get("blocker_public"),
                 fields.get("quantity_goal_public"),
@@ -340,6 +341,30 @@ def escalate_silent(conn: sqlite3.Connection) -> list[dict[str, Any]]:
     return created
 
 
+def project_public_work(conn: sqlite3.Connection, rows: list[dict[str, Any]], public_at: str) -> list[int]:
+    """Project existing public TODO rows. Does not claim, lease, or host an API."""
+    if not rows or not public_at:
+        raise ValueError("public rows and public_at required")
+    priorities: list[int] = []
+    for row in rows:
+        priority = int(row["priority"])
+        priorities.append(priority)
+        upsert_task(
+            conn,
+            f"todo-{priority}",
+            str(row.get("action") or ""),
+            status="open",
+            last_evidence_public=row.get("last_evidence_public"),
+            last_public_at=public_at,
+            blocker_public=None,
+            quantity_goal_public=row.get("quantity_goal"),
+            quantity_done=None,
+        )
+    if priorities != sorted(priorities) or len(priorities) != len(set(priorities)):
+        raise ValueError("public priorities must stay unique and ordered")
+    return priorities
+
+
 def snapshot(conn: sqlite3.Connection) -> dict[str, Any]:
     now = utcnow()
     expire_leases(conn)
@@ -357,6 +382,8 @@ def snapshot(conn: sqlite3.Connection) -> dict[str, Any]:
         "claim_api": "repo-local python apps/landing/scripts/open/claim_board.py (not hosted on aniccaai.com/open yet)",
         "tasks": tasks,
         "alerts": alerts,
+        "hosting": "RED: claim API is not hosted; this file is a read-only projection",
+        "claim_api_hosted": False,
     }
 
 
@@ -402,6 +429,10 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("escalate-silent")
     sn = sub.add_parser("snapshot")
     sn.add_argument("--out", help="Write claims-snapshot.json")
+    proj = sub.add_parser("project-public-work")
+    proj.add_argument("--from-json", required=True)
+    proj.add_argument("--out", required=True)
+    proj.add_argument("--public-at", required=True)
 
     args = p.parse_args(argv)
     db = Path(args.db)
@@ -441,6 +472,17 @@ def main(argv: list[str] | None = None) -> int:
             if args.out:
                 Path(args.out).write_text(json.dumps(snap, indent=2) + "\n")
             print(json.dumps(snap, indent=2))
+        elif args.cmd == "project-public-work":
+            payload = json.loads(Path(args.from_json).read_text(encoding="utf-8"))
+            rows = payload.get("public_work") if isinstance(payload, dict) else None
+            if not isinstance(rows, list) or not rows:
+                raise SystemExit("public_work rows required")
+            priorities = project_public_work(conn, rows, args.public_at)
+            snap = snapshot(conn)
+            snap["projected_from"] = "public_work"
+            snap["projected_count"] = len(priorities)
+            Path(args.out).write_text(json.dumps(snap, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"projected": priorities, "hosted": False}))
         return 0
     finally:
         conn.close()

@@ -111058,7 +111058,7 @@
    "action": "公開 /open にcompany TODO・実測usage・silent failuresを表示。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 25",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "NOT LIVE. Curl Date Fri, 06 Nov 2026 16:26:52 GMT (08:26 PT): https://aniccaai.com/open/company-todo.json and usage-snapshot.json HTTP 200 still show weekly 21.1 at 2026-11-05T23:00:00-08:00, and production #1 still says other 参謀 routines paused. This branch generates 29 rows, 57.5% at 08:16 PT, and 49 enabled. An open PR is not a live update.",
+   "last_evidence_public": "SOURCE ON MAIN, LIVE PENDING. origin/main cb6e2e2a4 has weekly 57.5 at 2026-11-06T08:16:00-08:00 in metrics.json usage_snapshot, usage-snapshot.json, and company-todo.json. Live curl Date Fri, 06 Nov 2026 16:57:33 GMT is still 21.1 on all three. Netlify deploy 42257042331 for 44494e2 is in_progress. Deploy 42257092165 for cb6e2e2 is cancelled. Not a live 57.5 claim.",
    "blocker_public": "Priority 25: no DONE proof"
   },
   {
@@ -111067,7 +111067,7 @@
    "action": "claim writerを実運用へ接続し、未接続のまま「運用中」と呼ばない。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 26",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "RED: static Netlify/no live writer/no claims-snapshot live owner-run. Code passes not operational.",
+   "last_evidence_public": "NOT OPERATIONAL. claim_board.py project-public-work wrote 29 unclaimed tasks from public_work into claims-snapshot.json. No lease was taken. The claim API is not hosted, so this is not a live writer. Previous static file had tasks [].",
    "blocker_public": "Priority 26: no DONE proof"
   },
   {
@@ -111076,7 +111076,7 @@
    "action": "GitHub更新とCIの実証を公開、本人merge確認後に公開。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 27",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "PR887, PR888, and PR891 are merged on main. PR896 is open and not merged. Curl Date Fri, 06 Nov 2026 16:26:52 GMT: production /open/company-todo.json and usage-snapshot.json HTTP 200 still serve weekly 21.1 at 2026-11-05T23:00:00-08:00. Do not infer a live update from this open PR.",
+   "last_evidence_public": "PR887, PR888, and PR891 are merged. PR896 squash 44494e2f9ac66e2c55e2f78386f4e7b7f6b46628 is on main. That PR CI is not evidence for later commits. Netlify deploy 42257042331 was in_progress and 42257092165 was cancelled at this read. This follow-up is not merged.",
    "blocker_public": "Priority 27: no DONE proof"
   },
   {
@@ -111085,7 +111085,7 @@
    "action": "Muse/Dots/Codexどこからも同一の最新TODOへ書けるようにする。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 28",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "OPEN: no atomic shared external writer for Muse/Dots/Codex yet.",
+   "last_evidence_public": "PARTIAL TOOL ONLY. write_company_todos.replace_evidence changes one evidence cell only when the owner matches and refuses another owner or a renumber. Muse, Dots, and Codex have not called it. Not a shared live session.",
    "blocker_public": "Priority 28: no DONE proof"
   },
   {
@@ -111094,7 +111094,7 @@
    "action": "MuseのLangfuseとLINE read-only接続を確認。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 29",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "LANGFUSE PARTIAL: helper local distribution emitted2 & passes read API &2alerts per agent actual; webhook unverified prod licensing logs need verif. messaging shared path unverified",
+   "last_evidence_public": "NOT VERIFIED. This run has no Langfuse host or key and no LINE channel token. No message body was read. Owner auth is required before any read-only connector check.",
    "blocker_public": "Priority 29: no DONE proof"
   },
   {
@@ -111103,7 +111103,7 @@
    "action": "tokenと消費時間を成果単位で測り、30%節減を捏造しない。",
    "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 30",
    "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
-   "last_evidence_public": "NOT DONE. Stopping is not the fix. 49 routines enabled, not all verified working. Job success and reduction are not proven. Now 2026-11-06T08:16:00-08:00: shared Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. Arithmetic only: 57.5 - 56.8 (08:00 PT) = +0.7 percentage points, not a token reduction. No outcome floor, so no saving claim. X practices applied in saved routine, quantitative saving not verified. Do not invent a 30% saving.",
+   "last_evidence_public": "NOT DONE. Stopping is not the fix. 49 routines enabled, not all verified working. Job success and reduction are not proven. Now 2026-11-06T08:16:00-08:00: shared Ultra weekly 57.5% used, reset 2026-11-12 20:30 PT. Arithmetic only: 57.5 - 56.8 (08:00 PT) = +0.7 percentage points, not a token reduction. TOKEN_MEASUREMENT.csv is absent, so there is no output floor and no token before/after. quantitative saving not verified. claim_board tasks 0 to 29 is not a percent saving.",
    "blocker_public": "Priority 30: no DONE proof"
   }
  ],
@@ -111240,6 +111240,6 @@
   "declared_updated": "2026-11-06",
   "timezone": "America/Los_Angeles",
   "rows": 29,
-  "source_updated_at": "2026-11-06T16:28:04.712842+00:00"
+  "source_updated_at": "2026-11-06T17:01:02.079609+00:00"
  }
 }
