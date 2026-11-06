@@ -228,3 +228,4 @@ aniccaios/fastlane/build/
 
 # Hash-verified canonical Life Manager build inputs (staged before Next build)
 apps/landing/public/assets/manager-site/
+apps/landing/scripts/open/.claim-board.sqlite*
