@@ -59,11 +59,12 @@ test('unsafe personal rows and private cells are withheld; HTML is escaped', asy
     { owner: 'Personal owner', action: 'R-1 comedy' },
     { owner: 'Personal owner', action: 'お笑い' },
     { owner: 'Public owner', action: 'credential token=secret' },
+    { owner: 'Public owner', action: 'call +1 415 555 1212' },
   ] });
   const output = nodes.get('public-work')?.innerHTML || '';
   assert.match(output, /&lt;img/);
   assert.match(output, /unknown/);
-  assert.doesNotMatch(output, /<img|\/Users\/|person@|LINE|R-1|comedy|お笑い|secret/);
+  assert.doesNotMatch(output, /<img|\/Users\/|person@|LINE|R-1|comedy|お笑い|secret|415 555 1212/);
 });
 
 test('usage snapshot keeps measured timezone and reset separate from export and percent denominators', async () => {
@@ -119,6 +120,30 @@ test('existing public portfolio surfaces also withhold personal rows and private
   });
   const output = ['silent-failures', 'portfolio-loops', 'portfolio-businesses', 'portfolio-gaps'].map(id => nodes.get(id)?.innerHTML || '').join('');
   assert.doesNotMatch(output, /R-1|comedy|LINE|credential|secret|\/workspace\/|person@/);
+});
+
+test('company-todo sidecar fills a finance metrics file that has no public_work key', async () => {
+  const sidecar = JSON.parse(await readFile(new URL('../../public/open/company-todo.json', import.meta.url), 'utf8'));
+  assert.equal(sidecar.public_work.length, 29);
+  assert.equal(sidecar.public_work.map(row => row.priority).includes(15), false);
+  const finance = { businesses: [], loops: [], metric_gaps: [], agents: [] };
+  const nodes = new Map();
+  const document = { getElementById(id) {
+    if (!nodes.has(id)) nodes.set(id, { innerHTML: '', textContent: '', style: {} });
+    return nodes.get(id);
+  } };
+  const context = vm.createContext({ document, fetch: async (url='') => {
+    const href = String(url);
+    if (href.includes('company-todo.json')) return { ok: true, json: async () => sidecar };
+    if (href.includes('usage-snapshot.json') || href.includes('claims-snapshot.json')) return { ok: false, json: async () => null };
+    return { ok: true, json: async () => finance };
+  } });
+  vm.runInContext(script.slice(0, script.indexOf('const loadData=')) + script.slice(script.indexOf('const loadPortfolio='), script.indexOf('\nloadPortfolio();')), context);
+  await vm.runInContext('loadPortfolio()', context);
+  const output = nodes.get('public-work')?.innerHTML || '';
+  assert.match(output, /f585e9f599ddff304b20f7f090b238db3f2d5a1da30eaa12f258264134bc03a1/);
+  assert.match(output, /a642df1374/);
+  assert.equal(Object.hasOwn(finance, 'public_work'), false);
 });
 
 test('dedicated usage-snapshot.json wins over stale metrics usage_snapshot', async () => {

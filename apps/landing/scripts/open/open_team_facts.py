@@ -104,7 +104,7 @@ PUBLIC_FACTS = {
         task="Paid receipts / cost-revenue readback",
         cadence="unknown",
         last_event_at="2026-11-06 17:25 JST",
-        outcome="Stripe aniccaJP GetBalanceTransactions full 2026-11 JST: 0 rows has_more=false (17:25 JST). Capafy totalPayout $0 paid; balancePayout $83.78 pending below $100 — not revenue. Moneytree login required (bank stuck at 2026-11-01 10:10 logout).",
+        outcome="Stripe aniccaJP 2026-11 paid rows 0 (17:25 JST). Local Capafy payout_snapshot 2026-11-06 00:06 JST balance_payout_usd=$83.78 total_paid_out_usd=0, below $100, not revenue. Moneytree has no bank read. Full paid receipt and cost match stays in progress.",
         proof="team/cfo/inputs/2026-11-06/stripe.json + DAILY-LOG/2026-11-06.md Capafy/Moneytree TODO#13",
         status="observed",
         source="COMPANY_TODO.md",
@@ -122,7 +122,7 @@ PUBLIC_FACTS = {
         task="Company TODO #16/#18/#19/#20: one bounded existing-runtime verification pass",
         cadence="one-off bounded verification",
         last_event_at="2026-11-06 17:22 JST",
-        outcome="After the Mac mini read-only pass and independent HTTP checks, the connected non-owner SDK run remains blocked at its missing demo source entry. Official hackathon requirements are available but acceptance, submission and judging remain unknown. Maritime is HTTP 200 and life-call health reports a new build; Music is HTTP 404. Local non-notifying Calendar tests pass but T-0 remains unproven. No send or git change.",
+        outcome="Read-only Naive SDK 2026-11-06 00:30 PT: prepaid balance $19.564708; existing agent agt_3b7pjzk133jd5tcjjxp54fbr66 N1_OK; tools disabled; task cap $0.05; zero sessions before the check. Box src/cycle.ts is present. No $0.05 session and no topup. Product flow and paid job unproven. Fresh GET 2026-11-06 03:54 PT: maritime 200, music 404, life-call health 200 build b17d6d66770ef72ed10d853d9523d61fda63d339. A Spotify artist link is not proof Music is fixed. PR 9283 is source-only.",
         proof="https://usenaive.ai/hackathon + https://aniccaai.com/maritime + https://life-call-production.up.railway.app/health + DAILY-LOG/2026-11-06.md",
         status="observed",
         source="DAILY-LOG/2026-11-06.md",
@@ -130,9 +130,9 @@ PUBLIC_FACTS = {
     "Codex": dict(
         task="#10 Anicca: PR #9282 merged; App Store still live 1.9.6 (no 1.9.8 submission)",
         cadence="request-based Mac mini Codex CLI",
-        last_event_at="2026-11-06 17:16 JST",
-        outcome="life-manager PR #9282 MERGED (head 029049d4, merge 6cc7c4a). All latest ref check runs success. App Store remains live 1.9.6; no new 1.9.8 submission. Not a live release success.",
-        proof="https://github.com/Daisuke134/life-manager/pull/9282 + itunes id6755129214 v1.9.6",
+        last_event_at="2026-11-06 17:44 JST",
+        outcome="life-manager PR #9282 MERGED (head 029049d4, merge 6cc7c4a). App Store remains live 1.9.6; no new 1.9.8 submission. Not a live release success. PR #9283 MERGED squash a642df1374 at 2026-11-06T08:44Z (https://github.com/Daisuke134/life-manager/pull/9283): due 0 at event start; WAKE_LEVELS T-10 firm / T-5 harsh / T-0 harsh; mocked fixtures 11/11 pass. No live production delivery, deployment, or customer outcome.",
+        proof="https://github.com/Daisuke134/life-manager/pull/9282 + https://github.com/Daisuke134/life-manager/pull/9283",
         status="observed",
         source="GitHub PR #9282 merge + founder steering; App Store live version check",
     ),
@@ -176,7 +176,7 @@ PUBLIC_FACTS = {
         task="SNS / Langfuse recovery (via relay reports)",
         cadence="unknown",
         last_event_at="2026-11-06 14:05 JST",
-        outcome="Relay-published Muse updates; YouTube Shorts identity dialog still blocking some slots.",
+        outcome="Relay reports only, not a direct verified publish. YouTube Shorts identity dialog was relayed and is not re-verified here.",
         proof="DAILY-LOG/2026-11-06.md Muse (via relay) rows",
         status="observed",
         source="DAILY-LOG/2026-11-06.md",
@@ -184,8 +184,8 @@ PUBLIC_FACTS = {
     "X Operator": dict(
         task="@diceai0 original / reply / native repost",
         cadence="unknown (schedule ≠ proof of continuous posting)",
-        last_event_at="2026-11-06 17:07 JST",
-        outcome="Latest original https://x.com/diceai0/status/2118594520891732052 early 80imp/2like/1reply; replies yongfook https://x.com/diceai0/status/2118605793885147310 early8imp and Domlokyn https://x.com/diceai0/status/2118612465537994835 early5imp; verified native reposts https://x.com/levelsio/status/2118476416501285129 and https://x.com/TonyChanBuilds/status/2118523963038994476. Early metrics only; not matured. Schedule ≠ continuous execution.",
+        last_event_at="2026-11-06 20:17 JST",
+        outcome="Prior result 17:07 JST: https://x.com/diceai0/status/2118594520891732052 80imp/2like/1reply; replies 8imp and 5imp. Latest browser proxy HTTP 403 at 2026-11-06 20:17 JST, publication 0, so posting is currently blocked after those results. X Operator remains its own actor, not 参謀.",
         proof="DAILY-LOG/2026-11-06.md X Operator 17:07 JST",
         status="observed",
         source="DAILY-LOG/2026-11-06.md",
@@ -344,10 +344,23 @@ def validate_public_team(data: dict) -> None:
 
 
 def write_team_json(outdir: str, now: dt.datetime | None = None) -> dict:
-    data = build_team_facts(now)
     path = os.path.join(outdir, "team")
     os.makedirs(path, exist_ok=True)
-    with open(os.path.join(path, "team.json"), "w", encoding="utf-8") as f:
+    dest = os.path.join(path, "team.json")
+    if os.path.exists(dest):
+        with open(dest, encoding="utf-8") as handle:
+            existing = json.loads(handle.read())
+        owners = existing.get("owners")
+        if isinstance(owners, list) and owners and isinstance(owners[0], dict) and "owner" in owners[0]:
+            names = [row.get("owner") for row in owners]
+            if names.count("X Operator") != 1 or names.count("Reason Dots") != 1:
+                raise SystemExit("owners board lost X Operator or Reason Dots; refusing to rewrite")
+            if len(owners) != 16 or len(existing.get("loops") or []) != 92:
+                raise SystemExit("owners board is not the live 16-owner/92-loop snapshot; refusing to rewrite")
+            # Name-keyed board. Do not replace it with the 15-row current_status projection.
+            return existing
+    data = build_team_facts(now)
+    with open(dest, "w", encoding="utf-8") as f:
         # Compact JSON keeps the public PR under the line budget; UI parses either form.
         json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
         f.write("\n")
@@ -357,4 +370,7 @@ def write_team_json(outdir: str, now: dt.datetime | None = None) -> dict:
 if __name__ == "__main__":
     out = sys.argv[1] if len(sys.argv) > 1 else "."
     d = write_team_json(out)
-    print(f"team facts built {d['built_at']}: {len(d['current_status'])} agents")
+    if "current_status" in d:
+        print(f"team facts built {d['built_at']}: {len(d['current_status'])} agents")
+    else:
+        print(f"preserved owners board owners={len(d.get('owners') or [])} loops={len(d.get('loops') or [])}")

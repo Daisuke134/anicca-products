@@ -17,6 +17,20 @@ const REQUIRED_GROK = [
 ];
 const REQUIRED_LEGACY = ['Codex CLI (Mac mini)', 'Muse VM', 'Reason Dots'];
 
+test('live owners board keeps 16 owners, 92 loops, and unknown current tasks', () => {
+  const data = JSON.parse(readFileSync(teamJsonPath, 'utf8'));
+  assert.equal(data.owners.length, 16);
+  assert.equal(data.loops.length, 92);
+  const names = data.owners.map(owner => owner.owner);
+  assert.ok(names.includes('X Operator'));
+  assert.equal(names.filter(name => name === 'X Operator').length, 1);
+  assert.equal(data.owners.at(-1).owner, 'Reason Dots');
+  for (const owner of data.owners) {
+    assert.equal(owner.current_task.text, 'unknown');
+    assert.equal(owner.cadence.kind, 'schedule');
+  }
+});
+
 test('team.json lists every known Grok bot and legacy Codex/Muse/Dots contacts', () => {
   const data = JSON.parse(readFileSync(teamJsonPath, 'utf8'));
   assert.ok(Array.isArray(data.owners), 'owners array present');
