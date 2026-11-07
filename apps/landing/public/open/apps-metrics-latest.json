@@ -1,11 +1,11 @@
 {
- "measured_at": "2026-11-07T10:56:11Z",
+ "measured_at": "2026-11-07T11:20:33Z",
  "sources": {
-  "asc": "App Store Connect API analytics reports (ONGOING requests; DAILY instances deduped by latest processingDate per data date)",
+  "asc": "App Store Connect API analytics reports (ONGOING requests; DAILY instances deduped by latest processingDate per data date); refreshed by hidden_files/tools/apps-metrics/fetch_apps_metrics.py",
   "revenuecat": "RevenueCat API v2 overview + charts (customers_new/mrr), fetched 2026-11-07 via Mac credential store; keys never left the Mac"
  },
  "periods": {
-  "asc_last7d": "2026-10-31..2026-11-06 (discovery/impressions data available through 2026-11-05; downloads through 2026-11-06)",
+  "asc_last7d": "2026-10-31..2026-11-06 (discovery/impressions data available through 2026-11-05; downloads through 2026-11-05)",
   "asc_last28d": "2026-10-10..2026-11-06 (impressions through 2026-11-05)",
   "revenuecat": "overview trailing 28d as of 2026-11-07; daily new customers 2026-10-29..2026-11-07 UTC cohorts"
  },
@@ -33,7 +33,7 @@
     "impressions": 164,
     "product_page_views": 9,
     "units": 1,
-    "conversion_rate": 0.0060999999999999995,
+    "conversion_rate": 0.0061,
     "territories": {
      "CO": 1
     },
@@ -92,7 +92,7 @@
     }
    },
    "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
-   "measured_at": "2026-11-07T10:56:11Z",
+   "measured_at": "2026-11-07T11:20:33Z",
    "new_customers": 153,
    "active_subs": 5,
    "mrr": 20.0,
@@ -106,7 +106,7 @@
    "impressions": 2925,
    "product_page_views": 111,
    "units": 16,
-   "conversion_rate": 0.0055000000000000005,
+   "conversion_rate": 0.0055,
    "conversion_pageviews_to_units": 0.1441,
    "territories": {
     "JP": 15,
@@ -179,7 +179,7 @@
     }
    },
    "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
-   "measured_at": "2026-11-07T10:56:11Z",
+   "measured_at": "2026-11-07T11:20:33Z",
    "new_customers": 153,
    "active_subs": 5,
    "mrr": 20.0,
@@ -194,7 +194,7 @@
    "product_page_views": 59,
    "units": 17,
    "conversion_rate": 0.0182,
-   "conversion_pageviews_to_units": 0.28809999999999997,
+   "conversion_pageviews_to_units": 0.2881,
    "territories": {
     "US": 10,
     "ID": 3,
@@ -266,7 +266,7 @@
     }
    },
    "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
-   "measured_at": "2026-11-07T10:56:11Z",
+   "measured_at": "2026-11-07T11:20:33Z",
    "new_customers": 17,
    "active_subs": 0,
    "mrr": 0,
@@ -328,7 +328,7 @@
    "asc_subscription_events_rows_in_window": 0,
    "revenuecat": null,
    "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
-   "measured_at": "2026-11-07T10:56:11Z",
+   "measured_at": "2026-11-07T11:20:33Z",
    "new_customers": null,
    "active_subs": null,
    "mrr": null,
@@ -405,7 +405,7 @@
     }
    },
    "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
-   "measured_at": "2026-11-07T10:56:11Z",
+   "measured_at": "2026-11-07T11:20:33Z",
    "new_customers": 12,
    "active_subs": 0,
    "mrr": 0,
@@ -419,5 +419,6 @@
   "status": "verified_snapshot",
   "fetch_route": "Mac credential store (keys never left the Mac); VM direct fetch unavailable",
   "unavailable_reason": "RevenueCat API keys are not resident on the VM; permanent VM-side fetch is blocked on 1Password initial sign-in material (existing known blocker, not a user task)"
- }
+ },
+ "asc_measured_at": "2026-11-07T11:20:33Z"
 }
