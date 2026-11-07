@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Manager on Naïve — Anicca Open</title>
+<style>
+  body{background:#f7f7f8;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif;margin:0;padding:24px 16px 48px}
+  main{max-width:880px;margin:0 auto}
+  h1{font-size:26px;margin:0 0 4px}
+  .sub{color:#666;font-size:14px;margin:0 0 20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .card{background:#fff;border:1px solid #e5e5e8;border-radius:12px;padding:16px 18px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:#888;margin:0 0 8px}
+  .big{font-size:32px;font-weight:700;margin:0}
+  .note{color:#666;font-size:13px;line-height:1.5;margin:8px 0 0}
+  ul{margin:6px 0 0;padding-left:18px;font-size:14px;line-height:1.6}
+  a{color:#0b5fff;text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wide{grid-column:1/-1}
+  .foot{color:#888;font-size:12px;margin-top:20px;line-height:1.6}
+</style>
+</head>
+<body>
+<main>
+  <h1>Life Manager on Naïve</h1>
+  <p class="sub">An autonomous company (workspace “Anicca”, 13 agents) built and run in Naïve Studio for the Naïve Autonomous Company Hackathon, Nov 7–8, 2026. All numbers below are measured, and they refresh from the same live data as the <a href="/open/">Anicca Open Dashboard</a>.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Naïve credits balance</h2>
+      <p class="big" id="credits">$262.92</p>
+      <p class="note" id="credits-note">Of this, <strong>$250 was claimed sponsor credit — input, not revenue</strong>. It is not counted in revenue or MRR. Balance before the claim: $12.98. <span id="credits-at">Measured 2026-11-07 20:01 UTC (naive credits show).</span></p>
+    </div>
+
+    <div class="card">
+      <h2>Revenue via the Naïve workspace</h2>
+      <p class="big" id="revenue">$0</p>
+      <p class="note" id="revenue-note">No new external payments received yet — stated plainly. The company’s x402 payTo balance ($0.926) predates the hackathon and is tracked on the main dashboard.</p>
+    </div>
+
+    <div class="card">
+      <h2>Company at work</h2>
+      <p class="big"><span id="agents">13</span> agents · <span id="cards">36</span> board cards</p>
+      <p class="note">Measured session spend: E2E cycle $0.205315; producer app-shipping session $0.341027; business cycles $0.250085; revenue-max cycles $0.051791; mobile proof $0.40.</p>
+    </div>
+
+    <div class="card wide">
+      <h2>Live apps shipped by the agents</h2>
+      <ul id="apps">
+        <li><a href="https://anicca-road-to-10k-s5n2hqva700c-naive-e9517ea2.vercel.app">anicca-road-to-10k</a> — live, HTTP 200 verified</li>
+        <li><a href="https://anicca-live-snapshot-s5n2hqva700c-naive-e9517ea2.vercel.app">anicca-live-snapshot</a> — live, HTTP 200 verified</li>
+      </ul>
+    </div>
+
+    <div class="card wide">
+      <h2>Demo videos (public)</h2>
+      <ul id="videos">
+        <li><a href="https://youtu.be/niD6YyPdtGs">App shipping, end to end (71s)</a></li>
+        <li><a href="https://youtu.be/jzD9iadUxJM">x402 trial — the honest version (70s)</a></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Sponsors actually used</h2>
+      <ul id="sponsors">
+        <li>AgentMail (tenant self-registration for Capafy)</li>
+        <li>Stripe</li>
+        <li>Vercel</li>
+        <li>OpenRouter</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Monid</h2>
+      <p class="note" id="monid" style="margin-top:0">Not used: integration requires Monid account registration (API key) and a funded wallet; both unavailable at measurement time.</p>
+    </div>
+
+    <div class="card wide">
+      <h2>Mobile track proof</h2>
+      <p class="note" id="mobile" style="margin-top:0">Proof completed on the Naïve mobile sandbox (a real iPhone): the agents opened their own live app showing real numbers and played their own published YouTube Short. Measured cost $0.40. Whether the sandbox runs on Mobilerun is unverified.</p>
+    </div>
+  </div>
+
+  <p class="foot">Source: <a href="/open/data.json">/open/data.json</a> (the “naive” section), updated every 30 minutes by the same pipeline as the main dashboard. Company-wide numbers — revenue $31.81, costs $576.93, gross profit −$545.12, MRR $97.58 — are on the <a href="/open/">main dashboard</a> and are unchanged by this page.</p>
+</main>
+<script>
+fetch('../data.json?v='+Date.now()).then(function(r){return r.json()}).then(function(d){
+  var n=d.naive; if(!n) return;
+  var set=function(id,v){var e=document.getElementById(id); if(e&&v!=null) e.textContent=v};
+  set('credits','$'+Number(n.credits_balance_usd).toFixed(2));
+  set('credits-at','Measured '+n.credits_measured_at+'.');
+  set('revenue','$'+Number(n.workspace_revenue_usd).toFixed(0));
+  set('agents',n.agents); set('cards',n.board_cards);
+  set('monid',n.monid_status); set('mobile',n.mobile_track_status);
+  var apps=document.getElementById('apps');
+  if(apps&&n.apps){apps.innerHTML=n.apps.map(function(a){return '<li><a href="'+a.url+'">'+a.name+'</a> — '+a.status+'</li>'}).join('')}
+  var vids=document.getElementById('videos');
+  if(vids&&n.demo_videos){vids.innerHTML=n.demo_videos.map(function(v){return '<li><a href="'+v.url+'">'+v.title+'</a></li>'}).join('')}
+  var sp=document.getElementById('sponsors');
+  if(sp&&n.sponsors_used){sp.innerHTML=n.sponsors_used.map(function(s){return '<li>'+s+'</li>'}).join('')}
+}).catch(function(){});
+</script>
+</body>
+</html>
