@@ -186,11 +186,13 @@ export async function createApp() {
         // challenge for GET on every POST route. The routers stay
         // POST-only, and the payment middleware never settles a payment
         // for a >= 400 response, so a paid GET still ends at the router's
-        // 404 without any funds moving.
+        // 404 without any funds moving. The GET variants drop the bazaar
+        // discovery extension: it declares the POST body schema, which
+        // the middleware rejects as invalid under a GET route.
         const middlewareRoutes = { ...paymentRoutes };
         for (const [route, config] of Object.entries(paymentRoutes)) {
           if (route.startsWith('POST ')) {
-            middlewareRoutes[`GET ${route.slice('POST '.length)}`] = config;
+            middlewareRoutes[`GET ${route.slice('POST '.length)}`] = { ...config, extensions: undefined };
           }
         }
         app.use(

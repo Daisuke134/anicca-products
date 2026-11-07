@@ -46,17 +46,25 @@ vi.mock('@x402/express', () => ({
   paymentMiddleware: vi.fn(() => (req, res, next) => next()),
 }));
 vi.mock('@x402/core/server', () => ({
-  x402ResourceServer: vi.fn().mockImplementation(() => ({
-    register: vi.fn(),
-    initialize: vi.fn().mockResolvedValue(undefined),
-    onAfterSettle: vi.fn(),
-  })),
-  HTTPFacilitatorClient: vi.fn(),
+  // Plain function implementations (not arrows): vitest 4 refuses to use an
+  // arrow function as a constructor, and server.js news these classes up.
+  x402ResourceServer: vi.fn().mockImplementation(function () {
+    return {
+      register: vi.fn(),
+      initialize: vi.fn().mockResolvedValue(undefined),
+      onAfterSettle: vi.fn(),
+    };
+  }),
+  HTTPFacilitatorClient: vi.fn().mockImplementation(function () {
+    return {};
+  }),
 }));
 vi.mock('@x402/evm/exact/server', () => ({
-  ExactEvmScheme: vi.fn().mockImplementation(() => ({
-    parsePrice: vi.fn().mockResolvedValue({ amount: '0', asset: '0x0', extra: {} }),
-  })),
+  ExactEvmScheme: vi.fn().mockImplementation(function () {
+    return {
+      parsePrice: vi.fn().mockResolvedValue({ amount: '0', asset: '0x0', extra: {} }),
+    };
+  }),
 }));
 vi.mock('@x402/extensions/bazaar', () => ({
   declareDiscoveryExtension: vi.fn(() => ({})),
@@ -155,6 +163,9 @@ describe('x402-agents discovery surface', () => {
       expect(routes[getVariant]).toBeDefined();
       expect(routes[getVariant].accepts).toEqual(routes[route].accepts);
       expect(typeof routes[getVariant].unpaidResponseBody).toBe('function');
+      // The bazaar discovery extension declares the POST body schema and
+      // is invalid under a GET route, so GET variants must not carry it.
+      expect(routes[getVariant].extensions).toBeUndefined();
     }
     expect(routes['GET /funding-rates']).toBeDefined();
   });
