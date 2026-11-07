@@ -166,13 +166,24 @@ jobs:
           APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         run: node scripts/open-app-store-analytics.mjs --input out/open/data.json
 
+      - name: Collect Anicca Mixpanel screen funnel
+        working-directory: apps/landing
+        env:
+          MIXPANEL_SERVICE_ACCOUNT: ${{ secrets.MIXPANEL_SERVICE_ACCOUNT }}
+          MIXPANEL_PROJECT_ID: ${{ vars.MIXPANEL_PROJECT_ID }}
+          MIXPANEL_SERVER: ${{ vars.MIXPANEL_SERVER }}
+          MIXPANEL_APP_ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'production' || 'simulator' }}
+        run: node scripts/open-mixpanel-analytics.mjs out/open/data.json
+
       # 2026-06-07 V14-2 fix: replaced nwtgck/actions-netlify@v3.0 (= 5 連続 ISE)
       # with direct netlify-cli call (= validated via manual deploy locally)
       # Spec: 2026-06-07-cron-role-clarification-design.md §12.4 → V14-2
       # Security: env vars for all template inputs (= injection防止)
       - name: Verify Open dashboard data before deploy
         working-directory: apps/landing
-        run: node scripts/check-open-data.mjs out/open/data.json
+        run: |
+          node --test scripts/check-open-data.test.mjs scripts/open-mixpanel-analytics.test.mjs
+          node scripts/check-open-data.mjs out/open/data.json
 
       - name: Deploy to Netlify
         working-directory: apps/landing

@@ -60,7 +60,16 @@ jobs:
       - run: npm run test:anicca-app-store-routing
       - name: Open dashboard data and UI contracts
         working-directory: apps/landing
-        run: node --test scripts/stage-open-data.test.mjs scripts/check-open-data.test.mjs scripts/open-team-activity.test.mjs
+        env:
+          OPEN_DATA_FIXTURE_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          # A PR merge ref can omit a snapshot that exists on the PR head when its base diverged.
+          if [ ! -f public/open/data.json ]; then
+            git fetch --no-tags --depth=1 origin "$OPEN_DATA_FIXTURE_SHA"
+            git show "FETCH_HEAD:apps/landing/public/open/data.json" > public/open/data.json
+          fi
+          node --test scripts/stage-open-data.test.mjs scripts/check-open-data.test.mjs scripts/open-team-activity.test.mjs scripts/open-mixpanel-analytics.test.mjs
       - name: Stage reviewed canonical Manager articles before build
         working-directory: apps/landing
         env:

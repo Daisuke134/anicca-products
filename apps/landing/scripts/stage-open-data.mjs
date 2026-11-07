@@ -6,7 +6,7 @@ import { validateOpenData } from './check-open-data.mjs';
 const SNAPSHOT_PATTERN = /^open-dashboard-data-(\d{4})-(\d{2})-(\d{2})-(\d{4})\.json$/;
 
 function getTimestamp(content, label) {
-  validateOpenData(content);
+  validateOpenData(content, { requireProductAnalytics: false });
   const data = JSON.parse(content);
   if (typeof data.updated_at !== 'string') {
     throw new Error(`${label} is missing updated_at`);
