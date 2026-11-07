@@ -63,7 +63,25 @@ h1{font-size:26px;letter-spacing:-.01em}
 .mini .mc{margin:0}
 @media(max-width:900px){.cards.t1,.mini{grid-template-columns:repeat(2,1fr)}.hero .big{font-size:33px}}
 @media(max-width:600px){.road .tick[data-v="100"],.road .tick[data-v="1000"]{display:none}}
-</style></head><body><div class="w">
+
+/* === v3: ECharts chart layer (RevenueCat-style) + subpage hierarchy === */
+.chartrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.chartcard{margin-bottom:12px}.chartrow .chartcard{margin-bottom:0}
+.chartbox{height:250px}
+.cstat{font-size:13px;font-weight:700;color:#111;margin:2px 0 6px;font-variant-numeric:tabular-nums;min-height:16px}
+.idxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+a.idx{display:block;background:#fff;border:1px solid #e6e6e9;border-radius:12px;padding:14px;text-decoration:none;color:#111}
+a.idx:hover{border-color:#576CDB}
+a.idx .t{font-weight:700;font-size:14px}
+a.idx .s{color:#666;font-size:12px;margin-top:2px}
+a.idx .n{font-size:14px;font-weight:700;margin-top:8px;font-variant-numeric:tabular-nums}
+a.idx .go{color:#576CDB;font-size:12px;font-weight:600;margin-top:2px}
+.subnav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;margin:0 0 10px}
+.subnav a{color:#576CDB;text-decoration:none;font-weight:600}
+.subnav .sep{color:#bbb}
+@media(max-width:900px){.chartrow{grid-template-columns:1fr}.idxgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.idxgrid{grid-template-columns:1fr}}
+</style><style id="page-css">.grpwrap{display:none}</style></head><body><div class="w">
 <h1>Anicca Open Dashboard</h1><div class="sub">An AI-run company. Every number we can measure, in one place. Tier 1 is company totals only; Tier 2 groups each platform and business at its own granularity. Each metric has one canonical value. Company totals are unknown where coverage is incomplete. USD unless labelled. <span id="upd"></span></div>
 <div class="c" id="status"></div>
 <div class="tier"><b>TIER 1 · COMPANY</b><span>Whole-company totals only — platform detail lives in Tier 2</span></div>
@@ -76,33 +94,57 @@ h1{font-size:26px;letter-spacing:-.01em}
 <div class="mc" id="slot-alltime"><div class="m">Loading…</div></div>
 <div class="mc" id="slot-bank"><div class="m">Loading…</div></div>
 </div>
-<div class="c" style="margin-bottom:12px"><h2>Monthly revenue <span class="scope co">COMPANY</span></h2><div class="bars" id="bars"></div><div class="bl" id="bl"></div><div class="lg" id="lg"></div></div>
+<div class="c" id="card-monthly" style="margin-bottom:12px"><h2>Monthly revenue <span class="scope co">COMPANY</span></h2><div class="bars" id="bars"></div><div class="bl" id="bl"></div><div class="lg" id="lg"></div></div>
+<div class="chartrow" id="top-charts"><div class="c chartcard"><h2>New customers per day <span class="scope">COMPANY · REVENUECAT</span></h2><div class="cstat" id="stat-newcust"></div><div class="chartbox" id="chart-newcust"></div></div>
+<div class="c chartcard"><h2>Revenue, costs &amp; profit by month <span class="scope">COMPANY</span></h2><div class="cstat" id="stat-pnl"></div><div class="chartbox" id="chart-pnl"></div></div>
+</div>
 <div class="tier t2"><b>TIER 2 · DRILL-DOWN</b><span>Grouped by platform / business — one granularity per group</span></div>
+<div class="idxgrid" id="drill-index"><a class="idx" href="platforms/"><div class="t">Platforms &amp; products</div><div class="s">Revenue by platform &amp; product · costs detail</div><div class="n" id="idx-stat-platforms">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="capafy/"><div class="t">Capafy</div><div class="s">Marketplace funnel &amp; sales</div><div class="n" id="idx-stat-capafy">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="apps/"><div class="t">Apps</div><div class="s">App Store + RevenueCat, per app</div><div class="n" id="idx-stat-apps">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="social/"><div class="t">Social &amp; distribution</div><div class="s">Post metrics · accounts · self vs winner</div><div class="n" id="idx-stat-social">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="rankings/"><div class="t">Search &amp; rankings</div><div class="s">SEO · ASO · GEO</div><div class="n" id="idx-stat-rankings">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="payments/"><div class="t">Payments · Stripe</div><div class="s">Account metrics</div><div class="n" id="idx-stat-payments">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="team/"><div class="t">Team &amp; operations</div><div class="s">Agents · loops · targets · usage</div><div class="n" id="idx-stat-team">Detail dashboard</div><div class="go">Open →</div></a></div>
+<section class="grpwrap" id="grp-platforms">
 <div class="grp">Platforms &amp; products <small>revenue by source</small></div>
 <div class="g"><div class="c"><h2>Revenue by platform <span class="scope">ALL PLATFORMS</span></h2><table id="plat"></table><div class="zero" id="zero"></div></div>
 <div class="col"><div class="c"><h2>Revenue by product <span class="scope">BY PRODUCT</span></h2><table id="prod"></table></div>
 <div class="c"><h2>Observed payment notices this month <span class="scope">DETAIL · COSTS</span></h2><table id="cost"></table><div class="zero">Total: see the Costs headline card in Tier 1.</div></div></div></div>
+<div class="c chartcard"><h2>All-time revenue by platform <span class="scope">ALL PLATFORMS</span></h2><div class="cstat" id="stat-plat-all"></div><div class="chartbox" id="chart-plat-all"></div></div>
+</section>
+<section class="grpwrap" id="grp-capafy">
 <div class="grp">Capafy <small>AI agent &amp; skill marketplace</small></div>
+<div class="c chartcard"><h2>Capafy sales per day — last 30 days <span class="scope">PLATFORM · CAPAFY</span></h2><div class="cstat" id="stat-cap-sales"></div><div class="chartbox" id="chart-cap-sales"></div></div>
 <div class="c" id="card-capafy"><h2>Capafy activity <span class="scope ">PLATFORM · CAPAFY</span></h2><div class="mini"><div class="mc" id="slot-cap-impr"><div class="m">Loading…</div></div><div class="mc" id="slot-cap-detail"><div class="m">Loading…</div></div><div class="mc" id="slot-cap-sales"><div class="m">Loading…</div></div></div><div id="capafy-activity">Loading…</div></div>
+</section>
+<section class="grpwrap" id="grp-apps">
 <div class="grp">Apps <small>App Store · subscriptions</small></div>
+<div class="chartrow"><div class="c chartcard"><h2>Installs per day by app — last 7 days <span class="scope">APPS · APP STORE</span></h2><div class="cstat" id="stat-apps-units"></div><div class="chartbox" id="chart-apps-units"></div></div>
+<div class="c chartcard"><h2>New customers per day — by RevenueCat project <span class="scope">APPS · REVENUECAT</span></h2><div class="cstat" id="stat-rc-daily"></div><div class="chartbox" id="chart-rc-daily"></div></div>
+</div>
 <div class="c" id="card-apps"><h2>Apps <span class="scope ">PLATFORM · APP STORE</span></h2><div class="mini one"><div class="mc" id="slot-inst"><div class="m">Loading…</div></div></div><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div><div id="apps-metrics-extra"></div></div>
 <div class="c" id="card-revenuecat" style="margin-top:12px"><h2>RevenueCat app metrics <span class="scope ">APPS · REVENUECAT</span></h2><div id="revenuecat-charts">Loading…</div></div>
 <div class="c" id="card-anicca-product-analytics" style="margin-top:12px"><h2>Anicca screen funnel <span class="scope ">APP · ANICCA iOS</span></h2><div id="anicca-product-analytics" aria-live="polite">Loading…</div></div>
+</section>
+<section class="grpwrap" id="grp-social">
 <div class="grp">Social &amp; distribution <small>all connected accounts</small></div>
+<div class="c chartcard"><h2>Followers by account — top 12 (current snapshot) <span class="scope">SOCIAL · ALL</span></h2><div class="cstat" id="stat-soc-fol"></div><div class="chartbox" id="chart-soc-fol"></div></div>
 <div class="c" id="card-post-metrics"><h2>Social post metrics <span class="scope ">SOCIAL · ALL</span></h2><div class="mini one"><div class="mc" id="slot-social"><div class="m">Loading…</div></div></div><div id="post-metrics">Loading…</div></div>
 <div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts <span class="scope ">SOCIAL · ALL</span></h2><table id="soc"></table></div>
 <div class="c" id="card-svw" style="margin-top:12px"><h2>Self vs winner <span class="scope ">SOCIAL · BENCHMARK</span></h2><table id="svw"></table></div>
+</section>
+<section class="grpwrap" id="grp-rankings">
 <div class="grp">Search &amp; rankings <small>SEO · ASO · GEO</small></div>
 <div class="c" id="card-rank"><h2>Keyword rankings <span class="scope ">SEARCH · ALL</span></h2><div class="mini one"><div class="mc" id="slot-rank"><div class="m">Loading…</div></div></div><div id="rank"></div></div>
+</section>
+<section class="grpwrap" id="grp-payments">
 <div class="grp">Payments <small>Stripe</small></div>
 <div class="c" id="card-stripe-metrics"><h2>Stripe account metrics <span class="scope ">PLATFORM · STRIPE</span></h2><div id="stripe-metrics">Loading…</div></div>
+</section>
+<section class="grpwrap" id="grp-team">
 <div class="grp">Team &amp; operations <small>agents · loops · targets</small></div>
 <div class="c" id="card-team"><h2>Team activity <span class="scope ">TEAM</span></h2><table id="team-activity"></table></div>
 <div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO <span class="scope ">TEAM · OPS</span></h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div><h2>Shared targets</h2><div id="public-work" aria-live="polite">Loading…</div><h2>Task claims</h2><div class="m">Public snapshot not application permission. Claim via claim_board.py only; lease tokens never appear here. Snapshot refresh follows the same 15-minute JSON reload.</div><div id="claims-snapshot" aria-live="polite">Loading…</div></div>
 <div class="c" id="card-usage-snapshot" style="margin-top:12px"><h2>Grok Bot / plan usage snapshot <span class="scope ">TEAM · USAGE</span></h2><div class="m">Measured CheckSubscriptionUsage shares on the existing public /open board. Named bot shares are the same Grok Bot plan (not separate external/CLI cost meters). Page re-reads JSON every 15 minutes; not live token telemetry. Raw tokens stay UNAVAILABLE on this path.</div><div id="usage-snapshot" aria-live="polite">Loading…</div></div>
 <div class="c" id="card-life" style="margin-top:12px"><h2>Agent life (tokens / usage) <span class="scope ">TEAM · USAGE</span></h2><div class="m">Remaining life per agent / service, from primary-source measurements only. Unmeasured items are labelled unmeasured; nothing is estimated. Snapshot JSON; page re-reads every 15 minutes.</div><div id="life" aria-live="polite">Loading…</div></div>
 <div class="c" id="card-portfolio" style="margin-top:12px"><h2>Business & loop snapshot <span class="scope ">TEAM · OPS</span></h2><div class="m" id="portfolio-snapshot">Loading…</div><div class="portfolio-counts" id="portfolio-summary"></div><details><summary>Business portfolio</summary><div class="portfolio-grid" id="portfolio-businesses"></div></details><details><summary>Operating loops</summary><div class="portfolio-table-wrap"><table class="portfolio-table" id="portfolio-loops"></table></div></details><details><summary>Metric gaps</summary><ul class="portfolio-gaps" id="portfolio-gaps"></ul></details></div>
-<details><summary>How these numbers are counted</summary><p>Accepted order gross, net sales, settlement credits and bank payouts are separate stages. Payment notices are not accrual expenses or proof of final settlement. Missing coverage is not zero. FX uses the stated row basis; provider-billed USD is not a JPY conversion. Agent activity lives in Team activity only; the snapshot carries businesses, loops and metric gaps, so no number is stated twice.</p></details>
+</section>
+<details class="howcount"><summary>How these numbers are counted</summary><p>Accepted order gross, net sales, settlement credits and bank payouts are separate stages. Payment notices are not accrual expenses or proof of final settlement. Missing coverage is not zero. FX uses the stated row basis; provider-billed USD is not a JPY conversion. Agent activity lives in Team activity only; the snapshot carries businesses, loops and metric gaps, so no number is stated twice.</p></details>
 <footer id="ft"></footer></div>
 <script>
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -476,14 +518,21 @@ if(typeof setInterval==='function')setInterval(loadPortfolio,REFRESH_MS);
 </script>
 <script>(function(){try{var q=new URLSearchParams(location.search),p={t:'pageview',path:location.pathname.replace(/\/+$/,'')||'/'};['utm_source','utm_medium','utm_campaign','ref','ct'].forEach(function(k){var v=q.get(k);if(v)p[k]=v});var b=JSON.stringify(p);if(navigator.sendBeacon)navigator.sendBeacon('/.netlify/functions/hit',new Blob([b],{type:'application/json'}));else fetch('/.netlify/functions/hit',{method:'POST',body:b,keepalive:true,headers:{'Content-Type':'application/json'}})}catch(e){}})();</script>
 
+<script src="vendor/echarts.min.js"></script>
 <script>
-/* 2026-11-07 redesign layer: Road to $10K MRR hero + per-app metrics plug-in.
-   Reads the same data.json the /open loop publishes (schema unchanged). */
+/* 2026-11-07 redesign layer v3: Road to $10K hero + RevenueCat-style ECharts
+   (Apache ECharts 5.6.0, vendored) + per-app metrics + drill-down index stats.
+   Reads the same JSON snapshots the /open loop publishes (schemas unchanged). */
 (function(){
 "use strict";
 var $=function(id){return document.getElementById(id)};
 var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
 var money=function(v){if(v==null||!isFinite(v))return null;var a=Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});return (v<0?"\u2212$":"$")+a};
+var num=function(v){return (v==null||!isFinite(v))?"\u2014":Number(v).toLocaleString("en-US")};
+var pctf=function(v){if(v==null||!isFinite(v))return "\u2014";return ((v<=1?v*100:v)).toFixed(2)+"%"};
+function getJSON(u){return fetch(u+"?v="+Date.now()).then(function(r){if(!r.ok)throw new Error(u);return r.json()})}
+
+/* ---------- Road to $10K MRR hero ---------- */
 var GOAL=10000;
 function renderRoad(d){
  var el=$("road10k"); if(!el)return;
@@ -493,11 +542,11 @@ function renderRoad(d){
  var mrr=(mrrKpi&&typeof mrrKpi.usd==="number")?mrrKpi.usd:(typeof split.total==="number"?split.total:null);
  if(mrr==null||!isFinite(mrr)){el.innerHTML='<h2>Road to $10K MRR</h2><p class="m">MRR not measured in the current snapshot.</p>';return}
  var pct=mrr/GOAL*100, left=GOAL-mrr;
- var parts=[["App subscriptions (RevenueCat)",split.revenuecat,"#4f46e5"],["Capafy",split.capafy,"#0ea5e9"],["Stripe subscriptions",split.stripe,"#10b981"]].filter(function(p){return typeof p[1]==="number"&&p[1]>0});
+ var parts=[["App subscriptions (RevenueCat)",split.revenuecat,"#576CDB"],["Capafy",split.capafy,"#0ea5e9"],["Stripe subscriptions",split.stripe,"#10b981"]].filter(function(p){return typeof p[1]==="number"&&p[1]>0});
  var tot=parts.reduce(function(a,p){return a+p[1]},0), splitHtml="";
  if(tot>0){
   splitHtml='<div class="split">'+parts.map(function(p){return '<div style="width:'+(p[1]/tot*100).toFixed(2)+'%;background:'+p[2]+'"></div>'}).join("")+'</div>'
-  +'<div class="legend">'+parts.map(function(p){return '<span><i style="background:'+p[2]+'"></i>'+esc(p[0])+" · "+money(p[1])+" ("+(p[1]/tot*100).toFixed(1)+"%)</span>"}).join("")+'</div>';
+  +'<div class="legend">'+parts.map(function(p){return '<span><i style="background:'+p[2]+'"></i>'+esc(p[0])+" \u00b7 "+money(p[1])+" ("+(p[1]/tot*100).toFixed(1)+"%)</span>"}).join("")+'</div>';
  }
  var ticks=[[100,"$100"],[500,"$500"],[1000,"$1K"],[5000,"$5K"],[10000,"$10K"]].map(function(t){return '<span class="tick" data-v="'+t[0]+'" style="left:'+(t[0]/GOAL*100)+'%">'+t[1]+"</span>"}).join("");
  el.innerHTML='<div class="rt"><h2>Road to $10K MRR <span class="scope co">COMPANY</span></h2><span class="pct">'+pct.toFixed(2)+'% of goal</span></div>'
@@ -505,22 +554,187 @@ function renderRoad(d){
  +'<div class="road"><div class="track"><div class="fill" style="width:'+Math.max(Math.min(pct,100),0.7).toFixed(2)+'%"></div></div>'+ticks+'</div>'
  +splitHtml;
 }
-function loadRoad(){fetch("data.json?v="+Date.now()).then(function(r){return r.json()}).then(renderRoad).catch(function(){})}
+function loadRoad(){getJSON("data.json").then(renderRoad).catch(function(){})}
 loadRoad(); setInterval(loadRoad,15*60*1000);
-function renderAppsMetrics(m){
- var host=$("apps-metrics-extra"); if(!host)return;
- var apps=Array.isArray(m)?m:(m&&(m.apps||m.rows)); if(!Array.isArray(apps)||!apps.length)return;
- var num=function(v){return (v==null||!isFinite(v))?"\u2014":Number(v).toLocaleString("en-US")};
- var pctf=function(v){if(v==null||!isFinite(v))return "\u2014";return ((v<=1?v*100:v)).toFixed(2)+"%"};
- var top=function(o){if(!o||typeof o!=="object")return "\u2014";var e=Object.entries(o).filter(function(x){return isFinite(x[1])}).sort(function(a,b){return b[1]-a[1]}).slice(0,3);return e.length?e.map(function(x){return esc(x[0])+" "+Number(x[1]).toLocaleString("en-US")}).join(" \u00b7 "):"\u2014"};
- var meta=[]; if(m&&m.period)meta.push(esc(m.period)); if(m&&m.measured_at)meta.push("measured "+esc(m.measured_at));
- var head='<h3 style="margin:16px 0 6px;font-size:13px">Per-app store metrics'+(meta.length?' <span class="m" style="font-weight:400">('+meta.join(" \u00b7 ")+")</span>":"")+"</h3>";
- var rows=apps.map(function(a){
-  var conv=(typeof a.conversion_rate==="number")?a.conversion_rate:((typeof a.impressions==="number"&&a.impressions>0&&typeof a.units==="number")?a.units/a.impressions:null);
-  return "<tr><td>"+esc(a.app||a.name||"")+'</td><td class="r">'+num(a.impressions)+'</td><td class="r">'+num(a.units)+'</td><td class="r">'+pctf(conv)+"</td><td>"+top(a.territories)+"</td><td>"+top(a.sources)+'</td><td class="r">'+num(a.new_customers)+'</td><td class="r">'+num(a.active_subs)+"</td></tr>"}).join("");
- host.innerHTML=head+'<div style="overflow-x:auto"><table><thead><tr><th>App</th><th class="r">Impressions</th><th class="r">Installs</th><th class="r">Impr.\u2192install</th><th>Top countries</th><th>Top sources</th><th class="r">New customers</th><th class="r">Active subs</th></tr></thead><tbody>'+rows+"</tbody></table></div>";
+
+/* ---------- ECharts, RevenueCat chart style ---------- */
+var VIOLET="#576CDB", BLUE="#0ea5e9", GREEN="#10b981", RED="#dc2626", GRAY="#c9cedb", MUT="#8a8f98", INK="#111";
+var charts=[];
+function baseOpt(){
+ return {textStyle:{fontFamily:"inherit",color:MUT},
+  grid:{left:6,right:12,top:32,bottom:2,containLabel:true},
+  legend:{top:0,right:0,textStyle:{color:MUT,fontSize:11},itemWidth:10,itemHeight:10,icon:"roundRect"},
+  tooltip:{trigger:"axis",backgroundColor:"#fff",borderColor:"#e5e7eb",borderWidth:1,textStyle:{color:INK,fontSize:12},axisPointer:{lineStyle:{color:"#d1d5db"}}},
+  xAxis:{type:"category",axisLine:{show:false},axisTick:{show:false},axisLabel:{color:MUT,fontSize:11}},
+  yAxis:{type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}}};
 }
-fetch("apps-metrics-latest.json?v="+Date.now()).then(function(r){if(!r.ok)throw new Error("absent");return r.json()}).then(renderAppsMetrics).catch(function(){});
+function mkChart(id,option){
+ var el=$(id); if(!el||!window.echarts)return null;
+ var c=echarts.init(el); c.setOption(option); charts.push(c); return c;
+}
+window.addEventListener("resize",function(){charts.forEach(function(c){c.resize()})});
+function bar(name,data,color){
+ return {name:name,type:"bar",data:data,itemStyle:{color:color||VIOLET,borderRadius:[4,4,0,0]},barMaxWidth:26};
+}
+function growthLine(name,data,color){
+ return {name:name,type:"line",data:data,smooth:0.35,symbol:"circle",symbolSize:5,lineStyle:{width:2.5,color:color||VIOLET},itemStyle:{color:color||VIOLET},
+  areaStyle:{color:{type:"linear",x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:"rgba(87,108,219,0.22)"},{offset:1,color:"rgba(87,108,219,0)"}]}}};
+}
+function setStat(id,text){var el=$(id); if(el)el.textContent=text}
+
+/* ---------- RevenueCat projects (dedupe: project totals counted once) ---------- */
+function rcProjects(m){
+ var seen={}, out=[];
+ (m.apps||[]).forEach(function(a){
+  var rc=a.revenuecat; if(!rc||!rc.project_id||seen[rc.project_id])return; seen[rc.project_id]=1;
+  var names=(m.apps||[]).filter(function(x){return x.revenuecat&&x.revenuecat.project_id===rc.project_id}).map(function(x){return x.app});
+  var nm=null;
+  (m.apps||[]).forEach(function(x){ if(x.revenuecat&&x.revenuecat.project_id===rc.project_id&&x.revenuecat_note){var mm=x.revenuecat_note.match(/project '([^']+)'/); if(mm&&!nm)nm=mm[1]; }});
+  out.push({id:rc.project_id,name:nm||rc.project_id.slice(0,10),apps:names,rc:rc});
+ });
+ return out;
+}
+
+/* ---------- Apps metrics tables (ASC 28d / 7d + RevenueCat projects) ---------- */
+function topMap(o){
+ if(!o||typeof o!=="object")return "\u2014";
+ var e=Object.entries(o).filter(function(x){return isFinite(x[1])}).sort(function(a,b){return b[1]-a[1]}).slice(0,3);
+ return e.length?e.map(function(x){return esc(x[0])+" "+Number(x[1]).toLocaleString("en-US")}).join(" \u00b7 "):"\u2014";
+}
+function renderAppsMetrics(m){
+ var host=$("apps-metrics-extra"); if(!host||!Array.isArray(m.apps)||!m.apps.length)return;
+ var P=(m.periods)||{};
+ var head='<h3 style="margin:16px 0 6px;font-size:13px">App Store metrics \u2014 last 28 days <span class="m" style="font-weight:400">('
+  +esc(P.asc_last28d||"")+' \u00b7 measured '+esc(m.measured_at||"")+')</span></h3>';
+ var rows=m.apps.map(function(a){
+  return "<tr><td>"+esc(a.app)+'</td><td class="r">'+num(a.impressions)+'</td><td class="r">'+num(a.product_page_views)+'</td><td class="r">'+num(a.units)
+  +'</td><td class="r">'+pctf(a.conversion_rate)+'</td><td class="r">'+pctf(a.conversion_pageviews_to_units)+"</td><td>"+topMap(a.territories)+"</td><td>"+topMap(a.sources)+"</td></tr>"}).join("");
+ var t1='<div style="overflow-x:auto"><table><thead><tr><th>App</th><th class="r">Impressions</th><th class="r">Page views</th><th class="r">Installs</th><th class="r">Impr.\u2192install</th><th class="r">Page\u2192install</th><th>Top countries</th><th>Top sources</th></tr></thead><tbody>'+rows+"</tbody></table></div>";
+ var rows7=m.apps.map(function(a){var w=a.asc_last7d||{};
+  return "<tr><td>"+esc(a.app)+'</td><td class="r">'+num(w.impressions)+'</td><td class="r">'+num(w.product_page_views)+'</td><td class="r">'+num(w.units)+'</td><td class="r">'+pctf(w.conversion_rate)+"</td></tr>"}).join("");
+ var t2='<h3 style="margin:16px 0 6px;font-size:13px">App Store metrics \u2014 last 7 days <span class="m" style="font-weight:400">('+esc(P.asc_last7d||"")+")</span></h3>"
+  +'<div style="overflow-x:auto"><table><thead><tr><th>App</th><th class="r">Impressions</th><th class="r">Page views</th><th class="r">Installs</th><th class="r">Impr.\u2192install</th></tr></thead><tbody>'+rows7+"</tbody></table></div>";
+ var projs=rcProjects(m);
+ var prow=projs.map(function(p){var rc=p.rc;
+  return "<tr><td>"+esc(p.name)+' <span class="m">('+esc(p.apps.join(", "))+')</span></td><td class="r">'+num(rc.new_customers_28d)+'</td><td class="r">'+num(rc.active_subs)+'</td><td class="r">'+num(rc.active_trials)+'</td><td class="r">'+money(rc.mrr_usd)+'</td><td class="r">'+money(rc.revenue_28d_usd)+"</td></tr>"}).join("");
+ var noRc=m.apps.filter(function(a){return !a.revenuecat}).map(function(a){return esc(a.app)}).join(", ");
+ var t3='<h3 style="margin:16px 0 6px;font-size:13px">RevenueCat \u2014 project totals, 28 days</h3>'
+  +'<div style="overflow-x:auto"><table><thead><tr><th>Project (apps sharing it)</th><th class="r">New customers</th><th class="r">Active subs</th><th class="r">Trials</th><th class="r">MRR</th><th class="r">Revenue 28d</th></tr></thead><tbody>'+prow+"</tbody></table></div>"
+  +'<p class="zero">RevenueCat values are per-project totals; one project can cover several apps, so each project is counted once \u2014 never summed across app rows.'
+  +(noRc?" No RevenueCat values attributed for: "+noRc+" (mapping unverified).":"")+"</p>";
+ host.innerHTML=head+t1+t2+t3;
+}
+
+/* ---------- Charts from apps-metrics ---------- */
+function appsCharts(m){
+ if(!Array.isArray(m.apps)||!m.apps.length)return;
+ /* New customers per day: deduped project totals + cumulative growth curve */
+ var projs=rcProjects(m);
+ var dateSet={}; projs.forEach(function(p){Object.keys(p.rc.new_customers_daily_utc||{}).forEach(function(d){dateSet[d]=1})});
+ var dates=Object.keys(dateSet).sort();
+ if(dates.length){
+  var totals=dates.map(function(d){return projs.reduce(function(s,p){return s+((p.rc.new_customers_daily_utc||{})[d]||0)},0)});
+  var cum=[],run=0; totals.forEach(function(v){run+=v;cum.push(run)});
+  var bestI=0; totals.forEach(function(v,i){if(v>totals[bestI])bestI=i});
+  setStat("stat-newcust",num(run)+" new customers in "+dates.length+" days \u00b7 best day "+dates[bestI].slice(5)+": "+num(totals[bestI]));
+  var o=baseOpt(); o.xAxis.data=dates.map(function(d){return d.slice(5)});
+  o.yAxis=[{type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}},
+           {type:"value",splitLine:{show:false},axisLabel:{color:MUT,fontSize:11}}];
+  var bl=growthLine("Cumulative",cum); bl.yAxisIndex=1;
+  o.series=[bar("New customers / day",totals),bl];
+  mkChart("chart-newcust",o);
+  var o2=baseOpt(); o2.xAxis.data=dates.map(function(d){return d.slice(5)});
+  var cols=[VIOLET,BLUE,GREEN,"#f59e0b","#ec4899"];
+  o2.series=projs.map(function(p,i){var s=bar("Project "+p.name,dates.map(function(d){return (p.rc.new_customers_daily_utc||{})[d]||0}),cols[i%cols.length]); s.stack="nc"; return s});
+  mkChart("chart-rc-daily",o2);
+ }
+ /* Installs per day by app (7d, stacked) + impressions line */
+ var dset={}; m.apps.forEach(function(a){Object.keys((a.asc_last7d||{}).daily_units||{}).forEach(function(d){dset[d]=1})});
+ var ds=Object.keys(dset).sort();
+ if(ds.length){
+  var cols2=[VIOLET,BLUE,GREEN,"#f59e0b","#ec4899"];
+  var o3=baseOpt(); o3.xAxis.data=ds.map(function(d){return d.slice(5)});
+  o3.yAxis=[{type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}},
+            {type:"value",splitLine:{show:false},axisLabel:{color:MUT,fontSize:11}}];
+  o3.series=m.apps.map(function(a,i){var s=bar(a.app.split(" - ")[0],ds.map(function(d){return ((a.asc_last7d||{}).daily_units||{})[d]||0}),cols2[i%cols2.length]); s.stack="units"; return s});
+  var imp=ds.map(function(d){return m.apps.reduce(function(s,a){return s+(((a.asc_last7d||{}).daily_impressions||{})[d]||0)},0)});
+  var il=growthLine("Impressions (all apps)",imp,GREEN); il.areaStyle=null; il.yAxisIndex=1;
+  o3.series.push(il);
+  mkChart("chart-apps-units",o3);
+  var totU=m.apps.reduce(function(s,a){return s+(a.units||0)},0), totI=m.apps.reduce(function(s,a){return s+(a.impressions||0)},0);
+  setStat("idx-stat-apps",num(totI)+" impressions \u00b7 "+num(totU)+" installs \u00b7 28 days");
+ }
+}
+
+/* ---------- Charts + index stats from data.json ---------- */
+function dataCharts(d){
+ /* Monthly P&L */
+ var mo=Array.isArray(d.monthly)?d.monthly:[];
+ if(mo.length){
+  var o=baseOpt(); o.xAxis.data=mo.map(function(x){return x.month});
+  o.series=[bar("Revenue",mo.map(function(x){return x.revenue_usd})),bar("Costs",mo.map(function(x){return x.cost_usd}),GRAY),
+   {name:"Gross profit",type:"line",data:mo.map(function(x){return x.gross_profit_usd}),smooth:0.3,symbol:"circle",symbolSize:6,lineStyle:{width:2.5,color:RED},itemStyle:{color:RED}}];
+  mkChart("chart-pnl",o);
+  var last=mo[mo.length-1];
+  setStat("stat-pnl",last.month+": revenue "+money(last.revenue_usd)+" \u00b7 costs "+money(last.cost_usd)+" \u00b7 gross profit "+money(last.gross_profit_usd));
+ }
+ var plats=(d.summary&&d.summary.platforms)||[];
+ /* All-time revenue by platform (top 10) */
+ var top=plats.filter(function(p){return typeof p.all_time==="number"&&p.all_time>0}).sort(function(a,b){return a.all_time-b.all_time}).slice(-10);
+ if(top.length){
+  setStat("stat-plat-all","Top: "+top[top.length-1].platform+" "+money(top[top.length-1].all_time)+" all-time");
+  var o2=baseOpt(); o2.grid={left:6,right:16,top:10,bottom:2,containLabel:true};
+  o2.xAxis={type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}};
+  o2.yAxis={type:"category",data:top.map(function(p){return p.platform}),axisLine:{show:false},axisTick:{show:false},axisLabel:{color:MUT,fontSize:11}};
+  o2.series=[{name:"All-time revenue",type:"bar",data:top.map(function(p){return p.all_time}),itemStyle:{color:VIOLET,borderRadius:[0,4,4,0]},barMaxWidth:18}];
+  o2.tooltip={trigger:"item",backgroundColor:"#fff",borderColor:"#e5e7eb",borderWidth:1,textStyle:{color:INK,fontSize:12},formatter:function(p){return p.name+": "+money(p.value)}};
+  mkChart("chart-plat-all",o2);
+ }
+ /* Followers by social account (snapshot, top 12) */
+ var soc=(d.social_accounts||[]).filter(function(a){return typeof a.followers==="number"&&a.followers>0}).sort(function(a,b){return a.followers-b.followers}).slice(-12);
+ if(soc.length){
+  var o3=baseOpt(); o3.grid={left:6,right:16,top:10,bottom:2,containLabel:true};
+  o3.xAxis={type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}};
+  o3.yAxis={type:"category",data:soc.map(function(a){return a.account}),axisLine:{show:false},axisTick:{show:false},axisLabel:{color:MUT,fontSize:11}};
+  o3.series=[{name:"Followers",type:"bar",data:soc.map(function(a){return a.followers}),itemStyle:{color:BLUE,borderRadius:[0,4,4,0]},barMaxWidth:18}];
+  o3.tooltip={trigger:"item",backgroundColor:"#fff",borderColor:"#e5e7eb",borderWidth:1,textStyle:{color:INK,fontSize:12},formatter:function(p){return p.name+": "+num(p.value)+" followers"}};
+  mkChart("chart-soc-fol",o3);
+ }
+ /* Drill-down index stats */
+ function setIdx(id,text){setStat(id,text)}
+ var kpi={}; (d.kpis||[]).forEach(function(k){kpi[k.key]=k});
+ if(plats.length)setIdx("idx-stat-platforms",plats.length+" platforms \u00b7 "+(money(kpi.revm?kpi.revm.usd:null)||"")+" revenue this month");
+ var socAll=d.social_accounts||[];
+ if(socAll.length){var f=0,fc=0;socAll.forEach(function(a){if(typeof a.followers==="number"){f+=a.followers;fc++}});
+  setIdx("idx-stat-social",socAll.length+" accounts \u00b7 "+num(f)+" followers ("+fc+" measured)");}
+ var rk=d.rankings||((d.summary||{}).rankings_snapshot)||{};
+ if(rk.seo||rk.geo)setIdx("idx-stat-rankings","SEO in top "+((rk.seo||{}).anicca_in_top||"\u2014")+"/"+((rk.seo||{}).queries_total||7)+" \u00b7 GEO recommended "+((rk.geo||{}).recommended||0)+"/"+((rk.geo||{}).recommended_of||8));
+ var stripe=plats.filter(function(p){return /^Stripe/.test(p.platform||"")})[0];
+ if(stripe)setIdx("idx-stat-payments","Stripe all-time "+(money(stripe.all_time)||"")+" \u00b7 "+(((d.summary||{}).mrr_split||{}).stripe_active_subscriptions||0)+" active subs");
+ if(Array.isArray(d.by_agent))setIdx("idx-stat-team",d.by_agent.length+" agents reporting");
+}
+
+/* ---------- Capafy chart + index stat ---------- */
+function capChart(c){
+ var w=(c.windows||{}).last_30d||{}; var daily=Array.isArray(w.daily)?w.daily:[];
+ if(daily.length){
+  var o=baseOpt(); o.xAxis.data=daily.map(function(x){return (x.date||"").slice(5)});
+  o.yAxis=[{type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}},
+           {type:"value",splitLine:{show:false},axisLabel:{color:MUT,fontSize:11},axisLabel:{color:MUT,fontSize:11,formatter:"${value}"}}];
+  var rl=growthLine("Revenue",daily.map(function(x){return parseFloat(x.revenue_usd)||0}),GREEN); rl.yAxisIndex=1; rl.areaStyle=null;
+  o.series=[bar("Units sold / day",daily.map(function(x){return x.units||0})),rl];
+  mkChart("chart-cap-sales",o);
+  var tu=daily.reduce(function(s,x){return s+(x.units||0)},0);
+  setStat("stat-cap-sales",num(tu)+" units \u00b7 "+money(parseFloat(w.sales_usd)||0)+" sales \u00b7 last 30 days");
+ }
+ var w7=(c.windows||{}).last_7d||{};
+ if(typeof w7.detail_views==="number")setStat("idx-stat-capafy",num(w7.detail_views)+" detail views \u00b7 last 7 days");
+}
+
+getJSON("data.json").then(dataCharts).catch(function(){});
+getJSON("apps-metrics-latest.json").then(function(m){renderAppsMetrics(m);appsCharts(m)}).catch(function(){});
+getJSON("capafy.json").then(capChart).catch(function(){});
 })();
 </script>
+
 </body></html>
