@@ -16,7 +16,7 @@ function TopicLink({topic,children}:{topic:string;children:ReactNode}){
 export default function BlogIndex(){
  const corpus=loadAllBlogPosts();
  const posts=corpus.filter(p=>editorialOf(p.slug,p.project) !== 'Research').slice(0,6);
- const groups=[['Research',['research']],['Products & publishing',['anicca','thankful','ai-creator-tools','line-stickers','ebook','ebook-publishing']],['Build Notes & Labs',['notes','ai-voice-tools']]] as const;
+ const groups=[['Research',['research']],['Products & publishing',['anicca','honne','thankful','daily-dhamma','sleep-reset','studio-cherie','ai-creator-tools','line-stickers','ebook','ebook-publishing']],['Build Notes & Labs',['notes','ai-voice-tools']]] as const;
  const topics=groups.flatMap(([,keys])=>keys.map(key=>{
   const hub=BUSINESSES[key];
   const articles=corpus.filter(p=>key==='research'?editorialOf(p.slug,p.project)==='Research':editorialOf(p.slug,p.project)!=='Research'&&businessOf(p.slug,p.project)===key).slice(0,2);

@@ -189,6 +189,13 @@ jobs:
           node --test scripts/check-open-data.test.mjs scripts/open-mixpanel-analytics.test.mjs
           node scripts/check-open-data.mjs out/open/data.json
 
+      # GA4 must cover every served page, not only Next.js pages: the canonical marketing
+      # overlay and the hand-written public/ pages bypass app/layout.tsx (measured 2026-11-07:
+      # / had no GA4 tag while /blog did). Inject into the final export tree, idempotently.
+      - name: Inject GA4 into every exported HTML page
+        working-directory: apps/landing
+        run: node scripts/inject-ga4.mjs out
+
       - name: Deploy to Netlify
         working-directory: apps/landing
         env:

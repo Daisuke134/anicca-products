@@ -38,6 +38,26 @@ export const BUSINESSES = {
     product: { href: '/affirmation-app', label: 'Explore the Anicca app' },
     intro: 'The Anicca app, mindfulness and impermanence in everyday life.',
   },
+  honne: {
+    label: 'Honne',
+    product: { href: '/honne', label: 'Explore Honne' },
+    intro: 'AI chat analysis for the messages you cannot quite read: paste a chat, see possible tones, and get reply suggestions you can adapt to your own voice.',
+  },
+  'daily-dhamma': {
+    label: 'Daily Dhamma',
+    product: { href: '/dailydharma', label: 'Explore Daily Dhamma' },
+    intro: 'Reading the Dhammapada one verse at a time: a daily pause, gentle reminders, and bookmarking the verses you want to return to.',
+  },
+  'sleep-reset': {
+    label: 'Sleep Reset',
+    product: { href: '/sleepreset', label: 'Explore Sleep Reset' },
+    intro: 'Bedtime routines and recovery, explained: the free sleep reset score, bedtime timing, guided breathwork and next-morning steps.',
+  },
+  'studio-cherie': {
+    label: 'STUDIO CHERIE',
+    product: { href: '/studio-cherie', label: 'STUDIO CHERIE を見る' },
+    intro: '手持ちの服・靴・バッグを写真で整理し、今日のコーデを考えるクローゼット管理アプリ STUDIO CHERIE の使い方と実践メモ。',
+  },
   notes: {
     label: 'Build Notes',
     intro: 'How we build and run autonomous agents: engineering notes and experiments.',
@@ -58,6 +78,10 @@ export function businessOf(slug, project) {
   if (/^(elevenlabs|elevenagents)|ai-voice/.test(s) || /affiliate|ai voice|ai customer support/.test(p)) return 'ai-voice-tools';
   if (p === 'anicca-ios' || ['anicca-ios-2026-05-19-en', 'anicca-ios-2026-05-19-ja'].includes(s)) return 'anicca';
   if (p === 'capafy-distribute' || s.startsWith('capafy-')) return 'ai-creator-tools';
+  if (p === 'honne' || s.startsWith('honne-')) return 'honne';
+  if (p === 'daily dhamma' || p === 'dailydhamma' || p === 'dhamma quotes' || s.startsWith('daily-dhamma-') || s.startsWith('dailydhamma-')) return 'daily-dhamma';
+  if (p === 'sleep reset' || p === 'sleepreset' || s.startsWith('sleep-reset-') || s.startsWith('sleepreset-')) return 'sleep-reset';
+  if (p === 'studio cherie' || p === 'studio-cherie' || s.startsWith('studio-cherie-')) return 'studio-cherie';
   return 'notes';
 }
 

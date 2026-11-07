@@ -4,7 +4,16 @@ import type {BlogPostMeta} from '../../lib/blog-posts';
 import {BUSINESSES,businessOf} from '../../lib/blog-business.mjs';
 import './owned-media.css';
 export function MediaNav(){return <nav className="media-nav" aria-label="Articles navigation"><Link href="/en" className="media-brand">Anicca</Link><div><Link href="/blog">Articles</Link><Link href="/dais">Products</Link><Link href="/blog/c/research">Research</Link><Link href="/en#story">About</Link></div></nav>}
-export function ArticleList({posts}:{posts:BlogPostMeta[]}){return <ol className="article-list">{posts.map(p=><li key={p.slug}><time dateTime={p.date}>{p.date}</time><div><Link href={`/blog/${p.slug}`}>{p.title}</Link><span className="article-topic">{BUSINESSES[businessOf(p.slug,p.project)]?.label}</span></div></li>)}</ol>}
+function ArticleListItems({posts}:{posts:BlogPostMeta[]}){return <ol className="article-list">{posts.map(p=><li key={p.slug}><time dateTime={p.date}>{p.date}</time><div><Link href={`/blog/${p.slug}`}>{p.title}</Link><span className="article-topic">{BUSINESSES[businessOf(p.slug,p.project)]?.label}</span></div></li>)}</ol>}
+// Mixed-language lists read as one undifferentiated stream (reader feedback, 2026-11-07), so when a
+// list contains both languages it is split into an English block and a Japanese block. Post URLs and
+// ordering inside each language stay exactly as before.
+export function ArticleList({posts}:{posts:BlogPostMeta[]}){
+ const en=posts.filter(p=>p.lang!=='ja');
+ const ja=posts.filter(p=>p.lang==='ja');
+ if(en.length===0||ja.length===0)return <ArticleListItems posts={posts}/>;
+ return <div className="article-list-by-lang"><section aria-label="Articles in English"><h3 className="article-lang-heading">English</h3><ArticleListItems posts={en}/></section><section aria-label="日本語の記事" lang="ja"><h3 className="article-lang-heading">日本語</h3><ArticleListItems posts={ja}/></section></div>;
+}
 export function AppDiscovery(){return <section aria-labelledby="apps-heading"><h2 id="apps-heading">Find your next app</h2><div className="media-apps">{loadPublishedApps().map(a=><article key={a.id} id={`app-${a.id}`} data-app-id={a.id} lang={a.presentationLanguage==='ja'?'ja':undefined}><img src={a.icon} alt={`${a.name} app icon`} width="80" height="80" loading="lazy"/><div><h3>{a.name}</h3><p>{a.description.en}</p><div className="media-actions">{a.intro.en&&<a href={a.intro.en} aria-label={`${a.name} introduction`}>{a.presentationLanguage==='ja'?'アプリの紹介':'Explore the app'}</a>}<a href={publishedAppStoreUrl(a,'blog')} aria-label={`${a.name} on the App Store`}>{a.presentationLanguage==='ja'?'App Storeで見る':'View on the App Store'}</a></div></div></article>)}</div></section>}
 export function MediaFooter(){return <footer className="media-footer"><Link href="/blog/archive/1">All articles</Link><Link href="/feed.xml">RSS feed</Link><Link href="/en#story">About Anicca</Link></footer>}
 
