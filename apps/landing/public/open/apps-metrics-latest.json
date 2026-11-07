@@ -1,0 +1,423 @@
+{
+ "measured_at": "2026-11-07T10:56:11Z",
+ "sources": {
+  "asc": "App Store Connect API analytics reports (ONGOING requests; DAILY instances deduped by latest processingDate per data date)",
+  "revenuecat": "RevenueCat API v2 overview + charts (customers_new/mrr), fetched 2026-11-07 via Mac credential store; keys never left the Mac"
+ },
+ "periods": {
+  "asc_last7d": "2026-10-31..2026-11-06 (discovery/impressions data available through 2026-11-05; downloads through 2026-11-06)",
+  "asc_last28d": "2026-10-10..2026-11-06 (impressions through 2026-11-05)",
+  "revenuecat": "overview trailing 28d as of 2026-11-07; daily new customers 2026-10-29..2026-11-07 UTC cohorts"
+ },
+ "apps": [
+  {
+   "app": "Daily Affirmations - Anicca",
+   "app_id": "6755129214",
+   "impressions": 942,
+   "product_page_views": 83,
+   "units": 15,
+   "conversion_rate": 0.0159,
+   "conversion_pageviews_to_units": 0.1807,
+   "territories": {
+    "JP": 7,
+    "US": 4,
+    "IN": 2,
+    "KR": 1,
+    "CO": 1
+   },
+   "sources": {
+    "App Store search": 9,
+    "App referrer": 6
+   },
+   "asc_last7d": {
+    "impressions": 164,
+    "product_page_views": 9,
+    "units": 1,
+    "conversion_rate": 0.0060999999999999995,
+    "territories": {
+     "CO": 1
+    },
+    "sources": {
+     "App Store search": 1
+    },
+    "daily_units": {
+     "2026-10-31": 1,
+     "2026-11-01": 0,
+     "2026-11-02": 0,
+     "2026-11-03": 0,
+     "2026-11-04": 0,
+     "2026-11-05": 0,
+     "2026-11-06": 0
+    },
+    "daily_impressions": {
+     "2026-10-31": 22,
+     "2026-11-01": 34,
+     "2026-11-02": 27,
+     "2026-11-03": 19,
+     "2026-11-04": 38,
+     "2026-11-05": 24,
+     "2026-11-06": 0
+    }
+   },
+   "asc_subscription_state_latest": {
+    "date": "2026-11-05",
+    "full_price": 4,
+    "preserved_price": 1,
+    "active_paid_total": 5,
+    "voluntary_churn": 35,
+    "involuntary_churn": 2
+   },
+   "asc_subscription_events_rows_in_window": 0,
+   "revenuecat": {
+    "project_id": "projbb7b9d1b",
+    "scope": "project_total_incl_honne_and_other_apps",
+    "new_customers_28d": 153,
+    "active_users_28d": 176,
+    "active_subs": 5,
+    "active_trials": 0,
+    "mrr_usd": 20.0,
+    "mrr_charts_avg_usd": 20.34,
+    "revenue_28d_usd": 0,
+    "new_customers_daily_utc": {
+     "2026-10-29": 9,
+     "2026-10-30": 11,
+     "2026-10-31": 12,
+     "2026-11-01": 2,
+     "2026-11-02": 11,
+     "2026-11-03": 4,
+     "2026-11-04": 1,
+     "2026-11-05": 0,
+     "2026-11-06": 20,
+     "2026-11-07": 39
+    }
+   },
+   "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
+   "measured_at": "2026-11-07T10:56:11Z",
+   "new_customers": 153,
+   "active_subs": 5,
+   "mrr": 20.0,
+   "revenue": 0,
+   "revenuecat_note": "RevenueCat project 'anicca' total (project also contains HonneAI, BreathReset, SleepRitual, Desk Stretch Timer, Micro Mood, Web Billing, Test Store). Per-app split NOT reproducible via API v2 first_app_id filter (verified); do not attribute project totals to this app alone.",
+   "revenuecat_snapshot_at": "2026-11-07T10:40:00Z"
+  },
+  {
+   "app": "Honne",
+   "app_id": "6759667221",
+   "impressions": 2925,
+   "product_page_views": 111,
+   "units": 16,
+   "conversion_rate": 0.0055000000000000005,
+   "conversion_pageviews_to_units": 0.1441,
+   "territories": {
+    "JP": 15,
+    "DE": 1
+   },
+   "sources": {
+    "App Store search": 6,
+    "App Store browse": 5,
+    "Web referrer": 4,
+    "App referrer": 1
+   },
+   "asc_last7d": {
+    "impressions": 533,
+    "product_page_views": 7,
+    "units": 1,
+    "conversion_rate": 0.0019,
+    "territories": {
+     "JP": 1
+    },
+    "sources": {
+     "App Store search": 1
+    },
+    "daily_units": {
+     "2026-10-31": 1,
+     "2026-11-01": 0,
+     "2026-11-02": 0,
+     "2026-11-03": 0,
+     "2026-11-04": 0,
+     "2026-11-05": 0,
+     "2026-11-06": 0
+    },
+    "daily_impressions": {
+     "2026-10-31": 290,
+     "2026-11-01": 89,
+     "2026-11-02": 70,
+     "2026-11-03": 47,
+     "2026-11-04": 21,
+     "2026-11-05": 16,
+     "2026-11-06": 0
+    }
+   },
+   "asc_subscription_state_latest": {
+    "date": "2026-11-05",
+    "full_price": 2,
+    "active_paid_total": 2,
+    "voluntary_churn": 4
+   },
+   "asc_subscription_events_rows_in_window": 0,
+   "revenuecat": {
+    "project_id": "projbb7b9d1b",
+    "scope": "project_total_incl_honne_and_other_apps",
+    "new_customers_28d": 153,
+    "active_users_28d": 176,
+    "active_subs": 5,
+    "active_trials": 0,
+    "mrr_usd": 20.0,
+    "mrr_charts_avg_usd": 20.34,
+    "revenue_28d_usd": 0,
+    "new_customers_daily_utc": {
+     "2026-10-29": 9,
+     "2026-10-30": 11,
+     "2026-10-31": 12,
+     "2026-11-01": 2,
+     "2026-11-02": 11,
+     "2026-11-03": 4,
+     "2026-11-04": 1,
+     "2026-11-05": 0,
+     "2026-11-06": 20,
+     "2026-11-07": 39
+    }
+   },
+   "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
+   "measured_at": "2026-11-07T10:56:11Z",
+   "new_customers": 153,
+   "active_subs": 5,
+   "mrr": 20.0,
+   "revenue": 0,
+   "revenuecat_note": "Same RevenueCat project 'anicca' as the Anicca app; values are project totals, not Honne-only. Owner screenshot shows honne-honyaku new customers Nov 6 = 1, which project-level API (Nov 6 total 20, all attributed to anicca in the UI total 21) could not reproduce; app-level segmentation unverified.",
+   "revenuecat_snapshot_at": "2026-11-07T10:40:00Z"
+  },
+  {
+   "app": "Dhamma Quotes",
+   "app_id": "6757726663",
+   "impressions": 933,
+   "product_page_views": 59,
+   "units": 17,
+   "conversion_rate": 0.0182,
+   "conversion_pageviews_to_units": 0.28809999999999997,
+   "territories": {
+    "US": 10,
+    "ID": 3,
+    "CA": 1,
+    "NG": 1,
+    "FR": 1,
+    "IE": 1
+   },
+   "sources": {
+    "App Store search": 12,
+    "App Store browse": 2,
+    "App referrer": 2,
+    "Web referrer": 1
+   },
+   "asc_last7d": {
+    "impressions": 136,
+    "product_page_views": 9,
+    "units": 4,
+    "conversion_rate": 0.0294,
+    "territories": {
+     "US": 3,
+     "IE": 1
+    },
+    "sources": {
+     "App Store search": 2,
+     "App Store browse": 1,
+     "Web referrer": 1
+    },
+    "daily_units": {
+     "2026-10-31": 0,
+     "2026-11-01": 1,
+     "2026-11-02": 0,
+     "2026-11-03": 0,
+     "2026-11-04": 1,
+     "2026-11-05": 2,
+     "2026-11-06": 0
+    },
+    "daily_impressions": {
+     "2026-10-31": 24,
+     "2026-11-01": 30,
+     "2026-11-02": 15,
+     "2026-11-03": 25,
+     "2026-11-04": 24,
+     "2026-11-05": 18,
+     "2026-11-06": 0
+    }
+   },
+   "asc_subscription_state_latest": null,
+   "asc_subscription_events_rows_in_window": 0,
+   "revenuecat": {
+    "project_id": "proj86624956",
+    "new_customers_28d": 17,
+    "active_users_28d": 21,
+    "active_subs": 0,
+    "active_trials": 0,
+    "mrr_usd": 0,
+    "revenue_28d_usd": 0,
+    "new_customers_daily_utc": {
+     "2026-10-29": 1,
+     "2026-10-30": 0,
+     "2026-10-31": 0,
+     "2026-11-01": 2,
+     "2026-11-02": 0,
+     "2026-11-03": 0,
+     "2026-11-04": 1,
+     "2026-11-05": 2,
+     "2026-11-06": 0,
+     "2026-11-07": 0
+    }
+   },
+   "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
+   "measured_at": "2026-11-07T10:56:11Z",
+   "new_customers": 17,
+   "active_subs": 0,
+   "mrr": 0,
+   "revenue": 0,
+   "revenuecat_note": "RevenueCat project 'dhamma' (app: Daily Dhamma).",
+   "revenuecat_snapshot_at": "2026-11-07T10:40:00Z"
+  },
+  {
+   "app": "For Better Sleep - Sleep Reset",
+   "app_id": "6762143790",
+   "impressions": 305,
+   "product_page_views": 10,
+   "units": 4,
+   "conversion_rate": 0.0131,
+   "conversion_pageviews_to_units": 0.4,
+   "territories": {
+    "US": 3,
+    "CZ": 1
+   },
+   "sources": {
+    "App Store search": 3,
+    "App Store browse": 1
+   },
+   "asc_last7d": {
+    "impressions": 53,
+    "product_page_views": 1,
+    "units": 1,
+    "conversion_rate": 0.0189,
+    "territories": {
+     "US": 1
+    },
+    "sources": {
+     "App Store search": 1
+    },
+    "daily_units": {
+     "2026-10-31": 1,
+     "2026-11-01": 0,
+     "2026-11-02": 0,
+     "2026-11-03": 0,
+     "2026-11-04": 0,
+     "2026-11-05": 0,
+     "2026-11-06": 0
+    },
+    "daily_impressions": {
+     "2026-10-31": 10,
+     "2026-11-01": 9,
+     "2026-11-02": 10,
+     "2026-11-03": 10,
+     "2026-11-04": 9,
+     "2026-11-05": 5,
+     "2026-11-06": 0
+    }
+   },
+   "asc_subscription_state_latest": {
+    "date": "2026-11-05",
+    "active_paid_total": 0,
+    "voluntary_churn": 1
+   },
+   "asc_subscription_events_rows_in_window": 0,
+   "revenuecat": null,
+   "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
+   "measured_at": "2026-11-07T10:56:11Z",
+   "new_customers": null,
+   "active_subs": null,
+   "mrr": null,
+   "revenue": null,
+   "revenuecat_note": "Not separately measurable: RevenueCat figures were obtained per project only; whether this app maps to project 'anicca' app SleepRitual is unverified, so no RC values are attributed.",
+   "revenuecat_snapshot_at": "2026-11-07T10:40:00Z"
+  },
+  {
+   "app": "Thankful - Gratitude Journal",
+   "app_id": "6759514159",
+   "impressions": 324,
+   "product_page_views": 30,
+   "units": 2,
+   "conversion_rate": 0.0062,
+   "conversion_pageviews_to_units": 0.0667,
+   "territories": {
+    "JP": 1,
+    "US": 1
+   },
+   "sources": {
+    "App Store search": 2
+   },
+   "asc_last7d": {
+    "impressions": 68,
+    "product_page_views": 7,
+    "units": 1,
+    "conversion_rate": 0.0147,
+    "territories": {
+     "US": 1
+    },
+    "sources": {
+     "App Store search": 1
+    },
+    "daily_units": {
+     "2026-10-31": 0,
+     "2026-11-01": 0,
+     "2026-11-02": 0,
+     "2026-11-03": 1,
+     "2026-11-04": 0,
+     "2026-11-05": 0,
+     "2026-11-06": 0
+    },
+    "daily_impressions": {
+     "2026-10-31": 9,
+     "2026-11-01": 15,
+     "2026-11-02": 9,
+     "2026-11-03": 12,
+     "2026-11-04": 12,
+     "2026-11-05": 11,
+     "2026-11-06": 0
+    }
+   },
+   "asc_subscription_state_latest": null,
+   "asc_subscription_events_rows_in_window": 0,
+   "revenuecat": {
+    "project_id": "proj7aaf9429",
+    "new_customers_28d": 12,
+    "active_users_28d": 12,
+    "active_subs": 0,
+    "active_trials": 0,
+    "mrr_usd": 0,
+    "revenue_28d_usd": 0,
+    "new_customers_daily_utc": {
+     "2026-10-29": 0,
+     "2026-10-30": 0,
+     "2026-10-31": 1,
+     "2026-11-01": 1,
+     "2026-11-02": 1,
+     "2026-11-03": 1,
+     "2026-11-04": 0,
+     "2026-11-05": 0,
+     "2026-11-06": 0,
+     "2026-11-07": 0
+    }
+   },
+   "period": "ASC 2026-10-10..2026-11-06 (28d) / 2026-10-31..2026-11-06 (7d); RC as of 2026-11-07",
+   "measured_at": "2026-11-07T10:56:11Z",
+   "new_customers": 12,
+   "active_subs": 0,
+   "mrr": 0,
+   "revenue": 0,
+   "revenuecat_note": "RevenueCat project 'thankful'.",
+   "revenuecat_snapshot_at": "2026-11-07T10:40:00Z"
+  }
+ ],
+ "revenuecat_snapshot": {
+  "snapshot_at": "2026-11-07T10:40:00Z",
+  "status": "verified_snapshot",
+  "fetch_route": "Mac credential store (keys never left the Mac); VM direct fetch unavailable",
+  "unavailable_reason": "RevenueCat API keys are not resident on the VM; permanent VM-side fetch is blocked on 1Password initial sign-in material (existing known blocker, not a user task)"
+ }
+}
