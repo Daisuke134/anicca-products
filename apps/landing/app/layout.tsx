@@ -21,12 +21,32 @@ import 'lite-youtube-embed/src/lite-yt-embed.css';
 import React from 'react';
 import { display, mono, notoSansJP } from './fonts';
 import SiteHitTracker from '@/components/SiteHitTracker';
+import Script from 'next/script';
+
+// GA4 (property "Anicca", web stream "Anicca Web"). The Measurement ID is injected at
+// build time via NEXT_PUBLIC_GA_MEASUREMENT_ID (see .github/workflows/netlify-deploy.yml).
+// Unset = no tag is rendered.
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${mono.variable} ${notoSansJP.variable}`}>
       <body className="font-sans">
         <SiteHitTracker />
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}');`}
+            </Script>
+          </>
+        )}
         {children}
       </body>
     </html>
