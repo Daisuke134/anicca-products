@@ -10,6 +10,15 @@
   status = 301
   force = true
 
+# Single gate (2026-11-07): Maritime = Life Manager Cloud, so the standalone
+# /maritime marketing page is retired. /lm is the only gate; its Start CTAs
+# hand off directly to the manager consent route.
+[[redirects]]
+  from = "/maritime"
+  to = "/lm"
+  status = 301
+  force = true
+
 [functions.checkout]
   included_files = ["private/writer-articles/**"]
 

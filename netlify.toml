@@ -29,6 +29,15 @@
   status = 301
   force = true
 
+# Single gate (2026-11-07): Maritime = Life Manager Cloud, so the standalone
+# /maritime marketing page is retired. /lm is the only gate; its Start CTAs
+# hand off directly to the manager consent route.
+[[redirects]]
+  from = "/maritime"
+  to = "/lm"
+  status = 301
+  force = true
+
 # ===== Anicca SAO install endpoint (issue #48) =====
 # Lets visitors run `curl -fsSL https://aniccaai.com/install.sh | bash`
 # without anyone needing to remember the github raw URL.

@@ -1,5 +1,6 @@
 // lib/money-path.test.js — C5/C6. The money-path monitor keeps the legacy Stripe-link assertion
-// covered while the current /lm route hands off to the /maritime page and continues payment server-side. It
+// covered while the current /lm route (the single gate; /maritime redirects to /lm) hands off
+// directly to the Life Manager web app and continues payment server-side. It
 // gates rollback with debounce (>=2 consecutive FAIL), a flap guard (never roll back into a target
 // that also fails), and Telegram dedup (one message per incident). Pure logic; network fetch lives in the caller.
 "use strict";
@@ -31,33 +32,37 @@ test("assertMoneyPath: PASS when bundle link == registry, FAIL on the ¥700k bug
   assert.match(bad.reason, /stripe/i);
 });
 
-test("assertWebAppHandoff accepts the canonical /maritime handoff", () => {
+const HANDOFF = 'href="https://life-call-production.up.railway.app/maritime?source=landing&lang=en"';
+
+test("assertWebAppHandoff accepts the canonical web-app handoff", () => {
   assert.equal(typeof assertWebAppHandoff, "function");
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime?source=landing&lang=en"' }), { ok: true, reason: "ok" });
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://aniccaai.com/maritime"' }), { ok: true, reason: "ok" });
-  assert.deepEqual(assertWebAppHandoff({ chunk: '"/maritime"' }), { ok: true, reason: "ok" });
+  assert.deepEqual(assertWebAppHandoff({ chunk: HANDOFF }), { ok: true, reason: "ok" });
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://life-call-production.up.railway.app/maritime"' }), { ok: true, reason: "ok" });
 });
 
-test("assertWebAppHandoff fails when the /maritime handoff is absent", () => {
+test("assertWebAppHandoff fails when the web-app handoff is absent", () => {
   assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://example.com/lm"' }), {
     ok: false, reason: "web app handoff link missing in /lm chunk",
   });
 });
 
 test("assertWebAppHandoff rejects Telegram and direct Stripe links", () => {
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime" https://t.me/LifeManagerBotbot?start=lp' }), {
+  assert.deepEqual(assertWebAppHandoff({ chunk: HANDOFF + ' https://t.me/LifeManagerBotbot?start=lp' }), {
     ok: false, reason: "telegram link found in /lm chunk",
   });
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime" https://checkout.stripe.com/c/pay' }), {
+  assert.deepEqual(assertWebAppHandoff({ chunk: HANDOFF + ' https://checkout.stripe.com/c/pay' }), {
     ok: false, reason: "stripe link found in /lm chunk",
   });
 });
 
-test("assertWebAppHandoff fails without a /maritime link even when other Life Manager URLs are present", () => {
+test("assertWebAppHandoff fails without the handoff link even when other Life Manager URLs are present", () => {
   assert.deepEqual(assertWebAppHandoff({ chunk: 'https://life-call-production.up.railway.app/auth/google' }), {
     ok: false, reason: "web app handoff link missing in /lm chunk",
   });
   assert.deepEqual(assertWebAppHandoff({ chunk: 'https://life-call-production.up.railway.app.evil/lm' }), {
+    ok: false, reason: "web app handoff link missing in /lm chunk",
+  });
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime?source=landing&lang=en"' }), {
     ok: false, reason: "web app handoff link missing in /lm chunk",
   });
 });

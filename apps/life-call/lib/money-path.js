@@ -1,6 +1,6 @@
 // lib/money-path.js — C5/C6 (VCSDD life-manager-cost-connect-reliability). Continuous money-path check
 // so the ¥700k-wrong-link / site-down class (2026-07-03) can never silently survive again.
-// SRE: black-box + CONTENT assertion (200 is not enough — assert the exact /maritime handoff and
+// SRE: black-box + CONTENT assertion (200 is not enough — assert the exact web-app handoff and
 // reject Telegram/direct Stripe links). The registry Stripe URL remains the server-side payment SSOT for
 // reachability checks. The legacy Stripe-value assertion stays available for historical callers.
 // Rollback is gated:
@@ -39,7 +39,9 @@ function assertMoneyPath(bundle, registry) {
 }
 
 // assertWebAppHandoff({ chunk }) → { ok, reason }
-// Public /lm hands off to the Life Manager Cloud page on Maritime (/maritime); billing remains server-side after Calendar setup.
+// Public /lm is the single gate for Life Manager Cloud (the standalone /maritime page was
+// retired 2026-11-07 and redirects to /lm). /lm hands off directly to the Life Manager web
+// app's manager consent route on the Railway backend; billing remains server-side.
 function assertWebAppHandoff(bundle) {
   const chunk = String(bundle && bundle.chunk || "");
   let telegramLinkFound = false;
@@ -59,8 +61,8 @@ function assertWebAppHandoff(bundle) {
   if (stripeLinkFound) {
     return { ok: false, reason: "stripe link found in /lm chunk" };
   }
-  const maritimeLinkFound = /(?:href\s*=\s*["'])(?:https:\/\/aniccaai\.com)?\/maritime(?=[?#"']|$)/.test(chunk) || /["'`]\/maritime(?=[?#"'`]|$)/.test(chunk);
-  if (!maritimeLinkFound) return { ok: false, reason: "web app handoff link missing in /lm chunk" };
+  const handoffLinkFound = /(?:href\s*=\s*["'])https:\/\/life-call-production\.up\.railway\.app\/maritime(?=[?#"']|$)/.test(chunk);
+  if (!handoffLinkFound) return { ok: false, reason: "web app handoff link missing in /lm chunk" };
   return { ok: true, reason: "ok" };
 }
 
