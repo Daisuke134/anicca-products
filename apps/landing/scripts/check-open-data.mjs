@@ -131,12 +131,14 @@ function validateAniccaAnalytics(analytics) {
   assertNoPrivateFields(analytics);
 }
 
-export function validateOpenData(content) {
+export function validateOpenData(content, { requireProductAnalytics = true } = {}) {
   const data = JSON.parse(content);
   if (!Array.isArray(data?.summary?.platforms) || !Array.isArray(data?.kpis)) {
     throw new Error('Open dashboard data is missing platforms or KPIs');
   }
-  validateAniccaAnalytics(data.product_analytics?.anicca_ios);
+  const analytics = data.product_analytics?.anicca_ios;
+  if (analytics) validateAniccaAnalytics(analytics);
+  else if (requireProductAnalytics) validateAniccaAnalytics(analytics);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

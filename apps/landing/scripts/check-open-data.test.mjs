@@ -47,6 +47,12 @@ test('requires usable Open dashboard data and a valid Anicca analytics snapshot'
   }
 });
 
+test('allows the pre-collection snapshot stage while requiring analytics for deployment', () => {
+  const preCollection = JSON.stringify({ summary: { platforms: [] }, kpis: [] });
+  assert.doesNotThrow(() => validateOpenData(preCollection, { requireProductAnalytics: false }));
+  assert.throws(() => validateOpenData(preCollection));
+});
+
 test('rejects broken denominators, duplicate rows, and public user identifiers', () => {
   assert.throws(() => validateOpenData(validOpenData({ ...analytics, screens: [{
     ...analytics.screens[0], continued_instances: 11,
