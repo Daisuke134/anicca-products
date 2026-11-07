@@ -56,6 +56,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 <div class="c" id="card-team" style="margin-top:12px"><h2>Team activity</h2><table id="team-activity"></table></div>
 <div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO</h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div><h2>Shared targets</h2><div id="public-work" aria-live="polite">Loading…</div><h2>Task claims</h2><div class="m">Public snapshot not application permission. Claim via claim_board.py only; lease tokens never appear here. Snapshot refresh follows the same 15-minute JSON reload.</div><div id="claims-snapshot" aria-live="polite">Loading…</div></div>
 <div class="c" id="card-usage-snapshot" style="margin-top:12px"><h2>Grok Bot / plan usage snapshot</h2><div class="m">Measured CheckSubscriptionUsage shares on the existing public /open board. Named bot shares are the same Grok Bot plan (not separate external/CLI cost meters). Page re-reads JSON every 15 minutes; not live token telemetry. Raw tokens stay UNAVAILABLE on this path.</div><div id="usage-snapshot" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-life" style="margin-top:12px"><h2>Agent life (tokens / usage)</h2><div class="m">Remaining life per agent / service, from primary-source measurements only. Unmeasured items are labelled unmeasured; nothing is estimated. Snapshot JSON; page re-reads every 15 minutes.</div><div id="life" aria-live="polite">Loading…</div></div>
 <div class="c" id="card-portfolio" style="margin-top:12px"><h2>Business & loop snapshot</h2><div class="m" id="portfolio-snapshot">Loading…</div><div class="portfolio-counts" id="portfolio-summary"></div><details><summary>Business portfolio</summary><div class="portfolio-grid" id="portfolio-businesses"></div></details><details><summary>Operating loops</summary><div class="portfolio-table-wrap"><table class="portfolio-table" id="portfolio-loops"></table></div></details><details><summary>Metric gaps</summary><ul class="portfolio-gaps" id="portfolio-gaps"></ul></details></div>
 <div class="c" id="card-apps" style="margin-top:12px"><h2>Apps</h2><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div></div>
 <div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts</h2><table id="soc"></table></div>
@@ -325,6 +326,14 @@ const loadCapafy=()=>fetch('capafy.json?v='+Date.now()).then(r=>{if(!r.ok)throw 
 }).catch(()=>{$('capafy-activity').textContent='Capafy data unavailable'});
 loadCapafy();
 if(typeof setInterval==='function')setInterval(loadCapafy,REFRESH_MS);
+const loadLife=()=>fetch('life.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Life data unavailable');return r.json()}).then(d=>{
+ const rows=Array.isArray(d.entries)?d.entries:[];
+ const fmt=v=>v==null?'<span class="m">unmeasured</span>':Number(v).toLocaleString('en-US');
+ $('life').innerHTML='<table><tr><th>Agent / service</th><th>Plan</th><th class="r">Remaining</th><th>Unit</th><th>Reset / expiry</th><th>Status</th></tr>'+rows.map(e=>`<tr><td><b>${esc(e.agent_or_service||'')}</b><div class="m">${esc(e.measured_at||'')} · ${esc(e.source||'')}</div></td><td>${esc(e.plan||'')}</td><td class="r">${fmt(e.remaining)}</td><td>${esc(e.unit||'')}</td><td>${esc(e.reset_or_expiry||'')}</td><td class="m">${esc(e.status||'')}</td></tr>`).join('')+'</table>'+(d.updated_at?`<div class="m" style="margin-top:6px">Snapshot ${esc(d.updated_at)} · per-entry measurement dates shown per row</div>`:'');
+}).catch(()=>{$('life').innerHTML='<p class="status-red">Life snapshot unavailable; values unknown.</p>'});
+loadLife();
+if(typeof setInterval==='function')setInterval(loadLife,REFRESH_MS);
+
 const loadPortfolio=()=>Promise.all([
  fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Portfolio snapshot unavailable');return r.json()}),
  fetch('claims-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
