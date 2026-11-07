@@ -227,6 +227,21 @@ export async function collectAniccaScreenAnalytics({ env = process.env, now = ne
   const environment = env.MIXPANEL_APP_ENVIRONMENT ?? 'production';
   if (!ALLOWED_ENVIRONMENTS.has(environment)) throw new Error('MIXPANEL_APP_ENVIRONMENT is invalid');
   const window = getReportingWindow(now, environment);
+  if (typeof env.MIXPANEL_SERVICE_ACCOUNT !== 'string' || !env.MIXPANEL_SERVICE_ACCOUNT.trim()) {
+    return {
+      status: 'unavailable',
+      error_code: 'missing_service_account',
+      source: 'Mixpanel Raw Event Export API',
+      observed_at: now.toISOString(),
+      app_id: APP_ID,
+      app_environment: environment,
+      data_from: window.fromDate,
+      data_to: window.toDate,
+      maturity_hours: window.maturityHours ?? 24,
+      screens: [],
+      breakdowns: [],
+    };
+  }
   const events = await fetchMixpanelScreenEvents({
     projectId: env.MIXPANEL_PROJECT_ID,
     server: env.MIXPANEL_SERVER,
@@ -245,5 +260,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   data.product_analytics ??= {};
   data.product_analytics.anicca_ios = analytics;
   writeFileSync(dataPath, `${JSON.stringify(data, null, 2)}\n`);
-  console.log(`Mixpanel Anicca screen snapshot: ${analytics.status}, ${analytics.screens.length} screens, ${analytics.data_from}–${analytics.data_to}.`);
+  console.log(analytics.status === 'unavailable'
+    ? `Mixpanel Anicca screen snapshot: unavailable (${analytics.error_code}); no export request was made.`
+    : `Mixpanel Anicca screen snapshot: ${analytics.status}, ${analytics.screens.length} screens, ${analytics.data_from}–${analytics.data_to}.`);
 }

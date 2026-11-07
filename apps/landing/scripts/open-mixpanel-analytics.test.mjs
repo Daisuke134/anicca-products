@@ -113,6 +113,28 @@ test('distinguishes a successful empty export from a failed collection', () => {
   assert.deepEqual(result.screens, []);
 });
 
+test('reports missing service-account configuration as unavailable without making a request', async () => {
+  let requestCount = 0;
+  const result = await collectAniccaScreenAnalytics({
+    env: {
+      MIXPANEL_PROJECT_ID: '3970220',
+      MIXPANEL_SERVER: 'data',
+      MIXPANEL_APP_ENVIRONMENT: 'production',
+    },
+    now: new Date('2026-11-07T12:30:00.000Z'),
+    fetchImpl: async () => {
+      requestCount += 1;
+      return { ok: true, status: 200, text: async () => '' };
+    },
+  });
+
+  assert.equal(requestCount, 0);
+  assert.equal(result.status, 'unavailable');
+  assert.equal(result.error_code, 'missing_service_account');
+  assert.deepEqual(result.screens, []);
+  assert.equal(result.coverage, undefined);
+});
+
 test('queries the official regional export endpoint with service-account auth and project ID', async () => {
   let request;
   const data = [event('screen_viewed', { screen_instance_id: 'instance-1' })]

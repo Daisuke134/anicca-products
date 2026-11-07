@@ -75,7 +75,7 @@ function validateAniccaAnalytics(analytics) {
   if (!analytics || typeof analytics !== 'object' || Array.isArray(analytics)) {
     throw new Error('Open dashboard data is missing product_analytics.anicca_ios');
   }
-  if (!['ok', 'no_events', 'no_views'].includes(analytics.status)) {
+  if (!['ok', 'no_events', 'no_views', 'unavailable'].includes(analytics.status)) {
     throw new Error('Open dashboard analytics has invalid status');
   }
   if (analytics.source !== 'Mixpanel Raw Event Export API'
@@ -91,6 +91,19 @@ function validateAniccaAnalytics(analytics) {
     || analytics.maturity_hours < 0
     || (analytics.app_environment !== 'simulator' && analytics.maturity_hours < 24)) {
     throw new Error('Open dashboard analytics has invalid window or timestamp');
+  }
+
+  if (analytics.status === 'unavailable') {
+    if (analytics.error_code !== 'missing_service_account'
+      || Object.hasOwn(analytics, 'coverage')
+      || !Array.isArray(analytics.screens)
+      || analytics.screens.length !== 0
+      || !Array.isArray(analytics.breakdowns)
+      || analytics.breakdowns.length !== 0) {
+      throw new Error('Open dashboard analytics has invalid unavailable status');
+    }
+    assertNoPrivateFields(analytics);
+    return;
   }
 
   const coverage = analytics.coverage;
