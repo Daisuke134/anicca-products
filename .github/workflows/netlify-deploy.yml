@@ -75,6 +75,10 @@ jobs:
           NEXT_PUBLIC_STRIPE_LINK_30: ${{ secrets.NEXT_PUBLIC_STRIPE_LINK_30 }}
           NEXT_PUBLIC_STRIPE_LINK_5: ${{ secrets.NEXT_PUBLIC_STRIPE_LINK_5 }}
           NEXT_PUBLIC_CROSSMINT_CLIENT_KEY: ${{ secrets.NEXT_PUBLIC_CROSSMINT_CLIENT_KEY }}
+          # GA4 property "Anicca" (563091927), web stream "Anicca Web" for aniccaai.com.
+          # NEXT_PUBLIC_* are inlined at build time; a Measurement ID is public by design
+          # (it ships in the served HTML), so the value is inlined here, not kept in a secret.
+          NEXT_PUBLIC_GA_MEASUREMENT_ID: G-EYBC69XQ24
           # #36 World ID 4.0 personhood gate — public app_id + rp_id + env, inlined at build time
           NEXT_PUBLIC_WORLDCOIN_APP_ID: ${{ secrets.NEXT_PUBLIC_WORLDCOIN_APP_ID }}
           NEXT_PUBLIC_WORLDCOIN_RP_ID: ${{ secrets.NEXT_PUBLIC_WORLDCOIN_RP_ID }}
