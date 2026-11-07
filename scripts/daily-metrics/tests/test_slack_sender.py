@@ -37,9 +37,9 @@ class TestFormatSlackBlocks:
 
         assert "APP STORE (7日): Downloads 112, Top: JP(108)" in body
         assert "REVENUE: MRR $22 (snapshot), Subs 3 (snapshot), Trials 1 (snapshot)" in body
-        assert "FUNNEL (7日): onboarding 230, paywall 58, trial 3" in body
-        assert "オンボ→Paywall 25.2% (58/230)" in body
-        assert "Paywall→Trial 5.2% (3/58)" in body
+        assert "Legacy event distinct IDs (7日): onboarding_started 230, onboarding_paywall_viewed 58, rc_trial_started_event 3" in body
+        assert "cohort conversion: N/A" in body
+        assert "25.2%" not in body and "5.2%" not in body
         assert "Data Quality: ASC ok / RC ok / MP ok" in body
 
     def test_mixpanel_missing_outputs_na(self):
@@ -58,9 +58,9 @@ class TestFormatSlackBlocks:
         payload = format_slack_blocks(metrics)
         body = payload["blocks"][1]["text"]["text"]
 
-        assert "FUNNEL (7日): onboarding N/A, paywall N/A, trial N/A" in body
-        assert "オンボ→Paywall N/A N/A" in body
-        assert "Paywall→Trial N/A N/A" in body
+        assert "onboarding_started N/A, onboarding_paywall_viewed N/A, rc_trial_started_event N/A" in body
+        assert "step events: N/A" in body
+        assert "cohort conversion: N/A" in body
         assert "Data Quality: ASC ok / RC ok / MP missing" in body
 
     def test_alerts_line_shows_when_cvr_and_daily_dl_low(self):
