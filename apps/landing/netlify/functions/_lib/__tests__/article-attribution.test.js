@@ -135,10 +135,10 @@ test('private Writer validation, manifest and unlock gates remain unchanged', ()
   assert.match(page, /<WriterUnlock/);
 });
 
-test('existing business classifier does not relabel Thankful or Honne as the Anicca app', async () => {
+test('existing business classifier retains Thankful and Honne product hubs without relabeling either as Anicca', async () => {
   const { businessOf } = await import('../../../../lib/blog-business.mjs');
   assert.equal(businessOf('gratitude-journal-repeating-yourself', 'Thankful'), 'thankful');
-  assert.equal(businessOf('how-to-reply-to-fine-in-a-text', 'Honne'), 'notes');
+  assert.equal(businessOf('how-to-reply-to-fine-in-a-text', 'Honne'), 'honne');
   assert.equal(businessOf('anicca-ios-2026-05-19-en', 'anicca-ios'), 'anicca');
   assert.equal(businessOf('anicca-unreviewed-company-topic', 'Anicca'), 'notes');
 });
