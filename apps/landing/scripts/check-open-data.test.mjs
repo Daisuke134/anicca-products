@@ -75,6 +75,28 @@ test('allows a successful empty export without turning missing data into zero sc
   })));
 });
 
+test('allows unavailable Mixpanel credentials without publishing zero event coverage', () => {
+  const unavailable = {
+    status: 'unavailable',
+    error_code: 'missing_service_account',
+    source: analytics.source,
+    observed_at: '2026-11-07T12:30:00.000Z',
+    app_id: analytics.app_id,
+    app_environment: 'production',
+    data_from: analytics.data_from,
+    data_to: analytics.data_to,
+    maturity_hours: 24,
+    screens: [],
+    breakdowns: [],
+  };
+
+  assert.doesNotThrow(() => validateOpenData(validOpenData(unavailable)));
+  assert.throws(() => validateOpenData(validOpenData({
+    ...unavailable,
+    coverage: Object.fromEntries(Object.keys(analytics.coverage).map((key) => [key, 0])),
+  })));
+});
+
 test('allows an explicitly immature simulator preview but keeps production matured', () => {
   assert.doesNotThrow(() => validateOpenData(validOpenData({
     ...analytics,

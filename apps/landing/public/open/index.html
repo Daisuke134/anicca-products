@@ -243,6 +243,7 @@ const renderAniccaProductAnalytics=a=>{
  const host=$('anicca-product-analytics');
  if(!a){host.textContent='Anicca screen analytics are not available in this snapshot.';return}
  const n=v=>v==null?'—':Number(v).toLocaleString('en-US'), pct=v=>v==null?'—':`${(Number(v)*100).toFixed(1)}%`;
+ if(a.status==='unavailable'){host.innerHTML=`<div class="anicca-product-meta">Unavailable · ${esc(a.error_code)} · checked ${esc(a.observed_at)} · ${esc(a.source)}</div><div class="anicca-product-note">No Mixpanel export was requested. Screen metrics are unknown, not zero.</div>`;return}
  const status=a.status==='ok'?'Measured':a.status==='no_events'?'No events observed':a.status==='no_views'?'Exit events observed; no matching screen views':'Unknown';
  const maturityNote=a.app_environment==='simulator'&&a.maturity_hours===0?'Simulator preview includes current, immature events; it is not production user data.':'Production funnel uses a 7-day window matured for at least 24 hours.';
  const screens=Array.isArray(a.screens)?a.screens:[],breakdowns=Array.isArray(a.breakdowns)?a.breakdowns:[],coverage=a.coverage||{};
