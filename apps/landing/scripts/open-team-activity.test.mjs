@@ -532,7 +532,7 @@ test('renders the timestamped business and loop snapshot without converting miss
   assert.doesNotMatch(withoutObservationTime.get('portfolio-snapshot').textContent, /Source observed 2026-11-06 02:18 JST/);
 });
 
-test('refreshes all Open feeds in place every fifteen minutes', async () => {
+test('refreshes all four Open feeds in place every fifteen minutes', async () => {
   const fixture = structuredClone(portfolioSnapshot);
   fixture.businesses = [structuredClone(portfolioSnapshot.businesses.find(row => row.name.startsWith('Capafy agents')))];
   fixture.loops = [structuredClone(portfolioSnapshot.loops[0])];
@@ -565,10 +565,10 @@ test('refreshes all Open feeds in place every fifteen minutes', async () => {
   fixture.businesses[0].status = 'Updated activity';
   fixture.updated_at = '2026-11-06 03:18 JST';
   const refreshes = intervals.filter(interval => interval.milliseconds === 15 * 60 * 1000);
-  assert.equal(refreshes.length, 3, 'all three source feeds receive a 15-minute refresh');
+  assert.equal(refreshes.length, 4, 'all four source feeds receive a 15-minute refresh');
   await Promise.all(refreshes.map(interval => interval.handler()));
 
-  for (const filename of ['data.json', 'capafy.json', 'metrics.json']) assert.equal(fetchCounts.get(filename), 2, filename);
+  for (const filename of ['data.json', 'capafy.json', 'life.json', 'metrics.json']) assert.equal(fetchCounts.get(filename), 2, filename);
   assert.match(elements.get('portfolio-businesses').innerHTML, /Updated activity/);
   assert.equal(reloads, 0, 'refreshing feed data does not reload the page and re-emit pageview telemetry');
 });
