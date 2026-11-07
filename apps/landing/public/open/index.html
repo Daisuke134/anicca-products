@@ -29,41 +29,79 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}
 @media(max-width:900px){.hm{display:none}.bl{font-size:8px}.bar span{font-size:8px!important}.k{grid-template-columns:repeat(2,1fr)}.g{grid-template-columns:1fr}.c .v{font-size:19px}}
 @media(max-width:600px){.capafy-overview-grid,.portfolio-counts{grid-template-columns:repeat(2,minmax(0,1fr))}.portfolio-grid{grid-template-columns:1fr}#plat{display:block;table-layout:fixed}#plat tr:first-child,#asc-analytics table.asc-apps tr:first-child{display:none}#plat tr:not(:first-child){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 12px;padding:10px 0;border-bottom:1px solid #eee}#plat td,#asc-analytics table.asc-apps td{display:block;min-width:0;padding:0;border:0;text-align:left!important;overflow-wrap:anywhere}#plat td:first-child{display:none}#plat td:nth-child(2),#plat td:last-child,#asc-analytics table.asc-apps td:first-child{grid-column:1/-1}#plat .mlabel,#asc-analytics table.asc-apps .mlabel{display:block;color:#888;font-size:10px;margin-bottom:2px}#plat .pnote{margin-top:4px}#plat .pnote summary{cursor:pointer}#asc-analytics table.asc-apps{width:100%;table-layout:fixed}#asc-analytics table.asc-apps tr:not(:first-child){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;border:1px solid #eee;border-radius:10px;margin:8px 0}#asc-analytics table.asc-apps td:not(:first-child) .mlabel{display:block}}
 @media(max-width:600px){.portfolio-table-wrap{overflow:visible}.portfolio-table{min-width:0;table-layout:fixed}.portfolio-table thead{display:none}.portfolio-table tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px;padding:10px;border:1px solid #eee;border-radius:10px;margin:8px 0}.portfolio-table tbody td{display:block;min-width:0;padding:0;border:0;overflow-wrap:anywhere}.portfolio-table tbody td::before{content:attr(data-label);display:block;color:#888;font-size:10px;margin-bottom:2px}.portfolio-table tbody td:first-child,.portfolio-table tbody td[colspan]{grid-column:1/-1}.portfolio-table tbody td.r{text-align:left}}
+
+/* === 2026-11-07 redesign: two-tier hierarchy + Road to $10K MRR (winner patterns: felixcraft.ai/dashboard KPI-strip-first, Tremor KPI card anatomy, Stripe progressive disclosure) === */
+h1{font-size:26px;letter-spacing:-.01em}
+.tier{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:26px 0 12px;padding:10px 14px;background:#111;color:#fff;border-radius:12px}
+.tier b{font-size:13px;letter-spacing:.1em}
+.tier span{font-size:12px;color:#c9c9d1}
+.tier.t2{background:#eef2ff;color:#1e1b4b;border:1px solid #c7d2fe}
+.tier.t2 span{color:#475569}
+.grp{display:flex;align-items:center;gap:8px;margin:20px 0 10px;font-size:13px;font-weight:700;color:#111}
+.grp::before{content:"";width:4px;height:16px;border-radius:2px;background:#4f46e5;flex:none}
+.grp small{font-weight:500;color:#888;font-size:11px}
+.scope{float:right;font-size:10px;font-weight:700;letter-spacing:.07em;padding:2px 8px;border-radius:9px;background:#eef2ff;color:#4f46e5;white-space:nowrap}
+.scope.co{background:#111;color:#fff}
+.hero{background:#fff;border:1px solid #e6e6e9;border-radius:16px;padding:20px 22px}
+.hero h2{font-size:15px;margin:0 0 4px}
+.hero .rt{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.hero .big{font-size:42px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.hero .goal{color:#666;font-size:13px;font-weight:500;letter-spacing:0}
+.hero .pct{font-size:15px;font-weight:700;color:#4f46e5}
+.road{position:relative;margin:16px 0 28px}
+.road .track{height:22px;background:#ececf1;border-radius:11px;overflow:hidden}
+.road .fill{height:100%;background:linear-gradient(90deg,#4f46e5,#0ea5e9,#10b981);border-radius:11px;min-width:6px}
+.road .tick{position:absolute;top:26px;transform:translateX(-50%);font-size:10px;color:#888;white-space:nowrap}
+.road .tick::before{content:"";position:absolute;left:50%;top:-25px;width:1px;height:7px;background:#c6c6cf}
+.split{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#ececf1;margin:10px 0 8px}
+.split div{height:100%}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#444}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px}
+.cards.t1{grid-template-columns:repeat(3,1fr)}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.mini.one{grid-template-columns:1fr}
+.mini .mc{margin:0}
+@media(max-width:900px){.cards.t1,.mini{grid-template-columns:repeat(2,1fr)}.hero .big{font-size:33px}}
+@media(max-width:600px){.road .tick[data-v="100"],.road .tick[data-v="1000"]{display:none}}
 </style></head><body><div class="w">
-<h1>Anicca Open Dashboard</h1><div class="sub">An AI-run company. Every number we can measure, in one place. Each metric has one canonical value — the headline cards below; the tables further down hold the detail. Company totals are unknown where coverage is incomplete. USD unless labelled. <span id="upd"></span></div>
+<h1>Anicca Open Dashboard</h1><div class="sub">An AI-run company. Every number we can measure, in one place. Tier 1 is company totals only; Tier 2 groups each platform and business at its own granularity. Each metric has one canonical value. Company totals are unknown where coverage is incomplete. USD unless labelled. <span id="upd"></span></div>
 <div class="c" id="status"></div>
-<div class="cards" id="cards">
+<div class="tier"><b>TIER 1 · COMPANY</b><span>Whole-company totals only — platform detail lives in Tier 2</span></div>
+<section class="hero" id="road10k"><div class="m">Loading…</div></section>
+<div class="cards t1" id="cards">
 <div class="mc" id="slot-mrr"><div class="m">Loading…</div></div>
 <div class="mc" id="slot-rev"><div class="m">Loading…</div></div>
 <div class="mc" id="slot-cost"><div class="m">Loading…</div></div>
 <div class="mc" id="slot-gp"><div class="m">Loading…</div></div>
-<div class="mc" id="slot-cap-impr"><div class="m">Loading…</div></div>
-<div class="mc" id="slot-cap-detail"><div class="m">Loading…</div></div>
-<div class="mc" id="slot-cap-sales"><div class="m">Loading…</div></div>
-<div class="mc" id="slot-inst"><div class="m">Loading…</div></div>
 <div class="mc" id="slot-alltime"><div class="m">Loading…</div></div>
 <div class="mc" id="slot-bank"><div class="m">Loading…</div></div>
-<div class="mc" id="slot-social"><div class="m">Loading…</div></div>
-<div class="mc" id="slot-rank"><div class="m">Loading…</div></div>
 </div>
-<div class="g"><div class="c"><h2>Revenue by platform</h2><table id="plat"></table><div class="zero" id="zero"></div></div>
-<div class="col"><div class="c"><h2>Monthly revenue</h2><div class="bars" id="bars"></div><div class="bl" id="bl"></div><div class="lg" id="lg"></div></div>
-<div class="c"><h2>Revenue by product</h2><table id="prod"></table></div>
-<div class="c"><h2>Observed payment notices this month</h2><table id="cost"></table><div class="zero">Total: see the Costs headline card above.</div></div></div></div>
-<div class="c" id="card-capafy" style="margin-top:12px"><h2>Capafy activity</h2><div id="capafy-activity">Loading…</div></div>
-<div class="c" id="card-post-metrics" style="margin-top:12px"><h2>Social post metrics</h2><div id="post-metrics">Loading…</div></div>
-<div class="c" id="card-revenuecat" style="margin-top:12px"><h2>RevenueCat app metrics</h2><div id="revenuecat-charts">Loading…</div></div>
-<div class="c" id="card-stripe-metrics" style="margin-top:12px"><h2>Stripe account metrics</h2><div id="stripe-metrics">Loading…</div></div>
-<div class="c" id="card-team" style="margin-top:12px"><h2>Team activity</h2><table id="team-activity"></table></div>
-<div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO</h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div><h2>Shared targets</h2><div id="public-work" aria-live="polite">Loading…</div><h2>Task claims</h2><div class="m">Public snapshot not application permission. Claim via claim_board.py only; lease tokens never appear here. Snapshot refresh follows the same 15-minute JSON reload.</div><div id="claims-snapshot" aria-live="polite">Loading…</div></div>
-<div class="c" id="card-usage-snapshot" style="margin-top:12px"><h2>Grok Bot / plan usage snapshot</h2><div class="m">Measured CheckSubscriptionUsage shares on the existing public /open board. Named bot shares are the same Grok Bot plan (not separate external/CLI cost meters). Page re-reads JSON every 15 minutes; not live token telemetry. Raw tokens stay UNAVAILABLE on this path.</div><div id="usage-snapshot" aria-live="polite">Loading…</div></div>
-<div class="c" id="card-life" style="margin-top:12px"><h2>Agent life (tokens / usage)</h2><div class="m">Remaining life per agent / service, from primary-source measurements only. Unmeasured items are labelled unmeasured; nothing is estimated. Snapshot JSON; page re-reads every 15 minutes.</div><div id="life" aria-live="polite">Loading…</div></div>
-<div class="c" id="card-portfolio" style="margin-top:12px"><h2>Business & loop snapshot</h2><div class="m" id="portfolio-snapshot">Loading…</div><div class="portfolio-counts" id="portfolio-summary"></div><details><summary>Business portfolio</summary><div class="portfolio-grid" id="portfolio-businesses"></div></details><details><summary>Operating loops</summary><div class="portfolio-table-wrap"><table class="portfolio-table" id="portfolio-loops"></table></div></details><details><summary>Metric gaps</summary><ul class="portfolio-gaps" id="portfolio-gaps"></ul></details></div>
-<div class="c" id="card-apps" style="margin-top:12px"><h2>Apps</h2><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div></div>
-<div class="c" id="card-anicca-product-analytics" style="margin-top:12px"><h2>Anicca screen funnel</h2><div id="anicca-product-analytics" aria-live="polite">Loading…</div></div>
-<div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts</h2><table id="soc"></table></div>
-<div class="c" id="card-svw" style="margin-top:12px"><h2>Self vs winner</h2><table id="svw"></table></div>
-<div class="c" id="card-rank" style="margin-top:12px"><h2>Keyword rankings</h2><div id="rank"></div></div>
+<div class="c" style="margin-bottom:12px"><h2>Monthly revenue <span class="scope co">COMPANY</span></h2><div class="bars" id="bars"></div><div class="bl" id="bl"></div><div class="lg" id="lg"></div></div>
+<div class="tier t2"><b>TIER 2 · DRILL-DOWN</b><span>Grouped by platform / business — one granularity per group</span></div>
+<div class="grp">Platforms &amp; products <small>revenue by source</small></div>
+<div class="g"><div class="c"><h2>Revenue by platform <span class="scope">ALL PLATFORMS</span></h2><table id="plat"></table><div class="zero" id="zero"></div></div>
+<div class="col"><div class="c"><h2>Revenue by product <span class="scope">BY PRODUCT</span></h2><table id="prod"></table></div>
+<div class="c"><h2>Observed payment notices this month <span class="scope">DETAIL · COSTS</span></h2><table id="cost"></table><div class="zero">Total: see the Costs headline card in Tier 1.</div></div></div></div>
+<div class="grp">Capafy <small>AI agent &amp; skill marketplace</small></div>
+<div class="c" id="card-capafy"><h2>Capafy activity <span class="scope ">PLATFORM · CAPAFY</span></h2><div class="mini"><div class="mc" id="slot-cap-impr"><div class="m">Loading…</div></div><div class="mc" id="slot-cap-detail"><div class="m">Loading…</div></div><div class="mc" id="slot-cap-sales"><div class="m">Loading…</div></div></div><div id="capafy-activity">Loading…</div></div>
+<div class="grp">Apps <small>App Store · subscriptions</small></div>
+<div class="c" id="card-apps"><h2>Apps <span class="scope ">PLATFORM · APP STORE</span></h2><div class="mini one"><div class="mc" id="slot-inst"><div class="m">Loading…</div></div></div><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div><div id="apps-metrics-extra"></div></div>
+<div class="c" id="card-revenuecat" style="margin-top:12px"><h2>RevenueCat app metrics <span class="scope ">APPS · REVENUECAT</span></h2><div id="revenuecat-charts">Loading…</div></div>
+<div class="c" id="card-anicca-product-analytics" style="margin-top:12px"><h2>Anicca screen funnel <span class="scope ">APP · ANICCA iOS</span></h2><div id="anicca-product-analytics" aria-live="polite">Loading…</div></div>
+<div class="grp">Social &amp; distribution <small>all connected accounts</small></div>
+<div class="c" id="card-post-metrics"><h2>Social post metrics <span class="scope ">SOCIAL · ALL</span></h2><div class="mini one"><div class="mc" id="slot-social"><div class="m">Loading…</div></div></div><div id="post-metrics">Loading…</div></div>
+<div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts <span class="scope ">SOCIAL · ALL</span></h2><table id="soc"></table></div>
+<div class="c" id="card-svw" style="margin-top:12px"><h2>Self vs winner <span class="scope ">SOCIAL · BENCHMARK</span></h2><table id="svw"></table></div>
+<div class="grp">Search &amp; rankings <small>SEO · ASO · GEO</small></div>
+<div class="c" id="card-rank"><h2>Keyword rankings <span class="scope ">SEARCH · ALL</span></h2><div class="mini one"><div class="mc" id="slot-rank"><div class="m">Loading…</div></div></div><div id="rank"></div></div>
+<div class="grp">Payments <small>Stripe</small></div>
+<div class="c" id="card-stripe-metrics"><h2>Stripe account metrics <span class="scope ">PLATFORM · STRIPE</span></h2><div id="stripe-metrics">Loading…</div></div>
+<div class="grp">Team &amp; operations <small>agents · loops · targets</small></div>
+<div class="c" id="card-team"><h2>Team activity <span class="scope ">TEAM</span></h2><table id="team-activity"></table></div>
+<div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO <span class="scope ">TEAM · OPS</span></h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div><h2>Shared targets</h2><div id="public-work" aria-live="polite">Loading…</div><h2>Task claims</h2><div class="m">Public snapshot not application permission. Claim via claim_board.py only; lease tokens never appear here. Snapshot refresh follows the same 15-minute JSON reload.</div><div id="claims-snapshot" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-usage-snapshot" style="margin-top:12px"><h2>Grok Bot / plan usage snapshot <span class="scope ">TEAM · USAGE</span></h2><div class="m">Measured CheckSubscriptionUsage shares on the existing public /open board. Named bot shares are the same Grok Bot plan (not separate external/CLI cost meters). Page re-reads JSON every 15 minutes; not live token telemetry. Raw tokens stay UNAVAILABLE on this path.</div><div id="usage-snapshot" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-life" style="margin-top:12px"><h2>Agent life (tokens / usage) <span class="scope ">TEAM · USAGE</span></h2><div class="m">Remaining life per agent / service, from primary-source measurements only. Unmeasured items are labelled unmeasured; nothing is estimated. Snapshot JSON; page re-reads every 15 minutes.</div><div id="life" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-portfolio" style="margin-top:12px"><h2>Business & loop snapshot <span class="scope ">TEAM · OPS</span></h2><div class="m" id="portfolio-snapshot">Loading…</div><div class="portfolio-counts" id="portfolio-summary"></div><details><summary>Business portfolio</summary><div class="portfolio-grid" id="portfolio-businesses"></div></details><details><summary>Operating loops</summary><div class="portfolio-table-wrap"><table class="portfolio-table" id="portfolio-loops"></table></div></details><details><summary>Metric gaps</summary><ul class="portfolio-gaps" id="portfolio-gaps"></ul></details></div>
 <details><summary>How these numbers are counted</summary><p>Accepted order gross, net sales, settlement credits and bank payouts are separate stages. Payment notices are not accrual expenses or proof of final settlement. Missing coverage is not zero. FX uses the stated row basis; provider-billed USD is not a JPY conversion. Agent activity lives in Team activity only; the snapshot carries businesses, loops and metric gaps, so no number is stated twice.</p></details>
 <footer id="ft"></footer></div>
 <script>
@@ -437,4 +475,52 @@ if(typeof setInterval==='function')setInterval(loadPortfolio,REFRESH_MS);
 
 </script>
 <script>(function(){try{var q=new URLSearchParams(location.search),p={t:'pageview',path:location.pathname.replace(/\/+$/,'')||'/'};['utm_source','utm_medium','utm_campaign','ref','ct'].forEach(function(k){var v=q.get(k);if(v)p[k]=v});var b=JSON.stringify(p);if(navigator.sendBeacon)navigator.sendBeacon('/.netlify/functions/hit',new Blob([b],{type:'application/json'}));else fetch('/.netlify/functions/hit',{method:'POST',body:b,keepalive:true,headers:{'Content-Type':'application/json'}})}catch(e){}})();</script>
+
+<script>
+/* 2026-11-07 redesign layer: Road to $10K MRR hero + per-app metrics plug-in.
+   Reads the same data.json the /open loop publishes (schema unchanged). */
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+var money=function(v){if(v==null||!isFinite(v))return null;var a=Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});return (v<0?"\u2212$":"$")+a};
+var GOAL=10000;
+function renderRoad(d){
+ var el=$("road10k"); if(!el)return;
+ var kpis=Array.isArray(d.kpis)?d.kpis:[], mrrKpi=null, i;
+ for(i=0;i<kpis.length;i++){if(kpis[i].key==="mrr"){mrrKpi=kpis[i];break}}
+ var split=(d.summary&&d.summary.mrr_split)||{};
+ var mrr=(mrrKpi&&typeof mrrKpi.usd==="number")?mrrKpi.usd:(typeof split.total==="number"?split.total:null);
+ if(mrr==null||!isFinite(mrr)){el.innerHTML='<h2>Road to $10K MRR</h2><p class="m">MRR not measured in the current snapshot.</p>';return}
+ var pct=mrr/GOAL*100, left=GOAL-mrr;
+ var parts=[["App subscriptions (RevenueCat)",split.revenuecat,"#4f46e5"],["Capafy",split.capafy,"#0ea5e9"],["Stripe subscriptions",split.stripe,"#10b981"]].filter(function(p){return typeof p[1]==="number"&&p[1]>0});
+ var tot=parts.reduce(function(a,p){return a+p[1]},0), splitHtml="";
+ if(tot>0){
+  splitHtml='<div class="split">'+parts.map(function(p){return '<div style="width:'+(p[1]/tot*100).toFixed(2)+'%;background:'+p[2]+'"></div>'}).join("")+'</div>'
+  +'<div class="legend">'+parts.map(function(p){return '<span><i style="background:'+p[2]+'"></i>'+esc(p[0])+" · "+money(p[1])+" ("+(p[1]/tot*100).toFixed(1)+"%)</span>"}).join("")+'</div>';
+ }
+ var ticks=[[100,"$100"],[500,"$500"],[1000,"$1K"],[5000,"$5K"],[10000,"$10K"]].map(function(t){return '<span class="tick" data-v="'+t[0]+'" style="left:'+(t[0]/GOAL*100)+'%">'+t[1]+"</span>"}).join("");
+ el.innerHTML='<div class="rt"><h2>Road to $10K MRR <span class="scope co">COMPANY</span></h2><span class="pct">'+pct.toFixed(2)+'% of goal</span></div>'
+ +'<div class="big">'+money(mrr)+' <span class="goal">MRR &middot; goal '+money(GOAL)+' &middot; '+money(left)+' to go</span></div>'
+ +'<div class="road"><div class="track"><div class="fill" style="width:'+Math.max(Math.min(pct,100),0.7).toFixed(2)+'%"></div></div>'+ticks+'</div>'
+ +splitHtml;
+}
+function loadRoad(){fetch("data.json?v="+Date.now()).then(function(r){return r.json()}).then(renderRoad).catch(function(){})}
+loadRoad(); setInterval(loadRoad,15*60*1000);
+function renderAppsMetrics(m){
+ var host=$("apps-metrics-extra"); if(!host)return;
+ var apps=Array.isArray(m)?m:(m&&(m.apps||m.rows)); if(!Array.isArray(apps)||!apps.length)return;
+ var num=function(v){return (v==null||!isFinite(v))?"\u2014":Number(v).toLocaleString("en-US")};
+ var pctf=function(v){if(v==null||!isFinite(v))return "\u2014";return ((v<=1?v*100:v)).toFixed(2)+"%"};
+ var top=function(o){if(!o||typeof o!=="object")return "\u2014";var e=Object.entries(o).filter(function(x){return isFinite(x[1])}).sort(function(a,b){return b[1]-a[1]}).slice(0,3);return e.length?e.map(function(x){return esc(x[0])+" "+Number(x[1]).toLocaleString("en-US")}).join(" \u00b7 "):"\u2014"};
+ var meta=[]; if(m&&m.period)meta.push(esc(m.period)); if(m&&m.measured_at)meta.push("measured "+esc(m.measured_at));
+ var head='<h3 style="margin:16px 0 6px;font-size:13px">Per-app store metrics'+(meta.length?' <span class="m" style="font-weight:400">('+meta.join(" \u00b7 ")+")</span>":"")+"</h3>";
+ var rows=apps.map(function(a){
+  var conv=(typeof a.conversion_rate==="number")?a.conversion_rate:((typeof a.impressions==="number"&&a.impressions>0&&typeof a.units==="number")?a.units/a.impressions:null);
+  return "<tr><td>"+esc(a.app||a.name||"")+'</td><td class="r">'+num(a.impressions)+'</td><td class="r">'+num(a.units)+'</td><td class="r">'+pctf(conv)+"</td><td>"+top(a.territories)+"</td><td>"+top(a.sources)+'</td><td class="r">'+num(a.new_customers)+'</td><td class="r">'+num(a.active_subs)+"</td></tr>"}).join("");
+ host.innerHTML=head+'<div style="overflow-x:auto"><table><thead><tr><th>App</th><th class="r">Impressions</th><th class="r">Installs</th><th class="r">Impr.\u2192install</th><th>Top countries</th><th>Top sources</th><th class="r">New customers</th><th class="r">Active subs</th></tr></thead><tbody>'+rows+"</tbody></table></div>";
+}
+fetch("apps-metrics-latest.json?v="+Date.now()).then(function(r){if(!r.ok)throw new Error("absent");return r.json()}).then(renderAppsMetrics).catch(function(){});
+})();
+</script>
 </body></html>
