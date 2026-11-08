@@ -119,8 +119,8 @@ test('per-article attribution preserves business classification and breadcrumb l
 });
 
 test('per-article attribution preserves same-business related posts and excludes self', () => {
-  assert.match(page, /import \{ loadAllBlogPosts \} from "\.\.\/\.\.\/\.\.\/lib\/blog-posts";/);
-  assert.match(page, /const related = loadAllBlogPosts\(\)\s*\.filter\(\(p\) => p\.slug !== post\.slug && businessOf\(p\.slug, p\.project\) === business\)\s*\.slice\(0, 6\);/);
+  assert.match(page, /import \{ loadAllBlogPosts(?:, [^}]*)? \} from "\.\.\/\.\.\/\.\.\/lib\/blog-posts";/);
+  assert.match(page, /const related = loadAllBlogPosts\(\)\s*\.filter\(\(p\) => p\.slug !== post\.slug && businessOf\(p\.slug, p\.project\) === business\)\s*\.sort\(\(a, b\) => Number\(b\.lang === ownLang\) - Number\(a\.lang === ownLang\)\)\s*\.slice\(0, 6\);/);
   assert.match(page, /\{related\.length > 0 && \(/);
   assert.match(page, /\{related\.map\(\(p\) => \(/);
   assert.match(page, /<Link href=\{`\/blog\/\$\{p\.slug\}`\}[^>]*>\{p\.title\}<\/Link>/);

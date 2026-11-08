@@ -75,7 +75,7 @@ jobs:
         env:
           MANAGER_BLOG_REVISION: 357212f82ac46fc9a147eed36a29dc70c0c37700
           # Reviewed content pin; installer and module revision remain independently pinned.
-          MANAGER_BLOG_CONTENT_REVISION: b2a548bb82288128839ac8b61174d5e6ea60e106
+          MANAGER_BLOG_CONTENT_REVISION: 0a2228a5a9c412b3954f3727e369ccd865c73762
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_BLOG_REVISION/apps/landing/manager-blog/scripts/install.mjs" -o /tmp/manager-blog-install.mjs
