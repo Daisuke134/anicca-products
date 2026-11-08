@@ -10,7 +10,8 @@ import { buildLineStickerShareMetadata } from "../../../lib/line-sticker-share-m
 import { buildArticleJsonLd } from "../../../lib/article-jsonld.mjs";
 import { articleFaq, isJapanese } from "../../../lib/article-faq.mjs";
 import { BUSINESSES, businessOf } from "../../../lib/blog-business.mjs";
-import { loadAllBlogPosts } from "../../../lib/blog-posts";
+import { loadAllBlogPosts, detectBlogLang } from "../../../lib/blog-posts";
+import { blogPairLanguages } from "../../../lib/blog-alternates.mjs";
 import { resolveArticleAttribution } from "../../../lib/article-attribution";
 import type { ArticleAttribution } from "../../../lib/article-attribution";
 
@@ -32,7 +33,7 @@ type ResearchPost = {
   paid_sha256?: string;
   run_id?: string;
   artifact_id?: string;
-  lang?: "ja" | "en";
+  lang?: string;
   writer_manifest?: string;
 };
 
@@ -103,10 +104,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!post) return { title: "Not found" };
   // Affiliate pages ship a merchant-free description (ElevenLabs affiliate terms: no Marks in meta tags).
   const description = post.description || post.markdown.slice(0, 200).replace(/[#*`]/g, "");
+  // Reciprocal hreflang for -en/-ja pairs (Google Search Central multilingual
+  // guidance). Only complete pairs are annotated; URLs never change.
+  const postExists = (s: string) =>
+    fs.existsSync(path.join(process.cwd(), "data", "research", `${s}.json`)) ||
+    fs.existsSync(path.join(process.cwd(), "private", "writer-articles", `${s}.json`));
+  const languages = blogPairLanguages(post.slug, postExists);
   return {
     title: `${post.title} | Anicca Articles`,
     description,
-    alternates: { canonical: `https://aniccaai.com/blog/${post.slug}` },
+    alternates: {
+      canonical: `https://aniccaai.com/blog/${post.slug}`,
+      ...(languages ? { languages } : {}),
+    },
     robots: { index: true, follow: true },
     ...buildLineStickerShareMetadata({
       slug: post.slug,
@@ -149,8 +159,13 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
   const hasMirrors = Boolean(m.x || m.substack || m.newsletter);
   const business = businessOf(post.slug, post.project);
   const hub = BUSINESSES[business];
+  // Internal links stay in the reader's language first: same-business posts in
+  // the article's own language rank ahead of other languages (stable sort, so
+  // the existing date order is preserved inside each language).
+  const ownLang = detectBlogLang(post.lang, post.title);
   const related = loadAllBlogPosts()
     .filter((p) => p.slug !== post.slug && businessOf(p.slug, p.project) === business)
+    .sort((a, b) => Number(b.lang === ownLang) - Number(a.lang === ownLang))
     .slice(0, 6);
   const attribution = resolveArticleAttribution(post.attribution);
   const readingLength = post.lang === "ja"
@@ -216,7 +231,8 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
             slug={post.slug}
             runId={post.run_id}
             artifactId={post.artifact_id}
-            lang={post.lang}
+            // WriterUnlock serves the private writer contract, which is ja/en only.
+            lang={post.lang === "ja" ? "ja" : "en"}
             accessModel={post.access_model}
             paidSha256={post.paid_sha256}
           />

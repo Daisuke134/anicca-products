@@ -7,12 +7,17 @@ export type BlogPostMeta = {
   date: string; // YYYY-MM-DD
   preview: string;
   project: string;
-  lang: "ja" | "en";
+  lang: string; // ISO 639-1 code of the article body ("en", "ja", "es", ...)
 };
 
+/** Language codes the blog corpus is published in. A stored code wins over detection. */
+export const KNOWN_BLOG_LANGS = new Set([
+  "ja", "en", "es", "pt", "fr", "de", "it", "id", "tr", "ko", "zh",
+]);
+
 /** Article language: the stored `lang` field wins; older posts fall back to script detection on the title. */
-export function detectBlogLang(rawLang: unknown, title: string): "ja" | "en" {
-  if (rawLang === "ja" || rawLang === "en") return rawLang;
+export function detectBlogLang(rawLang: unknown, title: string): string {
+  if (typeof rawLang === "string" && KNOWN_BLOG_LANGS.has(rawLang)) return rawLang;
   return /[\u3040-\u30ff\u4e00-\u9fff]/.test(title) ? "ja" : "en";
 }
 
