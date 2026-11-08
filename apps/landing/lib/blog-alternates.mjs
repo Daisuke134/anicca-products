@@ -8,6 +8,14 @@
 // that already exist. Pairs are formed strictly by the -en / -ja slug suffix
 // and only when the counterpart post actually exists, so single-language
 // posts are never annotated with a phantom alternate.
+//
+// Ownership note: the hreflang tags themselves are generated at CI build time
+// by the canonical Manager blog adapter (life-manager
+// apps/landing/manager-blog, pinned in netlify-deploy.yml), which patches
+// app/blog/[slug]/page.tsx and app/sitemap.ts. This module mirrors the same
+// pair semantics for the UI layer (language names, list grouping) and for
+// tests; do not wire a second generator into the article page — the adapter
+// refuses to build when its anchor line changes.
 export const BLOG_LANG_NAMES = {
   en: 'English',
   ja: '日本語',

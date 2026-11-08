@@ -11,7 +11,6 @@ import { buildArticleJsonLd } from "../../../lib/article-jsonld.mjs";
 import { articleFaq, isJapanese } from "../../../lib/article-faq.mjs";
 import { BUSINESSES, businessOf } from "../../../lib/blog-business.mjs";
 import { loadAllBlogPosts, detectBlogLang } from "../../../lib/blog-posts";
-import { blogPairLanguages } from "../../../lib/blog-alternates.mjs";
 import { resolveArticleAttribution } from "../../../lib/article-attribution";
 import type { ArticleAttribution } from "../../../lib/article-attribution";
 
@@ -104,19 +103,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!post) return { title: "Not found" };
   // Affiliate pages ship a merchant-free description (ElevenLabs affiliate terms: no Marks in meta tags).
   const description = post.description || post.markdown.slice(0, 200).replace(/[#*`]/g, "");
-  // Reciprocal hreflang for -en/-ja pairs (Google Search Central multilingual
-  // guidance). Only complete pairs are annotated; URLs never change.
-  const postExists = (s: string) =>
-    fs.existsSync(path.join(process.cwd(), "data", "research", `${s}.json`)) ||
-    fs.existsSync(path.join(process.cwd(), "private", "writer-articles", `${s}.json`));
-  const languages = blogPairLanguages(post.slug, postExists);
+  // NOTE: reciprocal hreflang for -en/-ja pairs is injected into the line
+  // below at build time by the canonical Manager blog adapter (life-manager
+  // apps/landing/manager-blog, pinned in netlify-deploy.yml). That adapter
+  // refuses to build when this exact line changes — do not reformat it.
   return {
     title: `${post.title} | Anicca Articles`,
     description,
-    alternates: {
-      canonical: `https://aniccaai.com/blog/${post.slug}`,
-      ...(languages ? { languages } : {}),
-    },
+    alternates: { canonical: `https://aniccaai.com/blog/${post.slug}` },
     robots: { index: true, follow: true },
     ...buildLineStickerShareMetadata({
       slug: post.slug,

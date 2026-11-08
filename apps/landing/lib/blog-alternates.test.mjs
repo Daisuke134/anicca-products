@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -63,14 +63,24 @@ test('ArticleList keeps single-language lists unsectioned', async () => {
   assert.match(html, /ja-one/);
 });
 
-test('article metadata carries reciprocal hreflang for a real -en/-ja pair', async () => {
+test('article page keeps the exact legacy alternates line the Manager build adapter patches', async () => {
+  // The canonical Manager blog adapter (life-manager apps/landing/manager-blog,
+  // pinned in .github/workflows/netlify-deploy.yml) rewrites this exact line
+  // at CI build time to inject pair hreflang, and refuses to build when the
+  // line changes. Guard it here so a local edit cannot break the deploy.
+  const source = readFileSync(new URL('../app/blog/[slug]/page.tsx', import.meta.url), 'utf-8');
+  const anchor = '    alternates: { canonical: `https://aniccaai.com/blog/${post.slug}` },';
+  assert.ok(source.includes(anchor), 'legacy alternates anchor line changed; the CI Manager adapter will fail');
+});
+
+test('pair semantics match the build adapter for a real -en/-ja pair', () => {
   const enFile = new URL('../data/research/anicca-ios-2026-05-19-en.json', import.meta.url);
   const jaFile = new URL('../data/research/anicca-ios-2026-05-19-ja.json', import.meta.url);
   if (!existsSync(enFile) || !existsSync(jaFile)) return; // pair not in this corpus snapshot
-  const page = await import(compiled(new URL('../app/blog/[slug]/page.tsx', import.meta.url)));
-  const meta = await page.generateMetadata({ params: { slug: 'anicca-ios-2026-05-19-en' } });
-  assert.equal(meta.alternates.canonical, 'https://aniccaai.com/blog/anicca-ios-2026-05-19-en');
-  assert.deepEqual(meta.alternates.languages, {
+  const exists = (s) =>
+    existsSync(new URL(`../data/research/${s}.json`, import.meta.url)) ||
+    existsSync(new URL(`../private/writer-articles/${s}.json`, import.meta.url));
+  assert.deepEqual(blogPairLanguages('anicca-ios-2026-05-19-en', exists), {
     en: 'https://aniccaai.com/blog/anicca-ios-2026-05-19-en',
     ja: 'https://aniccaai.com/blog/anicca-ios-2026-05-19-ja',
     'x-default': 'https://aniccaai.com/blog/anicca-ios-2026-05-19-en',
