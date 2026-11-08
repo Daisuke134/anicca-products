@@ -14110,8 +14110,8 @@
   "naive": {
     "title": "Life Manager on Naïve — Naïve Autonomous Company Hackathon (Nov 7-8, 2026)",
     "workspace": "Anicca (org_zf1ng1wfymjp11s5n2hqva700c)",
-    "credits_balance_usd": 261.46,
-    "credits_measured_at": "2026-11-07 12:30 PT, naive credits show (balance_micro_usd 261458195)",
+    "credits_balance_usd": 213.39,
+    "credits_measured_at": "2026-11-08 07:55 PT, naive credits show (balance_micro_usd 213386215)",
     "credits_before_claim_usd": 12.98,
     "credits_claimed_usd": 250.0,
     "credits_note": "Claimed $250 is sponsor input, not revenue. Credits are excluded from revenue and MRR.",
@@ -14119,7 +14119,7 @@
     "workspace_revenue_usd": 0.03,
     "revenue_note": "First revenue earned in the Naïve workspace: CrowdWorks 13582295 (reica1993) client-approved 2026-11-08 20:43 JST — $0.03. Capafy Naïve-side sales $0 (in review); x402 $0.926 predates event (wallets).",
     "agents": 13,
-    "board_cards": 37,
+    "board_cards": 79,
     "apps": [
       {
         "name": "anicca-road-to-10k",
@@ -14152,6 +14152,6 @@
     ],
     "monid_status": "Not used: integration requires Monid account registration (API key) and a funded wallet; both unavailable at measurement time.",
     "mobile_track_status": "Proof completed on Naïve mobile sandbox (real iPhone): own live app opened showing real numbers + own YouTube Short played; measured cost $0.40. Whether the sandbox runs on Mobilerun is unverified.",
-    "board_note": "Board 37 cards: done 20, in progress 4, todo 13 (measured 2026-11-07 12:31 PT). Apps re-verified HTTP 200 at 12:31 PT."
+    "board_note": "Board 79 cards: done 27, in progress 2, todo 30, blocked 20 (measured 2026-11-08 07:55 PT, naive board show). Apps re-verified HTTP 200 at 07:55 PT."
   }
 }
