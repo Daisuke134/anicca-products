@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-09 05:07 JST",
+  "updated_at": "2026-11-09 05:37 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -310,9 +310,9 @@
   "by_agent": [
     {
       "agent": "Muse",
-      "board_updates_today": 284,
+      "board_updates_today": 285,
       "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-      "status": "Active. 05:07 frame; live 04:37 landed CONFIRMED at slot start (curl, live-check-0507-before.json). Rev $31.81, costs $1,589.29 unchanged, profit -$1,557.48, margin -4896, MRR $97.58. SEO 2/7 held (05:01); Bing 0/7; GEO 8 answered, 0/0, ThinkUp first 5/8."
+      "status": "Active. 05:37 frame; live 05:07 landed CONFIRMED at slot start (curl, live-check-2026-11-09-0537-before.json). Rev $31.81, costs $1,589.29 unchanged, profit -$1,557.48, margin -4896, MRR $97.58. SEO 2/7 held (05:27); Bing 0/7; GEO 8 answered, 0/0, ThinkUp first 4/8."
     },
     {
       "agent": "Dots",
@@ -357,7 +357,7 @@
         "all_time": 1706.68,
         "pending": 9.95,
         "status": "stage reconciliation",
-        "note": "Status: 20:34 PST loop via 14:16 watch: applications 201 (+3, BUYMA 1 new), sales unchanged; Townwork room replied 14:14 JST, waiting. 05:07 JST.",
+        "note": "Status: 20:34 PST loop via 14:16 watch: applications 201 (+3, BUYMA 1 new), sales unchanged; Townwork room replied 14:14 JST, waiting. 05:37 JST.",
         "observed_accepted_gross_usd": 31.8,
         "net_sales_usd": 1706.68,
         "paid_out_usd": null
@@ -370,7 +370,7 @@
         "all_time": 474.48,
         "pending": 0.0,
         "status": "paid",
-        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 05:07 JST."
+        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 05:37 JST."
       },
       {
         "platform": "Stripe",
@@ -380,7 +380,7 @@
         "all_time": 54.81,
         "pending": 0.0,
         "status": "paid",
-        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "x402 (USDC on Base)",
@@ -390,7 +390,7 @@
         "all_time": 0.005,
         "pending": 0.0,
         "status": "paid",
-        "note": "Status: $0.005 recorded. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: $0.005 recorded. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "Alignerr",
@@ -400,7 +400,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "Apify",
@@ -410,7 +410,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 05:07 JST."
+        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 05:37 JST."
       },
       {
         "platform": "Capafy",
@@ -420,7 +420,7 @@
         "all_time": 162.69,
         "pending": 0.0,
         "status": "booked",
-        "note": "Status: metrics thru Nov 6 UTC, stagnant 7 frames; Published 28 / In Review 45 / Failed 3 / Draft 1, total 89; Publisher Certification gate open. 05:07 JST.",
+        "note": "Status: metrics thru Nov 6 UTC, stagnant 7 frames; Published 28 / In Review 45 / Failed 3 / Draft 1, total 89; Publisher Certification gate open. 05:37 JST.",
         "net_sales_usd": 120.58,
         "paid_out_usd": 0.0,
         "dashboard_7d_usd": 39.96,
@@ -439,7 +439,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: Applied 25 (was 24, +1 proposal 15:59 PST); Discovery 51 pts; Earned $0; availability extended to Dec 08, 2026. 05:07 JST."
+        "note": "Status: Applied 25 (was 24, +1 proposal 15:59 PST); Discovery 51 pts; Earned $0; availability extended to Dec 08, 2026. 05:37 JST."
       },
       {
         "platform": "CrowdWorks",
@@ -449,7 +449,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: 20:34 PST loop via 14:16 watch: +4 applications (loop total 242), proposals list 871; no new sales/orders. 05:07 JST."
+        "note": "Status: 20:34 PST loop via 14:16 watch: +4 applications (loop total 242), proposals list 871; no new sales/orders. 05:37 JST."
       },
       {
         "platform": "Fiverr",
@@ -459,7 +459,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 05:07 JST."
+        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 05:37 JST."
       },
       {
         "platform": "Freelancer.com",
@@ -469,7 +469,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: bids 0/6 (unchanged); 7 open bids; bid-amount display discrepancy vs 01:34 (next loop re-counts); 40805503 17th; Eastman quality warning; session @Rasi4op. 05:07 JST."
+        "note": "Status: bids 0/6 (unchanged); 7 open bids; bid-amount display discrepancy vs 01:34 (next loop re-counts); 40805503 17th; Eastman quality warning; session @Rasi4op. 05:37 JST."
       },
       {
         "platform": "GoLance",
@@ -479,7 +479,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 05:07 JST."
+        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 05:37 JST."
       },
       {
         "platform": "Guru",
@@ -489,7 +489,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: 15:25 PST loop via 09:16 watch: Quotes 8 unchanged, Hired 0, $0; Portfolio draft 1483864 created, unpublished (cover image gate). 05:07 JST."
+        "note": "Status: 15:25 PST loop via 09:16 watch: Quotes 8 unchanged, Hired 0, $0; Portfolio draft 1483864 created, unpublished (cover image gate). 05:37 JST."
       },
       {
         "platform": "LINE Stickers",
@@ -499,7 +499,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "Lancers",
@@ -509,7 +509,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: +1 proposal (5626919, 03:54 JST), no new contracts/sales; profile improved 810->893 chars. 05:07 JST."
+        "note": "Status: +1 proposal (5626919, 03:54 JST), no new contracts/sales; profile improved 810->893 chars. 05:37 JST."
       },
       {
         "platform": "Legiit",
@@ -519,7 +519,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 05:07 JST."
+        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 05:37 JST."
       },
       {
         "platform": "Malt",
@@ -529,7 +529,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "Mercor",
@@ -539,7 +539,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 05:07 JST."
+        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 05:37 JST."
       },
       {
         "platform": "PromptBase",
@@ -549,7 +549,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: Cozy Delivery v3 Pending; Rescue Mission v3 (5-var) spec done 20:52, submission by owner loop; sales $0. 05:07 JST."
+        "note": "Status: Cozy Delivery v3 Pending; Rescue Mission v3 (5-var) spec done 20:52, submission by owner loop; sales $0. 05:37 JST."
       },
       {
         "platform": "RapidAPI",
@@ -559,7 +559,7 @@
         "all_time": null,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "SKIMA",
@@ -569,7 +569,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "Truelancer",
@@ -579,7 +579,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "Upwork",
@@ -589,7 +589,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 05:07 JST."
+        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 05:37 JST."
       },
       {
         "platform": "Whop / Gumroad",
@@ -599,7 +599,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: Labels set 0/20 -> 4 (ai monks, ai database, ai characters, ai research; Whop loop 07:33 PST); Visitors 3, product views 77, sales $0. 05:07 JST."
+        "note": "Status: Labels set 0/20 -> 4 (ai monks, ai database, ai characters, ai research; Whop loop 07:33 PST); Visitors 3, product views 77, sales $0. 05:37 JST."
       },
       {
         "platform": "Workana",
@@ -609,7 +609,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: Cloudflare gate (Ray a5679e964e7f2b6c); 'IP banned' wording absent 4th time; home loads logged-out; inbox unverified; $0. Re-checked 07:34 loop. 05:07 JST."
+        "note": "Status: Cloudflare gate (Ray a5679e964e7f2b6c); 'IP banned' wording absent 4th time; home loads logged-out; inbox unverified; $0. Re-checked 07:34 loop. 05:37 JST."
       },
       {
         "platform": "note / Substack",
@@ -619,7 +619,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 05:07 JST."
+        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 05:37 JST."
       },
       {
         "platform": "AI Monk Factory",
@@ -629,7 +629,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "Life Manager Cloud",
@@ -639,7 +639,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 05:07 JST."
+        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 05:37 JST."
       },
       {
         "platform": "AI Monk e-books",
@@ -649,7 +649,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "AI Monk Database",
@@ -659,7 +659,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 05:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 05:37 JST."
       },
       {
         "platform": "Payhip",
@@ -669,7 +669,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 05:07 JST."
+        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 05:37 JST."
       },
       {
         "platform": "Ko-fi",
@@ -679,7 +679,7 @@
         "pending": 0.0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 05:07 JST."
+        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 05:37 JST."
       },
       {
         "platform": "Twine",
@@ -689,7 +689,7 @@
         "pending": 0.0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 05:07 JST."
+        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 05:37 JST."
       },
       {
         "platform": "RenderHub",
@@ -699,7 +699,7 @@
         "all_time": 0.0,
         "pending": 0.0,
         "status": "—",
-        "note": "Status: 14 items (14th Bamboo Fountain published, ID 419858); 10% OFF sale to 2026-11-10 (new item not in sale); Views 52, Karma 302, Sales $0. 05:07 JST."
+        "note": "Status: 14 items (14th Bamboo Fountain published, ID 419858); 10% OFF sale to 2026-11-10 (new item not in sale); Views 52, Karma 302, Sales $0. 05:37 JST."
       }
     ],
     "trend": [
@@ -856,11 +856,11 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
-  "coverage_note": "Status: 34 platforms, 53 social rows, 5 apps + total, rankings, naive section; live 04:37 landed; costs $1,589.29 unchanged; SEO 2/7; GEO 0. 05:07.",
+  "coverage_note": "Status: 34 platforms, 53 social rows, 5 apps + total, rankings, naive section; live 05:07 landed; costs $1,589.29 unchanged; SEO 2/7; GEO 0. 05:37.",
   "currency_note": "USD only. This file contains no non-USD currency amounts.",
-  "coverage_status_1line": "Status: live 04:37 landed; costs $1,589.29; rankings 04:56-05:01; SEO 2/7; Bing 0/7; GEO 0. | Rev $31.81 | Cost $1,589.29 | Profit -$1,557.48 | MRR $97.58.",
-  "daily_change_1line": "Status: 04:37-05:07: live 04:37 landed; no new sales or costs counted; SEO 2/7 held; ASO JP held; GEO 8 answered, still 0/0, ThinkUp first 5/8; bochi renamed honnehonyaku posted, blank resolved.",
-  "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,589.29, profit -$1,557.48; honnehonyaku (ex-bochi) new reel resolved ~69h blank; GEO still 0.",
+  "coverage_status_1line": "Status: live 05:07 landed; costs $1,589.29; rankings 05:25-05:27; SEO 2/7; Bing 0/7; GEO 0. | Rev $31.81 | Cost $1,589.29 | Profit -$1,557.48 | MRR $97.58.",
+  "daily_change_1line": "Status: 05:07-05:37: live 05:07 landed; no new sales or costs counted; SEO 2/7 held; ASO JP/US held; GEO 8 answered, still 0/0, ThinkUp first 4/8 (was 5/8); IG jp/ios 2/3, honnehonyaku 1/3.",
+  "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,589.29, profit -$1,557.48; Nov9 IG jp/ios now 2/3, honnehonyaku 1/3; GEO still 0.",
   "apps_breakdown": [
     {
       "app": "Daily Affirmations (Anicca, iOS)",
@@ -917,7 +917,7 @@
     {
       "account": "Threads @anicca.en",
       "posts": 45,
-      "note": "Status: today 2/3, latest Dfe05Lzj0mu landed 22:07 JST, post_count 50; 23:00 slot queued; followers 0. 05:07 JST.",
+      "note": "Status: today 2/3, latest Dfe05Lzj0mu landed 22:07 JST, post_count 50; 23:00 slot queued; followers 0. 05:37 JST.",
       "followers": 0
     },
     {
@@ -926,7 +926,7 @@
       "likes": 1,
       "comments": 0,
       "followers": 3,
-      "note": "Status: 2nd post DfdU8Hsjict +1h FORMAL at 09:08 JST (hourly 0920): 1 like 0 comments, followers 3; not initial anomaly; today 2/3. 05:07 JST."
+      "note": "Status: 2nd post DfdU8Hsjict +1h FORMAL at 09:08 JST (hourly 0920): 1 like 0 comments, followers 3; not initial anomaly; today 2/3. 05:37 JST."
     },
     {
       "account": "IG anicca.ios.jp",
@@ -934,7 +934,7 @@
       "likes": 0,
       "comments": 0,
       "followers": 2,
-      "note": "Status: 2nd post DfdRdOWjmc9 +1h FORMAL at 09:0x JST (obs 0901): 0 likes 0 comments, followers 2; today 2/3. 05:07 JST."
+      "note": "Status: 2nd post DfdRdOWjmc9 +1h FORMAL at 09:0x JST (obs 0901): 0 likes 0 comments, followers 2; today 2/3. 05:37 JST."
     },
     {
       "account": "IG anicca.jp.videos",
@@ -942,14 +942,14 @@
       "likes": 2,
       "comments": 0,
       "followers": 12,
-      "note": "Status: 2nd post DfdRWoWDhLy likes 1->2 at 12:20 JST, 0 comments, followers 12; today 2/3. 05:07 JST."
+      "note": "Status: 2nd post DfdRWoWDhLy likes 1->2 at 12:20 JST, 0 comments, followers 12; today 2/3. 05:37 JST."
     },
     {
       "account": "IG monk.mujo",
       "latest_post": "https://www.instagram.com/reel/Dfew2zOj2ux/",
       "likes": 2,
       "comments": 0,
-      "note": "Status: reel Dfew2zOj2ux (21:32 JST, correct avatar ee4d1127 remake) likes 2, comments 0; today 3/3 reached (hourly 22:20 fresh). 05:07 JST.",
+      "note": "Status: reel Dfew2zOj2ux (21:32 JST, correct avatar ee4d1127 remake) likes 2, comments 0; today 3/3 reached (hourly 22:20 fresh). 05:37 JST.",
       "followers": 15
     },
     {
@@ -958,14 +958,14 @@
       "likes": 0,
       "comments": 0,
       "followers": 10,
-      "note": "Status: 08:00 + 12:50 UNMET (obs 14:01, HeyGen credit 0, INC-27); latest DfYtcMED9Ft 0/0; today 0/3. 05:07 JST."
+      "note": "Status: 08:00 + 12:50 UNMET (obs 14:01, HeyGen credit 0, INC-27); latest DfYtcMED9Ft 0/0; today 0/3. 05:37 JST."
     },
     {
       "account": "IG anicca.app",
       "latest_post": "https://www.instagram.com/p/DfdU9x8jpVX/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: 2nd post DfdU9x8jpVX +1h FORMAL at 09:09 JST (hourly 0920): 0 likes 0 comments, followers 0; initial anomaly; today 2/3. 05:07 JST.",
+      "note": "Status: 2nd post DfdU9x8jpVX +1h FORMAL at 09:09 JST (hourly 0920): 0 likes 0 comments, followers 0; initial anomaly; today 2/3. 05:37 JST.",
       "followers": 0
     },
     {
@@ -973,7 +973,7 @@
       "latest_post": "https://www.instagram.com/p/DfdVGtKjqfs/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: 2nd post DfdVGtKjqfs +1h FORMAL at 09:10 JST (hourly 0920): 0 likes 0 comments, followers 1; initial anomaly; today 2/3. 05:07 JST.",
+      "note": "Status: 2nd post DfdVGtKjqfs +1h FORMAL at 09:10 JST (hourly 0920): 0 likes 0 comments, followers 1; initial anomaly; today 2/3. 05:37 JST.",
       "followers": 1
     },
     {
@@ -981,13 +981,13 @@
       "latest_post": "https://www.instagram.com/p/DfaqVAPDwsC/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: 07:30 archive + 12:15 UNMET (distribution-max 14:04: winner speed diff, no line-animation route); today 0/3; 21:00 frame next. 05:07 JST.",
+      "note": "Status: 07:30 archive + 12:15 UNMET (distribution-max 14:04: winner speed diff, no line-animation route); today 0/3; 21:00 frame next. 05:37 JST.",
       "followers": 2
     },
     {
       "account": "IG anicca.app2 (BIP)",
       "latest_post": "https://www.instagram.com/p/Dfd35zqj7Ij/",
-      "note": "Status: post Dfd35zqj7Ij +1h FORMAL 0 likes 0 comments, followers 0 (hourly 14:20 direct read); initial anomaly, total 6. 05:07 JST.",
+      "note": "Status: post Dfd35zqj7Ij +1h FORMAL 0 likes 0 comments, followers 0 (hourly 14:20 direct read); initial anomaly, total 6. 05:37 JST.",
       "likes": 0,
       "comments": 0,
       "followers": 0
@@ -997,63 +997,63 @@
       "views": 86,
       "likes": 1,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok anicca.jp 12:00 wave",
       "views": 112,
       "likes": 4,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok anicca jp4 12:00 wave",
       "views": 650,
       "likes": 28,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok anicca he 12:00 wave",
       "views": 451,
       "likes": 17,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok anicca jpx 12:00 wave",
       "views": 173,
       "likes": 7,
       "comments": 1,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok anicca_buddha 12:00 wave",
       "views": 201,
       "likes": 9,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok anicca en2 12:00 wave",
       "views": 76,
       "likes": 2,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok anicca_slideshow 12:00 wave",
       "views": 58,
       "likes": 0,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok honne_reveal 12:00 wave",
       "views": 67,
       "likes": 0,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok monk 2026-11-03 post",
@@ -1061,49 +1061,49 @@
       "likes": 37,
       "comments": 1,
       "shares": 1,
-      "note": "Status: 183 views, 37 likes, 1 comment, 1 share, flat 6th interval. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 183 views, 37 likes, 1 comment, 1 share, flat 6th interval. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation 11:30 wave",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 05:07 JST."
+      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation 13:00 wave",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 05:07 JST."
+      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation 2026-11-04 09:30 post",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: Postiz PUBLISHED; YouTube rescheduled to 2026-11-05 09:30 JST. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: Postiz PUBLISHED; YouTube rescheduled to 2026-11-05 09:30 JST. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-04 post",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU TikTok post, 0 views at 14:20 read, about 53h after publish. Last measured 2026-11-06 05:07 JST."
+      "note": "Status: OBOU TikTok post, 0 views at 14:20 read, about 53h after publish. Last measured 2026-11-06 05:37 JST."
     },
     {
       "account": "YouTube @aniccaffirmations",
       "latest_post": "https://youtube.com/shorts/6bxHn2Uz-oU",
-      "note": "Status: 02:00/09:30/11:30 all UNPUBLISHED, no route (dist-max 13:04); material placed; today 0/3. 05:07 JST."
+      "note": "Status: 02:00/09:30/11:30 all UNPUBLISHED, no route (dist-max 13:04); material placed; today 0/3. 05:37 JST."
     },
     {
       "account": "YouTube monk.mujo",
       "latest_post": "https://www.youtube.com/watch?v=DorHM5WBHG0",
-      "note": "Status: today 2 published; RBvSFzwAWNs still 0/0/0/0 at ~3h20m (night 20:22 recheck). 05:07 JST."
+      "note": "Status: today 2 published; RBvSFzwAWNs still 0/0/0/0 at ~3h20m (night 20:22 recheck). 05:37 JST."
     },
     {
       "account": "YouTube Postiz channels (@anicca-ai / @anicca-affirmation-video)",
-      "note": "Status: Postiz YouTube posts blocked by daily quota errors (2026-11-04 + NEW 09:30 Gmail 2026-11-07); no new published post via Postiz. Last measured 2026-11-07 05:07 JST."
+      "note": "Status: Postiz YouTube posts blocked by daily quota errors (2026-11-04 + NEW 09:30 Gmail 2026-11-07); no new published post via Postiz. Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok monk 2026-11-04 post",
@@ -1111,11 +1111,11 @@
       "likes": 9,
       "comments": 1,
       "shares": 0,
-      "note": "Status: 60 views, 9 likes, 1 comment, 0 shares (was 41/7/0/0). Last measured 2026-11-04 05:07 JST."
+      "note": "Status: 60 views, 9 likes, 1 comment, 0 shares (was 41/7/0/0). Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok @anicca.jp photo 17:13 post",
-      "note": "Status: Postiz PUBLISHED 2026-11-04 17:13 JST; views unmeasured, not counted as reach. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: Postiz PUBLISHED 2026-11-04 17:13 JST; views unmeasured, not counted as reach. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok @anicca.jp HYBRID #1",
@@ -1123,7 +1123,7 @@
       "views": 830,
       "likes": 27,
       "comments": 1,
-      "note": "Status: HYBRID cmw1u6uk50h6mpl07br2emi54 830/27/1/0 at 13:20, flat; +24h B2 828/27/1/0 confirmed 17:20. Last measured 2026-11-06 05:07 JST."
+      "note": "Status: HYBRID cmw1u6uk50h6mpl07br2emi54 830/27/1/0 at 13:20, flat; +24h B2 828/27/1/0 confirmed 17:20. Last measured 2026-11-06 05:37 JST."
     },
     {
       "account": "TikTok @honne_reveal Part 1",
@@ -1131,14 +1131,14 @@
       "views": 183,
       "likes": 7,
       "comments": 0,
-      "note": "Status: honne_reveal Part 1 cmw1w7jcx0iu7la07320eonl7 183/7/0/0 at 13:20, flat; +24h B2 183/7/0/0 confirmed 18:04. Last measured 2026-11-06 05:07 JST."
+      "note": "Status: honne_reveal Part 1 cmw1w7jcx0iu7la07320eonl7 183/7/0/0 at 13:20, flat; +24h B2 183/7/0/0 confirmed 18:04. Last measured 2026-11-06 05:37 JST."
     },
     {
       "account": "IG @tryhonne",
       "latest_post": "https://www.instagram.com/p/DfUIinzoBL6/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: v3 published ~18:32 JST, still public; v2 deletion confirmed 22:01 browser read. Last measured 2026-11-04 05:07 JST."
+      "note": "Status: v3 published ~18:32 JST, still public; v2 deletion confirmed 22:01 browser read. Last measured 2026-11-04 05:37 JST."
     },
     {
       "account": "TikTok @honnevideo rino_renai copy",
@@ -1146,11 +1146,11 @@
       "views": 453,
       "likes": 6,
       "comments": 0,
-      "note": "Status: rino_renai cmw1wdgwv0ixjla07u198lrep 453/6/0/0 at 13:20, flat; +24h B2 428/6/0/0 confirmed 18:04 (+25 since). Last measured 2026-11-06 05:07 JST."
+      "note": "Status: rino_renai cmw1wdgwv0ixjla07u198lrep 453/6/0/0 at 13:20, flat; +24h B2 428/6/0/0 confirmed 18:04 (+25 since). Last measured 2026-11-06 05:37 JST."
     },
     {
       "account": "TikTok @anicca_cemetery 2026-11-05 post",
-      "note": "Status: renamed @anicca_cemetery (Yang Sutta), 197 followers; latest 61/8/0 at 07:07 (Postiz + TikTok page agree; +2/+1 since 02:20). Last measured 2026-11-06 05:07 JST.",
+      "note": "Status: renamed @anicca_cemetery (Yang Sutta), 197 followers; latest 61/8/0 at 07:07 (Postiz + TikTok page agree; +2/+1 since 02:20). Last measured 2026-11-06 05:37 JST.",
       "views": 61,
       "likes": 8,
       "comments": 0,
@@ -1159,11 +1159,11 @@
     {
       "account": "LinkedIn (Postiz)",
       "latest_post": "https://www.linkedin.com/feed/update/urn:li:share:7524799901801660419",
-      "note": "Status: 5 published today; 20:48 slot PUBLISHED confirmed (dist-max 21:04, Postiz direct read). 05:07 JST."
+      "note": "Status: 5 published today; 20:48 slot PUBLISHED confirmed (dist-max 21:04, Postiz direct read). 05:37 JST."
     },
     {
       "account": "TikTok EN 15:30 batch (5 posts)",
-      "note": "Status: 15:30 EN batch 5 posts, 719 views / 13 likes / 1 comment at 02:20 (buddha 264/8 best, slideshow 138/2/1 holds the comment). Last measured 2026-11-06 05:07 JST.",
+      "note": "Status: 15:30 EN batch 5 posts, 719 views / 13 likes / 1 comment at 02:20 (buddha 264/8 best, slideshow 138/2/1 holds the comment). Last measured 2026-11-06 05:37 JST.",
       "views": 719,
       "likes": 13,
       "comments": 1
@@ -1173,77 +1173,77 @@
       "views": 868,
       "likes": 28,
       "comments": 0,
-      "note": "Status: 14:08 batch jp4 868 views / 28 likes at 02:20 (growth stopped, 29th frame flat). Last measured 2026-11-07 05:07 JST."
+      "note": "Status: 14:08 batch jp4 868 views / 28 likes at 02:20 (growth stopped, 29th frame flat). Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 fill",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU TikTok fill cmw3bp40z01neqs0803pgwb7b PUBLISHED 18:1x; 0/0 at 21:01 read; first-move anomaly continues. Last measured 2026-11-05 05:07 JST."
+      "note": "Status: OBOU TikTok fill cmw3bp40z01neqs0803pgwb7b PUBLISHED 18:1x; 0/0 at 21:01 read; first-move anomaly continues. Last measured 2026-11-05 05:37 JST."
     },
     {
       "account": "TikTok JP 16:15 + EN 17:30 batches (10 posts)",
       "views": 3306,
       "likes": 103,
       "comments": 0,
-      "note": "Status: honnevideo 17:30 3,170/32 at 02:20 (2,900/28 at 01:20, +270/+4; Views past 3,000, 7th straight max move); comments still 0. Last measured 2026-11-07 05:07 JST."
+      "note": "Status: honnevideo 17:30 3,170/32 at 02:20 (2,900/28 at 01:20, +270/+4; Views past 3,000, 7th straight max move); comments still 0. Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok JP 19:00 batch (5 posts)",
       "views": 1488,
       "likes": 39,
       "comments": 0,
-      "note": "Status: 19:00 JP batch 5 posts, 1,552 views / 41 likes at 04:20 (+64/+2); comments 0. Last measured 2026-11-06 05:07 JST."
+      "note": "Status: 19:00 JP batch 5 posts, 1,552 views / 41 likes at 04:20 (+64/+2); comments 0. Last measured 2026-11-06 05:37 JST."
     },
     {
       "account": "TikTok EN 21:00 batch (5 posts)",
       "views": 311,
       "likes": 9,
       "comments": 0,
-      "note": "Status: EN 21:00 +5h at 02:20: buddha 115/1, en2 85/4, honne_reveal 77/4, slideshow 69/2, affirmation 60/1; monk/obou 0/0 anomaly; cmvw85 +24h empty 36th. Last measured 2026-11-07 05:07 JST."
+      "note": "Status: EN 21:00 +5h at 02:20: buddha 115/1, en2 85/4, honne_reveal 77/4, slideshow 69/2, affirmation 60/1; monk/obou 0/0 anomaly; cmvw85 +24h empty 36th. Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok JP 21:30 batch (5 posts)",
       "views": 648,
       "likes": 23,
       "comments": 0,
-      "note": "Status: JP 21:00 +5h at 02:20: honnevideo 796/9, jp4 460/10, jpx 413/8, he 348/15 (+6 likes, max JP reaction gain), jp 280/6; comments all 0. Last measured 2026-11-07 05:07 JST."
+      "note": "Status: JP 21:00 +5h at 02:20: honnevideo 796/9, jp4 460/10, jpx 413/8, he 348/15 (+6 likes, max JP reaction gain), jp 280/6; comments all 0. Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok 22:00 single (Affirmation Girl)",
       "views": 49,
       "likes": 0,
       "comments": 0,
-      "note": "Status: 22:00 single cmvw8604s0205pk1c6phvujkl (Affirmation Girl) 49 views / 0 likes / 0 comments at 02:20 (+33). Last measured 2026-11-06 05:07 JST."
+      "note": "Status: 22:00 single cmvw8604s0205pk1c6phvujkl (Affirmation Girl) 49 views / 0 likes / 0 comments at 02:20 (+33). Last measured 2026-11-06 05:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 21:25 fill",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU fill cmw3iqvda03f0nv08cc7l070i PUBLISHED 21:25:28 JST (Yang Mun copy, 39.49s); +1h 0/0/0/0 confirmed at 23:01 (initial anomaly CONFIRMED). Last measured 2026-11-05 05:07 JST."
+      "note": "Status: OBOU fill cmw3iqvda03f0nv08cc7l070i PUBLISHED 21:25:28 JST (Yang Mun copy, 39.49s); +1h 0/0/0/0 confirmed at 23:01 (initial anomaly CONFIRMED). Last measured 2026-11-05 05:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 new fill",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU new fill cmw3bp40z01neqs0803pgwb7b 0/0/0/0 at 05:20 (initial anomaly continuing, ~11h). Last measured 2026-11-06 05:07 JST."
+      "note": "Status: OBOU new fill cmw3bp40z01neqs0803pgwb7b 0/0/0/0 at 05:20 (initial anomaly continuing, ~11h). Last measured 2026-11-06 05:37 JST."
     },
     {
       "account": "TikTok JP 19:45 batch (4 posts)",
       "views": 452,
       "likes": 19,
       "comments": 1,
-      "note": "Status: 19:45 JP batch 4 posts; anicca.jp 133/7/comment 1 at 14:20 (was 126/7). Last measured 2026-11-06 05:07 JST."
+      "note": "Status: 19:45 JP batch 4 posts; anicca.jp 133/7/comment 1 at 14:20 (was 126/7). Last measured 2026-11-06 05:37 JST."
     },
     {
       "account": "TikTok JP 23:45 batch (5 posts)",
       "views": 207,
       "likes": 3,
       "comments": 0,
-      "note": "Status: JP 23:30 +2h at 02:20: honnevideo 354/1, he 260/5, jp4 228/9, jp 49/3, jpx 45/2; all growing, comments 0. Last measured 2026-11-07 05:07 JST."
+      "note": "Status: JP 23:30 +2h at 02:20: honnevideo 354/1, he 260/5, jp4 228/9, jp 49/3, jpx 45/2; all growing, comments 0. Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 4th (white water)",
@@ -1259,7 +1259,7 @@
       "likes": 0,
       "comments": 0,
       "latest_post": "https://www.tiktok.com/@aniccaaffirmation/photo/7704816451064776711",
-      "note": "Status: EN 07:24 batch +24h CONFIRMED (hourly 08:20): affirmation 1/0, en2 0/0, slideshow 1/0; arrival only, no likes. Last measured 2026-11-07 05:07 JST."
+      "note": "Status: EN 07:24 batch +24h CONFIRMED (hourly 08:20): affirmation 1/0, en2 0/0, slideshow 1/0; arrival only, no likes. Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok monk 07:51 batch (2 posts)",
@@ -1267,25 +1267,25 @@
       "likes": 13,
       "comments": 0,
       "latest_post": "https://www.tiktok.com/@monk_anicca/video/7704823741968125192",
-      "note": "Status: monk 07:51 batch +24h CONFIRMED (hourly 08:20): cemetery 101/13 escape continues, obou 0/0 anomaly. Last measured 2026-11-07 05:07 JST."
+      "note": "Status: monk 07:51 batch +24h CONFIRMED (hourly 08:20): cemetery 101/13 escape continues, obou 0/0 anomaly. Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok EN 09:30 batch (5 posts)",
       "views": 890,
       "likes": 41,
       "comments": 0,
-      "note": "Status: EN 09:30 batch 5 posts +24h CONFIRMED (hourly 10:20): buddha 873/41 big escape, affirmation 10/0, en2 3/0, slideshow 4/0, honne_reveal 0/0; comments 0 all. Last measured 2026-11-07 05:07 JST."
+      "note": "Status: EN 09:30 batch 5 posts +24h CONFIRMED (hourly 10:20): buddha 873/41 big escape, affirmation 10/0, en2 3/0, slideshow 4/0, honne_reveal 0/0; comments 0 all. Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok monk 09:33 batch (2 posts)",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: monk 2ch 09:33 +24h CONFIRMED (hourly 10:20): both 0/0/0/0, full first-move anomaly; obou 0/0 too. Last measured 2026-11-07 05:07 JST."
+      "note": "Status: monk 2ch 09:33 +24h CONFIRMED (hourly 10:20): both 0/0/0/0, full first-move anomaly; obou 0/0 too. Last measured 2026-11-07 05:37 JST."
     },
     {
       "account": "TikTok 12:30 batch (12 posts)",
-      "note": "Status: 12:30 12/12 PUBLISHED; +1h FORMAL (hourly 14:20): abnormal 1/12 (obou only); honnevideo 247/3, jp4 124/8, he 63/4; comments 0 all. 05:07 JST."
+      "note": "Status: 12:30 12/12 PUBLISHED; +1h FORMAL (hourly 14:20): abnormal 1/12 (obou only); honnevideo 247/3, jp4 124/8, he 63/4; comments 0 all. 05:37 JST."
     }
   ],
   "self_vs_winner": [
@@ -1337,7 +1337,7 @@
     "note": "Measured ranks only. out = not in the measured result set.",
     "seo": {
       "engine": "Google (search snapshot)",
-      "measured_at": "2026-11-09 05:01 JST",
+      "measured_at": "2026-11-09 05:27 JST",
       "anicca_in_top": 2,
       "queries_total": 7,
       "rows": [
@@ -1386,10 +1386,10 @@
       ],
       "bing": {
         "engine": "Bing (script, top 30)",
-        "measured_at": "2026-11-09 04:58 JST",
+        "measured_at": "2026-11-09 05:27 JST",
         "anicca_in_top": 0,
         "queries_total": 7,
-        "happierhuman": "1/7 (ledger 19:58Z, daily affirmations at 6; anicca 0/7)"
+        "happierhuman": "1/7 (ledger 20:27Z, daily affirmations at 6; anicca 0/7)"
       },
       "gsc": {
         "period": "28-day window ending 2026-11-05",
@@ -1402,7 +1402,7 @@
     },
     "aso": {
       "source": "iTunes Search API, top 200 per keyword",
-      "measured_at": "2026-11-09 04:56 JST",
+      "measured_at": "2026-11-09 05:25 JST",
       "us": [
         {
           "keyword": "affirmation",
@@ -1512,13 +1512,13 @@
       "winner": "I am (id 874656917)"
     },
     "geo": {
-      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 04:58 batch",
-      "measured_at": "2026-11-09 04:58 JST",
+      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 05:27 batch",
+      "measured_at": "2026-11-09 05:27 JST",
       "recommended": 0,
       "recommended_of": 8,
       "cited": 0,
       "cited_of": 8,
-      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 5/8 (en01, en02, en04, jp01, jp02); Motion first en05, Mantra first en06, en03 no brands"
+      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en02, en04, jp01); en05 and en03 and jp02 no brands; en06 ThinkUp, I am, Mantra"
     }
   },
   "handoffs": [
@@ -1879,18 +1879,18 @@
     "open-metrics 6th failure today (Gmail 10:57 PST, id 1a1b238fbf167077, anicca-ops Run failed: open-metrics - main a3...); 09:57 PST was 5th. open-dashboard/Codex loop owns.",
     "Capafy refund-dispute discrepancy (capafy-loop 03:13): Refunds Lifetime 5/$47.96 confirmed; but browser dispute-table row 5 reason shows 'Accidental purchase' vs dispute file 'Agent not working' (cre-2099776689199271937, Hook Lab $4.99). Obs 04:01 also flags a new refund-aggregation divergence (5/$47.96 vs 4/$34.97). Re-read Refunds page next Capafy loop; do NOT overwrite the dispute file until resolved.",
     "Honne JP winner SWAP (memory/people INDEX + sinrigaku-sns.md, 2026-11-06 reselection item 19): @meri_tn disqualified as the Honne Japanese IG winner; @sinrigaku_sns (知って得する女性の心理学) fixed, class B: 10,236 followers, 48 posts all Reels single format, top likes 7,524, median likes last 30 posts 861.5, 22 posts >1,000 likes; faceless B&W line-animation Reels on men's true feelings; top 3 posts visually checked, reproducible. svw 'Honne JP' pair renamed to @sinrigaku_sns in this frame. OPEN: winner-map row swap + posting lane's source-original switch still pending (people page open thread, posting lane owns).",
-    "Live 04:37 landing CONFIRMED at 05:07 slot start (curl live-check-0507-before.json): updated_at 2026-11-09 04:37 JST, costs $1,589.29, profit -$1,557.48, naive workspace_revenue_usd 0.03. 14:25 override next-frame check satisfied.",
-    "Reason: No messages (inbox check this frame). Gmail newer_than:1h (20:09Z, 8 msgs): Langfuse open-source credits reply, YC Naive hackathon chats x5, Substack newsletter, Product Hunt newsletter. No new sales and no new counted cost.",
-    "Rankings (ledger latest, row-verified): SEO Google 05:01 (20:01Z) 2/7 held (affirmation app 1, best meditation 3; tvb iPhone 2, best-daily 3, what-is-best 3); ASO 04:56 JP affirmation 36 held (iam 2), self 48 held (iam out), positive 111 held (iam 19), gratitude out (iam 13), motivation out (iam 23); US motivation iam 3 held, gratitude iam 5->6; GEO 04:58 8 answered, 0/0, ThinkUp first 5/8; Bing 04:58 anicca 0/7 held, happierhuman 1/7 (daily 6).",
-    "Distribution: honnehonyaku (ex anicca.bochi, renamed 2026-10-28) new reel DffjLP4j9cz published 2026-11-08 11:52 PST (social-metrics-ledger FIX-NOW entry), resolving the ~69h blank; followers 2 measured 11:51 PST. Post metrics not yet measured. Nov9 IG initial anomalies (6 posts 0/0) carried from 04:20 hourly.",
-    "Contracts carried: CrowdWorks cumulative 281 proposals stand, no new sales/orders in this window. Capafy freshness still Data through Nov 7 UTC, no new sales. Trip.com refund $535.70 still pending bank settlement (expected by 2026-11-26), not netted. Naive section counts only Naive agent earnings: workspace_revenue_usd 0.03.",
-    "Costs UNCHANGED: Revenue MTD $31.81; costs $1,589.29; profit -$1,557.48; margin -4896; MRR $97.58. OpenRouter 04:5x fresh check (cost-ledger): usage_daily $0.44680498 unchanged, prior-credits consumption, not counted. Audit held: Capafy this_month 22.98 / all_time 162.69, paid_out 0.0, pending 0.0; Coconala net/all_time 1706.68; Google Cloud period_note settled; gpl pct -278.7. RapidAPI this_month null only (unknown, source error, ledger handoff continues).",
-    "Unresolved: Netlify Deploy failure notifications vs confirmed landings - deploy lane; Trip.com refund $535.70 bank settlement (expected by 2026-11-26, CFO); (459) contract decision + display discrepancy; (461) Capafy Playbook/ClipRank; (462) Mercor composition; 402index permanence; TikTok obou unmeasured; note membership empty; HARD_CAP $10 vs applied $2; Relixir refund; GCP 77148001 ~11-11; Stripe reauth; MRR $97.58 vs $54.29; GEO 0; ASC store-release pending; Anicca iOS hard-paywall PR build failures; IG anomalies incl Nov9 6; Whop owner blocked; YC W27 interview scheduling (hackathon lane).",
+    "Live 05:07 landing CONFIRMED at 05:37 slot start (curl live-check-2026-11-09-0537-before.json): updated_at 2026-11-09 05:07 JST, costs $1,589.29, profit -$1,557.48, naive workspace_revenue_usd 0.03. 14:25 override next-frame check satisfied.",
+    "Reason: No messages (inbox check this frame). Gmail newer_than:1h (20:37Z sweep, 10 msgs): YC Naive hackathon x3, Be.FM control-arm thread (Yutong Xie / Daisuke Narita), Mobilerun, Langfuse credits reply. No new sales and no new counted cost.",
+    "Rankings (ledger latest, row-verified): SEO Google 05:27 (20:27Z) 2/7 held (affirmation app 1, best meditation 3; tvb iPhone 2, best-daily 3, what-is-best 3); ASO 05:25 JP affirmation 36 held (iam 2), self 48 held, positive 111 held (iam 19), gratitude out (iam 13), motivation out (iam 23); US motivation iam 3, gratitude iam 6 held; GEO 05:27 8 answered, 0/0, ThinkUp first 4/8 (en01,en02,en04,jp01; en05 no brands, was Motion first); Bing 05:27 anicca 0/7 held, happierhuman 1/7 (daily 6).",
+    "Distribution (social-metrics-ledger 05:20 JST entry): Nov9 IG jp 2/3 (new DffmhVbj51f 0/0), ios 2/3 (new DffmmF3DzMd 0/0), honnehonyaku 1/3 (DffjLP4j9cz 0/0, +1h due 05:52), en/app/cca 1/3 each, app2 1/4, monk/obou 0/3 (08:00 slots not yet due). Threads 1/3 carried. Post metrics for new posts not yet measured beyond 0/0 likes/comments.",
+    "Contracts carried: CrowdWorks cumulative proposals stand, no new sales/orders in this window. Capafy freshness still Data through Nov 7 UTC, no new sales. Trip.com refund $535.70 still pending bank settlement (expected by 2026-11-26), not netted. Naive section counts only Naive agent earnings: workspace_revenue_usd 0.03.",
+    "Costs UNCHANGED: Revenue MTD $31.81; costs $1,589.29; profit -$1,557.48; margin -4896; MRR $97.58. OpenRouter latest cost-ledger check 04:5x: usage_daily $0.44680498 unchanged, prior-credits consumption, not counted. Audit held: Capafy this_month 22.98 / all_time 162.69, paid_out 0.0, pending 0.0; Coconala net/all_time 1706.68; Google Cloud period_note settled; gpl pct -278.7. RapidAPI this_month null only (unknown, source error, ledger handoff continues).",
+    "Unresolved: Netlify Deploy failure notifications vs confirmed landings - deploy lane; Trip.com refund $535.70 bank settlement (expected by 2026-11-26, CFO); (459) contract decision + display discrepancy; (461) Capafy Playbook/ClipRank; (462) Mercor composition; 402index permanence; TikTok obou unmeasured; note membership empty; HARD_CAP $10 vs applied $2; Relixir refund; GCP 77148001 ~11-11; Stripe reauth; MRR $97.58 vs $54.29; GEO 0; ASC store-release pending; Anicca iOS hard-paywall PR build failures; IG anomalies incl Nov9 6; honnehonyaku +1h due 05:52; Whop owner blocked; YC W27 interview scheduling (hackathon lane).",
     "Correction 2026-11-09 01:37 JST (cost-ledger 2026-11-08, MUFG debit notices full-read by parent): Trip.com rebooking 1658117023914143 corrected $470.15 (team-rate conversion of the 73,738-yen debit) -> $451.20 actual order total. Nov costs $1,605.28 -> $1,586.33; profit -$1,573.47 -> -$1,554.52; margin -4946 -> -4887. Trip.com $558.20 row (booking 1658117023696927, 87,548 yen, debit 2026-11-08 04:03 PST) is the CANCELLED Haneda booking: full refund $535.70 confirmed, expected in bank by 2026-11-26, NOT yet arrived - kept in costs as REFUND PENDING, not netted. OpenRouter MUFG debit 8,621 yen (2026-11-07 16:05 PST, OPENROUTER, INC., Gmail id 1a1b879b5f747a25) recorded in cost-ledger as the yen settlement of the $52.75 credits purchase (receipt #1840-0406) already counted; not double-counted. Revenue $31.81 / MRR $97.58 / naive section unchanged."
   ],
   "app_store_analytics": {
     "source": "App Store Connect Analytics Reports",
-    "measured_at": "2026-11-08T19:45:18.474Z",
+    "measured_at": "2026-11-08T20:25:21.648Z",
     "period": {
       "start_date": "2026-11-01",
       "end_date": "2026-11-07",
@@ -1898,14 +1898,14 @@
     },
     "coverage": {
       "app_days_expected": 35,
-      "discovery_app_days": 30,
+      "discovery_app_days": 35,
       "download_app_days": 11
     },
     "summary": {
       "discovery": {
-        "impressions": 690,
+        "impressions": 778,
         "unique_impressions": null,
-        "page_views": 30,
+        "page_views": 35,
         "unique_page_views": null,
         "taps": 13,
         "unique_taps": null
@@ -4852,8 +4852,8 @@
           },
           {
             "date": "2026-11-05",
-            "processing_date": "2026-11-07",
-            "discovery_processing_date": "2026-11-07",
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": "2026-11-07",
             "discovery": {
               "impressions": 24,
@@ -4885,20 +4885,6 @@
                   "Engagement Type": "",
                   "Device": "iPhone",
                   "Platform Version": "iOS 27.0",
-                  "Territory": "KR",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
                   "Territory": "CO",
                   "Counts": "1",
                   "Unique Counts": "1"
@@ -4912,8 +4898,8 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 26.5",
-                  "Territory": "JP",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "KR",
                   "Counts": "1",
                   "Unique Counts": "1"
                 },
@@ -4940,64 +4926,8 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 18.7",
-                  "Territory": "BR",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.2",
-                  "Territory": "SG",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
+                  "Platform Version": "iOS 27.0",
                   "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 16.4",
-                  "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 26.5",
-                  "Territory": "KR",
                   "Counts": "2",
                   "Unique Counts": "2"
                 },
@@ -5038,34 +4968,6 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "AU",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.2",
-                  "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
                   "Platform Version": "iOS 27.2",
                   "Territory": "SA",
                   "Counts": "1",
@@ -5093,9 +4995,9 @@
                   "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "US",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "KR",
                   "Counts": "2",
                   "Unique Counts": "2"
                 },
@@ -5108,10 +5010,10 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
+                  "Platform Version": "iOS 26.5",
                   "Territory": "JP",
-                  "Counts": "2",
-                  "Unique Counts": "2"
+                  "Counts": "1",
+                  "Unique Counts": "1"
                 },
                 {
                   "Date": "2026-11-05",
@@ -5122,8 +5024,22 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "FR",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "SG",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 17.7",
+                  "Territory": "JP",
                   "Counts": "1",
                   "Unique Counts": "1"
                 },
@@ -5149,8 +5065,92 @@
                   "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 17.7",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "FR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "2",
+                  "Unique Counts": "2"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 16.4",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "BR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "AU",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.2",
                   "Territory": "JP",
                   "Counts": "1",
                   "Unique Counts": "1"
@@ -5261,7 +5261,7 @@
           {
             "date": "2026-11-06",
             "processing_date": "2026-11-08",
-            "discovery_processing_date": "2026-11-07",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": "2026-11-08",
             "discovery": {
               "impressions": 19,
@@ -5287,12 +5287,96 @@
                   "Date": "2026-11-06",
                   "App Name": "Daily Affirmations - Anicca",
                   "App Apple Identifier": "6755129214",
+                  "Event": "Page view",
+                  "Page Type": "Product page",
+                  "Source Type": "App referrer",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "US",
+                  "Counts": "2",
+                  "Unique Counts": "2"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
                   "Event": "Impression",
                   "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPad",
                   "Platform Version": "iOS 16.3",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "MX",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "BR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.7",
+                  "Territory": "ES",
+                  "Counts": "2",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "GB",
+                  "Counts": "3",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.6",
                   "Territory": "US",
                   "Counts": "1",
                   "Unique Counts": "1"
@@ -5317,27 +5401,55 @@
                   "App Apple Identifier": "6755129214",
                   "Event": "Impression",
                   "Page Type": "No page",
-                  "Source Type": "App Store search",
+                  "Source Type": "App Store browse",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "GB",
-                  "Counts": "3",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "JP",
+                  "Counts": "1",
                   "Unique Counts": "1"
                 },
                 {
                   "Date": "2026-11-06",
                   "App Name": "Daily Affirmations - Anicca",
                   "App Apple Identifier": "6755129214",
-                  "Event": "Page view",
-                  "Page Type": "Product page",
+                  "Event": "Impression",
+                  "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 26.7",
-                  "Territory": "ES",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "KR",
                   "Counts": "1",
                   "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "KR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "US",
+                  "Counts": "2",
+                  "Unique Counts": "2"
                 },
                 {
                   "Date": "2026-11-06",
@@ -5371,125 +5483,13 @@
                   "Date": "2026-11-06",
                   "App Name": "Daily Affirmations - Anicca",
                   "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store browse",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.2",
-                  "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "KR",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
+                  "Event": "Page view",
+                  "Page Type": "Product page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
                   "Platform Version": "iOS 26.7",
                   "Territory": "ES",
-                  "Counts": "2",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.2",
-                  "Territory": "US",
-                  "Counts": "2",
-                  "Unique Counts": "2"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.2",
-                  "Territory": "MX",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "KR",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Page view",
-                  "Page Type": "Product page",
-                  "Source Type": "App referrer",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "US",
-                  "Counts": "2",
-                  "Unique Counts": "2"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "BR",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Daily Affirmations - Anicca",
-                  "App Apple Identifier": "6755129214",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "US",
                   "Counts": "1",
                   "Unique Counts": "1"
                 }
@@ -5585,9 +5585,16 @@
           {
             "date": "2026-11-07",
             "processing_date": "2026-11-08",
-            "discovery_processing_date": null,
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": "2026-11-08",
-            "discovery": null,
+            "discovery": {
+              "impressions": 26,
+              "unique_impressions": null,
+              "page_views": 5,
+              "unique_page_views": null,
+              "taps": null,
+              "unique_taps": null
+            },
             "downloads": {
               "events": 5,
               "unique_events": null,
@@ -5599,7 +5606,330 @@
               "other": null
             },
             "source_rows": {
-              "discovery": [],
+              "discovery": [
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "JP",
+                  "Counts": "2",
+                  "Unique Counts": "2"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.7",
+                  "Territory": "BR",
+                  "Counts": "2",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "AU",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "US",
+                  "Counts": "2",
+                  "Unique Counts": "2"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.0",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "BR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "IN",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "CA",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 17.4",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Page view",
+                  "Page Type": "Product page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "KR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "KR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Page view",
+                  "Page Type": "Store sheet",
+                  "Source Type": "App referrer",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "ES",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "IN",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Page view",
+                  "Page Type": "Product page",
+                  "Source Type": "Web referrer",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.3",
+                  "Territory": "JP",
+                  "Counts": "2",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.7",
+                  "Territory": "KR",
+                  "Counts": "3",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "CA",
+                  "Counts": "2",
+                  "Unique Counts": "2"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Daily Affirmations - Anicca",
+                  "App Apple Identifier": "6755129214",
+                  "Event": "Page view",
+                  "Page Type": "Product page",
+                  "Source Type": "App referrer",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "US",
+                  "Counts": "2",
+                  "Unique Counts": "2"
+                }
+              ],
               "downloads": [
                 {
                   "Date": "2026-11-07",
@@ -5662,9 +5992,9 @@
           }
         ],
         "metrics": {
-          "impressions": 161,
+          "impressions": 187,
           "unique_impressions": null,
-          "page_views": 8,
+          "page_views": 13,
           "unique_page_views": null,
           "taps": 5,
           "unique_taps": null
@@ -5680,7 +6010,7 @@
           "other": null
         },
         "download_events": 150,
-        "discovery_days": 6,
+        "discovery_days": 7,
         "download_days": 5
       },
       {
@@ -7615,8 +7945,8 @@
           },
           {
             "date": "2026-11-05",
-            "processing_date": "2026-11-07",
-            "discovery_processing_date": "2026-11-07",
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": "2026-11-07",
             "discovery": {
               "impressions": 18,
@@ -7638,6 +7968,34 @@
             },
             "source_rows": {
               "discovery": [
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Tap",
+                  "Page Type": "Product page",
+                  "Source Type": "App Store browse",
+                  "Engagement Type": "Open",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "IE",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "NP",
+                  "Counts": "2",
+                  "Unique Counts": "1"
+                },
                 {
                   "Date": "2026-11-05",
                   "App Name": "Dhamma Quotes",
@@ -7684,28 +8042,14 @@
                   "Date": "2026-11-05",
                   "App Name": "Dhamma Quotes",
                   "App Apple Identifier": "6757726663",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 18.7",
-                  "Territory": "NP",
-                  "Counts": "2",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Dhamma Quotes",
-                  "App Apple Identifier": "6757726663",
                   "Event": "Page view",
                   "Page Type": "Product page",
-                  "Source Type": "App Store search",
+                  "Source Type": "Web referrer",
                   "Engagement Type": "",
-                  "Device": "iPad",
+                  "Device": "iPhone",
                   "Platform Version": "iOS 26.6",
-                  "Territory": "US",
-                  "Counts": "2",
+                  "Territory": "IE",
+                  "Counts": "1",
                   "Unique Counts": "1"
                 },
                 {
@@ -7717,50 +8061,8 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Dhamma Quotes",
-                  "App Apple Identifier": "6757726663",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 27.2",
-                  "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Dhamma Quotes",
-                  "App Apple Identifier": "6757726663",
-                  "Event": "Tap",
-                  "Page Type": "Product page",
-                  "Source Type": "App Store browse",
-                  "Engagement Type": "Get",
-                  "Device": "iPhone",
                   "Platform Version": "iOS 26.6",
-                  "Territory": "IE",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Dhamma Quotes",
-                  "App Apple Identifier": "6757726663",
-                  "Event": "Tap",
-                  "Page Type": "Product page",
-                  "Source Type": "App Store browse",
-                  "Engagement Type": "Open",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "IE",
+                  "Territory": "MM",
                   "Counts": "1",
                   "Unique Counts": "1"
                 },
@@ -7796,27 +8098,27 @@
                   "Date": "2026-11-05",
                   "App Name": "Dhamma Quotes",
                   "App Apple Identifier": "6757726663",
-                  "Event": "Impression",
-                  "Page Type": "No page",
+                  "Event": "Page view",
+                  "Page Type": "Product page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.5",
-                  "Territory": "SG",
-                  "Counts": "1",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "2",
                   "Unique Counts": "1"
                 },
                 {
                   "Date": "2026-11-05",
                   "App Name": "Dhamma Quotes",
                   "App Apple Identifier": "6757726663",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
+                  "Event": "Tap",
+                  "Page Type": "Product page",
+                  "Source Type": "App Store browse",
+                  "Engagement Type": "Get",
+                  "Device": "iPhone",
                   "Platform Version": "iOS 26.6",
-                  "Territory": "PA",
+                  "Territory": "IE",
                   "Counts": "1",
                   "Unique Counts": "1"
                 },
@@ -7838,13 +8140,13 @@
                   "Date": "2026-11-05",
                   "App Name": "Dhamma Quotes",
                   "App Apple Identifier": "6757726663",
-                  "Event": "Page view",
-                  "Page Type": "Product page",
-                  "Source Type": "Web referrer",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "iPhone",
+                  "Device": "iPad",
                   "Platform Version": "iOS 26.6",
-                  "Territory": "IE",
+                  "Territory": "PA",
                   "Counts": "1",
                   "Unique Counts": "1"
                 },
@@ -7857,8 +8159,36 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "MM",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "SG",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "US",
                   "Counts": "1",
                   "Unique Counts": "1"
                 }
@@ -7897,8 +8227,8 @@
           },
           {
             "date": "2026-11-06",
-            "processing_date": "2026-11-07",
-            "discovery_processing_date": "2026-11-07",
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
             "discovery": {
               "impressions": 24,
@@ -7911,20 +8241,6 @@
             "downloads": null,
             "source_rows": {
               "discovery": [
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Dhamma Quotes",
-                  "App Apple Identifier": "6757726663",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.0",
-                  "Territory": "FR",
-                  "Counts": "4",
-                  "Unique Counts": "1"
-                },
                 {
                   "Date": "2026-11-06",
                   "App Name": "Dhamma Quotes",
@@ -7947,11 +8263,25 @@
                   "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "US",
-                  "Counts": "4",
-                  "Unique Counts": "2"
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.7",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "JP",
+                  "Counts": "3",
+                  "Unique Counts": "1"
                 },
                 {
                   "Date": "2026-11-06",
@@ -7975,10 +8305,10 @@
                   "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "KR",
-                  "Counts": "1",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.0",
+                  "Territory": "FR",
+                  "Counts": "4",
                   "Unique Counts": "1"
                 },
                 {
@@ -7990,52 +8320,10 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 26.4",
+                  "Platform Version": "iOS 26.6",
                   "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Dhamma Quotes",
-                  "App Apple Identifier": "6757726663",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "US",
-                  "Counts": "2",
+                  "Counts": "4",
                   "Unique Counts": "2"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Dhamma Quotes",
-                  "App Apple Identifier": "6757726663",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store browse",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "JP",
-                  "Counts": "3",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Dhamma Quotes",
-                  "App Apple Identifier": "6757726663",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 26.7",
-                  "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
                 },
                 {
                   "Date": "2026-11-06",
@@ -8071,12 +8359,40 @@
                   "App Apple Identifier": "6757726663",
                   "Event": "Impression",
                   "Page Type": "No page",
+                  "Source Type": "App Store browse",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "JP",
+                  "Counts": "3",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "US",
+                  "Counts": "2",
+                  "Unique Counts": "2"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPad",
                   "Platform Version": "iOS 27.0",
-                  "Territory": "JP",
-                  "Counts": "3",
+                  "Territory": "KR",
+                  "Counts": "1",
                   "Unique Counts": "1"
                 },
                 {
@@ -8106,6 +8422,20 @@
                   "Territory": "JP",
                   "Counts": "1",
                   "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.4",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
                 }
               ],
               "downloads": []
@@ -8113,19 +8443,307 @@
           },
           {
             "date": "2026-11-07",
-            "processing_date": null,
-            "discovery_processing_date": null,
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
-            "discovery": null,
+            "discovery": {
+              "impressions": 23,
+              "unique_impressions": null,
+              "page_views": null,
+              "unique_page_views": null,
+              "taps": null,
+              "unique_taps": null
+            },
             "downloads": null,
             "source_rows": {
-              "discovery": [],
+              "discovery": [
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 15.8",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.7",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "MX",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "3",
+                  "Unique Counts": "2"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "AE",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.3",
+                  "Territory": "SG",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store browse",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "JP",
+                  "Counts": "2",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "SE",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.4",
+                  "Territory": "NG",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "GB",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "DE",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "CA",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "MM",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "SA",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Dhamma Quotes",
+                  "App Apple Identifier": "6757726663",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.0",
+                  "Territory": "LK",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                }
+              ],
               "downloads": []
             }
           }
         ],
         "metrics": {
-          "impressions": 136,
+          "impressions": 159,
           "unique_impressions": null,
           "page_views": 9,
           "unique_page_views": null,
@@ -8143,7 +8761,7 @@
           "other": null
         },
         "download_events": 5,
-        "discovery_days": 6,
+        "discovery_days": 7,
         "download_days": 3
       },
       {
@@ -9058,8 +9676,8 @@
           },
           {
             "date": "2026-11-05",
-            "processing_date": "2026-11-07",
-            "discovery_processing_date": "2026-11-07",
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
             "discovery": {
               "impressions": 11,
@@ -9076,13 +9694,27 @@
                   "Date": "2026-11-05",
                   "App Name": "Thankful - Gratitude Journal",
                   "App Apple Identifier": "6759514159",
-                  "Event": "Page view",
-                  "Page Type": "Developer page",
-                  "Source Type": "App Store browse",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "US",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "AU",
                   "Counts": "1",
                   "Unique Counts": "1"
                 },
@@ -9109,24 +9741,10 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 18.7",
-                  "Territory": "JP",
+                  "Platform Version": "iOS 26.4",
+                  "Territory": "US",
                   "Counts": "1",
                   "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "US",
-                  "Counts": "4",
-                  "Unique Counts": "2"
                 },
                 {
                   "Date": "2026-11-05",
@@ -9151,22 +9769,22 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 26.4",
+                  "Platform Version": "iOS 27.0",
                   "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
+                  "Counts": "4",
+                  "Unique Counts": "2"
                 },
                 {
                   "Date": "2026-11-05",
                   "App Name": "Thankful - Gratitude Journal",
                   "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
+                  "Event": "Page view",
+                  "Page Type": "Developer page",
+                  "Source Type": "App Store browse",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "AU",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
                   "Counts": "1",
                   "Unique Counts": "1"
                 }
@@ -9176,8 +9794,8 @@
           },
           {
             "date": "2026-11-06",
-            "processing_date": "2026-11-07",
-            "discovery_processing_date": "2026-11-07",
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
             "discovery": {
               "impressions": 26,
@@ -9198,9 +9816,51 @@
                   "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "iPhone",
+                  "Device": "iPad",
                   "Platform Version": "iOS 18.7",
                   "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "Desktop",
+                  "Platform Version": "macOS 15.7",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "CA",
                   "Counts": "1",
                   "Unique Counts": "1"
                 },
@@ -9226,165 +9886,11 @@
                   "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "US",
-                  "Counts": "4",
-                  "Unique Counts": "4"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.5",
-                  "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.5",
-                  "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.2",
-                  "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 18.7",
-                  "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
                   "Device": "iPad",
                   "Platform Version": "iOS 27.0",
                   "Territory": "JP",
                   "Counts": "1",
                   "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 26.5",
-                  "Territory": "CA",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "Desktop",
-                  "Platform Version": "macOS 15.7",
-                  "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Page view",
-                  "Page Type": "Product page",
-                  "Source Type": "App Store browse",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "CN",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "CA",
-                  "Counts": "2",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "JP",
-                  "Counts": "6",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Thankful - Gratitude Journal",
-                  "App Apple Identifier": "6759514159",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "US",
-                  "Counts": "4",
-                  "Unique Counts": "3"
                 },
                 {
                   "Date": "2026-11-06",
@@ -9399,6 +9905,20 @@
                   "Territory": "KR",
                   "Counts": "1",
                   "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "4",
+                  "Unique Counts": "4"
                 },
                 {
                   "Date": "2026-11-06",
@@ -9427,6 +9947,104 @@
                   "Territory": "CN",
                   "Counts": "1",
                   "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "US",
+                  "Counts": "4",
+                  "Unique Counts": "3"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "6",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "CA",
+                  "Counts": "2",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Page view",
+                  "Page Type": "Product page",
+                  "Source Type": "App Store browse",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "CN",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
                 }
               ],
               "downloads": []
@@ -9434,19 +10052,97 @@
           },
           {
             "date": "2026-11-07",
-            "processing_date": null,
-            "discovery_processing_date": null,
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
-            "discovery": null,
+            "discovery": {
+              "impressions": 9,
+              "unique_impressions": null,
+              "page_views": null,
+              "unique_page_views": null,
+              "taps": null,
+              "unique_taps": null
+            },
             "downloads": null,
             "source_rows": {
-              "discovery": [],
+              "discovery": [
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "JP",
+                  "Counts": "3",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "3",
+                  "Unique Counts": "3"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Thankful - Gratitude Journal",
+                  "App Apple Identifier": "6759514159",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "CA",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                }
+              ],
               "downloads": []
             }
           }
         ],
         "metrics": {
-          "impressions": 85,
+          "impressions": 94,
           "unique_impressions": null,
           "page_views": 10,
           "unique_page_views": null,
@@ -9464,7 +10160,7 @@
           "other": null
         },
         "download_events": 1,
-        "discovery_days": 6,
+        "discovery_days": 7,
         "download_days": 1
       },
       {
@@ -10305,8 +11001,8 @@
           },
           {
             "date": "2026-11-05",
-            "processing_date": "2026-11-07",
-            "discovery_processing_date": "2026-11-07",
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
             "discovery": {
               "impressions": 5,
@@ -10325,7 +11021,7 @@
                   "App Apple Identifier": "6762143790",
                   "Event": "Impression",
                   "Page Type": "No page",
-                  "Source Type": "App Store search",
+                  "Source Type": "App Store browse",
                   "Engagement Type": "",
                   "Device": "iPhone",
                   "Platform Version": "iOS 26.6",
@@ -10339,7 +11035,7 @@
                   "App Apple Identifier": "6762143790",
                   "Event": "Impression",
                   "Page Type": "No page",
-                  "Source Type": "App Store browse",
+                  "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
                   "Platform Version": "iOS 26.6",
@@ -10381,8 +11077,8 @@
           },
           {
             "date": "2026-11-06",
-            "processing_date": "2026-11-07",
-            "discovery_processing_date": "2026-11-07",
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
             "discovery": {
               "impressions": 8,
@@ -10395,6 +11091,20 @@
             "downloads": null,
             "source_rows": {
               "discovery": [
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "For Better Sleep - Sleep Reset",
+                  "App Apple Identifier": "6762143790",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
                 {
                   "Date": "2026-11-06",
                   "App Name": "For Better Sleep - Sleep Reset",
@@ -10432,20 +11142,6 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 18.7",
-                  "Territory": "PH",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "For Better Sleep - Sleep Reset",
-                  "App Apple Identifier": "6762143790",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
                   "Platform Version": "iOS 27.0",
                   "Territory": "TR",
                   "Counts": "1",
@@ -10460,7 +11156,21 @@
                   "Source Type": "App Store search",
                   "Engagement Type": "",
                   "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "PH",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "For Better Sleep - Sleep Reset",
+                  "App Apple Identifier": "6762143790",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.5",
                   "Territory": "US",
                   "Counts": "1",
                   "Unique Counts": "1"
@@ -10478,20 +11188,6 @@
                   "Territory": "US",
                   "Counts": "2",
                   "Unique Counts": "2"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "For Better Sleep - Sleep Reset",
-                  "App Apple Identifier": "6762143790",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 26.5",
-                  "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
                 }
               ],
               "downloads": []
@@ -10499,19 +11195,125 @@
           },
           {
             "date": "2026-11-07",
-            "processing_date": null,
-            "discovery_processing_date": null,
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
-            "discovery": null,
+            "discovery": {
+              "impressions": 8,
+              "unique_impressions": null,
+              "page_views": null,
+              "unique_page_views": null,
+              "taps": null,
+              "unique_taps": null
+            },
             "downloads": null,
             "source_rows": {
-              "discovery": [],
+              "discovery": [
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "For Better Sleep - Sleep Reset",
+                  "App Apple Identifier": "6762143790",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "IT",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "For Better Sleep - Sleep Reset",
+                  "App Apple Identifier": "6762143790",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "For Better Sleep - Sleep Reset",
+                  "App Apple Identifier": "6762143790",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "GB",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "For Better Sleep - Sleep Reset",
+                  "App Apple Identifier": "6762143790",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "For Better Sleep - Sleep Reset",
+                  "App Apple Identifier": "6762143790",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "AU",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "For Better Sleep - Sleep Reset",
+                  "App Apple Identifier": "6762143790",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.7",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "For Better Sleep - Sleep Reset",
+                  "App Apple Identifier": "6762143790",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "GB",
+                  "Counts": "2",
+                  "Unique Counts": "1"
+                }
+              ],
               "downloads": []
             }
           }
         ],
         "metrics": {
-          "impressions": 51,
+          "impressions": 59,
           "unique_impressions": null,
           "page_views": 1,
           "unique_page_views": null,
@@ -10529,7 +11331,7 @@
           "other": null
         },
         "download_events": null,
-        "discovery_days": 6,
+        "discovery_days": 7,
         "download_days": 0
       },
       {
@@ -13690,8 +14492,8 @@
           },
           {
             "date": "2026-11-05",
-            "processing_date": "2026-11-07",
-            "discovery_processing_date": "2026-11-07",
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
             "discovery": {
               "impressions": 16,
@@ -13704,118 +14506,6 @@
             "downloads": null,
             "source_rows": {
               "discovery": [
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.2",
-                  "Territory": "JP",
-                  "Counts": "2",
-                  "Unique Counts": "2"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 18.3",
-                  "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.2",
-                  "Territory": "CA",
-                  "Counts": "2",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store browse",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "US",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPad",
-                  "Platform Version": "iOS 26.5",
-                  "Territory": "KR",
-                  "Counts": "2",
-                  "Unique Counts": "2"
-                },
-                {
-                  "Date": "2026-11-05",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
                 {
                   "Date": "2026-11-05",
                   "App Name": "Honne",
@@ -13852,11 +14542,25 @@
                   "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "Desktop",
-                  "Platform Version": "macOS 26.5",
-                  "Territory": "KR",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "JP",
                   "Counts": "1",
                   "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "KR",
+                  "Counts": "2",
+                  "Unique Counts": "2"
                 },
                 {
                   "Date": "2026-11-05",
@@ -13885,6 +14589,104 @@
                   "Territory": "TR",
                   "Counts": "1",
                   "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.3",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store browse",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "US",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "Desktop",
+                  "Platform Version": "macOS 26.5",
+                  "Territory": "KR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "JP",
+                  "Counts": "2",
+                  "Unique Counts": "2"
+                },
+                {
+                  "Date": "2026-11-05",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "CA",
+                  "Counts": "2",
+                  "Unique Counts": "1"
                 }
               ],
               "downloads": []
@@ -13892,8 +14694,8 @@
           },
           {
             "date": "2026-11-06",
-            "processing_date": "2026-11-07",
-            "discovery_processing_date": "2026-11-07",
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
             "discovery": {
               "impressions": 14,
@@ -13914,121 +14716,9 @@
                   "Page Type": "No page",
                   "Source Type": "App Store search",
                   "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 27.0",
-                  "Territory": "CA",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 18.7",
-                  "Territory": "PH",
-                  "Counts": "3",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "JP",
-                  "Counts": "2",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "GB",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
                   "Device": "iPad",
                   "Platform Version": "iOS 27.0",
                   "Territory": "JP",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 16.7",
-                  "Territory": "CA",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Page view",
-                  "Page Type": "Product page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 18.7",
-                  "Territory": "PH",
-                  "Counts": "1",
-                  "Unique Counts": "1"
-                },
-                {
-                  "Date": "2026-11-06",
-                  "App Name": "Honne",
-                  "App Apple Identifier": "6759667221",
-                  "Event": "Impression",
-                  "Page Type": "No page",
-                  "Source Type": "App Store search",
-                  "Engagement Type": "",
-                  "Device": "iPhone",
-                  "Platform Version": "iOS 26.6",
-                  "Territory": "KR",
                   "Counts": "1",
                   "Unique Counts": "1"
                 },
@@ -14073,6 +14763,118 @@
                   "Territory": "CA",
                   "Counts": "1",
                   "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "KR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "2",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Page view",
+                  "Page Type": "Product page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "PH",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "CA",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 16.7",
+                  "Territory": "CA",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "PH",
+                  "Counts": "3",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-06",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "GB",
+                  "Counts": "1",
+                  "Unique Counts": "1"
                 }
               ],
               "downloads": []
@@ -14080,19 +14882,223 @@
           },
           {
             "date": "2026-11-07",
-            "processing_date": null,
-            "discovery_processing_date": null,
+            "processing_date": "2026-11-08",
+            "discovery_processing_date": "2026-11-08",
             "downloads_processing_date": null,
-            "discovery": null,
+            "discovery": {
+              "impressions": 22,
+              "unique_impressions": null,
+              "page_views": null,
+              "unique_page_views": null,
+              "taps": null,
+              "unique_taps": null
+            },
             "downloads": null,
             "source_rows": {
-              "discovery": [],
+              "discovery": [
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "KR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "3",
+                  "Unique Counts": "3"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "CA",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "JP",
+                  "Counts": "3",
+                  "Unique Counts": "3"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "JP",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 16.7",
+                  "Territory": "CA",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.2",
+                  "Territory": "CA",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "CN",
+                  "Counts": "3",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.6",
+                  "Territory": "KR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 27.0",
+                  "Territory": "KR",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 26.5",
+                  "Territory": "TH",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPad",
+                  "Platform Version": "iOS 26.7",
+                  "Territory": "KR",
+                  "Counts": "3",
+                  "Unique Counts": "1"
+                },
+                {
+                  "Date": "2026-11-07",
+                  "App Name": "Honne",
+                  "App Apple Identifier": "6759667221",
+                  "Event": "Impression",
+                  "Page Type": "No page",
+                  "Source Type": "App Store search",
+                  "Engagement Type": "",
+                  "Device": "iPhone",
+                  "Platform Version": "iOS 18.7",
+                  "Territory": "SE",
+                  "Counts": "1",
+                  "Unique Counts": "1"
+                }
+              ],
               "downloads": []
             }
           }
         ],
         "metrics": {
-          "impressions": 257,
+          "impressions": 279,
           "unique_impressions": null,
           "page_views": 2,
           "unique_page_views": null,
@@ -14110,7 +15116,7 @@
           "other": null
         },
         "download_events": 9,
-        "discovery_days": 6,
+        "discovery_days": 7,
         "download_days": 2
       }
     ]
