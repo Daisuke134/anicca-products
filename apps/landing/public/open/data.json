@@ -14116,8 +14116,8 @@
     "credits_claimed_usd": 250.0,
     "credits_note": "Claimed $250 is sponsor input, not revenue. Credits are excluded from revenue and MRR.",
     "session_spend_measured": "E2E cycle $0.205315; producer app-ship session $0.341027; business cycles $0.250085; revenue-max cycles $0.051791; mobile proof $0.40.",
-    "workspace_revenue_usd": 0.0,
-    "revenue_note": "New revenue via the Naïve workspace: $0 (no new external payments). x402 payTo $0.926 predates the hackathon and is tracked under wallets.",
+    "workspace_revenue_usd": 0.03,
+    "revenue_note": "First revenue earned in the Naïve workspace: CrowdWorks 13582295 (reica1993) client-approved 2026-11-08 20:43 JST — $0.03. Capafy Naïve-side sales $0 (in review); x402 $0.926 predates event (wallets).",
     "agents": 13,
     "board_cards": 37,
     "apps": [
