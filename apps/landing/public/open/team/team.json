@@ -1,9 +1,9 @@
 {
- "built_at": "2026-11-07 09:02 JST",
+ "built_at": "2026-11-10 08:58 JST",
  "right_now": [
   {
    "agent": "参謀",
-   "last": "2026-11-07 08:42",
+   "last": "2026-11-07 12:36",
    "source": "LIVE-STATE.md",
    "task": "team-revenue-loop",
    "blocked": true
@@ -45,14 +45,14 @@
   },
   {
    "agent": "dr eggbot",
-   "last": "2026-11-07 03:21",
+   "last": "2026-11-07 09:45",
    "source": "BOARD",
    "task": "life-manager-8745",
    "blocked": true
   },
   {
    "agent": "Forensic Writing",
-   "last": "2026-11-07 01:38",
+   "last": "2026-11-07 14:24",
    "source": "BOARD",
    "task": "hook-forensics-24h",
    "blocked": true
@@ -854,68 +854,81 @@
  ],
  "accounts": [
   {
-   "platform": "tiktok-business",
-   "account": "hooklab.capafy",
+   "platform": "TikTok",
+   "account": "honne_reveal",
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": "未取得",
-   "followers_7d": "未取得",
-   "posts_7d": 0,
-   "views_7d": "未取得",
-   "er_7d": "未取得",
-   "avg_views_last5": "未取得",
-   "last_post": "未取得",
-   "winner": "未取得"
+   "followers": 5.0,
+   "followers_7d": 0,
+   "posts_7d": 14,
+   "views_7d": 2757.0,
+   "er_7d": "116.0/2757=4.2%",
+   "avg_views_last5": 181,
+   "last_post": "2026-11-06T20:30",
+   "winner": "https://www.tiktok.com/@kairyu699"
   },
   {
    "platform": "TikTok",
    "account": "anicca.jp4",
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 119.0,
-   "followers_7d": 0,
-   "posts_7d": 4,
-   "views_7d": 2316.0,
-   "er_7d": "5.0/2316=0.2%",
-   "avg_views_last5": 862,
-   "last_post": "2026-10-30T12:40",
+   "followers": 130.0,
+   "followers_7d": 11,
+   "posts_7d": 12,
+   "views_7d": 13610.0,
+   "er_7d": "409.0/13610=3.0%",
+   "avg_views_last5": 992,
+   "last_post": "2026-11-06T14:30",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
   {
-   "platform": "YouTube",
-   "account": "@anicca-affirmation-video",
-   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": "未取得",
-   "followers_7d": "未取得",
-   "posts_7d": 3,
-   "views_7d": "未取得",
-   "er_7d": "未取得",
-   "avg_views_last5": "未取得",
-   "last_post": "2026-10-30T12:38",
+   "platform": "TikTok",
+   "account": "obou_anicca",
+   "poster": "Muse",
+   "followers": 12.0,
+   "followers_7d": 0,
+   "posts_7d": 15,
+   "views_7d": 2.0,
+   "er_7d": "0/2=0.0%",
+   "avg_views_last5": 0,
+   "last_post": "2026-11-06T22:56",
    "winner": "https://www.tiktok.com/@yuusan_juusyoku"
   },
   {
    "platform": "X",
    "account": "selawmqt",
    "poster": "参謀",
-   "followers": 9,
-   "followers_7d": 0,
-   "posts_7d": 38,
+   "followers": 14,
+   "followers_7d": 5,
+   "posts_7d": 16,
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": 7,
-   "last_post": "2026-11-03T00:00",
+   "last_post": "2026-11-03T09:00",
    "winner": "https://x.com/godofprompt"
   },
   {
    "platform": "TikTok",
-   "account": "aniccaaffirmation",
+   "account": "anicca_slideshow",
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 140.0,
+   "followers": 3.0,
+   "followers_7d": 0,
+   "posts_7d": 13,
+   "views_7d": 2610.0,
+   "er_7d": "86.0/2610=3.3%",
+   "avg_views_last5": 282,
+   "last_post": "2026-11-06T20:30",
+   "winner": "https://www.tiktok.com/@dreamlifecode"
+  },
+  {
+   "platform": "TikTok",
+   "account": "aniccaen2",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 35.0,
    "followers_7d": 1,
-   "posts_7d": 24,
-   "views_7d": 4774.0,
-   "er_7d": "48.0/4774=1.0%",
-   "avg_views_last5": 64,
-   "last_post": "2026-11-02T23:00",
+   "posts_7d": 13,
+   "views_7d": 3082.0,
+   "er_7d": "75.0/3082=2.4%",
+   "avg_views_last5": 214,
+   "last_post": "2026-11-06T20:30",
    "winner": "https://www.tiktok.com/@dreamlifecode"
   },
   {
@@ -924,11 +937,11 @@
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 7,
-   "views_7d": 185.0,
-   "er_7d": "0/185=0.0%",
-   "avg_views_last5": 38,
-   "last_post": "2026-10-30T05:10",
+   "posts_7d": 0,
+   "views_7d": 0.0,
+   "er_7d": "未取得",
+   "avg_views_last5": "未取得",
+   "last_post": "未取得",
    "winner": "https://www.instagram.com/frequency_mastery/"
   },
   {
@@ -937,11 +950,11 @@
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 0,
+   "posts_7d": 6,
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "未取得",
+   "last_post": "2026-11-06T21:00",
    "winner": "未取得"
   },
   {
@@ -950,11 +963,11 @@
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 0,
+   "posts_7d": 1,
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": 69,
-   "last_post": "未取得",
+   "last_post": "2026-11-04T02:07",
    "winner": "未取得"
   },
   {
@@ -963,11 +976,11 @@
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 5,
-   "views_7d": 1805.0,
-   "er_7d": "0/1805=0.0%",
-   "avg_views_last5": 528,
-   "last_post": "2026-10-29T23:05",
+   "posts_7d": 0,
+   "views_7d": 100.0,
+   "er_7d": "0/100=0.0%",
+   "avg_views_last5": "未取得",
+   "last_post": "未取得",
    "winner": "https://www.instagram.com/selflovejp/"
   },
   {
@@ -976,11 +989,11 @@
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 3,
-   "views_7d": 243.0,
-   "er_7d": "0/243=0.0%",
-   "avg_views_last5": 121,
-   "last_post": "2026-10-29T10:10",
+   "posts_7d": 0,
+   "views_7d": 15.0,
+   "er_7d": "0/15=0.0%",
+   "avg_views_last5": "未取得",
+   "last_post": "未取得",
    "winner": "https://www.instagram.com/selflovejp/"
   },
   {
@@ -990,10 +1003,10 @@
    "followers": "未取得",
    "followers_7d": "未取得",
    "posts_7d": 1,
-   "views_7d": 53.0,
-   "er_7d": "0/53=0.0%",
-   "avg_views_last5": 4,
-   "last_post": "2026-10-30T05:48",
+   "views_7d": 26.0,
+   "er_7d": "0/26=0.0%",
+   "avg_views_last5": 0,
+   "last_post": "2026-11-06T22:56",
    "winner": "https://www.tiktok.com/@yuusan_juusyoku"
   },
   {
@@ -1016,9 +1029,9 @@
    "followers": "未取得",
    "followers_7d": "未取得",
    "posts_7d": 0,
-   "views_7d": 98.0,
-   "er_7d": "0/98=0.0%",
-   "avg_views_last5": "未取得",
+   "views_7d": 461.0,
+   "er_7d": "0/461=0.0%",
+   "avg_views_last5": 10,
    "last_post": "未取得",
    "winner": "https://www.instagram.com/mingsanhealing/"
   },
@@ -1026,14 +1039,27 @@
    "platform": "X",
    "account": "diceai0",
    "poster": "参謀",
-   "followers": 494,
-   "followers_7d": 0,
-   "posts_7d": 5,
+   "followers": 952,
+   "followers_7d": 458,
+   "posts_7d": 7,
    "views_7d": "未取得",
    "er_7d": "未取得",
-   "avg_views_last5": "未取得",
-   "last_post": "2026-10-30T12:29",
+   "avg_views_last5": 96,
+   "last_post": "2026-11-05T20:35",
    "winner": "https://x.com/marclou"
+  },
+  {
+   "platform": "TikTok",
+   "account": "aniccaaffirmation",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 140.0,
+   "followers_7d": 0,
+   "posts_7d": 36,
+   "views_7d": 1396.0,
+   "er_7d": "29.0/1396=2.1%",
+   "avg_views_last5": 212,
+   "last_post": "2026-11-06T20:30",
+   "winner": "https://www.tiktok.com/@dreamlifecode"
   },
   {
    "platform": "Instagram",
@@ -1041,25 +1067,12 @@
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 8,
-   "views_7d": 3.0,
-   "er_7d": "0/3=0.0%",
-   "avg_views_last5": 0,
-   "last_post": "2026-10-30T05:15",
+   "posts_7d": 0,
+   "views_7d": 2.0,
+   "er_7d": "0/2=0.0%",
+   "avg_views_last5": "未取得",
+   "last_post": "未取得",
    "winner": "https://www.instagram.com/selflovejp/"
-  },
-  {
-   "platform": "TikTok",
-   "account": "honnevideo",
-   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 6.0,
-   "followers_7d": 0,
-   "posts_7d": 10,
-   "views_7d": 2227.0,
-   "er_7d": "12.0/2227=0.5%",
-   "avg_views_last5": 148,
-   "last_post": "2026-10-31T00:21",
-   "winner": "https://www.tiktok.com/@kairyu699"
   },
   {
    "platform": "Instagram",
@@ -1067,25 +1080,12 @@
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 9,
-   "views_7d": 1.0,
-   "er_7d": "0/1=0.0%",
-   "avg_views_last5": 0,
-   "last_post": "2026-10-30T05:49",
+   "posts_7d": 0,
+   "views_7d": 0.0,
+   "er_7d": "未取得",
+   "avg_views_last5": "未取得",
+   "last_post": "未取得",
    "winner": "https://www.instagram.com/selflovejp/"
-  },
-  {
-   "platform": "TikTok",
-   "account": "honne_reveal",
-   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 5.0,
-   "followers_7d": 0,
-   "posts_7d": 3,
-   "views_7d": 2607.0,
-   "er_7d": "99.0/2607=3.8%",
-   "avg_views_last5": 131,
-   "last_post": "2026-10-30T12:38",
-   "winner": "https://www.tiktok.com/@kairyu699"
   },
   {
    "platform": "Instagram",
@@ -1093,116 +1093,116 @@
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 7,
-   "views_7d": 8961.0,
-   "er_7d": "0/8961=0.0%",
-   "avg_views_last5": 1309,
-   "last_post": "2026-10-30T01:10",
+   "posts_7d": 0,
+   "views_7d": 354.0,
+   "er_7d": "0/354=0.0%",
+   "avg_views_last5": "未取得",
+   "last_post": "未取得",
    "winner": "https://www.instagram.com/frequency_mastery/"
   },
   {
    "platform": "TikTok",
    "account": "anicca_buddha",
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 3239.0,
-   "followers_7d": 0,
-   "posts_7d": 8,
-   "views_7d": 2936.0,
-   "er_7d": "23.0/2936=0.8%",
-   "avg_views_last5": 840,
-   "last_post": "2026-10-31T01:18",
+   "followers": 3245.0,
+   "followers_7d": 6,
+   "posts_7d": 14,
+   "views_7d": 10855.0,
+   "er_7d": "332.0/10855=3.1%",
+   "avg_views_last5": 448,
+   "last_post": "2026-11-06T20:30",
    "winner": "https://www.tiktok.com/@yuusan_juusyoku"
   },
   {
    "platform": "TikTok",
    "account": "monk_anicca",
    "poster": "参謀",
-   "followers": 174.0,
-   "followers_7d": 5,
-   "posts_7d": 10,
-   "views_7d": 4394.0,
-   "er_7d": "655.0/4394=14.9%",
-   "avg_views_last5": 159,
-   "last_post": "2026-11-02T11:41",
+   "followers": 199.0,
+   "followers_7d": 25,
+   "posts_7d": 13,
+   "views_7d": 2832.0,
+   "er_7d": "444.0/2832=15.7%",
+   "avg_views_last5": 154,
+   "last_post": "2026-11-06T20:30",
    "winner": "https://www.tiktok.com/@buddhamotivation1mu"
   },
   {
-   "platform": "TikTok",
-   "account": "anicca_slideshow",
+   "platform": "tiktok-business",
+   "account": "hooklab.capafy",
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 3.0,
-   "followers_7d": 0,
-   "posts_7d": 8,
-   "views_7d": 1465.0,
-   "er_7d": "20.0/1465=1.4%",
-   "avg_views_last5": 188,
-   "last_post": "2026-10-30T23:00",
-   "winner": "https://www.tiktok.com/@dreamlifecode"
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 0,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "avg_views_last5": "未取得",
+   "last_post": "未取得",
+   "winner": "未取得"
   },
   {
    "platform": "TikTok",
-   "account": "aniccaen2",
+   "account": "anicca.he",
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 34.0,
-   "followers_7d": 0,
-   "posts_7d": 9,
-   "views_7d": 3993.0,
-   "er_7d": "90.0/3993=2.3%",
-   "avg_views_last5": 103,
-   "last_post": "2026-10-30T22:52",
-   "winner": "https://www.tiktok.com/@dreamlifecode"
-  },
-  {
-   "platform": "TikTok",
-   "account": "obou_anicca",
-   "poster": "Muse",
-   "followers": 12.0,
-   "followers_7d": 0,
-   "posts_7d": 4,
-   "views_7d": 5.0,
-   "er_7d": "0/5=0.0%",
-   "avg_views_last5": 0,
-   "last_post": "2026-11-01T23:51",
-   "winner": "https://www.tiktok.com/@yuusan_juusyoku"
-  },
-  {
-   "platform": "TikTok",
-   "account": "anicca.jp",
-   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 248.0,
-   "followers_7d": 0,
-   "posts_7d": 9,
-   "views_7d": 4401.0,
-   "er_7d": "64.0/4401=1.5%",
-   "avg_views_last5": 797,
-   "last_post": "2026-10-31T00:14",
+   "followers": 29.0,
+   "followers_7d": 9,
+   "posts_7d": 13,
+   "views_7d": 10110.0,
+   "er_7d": "284.0/10110=2.8%",
+   "avg_views_last5": 1114,
+   "last_post": "2026-11-06T14:30",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
   {
    "platform": "TikTok",
    "account": "anicca.jpx",
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 67.0,
-   "followers_7d": 0,
-   "posts_7d": 8,
-   "views_7d": 4099.0,
-   "er_7d": "69.0/4099=1.7%",
-   "avg_views_last5": 874,
-   "last_post": "2026-10-31T04:12",
+   "followers": 70.0,
+   "followers_7d": 3,
+   "posts_7d": 13,
+   "views_7d": 10366.0,
+   "er_7d": "318.0/10366=3.1%",
+   "avg_views_last5": 944,
+   "last_post": "2026-11-06T14:30",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
   },
   {
    "platform": "TikTok",
-   "account": "anicca.he",
+   "account": "anicca.jp",
    "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
-   "followers": 20.0,
-   "followers_7d": 0,
-   "posts_7d": 5,
-   "views_7d": 1939.0,
-   "er_7d": "7.0/1939=0.4%",
-   "avg_views_last5": 893,
-   "last_post": "2026-10-31T22:00",
+   "followers": 254.0,
+   "followers_7d": 6,
+   "posts_7d": 13,
+   "views_7d": 9829.0,
+   "er_7d": "293.0/9829=3.0%",
+   "avg_views_last5": 773,
+   "last_post": "2026-11-06T14:30",
    "winner": "https://www.tiktok.com/@tsubaki.reading"
+  },
+  {
+   "platform": "YouTube",
+   "account": "@anicca-affirmation-video",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": 4,
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "avg_views_last5": "未取得",
+   "last_post": "2026-11-06T11:53",
+   "winner": "https://www.tiktok.com/@yuusan_juusyoku"
+  },
+  {
+   "platform": "TikTok",
+   "account": "honnevideo",
+   "poster": "Muse（LMジョブはMuseの毎日投稿確認まで継続）",
+   "followers": 11.0,
+   "followers_7d": 5,
+   "posts_7d": 14,
+   "views_7d": 10420.0,
+   "er_7d": "100.0/10420=1.0%",
+   "avg_views_last5": 4181,
+   "last_post": "2026-11-06T14:30",
+   "winner": "https://www.tiktok.com/@kairyu699"
   },
   {
    "platform": "YouTube",
@@ -1214,7 +1214,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-11-02T11:41",
+   "last_post": "2026-11-06T17:31",
    "winner": "https://www.tiktok.com/@yuusan_juusyoku"
   },
   {
@@ -1236,20 +1236,20 @@
    "poster": "Anicca Marketer",
    "followers": 3,
    "followers_7d": 0,
-   "posts_7d": 43,
+   "posts_7d": 49,
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-11-02T23:30",
+   "last_post": "2026-11-06T23:30",
    "winner": "https://bsky.app/profile/luigiaffirmations.bsky.social"
   },
   {
    "platform": "Bluesky",
    "account": "aniccaapp.bsky.social",
    "poster": "Anicca Marketer",
-   "followers": 6,
-   "followers_7d": 0,
-   "posts_7d": 11,
+   "followers": 5,
+   "followers_7d": -1,
+   "posts_7d": 7,
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
@@ -1262,7 +1262,7 @@
    "poster": "参謀",
    "followers": 3,
    "followers_7d": 0,
-   "posts_7d": 7,
+   "posts_7d": 2,
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
@@ -1275,11 +1275,11 @@
    "poster": "参謀",
    "followers": 4,
    "followers_7d": 0,
-   "posts_7d": 2,
+   "posts_7d": 3,
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-31T18:19",
+   "last_post": "2026-11-06T18:21",
    "winner": "https://bsky.app/profile/productivitydir.bsky.social"
   },
   {
@@ -1292,7 +1292,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-11-02",
+   "last_post": "2026-11-06",
    "winner": "未取得"
   },
   {
@@ -1353,11 +1353,11 @@
    "poster": "参謀",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 0,
+   "posts_7d": "未取得",
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-18T23:20",
+   "last_post": "未取得",
    "winner": "未取得"
   },
   {
@@ -1366,11 +1366,11 @@
    "poster": "参謀",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 0,
+   "posts_7d": "未取得",
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-10-24T10:17",
+   "last_post": "未取得",
    "winner": "未取得"
   },
   {
@@ -1405,11 +1405,11 @@
    "poster": "Anicca Marketer",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 10,
+   "posts_7d": 8,
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-11-01 06:2x",
+   "last_post": "2026-11-07 03:2x",
    "winner": "未取得"
   },
   {
@@ -1418,7 +1418,7 @@
    "poster": "Anicca Marketer",
    "followers": "未取得",
    "followers_7d": "未取得",
-   "posts_7d": 8,
+   "posts_7d": 0,
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": 0,
@@ -1656,7 +1656,7 @@
    "views_7d": "未取得",
    "er_7d": "未取得",
    "avg_views_last5": "未取得",
-   "last_post": "2026-11-07 02:13",
+   "last_post": "2026-11-10 02:17",
    "winner": "未取得"
   },
   {
@@ -1710,6 +1710,19 @@
    "avg_views_last5": "未取得",
    "last_post": "2026-11-07 03:3x",
    "winner": "未取得"
+  },
+  {
+   "platform": "tiktok+ig",
+   "account": "obou_anicca/obou.anicca",
+   "poster": "未取得",
+   "followers": "未取得",
+   "followers_7d": "未取得",
+   "posts_7d": "未取得",
+   "views_7d": "未取得",
+   "er_7d": "未取得",
+   "avg_views_last5": "未取得",
+   "last_post": "2026-11-09 15:05",
+   "winner": "未取得"
   }
  ],
  "seo": [
@@ -1736,11 +1749,11 @@
     "kind": "unknown"
    },
    "latest_outcome": {
-    "text": "- 2026-11-06 17:14 JST｜参謀(executor)｜TODO#10 Anicca source+next artifact｜verified-not-released｜",
+    "text": "- 2026-11-07 10:45 JST｜参謀｜Team revenue loop｜done｜Birdfury CLAIM anicca-sanbo + Apify SEO + Speedbot v3｜売上¥0／費用¥0｜詰まり: CW/Lancers login｜次: Fucker CW返信 / Lancers login / Birdfury mis",
     "kind": "observed",
-    "observed_at": "2026-11-06 17:14 JST",
-    "freshness": "15h 48m ago",
-    "source": "DAILY-LOG/2026-11-06.md"
+    "observed_at": "2026-11-07 10:45 JST",
+    "freshness": "2d 22h ago",
+    "source": "DAILY-LOG/2026-11-07.md"
    }
   },
   {
@@ -1759,11 +1772,11 @@
     "kind": "unknown"
    },
    "latest_outcome": {
-    "text": "03:28 JST | Anicca Marketer | 02:00 JST growth-daily audit | 1 existing post verified https://www.tumblr.com/dailyanicca/832553801257009152; guard skip zero extra posts; no new att",
+    "text": "02:17 JST | Anicca Marketer | 02:00 JST growth-daily ship+gap | 1 additional post https://www.tumblr.com/dailyanicca/832825823898877952 queue anicca_sample-tumblr-2026-10-18_ja-01-",
     "kind": "observed",
-    "observed_at": "2026-11-07 03:28 JST",
-    "freshness": "5h 34m ago",
-    "source": "DAILY-LOG/2026-11-07.md"
+    "observed_at": "2026-11-10 02:17 JST",
+    "freshness": "6h 41m ago",
+    "source": "DAILY-LOG/2026-11-10.md"
    }
   },
   {
@@ -1782,10 +1795,10 @@
     "kind": "unknown"
    },
    "latest_outcome": {
-    "text": "2026-11-07 03:22 JST | Fucker | PDF PR #3 deployment-owner response | no response to read-only route request; 0 deployment changes | event trigger absent; preserve official path/vi",
+    "text": "- 2026-11-07 11:01 JST｜Fucker｜Honne & PDF Insight daily distribution｜done｜dev.to Clip Map記事 https://dev.to/agentworkshop/how-to-turn-a-long-video-transcript-into-10-shorts-moments-",
     "kind": "observed",
-    "observed_at": "2026-11-07 03:22 JST",
-    "freshness": "5h 40m ago",
+    "observed_at": "2026-11-07 11:01 JST",
+    "freshness": "2d 21h ago",
     "source": "DAILY-LOG/2026-11-07.md"
    }
   },
@@ -1805,11 +1818,11 @@
     "kind": "unknown"
    },
    "latest_outcome": {
-    "text": "- 06:51 JST｜dr eggbot｜coconala-lancers-loop｜ココナラ巡回済・送信0／ランサーズlogin要｜結果=返信0・納品0｜理由=Lancers session切れ＋automation secret入力不可｜詰まり=keiodaisukeログイン（不変・非通知）｜次=認可されたセッションでのみ未読9140190/91413",
+    "text": "- 2026-11-10 06:52 JST｜dr eggbot｜coconala-lancers-loop｜partial｜ココナラ既ログイン・03:50以降の新着なし（最新Ryu0820119は約02:50で前回確認済み）・取引中0・送信0／ランサーズは人検証画面で停止（送信0）｜理由: 返信待ちのみ｜詰まり=Lancers人検証/login不変（All",
     "kind": "observed",
-    "observed_at": "2026-11-07 06:51 JST",
-    "freshness": "2h 11m ago",
-    "source": "DAILY-LOG/2026-11-07.md"
+    "observed_at": "2026-11-10 06:52 JST",
+    "freshness": "2h 6m ago",
+    "source": "DAILY-LOG/2026-11-10.md"
    }
   },
   {
@@ -1828,10 +1841,10 @@
     "kind": "unknown"
    },
    "latest_outcome": {
-    "text": "- 2026-11-07 01:38 JST｜Grok Bot Forensic Writing｜02:00 Daily HOOKS.md refresh｜done｜raw更新・PostHog0・成熟3ID再読・HOOKS追記・COPY-DEPTH1行・queue変更なし｜followers939(+5) human_ct0 新規winner0｜売上¥0／費",
+    "text": "- 2026-11-07 14:24 JST｜Grok Bot Forensic Writing｜14:00 hook-forensics-24h-pass｜done｜fetch_winners 49new/1beater(@kuuhugu 24BM bar超)・第2出典なしでdraft0・公開connect 29v/1L実測・followers955・hu",
     "kind": "observed",
-    "observed_at": "2026-11-07 01:38 JST",
-    "freshness": "7h 24m ago",
+    "observed_at": "2026-11-07 14:24 JST",
+    "freshness": "2d 18h ago",
     "source": "DAILY-LOG/2026-11-07.md"
    }
   },
@@ -1854,7 +1867,7 @@
     "text": "03:37 JST | Muse Relay | 個人LinkedIn初投稿の公開本文検証とLinkedIn BOARD/RUNLOG/証跡記録 | 1件公開済み。売上増分¥0／費用¥0／24h指標未測定。GitHub CHANGESはmirror済みだがBOARD/RUNLOG/証跡の反映待ち | 共有保存を台帳にも揃えるため | GitHub証跡sync",
     "kind": "observed",
     "observed_at": "2026-11-07 03:37 JST",
-    "freshness": "5h 25m ago",
+    "freshness": "3d 5h ago",
     "source": "DAILY-LOG/2026-11-07.md"
    }
   },
@@ -1992,7 +2005,7 @@
     "text": "- 2026-11-06 17:07 JST｜Reporter｜TODO#13 Capafy原票再読＋Moneytree診断｜done｜",
     "kind": "observed",
     "observed_at": "2026-11-06 17:07 JST",
-    "freshness": "15h 55m ago",
+    "freshness": "3d 15h ago",
     "source": "DAILY-LOG/2026-11-06.md"
    }
   },
@@ -2015,7 +2028,7 @@
     "text": "- 20:17 JST | X Operator | diceai0 browser publish blocked | confirmed local Chrome proxy403 / x.com198.18.0.1, doctor pass direct curl only. No public reply/RT this slot. Requires",
     "kind": "observed",
     "observed_at": "2026-11-06 20:17 JST",
-    "freshness": "12h 45m ago",
+    "freshness": "3d 12h ago",
     "source": "DAILY-LOG/2026-11-06.md"
    }
   },
@@ -2061,7 +2074,7 @@
     "text": "- 2026-11-06 16:15 JST Muse (via relay)｜#7/#8のSNS公開URL/sourceペア待ち。新agent/routine/mergeなし。証拠=https://github.com/Daisuke134/anicca-products/blob/feat/open-silent-failures-886/COMPANY",
     "kind": "observed",
     "observed_at": "2026-11-06 16:15 JST",
-    "freshness": "16h 47m ago",
+    "freshness": "3d 16h ago",
     "source": "DAILY-LOG/2026-11-06.md"
    }
   },
@@ -2081,11 +2094,11 @@
     "kind": "unknown"
    },
    "latest_outcome": {
-    "text": "07:18 JST | Dots | さわだ1111の新条件通知を同名の旧案件と分離し、既存照合に新証拠を追補 | 10/28かわ6666の旧通知324173069が同名。旧message434643481は3〜5分の試用1件・税抜50円/税込55円・その他詳細は契約後。旧proposal310932052のindexとcrowdworks-three-th",
-    "kind": "observed",
-    "observed_at": "2026-11-05 07:18 JST",
-    "freshness": "2d 1h ago",
-    "source": "DAILY-LOG/2026-11-05.md"
+    "text": "unknown",
+    "kind": "unknown",
+    "observed_at": null,
+    "freshness": "unknown",
+    "source": null
    }
   }
  ],
