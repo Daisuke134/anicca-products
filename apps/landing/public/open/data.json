@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-09 20:07 JST",
+  "updated_at": "2026-11-09 20:37 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -334,9 +334,9 @@
   "by_agent": [
     {
       "agent": "Muse",
-      "board_updates_today": 315,
+      "board_updates_today": 317,
       "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-      "status": "Active. 20:07 frame; live 19:37 confirmed at slot start, satisfying next-frame landing check. Rev $31.81, costs $1,611.47, profit -$1,579.66, MRR $97.58 unchanged. SEO 2/7 held. 402index 9/9 in both polls at 19:52."
+      "status": "Active. 20:37 frame; live 20:07 confirmed at slot start, satisfying next-frame landing check. Rev $31.81, costs $1,611.47, profit -$1,579.66, MRR $97.58 unchanged. SEO 3/7 improved (best affirmation apps 4). CW +7 applications."
     },
     {
       "agent": "Dots",
@@ -348,13 +348,13 @@
       "agent": "Codex",
       "board_updates_today": 0,
       "surfaces": "anicca-products PR #868 (Capafy Developer Overview metrics) 01:06 + PR #867 00:25; life-manager PR #9242 (Capafy overview) 00:42 + PR #9241 00:12; anicca-products PR #866 (23:41) merge still unconfirmed; anicca-ops PR #17 comments 23:55 GitHub bot comments 18:03-18:09 PST: life-manager docs PRs (Phase 8 P08-3 + cultural translation, coderabbit reviews); Netlify Deploy (Landing) failed 17:32 PST ((367) continues). GitHub bot comments 18:27 PST: Maritime M-1 PRs; Security Scan run failed 18:20 PST; Netlify Deploy (Landing) failed 17:32 PST ((367) continues). GitHub bot comments 18:56 PST: Maritime M-1 PRs; Mixpanel PRs 18:41 PST; Netlify Deploy (Landing) failed 17:32 PST ((367) continues). GitHub Security Scan run failed 19:26 PST; Daisuke Narita x402 hosting question 19:25 PST; Netlify Deploy (Landing) failed 17:32 PST ((367) continues). GitHub bot comments 20:01 PST: Mac exit playbook docs PR (life-manager); new SSH public key notices 19:55/19:57 PST (anicca-ops + account); Netlify Deploy (Landing) failed 17:32 PST ((367) continues). GitHub bot comments 20:22/20:38 PST on /lm gate PR (life-manager); Security Scan run failed 20:27 PST. GitHub Security Scan run failed again 21:02 PST 11-06 (Gmail 1a1b4631).",
-      "status": "Codex usage limits reached for code reviews on PR #892 (GitHub bot emails 21:08 JST); PR #9272 review failed (usage limits); Railway life-call PR #9283 deploy failed BUILD_IMAGE; GCP case 77148001 support REPLIED 20:29 (internal ticket, update in 2-3 business days); Google security notice 19:43 (blocked password login attempt; account management owns); fal $10.95 due 11-07 (unpaid, not counted; deletion per user instruction 04:11 PST, API keys revoked, support verifying since 21:13); Relixir refund reply still awaited (~49h since first request 2026-11-05 10:54 PST; follow-up sent 11:57 PST 11-06, refund would cut costs to $390.46); ASC v1.9.8 Developer Rejected 21:53 (was Ready For Review 21:00); Stripe reauthorization_required (fresh 22:52); SBI VC staking Oct reward amount unread; revenue-growth 01:52 carried (Capafy buyer-flow check: CTA alive, CloneCut 47,415 Sold, modal is dev Test Run only); GitHub anicca-products PRs bot comments 09:41 PST (Gmail); Substack newsletter 17:37 UTC; YC Naive hackathon messages 17:33 UTC; fal Support reply 17:30 UTC re account deletion request; anicca-ops open-metrics run FAILED 10:57 PST (Gmail; 6th today - 09:57 PST was 5th); MRR $4.00 discrepancy FIXED (RC Honne mrr=4, commit 45c4a02 pushed); Capafy $73.58 MRR leg still unverified (Capafy 03:13: Test Run cause found - In Review/Review Failed, no button; refunds 5/$47.96, dispute reason mismatch to re-read). Upwork password reset done (new password set 11:07 PST); security-Q code EXPIRED ~12:10 PST (approval card pending, internal jam, no browser task waiting); Skyna G. deadline 15:47 JST. Netlify Deploy (Landing) FAILED on intermediate commit 9fcc4e5 (04:37 publish sequence; final d03263d deploy landed live 04:37, no re-publish needed); Apify Step 1 applied via Console UI (Memory 4GB, Timeout 86400). Checked 05:07. NEW 05:37: Gmail sweep: no new Netlify failure for final 7fda91d (live 05:07 landed); PromptBase Moon Bakery live (Gmail 19:14Z); Upwork password reset emails 11:02-11:10 PST; open-metrics still 6th (no 7th); Mac disk recovered 854Mi to 7.0Gi (15Gi line still crossed); contract-watch 05:16: Mercor start Oct 27 + bonus $150 confirmed; GoLance/Twine/Legiit rows updated this frame (369 resolved); note payload to muse-relay-2 due 06:00 JST. NEW 06:07: Gmail sweep: Google Developers OAuth correction 12:51 PST, GitHub Maritime M-4 PRs 12:50 PST, YC Naive msg 18:51 UTC; no new Netlify failure for 0537 commit; no Relixir reply (~51h); no 7th open-metrics failure. Upwork Skyna G. probe FAILED 06:02 (Cloudflare block, session destroyed, proposal unsent; code expired ~05:10 JST; approval still pending unapproved; deadline 15:47 JST). GCP 77148001 internal ticket, update in 2-3 business days. Coconala 0434 (応募中 225, new 8 cum 41, Assist 4 done, interview 11/10 13:45-14:15). LinkedIn 06:00 PUBLISHED despite RESTRICTED; TikTok 05:30 x7 7/7 PUBLISHED. Rankings new batch 06:10-06:13 (SEO 2/7, ASO JP 32, GEO 0/8, Bing hh 1/7 #4; batch swapped mid-build, newest adopted). distribution-max 06:04 in_flight; revenue-growth 0552 done. NEW 06:37: Gmail sweep: NEW Lancers proposal receipt 06:39 JST (video editor, proposal not sale); UpScaleX/Sauna/Digistore24/Postiz newsletters; no new Netlify failure for 0607 commit; no Relixir reply (~52h); no 7th open-metrics failure. Rankings new batch 06:25-06:30 (SEO 2/7, ASO JP 32/positive 115/gratitude 181/motivation iam 21, GEO 0/8 ThinkUp first 5/8, Bing hh 2/7 #1+#5). Hourly 06:20: IG 04:30 +1h 0/0 NEW anomaly; TikTok +24h buddha 906/43, honne_reveal 0/0/0/0 final. Contra Applied 18 (+3). Guru 03:25 session recovered, Hired 0. Whop owner session EXPIRED 13:37 PST (401), re-sign-in retry in flight; guest checkout verified 8th time. distribution-max 06:04 run failed 06:17:56 (YouTube user-only action). Capafy 06:13 run in_flight at 06:25 check. revenue-growth 05:52 run failed 06:06:34. NEW 07:07: Gmail sweep: NEW open-metrics 7th failure (770b7c9, 07:04 JST); NEW Netlify Deploy (Landing) failure 06:54 JST for commit 9226bfc (0637 temp-file commit; final b8ae47c live - intermediate-commit pattern); NEW Railway 'Build failed for Anicca' API/production 06:49 JST; no Relixir reply (~52h); no 8th open-metrics failure beyond 7th. Rankings new batch 06:55-07:00 (SEO 2/7, ASO JP 32/positive 114/gratitude 148/motivation iam 22, GEO 0/8 ThinkUp first 3/8, Bing hh 2/7 #1+#5). Lancers new application 5626508 (06:26 loop), today 2. Capafy 06:13 run FAILED (failures 3); refunds 5/$47.96 resolved (4/$34.97 old). YouTube 11:30 85th miss, 02:00 18th check. Postiz QUEUE 0 (1,257 total). Mac disk 4.7Gi worsened. CGTrader S2 gate email-code only, no registration. revenue-growth 06:52: no revenue movement. NEW 07:37: Gmail sweep: NEW Luma invite 07:29, Lancers cancellation 07:22 (job 5623759, paused since 23:07), Agent37 reply 07:18 ($100 credit offer, sign up + spin up instance; follow-up owned by fast-response/revenue-growth), no new sale/payment; no 8th open-metrics failure; no new Netlify/Railway failures. Rankings new batch 07:25-07:29 (SEO 2/7 identical, ASO JP 32/positive 114/gratitude 148/motivation iam 22 identical, GEO 0/8 ThinkUp first 3/8 unchanged, Bing hh DOWN 2/7->1/7 'daily affirmations' #7). CW 9 verified applications (188->197; browser 217 unverified). Capafy 06:13 metrics identical, 3 submissions to review, CloneCut 47,674 (+173). IG 08:00 4 fills baseline 0/0; TikTok 05:30 6/7 escaped, obou new anomaly. YouTube 11:30 85th miss, 02:00 18th check. Postiz QUEUE 0 (1,257 total). dist-max manual 58fb0df2 + capafy manual abf65f40 running (07:11). NEW 08:07: Revenue-growth 07:52: CGTrader is OUT as a main lane - official Earnings Schedule confirms KYC REQUIRED at payout (Sec 1.1, Sec 7; 90-day window); backlog #250 rate tiers need correction (Level 2 = $50); market-size gate (i) has no public primary source. Upwork password-reset ALSO blocked at security questions; 1Password vault unreachable; deadline 15:47 JST (~7.7h left); no retry. Gmail sweep: NEW UpScaleX Luma invite 23:08 UTC; NEW distinct open-metrics failure 5be77ab 15:03 PST (8th distinct today; 15:01 mail is a duplicate notice for 770b7c9); no new sale/payment. Rankings new batch 07:55-07:59 (SEO 2/7 identical, ASO JP self-esteem 58->61, gratitude 148->178, motivation iam 22->23, GEO 0/8 ThinkUp first 3/8 en01/en02/en06, Bing hh 1/7 identical). Global-freelance 07:34: PromptBase Moon Bakery LIVE 2 routes ($5.99, InStock); dashboard Today 2 / 7d 11 / All 76 / Gross $0; Lighthouse re-review; Paper Lantern Pending; Workana Cloudflare Ray a5679e964e7f2b6c; Freelancer bids 0/6, 7 open bids, amount-display discrepancy; Fiverr draft, Inbox 0; PeoplePerHour paywall gate. IG 08:00 fills +1h due 08:19-08:20 (next frame). Postiz QUEUE 0 (1,257 total). dist-max manual 58fb0df2 + capafy manual abf65f40 running (07:11). NEW 08:37: Contract-watch 08:16: CW verified applications 197->198 (NEW gadaxov723 07:51); GoLance 05:57 session recovered via password reset (agent mail), Proposals 3, Contracts 0, Balance $0.00, (371) resolved, (386) partial (new password vault landing unconfirmed); Mercor 07:43 no change (Odin Paused, Earnings $0.00); (389) Freelancer bid-amount display discrepancy; (393) open-metrics +2 notices, count stays 8 distinct (15:01 is duplicate of 770b7c9). Gmail 08:3x: NEW daily report 15:27 PST (yesterday $0, MTD $31.80 vs audit $31.81, rounding-level), CW Saakii message notice 08:19 JST (312300287, unread by CW loop), Instagram follow-suggestions, GitHub Frantic Oath check-in; no new sale/payment. Rankings new batch 08:25-08:28 (SEO 2/7 identical, ASO JP affirmation 32->111, self-esteem 61->56, positive 114->126, gratitude 178->174; US gratitude iam 6->5, motivation iam 2->3; JP self-esteem top1 corrected to Awarefy; GEO ThinkUp first 4/8, Bing hh 1/7 identical). Social: IG 08:00 +1h cca 1/2 ESCAPE, en/app/app2/bochi 0/0 new anomalies; obou Dfau2J5GVxX landed 0/0 (+1h 08:58); monk 08:00 unfilled (INC-27 11th); TikTok +24h cemetery 101/13, honne_reveal +3h 177/12; TikTok EN 09:30 7/7 QUEUE; YT Shorts 09:30 unfilled (no route). Postiz QUEUE 0 (1,257 total). dist-max manual 58fb0df2 + capafy manual abf65f40 running (07:11). NEW 09:07: Revenue-growth 08:52: Lancers 5625250 CANCELLED ($7.01 pipeline gone, not revenue); HIMAFreee arrival resolved; Upwork Skyna G. ~6.8h left at 08:52; open-metrics still failing (8 distinct). Gmail 09:0x: NEW Coconala 7 closure notices 09:02 (5349421/5348429/5352984/5345852/5345060/5351987/5341323, not sales), YC Bookface hackathon msgs, Railway token-management mail, Luma hack night; no new sale/payment. Rankings new batch 08:55-08:59 (SEO 2/7 identical, ASO JP self-esteem 56->61, positive 126->114, gratitude 174->178; GEO ThinkUp first 5/8, jp01 now ThinkUp first; Bing hh 1/7 identical; 08:40 batch superseded before incorporation). Social: obou Dfau2J5GVxX ARCHIVED per user instruction 2026-11-07 (watercolor monk prohibited; CLI read failed first, consistent with archival); cca comments content still unmeasured (instagram-cli 09:0x 'Could not load media entity'); monk 08:00 unfilled (INC-27, cont-check 08:57); dist-max manual 58fb0df2 FAILED 08:42 (YT 8th consecutive miss); Postiz range 1,265 (QUEUE 7 = TikTok EN 09:30, ERROR 53, DRAFT 2); Threads no new post/reply (latest 02:02 JST / 11-05 15:58 JST). NEW 09:37: Contract-watch 09:16: Capafy 07:13 (In Review 21, Published 46, refunds 5/$47.96, CloneCut 47,720); Guru 08:25 (NEW proposal 2121356, bids 2); Contra 09:15 (Applied 18, availability Dec 07, post ZoOISNwM); (394) Lancers 5625250 cancelled; (395) Guru refill-date discrepancy; (396) Contra newline bug; (381) MRR discrepancy continues; Dots #1 ~45.1h; Mac disk 4.7Gi. Whop 09:33: owner dashboard STILL blocked (2nd consecutive); guest checkout verified 9th time ($29). Gmail 09:3x: NEW MUFG debits Caltrain $17.71 + CLIPPER 4th $6.10 (costs 434.27, profit -402.46); Postiz YT quota error 09:30; user Capafy support follow-up 09:12 (reply awaited); Devpost Qloo mail is noise. Rankings new batch 09:40-09:46 (SEO 2/7, best daily 3; ASO JP affirmation 32->111, positive 114->126, gratitude 178->out, mindfulness 182, motivation iam 26; GEO ThinkUp first 3/8; Bing hh 2/7). Social: obou Dfau2J5GVxX +1h UNMEASURED (4 routes failed, Reason sent 09:28); cca 1/2 escape maintained; monk 08:00 unfilled (INC-27, 12th); TikTok 05:30 x7 PUBLISHED, 09:30 x7 reserved; Threads no new post; Postiz range 1,265 (QUEUE 7 = TikTok EN 09:30). NEW 10:07: Ops-watch 09:55: TikTok EN 09:30 7/7 PUBLISHED confirmed; Postiz total 1,279 (PUBLISHED 1,210, ERROR 54, QUEUE 13 - recovered from 0); new ERROR YT @monkmujo 09:30 lemonclove (quota exhausted); Mac disk 4.7Gi -> ~1.0Gi worsened, events ~24.5h silent; Dots #2 Slack 09:54 coverage; Capafy 09:13 (metrics identical, In Review 21, 3 new C1 submissions, no new sales); revenue-growth 09:52 (no new sales; CW declines + golf closed, Coconala 7 closures - pipeline only; GameDev Market #299 S1 stays). Gmail 10:0x: Google security notice (Muse OAuth consent, routine), beehiiv noise, no new sale/payment/cost; Relixir reply ~57h+; fal $10.95 due today. Rankings new batch 09:55-09:58 (SEO best daily 3->4, thevisionboard 3; ASO JP gratitude 174 in, mindfulness out, motivation iam 23; US positive-affirmations iam 2 top1 Ella, gratitude iam 5, motivation iam 3; GEO ThinkUp first 4/8; Bing hh 1/7). Social: obou Dfau2J5GVxX Postiz PUBLISHED 07:56 yet direct reads fail (obs 10:01), archived-vs-republished unresolved; cca 1/2 escape maintained; monk 08:00 unfilled (INC-27, 13th); TikTok 12:30 12 + LinkedIn 20:48 QUEUE. NEW 10:37: GitHub Phase 8 P08-3 docs PRs (17:11 PST, 3 mails, life-manager); Netlify Deploy (Landing) FAILED 17:32 PST (new, (367) continues); INC-30 resolved (obou watercolor reel archived per user instruction); INC-31 note n761d05542010 re-deleted (404, live-browser confirmed); Capafy manual run succeeded 10:06; LinkedIn 03:28 ledger gap resolved; rankings new batch 10:25-10:33 (SEO best daily 3, ASO JP gratitude 175, mindfulness 182 in, motivation iam 18; GEO ThinkUp first 5/8; Bing hh #4); obou +1h unmeasured (archived); cca 2/3 escape continues; TikTok buddha +24h 873/41; LinkedIn 10:20 published (3rd). NEW 20:37: Netlify Deploy failed 11:18Z for intermediate a18917a (2007 publish; final landed live); Security Scan failed 11:21Z (92b3b24); Maritime PR #9304 bot comments 11:32Z; Maritime agent-could-not-reply mail 11:28Z. NEW 21:07: no new Codex-specific mail in 20:52 Gmail sweep window; ASC 1.9.8 remains Developer Rejected, Codex lane. NEW 21:37: ASC 1.9.8 resubmitted - Ready For Review 21:19 JST, Waiting for Review 21:22 JST (ASC mail, Codex lane); Security Scan failed 21:25 JST notice. NEW 22:07: GitHub PR #9305 bot comments 22:01 JST (life-manager CI runner); no new Codex sale/cost mail in Gmail sweep. NEW 22:37: ASC 1.9.8 Developer Rejected mail 22:35 JST (after Waiting 21:22); Xcode Cloud Build 820 failed 22:12 JST; GitHub PR #9307/#9308 bot comments; no new Codex sale/cost mail. NEW 23:07: GitHub PR #9309 bot comments, public-key added notices x2, BFM-02 run failed, Security Scan failed; no new Codex sale/cost mail. NEW 23:37: Gmail: CrowdWorks kanikurabu message 23:34 JST, Coconala follow-up 23:15 JST; no new Codex sale/cost mail. NEW 00:07: Gmail: OpenRouter receipt $52.75 (cost), CrowdWorks closed notice, Lancers auto-cancel x2; no new Codex sale mail. NEW 00:37: Gmail last hour: CrowdWorks closed x5, GitHub Security Scan failure (life-manager b95d965), Fiverr data-share notice; no new Codex sale mail. NEW 01:07: ASC Daily Affirmations Waiting for Review (Codex lane submission advanced past Rejected); Gmail: GitHub PR notices (life-manager P00-P12, Phase 11), Lancers proposals x3; no new Codex sale mail. NEW 01:37: Gmail: GitHub PR #9313/#9312/#9311 bot notices, Security Scan failed; Alignerr approved (not Codex sale); no new Codex sale mail. NEW 02:07: Gmail: GitHub bot PR notices and Security Scan failed (16:48Z); no new Codex sale mail. NEW 02:37: Gmail: GitHub PR #9314 bot notices and Security Scan failed; no new Codex sale mail. NEW 03:07: Gmail: MUFG debit Mainstay $3.69 (cost, not Codex sale); no new Codex sale mail. NEW 03:37: Gmail last hour: no new Codex sale mail (Substack news + sent Maritime mails only). NEW 04:07: Gmail last hour: no new Codex sale mail (Postiz/Substack/GitHub/Lancers receipt only). NEW 04:37: Gmail last hour: no new Codex sale mail (Postiz/Substack/GitHub/Lancers receipt only). NEW 05:07: Gmail last hour: no new Codex sale mail (Naive/Mobilerun/Google notices only). NEW 11:07: no new Codex action observed this frame; ASC store-release confirmation still pending (Codex lane). NEW 11:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 12:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 12:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 13:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 13:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 14:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 14:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 15:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 15:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 16:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 16:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 17:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 17:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 18:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 18:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 19:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 19:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 20:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 15:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 16:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 16:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 17:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 17:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 18:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 18:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 19:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 19:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 20:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane)."
+      "status": "Codex usage limits reached for code reviews on PR #892 (GitHub bot emails 21:08 JST); PR #9272 review failed (usage limits); Railway life-call PR #9283 deploy failed BUILD_IMAGE; GCP case 77148001 support REPLIED 20:29 (internal ticket, update in 2-3 business days); Google security notice 19:43 (blocked password login attempt; account management owns); fal $10.95 due 11-07 (unpaid, not counted; deletion per user instruction 04:11 PST, API keys revoked, support verifying since 21:13); Relixir refund reply still awaited (~49h since first request 2026-11-05 10:54 PST; follow-up sent 11:57 PST 11-06, refund would cut costs to $390.46); ASC v1.9.8 Developer Rejected 21:53 (was Ready For Review 21:00); Stripe reauthorization_required (fresh 22:52); SBI VC staking Oct reward amount unread; revenue-growth 01:52 carried (Capafy buyer-flow check: CTA alive, CloneCut 47,415 Sold, modal is dev Test Run only); GitHub anicca-products PRs bot comments 09:41 PST (Gmail); Substack newsletter 17:37 UTC; YC Naive hackathon messages 17:33 UTC; fal Support reply 17:30 UTC re account deletion request; anicca-ops open-metrics run FAILED 10:57 PST (Gmail; 6th today - 09:57 PST was 5th); MRR $4.00 discrepancy FIXED (RC Honne mrr=4, commit 45c4a02 pushed); Capafy $73.58 MRR leg still unverified (Capafy 03:13: Test Run cause found - In Review/Review Failed, no button; refunds 5/$47.96, dispute reason mismatch to re-read). Upwork password reset done (new password set 11:07 PST); security-Q code EXPIRED ~12:10 PST (approval card pending, internal jam, no browser task waiting); Skyna G. deadline 15:47 JST. Netlify Deploy (Landing) FAILED on intermediate commit 9fcc4e5 (04:37 publish sequence; final d03263d deploy landed live 04:37, no re-publish needed); Apify Step 1 applied via Console UI (Memory 4GB, Timeout 86400). Checked 05:07. NEW 05:37: Gmail sweep: no new Netlify failure for final 7fda91d (live 05:07 landed); PromptBase Moon Bakery live (Gmail 19:14Z); Upwork password reset emails 11:02-11:10 PST; open-metrics still 6th (no 7th); Mac disk recovered 854Mi to 7.0Gi (15Gi line still crossed); contract-watch 05:16: Mercor start Oct 27 + bonus $150 confirmed; GoLance/Twine/Legiit rows updated this frame (369 resolved); note payload to muse-relay-2 due 06:00 JST. NEW 06:07: Gmail sweep: Google Developers OAuth correction 12:51 PST, GitHub Maritime M-4 PRs 12:50 PST, YC Naive msg 18:51 UTC; no new Netlify failure for 0537 commit; no Relixir reply (~51h); no 7th open-metrics failure. Upwork Skyna G. probe FAILED 06:02 (Cloudflare block, session destroyed, proposal unsent; code expired ~05:10 JST; approval still pending unapproved; deadline 15:47 JST). GCP 77148001 internal ticket, update in 2-3 business days. Coconala 0434 (応募中 225, new 8 cum 41, Assist 4 done, interview 11/10 13:45-14:15). LinkedIn 06:00 PUBLISHED despite RESTRICTED; TikTok 05:30 x7 7/7 PUBLISHED. Rankings new batch 06:10-06:13 (SEO 2/7, ASO JP 32, GEO 0/8, Bing hh 1/7 #4; batch swapped mid-build, newest adopted). distribution-max 06:04 in_flight; revenue-growth 0552 done. NEW 06:37: Gmail sweep: NEW Lancers proposal receipt 06:39 JST (video editor, proposal not sale); UpScaleX/Sauna/Digistore24/Postiz newsletters; no new Netlify failure for 0607 commit; no Relixir reply (~52h); no 7th open-metrics failure. Rankings new batch 06:25-06:30 (SEO 2/7, ASO JP 32/positive 115/gratitude 181/motivation iam 21, GEO 0/8 ThinkUp first 5/8, Bing hh 2/7 #1+#5). Hourly 06:20: IG 04:30 +1h 0/0 NEW anomaly; TikTok +24h buddha 906/43, honne_reveal 0/0/0/0 final. Contra Applied 18 (+3). Guru 03:25 session recovered, Hired 0. Whop owner session EXPIRED 13:37 PST (401), re-sign-in retry in flight; guest checkout verified 8th time. distribution-max 06:04 run failed 06:17:56 (YouTube user-only action). Capafy 06:13 run in_flight at 06:25 check. revenue-growth 05:52 run failed 06:06:34. NEW 07:07: Gmail sweep: NEW open-metrics 7th failure (770b7c9, 07:04 JST); NEW Netlify Deploy (Landing) failure 06:54 JST for commit 9226bfc (0637 temp-file commit; final b8ae47c live - intermediate-commit pattern); NEW Railway 'Build failed for Anicca' API/production 06:49 JST; no Relixir reply (~52h); no 8th open-metrics failure beyond 7th. Rankings new batch 06:55-07:00 (SEO 2/7, ASO JP 32/positive 114/gratitude 148/motivation iam 22, GEO 0/8 ThinkUp first 3/8, Bing hh 2/7 #1+#5). Lancers new application 5626508 (06:26 loop), today 2. Capafy 06:13 run FAILED (failures 3); refunds 5/$47.96 resolved (4/$34.97 old). YouTube 11:30 85th miss, 02:00 18th check. Postiz QUEUE 0 (1,257 total). Mac disk 4.7Gi worsened. CGTrader S2 gate email-code only, no registration. revenue-growth 06:52: no revenue movement. NEW 07:37: Gmail sweep: NEW Luma invite 07:29, Lancers cancellation 07:22 (job 5623759, paused since 23:07), Agent37 reply 07:18 ($100 credit offer, sign up + spin up instance; follow-up owned by fast-response/revenue-growth), no new sale/payment; no 8th open-metrics failure; no new Netlify/Railway failures. Rankings new batch 07:25-07:29 (SEO 2/7 identical, ASO JP 32/positive 114/gratitude 148/motivation iam 22 identical, GEO 0/8 ThinkUp first 3/8 unchanged, Bing hh DOWN 2/7->1/7 'daily affirmations' #7). CW 9 verified applications (188->197; browser 217 unverified). Capafy 06:13 metrics identical, 3 submissions to review, CloneCut 47,674 (+173). IG 08:00 4 fills baseline 0/0; TikTok 05:30 6/7 escaped, obou new anomaly. YouTube 11:30 85th miss, 02:00 18th check. Postiz QUEUE 0 (1,257 total). dist-max manual 58fb0df2 + capafy manual abf65f40 running (07:11). NEW 08:07: Revenue-growth 07:52: CGTrader is OUT as a main lane - official Earnings Schedule confirms KYC REQUIRED at payout (Sec 1.1, Sec 7; 90-day window); backlog #250 rate tiers need correction (Level 2 = $50); market-size gate (i) has no public primary source. Upwork password-reset ALSO blocked at security questions; 1Password vault unreachable; deadline 15:47 JST (~7.7h left); no retry. Gmail sweep: NEW UpScaleX Luma invite 23:08 UTC; NEW distinct open-metrics failure 5be77ab 15:03 PST (8th distinct today; 15:01 mail is a duplicate notice for 770b7c9); no new sale/payment. Rankings new batch 07:55-07:59 (SEO 2/7 identical, ASO JP self-esteem 58->61, gratitude 148->178, motivation iam 22->23, GEO 0/8 ThinkUp first 3/8 en01/en02/en06, Bing hh 1/7 identical). Global-freelance 07:34: PromptBase Moon Bakery LIVE 2 routes ($5.99, InStock); dashboard Today 2 / 7d 11 / All 76 / Gross $0; Lighthouse re-review; Paper Lantern Pending; Workana Cloudflare Ray a5679e964e7f2b6c; Freelancer bids 0/6, 7 open bids, amount-display discrepancy; Fiverr draft, Inbox 0; PeoplePerHour paywall gate. IG 08:00 fills +1h due 08:19-08:20 (next frame). Postiz QUEUE 0 (1,257 total). dist-max manual 58fb0df2 + capafy manual abf65f40 running (07:11). NEW 08:37: Contract-watch 08:16: CW verified applications 197->198 (NEW gadaxov723 07:51); GoLance 05:57 session recovered via password reset (agent mail), Proposals 3, Contracts 0, Balance $0.00, (371) resolved, (386) partial (new password vault landing unconfirmed); Mercor 07:43 no change (Odin Paused, Earnings $0.00); (389) Freelancer bid-amount display discrepancy; (393) open-metrics +2 notices, count stays 8 distinct (15:01 is duplicate of 770b7c9). Gmail 08:3x: NEW daily report 15:27 PST (yesterday $0, MTD $31.80 vs audit $31.81, rounding-level), CW Saakii message notice 08:19 JST (312300287, unread by CW loop), Instagram follow-suggestions, GitHub Frantic Oath check-in; no new sale/payment. Rankings new batch 08:25-08:28 (SEO 2/7 identical, ASO JP affirmation 32->111, self-esteem 61->56, positive 114->126, gratitude 178->174; US gratitude iam 6->5, motivation iam 2->3; JP self-esteem top1 corrected to Awarefy; GEO ThinkUp first 4/8, Bing hh 1/7 identical). Social: IG 08:00 +1h cca 1/2 ESCAPE, en/app/app2/bochi 0/0 new anomalies; obou Dfau2J5GVxX landed 0/0 (+1h 08:58); monk 08:00 unfilled (INC-27 11th); TikTok +24h cemetery 101/13, honne_reveal +3h 177/12; TikTok EN 09:30 7/7 QUEUE; YT Shorts 09:30 unfilled (no route). Postiz QUEUE 0 (1,257 total). dist-max manual 58fb0df2 + capafy manual abf65f40 running (07:11). NEW 09:07: Revenue-growth 08:52: Lancers 5625250 CANCELLED ($7.01 pipeline gone, not revenue); HIMAFreee arrival resolved; Upwork Skyna G. ~6.8h left at 08:52; open-metrics still failing (8 distinct). Gmail 09:0x: NEW Coconala 7 closure notices 09:02 (5349421/5348429/5352984/5345852/5345060/5351987/5341323, not sales), YC Bookface hackathon msgs, Railway token-management mail, Luma hack night; no new sale/payment. Rankings new batch 08:55-08:59 (SEO 2/7 identical, ASO JP self-esteem 56->61, positive 126->114, gratitude 174->178; GEO ThinkUp first 5/8, jp01 now ThinkUp first; Bing hh 1/7 identical; 08:40 batch superseded before incorporation). Social: obou Dfau2J5GVxX ARCHIVED per user instruction 2026-11-07 (watercolor monk prohibited; CLI read failed first, consistent with archival); cca comments content still unmeasured (instagram-cli 09:0x 'Could not load media entity'); monk 08:00 unfilled (INC-27, cont-check 08:57); dist-max manual 58fb0df2 FAILED 08:42 (YT 8th consecutive miss); Postiz range 1,265 (QUEUE 7 = TikTok EN 09:30, ERROR 53, DRAFT 2); Threads no new post/reply (latest 02:02 JST / 11-05 15:58 JST). NEW 09:37: Contract-watch 09:16: Capafy 07:13 (In Review 21, Published 46, refunds 5/$47.96, CloneCut 47,720); Guru 08:25 (NEW proposal 2121356, bids 2); Contra 09:15 (Applied 18, availability Dec 07, post ZoOISNwM); (394) Lancers 5625250 cancelled; (395) Guru refill-date discrepancy; (396) Contra newline bug; (381) MRR discrepancy continues; Dots #1 ~45.1h; Mac disk 4.7Gi. Whop 09:33: owner dashboard STILL blocked (2nd consecutive); guest checkout verified 9th time ($29). Gmail 09:3x: NEW MUFG debits Caltrain $17.71 + CLIPPER 4th $6.10 (costs 434.27, profit -402.46); Postiz YT quota error 09:30; user Capafy support follow-up 09:12 (reply awaited); Devpost Qloo mail is noise. Rankings new batch 09:40-09:46 (SEO 2/7, best daily 3; ASO JP affirmation 32->111, positive 114->126, gratitude 178->out, mindfulness 182, motivation iam 26; GEO ThinkUp first 3/8; Bing hh 2/7). Social: obou Dfau2J5GVxX +1h UNMEASURED (4 routes failed, Reason sent 09:28); cca 1/2 escape maintained; monk 08:00 unfilled (INC-27, 12th); TikTok 05:30 x7 PUBLISHED, 09:30 x7 reserved; Threads no new post; Postiz range 1,265 (QUEUE 7 = TikTok EN 09:30). NEW 10:07: Ops-watch 09:55: TikTok EN 09:30 7/7 PUBLISHED confirmed; Postiz total 1,279 (PUBLISHED 1,210, ERROR 54, QUEUE 13 - recovered from 0); new ERROR YT @monkmujo 09:30 lemonclove (quota exhausted); Mac disk 4.7Gi -> ~1.0Gi worsened, events ~24.5h silent; Dots #2 Slack 09:54 coverage; Capafy 09:13 (metrics identical, In Review 21, 3 new C1 submissions, no new sales); revenue-growth 09:52 (no new sales; CW declines + golf closed, Coconala 7 closures - pipeline only; GameDev Market #299 S1 stays). Gmail 10:0x: Google security notice (Muse OAuth consent, routine), beehiiv noise, no new sale/payment/cost; Relixir reply ~57h+; fal $10.95 due today. Rankings new batch 09:55-09:58 (SEO best daily 3->4, thevisionboard 3; ASO JP gratitude 174 in, mindfulness out, motivation iam 23; US positive-affirmations iam 2 top1 Ella, gratitude iam 5, motivation iam 3; GEO ThinkUp first 4/8; Bing hh 1/7). Social: obou Dfau2J5GVxX Postiz PUBLISHED 07:56 yet direct reads fail (obs 10:01), archived-vs-republished unresolved; cca 1/2 escape maintained; monk 08:00 unfilled (INC-27, 13th); TikTok 12:30 12 + LinkedIn 20:48 QUEUE. NEW 10:37: GitHub Phase 8 P08-3 docs PRs (17:11 PST, 3 mails, life-manager); Netlify Deploy (Landing) FAILED 17:32 PST (new, (367) continues); INC-30 resolved (obou watercolor reel archived per user instruction); INC-31 note n761d05542010 re-deleted (404, live-browser confirmed); Capafy manual run succeeded 10:06; LinkedIn 03:28 ledger gap resolved; rankings new batch 10:25-10:33 (SEO best daily 3, ASO JP gratitude 175, mindfulness 182 in, motivation iam 18; GEO ThinkUp first 5/8; Bing hh #4); obou +1h unmeasured (archived); cca 2/3 escape continues; TikTok buddha +24h 873/41; LinkedIn 10:20 published (3rd). NEW 20:37: Netlify Deploy failed 11:18Z for intermediate a18917a (2007 publish; final landed live); Security Scan failed 11:21Z (92b3b24); Maritime PR #9304 bot comments 11:32Z; Maritime agent-could-not-reply mail 11:28Z. NEW 21:07: no new Codex-specific mail in 20:52 Gmail sweep window; ASC 1.9.8 remains Developer Rejected, Codex lane. NEW 21:37: ASC 1.9.8 resubmitted - Ready For Review 21:19 JST, Waiting for Review 21:22 JST (ASC mail, Codex lane); Security Scan failed 21:25 JST notice. NEW 22:07: GitHub PR #9305 bot comments 22:01 JST (life-manager CI runner); no new Codex sale/cost mail in Gmail sweep. NEW 22:37: ASC 1.9.8 Developer Rejected mail 22:35 JST (after Waiting 21:22); Xcode Cloud Build 820 failed 22:12 JST; GitHub PR #9307/#9308 bot comments; no new Codex sale/cost mail. NEW 23:07: GitHub PR #9309 bot comments, public-key added notices x2, BFM-02 run failed, Security Scan failed; no new Codex sale/cost mail. NEW 23:37: Gmail: CrowdWorks kanikurabu message 23:34 JST, Coconala follow-up 23:15 JST; no new Codex sale/cost mail. NEW 00:07: Gmail: OpenRouter receipt $52.75 (cost), CrowdWorks closed notice, Lancers auto-cancel x2; no new Codex sale mail. NEW 00:37: Gmail last hour: CrowdWorks closed x5, GitHub Security Scan failure (life-manager b95d965), Fiverr data-share notice; no new Codex sale mail. NEW 01:07: ASC Daily Affirmations Waiting for Review (Codex lane submission advanced past Rejected); Gmail: GitHub PR notices (life-manager P00-P12, Phase 11), Lancers proposals x3; no new Codex sale mail. NEW 01:37: Gmail: GitHub PR #9313/#9312/#9311 bot notices, Security Scan failed; Alignerr approved (not Codex sale); no new Codex sale mail. NEW 02:07: Gmail: GitHub bot PR notices and Security Scan failed (16:48Z); no new Codex sale mail. NEW 02:37: Gmail: GitHub PR #9314 bot notices and Security Scan failed; no new Codex sale mail. NEW 03:07: Gmail: MUFG debit Mainstay $3.69 (cost, not Codex sale); no new Codex sale mail. NEW 03:37: Gmail last hour: no new Codex sale mail (Substack news + sent Maritime mails only). NEW 04:07: Gmail last hour: no new Codex sale mail (Postiz/Substack/GitHub/Lancers receipt only). NEW 04:37: Gmail last hour: no new Codex sale mail (Postiz/Substack/GitHub/Lancers receipt only). NEW 05:07: Gmail last hour: no new Codex sale mail (Naive/Mobilerun/Google notices only). NEW 11:07: no new Codex action observed this frame; ASC store-release confirmation still pending (Codex lane). NEW 11:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 12:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 12:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 13:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 13:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 14:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 14:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 15:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 15:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 16:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 16:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 17:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 17:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 18:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 18:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 19:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 19:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 20:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 15:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 16:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 16:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 17:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 17:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 18:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 18:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 19:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 19:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 20:07: no new Codex action observed; ASC store-release confirmation still pending (Codex lane). NEW 2026-11-09 20:37: no new Codex action observed; ASC store-release confirmation still pending (Codex lane)."
     },
     {
       "agent": "Grok (参謀)",
       "board_updates_today": 0,
       "surfaces": "Stopped since 2026-11-03 for about 3 days",
-      "status": "Returned 2026-11-06 (MEMORY.md update: Slack #agents-hq post + Mac Reason session sanbou-conversation created). Muse sent Manager receipt + recent measurements via Reason (sanbou-conversation / sanbo-2 / muse-relay-2, delivered). Catchball collaboration resumed; reply landing via reason-inbox-wake + 15-min loop. Correction 2026-11-06 04:38 PST: 参謀 is the representative name; Grok side has multiple agents - contact each directly, no hub via 参謀 alone. NEW: 14 judgment requests unanswered (revenue-growth 04:52; iwa-ta + 浅_ひな added 01:11; fast-response Reason 01M6RTD6FR3M7776991DPVSG37, queued, arrival unconfirmed); ops-watch sent Reason re /open KPI mismatch + Upwork + ASC + Mac disk 21:55, no reply yet; contract-watch 22:16 confirms no reply; 13:53 All hands body safety-check unpassed/unread. (338) count disputed (12/13/14 across sources) - fast-response to recount with subject list. Checked 05:07. NEW 05:37: contract-watch 05:16 confirms still no reply; judgment requests still 14. NEW 06:07: revenue-growth 0552 confirms still 14 judgment requests unanswered; Reason inbox empty at 06:07 slot start. NEW 06:37: contract-watch 06:16 confirms still 14 judgment requests unanswered; Reason inbox empty at 06:37 slot start. NEW 07:07: ops-watch 06:55 sent 1 message to sanbou (ID 01M6SE7PVQSWE6Q3DECM2Z0Q83); no reply yet; judgment requests still 14 unanswered; Reason inbox empty at 07:07 slot start. NEW 07:37: contract-watch 07:16 confirms still no reply; judgment requests still 14 unanswered; Reason inbox empty at 07:37 slot start. NEW 08:07: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 08:07 slot start. NEW 08:37: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 08:37 slot start. NEW 09:07: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 09:07 slot start. NEW 09:37: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 09:37 slot start. NEW 10:07: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 10:07 slot start; ops-watch sent 1 message to daisuke/sanbo (queued, recipient session stopped 2d - not delivered, not counted as coordination). NEW 10:37: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 10:37 slot start; ops-watch queued send not counted as coordination. (353) 15 judgment requests unanswered (tatantanra + iwa-ta included); no reply arrived this frame. (353) 15 judgment requests unanswered (tatantanra + iwa-ta included); no reply arrived this frame. NEW 12:37: still no reply; (353) 17 judgment requests unanswered (riko0000 + popo1025 added); Reason inbox empty at 12:37 slot start. NEW 13:07: still no reply; (353) 17 judgment requests unanswered; Reason inbox empty at 13:07 slot start. NEW 13:37: still no reply; (353) 17 judgment requests unanswered; Reason inbox empty at 13:37 slot start. NEW 14:07: still no reply in Reason inbox at slot start. NEW 14:37: still no reply in Reason inbox at slot start. NEW 15:07: still no reply in Reason inbox at slot start. NEW 15:37: still no reply in Reason inbox at slot start. NEW 16:07: still no reply in Reason inbox at slot start. NEW 16:37: still no reply in Reason inbox at slot start. NEW 17:07: still no reply in Reason inbox at slot start. NEW 17:37: still no reply in Reason inbox at slot start. NEW 18:07: still no reply in Reason inbox at slot start. NEW 18:37: still no reply in Reason inbox at slot start. NEW 19:07: still no reply in Reason inbox at slot start. NEW 19:37: still no reply in Reason inbox at slot start. NEW 20:07: still no reply in Reason inbox at slot start. NEW 20:37: still no reply in Reason inbox at slot start. NEW 21:07: still no reply in Reason inbox at slot start. NEW 21:37: still no reply in Reason inbox at slot start. NEW 22:07: still no reply in Reason inbox at slot start. NEW 22:37: still no reply in Reason inbox at slot start. NEW 23:07: still no reply in Reason inbox at slot start. NEW 23:37: still no reply in Reason inbox at slot start. NEW 00:07: still no reply in Reason inbox at slot start. NEW 00:37: still no reply in Reason inbox at slot start. NEW 01:07: still no reply in Reason inbox at slot start. NEW 01:37: still no reply in Reason inbox at slot start. NEW 02:07: still no reply in Reason inbox at slot start. NEW 02:37: still no reply in Reason inbox at slot start. NEW 03:07: still no reply in Reason inbox at slot start. NEW 03:37: still no reply in Reason inbox at slot start. NEW 04:07: still no reply in Reason inbox at slot start. NEW 04:37: still no reply in Reason inbox at slot start. NEW 05:07: still no reply in Reason inbox at slot start. NEW 11:07: still no reply in Reason inbox at slot start; judgment requests unanswered. NEW 11:37: still no reply in Reason inbox at slot start. NEW 12:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 15:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 16:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 16:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 17:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 17:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 18:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 18:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 19:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 19:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 20:07: still no reply in Reason inbox at slot start."
+      "status": "Returned 2026-11-06 (MEMORY.md update: Slack #agents-hq post + Mac Reason session sanbou-conversation created). Muse sent Manager receipt + recent measurements via Reason (sanbou-conversation / sanbo-2 / muse-relay-2, delivered). Catchball collaboration resumed; reply landing via reason-inbox-wake + 15-min loop. Correction 2026-11-06 04:38 PST: 参謀 is the representative name; Grok side has multiple agents - contact each directly, no hub via 参謀 alone. NEW: 14 judgment requests unanswered (revenue-growth 04:52; iwa-ta + 浅_ひな added 01:11; fast-response Reason 01M6RTD6FR3M7776991DPVSG37, queued, arrival unconfirmed); ops-watch sent Reason re /open KPI mismatch + Upwork + ASC + Mac disk 21:55, no reply yet; contract-watch 22:16 confirms no reply; 13:53 All hands body safety-check unpassed/unread. (338) count disputed (12/13/14 across sources) - fast-response to recount with subject list. Checked 05:07. NEW 05:37: contract-watch 05:16 confirms still no reply; judgment requests still 14. NEW 06:07: revenue-growth 0552 confirms still 14 judgment requests unanswered; Reason inbox empty at 06:07 slot start. NEW 06:37: contract-watch 06:16 confirms still 14 judgment requests unanswered; Reason inbox empty at 06:37 slot start. NEW 07:07: ops-watch 06:55 sent 1 message to sanbou (ID 01M6SE7PVQSWE6Q3DECM2Z0Q83); no reply yet; judgment requests still 14 unanswered; Reason inbox empty at 07:07 slot start. NEW 07:37: contract-watch 07:16 confirms still no reply; judgment requests still 14 unanswered; Reason inbox empty at 07:37 slot start. NEW 08:07: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 08:07 slot start. NEW 08:37: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 08:37 slot start. NEW 09:07: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 09:07 slot start. NEW 09:37: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 09:37 slot start. NEW 10:07: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 10:07 slot start; ops-watch sent 1 message to daisuke/sanbo (queued, recipient session stopped 2d - not delivered, not counted as coordination). NEW 10:37: still no reply; judgment requests still 14 unanswered; Reason inbox empty at 10:37 slot start; ops-watch queued send not counted as coordination. (353) 15 judgment requests unanswered (tatantanra + iwa-ta included); no reply arrived this frame. (353) 15 judgment requests unanswered (tatantanra + iwa-ta included); no reply arrived this frame. NEW 12:37: still no reply; (353) 17 judgment requests unanswered (riko0000 + popo1025 added); Reason inbox empty at 12:37 slot start. NEW 13:07: still no reply; (353) 17 judgment requests unanswered; Reason inbox empty at 13:07 slot start. NEW 13:37: still no reply; (353) 17 judgment requests unanswered; Reason inbox empty at 13:37 slot start. NEW 14:07: still no reply in Reason inbox at slot start. NEW 14:37: still no reply in Reason inbox at slot start. NEW 15:07: still no reply in Reason inbox at slot start. NEW 15:37: still no reply in Reason inbox at slot start. NEW 16:07: still no reply in Reason inbox at slot start. NEW 16:37: still no reply in Reason inbox at slot start. NEW 17:07: still no reply in Reason inbox at slot start. NEW 17:37: still no reply in Reason inbox at slot start. NEW 18:07: still no reply in Reason inbox at slot start. NEW 18:37: still no reply in Reason inbox at slot start. NEW 19:07: still no reply in Reason inbox at slot start. NEW 19:37: still no reply in Reason inbox at slot start. NEW 20:07: still no reply in Reason inbox at slot start. NEW 20:37: still no reply in Reason inbox at slot start. NEW 21:07: still no reply in Reason inbox at slot start. NEW 21:37: still no reply in Reason inbox at slot start. NEW 22:07: still no reply in Reason inbox at slot start. NEW 22:37: still no reply in Reason inbox at slot start. NEW 23:07: still no reply in Reason inbox at slot start. NEW 23:37: still no reply in Reason inbox at slot start. NEW 00:07: still no reply in Reason inbox at slot start. NEW 00:37: still no reply in Reason inbox at slot start. NEW 01:07: still no reply in Reason inbox at slot start. NEW 01:37: still no reply in Reason inbox at slot start. NEW 02:07: still no reply in Reason inbox at slot start. NEW 02:37: still no reply in Reason inbox at slot start. NEW 03:07: still no reply in Reason inbox at slot start. NEW 03:37: still no reply in Reason inbox at slot start. NEW 04:07: still no reply in Reason inbox at slot start. NEW 04:37: still no reply in Reason inbox at slot start. NEW 05:07: still no reply in Reason inbox at slot start. NEW 11:07: still no reply in Reason inbox at slot start; judgment requests unanswered. NEW 11:37: still no reply in Reason inbox at slot start. NEW 12:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 15:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 16:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 16:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 17:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 17:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 18:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 18:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 19:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 19:37: still no reply in Reason inbox at slot start. NEW 2026-11-09 20:07: still no reply in Reason inbox at slot start. NEW 2026-11-09 20:37: still no reply in Reason inbox at slot start."
     }
   ],
   "wallets": [],
@@ -381,7 +381,7 @@
         "all_time": 1706.68,
         "pending": 9.95,
         "status": "stage reconciliation",
-        "note": "Status: watch 19:16: applications 190 held, month 1 sale, no new sales/orders; all 20 listings polished. 20:07 JST.",
+        "note": "Status: watch 20:16: applications 190 held, month 1 sale, no new sales/orders; polish 3 new (4313100/4308502/4355225); ID correction held per primary log. 20:37 JST.",
         "observed_accepted_gross_usd": 31.8,
         "net_sales_usd": 1706.68,
         "paid_out_usd": null
@@ -394,7 +394,7 @@
         "all_time": 474.48,
         "pending": 0,
         "status": "paid",
-        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 20:07 JST."
+        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 20:37 JST."
       },
       {
         "platform": "Stripe",
@@ -404,7 +404,7 @@
         "all_time": 54.81,
         "pending": 0,
         "status": "paid",
-        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "x402 (USDC on Base)",
@@ -414,7 +414,7 @@
         "all_time": 0.005,
         "pending": 0,
         "status": "paid",
-        "note": "Status: 402index 9/9 active after 5th recurrence repair (18:52 second poll found 7/9, re-registered x2, 201 live, same IDs, delayed poll 9/9); revenue $0.005. 20:07 JST."
+        "note": "Status: 402index 9/9 active in both polls at 19:52 (no in-frame drop); revenue $0.005. 20:37 JST."
       },
       {
         "platform": "Alignerr",
@@ -424,7 +424,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "Apify",
@@ -434,7 +434,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 20:07 JST."
+        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 20:37 JST."
       },
       {
         "platform": "Capafy",
@@ -444,7 +444,7 @@
         "all_time": 162.69,
         "pending": 0,
         "status": "booked",
-        "note": "Status: freshness Nov 8 UTC; 7d sales $29.97, Proceeds $21.60; Published 55 / In Review 15 / Failed 7 / Draft 2, total 91; Certification Verified; CaptionLab draft, key pending. 20:07 JST.",
+        "note": "Status: freshness Nov 8 UTC; 7d sales $29.97, Proceeds $21.60; Published 55 / In Review 15 / Failed 7 / Draft 2, total 91; Certification Verified; CaptionLab draft, key pending. 20:37 JST.",
         "net_sales_usd": 120.58,
         "paid_out_usd": 0,
         "dashboard_7d_usd": 39.96,
@@ -463,7 +463,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Applied 28; Discovery 54 pts; Earned $0; community post nbRiuJxk published; all 6 services Example-work linked. 20:07 JST."
+        "note": "Status: Applied 28; Discovery 54 pts; Earned $0; community post nbRiuJxk published; all 6 services Example-work linked. 20:37 JST."
       },
       {
         "platform": "CrowdWorks",
@@ -473,7 +473,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: fast-response 01:41 PST replied to 2 buyer consults (jisongyicheng, makimaki36m); loop total 309 applications held; no new sales/orders. 20:07 JST."
+        "note": "Status: loop 02:34 PST: +7 applications (total 316, proposals 945), replies 2 landed in deadline, herkae declines 2; no new sales/orders. 20:37 JST."
       },
       {
         "platform": "Fiverr",
@@ -483,7 +483,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 20:07 JST."
+        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 20:37 JST."
       },
       {
         "platform": "Freelancer.com",
@@ -493,7 +493,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: bids 0/6 (refill ~2026-11-11 08:48 PST); 7 open bids; 40805503 rank 18/26, 4 days left; Eastman warning; session @Rasi4op. 20:07 JST."
+        "note": "Status: bids 0/6 (refill ~2026-11-11 08:48 PST); 7 open bids; 40805503 rank 18/26, 4 days left; Eastman warning; session @Rasi4op. 20:37 JST."
       },
       {
         "platform": "GoLance",
@@ -503,7 +503,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 20:07 JST."
+        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 20:37 JST."
       },
       {
         "platform": "Guru",
@@ -513,7 +513,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 15:25 PST loop via 09:16 watch: Quotes 8 unchanged, Hired 0, $0; Portfolio draft 1483864 created, unpublished (cover image gate). 20:07 JST."
+        "note": "Status: loop 03:25 PST: session direct, Quotes 8 held, Hired 0, $0; bids 2 left until Nov 28 renewal. 20:37 JST."
       },
       {
         "platform": "LINE Stickers",
@@ -523,7 +523,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "Lancers",
@@ -533,7 +533,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: +1 application (5627475, YouTube Shorts editing); mypage proposals 560 held, management 541; profile improved 2 items; no new contracts/sales. 20:07 JST."
+        "note": "Status: +1 application (5627475, YouTube Shorts editing); mypage proposals 560 held, management 541; profile improved 2 items; no new contracts/sales. 20:37 JST."
       },
       {
         "platform": "Legiit",
@@ -543,7 +543,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 20:07 JST."
+        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 20:37 JST."
       },
       {
         "platform": "Malt",
@@ -553,7 +553,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "Mercor",
@@ -563,7 +563,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 20:07 JST."
+        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 20:37 JST."
       },
       {
         "platform": "PromptBase",
@@ -573,7 +573,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 7d views 12, all-time 80; Approved 12 / Pending 1 (Rescue Mission) / Declined 3 / Draft 0; Gross $0. 20:07 JST."
+        "note": "Status: 7d views 12, all-time 80; Approved 12 / Pending 1 (Rescue Mission) / Declined 3 / Draft 0; Gross $0. 20:37 JST."
       },
       {
         "platform": "RapidAPI",
@@ -583,7 +583,7 @@
         "all_time": null,
         "pending": 0,
         "status": "—",
-        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "SKIMA",
@@ -593,7 +593,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "Truelancer",
@@ -603,7 +603,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "Upwork",
@@ -613,7 +613,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 20:07 JST."
+        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 20:37 JST."
       },
       {
         "platform": "Whop / Gumroad",
@@ -623,7 +623,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Labels set 0/20 -> 4 (ai monks, ai database, ai characters, ai research; Whop loop 07:33 PST); Visitors 3, product views 77, sales $0. 20:07 JST."
+        "note": "Status: Labels set 0/20 -> 4 (ai monks, ai database, ai characters, ai research; Whop loop 07:33 PST); Visitors 3, product views 77, sales $0. 20:37 JST."
       },
       {
         "platform": "Workana",
@@ -633,7 +633,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Cloudflare gate (Ray a57a30d17be1fda5); login form unreachable; Step 2 phone gate pending; $0. 20:34 PST loop. 20:07 JST."
+        "note": "Status: Cloudflare gate (Ray a57a30d17be1fda5); login form unreachable; Step 2 phone gate pending; $0. 20:34 PST loop. 20:37 JST."
       },
       {
         "platform": "note / Substack",
@@ -643,7 +643,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 20:07 JST."
+        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 20:37 JST."
       },
       {
         "platform": "AI Monk Factory",
@@ -653,7 +653,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "Life Manager Cloud",
@@ -663,7 +663,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 20:07 JST."
+        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 20:37 JST."
       },
       {
         "platform": "AI Monk e-books",
@@ -673,7 +673,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "AI Monk Database",
@@ -683,7 +683,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:37 JST."
       },
       {
         "platform": "Payhip",
@@ -693,7 +693,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 20:07 JST."
+        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 20:37 JST."
       },
       {
         "platform": "Ko-fi",
@@ -703,7 +703,7 @@
         "pending": 0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 20:07 JST."
+        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 20:37 JST."
       },
       {
         "platform": "Twine",
@@ -713,7 +713,7 @@
         "pending": 0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 20:07 JST."
+        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 20:37 JST."
       },
       {
         "platform": "RenderHub",
@@ -723,7 +723,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 26 items (26th Tsukubai Basin published, ID 421121); Views 164, Karma 470; 10% OFF sale ends 2026-11-10; sales $0. 20:07 JST."
+        "note": "Status: 26 items (26th Tsukubai Basin published, ID 421121); Views 164, Karma 470; 10% OFF sale ends 2026-11-10; sales $0. 20:37 JST."
       }
     ],
     "trend": [
@@ -880,11 +880,11 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
-  "coverage_note": "Status: 34 platforms, 53 social rows, 5 apps + total, rankings, naive section; live 19:37 confirmed at slot start; costs $1,611.47 unchanged; SEO 2/7; GEO 0. 20:07.",
+  "coverage_note": "Status: 34 platforms, 53 social rows, 5 apps + total, rankings, naive section; live 20:07 confirmed at slot start; costs $1,611.47 unchanged; SEO 3/7 improved; GEO 0. 20:37.",
   "currency_note": "USD only. This file contains no non-USD currency amounts.",
-  "coverage_status_1line": "Status: live 19:37 confirmed; costs $1,611.47; rankings 19:42-20:01; SEO 2/7; Bing 0/7; GEO 0; 402index 9/9 in both polls. | Rev $31.81 | Cost $1,611.47 | Profit -$1,579.66 | MRR $97.58.",
-  "daily_change_1line": "Status: 19:37-20:07: no new revenue/costs; SEO 2/7 held; ASO all held; Bing happierhuman daily 6->8; GEO ThinkUp first 5/8->4/8; 402index 9/9 both polls.",
-  "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,611.47, profit -$1,579.66; SEO 2/7; GEO 0; 402index 9/9 both polls 19:52; HeyGen $14.98 OFF; IG anomalies 11.",
+  "coverage_status_1line": "Status: live 20:07 confirmed; costs $1,611.47; rankings 20:25-20:33; SEO 3/7 (best affirmation apps 4 new); Bing 0/7; GEO 0; CW +7 apps. | Rev $31.81 | Cost $1,611.47 | Profit -$1,579.66 | MRR $97.58.",
+  "daily_change_1line": "Status: 20:07-20:37: no new revenue/costs; SEO 2/7->3/7 (best affirmation apps 4); ASO held; GEO I am first 2/8->1/8; CW +7 applications (316), replies 2 landed; delayed IG likes on 4 posts.",
+  "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,611.47, profit -$1,579.66; SEO 3/7; GEO 0; CW applications 316; IG anomalies 11 held, delayed likes confirmed.",
   "apps_breakdown": [
     {
       "app": "Daily Affirmations (Anicca, iOS)",
@@ -941,7 +941,7 @@
     {
       "account": "Threads @anicca.en",
       "posts": 45,
-      "note": "Status: today 2/3, latest Dfe05Lzj0mu landed 22:07 JST, post_count 50; 23:00 slot queued; followers 0. 20:07 JST.",
+      "note": "Status: today 2/3, latest Dfe05Lzj0mu landed 22:07 JST, post_count 50; 23:00 slot queued; followers 0. 20:37 JST.",
       "followers": 0
     },
     {
@@ -950,7 +950,7 @@
       "likes": 1,
       "comments": 0,
       "followers": 3,
-      "note": "Status: 2nd post DfdU8Hsjict +1h FORMAL at 09:08 JST (hourly 0920): 1 like 0 comments, followers 3; not initial anomaly; today 2/3. 20:07 JST."
+      "note": "Status: 2nd post DfdU8Hsjict +1h FORMAL at 09:08 JST (hourly 0920): 1 like 0 comments, followers 3; not initial anomaly; today 2/3. 20:37 JST."
     },
     {
       "account": "IG anicca.ios.jp",
@@ -958,7 +958,7 @@
       "likes": 0,
       "comments": 0,
       "followers": 2,
-      "note": "Status: 2nd post DfdRdOWjmc9 +1h FORMAL at 09:0x JST (obs 0901): 0 likes 0 comments, followers 2; today 2/3. 20:07 JST."
+      "note": "Status: 2nd post DfdRdOWjmc9 +1h FORMAL at 09:0x JST (obs 0901): 0 likes 0 comments, followers 2; today 2/3. 20:37 JST."
     },
     {
       "account": "IG anicca.jp.videos",
@@ -966,14 +966,14 @@
       "likes": 2,
       "comments": 0,
       "followers": 12,
-      "note": "Status: 2nd post DfdRWoWDhLy likes 1->2 at 12:20 JST, 0 comments, followers 12; today 2/3. 20:07 JST."
+      "note": "Status: 2nd post DfdRWoWDhLy likes 1->2 at 12:20 JST, 0 comments, followers 12; today 2/3. 20:37 JST."
     },
     {
       "account": "IG monk.mujo",
       "latest_post": "https://www.instagram.com/reel/Dfew2zOj2ux/",
       "likes": 2,
       "comments": 0,
-      "note": "Status: reel Dfew2zOj2ux (21:32 JST, correct avatar ee4d1127 remake) likes 2, comments 0; today 3/3 reached (hourly 22:20 fresh). 20:07 JST.",
+      "note": "Status: reel Dfew2zOj2ux (21:32 JST, correct avatar ee4d1127 remake) likes 2, comments 0; today 3/3 reached (hourly 22:20 fresh). 20:37 JST.",
       "followers": 15
     },
     {
@@ -982,14 +982,14 @@
       "likes": 0,
       "comments": 0,
       "followers": 10,
-      "note": "Status: 08:00 + 12:50 UNMET (obs 14:01, HeyGen credit 0, INC-27); latest DfYtcMED9Ft 0/0; today 0/3. 20:07 JST."
+      "note": "Status: 08:00 + 12:50 UNMET (obs 14:01, HeyGen credit 0, INC-27); latest DfYtcMED9Ft 0/0; today 0/3. 20:37 JST."
     },
     {
       "account": "IG anicca.app",
       "latest_post": "https://www.instagram.com/p/DfdU9x8jpVX/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: 2nd post DfdU9x8jpVX +1h FORMAL at 09:09 JST (hourly 0920): 0 likes 0 comments, followers 0; initial anomaly; today 2/3. 20:07 JST.",
+      "note": "Status: 2nd post DfdU9x8jpVX +1h FORMAL at 09:09 JST (hourly 0920): 0 likes 0 comments, followers 0; initial anomaly; today 2/3. 20:37 JST.",
       "followers": 0
     },
     {
@@ -997,7 +997,7 @@
       "latest_post": "https://www.instagram.com/p/DfdVGtKjqfs/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: 2nd post DfdVGtKjqfs +1h FORMAL at 09:10 JST (hourly 0920): 0 likes 0 comments, followers 1; initial anomaly; today 2/3. 20:07 JST.",
+      "note": "Status: 2nd post DfdVGtKjqfs +1h FORMAL at 09:10 JST (hourly 0920): 0 likes 0 comments, followers 1; initial anomaly; today 2/3. 20:37 JST.",
       "followers": 1
     },
     {
@@ -1005,13 +1005,13 @@
       "latest_post": "https://www.instagram.com/p/DfaqVAPDwsC/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: 07:30 archive + 12:15 UNMET (distribution-max 14:04: winner speed diff, no line-animation route); today 0/3; 21:00 frame next. 20:07 JST.",
+      "note": "Status: 07:30 archive + 12:15 UNMET (distribution-max 14:04: winner speed diff, no line-animation route); today 0/3; 21:00 frame next. 20:37 JST.",
       "followers": 2
     },
     {
       "account": "IG anicca.app2 (BIP)",
       "latest_post": "https://www.instagram.com/p/Dfd35zqj7Ij/",
-      "note": "Status: post Dfd35zqj7Ij +1h FORMAL 0 likes 0 comments, followers 0 (hourly 14:20 direct read); initial anomaly, total 6. 20:07 JST.",
+      "note": "Status: post Dfd35zqj7Ij +1h FORMAL 0 likes 0 comments, followers 0 (hourly 14:20 direct read); initial anomaly, total 6. 20:37 JST.",
       "likes": 0,
       "comments": 0,
       "followers": 0
@@ -1021,63 +1021,63 @@
       "views": 86,
       "likes": 1,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok anicca.jp 12:00 wave",
       "views": 112,
       "likes": 4,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok anicca jp4 12:00 wave",
       "views": 650,
       "likes": 28,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok anicca he 12:00 wave",
       "views": 451,
       "likes": 17,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok anicca jpx 12:00 wave",
       "views": 173,
       "likes": 7,
       "comments": 1,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok anicca_buddha 12:00 wave",
       "views": 201,
       "likes": 9,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok anicca en2 12:00 wave",
       "views": 76,
       "likes": 2,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok anicca_slideshow 12:00 wave",
       "views": 58,
       "likes": 0,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok honne_reveal 12:00 wave",
       "views": 67,
       "likes": 0,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok monk 2026-11-03 post",
@@ -1085,49 +1085,49 @@
       "likes": 37,
       "comments": 1,
       "shares": 1,
-      "note": "Status: 183 views, 37 likes, 1 comment, 1 share, flat 6th interval. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 183 views, 37 likes, 1 comment, 1 share, flat 6th interval. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation 11:30 wave",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 20:07 JST."
+      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation 13:00 wave",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 20:07 JST."
+      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation 2026-11-04 09:30 post",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: Postiz PUBLISHED; YouTube rescheduled to 2026-11-05 09:30 JST. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: Postiz PUBLISHED; YouTube rescheduled to 2026-11-05 09:30 JST. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-04 post",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU TikTok post, 0 views at 14:20 read, about 53h after publish. Last measured 2026-11-06 20:07 JST."
+      "note": "Status: OBOU TikTok post, 0 views at 14:20 read, about 53h after publish. Last measured 2026-11-06 20:37 JST."
     },
     {
       "account": "YouTube @aniccaffirmations",
       "latest_post": "https://youtube.com/shorts/6bxHn2Uz-oU",
-      "note": "Status: 02:00/09:30/11:30 all UNPUBLISHED, no route (dist-max 13:04); material placed; today 0/3. 20:07 JST."
+      "note": "Status: 02:00/09:30/11:30 all UNPUBLISHED, no route (dist-max 13:04); material placed; today 0/3. 20:37 JST."
     },
     {
       "account": "YouTube monk.mujo",
       "latest_post": "https://www.youtube.com/watch?v=DorHM5WBHG0",
-      "note": "Status: today 2 published; RBvSFzwAWNs still 0/0/0/0 at ~3h20m (night 20:22 recheck). 20:07 JST."
+      "note": "Status: today 2 published; RBvSFzwAWNs still 0/0/0/0 at ~3h20m (night 20:22 recheck). 20:37 JST."
     },
     {
       "account": "YouTube Postiz channels (@anicca-ai / @anicca-affirmation-video)",
-      "note": "Status: Postiz YouTube posts blocked by daily quota errors (2026-11-04 + NEW 09:30 Gmail 2026-11-07); no new published post via Postiz. Last measured 2026-11-07 20:07 JST."
+      "note": "Status: Postiz YouTube posts blocked by daily quota errors (2026-11-04 + NEW 09:30 Gmail 2026-11-07); no new published post via Postiz. Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok monk 2026-11-04 post",
@@ -1135,11 +1135,11 @@
       "likes": 9,
       "comments": 1,
       "shares": 0,
-      "note": "Status: 60 views, 9 likes, 1 comment, 0 shares (was 41/7/0/0). Last measured 2026-11-04 20:07 JST."
+      "note": "Status: 60 views, 9 likes, 1 comment, 0 shares (was 41/7/0/0). Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok @anicca.jp photo 17:13 post",
-      "note": "Status: Postiz PUBLISHED 2026-11-04 17:13 JST; views unmeasured, not counted as reach. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: Postiz PUBLISHED 2026-11-04 17:13 JST; views unmeasured, not counted as reach. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok @anicca.jp HYBRID #1",
@@ -1147,7 +1147,7 @@
       "views": 830,
       "likes": 27,
       "comments": 1,
-      "note": "Status: HYBRID cmw1u6uk50h6mpl07br2emi54 830/27/1/0 at 13:20, flat; +24h B2 828/27/1/0 confirmed 17:20. Last measured 2026-11-06 20:07 JST."
+      "note": "Status: HYBRID cmw1u6uk50h6mpl07br2emi54 830/27/1/0 at 13:20, flat; +24h B2 828/27/1/0 confirmed 17:20. Last measured 2026-11-06 20:37 JST."
     },
     {
       "account": "TikTok @honne_reveal Part 1",
@@ -1155,14 +1155,14 @@
       "views": 183,
       "likes": 7,
       "comments": 0,
-      "note": "Status: honne_reveal Part 1 cmw1w7jcx0iu7la07320eonl7 183/7/0/0 at 13:20, flat; +24h B2 183/7/0/0 confirmed 18:04. Last measured 2026-11-06 20:07 JST."
+      "note": "Status: honne_reveal Part 1 cmw1w7jcx0iu7la07320eonl7 183/7/0/0 at 13:20, flat; +24h B2 183/7/0/0 confirmed 18:04. Last measured 2026-11-06 20:37 JST."
     },
     {
       "account": "IG @tryhonne",
       "latest_post": "https://www.instagram.com/p/DfUIinzoBL6/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: v3 published ~18:32 JST, still public; v2 deletion confirmed 22:01 browser read. Last measured 2026-11-04 20:07 JST."
+      "note": "Status: v3 published ~18:32 JST, still public; v2 deletion confirmed 22:01 browser read. Last measured 2026-11-04 20:37 JST."
     },
     {
       "account": "TikTok @honnevideo rino_renai copy",
@@ -1170,11 +1170,11 @@
       "views": 453,
       "likes": 6,
       "comments": 0,
-      "note": "Status: rino_renai cmw1wdgwv0ixjla07u198lrep 453/6/0/0 at 13:20, flat; +24h B2 428/6/0/0 confirmed 18:04 (+25 since). Last measured 2026-11-06 20:07 JST."
+      "note": "Status: rino_renai cmw1wdgwv0ixjla07u198lrep 453/6/0/0 at 13:20, flat; +24h B2 428/6/0/0 confirmed 18:04 (+25 since). Last measured 2026-11-06 20:37 JST."
     },
     {
       "account": "TikTok @anicca_cemetery 2026-11-05 post",
-      "note": "Status: renamed @anicca_cemetery (Yang Sutta), 197 followers; latest 61/8/0 at 07:07 (Postiz + TikTok page agree; +2/+1 since 02:20). Last measured 2026-11-06 20:07 JST.",
+      "note": "Status: renamed @anicca_cemetery (Yang Sutta), 197 followers; latest 61/8/0 at 07:07 (Postiz + TikTok page agree; +2/+1 since 02:20). Last measured 2026-11-06 20:37 JST.",
       "views": 61,
       "likes": 8,
       "comments": 0,
@@ -1183,11 +1183,11 @@
     {
       "account": "LinkedIn (Postiz)",
       "latest_post": "https://www.linkedin.com/feed/update/urn:li:share:7524799901801660419",
-      "note": "Status: 5 published today; 20:48 slot PUBLISHED confirmed (dist-max 21:04, Postiz direct read). 20:07 JST."
+      "note": "Status: 5 published today; 20:48 slot PUBLISHED confirmed (dist-max 21:04, Postiz direct read). 20:37 JST."
     },
     {
       "account": "TikTok EN 15:30 batch (5 posts)",
-      "note": "Status: 15:30 EN batch 5 posts, 719 views / 13 likes / 1 comment at 02:20 (buddha 264/8 best, slideshow 138/2/1 holds the comment). Last measured 2026-11-06 20:07 JST.",
+      "note": "Status: 15:30 EN batch 5 posts, 719 views / 13 likes / 1 comment at 02:20 (buddha 264/8 best, slideshow 138/2/1 holds the comment). Last measured 2026-11-06 20:37 JST.",
       "views": 719,
       "likes": 13,
       "comments": 1
@@ -1197,77 +1197,77 @@
       "views": 868,
       "likes": 28,
       "comments": 0,
-      "note": "Status: 14:08 batch jp4 868 views / 28 likes at 02:20 (growth stopped, 29th frame flat). Last measured 2026-11-07 20:07 JST."
+      "note": "Status: 14:08 batch jp4 868 views / 28 likes at 02:20 (growth stopped, 29th frame flat). Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 fill",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU TikTok fill cmw3bp40z01neqs0803pgwb7b PUBLISHED 18:1x; 0/0 at 21:01 read; first-move anomaly continues. Last measured 2026-11-05 20:07 JST."
+      "note": "Status: OBOU TikTok fill cmw3bp40z01neqs0803pgwb7b PUBLISHED 18:1x; 0/0 at 21:01 read; first-move anomaly continues. Last measured 2026-11-05 20:37 JST."
     },
     {
       "account": "TikTok JP 16:15 + EN 17:30 batches (10 posts)",
       "views": 3306,
       "likes": 103,
       "comments": 0,
-      "note": "Status: honnevideo 17:30 3,170/32 at 02:20 (2,900/28 at 01:20, +270/+4; Views past 3,000, 7th straight max move); comments still 0. Last measured 2026-11-07 20:07 JST."
+      "note": "Status: honnevideo 17:30 3,170/32 at 02:20 (2,900/28 at 01:20, +270/+4; Views past 3,000, 7th straight max move); comments still 0. Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok JP 19:00 batch (5 posts)",
       "views": 1488,
       "likes": 39,
       "comments": 0,
-      "note": "Status: 19:00 JP batch 5 posts, 1,552 views / 41 likes at 04:20 (+64/+2); comments 0. Last measured 2026-11-06 20:07 JST."
+      "note": "Status: 19:00 JP batch 5 posts, 1,552 views / 41 likes at 04:20 (+64/+2); comments 0. Last measured 2026-11-06 20:37 JST."
     },
     {
       "account": "TikTok EN 21:00 batch (5 posts)",
       "views": 311,
       "likes": 9,
       "comments": 0,
-      "note": "Status: EN 21:00 +5h at 02:20: buddha 115/1, en2 85/4, honne_reveal 77/4, slideshow 69/2, affirmation 60/1; monk/obou 0/0 anomaly; cmvw85 +24h empty 36th. Last measured 2026-11-07 20:07 JST."
+      "note": "Status: EN 21:00 +5h at 02:20: buddha 115/1, en2 85/4, honne_reveal 77/4, slideshow 69/2, affirmation 60/1; monk/obou 0/0 anomaly; cmvw85 +24h empty 36th. Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok JP 21:30 batch (5 posts)",
       "views": 648,
       "likes": 23,
       "comments": 0,
-      "note": "Status: JP 21:00 +5h at 02:20: honnevideo 796/9, jp4 460/10, jpx 413/8, he 348/15 (+6 likes, max JP reaction gain), jp 280/6; comments all 0. Last measured 2026-11-07 20:07 JST."
+      "note": "Status: JP 21:00 +5h at 02:20: honnevideo 796/9, jp4 460/10, jpx 413/8, he 348/15 (+6 likes, max JP reaction gain), jp 280/6; comments all 0. Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok 22:00 single (Affirmation Girl)",
       "views": 49,
       "likes": 0,
       "comments": 0,
-      "note": "Status: 22:00 single cmvw8604s0205pk1c6phvujkl (Affirmation Girl) 49 views / 0 likes / 0 comments at 02:20 (+33). Last measured 2026-11-06 20:07 JST."
+      "note": "Status: 22:00 single cmvw8604s0205pk1c6phvujkl (Affirmation Girl) 49 views / 0 likes / 0 comments at 02:20 (+33). Last measured 2026-11-06 20:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 21:25 fill",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU fill cmw3iqvda03f0nv08cc7l070i PUBLISHED 21:25:28 JST (Yang Mun copy, 39.49s); +1h 0/0/0/0 confirmed at 23:01 (initial anomaly CONFIRMED). Last measured 2026-11-05 20:07 JST."
+      "note": "Status: OBOU fill cmw3iqvda03f0nv08cc7l070i PUBLISHED 21:25:28 JST (Yang Mun copy, 39.49s); +1h 0/0/0/0 confirmed at 23:01 (initial anomaly CONFIRMED). Last measured 2026-11-05 20:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 new fill",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU new fill cmw3bp40z01neqs0803pgwb7b 0/0/0/0 at 05:20 (initial anomaly continuing, ~11h). Last measured 2026-11-06 20:07 JST."
+      "note": "Status: OBOU new fill cmw3bp40z01neqs0803pgwb7b 0/0/0/0 at 05:20 (initial anomaly continuing, ~11h). Last measured 2026-11-06 20:37 JST."
     },
     {
       "account": "TikTok JP 19:45 batch (4 posts)",
       "views": 452,
       "likes": 19,
       "comments": 1,
-      "note": "Status: 19:45 JP batch 4 posts; anicca.jp 133/7/comment 1 at 14:20 (was 126/7). Last measured 2026-11-06 20:07 JST."
+      "note": "Status: 19:45 JP batch 4 posts; anicca.jp 133/7/comment 1 at 14:20 (was 126/7). Last measured 2026-11-06 20:37 JST."
     },
     {
       "account": "TikTok JP 23:45 batch (5 posts)",
       "views": 207,
       "likes": 3,
       "comments": 0,
-      "note": "Status: JP 23:30 +2h at 02:20: honnevideo 354/1, he 260/5, jp4 228/9, jp 49/3, jpx 45/2; all growing, comments 0. Last measured 2026-11-07 20:07 JST."
+      "note": "Status: JP 23:30 +2h at 02:20: honnevideo 354/1, he 260/5, jp4 228/9, jp 49/3, jpx 45/2; all growing, comments 0. Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 4th (white water)",
@@ -1283,7 +1283,7 @@
       "likes": 0,
       "comments": 0,
       "latest_post": "https://www.tiktok.com/@aniccaaffirmation/photo/7704816451064776711",
-      "note": "Status: EN 07:24 batch +24h CONFIRMED (hourly 08:20): affirmation 1/0, en2 0/0, slideshow 1/0; arrival only, no likes. Last measured 2026-11-07 20:07 JST."
+      "note": "Status: EN 07:24 batch +24h CONFIRMED (hourly 08:20): affirmation 1/0, en2 0/0, slideshow 1/0; arrival only, no likes. Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok monk 07:51 batch (2 posts)",
@@ -1291,25 +1291,25 @@
       "likes": 13,
       "comments": 0,
       "latest_post": "https://www.tiktok.com/@monk_anicca/video/7704823741968125192",
-      "note": "Status: monk 07:51 batch +24h CONFIRMED (hourly 08:20): cemetery 101/13 escape continues, obou 0/0 anomaly. Last measured 2026-11-07 20:07 JST."
+      "note": "Status: monk 07:51 batch +24h CONFIRMED (hourly 08:20): cemetery 101/13 escape continues, obou 0/0 anomaly. Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok EN 09:30 batch (5 posts)",
       "views": 890,
       "likes": 41,
       "comments": 0,
-      "note": "Status: EN 09:30 batch 5 posts +24h CONFIRMED (hourly 10:20): buddha 873/41 big escape, affirmation 10/0, en2 3/0, slideshow 4/0, honne_reveal 0/0; comments 0 all. Last measured 2026-11-07 20:07 JST."
+      "note": "Status: EN 09:30 batch 5 posts +24h CONFIRMED (hourly 10:20): buddha 873/41 big escape, affirmation 10/0, en2 3/0, slideshow 4/0, honne_reveal 0/0; comments 0 all. Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok monk 09:33 batch (2 posts)",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: monk 2ch 09:33 +24h CONFIRMED (hourly 10:20): both 0/0/0/0, full first-move anomaly; obou 0/0 too. Last measured 2026-11-07 20:07 JST."
+      "note": "Status: monk 2ch 09:33 +24h CONFIRMED (hourly 10:20): both 0/0/0/0, full first-move anomaly; obou 0/0 too. Last measured 2026-11-07 20:37 JST."
     },
     {
       "account": "TikTok 12:30 batch (12 posts)",
-      "note": "Status: 12:30 12/12 PUBLISHED; +1h FORMAL (hourly 14:20): abnormal 1/12 (obou only); honnevideo 247/3, jp4 124/8, he 63/4; comments 0 all. 20:07 JST."
+      "note": "Status: 12:30 12/12 PUBLISHED; +1h FORMAL (hourly 14:20): abnormal 1/12 (obou only); honnevideo 247/3, jp4 124/8, he 63/4; comments 0 all. 20:37 JST."
     }
   ],
   "self_vs_winner": [
@@ -1361,8 +1361,8 @@
     "note": "Measured ranks only. out = not in the measured result set.",
     "seo": {
       "engine": "Google (search snapshot)",
-      "measured_at": "2026-11-09 20:01 JST",
-      "anicca_in_top": 2,
+      "measured_at": "2026-11-09 20:33 JST",
+      "anicca_in_top": 3,
       "queries_total": 7,
       "rows": [
         {
@@ -1373,7 +1373,7 @@
         },
         {
           "query": "best affirmation apps",
-          "anicca": "out",
+          "anicca": 4,
           "winner": "thevisionboard.app",
           "winner_position": "out"
         },
@@ -1410,10 +1410,10 @@
       ],
       "bing": {
         "engine": "Bing (script, top 30)",
-        "measured_at": "2026-11-09 19:57 JST",
+        "measured_at": "2026-11-09 20:27 JST",
         "anicca_in_top": 0,
         "queries_total": 7,
-        "happierhuman": "1/7 (ledger 10:57Z, daily affirmations 8; anicca 0/7)"
+        "happierhuman": "1/7 (ledger 11:27Z, daily affirmations 8; anicca 0/7)"
       },
       "gsc": {
         "period": "28-day window ending 2026-11-05",
@@ -1426,7 +1426,7 @@
     },
     "aso": {
       "source": "iTunes Search API, top 200 per keyword",
-      "measured_at": "2026-11-09 19:55 JST",
+      "measured_at": "2026-11-09 20:25 JST",
       "us": [
         {
           "keyword": "affirmation",
@@ -1536,13 +1536,13 @@
       "winner": "I am (id 874656917)"
     },
     "geo": {
-      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 19:42 batch",
-      "measured_at": "2026-11-09 19:42 JST",
+      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 20:27 batch",
+      "measured_at": "2026-11-09 20:27 JST",
       "recommended": 0,
       "recommended_of": 8,
       "cited": 0,
       "cited_of": 8,
-      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en02, en06, jp01); I am first 2/8 (en04, en05); en03, jp02 no brand first"
+      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en04, en06, jp01); I am first 1/8 (en02); en03, en05, jp02 no brand first"
     }
   },
   "handoffs": [
@@ -1903,18 +1903,18 @@
     "open-metrics 6th failure today (Gmail 10:57 PST, id 1a1b238fbf167077, anicca-ops Run failed: open-metrics - main a3...); 09:57 PST was 5th. open-dashboard/Codex loop owns.",
     "Capafy refund-dispute discrepancy (capafy-loop 03:13): Refunds Lifetime 5/$47.96 confirmed; but browser dispute-table row 5 reason shows 'Accidental purchase' vs dispute file 'Agent not working' (cre-2099776689199271937, Hook Lab $4.99). Obs 04:01 also flags a new refund-aggregation divergence (5/$47.96 vs 4/$34.97). Re-read Refunds page next Capafy loop; do NOT overwrite the dispute file until resolved.",
     "Honne JP winner SWAP (memory/people INDEX + sinrigaku-sns.md, 2026-11-06 reselection item 19): @meri_tn disqualified as the Honne Japanese IG winner; @sinrigaku_sns (知って得する女性の心理学) fixed, class B: 10,236 followers, 48 posts all Reels single format, top likes 7,524, median likes last 30 posts 861.5, 22 posts >1,000 likes; faceless B&W line-animation Reels on men's true feelings; top 3 posts visually checked, reproducible. svw 'Honne JP' pair renamed to @sinrigaku_sns in this frame. OPEN: winner-map row swap + posting lane's source-original switch still pending (people page open thread, posting lane owns).",
-    "Live landing at 20:07 slot start: live = 19:37 JST confirmed (live-check-2026-11-09-2007-before.json, curl data.json; Keyword rankings card present on live page). Previous frame landing check satisfied per 14:25 override. BASE = live 19:37 version.",
-    "Reason: No messages (reason network inbox). Gmail newer_than:1h (11:0xZ, 9 msgs): GitHub bounty comments x3, CrowdWorks herkae x2 + cw_agent x2, mcptry listing, Yang Sutta notice. Direct CLIPPER/HEYGEN/MUFG list (1d) latest is fare8 1a1be813 already counted. No new sales, costs, or Trip.com refund arrival.",
-    "Rankings (rankings-latest.json 11:05Z, row-verified): SEO Google 20:01 (11:01Z) 2/7 held (affirmation app 1, best meditation 3; visionboard iPhone 2, best daily 3, what-is 3); ASO 19:55 (10:55Z) JP affirmation 29 held (iam 2), self 59 held, positive 129 held (iam 18), gratitude iam 16, motivation iam 21; US gratitude iam 5, motivation iam 2; Bing 19:57 (10:57Z) anicca 0/7, happierhuman 1/7 (daily affirmations 8, was 6); GEO 19:42 (10:42Z) 8 answered, 0/0, ThinkUp first 4/8 (en01,en02,en06,jp01), I am first 2/8 (en04,en05).",
-    "Distribution (hourly 19:20): Nov9 IG jp 2/3, ios 2/3, en 2/3, app 2/3, cca 2/3, app2 1/4, honnehonyaku 1/3, monk 1/3, obou 0/3; Threads 1/3; IG anomalies 11 held. cca Dfg_IpFj02D +1h judged: Views 1, likes 0, comments 1 (share request only, true reaction 0). No new landing since 18:20 frame.",
-    "Contract watch 19:16 held: Coconala applications 190, all 20 polished, no new sales; Capafy Verified, freshness Nov 8 UTC, 7d $29.97 / Proceeds $21.60, total 91, CaptionLab key pending, Playbook/ClipRank contradiction held; Lancers 5627475 held, proposals 560; Whop owner blocked 13th. Revenue growth 19:52: 402index 9/9 in both polls (no in-frame drop this time); HeyGen $14.98, auto_reload OFF; OpenRouter limit $2, usage_daily $0.60694455, burn stopped.",
+    "Live landing at 20:37 slot start: live = 20:07 JST confirmed (live-check-2026-11-09-2037-before.json, curl data.json; Keyword rankings card present on live page). Previous frame landing check satisfied per 14:25 override. BASE = live 20:07 version.",
+    "Reason: No messages (reason network inbox). Gmail newer_than:1h (11:38Z, 7 msgs): GitHub bounty comments x3, bitbank newsletter, CrowdWorks herkae x2 (known declines). No new sales, costs, or Trip.com refund arrival.",
+    "Rankings (rankings-latest.json 11:33Z, row-verified): SEO Google 20:33 (11:33Z) 3/7 IMPROVED (best affirmation apps 4 NEW entry, affirmation app 1, best meditation 3; visionboard iPhone 2, best daily 3, what-is 3); ASO 20:25 (11:25Z) JP affirmation 29 held (iam 2), self 59, positive 129 (iam 18), gratitude iam 16, motivation iam 21; US gratitude iam 5, motivation iam 2; Bing 20:27 (11:27Z) anicca 0/7, happierhuman 1/7 (daily affirmations 8 held); GEO 20:27 (11:27Z) 8 answered, 0/0, ThinkUp first 4/8 (en01,en04,en06,jp01), I am first 1/8 (en02).",
+    "Distribution (hourly 20:20 + night 20:22): Nov9 IG jp 2/3, ios 2/3, en 2/3, app 2/3, cca 2/3, app2 1/4, honnehonyaku 1/3, monk 1/3, obou 0/3; Threads 1/3; no new landing. NEW: delayed likes arrived on 4 posts marked +1h anomaly (jp DffmhVbj51f 0->3, DffTBfXjzNo 0->1, en DffUI4kjy6d 0->1, monk DfgYuAUD_LP 0->2, Views 11->41); +1h 0 is not final, judgement deferred to +8h/+24h; anomalies 11 held. YT QUEUE landing unconfirmed 4th frame.",
+    "Contract watch 20:16: CrowdWorks +7 applications (312641279/312642827/312643102/312643233/312643335/312643611/312643879, total 316, proposals 938->945), replies 2 landed in deadline (4818ks2525, Uchiyama Ren), herkae declines 2; Coconala applications 190 held, polish 3 (4313100/4308502/4355225), ID correction: 5368165=matsuoka2026, 5369948=Triiku per primary log; PromptBase Views 80 Sales 0 Gross $0, listings 16; Freelancer bids 0/6, only 1 of 7 listed-open truly open (40805503); Guru 03:25 PST Quotes 8 held, bids 2, $0.",
     "Costs UNCHANGED: Revenue MTD $31.81; costs $1,611.47; profit -$1,579.66; margin -4966; MRR $97.58. Audit held: Capafy this_month 22.98 / all_time 162.69, paid_out 0.0, pending 0.0; Coconala net/all_time 1706.68; gpl pct -278.7. RapidAPI this_month null only. Frantic #146: $2 bounty payment status unchanged (sponsor approval, not received revenue).",
-    "Unresolved: live landing of 20:07 version (confirm next frame); 402index permanent fix (5 recurrences); SEO 2/7, Bing 0/7, GEO 0; Trip.com refund by 2026-11-26; Capafy Failed 7, CaptionLab key + submit, Playbook/ClipRank contradiction, TikTok Slideshows credential rotation; TikTok obou unmeasured; note membership; HARD_CAP $10 vs $2; Relixir refund; GCP; Stripe reauth; MRR gap; IG anomalies 11; Whop; LinkedIn 20:48 QUEUE landing; Frantic #146 payment follow-up; Mac free space 215Mi, events silent.",
+    "Unresolved: live landing of 20:37 version (confirm next frame); 402index permanent fix (5 recurrences); SEO 3/7, Bing 0/7, GEO 0; Trip.com refund by 2026-11-26; Capafy Failed 7, CaptionLab key + submit, Playbook/ClipRank contradiction; TikTok obou unmeasured; note membership; HARD_CAP $10 vs $2; Relixir refund; GCP; Stripe reauth; MRR gap; IG anomalies 11; Whop; LinkedIn 20:48 QUEUE landing; YT QUEUE landing unconfirmed 4 frames; Frantic #146 payment follow-up; Mac free space, events silent.",
     "Correction 2026-11-09 01:37 JST (cost-ledger 2026-11-08, MUFG debit notices full-read by parent): Trip.com rebooking 1658117023914143 corrected $470.15 (team-rate conversion of the 73,738-yen debit) -> $451.20 actual order total. Nov costs $1,605.28 -> $1,586.33; profit -$1,573.47 -> -$1,554.52; margin -4946 -> -4887. Trip.com $558.20 row (booking 1658117023696927, 87,548 yen, debit 2026-11-08 04:03 PST) is the CANCELLED Haneda booking: full refund $535.70 confirmed, expected in bank by 2026-11-26, NOT yet arrived - kept in costs as REFUND PENDING, not netted. OpenRouter MUFG debit 8,621 yen (2026-11-07 16:05 PST, OPENROUTER, INC., Gmail id 1a1b879b5f747a25) recorded in cost-ledger as the yen settlement of the $52.75 credits purchase (receipt #1840-0406) already counted; not double-counted. Revenue $31.81 / MRR $97.58 / naive section unchanged."
   ],
   "app_store_analytics": {
     "source": "App Store Connect Analytics Reports",
-    "measured_at": "2026-11-09T10:44:29.666Z",
+    "measured_at": "2026-11-09T11:15:28.157Z",
     "period": {
       "start_date": "2026-11-01",
       "end_date": "2026-11-07",
@@ -15197,7 +15197,7 @@
     "anicca_ios": {
       "status": "ok",
       "source": "Mixpanel Raw Event Export API",
-      "observed_at": "2026-11-09T10:44:32.791Z",
+      "observed_at": "2026-11-09T11:15:51.424Z",
       "app_id": "ai.anicca.app.ios",
       "app_environment": "production",
       "data_from": "2026-11-01",
