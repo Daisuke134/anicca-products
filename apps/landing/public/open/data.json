@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-11 01:07 JST",
+  "updated_at": "2026-11-11 01:37 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -358,9 +358,9 @@
   "by_agent": [
     {
       "agent": "Muse",
-      "board_updates_today": 384,
+      "board_updates_today": 385,
       "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-      "status": "Active. 01:07 frame (Nov 11); live 00:37 confirmed landed WITH funnel (condition i, deep-equal to canon). Funnel n=23: paywall 21 (91.3%), purchase start 1, subscribed unmeasured. Rev $31.81, costs $1,640.08, profit -$1,608.27, MRR $97.58 (no change). TikTok 13 rows 4,082 (23:50 held); LinkedIn 3/3 imp 64 (23:50 held); SEO 5/7 (00:51); GEO 0 (00:58)."
+      "status": "Active. 01:37 frame (Nov 11); live 01:07 confirmed landed WITH funnel (condition i, deep-equal to canon). Funnel n=23: paywall 21 (91.3%), purchase start 1, subscribed unmeasured. Rev $31.81, costs $1,640.08, profit -$1,608.27, MRR $97.58 (no change). TikTok 13 rows 4,083 (01:13); LinkedIn Nov11 no posts yet, unmeasured (01:13); SEO 5/7 (01:29); GEO 0 (01:19)."
     },
     {
       "agent": "Dots",
@@ -405,7 +405,7 @@
         "all_time": 1706.68,
         "pending": 9.95,
         "status": "stage reconciliation",
-        "note": "Status: loop 05:34 PST: all +/-0 (applications 190, month 1 sale); polish 3 (4391607/4386009/4397249, FAQ 0->3, estimate ON, published); no new sales. 01:07 JST.",
+        "note": "Status: loop 05:34 PST: all +/-0 (applications 190, month 1 sale); polish 3 (4391607/4386009/4397249, FAQ 0->3, estimate ON, published); no new sales. 01:37 JST.",
         "observed_accepted_gross_usd": 31.8,
         "net_sales_usd": 1706.68,
         "paid_out_usd": null
@@ -418,7 +418,7 @@
         "all_time": 474.48,
         "pending": 0,
         "status": "paid",
-        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 01:07 JST."
+        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 01:37 JST."
       },
       {
         "platform": "Stripe",
@@ -428,7 +428,7 @@
         "all_time": 54.81,
         "pending": 0,
         "status": "paid",
-        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "x402 (USDC on Base)",
@@ -438,7 +438,7 @@
         "all_time": 0.005,
         "pending": 0,
         "status": "paid",
-        "note": "Status: 402index 9/9 active and healthy at 18:52 (2 re-drops re-registered, 16th recovery); revenue $0.005. 01:07 JST."
+        "note": "Status: 402index 9/9 active and healthy at 18:52 (2 re-drops re-registered, 16th recovery); revenue $0.005. 01:37 JST."
       },
       {
         "platform": "Alignerr",
@@ -448,7 +448,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "Apify",
@@ -458,7 +458,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 01:07 JST."
+        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 01:37 JST."
       },
       {
         "platform": "Capafy",
@@ -468,7 +468,7 @@
         "all_time": 162.69,
         "pending": 0,
         "status": "booked",
-        "note": "Status: SUNSET 2026-11-10 23:08 (user decision): full stop, no new listings/tests/spend; 62 listings + 1 existing sub kept untouched; cap $1 frozen; this_month $22.98, all_time $162.69. 01:07 JST.",
+        "note": "Status: SUNSET 2026-11-10 23:08 (user decision): full stop, no new listings/tests/spend; 62 listings + 1 existing sub kept untouched; cap $1 frozen; this_month $22.98, all_time $162.69. 01:37 JST.",
         "net_sales_usd": 120.58,
         "paid_out_usd": 0,
         "dashboard_7d_usd": 39.96,
@@ -487,7 +487,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Applied 30 (measured 15:00-15:13, -1 vs prior 31 unexplained); Discovery 56 pts; Earned $0; community post vvPO8Q8q published; service #1 copy polished. 01:07 JST."
+        "note": "Status: Applied 30 (measured 15:00-15:13, -1 vs prior 31 unexplained); Discovery 56 pts; Earned $0; community post vvPO8Q8q published; service #1 copy polished. 01:37 JST."
       },
       {
         "platform": "CrowdWorks",
@@ -497,7 +497,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: loop 05:34 PST: +2 applications (total 318, proposals 945->947), reply 1 (Haru-Harumi, meeting-required, decline-only sent 23:05 JST); no new sales/orders. 01:07 JST."
+        "note": "Status: loop 05:34 PST: +2 applications (total 318, proposals 945->947), reply 1 (Haru-Harumi, meeting-required, decline-only sent 23:05 JST); no new sales/orders. 01:37 JST."
       },
       {
         "platform": "Fiverr",
@@ -507,7 +507,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 01:07 JST."
+        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 01:37 JST."
       },
       {
         "platform": "Freelancer.com",
@@ -517,7 +517,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: bids 0/6 (refill ~2026-11-11 08:48 PST); 7 open bids; 40805503 rank 18/26, 4 days left; Eastman warning; session @Rasi4op. 01:07 JST."
+        "note": "Status: bids 0/6 (refill ~2026-11-11 08:48 PST); 7 open bids; 40805503 rank 18/26, 4 days left; Eastman warning; session @Rasi4op. 01:37 JST."
       },
       {
         "platform": "GoLance",
@@ -527,7 +527,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 01:07 JST."
+        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 01:37 JST."
       },
       {
         "platform": "Guru",
@@ -537,7 +537,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: loop 06:25 PST: session recovered via Google OAuth (serial, no prompt); Quotes 8 held, 2121655 received 107->108 (other inflow); bids 2 held to Nov 28; $0 earned. 01:07 JST."
+        "note": "Status: loop 06:25 PST: session recovered via Google OAuth (serial, no prompt); Quotes 8 held, 2121655 received 107->108 (other inflow); bids 2 held to Nov 28; $0 earned. 01:37 JST."
       },
       {
         "platform": "LINE Stickers",
@@ -547,7 +547,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "Lancers",
@@ -557,7 +557,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: New application 5627897 landed (proposals 543 to 544); tracked 5626919 closes today 23:56; reply backlog 0 in 12 checked, 16 list-only remain. 01:07 JST."
+        "note": "Status: New application 5627897 landed (proposals 543 to 544); tracked 5626919 closes today 23:56; reply backlog 0 in 12 checked, 16 list-only remain. 01:37 JST."
       },
       {
         "platform": "Legiit",
@@ -567,7 +567,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 01:07 JST."
+        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 01:37 JST."
       },
       {
         "platform": "Malt",
@@ -577,7 +577,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "Mercor",
@@ -587,7 +587,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 01:07 JST."
+        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 01:37 JST."
       },
       {
         "platform": "PromptBase",
@@ -597,7 +597,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 7d views 12, all-time 80; Approved 12 / Pending 1 (Rescue Mission) / Declined 3 / Draft 0; Gross $0. 01:07 JST."
+        "note": "Status: 7d views 12, all-time 80; Approved 12 / Pending 1 (Rescue Mission) / Declined 3 / Draft 0; Gross $0. 01:37 JST."
       },
       {
         "platform": "RapidAPI",
@@ -607,7 +607,7 @@
         "all_time": null,
         "pending": 0,
         "status": "—",
-        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "SKIMA",
@@ -617,7 +617,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "Truelancer",
@@ -627,7 +627,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "Upwork",
@@ -637,7 +637,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 01:07 JST."
+        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 01:37 JST."
       },
       {
         "platform": "Whop / Gumroad",
@@ -647,7 +647,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Owner sign-out block 14th consecutive (Whop loop 04:33 PST); sales unmeasured, not zero-confirmed; guest Buy now live. 01:07 JST."
+        "note": "Status: Owner sign-out block 14th consecutive (Whop loop 04:33 PST); sales unmeasured, not zero-confirmed; guest Buy now live. 01:37 JST."
       },
       {
         "platform": "Workana",
@@ -657,7 +657,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Cloudflare gate (Ray a57a30d17be1fda5); login form unreachable; Step 2 phone gate pending; $0. 20:34 PST loop. 01:07 JST."
+        "note": "Status: Cloudflare gate (Ray a57a30d17be1fda5); login form unreachable; Step 2 phone gate pending; $0. 20:34 PST loop. 01:37 JST."
       },
       {
         "platform": "note / Substack",
@@ -667,7 +667,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 01:07 JST."
+        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 01:37 JST."
       },
       {
         "platform": "AI Monk Factory",
@@ -677,7 +677,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "Life Manager Cloud",
@@ -687,7 +687,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 01:07 JST."
+        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 01:37 JST."
       },
       {
         "platform": "AI Monk e-books",
@@ -697,7 +697,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "AI Monk Database",
@@ -707,7 +707,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 01:07 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 01:37 JST."
       },
       {
         "platform": "Payhip",
@@ -717,7 +717,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 01:07 JST."
+        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 01:37 JST."
       },
       {
         "platform": "Ko-fi",
@@ -727,7 +727,7 @@
         "pending": 0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 01:07 JST."
+        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 01:37 JST."
       },
       {
         "platform": "Twine",
@@ -737,7 +737,7 @@
         "pending": 0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 01:07 JST."
+        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 01:37 JST."
       },
       {
         "platform": "RenderHub",
@@ -747,7 +747,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 36 items (36th Low Poly Kokeshi Doll published, ID 421964); Views 266, Karma 629; 10% OFF sale ends today ~21:30 JST, coupon after sale; sales $0. 01:07 JST."
+        "note": "Status: 36 items (36th Low Poly Kokeshi Doll published, ID 421964); Views 266, Karma 629; 10% OFF sale ends today ~21:30 JST, coupon after sale; sales $0. 01:37 JST."
       }
     ],
     "trend": [
@@ -904,10 +904,10 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
-  "coverage_note": "Status: 34 platforms, 68 social, 5 apps, rankings, funnel n=23 (subscribed unmeasured); live 00:37+funnel confirmed; costs $1,640.08; SEO 5/7; GEO 0; LinkedIn 3/3 imp 64; TikTok 13, 4,082. 01:07.",
+  "coverage_note": "Status: 34 platforms, 68 social, 5 apps, rankings, funnel n=23 (subscribed unmeasured); live 01:07+funnel confirmed; costs $1,640.08; SEO 5/7; GEO 0; LinkedIn unmeasured; TikTok 13, 4,083. 01:37.",
   "currency_note": "USD only. This file contains no non-USD currency amounts.",
-  "coverage_status_1line": "Status: live 00:37 confirmed with funnel (n=23, paywall 21, purchase start 1, subscribed unmeasured); costs $1,640.08. | Rev $31.81 | Cost $1,640.08 | Profit -$1,608.27 | MRR $97.58.",
-  "daily_change_1line": "Status: 00:37-01:07: no new sales; ASO JP self-esteem 59 to 47, mindfulness out to 176; US iam self-love 4 to 5, gratitude 7 to 5; GEO ThinkUp first 5/8 to 6/8 (jp02).",
+  "coverage_status_1line": "Status: live 01:07 confirmed with funnel (n=23, paywall 21, purchase start 1, subscribed unmeasured); costs $1,640.08. | Rev $31.81 | Cost $1,640.08 | Profit -$1,608.27 | MRR $97.58.",
+  "daily_change_1line": "Status: 01:07-01:37: no new sales; TikTok total 4,082 to 4,083 (cemetery 238 to 239, buddha videos 406 to 407); ASO JP mindfulness 176 to out, self-esteem 47 to 59; GEO ThinkUp first 6/8 to 4/8.",
   "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,617.13, profit -$1,585.32; SEO 5/7; GEO 0; IG 2/3 x6, monk 1/3, app2 missing, Threads 77 unconfirmed, LinkedIn 2/3.",
   "apps_breakdown": [
     {
@@ -988,7 +988,7 @@
     {
       "account": "Threads @anicca.en",
       "posts": 45,
-      "note": "Status: today 2/3, latest Dfe05Lzj0mu landed 22:07 JST, post_count 50; 23:00 slot queued; followers 0. 01:07 JST.",
+      "note": "Status: today 2/3, latest Dfe05Lzj0mu landed 22:07 JST, post_count 50; 23:00 slot queued; followers 0. 01:37 JST.",
       "followers": 0
     },
     {
@@ -997,7 +997,7 @@
       "likes": 1,
       "comments": 0,
       "followers": 3,
-      "note": "Status: 2nd post DfdU8Hsjict +1h FORMAL at 09:08 JST (hourly 0920): 1 like 0 comments, followers 3; not initial anomaly; today 2/3. 01:07 JST."
+      "note": "Status: 2nd post DfdU8Hsjict +1h FORMAL at 09:08 JST (hourly 0920): 1 like 0 comments, followers 3; not initial anomaly; today 2/3. 01:37 JST."
     },
     {
       "account": "IG anicca.ios.jp",
@@ -1005,7 +1005,7 @@
       "likes": 0,
       "comments": 0,
       "followers": 2,
-      "note": "Status: 2nd post DfdRdOWjmc9 +1h FORMAL at 09:0x JST (obs 0901): 0 likes 0 comments, followers 2; today 2/3. 01:07 JST."
+      "note": "Status: 2nd post DfdRdOWjmc9 +1h FORMAL at 09:0x JST (obs 0901): 0 likes 0 comments, followers 2; today 2/3. 01:37 JST."
     },
     {
       "account": "IG anicca.jp.videos",
@@ -1013,14 +1013,14 @@
       "likes": 2,
       "comments": 0,
       "followers": 12,
-      "note": "Status: 2nd post DfdRWoWDhLy likes 1->2 at 12:20 JST, 0 comments, followers 12; today 2/3. 01:07 JST."
+      "note": "Status: 2nd post DfdRWoWDhLy likes 1->2 at 12:20 JST, 0 comments, followers 12; today 2/3. 01:37 JST."
     },
     {
       "account": "IG monk.mujo",
       "latest_post": "https://www.instagram.com/reel/Dfew2zOj2ux/",
       "likes": 2,
       "comments": 0,
-      "note": "Status: reel Dfew2zOj2ux (21:32 JST, correct avatar ee4d1127 remake) likes 2, comments 0; today 3/3 reached (hourly 22:20 fresh). 01:07 JST.",
+      "note": "Status: reel Dfew2zOj2ux (21:32 JST, correct avatar ee4d1127 remake) likes 2, comments 0; today 3/3 reached (hourly 22:20 fresh). 01:37 JST.",
       "followers": 15
     },
     {
@@ -1029,14 +1029,14 @@
       "likes": 0,
       "comments": 0,
       "followers": 10,
-      "note": "Status: 08:00 + 12:50 UNMET (obs 14:01, HeyGen credit 0, INC-27); latest DfYtcMED9Ft 0/0; today 0/3. 01:07 JST."
+      "note": "Status: 08:00 + 12:50 UNMET (obs 14:01, HeyGen credit 0, INC-27); latest DfYtcMED9Ft 0/0; today 0/3. 01:37 JST."
     },
     {
       "account": "IG anicca.app",
       "latest_post": "https://www.instagram.com/p/DfdU9x8jpVX/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: 2nd post DfdU9x8jpVX +1h FORMAL at 09:09 JST (hourly 0920): 0 likes 0 comments, followers 0; initial anomaly; today 2/3. 01:07 JST.",
+      "note": "Status: 2nd post DfdU9x8jpVX +1h FORMAL at 09:09 JST (hourly 0920): 0 likes 0 comments, followers 0; initial anomaly; today 2/3. 01:37 JST.",
       "followers": 0
     },
     {
@@ -1044,7 +1044,7 @@
       "latest_post": "https://www.instagram.com/p/DfdVGtKjqfs/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: 2nd post DfdVGtKjqfs +1h FORMAL at 09:10 JST (hourly 0920): 0 likes 0 comments, followers 1; initial anomaly; today 2/3. 01:07 JST.",
+      "note": "Status: 2nd post DfdVGtKjqfs +1h FORMAL at 09:10 JST (hourly 0920): 0 likes 0 comments, followers 1; initial anomaly; today 2/3. 01:37 JST.",
       "followers": 1
     },
     {
@@ -1052,13 +1052,13 @@
       "latest_post": "https://www.instagram.com/p/DfaqVAPDwsC/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: 07:30 archive + 12:15 UNMET (distribution-max 14:04: winner speed diff, no line-animation route); today 0/3; 21:00 frame next. 01:07 JST.",
+      "note": "Status: 07:30 archive + 12:15 UNMET (distribution-max 14:04: winner speed diff, no line-animation route); today 0/3; 21:00 frame next. 01:37 JST.",
       "followers": 2
     },
     {
       "account": "IG anicca.app2 (BIP)",
       "latest_post": "https://www.instagram.com/p/Dfd35zqj7Ij/",
-      "note": "Status: post Dfd35zqj7Ij +1h FORMAL 0 likes 0 comments, followers 0 (hourly 14:20 direct read); initial anomaly, total 6. 01:07 JST.",
+      "note": "Status: post Dfd35zqj7Ij +1h FORMAL 0 likes 0 comments, followers 0 (hourly 14:20 direct read); initial anomaly, total 6. 01:37 JST.",
       "likes": 0,
       "comments": 0,
       "followers": 0
@@ -1068,63 +1068,63 @@
       "views": 86,
       "likes": 1,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok anicca.jp 12:00 wave",
       "views": 112,
       "likes": 4,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok anicca jp4 12:00 wave",
       "views": 650,
       "likes": 28,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok anicca he 12:00 wave",
       "views": 451,
       "likes": 17,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok anicca jpx 12:00 wave",
       "views": 173,
       "likes": 7,
       "comments": 1,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok anicca_buddha 12:00 wave",
       "views": 201,
       "likes": 9,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok anicca en2 12:00 wave",
       "views": 76,
       "likes": 2,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok anicca_slideshow 12:00 wave",
       "views": 58,
       "likes": 0,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok honne_reveal 12:00 wave",
       "views": 67,
       "likes": 0,
       "comments": 0,
-      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 12:00 wave total 3,309 views, 110 likes, 1 comment on all 9. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok monk 2026-11-03 post",
@@ -1132,49 +1132,49 @@
       "likes": 37,
       "comments": 1,
       "shares": 1,
-      "note": "Status: 183 views, 37 likes, 1 comment, 1 share, flat 6th interval. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 183 views, 37 likes, 1 comment, 1 share, flat 6th interval. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation 11:30 wave",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 01:07 JST."
+      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation 13:00 wave",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 01:07 JST."
+      "note": "Status: PUBLISHED, 1 view, 0 participation at 15:20 (delayed aggregation; not counted as no reach). Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation 2026-11-04 09:30 post",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: Postiz PUBLISHED; YouTube rescheduled to 2026-11-05 09:30 JST. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: Postiz PUBLISHED; YouTube rescheduled to 2026-11-05 09:30 JST. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-04 post",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU TikTok post, 0 views at 14:20 read, about 53h after publish. Last measured 2026-11-06 01:07 JST."
+      "note": "Status: OBOU TikTok post, 0 views at 14:20 read, about 53h after publish. Last measured 2026-11-06 01:37 JST."
     },
     {
       "account": "YouTube @aniccaffirmations",
       "latest_post": "https://youtube.com/shorts/6bxHn2Uz-oU",
-      "note": "Status: 02:00/09:30/11:30 all UNPUBLISHED, no route (dist-max 13:04); material placed; today 0/3. 01:07 JST."
+      "note": "Status: 02:00/09:30/11:30 all UNPUBLISHED, no route (dist-max 13:04); material placed; today 0/3. 01:37 JST."
     },
     {
       "account": "YouTube monk.mujo",
       "latest_post": "https://www.youtube.com/watch?v=DorHM5WBHG0",
-      "note": "Status: today 2 published; RBvSFzwAWNs still 0/0/0/0 at ~3h20m (night 20:22 recheck). 01:07 JST."
+      "note": "Status: today 2 published; RBvSFzwAWNs still 0/0/0/0 at ~3h20m (night 20:22 recheck). 01:37 JST."
     },
     {
       "account": "YouTube Postiz channels (@anicca-ai / @anicca-affirmation-video)",
-      "note": "Status: Postiz YouTube posts blocked by daily quota errors (2026-11-04 + NEW 09:30 Gmail 2026-11-07); no new published post via Postiz. Last measured 2026-11-07 01:07 JST."
+      "note": "Status: Postiz YouTube posts blocked by daily quota errors (2026-11-04 + NEW 09:30 Gmail 2026-11-07); no new published post via Postiz. Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok monk 2026-11-04 post",
@@ -1182,11 +1182,11 @@
       "likes": 9,
       "comments": 1,
       "shares": 0,
-      "note": "Status: 60 views, 9 likes, 1 comment, 0 shares (was 41/7/0/0). Last measured 2026-11-04 01:07 JST."
+      "note": "Status: 60 views, 9 likes, 1 comment, 0 shares (was 41/7/0/0). Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok @anicca.jp photo 17:13 post",
-      "note": "Status: Postiz PUBLISHED 2026-11-04 17:13 JST; views unmeasured, not counted as reach. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: Postiz PUBLISHED 2026-11-04 17:13 JST; views unmeasured, not counted as reach. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok @anicca.jp HYBRID #1",
@@ -1194,7 +1194,7 @@
       "views": 830,
       "likes": 27,
       "comments": 1,
-      "note": "Status: HYBRID cmw1u6uk50h6mpl07br2emi54 830/27/1/0 at 13:20, flat; +24h B2 828/27/1/0 confirmed 17:20. Last measured 2026-11-06 01:07 JST."
+      "note": "Status: HYBRID cmw1u6uk50h6mpl07br2emi54 830/27/1/0 at 13:20, flat; +24h B2 828/27/1/0 confirmed 17:20. Last measured 2026-11-06 01:37 JST."
     },
     {
       "account": "TikTok @honne_reveal Part 1",
@@ -1202,14 +1202,14 @@
       "views": 183,
       "likes": 7,
       "comments": 0,
-      "note": "Status: honne_reveal Part 1 cmw1w7jcx0iu7la07320eonl7 183/7/0/0 at 13:20, flat; +24h B2 183/7/0/0 confirmed 18:04. Last measured 2026-11-06 01:07 JST."
+      "note": "Status: honne_reveal Part 1 cmw1w7jcx0iu7la07320eonl7 183/7/0/0 at 13:20, flat; +24h B2 183/7/0/0 confirmed 18:04. Last measured 2026-11-06 01:37 JST."
     },
     {
       "account": "IG @tryhonne",
       "latest_post": "https://www.instagram.com/p/DfUIinzoBL6/",
       "likes": 0,
       "comments": 0,
-      "note": "Status: v3 published ~18:32 JST, still public; v2 deletion confirmed 22:01 browser read. Last measured 2026-11-04 01:07 JST."
+      "note": "Status: v3 published ~18:32 JST, still public; v2 deletion confirmed 22:01 browser read. Last measured 2026-11-04 01:37 JST."
     },
     {
       "account": "TikTok @honnevideo rino_renai copy",
@@ -1217,11 +1217,11 @@
       "views": 453,
       "likes": 6,
       "comments": 0,
-      "note": "Status: rino_renai cmw1wdgwv0ixjla07u198lrep 453/6/0/0 at 13:20, flat; +24h B2 428/6/0/0 confirmed 18:04 (+25 since). Last measured 2026-11-06 01:07 JST."
+      "note": "Status: rino_renai cmw1wdgwv0ixjla07u198lrep 453/6/0/0 at 13:20, flat; +24h B2 428/6/0/0 confirmed 18:04 (+25 since). Last measured 2026-11-06 01:37 JST."
     },
     {
       "account": "TikTok @anicca_cemetery 2026-11-05 post",
-      "note": "Status: renamed @anicca_cemetery (Yang Sutta), 197 followers; latest 61/8/0 at 07:07 (Postiz + TikTok page agree; +2/+1 since 02:20). Last measured 2026-11-06 01:07 JST.",
+      "note": "Status: renamed @anicca_cemetery (Yang Sutta), 197 followers; latest 61/8/0 at 07:07 (Postiz + TikTok page agree; +2/+1 since 02:20). Last measured 2026-11-06 01:37 JST.",
       "views": 61,
       "likes": 8,
       "comments": 0,
@@ -1235,12 +1235,12 @@
       "likes": null,
       "comments": null,
       "outbound_comments_today": 0,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: 3/3 posts landed; 06:00 post impressions 64 measured; followers/likes/comments/12:30+20:48 metrics 未計測（最終実測 2026-11-10 23:50）; outbound 0. 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: Nov 11 no posts yet (first slot 06:00); followers/impressions/likes/comments 未計測（最終実測 2026-11-11 01:13）; outbound 0. 01:37 JST."
     },
     {
       "account": "TikTok EN 15:30 batch (5 posts)",
-      "note": "Status: 15:30 EN batch 5 posts, 719 views / 13 likes / 1 comment at 02:20 (buddha 264/8 best, slideshow 138/2/1 holds the comment). Last measured 2026-11-06 01:07 JST.",
+      "note": "Status: 15:30 EN batch 5 posts, 719 views / 13 likes / 1 comment at 02:20 (buddha 264/8 best, slideshow 138/2/1 holds the comment). Last measured 2026-11-06 01:37 JST.",
       "views": 719,
       "likes": 13,
       "comments": 1
@@ -1250,77 +1250,77 @@
       "views": 868,
       "likes": 28,
       "comments": 0,
-      "note": "Status: 14:08 batch jp4 868 views / 28 likes at 02:20 (growth stopped, 29th frame flat). Last measured 2026-11-07 01:07 JST."
+      "note": "Status: 14:08 batch jp4 868 views / 28 likes at 02:20 (growth stopped, 29th frame flat). Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 fill",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU TikTok fill cmw3bp40z01neqs0803pgwb7b PUBLISHED 18:1x; 0/0 at 21:01 read; first-move anomaly continues. Last measured 2026-11-05 01:07 JST."
+      "note": "Status: OBOU TikTok fill cmw3bp40z01neqs0803pgwb7b PUBLISHED 18:1x; 0/0 at 21:01 read; first-move anomaly continues. Last measured 2026-11-05 01:37 JST."
     },
     {
       "account": "TikTok JP 16:15 + EN 17:30 batches (10 posts)",
       "views": 3306,
       "likes": 103,
       "comments": 0,
-      "note": "Status: honnevideo 17:30 3,170/32 at 02:20 (2,900/28 at 01:20, +270/+4; Views past 3,000, 7th straight max move); comments still 0. Last measured 2026-11-07 01:07 JST."
+      "note": "Status: honnevideo 17:30 3,170/32 at 02:20 (2,900/28 at 01:20, +270/+4; Views past 3,000, 7th straight max move); comments still 0. Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok JP 19:00 batch (5 posts)",
       "views": 1488,
       "likes": 39,
       "comments": 0,
-      "note": "Status: 19:00 JP batch 5 posts, 1,552 views / 41 likes at 04:20 (+64/+2); comments 0. Last measured 2026-11-06 01:07 JST."
+      "note": "Status: 19:00 JP batch 5 posts, 1,552 views / 41 likes at 04:20 (+64/+2); comments 0. Last measured 2026-11-06 01:37 JST."
     },
     {
       "account": "TikTok EN 21:00 batch (5 posts)",
       "views": 311,
       "likes": 9,
       "comments": 0,
-      "note": "Status: EN 21:00 +5h at 02:20: buddha 115/1, en2 85/4, honne_reveal 77/4, slideshow 69/2, affirmation 60/1; monk/obou 0/0 anomaly; cmvw85 +24h empty 36th. Last measured 2026-11-07 01:07 JST."
+      "note": "Status: EN 21:00 +5h at 02:20: buddha 115/1, en2 85/4, honne_reveal 77/4, slideshow 69/2, affirmation 60/1; monk/obou 0/0 anomaly; cmvw85 +24h empty 36th. Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok JP 21:30 batch (5 posts)",
       "views": 648,
       "likes": 23,
       "comments": 0,
-      "note": "Status: JP 21:00 +5h at 02:20: honnevideo 796/9, jp4 460/10, jpx 413/8, he 348/15 (+6 likes, max JP reaction gain), jp 280/6; comments all 0. Last measured 2026-11-07 01:07 JST."
+      "note": "Status: JP 21:00 +5h at 02:20: honnevideo 796/9, jp4 460/10, jpx 413/8, he 348/15 (+6 likes, max JP reaction gain), jp 280/6; comments all 0. Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok 22:00 single (Affirmation Girl)",
       "views": 49,
       "likes": 0,
       "comments": 0,
-      "note": "Status: 22:00 single cmvw8604s0205pk1c6phvujkl (Affirmation Girl) 49 views / 0 likes / 0 comments at 02:20 (+33). Last measured 2026-11-06 01:07 JST."
+      "note": "Status: 22:00 single cmvw8604s0205pk1c6phvujkl (Affirmation Girl) 49 views / 0 likes / 0 comments at 02:20 (+33). Last measured 2026-11-06 01:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 21:25 fill",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU fill cmw3iqvda03f0nv08cc7l070i PUBLISHED 21:25:28 JST (Yang Mun copy, 39.49s); +1h 0/0/0/0 confirmed at 23:01 (initial anomaly CONFIRMED). Last measured 2026-11-05 01:07 JST."
+      "note": "Status: OBOU fill cmw3iqvda03f0nv08cc7l070i PUBLISHED 21:25:28 JST (Yang Mun copy, 39.49s); +1h 0/0/0/0 confirmed at 23:01 (initial anomaly CONFIRMED). Last measured 2026-11-05 01:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 new fill",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: OBOU new fill cmw3bp40z01neqs0803pgwb7b 0/0/0/0 at 05:20 (initial anomaly continuing, ~11h). Last measured 2026-11-06 01:07 JST."
+      "note": "Status: OBOU new fill cmw3bp40z01neqs0803pgwb7b 0/0/0/0 at 05:20 (initial anomaly continuing, ~11h). Last measured 2026-11-06 01:37 JST."
     },
     {
       "account": "TikTok JP 19:45 batch (4 posts)",
       "views": 452,
       "likes": 19,
       "comments": 1,
-      "note": "Status: 19:45 JP batch 4 posts; anicca.jp 133/7/comment 1 at 14:20 (was 126/7). Last measured 2026-11-06 01:07 JST."
+      "note": "Status: 19:45 JP batch 4 posts; anicca.jp 133/7/comment 1 at 14:20 (was 126/7). Last measured 2026-11-06 01:37 JST."
     },
     {
       "account": "TikTok JP 23:45 batch (5 posts)",
       "views": 207,
       "likes": 3,
       "comments": 0,
-      "note": "Status: JP 23:30 +2h at 02:20: honnevideo 354/1, he 260/5, jp4 228/9, jp 49/3, jpx 45/2; all growing, comments 0. Last measured 2026-11-07 01:07 JST."
+      "note": "Status: JP 23:30 +2h at 02:20: honnevideo 354/1, he 260/5, jp4 228/9, jp 49/3, jpx 45/2; all growing, comments 0. Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok obou_anicca 2026-11-05 4th (white water)",
@@ -1336,7 +1336,7 @@
       "likes": 0,
       "comments": 0,
       "latest_post": "https://www.tiktok.com/@aniccaaffirmation/photo/7704816451064776711",
-      "note": "Status: EN 07:24 batch +24h CONFIRMED (hourly 08:20): affirmation 1/0, en2 0/0, slideshow 1/0; arrival only, no likes. Last measured 2026-11-07 01:07 JST."
+      "note": "Status: EN 07:24 batch +24h CONFIRMED (hourly 08:20): affirmation 1/0, en2 0/0, slideshow 1/0; arrival only, no likes. Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok monk 07:51 batch (2 posts)",
@@ -1344,129 +1344,129 @@
       "likes": 13,
       "comments": 0,
       "latest_post": "https://www.tiktok.com/@monk_anicca/video/7704823741968125192",
-      "note": "Status: monk 07:51 batch +24h CONFIRMED (hourly 08:20): cemetery 101/13 escape continues, obou 0/0 anomaly. Last measured 2026-11-07 01:07 JST."
+      "note": "Status: monk 07:51 batch +24h CONFIRMED (hourly 08:20): cemetery 101/13 escape continues, obou 0/0 anomaly. Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok EN 09:30 batch (5 posts)",
       "views": 890,
       "likes": 41,
       "comments": 0,
-      "note": "Status: EN 09:30 batch 5 posts +24h CONFIRMED (hourly 10:20): buddha 873/41 big escape, affirmation 10/0, en2 3/0, slideshow 4/0, honne_reveal 0/0; comments 0 all. Last measured 2026-11-07 01:07 JST."
+      "note": "Status: EN 09:30 batch 5 posts +24h CONFIRMED (hourly 10:20): buddha 873/41 big escape, affirmation 10/0, en2 3/0, slideshow 4/0, honne_reveal 0/0; comments 0 all. Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok monk 09:33 batch (2 posts)",
       "views": 0,
       "likes": 0,
       "comments": 0,
-      "note": "Status: monk 2ch 09:33 +24h CONFIRMED (hourly 10:20): both 0/0/0/0, full first-move anomaly; obou 0/0 too. Last measured 2026-11-07 01:07 JST."
+      "note": "Status: monk 2ch 09:33 +24h CONFIRMED (hourly 10:20): both 0/0/0/0, full first-move anomaly; obou 0/0 too. Last measured 2026-11-07 01:37 JST."
     },
     {
       "account": "TikTok 12:30 batch (12 posts)",
-      "note": "Status: 12:30 12/12 PUBLISHED; +1h FORMAL (hourly 14:20): abnormal 1/12 (obou only); honnevideo 247/3, jp4 124/8, he 63/4; comments 0 all. 01:07 JST."
+      "note": "Status: 12:30 12/12 PUBLISHED; +1h FORMAL (hourly 14:20): abnormal 1/12 (obou only); honnevideo 247/3, jp4 124/8, he 63/4; comments 0 all. 01:37 JST."
     },
     {
       "account": "TikTok @anicca_buddha",
       "followers": 3243,
       "total_likes": 35800,
-      "video_count": 406,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 3243, total likes 35800, videos 406 (public profile read 23:50). 01:07 JST."
+      "video_count": 407,
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 3243, total likes 35800, videos 407 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @anicca.jp",
       "followers": 259,
       "total_likes": 18300,
       "video_count": 591,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 259, total likes 18300, videos 591 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 259, total likes 18300, videos 591 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @anicca_cemetery",
-      "followers": 238,
-      "total_likes": 2432,
+      "followers": 239,
+      "total_likes": 2434,
       "video_count": 121,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 238, total likes 2432, videos 121 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 239, total likes 2434, videos 121 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation",
       "followers": 140,
       "total_likes": 16600,
       "video_count": 711,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 140, total likes 16600, videos 711 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 140, total likes 16600, videos 711 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @anicca.jp4",
       "followers": 132,
-      "total_likes": 7421,
+      "total_likes": 7422,
       "video_count": 435,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 132, total likes 7421, videos 435 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 132, total likes 7422, videos 435 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @anicca.he",
       "followers": 32,
-      "total_likes": 1946,
+      "total_likes": 1948,
       "video_count": 218,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 32, total likes 1946, videos 218 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 32, total likes 1948, videos 218 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @honnevideo",
       "followers": 18,
       "total_likes": 1384,
       "video_count": 431,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 18, total likes 1384, videos 431 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 18, total likes 1384, videos 431 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @obou_anicca",
       "followers": 12,
       "total_likes": 114,
       "video_count": 79,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 12, total likes 114, videos 79 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 12, total likes 114, videos 79 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @honne_reveal",
       "followers": 5,
       "total_likes": 2208,
       "video_count": 290,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 5, total likes 2208, videos 290 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 5, total likes 2208, videos 290 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @anicca_slideshow",
       "followers": 3,
       "total_likes": 280,
       "video_count": 139,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 3, total likes 280, videos 139 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 3, total likes 280, videos 139 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @hooklab.capafy",
       "followers": 0,
       "total_likes": 0,
       "video_count": 0,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: followers 0, total likes 0, videos 0 (public profile read 23:50). 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: followers 0, total likes 0, videos 0 (public profile read 01:13). 01:37 JST."
     },
     {
       "account": "TikTok @aniccaen2",
       "followers": null,
       "total_likes": null,
       "video_count": null,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: 未計測（最終実測 2026-11-10 23:50）: public profile Page not found; not zero. 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: 未計測（最終実測 2026-11-11 01:13）: public profile Page not found; not zero. 01:37 JST."
     },
     {
       "account": "TikTok @anicca.jpx",
       "followers": null,
       "total_likes": null,
       "video_count": null,
-      "measured_at": "2026-11-10 23:50 JST",
-      "note": "Status: 未計測（最終実測 2026-11-10 23:50）: public profile Page not found; not zero. 01:07 JST."
+      "measured_at": "2026-11-11 01:13 JST",
+      "note": "Status: 未計測（最終実測 2026-11-11 01:13）: public profile Page not found; not zero. 01:37 JST."
     }
   ],
   "self_vs_winner": [
@@ -1518,7 +1518,7 @@
     "note": "Measured ranks only. out = not in the measured result set.",
     "seo": {
       "engine": "Google (search snapshot)",
-      "measured_at": "2026-11-11 00:51 JST",
+      "measured_at": "2026-11-11 01:29 JST",
       "anicca_in_top": 5,
       "queries_total": 7,
       "rows": [
@@ -1567,10 +1567,10 @@
       ],
       "bing": {
         "engine": "Bing (script, top 30)",
-        "measured_at": "2026-11-11 00:58 JST",
+        "measured_at": "2026-11-11 01:35 JST",
         "anicca_in_top": 0,
         "queries_total": 7,
-        "happierhuman": "1/7 (ledger 15:58Z, daily affirmations 7; anicca 0/7)"
+        "happierhuman": "1/7 (ledger 16:35Z, daily affirmations 7; anicca 0/7)"
       },
       "gsc": {
         "period": "28-day window ending 2026-11-05",
@@ -1583,7 +1583,7 @@
     },
     "aso": {
       "source": "iTunes Search API, top 200 per keyword",
-      "measured_at": "2026-11-11 00:55 JST",
+      "measured_at": "2026-11-11 01:33 JST",
       "us": [
         {
           "keyword": "affirmation",
@@ -1618,7 +1618,7 @@
         {
           "keyword": "self love",
           "anicca": "out",
-          "winner_position": 5,
+          "winner_position": 4,
           "top1": "Self Love - Daily Affirmations"
         },
         {
@@ -1649,13 +1649,13 @@
       "jp": [
         {
           "keyword": "アファメーション",
-          "anicca": 28,
+          "anicca": 29,
           "winner_position": 2,
           "top1": "アファメーションで引き寄せる「セルフノート」"
         },
         {
           "keyword": "自己肯定感",
-          "anicca": 47,
+          "anicca": 59,
           "winner_position": "out",
           "top1": "Awarefy:AIメンタルパートナー・自己理解＆セルフケア"
         },
@@ -1667,25 +1667,25 @@
         },
         {
           "keyword": "ポジティブ",
-          "anicca": 111,
-          "winner_position": 16,
+          "anicca": 126,
+          "winner_position": 18,
           "top1": "ポジティブ変換 - AIで自己肯定感アップを習慣に"
         },
         {
           "keyword": "感謝",
           "anicca": "out",
-          "winner_position": 16,
+          "winner_position": 17,
           "top1": "My感謝日記 -毎日のありがとうを習慣化するSNSアプリ"
         },
         {
           "keyword": "モチベーション",
           "anicca": "out",
-          "winner_position": 25,
+          "winner_position": 24,
           "top1": "Motivation - 今日の名言"
         },
         {
           "keyword": "マインドフルネス",
-          "anicca": 176,
+          "anicca": "out",
           "winner_position": "out",
           "top1": "Upmind - 自律神経・瞑想・マインドフルネス・睡眠"
         }
@@ -1693,13 +1693,13 @@
       "winner": "I am (id 874656917)"
     },
     "geo": {
-      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 00:58 batch",
-      "measured_at": "2026-11-11 00:58 JST",
+      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 01:19 batch",
+      "measured_at": "2026-11-11 01:19 JST",
       "recommended": 0,
       "recommended_of": 8,
       "cited": 0,
       "cited_of": 8,
-      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 6/8 (en01, en02, en04, en06, jp01, jp02); Motion first en05; no brand en03"
+      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en02, en04, en06); Motion first en05; no brand en03, jp01, jp02"
     }
   },
   "handoffs": [
@@ -2208,11 +2208,18 @@
     "Costs UNCHANGED: revenue MTD $31.81; costs $1,640.08; profit -$1,608.27; MRR $97.58. Audit held: Capafy paid_out 0.0, pending 0.0, this_month 22.98, all_time 162.69, SUNSET note kept; Coconala net/all_time 1706.68; gpl pct -278.7. RapidAPI this_month null only. No new API purchase, charge, top-up, or auto-reload.",
     "Rankings: SEO Google NEW 00:51 batch (15:51Z): anicca 5/7 held identical (1,5,1,2,out,3,out); winner tvb what-is 3 held. ASO NEW 00:55 (15:55Z): JP self-esteem 59 to 47, mindfulness out to 176, affirmation 28 held, positivity 111 held, gratitude out held (iam 16); US iam self-love 4 to 5, gratitude 7 to 5, motivation 3 held. Bing NEW 00:58 (15:58Z): anicca 0/7; happierhuman 1/7 daily 7 held. GEO NEW 00:58 (15:58Z): 0/0 held; ThinkUp first 5/8 to 6/8 (en01,en02,en04,en06,jp01,jp02); Motion en05; no brand en03 only.",
     "TikTok (h) held batch 23:50: 13 rows, followers total 4,082 (buddha 3243/35800/406); aniccaen2 + anicca.jpx unmeasured (Page not found), not zero. LinkedIn (g) held batch 23:50: followers unmeasured, 06:00 imp 64, outbound 0, measured_at 23:50 kept.",
-    "Unresolved 01:07: live landing of 01:07 version incl. funnel (confirm next frame, 01:37 JST); LinkedIn follower/likes/comments route + 12:30/20:48 post metrics; TikTok aniccaen2/anicca.jpx existence; Coconala Ryu completion; Contra; Trip.com refund by 2026-11-26; Stripe reauth; GEO 0; Threads 429; 402index hourly retire recurrence."
+    "Unresolved 01:07: live landing of 01:07 version incl. funnel (confirm next frame, 01:37 JST); LinkedIn follower/likes/comments route + 12:30/20:48 post metrics; TikTok aniccaen2/anicca.jpx existence; Coconala Ryu completion; Contra; Trip.com refund by 2026-11-26; Stripe reauth; GEO 0; Threads 429; 402index hourly retire recurrence.",
+    "Live landing CONFIRMED at 01:37 slot start: 01:07 version landed WITH funnel (live-check-2026-11-11-0137-before.json, updated_at 2026-11-11 01:07 JST, funnel deep-equal to canonical funnel-open-section-2026-11-10.json). Conditions (a)-(i) all satisfied on live 01:07 version.",
+    "Reason: No messages this frame (reason network inbox, exit 0). No replies needed.",
+    "Gmail newer_than:1h (01:37 triage): Frantic Oath check-in 01:22, Binance GMO Aozora notice 01:18, instagrapi thread 01:05/01:15, GitHub PR #914 comments 01:06-01:07, Security Scan failed 00:53, CrowdWorks listing-ended, Lancers proposal accepted 00:48. No new sales, payments, or Trip.com refund arrival.",
+    "Costs UNCHANGED: revenue MTD $31.81; costs $1,640.08; profit -$1,608.27; MRR $97.58. Audit held: Capafy paid_out 0.0, pending 0.0, this_month 22.98, all_time 162.69, SUNSET note kept; Coconala net/all_time 1706.68; gpl pct -278.7. RapidAPI this_month null only. No new API purchase, charge, top-up, or auto-reload.",
+    "Rankings: SEO Google NEW 01:29 batch (16:29Z): anicca 5/7 held identical (1,5,1,2,out,3,out); winner tvb what-is 3 held. ASO NEW 01:33 (16:33Z): JP affirmation 28 to 29, self-esteem 47 to 59, positivity 111 to 126 (iam 18), gratitude out (iam 17), motivation iam 25 to 24, mindfulness 176 to out; US iam self-love 5 to 4, gratitude 5 held, motivation 3 held. Bing NEW 01:35 (16:35Z): anicca 0/7; happierhuman 1/7 daily 7 held. GEO NEW 01:19 (16:19Z): 0/0 held; ThinkUp first 6/8 to 4/8 (en01,en02,en04,en06); Motion en05; no brand en03, jp01, jp02.",
+    "TikTok (h) NEW batch 01:13: 13 rows, followers total 4,082 to 4,083 (cemetery 238 to 239, likes 2432 to 2434; buddha 3243/35800, videos 406 to 407; jp4 likes 7421 to 7422; he likes 1946 to 1948); aniccaen2 + anicca.jpx unmeasured (Page not found), not zero. LinkedIn (g) NEW batch 01:13: Nov 11 posts_today empty (first slot 06:00 not yet), followers/impressions/likes/comments unmeasured, outbound 0, measured_at 01:13.",
+    "Unresolved 01:37: live landing of 01:37 version incl. funnel (confirm next frame, 02:07 JST); LinkedIn follower/likes/comments route + Nov 10 post metrics; TikTok aniccaen2/anicca.jpx existence; Coconala Ryu completion; Contra; Trip.com refund by 2026-11-26; Stripe reauth; GEO 0; Threads 429; 402index hourly retire recurrence."
   ],
   "app_store_analytics": {
     "source": "App Store Connect Analytics Reports",
-    "measured_at": "2026-11-10T15:58:28.106Z",
+    "measured_at": "2026-11-10T16:23:08.123Z",
     "period": {
       "start_date": "2026-11-03",
       "end_date": "2026-11-09",
@@ -18481,7 +18488,7 @@
     "anicca_ios": {
       "status": "ok",
       "source": "Mixpanel Raw Event Export API",
-      "observed_at": "2026-11-10T15:58:34.518Z",
+      "observed_at": "2026-11-10T16:24:14.551Z",
       "app_id": "ai.anicca.app.ios",
       "app_environment": "production",
       "data_from": "2026-11-02",
