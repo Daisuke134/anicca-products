@@ -1,0 +1,3 @@
+resource_type,resource_id,current_owner,write_path,active_run,claim_evidence,release_condition
+example_product,product-example,product-worker,official-catalog,,example-only,official-readback-saved
+example_account,account-example,distribution-worker,official-publish-route,,example-only,permalink-saved

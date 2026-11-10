@@ -265,3 +265,10 @@ v0.4.6で確定3系統のbase/定期/比較/presentment価格を分け、Kaelと
 Arisの既存商品へseller JSON-LDの価格/通貨を新しい観測として追加し、過去の価格不明・未監査売上と区別する限定契約 → `../plans/2026-10-24-ai-monk-research-distribution.md`「商品構造化データの限定追加」。
 
 Yang Mun現行offerの通貨/商品対応の限定追加契約と現在cursor → docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md「Yang Mun現行offerの通貨精査」。
+
+
+## AI Monk書籍の購入クリック計測
+
+英語版 `/the-art-of-ai-monks` と日本語版 `/the-art-of-ai-monks/ja` は、既存の $9.99 Stripe Checkoutを維持する。共通 `AiMonkBookPurchase` は購入ボタンを表示するが、クリック時に既存のcookieless `checkout_click` eventを送っていない。既存 `apps/landing/lib/site-hit.ts` の `trackEvent` を、受け付けたクリックごとに一度だけ呼び、`ct=ai_monk_book_<language>_checkout` を記録する。既存helperを通じてページURLの `utm_source`、`utm_medium`、`utm_campaign` を保持する。価格、SKU、Checkout要求、納品、決済stateは変更しない。
+
+受け入れ条件: 言語別CTとUTM転送のfocused test、既存book-page/site-hit testsをPASSさせる。merge後に英日両ページのHTTP 200と購入ボタンを確認し、productionの公式readbackで各言語の合成 `checkout_click` が指定CTで1件ずつ記録されることを確かめる。合成件数は計測testとして扱い、注文・売上に数えない。

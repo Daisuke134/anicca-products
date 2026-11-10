@@ -1,0 +1,137 @@
+{
+  "updated_at": "2026-11-06T05:27:00Z",
+  "source_updated_at": "2026-11-05T21:27:00-08:00",
+  "public_work": [
+    {
+      "priority": 1,
+      "owner": "X Operator",
+      "action": "X @diceai0 real publish cadence (15m slots)",
+      "quantity_goal": "published post/reply/quote/repost URLs only",
+      "done_criteria": "URL + measured metrics; never claim without id",
+      "last_evidence_public": "Operator path publish IDs=0 since 11/3; draft card unposted",
+      "blocker_public": "shared usage exhaustion"
+    },
+    {
+      "priority": 1,
+      "owner": "Applications",
+      "action": "jobs/grants/accelerators",
+      "quantity_goal": "confirmed submit receipts only",
+      "done_criteria": "receipt id on row",
+      "last_evidence_public": "11/4 sponsorship apps SENT (public ops blobs)",
+      "blocker_public": "usage blocked later helpers"
+    },
+    {
+      "priority": 1,
+      "owner": "Muse / Postiz",
+      "action": "articles + IG/TikTok/YT/LinkedIn",
+      "quantity_goal": "live publish URLs only",
+      "done_criteria": "channel+URL+measured_at",
+      "last_evidence_public": "Langfuse Phase0 noted; Postiz integrations empty on check",
+      "blocker_public": "Postiz empty integrations"
+    },
+    {
+      "priority": 2,
+      "owner": "ops coordinator",
+      "action": "silent-failure tickets",
+      "quantity_goal": "each FAIL has owner+evidence+unblock",
+      "done_criteria": "ticket/evidence path",
+      "last_evidence_public": "this PR derives red loops/missing/stale from metrics.json",
+      "blocker_public": "usage recovery"
+    },
+    {
+      "priority": 3,
+      "owner": "/open owner",
+      "action": "public dashboard honesty",
+      "quantity_goal": "published JSON only; no invented zeros",
+      "done_criteria": "live /open",
+      "last_evidence_public": "this PR #887",
+      "blocker_public": "—"
+    },
+    {
+      "priority": 6,
+      "owner": "ops coordinator",
+      "action": "public vs private metric tagging",
+      "quantity_goal": "every metric tagged",
+      "done_criteria": "visibility column",
+      "last_evidence_public": null,
+      "blocker_public": "scrub before publish"
+    }
+  ],
+  "usage_snapshot": {
+    "source": "CheckSubscriptionUsage",
+    "measured_at": "2026-11-05T21:27:00-08:00",
+    "timezone": "America/Los_Angeles",
+    "plan": "Ultra",
+    "weekly_usage_percent": 10.6,
+    "grok_bot_share_percent": 10.4,
+    "remaining_percent": 89.4,
+    "week_window_start_at": "2026-11-05T20:30:00-08:00",
+    "reset_at": "2026-11-12T20:30:00-08:00",
+    "fixture_only": true,
+    "bots": [
+      {
+        "owner": "参謀",
+        "percent": 39,
+        "non_routine_percent": 39
+      },
+      {
+        "owner": "Codex",
+        "percent": 21
+      },
+      {
+        "owner": "X Operator",
+        "percent": 10
+      },
+      {
+        "owner": "Applications",
+        "percent": 6
+      },
+      {
+        "owner": "dr eggbot",
+        "percent": 6,
+        "routine_percent": 1,
+        "routine_note": "gig-audit 1"
+      }
+    ],
+    "projection_scenarios": [
+      {
+        "id": "fixture_scenario",
+        "label": "Fixture arithmetic only",
+        "assumed_elapsed_hours": 8,
+        "remaining_percent": 89.4,
+        "hours_to_exhaust_at_constant_pace": 67,
+        "hours_until_reset_at_measurement": 165,
+        "assumption": "Fixture only — not current published usage."
+      }
+    ],
+    "token_detail_adapters": {
+      "admin_api": {
+        "docs": "https://cursor.com/docs/account/teams/admin-api",
+        "status": "UNAVAILABLE_NO_CREDENTIAL_IN_PUBLIC_PATH",
+        "public_tokens": "UNAVAILABLE",
+        "eligibility": "Teams Admin API may expose exact token details with supported Teams admin access"
+      }
+    },
+    "practice_sources": [
+      {
+        "name": "Michael Fenech",
+        "url": "https://x.com/Michael_Fenech_/status/2117324613000818878",
+        "claim": "External claim fixture text"
+      }
+    ],
+    "freshness": {
+      "kind": "measured_snapshot",
+      "page_json_reload_minutes": 15,
+      "live_token_stream": "UNVERIFIED",
+      "note": "Fixture freshness note"
+    },
+    "additional_usage_credits": {
+      "present": true,
+      "remaining_amount_exposed": false,
+      "note": "Fixture credits note"
+    },
+    "notes": [
+      "Fixture note only"
+    ]
+  }
+}

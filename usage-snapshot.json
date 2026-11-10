@@ -1,0 +1,180 @@
+{
+  "source": "CheckSubscriptionUsage",
+  "measured_at": "2026-11-05T23:00:00-08:00",
+  "timezone": "America/Los_Angeles",
+  "plan": "Ultra",
+  "weekly_usage_percent": 21.1,
+  "grok_bot_share_percent": 21,
+  "remaining_percent": 78.9,
+  "reset_at": "2026-11-12T20:30:00-08:00",
+  "week_window_start_at": "2026-11-05T20:30:00-08:00",
+  "additional_usage_credits": {
+    "present": true,
+    "remaining_amount_exposed": false,
+    "note": "Additional usage credits exist; remaining amount is not exposed by CheckSubscriptionUsage."
+  },
+  "freshness": {
+    "kind": "measured_snapshot",
+    "page_json_reload_minutes": 15,
+    "live_token_stream": "UNVERIFIED",
+    "note": "Public /open re-reads JSON every 15 minutes. Values stay at this measured snapshot until a newer usage-snapshot is published. Not realtime token telemetry."
+  },
+  "token_detail_adapters": {
+    "admin_api": {
+      "docs": "https://cursor.com/docs/account/teams/admin-api",
+      "cadence": "hourly when eligible",
+      "eligibility": "Teams Admin API may expose exact token details with a supported Teams admin access",
+      "status": "UNAVAILABLE_NO_CREDENTIAL_IN_PUBLIC_PATH",
+      "public_tokens": "UNAVAILABLE"
+    },
+    "otel_export": {
+      "docs": "https://cursor.com/docs/enterprise/opentelemetry-export.md",
+      "eligibility": "Enterprise-only per-bot/per-turn export via conversation.id",
+      "status": "UNAVAILABLE_NOT_ENTERPRISE_PATH",
+      "public_tokens": "UNAVAILABLE"
+    }
+  },
+  "practice_sources": [
+    {
+      "name": "Michael Fenech",
+      "url": "https://x.com/Michael_Fenech_/status/2117324613000818878",
+      "claim": "One website test ~213K computer-use vs ~51K browser script (~76% on that test). External claim, not our result."
+    },
+    {
+      "name": "Solomon Rojie",
+      "url": "https://x.com/Solomonrojie/status/2112651652566020582",
+      "claim": "Self-reported 100,000 to 12,500 tokens per task via short-context files/code. Underlying log not obtained."
+    },
+    {
+      "name": "Marko",
+      "url": "https://x.com/Marko_Poly/status/2117536532189807014",
+      "claim": "One export reported ~75% tokens re-reading own chat; Marko warns it is one user export."
+    },
+    {
+      "name": "Kevin Logan",
+      "url": "https://x.com/Kevin_Logan/status/2115077015569048015",
+      "claim": "Script This Routine candidate. NOT imported or adopted by this team."
+    }
+  ],
+  "projection_scenarios": [
+    {
+      "id": "user_stated_8h",
+      "label": "If 21.1% accrued over ~8h (user-stated; no verified zero read)",
+      "assumed_elapsed_hours": 8,
+      "used_percent": 21.1,
+      "remaining_percent": 78.9,
+      "hours_to_exhaust_at_constant_pace": 30,
+      "hours_until_reset_at_measurement": 165,
+      "assumption": "Arithmetic only: 8 × (78.9 / 21.1) ≈ 30h forward to 100%. Not a supported forecast. Pace can change with nonconstant work and other shared plan apps."
+    },
+    {
+      "id": "assumed_27h_elapsed",
+      "label": "If 21.1% accrued over ~27h elapsed (alternate wall assumption)",
+      "assumed_elapsed_hours": 27,
+      "used_percent": 21.1,
+      "remaining_percent": 78.9,
+      "hours_to_exhaust_at_constant_pace": 105,
+      "hours_until_reset_at_measurement": 165,
+      "assumption": "Arithmetic only: 27 × (78.9 / 21.1) ≈ 105h forward to 100%. Not a supported forecast. First real 0% boundary is not known."
+    },
+    {
+      "id": "official_week_window_2_5h",
+      "label": "Official weekly window from reset boundary Thu Nov 5 20:30 PT to this measurement",
+      "assumed_elapsed_hours": 2.5,
+      "used_percent": 21.1,
+      "remaining_percent": 78.9,
+      "hours_until_reset_at_measurement": 165,
+      "assumption": "Calendar elapsed from week_window_start_at is 2.5h. A 2.5h sample is not published as an exhaustion forecast. Short-window 22:28→23:00 delta is not used as an official linear forecast."
+    }
+  ],
+  "bots": [
+    {
+      "owner": "Grok Bot 参謀",
+      "percent": 47,
+      "non_routine_percent": 47,
+      "routine_percent": null,
+      "routine_note": "ONE zero-cash routine <1"
+    },
+    {
+      "owner": "Codex",
+      "percent": 18,
+      "non_routine_percent": 17,
+      "routine_percent": 1,
+      "routine_note": "deleted routines 1"
+    },
+    {
+      "owner": "X Operator",
+      "percent": 11,
+      "non_routine_percent": 9,
+      "routine_percent": 2,
+      "routine_note": "posting routine 2; metrics routine <1 paused"
+    },
+    {
+      "owner": "dr eggbot",
+      "percent": 6,
+      "non_routine_percent": 5,
+      "routine_percent": 1,
+      "routine_note": "gig-audit 1; inbox <1; coconala <1"
+    },
+    {
+      "owner": "Reporter",
+      "percent": 3,
+      "non_routine_percent": 2,
+      "routine_percent": 1,
+      "routine_note": "daily 1"
+    },
+    {
+      "owner": "Dots",
+      "percent": 3,
+      "non_routine_percent": 2,
+      "routine_percent": 1,
+      "routine_note": "relay 1"
+    },
+    {
+      "owner": "Applications",
+      "percent": 3
+    },
+    {
+      "owner": "Fucker",
+      "percent": 3,
+      "non_routine_percent": 2,
+      "routine_percent": 1,
+      "routine_note": "revenue loop 1"
+    },
+    {
+      "owner": "Muse",
+      "percent": 3
+    },
+    {
+      "owner": "Muse Relay",
+      "percent": 2
+    },
+    {
+      "owner": "Anicca Marketer",
+      "percent": 1
+    },
+    {
+      "owner": "Forensic Writing",
+      "percent": null,
+      "percent_label": "<1",
+      "routine_note": "24hr routine <1"
+    },
+    {
+      "owner": "other",
+      "percent": null,
+      "percent_label": "<1"
+    }
+  ],
+  "notes": [
+    "Bot shares are Grok Bot-account usage on the same Ultra plan (chats, bot-to-bot, and group activity). They are not independently measured external/CLI costs for Codex, Dots, Muse, or other named bots. Handing work to another bot does not necessarily make it cheaper. Raw external provider costs are not measured here.",
+    "Stand-in Grok Bot profiles for Codex/Muse/Dots are legacy contacts only: no group-chat relays, no polling loops, no duplicate pretend-relay work. Direct work uses each owner machine/Slack/Reason path. Migration status: APPLIED. Token/usage savings from this change: UNVERIFIED (not counted as savings; not routine-reduction evidence).",
+    "Percentages are subscription shares from CheckSubscriptionUsage, not raw tokens or dollars.",
+    "Within-Grok-Bot bot shares are rounded and may sum near 100.",
+    "Older 22:28 PT snapshot (12.7% / Grok Bot 12.5%) is superseded by this 23:00 PT record."
+  ],
+  "relay_migration": {
+    "status": "APPLIED",
+    "savings": "UNVERIFIED",
+    "note": "Stand-in Grok Bot profiles for Codex/Muse/Dots are legacy contacts only: no group-chat relays, no polling loops, no duplicate pretend-relay work. Direct work uses each owner machine/Slack/Reason path. Migration status: APPLIED. Token/usage savings from this change: UNVERIFIED (not counted as savings; not routine-reduction evidence)."
+  }
+}

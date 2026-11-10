@@ -7,10 +7,15 @@ on:
       - main
     paths:
       - 'apps/landing/**'
+      # Open snapshots are public dashboard data, so JSON-only pushes deploy too.
       - 'packages/ai-monk-index/**'
       - 'netlify.toml'
       - '.github/workflows/netlify-deploy.yml'
   workflow_dispatch:
+  schedule:
+    # Snapshot pushes cluster near :12-:20 and :48-:50 UTC; collect between those observed bursts.
+    # GitHub scheduled events remain best-effort; verify schedule receipts independently.
+    - cron: '32 * * * *'
 
 # One deploy per branch at a time; a newer push replaces any queued older one.
 # Without this, concurrent runs finished out of order and an older commit's
@@ -24,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -48,13 +53,13 @@ jobs:
       - name: Stage reviewed canonical Manager articles before build
         working-directory: apps/landing
         env:
-          MANAGER_BLOG_REVISION: 9a60b49e4bd4d288a491f0fb026af74e933c7eba
+          MANAGER_BLOG_REVISION: 357212f82ac46fc9a147eed36a29dc70c0c37700
           # Reviewed content pin; installer and module revision remain independently pinned.
-          MANAGER_BLOG_CONTENT_REVISION: ec903aa16ce2683f59a7a10e67b6cdc994c722ec
+          MANAGER_BLOG_CONTENT_REVISION: 157bf0b0710abfad68b950bf5d409259abab2bd8
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_BLOG_REVISION/apps/landing/manager-blog/scripts/install.mjs" -o /tmp/manager-blog-install.mjs
-          echo "9a00fa62a6048d249b332958c1ee14a2eeeae57f2f33277b538b915bed51dbf0  /tmp/manager-blog-install.mjs" | sha256sum --check
+          echo "8c27b26788f1a2cc3ff20c3540bb25558a9f0cfd9dcae87d3d98544d9e916dd3  /tmp/manager-blog-install.mjs" | sha256sum --check
           node /tmp/manager-blog-install.mjs
 
       - name: Build
@@ -70,6 +75,10 @@ jobs:
           NEXT_PUBLIC_STRIPE_LINK_30: ${{ secrets.NEXT_PUBLIC_STRIPE_LINK_30 }}
           NEXT_PUBLIC_STRIPE_LINK_5: ${{ secrets.NEXT_PUBLIC_STRIPE_LINK_5 }}
           NEXT_PUBLIC_CROSSMINT_CLIENT_KEY: ${{ secrets.NEXT_PUBLIC_CROSSMINT_CLIENT_KEY }}
+          # GA4 property "Anicca" (563091927), web stream "Anicca Web" for aniccaai.com.
+          # NEXT_PUBLIC_* are inlined at build time; a Measurement ID is public by design
+          # (it ships in the served HTML), so the value is inlined here, not kept in a secret.
+          NEXT_PUBLIC_GA_MEASUREMENT_ID: G-EYBC69XQ24
           # #36 World ID 4.0 personhood gate — public app_id + rp_id + env, inlined at build time
           NEXT_PUBLIC_WORLDCOIN_APP_ID: ${{ secrets.NEXT_PUBLIC_WORLDCOIN_APP_ID }}
           NEXT_PUBLIC_WORLDCOIN_RP_ID: ${{ secrets.NEXT_PUBLIC_WORLDCOIN_RP_ID }}
@@ -89,7 +98,7 @@ jobs:
       - name: Apply canonical products catalog routes only
         working-directory: apps/landing
         env:
-          MANAGER_PRODUCTS_REVISION: 973d3f6e7ae02562fcbfd9c1c0cccca5011a98bd
+          MANAGER_PRODUCTS_REVISION: ccf57e9e6756246b41ee2b0c22cb014a63bbc986
         run: node scripts/apply-products-overlay.mjs
 
       - uses: actions/setup-node@v4
@@ -102,10 +111,91 @@ jobs:
         working-directory: apps/landing
         run: npm ci --prefix scripts/netlify-cli
 
+      - name: Collect current Capafy metrics for Open dashboard
+        if: github.ref == 'refs/heads/main'
+        working-directory: apps/landing
+        env:
+          CAPAFY_WEB_TOKEN: ${{ secrets.CAPAFY_WEB_TOKEN }}
+          LIFE_MANAGER_REVISION: c895c9b7210665068c5f39ba8c79d4d10ead1e59
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          base="https://raw.githubusercontent.com/Daisuke134/life-manager/$LIFE_MANAGER_REVISION/skills/earn/capafy-marketing/scripts"
+          script_dir="$tmp/skills/earn/capafy-marketing/scripts"
+          mkdir -p "$script_dir" "$tmp/skills/capafy" out/open
+          curl --fail --silent --show-error --location "$base/capafy_open_snapshot.py" -o "$script_dir/capafy_open_snapshot.py"
+          curl --fail --silent --show-error --location "$base/capafy_hourly_reconcile.py" -o "$script_dir/capafy_hourly_reconcile.py"
+          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$LIFE_MANAGER_REVISION/skills/capafy/FROZEN.json" -o "$tmp/skills/capafy/FROZEN.json"
+          python3 "$script_dir/capafy_open_snapshot.py" --output out/open/capafy.json
+
+      - name: Stage latest Open dashboard data snapshot
+        working-directory: apps/landing
+        run: node scripts/stage-open-data.mjs
+
+      - name: Seed previous App Store analytics snapshot
+        if: github.ref == 'refs/heads/main'
+        working-directory: apps/landing
+        run: |
+          set -euo pipefail
+          previous="$(mktemp)"
+          trap 'rm -f "$previous"' EXIT
+          if curl --fail --silent --show-error --location --max-time 20 --header 'Cache-Control: no-cache' 'https://aniccaai.com/open/data.json' -o "$previous"; then
+            node --input-type=module - "$previous" <<'NODE'
+          import { readFile, writeFile } from 'node:fs/promises';
+          const prior = JSON.parse(await readFile(process.argv[2], 'utf8'));
+          const targetPath = 'out/open/data.json';
+          const target = JSON.parse(await readFile(targetPath, 'utf8'));
+          const snapshot = prior.app_store_analytics;
+          const expectedApps = ['6755129214', '6757726663', '6759514159', '6762143790', '6759667221'];
+          const actualApps = (snapshot?.apps ?? []).map(app => app.app_id).sort();
+          if (snapshot?.source === 'App Store Connect Analytics Reports' && actualApps.length === expectedApps.length && actualApps.join(',') === [...expectedApps].sort().join(',')) {
+            target.app_store_analytics = snapshot;
+            console.log(`Seeded prior App Store snapshot measured at ${snapshot.measured_at}.`);
+          } else {
+            console.log('No valid deployed App Store snapshot; keeping the canonical bootstrap snapshot.');
+          }
+          await writeFile(targetPath, `${JSON.stringify(target, null, 2)}\n`);
+          NODE
+          else
+            echo 'Previous public dashboard snapshot was unavailable; keeping the canonical bootstrap snapshot.'
+          fi
+
+      - name: Collect App Store Connect analytics
+        if: github.ref == 'refs/heads/main'
+        working-directory: apps/landing
+        env:
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+        run: node scripts/open-app-store-analytics.mjs --input out/open/data.json
+
+      - name: Collect Anicca Mixpanel screen funnel
+        working-directory: apps/landing
+        env:
+          MIXPANEL_SERVICE_ACCOUNT: ${{ secrets.MIXPANEL_SERVICE_ACCOUNT }}
+          MIXPANEL_PROJECT_ID: ${{ vars.MIXPANEL_PROJECT_ID }}
+          MIXPANEL_SERVER: ${{ vars.MIXPANEL_SERVER }}
+          MIXPANEL_APP_ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'production' || 'simulator' }}
+        run: node scripts/open-mixpanel-analytics.mjs out/open/data.json
+
       # 2026-06-07 V14-2 fix: replaced nwtgck/actions-netlify@v3.0 (= 5 連続 ISE)
       # with direct netlify-cli call (= validated via manual deploy locally)
       # Spec: 2026-06-07-cron-role-clarification-design.md §12.4 → V14-2
       # Security: env vars for all template inputs (= injection防止)
+      - name: Verify Open dashboard data before deploy
+        working-directory: apps/landing
+        run: |
+          node --test scripts/check-open-data.test.mjs scripts/open-mixpanel-analytics.test.mjs
+          node scripts/check-open-data.mjs out/open/data.json
+
+      # GA4 must cover every served page, not only Next.js pages: the canonical marketing
+      # overlay and the hand-written public/ pages bypass app/layout.tsx (measured 2026-11-07:
+      # / had no GA4 tag while /blog did). Inject into the final export tree, idempotently.
+      - name: Inject GA4 into every exported HTML page
+        working-directory: apps/landing
+        run: node scripts/inject-ga4.mjs out
+
       - name: Deploy to Netlify
         working-directory: apps/landing
         env:

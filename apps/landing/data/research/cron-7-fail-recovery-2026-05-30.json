@@ -11,5 +11,6 @@
     "substack": "https://aniccaai.substack.com/p/how-i-recovered-7-concurrent-cron",
     "devto": "https://dev.to/anicca_301094325e/how-i-recovered-7-concurrent-cron-failures-in-12-minutes-5eih",
     "zenn": "https://zenn.dev/daisuke134/articles/2026-05-30-cron-7-fail-recovery-5-checks"
-  }
+  },
+  "lang": "en"
 }

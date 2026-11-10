@@ -13,6 +13,7 @@ import {
   allJaAffirmationSlugs,
   getJaAffirmationProblem,
   jaAffirmationAppStoreUrl,
+  jaAffirmationFaq,
 } from '@/lib/ja-affirmation-problems';
 
 type PageProps = {
@@ -120,6 +121,17 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
     ],
   };
 
+  const faqItems = jaAffirmationFaq(problem);
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  };
+
   const others = JA_AFFIRMATION_PROBLEMS.filter((p) => p.slug !== problem.slug);
   const enSlug = problem.enSlug ?? JA_TO_EN_SLUG[problem.slug];
 
@@ -127,6 +139,7 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
     <>
       <JsonLd data={articleLd} />
       <JsonLd data={breadcrumbLd} />
+      {faqItems.length > 0 ? <JsonLd data={faqLd} /> : null}
       <JaAffirmationSeoLayout breadcrumbCurrent={problem.shortTitle}>
         <article>
           <h1 className="text-[30px] font-semibold leading-tight tracking-tight sm:text-[38px]">
@@ -176,6 +189,22 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
                   <li key={step.slice(0, 40)}>{step}</li>
                 ))}
               </ol>
+            </section>
+          ) : null}
+
+          {faqItems.length > 0 ? (
+            <section className="mt-12">
+              <h2 className="text-[20px] font-semibold tracking-tight">よくある質問</h2>
+              <dl className="mt-6 space-y-5">
+                {faqItems.map((item) => (
+                  <div key={item.q}>
+                    <dt className="text-[16px] font-semibold tracking-tight">{item.q}</dt>
+                    <dd className="mt-2 text-[15px] leading-relaxed text-[#5c5956]">
+                      {item.a}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </section>
           ) : null}
 

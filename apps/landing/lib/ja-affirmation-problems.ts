@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 export type JaAffirmationProblem = {
   slug: string;
   title: string;
@@ -26,6 +27,14 @@ export function jaAffirmationAppStoreUrl(slug: string): string {
   url.searchParams.set('utm_medium', 'seo');
   url.searchParams.set('utm_campaign', 'anicca_ja_problem');
   url.searchParams.set('utm_content', slug);
+  url.searchParams.set('pt', '93486075');
+  // App Store campaign tokens must be <= 30 chars; hash long identities to keep them unique.
+  const identity = `seo_ja_${slug}`;
+  const campaign = identity.length <= 30
+    ? identity
+    : `${identity.slice(0, 13)}-${createHash('sha256').update(identity, 'utf8').digest('hex').slice(0, 16)}`;
+  url.searchParams.set('ct', campaign);
+  url.searchParams.set('mt', '8');
   return url.toString();
 }
 
@@ -401,4 +410,41 @@ export function getJaAffirmationProblem(
 
 export function allJaAffirmationSlugs(): string[] {
   return JA_AFFIRMATION_PROBLEMS.map((p) => p.slug);
+}
+
+export type JaAffirmationFaq = { q: string; a: string };
+
+/**
+ * FAQ shown on every /affirmation-app/ja/a/* page (visible + FAQPage JSON-LD).
+ * Built only from each page's own lines and steps (no new claims).
+ */
+export function jaAffirmationFaq(problem: JaAffirmationProblem): JaAffirmationFaq[] {
+  const out: JaAffirmationFaq[] = [];
+  const st = problem.shortTitle;
+  const isAff = /アファメーション$/.test(st);
+  const topicQ = isAff ? `${st}の例は？` : `${st}に使えるアファメーションの例は？`;
+  const howQ = isAff ? `${st}はどう使えばいい？` : `${st}のとき、アファメーションはどう使えばいい？`;
+  if (problem.affirmations.length >= 3) {
+    const [a, b, c] = problem.affirmations;
+    out.push({
+      q: topicQ,
+      a: `短く、自分が信じられる言葉が向いています。たとえば「${a}」「${b}」「${c}」。長いリストをくり返すより、一つ選んでゆっくり一回読むのがおすすめです。`,
+    });
+  }
+  if (problem.practice && problem.practice.steps.length > 0) {
+    out.push({
+      q: howQ,
+      a: problem.practice.steps.join(' '),
+    });
+  } else {
+    out.push({
+      q: howQ,
+      a: 'このページの言葉から、いちばん信じられる一行を選び、息をゆっくり吐きながら一回読みます。気持ちが変わらなくても大丈夫です。必要なら別の一行を試してください。',
+    });
+  }
+  out.push({
+    q: 'アニッチャのアファメーションアプリは無料ですか？',
+    a: 'アニッチャは iPhone 向けに App Store から無料でダウンロードできます。アプリ内には任意のサブスクリプションがあり、プランと価格は購入画面に表示されます。ストリークはありません。',
+  });
+  return out;
 }

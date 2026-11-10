@@ -87,7 +87,7 @@ const s = { main: { maxWidth: 760, margin: '0 auto', padding: '48px 20px', lineH
 
 export default function Page() {
   const ld = [
-    { '@context': 'https://schema.org', '@type': 'Article', headline: D.h1, inLanguage: D.lang, dateModified: '2026-10-23', author: { '@type': 'Person', name: 'Daisuke Narita' }, mainEntityOfPage: D.canonical },
+    { '@context': 'https://schema.org', '@type': 'Article', headline: D.h1, inLanguage: D.lang, dateModified: '2026-10-23', author: { '@type': 'Organization', name: 'Anicca' }, mainEntityOfPage: D.canonical },
     { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: D.apps.map((a, i) => ({ '@type': 'ListItem', position: i + 1, name: a.name, url: a.url })) },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: D.faq.map(f => ({ '@type': 'Question', name: f[0], acceptedAnswer: { '@type': 'Answer', text: f[1] } })) },
   ];

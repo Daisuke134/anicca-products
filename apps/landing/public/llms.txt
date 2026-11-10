@@ -3,7 +3,7 @@
 > Indie apps and small products by Daisuke Narita, Tokyo. The main product is Anicca, a free-to-download iPhone affirmation app that sends one short, honest line at the time of day you choose, with no streaks. Pages on this site are plain text and free to quote.
 
 ## Apps
-- [Anicca: Daily Affirmations (iPhone)](https://aniccaai.com/affirmation-app): one short affirmation at the time you pick, 13 self-care topics, no streaks. Free to download, optional subscription. App Store: https://apps.apple.com/app/id6755129214
+- [Anicca: Daily Affirmations (iPhone)](https://aniccaai.com/affirmation-app): one short affirmation at the time you pick, 13 self-care topics, no streaks. Free to download, optional subscription. App Store: https://apps.apple.com/app/id6755129214?pt=93486075&mt=8&ct=llms
 - [Honne (iPhone)](https://aniccaai.com/honne): paste a text message you received and Honne's AI suggests the feeling likely behind it and drafts a reply that won't make things worse. Free: 3 analyses a day; optional Premium. App Store: https://apps.apple.com/app/id6759667221
 - [Thankful (iPhone)](https://aniccaai.com/thankful): a simple gratitude app. App Store: https://apps.apple.com/app/id6759514159
 - [Daily Dhamma (iPhone)](https://aniccaai.com/dailydharma): read Dhammapada verses, bookmark passages and set mindfulness reminders. App Store: https://apps.apple.com/us/app/daily-dhamma/id6757726663
@@ -37,11 +37,22 @@
 - [Affirmations for social anxiety at work](https://aniccaai.com/affirmation-app/a/affirmations-for-social-anxiety-at-work)
 - [Do affirmations help anxiety?](https://aniccaai.com/affirmation-app/a/do-affirmations-help-anxiety)
 - [Affirmations to fall asleep to](https://aniccaai.com/affirmation-app/a/affirmations-to-fall-asleep-to)
+- [Morning affirmations](https://aniccaai.com/affirmation-app/a/morning-affirmations)
+- [Affirmations for stress](https://aniccaai.com/affirmation-app/a/affirmations-for-stress)
 
 ## Guides (Japanese)
 - [日曜夜の憂うつ(サザエさん症候群)にそっと効くアファメーション](https://aniccaai.com/affirmation-app/ja/a/sunday-scaries)
 - [職場での対人不安(会議・雑談・チャット)のためのアファメーション](https://aniccaai.com/affirmation-app/ja/a/social-anxiety-at-work)
 - [不安を消すアファメーション?正直な答えと、不安がやわらぐ10の言葉](https://aniccaai.com/affirmation-app/ja/a/affirmations-for-anxiety-relief)
+- [寝る前の不安に効くアファメーション](https://aniccaai.com/affirmation-app/ja/a/night-anxiety)
+- [自己肯定感をやさしく整えるアファメーション](https://aniccaai.com/affirmation-app/ja/a/self-esteem)
+- [燃え尽き・仕事疲れのためのアファメーション](https://aniccaai.com/affirmation-app/ja/a/burnout)
+- [自分を責めてしまうときのアファメーション](https://aniccaai.com/affirmation-app/ja/a/self-blame)
+- [失恋・人間関係の痛みに寄り添うアファメーション](https://aniccaai.com/affirmation-app/ja/a/heartbreak)
+- [朝のアファメーション｜やさしく一日を始める言葉](https://aniccaai.com/affirmation-app/ja/a/morning)
+- [お金の不安をやわらげるアファメーション](https://aniccaai.com/affirmation-app/ja/a/money-worry)
+- [比較して落ち込むときのアファメーション](https://aniccaai.com/affirmation-app/ja/a/comparison)
+(各ページに「よくある質問」あり)
 
 ## Guides (Spanish)
 - [Afirmaciones para la ansiedad del domingo](https://aniccaai.com/affirmation-app/es/a/afirmaciones-para-la-ansiedad-del-domingo)
@@ -54,6 +65,80 @@
 - [All products by Daisuke Narita](https://aniccaai.com/dais): one page listing every app and tool with its current status
 
 - [Free social jet lag & wake-time calculator](https://aniccaai.com/tools/social-jet-lag-calculator): no signup, runs in the browser (by Sleep Reset)
+
+## Paid API for AI agents (x402, USDC on Base)
+Pay per call with x402: no account or API key. An unpaid GET returns HTTP 402 with the payment requirements (`PAYMENT-REQUIRED` header + JSON body; scheme `exact`, network eip155:8453 Base mainnet, asset USDC 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, facilitator https://facilitator.payai.network). Retry with the x402 v2 `PAYMENT-SIGNATURE` header (legacy v1 `X-PAYMENT` is also accepted). Machine-readable: https://aniccaai.com/openapi.json and https://aniccaai.com/.well-known/x402
+- [Maritime habit nudge](https://aniccaai.com/.netlify/functions/x402-maritime-nudge?goal=sleep&lang=en): $0.005 per call. Returns a behavior-change nudge plus a 3-step habit plan (JSON: goal, lang, nudge, plan[], agent). goal=sleep|exercise|focus|phone|stress, lang=en|ja.
+- [Naïve mood reflection](https://aniccaai.com/.netlify/functions/x402-naive-reflect?mood=anxious&lang=en): $0.005 per call. Returns a reflection prompt plus a 2-minute exercise (JSON: mood, lang, prompt, exercise, agent). mood=anxious|low|angry|scattered|grateful, lang=en|ja.
+- [Affirmation](https://aniccaai.com/.netlify/functions/x402-affirm?topic=calm&lang=en): $0.005 per call. One affirmation; topic=calm|confidence|selflove|impermanence, lang=en|ja.
+
+## Articles
+- [25 Positive Daily Affirmations To Support Your Mental Health and Self-Esteem](https://aniccaai.com/blog/25-positive-daily-affirmations-2026-11-07?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [35 Positive Affirmations To Say Each Day](https://aniccaai.com/blog/35-positive-affirmations-to-say-each-day-2026-11-06?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [8 Best Affirmation Apps for iPhone 2027 (Free & Paid), Tested](https://aniccaai.com/blog/best-affirmation-apps-2026-11-05?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): 8 iOS affirmation apps compared on price, free plan, AI affirmations, widgets and ratings, with Anicca (our app) first for Lock Screen daily affirmations.
+- [Zero-human companies in 2026: 12 agent-run businesses and what they really earn](https://aniccaai.com/blog/zero-human-companies-2026?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): dated, sourced list; verified vs founder-reported revenue and which companies publish costs.
+- [Good agent evals measure work done, not answers given](https://aniccaai.com/blog/good-agent-evals-measure-outcomes?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Anicca public P&L (/open)](https://aniccaai.com/open?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): monthly revenue, every cost line and gross profit.
+- [Zero-human company playbook (Japanese ebook)](https://aniccaai.com/zero-human-company?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Life Manager guides (Japanese): Google Calendar travel time and departure reminders](https://aniccaai.com/lm/guide?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [KDP eBook unit economics in 2026: royalty is not profit](https://aniccaai.com/blog/ebook-publishing-kdp-royalty-unit-economics-2026?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [An evidence-first operating model for small digital publishers](https://aniccaai.com/blog/ebook-publishing-open-evidence-first-operating-model?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## Short-video hook guides (free)
+- [Curiosity gap examples: 36 hooks that make the swipe pause](https://aniccaai.com/blog/curiosity-gap-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [36 contrarian hook examples](https://aniccaai.com/blog/contrarian-hook-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Curiosity hook examples that survive the three-second scroll](https://aniccaai.com/blog/curiosity-hook-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Controversial hook examples that earn the next three seconds](https://aniccaai.com/blog/controversial-hook-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [First line of a Reel: 35 ready-to-film hooks](https://aniccaai.com/blog/first-line-of-a-reel?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [UGC hook examples: 50 honest openers for product videos](https://aniccaai.com/blog/ugc-hook-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for cooking videos](https://aniccaai.com/blog/hooks-for-cooking-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for real estate agents: 40 openers](https://aniccaai.com/blog/hooks-for-real-estate-agents?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for real estate videos](https://aniccaai.com/blog/hooks-for-real-estate-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Question hooks for TikTok: 40 openers](https://aniccaai.com/blog/question-hooks-for-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [First line of a TikTok: 36 hooks](https://aniccaai.com/blog/first-line-of-a-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Retention hooks for Shorts: 36 openers](https://aniccaai.com/blog/retention-hooks-for-shorts?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Pattern interrupt examples for video](https://aniccaai.com/blog/pattern-interrupt-examples-video?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## YouTube script guides (free)
+- [YouTube script hook for the first 30 seconds: 36 openings that earn the next minute](https://aniccaai.com/blog/youtube-script-hook-first-30-seconds?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [10 Minute YouTube Script: 36 Ready-to-Use Structures for Faster Uploads](https://aniccaai.com/blog/10-minute-youtube-script?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [YouTube Video Outline Template: 36 Structures You Can Script Today](https://aniccaai.com/blog/youtube-video-outline-template?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [YouTube storytelling script: 35 ready-to-use hooks and story beats](https://aniccaai.com/blog/youtube-storytelling-script?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [YouTube educational video script: 40 ready-to-use openings and beats](https://aniccaai.com/blog/youtube-educational-video-script?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## More hook & script guides (free)
+- [AI Hook Generator for Reels: 36 Hooks That Make the First Three Seconds Clear](https://aniccaai.com/blog/ai-hook-generator-for-reels?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [AI Video Hook Writer: 40 Hooks That Give Short Videos a Stronger First Line](https://aniccaai.com/blog/ai-video-hook-writer?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for B2B Videos: 36 Openers That Make the Right Buyer Pause](https://aniccaai.com/blog/hooks-for-b2b-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Coaches on Instagram: 36 Openers That Stop the Swipe](https://aniccaai.com/blog/hooks-for-coaches-on-instagram?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Food Creators: 40 Openers That Make the Next Bite Worth Watching](https://aniccaai.com/blog/hooks-for-food-creators?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Gaming Clips: 40 Openers That Make Viewers Stop Before the Swipe](https://aniccaai.com/blog/hooks-for-gaming-clips?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for LinkedIn Video: 40 Openers That Make the Swipe Pause](https://aniccaai.com/blog/hooks-for-linkedin-video?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Motivational Videos That Stop the Swipe](https://aniccaai.com/blog/hooks-for-motivational-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Personal Finance Videos: 40 Openers That Stop the Swipe](https://aniccaai.com/blog/hooks-for-personal-finance-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Skincare Videos: 36 Lines That Stop the Swipe](https://aniccaai.com/blog/hooks-for-skincare-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Storytime Videos: 40 Openers That Make People Pause](https://aniccaai.com/blog/hooks-for-storytime-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Tech Reviews: 36 Openers That Make People Stop and Watch](https://aniccaai.com/blog/hooks-for-tech-reviews?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Travel Creators: 40 Openers That Make the Next Second Worth Watching](https://aniccaai.com/blog/hooks-for-travel-creators?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks That Get Views: 40 Openers Built to Survive the Swipe](https://aniccaai.com/blog/hooks-that-get-views?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [How to Stop the Scroll: 36 Hooks for Short-Form Videos](https://aniccaai.com/blog/how-to-stop-the-scroll?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [How to Write a Viral Hook: 36 Openers That Make the Swipe Pause](https://aniccaai.com/blog/how-to-write-a-viral-hook?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Reels Script Generator: 40 Hooks That Make the Swipe Pause](https://aniccaai.com/blog/reels-script-generator?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [UGC Ad Hook Ideas: 40 Openers That Make a Swipe Pause](https://aniccaai.com/blog/ugc-ad-hook-ideas?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## TikTok script guides (Spanish / Portuguese)
+- [Como escribir un gancho viral: 40 ideas para detener el scroll](https://aniccaai.com/blog/como-escribir-un-gancho-viral?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Como fazer roteiro para TikTok: 36 modelos prontos para sair da página em branco](https://aniccaai.com/blog/como-fazer-roteiro-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Cómo hacer un guion para TikTok cuando te quedas en blanco](https://aniccaai.com/blog/como-hacer-un-guion-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Ejemplos de guiones para TikTok: 36 ideas listas para grabar](https://aniccaai.com/blog/ejemplos-de-guiones-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Exemplo de roteiro para TikTok: 36 scripts prontos para gravar hoje](https://aniccaai.com/blog/exemplo-de-roteiro-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Ganchos para videos de TikTok: 40 ideas para frenar el swipe](https://aniccaai.com/blog/ganchos-para-videos-de-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Guion de TikTok para vender: 40 ideas que puedes grabar hoy](https://aniccaai.com/blog/guion-de-tiktok-para-vender?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [roteiro para tiktok: 40 ideias de scripts para sair da página em branco](https://aniccaai.com/blog/roteiro-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## Short-video script guides (Japanese)
+- [ショート動画 台本 テンプレート：白紙から30秒を組み立てる36の型](https://aniccaai.com/blog/short-video-script-template-ja?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [TikTok 広告 台本：撮影前の白紙を36本の話し方に変える例](https://aniccaai.com/blog/tiktok-ad-script-ja?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
 
 ## Optional
 - [Sitemap](https://aniccaai.com/sitemap.xml)

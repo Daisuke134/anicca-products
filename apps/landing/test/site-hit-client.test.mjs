@@ -49,3 +49,41 @@ test('trackEvent forwards source, medium, and campaign from the page URL', async
     else delete globalThis.navigator;
   }
 });
+
+test('checkout clicks keep page UTMs and use the edition checkout ct', async () => {
+  const oldWindow = Object.getOwnPropertyDescriptor(globalThis, 'window');
+  const oldNavigator = Object.getOwnPropertyDescriptor(globalThis, 'navigator');
+  const oldFetch = globalThis.fetch;
+  let payload;
+  Object.defineProperty(globalThis, 'window', {
+    configurable: true,
+    value: {
+      location: {
+        pathname: '/the-art-of-ai-monks',
+        search: '?utm_source=instagram&utm_medium=social&utm_campaign=ai_monk_book',
+      },
+    },
+  });
+  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: {} });
+  globalThis.fetch = async (_url, options) => {
+    payload = JSON.parse(options.body);
+    return { ok: true };
+  };
+
+  try {
+    trackEvent('checkout_click', { ct: 'ai_monk_book_en_checkout' });
+    await Promise.resolve();
+    assert.equal(payload.event, 'checkout_click');
+    assert.equal(payload.ct, 'ai_monk_book_en_checkout');
+    assert.equal(payload.utm_source, 'instagram');
+    assert.equal(payload.utm_medium, 'social');
+    assert.equal(payload.utm_campaign, 'ai_monk_book');
+    assert.equal(payload.path, '/the-art-of-ai-monks');
+  } finally {
+    globalThis.fetch = oldFetch;
+    if (oldWindow) Object.defineProperty(globalThis, 'window', oldWindow);
+    else delete globalThis.window;
+    if (oldNavigator) Object.defineProperty(globalThis, 'navigator', oldNavigator);
+    else delete globalThis.navigator;
+  }
+});

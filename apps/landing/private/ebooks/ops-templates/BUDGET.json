@@ -1,0 +1,12 @@
+{
+  "currency": "USD",
+  "window": "daily",
+  "limit": null,
+  "spent_verified": null,
+  "spend_source": null,
+  "owner_id": null,
+  "allowed_spend_categories": [],
+  "on_unknown": "reconcile_before_new_spend",
+  "on_limit": "stop_new_spend_and_reconcile",
+  "note": "Null values do not authorize spending. Configure an owned budget before use."
+}

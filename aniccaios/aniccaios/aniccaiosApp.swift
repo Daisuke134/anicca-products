@@ -25,6 +25,7 @@ struct aniccaiosApp: App {
                     #endif
                 }
                 .onOpenURL { url in
+                    AttributionPersonProperties.recordCampaign(from: url)
                     guard url.scheme == "anicca" else { return }
 
                     // 4-daily affirmation deep link: anicca://quote/<qid>

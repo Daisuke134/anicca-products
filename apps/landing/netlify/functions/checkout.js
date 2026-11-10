@@ -6,6 +6,7 @@ const { buildWriterCheckout, loadWriterArticle } = require('./_lib/writer-checko
 const { isAttributionTokenForLang } = require('../../lib/checkout-attribution.cjs');
 
 const { AI_MONK_BOOK_PRODUCT, getAiMonkBook } = require('./_lib/ai-monk-books.js');
+const { LM_OPS_GUIDE_PRODUCT, getLmOpsGuide } = require('./_lib/lm-ops-guide.js');
 
 const STRIPE_API_VERSION = '2026-04-22.dahlia';
 
@@ -23,6 +24,7 @@ async function checkoutHandler(event, dependencies = {}) {
   const stripeKey = env.STRIPE_SECRET_KEY;
   const isWriter = body.product === 'writer_article' || body.product === 'writer_archive';
   const isAiMonkBook = body.product === AI_MONK_BOOK_PRODUCT;
+  const isLmOpsGuide = body.product === LM_OPS_GUIDE_PRODUCT;
   let params;
 
   if (isWriter) {
@@ -56,6 +58,27 @@ async function checkoutHandler(event, dependencies = {}) {
       'metadata[product]': book.product,
       'metadata[book_sku]': book.sku,
       'metadata[lang]': book.language,
+      customer_creation: 'always',
+    });
+  } else if (isLmOpsGuide) {
+    if ((body.mode && body.mode !== 'payment') || (body.lang && body.lang !== 'ja')) {
+      return { statusCode: 400, body: 'invalid guide edition or payment mode' };
+    }
+    if (!stripeKey) return { statusCode: 500, body: 'missing config' };
+    const guide = getLmOpsGuide();
+    const destination = `https://aniccaai.com/${guide.slug}`;
+    params = new URLSearchParams({
+      mode: 'payment',
+      'line_items[0][price_data][currency]': guide.currency,
+      'line_items[0][price_data][unit_amount]': String(guide.unit_amount),
+      'line_items[0][price_data][product_data][name]': guide.title,
+      'line_items[0][price_data][product_data][description]': guide.stripe_description,
+      'line_items[0][quantity]': '1',
+      success_url: `${destination}?success=1&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${destination}?canceled=1`,
+      'metadata[product]': guide.product,
+      'metadata[guide_sku]': guide.sku,
+      'metadata[lang]': guide.language,
       customer_creation: 'always',
     });
   } else {
@@ -99,7 +122,7 @@ async function checkoutHandler(event, dependencies = {}) {
     Authorization: 'Basic ' + Buffer.from(stripeKey + ':').toString('base64'),
     'Content-Type': 'application/x-www-form-urlencoded',
   };
-  if (isWriter || isAiMonkBook) headers['Stripe-Version'] = STRIPE_API_VERSION;
+  if (isWriter || isAiMonkBook || isLmOpsGuide) headers['Stripe-Version'] = STRIPE_API_VERSION;
   const stripeResponse = await fetchImpl('https://api.stripe.com/v1/checkout/sessions', {
     method: 'POST',
     headers,
@@ -107,7 +130,7 @@ async function checkoutHandler(event, dependencies = {}) {
   });
   const data = await stripeResponse.json();
   if (!stripeResponse.ok) {
-    if (isAiMonkBook) return { statusCode: 502, body: 'checkout unavailable' };
+    if (isAiMonkBook || isLmOpsGuide) return { statusCode: 502, body: 'checkout unavailable' };
     return { statusCode: stripeResponse.status, body: JSON.stringify(data) };
   }
   return {

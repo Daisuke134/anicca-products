@@ -1,0 +1,43 @@
+name: naive-agents-dns
+on: workflow_dispatch
+permissions: {}
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        shell: python
+        run: |
+          import os, json, urllib.request, sys
+          T=os.environ["NETLIFY_AUTH_TOKEN"]; API="https://api.netlify.com/api/v1"
+          def req(m,p,b=None):
+              r=urllib.request.Request(API+p,method=m,data=json.dumps(b).encode() if b else None,headers={"Authorization":"Bearer "+T,"Content-Type":"application/json"})
+              try:
+                  with urllib.request.urlopen(r) as x: return x.status,json.loads(x.read() or "null")
+              except urllib.error.HTTPError as e: return e.code,e.read().decode()[:300]
+          s,zones=req("GET","/dns_zones")
+          if s!=200: print("zones list failed",s); sys.exit(1)
+          z=[z for z in zones if z["name"]=="aniccaai.com"]
+          if not z: print("aniccaai.com zone not visible to token"); sys.exit(1)
+          zid=z[0]["id"]; s,recs=req("GET",f"/dns_zones/{zid}/dns_records")
+          if s!=200: print("records list failed",s); sys.exit(1)
+          D="aniccaai.com"
+          want=[("TXT","resend._domainkey.agents","p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDWQID/FyKSTacaNhSGwxZeNyy8sXH1YTv9lsXg9HMdFH4f7HZsWB4a3/VJUVlM7R+tweKqS+j1FghP0H/MpGO2T6uYtRx4msLqtCErnzhBSbTkjkD4l1Y2+VG21ry39X6o6sMj4qrfAPpMDvlCWtj5AqNIdZ0t/Nn3rHkDBUF+gwIDAQAB",None),
+                ("MX","send.agents","feedback-smtp.us-east-1.amazonses.com",10),
+                ("TXT","send.agents","v=spf1 include:amazonses.com ~all",None),
+                ("CNAME","rsend.agents","send.forge.rmta.net",None),
+                ("MX","agents","receive.forge.rmta.net",10),
+                ("TXT","_dmarc","v=DMARC1; p=none;",None)]
+          fail=0
+          for t,h,v,pr in want:
+              fq=h+"."+D
+              if h=="_dmarc" and any(r["hostname"]==fq and r["type"]=="TXT" for r in recs):
+                  print("SKIP _dmarc exists"); continue
+              if any(r["hostname"]==fq and r["type"]==t and r["value"].rstrip(".")==v for r in recs):
+                  print("SKIP exists",t,fq); continue
+              b={"type":t,"hostname":fq,"value":v,"ttl":3600}
+              if pr is not None: b["priority"]=pr
+              s,o=req("POST",f"/dns_zones/{zid}/dns_records",b)
+              print("ADD",t,fq,s if s in(200,201) else (s,o)); fail|= s not in(200,201)
+          sys.exit(fail)

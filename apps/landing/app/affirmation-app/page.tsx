@@ -2,9 +2,16 @@ import AffirmationLanding from '@/components/affirmation/AffirmationLanding';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
-  title: "Daily affirmations for a kinder inner voice | Anicca",
+  title: "Free Daily Affirmations App for iPhone, No Streaks | Anicca",
   description:
-    "Anicca is an iPhone affirmation app with short cards for self-criticism, overthinking, and difficult days. Choose your topics and enable notifications. Free to download with optional in-app subscriptions.",
+    "Anicca is a free daily affirmations app for iPhone: pick your topics (self-criticism, overthinking, anxiety) and get short, kind affirmation cards by notification. No streaks. Optional in-app subscription.",
+  alternates: {
+    canonical: 'https://aniccaai.com/affirmation-app',
+    languages: {
+      en: 'https://aniccaai.com/affirmation-app',
+      ja: 'https://aniccaai.com/affirmation-app/ja',
+    },
+  },
 };
 
 const APP_STORE_URL = 'https://apps.apple.com/app/id6755129214';
@@ -18,7 +25,7 @@ const jsonLd = {
   url: 'https://aniccaai.com/affirmation-app',
   description: metadata.description,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  downloadUrl: APP_STORE_URL,
+  downloadUrl: `${APP_STORE_URL}?pt=93486075&ct=affirmation_app_en&mt=8`,
   sameAs: [APP_STORE_URL],
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
 };
@@ -42,6 +49,7 @@ export default function Page() {
       <JsonLd data={jsonLd} />
       <JsonLd data={faqLd} />
       <AffirmationLanding locale="en" />
+      <nav aria-label="Guides and FAQ" style={{ maxWidth: 960, margin: "0 auto", padding: "24px 16px 48px" }}><h2>Guides and FAQ</h2><ul><li><a href="/blog/best-affirmation-apps-2026-11-05">Best affirmation apps for iPhone, tested and compared</a></li><li><a href="/affirmation-app-faq/">Anicca FAQ</a></li><li><a href="/guides/best-free-affirmation-app-iphone/">Best free daily affirmation app for iPhone</a></li><li><a href="/guides/affirmation-reminder-app/">How to set daily affirmation reminders on iPhone</a></li><li><a href="/ja/best-affirmation-apps">アファメーションアプリおすすめ比較（日本語）</a></li></ul></nav>
     </>
   );
 }

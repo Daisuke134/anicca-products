@@ -1,5 +1,6 @@
 // money-path-smoke.mjs — C5/C6 (VCSDD life-manager-cost-connect-reliability). Post-deploy smoke:
-// assert the live site is up, /lm hands off to same-origin Life Manager Cloud, and payment stays server-side.
+// assert the live site is up, /maritime is the same-origin Cloud proxy, /lm does not advertise
+// an undecided Cloud price, and payment stays server-side.
 // Exit 0 = PASS, exit 1 = FAIL (caller rolls back). Deterministic, no LLM. Usage: node money-path-smoke.mjs [baseUrl]
 // The link-assertion logic is the SINGLE tested source (apps/life-call/lib/money-path.js) — no reimplementation
 // (adversary FIND-006 drift). registry.json is the single known-good SSOT.
@@ -22,10 +23,22 @@ for (const p of ["/", "/life-manager", "/lm"]) {
   const r = await fetch(BASE + p);
   if (r.status !== 200) fail(`${p} returned ${r.status}`);
 }
-// 2. /lm chunk points to the Web app and contains neither a Telegram handoff nor a direct Stripe link.
+// 1b. /maritime is the same-origin Cloud proxy. A redirect back to /lm hides the app.
+const maritime = await fetch(BASE + "/maritime", { redirect: "manual" });
+if (maritime.status !== 200) fail(`/maritime returned ${maritime.status}, expected the proxied Cloud app`);
+const maritimeHtml = await maritime.text();
+if (!maritimeHtml.includes("Life Manager Cloud")) fail("/maritime response is not the Cloud app");
+if (/\$19|\b19\/month\b|\$29|\b29\/month\b|7-day free trial/i.test(maritimeHtml)) {
+  fail("/maritime advertises a live Cloud price");
+}
+// 2. /lm is the public page. It may be the waitlist or a same-origin Cloud link, and it must not
+// advertise the undecided Cloud price or the TEST-only $19 offer.
 const html = await (await fetch(`${BASE}/lm?cb=${Date.now()}`)).text();
-if (!html.includes("Start Life Manager Cloud") || /\$20\/mo|coming soon|近日公開/i.test(html)) {
-  fail("/lm Life Manager Cloud product copy is stale or missing its Cloud entry");
+if (/\$20\/mo|coming soon|近日公開|\$19|\b19\/month\b|\$29|\b29\/month\b|7-day free trial/i.test(html)) {
+  fail("/lm pricing copy is stale or advertises an undecided Cloud price");
+}
+if (!/join the waitlist/i.test(html) && !html.includes('href="/maritime') && !html.includes("href='/maritime")) {
+  fail("/lm has neither the waitlist nor a same-origin Cloud entry");
 }
 const chunkPath = (html.match(/\/_next\/static\/chunks\/app\/lm\/page-[A-Za-z0-9]+\.js/) || [])[0];
 // Canonical marketing routes are static HTML; legacy pages still use a Next chunk.
@@ -52,5 +65,5 @@ if (pay.status !== 200) fail(`registry Stripe link not reachable (${pay.status})
 const checkout = await fetch(`${BASE}/.netlify/functions/checkout`);
 if (checkout.status !== 405) fail(`checkout function did not load cleanly (${checkout.status})`);
 
-console.log(`SMOKE PASS: ${BASE} up, /lm same-origin Cloud handoff verified, life-call backend health is 200, no direct Stripe link, legacy Checkout and Payment Link remain reachable`);
+console.log(`SMOKE PASS: ${BASE} up, /maritime proxy is 200, /lm has no live Cloud price, life-call backend health is 200, no direct Stripe link, legacy Checkout and Payment Link remain reachable`);
 process.exit(0);

@@ -1,0 +1,405 @@
+{
+  "observed_at": "2026-11-05T06:40:50+00:00",
+  "source": "Capafy developer traffic analytics",
+  "windows": {
+    "last_30d": {
+      "attributed_unique_visitors": 8200,
+      "daily": [
+        {
+          "date": "2026-10-07",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-08",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-09",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-10",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-11",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-12",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-13",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-14",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 1,
+          "units": 1
+        },
+        {
+          "date": "2026-10-15",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 1,
+          "units": 1
+        },
+        {
+          "date": "2026-10-16",
+          "orders": 2,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 2,
+          "units": 2
+        },
+        {
+          "date": "2026-10-17",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-18",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 1,
+          "units": 1
+        },
+        {
+          "date": "2026-10-19",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-20",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-21",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-22",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 1,
+          "units": 1
+        },
+        {
+          "date": "2026-10-23",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "9.99",
+          "trial_units": 0,
+          "units": 1
+        },
+        {
+          "date": "2026-10-24",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-25",
+          "orders": 2,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 2,
+          "units": 2
+        },
+        {
+          "date": "2026-10-26",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-27",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-28",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "9.99",
+          "trial_units": 0,
+          "units": 1
+        },
+        {
+          "date": "2026-10-29",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-10-30",
+          "orders": 2,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "16.98",
+          "trial_units": 0,
+          "units": 2
+        },
+        {
+          "date": "2026-10-31",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-11-01",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "9.99",
+          "trial_units": 0,
+          "units": 1
+        },
+        {
+          "date": "2026-11-02",
+          "orders": 2,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "12.99",
+          "trial_units": 1,
+          "units": 2
+        },
+        {
+          "date": "2026-11-03",
+          "orders": -1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "-9.99",
+          "trial_units": 0,
+          "units": -1
+        },
+        {
+          "date": "2026-11-04",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "9.99",
+          "trial_units": 0,
+          "units": 1
+        },
+        {
+          "date": "2026-11-05",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        }
+      ],
+      "detail_views": 8200,
+      "end_utc": "2026-11-05T23:59:59.999Z",
+      "impressions": [
+        {
+          "count": 2928,
+          "name": "category"
+        },
+        {
+          "count": 61892,
+          "name": "search"
+        },
+        {
+          "count": 14869,
+          "name": "hot"
+        }
+      ],
+      "omitted_impression_sources": 0,
+      "page_views": 0,
+      "paid_orders": 6,
+      "platform_orders": 15,
+      "platform_revenue_usd": "59.94",
+      "refunds_usd": "0.00",
+      "sales_usd": "59.94",
+      "start_utc": "2026-10-07T00:00:00.000Z",
+      "trial_orders": 9,
+      "trial_units": 9,
+      "unit_sales": 15,
+      "views": 8200
+    },
+    "last_7d": {
+      "attributed_unique_visitors": 1871,
+      "daily": [
+        {
+          "date": "2026-10-30",
+          "orders": 2,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "16.98",
+          "trial_units": 0,
+          "units": 2
+        },
+        {
+          "date": "2026-10-31",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        },
+        {
+          "date": "2026-11-01",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "9.99",
+          "trial_units": 0,
+          "units": 1
+        },
+        {
+          "date": "2026-11-02",
+          "orders": 2,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "12.99",
+          "trial_units": 1,
+          "units": 2
+        },
+        {
+          "date": "2026-11-03",
+          "orders": -1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "-9.99",
+          "trial_units": 0,
+          "units": -1
+        },
+        {
+          "date": "2026-11-04",
+          "orders": 1,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "9.99",
+          "trial_units": 0,
+          "units": 1
+        },
+        {
+          "date": "2026-11-05",
+          "orders": 0,
+          "refund_count": 0,
+          "refunds_usd": "0.00",
+          "revenue_usd": "0.00",
+          "trial_units": 0,
+          "units": 0
+        }
+      ],
+      "detail_views": 1871,
+      "end_utc": "2026-11-05T23:59:59.999Z",
+      "impressions": [
+        {
+          "count": 565,
+          "name": "category"
+        },
+        {
+          "count": 12410,
+          "name": "search"
+        },
+        {
+          "count": 6833,
+          "name": "hot"
+        }
+      ],
+      "omitted_impression_sources": 0,
+      "page_views": 0,
+      "paid_orders": 4,
+      "platform_orders": 5,
+      "platform_revenue_usd": "39.96",
+      "refunds_usd": "0.00",
+      "sales_usd": "39.96",
+      "start_utc": "2026-10-30T00:00:00.000Z",
+      "trial_orders": 1,
+      "trial_units": 1,
+      "unit_sales": 5,
+      "views": 1871
+    }
+  }
+}

@@ -119,8 +119,8 @@ test('per-article attribution preserves business classification and breadcrumb l
 });
 
 test('per-article attribution preserves same-business related posts and excludes self', () => {
-  assert.match(page, /import \{ loadAllBlogPosts \} from "\.\.\/\.\.\/\.\.\/lib\/blog-posts";/);
-  assert.match(page, /const related = loadAllBlogPosts\(\)\s*\.filter\(\(p\) => p\.slug !== post\.slug && businessOf\(p\.slug, p\.project\) === business\)\s*\.slice\(0, 6\);/);
+  assert.match(page, /import \{ loadAllBlogPosts(?:, [^}]*)? \} from "\.\.\/\.\.\/\.\.\/lib\/blog-posts";/);
+  assert.match(page, /const related = loadAllBlogPosts\(\)\s*\.filter\(\(p\) => p\.slug !== post\.slug && businessOf\(p\.slug, p\.project\) === business\)\s*\.sort\(\(a, b\) => Number\(b\.lang === ownLang\) - Number\(a\.lang === ownLang\)\)\s*\.slice\(0, 6\);/);
   assert.match(page, /\{related\.length > 0 && \(/);
   assert.match(page, /\{related\.map\(\(p\) => \(/);
   assert.match(page, /<Link href=\{`\/blog\/\$\{p\.slug\}`\}[^>]*>\{p\.title\}<\/Link>/);
@@ -135,10 +135,10 @@ test('private Writer validation, manifest and unlock gates remain unchanged', ()
   assert.match(page, /<WriterUnlock/);
 });
 
-test('existing business classifier does not relabel Thankful or Honne as the Anicca app', async () => {
+test('existing business classifier retains Thankful and Honne product hubs without relabeling either as Anicca', async () => {
   const { businessOf } = await import('../../../../lib/blog-business.mjs');
   assert.equal(businessOf('gratitude-journal-repeating-yourself', 'Thankful'), 'thankful');
-  assert.equal(businessOf('how-to-reply-to-fine-in-a-text', 'Honne'), 'notes');
+  assert.equal(businessOf('how-to-reply-to-fine-in-a-text', 'Honne'), 'honne');
   assert.equal(businessOf('anicca-ios-2026-05-19-en', 'anicca-ios'), 'anicca');
   assert.equal(businessOf('anicca-unreviewed-company-topic', 'Anicca'), 'notes');
 });

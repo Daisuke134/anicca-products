@@ -1,0 +1,431 @@
+{
+  "public_work": [
+    {
+      "priority": 1,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "新しいagent/routineを増やさず、既存運用の停滞を赤で示す。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 1",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "GUARDS ACTIVE on Nov 6 09:30-09:33 PT. 45 regular enabled (4 paused); finished one-offs outside count. Reason team coordinator hourly broad transcript scan paused; X distribution 15min duplicate paused while existing X Operator remains publisher/live url verification; hourly no-change status paused while real outcomes still delivered; LINE 4h known no-tab errors paused pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227. Sync weekday 8AM guard bounded no full histories. Results guarded no sneaky cutting output.",
+      "blocker_public": "Guard controls active; quantitative saving and measured output not yet proven, not marked DONE"
+    },
+    {
+      "priority": 2,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "1task・1owner・単一claim。成果未証のまま完了にしない。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 2",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "ACTIVE: canonical 1task/1owner ownership enforcement on this file and /open projection; not a business revenue outcome. No simultaneous workstream claims.",
+      "blocker_public": "Priority 2: no DONE proof"
+    },
+    {
+      "priority": 3,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "会社の全TODOを同じGitHub fileにpushし続ける。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 3",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "ACTIVE: this canonical GitHub COMPANY_TODO.md is the single source; existing writer projects 29 public rows (private #15 excluded). Source publication work, not a business outcome.",
+      "blocker_public": "Priority 3: no DONE proof"
+    },
+    {
+      "priority": 4,
+      "owner": "X Operator @diceai0",
+      "action": "XとWebの勝者をaccount・実成果ごとに選び続ける。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 4",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "ONGOING: opened candidate globalpost/TonyChan from X Operator facts only 44/1096 imp, not fixed output. Live publication/metrics individually recorded.",
+      "blocker_public": "Priority 4: no DONE proof"
+    },
+    {
+      "priority": 5,
+      "owner": "X Operator @diceai0",
+      "action": "@diceai0を私自身が運用：新規postを実URLまで。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 5",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "Prior result only, X Operator not 参謀: https://x.com/diceai0/status/2118594520891732052 early 80 imp / 2 like / 1 reply (17:07 JST). Later browser proxy HTTP 403 at 2026-11-06 20:17 JST, publication 0, so posting is currently blocked after that result.",
+      "blocker_public": "Priority 5: no DONE proof"
+    },
+    {
+      "priority": 6,
+      "owner": "X Operator @diceai0",
+      "action": "@diceai0で実replyとquote/repostを継続する。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 6",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "Prior replies only: yongfook 8 imp and Domlokyn 5 imp (17:07 JST), plus native reposts of levelsio and TonyChanBuilds. Browser proxy HTTP 403 at 2026-11-06 20:17 JST, publication 0. Not a new live post.",
+      "blocker_public": "Priority 6: no DONE proof"
+    },
+    {
+      "priority": 7,
+      "owner": "Muse",
+      "action": "Museの全Instagram・TikTok・YouTube・Threads・LinkedInを実量で戻す。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 7",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "RELAY REPORT only, not a direct verified publish: Threads DfY-yTAj2Ro; TikTok /monk_anicca/video/7704908513591659796; Instagram /obou.anicca reel DfYtcMED9Ft; LinkedIn share 7524217823221440512. YouTube Shorts identity dialog and Postiz quota were relayed, not re-verified here. Not a winner claim.",
+      "blocker_public": "Priority 7: no DONE proof"
+    },
+    {
+      "priority": 8,
+      "owner": "Muse Relay",
+      "action": "Muse Relayのnote・X・TikTok再利用を実URLで戻す。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 8",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "DRAFT_READY (not posted): source TikTok 7699801497952898324 @anicca_cemetery loud-mind-tonight direct readback 541 reach / 4 saves vs dated saved medians 193/1. One @diceai0 X native draft + product reply prepared; Muse approve and founder Post absent; publication 0. Old pair note n75fd3dd2c6e6 + TikTok 7700545456736128276 not reused.",
+      "blocker_public": "Priority 8: no DONE proof"
+    },
+    {
+      "priority": 9,
+      "owner": "Grok Bot 参謀 / existing owner",
+      "action": "SEO・GEO調査と記事公開を勝者から継続する。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 9",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "NOT DEPLOYED. Open change is only life-manager PR 9287 head 6f86b325 branch cursor/seo-refresh-20261106-2882: pages/en.html, route-manifest.json, publish-overlay.mjs, two tests, BOARD.md. /en source, still OPEN (https://github.com/Daisuke134/life-manager/pull/9287). anicca-products same branch HTTP 404; commit b2a35e78 HTTP 422, so the other three local pages are not on GitHub. marketing/seo/refresh-2026-11-06.md is absent here. Production HTTP 200 titles unchanged. No deployment.",
+      "blocker_public": "Priority 9: no DONE proof"
+    },
+    {
+      "priority": 10,
+      "owner": "Codex",
+      "action": "Aniccaの製品改善・App Storeとwebsite配布を進める。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 10",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "OPEN: life-manager PR #9282 MERGED (head 029049d4 / merge 6cc7c4a); App Store remains live 1.9.6; no 1.9.8 submission. Not a live release success. Website UTM checks observed separately by Anicca Marketer.",
+      "blocker_public": "Priority 10: no DONE proof"
+    },
+    {
+      "priority": 11,
+      "owner": "Fucker",
+      "action": "Honne・Capafyの製品と無人照合できる配布を進める。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 11",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "OPEN: Capafy Storytime 4485235701 Review Failed (https://capafy.ai/developer/agent/4485235701?agentStatus=review_failed). Publisher failed UI has no Test Run or chat preview; Custom interaction Not configured. Local candidate sha256 f585e9f599ddff304b20f7f090b238db3f2d5a1da30eaa12f258264134bc03a1. No hosted pass or publish. Honne evidence remains required. No paid claims.",
+      "blocker_public": "Priority 11: no DONE proof"
+    },
+    {
+      "priority": 12,
+      "owner": "Fucker",
+      "action": "Marketplaceで出品・受注・請求・入金を実際に返す。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 12",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "BLOCKED: three CrowdWorks conversations remain; sign-in authorization missing or expired ungranted. No conversation bodies read; no new orders/invoices/settlements/revenue.",
+      "blocker_public": "Priority 12: no DONE proof"
+    },
+    {
+      "priority": 13,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "Reporterの原票・paid receipts、利益とコストを一致させる。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 13",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "IN PROGRESS: Stripe aniccaJP 2026-11 paid rows 0 (read 11/6 17:25 JST). Local Capafy payout_snapshot 2026-11-06 00:06 JST balance_payout_usd=$83.78 total_paid_out_usd=0, still below $100, not revenue. Moneytree has no bank read. Full paid receipt and cost match stays in progress. No revenue claimed.",
+      "blocker_public": "Priority 13: no DONE proof"
+    },
+    {
+      "priority": 14,
+      "owner": "Applications",
+      "action": "Applicationsにhackathon・accelerator・grant・jobの実提出を揃える。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 14",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "OPEN: latest eligible Applications for original receipt only; past/actual Maritime#21 separate. Current jobs pending interviewed contracts zero. Terms/approval card required before any submit — no auto-submit.",
+      "blocker_public": "Priority 14: no DONE proof"
+    },
+    {
+      "priority": 16,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "Naïve：新agentを増やさず、実商品とSDK利用を1つに絞る。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 16",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "OPEN verification, not product success: read-only Naive SDK 2026-11-06 00:30 PT prepaid balance $19.564708; existing agent agt_3b7pjzk133jd5tcjjxp54fbr66 N1_OK, tools disabled, task cap $0.05, zero sessions before check. Box demo src/cycle.ts exists with package.json and run-demo.sh. The Mac old-tree omission was a snapshot only. No optional $0.05 session and no topup. Product flow and paid job unproven. No new agent.",
+      "blocker_public": "Priority 16: no DONE proof"
+    },
+    {
+      "priority": 17,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "Naïve：実live jobに参加し、成果物を提出して正当に着金。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 17",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "PENDING after #16: Lumen is an unconfirmed and unreadable possible candidate, not a verified funded job and not a verified free-task marketplace. No submission and no payout.",
+      "blocker_public": "Priority 17: no DONE proof"
+    },
+    {
+      "priority": 18,
+      "owner": "Codex",
+      "action": "Naïve：その実logとdemoをhackathon評価へつなぎ、賞の結果も確認。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 18",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "OPEN requirements-only: official https://usenaive.ai/hackathon read 11/6 — Nov 7–8 SF both days, age 15+ (minor guardian consent), 2–4 min live demo judged on autonomy, top 8–10 re-demo. Official page still shows Applications open soon. Acceptance/submission/judging unconfirmed; nothing submitted.",
+      "blocker_public": "Priority 18: no DONE proof"
+    },
+    {
+      "priority": 19,
+      "owner": "Codex",
+      "action": "Musical／Maritime：既存Life managerを実際に動くようにする。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 19",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "PARTIAL: fresh GET 2026-11-06 03:54 PT https://aniccaai.com/maritime 200; https://aniccaai.com/music 404; https://life-call-production.up.railway.app/health 200 service life-call build b17d6d66770ef72ed10d853d9523d61fda63d339. The /music main URL is still an unresolved Life Manager product path. Another Spotify artist link is not proof that Music is fixed.",
+      "blocker_public": "Priority 19: no DONE proof"
+    },
+    {
+      "priority": 20,
+      "owner": "Codex",
+      "action": "Maritime：カレンダー登録→T-0通知まで実証。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 20",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "PARTIAL source only: life-manager PR 9283 MERGED squash a642df1374 at 2026-11-06T08:44Z (https://github.com/Daisuke134/life-manager/pull/9283). Adds due 0 at event start. WAKE_LEVELS T-10 firm, T-5 harsh, T-0 harsh. Late cutoff unchanged. Claims and templates re-used. Mocked fixtures 11/11 pass. No live production delivery, deployment, or customer outcome.",
+      "blocker_public": "Priority 20: no DONE proof"
+    },
+    {
+      "priority": 21,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "Maritime：その提出、受理、経過、勝敗を明確に確認。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 21",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "SUBMITTED/RESULT UNKNOWN: screenshot Typeform thanks your project submitted@local team M1-PROOF; runtime catalog M3 11/1 20:12 prior deadline11/2 19:00PT. Judging/winner unknown; no $ proven.",
+      "blocker_public": "Priority 21: no DONE proof"
+    },
+    {
+      "priority": 22,
+      "owner": "Grok Bot 参謀 / existing owner",
+      "action": "Taskmarket候補で、liveな資金付きjobとstakeなしを見極める。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 22",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "DONE selection candidate only: exact public bounty open 1USDC Base escrow match free manifold +0 stake and competitors prior state but deadline no work submission. Not sale win.",
+      "blocker_public": "Priority 22: no DONE proof"
+    },
+    {
+      "priority": 23,
+      "owner": "Grok Bot 参謀 / existing owner",
+      "action": "BotBounty（500）、AgentBounty（期限切れ）、Apify（KYC必須）を選別する。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 23",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "DONE selection: BotBounty 500 ->exclude while outage; AgentBounty date Feb-March not live current; Apify requires ID -> excluded for no human id; URL official. Not product revenue.",
+      "blocker_public": "Priority 23: no DONE proof"
+    },
+    {
+      "priority": 24,
+      "owner": "Grok Bot 参謀 / existing owner",
+      "action": "Capafy：既存PublisherのAgent可用性を確認し、新規課金を避ける。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 24",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "PENDING: existing pub id/catalog vs actual current paid customer call missing. free Marine owner execution not count; new $0.99 publisher buy prohibited not performed.",
+      "blocker_public": "Priority 24: no DONE proof"
+    },
+    {
+      "priority": 25,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "公開 /open にcompany TODO・実測usage・silent failuresを表示。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 25",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "SOURCE ON MAIN, LIVE PENDING. origin/main cb6e2e2a4 has weekly 57.5 at 2026-11-06T08:16:00-08:00 in metrics.json usage_snapshot, usage-snapshot.json, and company-todo.json. Live curl Date Fri, 06 Nov 2026 16:57:33 GMT is still 21.1 on all three. Netlify deploy 42257042331 for 44494e2 is in_progress. Deploy 42257092165 for cb6e2e2 is cancelled. Not a live 57.5 claim.",
+      "blocker_public": "Priority 25: no DONE proof"
+    },
+    {
+      "priority": 26,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "claim writerを実運用へ接続し、未接続のまま「運用中」と呼ばない。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 26",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "NOT HOSTED. Live claims-snapshot Date Fri, 06 Nov 2026 17:12:27 GMT HTTP 200 has tasks 0 and no claim_api_hosted. /.netlify/functions/open-claim HTTP 404. Viewer cursor[bot]; REST /user 403. Private sqlite claim, stale reject, release, and expiry passed. synthetic_fixture true. Not a second agent.",
+      "blocker_public": "Priority 26: no DONE proof"
+    },
+    {
+      "priority": 27,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "GitHub更新とCIの実証を公開、本人merge確認後に公開。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 27",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "PR887, PR888, and PR891 are merged. PR896 squash 44494e2f9ac66e2c55e2f78386f4e7b7f6b46628 is on main. That PR CI is not evidence for later commits. Netlify deploy 42257042331 was in_progress and 42257092165 was cancelled at this read. This follow-up is not merged.",
+      "blocker_public": "Priority 27: no DONE proof"
+    },
+    {
+      "priority": 28,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "Muse/Dots/Codexどこからも同一の最新TODOへ書けるようにする。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 28",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "PULL REQUEST ONLY. cursor[bot] may change a Grok Bot 参謀 row through company-todo-owner.yml and that workflow never pushes main. Muse, Dots, and Codex have no GitHub login in row_actors.json, so they are refused. anicca-open-bot cannot be used by this token.",
+      "blocker_public": "Priority 28: no DONE proof"
+    },
+    {
+      "priority": 29,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "MuseのLangfuseとLINE read-only接続を確認。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 29",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "NOT VERIFIED. This run has no Langfuse host or key and no LINE channel token. No message body was read. Owner auth is required before any read-only connector check.",
+      "blocker_public": "Priority 29: no DONE proof"
+    },
+    {
+      "priority": 30,
+      "owner": "Grok Bot 参謀 (verification only)",
+      "action": "tokenと消費時間を成果単位で測り、30%節減を捏造しない。",
+      "quantity_goal": "Accepted proof in public COMPANY_TODO.md priority 30",
+      "done_criteria": "Only evidence-backed DONE; preparation/draft/tests are not outcomes.",
+      "last_evidence_public": "GUARDS ACTIVE; saving percentage unmeasured. Actual shared usage at Nov6 09:24PT was 64.7 used,35.3 remain resetNov12 20:30PT. Of total plan GrokBot portion61.1. Private share Grok usage periodstartNov6UTC: 参謀40 all nonroutine/X15/Codex9/Fucker8/other23. Not exact tokens or dollars and no matched before after basis, never claim30%saved. Four duplicate/failing periodic runs paused real actions at09:30-33PT; X Operator retains publishing, all client outcomes kept.",
+      "blocker_public": "Known budget guard; exact saved percentage unavailable, not failure of guard"
+    }
+  ],
+  "usage_snapshot": {
+    "source": "CheckSubscriptionUsage",
+    "measured_at": "2026-11-06T09:24:00-08:00",
+    "timezone": "America/Los_Angeles",
+    "plan": "Ultra",
+    "weekly_usage_percent": 64.7,
+    "remaining_percent": 35.3,
+    "reset_at": "2026-11-12T20:30:00-08:00",
+    "week_window_start_at": "2026-11-05T20:30:00-08:00",
+    "additional_usage_credits": {
+      "present": true,
+      "remaining_amount_exposed": false,
+      "note": "Additional usage credits exist; remaining amount is not exposed by CheckSubscriptionUsage."
+    },
+    "freshness": {
+      "kind": "measured_snapshot",
+      "page_json_reload_minutes": 15,
+      "live_token_stream": "not monitored",
+      "note": "Not realtime. One measured snapshot. Not a realtime monitor and not a progress animation. Values stay here until a newer usage-snapshot is published."
+    },
+    "token_detail_adapters": {
+      "admin_api": {
+        "docs": "https://cursor.com/docs/account/teams/admin-api",
+        "cadence": "hourly when eligible",
+        "eligibility": "Teams Admin API may expose exact token details with a supported Teams admin access",
+        "status": "UNAVAILABLE_NO_CREDENTIAL_IN_PUBLIC_PATH",
+        "public_tokens": "UNAVAILABLE"
+      },
+      "otel_export": {
+        "docs": "https://cursor.com/docs/enterprise/opentelemetry-export.md",
+        "eligibility": "Enterprise-only per-bot/per-turn export via conversation.id",
+        "status": "UNAVAILABLE_NOT_ENTERPRISE_PATH",
+        "public_tokens": "UNAVAILABLE"
+      }
+    },
+    "practice_sources": [
+      {
+        "name": "Michael Fenech",
+        "url": "https://x.com/Michael_Fenech_/status/2117324613000818878",
+        "claim": "One website test ~213K computer-use vs ~51K browser script (~76% on that test). External claim, not our result."
+      },
+      {
+        "name": "Solomon Rojie",
+        "url": "https://x.com/Solomonrojie/status/2112651652566020582",
+        "claim": "Self-reported 100,000 to 12,500 tokens per task via short-context files/code. Underlying log not obtained."
+      },
+      {
+        "name": "Marko",
+        "url": "https://x.com/Marko_Poly/status/2117536532189807014",
+        "claim": "One export reported ~75% tokens re-reading own chat; Marko warns it is one user export."
+      },
+      {
+        "name": "Kevin Logan",
+        "url": "https://x.com/Kevin_Logan/status/2115077015569048015",
+        "claim": "Script This Routine candidate. NOT imported or adopted by this team."
+      },
+      {
+        "name": "Brian Roemmele",
+        "url": "https://x.com/BrianRoemmele/status/2112249592133935133",
+        "claim": "External method: identify same context, reread, and no-change reporting in an actual trace, then verify with matched usage. Raw trace is not claimed here."
+      },
+      {
+        "name": "_ketsana",
+        "url": "https://x.com/_ketsana/status/2112729353926619607",
+        "claim": "External method: orchestrator offloads work to scripts/CLI plus webhook. Unobservable external CLI usage is not claimed as ours."
+      },
+      {
+        "name": "samijuhanii",
+        "url": "https://x.com/samijuhanii/status/2117296412983791782",
+        "claim": "External method: move repeat tasks to a Python script while keeping the same results. Not our measured saving."
+      }
+    ],
+    "projection_scenarios": [],
+    "bots": [],
+    "notes": [
+      "Shared plan: Ultra. Now reading 2026-11-06T09:24:00-08:00: weekly 64.7% used, 35.3% remain. Reset 2026-11-12 20:30 PT. GrokBot portion 61.1 percentage points. Not realtime.",
+      "Previous official row, not this Now reading: 2026-11-06T08:16:00-08:00 weekly 57.5%. Earlier 2026-11-06T08:00:00-08:00 weekly 56.8%, Grok Bot 55.1%.",
+      "Savings UNKNOWN. No matched before/after basis. Not exact tokens or dollars. No raw savings percentage. Never claim 30% saved.",
+      "Earlier official weekly readings, not this row: 54% at 07:05 PT, 56.4% at 07:54 PT, and 57.5% at 08:16 PT.",
+      "45 regular enabled (4 paused); finished one-offs outside count. GUARDS ACTIVE 2026-11-06 09:30-09:33 PT.",
+      "Paused: Reason team coordinator hourly broad transcript scan.",
+      "Paused: X distribution 15min duplicate; existing X Operator remains publisher and live url verification.",
+      "Paused: hourly no-change status; real outcomes still delivered.",
+      "Paused: LINE 4h known no-tab errors pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227.",
+      "Private share of Grok usage, period start 2026-11-06 UTC, not exact tokens or dollars: 参謀 40 all nonroutine, X 15, Codex 9, Fucker 8, other 23.",
+      "Remaining 35.3% is 100 minus the measured weekly 64.7. It is not a second official reading. Not realtime."
+    ],
+    "relay_migration": {
+      "status": "APPLIED",
+      "savings": "UNVERIFIED",
+      "note": "Stand-in Grok Bot profiles for Codex/Muse/Dots are legacy contacts only: no group-chat relays, no polling loops, no duplicate pretend-relay work. Direct work uses each owner machine/Slack/Reason path. Migration status: APPLIED. Token/usage savings from this change: UNVERIFIED (not counted as savings; not routine-reduction evidence)."
+    },
+    "unit": "percent of the shared weekly plan limit",
+    "period": "weekly window through reset 2026-11-12 20:30 PT",
+    "reduction_effect": "savings UNKNOWN",
+    "countermeasure": "45 regular enabled (4 paused); finished one-offs outside count. GUARDS ACTIVE 2026-11-06 09:30-09:33 PT. Savings UNKNOWN.",
+    "bot_shares_omitted": "Private Grok shares since 2026-11-06 UTC are not this weekly cumulative and are not exact tokens or dollars.",
+    "prior_official_weekly_readings": [
+      {
+        "weekly_usage_percent": 54,
+        "observed_at": "2026-11-06T07:05:00-08:00",
+        "label": "earlier official weekly reading the same morning; not this row"
+      },
+      {
+        "weekly_usage_percent": 56.4,
+        "observed_at": "2026-11-06T07:54:00-08:00",
+        "label": "earlier official weekly reading the same morning; not this row"
+      },
+      {
+        "weekly_usage_percent": 56.8,
+        "grok_bot_share_percent": 55.1,
+        "observed_at": "2026-11-06T08:00:00-08:00",
+        "label": "earlier official row; not this Now reading"
+      },
+      {
+        "weekly_usage_percent": 57.5,
+        "observed_at": "2026-11-06T08:16:00-08:00",
+        "label": "previous official row; not this Now reading"
+      }
+    ],
+    "percentage_point_change": {
+      "from_percent": null,
+      "to_percent": 64.7,
+      "from_measured_at": null,
+      "to_measured_at": "2026-11-06T09:24:00-08:00",
+      "arithmetic_difference_percentage_points": null,
+      "formula": "no matched before/after basis",
+      "meaning": "not a matched before/after; not tokens or dollars; no raw savings percentage",
+      "outcome_floor": "absent",
+      "saving_claim": "not allowed",
+      "savings": "UNKNOWN"
+    },
+    "grok_bot_share_percent": 61.1,
+    "evidence": [
+      {
+        "observed_at": "2026-11-06T09:24:00-08:00",
+        "weekly_usage_percent": 64.7,
+        "remaining_percent": 35.3,
+        "grok_bot_share_percent": 61.1,
+        "reset_at": "2026-11-12T20:30:00-08:00",
+        "note": "Not realtime."
+      },
+      {
+        "observed_at": "2026-11-06T09:30:00-08:00",
+        "enabled": 45,
+        "paused": 4,
+        "finished_one_offs": "outside count",
+        "savings": "UNKNOWN",
+        "statuses": [
+          "Reason team coordinator hourly broad transcript scan paused",
+          "X distribution 15min duplicate paused; X Operator remains publisher/live url verification",
+          "hourly no-change status paused; real outcomes still delivered",
+          "LINE 4h known no-tab errors paused pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227"
+        ]
+      }
+    ]
+  },
+  "public_company_todo": {
+    "repository": "Daisuke134/anicca-products",
+    "path": "COMPANY_TODO.md",
+    "system_owner": "Grok Bot 参謀",
+    "declared_updated": "2026-11-06",
+    "timezone": "America/Los_Angeles",
+    "rows": 29,
+    "source_updated_at": "2026-11-06T17:12:46.854125+00:00"
+  }
+}

@@ -67,6 +67,16 @@
   padding: 7px 12px;
   border-radius: 20px;
 }
+.manager-home .open-cta {
+  background: var(--ink);
+  color: var(--white);
+  padding: 7px 14px;
+  border-radius: 20px;
+}
+.manager-home .open-cta:hover {
+  text-decoration: none;
+  opacity: 0.85;
+}
 .manager-home .hero {
   padding: 65px 0 72px;
   position: relative;

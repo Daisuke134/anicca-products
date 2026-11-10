@@ -1,5 +1,6 @@
 // lib/money-path.test.js — C5/C6. The money-path monitor keeps the legacy Stripe-link assertion
-// covered while the current /lm route hands off to the Web app and continues payment server-side. It
+// covered while /lm hands off to same-origin /maritime, or stays on the unpublished waitlist,
+// and continues payment server-side. It
 // gates rollback with debounce (>=2 consecutive FAIL), a flap guard (never roll back into a target
 // that also fails), and Telegram dedup (one message per incident). Pure logic; network fetch lives in the caller.
 "use strict";
@@ -39,6 +40,11 @@ test("assertWebAppHandoff accepts the same-origin Cloud route", () => {
   }), { ok: true, reason: "ok" });
 });
 
+test("assertWebAppHandoff accepts the unpublished waitlist without a live price", () => {
+  const chunk = '<span>CLOUD · IN DEVELOPMENT</span><p>Life Manager Cloud is in development and not open for public signup.</p><a href="mailto:contact@aniccaai.com">Join the waitlist</a>';
+  assert.deepEqual(assertWebAppHandoff({ chunk }, { publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN }), { ok: true, reason: "ok" });
+});
+
 test("assertWebAppHandoff fails when the same-origin Cloud route is absent", () => {
   assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://example.com/lm"' }, {
     publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
@@ -61,16 +67,26 @@ test("assertWebAppHandoff rejects Telegram and direct Stripe links", () => {
   });
 });
 
-test("assertWebAppHandoff rejects direct Railway links", () => {
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://life-call-production.up.railway.app/lm"' }, {
+test("assertWebAppHandoff rejects direct Railway links and a live Cloud price", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://life-call-production.up.railway.app/maritime"' }, {
     publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
   }), {
     ok: false, reason: "direct backend link found in /lm page",
+  });
+  assert.deepEqual(assertWebAppHandoff({
+    chunk: 'href="/maritime?source=landing" Life Manager Cloud is $29/month after a 7-day free trial.',
+  }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
+    ok: false, reason: "live Cloud price found in /lm page",
   });
 });
 
 test("assertWebAppHandoff requires a valid public origin to verify same-origin links", () => {
   assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime"' }), {
+    ok: false, reason: "public origin required to verify Life Manager Cloud route",
+  });
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime?source=landing&lang=en"' }), {
     ok: false, reason: "public origin required to verify Life Manager Cloud route",
   });
 });

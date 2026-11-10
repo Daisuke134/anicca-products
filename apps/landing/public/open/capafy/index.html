@@ -1,0 +1,741 @@
+<!doctype html><html lang="en"><head><base href="/open/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anicca Open — Capafy</title><meta name="description" content="Anicca's real revenue, costs and profit, by platform and product.">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif;background:#f7f7f8;color:#111;font-size:14px}
+.w{max-width:1200px;margin:0 auto;padding:20px 20px 28px}h1{font-size:22px;margin:0}.sub{color:#666;font-size:13px;margin:4px 0 16px}
+.k{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:12px}.c{background:#fff;border:1px solid #e6e6e9;border-radius:12px;padding:12px 14px}
+.c h3{margin:0;font-size:12px;color:#666;font-weight:500}.c .v{font-size:22px;font-weight:700;margin:4px 0 2px}.c .n{font-size:11px;color:#888}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.mc{background:#fff;border:1px solid #e6e6e9;border-radius:12px;padding:12px 14px;min-width:0;overflow:hidden}
+.mc h3{margin:0;font-size:12px;color:#666;font-weight:500}.mc .v{font-size:24px;font-weight:700;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.mc .n{font-size:11px;color:#888;line-height:1.5}.mc .spark{display:block;width:100%;height:36px;margin:6px 0 4px}
+.delta{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:9px;margin:2px 0 4px;white-space:nowrap}
+.delta.up{background:#eef6ee;color:#1b7f3b}.delta.down{background:#fdeeee;color:#c62828}.delta.flat{background:#f0f0f2;color:#666}
+#status{padding:8px 14px;margin-bottom:12px;font-size:12.5px;color:#444}
+.capafy-overview.first{margin-top:0;padding-top:0;border-top:0}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.mc .v{font-size:20px}}
+.g{display:grid;grid-template-columns:1.25fr 1fr;gap:12px}h2{font-size:14px;margin:0 0 8px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th{text-align:left;color:#888;font-weight:500;border-bottom:1px solid #eee;padding:4px 6px}td{padding:4px 6px;border-bottom:1px solid #f2f2f2}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#c62828}.pos{color:#1b7f3b}.m{color:#999}.pill{font-size:11px;padding:1px 7px;border-radius:9px;background:#eef6ee;color:#1b7f3b;white-space:nowrap}.status-red{color:#c62828;background:#fdeeee;font-weight:600}.status-green{color:#1b7f3b;background:#eef6ee}.failure-list{padding-left:20px;overflow-wrap:anywhere}.failure-list li{margin:8px 0}.pill.p{background:#fff4e0;color:#a15c00}
+.zero{color:#888;font-size:12px;margin-top:6px;line-height:1.5}.bars{display:flex;align-items:flex-end;gap:5px;height:130px;margin-top:6px}.bar{flex:1;display:flex;flex-direction:column-reverse;position:relative}
+.bar i{display:block}.bl{display:flex;gap:5px;font-size:10px;color:#888;margin-top:3px}.bl span{flex:1;text-align:center}.lg{font-size:11px;color:#666;margin-top:6px}.lg b{display:inline-block;width:9px;height:9px;border-radius:2px;margin:0 3px 0 8px}
+.c,.g>*,.col>*{min-width:0}.c{overflow-x:auto}.col{display:flex;flex-direction:column;gap:12px}details{margin-top:12px;font-size:12px;color:#666}.mlabel{display:none}footer{font-size:11px;color:#888;margin-top:12px;line-height:1.6}
+.capafy-overview{margin-top:12px;padding-top:10px;border-top:1px solid #eee}.capafy-overview h3{font-size:13px;margin:0}.capafy-overview-window{margin-top:10px}.capafy-overview-head{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.capafy-overview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}.capafy-overview-metric{min-width:0;padding:8px;background:#f8f8f9;border-radius:8px;font-size:12px}.capafy-overview-metric strong{display:block;margin-bottom:4px;font-size:14px;font-variant-numeric:tabular-nums}.capafy-overview-metric .m{font-size:11px;line-height:1.4}.capafy-daily-wrap{max-width:100%;overflow-x:auto}.capafy-daily{min-width:760px}
+.portfolio-counts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}.portfolio-count{padding:8px;background:#f8f8f9;border-radius:8px}.portfolio-count strong{display:block;font-size:17px}.portfolio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}.portfolio-item{min-width:0;padding:10px;border:1px solid #eee;border-radius:9px}.portfolio-item h3{margin:0 0 5px;font-size:13px}.portfolio-item .m{font-size:11px;line-height:1.45}.portfolio-table-wrap{max-width:100%;overflow-x:auto}.portfolio-table{min-width:620px}.portfolio-gaps{padding-left:20px}.portfolio-gaps li{margin:8px 0}
+.rc-project{margin-top:12px;padding-top:10px;border-top:1px solid #eee}.rc-project h3{font-size:13px;margin:0 0 4px}.rc-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin-top:8px}.rc-metric{padding:8px;background:#f8f8f9;border-radius:8px;min-width:0}.rc-metric strong{display:block;font-size:15px;font-variant-numeric:tabular-nums}.rc-metric .m{font-size:11px}.rc-details{margin-top:7px}.rc-table-wrap{max-width:100%;overflow-x:auto}.rc-table{min-width:560px}
+.post-metrics-wrap{max-width:100%;overflow-x:auto}.post-metrics-table{min-width:760px;margin-top:8px}.post-metrics-table td strong{display:block;font-variant-numeric:tabular-nums}.post-metrics-table td .m{display:block;font-size:10px;margin-top:2px}
+.stripe-metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:10px}.stripe-metrics-block{min-width:0;padding:10px;border:1px solid #eee;border-radius:9px}.stripe-metrics-block h3{font-size:12px;margin:0 0 6px}.stripe-metrics-wrap{max-width:100%;overflow-x:auto}.stripe-metrics-table{min-width:520px}.stripe-metrics-block .m{font-size:11px;line-height:1.45}.stripe-metrics-daily{margin-top:10px}
+.anicca-product-meta,.anicca-product-note{font-size:11px;color:#777;line-height:1.5}.anicca-product-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}.anicca-product-metric{padding:8px;background:#f8f8f9;border-radius:8px}.anicca-product-metric strong{display:block;font-size:16px;font-variant-numeric:tabular-nums}.anicca-product-metric span{color:#777;font-size:10px}.anicca-product-table-wrap{max-width:100%;overflow-x:auto}.anicca-product-table{min-width:760px}.anicca-product-breakdown{min-width:980px}
+@media(max-width:900px){.hm{display:none}.bl{font-size:8px}.bar span{font-size:8px!important}.k{grid-template-columns:repeat(2,1fr)}.g{grid-template-columns:1fr}.c .v{font-size:19px}}
+@media(max-width:600px){.capafy-overview-grid,.portfolio-counts{grid-template-columns:repeat(2,minmax(0,1fr))}.portfolio-grid{grid-template-columns:1fr}#plat{display:block;table-layout:fixed}#plat tr:first-child,#asc-analytics table.asc-apps tr:first-child{display:none}#plat tr:not(:first-child){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 12px;padding:10px 0;border-bottom:1px solid #eee}#plat td,#asc-analytics table.asc-apps td{display:block;min-width:0;padding:0;border:0;text-align:left!important;overflow-wrap:anywhere}#plat td:first-child{display:none}#plat td:nth-child(2),#plat td:last-child,#asc-analytics table.asc-apps td:first-child{grid-column:1/-1}#plat .mlabel,#asc-analytics table.asc-apps .mlabel{display:block;color:#888;font-size:10px;margin-bottom:2px}#plat .pnote{margin-top:4px}#plat .pnote summary{cursor:pointer}#asc-analytics table.asc-apps{width:100%;table-layout:fixed}#asc-analytics table.asc-apps tr:not(:first-child){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;border:1px solid #eee;border-radius:10px;margin:8px 0}#asc-analytics table.asc-apps td:not(:first-child) .mlabel{display:block}}
+@media(max-width:600px){.portfolio-table-wrap{overflow:visible}.portfolio-table{min-width:0;table-layout:fixed}.portfolio-table thead{display:none}.portfolio-table tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px;padding:10px;border:1px solid #eee;border-radius:10px;margin:8px 0}.portfolio-table tbody td{display:block;min-width:0;padding:0;border:0;overflow-wrap:anywhere}.portfolio-table tbody td::before{content:attr(data-label);display:block;color:#888;font-size:10px;margin-bottom:2px}.portfolio-table tbody td:first-child,.portfolio-table tbody td[colspan]{grid-column:1/-1}.portfolio-table tbody td.r{text-align:left}}
+
+/* === 2026-11-07 redesign: two-tier hierarchy + Road to $10K MRR (winner patterns: felixcraft.ai/dashboard KPI-strip-first, Tremor KPI card anatomy, Stripe progressive disclosure) === */
+h1{font-size:26px;letter-spacing:-.01em}
+.tier{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:26px 0 12px;padding:10px 14px;background:#111;color:#fff;border-radius:12px}
+.tier b{font-size:13px;letter-spacing:.1em}
+.tier span{font-size:12px;color:#c9c9d1}
+.tier.t2{background:#eef2ff;color:#1e1b4b;border:1px solid #c7d2fe}
+.tier.t2 span{color:#475569}
+.grp{display:flex;align-items:center;gap:8px;margin:20px 0 10px;font-size:13px;font-weight:700;color:#111}
+.grp::before{content:"";width:4px;height:16px;border-radius:2px;background:#4f46e5;flex:none}
+.grp small{font-weight:500;color:#888;font-size:11px}
+.scope{float:right;font-size:10px;font-weight:700;letter-spacing:.07em;padding:2px 8px;border-radius:9px;background:#eef2ff;color:#4f46e5;white-space:nowrap}
+.scope.co{background:#111;color:#fff}
+.hero{background:#fff;border:1px solid #e6e6e9;border-radius:16px;padding:20px 22px}
+.hero h2{font-size:15px;margin:0 0 4px}
+.hero .rt{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.hero .big{font-size:42px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.hero .goal{color:#666;font-size:13px;font-weight:500;letter-spacing:0}
+.hero .pct{font-size:15px;font-weight:700;color:#4f46e5}
+.road{position:relative;margin:16px 0 28px}
+.road .track{height:22px;background:#ececf1;border-radius:11px;overflow:hidden}
+.road .fill{height:100%;background:linear-gradient(90deg,#4f46e5,#0ea5e9,#10b981);border-radius:11px;min-width:6px}
+.road .tick{position:absolute;top:26px;transform:translateX(-50%);font-size:10px;color:#888;white-space:nowrap}
+.road .tick::before{content:"";position:absolute;left:50%;top:-25px;width:1px;height:7px;background:#c6c6cf}
+.split{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#ececf1;margin:10px 0 8px}
+.split div{height:100%}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#444}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px}
+.cards.t1{grid-template-columns:repeat(3,1fr)}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.mini.one{grid-template-columns:1fr}
+.mini .mc{margin:0}
+@media(max-width:900px){.cards.t1,.mini{grid-template-columns:repeat(2,1fr)}.hero .big{font-size:33px}}
+@media(max-width:600px){.road .tick[data-v="100"],.road .tick[data-v="1000"]{display:none}}
+
+/* === v3: ECharts chart layer (RevenueCat-style) + subpage hierarchy === */
+.chartrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.chartcard{margin-bottom:12px}.chartrow .chartcard{margin-bottom:0}
+.chartbox{height:250px}
+.cstat{font-size:13px;font-weight:700;color:#111;margin:2px 0 6px;font-variant-numeric:tabular-nums;min-height:16px}
+.idxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+a.idx{display:block;background:#fff;border:1px solid #e6e6e9;border-radius:12px;padding:14px;text-decoration:none;color:#111}
+a.idx:hover{border-color:#576CDB}
+a.idx .t{font-weight:700;font-size:14px}
+a.idx .s{color:#666;font-size:12px;margin-top:2px}
+a.idx .n{font-size:14px;font-weight:700;margin-top:8px;font-variant-numeric:tabular-nums}
+a.idx .go{color:#576CDB;font-size:12px;font-weight:600;margin-top:2px}
+.subnav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;margin:0 0 10px}
+.subnav a{color:#576CDB;text-decoration:none;font-weight:600}
+.subnav .sep{color:#bbb}
+@media(max-width:900px){.chartrow{grid-template-columns:1fr}.idxgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.idxgrid{grid-template-columns:1fr}}
+</style><style id="page-css">.tier,#road10k,#cards,#card-monthly,#drill-index,#top-charts,details.howcount{display:none}.grpwrap{display:none}#grp-capafy{display:block}</style></head><body><div class="w">
+<div class="subnav"><a href="/open/">← Company totals</a><span class="sep">·</span><a href="platforms/">Platforms</a><span class="sep">·</span><b>Capafy</b><span class="sep">·</span><a href="apps/">Apps</a><span class="sep">·</span><a href="social/">Social</a><span class="sep">·</span><a href="rankings/">Rankings</a><span class="sep">·</span><a href="payments/">Payments</a><span class="sep">·</span><a href="team/">Team</a></div>
+<h1>Anicca Open Dashboard</h1><div class="sub">An AI-run company. Every number we can measure, in one place. Tier 1 is company totals only; Tier 2 groups each platform and business at its own granularity. Each metric has one canonical value. Company totals are unknown where coverage is incomplete. USD unless labelled. <span id="upd"></span></div>
+<div class="c" id="status"></div>
+<div class="tier"><b>TIER 1 · COMPANY</b><span>Whole-company totals only — platform detail lives in Tier 2</span></div>
+<section class="hero" id="road10k"><div class="m">Loading…</div></section>
+<div class="cards t1" id="cards">
+<div class="mc" id="slot-mrr"><div class="m">Loading…</div></div>
+<div class="mc" id="slot-rev"><div class="m">Loading…</div></div>
+<div class="mc" id="slot-cost"><div class="m">Loading…</div></div>
+<div class="mc" id="slot-gp"><div class="m">Loading…</div></div>
+<div class="mc" id="slot-alltime"><div class="m">Loading…</div></div>
+<div class="mc" id="slot-bank"><div class="m">Loading…</div></div>
+</div>
+<div class="c" id="card-monthly" style="margin-bottom:12px"><h2>Monthly revenue <span class="scope co">COMPANY</span></h2><div class="bars" id="bars"></div><div class="bl" id="bl"></div><div class="lg" id="lg"></div></div>
+<div class="chartrow" id="top-charts"><div class="c chartcard"><h2>New customers per day <span class="scope">COMPANY · REVENUECAT</span></h2><div class="cstat" id="stat-newcust"></div><div class="chartbox" id="chart-newcust"></div></div>
+<div class="c chartcard"><h2>Revenue, costs &amp; profit by month <span class="scope">COMPANY</span></h2><div class="cstat" id="stat-pnl"></div><div class="chartbox" id="chart-pnl"></div></div>
+</div>
+<div class="tier t2"><b>TIER 2 · DRILL-DOWN</b><span>Grouped by platform / business — one granularity per group</span></div>
+<div class="idxgrid" id="drill-index"><a class="idx" href="platforms/"><div class="t">Platforms &amp; products</div><div class="s">Revenue by platform &amp; product · costs detail</div><div class="n" id="idx-stat-platforms">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="capafy/"><div class="t">Capafy</div><div class="s">Marketplace funnel &amp; sales</div><div class="n" id="idx-stat-capafy">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="apps/"><div class="t">Apps</div><div class="s">App Store + RevenueCat, per app</div><div class="n" id="idx-stat-apps">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="social/"><div class="t">Social &amp; distribution</div><div class="s">Post metrics · accounts · self vs winner</div><div class="n" id="idx-stat-social">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="rankings/"><div class="t">Search &amp; rankings</div><div class="s">SEO · ASO · GEO</div><div class="n" id="idx-stat-rankings">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="payments/"><div class="t">Payments · Stripe</div><div class="s">Account metrics</div><div class="n" id="idx-stat-payments">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="team/"><div class="t">Team &amp; operations</div><div class="s">Agents · loops · targets · usage</div><div class="n" id="idx-stat-team">Detail dashboard</div><div class="go">Open →</div></a></div>
+<section class="grpwrap" id="grp-platforms">
+<div class="grp">Platforms &amp; products <small>revenue by source</small></div>
+<div class="g"><div class="c"><h2>Revenue by platform <span class="scope">ALL PLATFORMS</span></h2><table id="plat"></table><div class="zero" id="zero"></div></div>
+<div class="col"><div class="c"><h2>Revenue by product <span class="scope">BY PRODUCT</span></h2><table id="prod"></table></div>
+<div class="c"><h2>Observed payment notices this month <span class="scope">DETAIL · COSTS</span></h2><table id="cost"></table><div class="zero">Total: see the Costs headline card in Tier 1.</div></div></div></div>
+<div class="c chartcard"><h2>All-time revenue by platform <span class="scope">ALL PLATFORMS</span></h2><div class="cstat" id="stat-plat-all"></div><div class="chartbox" id="chart-plat-all"></div></div>
+</section>
+<section class="grpwrap" id="grp-capafy">
+<div class="grp">Capafy <small>AI agent &amp; skill marketplace</small></div>
+<div class="c chartcard"><h2>Capafy sales per day — last 30 days <span class="scope">PLATFORM · CAPAFY</span></h2><div class="cstat" id="stat-cap-sales"></div><div class="chartbox" id="chart-cap-sales"></div></div>
+<div class="c" id="card-capafy"><h2>Capafy activity <span class="scope ">PLATFORM · CAPAFY</span></h2><div class="mini"><div class="mc" id="slot-cap-impr"><div class="m">Loading…</div></div><div class="mc" id="slot-cap-detail"><div class="m">Loading…</div></div><div class="mc" id="slot-cap-sales"><div class="m">Loading…</div></div></div><div id="capafy-activity">Loading…</div></div>
+</section>
+<section class="grpwrap" id="grp-apps">
+<div class="grp">Apps <small>App Store · subscriptions</small></div>
+<div class="chartrow"><div class="c chartcard"><h2>Installs per day by app — last 7 days <span class="scope">APPS · APP STORE</span></h2><div class="cstat" id="stat-apps-units"></div><div class="chartbox" id="chart-apps-units"></div></div>
+<div class="c chartcard"><h2>New customers per day — by RevenueCat project <span class="scope">APPS · REVENUECAT</span></h2><div class="cstat" id="stat-rc-daily"></div><div class="chartbox" id="chart-rc-daily"></div></div>
+</div>
+<div class="c" id="card-apps"><h2>Apps <span class="scope ">PLATFORM · APP STORE</span></h2><div class="mini one"><div class="mc" id="slot-inst"><div class="m">Loading…</div></div></div><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div><div id="apps-metrics-extra"></div></div>
+<div class="c" id="card-revenuecat" style="margin-top:12px"><h2>RevenueCat app metrics <span class="scope ">APPS · REVENUECAT</span></h2><div id="revenuecat-charts">Loading…</div></div>
+<div class="c" id="card-anicca-product-analytics" style="margin-top:12px"><h2>Anicca screen funnel <span class="scope ">APP · ANICCA iOS</span></h2><div id="anicca-product-analytics" aria-live="polite">Loading…</div></div>
+</section>
+<section class="grpwrap" id="grp-social">
+<div class="grp">Social &amp; distribution <small>all connected accounts</small></div>
+<div class="c chartcard"><h2>Followers by account — top 12 (current snapshot) <span class="scope">SOCIAL · ALL</span></h2><div class="cstat" id="stat-soc-fol"></div><div class="chartbox" id="chart-soc-fol"></div></div>
+<div class="c" id="card-post-metrics"><h2>Social post metrics <span class="scope ">SOCIAL · ALL</span></h2><div class="mini one"><div class="mc" id="slot-social"><div class="m">Loading…</div></div></div><div id="post-metrics">Loading…</div></div>
+<div class="c" id="card-soc" style="margin-top:12px"><h2>Social accounts <span class="scope ">SOCIAL · ALL</span></h2><table id="soc"></table></div>
+<div class="c" id="card-svw" style="margin-top:12px"><h2>Self vs winner <span class="scope ">SOCIAL · BENCHMARK</span></h2><table id="svw"></table></div>
+</section>
+<section class="grpwrap" id="grp-rankings">
+<div class="grp">Search &amp; rankings <small>SEO · ASO · GEO</small></div>
+<div class="c" id="card-rank"><h2>Keyword rankings <span class="scope ">SEARCH · ALL</span></h2><div class="mini one"><div class="mc" id="slot-rank"><div class="m">Loading…</div></div></div><div id="rank"></div></div>
+</section>
+<section class="grpwrap" id="grp-payments">
+<div class="grp">Payments <small>Stripe</small></div>
+<div class="c" id="card-stripe-metrics"><h2>Stripe account metrics <span class="scope ">PLATFORM · STRIPE</span></h2><div id="stripe-metrics">Loading…</div></div>
+</section>
+<section class="grpwrap" id="grp-team">
+<div class="grp">Team &amp; operations <small>agents · loops · targets</small></div>
+<div class="c" id="card-team"><h2>Team activity <span class="scope ">TEAM</span></h2><table id="team-activity"></table></div>
+<div class="c" id="card-silent-failures" style="margin-top:12px"><h2>Silent failures / TODO <span class="scope ">TEAM · OPS</span></h2><div class="m">Public snapshot signals and unverified work; not live incident verification. Missing coverage is unknown, not zero.</div><div id="silent-failures" aria-live="polite">Loading…</div><h2>Shared targets</h2><div id="public-work" aria-live="polite">Loading…</div><h2>Task claims</h2><div class="m">Public snapshot not application permission. Claim via claim_board.py only; lease tokens never appear here. Snapshot refresh follows the same 15-minute JSON reload.</div><div id="claims-snapshot" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-usage-snapshot" style="margin-top:12px"><h2>Grok Bot / plan usage snapshot <span class="scope ">TEAM · USAGE</span></h2><div class="m">Measured CheckSubscriptionUsage shares on the existing public /open board. Named bot shares are the same Grok Bot plan (not separate external/CLI cost meters). Page re-reads JSON every 15 minutes; not live token telemetry. Raw tokens stay UNAVAILABLE on this path.</div><div id="usage-snapshot" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-life" style="margin-top:12px"><h2>Agent life (tokens / usage) <span class="scope ">TEAM · USAGE</span></h2><div class="m">Remaining life per agent / service, from primary-source measurements only. Unmeasured items are labelled unmeasured; nothing is estimated. Snapshot JSON; page re-reads every 15 minutes.</div><div id="life" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-portfolio" style="margin-top:12px"><h2>Business & loop snapshot <span class="scope ">TEAM · OPS</span></h2><div class="m" id="portfolio-snapshot">Loading…</div><div class="portfolio-counts" id="portfolio-summary"></div><details><summary>Business portfolio</summary><div class="portfolio-grid" id="portfolio-businesses"></div></details><details><summary>Operating loops</summary><div class="portfolio-table-wrap"><table class="portfolio-table" id="portfolio-loops"></table></div></details><details><summary>Metric gaps</summary><ul class="portfolio-gaps" id="portfolio-gaps"></ul></details></div>
+</section>
+<details class="howcount"><summary>How these numbers are counted</summary><p>Accepted order gross, net sales, settlement credits and bank payouts are separate stages. Payment notices are not accrual expenses or proof of final settlement. Missing coverage is not zero. FX uses the stated row basis; provider-billed USD is not a JPY conversion. Agent activity lives in Team activity only; the snapshot carries businesses, loops and metric gaps, so no number is stated twice.</p></details>
+<footer id="ft"></footer></div>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const U=v=>v==null?'<span class="m">no data</span>':(v<0?'−':'')+'$'+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:Math.abs(v)>0&&Math.abs(v)<0.01?3:2});
+const Y=v=>v==null?'':' <span class="m">(¥'+(v<0?'−':'')+Math.abs(v).toLocaleString('en-US')+')</span>';
+const COL=['#4f46e5','#0ea5e9','#10b981','#f59e0b','#ef4444','#8b5cf6'];
+const REFRESH_MS=15*60*1000;
+const loopStatusClass=status=>{
+ const value=String(status??'').trim();
+ if(/\b(?:OUTAGE-FAIL|FAIL|STOPPED|unavailable|unverified)\b|\?|未確認|未開始/i.test(value))return 'status-red';
+ return /\b(?:ACTIVE|OK)\b|稼働/i.test(value)?'status-green':'';
+};
+const snapshotTime=stamp=>{
+ if(typeof stamp!=='string'||!stamp.trim())return NaN;
+ const jst=stamp.match(/^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) JST$/);
+ return Date.parse(jst?`${jst[1]}T${jst[2]}:00+09:00`:stamp);
+};
+// Published fields must be scrubbed upstream too; never expand arbitrary row keys.
+const privatePublicText=value=>{
+ if(typeof value!=='string')return false;
+ const structural=value.replace(/https?:\/\/\S+/gi,' ').replace(/\b20\d{2}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2})?)?\b/g,' ').replace(/\b[0-9a-f]{32,}\b/gi,' ');
+ return /\b(?:LINE|contacts?|credentials?|password|passkey|secret|token\s*[:=]|R[-/ ]?1|comedy)\b|お笑い|[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\+\d[\d\s().-]{8,}|\(\d{3}\)[\s.-]*\d{3}[\s.-]*\d{4})|(?:file:\/\/|\/(?:Users|home|workspace|private|tmp)\/|~\/)|anicca-ops/i.test(structural);
+};
+const publicCell=value=>value==null||value===''||privatePublicText(value)?'<span class="m">unknown</span>':esc(value);
+const publicRows=(rows,fields)=>Array.isArray(rows)?rows.filter(row=>row&&typeof row==='object'&&fields.every(key=>!privatePublicText(row[key]))):[];
+const renderPublicWork=rows=>{
+ const fields=['priority','owner','action','quantity_goal','done_criteria','last_evidence_public','blocker_public'];
+ const work=publicRows(rows,['owner','action']);
+ if(!work.length)return '<p class="m">Shared targets are not published yet</p>';
+ return '<div class="portfolio-table-wrap"><table class="portfolio-table"><thead><tr>'+fields.map(key=>`<th>${key}</th>`).join('')+'</tr></thead><tbody>'+work.map(row=>'<tr>'+fields.map(key=>`<td data-label="${key}">${publicCell(row[key])}</td>`).join('')+'</tr>').join('')+'</tbody></table></div>';
+};
+const renderUsageSnapshot=feed=>{
+ if(!feed||typeof feed!=='object'||Array.isArray(feed))return '<p class="m">Usage snapshot is not published yet</p>';
+ const percent=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0&&value<=100?`${value}%`:'unknown';
+ const stamp=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$/.test(value)&&Number.isFinite(Date.parse(value))?esc(value):'unknown';
+ const botPercent=bot=>{
+  if(typeof bot.percent_label==='string'&&bot.percent_label.trim())return esc(bot.percent_label.trim());
+  return percent(bot.percent);
+ };
+ const botDetail=bot=>{
+  const bits=[];
+  if(typeof bot.non_routine_percent==='number')bits.push(`non-routine ${percent(bot.non_routine_percent)}`);
+  if(typeof bot.routine_percent==='number')bits.push(`routine ${percent(bot.routine_percent)}`);
+  if(typeof bot.routine_note==='string'&&bot.routine_note.trim()&&!privatePublicText(bot.routine_note))bits.push(esc(bot.routine_note.trim()));
+  return bits.length?` (${bits.join('; ')})`:'';
+ };
+ const bots=publicRows(feed.bots,['owner']);
+ const botLine=bots.length?`<div class="portfolio-table-wrap"><table class="portfolio-table"><thead><tr><th>Bot</th><th class="r">Share within Grok Bot</th><th>Non-routine / routine</th></tr></thead><tbody>${bots.map(bot=>`<tr><td data-label="Bot">${publicCell(bot.owner)}</td><td class="r" data-label="Share">${botPercent(bot)}</td><td data-label="Split">${botDetail(bot)||'<span class="m">no split published</span>'}</td></tr>`).join('')}</tbody></table></div>`:(typeof feed.bot_shares_omitted==='string'&&feed.bot_shares_omitted.trim()?`<p class="m">${esc(feed.bot_shares_omitted.trim())}</p>`:'<p class="m">Within Grok Bot shares unknown</p>');
+ const priors=Array.isArray(feed.prior_official_weekly_readings)?feed.prior_official_weekly_readings.filter(row=>row&&typeof row==='object'):[];
+ const priorLine=priors.length?`<p class="m">Earlier official weekly readings, not this row: ${priors.map(row=>`${percent(row.weekly_usage_percent)} at ${stamp(row.observed_at)}`).join('; ')}</p>`:'';
+ const explicit=[feed.plan?`Shared plan ${publicCell(feed.plan)}`:'', feed.unit?`unit ${publicCell(feed.unit)}`:'', feed.period?`period ${publicCell(feed.period)}`:'', typeof feed.grok_bot_share_percent==='number'?`Grok Bot ${percent(feed.grok_bot_share_percent)}`:'', feed.reduction_effect?`reduction effect ${publicCell(feed.reduction_effect)}`:''].filter(Boolean);
+ const explicitLine=explicit.length?`<p>${explicit.join(' · ')}</p>`:'';
+ const counterLine=typeof feed.countermeasure==='string'&&feed.countermeasure.trim()?`<p>${publicCell(feed.countermeasure.trim())}</p>`:'';
+ const delta=feed.percentage_point_change&&typeof feed.percentage_point_change==='object'?feed.percentage_point_change:null;
+ const deltaLine=delta?`<p>Arithmetic difference only: ${esc(String(delta.formula||''))} percentage points. ${publicCell(delta.meaning)}. Outcome floor ${publicCell(delta.outcome_floor)}. Saving claim ${publicCell(delta.saving_claim)}.</p>`:'';
+ const adapters=feed.token_detail_adapters&&typeof feed.token_detail_adapters==='object'?feed.token_detail_adapters:{};
+ const adapterLine=Object.keys(adapters).length?`<ul>${Object.entries(adapters).map(([key,row])=>{
+  if(!row||typeof row!=='object')return '';
+  const docs=typeof row.docs==='string'&&/^https:\/\/cursor\.com\//.test(row.docs)?`<a href="${esc(row.docs)}">${esc(row.docs)}</a>`:'no docs';
+  return `<li><b>${esc(key)}</b> · status ${publicCell(row.status)} · tokens ${publicCell(row.public_tokens)} · ${docs}<div class="m">${publicCell(row.eligibility)}</div></li>`;
+ }).join('')}</ul>`:'<p class="m">Token-detail adapter eligibility not published</p>';
+ const practices=Array.isArray(feed.practice_sources)?feed.practice_sources.filter(row=>row&&typeof row==='object'&&typeof row.url==='string'&&/^https:\/\/x\.com\//.test(row.url)):[];
+ const practiceLine=practices.length?`<ul>${practices.map(row=>`<li><a href="${esc(row.url)}">${publicCell(row.name||row.url)}</a><div class="m">${publicCell(row.claim)}</div></li>`).join('')}</ul>`:'<p class="m">Practice source links not published</p>';
+ const scenarios=Array.isArray(feed.projection_scenarios)?feed.projection_scenarios.filter(row=>row&&typeof row==='object'):[];
+ const scenarioLine=scenarios.length?`<ul>${scenarios.map(row=>`<li><b>${publicCell(row.label||row.id)}</b> · assumed elapsed ${publicCell(row.assumed_elapsed_hours)}h · remaining ${percent(row.remaining_percent)} · hours-to-exhaust@constant ${publicCell(row.hours_to_exhaust_at_constant_pace)} · hours-to-reset ${publicCell(row.hours_until_reset_at_measurement)}<div class="m">${publicCell(row.assumption)}</div></li>`).join('')}</ul>`:'<p class="m">No arithmetic projection scenarios published</p>';
+ const credits=feed.additional_usage_credits&&typeof feed.additional_usage_credits==='object'?feed.additional_usage_credits:null;
+ const creditLine=credits?`<p>Additional usage credits: ${credits.present===true?'present':'unknown'} · remaining amount exposed: ${credits.remaining_amount_exposed===true?'yes':'no'}<span class="m"> · ${publicCell(credits.note)}</span></p>`:'';
+ const freshness=feed.freshness&&typeof feed.freshness==='object'?feed.freshness:null;
+ const freshLine=freshness?`<p class="m">Freshness · ${publicCell(freshness.kind)} · page JSON reload ${publicCell(freshness.page_json_reload_minutes)} min · live token stream ${publicCell(freshness.live_token_stream)} · ${publicCell(freshness.note)}</p>`:'<p class="m">Measured snapshot; no current usage is inferred between measurements.</p>';
+ const notes=Array.isArray(feed.notes)?feed.notes.filter(n=>typeof n==='string'&&!privatePublicText(n)):[];
+ const relay=feed.relay_migration&&typeof feed.relay_migration==='object'?feed.relay_migration:null;
+ const relayLine=relay?`<p><b>Stand-in relay migration:</b> ${publicCell(relay.status)} · savings ${publicCell(relay.savings)}<span class="m"> · ${publicCell(relay.note)}</span></p>`:'';
+ return `${feed.fixture_only===true?'<p class="status-red">Test fixture only — not current published usage.</p>':''}<p><span class="status-red">SNAPSHOT</span> · live token APIs <span class="status-red">UNVERIFIED / UNAVAILABLE</span> in this public path</p>${explicitLine}${counterLine}<p>Plan ${publicCell(feed.plan)} · ${publicCell(feed.source)} · measured <time>${stamp(feed.measured_at)}</time> · ${publicCell(feed.timezone)}</p><p>Weekly usage limit: ${percent(feed.weekly_usage_percent)} used · remaining ${percent(feed.remaining_percent)} (shared with other plan apps)</p>${typeof feed.grok_bot_share_percent==='number'?`<p>Grok Bot share of the shared weekly plan: ${percent(feed.grok_bot_share_percent)}</p>`:''}${deltaLine}${priorLine}<p>Week window start: <time>${stamp(feed.week_window_start_at)}</time> · Reset: <time>${stamp(feed.reset_at)}</time> · ${publicCell(feed.timezone)} local</p>${creditLine}<h3 style="font-size:13px;margin:10px 0 6px">Within Grok Bot</h3>${botLine}<h3 style="font-size:13px;margin:10px 0 6px">Arithmetic remaining-time scenarios (assumptions, not a supported forecast)</h3>${scenarioLine}<h3 style="font-size:13px;margin:10px 0 6px">Token-detail adapters</h3>${adapterLine}<h3 style="font-size:13px;margin:10px 0 6px">External / self-reported practice sources</h3>${practiceLine}${freshLine}${relayLine}${notes.length?`<ul class="m">${notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`:''}`;
+};
+const renderClaimsSnapshot=feed=>{
+ if(!feed||typeof feed!=='object'||Array.isArray(feed))return '<p class="m">Claims snapshot is not published yet</p>';
+ const tasks=publicRows(feed.tasks||[],['task_id','title']);
+ const alerts=Array.isArray(feed.alerts)?feed.alerts:[];
+ const gen=typeof feed.generated_at==='string'&&Number.isFinite(Date.parse(feed.generated_at))?esc(feed.generated_at):'unknown';
+ const api=typeof feed.claim_api==='string'?esc(feed.claim_api):'unknown';
+ let body='';
+ if(!tasks.length)body+='<p class="m">No claimable public tasks in this snapshot</p>';
+ else{
+  const fields=['task_id','title','lease_state','owner','revision','last_public_at','blocker_public','quantity_done','publish_blocked_zero'];
+  body+='<div class="portfolio-table-wrap"><table class="portfolio-table"><thead><tr>'+fields.map(k=>`<th>${k}</th>`).join('')+'</tr></thead><tbody>'+tasks.map(row=>{
+   const last=row.last_public_at==null||row.last_public_at===''||row.last_public_at==='unknown';
+   const blocked=row.publish_blocked_zero===true;
+   const cls=last||blocked||row.lease_state==='expired'||row.lease_state==='stale_unknown_expiry'?'status-red':'';
+   return '<tr class="'+cls+'">'+fields.map(k=>{
+    let v=row[k];
+    if(k==='last_public_at'&&(v==null||v===''))v='unknown';
+    if(k==='quantity_done'&&blocked)v=0;
+    if(k==='publish_blocked_zero')v=blocked?'yes (0 posted)':(v===true?'yes':'no');
+    return `<td data-label="${k}" class="${(k==='last_public_at'&&(v==='unknown')||(k==='publish_blocked_zero'&&blocked)||(k==='lease_state'&&/expired|stale/.test(String(row.lease_state||''))))?'status-red':''}">${publicCell(v)}</td>`;
+   }).join('')+'</tr>';
+  }).join('')+'</tbody></table></div>';
+ }
+ const alertHtml=alerts.length?'<ul class="failure-list">'+alerts.slice(0,20).map(a=>`<li class="status-red"><b>${esc(a.kind||'alert')}</b> · ${esc(a.message||'')} · <time>${esc(a.created_at||'unknown')}</time></li>`).join('')+'</ul>':'<p class="m">No claim alerts in this snapshot</p>';
+ return `<p class="m">generated ${gen} · ${esc(feed.note||'public snapshot not application permission')} · API: ${api}</p>${body}<h2>Claim alerts</h2>${alertHtml}`;
+};
+const NN=v=>v==null?'—':Number(v).toLocaleString('en-US');
+const stripeMoney=(minor,currency)=>{
+ const code=String(currency||'').toUpperCase(),amount=Number(minor);
+ if(!/^[A-Z]{3}$/.test(code)||!Number.isSafeInteger(amount))return 'no data';
+ let displayDigits=2;
+ try{displayDigits=new Intl.NumberFormat('en-US',{style:'currency',currency:code}).resolvedOptions().maximumFractionDigits}catch(e){return `${code} ${NN(amount)} minor units`}
+ const apiDigits=code==='ISK'||code==='UGX'?2:displayDigits;
+ return new Intl.NumberFormat('en-US',{style:'currency',currency:code,minimumFractionDigits:displayDigits,maximumFractionDigits:displayDigits}).format(amount/10**apiDigits);
+};
+const renderStripeMetrics=feed=>{
+ if(!feed)return '<div class="m">Stripe source has not been collected; values are unknown.</div>';
+ const status=feed.status||'unknown',window=feed.window||{},coverage=feed.coverage||{};
+ const stamp=esc(feed.observed_at||'unknown'),period=window.start&&window.end?`${esc(window.start)} – ${esc(window.end)} UTC`:'90-day window unavailable';
+ if(status==='unavailable'){
+  const message=feed.reason==='restricted_read_key_missing'||feed.reason==='restricted_live_key_required'?'A restricted live key is not configured. Stripe values are unknown.':'Stripe source is unavailable. Stripe values are unknown.';
+  return `<div class="m">${esc(feed.source||'Stripe API')} · unavailable · measured ${stamp}</div><div style="margin-top:6px">${message}</div>`;
+ }
+ const balance=feed.balance||{},subscriptions=feed.subscriptions||{},transactions=feed.balance_transactions||{},refunds=feed.refunds||{},payouts=feed.payouts||{};
+ const index=rows=>new Map((rows?.currencies||[]).map(row=>[row.currency,row]));
+ const balances=index(balance),subs=index(subscriptions),txs=index(transactions),refundMap=index(refunds),payoutMap=index(payouts);
+ const currencySet=new Set([...balances.keys(),...subs.keys(),...txs.keys(),...refundMap.keys(),...payoutMap.keys()]);
+ const currencies=[...currencySet].sort();
+ const endpointStatus=value=>value==='observed'?'observed':value==='observed_empty'?'observed, no rows':value==='partial'?'partial coverage':'unavailable';
+ const metricMoney=(source,row,key,currency)=>{
+  const value=row?.[key];
+  if(value!=null)return stripeMoney(value,currency);
+  return ['observed','observed_empty'].includes(source?.status)?stripeMoney(0,currency):'<span class="m">unknown</span>';
+ };
+ const metricCount=(source,row,key)=>{
+  const value=row?.[key];
+  if(!source?.status||source.status==='unavailable')return '<span class="m">unknown</span>';
+  if(value!=null)return NN(value);
+  return ['observed','observed_empty'].includes(source?.status)?'0':'<span class="m">unknown</span>';
+ };
+ const panels=currencies.map(currency=>{
+  const b=balances.get(currency),s=subs.get(currency),t=txs.get(currency),r=refundMap.get(currency),p=payoutMap.get(currency);
+  const refundRows=r?.statuses||[],payoutRows=p?.statuses||[];
+  const statusRows=(rows,source)=>rows.length?rows.map(row=>`${esc(row.status)} ${NN(row.count)} · ${stripeMoney(row.amount_minor,currency)}`).join(' · '):(['observed','observed_empty'].includes(source?.status)?'0 rows':'<span class="m">unknown</span>');
+  return `<section class="stripe-metrics-block"><h3>${esc(currency)}</h3><div>Balance · available ${metricMoney(balance,b,'available_minor',currency)} · pending ${metricMoney(balance,b,'pending_minor',currency)}</div><div>Subscriptions · ${metricCount({status:coverage.subscriptions_active?.status},s,'active')} active · ${metricCount({status:coverage.subscriptions_trialing?.status},s,'trialing')} trialing</div><div>90-day balance activity · ${metricMoney(transactions,t,'amount_minor',currency)} amount · ${metricMoney(transactions,t,'fee_minor',currency)} fees · ${metricMoney(transactions,t,'net_minor',currency)} net · ${metricCount(transactions,t,'count')} transactions</div><div>Refunds · ${statusRows(refundRows,refunds)}</div><div>Payouts · ${statusRows(payoutRows,payouts)}</div></section>`;
+ }).join('');
+ const coverageRows=[['balance',balance.status],['active subscriptions',coverage.subscriptions_active?.status],['trialing subscriptions',coverage.subscriptions_trialing?.status],['balance transactions',transactions.status],['refunds',refunds.status],['payouts',payouts.status]].map(([label,value])=>`<span>${esc(label)} · ${esc(endpointStatus(value))}</span>`).join(' · ');
+ const daily=(transactions.daily||[]).map(row=>`<tr><td>${esc(row.date)}</td><td>${esc(row.currency)}</td><td>${esc(row.reporting_category)}</td><td>${esc(row.type)}</td><td class="r">${NN(row.count)}</td><td class="r">${stripeMoney(row.amount_minor,row.currency)}</td><td class="r">${stripeMoney(row.fee_minor,row.currency)}</td><td class="r">${stripeMoney(row.net_minor,row.currency)}</td></tr>`).join('');
+ const dailyDetails=daily?`<details class="stripe-metrics-daily"><summary>Daily balance activity (${(transactions.daily||[]).length} grouped rows)</summary><div class="stripe-metrics-wrap"><table class="stripe-metrics-table"><thead><tr><th>Date UTC</th><th>Currency</th><th>Category</th><th>Type</th><th class="r">Transactions</th><th class="r">Amount</th><th class="r">Fees</th><th class="r">Net</th></tr></thead><tbody>${daily}</tbody></table></div></details>`:'';
+ return `<div class="m">${esc(feed.source||'Stripe API')} · ${esc(status)} · measured ${stamp} · ${period}</div><div class="stripe-metrics-grid">${panels||'<div class="stripe-metrics-block m">No currency rows returned.</div>'}</div><div class="m" style="margin-top:8px">Coverage · ${coverageRows}</div>${dailyDetails}<div class="m" style="margin-top:8px">Amounts are shown by currency using Stripe's minor-unit rules; currencies are not combined. Balance activity and payout/refund lists are separate provider views.</div>`;
+};
+const spark=(vals,color)=>{const vs=vals.filter(v=>v!=null);if(vs.length<2)return '';const w=132,h=36,mx=Math.max(...vs),mn=Math.min(...vs),rg=(mx-mn)||1,X=i=>(i/(vals.length-1)*w).toFixed(1),Yv=v=>(h-4-((v-mn)/rg)*(h-8)).toFixed(1);const segs=[];let cur=[];vals.forEach((v,i)=>{if(v==null){if(cur.length>1)segs.push(cur);cur=[]}else cur.push(X(i)+','+Yv(v))});if(cur.length>1)segs.push(cur);if(!segs.length)return '';const fill=segs.length===1?`<polygon points="0,${h} ${segs[0].join(' ')} ${w},${h}" fill="${color}" opacity="0.10" stroke="none"/>`:'';return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${fill}${segs.map(s=>`<polyline points="${s.join(' ')}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linejoin="round"/>`).join('')}</svg>`};
+const chip=(txt,dir)=>`<span class="delta ${dir}">${txt}</span>`;
+const provChip=(p,label)=>{if(p==null||!isFinite(p))return '';const dir=p>0.05?'up':p<-0.05?'down':'flat';return chip(`${p>0.05?'▲':p<-0.05?'▼':'■'} ${Math.abs(p).toFixed(1)}% ${label}`,dir)};
+const usdChip=(delta,label)=>{if(delta==null||!isFinite(delta))return '';const dir=delta>0.005?'up':delta<-0.005?'down':'flat';return chip(`${delta>0.005?'▲':delta<-0.005?'▼':'■'} ${U(Math.abs(delta))} ${label}`,dir)};
+const mc=(id,label,value,extra,note)=>{const el=$(id);if(el)el.innerHTML=`<h3>${label}</h3><div class="v">${value}</div>${extra||''}<div class="n">${note||''}</div>`};
+const renderPostMetrics=feed=>{
+ if(!feed||!Array.isArray(feed.platforms))return '<div class="m">Postiz post metrics have not been collected.</div>';
+ const platforms=feed.platforms,coverage=feed.coverage||{},window=feed.query_window||{};
+ if(!platforms.length)return `<div class="m">${feed.status==='observed_empty'?'No eligible published posts in the selected Postiz query window.':feed.status==='unavailable'?'No Postiz post metrics collected yet.':'No post metric samples returned.'}</div>`;
+ const metric=(row,key)=>{
+  const value=row.metrics?.[key]||{},period=value.period_from&&value.period_to?(value.period_from===value.period_to?value.period_from:`${value.period_from} – ${value.period_to}`):'period unavailable';
+  return `<td class="r"><strong>${value.sample_sum==null?'<span class="m">no data</span>':NN(value.sample_sum)}</strong><span class="m">${NN(value.posts_with_value)}/${NN(row.sampled_posts)} posts · ${esc(period)}</span></td>`;
+ };
+ const rows=platforms.map(row=>{
+  const published=row.published_at||{},observed=row.observed_at||{};
+  const publishedText=published.from&&published.to?`${published.from.slice(0,10)} – ${published.to.slice(0,10)}`:'period unavailable';
+  const observedText=observed.from&&observed.to?(observed.from===observed.to?observed.from:`${observed.from} – ${observed.to}`):'read time unavailable';
+  return `<tr><td>${esc(row.platform||'Unknown')}<span class="m">Published ${esc(publishedText)}</span><span class="m">Metrics read ${esc(observedText)}</span></td><td class="r">${NN(row.sampled_posts)}</td>${metric(row,'views')}${metric(row,'likes')}${metric(row,'replies')}${metric(row,'reposts')}</tr>`;
+ }).join('');
+ const daily=platforms.filter(row=>Array.isArray(row.daily)&&row.daily.length).map(row=>{
+  const data=row.daily.map(day=>{
+   const cell=key=>{const value=day.metrics?.[key]||{};return `<td class="r">${value.sample_sum==null?'<span class="m">no data</span>':NN(value.sample_sum)}<span class="m">${NN(value.posts_with_value)}/${NN(day.eligible_posts)} posts</span></td>`;};
+   return `<tr><td>${esc(day.date)}</td><td class="r">${NN(day.eligible_posts)}</td>${cell('views')}${cell('likes')}${cell('replies')}${cell('reposts')}</tr>`;
+  }).join('');
+  return `<details class="post-metrics-daily"><summary>${esc(row.platform||'Unknown')} daily sample metrics (${row.daily.length} dates)</summary><div class="post-metrics-wrap"><table class="post-metrics-table"><thead><tr><th>Date</th><th class="r">Eligible posts</th><th class="r">Views · daily sample sum</th><th class="r">Likes · daily sample sum</th><th class="r">Comments · daily sample sum</th><th class="r">Shares · daily sample sum</th></tr></thead><tbody>${data}</tbody></table></div></details>`;
+ }).join('');
+ return `<div class="m">${esc(feed.source||'Postiz analytics')} · collection run ${esc(feed.observed_at||'unknown')} · ${esc(feed.status||'unknown')} · ${NN(coverage.sampled_posts)} sampled posts across ${NN(coverage.sampled_accounts)} accounts · query ${esc(window.from||'unknown')} – ${esc(window.to||'unknown')}</div><div class="m" style="margin-top:4px">${esc(feed.scope||'Recent post sample; values are not account-wide totals.')}</div><div class="post-metrics-wrap"><table class="post-metrics-table"><thead><tr><th>Platform and source times</th><th class="r">Posts</th><th class="r">Views · sample sum</th><th class="r">Likes · sample sum</th><th class="r">Comments · sample sum</th><th class="r">Shares · sample sum</th></tr></thead><tbody>${rows}</tbody></table></div>${daily}`;
+};
+
+const renderAniccaProductAnalytics=a=>{
+ const host=$('anicca-product-analytics');
+ if(!a){host.textContent='Anicca screen analytics are not available in this snapshot.';return}
+ const n=v=>v==null?'—':Number(v).toLocaleString('en-US'), pct=v=>v==null?'—':`${(Number(v)*100).toFixed(1)}%`;
+ if(a.status==='unavailable'){host.innerHTML=`<div class="anicca-product-meta">Unavailable · ${esc(a.error_code)} · checked ${esc(a.observed_at)} · ${esc(a.source)}</div><div class="anicca-product-note">No Mixpanel export was requested. Screen metrics are unknown, not zero.</div>`;return}
+ const status=a.status==='ok'?'Measured':a.status==='no_events'?'No events observed':a.status==='no_views'?'Exit events observed; no matching screen views':'Unknown';
+ const maturityNote=a.app_environment==='simulator'&&a.maturity_hours===0?'Simulator preview includes current, immature events; it is not production user data.':'Production funnel uses a 7-day window matured for at least 24 hours.';
+ const screens=Array.isArray(a.screens)?a.screens:[],breakdowns=Array.isArray(a.breakdowns)?a.breakdowns:[],coverage=a.coverage||{};
+ const screenRows=screens.map(r=>`<tr><td>${esc(r.flow_id)}</td><td><b>${esc(r.screen_id)}</b></td><td>${esc(r.app_version)} (${esc(r.app_build)})</td><td class="r">${n(r.viewed_instances)}</td><td class="r">${n(r.continued_instances)}</td><td class="r">${n(r.no_next_screen_observed)}</td><td class="r">${pct(r.continuation_rate)}</td><td class="r">${pct(r.no_next_screen_rate)}</td></tr>`).join('');
+ const breakdownRows=breakdowns.map(r=>`<tr><td>${esc(r.flow_id)}</td><td>${esc(r.screen_id)}</td><td>${esc(r.app_version)} (${esc(r.app_build)})</td><td>${esc(r.language)}</td><td>${esc(r.locale)}</td><td>${esc(r.device_region_code)}</td><td>${esc(r.storefront_country_code)}</td><td class="r">${n(r.viewed_instances)}</td><td class="r">${n(r.continued_instances)}</td><td class="r">${pct(r.no_next_screen_rate)}</td></tr>`).join('');
+ host.innerHTML=`<div class="anicca-product-meta">${esc(status)} · ${esc(a.app_environment)} · ${esc(a.data_from)} – ${esc(a.data_to)} · measured ${esc(a.observed_at)} · ${esc(a.source)}</div><div class="anicca-product-summary"><div class="anicca-product-metric"><strong>${n(coverage.unique_screen_instances)}</strong><span>Screen views · denominator</span></div><div class="anicca-product-metric"><strong>${n(coverage.unique_transitions)}</strong><span>Next screen observed · numerator</span></div><div class="anicca-product-metric"><strong>${n(coverage.unique_screen_instances-coverage.unique_transitions)}</strong><span>No next screen observed</span></div></div><div class="anicca-product-table-wrap"><table class="anicca-product-table"><thead><tr><th>Flow</th><th>Screen</th><th>Release</th><th class="r">Views</th><th class="r">Next observed</th><th class="r">Not observed</th><th class="r">Continue rate</th><th class="r">Not observed rate</th></tr></thead><tbody>${screenRows||'<tr><td colspan="8" class="m">No screen rows in this successful export.</td></tr>'}</tbody></table></div><details><summary>Country and locale breakdown · minimum 10 views per screen cohort</summary>${breakdowns.length?`<div class="anicca-product-table-wrap"><table class="anicca-product-breakdown"><thead><tr><th>Flow</th><th>Screen</th><th>Release</th><th>Language</th><th>Locale</th><th>Device country</th><th>Storefront</th><th class="r">Views</th><th class="r">Next observed</th><th class="r">Not observed rate</th></tr></thead><tbody>${breakdownRows}</tbody></table></div>`:'<div class="anicca-product-note">No country/locale cohorts meet the 10-view privacy threshold.</div>'}</details><div class="anicca-product-note">A screen view with no matching <code>screen_exited</code> means no next screen was observed; it does not prove the app was closed or the user churned. Export coverage: ${n(coverage.screen_view_events_received)} view events, ${n(coverage.screen_exit_events_received)} exit events, ${n(coverage.duplicate_screen_views)} duplicate views removed, ${n(coverage.duplicate_screen_exits)} duplicate exits removed. ${esc(maturityNote)}</div>`;
+};
+const loadData=()=>fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
+ ['status','card-team','card-apps','card-anicca-product-analytics','card-soc','card-svw','card-rank'].forEach(id=>$(id).style.display='');
+ renderAniccaProductAnalytics(d.product_analytics?.anicca_ios);
+ const S=d.summary,K=Object.fromEntries(d.kpis.map(k=>[k.key,k])),mon=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(d.month+'-01T12:00:00Z'));
+ $('upd').textContent='Ledger snapshot '+d.updated_at+'.';
+ const ats=S.platforms.reduce((a,p)=>a+(p.all_time||0),0),lm=S.trend.length>1?S.trend[S.trend.length-2]:null;
+ const card=(t,v,n)=>`<div class="c"><h3>${t}</h3><div class="v">${v}</div><div class="n">${n}</div></div>`;
+ const B=S.bank,coverageIncomplete=d.reconciliation_complete!==true;
+ const MON=Array.isArray(d.monthly)?d.monthly:[],mlab=m=>{const month=/^(\d{4}-(?:0[1-9]|1[0-2]))(?:\b|$)/.exec(String(m.month||''))?.[1];return month?new Date(month+'-01T12:00:00Z').toLocaleString('en-US',{month:'short',timeZone:'UTC'}):String(m.month||'unknown')};
+ mc('slot-mrr','MRR',U(K.mrr&&K.mrr.usd),'',`App Store $${S.mrr_split.revenuecat} + Capafy $${S.mrr_split.capafy} + Stripe $${S.mrr_split.stripe}`);
+ mc('slot-rev','Revenue, '+mon+' to date',K.revm.usd==null?'<span class="m">unknown (source error)</span>':U(K.revm.usd),spark(MON.map(m=>m.revenue_usd),'#4f46e5'),`30 days ${K.rev30.usd==null?'no data':U(K.rev30.usd)} · 7 days ${K.rev7.usd==null?'no data':U(K.rev7.usd)} · ${coverageIncomplete?'Observed subtotal · incomplete coverage':'Paid + buyer-accepted, ECB FX'}`);
+ mc('slot-cost','Costs, '+mon+' to date',U(K.cost.usd)+Y(K.cost.jpy),spark(MON.map(m=>m.cost_usd),'#f59e0b'),(coverageIncomplete?'Observed payment notices · incomplete coverage':'Observed payment notices')+(MON.length?` · Monthly: ${MON.map(m=>mlab(m)+' '+U(m.cost_usd)).join(' · ')}`:''));
+ mc('slot-gp','Gross profit, '+mon+' to date',`<span class="${K.gp.usd<0?'neg':'pos'}">${U(K.gp.usd)}</span>`,usdChip(K.gp.usd!=null&&K.gpl.usd!=null?K.gp.usd-K.gpl.usd:null,'vs last month')+spark(MON.map(m=>m.gross_profit_usd),'#10b981'),coverageIncomplete?'Observed difference only · full-company profit unknown':'Revenue less observed payment notices');
+ mc('slot-alltime','All-time revenue',S.all_time_usd==null?'<span class="m">unknown (source error)</span>':U(S.all_time_usd),'',S.all_time_confirmed==null?'':`Booked ${U(S.all_time_confirmed)} + App Store lifetime ${U(S.all_time_usd-S.all_time_confirmed)}`);
+ mc('slot-bank','Bank balance',B&&B.usd!=null?U(B.usd)+Y(B.jpy):'<span class="m">unknown (source error)</span>','',B&&B.usd!=null?`Total only · as of ${esc(B.as_of)} · MUFG via Moneytree · no debt on record, so net worth equals the bank total`:'');
+ const A2=d.app_store_analytics;let instVal=null,instSeries=[],instNote='App Store Connect analytics not collected yet';
+ if(A2&&Array.isArray(A2.apps)&&A2.apps.length&&A2.summary&&A2.summary.downloads){const byDate={};A2.apps.forEach(app=>{(app.daily||[]).forEach(r=>{const ft=r.downloads?r.downloads.first_time:null;if(ft!=null)byDate[r.date]=(byDate[r.date]||0)+ft;else if(!(r.date in byDate))byDate[r.date]=null})});instSeries=Object.keys(byDate).sort().map(k=>byDate[k]);instVal=A2.summary.downloads.first_time;instNote=`${esc(A2.period.start_date)} – ${esc(A2.period.end_date)} · App Store Connect · first-time downloads only (auto-update ${NN(A2.summary.downloads.auto_update)} events excluded)`}
+ mc('slot-inst','App installs (first-time downloads)',instVal==null?'<span class="m">no data</span>':NN(instVal),spark(instSeries,'#0ea5e9'),instNote);
+ const sa=Array.isArray(d.social_accounts)?d.social_accounts:[],sumF=f=>{const vs=sa.map(a=>a[f]).filter(v=>v!=null);return{sum:vs.reduce((a,b)=>a+b,0),n:vs.length}},lk=sumF('likes'),cm=sumF('comments'),fw=sumF('followers');
+ mc('slot-social','Social likes, '+sa.length+' accounts',NN(lk.sum),'',`Measured ${lk.n}/${sa.length} accounts · comments ${NN(cm.sum)} (${cm.n} measured) · followers ${NN(fw.sum)} (${fw.n} measured) · per-account detail below`);
+ const R=d.rankings;let rankVal='<span class="m">no data</span>',rankNote='';
+ if(R){let bestJp=null,bestKw='';((R.aso&&R.aso.jp)||[]).forEach(r=>{if(typeof r.anicca==='number'&&(bestJp==null||r.anicca<bestJp)){bestJp=r.anicca;bestKw=r.keyword}});rankVal=R.seo?`${R.seo.anicca_in_top}/${R.seo.queries_total}`:'—';rankNote=`SEO queries in top results · ASO JP best ${bestJp==null?'out':'#'+bestJp+(bestKw?' ('+esc(bestKw)+')':'')} · ASO US all out of top 200 · GEO recommended ${R.geo?R.geo.recommended:0}/${R.geo?R.geo.recommended_of:0}, cited ${R.geo?R.geo.cited:0}/${R.geo?R.geo.cited_of:0} · measured ${esc(R.seo?R.seo.measured_at:'')}`}
+ mc('slot-rank','Search & AI visibility',rankVal,'',rankNote);
+ const act=S.platforms.filter(p=>p.all_time||p.pending||p.this_month!=null||p.status==='stage reconciliation'||p.type.startsWith('API')),zero=S.platforms.filter(p=>!act.includes(p));
+ $('plat').innerHTML='<tr><th>#</th><th>Platform</th><th class="hm">Type</th><th class="r">This month</th><th class="r hm">Last month</th><th class="r">All-time</th><th>Status</th></tr>'+act.map((p,i)=>`<tr><td class="m">${i+1}</td><td><b>${esc(p.platform)}</b>${p.note||p.observed_accepted_gross_usd!=null?`<details class="pnote"><summary>Source details</summary><div class="m" style="font-size:11px">${p.note?esc(p.note):''}${p.observed_accepted_gross_usd!=null?' · Accepted gross '+U(p.observed_accepted_gross_usd):''}</div></details>`:''}</td><td class="hm">${esc(p.type)}</td><td class="r" data-label="This month"><span class="mlabel">This month</span>${U(p.this_month)}</td><td class="r hm">${U(p.last_month)}</td><td class="r" data-label="All-time"><span class="mlabel">All-time</span><b>${U(p.all_time)}</b></td><td data-label="Status"><span class="mlabel">Status</span>${p.status==='pending payout'?`<span class="pill p">${U(p.pending)} pending payout</span>`:p.status==='paid'?'<span class="pill">paid</span>':'<span class="m">'+esc(p.status==='stage reconciliation'?'net / payout unknown':'coverage unknown')+'</span>'}</td></tr>`).join('');
+ const gz={};zero.forEach(p=>(gz[p.type]=gz[p.type]||[]).push(p.platform));
+ $('zero').innerHTML='<b>Listed, current coverage not established:</b> '+Object.entries(gz).map(([t,l])=>`${esc(t)}: ${l.map(esc).join(', ')}`).join(' · ');
+ const T=S.trend.slice(-12),mx=Math.max(...T.map(t=>t.total),1),pls=[...new Set(T.flatMap(t=>Object.keys(t.by_platform)))];
+ $('bars').innerHTML=T.map(t=>`<div class="bar" style="height:100%" title="${t.month}: $${t.total}">${pls.map((p,i)=>`<i style="height:${100*(t.by_platform[p]||0)/mx}%;background:${COL[i%6]}"></i>`).join('')}<span style="position:absolute;bottom:${100*t.total/mx}%;left:0;right:0;text-align:center;font-size:9.5px;color:#444">${t.total?'$'+Math.round(t.total):''}</span></div>`).join('');
+ $('bl').innerHTML=T.map(t=>`<span>${new Date(t.month+'-01').toLocaleString('en-US',{month:'short'})}</span>`).join('');
+ $('lg').innerHTML=pls.map((p,i)=>`<b style="background:${COL[i%6]}"></b>${esc(p)}`).join('')+' <span class="m">· booked revenue (App Store not split by month)</span>';
+ $('prod').innerHTML='<tr><th>Product</th><th class="hm">Platform</th><th class="r">This month</th><th class="r">All-time</th></tr>'+S.products.map(p=>`<tr><td>${esc(p.product)}${p.note?' <span class="m">· '+esc(p.note)+'</span>':''}</td><td class="hm">${esc(p.platform)}</td><td class="r">${U(p.this_month)}</td><td class="r">${U(p.all_time)}</td></tr>`).join('');
+ $('cost').innerHTML=d.costs_month.map(c=>`<tr><td>${esc(c.item)}<div class="m">${esc(c.period_note)}</div></td><td class="r">${U(c.usd)}${Y(c.jpy)}</td></tr>`).join('');
+ const tr=(s,n)=>esc(s==null?'':(String(s).length>n?String(s).slice(0,n)+'…':String(s)));
+ if(Array.isArray(d.by_agent)&&d.by_agent.length){$('team-activity').innerHTML='<tr><th>Agent</th><th>Work</th><th>Latest observed result</th></tr>'+d.by_agent.map(a=>`<tr><td><b>${esc(a.agent)}</b></td><td>${esc(a.surfaces)}</td><td>${esc(a.status)}</td></tr>`).join('')}else{$('card-team').style.display='none'}
+ const st=$('status');if(d.coverage_status_1line){st.textContent=d.coverage_status_1line}else{st.style.display='none'}
+ if(d.apps_breakdown&&d.apps_breakdown.length){$('apps').innerHTML='<tr><th>App</th><th class="r">This month</th><th class="r">All-time gross</th><th>Latest measured</th></tr>'+d.apps_breakdown.map(a=>`<tr><td><b>${esc(a.app)}</b></td><td class="r">${U(a.this_month_usd)}</td><td class="r">${U(a.all_time_gross_usd)}</td><td class="m" style="font-size:11px">${tr(a.note,180)}</td></tr>`).join('')}else{$('card-apps').style.display='none'}
+ const A=d.app_store_analytics;
+ if(A&&Array.isArray(A.apps)&&A.apps.length){
+  const count=v=>v==null?'—':Number(v).toLocaleString('en-US'),period=A.period||{},coverage=A.coverage||{},summary=A.summary||{},discovery=summary.discovery||{},downloads=summary.downloads||{};
+  const days=Math.max(1,Math.round((Date.parse(period.end_date+'T00:00:00Z')-Date.parse(period.start_date+'T00:00:00Z'))/86400000)+1);
+  const types=[['First-time',downloads.first_time],['Auto-update',downloads.auto_update],['Manual update',downloads.manual_update],['Redownload',downloads.redownload],['Restore',downloads.restore],['Other',downloads.other]].filter(([,value])=>value!=null).map(([label,value])=>`${label} ${count(value)}`).join(' · ');
+  const snapshotStatus=d.app_store_analytics_status==='scheduled-snapshot'?'Scheduled snapshot':'Last recorded snapshot';
+  let content=`<div><b>App Store Connect Analytics</b> · ${snapshotStatus} · ${esc(period.start_date)} to ${esc(period.end_date)} · processing ${esc(period.processing_date||'—')} · measured ${esc(A.measured_at||'—')}</div>`;
+  content+=`<div>Impressions ${count(discovery.impressions)} · Unique impressions ${count(discovery.unique_impressions)} · Product page views ${count(discovery.page_views)} · Unique page views ${count(discovery.unique_page_views)} · Taps ${count(discovery.taps)} · Unique taps ${count(discovery.unique_taps)}</div>`;
+  content+=`<div>Downloads ${count(downloads.events)} observed events${types?` · ${esc(types)}`:''}</div>`;
+  content+=`<div>Coverage · Discovery ${count(coverage.discovery_app_days)}/${count(coverage.app_days_expected)} app-days reported · Downloads ${count(coverage.download_app_days)}/${count(coverage.app_days_expected)} app-days reported</div>`;
+  content+='<div style="overflow-x:auto"><table class="asc-apps" style="margin-top:6px"><tr><th>App</th><th class="r">Impressions</th><th class="r">Unique impressions</th><th class="r">Page views</th><th class="r">Unique page views</th><th class="r">Taps</th><th class="r">Unique taps</th><th class="r">Downloads</th></tr>'+A.apps.map(app=>{const dm=app.download_metrics||{},types=[['First-time',dm.first_time],['Auto-update',dm.auto_update],['Manual update',dm.manual_update],['Redownload',dm.redownload],['Restore',dm.restore],['Other',dm.other]].filter(([,value])=>value!=null).map(([label,value])=>`${label} ${count(value)}`).join(' · ');return `<tr><td><b>${esc(app.app)}</b></td><td class="r" data-label="Impressions"><span class="mlabel">Impressions</span>${count(app.metrics?.impressions)}</td><td class="r" data-label="Unique impressions"><span class="mlabel">Unique impressions</span>${count(app.metrics?.unique_impressions)}</td><td class="r" data-label="Page views"><span class="mlabel">Page views</span>${count(app.metrics?.page_views)}</td><td class="r" data-label="Unique page views"><span class="mlabel">Unique page views</span>${count(app.metrics?.unique_page_views)}</td><td class="r" data-label="Taps"><span class="mlabel">Taps</span>${count(app.metrics?.taps)}</td><td class="r" data-label="Unique taps"><span class="mlabel">Unique taps</span>${count(app.metrics?.unique_taps)}</td><td class="r" data-label="Downloads"><span class="mlabel">Downloads</span>${app.download_events==null?'<span class="m">—</span>':count(app.download_events)}<div class="m" style="font-size:10px">${count(app.discovery_days)}/${days} discovery days · ${count(app.download_days)}/${days} download days${types?` · ${esc(types)}`:''}</div></td></tr>`}).join('')+'</table></div>';
+  const daily=A.apps.flatMap(app=>(app.daily||[]).filter(row=>row.date>=period.start_date&&row.date<=period.end_date).map(row=>({app:app.app,...row})));
+  content+=`<details><summary>Daily app metrics (${daily.length} app-days)</summary><div style="overflow-x:auto"><table><tr><th>App</th><th>Date</th><th>Discovery status</th><th class="r">Impressions</th><th class="r">Unique impressions</th><th class="r">Page views</th><th class="r">Unique page views</th><th class="r">Taps</th><th class="r">Unique taps</th><th class="r">Download events</th><th>Processing date</th></tr>${daily.map(row=>`<tr><td>${esc(row.app)}</td><td>${esc(row.date)}</td><td>${row.discovery?'Reported':'Not reported'}</td><td class="r">${count(row.discovery?.impressions)}</td><td class="r">${count(row.discovery?.unique_impressions)}</td><td class="r">${count(row.discovery?.page_views)}</td><td class="r">${count(row.discovery?.unique_page_views)}</td><td class="r">${count(row.discovery?.taps)}</td><td class="r">${count(row.discovery?.unique_taps)}</td><td class="r">${row.downloads?.events==null?'<span class="m">Not reported</span>':count(row.downloads.events)}</td><td>${esc(row.processing_date||'—')}</td></tr>`).join('')}</table></div></details>`;
+  const sourceRows=daily.flatMap(row=>['discovery','downloads'].flatMap(report=>(row.source_rows?.[report]||[]).map(source_row=>({app:row.app,date:row.date,report,source_row}))));
+  content+=`<details><summary>Source dimensions (${sourceRows.length} report rows)</summary><div style="overflow-x:auto"><table><tr><th>App</th><th>Date</th><th>Report</th><th>Event / type</th><th>Source dimensions</th><th class="r">Counts</th><th class="r">Unique counts</th></tr>${sourceRows.map(row=>{const source=row.source_row||{},dimensions=Object.entries(source).filter(([key])=>key!=='Counts'&&key!=='Unique Counts').map(([key,value])=>`${key}: ${value==null?'—':typeof value==='object'?JSON.stringify(value):value}`).join(' · ');return `<tr><td>${esc(row.app)}</td><td>${esc(row.date)}</td><td>${esc(row.report)}</td><td>${esc(source.Event||source['Download Type']||row.report)}</td><td>${esc(dimensions)}</td><td class="r">${esc(source.Counts??'—')}</td><td class="r">${esc(source['Unique Counts']??'—')}</td></tr>`}).join('')}</table></div></details>`;
+  content+='<div class="m">Download rows are reported events, not Sales and Trends proceeds. Unique counts stay on source rows because dimension rows are not added into an overall unique total. Missing app-days are not zero; see the reported coverage before comparing totals.</div>';
+  $('asc-analytics').innerHTML=content;
+ }else{$('asc-analytics').textContent='App Store Connect analytics not collected yet.'}
+ const N=v=>v==null?'<span class="m">—</span>':esc(v);
+ if(d.social_accounts&&d.social_accounts.length){$('soc').innerHTML='<tr><th>Account</th><th class="r">Followers</th><th class="r">Posts</th><th class="r">Likes</th><th class="r">Comments</th><th>Latest post</th></tr>'+d.social_accounts.map(a=>`<tr><td><b>${esc(a.account)}</b>${a.note?'<div class="m" style="font-size:11px">'+tr(a.note,110)+'</div>':''}</td><td class="r">${N(a.followers)}</td><td class="r">${N(a.posts)}</td><td class="r">${N(a.likes)}</td><td class="r">${N(a.comments)}</td><td>${a.latest_post?`<a href="${esc(a.latest_post)}" target="_blank" rel="noopener">open</a>`:'<span class="m">—</span>'}</td></tr>`).join('')}else{$('card-soc').style.display='none'}
+ if(d.self_vs_winner&&d.self_vs_winner.length){$('svw').innerHTML='<tr><th>Matchup</th><th>Self</th><th>Winner</th><th>Gap</th></tr>'+d.self_vs_winner.map(a=>`<tr><td><b>${esc(a.pair)}</b></td><td>${esc(a.self)}</td><td>${esc(a.winner)}</td><td class="m" style="font-size:11.5px">${tr(a.gap,240)}</td></tr>`).join('')}else{$('card-svw').style.display='none'}
+ if(d.rankings){const R=d.rankings,P=v=>v==='out'?'<span class="m">out</span>':esc(v);
+ const t=(h,rows)=>`<div style="margin-top:10px"><b style="font-size:12.5px">${h}</b></div><table>${rows}</table>`;let h='';
+ if(R.seo){h+=t(`SEO \u2014 Google snapshot \u00b7 measured ${esc(R.seo.measured_at)} \u00b7 Anicca in top results ${R.seo.anicca_in_top}/${R.seo.queries_total}`,'<tr><th>Query</th><th class="r">Anicca</th><th>Winner</th><th class="r">Winner rank</th></tr>'+R.seo.rows.map(r=>`<tr><td>${esc(r.query)}</td><td class="r">${P(r.anicca)}</td><td>${esc(r.winner)}</td><td class="r">${P(r.winner_position)}</td></tr>`).join(''));
+ if(R.seo.gsc)h+=`<div class="zero">Google Search Console ${esc(R.seo.gsc.period)}: ${R.seo.gsc.clicks} clicks \u00b7 ${R.seo.gsc.impressions} impressions \u00b7 avg position ${R.seo.gsc.avg_position} (measured ${esc(R.seo.gsc.measured_at)})</div>`}
+ if(R.aso){const at=(label,rows)=>t(`ASO \u2014 App Store ${label} \u00b7 measured ${esc(R.aso.measured_at)}`,'<tr><th>Keyword</th><th class="r">Anicca</th><th class="r">I am</th><th>#1 app</th></tr>'+rows.map(r=>`<tr><td>${esc(r.keyword)}</td><td class="r">${P(r.anicca)}</td><td class="r">${P(r.winner_position)}</td><td>${esc(r.top1)}</td></tr>`).join(''));h+=at('US',R.aso.us)+at('JP',R.aso.jp)}
+ if(R.geo)h+=`<div class="zero" style="margin-top:8px">GEO \u2014 AI answers (${esc(R.geo.source)}, measured ${esc(R.geo.measured_at)}): recommended ${R.geo.recommended}/${R.geo.recommended_of} \u00b7 cited ${R.geo.cited}/${R.geo.cited_of} \u00b7 winners ${esc(R.geo.winners)}</div>`;
+ $('rank').innerHTML=h}else{$('card-rank').style.display='none'}
+ $('ft').innerHTML=`Sources: App Store Connect Analytics, Capafy developer analytics, Coconala, RevenueCat, Stripe, Base chain (x402), Apify API, provider receipts, MUFG (Moneytree). FX: ECB reference rate per date. Ledger snapshot ${esc(d.updated_at)}; each provider section shows its own measurement time. Collection cadence varies by source. Ops metrics every 3 hours (10 */3 * * *); Products Netlify deploy collectors hourly at :17 UTC. This page reloads published JSON every 15 minutes, not live provider reads.`;
+}).catch(()=>{$('upd').textContent='Failed to load data.'});
+loadData();
+if(typeof setInterval==='function')setInterval(loadData,REFRESH_MS);
+const loadCapafy=()=>fetch('capafy.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Capafy data unavailable');return r.json()}).then(d=>{
+ const rows=Object.entries(d.windows||{}), n=v=>v==null?'—':Number(v).toLocaleString('en-US');
+ if(!rows.length)throw new Error('Capafy data unavailable');
+ const observed=Date.parse(d.observed_at),age=Date.now()-observed,status=Number.isFinite(observed)&&age>=0&&age<7200000?'Provider snapshot · current':'Provider snapshot · stale';
+ const overview=d.overview||{}, periods={last_7d:'Last 7 days',last_30d:'Last 30 days'}, overviewRows=Object.entries(overview.windows||{}).sort(([a],[b])=>(a==='last_7d'?0:a==='last_30d'?1:2)-(b==='last_7d'?0:b==='last_30d'?1:2)||a.localeCompare(b));
+ const value=v=>v==null?'—':`${Number(v)<0?'−':''}${Math.abs(Number(v)).toLocaleString('en-US')}`;
+ const delta=v=>v==null?'—':`${Number(v)<0?'−':Number(v)>0?'+':''}${Math.abs(Number(v)).toLocaleString('en-US')}`;
+ const signedPercent=v=>v==null?'—':`${delta(v)}%`, rate=v=>v==null?'—':`${Number(v).toLocaleString('en-US')}%`, signedRate=v=>v==null?'—':`${value(v)}%`, country=v=>v==null?'—':v?'yes':'no';
+ const overviewHtml=overviewRows.length?overviewRows.map(([key,w])=>{
+  const e=w.exposure||{},v=w.detail_views||{},c=w.conversion||{},u=w.new_users||{},daily=w.daily||[];
+  return `<div class="capafy-overview-window"><div class="capafy-overview-head"><b>${esc(periods[key]||key)}</b><span class="m">${esc(w.start_date)} – ${esc(w.end_date)} · ${esc(w.granularity||'')}</span></div><div class="capafy-overview-grid"><div class="capafy-overview-metric"><strong>Impressions ${n(e.total_count)}</strong><div class="m">Unique devices ${n(e.total_unique_device_count)} (${signedPercent(e.unique_device_change_percent)}) · Impressions change ${signedPercent(e.total_count_change_percent)} · Unknown country data: ${country(e.contains_unknown_country)}</div></div><div class="capafy-overview-metric"><strong>Detail page views ${n(v.total_count)}</strong><div class="m">Unique devices ${n(v.total_unique_device_count)} (${signedPercent(v.unique_device_change_percent)}) · Detail views change ${signedPercent(v.total_count_change_percent)} · Unknown country data: ${country(v.contains_unknown_country)}</div></div><div class="capafy-overview-metric"><strong>Conversion rate ${rate(c.total_conversion_rate)}</strong><div class="m">Provider change ${delta(c.conversion_rate_change)} · Orders ${n(c.total_order_count)} · Exposed user IDs ${n(c.total_user_id_exposure_count)} · Unknown country data: ${country(c.contains_unknown_country)}</div></div><div class="capafy-overview-metric"><strong>New users ${n(u.total_new_user_count)}</strong><div class="m">Change ${signedPercent(u.new_user_change_percent)} · Unknown country data: ${country(u.contains_unknown_country)}</div></div></div><details><summary>Daily Developer Overview</summary><div class="capafy-daily-wrap"><table class="capafy-daily"><thead><tr><th>Date</th><th class="r">Impressions</th><th class="r">Unique devices</th><th class="r">Detail views</th><th class="r">Unique detail devices</th><th class="r">Conversion rate</th><th class="r">Orders</th><th class="r">Exposed user IDs</th><th class="r">New users</th></tr></thead><tbody>${daily.length?daily.map(x=>`<tr><td>${esc(x.date)}</td><td class="r">${n(x.exposure_count)}</td><td class="r">${n(x.exposure_unique_devices)}</td><td class="r">${n(x.detail_view_count)}</td><td class="r">${n(x.detail_view_unique_devices)}</td><td class="r">${signedRate(x.conversion_rate)}</td><td class="r">${value(x.order_count)}</td><td class="r">${n(x.exposed_user_ids)}</td><td class="r">${value(x.new_user_count)}</td></tr>`).join(''):'<tr><td class="m" colspan="9">No daily rows reported by this response.</td></tr>'}</tbody></table></div></details></div>`;
+ }).join(''):'<div class="m">Developer Overview not collected yet.</div>';
+ const w7o=(overview.windows||{}).last_7d||null,tw7=(d.windows||{}).last_7d||null;
+ if(w7o){mc('slot-cap-impr','Capafy impressions, 7 days',n(w7o.exposure.total_count),provChip(w7o.exposure.total_count_change_percent,'vs prior 7 days')+spark((w7o.daily||[]).map(x=>x.exposure_count),'#f97316'),`Unique devices ${n(w7o.exposure.total_unique_device_count)} · Developer Overview · ${esc(w7o.start_date)} – ${esc(w7o.end_date)}`);mc('slot-cap-detail','Capafy detail views, 7 days',n(w7o.detail_views.total_count),provChip(w7o.detail_views.total_count_change_percent,'vs prior 7 days')+spark((w7o.daily||[]).map(x=>x.detail_view_count),'#8b5cf6'),`Unique devices ${n(w7o.detail_views.total_unique_device_count)} · Developer Overview`)}
+ else if(tw7){mc('slot-cap-impr','Capafy impressions, 7 days','<span class="m">no data</span>','','Developer Overview feed missing from this snapshot; the traffic-source feed does not carry impressions');mc('slot-cap-detail','Capafy detail views, 7 days',n(tw7.detail_views),'',`Traffic-source feed · ${esc((tw7.start_utc||'').slice(0,10))} – ${esc((tw7.end_utc||'').slice(0,10))}`)}
+ if(tw7){mc('slot-cap-sales','Capafy revenue, 7 days',U(tw7.platform_revenue_usd==null?null:Number(tw7.platform_revenue_usd)),spark((tw7.daily||[]).map(x=>Number(x.revenue_usd)||0),'#10b981'),`Platform-reported · traffic-source feed · orders ${n(tw7.platform_orders)} · units ${n(tw7.unit_sales)} · refunds ${U(tw7.refunds_usd==null?null:Number(tw7.refunds_usd))}`)}
+ $('capafy-activity').innerHTML=`<section class="capafy-overview first"><h3>Capafy Developer Overview</h3><div class="m">Last checked ${esc(overview.observed_at||'—')} · ${esc(overview.source||'Capafy Developer Overview API')}</div>${overviewHtml}<div class="m" style="margin-top:8px">Traffic source and Developer Overview are separate Capafy feeds; their values are shown separately.</div></section>`+`<div class="m" style="margin-top:14px">Traffic source feed · ${status} · Last checked ${esc(d.observed_at)} · ${esc(d.source)}</div>`+rows.map(([key,w])=>`<div style="margin-top:8px"><b>${key==='last_7d'?'Last 7 days':key==='last_30d'?'Last 30 days':esc(key)}</b> <span class="m">${esc(w.start_utc?.slice(0,10))} – ${esc(w.end_utc?.slice(0,10))}</span><div>Page views ${n(w.page_views)} · Detail views ${n(w.detail_views)} · Source-attributed visitors ${n(w.attributed_unique_visitors)}</div><div>Traffic-attributed paid orders ${n(w.paid_orders)} · Trial orders ${n(w.trial_orders)} · Attributed sales ${U(w.sales_usd==null?null:Number(w.sales_usd))}</div><div>Platform net orders ${n(w.platform_orders)} · Platform-reported revenue ${U(w.platform_revenue_usd==null?null:Number(w.platform_revenue_usd))} · Refunds reported ${U(w.refunds_usd==null?null:Number(w.refunds_usd))} · Net units ${n(w.unit_sales)} (trials ${n(w.trial_units)})</div><div class="m">Impressions by source: ${(w.impressions||[]).map(i=>esc(i.name)+' '+n(i.count)).join(' · ')}${w.omitted_impression_sources?` · ${n(w.omitted_impression_sources)} other source rows omitted`:''}</div><details style="margin-top:5px"><summary>Daily net orders, revenue, refunds and net units</summary><table><tr><th>Date</th><th class="r">Net orders</th><th class="r">Reported revenue</th><th class="r">Refunds</th><th class="r">Net units</th></tr>${(w.daily||[]).map(x=>`<tr><td>${esc(x.date)}</td><td class="r">${n(x.orders)}</td><td class="r">${U(Number(x.revenue_usd))}</td><td class="r">${U(Number(x.refunds_usd))}</td><td class="r">${n(x.units)}</td></tr>`).join('')}</table></details></div>`).join('')+`<div class="m">Negative daily values are returned by Capafy and included in period net totals; this traffic feed does not document their transaction meaning. Revenue basis is not established by this feed; refunds are reported separately.</div>`;
+ $('card-capafy').style.display='block';
+}).catch(()=>{$('capafy-activity').textContent='Capafy data unavailable'});
+loadCapafy();
+if(typeof setInterval==='function')setInterval(loadCapafy,REFRESH_MS);
+const loadLife=()=>fetch('life.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Life data unavailable');return r.json()}).then(d=>{
+ const rows=Array.isArray(d.entries)?d.entries:[];
+ const fmt=v=>v==null?'<span class="m">unmeasured</span>':Number(v).toLocaleString('en-US');
+ $('life').innerHTML='<table><tr><th>Agent / service</th><th>Plan</th><th class="r">Remaining</th><th>Unit</th><th>Reset / expiry</th><th>Status</th></tr>'+rows.map(e=>`<tr><td><b>${esc(e.agent_or_service||'')}</b><div class="m">${esc(e.measured_at||'')} · ${esc(e.source||'')}</div></td><td>${esc(e.plan||'')}</td><td class="r">${fmt(e.remaining)}</td><td>${esc(e.unit||'')}</td><td>${esc(e.reset_or_expiry||'')}</td><td class="m">${esc(e.status||'')}</td></tr>`).join('')+'</table>'+(d.updated_at?`<div class="m" style="margin-top:6px">Snapshot ${esc(d.updated_at)} · per-entry measurement dates shown per row</div>`:'');
+}).catch(()=>{$('life').innerHTML='<p class="status-red">Life snapshot unavailable; values unknown.</p>'});
+loadLife();
+if(typeof setInterval==='function')setInterval(loadLife,REFRESH_MS);
+
+const loadPortfolio=()=>Promise.all([
+ fetch('metrics.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Portfolio snapshot unavailable');return r.json()}),
+ fetch('claims-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+ fetch('usage-snapshot.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+ fetch('company-todo.json?v='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([d,claims,usageFile,todoFile])=>{
+ const businesses=publicRows(d.businesses,['name','status','metric','metric_value','next']),agents=Array.isArray(d.agents)?d.agents:[],loops=publicRows(d.loops,['loop','owner','host','schedule','status']),gaps=publicRows(d.metric_gaps,['item','why']);
+ const sidecarWork=todoFile&&Array.isArray(todoFile.public_work)&&todoFile.public_work.length?todoFile.public_work:null;
+ $('public-work').innerHTML=renderPublicWork(sidecarWork||d.public_work);
+ $('usage-snapshot').innerHTML=renderUsageSnapshot(usageFile||d.usage_snapshot);
+ $('claims-snapshot').innerHTML=renderClaimsSnapshot(claims||d.claims_snapshot);
+
+ const plural=(n,word)=>`${n} ${word}${n===1?'':'s'}`;
+ const age=stamp=>{if(!stamp)return 'age unavailable';const jst=stamp.match(/^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) JST$/),measured=Date.parse(jst?`${jst[1]}T${jst[2]}:00+09:00`:stamp),elapsed=Date.now()-measured;if(!Number.isFinite(measured)||elapsed<0)return 'age unavailable';const minutes=Math.floor(elapsed/60000),days=Math.floor(minutes/1440),hours=Math.floor((minutes%1440)/60),remainder=minutes%60;return minutes<1?'less than 1 min ago':minutes<60?`${minutes} min ago`:days?`${days}d ${hours}h ${remainder}m ago`:`${hours}h ${remainder}m ago`};
+ const exportStamp=typeof d.updated_at==='string'&&d.updated_at.trim()?d.updated_at:null,sourceStamp=typeof d.source_updated_at==='string'&&d.source_updated_at.trim()?d.source_updated_at:null;
+ const exportLabel=exportStamp?`Dashboard exported ${exportStamp} · ${age(exportStamp)}`:'Dashboard export time unknown';
+ const sourceLabel=sourceStamp?`Source observed ${sourceStamp} · ${age(sourceStamp)}`:'Source observation time unknown';
+ const show=v=>v==null?'<span class="m">no data</span>':esc(String(v));
+ const failures=loops.filter(l=>loopStatusClass(l.status)==='status-red').map(l=>`<li class="status-red"><b>Loop: ${esc(l.loop||'Unnamed loop')}</b> · ${esc(l.status)}</li>`);
+ const missing=Array.isArray(d.missing)?d.missing.filter(item=>!privatePublicText(item)):[];
+ failures.push(...missing.map(item=>`<li class="status-red"><b>Missing:</b> ${esc(item)}</li>`));
+ const stripe=d.stripe_metrics;
+ if(!['observed','observed_empty'].includes(stripe?.status))failures.push(`<li class="status-red"><b>Stripe:</b> ${esc(stripe?.status||'unknown')} · measured ${esc(stripe?.observed_at||'unknown')} · values remain unverified.</li>`);
+ const exported=snapshotTime(exportStamp),observed=snapshotTime(sourceStamp);
+ if(Number.isFinite(exported)&&Number.isFinite(observed)&&exported-observed>24*60*60*1000)failures.push(`<li class="status-red"><b>Registry snapshot stale:</b> source observed ${esc(sourceStamp)}; dashboard exported ${esc(exportStamp)} · more than 24 hours apart.</li>`);
+ const todos=gaps.map(g=>`<li><b>Unverified / TODO: ${esc(g.item||'Unspecified gap')}</b><div class="m">${show(g.why)}</div></li>`);
+  const claimFeed=claims||d.claims_snapshot;
+ const claimAlerts=Array.isArray(claimFeed?.alerts)?claimFeed.alerts:[];
+ for(const a of claimAlerts){if(a&&a.message)failures.push(`<li class="status-red"><b>Claim:</b> ${esc(a.message)}</li>`);}
+ const claimTasks=Array.isArray(claimFeed?.tasks)?claimFeed.tasks:[];
+ for(const t of claimTasks){if(t&&(t.last_public_at==null||t.last_public_at===''||t.last_public_at==='unknown'))failures.push(`<li class="status-red"><b>${esc(t.task_id||'task')} last_public_at unknown</b> · not running-success · blocker ${esc(t.blocker_public||'unknown')}</li>`); if(t&&t.publish_blocked_zero===true)failures.push(`<li class="status-red"><b>${esc(t.task_id||'task')} blocked publish quantity_done=0</b> · not posted</li>`);}
+ $('silent-failures').innerHTML=`<ul class="failure-list">${failures.join('')||'<li class="m">No failure signals listed in this published snapshot; current health is not verified.</li>'}${todos.join('')}</ul>`;
+ $('portfolio-snapshot').textContent=`${exportLabel} · ${sourceLabel} · registry snapshot, not live process state`;
+ $('portfolio-summary').innerHTML=[[businesses.length,'business'],[loops.length,'loop'],[gaps.length,'metric gap']].map(([n,label])=>`<div class="portfolio-count"><strong>${n.toLocaleString('en-US')}</strong><span class="m">${esc(plural(n,label))}</span></div>`).join('');
+ $('portfolio-summary').style.gridTemplateColumns='repeat(3,minmax(0,1fr))';
+ $('portfolio-businesses').innerHTML=businesses.length?businesses.map(b=>`<article class="portfolio-item"><h3>${esc(b.name||'Unnamed business')}</h3><div class="m">Status as of snapshot: ${show(b.status)}</div><div>Revenue MTD ${U(b.revenue_mtd)} · MRR ${U(b.mrr)}</div><div class="m">${show(b.metric)}: ${show(b.metric_value)}</div><div class="m">Next: ${show(b.next)}</div></article>`).join(''):'<div class="m">No business rows in this snapshot.</div>';
+ $('portfolio-loops').innerHTML='<thead><tr><th>Loop</th><th>Owner</th><th>Host</th><th>Schedule</th><th class="r">Runs/day</th><th>Status as of snapshot</th></tr></thead><tbody>'+ (loops.length?loops.map(l=>`<tr><td data-label="Loop">${esc(l.loop||'—')}</td><td data-label="Owner">${show(l.owner)}</td><td data-label="Host">${show(l.host)}</td><td data-label="Schedule">${show(l.schedule)}</td><td class="r" data-label="Runs per day">${show(l.runs_per_day)}</td><td data-label="Status as of snapshot">${l.status==null||l.status===''?'':`<span class="${loopStatusClass(l.status)}">${esc(l.status)}</span>`}</td></tr>`).join(''):'<tr><td colspan="6" class="m">No loop rows in this snapshot.</td></tr>')+'</tbody>';
+ $('portfolio-gaps').innerHTML=gaps.length?gaps.map(g=>`<li><b>${esc(g.item||'Unspecified gap')}</b><div class="m">${show(g.why)}</div></li>`).join(''):'<li class="m">No metric gaps listed in this snapshot.</li>';
+ $('post-metrics').innerHTML=renderPostMetrics(d.post_metrics);
+ $('stripe-metrics').innerHTML=renderStripeMetrics(d.stripe_metrics);
+ const rc=d.revenuecat_charts;
+ if(!rc||!Array.isArray(rc.projects)){$('revenuecat-charts').innerHTML='<div class="m">RevenueCat chart source has not been collected.</div>';return}
+ const rcValue=(v,unit)=>v==null?'<span class="m">not reported</span>':unit==='$'?U(Number(v)):unit==='%'?`${Number(v).toLocaleString('en-US')}%`:Number(v).toLocaleString('en-US');
+ const rcSummary=(chart,name,aggregate)=>{const measures=(chart&&chart.measures)||[],measure=measures.find(measure=>measure.display_name===name)||measures[0],sourceName=measure?.display_name||name,values=(chart&&chart.summary&&chart.summary[aggregate])||{};if(Object.prototype.hasOwnProperty.call(values,sourceName))return [['Project',values[sourceName]]];return Object.entries(values).flatMap(([label,row])=>row&&Object.prototype.hasOwnProperty.call(row,sourceName)?[[label,row[sourceName]]]:[])};
+ const rcUnit=(chart,name)=>((chart&&chart.measures)||[]).find(measure=>measure.display_name===name)?.unit;
+ const featured=[['mrr','MRR','average'],['actives','Active Subscriptions','average'],['trials','Active Trials','average'],['revenue','Proceeds','total'],['refunds','Refunded Revenue','total']];
+ const projects=rc.projects.map(project=>{
+  const charts=project.charts||{};
+  let content=`<div class="m">${project.status==='credential_missing'?'Source unavailable; values are unknown because no project-scoped reader key is configured.':`Status ${esc(project.status||'unknown')} · ${esc(rc.observed_at||'measurement time unknown')} · ${esc(rc.window?.start_date||'—')} – ${esc(rc.window?.end_date||'—')} daily`}</div>`;
+  if(project.status==='credential_missing')return `<section class="rc-project"><h3>${esc(project.name||'Unnamed project')}</h3>${content}</section>`;
+  const cards=featured.map(([id,name,aggregate])=>{
+   const chart=charts[id],rows=rcSummary(chart,name,aggregate),unit=rcUnit(chart,name);
+   const value=rows.length?rows.map(([label,v])=>`${esc(label)} ${rcValue(v,unit)}`).join(' · '):'<span class="m">not reported</span>';
+   const period=aggregate==='average'?'30-day average':'30-day total';
+   const incomplete=chart?.incomplete?'<div class="m">Latest provider period incomplete</div>':'';
+   return `<div class="rc-metric"><span class="m">${esc(name)} · ${period}</span><strong>${value}</strong>${incomplete}</div>`;
+  }).join('');
+  const details=Object.entries(charts).map(([id,chart])=>{
+   if(chart.status!=='observed')return `<details class="rc-details"><summary>${esc(id)} · unavailable</summary><div class="m">Provider status ${esc(chart.http_status??'unknown')} · ${esc(chart.error_type||'not returned')}</div></details>`;
+   const measures=chart.measures||[],segments=chart.segments||[],values=chart.values||[];
+   if(chart.value_format==='cohort_matrix'){
+    const columns=segments.map(segment=>`<th class="r">${esc(segment.display_name||'Value')}</th>`).join('');
+    const matrixRows=values.map(point=>{
+     const cohort=Number(point.cohort),date=Number.isFinite(cohort)?new Date(cohort*1000).toISOString().slice(0,10):'—';
+     const cells=segments.map((segment,index)=>{const cell=(point.cells||[]).find(value=>value.segment===index);return `<td class="r">${rcValue(cell?.value,segment.unit)}</td>`}).join('');
+     return `<tr><td>${esc(date)}</td>${cells}</tr>`;
+    }).join('');
+    const matrixStatus=chart.incomplete===true?'latest period incomplete':chart.incomplete===false?'provider reports complete periods':'period completeness not supplied';
+    return `<details class="rc-details"><summary>${esc(chart.display_name||id)} · ${values.length.toLocaleString('en-US')} cohorts · ${matrixStatus}</summary><div class="m">${esc(chart.start_date||'—')} – ${esc(chart.end_date||'—')} · measured ${esc(chart.observed_at||rc.observed_at||'unknown')} · source matrix retained</div><div class="rc-table-wrap"><table class="rc-table"><thead><tr><th>Cohort date (UTC)</th>${columns}</tr></thead><tbody>${matrixRows||'<tr><td class="m" colspan="2">No cohorts reported.</td></tr>'}</tbody></table></div></details>`;
+   }
+   const rows=values.map(point=>{
+    const measure=measures[point.measure]||{},segment=segments[point.segment]||{},cohort=Number(point.cohort),date=Number.isFinite(cohort)?new Date(cohort*1000).toISOString().slice(0,10):'—';
+    const completeness=point.incomplete===true?'<span class="m">Incomplete</span>':point.incomplete===false?'Complete':'Not supplied';
+    return `<tr><td>${esc(date)}</td><td>${esc(segment.display_name||'Project')}</td><td>${esc(measure.display_name||'Metric')}</td><td class="r">${rcValue(point.value,measure.unit)}</td><td>${completeness}</td></tr>`;
+   }).join('');
+   const latest=chart.incomplete===true?'latest period incomplete':chart.incomplete===false?'provider reports complete periods':'period completeness not supplied';
+   return `<details class="rc-details"><summary>${esc(chart.display_name||id)} · ${values.length.toLocaleString('en-US')} daily points · ${latest}</summary><div class="m">${esc(chart.start_date||'—')} – ${esc(chart.end_date||'—')} · measured ${esc(chart.observed_at||rc.observed_at||'unknown')} · grouped by ${esc(chart.segmentation||'project')}</div><div class="rc-table-wrap"><table class="rc-table"><thead><tr><th>Date (UTC)</th><th>App / segment</th><th>Metric</th><th class="r">Value</th><th>Data status</th></tr></thead><tbody>${rows||'<tr><td class="m" colspan="5">No data points reported.</td></tr>'}</tbody></table></div></details>`;
+  }).join('');
+  const failed=project.status==='partial'?`<div class="m">${Number(project.unavailable_charts||0)} chart requests were unavailable; see individual rows.</div>`:'';
+  return `<section class="rc-project"><h3>${esc(project.name||'Unnamed project')}</h3>${content}<div class="rc-summary">${cards}</div>${failed}<details class="rc-details"><summary>Daily RevenueCat charts (${Object.keys(charts).length})</summary>${details}</details></section>`;
+ }).join('');
+ $('revenuecat-charts').innerHTML=`<div class="m">${esc(rc.source||'RevenueCat Charts API')} · last checked ${esc(rc.observed_at||'unknown')} · <a href="${esc(rc.source_docs||'https://www.revenuecat.com/docs/api-v2/charts-and-metrics')}" target="_blank" rel="noopener">source definition</a></div>${projects||'<div class="m">No project rows reported.</div>'}`;
+}).catch(()=>{$('public-work').innerHTML='<p class="status-red">Shared targets unavailable; state unknown.</p>';$('usage-snapshot').innerHTML='<p class="status-red">Usage snapshot unavailable; values unknown.</p>';$('claims-snapshot').innerHTML='<p class="status-red">Claims snapshot unavailable; state unknown.</p>';$('silent-failures').innerHTML='<p class="status-red">Portfolio metrics unavailable; failures and TODO state are unknown.</p>';$('portfolio-snapshot').textContent='Portfolio snapshot unavailable';$('portfolio-summary').innerHTML='';$('portfolio-businesses').textContent='';$('portfolio-loops').innerHTML='';$('portfolio-gaps').innerHTML='';});
+loadPortfolio();
+if(typeof setInterval==='function')setInterval(loadPortfolio,REFRESH_MS);
+
+</script>
+<script>(function(){try{var q=new URLSearchParams(location.search),p={t:'pageview',path:location.pathname.replace(/\/+$/,'')||'/'};['utm_source','utm_medium','utm_campaign','ref','ct'].forEach(function(k){var v=q.get(k);if(v)p[k]=v});var b=JSON.stringify(p);if(navigator.sendBeacon)navigator.sendBeacon('/.netlify/functions/hit',new Blob([b],{type:'application/json'}));else fetch('/.netlify/functions/hit',{method:'POST',body:b,keepalive:true,headers:{'Content-Type':'application/json'}})}catch(e){}})();</script>
+
+<script src="vendor/echarts.min.js"></script>
+<script>
+/* 2026-11-07 redesign layer v3: Road to $10K hero + RevenueCat-style ECharts
+   (Apache ECharts 5.6.0, vendored) + per-app metrics + drill-down index stats.
+   Reads the same JSON snapshots the /open loop publishes (schemas unchanged). */
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+var money=function(v){if(v==null||!isFinite(v))return null;var a=Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});return (v<0?"\u2212$":"$")+a};
+var num=function(v){return (v==null||!isFinite(v))?"\u2014":Number(v).toLocaleString("en-US")};
+var pctf=function(v){if(v==null||!isFinite(v))return "\u2014";return ((v<=1?v*100:v)).toFixed(2)+"%"};
+function getJSON(u){return fetch(u+"?v="+Date.now()).then(function(r){if(!r.ok)throw new Error(u);return r.json()})}
+
+/* ---------- Road to $10K MRR hero ---------- */
+var GOAL=10000;
+function renderRoad(d){
+ var el=$("road10k"); if(!el)return;
+ var kpis=Array.isArray(d.kpis)?d.kpis:[], mrrKpi=null, i;
+ for(i=0;i<kpis.length;i++){if(kpis[i].key==="mrr"){mrrKpi=kpis[i];break}}
+ var split=(d.summary&&d.summary.mrr_split)||{};
+ var mrr=(mrrKpi&&typeof mrrKpi.usd==="number")?mrrKpi.usd:(typeof split.total==="number"?split.total:null);
+ if(mrr==null||!isFinite(mrr)){el.innerHTML='<h2>Road to $10K MRR</h2><p class="m">MRR not measured in the current snapshot.</p>';return}
+ var pct=mrr/GOAL*100, left=GOAL-mrr;
+ var parts=[["App subscriptions (RevenueCat)",split.revenuecat,"#576CDB"],["Capafy",split.capafy,"#0ea5e9"],["Stripe subscriptions",split.stripe,"#10b981"]].filter(function(p){return typeof p[1]==="number"&&p[1]>0});
+ var tot=parts.reduce(function(a,p){return a+p[1]},0), splitHtml="";
+ if(tot>0){
+  splitHtml='<div class="split">'+parts.map(function(p){return '<div style="width:'+(p[1]/tot*100).toFixed(2)+'%;background:'+p[2]+'"></div>'}).join("")+'</div>'
+  +'<div class="legend">'+parts.map(function(p){return '<span><i style="background:'+p[2]+'"></i>'+esc(p[0])+" \u00b7 "+money(p[1])+" ("+(p[1]/tot*100).toFixed(1)+"%)</span>"}).join("")+'</div>';
+ }
+ var ticks=[[100,"$100"],[500,"$500"],[1000,"$1K"],[5000,"$5K"],[10000,"$10K"]].map(function(t){return '<span class="tick" data-v="'+t[0]+'" style="left:'+(t[0]/GOAL*100)+'%">'+t[1]+"</span>"}).join("");
+ el.innerHTML='<div class="rt"><h2>Road to $10K MRR <span class="scope co">COMPANY</span></h2><span class="pct">'+pct.toFixed(2)+'% of goal</span></div>'
+ +'<div class="big">'+money(mrr)+' <span class="goal">MRR &middot; goal '+money(GOAL)+' &middot; '+money(left)+' to go</span></div>'
+ +'<div class="road"><div class="track"><div class="fill" style="width:'+Math.max(Math.min(pct,100),0.7).toFixed(2)+'%"></div></div>'+ticks+'</div>'
+ +splitHtml;
+}
+function loadRoad(){getJSON("data.json").then(renderRoad).catch(function(){})}
+loadRoad(); setInterval(loadRoad,15*60*1000);
+
+/* ---------- ECharts, RevenueCat chart style ---------- */
+var VIOLET="#576CDB", BLUE="#0ea5e9", GREEN="#10b981", RED="#dc2626", GRAY="#c9cedb", MUT="#8a8f98", INK="#111";
+var charts=[];
+function baseOpt(){
+ return {textStyle:{fontFamily:"inherit",color:MUT},
+  grid:{left:6,right:12,top:32,bottom:2,containLabel:true},
+  legend:{top:0,right:0,textStyle:{color:MUT,fontSize:11},itemWidth:10,itemHeight:10,icon:"roundRect"},
+  tooltip:{trigger:"axis",backgroundColor:"#fff",borderColor:"#e5e7eb",borderWidth:1,textStyle:{color:INK,fontSize:12},axisPointer:{lineStyle:{color:"#d1d5db"}}},
+  xAxis:{type:"category",axisLine:{show:false},axisTick:{show:false},axisLabel:{color:MUT,fontSize:11}},
+  yAxis:{type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}}};
+}
+function mkChart(id,option){
+ var el=$(id); if(!el||!window.echarts)return null;
+ var c=echarts.init(el); c.setOption(option); charts.push(c); return c;
+}
+window.addEventListener("resize",function(){charts.forEach(function(c){c.resize()})});
+function bar(name,data,color){
+ return {name:name,type:"bar",data:data,itemStyle:{color:color||VIOLET,borderRadius:[4,4,0,0]},barMaxWidth:26};
+}
+function growthLine(name,data,color){
+ return {name:name,type:"line",data:data,smooth:0.35,symbol:"circle",symbolSize:5,lineStyle:{width:2.5,color:color||VIOLET},itemStyle:{color:color||VIOLET},
+  areaStyle:{color:{type:"linear",x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:"rgba(87,108,219,0.22)"},{offset:1,color:"rgba(87,108,219,0)"}]}}};
+}
+function setStat(id,text){var el=$(id); if(el)el.textContent=text}
+
+/* ---------- RevenueCat projects (dedupe: project totals counted once) ---------- */
+function rcProjects(m){
+ var seen={}, out=[];
+ (m.apps||[]).forEach(function(a){
+  var rc=a.revenuecat; if(!rc||!rc.project_id||seen[rc.project_id])return; seen[rc.project_id]=1;
+  var names=(m.apps||[]).filter(function(x){return x.revenuecat&&x.revenuecat.project_id===rc.project_id}).map(function(x){return x.app});
+  var nm=null;
+  (m.apps||[]).forEach(function(x){ if(x.revenuecat&&x.revenuecat.project_id===rc.project_id&&x.revenuecat_note){var mm=x.revenuecat_note.match(/project '([^']+)'/); if(mm&&!nm)nm=mm[1]; }});
+  out.push({id:rc.project_id,name:nm||rc.project_id.slice(0,10),apps:names,rc:rc});
+ });
+ return out;
+}
+
+/* ---------- Apps metrics tables (ASC 28d / 7d + RevenueCat projects) ---------- */
+function topMap(o){
+ if(!o||typeof o!=="object")return "\u2014";
+ var e=Object.entries(o).filter(function(x){return isFinite(x[1])}).sort(function(a,b){return b[1]-a[1]}).slice(0,3);
+ return e.length?e.map(function(x){return esc(x[0])+" "+Number(x[1]).toLocaleString("en-US")}).join(" \u00b7 "):"\u2014";
+}
+function renderAppsMetrics(m){
+ var host=$("apps-metrics-extra"); if(!host||!Array.isArray(m.apps)||!m.apps.length)return;
+ var P=(m.periods)||{};
+ var head='<h3 style="margin:16px 0 6px;font-size:13px">App Store metrics \u2014 last 28 days <span class="m" style="font-weight:400">('
+  +esc(P.asc_last28d||"")+' \u00b7 measured '+esc(m.measured_at||"")+')</span></h3>';
+ var rows=m.apps.map(function(a){
+  return "<tr><td>"+esc(a.app)+'</td><td class="r">'+num(a.impressions)+'</td><td class="r">'+num(a.product_page_views)+'</td><td class="r">'+num(a.units)
+  +'</td><td class="r">'+pctf(a.conversion_rate)+'</td><td class="r">'+pctf(a.conversion_pageviews_to_units)+"</td><td>"+topMap(a.territories)+"</td><td>"+topMap(a.sources)+"</td></tr>"}).join("");
+ var t1='<div style="overflow-x:auto"><table><thead><tr><th>App</th><th class="r">Impressions</th><th class="r">Page views</th><th class="r">Installs</th><th class="r">Impr.\u2192install</th><th class="r">Page\u2192install</th><th>Top countries</th><th>Top sources</th></tr></thead><tbody>'+rows+"</tbody></table></div>";
+ var rows7=m.apps.map(function(a){var w=a.asc_last7d||{};
+  return "<tr><td>"+esc(a.app)+'</td><td class="r">'+num(w.impressions)+'</td><td class="r">'+num(w.product_page_views)+'</td><td class="r">'+num(w.units)+'</td><td class="r">'+pctf(w.conversion_rate)+"</td></tr>"}).join("");
+ var t2='<h3 style="margin:16px 0 6px;font-size:13px">App Store metrics \u2014 last 7 days <span class="m" style="font-weight:400">('+esc(P.asc_last7d||"")+")</span></h3>"
+  +'<div style="overflow-x:auto"><table><thead><tr><th>App</th><th class="r">Impressions</th><th class="r">Page views</th><th class="r">Installs</th><th class="r">Impr.\u2192install</th></tr></thead><tbody>'+rows7+"</tbody></table></div>";
+ var projs=rcProjects(m);
+ var prow=projs.map(function(p){var rc=p.rc;
+  return "<tr><td>"+esc(p.name)+' <span class="m">('+esc(p.apps.join(", "))+')</span></td><td class="r">'+num(rc.new_customers_28d)+'</td><td class="r">'+num(rc.active_subs)+'</td><td class="r">'+num(rc.active_trials)+'</td><td class="r">'+money(rc.mrr_usd)+'</td><td class="r">'+money(rc.revenue_28d_usd)+"</td></tr>"}).join("");
+ var noRc=m.apps.filter(function(a){return !a.revenuecat}).map(function(a){return esc(a.app)}).join(", ");
+ var t3='<h3 style="margin:16px 0 6px;font-size:13px">RevenueCat \u2014 project totals, 28 days</h3>'
+  +'<div style="overflow-x:auto"><table><thead><tr><th>Project (apps sharing it)</th><th class="r">New customers</th><th class="r">Active subs</th><th class="r">Trials</th><th class="r">MRR</th><th class="r">Revenue 28d</th></tr></thead><tbody>'+prow+"</tbody></table></div>"
+  +'<p class="zero">RevenueCat values are per-project totals; one project can cover several apps, so each project is counted once \u2014 never summed across app rows.'
+  +(noRc?" No RevenueCat values attributed for: "+noRc+" (mapping unverified).":"")+"</p>";
+ host.innerHTML=head+t1+t2+t3;
+}
+
+/* ---------- Charts from apps-metrics ---------- */
+function appsCharts(m){
+ if(!Array.isArray(m.apps)||!m.apps.length)return;
+ /* New customers per day: deduped project totals + cumulative growth curve */
+ var projs=rcProjects(m);
+ var dateSet={}; projs.forEach(function(p){Object.keys(p.rc.new_customers_daily_utc||{}).forEach(function(d){dateSet[d]=1})});
+ var dates=Object.keys(dateSet).sort();
+ if(dates.length){
+  var totals=dates.map(function(d){return projs.reduce(function(s,p){return s+((p.rc.new_customers_daily_utc||{})[d]||0)},0)});
+  var cum=[],run=0; totals.forEach(function(v){run+=v;cum.push(run)});
+  var bestI=0; totals.forEach(function(v,i){if(v>totals[bestI])bestI=i});
+  setStat("stat-newcust",num(run)+" new customers in "+dates.length+" days \u00b7 best day "+dates[bestI].slice(5)+": "+num(totals[bestI]));
+  var o=baseOpt(); o.xAxis.data=dates.map(function(d){return d.slice(5)});
+  o.yAxis=[{type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}},
+           {type:"value",splitLine:{show:false},axisLabel:{color:MUT,fontSize:11}}];
+  var bl=growthLine("Cumulative",cum); bl.yAxisIndex=1;
+  o.series=[bar("New customers / day",totals),bl];
+  mkChart("chart-newcust",o);
+  var o2=baseOpt(); o2.xAxis.data=dates.map(function(d){return d.slice(5)});
+  var cols=[VIOLET,BLUE,GREEN,"#f59e0b","#ec4899"];
+  o2.series=projs.map(function(p,i){var s=bar("Project "+p.name,dates.map(function(d){return (p.rc.new_customers_daily_utc||{})[d]||0}),cols[i%cols.length]); s.stack="nc"; return s});
+  mkChart("chart-rc-daily",o2);
+ }
+ /* Installs per day by app (7d, stacked) + impressions line */
+ var dset={}; m.apps.forEach(function(a){Object.keys((a.asc_last7d||{}).daily_units||{}).forEach(function(d){dset[d]=1})});
+ var ds=Object.keys(dset).sort();
+ if(ds.length){
+  var cols2=[VIOLET,BLUE,GREEN,"#f59e0b","#ec4899"];
+  var o3=baseOpt(); o3.xAxis.data=ds.map(function(d){return d.slice(5)});
+  o3.yAxis=[{type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}},
+            {type:"value",splitLine:{show:false},axisLabel:{color:MUT,fontSize:11}}];
+  o3.series=m.apps.map(function(a,i){var s=bar(a.app.split(" - ")[0],ds.map(function(d){return ((a.asc_last7d||{}).daily_units||{})[d]||0}),cols2[i%cols2.length]); s.stack="units"; return s});
+  var imp=ds.map(function(d){return m.apps.reduce(function(s,a){return s+(((a.asc_last7d||{}).daily_impressions||{})[d]||0)},0)});
+  var il=growthLine("Impressions (all apps)",imp,GREEN); il.areaStyle=null; il.yAxisIndex=1;
+  o3.series.push(il);
+  mkChart("chart-apps-units",o3);
+  var totU=m.apps.reduce(function(s,a){return s+(a.units||0)},0), totI=m.apps.reduce(function(s,a){return s+(a.impressions||0)},0);
+  setStat("idx-stat-apps",num(totI)+" impressions \u00b7 "+num(totU)+" installs \u00b7 28 days");
+ }
+}
+
+/* ---------- Charts + index stats from data.json ---------- */
+function dataCharts(d){
+ /* Monthly P&L */
+ var mo=Array.isArray(d.monthly)?d.monthly:[];
+ if(mo.length){
+  var o=baseOpt(); o.xAxis.data=mo.map(function(x){return x.month});
+  o.series=[bar("Revenue",mo.map(function(x){return x.revenue_usd})),bar("Costs",mo.map(function(x){return x.cost_usd}),GRAY),
+   {name:"Gross profit",type:"line",data:mo.map(function(x){return x.gross_profit_usd}),smooth:0.3,symbol:"circle",symbolSize:6,lineStyle:{width:2.5,color:RED},itemStyle:{color:RED}}];
+  mkChart("chart-pnl",o);
+  var last=mo[mo.length-1];
+  setStat("stat-pnl",last.month+": revenue "+money(last.revenue_usd)+" \u00b7 costs "+money(last.cost_usd)+" \u00b7 gross profit "+money(last.gross_profit_usd));
+ }
+ var plats=(d.summary&&d.summary.platforms)||[];
+ /* All-time revenue by platform (top 10) */
+ var top=plats.filter(function(p){return typeof p.all_time==="number"&&p.all_time>0}).sort(function(a,b){return a.all_time-b.all_time}).slice(-10);
+ if(top.length){
+  setStat("stat-plat-all","Top: "+top[top.length-1].platform+" "+money(top[top.length-1].all_time)+" all-time");
+  var o2=baseOpt(); o2.grid={left:6,right:16,top:10,bottom:2,containLabel:true};
+  o2.xAxis={type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}};
+  o2.yAxis={type:"category",data:top.map(function(p){return p.platform}),axisLine:{show:false},axisTick:{show:false},axisLabel:{color:MUT,fontSize:11}};
+  o2.series=[{name:"All-time revenue",type:"bar",data:top.map(function(p){return p.all_time}),itemStyle:{color:VIOLET,borderRadius:[0,4,4,0]},barMaxWidth:18}];
+  o2.tooltip={trigger:"item",backgroundColor:"#fff",borderColor:"#e5e7eb",borderWidth:1,textStyle:{color:INK,fontSize:12},formatter:function(p){return p.name+": "+money(p.value)}};
+  mkChart("chart-plat-all",o2);
+ }
+ /* Followers by social account (snapshot, top 12) */
+ var soc=(d.social_accounts||[]).filter(function(a){return typeof a.followers==="number"&&a.followers>0}).sort(function(a,b){return a.followers-b.followers}).slice(-12);
+ if(soc.length){
+  var o3=baseOpt(); o3.grid={left:6,right:16,top:10,bottom:2,containLabel:true};
+  o3.xAxis={type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}};
+  o3.yAxis={type:"category",data:soc.map(function(a){return a.account}),axisLine:{show:false},axisTick:{show:false},axisLabel:{color:MUT,fontSize:11}};
+  o3.series=[{name:"Followers",type:"bar",data:soc.map(function(a){return a.followers}),itemStyle:{color:BLUE,borderRadius:[0,4,4,0]},barMaxWidth:18}];
+  o3.tooltip={trigger:"item",backgroundColor:"#fff",borderColor:"#e5e7eb",borderWidth:1,textStyle:{color:INK,fontSize:12},formatter:function(p){return p.name+": "+num(p.value)+" followers"}};
+  mkChart("chart-soc-fol",o3);
+ }
+ /* Drill-down index stats */
+ function setIdx(id,text){setStat(id,text)}
+ var kpi={}; (d.kpis||[]).forEach(function(k){kpi[k.key]=k});
+ if(plats.length)setIdx("idx-stat-platforms",plats.length+" platforms \u00b7 "+(money(kpi.revm?kpi.revm.usd:null)||"")+" revenue this month");
+ var socAll=d.social_accounts||[];
+ if(socAll.length){var f=0,fc=0;socAll.forEach(function(a){if(typeof a.followers==="number"){f+=a.followers;fc++}});
+  setIdx("idx-stat-social",socAll.length+" accounts \u00b7 "+num(f)+" followers ("+fc+" measured)");}
+ var rk=d.rankings||((d.summary||{}).rankings_snapshot)||{};
+ if(rk.seo||rk.geo)setIdx("idx-stat-rankings","SEO in top "+((rk.seo||{}).anicca_in_top||"\u2014")+"/"+((rk.seo||{}).queries_total||7)+" \u00b7 GEO recommended "+((rk.geo||{}).recommended||0)+"/"+((rk.geo||{}).recommended_of||8));
+ var stripe=plats.filter(function(p){return /^Stripe/.test(p.platform||"")})[0];
+ if(stripe)setIdx("idx-stat-payments","Stripe all-time "+(money(stripe.all_time)||"")+" \u00b7 "+(((d.summary||{}).mrr_split||{}).stripe_active_subscriptions||0)+" active subs");
+ if(Array.isArray(d.by_agent))setIdx("idx-stat-team",d.by_agent.length+" agents reporting");
+}
+
+/* ---------- Capafy chart + index stat ---------- */
+function capChart(c){
+ var w=(c.windows||{}).last_30d||{}; var daily=Array.isArray(w.daily)?w.daily:[];
+ if(daily.length){
+  var o=baseOpt(); o.xAxis.data=daily.map(function(x){return (x.date||"").slice(5)});
+  o.yAxis=[{type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}},
+           {type:"value",splitLine:{show:false},axisLabel:{color:MUT,fontSize:11},axisLabel:{color:MUT,fontSize:11,formatter:"${value}"}}];
+  var rl=growthLine("Revenue",daily.map(function(x){return parseFloat(x.revenue_usd)||0}),GREEN); rl.yAxisIndex=1; rl.areaStyle=null;
+  o.series=[bar("Units sold / day",daily.map(function(x){return x.units||0})),rl];
+  mkChart("chart-cap-sales",o);
+  var tu=daily.reduce(function(s,x){return s+(x.units||0)},0);
+  setStat("stat-cap-sales",num(tu)+" units \u00b7 "+money(parseFloat(w.sales_usd)||0)+" sales \u00b7 last 30 days");
+ }
+ var w7=(c.windows||{}).last_7d||{};
+ if(typeof w7.detail_views==="number")setStat("idx-stat-capafy",num(w7.detail_views)+" detail views \u00b7 last 7 days");
+}
+
+getJSON("data.json").then(dataCharts).catch(function(){});
+getJSON("apps-metrics-latest.json").then(function(m){renderAppsMetrics(m);appsCharts(m)}).catch(function(){});
+getJSON("capafy.json").then(capChart).catch(function(){});
+})();
+</script>
+
+</body></html>

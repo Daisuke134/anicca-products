@@ -8,8 +8,9 @@ import AffiliateEntryReceipt from "../../../components/blog/AffiliateEntryReceip
 import { affiliatePlacement, renderMarkdown } from "../../../lib/render-article-markdown";
 import { buildLineStickerShareMetadata } from "../../../lib/line-sticker-share-meta";
 import { buildArticleJsonLd } from "../../../lib/article-jsonld.mjs";
+import { articleFaq, isJapanese } from "../../../lib/article-faq.mjs";
 import { BUSINESSES, businessOf } from "../../../lib/blog-business.mjs";
-import { loadAllBlogPosts } from "../../../lib/blog-posts";
+import { loadAllBlogPosts, detectBlogLang } from "../../../lib/blog-posts";
 import { resolveArticleAttribution } from "../../../lib/article-attribution";
 import type { ArticleAttribution } from "../../../lib/article-attribution";
 
@@ -31,7 +32,7 @@ type ResearchPost = {
   paid_sha256?: string;
   run_id?: string;
   artifact_id?: string;
-  lang?: "ja" | "en";
+  lang?: string;
   writer_manifest?: string;
 };
 
@@ -102,6 +103,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!post) return { title: "Not found" };
   // Affiliate pages ship a merchant-free description (ElevenLabs affiliate terms: no Marks in meta tags).
   const description = post.description || post.markdown.slice(0, 200).replace(/[#*`]/g, "");
+  // NOTE: reciprocal hreflang for -en/-ja pairs is injected into the line
+  // below at build time by the canonical Manager blog adapter (life-manager
+  // apps/landing/manager-blog, pinned in netlify-deploy.yml). That adapter
+  // refuses to build when this exact line changes — do not reformat it.
   return {
     title: `${post.title} | Anicca Articles`,
     description,
@@ -141,13 +146,20 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
     : post.markdown;
   const hasYouTubeEmbed = /\[youtube-(?:embed|short):[A-Za-z0-9_-]{11}/.test(articleMarkdown);
   const html = renderMarkdown(articleMarkdown);
+  const faq = articleFaq(post);
+  const faqJa = isJapanese(post);
   const affiliatePlacementId = affiliatePlacement(articleMarkdown);
   const m = post.mirrors ?? {};
   const hasMirrors = Boolean(m.x || m.substack || m.newsletter);
   const business = businessOf(post.slug, post.project);
   const hub = BUSINESSES[business];
+  // Internal links stay in the reader's language first: same-business posts in
+  // the article's own language rank ahead of other languages (stable sort, so
+  // the existing date order is preserved inside each language).
+  const ownLang = detectBlogLang(post.lang, post.title);
   const related = loadAllBlogPosts()
     .filter((p) => p.slug !== post.slug && businessOf(p.slug, p.project) === business)
+    .sort((a, b) => Number(b.lang === ownLang) - Number(a.lang === ownLang))
     .slice(0, 6);
   const attribution = resolveArticleAttribution(post.attribution);
   const readingLength = post.lang === "ja"
@@ -194,12 +206,27 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
           dangerouslySetInnerHTML={{ __html: html }}
         />
 
+        {faq.visible && (
+          <section id="faq" className="mt-16 border-t border-bone pt-10">
+            <h2 className="font-display text-[26px] leading-snug text-ink">{faqJa ? "よくある質問" : "FAQ"}</h2>
+            <dl className="mt-6 space-y-6">
+              {faq.pairs.map(([q, a]) => (
+                <div key={q}>
+                  <dt className="font-display text-[19px] leading-snug text-ink">{q}</dt>
+                  <dd className="mt-2 text-[16px] leading-relaxed text-ink/80">{a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+
         {post.access_model && post.paid_sha256 && post.run_id && post.artifact_id && post.lang && (
           <WriterUnlock
             slug={post.slug}
             runId={post.run_id}
             artifactId={post.artifact_id}
-            lang={post.lang}
+            // WriterUnlock serves the private writer contract, which is ja/en only.
+            lang={post.lang === "ja" ? "ja" : "en"}
             accessModel={post.access_model}
             paidSha256={post.paid_sha256}
           />

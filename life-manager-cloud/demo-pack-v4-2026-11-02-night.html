@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Anicca デモパック v4（2026-11-02 夜回・Muse 自作）</title>
+<style>
+body{font-family:sans-serif;max-width:920px;margin:2em auto;padding:0 1em;color:#222}
+h1{font-size:1.4em} h2{font-size:1.1em;margin-top:1.5em}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid #aaa;padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#eee}
+.note{background:#fff8e1;border:1px solid #e6c200;padding:10px;margin:1em 0}
+.small{font-size:.85em;color:#555}
+ol li{margin-bottom:.4em}
+</style>
+</head>
+<body>
+<h1>Anicca デモパック v4（内部資料・公開完了ではない）</h1>
+<p>2026-11-02 夜回（23:37 JST）に Muse が自作した、v3（2026-11-01 昼回）と Maritime フェーズ1スケルトン夕回追加分の統合版。
+Codex への委任は 18件すべて未回答のため、Codex 案待ちの v4 化を本夜回で Muse 自作へ切り替えた。
+Codex 案が後から届いたら突き合わせて v5 とする。エントリー事業は Anicca 自体。
+ハッカソン初日 2026-11-07 まで残り5日。確定は 2026-11-06 まで。</p>
+<div class="note"><strong>正直な区別（デモで必ず口頭で言うこと）:</strong>
+Naïve 上のセッション一覧（最新20件）は全件 build モードであり、スケジュール発火のライブセッションは含まれていない。
+build セッションをライブ稼働と説明しない。同 org には定義外の6席も在席するため、org を「7席だけのチーム」とは説明しない。
+Naïve 側の最新値は 2026-11-01 17:37 夕回値を据え置く（本夜回は vetta ライブ読みを行っていない。理由は下記 §2）。
+Maritime スケルトンはデプロイ形状と契約のドライランであり、Maritime へのデプロイ実証・SDK 接続ではない。
+資格情報の値は本ファイルに含まない。未検証の効果・売上予測は謳わない。</div>
+<h2>1. チーム図：7席と DONE 1行</h2>
+<table>
+<tr><th>#</th><th>席</th><th>回す実事業</th><th>DONE 1行（出典ファイル付き）</th></tr>
+<tr><td>1</td><td>distribution</td><td>IG・Threads・Facebook・TikTok・X への配信</td><td>定義は validate ok。直近の配信実績は当日ループの公開 URL で示す（本パックでは日次数字を新規主張しない）。出典: naive-build/DEMO-EVIDENCE-2026-11-02-evening.md</td></tr>
+<tr><td>2</td><td>monk-ebook</td><td>僧侶動画・電子書籍ファネル</td><td>僧侶事業の最重要指標は自社僧侶の売上・MRR（現状ゼロ）。勝者コピー（Yang Mun 型）の差分ゼロが合格条件。出典: lm-cloud-loop-2026-11-02-1737.md</td></tr>
+<tr><td>3</td><td>contract</td><td>受託プラットフォームへの応募・提案</td><td>応募・提案段階の件数は受注・売上ではない。出典: naive-build/DEMO-EVIDENCE-2026-11-02-evening.md</td></tr>
+<tr><td>4</td><td>capafy</td><td>Capafy 出品・運用・売上シグナル</td><td>ダッシュボード鮮度が進まない間は新規売上を断定しない。出典: naive-build/DEMO-EVIDENCE-2026-11-02-evening.md</td></tr>
+<tr><td>5</td><td>ops-steward</td><td>健全性監視と自律修復</td><td>Maritime フェーズ1スケルトン（Ops Steward 席相当の契約形状）を本夜回も再検証。出典: 本パック §3</td></tr>
+<tr><td>6</td><td>opportunity-scout</td><td>資金調達・仕事・VC・助成・ハッカソンの機会スキャン</td><td>本夜回では新規 sweep の有無を断定しないため DONE には載せない。</td></tr>
+<tr><td>7</td><td>cfo</td><td>実測数字の照合</td><td>新規の売上主張なし。未確定の数字は未確定として扱う。</td></tr>
+</table>
+<h2>2. Naïve 側の状態（据え置き値・2026-11-01 17:37 夕回）</h2>
+<ul>
+<li><code>node validate.mjs</code> → ok: true（7エージェント、モデル anthropic/claude-sonnet-5、cap $10/月）。本夜回も再実行し ok を確認。</li>
+<li><code>agents.json</code> 再生成ハッシュは前後一致（321f78a7…e020b02）で drift なし（夕回までの確定値）。</li>
+<li>本人 org「Anicca」（live）に7席は全員在席。合計13席（定義外6席: scriptwriter、trend-scout、producer、analyst、channel-manager、CEO を含む）。計測上の注意: 既定の agent list は10件までしか返さないため、13席の確認には limit 50 が必要。</li>
+<li><code>vetta session list --limit 20</code> は全件 mode=build・status idle。20件すべて CEO 席の build セッション。最新は 2026-10-31 10:16 JST の窓。スケジュール発火のセッションは含まれていないため、ライブ証跡としては数えない。</li>
+<li>プラン状態はキー権限（billing:read 不足）で従来どおり未読。</li>
+<li>エージェント所有 org の確認メール: 本夜回は受信箱の再読を行っていないため、新たな到着・未着は主張しない。確定値（全27件、Naïve 分は初回確認とパスワードリセットの2通のみ、再送未着）を据え置く。サポート宛先は本夜回も未確定。推測のアドレスには送らない。</li>
+<li>vetta ライブ読みを本夜回行わなかった理由: 夕回と同様、同一スナップショットの回転を避けるため。新規のサインイン・ログイン・復旧・リセットは開始していない。キー値の探索・転記も行っていない。</li>
+</ul>
+<h2>3. Maritime フェーズ1スケルトン（本夜回再検証・デプロイではない）</h2>
+<ul>
+<li>構成: naive-build/maritime-phase1-skeleton/（Node 標準ライブラリのみ）。server.mjs（$PORT・GET /health・POST /chat・IS_SANDBOX=1）、Dockerfile（node:24-slim）、.dockerignore、拡充 test-dryrun.sh。</li>
+<li>本夜回実測（2026-11-02 23:38 JST、ポート 18083）: GET /health → status ok、POST /chat → dry-run-skeleton 受領応答、空・不正 JSON・非文字列 message → 400、未知パス・GET /chat → 404、最終行 DRYRUN OK、終了コード 0。</li>
+<li>正直な区別: Dockerfile はデプロイ形状の追加でありデプロイ実証ではない。本 VM には docker コマンドがなく、Dockerfile のビルド自体も未検証。POST /chat は依然ドライラン受領応答で SDK 未接続、7席のチームでもない。デモで Maritime 稼働と説明しない。</li>
+<li>次手: docker 実行環境のある場所での Dockerfile ビルド実証、または Maritime の Templates 経路での 1 VM デプロイ実証（アカウント確認が前提で未解決）。</li>
+</ul>
+<h2>4. 2分デモ台本（v4 に統合。実測のみに基づく）</h2>
+<ol>
+<li>（0:00–0:20 導入）「Anicca は、エージェントチームが実事業を回している会社です。今日見せるのは、そのチームを Naïve 上に写した定義そのものです。Life Manager Cloud とは、この働きを誰もがセットアップなしで使える形にしたものです。」</li>
+<li>（0:20–1:00 チーム図）「7席あります。Distribution、Monk / eBook、Contract work、Capafy、Ops Steward、Opportunity Scout、CFO です。それぞれ1つの責任と1つの証跡を持ちます。」</li>
+<li>（1:00–1:40 検証の実演）「定義は検証済みです。validate は ok、7エージェント、モデルは anthropic/claude-sonnet-5、上限は月 $10 です。agents.json を再生成してもハッシュは変わらず、定義の drift はありません。Naïve 側では本人 org に7席が在席していることを確認済みです。Maritime 側は、1席分の契約形状をローカルでドライラン検証した段階です。デプロイ実証と SDK 接続はまだであり、そこは正直に『これから』として話します。正直な注意点も言います。この org には定義外の6席もあり、最新のセッション一覧は build モードのものだけで、スケジュール発火のライブセッションはこの一覧では確認できていません。だからデモでは『定義と在席と検証』を見せ、『ライブ稼働』は当日のループ実行ログで別に示します。」</li>
+<li>（1:40–2:00 締め）「ハッカソンの課題は『デモ時点で実際に稼働していること』です。我々の答えは、既に回っている実事業のループをそのままチーム定義にし、検証と在席を毎回実測で示すことです。次は当日のライブ証跡です。」</li>
+</ol>
+<h2>5. デモの流れ（想定・計10分。v3 を引き継ぎ）</h2>
+<ol>
+<li>（1分）事業の提示: Anicca はエージェントチームが実事業を回している会社であること。Life Manager Cloud はその働きそのものを誰もが使えるホスト型にしたもの。</li>
+<li>（2分）チーム図1枚: 上表の7席と各席の「今日の DONE 1行」を出典ファイル名付きで並べる。</li>
+<li>（3分）Naïve 側の実物: <code>vetta agent list --limit 50</code> で7席の在席を示す。セッション一覧は build モードの作業セッションであることを明示し、「スケジュール発火のライブセッション」として偽らない。</li>
+<li>（2分）Muse 側の実稼働証跡: 当日の IG 公開 URL、Capafy ダッシュボード数値（鮮度日付付き）、受託台帳の当日件数をそのまま見せる。未検証の効果・予測は表示しない。</li>
+<li>（2分）残課題と次手の正直な提示: エージェント所有 org の確認メール未着（サポート宛先は未確定）、Maritime デプロイ実証は Dockerfile ビルド環境待ち、Codex への委任 18件は未回答のため v4 は Muse 自作、ローカル版の作り直しは exit 75 切り分け待ち。「動いている実物」と「これから直す点」を分けて話す。</li>
+</ol>
+<h2>6. 見せないもの・言わないもの</h2>
+<ul>
+<li>org を「7席だけのチーム」と説明しない（定義外6席が在席する事実があるため）。</li>
+<li>build モードのセッションをスケジュール稼働・ライブ稼働と説明しない。</li>
+<li>Maritime スケルトンのドライランを Maritime デプロイ・稼働と説明しない。</li>
+<li>売上予測、未検証の効果、未確認のフォロワー・売上数字を出さない。</li>
+<li>資格情報の値はデモ資料・画面のいずれにも出さない。</li>
+</ul>
+<h2>7. フォールバック</h2>
+<ul>
+<li>Naïve のライブセッションがデモ当日までに確認できない場合: デモの中心は「Naïve に定義済みの7席＋Muse 側で当日も回っている実ループ」に据え、ライブセッションの欠如を欠点として隠さず、次手（スケジュール発火の確認手順）とともに提示する。</li>
+<li>本人 org「Anicca」は適用済み・動作中のため、エージェント所有 org の確認メール問題はハッカソンのブロッカーではない。デモは本人 org 側で成立させる。</li>
+<li>Maritime はハッカソンの提出物の主軸にはしない。デプロイ実証ができ次第、補足資料として追加する。</li>
+</ul>
+<p class="small">出典: DEMO-EVIDENCE-2026-11-02-evening.md、DEMO-PACK-2026-11-01-noon.html（v3）、DEMO-SCRIPT-2026-10-31-night.md、lm-cloud-loop-2026-11-02-1737.md、MARITIME-DEPLOY-PLAN-2026-11-01.md。未検証の効果は謳わない。本ファイルは内部資料であり公開完了ではない。</p>
+</body>
+</html>

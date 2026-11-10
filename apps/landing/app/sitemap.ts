@@ -22,6 +22,15 @@ const STATIC_PATHS = [
   "/ja/best-affirmation-apps",
   "/affirmation-app/ja",
   "/affirmation-app/ja/shindan",
+  "/affirmation-app/en/quiz",
+  "/affirmation-app/en/quiz/burnout",
+  "/affirmation-app/en/quiz/comparison",
+  "/affirmation-app/en/quiz/heartbreak",
+  "/affirmation-app/en/quiz/money-worry",
+  "/affirmation-app/en/quiz/morning",
+  "/affirmation-app/en/quiz/night-anxiety",
+  "/affirmation-app/en/quiz/self-blame",
+  "/affirmation-app/en/quiz/self-esteem",
   "/letter",
   "/tegami",
   "/en",
@@ -42,7 +51,7 @@ const STATIC_PATHS = [
   "/lm/ja/departure-calculator",
   "/lm/guide",
   "/tools/social-jet-lag-calculator",
-  "/ai-monk-factory/",
+  "/ai-monk-factory", // canonical has no trailing slash (the slash form 301s; GSC "Redirect error" 10/27–11/1)
 ];
 
 function tripleLanguagesForEnSlug(enSlug: string) {

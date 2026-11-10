@@ -1,0 +1,157 @@
+{
+  "source": "CheckSubscriptionUsage",
+  "measured_at": "2026-11-06T09:24:00-08:00",
+  "timezone": "America/Los_Angeles",
+  "plan": "Ultra",
+  "weekly_usage_percent": 64.7,
+  "remaining_percent": 35.3,
+  "reset_at": "2026-11-12T20:30:00-08:00",
+  "week_window_start_at": "2026-11-05T20:30:00-08:00",
+  "additional_usage_credits": {
+    "present": true,
+    "remaining_amount_exposed": false,
+    "note": "Additional usage credits exist; remaining amount is not exposed by CheckSubscriptionUsage."
+  },
+  "freshness": {
+    "kind": "measured_snapshot",
+    "page_json_reload_minutes": 15,
+    "live_token_stream": "not monitored",
+    "note": "Not realtime. One measured snapshot. Not a realtime monitor and not a progress animation. Values stay here until a newer usage-snapshot is published."
+  },
+  "token_detail_adapters": {
+    "admin_api": {
+      "docs": "https://cursor.com/docs/account/teams/admin-api",
+      "cadence": "hourly when eligible",
+      "eligibility": "Teams Admin API may expose exact token details with a supported Teams admin access",
+      "status": "UNAVAILABLE_NO_CREDENTIAL_IN_PUBLIC_PATH",
+      "public_tokens": "UNAVAILABLE"
+    },
+    "otel_export": {
+      "docs": "https://cursor.com/docs/enterprise/opentelemetry-export.md",
+      "eligibility": "Enterprise-only per-bot/per-turn export via conversation.id",
+      "status": "UNAVAILABLE_NOT_ENTERPRISE_PATH",
+      "public_tokens": "UNAVAILABLE"
+    }
+  },
+  "practice_sources": [
+    {
+      "name": "Michael Fenech",
+      "url": "https://x.com/Michael_Fenech_/status/2117324613000818878",
+      "claim": "One website test ~213K computer-use vs ~51K browser script (~76% on that test). External claim, not our result."
+    },
+    {
+      "name": "Solomon Rojie",
+      "url": "https://x.com/Solomonrojie/status/2112651652566020582",
+      "claim": "Self-reported 100,000 to 12,500 tokens per task via short-context files/code. Underlying log not obtained."
+    },
+    {
+      "name": "Marko",
+      "url": "https://x.com/Marko_Poly/status/2117536532189807014",
+      "claim": "One export reported ~75% tokens re-reading own chat; Marko warns it is one user export."
+    },
+    {
+      "name": "Kevin Logan",
+      "url": "https://x.com/Kevin_Logan/status/2115077015569048015",
+      "claim": "Script This Routine candidate. NOT imported or adopted by this team."
+    },
+    {
+      "name": "Brian Roemmele",
+      "url": "https://x.com/BrianRoemmele/status/2112249592133935133",
+      "claim": "External method: identify same context, reread, and no-change reporting in an actual trace, then verify with matched usage. Raw trace is not claimed here."
+    },
+    {
+      "name": "_ketsana",
+      "url": "https://x.com/_ketsana/status/2112729353926619607",
+      "claim": "External method: orchestrator offloads work to scripts/CLI plus webhook. Unobservable external CLI usage is not claimed as ours."
+    },
+    {
+      "name": "samijuhanii",
+      "url": "https://x.com/samijuhanii/status/2117296412983791782",
+      "claim": "External method: move repeat tasks to a Python script while keeping the same results. Not our measured saving."
+    }
+  ],
+  "projection_scenarios": [],
+  "bots": [],
+  "notes": [
+    "Shared plan: Ultra. Now reading 2026-11-06T09:24:00-08:00: weekly 64.7% used, 35.3% remain. Reset 2026-11-12 20:30 PT. GrokBot portion 61.1 percentage points. Not realtime.",
+    "Previous official row, not this Now reading: 2026-11-06T08:16:00-08:00 weekly 57.5%. Earlier 2026-11-06T08:00:00-08:00 weekly 56.8%, Grok Bot 55.1%.",
+    "Savings UNKNOWN. No matched before/after basis. Not exact tokens or dollars. No raw savings percentage. Never claim 30% saved.",
+    "Earlier official weekly readings, not this row: 54% at 07:05 PT, 56.4% at 07:54 PT, and 57.5% at 08:16 PT.",
+    "45 regular enabled (4 paused); finished one-offs outside count. GUARDS ACTIVE 2026-11-06 09:30-09:33 PT.",
+    "Paused: Reason team coordinator hourly broad transcript scan.",
+    "Paused: X distribution 15min duplicate; existing X Operator remains publisher and live url verification.",
+    "Paused: hourly no-change status; real outcomes still delivered.",
+    "Paused: LINE 4h known no-tab errors pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227.",
+    "Private share of Grok usage, period start 2026-11-06 UTC, not exact tokens or dollars: 参謀 40 all nonroutine, X 15, Codex 9, Fucker 8, other 23.",
+    "Remaining 35.3% is 100 minus the measured weekly 64.7. It is not a second official reading. Not realtime."
+  ],
+  "relay_migration": {
+    "status": "APPLIED",
+    "savings": "UNVERIFIED",
+    "note": "Stand-in Grok Bot profiles for Codex/Muse/Dots are legacy contacts only: no group-chat relays, no polling loops, no duplicate pretend-relay work. Direct work uses each owner machine/Slack/Reason path. Migration status: APPLIED. Token/usage savings from this change: UNVERIFIED (not counted as savings; not routine-reduction evidence)."
+  },
+  "unit": "percent of the shared weekly plan limit",
+  "period": "weekly window through reset 2026-11-12 20:30 PT",
+  "reduction_effect": "savings UNKNOWN",
+  "countermeasure": "45 regular enabled (4 paused); finished one-offs outside count. GUARDS ACTIVE 2026-11-06 09:30-09:33 PT. Savings UNKNOWN.",
+  "bot_shares_omitted": "Private Grok shares since 2026-11-06 UTC are not this weekly cumulative and are not exact tokens or dollars.",
+  "prior_official_weekly_readings": [
+    {
+      "weekly_usage_percent": 54,
+      "observed_at": "2026-11-06T07:05:00-08:00",
+      "label": "earlier official weekly reading the same morning; not this row"
+    },
+    {
+      "weekly_usage_percent": 56.4,
+      "observed_at": "2026-11-06T07:54:00-08:00",
+      "label": "earlier official weekly reading the same morning; not this row"
+    },
+    {
+      "weekly_usage_percent": 56.8,
+      "grok_bot_share_percent": 55.1,
+      "observed_at": "2026-11-06T08:00:00-08:00",
+      "label": "earlier official row; not this Now reading"
+    },
+    {
+      "weekly_usage_percent": 57.5,
+      "observed_at": "2026-11-06T08:16:00-08:00",
+      "label": "previous official row; not this Now reading"
+    }
+  ],
+  "percentage_point_change": {
+    "from_percent": null,
+    "to_percent": 64.7,
+    "from_measured_at": null,
+    "to_measured_at": "2026-11-06T09:24:00-08:00",
+    "arithmetic_difference_percentage_points": null,
+    "formula": "no matched before/after basis",
+    "meaning": "not a matched before/after; not tokens or dollars; no raw savings percentage",
+    "outcome_floor": "absent",
+    "saving_claim": "not allowed",
+    "savings": "UNKNOWN"
+  },
+  "grok_bot_share_percent": 61.1,
+  "evidence": [
+    {
+      "observed_at": "2026-11-06T09:24:00-08:00",
+      "weekly_usage_percent": 64.7,
+      "remaining_percent": 35.3,
+      "grok_bot_share_percent": 61.1,
+      "reset_at": "2026-11-12T20:30:00-08:00",
+      "note": "Not realtime."
+    },
+    {
+      "observed_at": "2026-11-06T09:30:00-08:00",
+      "enabled": 45,
+      "paused": 4,
+      "finished_one_offs": "outside count",
+      "savings": "UNKNOWN",
+      "statuses": [
+        "Reason team coordinator hourly broad transcript scan paused",
+        "X distribution 15min duplicate paused; X Operator remains publisher/live url verification",
+        "hourly no-change status paused; real outcomes still delivered",
+        "LINE 4h known no-tab errors paused pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227"
+      ]
+    }
+  ]
+}

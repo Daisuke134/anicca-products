@@ -39,7 +39,8 @@ function assertMoneyPath(bundle, registry) {
 }
 
 // assertWebAppHandoff({ chunk }, { publicOrigin }) → { ok, reason }
-// Public /lm starts Cloud onboarding on the same origin; backend URLs remain private to the proxy.
+// Public /lm either links to same-origin /maritime or stays on the unpublished waitlist.
+// Backend URLs stay behind the proxy. Live Cloud price is undecided: do not accept $29 or $19.
 function assertWebAppHandoff(bundle, options = {}) {
   const chunk = String(bundle && bundle.chunk || "");
   let publicOrigin;
@@ -70,6 +71,9 @@ function assertWebAppHandoff(bundle, options = {}) {
   if (telegramLinkFound) return { ok: false, reason: "telegram link found in /lm chunk" };
   if (stripeLinkFound) return { ok: false, reason: "stripe link found in /lm chunk" };
   if (directBackendLinkFound) return { ok: false, reason: "direct backend link found in /lm page" };
+  if (/\$19|\b19\/month\b|\$29|\b29\/mo(?:nth)?\b|7-day free trial|seven-day free trial/i.test(chunk)) {
+    return { ok: false, reason: "live Cloud price found in /lm page" };
+  }
   const cloudRouteFound = [...chunk.matchAll(/\bhref\s*=\s*(["'])(.*?)\1/gi)].some((match) => {
     try {
       const href = match[2].replace(/&amp;/g, "&");
@@ -79,7 +83,8 @@ function assertWebAppHandoff(bundle, options = {}) {
       return false;
     }
   });
-  if (!cloudRouteFound) return { ok: false, reason: "Life Manager Cloud route missing in /lm page" };
+  const waitlist = /join the waitlist/i.test(chunk) && /in development/i.test(chunk);
+  if (!cloudRouteFound && !waitlist) return { ok: false, reason: "Life Manager Cloud route missing in /lm page" };
   return { ok: true, reason: "ok" };
 }
 

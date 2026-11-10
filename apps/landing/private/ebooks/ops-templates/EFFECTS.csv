@@ -1,0 +1,2 @@
+occurrence_id,operation,owner_id,state,idempotency_key,provider_receipt_id,evidence_ref,retryable,next_action
+order-example-123,deliver,delivery-worker,not_started,order-example-123-delivery,,,false,claim-before-send

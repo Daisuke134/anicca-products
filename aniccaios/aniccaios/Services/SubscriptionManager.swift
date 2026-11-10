@@ -40,6 +40,8 @@ final class SubscriptionManager: NSObject {
         // $idfa（ATT なしの場合は all-zeros）と $idfv を RevenueCat に渡す
         // これがないと RevenueCat → Singular にイベントが送信されない
         Purchases.shared.attribution.collectDeviceIdentifiers()
+        // RevenueCat 側にも AdServices トークンを送り、RC 顧客に Search Ads 属性を付ける
+        Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
 
         // 起動直後にSDKキャッシュのOfferingをAppStateへプリロード
         if let cached = Purchases.shared.cachedOfferings,
@@ -125,6 +127,8 @@ final class SubscriptionManager: NSObject {
         guard isConfigured else { return }
         if Purchases.shared.appUserID != appUserId {
             _ = try? await Purchases.shared.logIn(appUserId)
+            // PostHog distinct_id を新しい RC appUserID に揃え、保存済み流入元を付け直す
+            AttributionPersonProperties.reidentify()
         }
         await refreshOfferings()
     }

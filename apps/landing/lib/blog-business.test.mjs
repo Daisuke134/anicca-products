@@ -38,5 +38,16 @@ test('published Thankful guide belongs to its product and excludes unrelated bui
   assert.ok(related.every(p => String(p.project).toLowerCase() === 'thankful'));
   assert.equal(post.date, '2026-10-21');
   assert.match(post.markdown, /https:\/\/apps.apple.com\/us\/app\/thankful-gratitude-journal\/id6759514159/);
-  assert.equal(post.attribution.text, 'An Anicca practical guide, written with AI assistance. Examples are illustrative.');
+  assert.equal(post.attribution.text, 'An Anicca practical guide. Examples are illustrative.');
+});
+
+test('every app in the product line has its own blog hub (2026-11-07 overhaul)', () => {
+  assert.equal(businessOf('honne-what-does-this-text-mean', 'Honne'), 'honne');
+  assert.equal(businessOf('daily-dhamma-one-verse-a-day', 'Daily Dhamma'), 'daily-dhamma');
+  assert.equal(businessOf('sleep-reset-score-explained', 'Sleep Reset'), 'sleep-reset');
+  assert.equal(businessOf('studio-cherie-closet-photo-guide', 'STUDIO CHERIE'), 'studio-cherie');
+  for (const key of ['honne', 'daily-dhamma', 'sleep-reset', 'studio-cherie']) {
+    assert.ok(BUSINESSES[key].label && BUSINESSES[key].intro, key);
+    assert.ok(BUSINESSES[key].product && BUSINESSES[key].product.href, key);
+  }
 });

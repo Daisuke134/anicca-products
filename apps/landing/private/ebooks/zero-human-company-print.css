@@ -1,0 +1,19 @@
+@page { size: A5; margin: 18mm 15mm 19mm; @bottom-center { content: counter(page); font: 9pt sans-serif; color: #768273; } }
+body { font-family: "Hiragino Mincho ProN", "Hiragino Sans", serif; color: #26392c; font-size: 10pt; line-height: 1.9; }
+header { break-after: page; padding-top: 28mm; }
+header h1 { font-size: 30pt; line-height: 1.5; border: 0; }
+.subtitle { font-size: 14pt; color: #768273; }
+.author { margin-top: 24mm; font-size: 12pt; }
+h1 { break-before: page; font-size: 21pt; line-height: 1.5; margin: 0 0 12mm; border-top: 3px solid #a38b55; padding-top: 5mm; }
+h2 { font-size: 13pt; line-height: 1.6; margin: 8mm 0 3mm; break-after: avoid; }
+p { text-align: justify; margin: 0 0 4mm; widows: 3; orphans: 3; }
+li { margin-bottom: 2mm; }
+table { border-collapse: collapse; width: 100%; font-family: "Hiragino Sans", sans-serif; font-size: 8pt; line-height: 1.65; margin: 6mm 0; }
+td, th { border-bottom: 1px solid #cdd2c7; padding: 2.5mm 2mm; text-align: left; vertical-align: top; }
+th { color: #526347; background: #eef0e8; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #f0f2ed; border-left: 3px solid #a38b55; padding: 4mm; font-size: 7pt; line-height: 1.6; }
+code { font-family: "Menlo", "Hiragino Sans", monospace; }
+a { color: #466552; overflow-wrap: anywhere; font-size: 8pt; }
+nav#TOC { break-after: page; line-height: 2; }
+nav#TOC a { color: #26392c; text-decoration: none; font-size: 10pt; }
+strong { color: #253d2c; }

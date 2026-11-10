@@ -86,8 +86,35 @@ function renderMarkdown(md) {
         /\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)]+)\)/g,
         '<a href="$2" class="text-ink underline decoration-mist underline-offset-4 transition-colors hover:decoration-ink" target="_blank" rel="noopener">$1</a>'
       );
-  for (const raw of lines) {
+  const isTableRow = (l) => /^\s*\|.*\|\s*$/.test(l);
+  const isTableSep = (l) => /^\s*\|(\s*:?-{3,}:?\s*\|)+\s*$/.test(l);
+  const cells = (l) => l.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => inline(c.trim()));
+  for (let i = 0; i < lines.length; i += 1) {
+    const raw = lines[i];
     const line = raw.trimEnd();
+    // GFM-style table: header row + separator row + body rows (2026-11-01 SEO list pages).
+    if (isTableRow(line) && i + 1 < lines.length && isTableSep(lines[i + 1])) {
+      flushPara();
+      flushList();
+      const head = cells(line);
+      const body = [];
+      i += 2;
+      while (i < lines.length && isTableRow(lines[i])) {
+        body.push(cells(lines[i]));
+        i += 1;
+      }
+      i -= 1;
+      out.push('<div style="margin:2rem 0;overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left;font-size:15px;line-height:1.4">');
+      out.push(`<thead><tr>${head.map((c) => `<th style="border-bottom:1px solid #d9d3c7;padding:8px 12px;font-weight:600;vertical-align:bottom">${c}</th>`).join("")}</tr></thead>`);
+      out.push(`<tbody>${body.map((r) => `<tr>${r.map((c) => `<td style="border-bottom:1px solid #e8e3d9;padding:8px 12px;vertical-align:top">${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`);
+      continue;
+    }
+    if (/^\s*(-{3,}|\*{3,})\s*$/.test(line)) {
+      flushPara();
+      flushList();
+      out.push('<hr style="margin:3rem 0;border:0;border-top:1px solid #d9d3c7" />');
+      continue;
+    }
     if (!line.trim()) {
       flushPara();
       flushList();

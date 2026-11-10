@@ -26,7 +26,7 @@ export default function Page() {
         </p>
         <p className="mt-6">
           <Link
-            href="https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214"
+            href="https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214?pt=93486075&mt=8&ct=anicca_mobile"
             className="underline"
           >
             App Store: apps.apple.com/us/app/daily-affirmations-anicca/id6755129214
@@ -216,7 +216,7 @@ export default function Page() {
           <li>
             Direct link:{' '}
             <Link
-              href="https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214"
+              href="https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214?pt=93486075&mt=8&ct=anicca_mobile"
               className="underline"
             >
               apps.apple.com/us/app/daily-affirmations-anicca/id6755129214

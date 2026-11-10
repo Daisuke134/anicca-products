@@ -51,20 +51,36 @@ jobs:
       - name: Book checkout and delivery contracts
         run: node --test netlify/functions/__tests__/ai-monk-book.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-checkout.test.js test/ai-monk-book-page.test.mjs
 
+      - name: Naive x402 receiving-wallet contract
+        working-directory: apps/landing
+        run: node --test netlify/functions/__tests__/x402-naive-reflect.test.js
+
       - run: npm run test:telemetry
       - name: Site hit attribution contracts
         run: npm run test:site-hit
       - run: npm run test:anicca-app-store-routing
+      - name: Open dashboard data and UI contracts
+        working-directory: apps/landing
+        env:
+          OPEN_DATA_FIXTURE_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          # A PR merge ref can omit a snapshot that exists on the PR head when its base diverged.
+          if [ ! -f public/open/data.json ]; then
+            git fetch --no-tags --depth=1 origin "$OPEN_DATA_FIXTURE_SHA"
+            git show "FETCH_HEAD:apps/landing/public/open/data.json" > public/open/data.json
+          fi
+          node --test scripts/stage-open-data.test.mjs scripts/check-open-data.test.mjs scripts/open-team-activity.test.mjs scripts/open-mixpanel-analytics.test.mjs
       - name: Stage reviewed canonical Manager articles before build
         working-directory: apps/landing
         env:
-          MANAGER_BLOG_REVISION: 9a60b49e4bd4d288a491f0fb026af74e933c7eba
+          MANAGER_BLOG_REVISION: 357212f82ac46fc9a147eed36a29dc70c0c37700
           # Reviewed content pin; installer and module revision remain independently pinned.
-          MANAGER_BLOG_CONTENT_REVISION: ec903aa16ce2683f59a7a10e67b6cdc994c722ec
+          MANAGER_BLOG_CONTENT_REVISION: 157bf0b0710abfad68b950bf5d409259abab2bd8
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_BLOG_REVISION/apps/landing/manager-blog/scripts/install.mjs" -o /tmp/manager-blog-install.mjs
-          echo "9a00fa62a6048d249b332958c1ee14a2eeeae57f2f33277b538b915bed51dbf0  /tmp/manager-blog-install.mjs" | sha256sum --check
+          echo "8c27b26788f1a2cc3ff20c3540bb25558a9f0cfd9dcae87d3d98544d9e916dd3  /tmp/manager-blog-install.mjs" | sha256sum --check
           node /tmp/manager-blog-install.mjs
 
       - run: npm run build
@@ -85,5 +101,5 @@ jobs:
       - name: Apply canonical products catalog routes only
         working-directory: apps/landing
         env:
-          MANAGER_PRODUCTS_REVISION: 973d3f6e7ae02562fcbfd9c1c0cccca5011a98bd
+          MANAGER_PRODUCTS_REVISION: ccf57e9e6756246b41ee2b0c22cb014a63bbc986
         run: node scripts/apply-products-overlay.mjs
