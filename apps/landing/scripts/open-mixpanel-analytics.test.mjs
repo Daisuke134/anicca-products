@@ -5,6 +5,7 @@ import {
   collectAniccaScreenAnalytics,
   getMaturedReportingWindow,
   getReportingWindow,
+  withPreservedFunnel,
 } from './open-mixpanel-analytics.mjs';
 
 const event = (name, properties = {}) => ({
@@ -188,4 +189,15 @@ test('collects same-day simulator receipts for preview without changing the prod
   assert.equal(request.searchParams.get('to_date'), '2026-11-07');
   assert.equal(result.maturity_hours, 0);
   assert.equal(result.screens[0].viewed_instances, 1);
+});
+
+test('preserves an existing distinct-user funnel when re-collecting screen analytics', () => {
+  const funnel = { cohort_distinct_users: 23, steps: [{ step_id: 'first_open', distinct_users: 23 }] };
+  const analytics = { status: 'ok', screens: [], breakdowns: [] };
+  const merged = withPreservedFunnel(analytics, { funnel });
+  assert.deepEqual(merged.funnel, funnel);
+  assert.equal(merged.status, 'ok');
+  assert.equal(withPreservedFunnel(analytics, undefined), analytics);
+  assert.equal(withPreservedFunnel(analytics, {}), analytics);
+  assert.equal(withPreservedFunnel(analytics, { funnel: 'not-an-object' }), analytics);
 });
