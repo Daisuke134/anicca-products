@@ -109960,8 +109960,8 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-10 22:11 JST",
- "source_updated_at": "2026-11-10 21:21 JST",
+ "updated_at": "2026-11-10 23:00 JST",
+ "source_updated_at": "2026-11-10 23:00 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -110041,8 +110041,8 @@
    "mrr": 20.0,
    "metric": "paying subscribers",
    "metric_value": 5,
-   "status": "live, update 1.9.6 in review",
-   "next": "1.9.6 approval"
+   "status": "live, 1.9.9 shipped 2026-11-08",
+   "next": "grow paying subscribers (5) and MRR ($20)"
   },
   {
    "name": "Honne family apps (Honne, Thankful, Daily Dhamma, Sleep Reset)",
@@ -110051,7 +110051,7 @@
    "mrr": 4.0,
    "metric": "live on the App Store",
    "status": "live",
-   "next": "Honne 1.0.5 release"
+   "next": "Honne is live at 1.0.6; grow installs and the $4 MRR"
   },
   {
    "name": "Capafy agents (Clip Map, Hook Lab and others)",

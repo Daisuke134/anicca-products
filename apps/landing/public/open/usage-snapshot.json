@@ -1,10 +1,10 @@
 {
   "source": "CheckSubscriptionUsage",
-  "measured_at": "2026-11-06T09:24:00-08:00",
-  "timezone": "America/Los_Angeles",
+  "measured_at": "2026-11-10T22:57:55+09:00",
+  "timezone": "Asia/Tokyo",
   "plan": "Ultra",
-  "weekly_usage_percent": 64.7,
-  "remaining_percent": 35.3,
+  "weekly_usage_percent": 21.9,
+  "remaining_percent": 78.1,
   "reset_at": "2026-11-12T20:30:00-08:00",
   "week_window_start_at": "2026-11-05T20:30:00-08:00",
   "additional_usage_credits": {
@@ -16,7 +16,7 @@
     "kind": "measured_snapshot",
     "page_json_reload_minutes": 15,
     "live_token_stream": "not monitored",
-    "note": "Not realtime. One measured snapshot. Not a realtime monitor and not a progress animation. Values stay here until a newer usage-snapshot is published."
+    "note": "Not realtime. One measured snapshot from CheckSubscriptionUsage on 2026-11-10 22:57 JST. Values stay here until a newer usage-snapshot is published."
   },
   "token_detail_adapters": {
     "admin_api": {
@@ -71,19 +71,38 @@
     }
   ],
   "projection_scenarios": [],
-  "bots": [],
+  "bots": [
+    {
+      "owner": "Grok Bot 参謀",
+      "percent": 42
+    },
+    {
+      "owner": "X Operator",
+      "percent": 14
+    },
+    {
+      "owner": "Fucker",
+      "percent": 8
+    },
+    {
+      "owner": "dr eggbot",
+      "percent": 6
+    },
+    {
+      "owner": "Codex",
+      "percent": 6
+    },
+    {
+      "owner": "Other bots",
+      "percent": 24
+    }
+  ],
   "notes": [
-    "Shared plan: Ultra. Now reading 2026-11-06T09:24:00-08:00: weekly 64.7% used, 35.3% remain. Reset 2026-11-12 20:30 PT. GrokBot portion 61.1 percentage points. Not realtime.",
-    "Previous official row, not this Now reading: 2026-11-06T08:16:00-08:00 weekly 57.5%. Earlier 2026-11-06T08:00:00-08:00 weekly 56.8%, Grok Bot 55.1%.",
+    "Shared plan: Ultra. Official reading 2026-11-10T22:57:55+09:00: weekly 21.9% used, 78.1% remain. Reset 2026-11-12 20:30 PT / 2026-11-13 13:30 JST. Grok Bot portion 18.4 percentage points of the shared weekly limit. Of the 21.9% used, the rest is other apps on the same plan. Not realtime.",
+    "Previous published public snapshot, not this row: 2026-11-06T09:24:00-08:00 weekly 64.7%, Grok Bot 61.1 percentage points, in the same stated weekly window. Arithmetic difference 21.9 - 64.7 = -42.8 points. Cause of the decline is not established. Not a savings claim.",
+    "Within Grok Bot usage this week (Nov 6 – Nov 10, UTC), shares of Grok Bot usage only: 参謀 42%, X Operator 14%, Fucker 8%, dr eggbot 6%, Codex 6%, Other bots 24%. These are shares, not tokens or dollars.",
     "Savings UNKNOWN. No matched before/after basis. Not exact tokens or dollars. No raw savings percentage. Never claim 30% saved.",
-    "Earlier official weekly readings, not this row: 54% at 07:05 PT, 56.4% at 07:54 PT, and 57.5% at 08:16 PT.",
-    "45 regular enabled (4 paused); finished one-offs outside count. GUARDS ACTIVE 2026-11-06 09:30-09:33 PT.",
-    "Paused: Reason team coordinator hourly broad transcript scan.",
-    "Paused: X distribution 15min duplicate; existing X Operator remains publisher and live url verification.",
-    "Paused: hourly no-change status; real outcomes still delivered.",
-    "Paused: LINE 4h known no-tab errors pending known owner direct API request request_id3adfa6bb-e297-4a52-af5f-89dae4753227.",
-    "Private share of Grok usage, period start 2026-11-06 UTC, not exact tokens or dollars: 参謀 40 all nonroutine, X 15, Codex 9, Fucker 8, other 23.",
-    "Remaining 35.3% is 100 minus the measured weekly 64.7. It is not a second official reading. Not realtime."
+    "Remaining 78.1% is 100 minus the measured weekly 21.9. It is not a second official reading. Not realtime."
   ],
   "relay_migration": {
     "status": "APPLIED",
@@ -91,10 +110,10 @@
     "note": "Stand-in Grok Bot profiles for Codex/Muse/Dots are legacy contacts only: no group-chat relays, no polling loops, no duplicate pretend-relay work. Direct work uses each owner machine/Slack/Reason path. Migration status: APPLIED. Token/usage savings from this change: UNVERIFIED (not counted as savings; not routine-reduction evidence)."
   },
   "unit": "percent of the shared weekly plan limit",
-  "period": "weekly window through reset 2026-11-12 20:30 PT",
+  "period": "weekly window through reset 2026-11-12 20:30 PT (Friday Nov 13 13:30 JST)",
   "reduction_effect": "savings UNKNOWN",
-  "countermeasure": "45 regular enabled (4 paused); finished one-offs outside count. GUARDS ACTIVE 2026-11-06 09:30-09:33 PT. Savings UNKNOWN.",
-  "bot_shares_omitted": "Private Grok shares since 2026-11-06 UTC are not this weekly cumulative and are not exact tokens or dollars.",
+  "countermeasure": "As of 2026-11-06 09:30-09:33 PT: 45 regular enabled (4 paused); finished one-offs outside count. GUARDS ACTIVE that window. Savings UNKNOWN. Not re-verified on 2026-11-10.",
+  "bot_shares_omitted": "",
   "prior_official_weekly_readings": [
     {
       "weekly_usage_percent": 54,
@@ -116,21 +135,27 @@
       "weekly_usage_percent": 57.5,
       "observed_at": "2026-11-06T08:16:00-08:00",
       "label": "previous official row; not this Now reading"
+    },
+    {
+      "weekly_usage_percent": 64.7,
+      "grok_bot_share_percent": 61.1,
+      "observed_at": "2026-11-06T09:24:00-08:00",
+      "label": "previous published public snapshot; same stated weekly window; not this row"
     }
   ],
   "percentage_point_change": {
-    "from_percent": null,
-    "to_percent": 64.7,
-    "from_measured_at": null,
-    "to_measured_at": "2026-11-06T09:24:00-08:00",
-    "arithmetic_difference_percentage_points": null,
-    "formula": "no matched before/after basis",
-    "meaning": "not a matched before/after; not tokens or dollars; no raw savings percentage",
+    "from_percent": 64.7,
+    "to_percent": 21.9,
+    "from_measured_at": "2026-11-06T09:24:00-08:00",
+    "to_measured_at": "2026-11-10T22:57:55+09:00",
+    "arithmetic_difference_percentage_points": -42.8,
+    "formula": "21.9 - 64.7",
+    "meaning": "arithmetic difference of two official weekly readings in the same stated weekly window; cause of the decline is not established; not tokens or dollars; not a savings claim",
     "outcome_floor": "absent",
     "saving_claim": "not allowed",
     "savings": "UNKNOWN"
   },
-  "grok_bot_share_percent": 61.1,
+  "grok_bot_share_percent": 18.4,
   "evidence": [
     {
       "observed_at": "2026-11-06T09:24:00-08:00",

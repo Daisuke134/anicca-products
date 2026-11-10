@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-10 22:37 JST",
+  "updated_at": "2026-11-10 23:00 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -962,6 +962,29 @@
     }
   ],
   "social_accounts": [
+    {
+      "account": "X @diceai0",
+      "followers": 928,
+      "posts": 22,
+      "likes": null,
+      "comments": null,
+      "latest_post": "https://x.com/diceai0/status/2120153363891241298",
+      "impressions_7d": 2634,
+      "impressions_7d_note": "Sum of public impressions on 22 original posts in 2026-11-03 15:00 UTC .. 2026-11-10 22:55 JST. 25 posts were returned in the window; 3 self-thread replies (48+28+34=110 impressions) were excluded from this total. Including those replies the 25-post sum is 2,734. The newest article had 0 impressions at fetch because it had just posted. Public X API, ~22:55 JST.",
+      "measured_at": "2026-11-10 22:55 JST",
+      "note": "Public X API 2026-11-10 22:55 JST: followers 928, following 4506, lifetime tweet_count 3815. posts column is 22 originals in the last 7 days, not lifetime tweet_count. 7d original-post impressions 2,634."
+    },
+    {
+      "account": "X @selawmqt",
+      "followers": 13,
+      "posts": 1,
+      "likes": null,
+      "comments": null,
+      "latest_post": "https://x.com/selawmqt/status/2119953295473099028",
+      "impressions_7d": 1,
+      "measured_at": "2026-11-10 22:55 JST",
+      "note": "Public X API 2026-11-10 22:55 JST: followers 13, following 29, lifetime tweet_count 917. posts column is 1 post in the last 7 days (even when replies were not excluded). 7d impressions 1."
+    },
     {
       "account": "Threads @anicca.en",
       "posts": 45,
