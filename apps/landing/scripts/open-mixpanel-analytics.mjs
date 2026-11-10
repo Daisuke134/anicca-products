@@ -253,12 +253,26 @@ export async function collectAniccaScreenAnalytics({ env = process.env, now = ne
   return aggregateAniccaScreenEvents(events, { observedAt: now, window, environment });
 }
 
+export function withPreservedFunnel(analytics, previous) {
+  // The distinct-user funnel (product_analytics.anicca_ios.funnel) is a
+  // separately measured section owned by the /open dashboard loop
+  // (canonical source: funnel-open-section-2026-11-10.json). This collector
+  // only owns the screen-instance section, so a re-collection must carry
+  // the existing funnel over instead of dropping it (measured 2026-11-10
+  // 23:37 JST: a deploy without this preservation stripped the funnel
+  // from the live data.json while keeping every other field).
+  if (previous?.funnel && typeof previous.funnel === 'object' && !Array.isArray(previous.funnel)) {
+    return { ...analytics, funnel: previous.funnel };
+  }
+  return analytics;
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const dataPath = process.argv[2] ?? 'out/open/data.json';
   const data = JSON.parse(readFileSync(dataPath, 'utf8'));
   const analytics = await collectAniccaScreenAnalytics();
   data.product_analytics ??= {};
-  data.product_analytics.anicca_ios = analytics;
+  data.product_analytics.anicca_ios = withPreservedFunnel(analytics, data.product_analytics.anicca_ios);
   writeFileSync(dataPath, `${JSON.stringify(data, null, 2)}\n`);
   console.log(analytics.status === 'unavailable'
     ? `Mixpanel Anicca screen snapshot: unavailable (${analytics.error_code}); no export request was made.`
