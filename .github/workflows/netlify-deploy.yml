@@ -5,6 +5,8 @@ on:
     branches:
       - dev
       - main
+      # Draft preview only. The deploy step publishes production solely for refs/heads/main.
+      - codex/lm-cloud-maritime-netlify-proxy-20261025
     paths:
       - 'apps/landing/**'
       # Open snapshots are public dashboard data, so JSON-only pushes deploy too.
