@@ -25,9 +25,12 @@
   status = 200
   force = true
 
+# A direct proxy would also forward Set-Cookie, but an absolute Railway Location
+# would leave this host after the session cookie was stored here. The function
+# keeps every upstream Set-Cookie and rewrites that Location back to this origin.
 [[redirects]]
   from = "/auth/google/callback"
-  to = "https://life-call-production.up.railway.app/auth/google/callback"
+  to = "/.netlify/functions/lm-cloud-google-callback"
   status = 200
   force = true
 

@@ -104,6 +104,88 @@ function responseHeaders(location) {
   };
 }
 
+function resolveCallbackOrigin(explicit) {
+  if (!explicit) return UPSTREAM_ORIGIN;
+  let url;
+  try { url = new URL(explicit); } catch { return ""; }
+  const loopback = url.protocol === "http:" && (url.hostname === "127.0.0.1" || url.hostname === "localhost");
+  if (loopback || url.origin === UPSTREAM_ORIGIN) return url.origin;
+  return "";
+}
+
+function sameOriginLocation(location) {
+  if (!location) return "";
+  if (location.startsWith("/") && !location.startsWith("//")) return location;
+  let url;
+  try { url = new URL(location); } catch { return ""; }
+  if (url.origin !== UPSTREAM_ORIGIN) return "";
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function upstreamHeader(upstream, name) {
+  const headers = upstream && upstream.headers;
+  if (!headers || typeof headers.get !== "function") return "";
+  return String(headers.get(name) || "");
+}
+
+// Railway's callback stores the Supabase session in one or more Set-Cookie
+// headers and redirects to /maritime. An absolute Railway Location would leave
+// the preview host that just stored that cookie, so the next request would be
+// anonymous and the consent checkbox would not render.
+async function proxyCloudAuthCallback({ headers, rawQuery, fetchImpl, upstreamOrigin }) {
+  const origin = resolveCallbackOrigin(upstreamOrigin);
+  let target;
+  try { target = origin ? new URL("/auth/google/callback", origin) : null; } catch { target = null; }
+  if (!target || (target.protocol !== "https:" && target.protocol !== "http:")) {
+    return {
+      statusCode: 502,
+      headers: { "cache-control": "no-store", "content-type": "text/plain; charset=utf-8" },
+      cookies: [],
+      body: "callback upstream unavailable",
+    };
+  }
+  const query = String(rawQuery || "");
+  if (query) target.search = query.startsWith("?") ? query : `?${query}`;
+
+  const fetch = fetchImpl || globalThis.fetch;
+  let upstream;
+  try {
+    const cookie = headerValue(headers, "cookie");
+    upstream = await fetch(target, {
+      method: "GET",
+      redirect: "manual",
+      headers: {
+        accept: "*/*",
+        ...(cookie ? { cookie } : {}),
+      },
+    });
+  } catch {
+    return {
+      statusCode: 302,
+      headers: responseHeaders("/lm?auth_error=connection"),
+      cookies: [],
+      body: "",
+    };
+  }
+
+  const status = Number(upstream && upstream.status) || 502;
+  const cookies = setCookiesFrom(upstream);
+  if (status >= 300 && status < 400) {
+    const location = sameOriginLocation(upstreamHeader(upstream, "location")) || "/lm?auth_error=connection";
+    return { statusCode: status, headers: responseHeaders(location), cookies, body: "" };
+  }
+  const allow = upstreamHeader(upstream, "allow");
+  return {
+    statusCode: status,
+    headers: {
+      "cache-control": "no-store",
+      ...(allow ? { allow } : {}),
+    },
+    cookies,
+    body: "",
+  };
+}
+
 function failureResult(intent, upstreamCookies) {
   return {
     statusCode: 302,
@@ -178,5 +260,6 @@ async function startCloudGoogleAuth({ headers, rawQuery, fetchImpl }) {
 
 module.exports = {
   eventRawQuery,
+  proxyCloudAuthCallback,
   startCloudGoogleAuth,
 };

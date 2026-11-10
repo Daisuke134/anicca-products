@@ -28,7 +28,6 @@ test('the Cloud and Google routes use direct same-origin Netlify rewrites in bot
   const expected = [
     ['/maritime', 'https://life-call-production.up.railway.app/maritime'],
     ['/maritime/*', 'https://life-call-production.up.railway.app/maritime/:splat'],
-    ['/auth/google/callback', 'https://life-call-production.up.railway.app/auth/google/callback'],
     ['/api/stripe/cloud/checkout', 'https://life-call-production.up.railway.app/api/stripe/cloud/checkout'],
     ['/api/stripe/cloud/portal', 'https://life-call-production.up.railway.app/api/stripe/cloud/portal'],
     ['/api/stripe/cloud/webhook', 'https://life-call-production.up.railway.app/api/stripe/cloud/webhook'],
@@ -57,6 +56,14 @@ test('the Cloud and Google routes use direct same-origin Netlify rewrites in bot
       { to: authStart[0].to, status: authStart[0].status, force: authStart[0].force },
       { to: "/.netlify/functions/lm-cloud-google-auth", status: "200", force: "true" },
       `${name}: /auth/google must rewrite redirect_to onto the requesting origin`,
+    );
+
+    const callback = rules.filter((rule) => rule.from === "/auth/google/callback");
+    assert.equal(callback.length, 1, `${name}: expected exactly one /auth/google/callback rule`);
+    assert.deepEqual(
+      { to: callback[0].to, status: callback[0].status, force: callback[0].force },
+      { to: "/.netlify/functions/lm-cloud-google-callback", status: "200", force: "true" },
+      `${name}: /auth/google/callback must keep Railway's session cookies on this origin`,
     );
   }
 });
