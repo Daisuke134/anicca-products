@@ -35,9 +35,12 @@
   status = 200
   force = true
 
+# Railway ignores the browser host and pins redirect_to to its own origin
+# (or fails Cloud intent closed until LM_MARITIME_WEB_ORIGIN is set). This
+# function keeps Railway's PKCE cookie and rewrites redirect_to onto this site.
 [[redirects]]
   from = "/auth/google"
-  to = "https://life-call-production.up.railway.app/auth/google"
+  to = "/.netlify/functions/lm-cloud-google-auth"
   status = 200
   force = true
 

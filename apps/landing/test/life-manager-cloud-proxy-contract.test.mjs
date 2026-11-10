@@ -28,7 +28,6 @@ test('the Cloud and Google routes use direct same-origin Netlify rewrites in bot
   const expected = [
     ['/maritime', 'https://life-call-production.up.railway.app/maritime'],
     ['/maritime/*', 'https://life-call-production.up.railway.app/maritime/:splat'],
-    ['/auth/google', 'https://life-call-production.up.railway.app/auth/google'],
     ['/auth/google/callback', 'https://life-call-production.up.railway.app/auth/google/callback'],
     ['/api/stripe/cloud/checkout', 'https://life-call-production.up.railway.app/api/stripe/cloud/checkout'],
     ['/api/stripe/cloud/portal', 'https://life-call-production.up.railway.app/api/stripe/cloud/portal'],
@@ -51,6 +50,14 @@ test('the Cloud and Google routes use direct same-origin Netlify rewrites in bot
       assert.doesNotMatch(matching[0].to, /\.netlify\/functions/);
       assert.doesNotMatch(matching[0].block, /^\s*(headers|signed|query|conditions)\s*=/m, `${name}: ${from} must not transform the proxied request`);
     }
+
+    const authStart = rules.filter((rule) => rule.from === "/auth/google");
+    assert.equal(authStart.length, 1, `${name}: expected exactly one /auth/google rule`);
+    assert.deepEqual(
+      { to: authStart[0].to, status: authStart[0].status, force: authStart[0].force },
+      { to: "/.netlify/functions/lm-cloud-google-auth", status: "200", force: "true" },
+      `${name}: /auth/google must rewrite redirect_to onto the requesting origin`,
+    );
   }
 });
 
