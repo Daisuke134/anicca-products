@@ -738,7 +738,7 @@ class ExperimentAnalyzer {
 
 #### Phase 1: 基本追跡（Week 1-2）
 - [ ] `notification_scheduled` イベント実装
-- [ ] `notification_opened` イベント実装（AppDelegate）
+- [x] `notification_opened` イベント実装（AppDelegate）— 実装済み（2026-11-10 確認）: 正本は Daisuke134/life-manager の `apps/mobile/anicca-ios`（AppDelegate.didReceive で送信、AnalyticsManager の `notificationOpened`）。PR #9318 で Anicca iOS 1.9.9（build 821）に同梱され出荷済み。プロパティは現行のリモート配信に合わせ `quote_id` と `notification_id`（値 = サーバ payload の messageId = nudge_deliveries.id）で、サーバ送信行と join 可能。本リポジトリ（anicca-products）の aniccaios は旧エクスポートのため未実装に見えるが、出荷物には存在する。詳細: 診断ファイル notification-open-tracking-diagnosis-2026-11-10.md の訂正節
 - [ ] `notification_dismissed` イベント実装
 - [ ] 基本プロパティ（notification_id, problem_type, template_id）付与
 - [ ] Mixpanelでダッシュボード作成
