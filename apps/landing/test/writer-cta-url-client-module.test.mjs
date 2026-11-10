@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { lifeManagerCtaHref } from '../lib/writer-cta-url.js';
 
-const LIFE_MANAGER_WEB_APP_URL = 'https://life-call-production.up.railway.app/lm?start_calendar=1';
+const LIFE_MANAGER_WEB_APP_URL = '/maritime?source=landing';
 
 test('normal /lm CTA opens the Life Manager web app in the same browser', () => {
   assert.equal(lifeManagerCtaHref(''), LIFE_MANAGER_WEB_APP_URL);

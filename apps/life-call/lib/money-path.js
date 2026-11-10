@@ -1,6 +1,6 @@
 // lib/money-path.js — C5/C6 (VCSDD life-manager-cost-connect-reliability). Continuous money-path check
 // so the ¥700k-wrong-link / site-down class (2026-07-03) can never silently survive again.
-// SRE: black-box + CONTENT assertion (200 is not enough — assert the exact web-app handoff and
+// SRE: black-box + CONTENT assertion (200 is not enough — assert the same-origin Cloud handoff and
 // reject Telegram/direct Stripe links). The registry Stripe URL remains the server-side payment SSOT for
 // reachability checks. The legacy Stripe-value assertion stays available for historical callers.
 // Rollback is gated:
@@ -38,14 +38,24 @@ function assertMoneyPath(bundle, registry) {
   return { ok: true, reason: "ok" };
 }
 
-// assertWebAppHandoff({ chunk }) → { ok, reason }
-// Public /lm is the single gate for Life Manager Cloud (the standalone /maritime page was
-// retired 2026-11-07 and redirects to /lm). /lm hands off directly to the Life Manager web
-// app's manager consent route on the Railway backend; billing remains server-side.
-function assertWebAppHandoff(bundle) {
+// assertWebAppHandoff({ chunk }, { publicOrigin }) → { ok, reason }
+// Public /lm either links to same-origin /maritime or stays on the unpublished waitlist.
+// Backend URLs stay behind the proxy. Live Cloud price is undecided: do not accept $29 or $19.
+function assertWebAppHandoff(bundle, options = {}) {
   const chunk = String(bundle && bundle.chunk || "");
+  let publicOrigin;
+  try {
+    const configured = new URL(String(options.publicOrigin || bundle?.publicOrigin || ""));
+    if (!/^https:$/.test(configured.protocol) && !["localhost", "127.0.0.1"].includes(configured.hostname)) {
+      throw new Error("invalid protocol");
+    }
+    publicOrigin = configured.origin;
+  } catch {
+    return { ok: false, reason: "public origin required to verify Life Manager Cloud route" };
+  }
   let telegramLinkFound = false;
   let stripeLinkFound = false;
+  let directBackendLinkFound = false;
   for (const raw of chunk.match(HTTPS_URL_RE) || []) {
     let parsed;
     try {
@@ -56,13 +66,25 @@ function assertWebAppHandoff(bundle) {
     const hostname = parsed.hostname.toLowerCase().replace(/\.+$/, "");
     if (hostname === "t.me" || hostname === "telegram.me") telegramLinkFound = true;
     if (hostname === "stripe.com" || hostname.endsWith(".stripe.com")) stripeLinkFound = true;
+    if (hostname === "life-call-production.up.railway.app") directBackendLinkFound = true;
   }
   if (telegramLinkFound) return { ok: false, reason: "telegram link found in /lm chunk" };
-  if (stripeLinkFound) {
-    return { ok: false, reason: "stripe link found in /lm chunk" };
+  if (stripeLinkFound) return { ok: false, reason: "stripe link found in /lm chunk" };
+  if (directBackendLinkFound) return { ok: false, reason: "direct backend link found in /lm page" };
+  if (/\$19|\b19\/month\b|\$29|\b29\/mo(?:nth)?\b|7-day free trial|seven-day free trial/i.test(chunk)) {
+    return { ok: false, reason: "live Cloud price found in /lm page" };
   }
-  const handoffLinkFound = /(?:href\s*=\s*["'])https:\/\/life-call-production\.up\.railway\.app\/maritime(?=[?#"']|$)/.test(chunk);
-  if (!handoffLinkFound) return { ok: false, reason: "web app handoff link missing in /lm chunk" };
+  const cloudRouteFound = [...chunk.matchAll(/\bhref\s*=\s*(["'])(.*?)\1/gi)].some((match) => {
+    try {
+      const href = match[2].replace(/&amp;/g, "&");
+      const target = new URL(href, publicOrigin);
+      return target.origin === publicOrigin && target.pathname.replace(/\/+$/, "") === "/maritime";
+    } catch {
+      return false;
+    }
+  });
+  const waitlist = /join the waitlist/i.test(chunk) && /in development/i.test(chunk);
+  if (!cloudRouteFound && !waitlist) return { ok: false, reason: "Life Manager Cloud route missing in /lm page" };
   return { ok: true, reason: "ok" };
 }
 

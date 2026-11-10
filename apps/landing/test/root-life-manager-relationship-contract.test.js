@@ -19,16 +19,21 @@ test('localized homepages use Manager metadata and preserve canonical language l
     assert.match(page, /ManagerHome/);
     assert.match(page, /export const metadata/);
     assert.match(page, new RegExp(`https://aniccaai.com/${locale}`));
-    assert.doesNotMatch(page, /Life Manager|proactive general agent|SelfImproveLoop|DemoVideo/);
+    if (locale === 'en') assert.match(page, /Life Manager for your time/);
+    else assert.match(page, /時間を整えるLife Manager/);
+    assert.doesNotMatch(page, /proactive general agent|SelfImproveLoop|DemoVideo/);
   }
 });
 
 test('the public Life Manager page exposes the canonical startup-context identity', () => {
   const page = read('app/lm/page.tsx');
   assert.match(page, /life-manager-context-version/);
-  assert.match(page, /2026-10-08\.1/);
+  assert.match(page, /2026-10-20\.1/);
   assert.match(page, /life-manager-context-digest/);
-  assert.match(page, /5b8e34cf01a7cf7589fc6049c080b3eb8458ec28b98103abc2ade395e8d0f90c/);
+  assert.match(page, /45f79b184d1048bc643a0db1cf6f1d928f8a426077ac0e489fcaf5bcaa1435ea/);
+  assert.match(page, /identity-only Google sign-in/);
+  assert.match(page, /Capafy/);
+  assert.doesNotMatch(page, /Google Calendar|7-day free trial|\$29\/month/);
 });
 
 test('the legacy Telegram-first Life Manager URL redirects in both deployed Netlify configs', () => {

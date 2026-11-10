@@ -3,7 +3,7 @@
 const { createHash, randomUUID } = require("node:crypto");
 const SAFE = /^[A-Za-z0-9._-]{1,120}$/;
 const RUN = /^\d{8}-\d{6}$/;
-const LIFE_MANAGER_WEB_APP_URL = "https://life-call-production.up.railway.app/lm?start_calendar=1";
+const LIFE_MANAGER_WEB_APP_URL = "/maritime?source=landing";
 const REQUIRED = ["product_id", "run_id", "artifact_id", "variant_id", "click_id"];
 
 function normalizeQuery(source) {
@@ -39,11 +39,11 @@ function attributionRef(query) {
 }
 
 function webAppUrl(ref) {
-  const target = new URL(LIFE_MANAGER_WEB_APP_URL);
+  const target = new URL(LIFE_MANAGER_WEB_APP_URL, "https://aniccaai.com");
   target.searchParams.set("utm_source", "writer");
   target.searchParams.set("utm_medium", "article");
   target.searchParams.set("utm_campaign", `wr_${ref}`);
-  return target.toString();
+  return `${target.pathname}${target.search}`;
 }
 
 function makeWriterCtaHandler({ persist, now = () => new Date().toISOString(), receiptId = randomUUID }) {

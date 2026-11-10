@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { LIFE_MANAGER_WEB_APP_URL, lifeManagerCtaHref } from '@/lib/writer-cta-url';
 
 // Primary CTA for the Japanese Life Manager surfaces (/lm/ja, /lm/guide/*).
-// Same flow as /lm (LmBody): enter the Railway Web app's Google + Calendar setup.
+// Same first-party Cloud entry as /lm (LmBody), with bounded campaign attribution.
 // Visitor UTMs win; when none are present we tag the click with this page's defaults.
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
 export default function LmJaCta({
   campaign,
   content,
-  label = 'Googleカレンダーに接続（7日間無料）',
+  label = 'Life Manager Cloudを始める',
   className,
 }: {
   campaign: string;

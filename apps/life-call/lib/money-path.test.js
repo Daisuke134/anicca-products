@@ -1,6 +1,6 @@
 // lib/money-path.test.js — C5/C6. The money-path monitor keeps the legacy Stripe-link assertion
-// covered while the current /lm route (the single gate; /maritime redirects to /lm) hands off
-// directly to the Life Manager web app and continues payment server-side. It
+// covered while /lm hands off to same-origin /maritime, or stays on the unpublished waitlist,
+// and continues payment server-side. It
 // gates rollback with debounce (>=2 consecutive FAIL), a flap guard (never roll back into a target
 // that also fails), and Telegram dedup (one message per incident). Pure logic; network fetch lives in the caller.
 "use strict";
@@ -17,6 +17,7 @@ const {
 
 const GOOD = "https://buy.stripe.com/9B600j6C204S7LadIG2880V"; // LM $20/mo (registry known-good)
 const BAD = "https://buy.stripe.com/00w9ATf8yaJwghG6ge2880v"; // ¥700k AI供養 (the real 2026-07-03 bug)
+const LIFE_MANAGER_PUBLIC_ORIGIN = "https://aniccaai.com";
 
 test("extractStripeLink: pulls buy.stripe.com/<slug> out of a chunk string", () => {
   const chunk = `})}let m="/x",x="${GOOD}",p=/re/;`;
@@ -32,38 +33,61 @@ test("assertMoneyPath: PASS when bundle link == registry, FAIL on the ¥700k bug
   assert.match(bad.reason, /stripe/i);
 });
 
-const HANDOFF = 'href="https://life-call-production.up.railway.app/maritime?source=landing&lang=en"';
-
-test("assertWebAppHandoff accepts the canonical web-app handoff", () => {
+test("assertWebAppHandoff accepts the same-origin Cloud route", () => {
   assert.equal(typeof assertWebAppHandoff, "function");
-  assert.deepEqual(assertWebAppHandoff({ chunk: HANDOFF }), { ok: true, reason: "ok" });
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://life-call-production.up.railway.app/maritime"' }), { ok: true, reason: "ok" });
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime?source=landing&amp;lang=en"' }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), { ok: true, reason: "ok" });
 });
 
-test("assertWebAppHandoff fails when the web-app handoff is absent", () => {
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://example.com/lm"' }), {
-    ok: false, reason: "web app handoff link missing in /lm chunk",
+test("assertWebAppHandoff accepts the unpublished waitlist without a live price", () => {
+  const chunk = '<span>CLOUD · IN DEVELOPMENT</span><p>Life Manager Cloud is in development and not open for public signup.</p><a href="mailto:contact@aniccaai.com">Join the waitlist</a>';
+  assert.deepEqual(assertWebAppHandoff({ chunk }, { publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN }), { ok: true, reason: "ok" });
+});
+
+test("assertWebAppHandoff fails when the same-origin Cloud route is absent", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://example.com/lm"' }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
+    ok: false, reason: "Life Manager Cloud route missing in /lm page",
   });
 });
 
 test("assertWebAppHandoff rejects Telegram and direct Stripe links", () => {
-  assert.deepEqual(assertWebAppHandoff({ chunk: HANDOFF + ' https://t.me/LifeManagerBotbot?start=lp' }), {
+  const cloud = 'href="/maritime?source=landing"';
+  assert.deepEqual(assertWebAppHandoff({ chunk: `${cloud} https://t.me/LifeManagerBotbot?start=lp` }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
     ok: false, reason: "telegram link found in /lm chunk",
   });
-  assert.deepEqual(assertWebAppHandoff({ chunk: HANDOFF + ' https://checkout.stripe.com/c/pay' }), {
+  assert.deepEqual(assertWebAppHandoff({ chunk: `${cloud} https://checkout.stripe.com/c/pay` }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
     ok: false, reason: "stripe link found in /lm chunk",
   });
 });
 
-test("assertWebAppHandoff fails without the handoff link even when other Life Manager URLs are present", () => {
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'https://life-call-production.up.railway.app/auth/google' }), {
-    ok: false, reason: "web app handoff link missing in /lm chunk",
+test("assertWebAppHandoff rejects direct Railway links and a live Cloud price", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://life-call-production.up.railway.app/maritime"' }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
+    ok: false, reason: "direct backend link found in /lm page",
   });
-  assert.deepEqual(assertWebAppHandoff({ chunk: 'https://life-call-production.up.railway.app.evil/lm' }), {
-    ok: false, reason: "web app handoff link missing in /lm chunk",
+  assert.deepEqual(assertWebAppHandoff({
+    chunk: 'href="/maritime?source=landing" Life Manager Cloud is $29/month after a 7-day free trial.',
+  }, {
+    publicOrigin: LIFE_MANAGER_PUBLIC_ORIGIN,
+  }), {
+    ok: false, reason: "live Cloud price found in /lm page",
+  });
+});
+
+test("assertWebAppHandoff requires a valid public origin to verify same-origin links", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime"' }), {
+    ok: false, reason: "public origin required to verify Life Manager Cloud route",
   });
   assert.deepEqual(assertWebAppHandoff({ chunk: 'href="/maritime?source=landing&lang=en"' }), {
-    ok: false, reason: "web app handoff link missing in /lm chunk",
+    ok: false, reason: "public origin required to verify Life Manager Cloud route",
   });
 });
 
