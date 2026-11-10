@@ -71,6 +71,10 @@ export default function Page() {
         }}
       />
       <ManagerHome locale="en" />
+      <section aria-label="Anicca app" style={{ maxWidth: 760, margin: "0 auto", padding: "32px 16px 0", lineHeight: 1.75 }}>
+        <h2 style={{ fontSize: 20, marginBottom: 8 }}>Anicca – Daily Affirmations (iPhone app)</h2>
+        <p>Anicca – Daily Affirmations is a free iPhone app that puts one short, believable affirmation on your Lock Screen every day. You pick from 13 self-care topics, such as anxiety, self-doubt and overthinking, and the app sends gentle cards by notification and widget. There are no streaks and nothing to catch up on when you miss a day. <Link href="/affirmation-app">See the Anicca app page →</Link></p>
+      </section>
       <nav aria-label="Apps and guides" style={{ maxWidth: 960, margin: "0 auto", padding: "24px 16px 48px" }}>
         <h2 style={{ fontSize: 18, marginBottom: 12 }}>Apps and guides</h2>
         <ul style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 8, listStyle: "none", padding: 0 }}>

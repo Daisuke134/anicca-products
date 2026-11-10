@@ -87,13 +87,15 @@ const s = { main: { maxWidth: 760, margin: '0 auto', padding: '48px 20px', lineH
 
 export default function Page() {
   const ld = [
-    { '@context': 'https://schema.org', '@type': 'Article', headline: D.h1, inLanguage: D.lang, dateModified: '2026-10-23', author: { '@type': 'Organization', name: 'Anicca' }, mainEntityOfPage: D.canonical },
+    { '@context': 'https://schema.org', '@type': 'Article', headline: D.h1, inLanguage: D.lang, dateModified: '2026-11-10', author: { '@type': 'Organization', name: 'Anicca' }, mainEntityOfPage: D.canonical },
     { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: D.apps.map((a, i) => ({ '@type': 'ListItem', position: i + 1, name: a.name, url: a.url })) },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: D.faq.map(f => ({ '@type': 'Question', name: f[0], acceptedAnswer: { '@type': 'Answer', text: f[1] } })) },
+    { '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Anicca – Daily Affirmations', alternateName: 'Daily Affirmations - Anicca', applicationCategory: 'HealthApplication', operatingSystem: 'iOS 16.6+', url: 'https://aniccaai.com/affirmation-app', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, downloadUrl: 'https://apps.apple.com/app/id6755129214', sameAs: ['https://apps.apple.com/app/id6755129214', 'https://www.saashub.com/anicca-ai', 'https://www.youtube.com/@anicca-ai', 'https://dev.to/aniccaapp'] },
   ];
   return <main style={s.main} lang={D.lang}>
     <JsonLd data={{ '@context': 'https://schema.org', '@graph': ld }} />
     <h1>{D.h1}</h1>
+    <p><strong>Short answer:</strong> I am is the best-known affirmation app and the safe default for most iPhone users. If you want affirmations in your own voice, choose ThinkUp. If you keep forgetting to open the app, choose Anicca – Daily Affirmations: it puts one short line on your Lock Screen every day, across 13 topics, with no streaks.</p>
     <p style={s.small}>{(D.lang as string) === 'ja' ? '更新日: 2026年10月23日｜開示: 筆者はAniccaの開発者です。' : 'Updated October 23, 2026 · Disclosure: the author makes Anicca, one of the apps below.'}</p>
     {D.intro.map((p, i) => <p key={i}>{p}</p>)}
     <h2>{(D.lang as string) === 'ja' ? '比較一覧' : 'The shortlist'}</h2>
