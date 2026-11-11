@@ -18,19 +18,6 @@ async function initializeServer() {
   await runMigrationsOnce();
   console.log('✅ Database initialized.');
 
-  // 月次クレジットジョブ（UTC 00:05 付近で起動、当月未付与のみ実行）
-  const { runMonthlyCredits } = await import('./jobs/monthlyCredits.js');
-  setInterval(async () => {
-    const now = new Date();
-    if (now.getUTCHours() === 0 && now.getUTCMinutes() < 10) {
-      try {
-        await runMonthlyCredits(now);
-      } catch (e) {
-        console.error('monthly credits failed', e);
-      }
-    }
-  }, 60_000); // 1分ごとにチェック
-
   // 1.6.3: Problem Nudge APNs sender (run every minute, guarded by env flag).
   // NOTE: This is the SSOT execution path for "app not opened but still receives nudges".
   if (process.env.PROBLEM_NUDGE_APNS_SENDER_ENABLED === 'true') {
