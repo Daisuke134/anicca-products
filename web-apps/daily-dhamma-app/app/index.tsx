@@ -20,6 +20,7 @@ import { Verse, getFreeVerses, getAllVerses, getLocalizedVerse, getLocalizedSour
 import { useApp } from '@/providers/AppProvider';
 import { useRevenueCat } from '@/providers/RevenueCatProvider';
 import { isVerseLocked, shouldShowStreakPaywall } from '@/utils/paywallUtils';
+import { trackCoreResultViewed } from '@/utils/analytics';
 import { t } from '@/utils/i18n';
 
 const { width, height } = Dimensions.get('window');
@@ -55,6 +56,15 @@ export default function MainScreen() {
       router.replace('/onboarding');
     }
   }, [isLoading, settings.hasCompletedOnboarding, router]);
+
+  // Spec §3.4: Dhamma's core result = the daily quote card display.
+  const hasTrackedCoreResult = useRef(false);
+  useEffect(() => {
+    if (!isLoading && settings.hasCompletedOnboarding && !hasTrackedCoreResult.current) {
+      hasTrackedCoreResult.current = true;
+      trackCoreResultViewed('daily_quote');
+    }
+  }, [isLoading, settings.hasCompletedOnboarding]);
 
   // 3日連続で開いたら1回だけ paywall
   useEffect(() => {

@@ -19,7 +19,8 @@
       "distribution": "internal",
       "extends": "base",
       "env": {
-        "NPM_CONFIG_LEGACY_PEER_DEPS": "true"
+        "NPM_CONFIG_LEGACY_PEER_DEPS": "true",
+        "EXPO_PUBLIC_MIXPANEL_TOKEN": "96835bddc4fd0f2613e805d98c5915cd"
       }
     },
     "production": {
@@ -30,7 +31,8 @@
         "EXPO_PUBLIC_REVENUECAT_IOS_API_KEY": "appl_fHvAqxkeyCBSFIslMvNRuCDjndy",
         "EXPO_PUBLIC_APP_NAME": "Daily Dhamma",
         "EXPO_PUBLIC_PRIVACY_POLICY_URL": "https://aniccaai.com/dailydharma/privacy",
-        "EXPO_PUBLIC_TERMS_URL": "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+        "EXPO_PUBLIC_TERMS_URL": "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
+        "EXPO_PUBLIC_MIXPANEL_TOKEN": "96835bddc4fd0f2613e805d98c5915cd"
       }
     }
   },

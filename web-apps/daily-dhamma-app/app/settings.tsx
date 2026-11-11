@@ -10,6 +10,7 @@ import { useApp } from '@/providers/AppProvider';
 import { getDailyVerse, getLocalizedVerse, stayPresentMessages, stayPresentMessagesJa } from '@/data/verses';
 import { t } from '@/utils/i18n';
 import { isFrequencyLocked } from '@/utils/paywallUtils';
+import { trackNotificationPermissionResult } from '@/utils/analytics';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -40,6 +41,10 @@ export default function SettingsScreen() {
       const { status } = await Notifications.getPermissionsAsync();
       if (status !== 'granted') {
         const { status: newStatus } = await Notifications.requestPermissionsAsync();
+        trackNotificationPermissionResult(
+          newStatus === 'granted' ? 'granted' : 'denied',
+          'settings'
+        );
         if (newStatus !== 'granted') {
           // 権限が拒否された場合は設定を変更しない
           return;

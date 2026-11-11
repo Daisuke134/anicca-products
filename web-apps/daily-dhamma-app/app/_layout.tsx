@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AppProvider } from "@/providers/AppProvider";
 import { RevenueCatProvider } from "@/providers/RevenueCatProvider";
+import { initAnalytics, trackAppOpened } from "@/utils/analytics";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,6 +25,10 @@ function RootLayoutNav() {
 export default function RootLayout() {
   useEffect(() => {
     SplashScreen.hideAsync();
+    // Mixpanel (shared spec: kpi-churn-event-spec-2026-11-11 §3.2/§3.3).
+    initAnalytics().then(() => {
+      void trackAppOpened();
+    });
   }, []);
 
   return (

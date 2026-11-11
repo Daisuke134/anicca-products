@@ -11,6 +11,7 @@ import {
   cancelAllNotifications,
 } from '@/utils/notifications';
 import { localDateKey, nextOpenStreak } from '@/utils/paywallUtils';
+import { trackOnboardingCompleted } from '@/utils/analytics';
 
 interface AppSettings {
   hasCompletedOnboarding: boolean;
@@ -90,6 +91,7 @@ export const [AppProvider, useApp] = createContextHook(() => {
 
   const completeOnboarding = useCallback(() => {
     console.log('[AppProvider] Completing onboarding');
+    trackOnboardingCompleted();
     updateSettings({ hasCompletedOnboarding: true });
   }, [updateSettings]);
 

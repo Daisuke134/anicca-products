@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,10 @@ import { Flower2, Bell, Sparkles } from 'lucide-react-native';
 import Colors from '@/constants/colors';
 import { useApp } from '@/providers/AppProvider';
 import { t, TranslationKey } from '@/utils/i18n';
+import {
+  trackNotificationPermissionResult,
+  trackOnboardingStarted,
+} from '@/utils/analytics';
 
 const { width } = Dimensions.get('window');
 
@@ -55,9 +59,18 @@ export default function OnboardingScreen() {
   const flatListRef = useRef<FlatList>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
 
+  useEffect(() => {
+    trackOnboardingStarted();
+  }, []);
+
   const requestNotificationPermission = async () => {
     if (Platform.OS !== 'web') {
-      await Notifications.requestPermissionsAsync();
+      const { status } = await Notifications.requestPermissionsAsync();
+      // 'undetermined' cannot occur after a request; anything not granted is a denial.
+      trackNotificationPermissionResult(
+        status === 'granted' ? 'granted' : 'denied',
+        'onboarding'
+      );
     }
   };
 
