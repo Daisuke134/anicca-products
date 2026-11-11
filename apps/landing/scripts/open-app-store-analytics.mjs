@@ -13,6 +13,7 @@ const APPS = [
   { id: '6759514159', name: 'Thankful' },
   { id: '6762143790', name: 'Sleep Reset' },
   { id: '6759667221', name: 'Honne' },
+  { id: '6766485903', name: 'STUDIO CHERIE' },
 ];
 const DISCOVERY_KEYS = ['impressions', 'unique_impressions', 'page_views', 'unique_page_views', 'taps', 'unique_taps'];
 const DOWNLOAD_KEYS = ['events', 'unique_events', 'first_time', 'auto_update', 'manual_update', 'redownload', 'restore', 'other'];

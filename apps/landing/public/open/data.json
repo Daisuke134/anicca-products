@@ -21099,5 +21099,300 @@
         ]
       }
     }
-  }
+  },
+  "store_funnel": {
+    "version": 1,
+    "observed_at": "2026-11-11 13:42 JST",
+    "observed_at_iso": "2026-11-11T13:42:36+09:00",
+    "dashboard": "https://aniccaai.com/open/",
+    "sources": {
+      "asc": "App Store Connect Analytics (Discovery and Downloads Standard) already on this dashboard; first-time downloads are Apple first-time units, not RevenueCat new customers.",
+      "revenuecat": "RevenueCat overview metrics plus New Trials and Churn charts, pulled 2026-11-11 afternoon JST.",
+      "posthog": "Not wired for these six iOS apps on this page."
+    },
+    "windows": {
+      "asc": {
+        "period": "2026-11-03 to 2026-11-09",
+        "measured_at": "2026-11-11T04:17:40.538Z",
+        "note": "Current snapshot covers five apps. STUDIO CHERIE has an ONGOING analytics request but was omitted from the collector app list."
+      },
+      "revenuecat": {
+        "period": "2026-10-14 to 2026-11-11",
+        "note": "Stock metrics (MRR, active trials, active subscriptions) are current. New trials and 28-day revenue are period totals."
+      }
+    },
+    "apps": [
+      {
+        "app": "Anicca",
+        "apple_id": "6755129214",
+        "revenuecat_project_id": "projbb7b9d1b",
+        "asc": {
+          "status": "measured",
+          "period": "2026-11-03 to 2026-11-09",
+          "impressions": 302,
+          "page_views": 15,
+          "taps": 12,
+          "first_time_downloads": 1,
+          "download_events": 339,
+          "discovery_days": 7,
+          "download_days": 7,
+          "note": null
+        },
+        "revenuecat": {
+          "status": "measured",
+          "window": "2026-10-14 to 2026-11-11 (28-day / stock as labelled)",
+          "trial_starts_28d": 0,
+          "active_trials": 0,
+          "paid_conversions_28d": null,
+          "paid_conversions_note": "28-day App Store proceeds via RevenueCat are $0. Stock paid subscriptions are a level, not new conversions in the window. RevenueCat new customers are not installs and are not conversions.",
+          "active_subscriptions": 5,
+          "mrr_usd": 20.34,
+          "revenue_28d_usd": 0,
+          "new_customers_28d": 190,
+          "new_customers_note": "Not installs. Includes backend/server registrations, review and simulator traffic.",
+          "churn_rate_latest_complete_pct": 0,
+          "churned_actives_latest_complete": 0,
+          "churn_note": "Nov so far 0% (0 of 5). Oct complete also 0%.",
+          "renewals": null,
+          "renewals_note": "RevenueCat does not publish a single renewals count; use churned actives and active subscriptions to read retention."
+        },
+        "coverage": {
+          "impressions": "live",
+          "page_views": "live",
+          "first_time_downloads": "live",
+          "trial_starts": "live",
+          "paid_conversions": "stock_and_proceeds_only",
+          "mrr_revenue": "live",
+          "renewals_churn": "churn_measured"
+        }
+      },
+      {
+        "app": "Honne",
+        "apple_id": "6759667221",
+        "revenuecat_project_id": "projcfa60dd8",
+        "asc": {
+          "status": "measured",
+          "period": "2026-11-03 to 2026-11-09",
+          "impressions": 177,
+          "page_views": 2,
+          "taps": null,
+          "first_time_downloads": null,
+          "download_events": null,
+          "discovery_days": 7,
+          "download_days": 0,
+          "note": null
+        },
+        "revenuecat": {
+          "status": "measured_via_connector",
+          "window": "2026-10-14 to 2026-11-11 (28-day / stock as labelled)",
+          "trial_starts_28d": 0,
+          "active_trials": 0,
+          "paid_conversions_28d": null,
+          "paid_conversions_note": "28-day App Store proceeds via RevenueCat are $0. Stock paid subscriptions are a level, not new conversions in the window. RevenueCat new customers are not installs and are not conversions.",
+          "active_subscriptions": 2,
+          "mrr_usd": 4.0,
+          "revenue_28d_usd": 0,
+          "new_customers_28d": 21,
+          "new_customers_note": "Not installs. Includes backend/server registrations, review and simulator traffic.",
+          "churn_rate_latest_complete_pct": 50,
+          "churned_actives_latest_complete": 1,
+          "churn_note": "Oct complete: 50% (1 of 2). Nov so far 0% (0 of 2). Published metrics.json still lacks a Honne project key, so stock/churn here is from the RevenueCat overview and churn chart, not that snapshot.",
+          "renewals": null,
+          "renewals_note": "RevenueCat does not publish a single renewals count; use churned actives and active subscriptions to read retention."
+        },
+        "coverage": {
+          "impressions": "live",
+          "page_views": "live",
+          "first_time_downloads": "not_reported",
+          "trial_starts": "live",
+          "paid_conversions": "stock_and_proceeds_only",
+          "mrr_revenue": "live",
+          "renewals_churn": "churn_measured"
+        }
+      },
+      {
+        "app": "Dhamma Quotes",
+        "apple_id": "6757726663",
+        "revenuecat_project_id": "proj86624956",
+        "asc": {
+          "status": "measured",
+          "period": "2026-11-03 to 2026-11-09",
+          "impressions": 203,
+          "page_views": 8,
+          "taps": 7,
+          "first_time_downloads": 5,
+          "download_events": 5,
+          "discovery_days": 7,
+          "download_days": 4,
+          "note": null
+        },
+        "revenuecat": {
+          "status": "measured",
+          "window": "2026-10-14 to 2026-11-11 (28-day / stock as labelled)",
+          "trial_starts_28d": 0,
+          "active_trials": 0,
+          "paid_conversions_28d": null,
+          "paid_conversions_note": "28-day App Store proceeds via RevenueCat are $0. Stock paid subscriptions are a level, not new conversions in the window. RevenueCat new customers are not installs and are not conversions.",
+          "active_subscriptions": 0,
+          "mrr_usd": 0,
+          "revenue_28d_usd": 0,
+          "new_customers_28d": 16,
+          "new_customers_note": "Not installs. Includes backend/server registrations, review and simulator traffic.",
+          "churn_rate_latest_complete_pct": null,
+          "churned_actives_latest_complete": null,
+          "churn_note": "No paid subscribers in stock; churn rate is not applicable.",
+          "renewals": null,
+          "renewals_note": "RevenueCat does not publish a single renewals count; use churned actives and active subscriptions to read retention."
+        },
+        "coverage": {
+          "impressions": "live",
+          "page_views": "live",
+          "first_time_downloads": "live",
+          "trial_starts": "live",
+          "paid_conversions": "stock_and_proceeds_only",
+          "mrr_revenue": "live",
+          "renewals_churn": "not_applicable_no_paid_stock"
+        }
+      },
+      {
+        "app": "Sleep Reset",
+        "apple_id": "6762143790",
+        "revenuecat_project_id": "proj77301666",
+        "asc": {
+          "status": "measured",
+          "period": "2026-11-03 to 2026-11-09",
+          "impressions": 110,
+          "page_views": null,
+          "taps": null,
+          "first_time_downloads": null,
+          "download_events": null,
+          "discovery_days": 7,
+          "download_days": 0,
+          "note": null
+        },
+        "revenuecat": {
+          "status": "measured",
+          "window": "2026-10-14 to 2026-11-11 (28-day / stock as labelled)",
+          "trial_starts_28d": 1,
+          "active_trials": 0,
+          "paid_conversions_28d": null,
+          "paid_conversions_note": "28-day App Store proceeds via RevenueCat are $0. Stock paid subscriptions are a level, not new conversions in the window. RevenueCat new customers are not installs and are not conversions.",
+          "active_subscriptions": 0,
+          "mrr_usd": 0,
+          "revenue_28d_usd": 0,
+          "new_customers_28d": 6,
+          "new_customers_note": "Not installs. Includes backend/server registrations, review and simulator traffic.",
+          "churn_rate_latest_complete_pct": null,
+          "churned_actives_latest_complete": null,
+          "churn_note": "1 trial started in the 28-day window; 0 paid subscribers in stock, so churn rate is not applicable.",
+          "renewals": null,
+          "renewals_note": "RevenueCat does not publish a single renewals count; use churned actives and active subscriptions to read retention."
+        },
+        "coverage": {
+          "impressions": "live",
+          "page_views": "not_reported",
+          "first_time_downloads": "not_reported",
+          "trial_starts": "live",
+          "paid_conversions": "stock_and_proceeds_only",
+          "mrr_revenue": "live",
+          "renewals_churn": "not_applicable_no_paid_stock"
+        }
+      },
+      {
+        "app": "Thankful",
+        "apple_id": "6759514159",
+        "revenuecat_project_id": "proj7aaf9429",
+        "asc": {
+          "status": "measured",
+          "period": "2026-11-03 to 2026-11-09",
+          "impressions": 113,
+          "page_views": 11,
+          "taps": 1,
+          "first_time_downloads": 1,
+          "download_events": 1,
+          "discovery_days": 7,
+          "download_days": 1,
+          "note": null
+        },
+        "revenuecat": {
+          "status": "measured",
+          "window": "2026-10-14 to 2026-11-11 (28-day / stock as labelled)",
+          "trial_starts_28d": 0,
+          "active_trials": 0,
+          "paid_conversions_28d": null,
+          "paid_conversions_note": "28-day App Store proceeds via RevenueCat are $0. Stock paid subscriptions are a level, not new conversions in the window. RevenueCat new customers are not installs and are not conversions.",
+          "active_subscriptions": 0,
+          "mrr_usd": 0,
+          "revenue_28d_usd": 0,
+          "new_customers_28d": 12,
+          "new_customers_note": "Not installs. Includes backend/server registrations, review and simulator traffic.",
+          "churn_rate_latest_complete_pct": null,
+          "churned_actives_latest_complete": null,
+          "churn_note": "No paid subscribers in stock; churn rate is not applicable.",
+          "renewals": null,
+          "renewals_note": "RevenueCat does not publish a single renewals count; use churned actives and active subscriptions to read retention."
+        },
+        "coverage": {
+          "impressions": "live",
+          "page_views": "live",
+          "first_time_downloads": "live",
+          "trial_starts": "live",
+          "paid_conversions": "stock_and_proceeds_only",
+          "mrr_revenue": "live",
+          "renewals_churn": "not_applicable_no_paid_stock"
+        }
+      },
+      {
+        "app": "STUDIO CHERIE",
+        "apple_id": "6766485903",
+        "revenuecat_project_id": "projc98adb88",
+        "asc": {
+          "status": "not_in_current_snapshot",
+          "period": null,
+          "impressions": null,
+          "page_views": null,
+          "taps": null,
+          "first_time_downloads": null,
+          "download_events": null,
+          "discovery_days": null,
+          "download_days": null,
+          "note": "ONGOING App Store analytics request exists, but the current 5-app collector snapshot does not include this app. Next collector run should add it."
+        },
+        "revenuecat": {
+          "status": "measured",
+          "window": "2026-10-14 to 2026-11-11 (28-day / stock as labelled)",
+          "trial_starts_28d": 0,
+          "active_trials": 0,
+          "paid_conversions_28d": null,
+          "paid_conversions_note": "28-day App Store proceeds via RevenueCat are $0. Stock paid subscriptions are a level, not new conversions in the window. RevenueCat new customers are not installs and are not conversions.",
+          "active_subscriptions": 0,
+          "mrr_usd": 0,
+          "revenue_28d_usd": 0,
+          "new_customers_28d": 0,
+          "new_customers_note": "Not installs. Includes backend/server registrations, review and simulator traffic.",
+          "churn_rate_latest_complete_pct": null,
+          "churned_actives_latest_complete": null,
+          "churn_note": "RevenueCat project created 2026-11-11 12:16 JST; all stock metrics are 0.",
+          "renewals": null,
+          "renewals_note": "RevenueCat does not publish a single renewals count; use churned actives and active subscriptions to read retention."
+        },
+        "coverage": {
+          "impressions": "missing_from_asc_snapshot",
+          "page_views": "missing_from_asc_snapshot",
+          "first_time_downloads": "missing_from_asc_snapshot",
+          "trial_starts": "live",
+          "paid_conversions": "stock_and_proceeds_only",
+          "mrr_revenue": "live",
+          "renewals_churn": "not_applicable_no_paid_stock"
+        }
+      }
+    ],
+    "notes": [
+      "This table is the end-to-end store funnel: impressions to page views to first-time downloads (App Store), then trial starts, paid stock/proceeds, MRR, and churn (RevenueCat).",
+      "RevenueCat new customers are not installs and are not shown as the install step.",
+      "Paid conversions in the last 28 days are not a single RevenueCat count here; 28-day proceeds are $0 on all six apps, and paid subscription counts are stock.",
+      "Renewals are not a separate published number; churned actives and active subscriptions stand in for retention."
+    ]
+  },
+  "store_funnel_updated_at": "2026-11-11 13:42 JST"
 }
