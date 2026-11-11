@@ -87,6 +87,10 @@
         "DAY": "%{count}日後に%{price}/年。いつでもキャンセルできます",
         "WEEK": "%{count}週間後に%{price}/年。いつでもキャンセルできます",
         "MONTH": "%{count}か月後に%{price}/年。いつでもキャンセルできます"
+      },
+      "timeline": {
+        "until": "%{date}まで無料トライアル",
+        "charge": "%{date}から%{price}/年。いつでもキャンセルできます"
       }
     },
     "close": "閉じる"
