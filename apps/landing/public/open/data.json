@@ -21102,8 +21102,8 @@
   },
   "store_funnel": {
     "version": 1,
-    "observed_at": "2026-11-11 13:42 JST",
-    "observed_at_iso": "2026-11-11T13:42:36+09:00",
+    "observed_at": "2026-11-11 13:53 JST",
+    "observed_at_iso": "2026-11-11T13:53:07+09:00",
     "dashboard": "https://aniccaai.com/open/",
     "sources": {
       "asc": "App Store Connect Analytics (Discovery and Downloads Standard) already on this dashboard; first-time downloads are Apple first-time units, not RevenueCat new customers.",
@@ -21113,8 +21113,8 @@
     "windows": {
       "asc": {
         "period": "2026-11-03 to 2026-11-09",
-        "measured_at": "2026-11-11T04:17:40.538Z",
-        "note": "Current snapshot covers five apps. STUDIO CHERIE has an ONGOING analytics request but was omitted from the collector app list."
+        "measured_at": "2026-11-11T04:48:44.447Z",
+        "note": "All six apps are in the App Store analytics snapshot after STUDIO CHERIE was added to the collector."
       },
       "revenuecat": {
         "period": "2026-10-14 to 2026-11-11",
@@ -21347,16 +21347,16 @@
         "apple_id": "6766485903",
         "revenuecat_project_id": "projc98adb88",
         "asc": {
-          "status": "not_in_current_snapshot",
-          "period": null,
-          "impressions": null,
-          "page_views": null,
-          "taps": null,
-          "first_time_downloads": null,
-          "download_events": null,
-          "discovery_days": null,
-          "download_days": null,
-          "note": "ONGOING App Store analytics request exists, but the current 5-app collector snapshot does not include this app. Next collector run should add it."
+          "status": "measured",
+          "period": "2026-11-03 to 2026-11-09",
+          "impressions": 118,
+          "page_views": 12,
+          "taps": 8,
+          "first_time_downloads": 1,
+          "download_events": 1,
+          "discovery_days": 7,
+          "download_days": 1,
+          "note": null
         },
         "revenuecat": {
           "status": "measured",
@@ -21377,9 +21377,9 @@
           "renewals_note": "RevenueCat does not publish a single renewals count; use churned actives and active subscriptions to read retention."
         },
         "coverage": {
-          "impressions": "missing_from_asc_snapshot",
-          "page_views": "missing_from_asc_snapshot",
-          "first_time_downloads": "missing_from_asc_snapshot",
+          "impressions": "live",
+          "page_views": "live",
+          "first_time_downloads": "live",
           "trial_starts": "live",
           "paid_conversions": "stock_and_proceeds_only",
           "mrr_revenue": "live",
@@ -21394,5 +21394,5 @@
       "Renewals are not a separate published number; churned actives and active subscriptions stand in for retention."
     ]
   },
-  "store_funnel_updated_at": "2026-11-11 13:42 JST"
+  "store_funnel_updated_at": "2026-11-11 13:53 JST"
 }
