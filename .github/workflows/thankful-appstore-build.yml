@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 45
     defaults:
       run:
@@ -22,8 +22,14 @@ jobs:
             mobile-apps/rork-thankful-gratitude-app
           sparse-checkout-cone-mode: true
 
-      - name: Show Xcode version
-        run: xcodebuild -version
+      - name: Select Xcode 26
+        run: |
+          ls /Applications | grep -i Xcode || true
+          XCODE_APP=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          if [ -z "$XCODE_APP" ]; then XCODE_APP=/Applications/Xcode.app; fi
+          echo "Selecting $XCODE_APP"
+          sudo xcode-select -s "$XCODE_APP"
+          xcodebuild -version
 
       - name: Install App Store Connect API key
         env:
