@@ -22950,5 +22950,678 @@
       "Renewals are not a separate published number; churned actives and active subscriptions stand in for retention."
     ]
   },
-  "store_funnel_updated_at": "2026-11-11 13:53 JST"
+  "store_funnel_updated_at": "2026-11-11 13:53 JST",
+  "app_funnels": {
+    "version": 1,
+    "built_from": "apps-metrics-latest.json (ASC snapshot 2026-11-11T05:18:11Z) + full-funnel-2026-11-11.md (Mixpanel cohort + RevenueCat, 2026-11-11)",
+    "sources": {
+      "store": "App Store Connect Analytics via asc (first-time downloads are Apple units, not RevenueCat new customers)",
+      "in_app": "Mixpanel (Anicca project only; the other five apps have no event stream yet)",
+      "subscription": "RevenueCat official rc CLI + ASC subscription-state report"
+    },
+    "notes": [
+      "Same step list for all six apps: impressions, page views, downloads, first open, onboarding, notification permission, paywall, purchase start, new paid, trial starts, active paid / cancellations.",
+      "Steps that cannot be measured yet are shown as unmeasured with the reason, never estimated. In-app steps are measured only for Anicca today.",
+      "ASC and Mixpanel are separate systems: download counts and first-open cohorts cannot be chained per person."
+    ],
+    "apps": [
+      {
+        "app": "Anicca",
+        "apple_id": "6755129214",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 994,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 81,
+            "pct_of_impressions": 8.1
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 14,
+            "pct_of_impressions": 1.4
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 25,
+            "pct_of_first_open": 100.0,
+            "note": "Distinct-user cohort (production, n=25). Separate system from ASC units; includes updated/existing users, so it is not directly chained to the 14 downloads above."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 25,
+            "pct_of_first_open": 100.0
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 2,
+            "pct_of_first_open": 8.0,
+            "note": "All 25 cohort users reached the permission step: allowed 2 (8.0%), denied 19, skipped 4."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 23,
+            "pct_of_first_open": 92.0
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 2,
+            "pct_of_first_open": 8.0,
+            "note": "2 users; 8.7% of paywall viewers. Mixpanel purchase_completed events carry no app attribution, so completion is read from ASC + RevenueCat below."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "Active trials 0. Anicca and Honne share one RevenueCat project; combined MRR $20 (rc CLI, 2026-11-11); per-app MRR split unmeasured."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 5,
+              "voluntary_churn_cumulative": 35,
+              "involuntary_churn_cumulative": 2
+            },
+            "note": "Active paid 5 = full price 4 + preserved price 1 (ASC, 2026-11-09)."
+          }
+        ]
+      },
+      {
+        "app": "Honne",
+        "apple_id": "6759667221",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 2439,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 92,
+            "pct_of_impressions": 3.8
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 14,
+            "pct_of_impressions": 0.6
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "Active trials 0. Shares the RevenueCat project with Anicca (combined MRR $20); per-app split unmeasured."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 2,
+              "voluntary_churn_cumulative": 4,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "Active paid 2, both full price (ASC, 2026-11-09)."
+          }
+        ]
+      },
+      {
+        "app": "Dhamma Quotes",
+        "apple_id": "6757726663",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 907,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 48,
+            "pct_of_impressions": 5.3
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 15,
+            "pct_of_impressions": 1.7
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "RevenueCat project proj86624956: active trials 0, MRR $0."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 0,
+              "voluntary_churn_cumulative": null,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "No rows in the ASC subscription-state report for this app; RevenueCat active subscriptions 0."
+          }
+        ]
+      },
+      {
+        "app": "Sleep Reset",
+        "apple_id": "6762143790",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 345,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 9,
+            "pct_of_impressions": 2.6
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 4,
+            "pct_of_impressions": 1.2
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 1,
+            "note": "1 trial started in the window (RevenueCat charts); it did not convert to paid. Active trials 0."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 0,
+              "voluntary_churn_cumulative": 1,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "RevenueCat for this app is read via charts only (the key lacks overview permission)."
+          }
+        ]
+      },
+      {
+        "app": "Thankful",
+        "apple_id": "6759514159",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 363,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 33,
+            "pct_of_impressions": 9.1
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 2,
+            "pct_of_impressions": 0.6
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "RevenueCat project proj7aaf9429: active trials 0, MRR $0."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 0,
+              "voluntary_churn_cumulative": null,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "No rows in the ASC subscription-state report for this app; RevenueCat active subscriptions 0."
+          }
+        ]
+      },
+      {
+        "app": "STUDIO CHERIE",
+        "apple_id": "6766485903",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 481,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 48,
+            "pct_of_impressions": 10.0
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 2,
+            "pct_of_impressions": 0.4
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat revenue $0 (project created 2026-11-11)."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "RevenueCat project was created 2026-11-11 12:16 JST; all stock metrics are 0."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 0,
+              "voluntary_churn_cumulative": null,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "No rows in the ASC subscription-state report for this app; RevenueCat active subscriptions 0."
+          }
+        ]
+      }
+    ]
+  }
 }

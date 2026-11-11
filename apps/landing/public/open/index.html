@@ -126,6 +126,7 @@ a.idx .go{color:#576CDB;font-size:12px;font-weight:600;margin-top:2px}
 <div class="c" id="card-apps"><h2>Apps <span class="scope ">PLATFORM · APP STORE</span></h2><div class="mini one"><div class="mc" id="slot-inst"><div class="m">Loading…</div></div></div><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div><div id="apps-metrics-extra"></div></div>
 <div class="c" id="card-revenuecat" style="margin-top:12px"><h2>RevenueCat app metrics <span class="scope ">APPS · REVENUECAT</span></h2><div id="revenuecat-charts">Loading…</div></div>
 <div class="c" id="card-anicca-product-analytics" style="margin-top:12px"><h2>Anicca screen funnel <span class="scope ">APP · ANICCA iOS</span></h2><div id="anicca-product-analytics" aria-live="polite">Loading…</div></div>
+<div class="c" id="card-app-funnels" style="margin-top:12px"><h2>App funnels — store to subscription, all six apps <span class="scope ">APPS · ASC + MIXPANEL + REVENUECAT</span></h2><div class="m" id="app-funnels-meta">Loading…</div><div id="app-funnels"></div></div>
 </section>
 <section class="grpwrap" id="grp-social">
 <div class="grp">Social &amp; distribution <small>all connected accounts</small></div>
@@ -360,10 +361,39 @@ const renderAniccaProductAnalytics=a=>{
   if(notes)notes.innerHTML=(F.notes||[]).map(x=>esc(x)).join(' ');
  }
 
+ function renderAppFunnels(d){
+  const meta=$('app-funnels-meta'), host=$('app-funnels');
+  if(!host)return;
+  const F=d.app_funnels;
+  const n=v=>v==null?'<span class="m">unmeasured</span>':Number(v).toLocaleString('en-US');
+  if(!F||!Array.isArray(F.apps)||!F.apps.length){
+    if(meta)meta.textContent='Per-app funnels have not been written into this snapshot yet.';
+    host.innerHTML='';return;
+  }
+  if(meta)meta.textContent='One step list for every app: store steps from App Store Connect (28d), in-app steps from Mixpanel, subscription steps from RevenueCat + ASC state. Unmeasured steps are labelled with the reason, never estimated.';
+  const val=(st)=>{
+    if(st.status==='unmeasured'||st.value==null)return '<span class="m">unmeasured</span>';
+    if(st.step_id==='retention'&&typeof st.value==='object'){
+      const v=st.value, parts=['active paid '+Number(v.active_paid).toLocaleString('en-US')];
+      if(v.voluntary_churn_cumulative!=null)parts.push('voluntary cancellations '+Number(v.voluntary_churn_cumulative).toLocaleString('en-US'));
+      if(v.involuntary_churn_cumulative!=null)parts.push('payment-failure cancellations '+Number(v.involuntary_churn_cumulative).toLocaleString('en-US'));
+      return esc(parts.join(' \u00b7 '));
+    }
+    return '<strong>'+n(st.value)+'</strong>';
+  };
+  const pctCell=(st)=>{
+    if(st.pct_of_impressions!=null)return st.pct_of_impressions+'% of impressions';
+    if(st.pct_of_first_open!=null)return st.pct_of_first_open+'% of first open';
+    return '';
+  };
+  host.innerHTML=F.apps.map(app=>'<h3 style="margin:14px 0 4px">'+esc(app.app)+'</h3><div style="overflow-x:auto"><table class="asc-apps"><tr><th>Step</th><th class="r">Value</th><th>Rate</th><th>Source</th><th>Window / note</th></tr>'+app.steps.map(st=>'<tr><td>'+esc(st.label)+'</td><td class="r">'+val(st)+'</td><td class="m">'+esc(pctCell(st))+'</td><td class="m">'+esc(st.source||'')+'</td><td class="m" style="font-size:11px">'+esc(st.window||'')+(st.note?' \u00b7 '+esc(st.note):'')+'</td></tr>').join('')+'</table></div>').join('')+((F.notes||[]).length?'<div class="m" style="margin-top:8px">'+F.notes.map(x=>esc(x)).join(' ')+'</div>':'');
+ }
+
 const loadData=()=>fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
- ['status','card-team','card-store-funnel','card-apps','card-anicca-product-analytics','card-soc','card-svw','card-rank'].forEach(id=>$(id).style.display='');
+ ['status','card-team','card-store-funnel','card-apps','card-anicca-product-analytics','card-app-funnels','card-soc','card-svw','card-rank'].forEach(id=>$(id).style.display='');
  renderAniccaProductAnalytics(d.product_analytics?.anicca_ios);
  renderStoreFunnel(d);
+ renderAppFunnels(d);
  const S=d.summary,K=Object.fromEntries(d.kpis.map(k=>[k.key,k])),mon=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(d.month+'-01T12:00:00Z'));
  $('upd').textContent='Ledger snapshot '+d.updated_at+'.';
  const ats=S.platforms.reduce((a,p)=>a+(p.all_time||0),0),lm=S.trend.length>1?S.trend[S.trend.length-2]:null;
