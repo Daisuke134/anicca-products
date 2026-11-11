@@ -1,0 +1,94 @@
+name: Thankful App Store Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      marketing_version:
+        description: "MARKETING_VERSION to build"
+        required: true
+        default: "1.0.3"
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: mobile-apps/rork-thankful-gratitude-app
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            mobile-apps/rork-thankful-gratitude-app
+          sparse-checkout-cone-mode: true
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Install App Store Connect API key
+        env:
+          ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          printf '%s' "$ASC_PRIVATE_KEY" > ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          chmod 600 ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+
+      - name: Archive
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          set -o pipefail
+          BUILD_NUMBER=$(TZ=Asia/Tokyo date +%Y%m%d%H%M)
+          echo "BUILD_NUMBER=${BUILD_NUMBER}" >> "$GITHUB_ENV"
+          echo "Building version ${{ inputs.marketing_version }} build ${BUILD_NUMBER}"
+          KEY_PATH=~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          xcodebuild archive \
+            -project ThankfulGratitudeApp.xcodeproj \
+            -scheme ThankfulGratitudeApp \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$PWD/build/ThankfulGratitudeApp.xcarchive" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            MARKETING_VERSION=${{ inputs.marketing_version }} \
+            CURRENT_PROJECT_VERSION=${BUILD_NUMBER} \
+            2>&1 | tee archive.log | tail -30
+
+      - name: Export IPA
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          set -o pipefail
+          KEY_PATH=~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          xcodebuild -exportArchive \
+            -archivePath "$PWD/build/ThankfulGratitudeApp.xcarchive" \
+            -exportOptionsPlist "$PWD/ExportOptions.CI.plist" \
+            -exportPath "$PWD/build/ipa" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            2>&1 | tee export.log | tail -30
+          ls -la build/ipa
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: thankful-ipa-${{ inputs.marketing_version }}-${{ env.BUILD_NUMBER }}
+          path: mobile-apps/rork-thankful-gratitude-app/build/ipa/*.ipa
+          if-no-files-found: error
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: thankful-build-logs
+          path: |
+            mobile-apps/rork-thankful-gratitude-app/archive.log
+            mobile-apps/rork-thankful-gratitude-app/export.log
+          if-no-files-found: ignore
