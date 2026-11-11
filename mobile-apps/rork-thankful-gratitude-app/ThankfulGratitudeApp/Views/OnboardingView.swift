@@ -5,6 +5,7 @@ struct OnboardingView: View {
     let onComplete: () -> Void
 
     @State private var currentPage: Int = 0
+    @State private var hasTrackedStart = false
 
     private var pages: [(icon: String, title: String, subtitle: String)] {
         [
@@ -29,6 +30,12 @@ struct OnboardingView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeInOut, value: currentPage)
+            .onAppear {
+                if !hasTrackedStart {
+                    hasTrackedStart = true
+                    AnalyticsManager.shared.trackOnboardingStarted()
+                }
+            }
 
             VStack(spacing: 20) {
                 HStack(spacing: 8) {

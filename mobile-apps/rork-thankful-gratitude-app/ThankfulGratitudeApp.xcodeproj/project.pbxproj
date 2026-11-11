@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9AC47D596A664642BC9E34C5 /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 26AD8D46A3E941849B75C2BC /* Mixpanel */; };
 		XX298127CFBB2CF3FA631BXX /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = XXDCC169DE7B2F3C1C8B10XX /* RevenueCat */; };
 		XXDB1E089E7A6A563E00DBXX /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = XXEAC818FB99284308FEDEXX /* RevenueCatUI */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AC47D596A664642BC9E34C5 /* Mixpanel in Frameworks */,
 				XX298127CFBB2CF3FA631BXX /* RevenueCat in Frameworks */,
 				XXDB1E089E7A6A563E00DBXX /* RevenueCatUI in Frameworks */,
 			);
@@ -119,6 +121,7 @@
 			);
 			name = ThankfulGratitudeApp;
 			packageProductDependencies = (
+				26AD8D46A3E941849B75C2BC /* Mixpanel */,
 				XXDCC169DE7B2F3C1C8B10XX /* RevenueCat */,
 				XXEAC818FB99284308FEDEXX /* RevenueCatUI */,
 			);
@@ -214,6 +217,7 @@
 				105FC5922E9EAD3200EA8BCF /* ThankfulGratitudeAppUITests */,
 			);
 			packageReferences = (
+				56D2CA120E97486AA2BD70B8 /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
 				XX4AC81916604C4344ADC0XX /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 		};
@@ -594,6 +598,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		56D2CA120E97486AA2BD70B8 /* XCRemoteSwiftPackageReference "mixpanel-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mixpanel/mixpanel-swift";
+			requirement = {
+				kind = exactVersion;
+				version = 7.1.0;
+			};
+		};
 		XX4AC81916604C4344ADC0XX /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
@@ -605,6 +617,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		26AD8D46A3E941849B75C2BC /* Mixpanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 56D2CA120E97486AA2BD70B8 /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
+			productName = Mixpanel;
+		};
 		XXDCC169DE7B2F3C1C8B10XX /* RevenueCat */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = XX4AC81916604C4344ADC0XX /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;

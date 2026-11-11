@@ -217,6 +217,8 @@ struct HomeView: View {
         withAnimation(.spring(duration: 0.3)) {
             showSavedFeedback = true
         }
+        // Spec §3.4: Thankful's core result = the display right after a gratitude entry is saved.
+        AnalyticsManager.shared.trackCoreResultViewed(resultType: "gratitude_entry_saved")
 
         gratitude1 = ""
         gratitude2 = ""

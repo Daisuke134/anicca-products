@@ -18,6 +18,14 @@ struct ThankfulGratitudeAppApp: App {
 
     init() {
         RevenueCatService.configure()
+
+        // Mixpanel (shared spec: kpi-churn-event-spec-2026-11-11 §3.2/§3.3).
+        AnalyticsManager.shared.configure(token: Config.mixpanelToken)
+        // Link client events with RevenueCat's server-side rc_* events.
+        if let distinctId = AnalyticsManager.shared.distinctId {
+            Purchases.shared.setAttributes(["$mixpanel_distinct_id": distinctId])
+        }
+        AnalyticsManager.shared.trackAppOpened()
     }
 
     var body: some Scene {

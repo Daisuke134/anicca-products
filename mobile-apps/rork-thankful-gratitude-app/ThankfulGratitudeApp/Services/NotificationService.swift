@@ -27,6 +27,11 @@ class NotificationService {
         } catch {
             isAuthorized = false
         }
+        // Only caller is Settings (spec §3.3: notification_permission_result).
+        AnalyticsManager.shared.trackNotificationPermissionResult(
+            result: isAuthorized ? "granted" : "denied",
+            source: "settings"
+        )
     }
 
     func scheduleNotifications(language: AppLanguage) {

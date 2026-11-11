@@ -12,6 +12,7 @@ struct ContentView: View {
         Group {
             if !viewModel.hasCompletedOnboarding {
                 OnboardingView(language: language) {
+                    AnalyticsManager.shared.trackOnboardingCompleted()
                     viewModel.hasCompletedOnboarding = true
                     viewModel.showPaywall = true
                 }

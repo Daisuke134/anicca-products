@@ -161,6 +161,10 @@ struct PaywallView: View {
             )
             .ignoresSafeArea()
         )
+        .onAppear {
+            // This cover is the single paywall surface (post-onboarding and in-app upsell share it).
+            AnalyticsManager.shared.trackPaywallShown(paywallId: "thankful_paywall_v1", placement: "main_cover")
+        }
         .task {
             await fetchOfferings()
         }
@@ -309,6 +313,7 @@ struct PaywallView: View {
         guard Purchases.isConfigured else { return }
         isPurchasing = true
         defer { isPurchasing = false }
+        var purchasedProductId: String?
 
         do {
             let packageId = selectedPlan == .annual ? "$rc_annual" : "$rc_monthly"
@@ -318,15 +323,55 @@ struct PaywallView: View {
                 return
             }
 
+            let productId = package.storeProduct.productIdentifier
+            purchasedProductId = productId
+            AnalyticsManager.shared.trackPurchaseStarted(
+                productId: productId,
+                price: NSDecimalNumber(decimal: package.storeProduct.price).doubleValue,
+                currency: package.storeProduct.currencyCode ?? "unknown",
+                period: selectedPlan == .annual ? "year" : "month",
+                trialEligible: trialEligibleProducts.contains(productId)
+            )
             let result = try await Purchases.shared.purchase(package: package)
-            if result.customerInfo.entitlements["pro"]?.isActive == true {
+            if result.userCancelled {
+                AnalyticsManager.shared.trackPurchaseCancelled(productId: productId)
+            } else if let entitlement = result.customerInfo.entitlements["pro"], entitlement.isActive {
+                // Auxiliary client record; ground truth is RC's rc_* events (spec §3.5).
+                AnalyticsManager.shared.trackPurchaseCompleted(productId: productId)
+                if entitlement.periodType == .trial {
+                    AnalyticsManager.shared.trackTrialStarted(
+                        productId: productId,
+                        trialDays: Self.trialDays(for: package.storeProduct)
+                    )
+                }
                 onPurchaseSuccess()
             }
         } catch {
-            if !error.localizedDescription.contains("cancelled") {
+            let isCancelled = (error as? RevenueCat.ErrorCode) == .purchaseCancelledError
+                || error.localizedDescription.contains("cancelled")
+            // The only throwing call is the purchase itself, so the product is always known here.
+            if let productId = purchasedProductId {
+                if isCancelled {
+                    AnalyticsManager.shared.trackPurchaseCancelled(productId: productId)
+                } else {
+                    AnalyticsManager.shared.trackPurchaseFailed(productId: productId, errorCode: "\((error as NSError).code)")
+                }
+            }
+            if !isCancelled {
                 errorMessage = error.localizedDescription
                 showError = true
             }
+        }
+    }
+
+    private static func trialDays(for product: StoreProduct) -> Int {
+        guard let period = product.introductoryDiscount?.subscriptionPeriod else { return 0 }
+        switch period.unit {
+        case .day: return period.value
+        case .week: return period.value * 7
+        case .month: return period.value * 30
+        case .year: return period.value * 365
+        @unknown default: return period.value
         }
     }
 
