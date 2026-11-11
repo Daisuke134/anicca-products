@@ -1,0 +1,195 @@
+# Record a ~20-40s Anicca UX video on a GitHub-hosted macOS runner.
+# Public repo + standard runner = $0 (not a larger runner).
+# This workflow is introduced on branch grok/maestro-demo-videos first.
+# It does not run on main, so it does not re-enable general iOS CI
+# (CLAUDE.md still reserves OpenClaw cron as canonical for product jobs).
+#
+# Re-record after a release:
+#   git push origin grok/maestro-demo-videos
+#   or, once this file is on default branch, Actions → "Maestro demo record (Anicca)" → Run workflow.
+# Then download the anicca-maestro-demo artifact (prefer anicca-ux-9x16.mp4).
+
+name: Maestro demo record (Anicca)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - grok/maestro-demo-videos
+    paths:
+      - ".github/workflows/maestro-demo-record.yml"
+      - "aniccaios/maestro/content/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: maestro-demo-record
+  cancel-in-progress: true
+
+jobs:
+  record-anicca:
+    name: Build simulator app and record UX video
+    runs-on: macos-latest
+    timeout-minutes: 90
+    env:
+      DEMO_DIR: ${{ github.workspace }}/maestro-demo-output
+      MAESTRO_DRIVER_STARTUP_TIMEOUT: "120000"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Xcode and available simulators
+        run: |
+          set -euo pipefail
+          xcodebuild -version
+          xcrun simctl list devices available
+          xcodebuild -showsdks
+
+      - name: Install Maestro CLI
+        run: |
+          set -euo pipefail
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+          "$HOME/.maestro/bin/maestro" --version
+
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-spm-${{ hashFiles('aniccaios/Package.resolved', 'aniccaios/aniccaios.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          restore-keys: ${{ runner.os }}-spm-
+
+      - name: Pick iPhone simulator, boot, set English locale
+        id: sim
+        run: |
+          set -euo pipefail
+          python3 <<'PY'
+          import json, os, subprocess, sys
+
+          data = json.loads(subprocess.check_output(
+              ["xcrun", "simctl", "list", "-j", "devices", "available"], text=True
+          ))
+          candidates = []
+          for runtime, devices in data.get("devices", {}).items():
+              if "iOS" not in runtime and "iPhoneOS" not in runtime:
+                  continue
+              for d in devices:
+                  if not d.get("isAvailable", True):
+                      continue
+                  name = d.get("name") or ""
+                  if "iPhone" not in name:
+                      continue
+                  if "Plus" in name or "SE" in name or "Air" in name:
+                      score = 1
+                  elif "Pro Max" in name:
+                      score = 3
+                  elif "Pro" in name:
+                      score = 4
+                  else:
+                      score = 2
+                  candidates.append((score, runtime, name, d["udid"]))
+          if not candidates:
+              sys.exit("No available iPhone simulator on this runner")
+          candidates.sort(reverse=True)
+          score, runtime, name, udid = candidates[0]
+          print(f"Picked {name} ({udid}) on {runtime}")
+          out = os.environ["GITHUB_OUTPUT"]
+          with open(out, "a") as f:
+              f.write(f"name={name}\n")
+              f.write(f"udid={udid}\n")
+              f.write(f"runtime={runtime}\n")
+          # Boot may already have happened; ignore the already-booted error.
+          boot = subprocess.run(["xcrun", "simctl", "boot", udid])
+          if boot.returncode not in (0, 149):
+              # 149 is "already booted" on some images; still verify ready.
+              subprocess.check_call(["xcrun", "simctl", "bootstatus", udid, "-b"])
+          else:
+              subprocess.check_call(["xcrun", "simctl", "bootstatus", udid, "-b"])
+          # English UI for I am-style content; flow selectors are bilingual.
+          subprocess.run(["xcrun", "simctl", "spawn", udid, "defaults", "write", "-g", "AppleLanguages", "-array", "en"], check=False)
+          subprocess.run(["xcrun", "simctl", "spawn", udid, "defaults", "write", "-g", "AppleLocale", "-string", "en_US"], check=False)
+          PY
+
+      - name: Build Anicca for the simulator
+        working-directory: aniccaios
+        run: |
+          set -euo pipefail
+          UDID="${{ steps.sim.outputs.udid }}"
+          xcodebuild build \
+            -project aniccaios.xcodeproj \
+            -scheme aniccaios-staging \
+            -configuration "staging Debug" \
+            -destination "platform=iOS Simulator,id=${UDID}" \
+            -derivedDataPath ./build \
+            -skipPackagePluginValidation \
+            -skipMacroValidation \
+            ONLY_ACTIVE_ARCH=YES
+
+      - name: Install the simulator build
+        run: |
+          set -euo pipefail
+          APP="$(find aniccaios/build/Build/Products -name 'aniccaios.app' -path '*iphonesimulator*' | head -1)"
+          echo "APP=${APP}"
+          test -n "$APP" && test -d "$APP"
+          xcrun simctl install booted "$APP"
+
+      - name: Record the flow (maestro record --local + 9:16 simctl)
+        run: |
+          set -euo pipefail
+          mkdir -p "$DEMO_DIR"
+          RAW="$DEMO_DIR/anicca-ux-9x16.mp4"
+          MAESTRO_OUT="$DEMO_DIR/anicca-ux-maestro.mp4"
+
+          # Clean 9:16 device video for posting. Finalize with SIGINT.
+          xcrun simctl io booted recordVideo --codec=h264 --force "$RAW" &
+          echo $! > /tmp/sim-record.pid
+          sleep 1
+
+          set +e
+          maestro record --local \
+            aniccaios/maestro/content/01-ux-demo.yaml \
+            "$MAESTRO_OUT"
+          STATUS=$?
+          set -e
+
+          if [ -f /tmp/sim-record.pid ]; then
+            kill -INT "$(cat /tmp/sim-record.pid)" 2>/dev/null || true
+            wait "$(cat /tmp/sim-record.pid)" || true
+          fi
+          sleep 2
+
+          # Keep any extra Maestro artifact recordings too.
+          if [ -d "$HOME/.maestro/tests" ]; then
+            find "$HOME/.maestro/tests" -name '*.mp4' -exec cp -n {} "$DEMO_DIR/" \; || true
+          fi
+
+          ls -lah "$DEMO_DIR" || true
+          exit "$STATUS"
+
+      - name: Probe video duration and size
+        if: always()
+        run: |
+          set -euo pipefail
+          ls -lah "$DEMO_DIR" || true
+          shopt -s nullglob
+          found=0
+          for f in "$DEMO_DIR"/*.mp4; do
+            found=1
+            echo "===== $(basename "$f") ====="
+            ffprobe -hide_banner -show_entries format=duration,size,format_name -show_entries stream=codec_name,width,height,duration -of default "$f"
+          done
+          if [ "$found" -eq 0 ]; then
+            echo "No mp4 artifacts were produced"
+            exit 1
+          fi
+
+      - name: Upload videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: anicca-maestro-demo
+          path: maestro-demo-output/
+          if-no-files-found: warn
+          retention-days: 14
