@@ -135,37 +135,30 @@ jobs:
           test -n "$APP" && test -d "$APP"
           xcrun simctl install booted "$APP"
 
-      - name: Record the flow (maestro record --local + 9:16 simctl)
+      - name: Record the flow (maestro record --local)
         run: |
           set -euo pipefail
           mkdir -p "$DEMO_DIR"
-          RAW="$DEMO_DIR/anicca-ux-9x16.mp4"
           MAESTRO_OUT="$DEMO_DIR/anicca-ux-maestro.mp4"
 
-          # Clean 9:16 device video for posting. Finalize with SIGINT.
-          xcrun simctl io booted recordVideo --codec=h264 --force "$RAW" &
-          echo $! > /tmp/sim-record.pid
-          sleep 1
-
+          # Do not run `simctl io recordVideo` alongside `maestro record`.
+          # Both grab the simulator screen encoder; run 1 hung 20+ minutes
+          # after a successful build and install.
           set +e
-          maestro record --local \
+          timeout 12m maestro record --local \
             aniccaios/maestro/content/01-ux-demo.yaml \
             "$MAESTRO_OUT"
           STATUS=$?
           set -e
 
-          if [ -f /tmp/sim-record.pid ]; then
-            kill -INT "$(cat /tmp/sim-record.pid)" 2>/dev/null || true
-            wait "$(cat /tmp/sim-record.pid)" || true
-          fi
-          sleep 2
-
-          # Keep any extra Maestro artifact recordings too.
           if [ -d "$HOME/.maestro/tests" ]; then
             find "$HOME/.maestro/tests" -name '*.mp4' -exec cp -n {} "$DEMO_DIR/" \; || true
           fi
 
           ls -lah "$DEMO_DIR" || true
+          if [ "$STATUS" -eq 124 ]; then
+            echo "maestro record timed out after 12 minutes"
+          fi
           exit "$STATUS"
 
       - name: Probe video duration and size
