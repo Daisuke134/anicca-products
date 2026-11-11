@@ -87,6 +87,10 @@
         "DAY": "%{count}-day free trial, then %{price}/year. Cancel anytime.",
         "WEEK": "%{count}-week free trial, then %{price}/year. Cancel anytime.",
         "MONTH": "%{count}-month free trial, then %{price}/year. Cancel anytime."
+      },
+      "timeline": {
+        "until": "Free trial until %{date}",
+        "charge": "Then %{price}/year from %{date}. Cancel anytime."
       }
     },
     "close": "Close"

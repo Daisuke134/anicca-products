@@ -52,6 +52,43 @@ export function getFreeTrial(
   return TRIAL_UNITS.includes(unit) ? { unit, count: intro.periodNumberOfUnits } : null;
 }
 
+export interface TrialTimeline {
+  /** 無料トライアルが終わる日（＝初回課金日）。Anicca iOS 1.9.11 の課金タイムライン表示と同じ意味。 */
+  trialEndDate: Date;
+  firstChargeDate: Date;
+}
+
+/**
+ * 実 introductory offer からトライアル終了日と初回課金日を算出する。
+ * 資格が確認できない・無料 intro が無い場合は null（日付を推測で出さない）。
+ */
+export function getTrialTimeline(
+  pkg: PurchasesPackage | undefined,
+  eligibilityStatus?: INTRO_ELIGIBILITY_STATUS,
+  now: Date = new Date()
+): TrialTimeline | null {
+  const trial = getFreeTrial(pkg, eligibilityStatus);
+  if (!trial) return null;
+  const end = new Date(now);
+  if (trial.unit === 'DAY') {
+    end.setDate(end.getDate() + trial.count);
+  } else if (trial.unit === 'WEEK') {
+    end.setDate(end.getDate() + trial.count * 7);
+  } else {
+    end.setMonth(end.getMonth() + trial.count);
+  }
+  return { trialEndDate: end, firstChargeDate: end };
+}
+
+/** タイムライン表示用の日付整形。アプリの対応ロケールは en / ja のみ。 */
+export function formatTimelineDate(date: Date, locale: string): string {
+  return new Intl.DateTimeFormat(locale === 'ja' ? 'ja-JP' : 'en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
+}
+
 /**
  * 年額の月換算（年額 / 12）。ストアが整形した値を優先し、無ければ商品の通貨で整形する。
  */

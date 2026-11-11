@@ -61,7 +61,7 @@ const apiKey = getRCToken();
 
 if (apiKey) {
   console.log('[RevenueCat] Configuring with API key');
-  Purchases.setLogLevel(LOG_LEVEL.DEBUG);
+  Purchases.setLogLevel(__DEV__ ? LOG_LEVEL.DEBUG : LOG_LEVEL.WARN);
   Purchases.configure({ apiKey });
 } else {
   console.warn('[RevenueCat] No API key found');
@@ -158,7 +158,7 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
         if (entitlement.periodType === 'TRIAL') {
           trackTrialStarted(
             pkg.product.identifier,
-            trialDaysFromISO8601(pkg.product.introPrice?.subscriptionPeriod)
+            trialDaysFromISO8601(pkg.product.introPrice?.period)
           );
         }
       }

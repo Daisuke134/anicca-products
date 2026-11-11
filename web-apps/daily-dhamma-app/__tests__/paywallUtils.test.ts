@@ -17,7 +17,9 @@ import {
   findMonthlyPackage,
   findYearlyPackage,
   formatPackagePrice,
+  formatTimelineDate,
   getFreeTrial,
+  getTrialTimeline,
   perMonthPriceString,
   savingsPercent,
   isVerseLocked,
@@ -245,5 +247,72 @@ describe('trial wording (ja / en)', () => {
     expect(i18n.t('paywall.trial.cta.DAY', { count: 3 })).toBe('Start 3-day free trial');
     expect(i18n.t('paywall.trial.after.DAY', { count: 3, price: '$19.99' })).toBe('3-day free trial, then $19.99/year. Cancel anytime.');
     expect(i18n.t('paywall.cta')).toBe('Start now');
+  });
+});
+
+describe('getTrialTimeline', () => {
+  const ELIGIBLE = INTRO_ELIGIBILITY_STATUS.INTRO_ELIGIBILITY_STATUS_ELIGIBLE;
+  const now = new Date(2026, 10, 11); // 2026-11-11 (local)
+
+  test('WEEK 1 -> +7 days, first charge date equals trial end date', () => {
+    const pkg = makePkg('annual', '$19.99', 19.99, { price: 0, periodUnit: 'WEEK', periodNumberOfUnits: 1 });
+    const timeline = getTrialTimeline(pkg, ELIGIBLE, now);
+    expect(timeline?.trialEndDate).toEqual(new Date(2026, 10, 18));
+    expect(timeline?.firstChargeDate).toEqual(timeline?.trialEndDate);
+  });
+
+  test('DAY 3 -> +3 days', () => {
+    const pkg = makePkg('annual', '$19.99', 19.99, { price: 0, periodUnit: 'DAY', periodNumberOfUnits: 3 });
+    expect(getTrialTimeline(pkg, ELIGIBLE, now)?.trialEndDate).toEqual(new Date(2026, 10, 14));
+  });
+
+  test('MONTH 1 -> +1 calendar month', () => {
+    const pkg = makePkg('annual', '$19.99', 19.99, { price: 0, periodUnit: 'MONTH', periodNumberOfUnits: 1 });
+    expect(getTrialTimeline(pkg, ELIGIBLE, now)?.trialEndDate).toEqual(new Date(2026, 11, 11));
+  });
+
+  test('eligibility not confirmed -> null (never guess a date)', () => {
+    const pkg = makePkg('annual', '$19.99', 19.99, { price: 0, periodUnit: 'WEEK', periodNumberOfUnits: 1 });
+    expect(getTrialTimeline(pkg, INTRO_ELIGIBILITY_STATUS.INTRO_ELIGIBILITY_STATUS_INELIGIBLE, now)).toBeNull();
+    expect(getTrialTimeline(pkg, undefined, now)).toBeNull();
+  });
+
+  test('no free intro offer -> null', () => {
+    const paidIntro = makePkg('annual', '$19.99', 19.99, { price: 1, periodUnit: 'WEEK', periodNumberOfUnits: 1 });
+    expect(getTrialTimeline(paidIntro, ELIGIBLE, now)).toBeNull();
+    expect(getTrialTimeline(makePkg('annual'), ELIGIBLE, now)).toBeNull();
+    expect(getTrialTimeline(undefined, ELIGIBLE, now)).toBeNull();
+  });
+});
+
+describe('formatTimelineDate', () => {
+  test('en and ja both render the calendar date', () => {
+    const date = new Date(2026, 10, 18);
+    expect(formatTimelineDate(date, 'en')).toContain('2026');
+    expect(formatTimelineDate(date, 'en')).toContain('18');
+    expect(formatTimelineDate(date, 'ja')).toContain('2026');
+    expect(formatTimelineDate(date, 'ja')).toContain('18');
+  });
+});
+
+describe('trial timeline wording (ja / en)', () => {
+  const make = (locale: string) => {
+    const i18n = new I18n({ en, ja });
+    i18n.locale = locale;
+    i18n.enableFallback = true;
+    i18n.defaultLocale = 'en';
+    return i18n;
+  };
+
+  test('ja', () => {
+    const i18n = make('ja');
+    expect(i18n.t('paywall.trial.timeline.until', { date: '2026年11月18日' })).toBe('2026年11月18日まで無料トライアル');
+    expect(i18n.t('paywall.trial.timeline.charge', { date: '2026年11月18日', price: '¥3,990' })).toBe('2026年11月18日から¥3,990/年。いつでもキャンセルできます');
+  });
+
+  test('en', () => {
+    const i18n = make('en');
+    expect(i18n.t('paywall.trial.timeline.until', { date: 'Nov 18, 2026' })).toBe('Free trial until Nov 18, 2026');
+    expect(i18n.t('paywall.trial.timeline.charge', { date: 'Nov 18, 2026', price: '$19.99' })).toBe('Then $19.99/year from Nov 18, 2026. Cancel anytime.');
   });
 });

@@ -13,7 +13,9 @@ import {
   findMonthlyPackage,
   findYearlyPackage,
   formatPackagePrice,
+  formatTimelineDate,
   getFreeTrial,
+  getTrialTimeline,
   perMonthPriceString,
   savingsPercent,
   trackPaywallEvent,
@@ -57,6 +59,8 @@ export default function PaywallScreen() {
   const savings = savingsPercent(monthlyPackage, yearlyPackage);
   // 月額を選んだらトライアル表記は出さない
   const activeTrial = selectedPlan === 'yearly' ? trial : null;
+  // 課金タイムライン（Anicca iOS 1.9.11 と同じ型）: 実 intro offer から終了日・初回課金日を算出
+  const timeline = activeTrial ? getTrialTimeline(yearlyPackage, trialEligibility) : null;
 
   useEffect(() => {
     trackPaywallEvent('paywall_shown', source);
@@ -295,6 +299,22 @@ export default function PaywallScreen() {
                 })}
               </Text>
             )}
+
+            {activeTrial && timeline && (
+              <View testID="paywall_trial_timeline" style={styles.timelineBox}>
+                <Text style={[styles.timelineText, { color: colors.textSecondary }]}>
+                  {i18n.t('paywall.trial.timeline.until', {
+                    date: formatTimelineDate(timeline.trialEndDate, i18n.locale),
+                  })}
+                </Text>
+                <Text style={[styles.timelineText, { color: colors.textSecondary }]}>
+                  {i18n.t('paywall.trial.timeline.charge', {
+                    date: formatTimelineDate(timeline.firstChargeDate, i18n.locale),
+                    price: formatPrice(yearlyPackage),
+                  })}
+                </Text>
+              </View>
+            )}
           </>
         )}
 
@@ -495,6 +515,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'center',
     marginBottom: 16,
+  },
+  timelineBox: {
+    marginBottom: 16,
+    gap: 2,
+  },
+  timelineText: {
+    fontSize: 13,
+    textAlign: 'center',
   },
   restoreButton: {
     alignItems: 'center',
