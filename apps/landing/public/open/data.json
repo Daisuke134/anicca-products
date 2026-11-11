@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-11 20:07 JST",
+  "updated_at": "2026-11-11 20:37 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -65,7 +65,7 @@
       "key": "mrr",
       "label": "MRR",
       "usd": 24,
-      "source": "Live metrics.json 2026-11-11 19:53 JST (repo) mrr_breakdown: RevenueCat $24 + Capafy $0 + Stripe $0 = $24. Rebuilt every frame; no inheritance."
+      "source": "Live metrics.json 2026-11-11 19:53 JST mrr_breakdown: RevenueCat $24 + Capafy $0 + Stripe $0 = $24. Rebuilt every frame; no inheritance."
     },
     {
       "key": "run",
@@ -358,9 +358,9 @@
   "by_agent": [
     {
       "agent": "Muse",
-      "board_updates_today": 433,
+      "board_updates_today": 434,
       "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-      "status": "Active. 20:07 frame (Nov 11); live 19:37 confirmed landed WITH funnel and MRR $24. MRR rebuilt from repo metrics.json 19:53 mrr_breakdown: $24 (RC $24, Capafy $0, Stripe $0); official RC chart about $20 discrepancy remains a carryover (condition j binds to metrics.json). Installs ASC only: apps-metrics 05:18Z, 6 apps, last7d units 7, imp 888. Bank $63.33 (Moneytree 11:21). Rev $31.81, costs $1,640.08, profit -$1,608.27. TikTok 13 rows 4,091 / 86,744 / 3,450 (19:50); LinkedIn 4 PUBLISHED, unmeasured (19:50); SEO 5/7 (20:04); ASO (19:55); GEO 0 (19:57)."
+      "status": "Active. 20:37 frame (Nov 11); live 20:07 confirmed landed WITH funnel and MRR $24. MRR rebuilt from metrics.json 19:53 mrr_breakdown: $24 (RC $24, Capafy $0, Stripe $0); official RC chart about $20 discrepancy remains a carryover. Installs ASC only: apps-metrics 05:18Z, 6 apps, last7d units 7, imp 888. Bank $63.33 (Moneytree 11:21). Rev $31.81, costs $1,640.08, profit -$1,608.27. TikTok 13 rows 4,091 / 86,744 / 3,450 (19:50 held); LinkedIn 4 PUBLISHED, unmeasured (19:50 held); SEO 5/7 (20:34); ASO (20:25); GEO 0 (20:13)."
     },
     {
       "agent": "Dots",
@@ -405,7 +405,7 @@
         "all_time": 1706.68,
         "pending": 9.95,
         "status": "stage reconciliation",
-        "note": "Status: loop 05:34 PST: all +/-0 (applications 190, month 1 sale); polish 3 (4391607/4386009/4397249, FAQ 0->3, estimate ON, published); no new sales. 19:37 JST.",
+        "note": "Status: loop 05:34 PST: all +/-0 (applications 190, month 1 sale); polish 3 (4391607/4386009/4397249, FAQ 0->3, estimate ON, published); no new sales. 20:07 JST.",
         "observed_accepted_gross_usd": 31.8,
         "net_sales_usd": 1706.68,
         "paid_out_usd": null
@@ -418,7 +418,7 @@
         "all_time": 474.48,
         "pending": 0,
         "status": "paid",
-        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 19:37 JST."
+        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 20:07 JST."
       },
       {
         "platform": "Stripe",
@@ -428,7 +428,7 @@
         "all_time": 54.81,
         "pending": 0,
         "status": "paid",
-        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "x402 (USDC on Base)",
@@ -438,7 +438,7 @@
         "all_time": 0.005,
         "pending": 0,
         "status": "paid",
-        "note": "Status: 402index 9/9 active and healthy at 18:52 (2 re-drops re-registered, 16th recovery); revenue $0.005. 19:37 JST."
+        "note": "Status: 402index 9/9 active and healthy at 18:52 (2 re-drops re-registered, 16th recovery); revenue $0.005. 20:07 JST."
       },
       {
         "platform": "Alignerr",
@@ -448,7 +448,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "Apify",
@@ -458,7 +458,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 19:37 JST."
+        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 20:07 JST."
       },
       {
         "platform": "Capafy",
@@ -468,7 +468,7 @@
         "all_time": 162.69,
         "pending": 0,
         "status": "booked",
-        "note": "Status: SUNSET 2026-11-10 23:08 (user decision): full stop, no new listings/tests/spend; 62 listings + 1 existing sub kept untouched; cap $1 frozen; this_month $22.98, all_time $162.69. 19:37 JST.",
+        "note": "Status: SUNSET 2026-11-10 23:08 (user decision): full stop, no new listings/tests/spend; 62 listings + 1 existing sub kept untouched; cap $1 frozen; this_month $22.98, all_time $162.69. 20:07 JST.",
         "net_sales_usd": 120.58,
         "paid_out_usd": 0,
         "dashboard_7d_usd": 39.96,
@@ -487,7 +487,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Applied 30 (measured 15:00-15:13, -1 vs prior 31 unexplained); Discovery 56 pts; Earned $0; community post vvPO8Q8q published; service #1 copy polished. 19:37 JST."
+        "note": "Status: Applied 30 (measured 15:00-15:13, -1 vs prior 31 unexplained); Discovery 56 pts; Earned $0; community post vvPO8Q8q published; service #1 copy polished. 20:07 JST."
       },
       {
         "platform": "CrowdWorks",
@@ -497,7 +497,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: loop 05:34 PST: +2 applications (total 318, proposals 945->947), reply 1 (Haru-Harumi, meeting-required, decline-only sent 23:05 JST); no new sales/orders. 19:37 JST."
+        "note": "Status: loop 05:34 PST: +2 applications (total 318, proposals 945->947), reply 1 (Haru-Harumi, meeting-required, decline-only sent 23:05 JST); no new sales/orders. 20:07 JST."
       },
       {
         "platform": "Fiverr",
@@ -507,7 +507,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 19:37 JST."
+        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 20:07 JST."
       },
       {
         "platform": "Freelancer.com",
@@ -517,7 +517,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: bids 0/6 (refill ~2026-11-11 08:48 PST); 7 open bids; 40805503 rank 18/26, 4 days left; Eastman warning; session @Rasi4op. 19:37 JST."
+        "note": "Status: bids 0/6 (refill ~2026-11-11 08:48 PST); 7 open bids; 40805503 rank 18/26, 4 days left; Eastman warning; session @Rasi4op. 20:07 JST."
       },
       {
         "platform": "GoLance",
@@ -527,7 +527,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 19:37 JST."
+        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 20:07 JST."
       },
       {
         "platform": "Guru",
@@ -537,7 +537,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: loop 06:25 PST: session recovered via Google OAuth (serial, no prompt); Quotes 8 held, 2121655 received 107->108 (other inflow); bids 2 held to Nov 28; $0 earned. 19:37 JST."
+        "note": "Status: loop 06:25 PST: session recovered via Google OAuth (serial, no prompt); Quotes 8 held, 2121655 received 107->108 (other inflow); bids 2 held to Nov 28; $0 earned. 20:07 JST."
       },
       {
         "platform": "LINE Stickers",
@@ -547,7 +547,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "Lancers",
@@ -557,7 +557,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: New application 5627897 landed (proposals 543 to 544); tracked 5626919 closes today 23:56; reply backlog 0 in 12 checked, 16 list-only remain. 19:37 JST."
+        "note": "Status: New application 5627897 landed (proposals 543 to 544); tracked 5626919 closes today 23:56; reply backlog 0 in 12 checked, 16 list-only remain. 20:07 JST."
       },
       {
         "platform": "Legiit",
@@ -567,7 +567,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 19:37 JST."
+        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 20:07 JST."
       },
       {
         "platform": "Malt",
@@ -577,7 +577,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "Mercor",
@@ -587,7 +587,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 19:37 JST."
+        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 20:07 JST."
       },
       {
         "platform": "PromptBase",
@@ -597,7 +597,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 7d views 12, all-time 80; Approved 12 / Pending 1 (Rescue Mission) / Declined 3 / Draft 0; Gross $0. 19:37 JST."
+        "note": "Status: 7d views 12, all-time 80; Approved 12 / Pending 1 (Rescue Mission) / Declined 3 / Draft 0; Gross $0. 20:07 JST."
       },
       {
         "platform": "RapidAPI",
@@ -607,7 +607,7 @@
         "all_time": null,
         "pending": 0,
         "status": "—",
-        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "SKIMA",
@@ -617,7 +617,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "Truelancer",
@@ -627,7 +627,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "Upwork",
@@ -637,7 +637,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 19:37 JST."
+        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 20:07 JST."
       },
       {
         "platform": "Whop / Gumroad",
@@ -647,7 +647,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Owner sign-out block 14th consecutive (Whop loop 04:33 PST); sales unmeasured, not zero-confirmed; guest Buy now live. 19:37 JST."
+        "note": "Status: Owner sign-out block 14th consecutive (Whop loop 04:33 PST); sales unmeasured, not zero-confirmed; guest Buy now live. 20:07 JST."
       },
       {
         "platform": "Workana",
@@ -657,7 +657,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Cloudflare gate (Ray a57a30d17be1fda5); login form unreachable; Step 2 phone gate pending; $0. 20:34 PST loop. 19:37 JST."
+        "note": "Status: Cloudflare gate (Ray a57a30d17be1fda5); login form unreachable; Step 2 phone gate pending; $0. 20:34 PST loop. 20:07 JST."
       },
       {
         "platform": "note / Substack",
@@ -667,7 +667,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 19:37 JST."
+        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 20:07 JST."
       },
       {
         "platform": "AI Monk Factory",
@@ -677,7 +677,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "Life Manager Cloud",
@@ -687,7 +687,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 19:37 JST."
+        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 20:07 JST."
       },
       {
         "platform": "AI Monk e-books",
@@ -697,7 +697,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "AI Monk Database",
@@ -707,7 +707,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 19:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 20:07 JST."
       },
       {
         "platform": "Payhip",
@@ -717,7 +717,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 19:37 JST."
+        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 20:07 JST."
       },
       {
         "platform": "Ko-fi",
@@ -727,7 +727,7 @@
         "pending": 0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 19:37 JST."
+        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 20:07 JST."
       },
       {
         "platform": "Twine",
@@ -737,7 +737,7 @@
         "pending": 0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 19:37 JST."
+        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 20:07 JST."
       },
       {
         "platform": "RenderHub",
@@ -747,7 +747,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 36 items (36th Low Poly Kokeshi Doll published, ID 421964); Views 266, Karma 629; 10% OFF sale ends today ~21:30 JST, coupon after sale; sales $0. 19:37 JST."
+        "note": "Status: 36 items (36th Low Poly Kokeshi Doll published, ID 421964); Views 266, Karma 629; 10% OFF sale ends today ~21:30 JST, coupon after sale; sales $0. 20:07 JST."
       }
     ],
     "trend": [
@@ -904,10 +904,10 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
-  "coverage_note": "Status: 34 platforms, 68 social, 6 apps, rankings, funnel n=23 (subscribed unmeasured); live 19:37 landed (MRR $24); costs $1,640.08; ASC units 7 (7d); TikTok 13, 4,091. 20:07.",
+  "coverage_note": "Status: 34 platforms, 68 social, 6 apps, rankings, funnel n=23 (subscribed unmeasured); live 20:07 landed (MRR $24); costs $1,640.08; ASC units 7 (7d); TikTok 13, 4,091. 20:37.",
   "currency_note": "USD only. This file contains no non-USD currency amounts.",
-  "coverage_status_1line": "Status: live 19:37 confirmed landed with funnel (n=23) and MRR $24 rebuilt; store_funnel (13:53) preserved; costs $1,640.08. | Rev $31.81 | Cost $1,640.08 | Profit -$1,608.27 | MRR $24.",
-  "daily_change_1line": "Status: 19:37-20:07: SEO best daily 4 to 5, 5/7 held (20:04); Bing happierhuman 1/7 to 0/7 (19:57); ASO JP gratitude 173 to 144, motivation iam 26 to 25 (19:55); TikTok 4,090 to 4,091 (19:50).",
+  "coverage_status_1line": "Status: live 20:07 confirmed landed with funnel (n=23) and MRR $24 rebuilt; store_funnel (13:53) preserved; costs $1,640.08. | Rev $31.81 | Cost $1,640.08 | Profit -$1,608.27 | MRR $24.",
+  "daily_change_1line": "Status: 20:07-20:37: SEO 5/7 held (20:34); Bing happierhuman 0/7 to 1/7 (20:27); ASO JP positivity 127 to 128, motivation iam 25 to 24, mindfulness anicca out to 176 (20:25); GEO 0/0 held (20:13).",
   "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,617.13, profit -$1,585.32; SEO 5/7; GEO 0; IG 2/3 x6, monk 1/3, app2 missing, Threads 77 unconfirmed, LinkedIn 2/3.",
   "apps_breakdown": [
     {
@@ -918,7 +918,7 @@
       "units": 1,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 283, units 1, Proceeds $0; ASC 28d units 14; active paid subs 5 (ASC 2026-11-09). RevenueCat 登録数には自社サーバー登録分を含む. 19:37 JST."
+      "note": "Status: ASC last7d imp 283, units 1, Proceeds $0; ASC 28d units 14; active paid subs 5 (ASC 2026-11-09). RevenueCat 登録数には自社サーバー登録分を含む. 20:07 JST."
     },
     {
       "app": "Honne (iOS)",
@@ -928,7 +928,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 130, units 0, Proceeds $0; ASC 28d units 14; active paid subs 2 (ASC 2026-11-09). Last measured 2026-11-11T04:20Z. 19:37 JST."
+      "note": "Status: ASC last7d imp 130, units 0, Proceeds $0; ASC 28d units 14; active paid subs 2 (ASC 2026-11-09). Last measured 2026-11-11T04:20Z. 20:07 JST."
     },
     {
       "app": "Dhamma Quotes (iOS)",
@@ -938,7 +938,7 @@
       "units": 5,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 178, units 5, Proceeds $0; ASC 28d units 15. No subscription-state rows. Last measured 2026-11-11T04:20Z. 19:37 JST."
+      "note": "Status: ASC last7d imp 178, units 5, Proceeds $0; ASC 28d units 15. No subscription-state rows. Last measured 2026-11-11T04:20Z. 20:07 JST."
     },
     {
       "app": "For Better Sleep - Sleep Reset (iOS)",
@@ -948,7 +948,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 100, units 0, Proceeds $0; ASC 28d units 4; active paid subs 0 (ASC 2026-11-09). Last measured 2026-11-11T04:20Z. 19:37 JST."
+      "note": "Status: ASC last7d imp 100, units 0, Proceeds $0; ASC 28d units 4; active paid subs 0 (ASC 2026-11-09). Last measured 2026-11-11T04:20Z. 20:07 JST."
     },
     {
       "app": "Thankful - Gratitude Journal (iOS)",
@@ -958,7 +958,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 101, units 0, Proceeds $0; ASC 28d units 2. No subscription-state rows. Last measured 2026-11-11T04:20Z. 19:37 JST."
+      "note": "Status: ASC last7d imp 101, units 0, Proceeds $0; ASC 28d units 2. No subscription-state rows. Last measured 2026-11-11T04:20Z. 20:07 JST."
     },
     {
       "app": "STUDIO CHERIE (iOS)",
@@ -968,7 +968,7 @@
       "units": 1,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 96, units 1, Proceeds $0; ASC 28d units 2. No subscription-state rows. Last measured 2026-11-11T04:20Z. 19:37 JST."
+      "note": "Status: ASC last7d imp 96, units 1, Proceeds $0; ASC 28d units 2. No subscription-state rows. Last measured 2026-11-11T04:20Z. 20:07 JST."
     }
   ],
   "social_accounts": [
@@ -1522,13 +1522,13 @@
     "impressions": 888,
     "units": 7,
     "proceeds_usd": 0,
-    "note": "Status: 6-app total impressions 888, units 7 (ASC first downloads only), Proceeds $0 (apps-metrics-latest 2026-11-11T04:20Z). 19:37 JST."
+    "note": "Status: 6-app total impressions 888, units 7 (ASC first downloads only), Proceeds $0 (apps-metrics-latest 2026-11-11T04:20Z). 20:07 JST."
   },
   "rankings": {
     "note": "Measured ranks only. out = not in the measured result set.",
     "seo": {
       "engine": "Google (search snapshot)",
-      "measured_at": "2026-11-11 20:04 JST",
+      "measured_at": "2026-11-11 20:34 JST",
       "anicca_in_top": 5,
       "queries_total": 7,
       "rows": [
@@ -1577,10 +1577,10 @@
       ],
       "bing": {
         "engine": "Bing (script, top 30)",
-        "measured_at": "2026-11-11 19:57 JST",
+        "measured_at": "2026-11-11 20:27 JST",
         "anicca_in_top": 0,
         "queries_total": 7,
-        "happierhuman": "0/7 (ledger 10:57Z; anicca 0/7)"
+        "happierhuman": "1/7 (ledger 11:27Z; daily affirmations 5; anicca 0/7)"
       },
       "gsc": {
         "period": "28-day window ending 2026-11-05",
@@ -1593,7 +1593,7 @@
     },
     "aso": {
       "source": "iTunes Search API, top 200 per keyword",
-      "measured_at": "2026-11-11 19:55 JST",
+      "measured_at": "2026-11-11 20:25 JST",
       "us": [
         {
           "keyword": "affirmation",
@@ -1677,7 +1677,7 @@
         },
         {
           "keyword": "ポジティブ",
-          "anicca": 127,
+          "anicca": 128,
           "winner_position": 18,
           "top1": "ポジティブ変換 - AIで自己肯定感アップを習慣に"
         },
@@ -1690,12 +1690,12 @@
         {
           "keyword": "モチベーション",
           "anicca": "out",
-          "winner_position": 25,
+          "winner_position": 24,
           "top1": "Motivation - 今日の名言"
         },
         {
           "keyword": "マインドフルネス",
-          "anicca": "out",
+          "anicca": 176,
           "winner_position": "out",
           "top1": "Upmind - 自律神経・瞑想・マインドフルネス・睡眠"
         }
@@ -1703,13 +1703,13 @@
       "winner": "I am (id 874656917)"
     },
     "geo": {
-      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 19:57 batch",
-      "measured_at": "2026-11-11 19:57 JST",
+      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 20:13 batch",
+      "measured_at": "2026-11-11 20:13 JST",
       "recommended": 0,
       "recommended_of": 8,
       "cited": 0,
       "cited_of": 8,
-      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 5/8 (en01, en02, en04, en06, jp01); Motion en05; no brand en03, jp02"
+      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 5/8 (en01, en02, en04, en06, jp01); Mantra/Motion en05; no brand en03, jp02"
     }
   },
   "handoffs": [
@@ -2546,11 +2546,21 @@
     "Gmail newer_than:1h (this frame, 20:0x triage): ASC Honne build-issue notice 20:09, BUYMA 20:09, Luma invite 20:08, Postiz 20:02, Mobbin 19:49, ASC Dhamma Waiting for Review 19:44 x2, TestFlight Dhamma 1.2.0 (50) 19:43, Coconala Assist 19:29. No new sales or Trip.com refund; revenue MTD stays $31.81.",
     "Costs UNCHANGED: revenue MTD $31.81; costs $1,640.08; profit -$1,608.27; MRR $24. Capafy SUNSET, paid_out/pending 0.0; Coconala net/all_time 1706.68; gpl pct -278.7. RapidAPI this_month null only. No new API purchase, charge, top-up, or auto-reload.",
     "Rankings: SEO Google NEW 20:04 batch (11:04Z): anicca 5/7 held (3,out,4,5,out,3,3); best daily 4 to 5, winner tvb out to 3. Bing NEW 19:57 batch (10:57Z): anicca 0/7 held, happierhuman 1/7 to 0/7. ASO NEW 19:55 batch (10:55Z): JP gratitude 173 to 144 (iam 17), motivation iam 26 to 25, positivity 127 (iam 18), affirmation 29 (iam 2), self-esteem 47 held; US unchanged (gratitude iam 7). GEO NEW 19:57 batch (10:57Z): 8 answered, 0/0 held, ThinkUp first 5/8 (en01,en02,en04,en06,jp01), Motion en05, no brand en03/jp02.",
-    "TikTok (h) / LinkedIn (g): NEW 19:50 batch (10:50Z) in measurement-ledger and social-metrics-ledger; 13 TikTok rows at followers 4,091, likes 86,744, videos 3,450 (jp4 followers +1, he likes +1, honnevideo likes +2, honne_reveal likes +2, slideshow likes +5); aniccaen2 + anicca.jpx unmeasured. LinkedIn 4 PUBLISHED (20:05 pub log; 20:48 L-4 QUEUE), metrics unmeasured, outbound 0."
+    "TikTok (h) / LinkedIn (g): NEW 19:50 batch (10:50Z) in measurement-ledger and social-metrics-ledger; 13 TikTok rows at followers 4,091, likes 86,744, videos 3,450 (jp4 followers +1, he likes +1, honnevideo likes +2, honne_reveal likes +2, slideshow likes +5); aniccaen2 + anicca.jpx unmeasured. LinkedIn 4 PUBLISHED (20:05 pub log; 20:48 L-4 QUEUE), metrics unmeasured, outbound 0.",
+    "Live landing CONFIRMED this frame: https://aniccaai.com/open/data.json = updated_at 2026-11-11 20:07 JST (curl read this frame, live-check-2026-11-11-2037-before.json), kpis[mrr] $24, funnel present, store_funnel 13:53 preserved. Conditions (a)-(j) satisfied on live 20:07 version.",
+    "MRR REBUILT (override 2026-11-11-1, condition j): metrics.json re-fetched (repo-metrics-2026-11-11-2037.json = live metrics copy), updated_at 2026-11-11 19:53 JST, mrr_breakdown total 24, totals.mrr_usd 24.0. kpis[mrr] == summary.mrr_split.total == metrics total == $24. No inheritance. Official RC chart about $20 vs $24 discrepancy remains a carryover.",
+    "RC 09:00 batch incident: product-metrics-watch-latest.json unchanged (checked_at 2026-11-11 10:28 JST; 11/11 new 2, server_created 2, at_0900_batch 2, incident true). Already recorded as an incident line in the 10:32 frame; no duplicate line this frame.",
+    "Installs ASC only: apps-metrics-latest.json unchanged (2026-11-11T05:18:11Z), 6 apps. Last7d units [1,0,5,0,0,1] total 7, impressions 888; RC registrations not shown as installs.",
+    "Bank balance held: $63.33 as of 2026-11-11 11:21 JST (MUFG via Moneytree; rate 156.84). No new bank measurement this frame.",
+    "Reason: No messages (confirmed by 20:20 social-metrics frame). Team contact is GitHub team-outbox.",
+    "Gmail newer_than:1h (this frame triage): sent eval outreach 20:38-20:39 x5, GitHub PR notifications 20:37. No new sales or Trip.com refund in triage; revenue MTD stays $31.81.",
+    "Costs UNCHANGED: revenue MTD $31.81; costs $1,640.08; profit -$1,608.27; MRR $24. Capafy SUNSET, paid_out/pending 0.0; Coconala net/all_time 1706.68; gpl pct -278.7. RapidAPI this_month null only. No new API purchase, charge, top-up, or auto-reload.",
+    "Rankings: SEO Google NEW 20:34 batch (11:34Z): anicca 5/7 held (3,out,4,5,out,3,3). Bing NEW 20:27 batch (11:27Z): anicca 0/7 held, happierhuman 0/7 to 1/7 (daily affirmations 5). ASO NEW 20:25 batch (11:25Z): JP positivity 127 to 128 (iam 18), motivation iam 25 to 24, mindfulness anicca out to 176, affirmation 29 (iam 2), self-esteem 47, gratitude 144 (iam 17) held; US held. GEO NEW 20:13 batch (11:13Z): 8 answered, 0/0 held, ThinkUp first 5/8 (en01,en02,en04,en06,jp01), Mantra/Motion en05, no brand en03/jp02.",
+    "TikTok (h) / LinkedIn (g): no new batch; 19:50 batch held. 13 TikTok rows at followers 4,091, likes 86,744, videos 3,450; aniccaen2 + anicca.jpx unmeasured. LinkedIn 4 PUBLISHED, metrics unmeasured, outbound 0."
   ],
   "app_store_analytics": {
     "source": "App Store Connect Analytics Reports",
-    "measured_at": "2026-11-11T09:15:15.425Z",
+    "measured_at": "2026-11-11T11:16:00.074Z",
     "period": {
       "start_date": "2026-11-03",
       "end_date": "2026-11-09",
@@ -22228,7 +22238,7 @@
     "anicca_ios": {
       "status": "ok",
       "source": "Mixpanel Raw Event Export API",
-      "observed_at": "2026-11-11T09:15:55.613Z",
+      "observed_at": "2026-11-11T11:16:37.422Z",
       "app_id": "ai.anicca.app.ios",
       "app_environment": "production",
       "data_from": "2026-11-03",
@@ -22940,5 +22950,678 @@
       "Renewals are not a separate published number; churned actives and active subscriptions stand in for retention."
     ]
   },
-  "store_funnel_updated_at": "2026-11-11 13:53 JST"
+  "store_funnel_updated_at": "2026-11-11 13:53 JST",
+  "app_funnels": {
+    "version": 1,
+    "built_from": "apps-metrics-latest.json (ASC snapshot 2026-11-11T05:18:11Z) + full-funnel-2026-11-11.md (Mixpanel cohort + RevenueCat, 2026-11-11)",
+    "sources": {
+      "store": "App Store Connect Analytics via asc (first-time downloads are Apple units, not RevenueCat new customers)",
+      "in_app": "Mixpanel (Anicca project only; the other five apps have no event stream yet)",
+      "subscription": "RevenueCat official rc CLI + ASC subscription-state report"
+    },
+    "notes": [
+      "Same step list for all six apps: impressions, page views, downloads, first open, onboarding, notification permission, paywall, purchase start, new paid, trial starts, active paid / cancellations.",
+      "Steps that cannot be measured yet are shown as unmeasured with the reason, never estimated. In-app steps are measured only for Anicca today.",
+      "ASC and Mixpanel are separate systems: download counts and first-open cohorts cannot be chained per person."
+    ],
+    "apps": [
+      {
+        "app": "Anicca",
+        "apple_id": "6755129214",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 994,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 81,
+            "pct_of_impressions": 8.1
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 14,
+            "pct_of_impressions": 1.4
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 25,
+            "pct_of_first_open": 100.0,
+            "note": "Distinct-user cohort (production, n=25). Separate system from ASC units; includes updated/existing users, so it is not directly chained to the 14 downloads above."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 25,
+            "pct_of_first_open": 100.0
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 2,
+            "pct_of_first_open": 8.0,
+            "note": "All 25 cohort users reached the permission step: allowed 2 (8.0%), denied 19, skipped 4."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 23,
+            "pct_of_first_open": 92.0
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "measured",
+            "value": 2,
+            "pct_of_first_open": 8.0,
+            "note": "2 users; 8.7% of paywall viewers. Mixpanel purchase_completed events carry no app attribution, so completion is read from ASC + RevenueCat below."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "Active trials 0. Anicca and Honne share one RevenueCat project; combined MRR $20 (rc CLI, 2026-11-11); per-app MRR split unmeasured."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 5,
+              "voluntary_churn_cumulative": 35,
+              "involuntary_churn_cumulative": 2
+            },
+            "note": "Active paid 5 = full price 4 + preserved price 1 (ASC, 2026-11-09)."
+          }
+        ]
+      },
+      {
+        "app": "Honne",
+        "apple_id": "6759667221",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 2439,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 92,
+            "pct_of_impressions": 3.8
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 14,
+            "pct_of_impressions": 0.6
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "Active trials 0. Shares the RevenueCat project with Anicca (combined MRR $20); per-app split unmeasured."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 2,
+              "voluntary_churn_cumulative": 4,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "Active paid 2, both full price (ASC, 2026-11-09)."
+          }
+        ]
+      },
+      {
+        "app": "Dhamma Quotes",
+        "apple_id": "6757726663",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 907,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 48,
+            "pct_of_impressions": 5.3
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 15,
+            "pct_of_impressions": 1.7
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "RevenueCat project proj86624956: active trials 0, MRR $0."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 0,
+              "voluntary_churn_cumulative": null,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "No rows in the ASC subscription-state report for this app; RevenueCat active subscriptions 0."
+          }
+        ]
+      },
+      {
+        "app": "Sleep Reset",
+        "apple_id": "6762143790",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 345,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 9,
+            "pct_of_impressions": 2.6
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 4,
+            "pct_of_impressions": 1.2
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 1,
+            "note": "1 trial started in the window (RevenueCat charts); it did not convert to paid. Active trials 0."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 0,
+              "voluntary_churn_cumulative": 1,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "RevenueCat for this app is read via charts only (the key lacks overview permission)."
+          }
+        ]
+      },
+      {
+        "app": "Thankful",
+        "apple_id": "6759514159",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 363,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 33,
+            "pct_of_impressions": 9.1
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 2,
+            "pct_of_impressions": 0.6
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "RevenueCat project proj7aaf9429: active trials 0, MRR $0."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 0,
+              "voluntary_churn_cumulative": null,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "No rows in the ASC subscription-state report for this app; RevenueCat active subscriptions 0."
+          }
+        ]
+      },
+      {
+        "app": "STUDIO CHERIE",
+        "apple_id": "6766485903",
+        "steps": [
+          {
+            "step_id": "impressions",
+            "label": "Impressions",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 481,
+            "pct_of_impressions": 100.0
+          },
+          {
+            "step_id": "page_views",
+            "label": "Product page views",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 48,
+            "pct_of_impressions": 10.0
+          },
+          {
+            "step_id": "downloads",
+            "label": "First-time downloads",
+            "source": "App Store Connect",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 2,
+            "pct_of_impressions": 0.4
+          },
+          {
+            "step_id": "first_open",
+            "label": "First open",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "notification_allowed",
+            "label": "Notification permission allowed",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "paywall_view",
+            "label": "Paywall view",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_started",
+            "label": "Purchase started",
+            "source": "Mixpanel",
+            "window": "2026-11-06 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+          },
+          {
+            "step_id": "purchase_completed",
+            "label": "New paid subscriptions (window)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "ASC subscription events in window: 0 rows; RevenueCat revenue $0 (project created 2026-11-11)."
+          },
+          {
+            "step_id": "trial_starts",
+            "label": "Trial starts (28d)",
+            "source": "RevenueCat",
+            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "status": "measured",
+            "value": 0,
+            "note": "RevenueCat project was created 2026-11-11 12:16 JST; all stock metrics are 0."
+          },
+          {
+            "step_id": "retention",
+            "label": "Active paid (stock) / cancellations (cumulative)",
+            "source": "App Store Connect subscription state",
+            "window": "stock at 2026-11-09",
+            "status": "measured",
+            "value": {
+              "active_paid": 0,
+              "voluntary_churn_cumulative": null,
+              "involuntary_churn_cumulative": null
+            },
+            "note": "No rows in the ASC subscription-state report for this app; RevenueCat active subscriptions 0."
+          }
+        ]
+      }
+    ]
+  }
 }
