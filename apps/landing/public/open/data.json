@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-11 15:37 JST",
+  "updated_at": "2026-11-11 16:07 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -358,9 +358,9 @@
   "by_agent": [
     {
       "agent": "Muse",
-      "board_updates_today": 414,
+      "board_updates_today": 415,
       "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-      "status": "Active. 15:37 frame (Nov 11); live 15:07 confirmed landed WITH funnel and MRR $24, no writer overwrite (repo sha 01f256d8). MRR rebuilt from repo metrics.json 15:06 mrr_breakdown: $24 (RC $24, Capafy $0, Stripe $0); official RC chart about $20 discrepancy remains a carryover (condition j binds to metrics.json). Installs ASC only: apps-metrics 05:18Z, 6 apps, last7d 11-04..11-10 units 7, imp 888. Bank $63.33 (Moneytree 11:21). Rev $31.81, costs $1,640.08, profit -$1,608.27. TikTok 13 rows 4,090 / likes 86,715 (15:00 held); LinkedIn 4 posts today (15:20 ledger), metrics unmeasured (15:00); SEO 4/7 (15:24); ASO (15:29); GEO 0 (15:23)."
+      "status": "Active. 16:07 frame (Nov 11); live 15:37 confirmed landed WITH funnel and MRR $24, no writer overwrite (repo sha 8429639e). MRR rebuilt from repo metrics.json 15:06 mrr_breakdown: $24 (RC $24, Capafy $0, Stripe $0); official RC chart about $20 discrepancy remains a carryover (condition j binds to metrics.json). Installs ASC only: apps-metrics 05:18Z, 6 apps, last7d 11-04..11-10 units 7, imp 888. Bank $63.33 (Moneytree 11:21). Rev $31.81, costs $1,640.08, profit -$1,608.27. TikTok 13 rows 4,090 / likes 86,715 (15:00 held); LinkedIn 4 PUBLISHED confirmed (16:05 log), metrics unmeasured (15:00); SEO 5/7 (16:06); ASO (15:59); GEO 0 (16:00)."
     },
     {
       "agent": "Dots",
@@ -904,10 +904,10 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
-  "coverage_note": "Status: 34 platforms, 68 social, 6 apps, rankings, funnel n=23 (subscribed unmeasured); live 15:07 landed (MRR $24); costs $1,640.08; ASC units 7 (7d); TikTok 13, 4,090. 15:37.",
+  "coverage_note": "Status: 34 platforms, 68 social, 6 apps, rankings, funnel n=23 (subscribed unmeasured); live 15:37 landed (MRR $24); costs $1,640.08; ASC units 7 (7d); TikTok 13, 4,090. 16:07.",
   "currency_note": "USD only. This file contains no non-USD currency amounts.",
-  "coverage_status_1line": "Status: live 15:07 confirmed landed with funnel (n=23) and MRR $24 rebuilt; store_funnel (13:53) preserved; costs $1,640.08. | Rev $31.81 | Cost $1,640.08 | Profit -$1,608.27 | MRR $24.",
-  "daily_change_1line": "Status: 15:07-15:37: SEO Google 4/7 held, best-daily 4 to 3 (15:24); ASO JP gratitude 144 to 171 (15:29); GEO 0/0 (15:23, 8 answered); LinkedIn 4 posts today (15:20 ledger).",
+  "coverage_status_1line": "Status: live 15:37 confirmed landed with funnel (n=23) and MRR $24 rebuilt; store_funnel (13:53) preserved; costs $1,640.08. | Rev $31.81 | Cost $1,640.08 | Profit -$1,608.27 | MRR $24.",
+  "daily_change_1line": "Status: 15:37-16:07: SEO Google 4/7 to 5/7 (iPhone out to 3, 16:06); ASO JP gratitude 171 to 144, positivity 123 to 127 (15:59); GEO 0/0 (16:00, 8 answered); LinkedIn 4 PUBLISHED (16:05).",
   "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,617.13, profit -$1,585.32; SEO 5/7; GEO 0; IG 2/3 x6, monk 1/3, app2 missing, Threads 77 unconfirmed, LinkedIn 2/3.",
   "apps_breakdown": [
     {
@@ -1246,7 +1246,7 @@
       "comments": null,
       "outbound_comments_today": 0,
       "measured_at": "2026-11-11 15:00 JST",
-      "note": "Status: Nov 11 4 posts landed (06:00 + 12:24 BIP + L-2 15:08 + L-3 15:09, 15:20 ledger); followers/impressions/likes/comments 未計測（最終実測 2026-11-11 15:00）; outbound 0. 15:37 JST."
+      "note": "Status: Nov 11 4 posts PUBLISHED confirmed (06:00, off-slot, 09:30 L-2, 12:30 L-3, 16:05 log); 20:48 L-4 QUEUE; followers/impressions/likes/comments 未計測（最終実測 2026-11-11 15:00）; outbound 0. 16:07 JST."
     },
     {
       "account": "TikTok EN 15:30 batch (5 posts)",
@@ -1528,13 +1528,13 @@
     "note": "Measured ranks only. out = not in the measured result set.",
     "seo": {
       "engine": "Google (search snapshot)",
-      "measured_at": "2026-11-11 15:24 JST",
-      "anicca_in_top": 4,
+      "measured_at": "2026-11-11 16:06 JST",
+      "anicca_in_top": 5,
       "queries_total": 7,
       "rows": [
         {
           "query": "best affirmation apps for iPhone",
-          "anicca": "out",
+          "anicca": 3,
           "winner": "thevisionboard.app",
           "winner_position": 2
         },
@@ -1552,7 +1552,7 @@
         },
         {
           "query": "best daily affirmation apps",
-          "anicca": 3,
+          "anicca": 4,
           "winner": "thevisionboard.app",
           "winner_position": "out"
         },
@@ -1570,17 +1570,17 @@
         },
         {
           "query": "what is the best affirmation app",
-          "anicca": 4,
+          "anicca": 3,
           "winner": "thevisionboard.app",
-          "winner_position": "out"
+          "winner_position": 4
         }
       ],
       "bing": {
         "engine": "Bing (script, top 30)",
-        "measured_at": "2026-11-11 15:31 JST",
+        "measured_at": "2026-11-11 16:00 JST",
         "anicca_in_top": 0,
         "queries_total": 7,
-        "happierhuman": "1/7 (ledger 06:31Z, daily affirmations 5; anicca 0/7)"
+        "happierhuman": "1/7 (ledger 07:00Z, daily affirmations 5; anicca 0/7)"
       },
       "gsc": {
         "period": "28-day window ending 2026-11-05",
@@ -1593,7 +1593,7 @@
     },
     "aso": {
       "source": "iTunes Search API, top 200 per keyword",
-      "measured_at": "2026-11-11 15:29 JST",
+      "measured_at": "2026-11-11 15:59 JST",
       "us": [
         {
           "keyword": "affirmation",
@@ -1677,14 +1677,14 @@
         },
         {
           "keyword": "ポジティブ",
-          "anicca": 123,
+          "anicca": 127,
           "winner_position": 18,
           "top1": "ポジティブ変換 - AIで自己肯定感アップを習慣に"
         },
         {
           "keyword": "感謝",
-          "anicca": 171,
-          "winner_position": 16,
+          "anicca": 144,
+          "winner_position": 17,
           "top1": "神棚アプリ - 感謝日記・引き寄せ・お祓い・願いが叶う習慣"
         },
         {
@@ -1703,13 +1703,13 @@
       "winner": "I am (id 874656917)"
     },
     "geo": {
-      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 15:23 batch",
-      "measured_at": "2026-11-11 15:23 JST",
+      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 16:00 batch",
+      "measured_at": "2026-11-11 16:00 JST",
       "recommended": 0,
       "recommended_of": 8,
       "cited": 0,
       "cited_of": 8,
-      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en04, en06, jp01); Mantra first en02; I am first en05; no brand en03, jp02"
+      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 5/8 (en01, en02, en04, en06, jp01); Motion first en05; no brand en03, jp02"
     }
   },
   "handoffs": [
@@ -2456,7 +2456,17 @@
     "Gmail newer_than:1h (checked this frame): Lancers project acceptance notice 15:29 and package weekly reports 15:18-15:22, GitHub PR #917 / Security Scan notices 15:18-15:24, Frantic check-in 15:30, connpass notice 15:25. No new sales, payments, or Trip.com refund arrival.",
     "Costs UNCHANGED: revenue MTD $31.81; costs $1,640.08; profit -$1,608.27; MRR $24 (metrics.json basis). Capafy SUNSET, paid_out/pending 0.0; Coconala net/all_time 1706.68; gpl pct -278.7. RapidAPI this_month null only. No new API purchase, charge, top-up, or auto-reload.",
     "Rankings: SEO Google NEW 15:24 batch (06:24Z): anicca 4/7 held (out,out,4,3,out,3,4; best-daily 4 to 3, tvb out). Bing NEW 15:31 batch (06:31Z): anicca 0/7, happierhuman 0/7 to 1/7 (daily 5). ASO NEW 15:29 batch (06:29Z): JP positivity 111 to 123 (iam 18), gratitude 144 to 171 (iam 17 to 16), motivation iam 23 to 25, affirmation 29 (iam 2), self-esteem 47; US iam gratitude 7 to 5, self-love 5, motivation 3. GEO NEW 15:23 batch (06:23Z): 8 answered, 0/0 held, ThinkUp first 4/8 (en01, en04, en06, jp01), Mantra first en02, I am first en05, no brand en03/jp02.",
-    "TikTok (h): no new batch; 13 rows held at 15:00 values (followers 4,090, likes 86,715, videos 3,439); aniccaen2 + anicca.jpx unmeasured (Page not found), not zero. LinkedIn (g): no new measurement batch; social ledger 15:20 frame reports 4 posts landed today (06:00 slot + 12:24 BIP + L-2 15:08 + L-3 15:09), note updated; followers/impressions/likes/comments unmeasured (last measured 15:00), outbound 0."
+    "TikTok (h): no new batch; 13 rows held at 15:00 values (followers 4,090, likes 86,715, videos 3,439); aniccaen2 + anicca.jpx unmeasured (Page not found), not zero. LinkedIn (g): no new measurement batch; social ledger 15:20 frame reports 4 posts landed today (06:00 slot + 12:24 BIP + L-2 15:08 + L-3 15:09), note updated; followers/impressions/likes/comments unmeasured (last measured 15:00), outbound 0.",
+    "Live landing CONFIRMED this frame: https://aniccaai.com/open/data.json = updated_at 2026-11-11 15:37 JST (curl read this frame, live-check-2026-11-11-1607-before.json), kpis[mrr] $24, funnel deep-equal to canonical, repo data.json sha still 8429639e (15:37 commit) = no writer overwrite. Conditions (a)-(j) satisfied on live 15:37 version.",
+    "MRR REBUILT (override 2026-11-11-1, condition j): metrics.json re-fetched from repo (repo-metrics-2026-11-11-1607.json), updated_at 2026-11-11 15:06 JST, mrr_breakdown total 24, totals.mrr_usd 24.0. Live-site metrics.json also 15:06, total 24. kpis[mrr] == summary.mrr_split.total == metrics total == $24. No inheritance from the previous data.json. Official RC chart about $20 vs metrics.json $24 discrepancy remains a reconciliation carryover; /open keeps $24 per condition j.",
+    "RC 09:00 batch incident: product-metrics-watch-latest.json unchanged (checked_at 2026-11-11 10:28 JST; 11/11 new 2, server_created 2, at_0900_batch 2, incident true). Already recorded as an incident line in the 10:32 frame; no duplicate line this frame.",
+    "Installs ASC only: apps-metrics-latest.json unchanged (2026-11-11T05:18:11Z), 6 apps. Last7d window 2026-11-04..11-10: units [1,0,5,0,0,1] total 7, impressions 888; RC registrations not shown as installs.",
+    "Bank balance held: summary.bank and summary.net_worth $63.33 as of 2026-11-11 11:21 JST (MUFG via Moneytree re-fetch, bank-balance-latest.md; team rate 156.84). No newer bank measurement this frame.",
+    "Reason: No messages (social-metrics-ledger 15:20 frame; no newer social frame). Team contact is GitHub team-outbox. No replies needed this frame.",
+    "Gmail newer_than:1h (checked this frame): CrowdWorks decline 16:05 and recruitment-closed 16:02, Postiz notifications 16:01, Lancers proposals accepted 15:45-15:47, Frantic check-in 15:30. No new sales, payments, or Trip.com refund arrival.",
+    "Costs UNCHANGED: revenue MTD $31.81; costs $1,640.08; profit -$1,608.27; MRR $24 (metrics.json basis). Capafy SUNSET, paid_out/pending 0.0; Coconala net/all_time 1706.68; gpl pct -278.7. RapidAPI this_month null only. No new API purchase, charge, top-up, or auto-reload.",
+    "Rankings: SEO Google NEW 16:06 batch (07:06Z): anicca 4/7 to 5/7 (3,out,4,4,out,3,3; iPhone out to 3 tvb 2, best-daily 3 to 4, what-best 4 to 3 tvb 4). Bing NEW 16:00 batch (07:00Z): anicca 0/7, happierhuman 1/7 held (daily 5). ASO NEW 15:59 batch (06:59Z): JP positivity 123 to 127 (iam 18), gratitude 171 to 144 (iam 16 to 17), affirmation 29 (iam 2), self-esteem 47, motivation iam 25; US iam self-love 5, gratitude 5, motivation 3 held. GEO NEW 16:00 batch (07:00Z): 8 answered, 0/0 held, ThinkUp first 5/8 (en01, en02, en04, en06, jp01), Motion first en05, no brand en03/jp02.",
+    "TikTok (h): no new batch; 13 rows held at 15:00 values (followers 4,090, likes 86,715, videos 3,439); aniccaen2 + anicca.jpx unmeasured (Page not found), not zero. LinkedIn (g): no new measurement batch; dist-pub-linkedin-yt 16:05 log confirms 4 posts PUBLISHED today (06:00, off-slot, 09:30 L-2, 12:30 L-3) and 20:48 L-4 QUEUE, note updated; followers/impressions/likes/comments unmeasured (last measured 15:00), outbound 0."
   ],
   "app_store_analytics": {
     "source": "App Store Connect Analytics Reports",
