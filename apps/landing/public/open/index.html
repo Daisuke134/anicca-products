@@ -95,7 +95,7 @@ a.idx .go{color:#576CDB;font-size:12px;font-weight:600;margin-top:2px}
 <div class="mc" id="slot-bank"><div class="m">Loading…</div></div>
 </div>
 <div class="c" id="card-monthly" style="margin-bottom:12px"><h2>Monthly revenue <span class="scope co">COMPANY</span></h2><div class="bars" id="bars"></div><div class="bl" id="bl"></div><div class="lg" id="lg"></div></div>
-<div class="chartrow" id="top-charts"><div class="c chartcard"><h2>New customers per day <span class="scope">COMPANY · REVENUECAT</span></h2><div class="cstat" id="stat-newcust"></div><div class="chartbox" id="chart-newcust"></div></div>
+<div class="chartrow" id="top-charts"><div class="c chartcard"><h2>App installs per day <span class="scope">COMPANY · APP STORE (first-time downloads)</span></h2><div class="cstat" id="stat-installs"></div><div class="chartbox" id="chart-installs"></div><p class="zero" style="margin:6px 0 0">Source: App Store Connect Sales reports, first-time downloads only (no redownloads, no updates). RevenueCat &ldquo;new customers&rdquo; are not installs and are shown separately under Apps.</p></div>
 <div class="c chartcard"><h2>Revenue, costs &amp; profit by month <span class="scope">COMPANY</span></h2><div class="cstat" id="stat-pnl"></div><div class="chartbox" id="chart-pnl"></div></div>
 </div>
 <div class="tier t2"><b>TIER 2 · DRILL-DOWN</b><span>Grouped by platform / business — one granularity per group</span></div>
@@ -115,7 +115,7 @@ a.idx .go{color:#576CDB;font-size:12px;font-weight:600;margin-top:2px}
 <section class="grpwrap" id="grp-apps">
 <div class="grp">Apps <small>App Store · subscriptions</small></div>
 <div class="chartrow"><div class="c chartcard"><h2>Installs per day by app — last 7 days <span class="scope">APPS · APP STORE</span></h2><div class="cstat" id="stat-apps-units"></div><div class="chartbox" id="chart-apps-units"></div></div>
-<div class="c chartcard"><h2>New customers per day — by RevenueCat project <span class="scope">APPS · REVENUECAT</span></h2><div class="cstat" id="stat-rc-daily"></div><div class="chartbox" id="chart-rc-daily"></div></div>
+<div class="c chartcard"><h2>RevenueCat new customers per day — by project <span class="scope">APPS · REVENUECAT · NOT INSTALLS</span></h2><div class="cstat" id="stat-rc-daily"></div><div class="chartbox" id="chart-rc-daily"></div><p class="zero" style="margin:6px 0 0">Not installs. Includes customers created by our own backend (e.g. the 09:00 JST credit batch on 11/7&ndash;11/8, unknown platform), app review and simulator launches. Use the App Store installs chart for downloads.</p></div>
 </div>
 <div class="c" id="card-apps"><h2>Apps <span class="scope ">PLATFORM · APP STORE</span></h2><div class="mini one"><div class="mc" id="slot-inst"><div class="m">Loading…</div></div></div><table id="apps"></table><div id="asc-analytics" class="zero" style="margin-top:10px"></div><div id="apps-metrics-extra"></div></div>
 <div class="c" id="card-revenuecat" style="margin-top:12px"><h2>RevenueCat app metrics <span class="scope ">APPS · REVENUECAT</span></h2><div id="revenuecat-charts">Loading…</div></div>
@@ -636,13 +636,13 @@ function appsCharts(m){
   var totals=dates.map(function(d){return projs.reduce(function(s,p){return s+((p.rc.new_customers_daily_utc||{})[d]||0)},0)});
   var cum=[],run=0; totals.forEach(function(v){run+=v;cum.push(run)});
   var bestI=0; totals.forEach(function(v,i){if(v>totals[bestI])bestI=i});
-  setStat("stat-newcust",num(run)+" new customers in "+dates.length+" days \u00b7 best day "+dates[bestI].slice(5)+": "+num(totals[bestI]));
+  setStat("stat-rc-daily",num(run)+" RevenueCat new customers (not installs) in "+dates.length+" days \u00b7 best day "+dates[bestI].slice(5)+": "+num(totals[bestI]));
   var o=baseOpt(); o.xAxis.data=dates.map(function(d){return d.slice(5)});
   o.yAxis=[{type:"value",splitLine:{lineStyle:{color:"#eef0f3"}},axisLabel:{color:MUT,fontSize:11}},
            {type:"value",splitLine:{show:false},axisLabel:{color:MUT,fontSize:11}}];
   var bl=growthLine("Cumulative",cum); bl.yAxisIndex=1;
   o.series=[bar("New customers / day",totals),bl];
-  mkChart("chart-newcust",o);
+  if($("chart-newcust"))mkChart("chart-newcust",o);
   var o2=baseOpt(); o2.xAxis.data=dates.map(function(d){return d.slice(5)});
   var cols=[VIOLET,BLUE,GREEN,"#f59e0b","#ec4899"];
   o2.series=projs.map(function(p,i){var s=bar("Project "+p.name,dates.map(function(d){return (p.rc.new_customers_daily_utc||{})[d]||0}),cols[i%cols.length]); s.stack="nc"; return s});
@@ -733,6 +733,22 @@ function capChart(c){
 
 getJSON("data.json").then(dataCharts).catch(function(){});
 getJSON("apps-metrics-latest.json").then(function(m){renderAppsMetrics(m);appsCharts(m)}).catch(function(){});
+/* ---------- Tier 1: App Store installs per day (ASC Sales reports, first-time downloads) ---------- */
+function installsChart(j){
+ if(!j||!Array.isArray(j.apps)||!j.latest_report_date)return;
+ var L=new Date(j.latest_report_date+"T00:00:00Z"),ds=[];
+ for(var i=59;i>=0;i--){ds.push(new Date(L.getTime()-i*864e5).toISOString().slice(0,10))}
+ var apps=j.apps.filter(function(a){return a.totals&&a.totals.first_time_all_time>0});
+ var cols=[VIOLET,BLUE,GREEN,"#f59e0b","#ec4899","#64748b"];
+ var o=baseOpt(); o.xAxis.data=ds.map(function(d){return d.slice(5)});
+ o.series=apps.map(function(a,i){var s=bar(a.name.split(" - ")[0],ds.map(function(d){return (a.daily[d]||{}).first_time||0}),cols[i%cols.length]); s.stack="inst"; return s});
+ mkChart("chart-installs",o);
+ var an=apps.filter(function(a){return a.app_id==="6755129214"})[0]||{totals:{}};
+ var sum=function(k){return apps.reduce(function(s,a){return s+(a.totals[k]||0)},0)};
+ setStat("stat-installs","All apps: "+num(sum("first_time_7d"))+" in 7d \u00b7 "+num(sum("first_time_28d"))+" in 28d \u00b7 "+num(sum("first_time_all_time"))+" all-time \u00b7 Anicca: "+num(an.totals.first_time_7d)+" / "+num(an.totals.first_time_28d)+" / "+num(an.totals.first_time_all_time)+" \u00b7 through "+j.latest_report_date+" (measured "+String(j.measured_at||"").slice(0,16).replace("T"," ")+" UTC)");
+}
+getJSON("asc-installs-daily.json").then(installsChart).catch(function(){setStat("stat-installs","App Store installs data unavailable")});
+
 getJSON("capafy.json").then(capChart).catch(function(){});
 })();
 </script>
