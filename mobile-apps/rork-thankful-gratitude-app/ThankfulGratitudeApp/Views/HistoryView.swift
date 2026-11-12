@@ -26,6 +26,9 @@ struct HistoryView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     calendarSection
+                        .onAppear {
+                            AnalyticsManager.shared.trackScreenViewed(screenName: "history")
+                        }
                     if let entry = selectedEntry {
                         if viewModel.isLocked(entry) {
                             lockedCard

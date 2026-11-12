@@ -16,6 +16,9 @@ struct SettingsView: View {
                         selection: $notificationService.morningTime,
                         displayedComponents: .hourAndMinute
                     )
+                    .onAppear {
+                        AnalyticsManager.shared.trackScreenViewed(screenName: "settings")
+                    }
 
                     DatePicker(
                         L10n.eveningReminder(language),

@@ -164,6 +164,7 @@ struct PaywallView: View {
         .onAppear {
             // This cover is the single paywall surface (post-onboarding and in-app upsell share it).
             AnalyticsManager.shared.trackPaywallShown(paywallId: "thankful_paywall_v1", placement: "main_cover")
+            AnalyticsManager.shared.trackScreenViewed(screenName: "paywall")
         }
         .task {
             await fetchOfferings()

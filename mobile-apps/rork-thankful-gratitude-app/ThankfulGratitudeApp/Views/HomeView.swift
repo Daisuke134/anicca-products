@@ -21,6 +21,9 @@ struct HomeView: View {
             VStack(spacing: 24) {
                 headerSection
                 affirmationCard
+                    .onAppear {
+                        AnalyticsManager.shared.trackScreenViewed(screenName: "home")
+                    }
                 gratitudeInputSection
             }
             .padding(.horizontal, 16)

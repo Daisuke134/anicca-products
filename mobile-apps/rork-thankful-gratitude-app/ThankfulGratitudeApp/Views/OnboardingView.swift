@@ -34,7 +34,11 @@ struct OnboardingView: View {
                 if !hasTrackedStart {
                     hasTrackedStart = true
                     AnalyticsManager.shared.trackOnboardingStarted()
+                    AnalyticsManager.shared.trackScreenViewed(screenName: "onboarding_step_1")
                 }
+            }
+            .onChange(of: currentPage) { _, newPage in
+                AnalyticsManager.shared.trackScreenViewed(screenName: "onboarding_step_\(newPage + 1)")
             }
 
             VStack(spacing: 20) {
