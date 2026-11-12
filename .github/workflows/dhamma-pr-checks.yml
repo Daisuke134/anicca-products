@@ -106,3 +106,13 @@ jobs:
           file "$APP_PATH/$EXECUTABLE"
           plutil -extract CFBundleSupportedPlatforms json -o - "$APP_PATH/Info.plist"
           echo "Verified unsigned Simulator app: $BUNDLE_ID"
+
+      - name: Launch, relaunch and inspect rendered Simulator screens
+        timeout-minutes: 8
+        run: bash scripts/smoke-ios-simulator.sh
+      - name: Print app crash reports on failure
+        if: failure()
+        run: |
+          if [ -d "$HOME/Library/Logs/DiagnosticReports" ]; then
+            find "$HOME/Library/Logs/DiagnosticReports" -maxdepth 1 -name 'DailyDhamma*' -type f -print -exec tail -80 {} +
+          fi
