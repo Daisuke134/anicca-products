@@ -85,6 +85,7 @@ test('an older Premium lookup cannot undo a newer SDK entitlement revocation', a
   const screen = mount();
   await waitFor(() => expect(Purchases.getCustomerInfo).toHaveBeenCalledTimes(1));
   await act(async () => jest.mocked(Purchases.addCustomerInfoUpdateListener).mock.calls[0][0](freeInfo));
+  await waitFor(() => expect(access.customerInfo).toEqual(freeInfo));
   await act(async () => finishOldLookup(paidInfo));
   expect(screen.getByTestId('access')).toHaveTextContent('free');
   expect(access.customerInfo.entitlements.active.premium).toBeUndefined();
