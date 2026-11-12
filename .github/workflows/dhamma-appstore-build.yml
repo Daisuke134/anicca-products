@@ -1,0 +1,126 @@
+name: Dhamma App Store Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      marketing_version:
+        description: "MARKETING_VERSION to build"
+        required: true
+        default: "1.2.1"
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: web-apps/daily-dhamma-app
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            web-apps/daily-dhamma-app
+            .github/workflows
+          sparse-checkout-cone-mode: true
+
+      - name: Select Xcode 26
+        run: |
+          ls /Applications | grep -i Xcode || true
+          XCODE_APP=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          if [ -z "$XCODE_APP" ]; then XCODE_APP=/Applications/Xcode.app; fi
+          echo "Selecting $XCODE_APP"
+          sudo xcode-select -s "$XCODE_APP"
+          xcodebuild -version
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: web-apps/daily-dhamma-app/package-lock.json
+
+      - name: Load production env from eas.json
+        run: |
+          jq -r '.build.production.env | to_entries[] | "\(.key)=\(.value)"' eas.json >> "$GITHUB_ENV"
+          grep -c . "$GITHUB_ENV" || true
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Expo prebuild (generates ios project + pods)
+        run: |
+          set -o pipefail
+          npx expo prebuild --platform ios --non-interactive 2>&1 | tee prebuild.log | tail -15
+          ls ios
+
+      - name: Install App Store Connect API key
+        env:
+          ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          printf '%s' "$ASC_PRIVATE_KEY" > ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          chmod 600 ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+
+      - name: Archive
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          set -o pipefail
+          BUILD_NUMBER=$(TZ=Asia/Tokyo date +%Y%m%d%H%M)
+          echo "BUILD_NUMBER=${BUILD_NUMBER}" >> "$GITHUB_ENV"
+          echo "Building version ${{ inputs.marketing_version }} build ${BUILD_NUMBER}"
+          KEY_PATH=~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          WORKSPACE=$(ls -d ios/*.xcworkspace | head -1)
+          SCHEME=$(basename "$WORKSPACE" .xcworkspace)
+          echo "Workspace: $WORKSPACE Scheme: $SCHEME"
+          xcodebuild archive \
+            -workspace "$WORKSPACE" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$PWD/build/DailyDhamma.xcarchive" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            MARKETING_VERSION=${{ inputs.marketing_version }} \
+            CURRENT_PROJECT_VERSION=${BUILD_NUMBER} \
+            2>&1 | tee archive.log | tail -30
+
+      - name: Export IPA
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          set -o pipefail
+          KEY_PATH=~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          xcodebuild -exportArchive \
+            -archivePath "$PWD/build/DailyDhamma.xcarchive" \
+            -exportOptionsPlist "$PWD/ExportOptions.CI.plist" \
+            -exportPath "$PWD/build/ipa" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            2>&1 | tee export.log | tail -30
+          ls -la build/ipa
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dhamma-ipa-${{ inputs.marketing_version }}-${{ env.BUILD_NUMBER }}
+          path: web-apps/daily-dhamma-app/build/ipa/*.ipa
+          if-no-files-found: error
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dhamma-build-logs
+          path: |
+            web-apps/daily-dhamma-app/prebuild.log
+            web-apps/daily-dhamma-app/archive.log
+            web-apps/daily-dhamma-app/export.log
+          if-no-files-found: ignore
