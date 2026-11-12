@@ -223,6 +223,11 @@ struct HomeView: View {
         // Spec §3.4: Thankful's core result = the display right after a gratitude entry is saved.
         AnalyticsManager.shared.trackCoreResultViewed(resultType: "gratitude_entry_saved")
 
+        // Issue #47: value moment — a gratitude entry was just saved. Ask for a
+        // review through the system dialog only, gated by the Anicca-canonical
+        // policy (>=3 distinct open days, 120-day cooldown, never first launch).
+        ReviewPromptCoordinator.shared.requestReviewIfAppropriate()
+
         gratitude1 = ""
         gratitude2 = ""
         gratitude3 = ""

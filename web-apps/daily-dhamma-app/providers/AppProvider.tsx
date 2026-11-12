@@ -12,6 +12,7 @@ import {
 } from '@/utils/notifications';
 import { localDateKey, nextOpenStreak } from '@/utils/paywallUtils';
 import { trackOnboardingCompleted } from '@/utils/analytics';
+import { recordReviewOpenDay, requestReviewIfAppropriate } from '@/utils/reviewPrompt';
 
 interface AppSettings {
   hasCompletedOnboarding: boolean;
@@ -120,6 +121,12 @@ export const [AppProvider, useApp] = createContextHook(() => {
     }
   }, [today, settings, settingsQuery.data, updateSettings]);
 
+  // Issue #47: レビュー依頼ゲート用に「異なる日付での起動日」を記録する
+  useEffect(() => {
+    if (!settingsQuery.data || settings !== settingsQuery.data) return;
+    void recordReviewOpenDay();
+  }, [today, settings, settingsQuery.data]);
+
   // 通知スケジュール: 設定またはisPremiumが変更されたらリスケジュール
   const hasScheduledRef = useRef(false);
   useEffect(() => {
@@ -162,10 +169,16 @@ export const [AppProvider, useApp] = createContextHook(() => {
   ]);
 
   const toggleBookmark = useCallback((verseId: number) => {
-    const bookmarks = settings.bookmarkedVerses.includes(verseId)
-      ? settings.bookmarkedVerses.filter(id => id !== verseId)
-      : [...settings.bookmarkedVerses, verseId];
+    const isAdding = !settings.bookmarkedVerses.includes(verseId);
+    const bookmarks = isAdding
+      ? [...settings.bookmarkedVerses, verseId]
+      : settings.bookmarkedVerses.filter(id => id !== verseId);
     updateSettings({ bookmarkedVerses: bookmarks });
+    // Issue #47: value moment — a verse was just bookmarked (adds only, never
+    // on removal). Gated by the Anicca-canonical review policy.
+    if (isAdding) {
+      void requestReviewIfAppropriate();
+    }
   }, [settings.bookmarkedVerses, updateSettings]);
 
   const isBookmarked = useCallback((verseId: number) => {
