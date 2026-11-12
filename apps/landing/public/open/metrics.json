@@ -586,7 +586,7 @@
  "revenuecat_charts": {
   "source": "RevenueCat Charts API v2",
   "source_docs": "https://www.revenuecat.com/docs/api-v2/charts-and-metrics",
-  "observed_at": "2026-11-12T07:46:37Z",
+  "observed_at": "2026-11-12T09:44:08Z",
   "window": {
    "start_date": "2026-10-14",
    "end_date": "2026-11-12",
@@ -1106,7 +1106,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:38:04Z"
+      "observed_at": "2026-11-12T09:35:30Z"
      },
      "actives_movement": {
       "id": "actives_movement",
@@ -1899,7 +1899,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:38:09Z"
+      "observed_at": "2026-11-12T09:35:35Z"
      },
      "actives_new": {
       "id": "actives_new",
@@ -4541,7 +4541,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:38:11Z"
+      "observed_at": "2026-11-12T09:35:37Z"
      },
      "arr": {
       "id": "arr",
@@ -5017,7 +5017,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:38:14Z"
+      "observed_at": "2026-11-12T09:35:40Z"
      },
      "churn": {
       "id": "churn",
@@ -6351,7 +6351,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:38:17Z"
+      "observed_at": "2026-11-12T09:35:42Z"
      },
      "cohort_explorer": {
       "id": "cohort_explorer",
@@ -6714,7 +6714,7 @@
         "cohort": 1794441600,
         "confidence": null,
         "period": 0,
-        "value": 2
+        "value": 11
        },
        {
         "cohort": 1794441600,
@@ -6727,7 +6727,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:38:24Z"
+      "observed_at": "2026-11-12T09:35:49Z"
      },
      "conversion_to_paying": {
       "id": "conversion_to_paying",
@@ -6776,12 +6776,12 @@
       "summary": {
        "average": {
         "Conversion Rate (7 days)": 0.0,
-        "New Customers": 6.13,
+        "New Customers": 6.43,
         "Paying Customers (7 days)": 0.0
        },
        "total": {
         "Conversion Rate (7 days)": 0.0,
-        "New Customers": 184.0,
+        "New Customers": 193.0,
         "Paying Customers (7 days)": 0.0
        }
       },
@@ -7312,7 +7312,7 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 0,
-        "value": 2.0
+        "value": 11.0
        },
        {
         "cohort": 1794441600,
@@ -7330,7 +7330,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:38:28Z"
+      "observed_at": "2026-11-12T09:35:54Z"
      },
      "customers_new": {
       "id": "customers_new",
@@ -7358,10 +7358,10 @@
       "periods": [],
       "summary": {
        "average": {
-        "New Customers": 6.13
+        "New Customers": 6.43
        },
        "total": {
-        "New Customers": 184.0
+        "New Customers": 193.0
        }
       },
       "values": [
@@ -7543,13 +7543,13 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 0,
-        "value": 2.0
+        "value": 11.0
        }
       ],
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:38:32Z"
+      "observed_at": "2026-11-12T09:35:57Z"
      },
      "initial_conversion": {
       "id": "initial_conversion",
@@ -7599,12 +7599,12 @@
        "average": {
         "Conversion Rate (7 days)": 0.0,
         "Initial Conversions (7 days)": 0.0,
-        "New Customers": 6.13
+        "New Customers": 6.43
        },
        "total": {
         "Conversion Rate (7 days)": 0.0,
         "Initial Conversions (7 days)": 0.0,
-        "New Customers": 184.0
+        "New Customers": 193.0
        }
       },
       "values": [
@@ -8134,7 +8134,7 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 0,
-        "value": 2.0
+        "value": 11.0
        },
        {
         "cohort": 1794441600,
@@ -8152,7 +8152,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:38:39Z"
+      "observed_at": "2026-11-12T09:36:04Z"
      },
      "ltv_per_customer": {
       "id": "ltv_per_customer",
@@ -8209,13 +8209,13 @@
       "periods": [],
       "summary": {
        "average": {
-        "New Customers": 6.13,
+        "New Customers": 6.43,
         "Realized LTV (30 days)": 0.0,
         "Realized LTV (30 days) / Customer": 0.0,
         "Realized Proceeds (30 days)": 0.0
        },
        "total": {
-        "New Customers": 184.0,
+        "New Customers": 193.0,
         "Realized LTV (30 days)": 0.0,
         "Realized LTV (30 days) / Customer": 0.0,
         "Realized Proceeds (30 days)": 0.0
@@ -8922,7 +8922,7 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 0,
-        "value": 2.0
+        "value": 11.0
        },
        {
         "cohort": 1794441600,
@@ -8946,7 +8946,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:38:44Z"
+      "observed_at": "2026-11-12T09:36:09Z"
      },
      "ltv_per_paying_customer": {
       "id": "ltv_per_paying_customer",
@@ -9550,7 +9550,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:38:50Z"
+      "observed_at": "2026-11-12T09:36:15Z"
      },
      "mrr": {
       "id": "mrr",
@@ -10026,7 +10026,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:38:51Z"
+      "observed_at": "2026-11-12T09:36:16Z"
      },
      "mrr_movement": {
       "id": "mrr_movement",
@@ -11203,7 +11203,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:38:57Z"
+      "observed_at": "2026-11-12T09:36:22Z"
      },
      "prediction_explorer": {
       "id": "prediction_explorer",
@@ -15446,7 +15446,7 @@
        ]
       ],
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:39:02Z"
+      "observed_at": "2026-11-12T09:36:27Z"
      },
      "refund_rate": {
       "id": "refund_rate",
@@ -15493,7 +15493,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:04Z"
+      "observed_at": "2026-11-12T09:36:29Z"
      },
      "refund_request": {
       "id": "refund_request",
@@ -17705,7 +17705,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:08Z"
+      "observed_at": "2026-11-12T09:36:33Z"
      },
      "refunds": {
       "id": "refunds",
@@ -18621,7 +18621,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:08Z"
+      "observed_at": "2026-11-12T09:36:33Z"
      },
      "revenue": {
       "id": "revenue",
@@ -18653,14 +18653,6 @@
         "display_name": "Transactions",
         "tabulable": true,
         "unit": "#"
-       },
-       {
-        "chartable": false,
-        "decimal_precision": 0,
-        "description": "The total number of times ads were successfully displayed to users. Each impression represents one instance of an ad being shown.",
-        "display_name": "Ad Impressions",
-        "tabulable": true,
-        "unit": "#"
        }
       ],
       "segments": [
@@ -18681,24 +18673,20 @@
       "summary": {
        "average": {
         "": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         },
         "Total": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         }
        },
        "total": {
         "": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         },
         "Total": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         }
@@ -18722,13 +18710,6 @@
        {
         "cohort": 1791936000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1791936000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -18741,13 +18722,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1791936000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792022400,
         "incomplete": false,
         "measure": 0,
@@ -18764,13 +18738,6 @@
        {
         "cohort": 1792022400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792022400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -18779,13 +18746,6 @@
         "cohort": 1792022400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792022400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -18806,13 +18766,6 @@
        {
         "cohort": 1792108800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792108800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -18825,13 +18778,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792108800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792195200,
         "incomplete": false,
         "measure": 0,
@@ -18848,13 +18794,6 @@
        {
         "cohort": 1792195200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792195200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -18863,13 +18802,6 @@
         "cohort": 1792195200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792195200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -18890,13 +18822,6 @@
        {
         "cohort": 1792281600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792281600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -18909,13 +18834,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792281600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792368000,
         "incomplete": false,
         "measure": 0,
@@ -18932,13 +18850,6 @@
        {
         "cohort": 1792368000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792368000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -18947,13 +18858,6 @@
         "cohort": 1792368000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792368000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -18974,13 +18878,6 @@
        {
         "cohort": 1792454400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792454400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -18993,13 +18890,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792454400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792540800,
         "incomplete": false,
         "measure": 0,
@@ -19016,13 +18906,6 @@
        {
         "cohort": 1792540800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792540800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19031,13 +18914,6 @@
         "cohort": 1792540800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792540800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19058,13 +18934,6 @@
        {
         "cohort": 1792627200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792627200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19077,13 +18946,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792627200,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792713600,
         "incomplete": false,
         "measure": 0,
@@ -19100,13 +18962,6 @@
        {
         "cohort": 1792713600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792713600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19115,13 +18970,6 @@
         "cohort": 1792713600,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792713600,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19142,13 +18990,6 @@
        {
         "cohort": 1792800000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792800000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19161,13 +19002,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792800000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792886400,
         "incomplete": false,
         "measure": 0,
@@ -19184,13 +19018,6 @@
        {
         "cohort": 1792886400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792886400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19199,13 +19026,6 @@
         "cohort": 1792886400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792886400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19226,13 +19046,6 @@
        {
         "cohort": 1792972800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792972800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19245,13 +19058,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792972800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793059200,
         "incomplete": false,
         "measure": 0,
@@ -19268,13 +19074,6 @@
        {
         "cohort": 1793059200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793059200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19283,13 +19082,6 @@
         "cohort": 1793059200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793059200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19310,13 +19102,6 @@
        {
         "cohort": 1793145600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793145600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19329,13 +19114,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793145600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793232000,
         "incomplete": false,
         "measure": 0,
@@ -19352,13 +19130,6 @@
        {
         "cohort": 1793232000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793232000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19367,13 +19138,6 @@
         "cohort": 1793232000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793232000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19394,13 +19158,6 @@
        {
         "cohort": 1793318400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793318400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19413,13 +19170,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793318400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793404800,
         "incomplete": false,
         "measure": 0,
@@ -19436,13 +19186,6 @@
        {
         "cohort": 1793404800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793404800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19451,13 +19194,6 @@
         "cohort": 1793404800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793404800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19478,13 +19214,6 @@
        {
         "cohort": 1793491200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793491200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19497,13 +19226,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793491200,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793577600,
         "incomplete": false,
         "measure": 0,
@@ -19520,13 +19242,6 @@
        {
         "cohort": 1793577600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793577600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19535,13 +19250,6 @@
         "cohort": 1793577600,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793577600,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19562,13 +19270,6 @@
        {
         "cohort": 1793664000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793664000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19581,13 +19282,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793664000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793750400,
         "incomplete": false,
         "measure": 0,
@@ -19604,13 +19298,6 @@
        {
         "cohort": 1793750400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793750400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19619,13 +19306,6 @@
         "cohort": 1793750400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793750400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19646,13 +19326,6 @@
        {
         "cohort": 1793836800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793836800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19665,13 +19338,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793836800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793923200,
         "incomplete": false,
         "measure": 0,
@@ -19688,13 +19354,6 @@
        {
         "cohort": 1793923200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793923200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19703,13 +19362,6 @@
         "cohort": 1793923200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793923200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19730,13 +19382,6 @@
        {
         "cohort": 1794009600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794009600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19749,13 +19394,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1794009600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1794096000,
         "incomplete": false,
         "measure": 0,
@@ -19772,13 +19410,6 @@
        {
         "cohort": 1794096000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794096000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19787,13 +19418,6 @@
         "cohort": 1794096000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794096000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19814,13 +19438,6 @@
        {
         "cohort": 1794182400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794182400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19833,13 +19450,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1794182400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1794268800,
         "incomplete": false,
         "measure": 0,
@@ -19856,13 +19466,6 @@
        {
         "cohort": 1794268800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794268800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19871,13 +19474,6 @@
         "cohort": 1794268800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794268800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19898,13 +19494,6 @@
        {
         "cohort": 1794355200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794355200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19913,13 +19502,6 @@
         "cohort": 1794355200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794355200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -19940,13 +19522,6 @@
        {
         "cohort": 1794441600,
         "incomplete": true,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794441600,
-        "incomplete": true,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -19955,13 +19530,6 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794441600,
-        "incomplete": true,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        }
@@ -19969,7 +19537,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:11Z"
+      "observed_at": "2026-11-12T09:36:36Z"
      },
      "subscription_retention": {
       "id": "subscription_retention",
@@ -19991,7 +19559,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:14Z"
+      "observed_at": "2026-11-12T09:36:40Z"
      },
      "subscription_status": {
       "id": "subscription_status",
@@ -20121,7 +19689,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:17Z"
+      "observed_at": "2026-11-12T09:36:42Z"
      },
      "trials": {
       "id": "trials",
@@ -20595,7 +20163,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:18Z"
+      "observed_at": "2026-11-12T09:36:43Z"
      },
      "trials_movement": {
       "id": "trials_movement",
@@ -21197,7 +20765,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:39:23Z"
+      "observed_at": "2026-11-12T09:36:48Z"
      },
      "trials_new": {
       "id": "trials_new",
@@ -21679,7 +21247,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:26Z"
+      "observed_at": "2026-11-12T09:36:51Z"
      },
      "customers_active": {
       "id": "customers_active",
@@ -21707,7 +21275,7 @@
       "periods": [],
       "summary": {
        "average": {
-        "Active Customers": 5.1
+        "Active Customers": 5.17
        }
       },
       "values": [
@@ -21889,13 +21457,13 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 0,
-        "value": 4.0
+        "value": 6.0
        }
       ],
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:39:31Z"
+      "observed_at": "2026-11-12T09:36:55Z"
      },
      "trial_conversion": {
       "id": "trial_conversion",
@@ -24297,7 +23865,7 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 0,
-        "value": 2.0
+        "value": 11.0
        },
        {
         "cohort": 1794441600,
@@ -24375,7 +23943,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:39:37Z"
+      "observed_at": "2026-11-12T09:37:02Z"
      },
      "trial_conversion_rate": {
       "id": "trial_conversion_rate",
@@ -25546,7 +25114,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:39:41Z"
+      "observed_at": "2026-11-12T09:37:06Z"
      },
      "trial_cancellation": {
       "id": "trial_cancellation",
@@ -26529,7 +26097,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:39:46Z"
+      "observed_at": "2026-11-12T09:37:11Z"
      },
      "non-subscription_purchases": {
       "id": "non-subscription_purchases",
@@ -26560,7 +26128,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:48Z"
+      "observed_at": "2026-11-12T09:37:13Z"
      },
      "ad_revenue": {
       "id": "ad_revenue",
@@ -26607,7 +26175,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:50Z"
+      "observed_at": "2026-11-12T09:37:15Z"
      },
      "ad_impressions": {
       "id": "ad_impressions",
@@ -26638,7 +26206,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:53Z"
+      "observed_at": "2026-11-12T09:37:18Z"
      },
      "ad_clicks": {
       "id": "ad_clicks",
@@ -26669,7 +26237,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:55Z"
+      "observed_at": "2026-11-12T09:37:20Z"
      },
      "ad_monetized_customers": {
       "id": "ad_monetized_customers",
@@ -26700,7 +26268,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:39:58Z"
+      "observed_at": "2026-11-12T09:37:23Z"
      },
      "paywall_abandonment": {
       "id": "paywall_abandonment",
@@ -28048,7 +27616,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:40:07Z"
+      "observed_at": "2026-11-12T09:37:31Z"
      },
      "app_store_save_outcomes": {
       "id": "app_store_save_outcomes",
@@ -28079,7 +27647,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:40:13Z"
+      "observed_at": "2026-11-12T09:37:37Z"
      }
     },
     "unavailable_charts": 0
@@ -28568,7 +28136,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:40:14Z"
+      "observed_at": "2026-11-12T09:37:38Z"
      },
      "actives_movement": {
       "id": "actives_movement",
@@ -29361,7 +28929,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:40:19Z"
+      "observed_at": "2026-11-12T09:37:43Z"
      },
      "actives_new": {
       "id": "actives_new",
@@ -32003,7 +31571,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:40:21Z"
+      "observed_at": "2026-11-12T09:37:45Z"
      },
      "arr": {
       "id": "arr",
@@ -32479,7 +32047,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:40:24Z"
+      "observed_at": "2026-11-12T09:37:48Z"
      },
      "churn": {
       "id": "churn",
@@ -33813,7 +33381,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:40:26Z"
+      "observed_at": "2026-11-12T09:37:50Z"
      },
      "cohort_explorer": {
       "id": "cohort_explorer",
@@ -34033,7 +33601,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:40:34Z"
+      "observed_at": "2026-11-12T09:37:58Z"
      },
      "conversion_to_paying": {
       "id": "conversion_to_paying",
@@ -34636,7 +34204,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:40:38Z"
+      "observed_at": "2026-11-12T09:38:02Z"
      },
      "customers_new": {
       "id": "customers_new",
@@ -34855,7 +34423,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:40:41Z"
+      "observed_at": "2026-11-12T09:38:05Z"
      },
      "initial_conversion": {
       "id": "initial_conversion",
@@ -35458,7 +35026,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:40:48Z"
+      "observed_at": "2026-11-12T09:38:12Z"
      },
      "ltv_per_customer": {
       "id": "ltv_per_customer",
@@ -36252,7 +35820,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:40:54Z"
+      "observed_at": "2026-11-12T09:38:17Z"
      },
      "ltv_per_paying_customer": {
       "id": "ltv_per_paying_customer",
@@ -36856,7 +36424,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:41:00Z"
+      "observed_at": "2026-11-12T09:38:23Z"
      },
      "mrr": {
       "id": "mrr",
@@ -37332,7 +36900,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:00Z"
+      "observed_at": "2026-11-12T09:38:24Z"
      },
      "mrr_movement": {
       "id": "mrr_movement",
@@ -38509,7 +38077,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:41:06Z"
+      "observed_at": "2026-11-12T09:38:30Z"
      },
      "prediction_explorer": {
       "id": "prediction_explorer",
@@ -42752,7 +42320,7 @@
        ]
       ],
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:41:11Z"
+      "observed_at": "2026-11-12T09:38:35Z"
      },
      "refund_rate": {
       "id": "refund_rate",
@@ -42799,7 +42367,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:14Z"
+      "observed_at": "2026-11-12T09:38:38Z"
      },
      "refund_request": {
       "id": "refund_request",
@@ -45011,7 +44579,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:17Z"
+      "observed_at": "2026-11-12T09:38:41Z"
      },
      "refunds": {
       "id": "refunds",
@@ -45927,7 +45495,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:18Z"
+      "observed_at": "2026-11-12T09:38:41Z"
      },
      "revenue": {
       "id": "revenue",
@@ -45959,14 +45527,6 @@
         "display_name": "Transactions",
         "tabulable": true,
         "unit": "#"
-       },
-       {
-        "chartable": false,
-        "decimal_precision": 0,
-        "description": "The total number of times ads were successfully displayed to users. Each impression represents one instance of an ad being shown.",
-        "display_name": "Ad Impressions",
-        "tabulable": true,
-        "unit": "#"
        }
       ],
       "segments": [
@@ -45987,24 +45547,20 @@
       "summary": {
        "average": {
         "": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         },
         "Total": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         }
        },
        "total": {
         "": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         },
         "Total": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         }
@@ -46028,13 +45584,6 @@
        {
         "cohort": 1791936000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1791936000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46047,13 +45596,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1791936000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792022400,
         "incomplete": false,
         "measure": 0,
@@ -46070,13 +45612,6 @@
        {
         "cohort": 1792022400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792022400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46085,13 +45620,6 @@
         "cohort": 1792022400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792022400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46112,13 +45640,6 @@
        {
         "cohort": 1792108800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792108800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46131,13 +45652,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792108800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792195200,
         "incomplete": false,
         "measure": 0,
@@ -46154,13 +45668,6 @@
        {
         "cohort": 1792195200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792195200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46169,13 +45676,6 @@
         "cohort": 1792195200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792195200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46196,13 +45696,6 @@
        {
         "cohort": 1792281600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792281600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46215,13 +45708,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792281600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792368000,
         "incomplete": false,
         "measure": 0,
@@ -46238,13 +45724,6 @@
        {
         "cohort": 1792368000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792368000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46253,13 +45732,6 @@
         "cohort": 1792368000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792368000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46280,13 +45752,6 @@
        {
         "cohort": 1792454400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792454400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46299,13 +45764,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792454400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792540800,
         "incomplete": false,
         "measure": 0,
@@ -46322,13 +45780,6 @@
        {
         "cohort": 1792540800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792540800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46337,13 +45788,6 @@
         "cohort": 1792540800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792540800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46364,13 +45808,6 @@
        {
         "cohort": 1792627200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792627200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46383,13 +45820,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792627200,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792713600,
         "incomplete": false,
         "measure": 0,
@@ -46406,13 +45836,6 @@
        {
         "cohort": 1792713600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792713600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46421,13 +45844,6 @@
         "cohort": 1792713600,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792713600,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46448,13 +45864,6 @@
        {
         "cohort": 1792800000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792800000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46467,13 +45876,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792800000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792886400,
         "incomplete": false,
         "measure": 0,
@@ -46490,13 +45892,6 @@
        {
         "cohort": 1792886400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792886400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46505,13 +45900,6 @@
         "cohort": 1792886400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792886400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46532,13 +45920,6 @@
        {
         "cohort": 1792972800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792972800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46551,13 +45932,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792972800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793059200,
         "incomplete": false,
         "measure": 0,
@@ -46574,13 +45948,6 @@
        {
         "cohort": 1793059200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793059200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46589,13 +45956,6 @@
         "cohort": 1793059200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793059200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46616,13 +45976,6 @@
        {
         "cohort": 1793145600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793145600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46635,13 +45988,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793145600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793232000,
         "incomplete": false,
         "measure": 0,
@@ -46658,13 +46004,6 @@
        {
         "cohort": 1793232000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793232000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46673,13 +46012,6 @@
         "cohort": 1793232000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793232000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46700,13 +46032,6 @@
        {
         "cohort": 1793318400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793318400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46719,13 +46044,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793318400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793404800,
         "incomplete": false,
         "measure": 0,
@@ -46742,13 +46060,6 @@
        {
         "cohort": 1793404800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793404800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46757,13 +46068,6 @@
         "cohort": 1793404800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793404800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46784,13 +46088,6 @@
        {
         "cohort": 1793491200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793491200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46803,13 +46100,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793491200,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793577600,
         "incomplete": false,
         "measure": 0,
@@ -46826,13 +46116,6 @@
        {
         "cohort": 1793577600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793577600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46841,13 +46124,6 @@
         "cohort": 1793577600,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793577600,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46868,13 +46144,6 @@
        {
         "cohort": 1793664000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793664000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46887,13 +46156,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793664000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793750400,
         "incomplete": false,
         "measure": 0,
@@ -46910,13 +46172,6 @@
        {
         "cohort": 1793750400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793750400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46925,13 +46180,6 @@
         "cohort": 1793750400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793750400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -46952,13 +46200,6 @@
        {
         "cohort": 1793836800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793836800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -46971,13 +46212,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793836800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793923200,
         "incomplete": false,
         "measure": 0,
@@ -46994,13 +46228,6 @@
        {
         "cohort": 1793923200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793923200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -47009,13 +46236,6 @@
         "cohort": 1793923200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793923200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -47036,13 +46256,6 @@
        {
         "cohort": 1794009600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794009600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -47055,13 +46268,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1794009600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1794096000,
         "incomplete": false,
         "measure": 0,
@@ -47078,13 +46284,6 @@
        {
         "cohort": 1794096000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794096000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -47093,13 +46292,6 @@
         "cohort": 1794096000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794096000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -47120,13 +46312,6 @@
        {
         "cohort": 1794182400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794182400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -47139,13 +46324,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1794182400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1794268800,
         "incomplete": false,
         "measure": 0,
@@ -47162,13 +46340,6 @@
        {
         "cohort": 1794268800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794268800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -47177,13 +46348,6 @@
         "cohort": 1794268800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794268800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -47204,13 +46368,6 @@
        {
         "cohort": 1794355200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794355200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -47219,13 +46376,6 @@
         "cohort": 1794355200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794355200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -47246,13 +46396,6 @@
        {
         "cohort": 1794441600,
         "incomplete": true,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794441600,
-        "incomplete": true,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -47261,13 +46404,6 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794441600,
-        "incomplete": true,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        }
@@ -47275,7 +46411,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:20Z"
+      "observed_at": "2026-11-12T09:38:44Z"
      },
      "subscription_retention": {
       "id": "subscription_retention",
@@ -47297,7 +46433,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:24Z"
+      "observed_at": "2026-11-12T09:38:47Z"
      },
      "subscription_status": {
       "id": "subscription_status",
@@ -47384,7 +46520,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:28Z"
+      "observed_at": "2026-11-12T09:38:52Z"
      },
      "trials": {
       "id": "trials",
@@ -47858,7 +46994,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:29Z"
+      "observed_at": "2026-11-12T09:38:52Z"
      },
      "trials_movement": {
       "id": "trials_movement",
@@ -48460,7 +47596,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:41:33Z"
+      "observed_at": "2026-11-12T09:38:57Z"
      },
      "trials_new": {
       "id": "trials_new",
@@ -48942,7 +48078,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:36Z"
+      "observed_at": "2026-11-12T09:38:59Z"
      },
      "customers_active": {
       "id": "customers_active",
@@ -49158,7 +48294,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:41:41Z"
+      "observed_at": "2026-11-12T09:39:04Z"
      },
      "trial_conversion": {
       "id": "trial_conversion",
@@ -51638,7 +50774,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:41:47Z"
+      "observed_at": "2026-11-12T09:39:10Z"
      },
      "trial_conversion_rate": {
       "id": "trial_conversion_rate",
@@ -52809,7 +51945,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:41:52Z"
+      "observed_at": "2026-11-12T09:39:15Z"
      },
      "trial_cancellation": {
       "id": "trial_cancellation",
@@ -53792,7 +52928,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:41:57Z"
+      "observed_at": "2026-11-12T09:39:20Z"
      },
      "non-subscription_purchases": {
       "id": "non-subscription_purchases",
@@ -53823,7 +52959,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:41:59Z"
+      "observed_at": "2026-11-12T09:39:23Z"
      },
      "ad_revenue": {
       "id": "ad_revenue",
@@ -53870,7 +53006,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:01Z"
+      "observed_at": "2026-11-12T09:39:24Z"
      },
      "ad_impressions": {
       "id": "ad_impressions",
@@ -53901,7 +53037,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:03Z"
+      "observed_at": "2026-11-12T09:39:27Z"
      },
      "ad_clicks": {
       "id": "ad_clicks",
@@ -53932,7 +53068,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:06Z"
+      "observed_at": "2026-11-12T09:39:29Z"
      },
      "ad_monetized_customers": {
       "id": "ad_monetized_customers",
@@ -53963,7 +53099,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:08Z"
+      "observed_at": "2026-11-12T09:39:32Z"
      },
      "paywall_abandonment": {
       "id": "paywall_abandonment",
@@ -55311,7 +54447,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:16Z"
+      "observed_at": "2026-11-12T09:39:43Z"
      },
      "app_store_save_outcomes": {
       "id": "app_store_save_outcomes",
@@ -55342,7 +54478,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:22Z"
+      "observed_at": "2026-11-12T09:39:49Z"
      }
     },
     "unavailable_charts": 0
@@ -55824,7 +54960,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:22Z"
+      "observed_at": "2026-11-12T09:39:50Z"
      },
      "actives_movement": {
       "id": "actives_movement",
@@ -56617,7 +55753,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:42:27Z"
+      "observed_at": "2026-11-12T09:39:55Z"
      },
      "actives_new": {
       "id": "actives_new",
@@ -59259,7 +58395,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:30Z"
+      "observed_at": "2026-11-12T09:39:57Z"
      },
      "arr": {
       "id": "arr",
@@ -59735,7 +58871,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:32Z"
+      "observed_at": "2026-11-12T09:40:00Z"
      },
      "churn": {
       "id": "churn",
@@ -61069,7 +60205,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:42:35Z"
+      "observed_at": "2026-11-12T09:40:02Z"
      },
      "cohort_explorer": {
       "id": "cohort_explorer",
@@ -61224,7 +60360,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:42:42Z"
+      "observed_at": "2026-11-12T09:40:10Z"
      },
      "conversion_to_paying": {
       "id": "conversion_to_paying",
@@ -61827,7 +60963,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:42:46Z"
+      "observed_at": "2026-11-12T09:40:15Z"
      },
      "customers_new": {
       "id": "customers_new",
@@ -62046,7 +61182,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:42:50Z"
+      "observed_at": "2026-11-12T09:40:18Z"
      },
      "initial_conversion": {
       "id": "initial_conversion",
@@ -62649,7 +61785,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:42:56Z"
+      "observed_at": "2026-11-12T09:40:25Z"
      },
      "ltv_per_customer": {
       "id": "ltv_per_customer",
@@ -63443,7 +62579,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:43:01Z"
+      "observed_at": "2026-11-12T09:40:30Z"
      },
      "ltv_per_paying_customer": {
       "id": "ltv_per_paying_customer",
@@ -64047,7 +63183,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:43:08Z"
+      "observed_at": "2026-11-12T09:40:36Z"
      },
      "mrr": {
       "id": "mrr",
@@ -64523,7 +63659,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:43:08Z"
+      "observed_at": "2026-11-12T09:40:37Z"
      },
      "mrr_movement": {
       "id": "mrr_movement",
@@ -65700,7 +64836,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:43:14Z"
+      "observed_at": "2026-11-12T09:40:43Z"
      },
      "prediction_explorer": {
       "id": "prediction_explorer",
@@ -69943,7 +69079,7 @@
        ]
       ],
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:43:20Z"
+      "observed_at": "2026-11-12T09:40:48Z"
      },
      "refund_rate": {
       "id": "refund_rate",
@@ -69990,7 +69126,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:43:22Z"
+      "observed_at": "2026-11-12T09:40:51Z"
      },
      "refund_request": {
       "id": "refund_request",
@@ -72202,7 +71338,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:43:25Z"
+      "observed_at": "2026-11-12T09:40:54Z"
      },
      "refunds": {
       "id": "refunds",
@@ -73118,7 +72254,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:43:26Z"
+      "observed_at": "2026-11-12T09:40:55Z"
      },
      "revenue": {
       "id": "revenue",
@@ -73150,14 +72286,6 @@
         "display_name": "Transactions",
         "tabulable": true,
         "unit": "#"
-       },
-       {
-        "chartable": false,
-        "decimal_precision": 0,
-        "description": "The total number of times ads were successfully displayed to users. Each impression represents one instance of an ad being shown.",
-        "display_name": "Ad Impressions",
-        "tabulable": true,
-        "unit": "#"
        }
       ],
       "segments": [
@@ -73178,24 +72306,20 @@
       "summary": {
        "average": {
         "": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         },
         "Total": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         }
        },
        "total": {
         "": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         },
         "Total": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         }
@@ -73219,13 +72343,6 @@
        {
         "cohort": 1791936000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1791936000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73238,13 +72355,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1791936000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792022400,
         "incomplete": false,
         "measure": 0,
@@ -73261,13 +72371,6 @@
        {
         "cohort": 1792022400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792022400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73276,13 +72379,6 @@
         "cohort": 1792022400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792022400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -73303,13 +72399,6 @@
        {
         "cohort": 1792108800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792108800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73322,13 +72411,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792108800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792195200,
         "incomplete": false,
         "measure": 0,
@@ -73345,13 +72427,6 @@
        {
         "cohort": 1792195200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792195200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73360,13 +72435,6 @@
         "cohort": 1792195200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792195200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -73387,13 +72455,6 @@
        {
         "cohort": 1792281600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792281600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73406,13 +72467,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792281600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792368000,
         "incomplete": false,
         "measure": 0,
@@ -73429,13 +72483,6 @@
        {
         "cohort": 1792368000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792368000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73444,13 +72491,6 @@
         "cohort": 1792368000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792368000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -73471,13 +72511,6 @@
        {
         "cohort": 1792454400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792454400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73490,13 +72523,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792454400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792540800,
         "incomplete": false,
         "measure": 0,
@@ -73513,13 +72539,6 @@
        {
         "cohort": 1792540800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792540800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73528,13 +72547,6 @@
         "cohort": 1792540800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792540800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -73555,13 +72567,6 @@
        {
         "cohort": 1792627200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792627200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73574,13 +72579,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792627200,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792713600,
         "incomplete": false,
         "measure": 0,
@@ -73597,13 +72595,6 @@
        {
         "cohort": 1792713600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792713600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73612,13 +72603,6 @@
         "cohort": 1792713600,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792713600,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -73639,13 +72623,6 @@
        {
         "cohort": 1792800000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792800000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73658,13 +72635,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792800000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792886400,
         "incomplete": false,
         "measure": 0,
@@ -73681,13 +72651,6 @@
        {
         "cohort": 1792886400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792886400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73696,13 +72659,6 @@
         "cohort": 1792886400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792886400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -73723,13 +72679,6 @@
        {
         "cohort": 1792972800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792972800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73742,13 +72691,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792972800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793059200,
         "incomplete": false,
         "measure": 0,
@@ -73765,13 +72707,6 @@
        {
         "cohort": 1793059200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793059200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73780,13 +72715,6 @@
         "cohort": 1793059200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793059200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -73807,13 +72735,6 @@
        {
         "cohort": 1793145600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793145600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73826,13 +72747,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793145600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793232000,
         "incomplete": false,
         "measure": 0,
@@ -73849,13 +72763,6 @@
        {
         "cohort": 1793232000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793232000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73864,13 +72771,6 @@
         "cohort": 1793232000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793232000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -73891,13 +72791,6 @@
        {
         "cohort": 1793318400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793318400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73910,13 +72803,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793318400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793404800,
         "incomplete": false,
         "measure": 0,
@@ -73933,13 +72819,6 @@
        {
         "cohort": 1793404800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793404800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73948,13 +72827,6 @@
         "cohort": 1793404800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793404800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -73975,13 +72847,6 @@
        {
         "cohort": 1793491200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793491200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -73994,13 +72859,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793491200,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793577600,
         "incomplete": false,
         "measure": 0,
@@ -74017,13 +72875,6 @@
        {
         "cohort": 1793577600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793577600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74032,13 +72883,6 @@
         "cohort": 1793577600,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793577600,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -74059,13 +72903,6 @@
        {
         "cohort": 1793664000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793664000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74078,13 +72915,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793664000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793750400,
         "incomplete": false,
         "measure": 0,
@@ -74101,13 +72931,6 @@
        {
         "cohort": 1793750400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793750400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74116,13 +72939,6 @@
         "cohort": 1793750400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793750400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -74143,13 +72959,6 @@
        {
         "cohort": 1793836800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793836800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74162,13 +72971,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793836800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793923200,
         "incomplete": false,
         "measure": 0,
@@ -74185,13 +72987,6 @@
        {
         "cohort": 1793923200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793923200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74200,13 +72995,6 @@
         "cohort": 1793923200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793923200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -74227,13 +73015,6 @@
        {
         "cohort": 1794009600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794009600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74246,13 +73027,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1794009600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1794096000,
         "incomplete": false,
         "measure": 0,
@@ -74269,13 +73043,6 @@
        {
         "cohort": 1794096000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794096000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74284,13 +73051,6 @@
         "cohort": 1794096000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794096000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -74311,13 +73071,6 @@
        {
         "cohort": 1794182400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794182400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74330,13 +73083,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1794182400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1794268800,
         "incomplete": false,
         "measure": 0,
@@ -74353,13 +73099,6 @@
        {
         "cohort": 1794268800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794268800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74368,13 +73107,6 @@
         "cohort": 1794268800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794268800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -74395,13 +73127,6 @@
        {
         "cohort": 1794355200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794355200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74410,13 +73135,6 @@
         "cohort": 1794355200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794355200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -74437,13 +73155,6 @@
        {
         "cohort": 1794441600,
         "incomplete": true,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794441600,
-        "incomplete": true,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -74452,13 +73163,6 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794441600,
-        "incomplete": true,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        }
@@ -74466,7 +73170,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:43:28Z"
+      "observed_at": "2026-11-12T09:40:57Z"
      },
      "subscription_retention": {
       "id": "subscription_retention",
@@ -74488,7 +73192,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:43:31Z"
+      "observed_at": "2026-11-12T09:41:01Z"
      },
      "subscription_status": {
       "id": "subscription_status",
@@ -74575,7 +73279,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:43:36Z"
+      "observed_at": "2026-11-12T09:41:05Z"
      },
      "trials": {
       "id": "trials",
@@ -75049,7 +73753,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:43:36Z"
+      "observed_at": "2026-11-12T09:41:06Z"
      },
      "trials_movement": {
       "id": "trials_movement",
@@ -75651,7 +74355,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:43:41Z"
+      "observed_at": "2026-11-12T09:41:10Z"
      },
      "trials_new": {
       "id": "trials_new",
@@ -76133,7 +74837,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:43:44Z"
+      "observed_at": "2026-11-12T09:41:13Z"
      },
      "customers_active": {
       "id": "customers_active",
@@ -76349,7 +75053,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:43:49Z"
+      "observed_at": "2026-11-12T09:41:18Z"
      },
      "trial_conversion": {
       "id": "trial_conversion",
@@ -78829,7 +77533,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:43:55Z"
+      "observed_at": "2026-11-12T09:41:24Z"
      },
      "trial_conversion_rate": {
       "id": "trial_conversion_rate",
@@ -80000,7 +78704,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:44:00Z"
+      "observed_at": "2026-11-12T09:41:29Z"
      },
      "trial_cancellation": {
       "id": "trial_cancellation",
@@ -80983,7 +79687,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:44:05Z"
+      "observed_at": "2026-11-12T09:41:34Z"
      },
      "non-subscription_purchases": {
       "id": "non-subscription_purchases",
@@ -81014,7 +79718,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:07Z"
+      "observed_at": "2026-11-12T09:41:36Z"
      },
      "ad_revenue": {
       "id": "ad_revenue",
@@ -81061,7 +79765,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:09Z"
+      "observed_at": "2026-11-12T09:41:38Z"
      },
      "ad_impressions": {
       "id": "ad_impressions",
@@ -81092,7 +79796,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:11Z"
+      "observed_at": "2026-11-12T09:41:40Z"
      },
      "ad_clicks": {
       "id": "ad_clicks",
@@ -81123,7 +79827,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:14Z"
+      "observed_at": "2026-11-12T09:41:43Z"
      },
      "ad_monetized_customers": {
       "id": "ad_monetized_customers",
@@ -81154,7 +79858,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:16Z"
+      "observed_at": "2026-11-12T09:41:45Z"
      },
      "paywall_abandonment": {
       "id": "paywall_abandonment",
@@ -82502,7 +81206,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:24Z"
+      "observed_at": "2026-11-12T09:41:54Z"
      },
      "app_store_save_outcomes": {
       "id": "app_store_save_outcomes",
@@ -82533,7 +81237,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:29Z"
+      "observed_at": "2026-11-12T09:41:59Z"
      }
     },
     "unavailable_charts": 0
@@ -83015,7 +81719,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:30Z"
+      "observed_at": "2026-11-12T09:42:00Z"
      },
      "actives_movement": {
       "id": "actives_movement",
@@ -83808,7 +82512,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:44:35Z"
+      "observed_at": "2026-11-12T09:42:05Z"
      },
      "actives_new": {
       "id": "actives_new",
@@ -86450,7 +85154,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:37Z"
+      "observed_at": "2026-11-12T09:42:08Z"
      },
      "arr": {
       "id": "arr",
@@ -86926,7 +85630,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:40Z"
+      "observed_at": "2026-11-12T09:42:10Z"
      },
      "churn": {
       "id": "churn",
@@ -88260,7 +86964,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:44:42Z"
+      "observed_at": "2026-11-12T09:42:12Z"
      },
      "cohort_explorer": {
       "id": "cohort_explorer",
@@ -88389,7 +87093,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:44:50Z"
+      "observed_at": "2026-11-12T09:42:20Z"
      },
      "conversion_to_paying": {
       "id": "conversion_to_paying",
@@ -88992,7 +87696,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:44:54Z"
+      "observed_at": "2026-11-12T09:42:24Z"
      },
      "customers_new": {
       "id": "customers_new",
@@ -89211,7 +87915,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:44:57Z"
+      "observed_at": "2026-11-12T09:42:28Z"
      },
      "initial_conversion": {
       "id": "initial_conversion",
@@ -89814,7 +88518,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:45:04Z"
+      "observed_at": "2026-11-12T09:42:35Z"
      },
      "ltv_per_customer": {
       "id": "ltv_per_customer",
@@ -90608,7 +89312,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:45:09Z"
+      "observed_at": "2026-11-12T09:42:39Z"
      },
      "ltv_per_paying_customer": {
       "id": "ltv_per_paying_customer",
@@ -91212,7 +89916,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:45:15Z"
+      "observed_at": "2026-11-12T09:42:46Z"
      },
      "mrr": {
       "id": "mrr",
@@ -91688,7 +90392,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:45:16Z"
+      "observed_at": "2026-11-12T09:42:46Z"
      },
      "mrr_movement": {
       "id": "mrr_movement",
@@ -92865,7 +91569,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:45:22Z"
+      "observed_at": "2026-11-12T09:42:52Z"
      },
      "prediction_explorer": {
       "id": "prediction_explorer",
@@ -97108,7 +95812,7 @@
        ]
       ],
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:45:27Z"
+      "observed_at": "2026-11-12T09:42:58Z"
      },
      "refund_rate": {
       "id": "refund_rate",
@@ -97155,7 +95859,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:45:29Z"
+      "observed_at": "2026-11-12T09:43:00Z"
      },
      "refund_request": {
       "id": "refund_request",
@@ -99367,7 +98071,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:45:33Z"
+      "observed_at": "2026-11-12T09:43:03Z"
      },
      "refunds": {
       "id": "refunds",
@@ -100283,7 +98987,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:45:34Z"
+      "observed_at": "2026-11-12T09:43:04Z"
      },
      "revenue": {
       "id": "revenue",
@@ -100315,14 +99019,6 @@
         "display_name": "Transactions",
         "tabulable": true,
         "unit": "#"
-       },
-       {
-        "chartable": false,
-        "decimal_precision": 0,
-        "description": "The total number of times ads were successfully displayed to users. Each impression represents one instance of an ad being shown.",
-        "display_name": "Ad Impressions",
-        "tabulable": true,
-        "unit": "#"
        }
       ],
       "segments": [
@@ -100343,24 +99039,20 @@
       "summary": {
        "average": {
         "": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         },
         "Total": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         }
        },
        "total": {
         "": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         },
         "Total": {
-         "Ad Impressions": 0.0,
          "Proceeds": 0.0,
          "Transactions": 0.0
         }
@@ -100384,13 +99076,6 @@
        {
         "cohort": 1791936000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1791936000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100403,13 +99088,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1791936000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792022400,
         "incomplete": false,
         "measure": 0,
@@ -100426,13 +99104,6 @@
        {
         "cohort": 1792022400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792022400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100441,13 +99112,6 @@
         "cohort": 1792022400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792022400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -100468,13 +99132,6 @@
        {
         "cohort": 1792108800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792108800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100487,13 +99144,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792108800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792195200,
         "incomplete": false,
         "measure": 0,
@@ -100510,13 +99160,6 @@
        {
         "cohort": 1792195200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792195200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100525,13 +99168,6 @@
         "cohort": 1792195200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792195200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -100552,13 +99188,6 @@
        {
         "cohort": 1792281600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792281600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100571,13 +99200,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792281600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792368000,
         "incomplete": false,
         "measure": 0,
@@ -100594,13 +99216,6 @@
        {
         "cohort": 1792368000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792368000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100609,13 +99224,6 @@
         "cohort": 1792368000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792368000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -100636,13 +99244,6 @@
        {
         "cohort": 1792454400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792454400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100655,13 +99256,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792454400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792540800,
         "incomplete": false,
         "measure": 0,
@@ -100678,13 +99272,6 @@
        {
         "cohort": 1792540800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792540800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100693,13 +99280,6 @@
         "cohort": 1792540800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792540800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -100720,13 +99300,6 @@
        {
         "cohort": 1792627200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792627200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100739,13 +99312,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792627200,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792713600,
         "incomplete": false,
         "measure": 0,
@@ -100762,13 +99328,6 @@
        {
         "cohort": 1792713600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792713600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100777,13 +99336,6 @@
         "cohort": 1792713600,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792713600,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -100804,13 +99356,6 @@
        {
         "cohort": 1792800000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792800000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100823,13 +99368,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792800000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1792886400,
         "incomplete": false,
         "measure": 0,
@@ -100846,13 +99384,6 @@
        {
         "cohort": 1792886400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792886400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100861,13 +99392,6 @@
         "cohort": 1792886400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792886400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -100888,13 +99412,6 @@
        {
         "cohort": 1792972800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1792972800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100907,13 +99424,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1792972800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793059200,
         "incomplete": false,
         "measure": 0,
@@ -100930,13 +99440,6 @@
        {
         "cohort": 1793059200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793059200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100945,13 +99448,6 @@
         "cohort": 1793059200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793059200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -100972,13 +99468,6 @@
        {
         "cohort": 1793145600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793145600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -100991,13 +99480,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793145600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793232000,
         "incomplete": false,
         "measure": 0,
@@ -101014,13 +99496,6 @@
        {
         "cohort": 1793232000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793232000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101029,13 +99504,6 @@
         "cohort": 1793232000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793232000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -101056,13 +99524,6 @@
        {
         "cohort": 1793318400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793318400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101075,13 +99536,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793318400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793404800,
         "incomplete": false,
         "measure": 0,
@@ -101098,13 +99552,6 @@
        {
         "cohort": 1793404800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793404800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101113,13 +99560,6 @@
         "cohort": 1793404800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793404800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -101140,13 +99580,6 @@
        {
         "cohort": 1793491200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793491200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101159,13 +99592,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793491200,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793577600,
         "incomplete": false,
         "measure": 0,
@@ -101182,13 +99608,6 @@
        {
         "cohort": 1793577600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793577600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101197,13 +99616,6 @@
         "cohort": 1793577600,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793577600,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -101224,13 +99636,6 @@
        {
         "cohort": 1793664000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793664000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101243,13 +99648,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793664000,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793750400,
         "incomplete": false,
         "measure": 0,
@@ -101266,13 +99664,6 @@
        {
         "cohort": 1793750400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793750400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101281,13 +99672,6 @@
         "cohort": 1793750400,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793750400,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -101308,13 +99692,6 @@
        {
         "cohort": 1793836800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793836800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101327,13 +99704,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1793836800,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1793923200,
         "incomplete": false,
         "measure": 0,
@@ -101350,13 +99720,6 @@
        {
         "cohort": 1793923200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793923200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101365,13 +99728,6 @@
         "cohort": 1793923200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1793923200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -101392,13 +99748,6 @@
        {
         "cohort": 1794009600,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794009600,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101411,13 +99760,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1794009600,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1794096000,
         "incomplete": false,
         "measure": 0,
@@ -101434,13 +99776,6 @@
        {
         "cohort": 1794096000,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794096000,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101449,13 +99784,6 @@
         "cohort": 1794096000,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794096000,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -101476,13 +99804,6 @@
        {
         "cohort": 1794182400,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794182400,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101495,13 +99816,6 @@
         "value": 0.0
        },
        {
-        "cohort": 1794182400,
-        "incomplete": false,
-        "measure": 2,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
         "cohort": 1794268800,
         "incomplete": false,
         "measure": 0,
@@ -101518,13 +99832,6 @@
        {
         "cohort": 1794268800,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794268800,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101533,13 +99840,6 @@
         "cohort": 1794268800,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794268800,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -101560,13 +99860,6 @@
        {
         "cohort": 1794355200,
         "incomplete": false,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794355200,
-        "incomplete": false,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101575,13 +99868,6 @@
         "cohort": 1794355200,
         "incomplete": false,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794355200,
-        "incomplete": false,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        },
@@ -101602,13 +99888,6 @@
        {
         "cohort": 1794441600,
         "incomplete": true,
-        "measure": 2,
-        "segment": 0,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794441600,
-        "incomplete": true,
         "measure": 0,
         "segment": 1,
         "value": 0.0
@@ -101617,13 +99896,6 @@
         "cohort": 1794441600,
         "incomplete": true,
         "measure": 1,
-        "segment": 1,
-        "value": 0.0
-       },
-       {
-        "cohort": 1794441600,
-        "incomplete": true,
-        "measure": 2,
         "segment": 1,
         "value": 0.0
        }
@@ -101631,7 +99903,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:45:36Z"
+      "observed_at": "2026-11-12T09:43:06Z"
      },
      "subscription_retention": {
       "id": "subscription_retention",
@@ -101653,7 +99925,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:45:40Z"
+      "observed_at": "2026-11-12T09:43:10Z"
      },
      "subscription_status": {
       "id": "subscription_status",
@@ -101740,7 +100012,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:45:44Z"
+      "observed_at": "2026-11-12T09:43:14Z"
      },
      "trials": {
       "id": "trials",
@@ -102214,7 +100486,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:45:44Z"
+      "observed_at": "2026-11-12T09:43:15Z"
      },
      "trials_movement": {
       "id": "trials_movement",
@@ -102816,7 +101088,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:45:49Z"
+      "observed_at": "2026-11-12T09:43:20Z"
      },
      "trials_new": {
       "id": "trials_new",
@@ -103298,7 +101570,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:45:52Z"
+      "observed_at": "2026-11-12T09:43:22Z"
      },
      "customers_active": {
       "id": "customers_active",
@@ -103514,7 +101786,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:45:57Z"
+      "observed_at": "2026-11-12T09:43:27Z"
      },
      "trial_conversion": {
       "id": "trial_conversion",
@@ -105994,7 +104266,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:46:03Z"
+      "observed_at": "2026-11-12T09:43:33Z"
      },
      "trial_conversion_rate": {
       "id": "trial_conversion_rate",
@@ -107165,7 +105437,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:46:08Z"
+      "observed_at": "2026-11-12T09:43:38Z"
      },
      "trial_cancellation": {
       "id": "trial_cancellation",
@@ -108148,7 +106420,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T07:46:12Z"
+      "observed_at": "2026-11-12T09:43:43Z"
      },
      "non-subscription_purchases": {
       "id": "non-subscription_purchases",
@@ -108179,7 +106451,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:46:14Z"
+      "observed_at": "2026-11-12T09:43:45Z"
      },
      "ad_revenue": {
       "id": "ad_revenue",
@@ -108226,7 +106498,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:46:16Z"
+      "observed_at": "2026-11-12T09:43:47Z"
      },
      "ad_impressions": {
       "id": "ad_impressions",
@@ -108257,7 +106529,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:46:19Z"
+      "observed_at": "2026-11-12T09:43:49Z"
      },
      "ad_clicks": {
       "id": "ad_clicks",
@@ -108288,7 +106560,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:46:21Z"
+      "observed_at": "2026-11-12T09:43:52Z"
      },
      "ad_monetized_customers": {
       "id": "ad_monetized_customers",
@@ -108319,7 +106591,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:46:24Z"
+      "observed_at": "2026-11-12T09:43:54Z"
      },
      "paywall_abandonment": {
       "id": "paywall_abandonment",
@@ -109667,7 +107939,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:46:32Z"
+      "observed_at": "2026-11-12T09:44:02Z"
      },
      "app_store_save_outcomes": {
       "id": "app_store_save_outcomes",
@@ -109698,7 +107970,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T07:46:37Z"
+      "observed_at": "2026-11-12T09:44:08Z"
      }
     },
     "unavailable_charts": 0
@@ -110030,7 +108302,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-12 16:46 JST",
+ "updated_at": "2026-11-12 18:44 JST",
  "source_updated_at": "2026-11-11 21:24 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
@@ -110210,7 +108482,7 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 14
+   "board_updates_today": 15
   },
   {
    "agent": "Codex (CTO, Head of Research)",
@@ -110240,7 +108512,7 @@
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 4
+   "board_updates_today": 5
   },
   {
    "agent": "Anicca Marketer",
@@ -110447,10 +108719,10 @@
  "post_metrics": {
   "source": "Postiz /analytics/post",
   "status": "partial",
-  "observed_at": "2026-11-12T16:36:47.025782+09:00",
+  "observed_at": "2026-11-12T18:34:22.779920+09:00",
   "query_window": {
-   "from": "2026-11-02T07:36:47Z",
-   "to": "2026-11-11T07:36:47Z"
+   "from": "2026-11-02T09:34:22Z",
+   "to": "2026-11-11T09:34:22Z"
   },
   "scope": "Sample of published posts from the Postiz query window, capped at the 5 most recent posts per connected account and excluding posts newer than 24 hours. Sample sums are not account-wide totals.",
   "coverage": {
@@ -110459,7 +108731,7 @@
   },
   "observed_at_range": {
    "from": "2026-11-12T08:58:58.229802+09:00",
-   "to": "2026-11-12T16:36:47.025782+09:00"
+   "to": "2026-11-12T18:34:22.779920+09:00"
   },
   "platforms": [
    {
@@ -110471,7 +108743,7 @@
     },
     "observed_at": {
      "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T16:36:47.025782+09:00"
+     "to": "2026-11-12T18:34:22.779920+09:00"
     },
     "metrics": {
      "views": {
@@ -110563,38 +108835,38 @@
     "sampled_posts": 60,
     "published_at": {
      "from": "2026-11-06T12:00:00.000Z",
-     "to": "2026-11-11T07:11:27.000Z"
+     "to": "2026-11-11T08:30:00.000Z"
     },
     "observed_at": {
      "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T16:36:47.025782+09:00"
+     "to": "2026-11-12T18:34:22.779920+09:00"
     },
     "metrics": {
      "views": {
-      "sample_sum": 40714,
-      "posts_with_value": 53,
-      "posts_missing_value": 7,
+      "sample_sum": 28712,
+      "posts_with_value": 51,
+      "posts_missing_value": 9,
       "period_from": "2026-11-11",
       "period_to": "2026-11-12"
      },
      "likes": {
-      "sample_sum": 885,
-      "posts_with_value": 53,
-      "posts_missing_value": 7,
+      "sample_sum": 739,
+      "posts_with_value": 51,
+      "posts_missing_value": 9,
       "period_from": "2026-11-11",
       "period_to": "2026-11-12"
      },
      "replies": {
-      "sample_sum": 4,
-      "posts_with_value": 53,
-      "posts_missing_value": 7,
+      "sample_sum": 5,
+      "posts_with_value": 51,
+      "posts_missing_value": 9,
       "period_from": "2026-11-11",
       "period_to": "2026-11-12"
      },
      "reposts": {
-      "sample_sum": 7,
-      "posts_with_value": 53,
-      "posts_missing_value": 7,
+      "sample_sum": 4,
+      "posts_with_value": 51,
+      "posts_missing_value": 9,
       "period_from": "2026-11-11",
       "period_to": "2026-11-12"
      }
@@ -110631,24 +108903,24 @@
       "eligible_posts": 60,
       "metrics": {
        "views": {
-        "sample_sum": 39651,
-        "posts_with_value": 49,
-        "posts_missing_value": 11
+        "sample_sum": 27649,
+        "posts_with_value": 47,
+        "posts_missing_value": 13
        },
        "likes": {
-        "sample_sum": 845,
-        "posts_with_value": 49,
-        "posts_missing_value": 11
+        "sample_sum": 699,
+        "posts_with_value": 47,
+        "posts_missing_value": 13
        },
        "replies": {
-        "sample_sum": 3,
-        "posts_with_value": 49,
-        "posts_missing_value": 11
+        "sample_sum": 4,
+        "posts_with_value": 47,
+        "posts_missing_value": 13
        },
        "reposts": {
-        "sample_sum": 7,
-        "posts_with_value": 49,
-        "posts_missing_value": 11
+        "sample_sum": 4,
+        "posts_with_value": 47,
+        "posts_missing_value": 13
        }
       }
      }
@@ -110663,7 +108935,7 @@
     },
     "observed_at": {
      "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T16:36:47.025782+09:00"
+     "to": "2026-11-12T18:34:22.779920+09:00"
     },
     "metrics": {
      "views": {
@@ -110759,7 +109031,7 @@
     },
     "observed_at": {
      "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T16:36:47.025782+09:00"
+     "to": "2026-11-12T18:34:22.779920+09:00"
     },
     "metrics": {
      "views": {
@@ -110855,7 +109127,7 @@
     },
     "observed_at": {
      "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T16:36:47.025782+09:00"
+     "to": "2026-11-12T18:34:22.779920+09:00"
     },
     "metrics": {
      "views": {
@@ -110897,8 +109169,8 @@
      "to": "2026-11-04T02:07:00.000Z"
     },
     "observed_at": {
-     "from": "2026-11-12T16:36:47.025782+09:00",
-     "to": "2026-11-12T16:36:47.025782+09:00"
+     "from": "2026-11-12T18:34:22.779920+09:00",
+     "to": "2026-11-12T18:34:22.779920+09:00"
     },
     "metrics": {
      "views": {
@@ -110965,7 +109237,7 @@
   "source": "Stripe API",
   "status": "unavailable",
   "reason": "restricted_read_key_missing",
-  "observed_at": "2026-11-12T07:46:37Z",
+  "observed_at": "2026-11-12T09:44:08Z",
   "window": null,
   "balance": {
    "status": "unavailable",
