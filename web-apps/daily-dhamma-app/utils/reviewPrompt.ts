@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as StoreReview from 'expo-store-review';
 import { localDateKey } from './paywallUtils';
 import { track } from './analytics';
 
@@ -88,12 +89,12 @@ export async function requestReviewIfAppropriate(): Promise<boolean> {
     const now = Date.now();
     if (!shouldRequestReview(days.length, lastRequestAt, now)) return false;
 
+    if (!(await StoreReview.isAvailableAsync())) return false;
+
     // Record before presenting so a suppressed Apple dialog still counts toward cooldown.
     await AsyncStorage.setItem(LAST_REQUEST_KEY, String(now));
     track('rating_prompt_shown');
 
-    const StoreReview = await import('expo-store-review');
-    if (!(await StoreReview.isAvailableAsync())) return false;
     await StoreReview.requestReview();
     return true;
   } catch {
