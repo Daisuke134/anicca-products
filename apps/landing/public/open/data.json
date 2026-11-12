@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-12 13:37 JST",
+  "updated_at": "2026-11-12 14:07 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -358,9 +358,9 @@
   "by_agent": [
     {
       "agent": "Muse",
-      "board_updates_today": 467,
+      "board_updates_today": 468,
       "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-      "status": "Active. 13:37 frame (Nov 12); previous-frame landing confirmed: live = 13:07 JST at frame start (curl read). MRR rebuilt: live metrics re-fetched this frame (13:22 version) mrr_breakdown $24 (RC $24, Capafy $0, Stripe $0), revenue MTD $31.81 agrees; official RC chart about $20 discrepancy remains a carryover. Wallet outlook held synced to canonical anicca-ops files/wallet-outlook-2026-11-12.md (re-read this frame, numbers unchanged), USD only (balance $63.33 measured 2026-11-11, full bank sync unconfirmed; salary 2026-11-20 amount unconfirmed; Trip.com refund $558.20 by 2026-11-26, issued not received; next charges Adobe end 11-16, HeyGen end 11-20, Postiz access to 11-25, X Super $113.49 on 11-30). Installs ASC only: apps-metrics 2026-11-12T00:08Z held, 6 apps, last7d units 7, imp 1,022. RC watch held (06:47): Nov 12 new 1, app-born 1, server 0, 09:00 batch 0 - no recurrence. Rev $31.81, costs $1,640.08, profit -$1,608.27. TikTok 13 rows held 13:04 batch (4,091 / 86,664 / 3,456), no new ledger batch; LinkedIn held 13:04 (Nov 12 today 2 PUBLISHED, metrics unmeasured, outbound 0); SEO 2/7 (13:31, affirmation app 5 to 3, best daily 4 to 5); ASO JP gratitude 175 to 177 (13:25); GEO 0/0, ThinkUp first 6/8 (13:27); Bing 0/7, happierhuman affirmation app 1, daily 4 (13:26). Gmail triage (last hour): connpass x4, Postiz notifications, Peatix, Coconala message notice (Emposy, held from prior frame), Capafy removal notices x3 (sunset, no action), GitHub Issue #9066 reply; no new sales or Trip.com refund; revenue held at $31.81."
+      "status": "Active. 14:07 frame (Nov 12); previous-frame landing confirmed: live = 13:37 JST at frame start (curl read, wallet_outlook present). MRR rebuilt: live metrics re-fetched this frame (13:22 version) mrr_breakdown $24 (RC $24, Capafy $0, Stripe $0), revenue MTD $31.81 agrees; official RC chart about $20 discrepancy remains a carryover. Wallet outlook held synced to canonical anicca-ops files/wallet-outlook-2026-11-12.md (re-read this frame via anicca-ops-push clone, numbers unchanged), USD only (balance $63.33 measured 2026-11-11, full bank sync unconfirmed; salary 2026-11-20 amount unconfirmed; Trip.com refund $558.20 by 2026-11-26, issued not received; next charges Adobe end 11-16, HeyGen end 11-20, Postiz access to 11-25, X Super $113.49 on 11-30). Installs ASC only: apps-metrics 2026-11-12T00:08Z held, 6 apps, last7d units 7, imp 1,022. RC watch held (06:47): Nov 12 new 1, app-born 1, server 0, 09:00 batch 0 - no recurrence. Rev $31.81, costs $1,640.08, profit -$1,608.27. TikTok 13 rows held 13:04 batch (4,091 / 86,664 / 3,456), no new ledger batch; LinkedIn NEW 14:09 (Nov 12 today 3 PUBLISHED incl 12:30 L-7, metrics unmeasured, outbound 0); SEO 3/7 (13:56, meditation back at 3, affirmation app 3 to 4); ASO JP self-esteem 47 to 48 (13:55); GEO 0/0, ThinkUp first 4/8 (13:57); Bing 0/7, happierhuman affirmation app 1, daily 4 (13:57). Gmail triage (last hour, 11 msgs): Uber AI welcome x2, Uber sign-in notice, Mantis feedback for Daily Affirmations, CrowdWorks decline notice, Freelancer digest, Apple Developer newsletter, connpass, Postiz notifications, Peatix; no new sales or Trip.com refund; revenue held at $31.81."
     },
     {
       "agent": "Dots",
@@ -405,7 +405,7 @@
         "all_time": 1706.68,
         "pending": 9.95,
         "status": "stage reconciliation",
-        "note": "Status: loop 05:34 PST: all +/-0 (applications 190, month 1 sale); polish 3 (4391607/4386009/4397249, FAQ 0->3, estimate ON, published); no new sales. 13:37 JST.",
+        "note": "Status: loop 05:34 PST: all +/-0 (applications 190, month 1 sale); polish 3 (4391607/4386009/4397249, FAQ 0->3, estimate ON, published); no new sales. 14:07 JST.",
         "observed_accepted_gross_usd": 31.8,
         "net_sales_usd": 1706.68,
         "paid_out_usd": null
@@ -418,7 +418,7 @@
         "all_time": 474.48,
         "pending": 0,
         "status": "paid",
-        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 13:37 JST."
+        "note": "Status: ASC Daily Affirmations new version Waiting for Review (status mails 00:09-00:10 JST); submission/test is Codex lane; sales $0 MTD. 14:07 JST."
       },
       {
         "platform": "Stripe",
@@ -428,7 +428,7 @@
         "all_time": 54.81,
         "pending": 0,
         "status": "paid",
-        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: connector reauthorization required; no fresh value claimed; prior balance $0, active subs 0. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "x402 (USDC on Base)",
@@ -438,7 +438,7 @@
         "all_time": 0.005,
         "pending": 0,
         "status": "paid",
-        "note": "Status: 402index 9/9 active and healthy at 18:52 (2 re-drops re-registered, 16th recovery); revenue $0.005. 13:37 JST."
+        "note": "Status: 402index 9/9 active and healthy at 18:52 (2 re-drops re-registered, 16th recovery); revenue $0.005. 14:07 JST."
       },
       {
         "platform": "Alignerr",
@@ -448,7 +448,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "Apify",
@@ -458,7 +458,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 13:37 JST."
+        "note": "Status: Step 1 APPLIED via Console UI 11:03-11:07 PST (Memory 4GB, Timeout 86400, verified); Step 5 in progress (Web IDE swap, build, verification run); actor under maintenance. Checked 14:07 JST."
       },
       {
         "platform": "Capafy",
@@ -468,7 +468,7 @@
         "all_time": 162.69,
         "pending": 0,
         "status": "booked",
-        "note": "Status: SUNSET 2026-11-10 23:08 (user decision): full stop, no new listings/tests/spend; 62 listings + 1 existing sub kept untouched; cap $1 frozen; this_month $22.98, all_time $162.69. 13:37 JST.",
+        "note": "Status: SUNSET 2026-11-10 23:08 (user decision): full stop, no new listings/tests/spend; 62 listings + 1 existing sub kept untouched; cap $1 frozen; this_month $22.98, all_time $162.69. 14:07 JST.",
         "net_sales_usd": 120.58,
         "paid_out_usd": 0,
         "dashboard_7d_usd": 39.96,
@@ -487,7 +487,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Applied 30 (measured 15:00-15:13, -1 vs prior 31 unexplained); Discovery 56 pts; Earned $0; community post vvPO8Q8q published; service #1 copy polished. 13:37 JST."
+        "note": "Status: Applied 30 (measured 15:00-15:13, -1 vs prior 31 unexplained); Discovery 56 pts; Earned $0; community post vvPO8Q8q published; service #1 copy polished. 14:07 JST."
       },
       {
         "platform": "CrowdWorks",
@@ -497,7 +497,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: loop 05:34 PST: +2 applications (total 318, proposals 945->947), reply 1 (Haru-Harumi, meeting-required, decline-only sent 23:05 JST); no new sales/orders. 13:37 JST."
+        "note": "Status: loop 05:34 PST: +2 applications (total 318, proposals 945->947), reply 1 (Haru-Harumi, meeting-required, decline-only sent 23:05 JST); no new sales/orders. 14:07 JST."
       },
       {
         "platform": "Fiverr",
@@ -507,7 +507,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 13:37 JST."
+        "note": "Status: draft saved, unpublished; Inbox 0, Notifications 0; Publish blocked by ID + W-9 gate; 35% complete. Re-checked 07:34 loop. 14:07 JST."
       },
       {
         "platform": "Freelancer.com",
@@ -517,7 +517,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: bids 0/6 (refill ~2026-11-11 08:48 PST); 7 open bids; 40805503 rank 18/26, 4 days left; Eastman warning; session @Rasi4op. 13:37 JST."
+        "note": "Status: bids 0/6 (refill ~2026-11-11 08:48 PST); 7 open bids; 40805503 rank 18/26, 4 days left; Eastman warning; session @Rasi4op. 14:07 JST."
       },
       {
         "platform": "GoLance",
@@ -527,7 +527,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 13:37 JST."
+        "note": "Status: 05:57 loop: session recovered via password reset; Proposals 3, Contracts 0, Balance $0.00; 7 applications all Pending (4 hidden); Skills display resolved (371). 14:07 JST."
       },
       {
         "platform": "Guru",
@@ -537,7 +537,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: loop 06:25 PST: session recovered via Google OAuth (serial, no prompt); Quotes 8 held, 2121655 received 107->108 (other inflow); bids 2 held to Nov 28; $0 earned. 13:37 JST."
+        "note": "Status: loop 06:25 PST: session recovered via Google OAuth (serial, no prompt); Quotes 8 held, 2121655 received 107->108 (other inflow); bids 2 held to Nov 28; $0 earned. 14:07 JST."
       },
       {
         "platform": "LINE Stickers",
@@ -547,7 +547,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "Lancers",
@@ -557,7 +557,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: New application 5627897 landed (proposals 543 to 544); tracked 5626919 closes today 23:56; reply backlog 0 in 12 checked, 16 list-only remain. 13:37 JST."
+        "note": "Status: New application 5627897 landed (proposals 543 to 544); tracked 5626919 closes today 23:56; reply backlog 0 in 12 checked, 16 list-only remain. 14:07 JST."
       },
       {
         "platform": "Legiit",
@@ -567,7 +567,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 13:37 JST."
+        "note": "Status: meta 06:19 loop: site OUTAGE 500->Cloudflare 521 (Ray a567376ffd562a89); 11 items unconfirmed; S3 maintained; earnings $0. 14:07 JST."
       },
       {
         "platform": "Malt",
@@ -577,7 +577,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "Mercor",
@@ -587,7 +587,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 13:37 JST."
+        "note": "Status: update mail 06:14 UTC (Mercor lane owns); Odin Paused; Earnings $0.00; bonus $150. 14:07 JST."
       },
       {
         "platform": "PromptBase",
@@ -597,7 +597,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 7d views 12, all-time 80; Approved 12 / Pending 1 (Rescue Mission) / Declined 3 / Draft 0; Gross $0. 13:37 JST."
+        "note": "Status: 7d views 12, all-time 80; Approved 12 / Pending 1 (Rescue Mission) / Declined 3 / Draft 0; Gross $0. 14:07 JST."
       },
       {
         "platform": "RapidAPI",
@@ -607,7 +607,7 @@
         "all_time": null,
         "pending": 0,
         "status": "—",
-        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: earnings unknown (source error), not $0. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "SKIMA",
@@ -617,7 +617,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "Truelancer",
@@ -627,7 +627,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "Upwork",
@@ -637,7 +637,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 13:37 JST."
+        "note": "Status: Skyna G. deadline 15:47 JST PASSED; expiry confirmed by time; all routes blocked; no retry. 14:07 JST."
       },
       {
         "platform": "Whop / Gumroad",
@@ -647,7 +647,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Owner sign-out block 14th consecutive (Whop loop 04:33 PST); sales unmeasured, not zero-confirmed; guest Buy now live. 13:37 JST."
+        "note": "Status: Owner sign-out block 14th consecutive (Whop loop 04:33 PST); sales unmeasured, not zero-confirmed; guest Buy now live. 14:07 JST."
       },
       {
         "platform": "Workana",
@@ -657,7 +657,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Cloudflare gate (Ray a57a30d17be1fda5); login form unreachable; Step 2 phone gate pending; $0. 20:34 PST loop. 13:37 JST."
+        "note": "Status: Cloudflare gate (Ray a57a30d17be1fda5); login form unreachable; Step 2 phone gate pending; $0. 20:34 PST loop. 14:07 JST."
       },
       {
         "platform": "note / Substack",
@@ -667,7 +667,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 13:37 JST."
+        "note": "Status: note roles fixed: Dice = sales (paid registration done, paid articles listed); anicca_agent = distribution only, free; beauty stopped. Sales $0. 14:07 JST."
       },
       {
         "platform": "AI Monk Factory",
@@ -677,7 +677,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "Life Manager Cloud",
@@ -687,7 +687,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 13:37 JST."
+        "note": "Status: Maritime credits $20.00 paid 21:15 JST counted in costs; tenant publish gate still blocked in product code. 14:07 JST."
       },
       {
         "platform": "AI Monk e-books",
@@ -697,7 +697,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "AI Monk Database",
@@ -707,7 +707,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: $0 recorded. Last measured 2026-11-04 13:37 JST."
+        "note": "Status: $0 recorded. Last measured 2026-11-04 14:07 JST."
       },
       {
         "platform": "Payhip",
@@ -717,7 +717,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 13:37 JST."
+        "note": "Status: store payhip.com/anicca live, $29 guide public; payment connect gate confirmed 20:52 (no saved Stripe login); orders 0, sales $0. Last measured 2026-11-05 14:07 JST."
       },
       {
         "platform": "Ko-fi",
@@ -727,7 +727,7 @@
         "pending": 0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 13:37 JST."
+        "note": "Status: creator page ko-fi.com/anicca46257 registered 2026-11-05 21:55-22:04 JST, public; Stripe/PayPal not connected, payouts unavailable; sales $0. Last measured 2026-11-05 14:07 JST."
       },
       {
         "platform": "Twine",
@@ -737,7 +737,7 @@
         "pending": 0,
         "net_sales_usd": null,
         "paid_out_usd": null,
-        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 13:37 JST."
+        "note": "Status: 05:30-05:37 loop: Applied 2 / Won 0; 1 free application left (reset ~07:35 JST); inbox thread 1 (self pitches only). 14:07 JST."
       },
       {
         "platform": "RenderHub",
@@ -747,7 +747,7 @@
         "all_time": 0,
         "pending": 0,
         "status": "—",
-        "note": "Status: 36 items (36th Low Poly Kokeshi Doll published, ID 421964); Views 266, Karma 629; 10% OFF sale ends today ~21:30 JST, coupon after sale; sales $0. 13:37 JST."
+        "note": "Status: 36 items (36th Low Poly Kokeshi Doll published, ID 421964); Views 266, Karma 629; 10% OFF sale ends today ~21:30 JST, coupon after sale; sales $0. 14:07 JST."
       }
     ],
     "trend": [
@@ -904,10 +904,10 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
-  "coverage_note": "Status: 34 platforms, 68 social, 6 apps, rankings, funnel n=23 (subscribed unmeasured), app_funnels 6 apps, wallet outlook synced; live 13:07 confirmed; costs $1,640.08. 13:37.",
+  "coverage_note": "Status: 34 platforms, 68 social, 6 apps, rankings, funnel n=23 (subscribed unmeasured), app_funnels 6 apps, wallet outlook synced; live 13:37 confirmed; costs $1,640.08. 14:07.",
   "currency_note": "USD only. This file contains no non-USD currency amounts.",
-  "coverage_status_1line": "Status: live 13:07 at frame start; platforms 34, social 68, MRR $24, funnel present, wallet outlook present; costs $1,640.08.",
-  "daily_change_1line": "Status: 13:07-13:37: SEO affirmation app 5 to 3, best daily 4 to 5 (13:31); ASO JP gratitude 175 to 177 (13:25); GEO ThinkUp first 4/8 to 6/8 (13:27); TikTok/LinkedIn held 13:04.",
+  "coverage_status_1line": "Status: live 13:37 at frame start; platforms 34, social 68, MRR $24, funnel present, wallet outlook present; costs $1,640.08.",
+  "daily_change_1line": "Status: 13:37-14:07: SEO 2/7 to 3/7 (meditation back at 3, affirmation app 3 to 4, 13:56); ASO JP self-esteem 47 to 48 (13:55); GEO ThinkUp first 6/8 to 4/8 (13:57); LinkedIn today 3rd post (14:09).",
   "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,617.13, profit -$1,585.32; SEO 5/7; GEO 0; IG 2/3 x6, monk 1/3, app2 missing, Threads 77 unconfirmed, LinkedIn 2/3.",
   "apps_breakdown": [
     {
@@ -918,7 +918,7 @@
       "units": 1,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 334, units 1, Proceeds $0; ASC 28d units 14; active paid subs 5 (ASC 2026-11-09). RevenueCat 登録数には自社サーバー登録分を含む. 13:37 JST."
+      "note": "Status: ASC last7d imp 334, units 1, Proceeds $0; ASC 28d units 14; active paid subs 5 (ASC 2026-11-09). RevenueCat 登録数には自社サーバー登録分を含む. 14:07 JST."
     },
     {
       "app": "Honne (iOS)",
@@ -928,7 +928,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 147, units 0, Proceeds $0; ASC 28d units 14; active paid subs 2 (ASC 2026-11-09). Last measured 2026-11-12T00:08Z. 13:37 JST."
+      "note": "Status: ASC last7d imp 147, units 0, Proceeds $0; ASC 28d units 14; active paid subs 2 (ASC 2026-11-09). Last measured 2026-11-12T00:08Z. 14:07 JST."
     },
     {
       "app": "Dhamma Quotes (iOS)",
@@ -938,7 +938,7 @@
       "units": 5,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 210, units 5, Proceeds $0; ASC 28d units 15. No subscription-state rows. Last measured 2026-11-12T00:08Z. 13:37 JST."
+      "note": "Status: ASC last7d imp 210, units 5, Proceeds $0; ASC 28d units 15. No subscription-state rows. Last measured 2026-11-12T00:08Z. 14:07 JST."
     },
     {
       "app": "For Better Sleep - Sleep Reset (iOS)",
@@ -948,7 +948,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 112, units 0, Proceeds $0; ASC 28d units 4; active paid subs 0 (ASC 2026-11-09). Last measured 2026-11-12T00:08Z. 13:37 JST."
+      "note": "Status: ASC last7d imp 112, units 0, Proceeds $0; ASC 28d units 4; active paid subs 0 (ASC 2026-11-09). Last measured 2026-11-12T00:08Z. 14:07 JST."
     },
     {
       "app": "Thankful - Gratitude Journal (iOS)",
@@ -958,7 +958,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 111, units 0, Proceeds $0; ASC 28d units 2. No subscription-state rows. Last measured 2026-11-12T00:08Z. 13:37 JST."
+      "note": "Status: ASC last7d imp 111, units 0, Proceeds $0; ASC 28d units 2. No subscription-state rows. Last measured 2026-11-12T00:08Z. 14:07 JST."
     },
     {
       "app": "STUDIO CHERIE (iOS)",
@@ -968,7 +968,7 @@
       "units": 1,
       "proceeds_usd": 0,
       "period": "2026-11-04 to 2026-11-10 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 108, units 1, Proceeds $0; ASC 28d units 2. No subscription-state rows. Last measured 2026-11-12T00:08Z. 13:37 JST."
+      "note": "Status: ASC last7d imp 108, units 1, Proceeds $0; ASC 28d units 2. No subscription-state rows. Last measured 2026-11-12T00:08Z. 14:07 JST."
     }
   ],
   "social_accounts": [
@@ -1240,13 +1240,13 @@
     {
       "account": "LinkedIn Daisuke Narita",
       "followers": null,
-      "latest_post": "https://www.linkedin.com/feed/update/urn:li:share:7526441476667379713",
+      "latest_post": "https://www.linkedin.com/feed/update/urn:li:share:7526486633270132736",
       "views": null,
       "likes": null,
       "comments": null,
       "outbound_comments_today": 0,
-      "measured_at": "2026-11-12 13:04 JST",
-      "note": "Status: Nov 12 today published 2 (06:00 L-5, 09:30 L-6 PUBLISHED); followers/impressions/likes/comments unmeasured (ledger 13:04); outbound 0. 13:04 JST."
+      "measured_at": "2026-11-12 14:09 JST",
+      "note": "Status: Nov 12 today published 3 (06:00 L-5, 09:30 L-6, 12:30 L-7 PUBLISHED); followers/impressions/likes/comments unmeasured (ledger 14:09); outbound 0. 14:09 JST."
     },
     {
       "account": "TikTok EN 15:30 batch (5 posts)",
@@ -1522,14 +1522,14 @@
     "impressions": 1022,
     "units": 7,
     "proceeds_usd": 0,
-    "note": "Status: 6-app total impressions 1,022, units 7 (ASC first downloads only), Proceeds $0 (apps-metrics-latest 2026-11-12T00:08Z). 13:37 JST."
+    "note": "Status: 6-app total impressions 1,022, units 7 (ASC first downloads only), Proceeds $0 (apps-metrics-latest 2026-11-12T00:08Z). 14:07 JST."
   },
   "rankings": {
     "note": "Measured ranks only. out = not in the measured result set.",
     "seo": {
       "engine": "Google (search snapshot)",
-      "measured_at": "2026-11-12 13:31 JST",
-      "anicca_in_top": 2,
+      "measured_at": "2026-11-12 13:56 JST",
+      "anicca_in_top": 3,
       "queries_total": 7,
       "rows": [
         {
@@ -1546,9 +1546,9 @@
         },
         {
           "query": "affirmation app",
-          "anicca": 3,
+          "anicca": 4,
           "winner": "thevisionboard.app",
-          "winner_position": 1
+          "winner_position": 2
         },
         {
           "query": "best daily affirmation apps",
@@ -1564,7 +1564,7 @@
         },
         {
           "query": "best meditation affirmation app",
-          "anicca": "out",
+          "anicca": 3,
           "winner": "thevisionboard.app",
           "winner_position": "out"
         },
@@ -1572,15 +1572,15 @@
           "query": "what is the best affirmation app",
           "anicca": "out",
           "winner": "thevisionboard.app",
-          "winner_position": 2
+          "winner_position": 3
         }
       ],
       "bing": {
         "engine": "Bing (script, top 30)",
-        "measured_at": "2026-11-12 13:26 JST",
+        "measured_at": "2026-11-12 13:57 JST",
         "anicca_in_top": 0,
         "queries_total": 7,
-        "happierhuman": "happierhuman: affirmation app 1, daily affirmations 4 (ledger 04:26Z); anicca 0/7"
+        "happierhuman": "happierhuman: affirmation app 1, daily affirmations 4 (ledger 04:57Z); anicca 0/7"
       },
       "gsc": {
         "period": "28-day window ending 2026-11-05",
@@ -1593,7 +1593,7 @@
     },
     "aso": {
       "source": "iTunes Search API, top 200 per keyword",
-      "measured_at": "2026-11-12 13:25 JST",
+      "measured_at": "2026-11-12 13:55 JST",
       "us": [
         {
           "keyword": "affirmation",
@@ -1665,7 +1665,7 @@
         },
         {
           "keyword": "自己肯定感",
-          "anicca": 47,
+          "anicca": 48,
           "winner_position": "out",
           "top1": "Awarefy:AIメンタルパートナー・自己理解＆セルフケア"
         },
@@ -1703,13 +1703,13 @@
       "winner": "I am (id 874656917)"
     },
     "geo": {
-      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 13:27 batch",
-      "measured_at": "2026-11-12 13:27 JST",
+      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; 13:57 batch",
+      "measured_at": "2026-11-12 13:57 JST",
       "recommended": 0,
       "recommended_of": 8,
       "cited": 0,
       "cited_of": 8,
-      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 6/8 (en01, en02, en04, en05, en06, jp02); no brand en03, jp01"
+      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en02, en04, en06); Motion first en03; no brand en05, jp01, jp02"
     }
   },
   "handoffs": [
@@ -2920,6 +2920,14 @@
     "TikTok (h) / LinkedIn (g) HELD: no new social_tiktok/social_linkedin ledger rows after 04:04Z this frame; 13:04 batch held (TikTok 4,091 / 86,664 / 3,456, en2/jpx unmeasured; LinkedIn today 2 PUBLISHED, metrics unmeasured, outbound 0). Not re-timestamped.",
     "RC 09:00 batch: watch held (06:47): Nov 12 new 1, app-born 1, server 0, batch 0 - no recurrence, no new incident line.",
     "Gmail triage this frame: newer_than:1h returned connpass x4, Postiz notifications (13:30), Peatix, Dribbble, Coconala Emposy notice (13:10, prior frame), Capafy removal x3 (12:48, sunset no action), GitHub Issue #9066. No new sales, no Trip.com refund; revenue held $31.81.",
+    "Costs UNCHANGED: revenue MTD $31.81; costs $1,640.08; profit -$1,608.27; MRR $24. Capafy SUNSET paid_out/pending 0.0; Coconala net/all_time 1706.68; gpl pct -278.7. No new API purchase/charge/top-up/auto-reload.",
+    "PREVIOUS FRAME LANDING (condition a): at frame start, live https://aniccaai.com/open/data.json = updated_at 2026-11-12 13:37 JST (curl read, live-check-2026-11-12-1407-before.json): platforms 34, social 68, wallet_outlook present. The 13:37 version has landed. No deploy-path repair needed.",
+    "WALLET OUTLOOK (condition k): wallet_outlook held and re-synced: canonical Daisuke134/anicca-ops files/wallet-outlook-2026-11-12.md re-read this frame (wallet-canonical-1407.md, identical to 1337 canonical); numbers unchanged. USD only: balance $63.33 (Moneytree 2026-11-11, full sync unconfirmed, equals summary.bank); salary 2026-11-20 amount unconfirmed; Trip.com refund $558.20 by 2026-11-26 issued not received; subscriptions as in prior frame.",
+    "MRR REBUILT (condition j): live metrics.json re-fetched this frame (repo-metrics-2026-11-12-1407.json, updated_at 2026-11-12 13:22 JST): mrr_breakdown total 24 (RC $24 + Capafy $0 + Stripe $0), totals.mrr_usd 24.0, revenue_mtd 31.81. kpis[mrr] == summary.mrr_split.total == $24 asserted. No inheritance.",
+    "Rankings: SEO Google NEW 13:56 batch (ledger 04:56Z): anicca 3/7 (affirmation app 3 to 4, best daily 5, meditation back at 3). Bing NEW 13:57 (04:57Z): anicca 0/7; happierhuman affirmation app 1, daily 4. ASO NEW 13:55 (04:55Z): US all out; JP affirmation 29, self-esteem 47 to 48, positivity 125, gratitude 177, motivation winner 25, mindfulness/meditation out. GEO NEW 13:57 (04:57Z): 8 answered, 0/0, ThinkUp first 4/8 (en01,en02,en04,en06), Motion first en03, no brand en05,jp01,jp02.",
+    "LinkedIn (g) NEW 14:09 batch (ledger 05:09Z): today published 3 (06:00 L-5, 09:30 L-6, 12:30 L-7 all PUBLISHED), latest post is the 12:30 URL, metrics unmeasured, outbound 0. TikTok (h) HELD: no new social_tiktok ledger rows after 04:04Z; 13:04 batch held (4,091 / 86,664 / 3,456, en2/jpx unmeasured). Not re-timestamped.",
+    "RC 09:00 batch: watch held (06:47): Nov 12 new 1, app-born 1, server 0, batch 0 - no recurrence, no new incident line.",
+    "Gmail triage this frame: newer_than:1h returned 11 messages: Uber AI welcome x2 (14:10), Uber new-device sign-in (14:10), Mantis feedback for Daily Affirmations (14:09), CrowdWorks decline notice (14:07), Freelancer digest (13:59), Apple Developer newsletter (13:41), connpass x2 (13:35), Postiz notifications (13:30), Peatix (13:13). No new sales, no Trip.com refund; revenue held $31.81.",
     "Costs UNCHANGED: revenue MTD $31.81; costs $1,640.08; profit -$1,608.27; MRR $24. Capafy SUNSET paid_out/pending 0.0; Coconala net/all_time 1706.68; gpl pct -278.7. No new API purchase/charge/top-up/auto-reload."
   ],
   "app_store_analytics": {
@@ -24094,6 +24102,6 @@
         "status": "About $128/mo as of 2026-10-27; next billing date unconfirmed."
       }
     ],
-    "note": "Status: outlook synced to canonical wallet file 2026-11-12 (re-read 13:37, numbers unchanged); balance $63.33 (2026-11-11, sync unconfirmed); next dated inflow 2026-11-20 salary (amount unconfirmed)."
+    "note": "Status: outlook synced to canonical wallet file 2026-11-12 (re-read 14:07, numbers unchanged); balance $63.33 (2026-11-11, sync unconfirmed); next dated inflow 2026-11-20 salary (amount unconfirmed)."
   }
 }
