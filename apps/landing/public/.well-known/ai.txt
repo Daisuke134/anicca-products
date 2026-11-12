@@ -1,0 +1,14 @@
+# ai.txt for aniccaai.com
+# AI crawlers and AI search systems are allowed to crawl, index and quote this site.
+# This mirrors the live robots.txt (Allow: / for User-Agent: *) and the GeoReady audit
+# of 2026-11-12, which verified GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot,
+# Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Google-Extended,
+# Bingbot and Applebot-Extended as allowed.
+
+User-Agent: *
+Allow: /
+
+Sitemap: https://aniccaai.com/sitemap.xml
+Summary: https://aniccaai.com/ai/summary.json
+FAQ: https://aniccaai.com/ai/faq.json
+LLMs: https://aniccaai.com/llms.txt

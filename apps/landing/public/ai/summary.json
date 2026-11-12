@@ -1,0 +1,35 @@
+{
+  "name": "Anicca",
+  "url": "https://aniccaai.com",
+  "description": "Indie apps and small products by Daisuke Narita, Tokyo. The main product is Anicca, a free-to-download iPhone affirmation app that sends one short, honest line at the time of day you choose, with no streaks.",
+  "mainProduct": {
+    "name": "Anicca: Daily Affirmations",
+    "type": "SoftwareApplication",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "iOS 16.6+",
+    "url": "https://aniccaai.com/affirmation-app",
+    "downloadUrl": "https://apps.apple.com/app/id6755129214",
+    "offers": { "type": "Offer", "price": "0", "priceCurrency": "USD", "note": "Free to download, optional subscription." }
+  },
+  "products": [
+    { "name": "Anicca: Daily Affirmations (iPhone)", "url": "https://aniccaai.com/affirmation-app" },
+    { "name": "Honne (iPhone)", "url": "https://aniccaai.com/honne" },
+    { "name": "Thankful (iPhone)", "url": "https://aniccaai.com/thankful" },
+    { "name": "Daily Dhamma (iPhone)", "url": "https://aniccaai.com/dailydharma" },
+    { "name": "Sleep Reset (iPhone)", "url": "https://aniccaai.com/sleepreset" },
+    { "name": "STUDIO CHERIE (iPhone)", "url": "https://aniccaai.com/studio-cherie" }
+  ],
+  "machineReadable": {
+    "llms": "https://aniccaai.com/llms.txt",
+    "faq": "https://aniccaai.com/ai/faq.json",
+    "sitemap": "https://aniccaai.com/sitemap.xml",
+    "openPnl": "https://aniccaai.com/open"
+  },
+  "sameAs": [
+    "https://apps.apple.com/app/id6755129214",
+    "https://www.saashub.com/anicca-ai",
+    "https://www.youtube.com/@anicca-ai",
+    "https://dev.to/aniccaapp"
+  ],
+  "source": "Facts copied from https://aniccaai.com/llms.txt and the SoftwareApplication JSON-LD on https://aniccaai.com/affirmation-app (live read 2026-11-12). No new claims added."
+}
