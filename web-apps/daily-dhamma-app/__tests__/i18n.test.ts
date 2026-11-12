@@ -104,10 +104,10 @@ describe('i18n', () => {
     expect(result).not.toMatch(/^\[missing/);
   });
 
-  // T-L7: 既存79キー + 購入後の利用権確認・復元案内2キー
-  test('T-L7: en.json key count matches spec inventory plus purchase recovery (81)', () => {
+  // T-L7: 既存79キー + 利用権確認2キー + 価格再取得3キー
+  test('T-L7: en.json key count matches spec inventory plus purchase and pricing recovery (84)', () => {
     const enKeys = flattenKeys(en);
-    expect(enKeys.length).toBe(81);
+    expect(enKeys.length).toBe(84);
   });
 
   // T-L8: 画面ファイルに本番ユーザー向けの hardcoded 英語文字列がない

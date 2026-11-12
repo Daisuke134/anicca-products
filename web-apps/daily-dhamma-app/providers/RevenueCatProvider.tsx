@@ -231,6 +231,8 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
     customerInfo: customerInfoQuery.data ?? null,
     currentOffering,
     isLoadingOfferings: offeringsQuery.isLoading,
+    isRefreshingOfferings: offeringsQuery.isFetching,
+    refetchOfferings: () => offeringsQuery.refetch({ cancelRefetch: false }),
     isLoadingCustomerInfo: customerInfoQuery.isLoading,
     purchasePackage,
     restorePurchases,
@@ -240,3 +242,4 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
     restoreError: restoreMutation.error,
   };
 });
+
