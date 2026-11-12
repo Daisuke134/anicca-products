@@ -108,7 +108,8 @@ jobs:
           echo "Verified unsigned Simulator app: $BUNDLE_ID"
 
       - name: Launch, relaunch and inspect rendered Simulator screens
-        timeout-minutes: 8
+        # Cold Simulator migration took 5m29s before the app could launch.
+        timeout-minutes: 15
         run: bash scripts/smoke-ios-simulator.sh
       - name: Print app crash reports on failure
         if: failure()
