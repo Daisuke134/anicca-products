@@ -20,7 +20,7 @@ import { Verse, getFreeVerses, getAllVerses, getLocalizedVerse, getLocalizedSour
 import { useApp } from '@/providers/AppProvider';
 import { useRevenueCat } from '@/providers/RevenueCatProvider';
 import { isVerseLocked, shouldShowStreakPaywall } from '@/utils/paywallUtils';
-import { trackCoreResultViewed } from '@/utils/analytics';
+import { trackCoreResultViewed, trackScreenViewed } from '@/utils/analytics';
 import { t } from '@/utils/i18n';
 
 const { width, height } = Dimensions.get('window');
@@ -49,6 +49,10 @@ export default function MainScreen() {
     [router]
   );
   const locale = Localization.getLocales()[0]?.languageTag ?? 'en';
+
+  useEffect(() => {
+    trackScreenViewed('home');
+  }, []);
 
   useEffect(() => {
     if (!isLoading && !settings.hasCompletedOnboarding) {

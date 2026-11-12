@@ -39,7 +39,16 @@ export async function initAnalytics(): Promise<void> {
     await mp.init();
     mp.registerSuperProperties({
       app_id: APP_ID,
-      app_environment: __DEV__ ? 'sandbox' : 'production',
+      // Environment separation (funnel spec TODO 4): the EAS build profile
+      // declares EXPO_PUBLIC_APP_ENV (development/preview = 'sandbox',
+      // production = 'production'); __DEV__ always means sandbox.
+      // Residual limitation: a TestFlight build produced by the production
+      // profile still labels itself 'production' — JS cannot read the
+      // App Store receipt, so TestFlight separation relies on the profile.
+      app_environment:
+        __DEV__ || process.env.EXPO_PUBLIC_APP_ENV === 'sandbox'
+          ? 'sandbox'
+          : 'production',
       app_version: Constants.expoConfig?.version ?? 'unknown',
       build:
         Platform.OS === 'ios'
@@ -81,6 +90,11 @@ export async function trackAppOpened(): Promise<void> {
     // Treat storage failures as a normal launch.
   }
   track('app_opened', { first_launch: firstLaunch });
+}
+
+/** Per-screen funnel measurement (shared spec §3.3, funnel spec TODO 4). */
+export function trackScreenViewed(screenName: string): void {
+  track('screen_viewed', { screen_name: screenName });
 }
 
 export function trackOnboardingStarted(): void {

@@ -19,6 +19,7 @@ import { t, TranslationKey } from '@/utils/i18n';
 import {
   trackNotificationPermissionResult,
   trackOnboardingStarted,
+  trackScreenViewed,
 } from '@/utils/analytics';
 
 const { width } = Dimensions.get('window');
@@ -62,6 +63,10 @@ export default function OnboardingScreen() {
   useEffect(() => {
     trackOnboardingStarted();
   }, []);
+
+  useEffect(() => {
+    trackScreenViewed(`onboarding_step_${currentIndex + 1}`);
+  }, [currentIndex]);
 
   const requestNotificationPermission = async () => {
     if (Platform.OS !== 'web') {

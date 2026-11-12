@@ -20,7 +20,7 @@ import {
   savingsPercent,
   trackPaywallEvent,
 } from '@/utils/paywallUtils';
-import { trackPaywallShown } from '@/utils/analytics';
+import { trackPaywallShown, trackScreenViewed } from '@/utils/analytics';
 
 const PRIVACY_POLICY_URL = 'https://aniccaai.com/dailydharma/privacy';
 const TERMS_URL = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/';
@@ -67,6 +67,7 @@ export default function PaywallScreen() {
     // Mixpanel (spec §3.3): placement is this screen's existing `source` param
     // ('onboarding' by default; other entries pass e.g. 'streak', 'verse_limit').
     trackPaywallShown(source);
+    trackScreenViewed('paywall');
     const timer = setTimeout(() => setShowClose(true), CLOSE_DELAY_MS);
     return () => clearTimeout(timer);
   }, [source]);

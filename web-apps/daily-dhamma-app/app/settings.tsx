@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Switch, ScrollView, Linking, Alert } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -10,9 +11,12 @@ import { useApp } from '@/providers/AppProvider';
 import { getDailyVerse, getLocalizedVerse, stayPresentMessages, stayPresentMessagesJa } from '@/data/verses';
 import { t } from '@/utils/i18n';
 import { isFrequencyLocked } from '@/utils/paywallUtils';
-import { trackNotificationPermissionResult } from '@/utils/analytics';
+import { trackNotificationPermissionResult, trackScreenViewed } from '@/utils/analytics';
 
 export default function SettingsScreen() {
+  useEffect(() => {
+    trackScreenViewed('settings');
+  }, []);
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { settings, updateSettings, isPremium } = useApp();
