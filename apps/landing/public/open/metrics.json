@@ -586,7 +586,7 @@
  "revenuecat_charts": {
   "source": "RevenueCat Charts API v2",
   "source_docs": "https://www.revenuecat.com/docs/api-v2/charts-and-metrics",
-  "observed_at": "2026-11-12T11:51:33Z",
+  "observed_at": "2026-11-12T12:39:44Z",
   "window": {
    "start_date": "2026-10-14",
    "end_date": "2026-11-12",
@@ -1106,7 +1106,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:43:00Z"
+      "observed_at": "2026-11-12T12:31:09Z"
      },
      "actives_movement": {
       "id": "actives_movement",
@@ -1899,7 +1899,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:43:05Z"
+      "observed_at": "2026-11-12T12:31:14Z"
      },
      "actives_new": {
       "id": "actives_new",
@@ -4541,7 +4541,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:43:07Z"
+      "observed_at": "2026-11-12T12:31:16Z"
      },
      "arr": {
       "id": "arr",
@@ -5017,7 +5017,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:43:10Z"
+      "observed_at": "2026-11-12T12:31:19Z"
      },
      "churn": {
       "id": "churn",
@@ -6351,7 +6351,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:43:12Z"
+      "observed_at": "2026-11-12T12:31:21Z"
      },
      "cohort_explorer": {
       "id": "cohort_explorer",
@@ -6727,7 +6727,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:43:20Z"
+      "observed_at": "2026-11-12T12:31:29Z"
      },
      "conversion_to_paying": {
       "id": "conversion_to_paying",
@@ -7330,7 +7330,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:43:24Z"
+      "observed_at": "2026-11-12T12:31:33Z"
      },
      "customers_new": {
       "id": "customers_new",
@@ -7549,7 +7549,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:43:28Z"
+      "observed_at": "2026-11-12T12:31:37Z"
      },
      "initial_conversion": {
       "id": "initial_conversion",
@@ -8152,7 +8152,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:43:34Z"
+      "observed_at": "2026-11-12T12:31:43Z"
      },
      "ltv_per_customer": {
       "id": "ltv_per_customer",
@@ -8946,7 +8946,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:43:39Z"
+      "observed_at": "2026-11-12T12:31:48Z"
      },
      "ltv_per_paying_customer": {
       "id": "ltv_per_paying_customer",
@@ -9550,7 +9550,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:43:45Z"
+      "observed_at": "2026-11-12T12:31:55Z"
      },
      "mrr": {
       "id": "mrr",
@@ -10026,7 +10026,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:43:46Z"
+      "observed_at": "2026-11-12T12:31:55Z"
      },
      "mrr_movement": {
       "id": "mrr_movement",
@@ -11203,7 +11203,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:43:52Z"
+      "observed_at": "2026-11-12T12:32:01Z"
      },
      "prediction_explorer": {
       "id": "prediction_explorer",
@@ -15446,7 +15446,7 @@
        ]
       ],
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:43:57Z"
+      "observed_at": "2026-11-12T12:32:07Z"
      },
      "refund_rate": {
       "id": "refund_rate",
@@ -15493,7 +15493,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:43:59Z"
+      "observed_at": "2026-11-12T12:32:09Z"
      },
      "refund_request": {
       "id": "refund_request",
@@ -17705,7 +17705,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:03Z"
+      "observed_at": "2026-11-12T12:32:12Z"
      },
      "refunds": {
       "id": "refunds",
@@ -18621,7 +18621,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:04Z"
+      "observed_at": "2026-11-12T12:32:13Z"
      },
      "revenue": {
       "id": "revenue",
@@ -19537,7 +19537,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:06Z"
+      "observed_at": "2026-11-12T12:32:16Z"
      },
      "subscription_retention": {
       "id": "subscription_retention",
@@ -19559,7 +19559,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:10Z"
+      "observed_at": "2026-11-12T12:32:19Z"
      },
      "subscription_status": {
       "id": "subscription_status",
@@ -19689,7 +19689,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:12Z"
+      "observed_at": "2026-11-12T12:32:22Z"
      },
      "trials": {
       "id": "trials",
@@ -20163,7 +20163,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:14Z"
+      "observed_at": "2026-11-12T12:32:23Z"
      },
      "trials_movement": {
       "id": "trials_movement",
@@ -20765,7 +20765,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:44:18Z"
+      "observed_at": "2026-11-12T12:32:28Z"
      },
      "trials_new": {
       "id": "trials_new",
@@ -21247,7 +21247,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:21Z"
+      "observed_at": "2026-11-12T12:32:30Z"
      },
      "customers_active": {
       "id": "customers_active",
@@ -21463,7 +21463,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:44:26Z"
+      "observed_at": "2026-11-12T12:32:35Z"
      },
      "trial_conversion": {
       "id": "trial_conversion",
@@ -23943,7 +23943,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:44:32Z"
+      "observed_at": "2026-11-12T12:32:41Z"
      },
      "trial_conversion_rate": {
       "id": "trial_conversion_rate",
@@ -25114,7 +25114,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:44:37Z"
+      "observed_at": "2026-11-12T12:32:46Z"
      },
      "trial_cancellation": {
       "id": "trial_cancellation",
@@ -26097,7 +26097,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:44:42Z"
+      "observed_at": "2026-11-12T12:32:51Z"
      },
      "non-subscription_purchases": {
       "id": "non-subscription_purchases",
@@ -26128,7 +26128,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:44Z"
+      "observed_at": "2026-11-12T12:32:53Z"
      },
      "ad_revenue": {
       "id": "ad_revenue",
@@ -26175,7 +26175,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:46Z"
+      "observed_at": "2026-11-12T12:32:55Z"
      },
      "ad_impressions": {
       "id": "ad_impressions",
@@ -26206,7 +26206,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:48Z"
+      "observed_at": "2026-11-12T12:32:58Z"
      },
      "ad_clicks": {
       "id": "ad_clicks",
@@ -26237,7 +26237,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:51Z"
+      "observed_at": "2026-11-12T12:33:00Z"
      },
      "ad_monetized_customers": {
       "id": "ad_monetized_customers",
@@ -26268,7 +26268,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:44:53Z"
+      "observed_at": "2026-11-12T12:33:03Z"
      },
      "paywall_abandonment": {
       "id": "paywall_abandonment",
@@ -27616,7 +27616,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:45:02Z"
+      "observed_at": "2026-11-12T12:33:10Z"
      },
      "app_store_save_outcomes": {
       "id": "app_store_save_outcomes",
@@ -27647,7 +27647,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:45:08Z"
+      "observed_at": "2026-11-12T12:33:17Z"
      }
     },
     "unavailable_charts": 0
@@ -28136,7 +28136,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:45:08Z"
+      "observed_at": "2026-11-12T12:33:17Z"
      },
      "actives_movement": {
       "id": "actives_movement",
@@ -28929,7 +28929,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:45:13Z"
+      "observed_at": "2026-11-12T12:33:22Z"
      },
      "actives_new": {
       "id": "actives_new",
@@ -31571,7 +31571,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:45:16Z"
+      "observed_at": "2026-11-12T12:33:25Z"
      },
      "arr": {
       "id": "arr",
@@ -32047,7 +32047,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:45:18Z"
+      "observed_at": "2026-11-12T12:33:28Z"
      },
      "churn": {
       "id": "churn",
@@ -33381,7 +33381,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:45:21Z"
+      "observed_at": "2026-11-12T12:33:29Z"
      },
      "cohort_explorer": {
       "id": "cohort_explorer",
@@ -33601,7 +33601,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:45:28Z"
+      "observed_at": "2026-11-12T12:33:37Z"
      },
      "conversion_to_paying": {
       "id": "conversion_to_paying",
@@ -34204,7 +34204,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:45:33Z"
+      "observed_at": "2026-11-12T12:33:42Z"
      },
      "customers_new": {
       "id": "customers_new",
@@ -34423,7 +34423,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:45:36Z"
+      "observed_at": "2026-11-12T12:33:45Z"
      },
      "initial_conversion": {
       "id": "initial_conversion",
@@ -35026,7 +35026,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:45:43Z"
+      "observed_at": "2026-11-12T12:33:51Z"
      },
      "ltv_per_customer": {
       "id": "ltv_per_customer",
@@ -35820,7 +35820,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:45:48Z"
+      "observed_at": "2026-11-12T12:33:57Z"
      },
      "ltv_per_paying_customer": {
       "id": "ltv_per_paying_customer",
@@ -36424,7 +36424,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:45:54Z"
+      "observed_at": "2026-11-12T12:34:03Z"
      },
      "mrr": {
       "id": "mrr",
@@ -36900,7 +36900,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:45:55Z"
+      "observed_at": "2026-11-12T12:34:04Z"
      },
      "mrr_movement": {
       "id": "mrr_movement",
@@ -38077,7 +38077,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:46:01Z"
+      "observed_at": "2026-11-12T12:34:10Z"
      },
      "prediction_explorer": {
       "id": "prediction_explorer",
@@ -42320,7 +42320,7 @@
        ]
       ],
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:46:06Z"
+      "observed_at": "2026-11-12T12:34:15Z"
      },
      "refund_rate": {
       "id": "refund_rate",
@@ -42367,7 +42367,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:08Z"
+      "observed_at": "2026-11-12T12:34:18Z"
      },
      "refund_request": {
       "id": "refund_request",
@@ -44579,7 +44579,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:12Z"
+      "observed_at": "2026-11-12T12:34:21Z"
      },
      "refunds": {
       "id": "refunds",
@@ -45495,7 +45495,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:12Z"
+      "observed_at": "2026-11-12T12:34:21Z"
      },
      "revenue": {
       "id": "revenue",
@@ -46411,7 +46411,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:15Z"
+      "observed_at": "2026-11-12T12:34:24Z"
      },
      "subscription_retention": {
       "id": "subscription_retention",
@@ -46433,7 +46433,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:18Z"
+      "observed_at": "2026-11-12T12:34:27Z"
      },
      "subscription_status": {
       "id": "subscription_status",
@@ -46520,7 +46520,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:22Z"
+      "observed_at": "2026-11-12T12:34:31Z"
      },
      "trials": {
       "id": "trials",
@@ -46994,7 +46994,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:23Z"
+      "observed_at": "2026-11-12T12:34:32Z"
      },
      "trials_movement": {
       "id": "trials_movement",
@@ -47596,7 +47596,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:46:28Z"
+      "observed_at": "2026-11-12T12:34:37Z"
      },
      "trials_new": {
       "id": "trials_new",
@@ -48078,7 +48078,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:30Z"
+      "observed_at": "2026-11-12T12:34:39Z"
      },
      "customers_active": {
       "id": "customers_active",
@@ -48294,7 +48294,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:46:35Z"
+      "observed_at": "2026-11-12T12:34:44Z"
      },
      "trial_conversion": {
       "id": "trial_conversion",
@@ -50774,7 +50774,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:46:41Z"
+      "observed_at": "2026-11-12T12:34:50Z"
      },
      "trial_conversion_rate": {
       "id": "trial_conversion_rate",
@@ -51945,7 +51945,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:46:46Z"
+      "observed_at": "2026-11-12T12:34:55Z"
      },
      "trial_cancellation": {
       "id": "trial_cancellation",
@@ -52928,7 +52928,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:46:51Z"
+      "observed_at": "2026-11-12T12:35:00Z"
      },
      "non-subscription_purchases": {
       "id": "non-subscription_purchases",
@@ -52959,7 +52959,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:53Z"
+      "observed_at": "2026-11-12T12:35:02Z"
      },
      "ad_revenue": {
       "id": "ad_revenue",
@@ -53006,7 +53006,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:55Z"
+      "observed_at": "2026-11-12T12:35:04Z"
      },
      "ad_impressions": {
       "id": "ad_impressions",
@@ -53037,7 +53037,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:46:58Z"
+      "observed_at": "2026-11-12T12:35:07Z"
      },
      "ad_clicks": {
       "id": "ad_clicks",
@@ -53068,7 +53068,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:47:00Z"
+      "observed_at": "2026-11-12T12:35:09Z"
      },
      "ad_monetized_customers": {
       "id": "ad_monetized_customers",
@@ -53099,7 +53099,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:47:03Z"
+      "observed_at": "2026-11-12T12:35:12Z"
      },
      "paywall_abandonment": {
       "id": "paywall_abandonment",
@@ -54447,7 +54447,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:47:10Z"
+      "observed_at": "2026-11-12T12:35:20Z"
      },
      "app_store_save_outcomes": {
       "id": "app_store_save_outcomes",
@@ -54478,7 +54478,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:47:16Z"
+      "observed_at": "2026-11-12T12:35:26Z"
      }
     },
     "unavailable_charts": 0
@@ -54960,7 +54960,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:47:17Z"
+      "observed_at": "2026-11-12T12:35:26Z"
      },
      "actives_movement": {
       "id": "actives_movement",
@@ -55753,7 +55753,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:47:22Z"
+      "observed_at": "2026-11-12T12:35:31Z"
      },
      "actives_new": {
       "id": "actives_new",
@@ -58395,7 +58395,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:47:24Z"
+      "observed_at": "2026-11-12T12:35:34Z"
      },
      "arr": {
       "id": "arr",
@@ -58871,7 +58871,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:47:27Z"
+      "observed_at": "2026-11-12T12:35:36Z"
      },
      "churn": {
       "id": "churn",
@@ -60205,7 +60205,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:47:29Z"
+      "observed_at": "2026-11-12T12:35:39Z"
      },
      "cohort_explorer": {
       "id": "cohort_explorer",
@@ -60360,7 +60360,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:47:36Z"
+      "observed_at": "2026-11-12T12:35:47Z"
      },
      "conversion_to_paying": {
       "id": "conversion_to_paying",
@@ -60963,7 +60963,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:47:41Z"
+      "observed_at": "2026-11-12T12:35:52Z"
      },
      "customers_new": {
       "id": "customers_new",
@@ -61182,7 +61182,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:47:44Z"
+      "observed_at": "2026-11-12T12:35:55Z"
      },
      "initial_conversion": {
       "id": "initial_conversion",
@@ -61785,7 +61785,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:47:50Z"
+      "observed_at": "2026-11-12T12:36:02Z"
      },
      "ltv_per_customer": {
       "id": "ltv_per_customer",
@@ -62579,7 +62579,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:47:56Z"
+      "observed_at": "2026-11-12T12:36:07Z"
      },
      "ltv_per_paying_customer": {
       "id": "ltv_per_paying_customer",
@@ -63183,7 +63183,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:48:02Z"
+      "observed_at": "2026-11-12T12:36:13Z"
      },
      "mrr": {
       "id": "mrr",
@@ -63659,7 +63659,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:48:03Z"
+      "observed_at": "2026-11-12T12:36:14Z"
      },
      "mrr_movement": {
       "id": "mrr_movement",
@@ -64836,7 +64836,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:48:09Z"
+      "observed_at": "2026-11-12T12:36:20Z"
      },
      "prediction_explorer": {
       "id": "prediction_explorer",
@@ -69079,7 +69079,7 @@
        ]
       ],
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:48:14Z"
+      "observed_at": "2026-11-12T12:36:25Z"
      },
      "refund_rate": {
       "id": "refund_rate",
@@ -69126,7 +69126,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:48:16Z"
+      "observed_at": "2026-11-12T12:36:27Z"
      },
      "refund_request": {
       "id": "refund_request",
@@ -71338,7 +71338,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:48:20Z"
+      "observed_at": "2026-11-12T12:36:31Z"
      },
      "refunds": {
       "id": "refunds",
@@ -72254,7 +72254,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:48:20Z"
+      "observed_at": "2026-11-12T12:36:31Z"
      },
      "revenue": {
       "id": "revenue",
@@ -73170,7 +73170,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:48:23Z"
+      "observed_at": "2026-11-12T12:36:34Z"
      },
      "subscription_retention": {
       "id": "subscription_retention",
@@ -73192,7 +73192,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:48:26Z"
+      "observed_at": "2026-11-12T12:36:37Z"
      },
      "subscription_status": {
       "id": "subscription_status",
@@ -73279,7 +73279,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:48:30Z"
+      "observed_at": "2026-11-12T12:36:41Z"
      },
      "trials": {
       "id": "trials",
@@ -73753,7 +73753,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:48:31Z"
+      "observed_at": "2026-11-12T12:36:42Z"
      },
      "trials_movement": {
       "id": "trials_movement",
@@ -74355,7 +74355,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:48:36Z"
+      "observed_at": "2026-11-12T12:36:47Z"
      },
      "trials_new": {
       "id": "trials_new",
@@ -74837,7 +74837,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:48:38Z"
+      "observed_at": "2026-11-12T12:36:49Z"
      },
      "customers_active": {
       "id": "customers_active",
@@ -75053,7 +75053,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:48:43Z"
+      "observed_at": "2026-11-12T12:36:54Z"
      },
      "trial_conversion": {
       "id": "trial_conversion",
@@ -77533,7 +77533,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:48:49Z"
+      "observed_at": "2026-11-12T12:37:00Z"
      },
      "trial_conversion_rate": {
       "id": "trial_conversion_rate",
@@ -78704,7 +78704,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:48:54Z"
+      "observed_at": "2026-11-12T12:37:05Z"
      },
      "trial_cancellation": {
       "id": "trial_cancellation",
@@ -79687,7 +79687,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:48:59Z"
+      "observed_at": "2026-11-12T12:37:10Z"
      },
      "non-subscription_purchases": {
       "id": "non-subscription_purchases",
@@ -79718,7 +79718,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:01Z"
+      "observed_at": "2026-11-12T12:37:12Z"
      },
      "ad_revenue": {
       "id": "ad_revenue",
@@ -79765,7 +79765,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:03Z"
+      "observed_at": "2026-11-12T12:37:14Z"
      },
      "ad_impressions": {
       "id": "ad_impressions",
@@ -79796,7 +79796,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:05Z"
+      "observed_at": "2026-11-12T12:37:17Z"
      },
      "ad_clicks": {
       "id": "ad_clicks",
@@ -79827,7 +79827,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:08Z"
+      "observed_at": "2026-11-12T12:37:19Z"
      },
      "ad_monetized_customers": {
       "id": "ad_monetized_customers",
@@ -79858,7 +79858,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:10Z"
+      "observed_at": "2026-11-12T12:37:22Z"
      },
      "paywall_abandonment": {
       "id": "paywall_abandonment",
@@ -81206,7 +81206,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:18Z"
+      "observed_at": "2026-11-12T12:37:29Z"
      },
      "app_store_save_outcomes": {
       "id": "app_store_save_outcomes",
@@ -81237,7 +81237,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:24Z"
+      "observed_at": "2026-11-12T12:37:35Z"
      }
     },
     "unavailable_charts": 0
@@ -81719,7 +81719,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:25Z"
+      "observed_at": "2026-11-12T12:37:36Z"
      },
      "actives_movement": {
       "id": "actives_movement",
@@ -82512,7 +82512,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:49:29Z"
+      "observed_at": "2026-11-12T12:37:41Z"
      },
      "actives_new": {
       "id": "actives_new",
@@ -85154,7 +85154,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:32Z"
+      "observed_at": "2026-11-12T12:37:43Z"
      },
      "arr": {
       "id": "arr",
@@ -85630,7 +85630,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:35Z"
+      "observed_at": "2026-11-12T12:37:46Z"
      },
      "churn": {
       "id": "churn",
@@ -86964,7 +86964,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:49:37Z"
+      "observed_at": "2026-11-12T12:37:48Z"
      },
      "cohort_explorer": {
       "id": "cohort_explorer",
@@ -87093,7 +87093,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:49:44Z"
+      "observed_at": "2026-11-12T12:37:55Z"
      },
      "conversion_to_paying": {
       "id": "conversion_to_paying",
@@ -87696,7 +87696,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:49:49Z"
+      "observed_at": "2026-11-12T12:37:59Z"
      },
      "customers_new": {
       "id": "customers_new",
@@ -87915,7 +87915,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:49:52Z"
+      "observed_at": "2026-11-12T12:38:03Z"
      },
      "initial_conversion": {
       "id": "initial_conversion",
@@ -88518,7 +88518,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:49:59Z"
+      "observed_at": "2026-11-12T12:38:09Z"
      },
      "ltv_per_customer": {
       "id": "ltv_per_customer",
@@ -89312,7 +89312,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:50:04Z"
+      "observed_at": "2026-11-12T12:38:15Z"
      },
      "ltv_per_paying_customer": {
       "id": "ltv_per_paying_customer",
@@ -89916,7 +89916,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:50:11Z"
+      "observed_at": "2026-11-12T12:38:21Z"
      },
      "mrr": {
       "id": "mrr",
@@ -90392,7 +90392,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:50:11Z"
+      "observed_at": "2026-11-12T12:38:21Z"
      },
      "mrr_movement": {
       "id": "mrr_movement",
@@ -91569,7 +91569,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:50:17Z"
+      "observed_at": "2026-11-12T12:38:27Z"
      },
      "prediction_explorer": {
       "id": "prediction_explorer",
@@ -95812,7 +95812,7 @@
        ]
       ],
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:50:22Z"
+      "observed_at": "2026-11-12T12:38:33Z"
      },
      "refund_rate": {
       "id": "refund_rate",
@@ -95859,7 +95859,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:50:25Z"
+      "observed_at": "2026-11-12T12:38:35Z"
      },
      "refund_request": {
       "id": "refund_request",
@@ -98071,7 +98071,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:50:28Z"
+      "observed_at": "2026-11-12T12:38:39Z"
      },
      "refunds": {
       "id": "refunds",
@@ -98987,7 +98987,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:50:29Z"
+      "observed_at": "2026-11-12T12:38:40Z"
      },
      "revenue": {
       "id": "revenue",
@@ -99903,7 +99903,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:50:31Z"
+      "observed_at": "2026-11-12T12:38:42Z"
      },
      "subscription_retention": {
       "id": "subscription_retention",
@@ -99925,7 +99925,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:50:34Z"
+      "observed_at": "2026-11-12T12:38:45Z"
      },
      "subscription_status": {
       "id": "subscription_status",
@@ -100012,7 +100012,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:50:39Z"
+      "observed_at": "2026-11-12T12:38:50Z"
      },
      "trials": {
       "id": "trials",
@@ -100486,7 +100486,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:50:39Z"
+      "observed_at": "2026-11-12T12:38:50Z"
      },
      "trials_movement": {
       "id": "trials_movement",
@@ -101088,7 +101088,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:50:44Z"
+      "observed_at": "2026-11-12T12:38:55Z"
      },
      "trials_new": {
       "id": "trials_new",
@@ -101570,7 +101570,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:50:47Z"
+      "observed_at": "2026-11-12T12:38:58Z"
      },
      "customers_active": {
       "id": "customers_active",
@@ -101786,7 +101786,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:50:52Z"
+      "observed_at": "2026-11-12T12:39:03Z"
      },
      "trial_conversion": {
       "id": "trial_conversion",
@@ -104266,7 +104266,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:50:58Z"
+      "observed_at": "2026-11-12T12:39:09Z"
      },
      "trial_conversion_rate": {
       "id": "trial_conversion_rate",
@@ -105437,7 +105437,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:51:03Z"
+      "observed_at": "2026-11-12T12:39:13Z"
      },
      "trial_cancellation": {
       "id": "trial_cancellation",
@@ -106420,7 +106420,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "project",
-      "observed_at": "2026-11-12T11:51:07Z"
+      "observed_at": "2026-11-12T12:39:18Z"
      },
      "non-subscription_purchases": {
       "id": "non-subscription_purchases",
@@ -106451,7 +106451,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:51:10Z"
+      "observed_at": "2026-11-12T12:39:20Z"
      },
      "ad_revenue": {
       "id": "ad_revenue",
@@ -106498,7 +106498,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:51:12Z"
+      "observed_at": "2026-11-12T12:39:22Z"
      },
      "ad_impressions": {
       "id": "ad_impressions",
@@ -106529,7 +106529,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:51:14Z"
+      "observed_at": "2026-11-12T12:39:25Z"
      },
      "ad_clicks": {
       "id": "ad_clicks",
@@ -106560,7 +106560,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:51:17Z"
+      "observed_at": "2026-11-12T12:39:27Z"
      },
      "ad_monetized_customers": {
       "id": "ad_monetized_customers",
@@ -106591,7 +106591,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:51:19Z"
+      "observed_at": "2026-11-12T12:39:30Z"
      },
      "paywall_abandonment": {
       "id": "paywall_abandonment",
@@ -107939,7 +107939,7 @@
       "incomplete": true,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:51:27Z"
+      "observed_at": "2026-11-12T12:39:38Z"
      },
      "app_store_save_outcomes": {
       "id": "app_store_save_outcomes",
@@ -107970,7 +107970,7 @@
       "incomplete": null,
       "unsupported_params": {},
       "segmentation": "app_id",
-      "observed_at": "2026-11-12T11:51:33Z"
+      "observed_at": "2026-11-12T12:39:44Z"
      }
     },
     "unavailable_charts": 0
@@ -108302,7 +108302,7 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-12 20:51 JST",
+ "updated_at": "2026-11-12 21:39 JST",
  "source_updated_at": "2026-11-11 21:24 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
@@ -108540,8 +108540,8 @@
   }
  ],
  "contract_work": {
-  "applications_today": 0,
-  "applications_7d": 26,
+  "applications_today": 9,
+  "applications_7d": 35,
   "days": [
    "2026-11-06",
    "2026-11-07",
@@ -108572,7 +108572,7 @@
    {
     "platform": "Lancers",
     "owner": "dr eggbot",
-    "applications_today": 0,
+    "applications_today": 9,
     "applications_by_day": {
      "2026-11-06": 10,
      "2026-11-07": 3,
@@ -108580,9 +108580,9 @@
      "2026-11-09": 0,
      "2026-11-10": 2,
      "2026-11-11": 8,
-     "2026-11-12": 0
+     "2026-11-12": 9
     },
-    "applications_7d": 23,
+    "applications_7d": 32,
     "status": "active",
     "revenue_lifetime_usd": null
    },
@@ -108719,10 +108719,10 @@
  "post_metrics": {
   "source": "Postiz /analytics/post",
   "status": "partial",
-  "observed_at": "2026-11-12T20:41:46.123581+09:00",
+  "observed_at": "2026-11-12T21:29:52.429072+09:00",
   "query_window": {
-   "from": "2026-11-02T11:41:46Z",
-   "to": "2026-11-11T11:41:46Z"
+   "from": "2026-11-02T12:29:52Z",
+   "to": "2026-11-11T12:29:52Z"
   },
   "scope": "Sample of published posts from the Postiz query window, capped at the 5 most recent posts per connected account and excluding posts newer than 24 hours. Sample sums are not account-wide totals.",
   "coverage": {
@@ -108731,7 +108731,7 @@
   },
   "observed_at_range": {
    "from": "2026-11-12T08:58:58.229802+09:00",
-   "to": "2026-11-12T20:41:46.123581+09:00"
+   "to": "2026-11-12T21:29:52.429072+09:00"
   },
   "platforms": [
    {
@@ -108743,7 +108743,7 @@
     },
     "observed_at": {
      "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T20:41:46.123581+09:00"
+     "to": "2026-11-12T21:29:52.429072+09:00"
     },
     "metrics": {
      "views": {
@@ -108835,38 +108835,38 @@
     "sampled_posts": 60,
     "published_at": {
      "from": "2026-11-06T12:00:00.000Z",
-     "to": "2026-11-11T11:29:16.000Z"
+     "to": "2026-11-11T12:00:00.000Z"
     },
     "observed_at": {
      "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T20:41:46.123581+09:00"
+     "to": "2026-11-12T21:29:52.429072+09:00"
     },
     "metrics": {
      "views": {
-      "sample_sum": 28571,
-      "posts_with_value": 51,
-      "posts_missing_value": 9,
+      "sample_sum": 23424,
+      "posts_with_value": 49,
+      "posts_missing_value": 11,
       "period_from": "2026-11-11",
       "period_to": "2026-11-12"
      },
      "likes": {
-      "sample_sum": 735,
-      "posts_with_value": 51,
-      "posts_missing_value": 9,
+      "sample_sum": 618,
+      "posts_with_value": 49,
+      "posts_missing_value": 11,
       "period_from": "2026-11-11",
       "period_to": "2026-11-12"
      },
      "replies": {
-      "sample_sum": 5,
-      "posts_with_value": 51,
-      "posts_missing_value": 9,
+      "sample_sum": 4,
+      "posts_with_value": 49,
+      "posts_missing_value": 11,
       "period_from": "2026-11-11",
       "period_to": "2026-11-12"
      },
      "reposts": {
       "sample_sum": 4,
-      "posts_with_value": 51,
-      "posts_missing_value": 9,
+      "posts_with_value": 49,
+      "posts_missing_value": 11,
       "period_from": "2026-11-11",
       "period_to": "2026-11-12"
      }
@@ -108903,24 +108903,24 @@
       "eligible_posts": 60,
       "metrics": {
        "views": {
-        "sample_sum": 27508,
-        "posts_with_value": 47,
-        "posts_missing_value": 13
+        "sample_sum": 22361,
+        "posts_with_value": 45,
+        "posts_missing_value": 15
        },
        "likes": {
-        "sample_sum": 695,
-        "posts_with_value": 47,
-        "posts_missing_value": 13
+        "sample_sum": 578,
+        "posts_with_value": 45,
+        "posts_missing_value": 15
        },
        "replies": {
-        "sample_sum": 4,
-        "posts_with_value": 47,
-        "posts_missing_value": 13
+        "sample_sum": 3,
+        "posts_with_value": 45,
+        "posts_missing_value": 15
        },
        "reposts": {
         "sample_sum": 4,
-        "posts_with_value": 47,
-        "posts_missing_value": 13
+        "posts_with_value": 45,
+        "posts_missing_value": 15
        }
       }
      }
@@ -108935,7 +108935,7 @@
     },
     "observed_at": {
      "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T20:41:46.123581+09:00"
+     "to": "2026-11-12T21:29:52.429072+09:00"
     },
     "metrics": {
      "views": {
@@ -109031,7 +109031,7 @@
     },
     "observed_at": {
      "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T20:41:46.123581+09:00"
+     "to": "2026-11-12T21:29:52.429072+09:00"
     },
     "metrics": {
      "views": {
@@ -109122,12 +109122,12 @@
     "platform": "linkedin",
     "sampled_posts": 5,
     "published_at": {
-     "from": "2026-11-10T10:44:00.000Z",
-     "to": "2026-11-11T06:09:23.000Z"
+     "from": "2026-11-11T02:10:11.000Z",
+     "to": "2026-11-11T11:48:00.000Z"
     },
     "observed_at": {
-     "from": "2026-11-12T08:58:58.229802+09:00",
-     "to": "2026-11-12T20:41:46.123581+09:00"
+     "from": "2026-11-12T21:29:52.429072+09:00",
+     "to": "2026-11-12T21:29:52.429072+09:00"
     },
     "metrics": {
      "views": {
@@ -109169,8 +109169,8 @@
      "to": "2026-11-04T02:07:00.000Z"
     },
     "observed_at": {
-     "from": "2026-11-12T20:41:46.123581+09:00",
-     "to": "2026-11-12T20:41:46.123581+09:00"
+     "from": "2026-11-12T21:29:52.429072+09:00",
+     "to": "2026-11-12T21:29:52.429072+09:00"
     },
     "metrics": {
      "views": {
@@ -109237,7 +109237,7 @@
   "source": "Stripe API",
   "status": "unavailable",
   "reason": "restricted_read_key_missing",
-  "observed_at": "2026-11-12T11:51:33Z",
+  "observed_at": "2026-11-12T12:39:44Z",
   "window": null,
   "balance": {
    "status": "unavailable",
