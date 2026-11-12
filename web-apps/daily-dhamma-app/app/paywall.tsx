@@ -6,7 +6,8 @@ import { X, Check, Flower2, Sparkles, Bell } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import Colors from '@/constants/colors';
 import { useRevenueCat } from '@/providers/RevenueCatProvider';
-import { PurchasesPackage } from 'react-native-purchases';
+import { PURCHASES_ERROR_CODE } from 'react-native-purchases';
+import type { PurchasesPackage } from 'react-native-purchases';
 import i18n, { t, TranslationKey } from '@/utils/i18n';
 import { useTrialEligibility } from '@/utils/useTrialEligibility';
 import {
@@ -83,15 +84,25 @@ export default function PaywallScreen() {
 
     try {
       const customerInfo = await purchasePackage(pkg);
-      const isTrial = customerInfo.entitlements.active['premium']?.periodType === 'TRIAL';
+      // A completed store transaction does not guarantee that this app's
+      // entitlement was granted. Match the provider's access decision before
+      // recording success or leaving the paywall. Never suggest buying again.
+      const entitlement = customerInfo.entitlements.active['premium'];
+      if (!entitlement) {
+        Alert.alert(t('paywall.alert.accessPending.title'), t('paywall.alert.accessPending.msg'));
+        return;
+      }
+      const isTrial = entitlement.periodType === 'TRIAL';
       trackPaywallEvent(isTrial ? 'trial_started' : 'purchase', source);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.replace('/');
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Purchase failed';
-      if (!errorMessage.includes('cancelled') && !errorMessage.includes('PURCHASE_CANCELLED')) {
-        Alert.alert(t('paywall.alert.purchaseFailed.title'), t('paywall.alert.purchaseFailed.msg'));
+      // SDK fields are stable across locales; human-readable error text is not.
+      const purchaseError = error as { code?: string; userCancelled?: boolean } | null;
+      if (purchaseError?.userCancelled === true || purchaseError?.code === PURCHASES_ERROR_CODE.PURCHASE_CANCELLED_ERROR) {
+        return;
       }
+      Alert.alert(t('paywall.alert.purchaseFailed.title'), t('paywall.alert.purchaseFailed.msg'));
     }
   };
 

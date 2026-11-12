@@ -67,6 +67,10 @@
       "restoreFailed": {
         "title": "Restore Failed",
         "msg": "Please try again later."
+      },
+      "accessPending": {
+        "title": "Premium Not Yet Available",
+        "msg": "Your purchase has not unlocked Premium yet. Try Restore Purchases below. If Premium is still unavailable, contact support. You do not need to purchase again."
       }
     },
     "badge": {
