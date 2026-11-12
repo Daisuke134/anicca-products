@@ -23380,673 +23380,818 @@
   },
   "store_funnel_updated_at": "2026-11-11 13:53 JST",
   "app_funnels": {
-    "version": 1,
-    "built_from": "apps-metrics-latest.json (ASC snapshot 2026-11-11T05:18:11Z) + full-funnel-2026-11-11.md (Mixpanel cohort + RevenueCat, 2026-11-11)",
-    "sources": {
-      "store": "App Store Connect Analytics via asc (first-time downloads are Apple units, not RevenueCat new customers)",
-      "in_app": "Mixpanel (Anicca project only; the other five apps have no event stream yet)",
-      "subscription": "RevenueCat official rc CLI + ASC subscription-state report"
-    },
-    "notes": [
-      "Same step list for all six apps: impressions, page views, downloads, first open, onboarding, notification permission, paywall, purchase start, new paid, trial starts, active paid / cancellations.",
-      "Steps that cannot be measured yet are shown as unmeasured with the reason, never estimated. In-app steps are measured only for Anicca today.",
-      "ASC and Mixpanel are separate systems: download counts and first-open cohorts cannot be chained per person."
+    "version": 2,
+    "built_from": "ASC analytics snapshot (window 2026-11-04..11-10) + Mixpanel Raw Export recount 2026-11-12 (production + physical devices only; fixed cohort) + Postiz analytics:post per-post views + Instagram official account-insights + RevenueCat API v2. Full record: anicca-ops files/funnel-fix-2026-11-12.md",
+    "standard_shape": [
+      "sns_views (per surface/account)",
+      "sns_to_store (ct campaign)",
+      "store_impressions",
+      "page_views",
+      "downloads",
+      "first_open",
+      "onboarding screens (named)",
+      "notification_allowed",
+      "review_prompt_shown",
+      "paywall_view",
+      "purchase_started",
+      "purchase_completed",
+      "trial_starts",
+      "active_paid (continuation)",
+      "cancellations"
     ],
+    "notes": [
+      "One chain, one window (2026-11-04 to 2026-11-10) for every step. SNS, store and in-app numbers are no longer reported separately.",
+      "New users = App Store Connect first-time downloads. Anicca's correct window count is 1. The old '25 first opens' was contaminated by our own test traffic (13 virtual devices) and must never be quoted as new users.",
+      "In-app cohort counting rules (fixed): app_environment=production only, virtual device models (iPhone99,x) and simulator excluded. Tool: tools/measurement/funnel_cohort.py.",
+      "Steps that cannot be measured yet are shown as unmeasured with the reason and the receiver that will fill them, never estimated."
+    ],
+    "sns_entries": [
+      {
+        "platform": "TikTok",
+        "account": "anicca_buddha",
+        "target_app": "Anicca",
+        "ct": "tt_buddha",
+        "posts_published": 19,
+        "posts_measured": 8,
+        "views": 5727,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "partial: analytics returned for 8 of 19 posts"
+      },
+      {
+        "platform": "TikTok",
+        "account": "anicca.jp",
+        "target_app": "Anicca",
+        "ct": "tt_jp",
+        "posts_published": 18,
+        "posts_measured": 18,
+        "views": 12999,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post"
+      },
+      {
+        "platform": "TikTok",
+        "account": "anicca.jp4",
+        "target_app": "Anicca",
+        "ct": "tt_jp4",
+        "posts_published": 17,
+        "posts_measured": 15,
+        "views": 16323,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "partial: 15 of 17 posts"
+      },
+      {
+        "platform": "TikTok",
+        "account": "anicca.jpx",
+        "target_app": "Anicca",
+        "ct": null,
+        "posts_published": 16,
+        "posts_measured": 16,
+        "views": 13508,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "no ct assigned in the 2026-11-12 ct table"
+      },
+      {
+        "platform": "TikTok",
+        "account": "anicca.he",
+        "target_app": "Anicca",
+        "ct": "tt_he",
+        "posts_published": 16,
+        "posts_measured": 11,
+        "views": 8851,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "partial: 11 of 16 posts"
+      },
+      {
+        "platform": "TikTok",
+        "account": "anicca_slideshow",
+        "target_app": "Anicca",
+        "ct": "tt_slide",
+        "posts_published": 16,
+        "posts_measured": 15,
+        "views": 3123,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "partial: 15 of 16 posts"
+      },
+      {
+        "platform": "TikTok",
+        "account": "aniccaaffirmation",
+        "target_app": "Anicca",
+        "ct": "tt_aff",
+        "posts_published": 21,
+        "posts_measured": 19,
+        "views": 2579,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "partial: 19 of 21 posts"
+      },
+      {
+        "platform": "TikTok",
+        "account": "aniccaen2",
+        "target_app": "Anicca",
+        "ct": null,
+        "posts_published": 16,
+        "posts_measured": 16,
+        "views": 2624,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "no ct assigned in the 2026-11-12 ct table"
+      },
+      {
+        "platform": "TikTok",
+        "account": "monk_anicca",
+        "target_app": "Anicca",
+        "ct": "tt_cem",
+        "posts_published": 14,
+        "posts_measured": 14,
+        "views": 1578,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "monk lane; posting ended by owner decision 2026-11-12"
+      },
+      {
+        "platform": "TikTok",
+        "account": "obou_anicca",
+        "target_app": "Anicca",
+        "ct": null,
+        "posts_published": 16,
+        "posts_measured": 15,
+        "views": 2,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "partial: 15 of 16 posts"
+      },
+      {
+        "platform": "TikTok",
+        "account": "honnevideo",
+        "target_app": "Honne",
+        "ct": "tt_honnev",
+        "posts_published": 17,
+        "posts_measured": 17,
+        "views": 37592,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post"
+      },
+      {
+        "platform": "TikTok",
+        "account": "honne_reveal",
+        "target_app": "Honne",
+        "ct": "tt_honner",
+        "posts_published": 17,
+        "posts_measured": 17,
+        "views": 2429,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post"
+      },
+      {
+        "platform": "Instagram",
+        "account": "anicca.en",
+        "target_app": "Anicca",
+        "ct": "ig_en",
+        "posts_published": null,
+        "posts_measured": null,
+        "views": 238,
+        "status": "measured",
+        "note": "official account-insights Views in window (all posts)"
+      },
+      {
+        "platform": "Instagram",
+        "account": "anicca.jp.videos",
+        "target_app": "Anicca",
+        "ct": "ig_jpv",
+        "posts_published": null,
+        "posts_measured": null,
+        "views": 148,
+        "status": "measured",
+        "note": "official account-insights Views in window (all posts)"
+      },
+      {
+        "platform": "Instagram",
+        "account": "monk.mujo",
+        "target_app": "Anicca",
+        "ct": "ig_monk",
+        "posts_published": null,
+        "posts_measured": null,
+        "views": 707,
+        "status": "measured",
+        "note": "official account-insights Views in window; monk lane, posting ended 2026-11-12"
+      },
+      {
+        "platform": "Instagram",
+        "account": "obou.anicca",
+        "target_app": "Anicca",
+        "ct": null,
+        "posts_published": null,
+        "posts_measured": null,
+        "views": 3,
+        "status": "measured",
+        "note": "official account-insights Views in window"
+      },
+      {
+        "platform": "Instagram",
+        "account": "honnehonyaku",
+        "target_app": "Honne",
+        "ct": "ig_honne",
+        "posts_published": null,
+        "posts_measured": null,
+        "views": 8,
+        "status": "measured",
+        "note": "official account-insights Views in window (all posts)"
+      },
+      {
+        "platform": "YouTube",
+        "account": "@anicca-affirmation-video",
+        "target_app": "Anicca",
+        "ct": null,
+        "posts_published": 18,
+        "posts_measured": 18,
+        "views": 52,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post"
+      },
+      {
+        "platform": "YouTube",
+        "account": "@anicca-ai",
+        "target_app": "Anicca",
+        "ct": null,
+        "posts_published": 6,
+        "posts_measured": 5,
+        "views": 6,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "partial: 5 of 6 posts"
+      },
+      {
+        "platform": "X",
+        "account": "diceai0",
+        "target_app": "Anicca",
+        "ct": null,
+        "posts_published": 6,
+        "posts_measured": 4,
+        "views": 566,
+        "status": "measured",
+        "views_definition": "cumulative views of posts published in the window, read 2026-11-12 via Postiz analytics:post",
+        "note": "Impressions; partial: 4 of 6 posts; company account, shown under Anicca"
+      },
+      {
+        "platform": "LinkedIn",
+        "account": "daisuke-narita",
+        "target_app": "Anicca",
+        "ct": null,
+        "posts_published": 21,
+        "posts_measured": 0,
+        "views": null,
+        "status": "unmeasured",
+        "note": "unmeasured: Postiz analytics:post returns empty arrays for LinkedIn; alternative official route (LinkedIn post analytics) not connected"
+      },
+      {
+        "platform": "Blog",
+        "account": "aniccaai.com/blog",
+        "target_app": "Anicca",
+        "ct": "web_blog",
+        "posts_published": null,
+        "posts_measured": null,
+        "views": null,
+        "status": "unmeasured",
+        "note": "unmeasured: no official page-view route connected; tracked instead by per-article ct (web_blog_YYYYMMDD_slug) into ASC campaign reports once links are placed"
+      }
+    ],
+    "link_step": {
+      "step_id": "sns_to_store",
+      "label": "SNS view -> store arrival (per ct campaign)",
+      "status": "unmeasured",
+      "reason": "ct links are not placed yet (Issue #40; placement is blocked in another lane). Receiver built first, per the owner's rule: ASC Analytics campaign (ct) aggregation is defined and the ct table is fixed (anicca-ops team-outbox/muse/ct-links-2026-11-12.md, pt=93486075). From the first window after placement, store impressions/downloads join the chain per account.",
+      "ct_values": [
+        "ig_en",
+        "ig_jpv",
+        "ig_honne",
+        "tt_buddha",
+        "tt_aff",
+        "tt_slide",
+        "tt_jp",
+        "tt_jp4",
+        "tt_he",
+        "tt_honnev",
+        "tt_honner",
+        "web_blog"
+      ]
+    },
     "apps": [
       {
         "app": "Anicca",
-        "apple_id": "6755129214",
+        "apple_id": 6755129214,
         "steps": [
           {
-            "step_id": "impressions",
-            "label": "Impressions",
+            "step_id": "store_impressions",
+            "label": "Store impressions",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 994,
+            "value": 334,
             "pct_of_impressions": 100.0
           },
           {
             "step_id": "page_views",
             "label": "Product page views",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 81,
-            "pct_of_impressions": 8.1
+            "value": 14,
+            "pct_of_impressions": 4.2
           },
           {
             "step_id": "downloads",
-            "label": "First-time downloads",
+            "label": "First-time downloads (= new users)",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 14,
-            "pct_of_impressions": 1.4
+            "value": 1,
+            "pct_of_impressions": 0.3,
+            "note": "This 1 is the correct new-user count for the window. The old '25 first opens' figure was test-traffic contamination (13 virtual devices) and is retired."
           },
           {
             "step_id": "first_open",
-            "label": "First open",
+            "label": "First open (in-app cohort, physical devices, production)",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 25,
+            "value": 12,
             "pct_of_first_open": 100.0,
-            "note": "Distinct-user cohort (production, n=25). Separate system from ASC units; includes updated/existing users, so it is not directly chained to the 14 downloads above."
+            "note": "Distinct physical-device users whose first production app_opened fell in the window (steps counted through 2026-11-11). A different count from store downloads: it includes TestFlight/reinstall/earlier-install users. Virtual devices (iPhone99,x) and simulator excluded."
           },
           {
-            "step_id": "onboarding_completed",
-            "label": "Onboarding completed",
+            "step_id": "onboarding_started",
+            "label": "Onboarding started",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 25,
+            "value": 12,
+            "pct_of_first_open": 100.0
+          },
+          {
+            "step_id": "screen_goal",
+            "label": "Screen: Goal (onboarding.goal)",
+            "source": "Mixpanel",
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "measured",
+            "value": 12,
+            "pct_of_first_open": 100.0
+          },
+          {
+            "step_id": "screen_plan_step",
+            "label": "Screen: Plan reveal / First affirmation (same step; screen_id renamed between builds 816-818 and 820-822)",
+            "source": "Mixpanel",
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "measured",
+            "value": 12,
+            "pct_of_first_open": 100.0
+          },
+          {
+            "step_id": "screen_reminder_step",
+            "label": "Screen: Reminder times (nudge_times / reminder_schedule; same step)",
+            "source": "Mixpanel",
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "measured",
+            "value": 12,
+            "pct_of_first_open": 100.0
+          },
+          {
+            "step_id": "screen_notifications",
+            "label": "Screen: Notifications (onboarding.notifications)",
+            "source": "Mixpanel",
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "measured",
+            "value": 12,
             "pct_of_first_open": 100.0
           },
           {
             "step_id": "notification_allowed",
             "label": "Notification permission allowed",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
             "value": 2,
-            "pct_of_first_open": 8.0,
-            "note": "All 25 cohort users reached the permission step: allowed 2 (8.0%), denied 19, skipped 4."
+            "pct_of_first_open": 16.7,
+            "note": "First result per user: allowed 2 (16.7%), denied 9, skipped 1. The pre-fix 8.0% used the contaminated n=25 cohort."
+          },
+          {
+            "step_id": "onboarding_completed",
+            "label": "Onboarding completed",
+            "source": "Mixpanel",
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "measured",
+            "value": 12,
+            "pct_of_first_open": 100.0
+          },
+          {
+            "step_id": "review_prompt_shown",
+            "label": "Review prompt shown (rating_store_review_requested)",
+            "source": "Mixpanel",
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "measured",
+            "value": 0,
+            "note": "Measured zero: no rating prompt event fired anywhere in the 2026-11-04..11-11 export (all apps, all environments). The prompt sits after the value experience by design (ReviewPromptPolicy), not inside onboarding."
           },
           {
             "step_id": "paywall_view",
             "label": "Paywall view",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 23,
-            "pct_of_first_open": 92.0
+            "value": 10,
+            "pct_of_first_open": 83.3
           },
           {
             "step_id": "purchase_started",
             "label": "Purchase started",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 2,
-            "pct_of_first_open": 8.0,
-            "note": "2 users; 8.7% of paywall viewers. Mixpanel purchase_completed events carry no app attribution, so completion is read from ASC + RevenueCat below."
+            "value": 1,
+            "pct_of_first_open": 8.3
           },
           {
             "step_id": "purchase_completed",
             "label": "New paid subscriptions (window)",
             "source": "App Store Connect + RevenueCat",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
             "value": 0,
-            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+            "note": "Both money systems agree: 0. The 98 client purchase_completed events in Mixpanel all carry no app/environment tags (legacy/test rows) and are excluded."
           },
           {
             "step_id": "trial_starts",
-            "label": "Trial starts (28d)",
+            "label": "Trial starts (window)",
             "source": "RevenueCat",
-            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 0,
-            "note": "Active trials 0. Anicca and Honne share one RevenueCat project; combined MRR $20 (rc CLI, 2026-11-11); per-app MRR split unmeasured."
+            "value": 0
           },
           {
-            "step_id": "retention",
-            "label": "Active paid (stock) / cancellations (cumulative)",
-            "source": "App Store Connect subscription state",
-            "window": "stock at 2026-11-09",
+            "step_id": "active_paid",
+            "label": "Active paid subscriptions (point in time, 2026-11-10)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": {
-              "active_paid": 5,
-              "voluntary_churn_cumulative": 35,
-              "involuntary_churn_cumulative": 2
-            },
-            "note": "Active paid 5 = full price 4 + preserved price 1 (ASC, 2026-11-09)."
+            "value": 5,
+            "note": "4 real paying customers (one further subscription is the owner's own). Official project MRR about $20."
+          },
+          {
+            "step_id": "cancellations_window",
+            "label": "Cancellations in window",
+            "source": "RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "measured",
+            "value": 0,
+            "note": "Cumulative voluntary cancellations 35, involuntary 2 (all time, ASC state report)."
+          },
+          {
+            "step_id": "revenue_per_download",
+            "label": "Revenue per download (winner-form headline metric)",
+            "source": "RevenueCat + App Store Connect",
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "measured",
+            "value": 0,
+            "note": "Window revenue $0 / 1 download. Form copied from the published I am teardown (Airbridge, Oct 2026): revenue per download and retention by channel are the headline ratios."
           }
         ]
       },
       {
         "app": "Honne",
-        "apple_id": "6759667221",
+        "apple_id": 6759667221,
         "steps": [
           {
-            "step_id": "impressions",
-            "label": "Impressions",
+            "step_id": "store_impressions",
+            "label": "Store impressions",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 2439,
+            "value": 147,
             "pct_of_impressions": 100.0
           },
           {
             "step_id": "page_views",
             "label": "Product page views",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 92,
-            "pct_of_impressions": 3.8
+            "value": 4,
+            "pct_of_impressions": 2.7
           },
           {
             "step_id": "downloads",
-            "label": "First-time downloads",
+            "label": "First-time downloads (= new users)",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 14,
-            "pct_of_impressions": 0.6
+            "value": 0,
+            "pct_of_impressions": 0.0
           },
           {
             "step_id": "first_open",
-            "label": "First open",
+            "label": "First open (in-app cohort, physical devices, production)",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "unmeasured",
             "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "onboarding_completed",
-            "label": "Onboarding completed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "notification_allowed",
-            "label": "Notification permission allowed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "paywall_view",
-            "label": "Paywall view",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "purchase_started",
-            "label": "Purchase started",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+            "note": "No events received in the Mixpanel project yet. The receiver is ready: tools/measurement/funnel_cohort.py already emits this app's chain row and fills it automatically from the first window with events (production + physical-device counting rules fixed)."
           },
           {
             "step_id": "purchase_completed",
             "label": "New paid subscriptions (window)",
-            "source": "App Store Connect + RevenueCat",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "source": "RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
             "value": 0,
-            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+            "note": "Anicca+Honne share one RevenueCat project: window new paid 0, trials 0, cancellations 0 (combined)."
           },
           {
             "step_id": "trial_starts",
-            "label": "Trial starts (28d)",
+            "label": "Trial starts (window)",
             "source": "RevenueCat",
-            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 0,
-            "note": "Active trials 0. Shares the RevenueCat project with Anicca (combined MRR $20); per-app split unmeasured."
+            "value": 0
           },
           {
-            "step_id": "retention",
-            "label": "Active paid (stock) / cancellations (cumulative)",
-            "source": "App Store Connect subscription state",
-            "window": "stock at 2026-11-09",
+            "step_id": "active_paid",
+            "label": "Active paid subscriptions (point in time, 2026-11-10)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": {
-              "active_paid": 2,
-              "voluntary_churn_cumulative": 4,
-              "involuntary_churn_cumulative": null
-            },
-            "note": "Active paid 2, both full price (ASC, 2026-11-09)."
+            "value": 2
           }
         ]
       },
       {
         "app": "Dhamma Quotes",
-        "apple_id": "6757726663",
+        "apple_id": 6757726663,
         "steps": [
           {
-            "step_id": "impressions",
-            "label": "Impressions",
+            "step_id": "store_impressions",
+            "label": "Store impressions",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 907,
+            "value": 210,
             "pct_of_impressions": 100.0
           },
           {
             "step_id": "page_views",
             "label": "Product page views",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 48,
-            "pct_of_impressions": 5.3
+            "value": 7,
+            "pct_of_impressions": 3.3
           },
           {
             "step_id": "downloads",
-            "label": "First-time downloads",
+            "label": "First-time downloads (= new users)",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 15,
-            "pct_of_impressions": 1.7
+            "value": 5,
+            "pct_of_impressions": 2.4
           },
           {
             "step_id": "first_open",
-            "label": "First open",
+            "label": "First open (in-app cohort, physical devices, production)",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "unmeasured",
             "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "onboarding_completed",
-            "label": "Onboarding completed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "notification_allowed",
-            "label": "Notification permission allowed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "paywall_view",
-            "label": "Paywall view",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "purchase_started",
-            "label": "Purchase started",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+            "note": "Measured: 0 production first-open users in the window (the only production user first opened 2026-11-11, outside the window). The cohort is built automatically by funnel_cohort.py; screen steps fill from the first window with users."
           },
           {
             "step_id": "purchase_completed",
             "label": "New paid subscriptions (window)",
-            "source": "App Store Connect + RevenueCat",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "source": "RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
             "value": 0,
-            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+            "note": "Own RevenueCat project: window new paid 0, trials 0, cancellations 0."
           },
           {
             "step_id": "trial_starts",
-            "label": "Trial starts (28d)",
+            "label": "Trial starts (window)",
             "source": "RevenueCat",
-            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 0,
-            "note": "RevenueCat project proj86624956: active trials 0, MRR $0."
+            "value": 0
           },
           {
-            "step_id": "retention",
-            "label": "Active paid (stock) / cancellations (cumulative)",
-            "source": "App Store Connect subscription state",
-            "window": "stock at 2026-11-09",
+            "step_id": "active_paid",
+            "label": "Active paid subscriptions (point in time, 2026-11-10)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": {
-              "active_paid": 0,
-              "voluntary_churn_cumulative": null,
-              "involuntary_churn_cumulative": null
-            },
-            "note": "No rows in the ASC subscription-state report for this app; RevenueCat active subscriptions 0."
+            "value": 0
           }
         ]
       },
       {
         "app": "Sleep Reset",
-        "apple_id": "6762143790",
+        "apple_id": 6762143790,
         "steps": [
           {
-            "step_id": "impressions",
-            "label": "Impressions",
+            "step_id": "store_impressions",
+            "label": "Store impressions",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 345,
+            "value": 112,
             "pct_of_impressions": 100.0
           },
           {
             "step_id": "page_views",
             "label": "Product page views",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 9,
-            "pct_of_impressions": 2.6
+            "value": 0,
+            "pct_of_impressions": 0.0
           },
           {
             "step_id": "downloads",
-            "label": "First-time downloads",
+            "label": "First-time downloads (= new users)",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 4,
-            "pct_of_impressions": 1.2
+            "value": 0,
+            "pct_of_impressions": 0.0
           },
           {
             "step_id": "first_open",
-            "label": "First open",
+            "label": "First open (in-app cohort, physical devices, production)",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "unmeasured",
             "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "onboarding_completed",
-            "label": "Onboarding completed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "notification_allowed",
-            "label": "Notification permission allowed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "paywall_view",
-            "label": "Paywall view",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "purchase_started",
-            "label": "Purchase started",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+            "note": "No events received in the Mixpanel project yet. Receiver ready (funnel_cohort.py emits the row; production + physical-device rules fixed)."
           },
           {
             "step_id": "purchase_completed",
             "label": "New paid subscriptions (window)",
-            "source": "App Store Connect + RevenueCat",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "source": "RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
             "value": 0,
-            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+            "note": "Window new paid 0, trials 0. Cumulative voluntary cancellations 1."
           },
           {
             "step_id": "trial_starts",
-            "label": "Trial starts (28d)",
+            "label": "Trial starts (window)",
             "source": "RevenueCat",
-            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 1,
-            "note": "1 trial started in the window (RevenueCat charts); it did not convert to paid. Active trials 0."
+            "value": 0
           },
           {
-            "step_id": "retention",
-            "label": "Active paid (stock) / cancellations (cumulative)",
-            "source": "App Store Connect subscription state",
-            "window": "stock at 2026-11-09",
+            "step_id": "active_paid",
+            "label": "Active paid subscriptions (point in time, 2026-11-10)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": {
-              "active_paid": 0,
-              "voluntary_churn_cumulative": 1,
-              "involuntary_churn_cumulative": null
-            },
-            "note": "RevenueCat for this app is read via charts only (the key lacks overview permission)."
+            "value": 0
           }
         ]
       },
       {
         "app": "Thankful",
-        "apple_id": "6759514159",
+        "apple_id": 6759514159,
         "steps": [
           {
-            "step_id": "impressions",
-            "label": "Impressions",
+            "step_id": "store_impressions",
+            "label": "Store impressions",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 363,
+            "value": 111,
             "pct_of_impressions": 100.0
           },
           {
             "step_id": "page_views",
             "label": "Product page views",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 33,
-            "pct_of_impressions": 9.1
+            "value": 12,
+            "pct_of_impressions": 10.8
           },
           {
             "step_id": "downloads",
-            "label": "First-time downloads",
+            "label": "First-time downloads (= new users)",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 2,
-            "pct_of_impressions": 0.6
+            "value": 0,
+            "pct_of_impressions": 0.0
           },
           {
             "step_id": "first_open",
-            "label": "First open",
+            "label": "First open (in-app cohort, physical devices, production)",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "unmeasured",
             "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "onboarding_completed",
-            "label": "Onboarding completed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "notification_allowed",
-            "label": "Notification permission allowed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "paywall_view",
-            "label": "Paywall view",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "purchase_started",
-            "label": "Purchase started",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+            "note": "Measured: 0 production first-open users in the window (the only production user first opened 2026-11-11, outside the window). Cohort built automatically by funnel_cohort.py."
           },
           {
             "step_id": "purchase_completed",
             "label": "New paid subscriptions (window)",
-            "source": "App Store Connect + RevenueCat",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "source": "RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
             "value": 0,
-            "note": "ASC subscription events in window: 0 rows; RevenueCat 28d revenue $0. Two systems agree: no new paid subscription in the window."
+            "note": "Own RevenueCat project: window new paid 0, trials 0, cancellations 0."
           },
           {
             "step_id": "trial_starts",
-            "label": "Trial starts (28d)",
+            "label": "Trial starts (window)",
             "source": "RevenueCat",
-            "window": "2026-10-14 to 2026-11-11 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 0,
-            "note": "RevenueCat project proj7aaf9429: active trials 0, MRR $0."
+            "value": 0
           },
           {
-            "step_id": "retention",
-            "label": "Active paid (stock) / cancellations (cumulative)",
-            "source": "App Store Connect subscription state",
-            "window": "stock at 2026-11-09",
+            "step_id": "active_paid",
+            "label": "Active paid subscriptions (point in time, 2026-11-10)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": {
-              "active_paid": 0,
-              "voluntary_churn_cumulative": null,
-              "involuntary_churn_cumulative": null
-            },
-            "note": "No rows in the ASC subscription-state report for this app; RevenueCat active subscriptions 0."
+            "value": 0
           }
         ]
       },
       {
         "app": "STUDIO CHERIE",
-        "apple_id": "6766485903",
+        "apple_id": 6766485903,
         "steps": [
           {
-            "step_id": "impressions",
-            "label": "Impressions",
+            "step_id": "store_impressions",
+            "label": "Store impressions",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 481,
+            "value": 108,
             "pct_of_impressions": 100.0
           },
           {
             "step_id": "page_views",
             "label": "Product page views",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 48,
-            "pct_of_impressions": 10.0
+            "value": 6,
+            "pct_of_impressions": 5.6
           },
           {
             "step_id": "downloads",
-            "label": "First-time downloads",
+            "label": "First-time downloads (= new users)",
             "source": "App Store Connect",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": 2,
-            "pct_of_impressions": 0.4
+            "value": 1,
+            "pct_of_impressions": 0.9
           },
           {
             "step_id": "first_open",
-            "label": "First open",
+            "label": "First open (in-app cohort, physical devices, production)",
             "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "unmeasured",
             "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "onboarding_completed",
-            "label": "Onboarding completed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "notification_allowed",
-            "label": "Notification permission allowed",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "paywall_view",
-            "label": "Paywall view",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
-          },
-          {
-            "step_id": "purchase_started",
-            "label": "Purchase started",
-            "source": "Mixpanel",
-            "window": "2026-11-06 to 2026-11-10",
-            "status": "unmeasured",
-            "value": null,
-            "note": "Unmeasured: no Mixpanel event stream exists for this app (the only Mixpanel project is Anicca's). In-app steps wait on instrumentation in a future build; this is not zero."
+            "note": "No events received in the Mixpanel project yet, and no RevenueCat project is attributed. Receivers ready on both sides (funnel_cohort.py row + RC project attribution is the remaining wiring)."
           },
           {
             "step_id": "purchase_completed",
             "label": "New paid subscriptions (window)",
-            "source": "App Store Connect + RevenueCat",
-            "window": "2026-10-14 to 2026-11-10 (28d)",
-            "status": "measured",
-            "value": 0,
-            "note": "ASC subscription events in window: 0 rows; RevenueCat revenue $0 (project created 2026-11-11)."
+            "source": "RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null,
+            "note": "No RevenueCat project attributed, so window purchases are unmeasured rather than zero."
           },
           {
             "step_id": "trial_starts",
-            "label": "Trial starts (28d)",
+            "label": "Trial starts (window)",
             "source": "RevenueCat",
-            "window": "2026-10-14 to 2026-11-11 (28d)",
-            "status": "measured",
-            "value": 0,
-            "note": "RevenueCat project was created 2026-11-11 12:16 JST; all stock metrics are 0."
+            "window": "2026-11-04 to 2026-11-10",
+            "status": "unmeasured",
+            "value": null
           },
           {
-            "step_id": "retention",
-            "label": "Active paid (stock) / cancellations (cumulative)",
-            "source": "App Store Connect subscription state",
-            "window": "stock at 2026-11-09",
+            "step_id": "active_paid",
+            "label": "Active paid subscriptions (point in time, 2026-11-10)",
+            "source": "App Store Connect + RevenueCat",
+            "window": "2026-11-04 to 2026-11-10",
             "status": "measured",
-            "value": {
-              "active_paid": 0,
-              "voluntary_churn_cumulative": null,
-              "involuntary_churn_cumulative": null
-            },
-            "note": "No rows in the ASC subscription-state report for this app; RevenueCat active subscriptions 0."
+            "value": 0
           }
         ]
       }
