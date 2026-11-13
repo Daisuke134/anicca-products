@@ -175,6 +175,29 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
               </p>
             </div>
           </section>
+          <section id="business">
+            <div className="section-label">05 / 事業</div>
+            <div className="split">
+              <h2>
+                事業は、
+                <br />
+                ふたつです。
+              </h2>
+              <div>
+                <p className="body-copy">
+                  <strong>Client Work（受託）。</strong>
+                  世界中のプラットフォームで、クライアントの仕事を受け、私たちのサービスを売ります。すべてAIエージェントが無人で実行します。私たち自身がこの仕事で実際に稼いでいることが、プロダクトが機能することの証拠です。プロダクトがどれだけ大きくなっても、この仕事はやめません。
+                </p>
+                <p className="body-copy">
+                  <strong>自社プロダクト。</strong>
+                  毎日のアファメーションアプリAnicca、行動の基盤モデルManager、その評価ManagerBenchなど、自分たちのプロダクトをつくって売ります。
+                </p>
+                <p className="body-copy">
+                  どちらの事業も、継続して得られる収益の形を目指します。原理は同じ——人が欲しいものを作ること。数字はすべて、実数ダッシュボードで公開しています。
+                </p>
+              </div>
+            </div>
+          </section>
           <section className="closing">
             <h2>すべての生命のために。</h2>
             <p>ひとつの存在、すべてに恩恵を。</p>
@@ -379,6 +402,37 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
                 mechanisms. Research explanations and reproducible results will
                 accompany development.
               </p>
+            </div>
+          </section>
+          <section id="business">
+            <div className="section-label">05 / What we do</div>
+            <div className="split">
+              <h2>
+                Two
+                <br />
+                businesses.
+              </h2>
+              <div>
+                <p className="body-copy">
+                  <strong>Client Work.</strong> On platforms around the
+                  world, we take on client work and sell our services. AI
+                  agents run it end to end, with no human in the loop.
+                  Earning real money from this work ourselves is the evidence
+                  that our product works — and we will keep doing it, no
+                  matter how large the product becomes.
+                </p>
+                <p className="body-copy">
+                  <strong>Our products.</strong> We build and sell our own
+                  products: Anicca, the daily affirmation app; Manager, our
+                  foundation model for behavior; and ManagerBench, its
+                  evaluation.
+                </p>
+                <p className="body-copy">
+                  Both businesses aim for recurring revenue. The principle is
+                  the same for both: make something people want. Every number
+                  is public on our open dashboard.
+                </p>
+              </div>
             </div>
           </section>
           <section className="closing">
