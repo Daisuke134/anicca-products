@@ -9,7 +9,7 @@ process.chdir(fileURLToPath(new URL('../',import.meta.url)));
 const page=await import(compiled(new URL('../app/blog/page.tsx',import.meta.url)));
 test('reader hub has bounded topic previews, latest list and crawlable all-articles link',()=>{
  const html=renderToStaticMarkup(React.createElement(page.default));
- const links=[...html.matchAll(/href="\/blog\/([^"/]+)"/g)];assert.ok(links.filter(m=>m[1]!=='manager').length<=28,'topic previews (at most two per topic; 22 across the 13 topics that have posts, incl. the 2026-11-07 product hubs honne/daily-dhamma/sleep-reset/studio-cherie) plus six latest articles must be bounded');
+ const links=[...html.matchAll(/href="\/blog\/([^"/]+)"/g)];assert.ok(links.filter(m=>m[1]!=='manager').length<=32,'topic previews (at most two per topic; up to 26 across the 13 topics that have posts, incl. product hubs) plus six latest articles must be bounded');
  assert.match(html,/href="\/blog\/archive\/1"/);assert.equal((html.match(/data-app-id=/g)||[]).length,6);assert.match(html,/Research/);assert.doesNotMatch(html,/Free tier mirrors|paid tier funds|xiv\. Articles/);
  for(const m of html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)){const d=JSON.parse(m[1]);if(d.mainEntity?.['@type']==='ItemList')assert.equal(d.mainEntity.numberOfItems,d.mainEntity.itemListElement.length);}
 });
