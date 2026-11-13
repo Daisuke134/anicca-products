@@ -81,7 +81,13 @@ a.idx .go{color:#576CDB;font-size:12px;font-weight:600;margin-top:2px}
 .subnav .sep{color:#bbb}
 @media(max-width:900px){.chartrow{grid-template-columns:1fr}.idxgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.idxgrid{grid-template-columns:1fr}}
-</style><style id="page-css">.grpwrap{display:none}</style></head><body><div class="w">
+</style><style id="page-css">.grpwrap{display:none}</style><style>/* === One Flesh: Model x Eval x Product (2026-11-14) === */
+.offlow{font-size:12.5px;color:#444;background:#fff;border:1px dashed #c7d2fe;border-radius:12px;padding:8px 14px;margin-bottom:12px}
+.ofstatus{font-size:12.5px;font-weight:600;margin:4px 0 8px;line-height:1.45}
+.ofrow{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #f2f2f2;padding:5px 0 1px}
+.ofl{color:#666;font-size:12px}.ofv{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.ofn{font-size:11px;color:#888;line-height:1.45;padding-bottom:3px}
+</style></head><body><div class="w">
 <h1>Anicca Open Dashboard</h1><div class="sub">An AI-run company. Every number we can measure, in one place. Tier 1 is company totals only; Tier 2 groups each platform and business at its own granularity. Each metric has one canonical value. Company totals are unknown where coverage is incomplete. USD unless labelled. <span id="upd"></span></div>
 <div class="c" id="status"></div>
 <div class="tier"><b>TIER 1 · COMPANY</b><span>Whole-company totals only — platform detail lives in Tier 2</span></div>
@@ -97,6 +103,13 @@ a.idx .go{color:#576CDB;font-size:12px;font-weight:600;margin-top:2px}
 <div class="c" id="card-monthly" style="margin-bottom:12px"><h2>Monthly revenue <span class="scope co">COMPANY</span></h2><div class="bars" id="bars"></div><div class="bl" id="bl"></div><div class="lg" id="lg"></div></div>
 <div class="chartrow" id="top-charts"><div class="c chartcard"><h2>App installs per day <span class="scope">COMPANY · APP STORE (first-time downloads)</span></h2><div class="cstat" id="stat-installs"></div><div class="chartbox" id="chart-installs"></div><p class="zero" style="margin:6px 0 0">Source: App Store Connect Sales reports, first-time downloads only (no redownloads, no updates). RevenueCat &ldquo;new customers&rdquo; are not installs and are shown separately under Apps.</p></div>
 <div class="c chartcard"><h2>Revenue, costs &amp; profit by month <span class="scope">COMPANY</span></h2><div class="cstat" id="stat-pnl"></div><div class="chartbox" id="chart-pnl"></div></div>
+</div>
+<div class="tier" id="of-band"><b>ONE FLESH · MODEL × EVAL × PRODUCT</b><span id="of-upd"></span></div>
+<div class="offlow" id="of-flow"></div>
+<div class="cards t1" id="one-flesh">
+<div class="mc" id="of-model"><div class="m">Loading…</div></div>
+<div class="mc" id="of-eval"><div class="m">Loading…</div></div>
+<div class="mc" id="of-product"><div class="m">Loading…</div></div>
 </div>
 <div class="tier t2"><b>TIER 2 · DRILL-DOWN</b><span>Grouped by platform / business — one granularity per group</span></div>
 <div class="idxgrid" id="drill-index"><a class="idx" href="platforms/"><div class="t">Platforms &amp; products</div><div class="s">Revenue by platform &amp; product · costs detail</div><div class="n" id="idx-stat-platforms">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="capafy/"><div class="t">Capafy</div><div class="s">Marketplace funnel &amp; sales</div><div class="n" id="idx-stat-capafy">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="apps/"><div class="t">Apps</div><div class="s">App Store + RevenueCat, per app</div><div class="n" id="idx-stat-apps">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="social/"><div class="t">Social &amp; distribution</div><div class="s">Post metrics · accounts · self vs winner</div><div class="n" id="idx-stat-social">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="rankings/"><div class="t">Search &amp; rankings</div><div class="s">SEO · ASO · GEO</div><div class="n" id="idx-stat-rankings">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="payments/"><div class="t">Payments · Stripe</div><div class="s">Account metrics</div><div class="n" id="idx-stat-payments">Detail dashboard</div><div class="go">Open →</div></a><a class="idx" href="team/"><div class="t">Team &amp; operations</div><div class="s">Agents · loops · targets · usage</div><div class="n" id="idx-stat-team">Detail dashboard</div><div class="go">Open →</div></a></div>
@@ -389,11 +402,23 @@ const renderAniccaProductAnalytics=a=>{
   host.innerHTML=F.apps.map(app=>'<h3 style="margin:14px 0 4px">'+esc(app.app)+'</h3><div style="overflow-x:auto"><table class="asc-apps"><tr><th>Step</th><th class="r">Value</th><th>Rate</th><th>Source</th><th>Window / note</th></tr>'+app.steps.map(st=>'<tr><td>'+esc(st.label)+'</td><td class="r">'+val(st)+'</td><td class="m">'+esc(pctCell(st))+'</td><td class="m">'+esc(st.source||'')+'</td><td class="m" style="font-size:11px">'+esc(st.window||'')+(st.note?' \u00b7 '+esc(st.note):'')+'</td></tr>').join('')+'</table></div>').join('')+((F.notes||[]).length?'<div class="m" style="margin-top:8px">'+F.notes.map(x=>esc(x)).join(' ')+'</div>':'');
  }
 
+const renderOneFlesh=F=>{
+ const band=$('of-band'),host=$('one-flesh');
+ if(!F){if(band)band.style.display='none';if(host)host.style.display='none';const fl=$('of-flow');if(fl)fl.style.display='none';return}
+ $('of-upd').textContent='Section updated '+(F.updated_at||'')+' \u00b7 refreshed by the hourly as-is loop from canonical sources; page reloads JSON every 15 min';
+ $('of-flow').textContent=F.flow||'';
+ const card=(id,s)=>{
+  const el=$(id);if(!el||!s)return;
+  el.innerHTML='<h3>'+esc(s.title)+'</h3><div class="ofstatus">'+esc(s.status)+'</div>'+(s.metrics||[]).map(m=>'<div class="ofrow"><span class="ofl">'+esc(m.label)+'</span><span class="ofv">'+esc(m.value)+'</span></div><div class="ofn">'+esc(m.note||'')+'</div>').join('')+'<div class="ofn" style="margin-top:6px">'+esc(s.source||'')+' \u00b7 as of '+esc(s.source_as_of||'')+'</div>';
+ };
+ card('of-model',F.model);card('of-eval',F.eval);card('of-product',F.product);
+};
 const loadData=()=>fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
  ['status','card-team','card-store-funnel','card-apps','card-anicca-product-analytics','card-app-funnels','card-soc','card-svw','card-rank'].forEach(id=>$(id).style.display='');
  renderAniccaProductAnalytics(d.product_analytics?.anicca_ios);
  renderStoreFunnel(d);
  renderAppFunnels(d);
+ renderOneFlesh(d.one_flesh);
  const S=d.summary,K=Object.fromEntries(d.kpis.map(k=>[k.key,k])),mon=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(d.month+'-01T12:00:00Z'));
  $('upd').textContent='Ledger snapshot '+d.updated_at+'.';
  const ats=S.platforms.reduce((a,p)=>a+(p.all_time||0),0),lm=S.trend.length>1?S.trend[S.trend.length-2]:null;

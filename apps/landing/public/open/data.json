@@ -1,6 +1,94 @@
 {
   "version": 2,
   "updated_at": "2026-11-13 23:37 JST",
+  "one_flesh": {
+    "updated_at": "2026-11-14 00:16 JST",
+    "flow": "Model predicts → Eval judges → Product delivers & measures real responses → Data feeds Model",
+    "model": {
+      "title": "Model — Manager",
+      "status": "Cursor MG-05 · intervention effect not yet proven",
+      "metrics": [
+        {
+          "label": "ManagerBench baseline",
+          "value": "192 rows",
+          "note": "126 + BehaviorBench integration (2026-11-13)"
+        },
+        {
+          "label": "Be.FM strict accuracy vs prior",
+          "value": "0.5556 vs 0.6111",
+          "note": "10/18 vs 11/18 · official GitHub Actions run 42773122099 · below prior"
+        },
+        {
+          "label": "Dictator game, distribution W",
+          "value": "2.105",
+          "note": "Inside human split-half band 3.43 ± 1.59 · KS pass"
+        },
+        {
+          "label": "MG-06 pre-registration",
+          "value": "due 2026-11-14 18:00",
+          "note": "Scoped to across-game family · Talp card + human ceiling + copying check required"
+        }
+      ],
+      "source": "Canonical: files/model-eval-results-2026-11-12.md",
+      "source_as_of": "2026-11-13"
+    },
+    "eval": {
+      "title": "Eval — ManagerBench & gates",
+      "status": "BehaviorBench head-to-head KEEP · Talp 5-axis card on every result since 2026-11-13",
+      "metrics": [
+        {
+          "label": "BehaviorBench 34-task head-to-head",
+          "value": "Be.FM 28 W · Qwen 2 W · 4 ties",
+          "note": "Sign test p=8.7e-7 (5% margin recount, 2026-11-13) · KEEP"
+        },
+        {
+          "label": "Funnel eval (EDD)",
+          "value": "2 / 8 passed",
+          "note": "First run 2026-11-12 · notification permission 8.0% vs 44% bar"
+        },
+        {
+          "label": "Distribution eval (EDD)",
+          "value": "4 / 10 passed",
+          "note": "First run 2026-11-12"
+        },
+        {
+          "label": "Intervention cases in ManagerBench",
+          "value": "0",
+          "note": "192 rows are prediction cases · the gap MG-06 must close"
+        }
+      ],
+      "source": "Team eval records, 2026-11-12 – 2026-11-13",
+      "source_as_of": "2026-11-13"
+    },
+    "product": {
+      "title": "Product — apps & funnel",
+      "status": "Installs are the constraint · 14-day fix playbook running since 2026-11-13",
+      "metrics": [
+        {
+          "label": "First downloads (ASC, all apps)",
+          "value": "1 on 2026-11-12 · 5 in 7 days",
+          "note": "App Store Connect · re-fetched 2026-11-13 23:27 JST · 2026-11-13 not yet published by Apple"
+        },
+        {
+          "label": "MRR (RevenueCat)",
+          "value": "$20",
+          "note": "5 active subscriptions · measured 2026-11-13 23:01 JST"
+        },
+        {
+          "label": "Notification permission",
+          "value": "16.7%",
+          "note": "2 of 12 eligible (2026-11-13) · iOS median ≈ 49%"
+        },
+        {
+          "label": "Day-1 retention",
+          "value": "8.3%",
+          "note": "Category median (Health & Fitness, subscription) 28.4%"
+        }
+      ],
+      "source": "ASC + RevenueCat via daily product metrics watch",
+      "source_as_of": "2026-11-13"
+    }
+  },
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
