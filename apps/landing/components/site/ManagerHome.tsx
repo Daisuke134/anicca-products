@@ -198,6 +198,38 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
               </div>
             </div>
           </section>
+          <section id="product">
+            <div className="section-label">06 / プロダクト</div>
+            <div className="split">
+              <h2>
+                Anicca。
+                <br />
+                毎日のアファメーション。
+              </h2>
+              <div>
+                <p className="body-copy">
+                  Aniccaは、iPhoneのための毎日のアファメーションアプリです。自分を責める声が大きい日に、短くて、信じられる言葉を届けます。
+                </p>
+                <p className="body-copy">
+                  使い方は簡単です。まず、いま困っていることを選びます——不安、考えすぎ、自分への疑いなど、13のテーマから。すると、選んだテーマに沿った短いカードが、通知とロック画面のウィジェットで、あなたの決めた時刻に届きます。連続記録（ストリーク）はありません。休んだ日に、取り戻すものもありません。
+                </p>
+                <p className="body-copy">
+                  言葉は「大きな声」ではなく「信じられる言葉」で書きます。無理な前向きさは、自己肯定感が低い人には逆効果になることがある——その研究知見に沿った設計です。ダウンロードは無料で、まず無料で使えます。もっと使いたい人のためにPremiumがあります。
+                </p>
+                <p className="body-copy">
+                  <a className="text-link" href="/affirmation-app/ja">
+                    Aniccaのページを見る ↗
+                  </a>{" "}
+                  <a
+                    className="text-link"
+                    href="https://apps.apple.com/app/id6755129214"
+                  >
+                    App Storeでダウンロード ↗
+                  </a>
+                </p>
+              </div>
+            </div>
+          </section>
           <section className="closing">
             <h2>すべての生命のために。</h2>
             <p>ひとつの存在、すべてに恩恵を。</p>
@@ -431,6 +463,49 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
                   Both businesses aim for recurring revenue. The principle is
                   the same for both: make something people want. Every number
                   is public on our open dashboard.
+                </p>
+              </div>
+            </div>
+          </section>
+          <section id="product">
+            <div className="section-label">06 / The product</div>
+            <div className="split">
+              <h2>
+                Anicca.
+                <br />
+                Daily affirmations.
+              </h2>
+              <div>
+                <p className="body-copy">
+                  Anicca is a daily affirmation app for iPhone. On the days
+                  when self-criticism gets loud, it brings you a short thought
+                  you can actually believe.
+                </p>
+                <p className="body-copy">
+                  It works like this: you choose what you are struggling with
+                  — anxiety, overthinking, self-doubt, and ten more topics.
+                  Short cards matched to your topics then arrive by
+                  notification and on your Lock Screen widget, at the times
+                  you set. There are no streaks, and nothing to catch up on
+                  when you miss a day.
+                </p>
+                <p className="body-copy">
+                  The lines are written to be believable, not loud — research
+                  shows forced positivity can backfire for people with low
+                  self-esteem, so Anicca is designed the other way. The app is
+                  free to download and free to use; Premium is there if you
+                  want more.
+                </p>
+                <p className="body-copy">
+                  <a className="text-link" href="/affirmation-app">
+                    See the Anicca page ↗
+                  </a>{" "}
+                  <a
+                    className="text-link"
+                    href="https://apps.apple.com/app/id6755129214"
+                  >
+                    Download on the App Store ↗
+                  </a>
                 </p>
               </div>
             </div>
