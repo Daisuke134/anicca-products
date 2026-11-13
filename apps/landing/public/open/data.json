@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-13 17:07 JST",
+  "updated_at": "2026-11-13 17:37 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -358,9 +358,9 @@
   "by_agent": [
     {
       "agent": "Muse",
-      "board_updates_today": 534,
+      "board_updates_today": 535,
       "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-      "status": "Active. 17:07 frame (Nov 13); PREVIOUS FRAME LANDED: live = 2026-11-13 16:37 JST at frame start (curl read, live-check-2026-11-13-1707-before.json). MRR REBUILT: live metrics re-fetched (repo-metrics-2026-11-13-1707.json, updated_at 2026-11-12 21:39 JST) total $20 (RC $20, Capafy $0, Stripe $0); revenue MTD $31.81, costs $1,640.08, gross -$1,608.27. Wallet outlook synced to canonical wallet-outlook-2026-11-12.md (re-read, md5 identical 19574bfdf5c31a32156011477ec1adc0), balance $63.33 (2026-11-11, sync unconfirmed); salary 2026-11-20 unconfirmed; Trip.com refund by 2026-11-26 unreceived. Funnel canonical n=12 held. Apps ASC held (apps-metrics 00:14Z, periods through 2026-11-11). TikTok held 16:10: 4,094 / 86,864 / 3,484; en2/jpx unmeasured. LinkedIn NEW 17:09: 4 posts today, metrics unmeasured, outbound 0. Rankings: SEO NEW 17:03 3/7 (iPhone 3, affirmation app 3, what-is-best 4); Bing NEW 16:58: 0/7, happierhuman all out; ASO NEW 16:56: US all out, JP affirmation 37, self-esteem 138, positive 127, gratitude 179, mindfulness 179; GEO complete NEW 16:58: 0/0, ThinkUp first 4/8 (en01, en02, en04, en06), en03 Reclaim, en05 Motion first. Gmail 12 msgs: Lancers 17:09, daily-log-append fail 17:06, Teazle 17:01, heartbeat-check fail 16:59, Devpost 16:47, BUYMA 16:40, Postiz 16:36, TikTok 16:33, connpass 16:27, 01Booster 16:21, Welo 16:19, Ahrefs 16:14; no new sales or Trip.com refund. RC watch 07:56 held: Nov 13 new 4, app-born 4, server 0, 09:00 batch 0, no recurrence. Reason inbox: No messages (direct check)."
+      "status": "Active. 17:37 frame (Nov 13); PREVIOUS FRAME LANDED: live = 2026-11-13 17:07 JST at frame start (curl read, live-check-2026-11-13-1737-before.json). MRR REBUILT: live metrics re-fetched (repo-metrics-2026-11-13-1737.json, updated_at 2026-11-12 21:39 JST) total $20 (RC $20, Capafy $0, Stripe $0); revenue MTD $31.81, costs $1,640.08, gross -$1,608.27. Wallet outlook synced to canonical wallet-outlook-2026-11-12.md (re-read, md5 identical 19574bfdf5c31a32156011477ec1adc0), balance $63.33 (2026-11-11, sync unconfirmed); salary 2026-11-20 unconfirmed; Trip.com refund by 2026-11-26 unreceived. Funnel canonical n=12 held. Apps ASC held (apps-metrics 00:14Z, periods through 2026-11-11). TikTok held 16:10: 4,094 / 86,864 / 3,484; en2/jpx unmeasured. LinkedIn held 17:09: 4 posts today, metrics unmeasured, outbound 0. Rankings: SEO NEW 17:19 3/7 (iPhone 3, best daily 5, what-is-best 4; affirmation app out); Bing NEW 17:15: 0/7, happierhuman daily affirmations 4 only; ASO NEW 17:14: US all out, JP affirmation 37, self-esteem 138, positive 127, gratitude 181, mindfulness 179; GEO complete NEW 17:15: 0/0, ThinkUp first 5/8 (en01, en02, en04, en05, en06), en03/jp01/jp02 no brand. Gmail 12 msgs: Appfigures 17:24, open-metrics fail 17:18, Preferred Networks interview URL 17:15, Mitene 17:15, vidIQ 17:12, COCORO 17:11, Lancers 17:09, daily-log-append fail 17:06, Teazle 17:01, heartbeat-check fail 16:59, Devpost 16:47, BUYMA 16:40; no new sales or Trip.com refund. RC watch 07:56 held: Nov 13 new 4, app-born 4, server 0, 09:00 batch 0, no recurrence. Reason inbox: No messages (direct check)."
     },
     {
       "agent": "Dots",
@@ -904,10 +904,10 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
-  "coverage_note": "Status: 34 platforms, 68 social, 6 apps, rankings, funnel n=12, app_funnels 6 apps, wallet outlook synced; live 16:37 LANDED at frame start; costs $1,640.08. 17:07.",
+  "coverage_note": "Status: 34 platforms, 68 social, 6 apps, rankings, funnel n=12, app_funnels 6 apps, wallet outlook synced; live 17:07 LANDED at frame start; costs $1,640.08. 17:37.",
   "currency_note": "USD only. This file contains no non-USD currency amounts.",
-  "coverage_status_1line": "Status: live 16:37 landed (frame-start curl); platforms 34, social 68, MRR $20, funnel n=12, wallet outlook present; costs $1,640.08.",
-  "daily_change_1line": "Status: 16:37-17:07: SEO 4/7 to 3/7 (best daily 5 to out); ASO US positive affirmations 115 to out, JP mindfulness 183 to 179; GEO ThinkUp first 4/8 held.",
+  "coverage_status_1line": "Status: live 17:07 landed (frame-start curl); platforms 34, social 68, MRR $20, funnel n=12, wallet outlook present; costs $1,640.08.",
+  "daily_change_1line": "Status: 17:07-17:37: SEO 3/7 held (affirmation app 3 to out, best daily out to 5); ASO JP gratitude 179 to 181; GEO ThinkUp first 4/8 to 5/8; Bing happierhuman daily 4 back.",
   "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,617.13, profit -$1,585.32; SEO 5/7; GEO 0; IG 2/3 x6, monk 1/3, app2 missing, Threads 77 unconfirmed, LinkedIn 2/3.",
   "apps_breakdown": [
     {
@@ -1528,7 +1528,7 @@
     "note": "Measured ranks only. out = not in the measured result set.",
     "seo": {
       "engine": "Google (search snapshot)",
-      "measured_at": "2026-11-13 17:03 JST",
+      "measured_at": "2026-11-13 17:19 JST",
       "anicca_in_top": 3,
       "queries_total": 7,
       "rows": [
@@ -1546,13 +1546,13 @@
         },
         {
           "query": "affirmation app",
-          "anicca": 3,
+          "anicca": "out",
           "winner": "thevisionboard.app",
           "winner_position": 2
         },
         {
           "query": "best daily affirmation apps",
-          "anicca": "out",
+          "anicca": 5,
           "winner": "thevisionboard.app",
           "winner_position": 3
         },
@@ -1577,10 +1577,10 @@
       ],
       "bing": {
         "engine": "Bing (script, top 30)",
-        "measured_at": "2026-11-13 16:58 JST",
+        "measured_at": "2026-11-13 17:15 JST",
         "anicca_in_top": 0,
         "queries_total": 7,
-        "happierhuman": "happierhuman: all queries out (ledger 07:58Z); anicca 0/7"
+        "happierhuman": "happierhuman: daily affirmations 4, other queries out (ledger 08:15Z); anicca 0/7"
       },
       "gsc": {
         "period": "28-day window ending 2026-11-05",
@@ -1593,7 +1593,7 @@
     },
     "aso": {
       "source": "iTunes Search API, top 200 per keyword",
-      "measured_at": "2026-11-13 16:56 JST",
+      "measured_at": "2026-11-13 17:14 JST",
       "us": [
         {
           "keyword": "affirmation",
@@ -1683,7 +1683,7 @@
         },
         {
           "keyword": "感謝",
-          "anicca": 179,
+          "anicca": 181,
           "winner_position": 19,
           "top1": "神棚アプリ - 感謝日記・引き寄せ・お祓い・願いが叶う習慣"
         },
@@ -1703,13 +1703,13 @@
       "winner": "I am (id 874656917)"
     },
     "geo": {
-      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; complete batch 16:58 JST",
-      "measured_at": "2026-11-13 16:58 JST",
+      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; complete batch 17:15 JST",
+      "measured_at": "2026-11-13 17:15 JST",
       "recommended": 0,
       "recommended_of": 8,
       "cited": 0,
       "cited_of": 8,
-      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en02, en04, en06); en03 Reclaim, en05 Motion first; jp01 and jp02 no brand"
+      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 5/8 (en01, en02, en04, en05, en06); en03, jp01 and jp02 no brand"
     }
   },
   "handoffs": [
@@ -3365,7 +3365,14 @@
     "FUNNEL (condition i): funnel held at canonical funnel-open-section-2026-11-12.json (n=12, paywall 10, purchase started 1, completed 0 measured), deep-equal asserted. Apps ASC held (apps-metrics-latest 2026-11-13T00:14Z). RC watch 07:56 held: Nov 13 new 4, app-born 4, server-created 0, at_0900_batch 0; no 09:00 batch recurrence, no incident recorded.",
     "Rankings: SEO NEW 17:03 (2026-11-13T08:03:35.430765+00:00) 3/7, iPhone 3 / affirmation app 3 / what-is-best 4, best daily out; Bing NEW 16:58 (2026-11-13T07:58:09.498017+00:00) 0/7, happierhuman all out; ASO NEW 16:56 (2026-11-13T07:56:23.777057+00:00): US all out, JP affirmation 37, self-esteem 138, positive 127, gratitude 179, mindfulness 179; GEO complete NEW 16:58 (2026-11-13T07:58:19.444869+00:00) 0/0, ThinkUp first 4/8 (en01, en02, en04, en06), en03 Reclaim, en05 Motion first, jp01/jp02 no brand.",
     "TikTok (h) held 16:10 (2026-11-13T07:10:33.102286+00:00): followers 4,094, likes 86,864, videos 3,484; en2/jpx unmeasured. LinkedIn (g) NEW 17:09 (2026-11-13T08:09:28.579079+00:00): 4 posts today, followers/metrics unmeasured (Postiz analytics empty), outbound 0.",
-    "Gmail triage: newer_than:1h at 17:07, 12 messages. Lancers change notice 17:09, daily-log-append workflow fail 17:06, Teazle bug-bounty comment 17:01, heartbeat-check workflow fail 16:59, Devpost UGREEN hackathon 16:47, BUYMA seminar 16:40, Postiz X published 16:36, TikTok for Business 16:33, connpass 16:27, 01Booster 16:21, Welo Data verify 16:19, Ahrefs 16:14. No new sales, no Trip.com refund, no payment notices. Reason inbox direct check: No messages."
+    "Gmail triage: newer_than:1h at 17:07, 12 messages. Lancers change notice 17:09, daily-log-append workflow fail 17:06, Teazle bug-bounty comment 17:01, heartbeat-check workflow fail 16:59, Devpost UGREEN hackathon 16:47, BUYMA seminar 16:40, Postiz X published 16:36, TikTok for Business 16:33, connpass 16:27, 01Booster 16:21, Welo Data verify 16:19, Ahrefs 16:14. No new sales, no Trip.com refund, no payment notices. Reason inbox direct check: No messages.",
+    "PREVIOUS FRAME LANDING (condition a) PASSED: at frame start live data.json = 2026-11-13 17:07 JST (live-check-2026-11-13-1737-before.json). The 17:07 commit aa6c3286 landed. Landing of 17:37 must be checked at the next frame start.",
+    "MRR REBUILT (condition j): live metrics.json re-fetched this frame (repo-metrics-2026-11-13-1737.json, updated_at 2026-11-12 21:39 JST): total 20 (RC $20 + Capafy $0 + Stripe $0), revenue_mtd 31.81. kpis[mrr] == summary.mrr_split.total == $20 asserted.",
+    "WALLET OUTLOOK (condition k): canonical wallet-outlook-2026-11-12.md re-read via gh API (wallet-canonical-1737.md, md5 19574bfdf5c31a32156011477ec1adc0, identical; no newer canonical file exists); wallet_outlook held: balance $63.33 (2026-11-11, full bank sync unconfirmed); salary 2026-11-20 amount unconfirmed; Trip.com refund $558.20 by 2026-11-26 issued not received. USD only.",
+    "FUNNEL (condition i): funnel held at canonical funnel-open-section-2026-11-12.json (n=12, paywall 10, purchase started 1, completed 0 measured), deep-equal asserted. Apps ASC held (apps-metrics-latest 2026-11-13T00:14Z). RC watch 07:56 held: Nov 13 new 4, app-born 4, server-created 0, at_0900_batch 0; no 09:00 batch recurrence, no incident recorded.",
+    "Rankings: SEO NEW 17:19 (2026-11-13T08:19:50.016113+00:00) 3/7, iPhone 3 / best daily 5 / what-is-best 4, affirmation app out; Bing NEW 17:15 (2026-11-13T08:15:10.838739+00:00) 0/7, happierhuman daily affirmations 4 only; ASO NEW 17:14 (2026-11-13T08:14:00.915947+00:00): US all out, JP affirmation 37, self-esteem 138, positive 127, gratitude 181, mindfulness 179; GEO complete NEW 17:15 (2026-11-13T08:15:21.216276+00:00) 0/0, ThinkUp first 5/8 (en01, en02, en04, en05, en06), en03/jp01/jp02 no brand.",
+    "TikTok (h) held 16:10 (2026-11-13T07:10:33.102286+00:00): followers 4,094, likes 86,864, videos 3,484; en2/jpx unmeasured. LinkedIn (g) held 17:09 (2026-11-13T08:09:28.579079+00:00): 4 posts today, followers/metrics unmeasured (Postiz analytics empty), outbound 0.",
+    "Gmail triage: newer_than:1h at 17:37, 12 messages. Appfigures teardown offer 17:24, open-metrics workflow fail 17:18, Preferred Networks interview URL notice 17:15 (meeting-required matter; dashboard records only), Mitene 17:15, vidIQ 17:12, COCORO BOOKS 17:11, Lancers change notice 17:09, daily-log-append workflow fail 17:06, Teazle comment 17:01, heartbeat-check workflow fail 16:59, Devpost UGREEN hackathon 16:47, BUYMA seminar 16:40. No new sales, no Trip.com refund, no payment notices. Reason inbox direct check: No messages."
   ],
   "app_store_analytics": {
     "source": "App Store Connect Analytics Reports",
