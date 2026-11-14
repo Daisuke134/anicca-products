@@ -1,71 +1,155 @@
 {
- "updated_at": "2026-10-30 17:10 JST",
- "basis": "Verified against bank debit notices and receipts on 2026-10-30. Monthly run-rate from November, USD at 156.84 JPY",
+ "updated_at": "2026-11-14 09:26 JST",
+ "basis": "Recurring run-rate items verified against bank debit notices and receipts on 2026-10-30 (status changes for Replit/Adobe confirmed since). November company charges re-read from MUFG debit notices and vendor receipts on 2026-11-14 09:26 JST. USD at 160.0 JPY (ECB reference rate 2026-11-13, Frankfurter). Personal and travel spend excluded.",
+ "run_rate_verified_at": "2026-10-30 17:10 JST",
  "items": [
   {
-   "name": "Grok Bot + Cursor",
+   "name": "Grok Bot + Cursor (X Super)",
    "use": "AI agent team",
    "monthly_usd": 113.49,
-   "status": "active"
+   "status": "active",
+   "verified_at": "2026-10-30"
   },
   {
    "name": "ChatGPT Pro (Codex, Dots)",
    "use": "AI agents: engineering, operations",
    "monthly_usd": 191.28,
-   "status": "active"
+   "status": "active",
+   "verified_at": "2026-10-30"
   },
   {
    "name": "ChatGPT extra charges (2, under review)",
    "use": "Oct 22 + Oct 24 charges; plan being checked",
    "monthly_usd": 107.47,
-   "status": "under review"
+   "status": "under review",
+   "verified_at": "2026-10-30"
   },
   {
    "name": "Postiz",
    "use": "social posting (moving to self-host)",
    "monthly_usd": 50.6,
-   "status": "active"
+   "status": "active",
+   "verified_at": "2026-10-30"
   },
   {
    "name": "HeyGen",
    "use": "monk videos",
    "monthly_usd": 28.69,
-   "status": "active"
+   "status": "active",
+   "verified_at": "2026-10-30"
   },
   {
    "name": "Railway",
    "use": "hosting (usage)",
    "monthly_usd": 23.95,
-   "status": "active"
+   "status": "active",
+   "verified_at": "2026-10-30"
   },
   {
    "name": "Replit",
-   "use": "dev tools - still billing, being cut",
+   "use": "cancelled (ended 11/08)",
    "monthly_usd": 20.93,
-   "status": "cutting"
+   "status": "cancelled",
+   "verified_at": "2026-10-30"
   },
   {
    "name": "Telnyx",
    "use": "phone (usage)",
    "monthly_usd": 20.84,
-   "status": "active"
+   "status": "active",
+   "verified_at": "2026-10-30"
+  },
+  {
+   "name": "X Premium",
+   "use": "duplicate of X Super - being cut",
+   "monthly_usd": 5.85,
+   "status": "cutting",
+   "verified_at": "2026-10-30"
   },
   {
    "name": "Cursor usage",
    "use": "coding",
    "monthly_usd": 0.68,
-   "status": "active"
+   "status": "active",
+   "verified_at": "2026-10-30"
+  },
+  {
+   "name": "Adobe",
+   "use": "cancelled; access until 11/16 and 11/29",
+   "monthly_usd": 31.75,
+   "status": "cancelled",
+   "verified_at": "2026-10-30"
+  },
+  {
+   "name": "Hetzner",
+   "use": "Hosting; service use under review",
+   "monthly_usd": 1.61,
+   "status": "active",
+   "verified_at": "2026-10-30"
   }
  ],
- "total_monthly_usd": 557.93,
- "revenue_last30d_usd": 203.86,
- "gross_profit_monthly_usd": -354.07,
- "unknown": "Google Cloud / Gemini API usage: October bill not received yet (leaked key removed, budget cap set). Hosting, domains and free-tier tools: no bills found",
+ "total_monthly_usd": 597.14,
+ "total_monthly_usd_note": "Run-rate as verified 2026-10-30; not re-verified for November (next full re-check at month close).",
+ "observed_company_charges_2026_11": [
+  {
+   "date": "2026-11-02",
+   "name": "Google Cloud (October usage, final bill)",
+   "amount_jpy": 44298,
+   "amount_usd": 276.86,
+   "source": "MUFG debit notice + Gmail"
+  },
+  {
+   "date": "2026-11-04",
+   "name": "Relixir (credits)",
+   "amount_jpy": 3257,
+   "amount_usd": 20.36,
+   "source": "MUFG debit notice + receipt"
+  },
+  {
+   "date": "2026-11-06",
+   "name": "Relixir (credits; possible double charge, follow-up open)",
+   "amount_jpy": 3271,
+   "amount_usd": 20.44,
+   "source": "MUFG debit notice"
+  },
+  {
+   "date": "2026-11-07",
+   "name": "Maritime AI",
+   "amount_jpy": 3268,
+   "amount_usd": 20.43,
+   "source": "MUFG debit notice + receipt"
+  },
+  {
+   "date": "2026-11-08",
+   "name": "OpenRouter (prepaid AI API)",
+   "amount_jpy": 8621,
+   "amount_usd": 53.88,
+   "source": "MUFG debit notice"
+  },
+  {
+   "date": "2026-11-09",
+   "name": "HeyGen (credits)",
+   "amount_jpy": 1634,
+   "amount_usd": 10.21,
+   "source": "MUFG debit notice + receipt"
+  }
+ ],
+ "observed_company_charges_2026_11_total_jpy": 64349,
+ "observed_company_charges_2026_11_total_usd": 402.18,
+ "observed_window": "2026-11-01 to 2026-11-14 09:26 JST (last MUFG debit notice read: 2026-11-11 17:51 JST)",
+ "revenue_last30d_usd": null,
+ "gross_profit_monthly_usd": null,
+ "unknown": [
+  "revenue_last30d_usd and gross_profit_monthly_usd: not re-measured on 2026-11-14 09:26 JST (see metrics.json for MRR)",
+  "November renewals of ChatGPT Pro, X/Grok subscription, Postiz, Railway, Telnyx: no November receipt seen in Gmail as of 2026-11-14 09:26 JST",
+  "TELECUBE SERVICES ¥990 (11/11), Apple-billed app subscriptions in November: business use not confirmed, excluded",
+  "Excluded from this subtotal: current Google Cloud/Gemini usage (last monthly charge JPY 27,889), DigitalOcean status, prepaid and on-demand purchases, annual renewals without a confirmed company renewal, and other unverified bills. This is not a complete company burn estimate."
+ ],
  "one_off": [
   {
    "name": "HeyGen API credits",
-   "use": "monk videos (one-off, paid 2026-10-30)",
-   "amount_usd": 10.0
+   "use": "One-off purchase; excluded from recurring subtotal",
+   "amount_usd": 10.39
   }
  ]
 }
