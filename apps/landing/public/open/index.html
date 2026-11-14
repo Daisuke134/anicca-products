@@ -117,7 +117,8 @@ a.idx .go{color:#576CDB;font-size:12px;font-weight:600;margin-top:2px}
 <div class="grp">Platforms &amp; products <small>revenue by source</small></div>
 <div class="g"><div class="c"><h2>Revenue by platform <span class="scope">ALL PLATFORMS</span></h2><table id="plat"></table><div class="zero" id="zero"></div></div>
 <div class="col"><div class="c"><h2>Revenue by product <span class="scope">BY PRODUCT</span></h2><table id="prod"></table></div>
-<div class="c"><h2>Observed payment notices this month <span class="scope">DETAIL · COSTS</span></h2><table id="cost"></table><div class="zero">Total: see the Costs headline card in Tier 1.</div></div></div></div>
+<div class="c"><h2>Observed payment notices this month <span class="scope">DETAIL · COSTS</span></h2><table id="cost"></table><div class="zero">Total: see the Costs headline card in Tier 1.</div></div>
+<div class="c"><h2>Upcoming charges <span class="scope">DETAIL · COSTS</span></h2><div class="m" id="upcoming-charges-note"></div><table id="upcoming-charges"></table></div></div></div>
 <div class="c chartcard"><h2>All-time revenue by platform <span class="scope">ALL PLATFORMS</span></h2><div class="cstat" id="stat-plat-all"></div><div class="chartbox" id="chart-plat-all"></div></div>
 </section>
 <section class="grpwrap" id="grp-capafy">
@@ -449,6 +450,28 @@ const loadData=()=>fetch('data.json?v='+Date.now()).then(r=>r.json()).then(d=>{
  $('lg').innerHTML=pls.map((p,i)=>`<b style="background:${COL[i%6]}"></b>${esc(p)}`).join('')+' <span class="m">· booked revenue (App Store not split by month)</span>';
  $('prod').innerHTML='<tr><th>Product</th><th class="hm">Platform</th><th class="r">This month</th><th class="r">All-time</th></tr>'+S.products.map(p=>`<tr><td>${esc(p.product)}${p.note?' <span class="m">· '+esc(p.note)+'</span>':''}</td><td class="hm">${esc(p.platform)}</td><td class="r">${U(p.this_month)}</td><td class="r">${U(p.all_time)}</td></tr>`).join('');
  $('cost').innerHTML=d.costs_month.map(c=>`<tr><td>${esc(c.item)}<div class="m">${esc(c.period_note)}</div></td><td class="r">${U(c.usd)}${Y(c.jpy)}</td></tr>`).join('');
+ const uc=d.upcoming_charges||{};
+ const ucNote=$('upcoming-charges-note');
+ if(ucNote)ucNote.textContent=uc.note||'';
+ const ucStatus={personal_active:'Personal',personal_cancelling:'Personal · cancelling',keep:'Keep',cancelling:'Cancelling',cancelling_auto_topup:'Cancelling auto top-up',cancelling_if_empty:'Close if empty',open_not_in_tonight_cancel_pass:'Open (not in tonight\'s cancel pass)'};
+ const ucAmt=c=>{
+  if(c.amount_jpy!=null) return '¥'+Number(c.amount_jpy).toLocaleString('en-US')+(c.amount_usd!=null?' <span class="m">($'+Number(c.amount_usd).toLocaleString('en-US',{minimumFractionDigits:Number.isInteger(c.amount_usd)?0:2,maximumFractionDigits:2})+')</span>':'');
+  if(c.amount_usd!=null) return '$'+Number(c.amount_usd).toLocaleString('en-US',{minimumFractionDigits:Number.isInteger(c.amount_usd)?0:2,maximumFractionDigits:2});
+  return '—';
+ };
+ const ucNext=c=>{
+  if(!c.next_charge) return esc({on_demand:'on demand',none_found:'none found',unknown:'unknown'}[c.next_charge_certainty]||'—');
+  const mark=c.next_charge_certainty==='expected'?' <span class="m">(expected)</span>':c.next_charge_certainty==='confirmed'?' <span class="m">(confirmed)</span>':c.next_charge_certainty==='membership_valid_through'?' <span class="m">(valid through)</span>':'';
+  return esc(c.next_charge)+mark;
+ };
+ const ucTable=$('upcoming-charges');
+ if(ucTable){
+  const rows=Array.isArray(uc.items)?uc.items:[];
+  ucTable.innerHTML=rows.length
+   ? '<tr><th>Item</th><th>Kind</th><th class="r">Amount</th><th>Next</th><th>Status</th></tr>'+rows.map(c=>`<tr><td>${esc(c.name)}<div class="m">${esc(c.label||'')}</div></td><td>${esc(c.kind||'')}</td><td class="r">${ucAmt(c)}</td><td>${ucNext(c)}</td><td>${esc(ucStatus[c.status]||c.status||'')}</td></tr>`).join('')
+   : '<tr><td>No upcoming-charges snapshot in this feed.</td></tr>';
+ }
+
  const tr=(s,n)=>esc(s==null?'':(String(s).length>n?String(s).slice(0,n)+'…':String(s)));
  if(Array.isArray(d.by_agent)&&d.by_agent.length){$('team-activity').innerHTML='<tr><th>Agent</th><th>Work</th><th>Latest observed result</th></tr>'+d.by_agent.map(a=>`<tr><td><b>${esc(a.agent)}</b></td><td>${esc(a.surfaces)}</td><td>${esc(a.status)}</td></tr>`).join('')}else{$('card-team').style.display='none'}
  const st=$('status');if(d.coverage_status_1line){st.textContent=d.coverage_status_1line}else{st.style.display='none'}
