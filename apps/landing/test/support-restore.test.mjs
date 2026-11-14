@@ -10,7 +10,8 @@ for (const lang of ['en', 'ja']) {
     assert.ok(page.indexOf(section) < page.indexOf('mailto:'), 'self-service must precede email');
     assert.match(section, lang === 'en' ? /same Apple Account/ : /購入時と同じApple Account/);
     assert.match(section, lang === 'en' ? /Restore Purchases/ : /購入を復元/);
-    assert.match(section, /https:\/\/support\.apple\.com\/(en-us|ja-jp)\/108096/);
+    const appleLocale = lang === 'ja' ? 'ja-jp' : 'en-us';
+    assert.ok(section.includes(`href="https://support.apple.com/${appleLocale}/108096"`), 'Apple restoration link must match page language');
   });
   test(lang + ': no repurchase or credentials requested', () => {
     const section = page.match(/<section[^>]*id="purchased-but-locked"[\s\S]*?<\/section>/)?.[0];
