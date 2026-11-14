@@ -43,7 +43,7 @@
         "ja",
         "en"
       ],
-      "facilitator": "https://facilitator.payai.network",
+      "facilitator": "https://api.cdp.coinbase.com/platform/v2/x402",
       "extensions": {
         "bazaar": {
           "info": {
@@ -183,7 +183,7 @@
         "marketplace",
         "catalog"
       ],
-      "facilitator": "https://facilitator.payai.network",
+      "facilitator": "https://api.cdp.coinbase.com/platform/v2/x402",
       "extensions": {
         "bazaar": {
           "info": {
@@ -368,7 +368,7 @@
         "ja",
         "en"
       ],
-      "facilitator": "https://facilitator.payai.network",
+      "facilitator": "https://api.cdp.coinbase.com/platform/v2/x402",
       "extensions": {
         "bazaar": {
           "info": {
@@ -524,7 +524,7 @@
         "ja",
         "en"
       ],
-      "facilitator": "https://facilitator.payai.network",
+      "facilitator": "https://api.cdp.coinbase.com/platform/v2/x402",
       "extensions": {
         "bazaar": {
           "info": {
