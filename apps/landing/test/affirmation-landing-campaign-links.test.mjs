@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { runInNewContext } from 'node:vm';
+import { withIncomingCampaign, withLocaleCampaignQuery } from '../lib/affirmation-campaign.mjs';
 
 // Source-contract checks: no browser, install, or App Store analytics claims.
 const source = readFileSync(
@@ -44,7 +45,7 @@ test('landing locales use distinct campaign names within Apple\'s 30-character l
 });
 
 test('the real locale selector preserves EN → JA → EN destinations', () => {
-  const expression = /const appStoreUrl = ([^;]+);/.exec(source)?.[1];
+  const expression = /const baseAppStoreUrl = ([^;]+);/.exec(source)?.[1];
   assert.ok(expression, 'the shared locale selector must remain present');
   const US = storeUrl('US').href;
   const JP = storeUrl('JP').href;
@@ -73,3 +74,32 @@ for (const [label, start, end] of [
     assert.match(anchors[0][0], /rel="noopener noreferrer"/);
   });
 }
+
+test('incoming ct overrides all CTA destinations while preserving pt and mt', () => {
+  const US = storeUrl('US').href;
+  const JP = storeUrl('JP').href;
+
+  assert.equal(withIncomingCampaign(US, null), US);
+  assert.equal(withIncomingCampaign(JP, ''), JP);
+
+  for (const ct of [
+    'ig_en',
+    'x-diceai0-review-ask',
+    'youtube_aniccaffirmations_bio',
+    'a b',
+    'stall-probe-20261114',
+  ]) {
+    for (const base of [US, JP]) {
+      const updated = new URL(withIncomingCampaign(base, ct));
+      assert.equal(updated.searchParams.get('ct'), ct);
+      assert.equal(updated.searchParams.get('pt'), '93486075');
+      assert.equal(updated.searchParams.get('mt'), '8');
+    }
+  }
+});
+
+test('EN ↔ JA locale toggle preserves incoming ct query parameter', () => {
+  assert.equal(withLocaleCampaignQuery('/affirmation-app/ja', null), '/affirmation-app/ja');
+  assert.equal(withLocaleCampaignQuery('/affirmation-app/ja', 'ig_en'), '/affirmation-app/ja?ct=ig_en');
+  assert.equal(withLocaleCampaignQuery('/affirmation-app', 'a b'), '/affirmation-app?ct=a+b');
+});
