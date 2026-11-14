@@ -1,6 +1,10 @@
+'use client';
+
 /* eslint-disable react/no-unescaped-entities */
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { withIncomingCampaign, withLocaleCampaignQuery } from '@/lib/affirmation-campaign';
 import PhoneFrame from './PhoneFrame';
 
 type Locale = 'en' | 'ja';
@@ -408,10 +412,20 @@ const SOFT_QUOTE = '"opsz" 96, "SOFT" 80';
 const SOFT_BIG_NUM = '"opsz" 144';
 
 export default function AffirmationLanding({ locale }: { locale: Locale }) {
+  const [incomingCt, setIncomingCt] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const ct = new URLSearchParams(window.location.search).get('ct');
+    if (ct) setIncomingCt(ct);
+  }, []);
+
   const t = COPY[locale];
   const otherLocale = locale === 'en' ? 'ja' : 'en';
-  const otherPath = otherLocale === 'en' ? '/affirmation-app' : '/affirmation-app/ja';
-  const appStoreUrl = locale === 'ja' ? APP_STORE_URL_JP : APP_STORE_URL_US;
+  const baseOtherPath = otherLocale === 'en' ? '/affirmation-app' : '/affirmation-app/ja';
+  const otherPath = withLocaleCampaignQuery(baseOtherPath, incomingCt);
+  const baseAppStoreUrl = locale === 'ja' ? APP_STORE_URL_JP : APP_STORE_URL_US;
+  const appStoreUrl = withIncomingCampaign(baseAppStoreUrl, incomingCt);
   const badgeSrc = locale === 'en' ? '/app-store-badge-en.svg' : '/app-store-badge-ja.svg';
   const fontClass = locale === 'ja' ? 'font-serif-jp' : 'font-soft';
 
