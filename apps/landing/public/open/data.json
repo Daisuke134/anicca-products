@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-14 21:07 JST",
+  "updated_at": "2026-11-14 21:28 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -25,8 +25,8 @@
     {
       "key": "revm",
       "label": "Revenue this month",
-      "usd": 31.81,
-      "source": "Audit 2026-11-05 15:25: Coconala $31.80 + x402 $0.005 = $31.81; $31.88 not used (undecomposable)"
+      "usd": 31.8,
+      "source": "cfo/revenue_facts.py: REVENUE-BY-SOURCE paid + 検収済み・入金予定 rows, USD via dated ECB"
     },
     {
       "key": "cost",
@@ -65,7 +65,7 @@
       "key": "mrr",
       "label": "MRR",
       "usd": 20,
-      "source": "Live metrics.json mrr_breakdown (live 2026-11-13 21:19 version, re-fetched this frame via curl aniccaai.com/open/metrics.json): RevenueCat $20 + Capafy $0 + Stripe $0 = $20. Rebuilt every frame; no inheritance."
+      "source": "RC overview (project anicca) + Capafy paid periods still running (weekly x52/12, gross) + Stripe active subs"
     },
     {
       "key": "run",
@@ -888,19 +888,21 @@
     },
     "all_time_confirmed": 1749.36,
     "bank": {
-      "usd": 63.33,
-      "as_of": "2026-11-11 11:21 JST",
-      "source": "MUFG via Moneytree re-fetch 2026-11-11 (bank-balance-latest.md), total only; converted at team rate 156.84",
-      "note": "USD only; converted at build time from the bank total figure."
+      "usd": 62.79,
+      "jpy": 9932,
+      "fx": "JPY/ECB 158.18 (2026-11-10)",
+      "as_of": "2026-11-11 15:21 JST",
+      "source": "MUFG via Moneytree (BANK-BALANCE.md), total only"
     },
     "net_worth": {
-      "usd": 63.33,
-      "as_of": "2026-11-11 11:21 JST",
-      "source": "MUFG via Moneytree re-fetch 2026-11-11 (bank-balance-latest.md), total only; converted at team rate 156.84",
-      "basis": "Bank total; no debt on record",
-      "note": "USD only; converted at build time from the bank total figure."
+      "usd": 62.79,
+      "jpy": 9932,
+      "fx": "JPY/ECB 158.18 (2026-11-10)",
+      "as_of": "2026-11-11 15:21 JST",
+      "source": "MUFG via Moneytree (BANK-BALANCE.md), total only",
+      "basis": "Bank total; no debt on record"
     },
-    "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-03 12:12 JST",
+    "all_time_source": "cfo/revenue_facts.py booked revenue (paid + accepted) + RevenueCat App Store lifetime gross; as of 2026-11-14 21:28 JST",
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
