@@ -37,7 +37,11 @@ struct ContentView: View {
             viewModel.refreshDay()
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active { viewModel.refreshDay() }
+            if phase == .active {
+                viewModel.refreshDay()
+                // Issue #47: accumulate distinct open days for the review-prompt gate.
+                ReviewPromptCoordinator.shared.recordAppOpen()
+            }
         }
     }
 
