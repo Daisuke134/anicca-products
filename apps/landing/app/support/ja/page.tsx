@@ -11,6 +11,21 @@ export default function SupportJA() {
         Aniccaについてお困りですか？お手伝いします。
       </p>
 
+      <section id="purchased-but-locked" className="mt-10" aria-labelledby="restore-heading">
+        <h2 id="restore-heading" className="text-xl font-semibold text-foreground">購入済みなのに利用できない場合</h2>
+        <p className="mt-3 text-muted-foreground">
+          解決のために再購入せず、App Storeが購入時と同じApple Accountでサインインしているか確認してください。
+          Aniccaのプラン画面に「購入を復元」が表示されている場合は、その操作をお試しください。
+        </p>
+        <p className="mt-3 text-muted-foreground">
+          利用できない状態が続く場合や復元の操作が見つからない場合は、アプリのバージョンとエラーメッセージを添えて下記へご連絡ください。
+          パスワードや認証コードは送らないでください。すべての購入の復元を保証するものではありません。
+        </p>
+        <p className="mt-3">
+          <a href="https://support.apple.com/ja-jp/108096" className="text-primary hover:underline">Appleの購入復元ガイド</a>
+        </p>
+      </section>
+
       <section className="mt-10">
         <h2 className="text-xl font-semibold text-foreground">お問い合わせ</h2>
         <p className="mt-3 text-muted-foreground">

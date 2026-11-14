@@ -11,6 +11,21 @@ export default function SupportEN() {
         Need help with Anicca? We're here to assist you.
       </p>
 
+      <section id="purchased-but-locked" className="mt-10" aria-labelledby="restore-heading">
+        <h2 id="restore-heading" className="text-xl font-semibold text-foreground">Already paid, but access is locked?</h2>
+        <p className="mt-3 text-muted-foreground">
+          Do not buy it again to troubleshoot. Check that the App Store is signed in to the same Apple Account used for the purchase.
+          In Anicca, use Restore Purchases on the plan screen if that option is available.
+        </p>
+        <p className="mt-3 text-muted-foreground">
+          If access is still locked or the restore option is missing, contact us below with your app version and the error message.
+          Never send passwords or verification codes. We cannot guarantee that every purchase can be restored.
+        </p>
+        <p className="mt-3">
+          <a href="https://support.apple.com/en-us/108096" className="text-primary hover:underline">Apple purchase restoration guidance</a>
+        </p>
+      </section>
+
       <section className="mt-10">
         <h2 className="text-xl font-semibold text-foreground">Contact Us</h2>
         <p className="mt-3 text-muted-foreground">
