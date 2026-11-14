@@ -5,6 +5,8 @@ import RevenueCat
 /// Triggered when user cancels Apple Pay sheet during paywall purchase.
 /// $44.99/year (25% OFF vs $59.99). Single CTA: Accept Offer. No decline button.
 /// Shown at most once per session (gated by parent's hasShownRetention flag).
+/// If the retention offering or its product can't be loaded (e.g. product removed from sale),
+/// the sheet closes itself silently so the user is back on the normal paywall.
 struct RetentionOfferSheet: View {
     let onAccepted: (CustomerInfo) -> Void
 
@@ -13,8 +15,27 @@ struct RetentionOfferSheet: View {
     @State private var isPurchasing = false
     @State private var errorMessage: String?
     @State private var loadFailed = false
+    @State private var isLoading = true
 
     var body: some View {
+        Group {
+            if isLoading || retentionPackage == nil {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                offerContent
+            }
+        }
+        .background(AppBackground())
+        .task { await loadOffer() }
+        .alert("Error", isPresented: .constant(errorMessage != nil)) {
+            Button("OK") { errorMessage = nil }
+        } message: {
+            Text(errorMessage ?? "")
+        }
+    }
+
+    private var offerContent: some View {
         VStack(spacing: 24) {
             Spacer().frame(height: 16)
 
@@ -97,27 +118,23 @@ struct RetentionOfferSheet: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 32)
         }
-        .background(AppBackground())
-        .task { await loadOffer() }
-        .alert("Error", isPresented: .constant(errorMessage != nil)) {
-            Button("OK") { errorMessage = nil }
-        } message: {
-            Text(errorMessage ?? "")
-        }
     }
 
     private func loadOffer() async {
+        defer { isLoading = false }
         do {
             let offerings = try await Purchases.shared.offerings()
+            // RevenueCat drops packages whose StoreKit product isn't purchasable,
+            // so a nil package also covers "product removed from sale".
             if let pkg = offerings.offering(identifier: "anicca_retention")?.annual {
                 retentionPackage = pkg
-            } else {
-                loadFailed = true
+                return
             }
         } catch {
-            loadFailed = true
-            errorMessage = error.localizedDescription
+            // Fall through: never block the user with an error on the retention step.
         }
+        loadFailed = true
+        dismiss()  // back to the normal paywall
     }
 
     private func acceptOffer() async {
