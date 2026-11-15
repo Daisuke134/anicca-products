@@ -36,3 +36,32 @@ test('internal site App Store links do not reuse the Instagram profile redirect'
   assert.match(links, /apps\.apple\.com\/us\/app\/daily-affirmations-anicca\/id6755129214/);
   assert.match(breathCalm, /apps\.apple\.com\/us\/app\/daily-affirmations-anicca\/id6755129214/);
 });
+
+// /ja/affirmation-app (and /en/affirmation-app) 404'd: language-prefixed links put the
+// locale before the route, but the pages live at /affirmation-app and /affirmation-app/ja.
+test('language-prefixed affirmation links redirect to the canonical pages', () => {
+  const deployConfigs = [
+    ['repository root', readFileSync(new URL('../../../netlify.toml', import.meta.url), 'utf8')],
+    ['landing deploy root', read('netlify.toml')],
+  ];
+  const expected = [
+    ['/ja/affirmation-app', '/affirmation-app/ja'],
+    ['/en/affirmation-app', '/affirmation-app'],
+  ];
+  for (const [name, config] of deployConfigs) {
+    for (const [from, to] of expected) {
+      const rule = new RegExp(`from = "${from}"[\\s\\S]{0,200}?to = "([^"]+)"[\\s\\S]{0,80}?status = 308`);
+      const match = rule.exec(config);
+      assert.ok(match, `${name} netlify.toml must redirect ${from}`);
+      assert.equal(match[1], to, `${name} netlify.toml must redirect ${from} to ${to}`);
+      // The target carries no query of its own, so Netlify forwards the incoming
+      // ?ct= / ?pt= / utm_* values and App Store attribution survives the hop.
+      assert.ok(!match[1].includes('?'), `${from} target must let Netlify carry the query string`);
+    }
+  }
+  // The page the /ja/affirmation-app hop lands on is the JA canonical.
+  assert.match(
+    read('app/affirmation-app/ja/page.tsx'),
+    /canonical: 'https:\/\/aniccaai\.com\/affirmation-app\/ja'/,
+  );
+});

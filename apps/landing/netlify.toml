@@ -28,6 +28,23 @@
   status = 302
   force = true
 
+# Language-prefixed links put the locale before the route (/ja/affirmation-app,
+# /en/affirmation-app) and returned 404: the affirmation pages live at
+# /affirmation-app and its canonical JA twin /affirmation-app/ja. Keep this block
+# identical in the repository-root netlify.toml (GHA deploys run from apps/landing,
+# Netlify's own git builds read the root config).
+[[redirects]]
+  from = "/ja/affirmation-app"
+  to = "/affirmation-app/ja"
+  status = 308
+  force = true
+
+[[redirects]]
+  from = "/en/affirmation-app"
+  to = "/affirmation-app"
+  status = 308
+  force = true
+
 [functions.ebook-download]
   included_files = ["private/ebooks/**"]
 
