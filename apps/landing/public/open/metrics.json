@@ -550,10 +550,6 @@
    "why": "not wired into collect_all yet (needs login/API); read by owner loops"
   },
   {
-   "item": "App Store lookup Anicca",
-   "why": "URLError"
-  },
-  {
    "item": "App Store category rank",
    "why": "Apple top-charts RSS only lists top 100-200 per genre; not in chart = no rank number"
   },
@@ -680,7 +676,12 @@
      "us:affirmation app": "圏外(>200)",
      "jp:アファメーション": 21,
      "jp:アファメーション アプリ": 27
-    }
+    },
+    "id": 6755129214,
+    "genre": "Health & Fitness",
+    "ratings": 48,
+    "rating": 4.52083,
+    "version": "1.9.14"
    },
    "Honne": {
     "keywords": {
@@ -814,7 +815,7 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2760
+     "uses": 2761
     },
     {
      "rank": 2,
@@ -839,7 +840,7 @@
    ],
    "winner_saya_top": [
     [
-     55857,
+     55864,
      "CloneCut - Viral Clone, Seedance2.0, kids video"
     ],
     [
@@ -911,8 +912,8 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-15 21:16 JST",
- "source_updated_at": "2026-11-15 21:14 JST",
+ "updated_at": "2026-11-15 21:28 JST",
+ "source_updated_at": "2026-11-15 21:27 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
