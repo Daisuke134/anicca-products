@@ -1166,6 +1166,476 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'Related guides: affirmations for anxiety and affirmations for burnout, linked below. If stress lasts for weeks, affects your sleep, appetite or health, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
+  {
+    slug: 'affirmations-for-confidence',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for confidence: quiet lines that help you trust yourself',
+    h1: 'Affirmations for confidence: quiet lines that help you trust yourself',
+    directAnswer: [
+      'Affirmations for confidence work best when they sound like a calm friend, not a pep talk. Confidence is mostly trust built from small kept promises, so believable lines such as "I have handled hard things before" land better than "I am unstoppable." Pick one line, say it before the moment that usually shrinks you, then do the small thing.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for confidence?', a: 'Lines that point at evidence work best, for example: "I have handled hard things before." "I can be nervous and still begin." "My voice does not need to be the loudest to count." Choose one that feels almost true, not one that feels like a costume.' },
+      { q: 'Do affirmations really build confidence?', a: 'A sentence alone does not build confidence; kept promises do. An affirmation helps by choosing the thought you act from. Say the line, then take the small action it points to — sending the message, raising the hand, starting the first five minutes. The action becomes the evidence the next line stands on.' },
+      { q: 'How do I use affirmations for confidence in two minutes?', a: 'Name the moment ahead of you in one plain sentence. Read one affirmation slowly, twice. Then decide the smallest visible step you will take in that moment, such as asking one question or opening the document. Small and done beats big and imagined.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for confidence',
+    metaDescription:
+      '10 believable affirmations for confidence, built on small kept promises instead of hype, plus a two-minute practice for moments that shrink you. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Confidence rarely disappears all at once. It leaks out in small moments: the meeting where you rehearse a sentence three times and never say it, the message you rewrite until it says almost nothing, the opportunity you talk yourself out of before anyone else can. Underneath is usually not a lack of ability. It is a habit of treating your own voice as the least reliable one in the room.',
+      'It helps to separate confidence from volume. The loudest person is not the most sure; they are often just the most practiced at sounding sure. Real confidence is quieter: it is the memory of times you were scared and did the thing anyway, badly at first, and survived it. That memory is built, not born. Every small kept promise — the email sent, the class attended, the boundary said out loud — is a deposit.',
+      'This is why loud affirmations often bounce off. "I am a powerhouse" feels false on a Tuesday morning, and your mind argues with it, which leaves you less sure than before. Lines that work are closer to the ground: specific, believable, and tied to evidence you already have. You are not trying to become a different person. You are reminding the person you already are of what she or he has already done.',
+      'Anicca is an iPhone affirmation app built around that idea. It sends one short line at the time you choose — before work, before the hard conversation, on the train — instead of asking you to open a library and motivate yourself. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I have handled hard things before, and I remember how.',
+      'I can be nervous and still begin.',
+      'My voice does not need to be the loudest to count.',
+      'I trust myself to figure out the next step, not the whole staircase.',
+      'A small promise kept is proof I can keep the next one.',
+      'I am allowed to take up a normal amount of space.',
+      'Not knowing yet is a stage, not a verdict.',
+      'I can say it plainly and let that be enough.',
+      'My past attempts count as training, not failure.',
+      'I do not need to feel ready to start.',
+    ],
+    practice: {
+      heading: 'A two-minute confidence deposit',
+      steps: [
+        'Write down one thing you did in the last month that was hard and that you finished anyway. One line, plain words. This is your evidence, not a pep talk.',
+        'Read one affirmation from the list slowly, twice. If it feels too big, shrink it: "I am learning to trust myself with this" is a valid version.',
+        'Choose the smallest visible step toward the thing you are avoiding — open the file, draft the first sentence, book the slot — and do only that step now.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for self-doubt and affirmations for fear of failure, linked below. If low confidence is tangled with depression or anxiety that runs your days, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-success',
+    jaSlug: 'money-worry',
+    title: 'Affirmations for success: steady lines for people doing the work',
+    h1: 'Affirmations for success: steady lines for people doing the work',
+    directAnswer: [
+      'Affirmations for success are most useful when they describe the worker, not the trophy. Lines such as "I finish what I start, one small piece at a time" keep your attention on the part you control — today\u2019s work — instead of on outcomes that arrive later and unevenly. Read one before you start, then do the first small piece.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for success?', a: 'Process lines beat outcome lines, for example: "I finish what I start, one small piece at a time." "Slow progress is still progress I can keep." "I can want more without insulting what I have." They stay believable on ordinary days, which is when success is actually built.' },
+      { q: 'Do affirmations attract success?', a: 'No sentence attracts results by itself. What a good line can do is set the frame you work inside: patient instead of frantic, steady instead of comparing. The work still has to happen — the affirmation just helps you start it and return to it after a flat week.' },
+      { q: 'When should I read affirmations for success?', a: 'Attach them to a moment that already exists: before you open your laptop, after a rejection, or when you close the day. One line, read slowly, at the same moment each day is worth more than a long list read once a month.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for success',
+    metaDescription:
+      '10 steady affirmations for success that focus on the work instead of the trophy, plus a two-minute start-of-day practice. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Most people search for affirmations for success on a specific kind of day: the launch that flopped, the application that went nowhere, the colleague who got there faster. Success starts to look like a door that opens for other people. What gets lost in that view is how uneven real progress is — long flat stretches, then a jump, then another flat stretch. The flat stretch is not the opposite of success. It is most of it.',
+      'Outcome affirmations ("wealth flows to me," "I am already a millionaire") tend to collapse exactly on these days, because the gap between the sentence and the bank account is too wide to step over. What holds up better is defining success at the scale of today: the page written, the call made, the skill practiced for twenty honest minutes. That definition is not smaller ambition. It is ambition with a handle on it.',
+      'There is also a quieter trap: using other people\u2019s timelines as your measuring tape. Their visible jump hides their flat years. Your flat stretch, seen from inside, feels like proof you are behind. A steadier line — one that returns you to your own work and your own definition of a life that is going well — protects the years where nothing looks like it is happening yet.',
+      'Anicca is an iPhone affirmation app built for the flat stretches. It sends one short line at the time you choose, so the reminder arrives before the workday starts or right after the discouraging email, without you having to go looking for motivation. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I finish what I start, one small piece at a time.',
+      'Slow progress is still progress I can keep.',
+      'I can want more without insulting what I have.',
+      'My timeline is allowed to be different from theirs.',
+      'A flat week is part of the work, not the end of it.',
+      'I measure today by what I did, not by what arrived.',
+      'I am building something that takes the time it takes.',
+      'One honest hour beats a perfect plan I never start.',
+      'Setbacks are information, not identity.',
+      'I can rest without quitting.',
+    ],
+    practice: {
+      heading: 'A two-minute start-of-work practice',
+      steps: [
+        'Before you open anything else, write today\u2019s work as one small finishable piece: not "finish the project," but "draft the first section." Success needs a size your day can hold.',
+        'Read one affirmation from the list slowly. Let it set the frame: steady, not frantic.',
+        'Start the small piece immediately and work on only it for the first stretch. When it is done, the day already contains one kept promise, whatever else happens.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for confidence and affirmations for motivation when tired, linked below. This page is self-care writing for an affirmation app. It does not promise income, promotion, or any specific result — it is about the frame you work in while you do the work.',
+  },
+  {
+    slug: 'affirmations-for-healing',
+    jaSlug: 'heartbreak',
+    title: 'Affirmations for healing: gentle lines for slow repairs',
+    h1: 'Affirmations for healing: gentle lines for slow repairs',
+    directAnswer: [
+      'Affirmations for healing should never rush you. Healing is slow and uneven, so the lines that help sound like company, not instructions: "I do not have to be over this by now." Read one when the day feels heavier than expected, and let small and slow count as real progress.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for healing?', a: 'Gentle, permission-giving lines work best, for example: "I do not have to be over this by now." "Rest is part of healing, not a delay." "I can miss what was and still build what is next." Avoid lines that demand gratitude or silver linings before you are ready.' },
+      { q: 'How long does healing take?', a: 'There is no honest schedule. Healing after loss, illness, heartbreak, or a hard season usually moves in waves rather than a straight line — better weeks, then a song or a date brings it back. That return is not failure; it is how repair actually looks.' },
+      { q: 'Can affirmations help with emotional healing?', a: 'They can help the way a kind friend helps: by changing the sentence running in your head during a hard moment. They are company, not treatment. If what you are carrying involves trauma, depression, or anything that feels unsafe, a therapist or doctor is the right next step, and this page is not a substitute.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for healing',
+    metaDescription:
+      '10 gentle affirmations for healing that never rush you, plus a two-minute practice for heavy days. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Healing has a public-relations problem: from the outside it is supposed to look like a staircase — bad, then better, then fine. From the inside it feels more like weather. You can have a good week and then be flattened by a smell, a song, an empty chair. People around you, meaning well, ask if you are "feeling more like yourself yet," and the honest answer is that you are becoming a slightly different self, at a speed you did not choose.',
+      'The hardest part is often the second wound: the judgment about the first one. "I should be over this." "Other people handled worse." That commentary turns pain into a performance review. Healing slows down further when every bad day is treated as evidence that you are doing recovery wrong. There is no wrong speed for this. There is only the speed it is actually going.',
+      'Affirmations for healing, then, are not cheerleading. They are permission slips. A line like "rest is part of healing, not a delay" does not fix anything; it removes the extra weight of guilt from a day that is already heavy. Said slowly, at the moment the spiral starts, one kind sentence can be the difference between carrying the day and also fighting yourself through it.',
+      'Anicca is an iPhone affirmation app that sends one short line at the time you choose — many people pick the hour they usually feel the drop — so a gentler sentence can find you instead of the other way around. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I do not have to be over this by now.',
+      'Rest is part of healing, not a delay.',
+      'A hard day is a wave, not the whole sea.',
+      'I can miss what was and still build what is next.',
+      'Slow is a speed. I am allowed to heal at mine.',
+      'My body and heart are doing quiet work I cannot see.',
+      'I do not need to earn rest by suffering enough first.',
+      'It is okay that this still hurts sometimes.',
+      'I can be gentle with the version of me that is hurting.',
+      'Small good moments are allowed in, even now.',
+    ],
+    practice: {
+      heading: 'A two-minute practice for heavy days',
+      steps: [
+        'Put one hand somewhere that feels steady — your chest, the table, your own other hand. Notice the warmth and the weight for a few breaths. You are giving your body one simple fact: right now, in this minute, you are here.',
+        'Read one affirmation from the list slowly. If a line brings tears, that is not the practice failing; let it be information, not a problem to fix.',
+        'Choose the smallest kind thing available in the next hour — water, daylight, a message to one safe person, lying down without a screen. Small and done is the whole assignment.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for grief and affirmations for letting go, linked below. If you are healing from trauma, illness, or loss and the weight is more than you can carry, please reach out to a doctor, therapist, or local crisis line. This page is self-care writing for an affirmation app — not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-gratitude',
+    jaSlug: 'morning',
+    title: 'Affirmations for gratitude: specific lines for ordinary days',
+    h1: 'Affirmations for gratitude: specific lines for ordinary days',
+    directAnswer: [
+      'Affirmations for gratitude work when they name something specific and small — the coffee that was still warm, the friend who texted back — instead of announcing that everything is wonderful. Read one slowly and let it point at one real thing from today. Specific beats grand, every time.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for gratitude?', a: 'Specific ones, for example: "Something in today was quietly good, and I noticed it." "I have been helped more times than I can count." "Ordinary days are most of a life, and mine count." If a line could not possibly describe your actual day, shrink it until it can.' },
+      { q: 'What is the difference between gratitude affirmations and a gratitude journal?', a: 'A journal asks you to write your own list, which is powerful and takes a few minutes. An affirmation is a ready-made line you read or hear — useful on days when your mind is blank or low and generating a list feels like homework. Many people use both: lines on hard days, writing on better ones.' },
+      { q: 'Can gratitude affirmations feel fake?', a: 'Yes, when they are too big. "I am grateful for everything" is hard to believe on a day with a parking ticket and a headache. The fix is size, not effort: be grateful for one true thing. The smaller and more specific the line, the more believable — and believable is what makes it work.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for gratitude',
+    metaDescription:
+      '10 specific affirmations for gratitude for ordinary days — no forced positivity — plus a two-minute noticing practice. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Gratitude has an image problem. It is often presented as a mood you are supposed to live in — radiant, appreciative, unbothered — which makes it useless on the days you actually need it: the grey Tuesdays, the weeks where nothing is wrong exactly, but nothing feels like much either. On those days "be grateful" sounds like an instruction to feel differently, and feelings do not take instructions.',
+      'What does work is smaller: noticing. The brain is built to scan for problems, so the good parts of an ordinary day — the train that came on time, the colleague who covered for you, ten quiet minutes — pass without being registered. Gratitude practice is mostly a registration habit. You are not manufacturing a feeling; you are giving your attention one specific, true thing to land on before the problem-scan resumes.',
+      'That is why the believable unit of gratitude is one thing, named plainly. "I am grateful for everything in my abundant life" slides off. "Someone made tea for me today and I did not even ask" sticks, because it is checkable. The affirmations below are written at that scale on purpose. Read one, then find today\u2019s version of it. The finding is the practice.',
+      'Anicca is an iPhone affirmation app that sends one short line at the time you choose — a morning line works well for gratitude, so the noticing starts before the problem-scan does. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'Something in today was quietly good, and I noticed it.',
+      'I have been helped more times than I can count.',
+      'Ordinary days are most of a life, and mine count.',
+      'I can thank people while I still have the chance.',
+      'What I already have was once what I hoped for.',
+      'My senses bring me small gifts all day; I can pause for one.',
+      'I do not need a perfect life to find one good thing in this one.',
+      'The people in my life are not background. They are the story.',
+      'Enough is a real place, and I visit it more often than I think.',
+      'Today gave me something. I am looking for it on purpose.',
+    ],
+    practice: {
+      heading: 'A two-minute noticing practice',
+      steps: [
+        'Scan today — or yesterday, if today is young — for one specific good thing. Not a category ("my family") but a moment ("my sister sent the photo without being asked"). Specific is what makes it real.',
+        'Read one affirmation from the list slowly, and mentally attach your moment to it. Say the moment out loud if you can; hearing it makes it register more deeply.',
+        'If a person is part of the moment, consider telling them today in one short message. Gratitude that gets delivered tends to come back as connection, which is tomorrow\u2019s material.',
+      ],
+    },
+    closing:
+      'Related guides: morning affirmations and affirmations for self-love, linked below. Gratitude is not a treatment for depression or grief, and a hard season is not a gratitude failure. If low mood persists, please talk with a doctor or therapist. This page is self-care writing for an affirmation app, not medical advice.',
+  },
+  {
+    slug: 'affirmations-for-letting-go',
+    jaSlug: 'heartbreak',
+    title: 'Affirmations for letting go: lines for loosening your grip',
+    h1: 'Affirmations for letting go: lines for loosening your grip',
+    directAnswer: [
+      'Affirmations for letting go help when your mind keeps returning to something you cannot change — a mistake, an ending, someone else\u2019s opinion. A believable line such as "I can learn from this without living in it" does not erase the past; it loosens your grip on it for this hour. Read one, then put your hands and attention somewhere in the present.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for letting go?', a: 'Lines that separate learning from living in the past, for example: "I can learn from this without living in it." "What I cannot control, I practice releasing." "Letting go is not saying it was okay." The last one matters: releasing your grip is not approval of what happened.' },
+      { q: 'Why is letting go so hard?', a: 'Because holding on often feels like control or loyalty — as if replaying the moment keeps you ready, or letting go of a person means the love was not real. The replay does not protect you; it just re-delivers the pain on schedule. Letting go is not forgetting. It is choosing where your attention lives now.' },
+      { q: 'How do I practice letting go in two minutes?', a: 'Name the thing in one plain sentence. Say what is yours to do about it — often the honest answer is "nothing more." Then read one affirmation slowly and do something physical with your hands. Attention follows the body more easily than it follows arguments.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for letting go',
+    metaDescription:
+      '10 calm affirmations for letting go of mistakes, endings, and other people\u2019s opinions, plus a two-minute release practice. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Holding on rarely feels like a choice. It feels like the moment simply will not leave: the conversation you replay in the shower, the decision you re-try in your head at 2 a.m., the version of events where you said the smarter thing. Underneath the replay is usually a hope — if I examine it once more, maybe it will change, or maybe I will finally be ready if it happens again. The examination never delivers either. It just keeps the wound on your schedule instead of life\u2019s.',
+      'Some grips are about love, not control. Letting go of a person, a place, or a former version of your life can feel like betrayal, as if releasing it means it did not matter. It mattered. Letting go is not a statement about the past; it is a decision about where your attention gets to live now. You can honor something fully and still stop carrying it into every room.',
+      'An affirmation cannot pry your fingers open by force, and it should not try. What a good line does is give the loosening a sentence: a small, repeatable reminder that releasing is allowed, that it is not approval, and that this hour can be spent in the present. Used at the moment the replay starts, it becomes a fork in the road your mind learns to recognize.',
+      'Anicca is an iPhone affirmation app that sends one short line at the time you choose — many people pick the hours the replay usually starts, like the commute or the last hour before sleep. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I can learn from this without living in it.',
+      'What I cannot control, I practice releasing.',
+      'Letting go is not saying it was okay.',
+      'I can honor what was and still choose what is.',
+      'My hands are allowed to open.',
+      'Replaying it will not protect me. Resting might.',
+      'I release the version of the story where I am punished forever.',
+      'Other people\u2019s opinions are theirs to carry.',
+      'This chapter can end without my permission slip being signed in anger.',
+      'I am allowed to travel lighter from here.',
+    ],
+    practice: {
+      heading: 'A two-minute release practice',
+      steps: [
+        'Name the thing you are gripping in one plain sentence, written down if possible: "I keep replaying the comment from Tuesday." Plain sentences are smaller than spirals.',
+        'Ask: what is mine to do about this today? If there is a real action, write it and schedule it. If there is not, write "nothing more is mine" and let that sentence stand.',
+        'Read one affirmation slowly, then do something with your hands for two minutes — wash a cup, fold laundry, step outside. Give your attention a present-tense address.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for forgiveness and affirmations for healing, linked below. If what you are carrying involves trauma or keeps you from sleeping or working, please talk with a therapist or doctor. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-forgiveness',
+    jaSlug: 'self-blame',
+    title: 'Affirmations for forgiveness: unhooking, not excusing',
+    h1: 'Affirmations for forgiveness: unhooking, not excusing',
+    directAnswer: [
+      'Affirmations for forgiveness work when they are honest about what forgiveness is: unhooking yourself from a debt that keeps charging you interest. It is not excusing what happened, and it is not a deadline. A line such as "I can set down this weight without calling it light" lets you begin at the size of today.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for forgiveness?', a: 'Honest ones, for example: "I can set down this weight without calling it light." "Forgiving is something I do for my own hands." "I do not have to finish forgiving today; I only have to stop rehearsing the injury." Avoid lines that pretend it did not hurt — your mind will reject them, correctly.' },
+      { q: 'Does forgiving mean what they did was okay?', a: 'No. Forgiveness is not a verdict on them; it is a decision about you. You can hold a clear opinion — it was wrong, it mattered — and still stop paying for it daily. Boundaries, distance, and even never speaking again can all coexist with forgiveness.' },
+      { q: 'How do I forgive myself?', a: 'Start with the same standard you would use for a friend: name what you did plainly, make the repair that is actually possible, and then practice the sentence "I am a person who did a harmful thing, not a harmful person." Self-forgiveness grows from repair plus time, not from arguing with the memory.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for forgiveness',
+    metaDescription:
+      '10 honest affirmations for forgiveness — of others and of yourself — that never ask you to call it okay, plus a two-minute unhooking practice. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Forgiveness gets bad press because it is usually introduced as a gift you owe the person who hurt you — ideally quickly, ideally with a hug. No wonder people resist it. The version worth having is different: forgiveness as something you do for your own hands. The injury happened once, or for one season. The rehearsal of it — the argument re-run in the shower, the sentence you wish you had said — can happen hundreds of times, and each rehearsal charges you again.',
+      'It also helps to know what forgiveness is not. It is not excusing, not forgetting, not reconciling, and not a deadline. You do not have to be ready, and you do not have to do it in one piece. Some people forgive the person and keep the boundary forever. Some forgive in layers over years. Both count. What changes first is usually small: the memory visits, and it takes a little less of the day with it.',
+      'The self-directed version is its own work. Forgiving yourself asks for two things that feel opposed: full honesty about what you did, and refusal to turn it into your whole identity. Repair what can be repaired. Apologize where an apology is still possible and welcome. Then practice the line that separates the act from the person — because you will need to live with this person, yourself, for the rest of the story.',
+      'Anicca is an iPhone affirmation app that sends one short line at the time you choose, so a gentler sentence can arrive at the hour the rehearsal usually starts. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I can set down this weight without calling it light.',
+      'Forgiving is something I do for my own hands.',
+      'I do not have to finish forgiving today.',
+      'I can stop rehearsing the injury and still remember the lesson.',
+      'What they did was real. So is my decision to travel lighter.',
+      'I am a person who did a harmful thing, not a harmful person.',
+      'Repair I can make, I will make. The rest, I practice releasing.',
+      'My boundaries and my forgiveness can exist at the same time.',
+      'I release the debt without calling it paid.',
+      'Peace is allowed to arrive in layers.',
+    ],
+    practice: {
+      heading: 'A two-minute unhooking practice',
+      steps: [
+        'Write the injury in one plain sentence, then write one sentence about what it still costs you weekly — sleep, attention, a relationship. Seeing the ongoing price, plainly, is often what makes release feel practical rather than noble.',
+        'Read one affirmation from the list slowly. If "I forgive" is too big today, use the smaller true version: "I am practicing setting this down."',
+        'If a repair is possible and welcome — an apology, a returned item, a clear boundary message — write the first line of it now. If none is, close the notebook and do one ordinary kind thing for yourself.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for letting go and affirmations for self-blame, linked below. If what happened involves abuse or trauma, forgiveness is never an obligation, and a therapist can help you decide what healing looks like on your terms. This page is self-care writing for an affirmation app, not medical advice.',
+  },
+  {
+    slug: 'affirmations-for-new-beginnings',
+    jaSlug: 'morning',
+    title: 'Affirmations for new beginnings: first-step lines for starting over',
+    h1: 'Affirmations for new beginnings: first-step lines for starting over',
+    directAnswer: [
+      'Affirmations for new beginnings help most when they shrink the start. A new job, city, routine, or chapter feels huge from the doorway; a believable line such as "I only have to do the first small thing" turns it back into a morning. Read one, then do the first small thing before the day gets loud.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for new beginnings?', a: 'First-step lines, for example: "I only have to do the first small thing." "Beginners are allowed to be bad at this for a while." "A new chapter does not require erasing the old ones." They respect the nerves instead of arguing with them.' },
+      { q: 'Why does starting over feel so hard even when it is good?', a: 'Because beginnings trade the known for the unknown, and the brain prices unknown as danger even when the change is chosen and welcome. You are also a beginner again, which is uncomfortable at any age. Feeling wobbly at the start is not a sign you chose wrong; it is the normal texture of starting.' },
+      { q: 'How do I use affirmations when starting something new?', a: 'Attach one line to the first action of the new routine — the first page, the first class, the first commute. Read it right before that action for the first couple of weeks, while the routine is still fragile. Repetition at the same moment is what turns a sentence into a doorway ritual.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for new beginnings',
+    metaDescription:
+      '10 first-step affirmations for new beginnings — a new job, a move, a fresh start after an ending — plus a two-minute doorway practice. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Beginnings are usually photographed at the wrong moment. We imagine the confident version — new keys in hand, new desk, new city — and skip the actual texture of starting: not knowing where things are, being the least experienced person in the room, missing the old routine even when the old routine was the problem. Almost every real beginning contains some grief for what it replaced. That mixture is not a warning sign. It is the standard recipe.',
+      'The size illusion makes it harder. From the doorway, the whole chapter is visible at once — the entire job, the entire recovery, the entire degree — and the whole chapter is too big to start. Nobody actually begins a chapter. They begin a morning inside it: one form filled in, one introduction made, one box unpacked. The people who "start over successfully" are mostly people who got good at first small things, repeated.',
+      'An affirmation for a beginning should therefore be small and slightly brave, not triumphant. It should give you permission to be a beginner, remind you that the old chapters are not erased, and point at the next physical action. Read at the doorway — literally, before the first step of the new thing — it becomes part of the ritual that carries you across the threshold on wobbly days.',
+      'Anicca is an iPhone affirmation app that sends one short line at the time you choose — set it for the minute before the new routine starts, and the line arrives like a hand on the door. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I only have to do the first small thing.',
+      'Beginners are allowed to be bad at this for a while.',
+      'A new chapter does not require erasing the old ones.',
+      'I can be nervous and still walk in.',
+      'Not knowing yet is the correct first stage.',
+      'I have started from zero before. I know the way it goes.',
+      'This beginning is allowed to be imperfect and still real.',
+      'I will let the first weeks be practice, not a verdict.',
+      'What I am leaving taught me something I get to keep.',
+      'Today I am a person who begins.',
+    ],
+    practice: {
+      heading: 'A two-minute doorway practice',
+      steps: [
+        'Name the beginning in one plain sentence: "I am starting a new job," "I am living in a new city," "I am beginning again after the ending." Plain naming makes it a fact, not a fog.',
+        'Read one affirmation from the list slowly, right before the first action of the new routine. Same line, same moment, for the first two weeks if you can.',
+        'Choose the first small thing — one introduction, one form, one shelf arranged — and do it now. Beginnings are built out of first small things, stacked.',
+      ],
+    },
+    closing:
+      'Related guides: morning affirmations and affirmations for letting go, linked below. If your new beginning follows a loss and grief is the larger weather, the affirmations for grief page may fit better. This page is self-care writing for an affirmation app, not medical advice.',
+  },
+  {
+    slug: 'affirmations-for-women',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for women: lines for the days you carry a lot',
+    h1: 'Affirmations for women: lines for the days you carry a lot',
+    directAnswer: [
+      'Affirmations for women land best when they answer the actual pressure: being the default parent, the reliable colleague, the one who remembers everything — and feeling guilty for resting anyway. A believable line such as "Rest is not something I earn by finishing everything" speaks to that directly. Read one at the moment the guilt usually starts.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for women?', a: 'Lines that answer real pressure, for example: "Rest is not something I earn by finishing everything." "My needs are not an interruption of my life; they are part of it." "I can be kind without being endlessly available." The test: could you say it to your closest friend and mean it?' },
+      { q: 'Why do generic positive affirmations not work for me?', a: 'Often because they skip the actual weight. "You are a queen" does not touch the mental load, the double shift, or the guilt about resting. Lines that name the real situation — and give one specific permission inside it — feel less like a poster and more like a friend who has seen your actual day.' },
+      { q: 'When is a good time to read affirmations?', a: 'At a transition you already have: the first coffee, the commute, the moment you close the laptop, the school-run return. One line at the same transition each day beats a long list on Sundays, because the line starts to belong to that moment.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for women',
+    metaDescription:
+      '10 honest affirmations for women about rest, boundaries, and being more than your usefulness, plus a two-minute transition practice. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'A lot of women are running an invisible second job: remembering the birthdays, noticing the empty fridge, tracking who is struggling and who needs a call, keeping the emotional weather of a household or a team regulated. The work is real, skilled, and almost never listed anywhere. When it goes well, it looks like nothing happened. That invisibility is exhausting in a particular way — you are tired from labor that other people experience as "things just working out."',
+      'Layered on top is a training many women absorbed early: be kind, be easy, do not make it awkward. So rest gets postponed until everything is finished — and everything is never finished — and saying no arrives wrapped in an apology and an explanation. Generic positivity does not touch any of this. What touches it is permission, stated plainly, in sentences that sound like they were written by someone who has seen the actual day.',
+      'The affirmations below are written for that day. They are about rest that does not need to be earned, needs that are not interruptions, and a self that is not measured by usefulness. Read one at a transition — the coffee, the commute, the laptop closing — and let it mark the border between carrying things and being a person.',
+      'Anicca is an iPhone affirmation app that sends one short line at the time you choose, so the line can arrive at exactly that transition without you having to remember or go looking. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'Rest is not something I earn by finishing everything.',
+      'My needs are not an interruption of my life; they are part of it.',
+      'I can be kind without being endlessly available.',
+      'I am allowed to be a person, not only a function.',
+      'Saying no plainly is not unkind.',
+      'The invisible work I do is real work, and I can set some of it down.',
+      'I do not have to be easy to be worthy of love.',
+      'My body is not an apology.',
+      'I can want things for myself without a committee meeting.',
+      'Tired is information, not a character flaw.',
+    ],
+    practice: {
+      heading: 'A two-minute transition practice',
+      steps: [
+        'Pick one daily transition — first coffee, commute, laptop closing, walking back from the school run. That moment is now the border: before it, carrying things; after it, two minutes that are yours.',
+        'At the border, read one affirmation from the list slowly. Let it be about permission, not productivity: you are not gearing up, you are setting something down.',
+        'Use the two minutes for one small thing that is only for you — stepping outside, sitting down with the drink while it is hot, one song with your eyes closed. Small and daily beats rare and elaborate.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for self-love and affirmations for burnout, linked below. If the load you are carrying includes depression, anxiety, or a situation that is not safe, please reach out to a professional or a local helpline. This page is self-care writing for an affirmation app, not medical advice.',
+  },
+  {
+    slug: 'i-am-affirmations',
+    jaSlug: 'self-esteem',
+    title: 'I am affirmations: 10 believable I am statements (and how to write your own)',
+    h1: 'I am affirmations: 10 believable I am statements',
+    directAnswer: [
+      '"I am" affirmations are short identity statements — "I am learning," "I am enough as I am" — that work when they are believable and present-tense honest. The trick is size: "I am becoming calmer" lands where "I am perfectly calm" gets argued with. Pick one statement that feels almost true, say it slowly, and let your day collect the evidence.',
+    ],
+    faq: [
+      { q: 'What are the best I am affirmations?', a: 'The believable ones, for example: "I am learning to trust myself." "I am enough as I am, and still growing." "I am a person who finishes small things." Statements with a small bridge word — learning, becoming, practicing — survive contact with a real Tuesday much better than absolute ones.' },
+      { q: 'How do I write my own I am affirmation?', a: 'Start from the sentence your mind currently repeats ("I am always behind") and answer it at the same scale, not the opposite extreme: "I am a person who can do the next thing." Keep it present tense, keep it checkable, and keep it kind enough that you could say it to a friend.' },
+      { q: 'Why do I am affirmations sometimes feel fake?', a: 'Because the gap between the statement and your current evidence is too wide, so your mind files it as fiction. Shrink the claim until it is almost true — add "learning to," "practicing," or "on my way to" — and then take one small action that makes it a little truer. Belief follows evidence.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'I am affirmations',
+    metaDescription:
+      '10 believable "I am" affirmations plus a simple method for writing your own that do not feel fake. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      '"I am" is the strongest grammatical frame a sentence about yourself can take. "I feel behind" describes weather; "I am behind" describes identity — and identity statements are the ones that quietly steer behavior, because we act to stay consistent with who we believe we are. That is the whole opportunity and the whole risk of I am affirmations: the frame is powerful in both directions, and most people are already running powerful I am statements all day. They are just negative ones, repeated for years.',
+      'The common failure is overreach. Someone whose honest current statement is "I am a mess" tries to install "I am radiant, wealthy, and completely at peace," and the mind rejects the download. The statement has to live within sight of your current evidence. Bridge words do that work: learning, becoming, practicing, on my way. "I am learning to rest without guilt" is a statement a real person can stand inside today — and standing inside it changes what you do next, which changes the evidence, which lets the statement grow.',
+      'The other rule is specificity of behavior. The I am statements that change days are attached to things you can watch yourself do: finishing small things, telling the truth kindly, returning after a lapse. Identity built on behavior is stable because the day keeps supplying proof. Pick one statement below — or write your own with the method in the practice — and give it a few weeks of small evidence.',
+      'Anicca is an iPhone affirmation app that sends one short line at the time you choose, so your statement can arrive at the moment you tend to forget it — morning, the commute, the hour the inner critic clocks in. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I am learning to trust myself.',
+      'I am enough as I am, and still growing.',
+      'I am a person who finishes small things.',
+      'I am allowed to take up a normal amount of space.',
+      'I am becoming calmer, one ordinary day at a time.',
+      'I am not behind; I am on my own road.',
+      'I am worthy of rest before I am empty.',
+      'I am the kind of person who returns after a lapse.',
+      'I am more than the worst thing I have done or survived.',
+      'I am here, and here is a workable place to start.',
+    ],
+    practice: {
+      heading: 'A two-minute write-your-own practice',
+      steps: [
+        'Write the I am sentence your mind already repeats, exactly as it sounds: "I am always behind," "I am too much," "I am not a finisher." Seeing it on paper makes it a sentence instead of a fact.',
+        'Answer it at the same scale with a bridge word: "I am learning to do the next thing," "I am a person who can ask for less on her plate," "I am practicing finishing small." Almost true is the target.',
+        'Say your new line slowly, twice. Then take one tiny action that makes it truer today — finish one small thing, rest for ten minutes without earning it, send the message. Evidence is the fertilizer.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for self-love and affirmations for self-worth, linked below. If your current I am statements are tangled with depression or trauma, a therapist can help you rewrite them at a pace that holds. This page is self-care writing for an affirmation app, not medical advice.',
+  },
+  {
+    slug: 'affirmations-for-grief',
+    jaSlug: 'heartbreak',
+    title: 'Affirmations for grief: gentle lines with no schedule',
+    h1: 'Affirmations for grief: gentle lines with no schedule',
+    directAnswer: [
+      'Affirmations for grief should never include a deadline or a silver lining. The lines that help are company for the day as it is: "There is no schedule for this" and "Love does not end just because the form of it changed." Read one when a wave hits, and let the only job be getting through this hour kindly.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for grief?', a: 'Gentle, schedule-free lines, for example: "There is no schedule for this." "I can carry love and loss at the same time." "Today I only have to do today." Avoid anything that calls grief a gift or a lesson before you would say that yourself — which may be never, and that is allowed.' },
+      { q: 'What should I say to myself on a hard grief day?', a: 'Something small and true: that this wave is a wave, that you have survived every hard day so far, that the person you lost would not want your suffering to be the monument. Then do the next physical thing — water, food, air, one message to one person. Grief days are lived in hours, not insights.' },
+      { q: 'Is it normal that grief comes back months later?', a: 'Yes. Grief is not a staircase with a top floor; it is more like a tide that mostly recedes and sometimes returns at full height — a song, a season, an empty chair at a table. A returning wave is not a relapse or a failure of healing. It is the ordinary behavior of love after loss.' },
+      { q: 'Is the Anicca affirmation app free?', a: 'Anicca is free to download on the App Store for iPhone, with optional in-app subscriptions. It sends one short line at the time you choose, covers 13 self-care topics, and has no streaks.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for grief',
+    metaDescription:
+      '10 gentle affirmations for grief with no schedule and no silver linings, plus a two-minute practice for wave days. Free lines from Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Grief is the price structure of love, and nobody sane would refuse the love to avoid the price. But knowing that does not make the supermarket bearable when their favorite song comes on, or the first holiday, or the ordinary Tuesday when you reach for the phone to tell them something before you remember. Grief lives in the body and in logistics: the empty chair, the unshared joke, the form that asks for an emergency contact.',
+      'Well-meaning people will hand you timelines — the first year is the hardest, you will feel better by spring — mostly because your pain makes them feel helpless and a schedule makes it feel manageable. There is no schedule. There are waves, which mostly get smaller and further apart, and anniversaries, which do not consult your progress. Anyone who tells you that you should be further along is describing their discomfort, not your grief.',
+      'So the affirmations here make only one kind of promise: company. They will not interpret your loss, call it a lesson, or rush you toward gratitude. They say the day can be survived in hours, that love and loss can be carried at the same time, and that the person you are grieving is not honored by your punishment. Read one when a wave hits. Let it be a handrail, not a lecture.',
+      'Anicca is an iPhone affirmation app that sends one short line at the time you choose — some people set it for the hour the house gets quiet — so on the days you cannot go looking for comfort, a kind sentence can come to you. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'There is no schedule for this.',
+      'I can carry love and loss at the same time.',
+      'Today I only have to do today.',
+      'A wave is a wave. It will pass through, not stay forever.',
+      'Missing them is a form of loving them, not a problem to fix.',
+      'I have survived every hard day so far, including the worst one.',
+      'Rest is allowed, even in grief. Especially in grief.',
+      'I do not have to be strong in the way people mean it.',
+      'Their love is still part of my life, in a changed form.',
+      'I can let one small good moment in without betraying anyone.',
+    ],
+    practice: {
+      heading: 'A two-minute practice for wave days',
+      steps: [
+        'When a wave hits, name it plainly: "This is a grief wave." Naming it separates you from it slightly — you are the shore, not only the water.',
+        'Read one affirmation from the list slowly. If tears come, let them; crying is the body doing grief correctly, not a setback.',
+        'Do the next physical thing only: a glass of water, something small to eat, standing outside for one minute of air. On wave days, care is measured in glasses of water, not breakthroughs.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for healing and affirmations for letting go, linked below. If grief is joined by feelings that frighten you, or you cannot sleep, eat, or function for a long stretch, please reach out to a doctor, a grief counselor, or a local crisis line. This page is self-care writing for an affirmation app — not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
