@@ -177,6 +177,24 @@
   to = "/affirmation-app/:splat"
   status = 301
 
+# Language-prefixed links put the locale before the route (/ja/affirmation-app,
+# /en/affirmation-app) and returned 404: the affirmation pages live at
+# /affirmation-app and its canonical JA twin /affirmation-app/ja (see the
+# `alternates.canonical` in app/affirmation-app/ja/page.tsx). Permanent redirects
+# send those links to the real page; Netlify carries the query string across the
+# hop, so ?ct= / ?pt= / utm_* attribution survives.
+[[redirects]]
+  from = "/ja/affirmation-app"
+  to = "/affirmation-app/ja"
+  status = 308
+  force = true
+
+[[redirects]]
+  from = "/en/affirmation-app"
+  to = "/affirmation-app"
+  status = 308
+  force = true
+
 # /cemetery locale split: Japanese browsers → /cemetery/ja, everyone else
 # stays on the English /cemetery (same pattern as /books → /achan|/monk).
 # force=true so the ja rule overrides the static English page for ja UAs.
