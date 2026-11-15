@@ -1,4 +1,5 @@
 import "./manager-home.css";
+import { HomeAppStoreCta, HomeLocaleLink } from "./HomeCampaignLinks";
 
 // Public copy and conceptual artwork from the approved bilingual website design.
 export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
@@ -25,9 +26,9 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
             <a className="open-cta" href="/open">
               実数ダッシュボード
             </a>
-            <a className="language" href="/en">
+            <HomeLocaleLink className="language" to="/en">
               EN
-            </a>
+            </HomeLocaleLink>
           </nav>
         </header>
         <main>
@@ -220,12 +221,9 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
                   <a className="text-link" href="/affirmation-app/ja">
                     Aniccaのページを見る ↗
                   </a>{" "}
-                  <a
-                    className="text-link"
-                    href="https://apps.apple.com/app/id6755129214"
-                  >
+                  <HomeAppStoreCta className="text-link" locale="ja">
                     App Storeでダウンロード ↗
-                  </a>
+                  </HomeAppStoreCta>
                 </p>
               </div>
             </div>
@@ -264,9 +262,9 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
             <a className="open-cta" href="/open">
               Open dashboard
             </a>
-            <a className="language" href="/ja">
+            <HomeLocaleLink className="language" to="/ja">
               JA
-            </a>
+            </HomeLocaleLink>
           </nav>
         </header>
         <main>
@@ -500,12 +498,9 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
                   <a className="text-link" href="/affirmation-app">
                     See the Anicca page ↗
                   </a>{" "}
-                  <a
-                    className="text-link"
-                    href="https://apps.apple.com/app/id6755129214"
-                  >
+                  <HomeAppStoreCta className="text-link" locale="en">
                     Download on the App Store ↗
-                  </a>
+                  </HomeAppStoreCta>
                 </p>
               </div>
             </div>

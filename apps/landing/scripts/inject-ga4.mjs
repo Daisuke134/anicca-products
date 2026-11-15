@@ -1,4 +1,4 @@
-// Post-build GA4 coverage for the static export.
+// Post-build instrumentation for the static export.
 //
 // Why this exists: app/layout.tsx renders the GA4 tag only into Next.js pages. The deploy then
 // overlays canonical static pages on top of the export (Manager marketing overlay: /, /en, /ja,
@@ -8,9 +8,16 @@
 // before `netlify deploy`, so every exported HTML page carries the tag exactly once, whoever
 // produced the page. The Measurement ID is public by design (it ships in the served HTML and
 // is already inlined in .github/workflows/netlify-deploy.yml for the Next build).
+//
+// The same overlay/static pages are also the reason the homepage App Store CTA dropped an
+// incoming ?ct= (2026-11-15): React components rewrite the CTA on Next pages, but these pages
+// have no runtime to do it. So this final pre-deploy step, which is the one place every exported
+// page already passes through, applies both pieces of page-level instrumentation: GA4 coverage
+// (below) and the App Store campaign pass-through (scripts/inject-appstore-ct.mjs).
 import { readdirSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { injectTreeVerified } from "./inject-appstore-ct.mjs";
 
 export const GA_MEASUREMENT_ID = "G-EYBC69XQ24";
 export const GA_SNIPPET =
@@ -55,4 +62,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const root = process.argv[2] || "out";
   const { scanned, injected } = injectGaIntoTree(root);
   console.log(`inject-ga4: scanned ${scanned} html files under ${root}, injected GA4 into ${injected}.`);
+  const attribution = injectTreeVerified(root);
+  console.log(
+    `inject-appstore-ct: attributed the App Store CTA on ${attribution.injected} of ` +
+      `${attribution.scanned} html files under ${root}.`,
+  );
 }
