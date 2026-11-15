@@ -1,0 +1,28 @@
+<!doctype html><html lang="ja"><head><base href="/open/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anicca Open — Client work listings</title><meta name="description" content="Every client-work listing we have, per platform: what it sells, price, views, sales, and what we are changing.">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI","Hiragino Sans",sans-serif;background:#f7f7f8;color:#111;font-size:14px}
+.w{max-width:1200px;margin:0 auto;padding:20px 20px 28px}h1{font-size:22px;margin:0}.sub{color:#666;font-size:13px;margin:4px 0 16px}
+.c{background:#fff;border:1px solid #e6e6e9;border-radius:12px;padding:12px 14px;margin-bottom:12px;overflow-x:auto}h2{font-size:14px;margin:0 0 8px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th{text-align:left;color:#888;font-weight:500;border-bottom:1px solid #eee;padding:4px 6px;white-space:nowrap}td{padding:4px 6px;border-bottom:1px solid #f2f2f2;vertical-align:top}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}.m{color:#999}.pill{font-size:11px;padding:1px 7px;border-radius:9px;white-space:nowrap}
+.weak{background:#fdeeee;color:#c62828}.mid{background:#fff4e0;color:#a15c00}.top{background:#eef6ee;color:#1b7f3b}.unknown,.unpublished{background:#f0f0f2;color:#666}
+a{color:#0b57d0;text-decoration:none}a:hover{text-decoration:underline}.back{font-size:12px}
+</style></head><body><div class="w">
+<div class="back"><a href="./">← Anicca Open</a></div>
+<h1>Client work listings</h1>
+<div class="sub" id="meta">Loading…</div>
+<div class="c"><h2>By platform</h2><table id="plat"></table></div>
+<div class="c"><h2>Every listing</h2><div class="m" style="margin-bottom:6px">Views = per-listing 30-day views on the date shown. UNKNOWN / — means not measured yet; it is not zero.</div><table id="list"></table></div>
+</div>
+<script>
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const v=x=>x==null?'<span class="m">UNKNOWN</span>':esc(x);
+fetch('client-work.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('client-work.json');return r.json()}).then(d=>{
+ document.getElementById('meta').textContent='Updated '+d.updated_at+' · '+d.note;
+ document.getElementById('plat').innerHTML='<tr><th>Platform</th><th>Account</th><th class="r">Listings</th><th>Views</th><th>Applications sent</th><th>Replies</th><th>Delivered</th><th>Revenue</th></tr>'+
+  d.platforms.map(p=>`<tr><td><b>${esc(p.platform)}</b></td><td>${esc(p.account)}</td><td class="r">${esc(p.listings)}</td><td>${esc(p.views)}</td><td>${esc(p.apps)}</td><td>${esc(p.replies)}</td><td>${esc(p.deliveries)}</td><td>${esc(p.revenue)}</td></tr>`).join('');
+ document.getElementById('list').innerHTML='<tr><th>Platform</th><th>Listing</th><th>Sells</th><th>Price</th><th class="r">Views</th><th class="r">Search impr.</th><th class="r">♥</th><th class="r">Sales</th><th>Status</th><th>What we are changing</th></tr>'+
+  d.listings.map(l=>`<tr><td>${esc(l.platform)}</td><td>${l.url?`<a href="${esc(l.url)}" rel="noopener" target="_blank">${esc(l.title)}</a>`:esc(l.title)}</td><td>${esc(l.sells)}</td><td>${v(l.price)}</td><td class="r">${v(l.views_30d)}${l.views_measured&&l.views_30d!=null?`<div class="m">${esc(l.views_measured)}</div>`:''}</td><td class="r">${l.search_impressions==null?'<span class="m">—</span>':esc(l.search_impressions)}</td><td class="r">${v(l.favorites)}</td><td class="r">${esc(l.sales_public)}</td><td><span class="pill ${esc(l.status)}">${esc(l.status)}</span></td><td>${esc(l.action)}</td></tr>`).join('');
+}).catch(e=>{document.getElementById('meta').textContent='Data unavailable: '+e.message});
+</script></body></html>
