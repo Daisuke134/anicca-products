@@ -91,15 +91,6 @@
    "status": "2026-10-31 成田さん: 投稿者は参謀だけ"
   },
   {
-   "loop": "Opportunity apply loop",
-   "owner": "参謀",
-   "host": "Grok Bot",
-   "schedule": "2h",
-   "runs_per_day": 12.0,
-   "posts_to": "opportunities/",
-   "status": "OUTAGE-FAIL"
-  },
-  {
    "loop": "Long-term thinking",
    "owner": "参謀",
    "host": "Grok Bot",
@@ -268,7 +259,7 @@
    "schedule": "毎時:50",
    "runs_per_day": null,
    "posts_to": "LOOP-HEALTH.md, health/",
-   "status": "本当の故障あり"
+   "status": "2026-11-15 17:2x pickle: reason_team.jso"
   },
   {
    "loop": "Honne product loop",
@@ -559,6 +550,10 @@
    "why": "not wired into collect_all yet (needs login/API); read by owner loops"
   },
   {
+   "item": "App Store lookup Anicca",
+   "why": "URLError"
+  },
+  {
    "item": "App Store category rank",
    "why": "Apple top-charts RSS only lists top 100-200 per genre; not in chart = no rank number"
   },
@@ -669,6 +664,10 @@
   },
   {
    "date": "2026-11-14",
+   "mrr": 20
+  },
+  {
+   "date": "2026-11-15",
    "mrr": 20.0
   }
  ],
@@ -679,20 +678,15 @@
      "us:affirmations": "圏外(>200)",
      "us:daily affirmations": "圏外(>200)",
      "us:affirmation app": "圏外(>200)",
-     "jp:アファメーション": 23,
-     "jp:アファメーション アプリ": 26
-    },
-    "id": 6755129214,
-    "genre": "Health & Fitness",
-    "ratings": 48,
-    "rating": 4.52083,
-    "version": "1.9.14"
+     "jp:アファメーション": 21,
+     "jp:アファメーション アプリ": 27
+    }
    },
    "Honne": {
     "keywords": {
      "jp:本音翻訳": 1,
      "jp:LINE 相性": "圏外(>200)",
-     "jp:本音": 39
+     "jp:本音": 41
     },
     "id": 6759667221,
     "genre": "Utilities",
@@ -704,7 +698,7 @@
     "keywords": {
      "us:gratitude journal": "圏外(>200)",
      "us:gratitude": "圏外(>200)",
-     "jp:感謝日記": "圏外(>200)"
+     "jp:感謝日記": 161
     },
     "id": 6759514159,
     "genre": "Health & Fitness",
@@ -716,12 +710,42 @@
   "gsc": {
    "https://aniccaai.com/": {
     "d7": {
-     "clicks": 2,
-     "impressions": 494,
-     "ctr": 0.004048582995951417,
-     "position": 17.540485829959515
+     "clicks": 10,
+     "impressions": 974,
+     "ctr": 0.01026694045174538,
+     "position": 15.617043121149898
     },
     "top_queries": [
+     {
+      "q": "urlは",
+      "pos": 3,
+      "impr": 1,
+      "clicks": 1
+     },
+     {
+      "q": "仕事 不安",
+      "pos": 5.5,
+      "impr": 2,
+      "clicks": 1
+     },
+     {
+      "q": "仕事 不安になる",
+      "pos": 4,
+      "impr": 1,
+      "clicks": 1
+     },
+     {
+      "q": "自己 感",
+      "pos": 4,
+      "impr": 1,
+      "clicks": 1
+     },
+     {
+      "q": "自負しております",
+      "pos": 4,
+      "impr": 1,
+      "clicks": 1
+     },
      {
       "q": "40代 無料 タイプ別",
       "pos": 27.2,
@@ -730,8 +754,8 @@
      },
      {
       "q": "affirmation app",
-      "pos": 77.2,
-      "impr": 10,
+      "pos": 77.8,
+      "impr": 13,
       "clicks": 0
      },
      {
@@ -747,69 +771,39 @@
       "clicks": 0
      },
      {
+      "q": "affirmations for imposter syndrome",
+      "pos": 15,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "ai monks",
+      "pos": 66,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "ai video hook creator",
+      "pos": 70,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
       "q": "aicca",
       "pos": 27,
       "impr": 1,
       "clicks": 0
      },
      {
+      "q": "ainca",
+      "pos": 71.3,
+      "impr": 3,
+      "clicks": 0
+     },
+     {
       "q": "anica ai",
       "pos": 10,
       "impr": 1,
-      "clicks": 0
-     },
-     {
-      "q": "anicai",
-      "pos": 6,
-      "impr": 1,
-      "clicks": 0
-     },
-     {
-      "q": "anicca",
-      "pos": 36.8,
-      "impr": 5,
-      "clicks": 0
-     },
-     {
-      "q": "anicca data science solutions",
-      "pos": 70,
-      "impr": 1,
-      "clicks": 0
-     },
-     {
-      "q": "anicca digital",
-      "pos": 41.8,
-      "impr": 4,
-      "clicks": 0
-     },
-     {
-      "q": "anicca leciester",
-      "pos": 35,
-      "impr": 1,
-      "clicks": 0
-     },
-     {
-      "q": "anicca leicester",
-      "pos": 32.5,
-      "impr": 2,
-      "clicks": 0
-     },
-     {
-      "q": "aniccai.com",
-      "pos": 15.4,
-      "impr": 5,
-      "clicks": 0
-     },
-     {
-      "q": "anicji",
-      "pos": 8,
-      "impr": 1,
-      "clicks": 0
-     },
-     {
-      "q": "annca ai",
-      "pos": 6.3,
-      "impr": 3,
       "clicks": 0
      }
     ]
@@ -820,12 +814,12 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2736
+     "uses": 2760
     },
     {
      "rank": 2,
      "title": "Hook Grader — Free Hook Score (0-10)",
-     "uses": 95
+     "uses": 96
     },
     {
      "rank": 3,
@@ -845,7 +839,7 @@
    ],
    "winner_saya_top": [
     [
-     55058,
+     55857,
      "CloneCut - Viral Clone, Seedance2.0, kids video"
     ],
     [
@@ -917,8 +911,8 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-14 21:28 JST",
- "source_updated_at": "2026-11-14 21:27 JST",
+ "updated_at": "2026-11-15 21:16 JST",
+ "source_updated_at": "2026-11-15 21:14 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -1037,7 +1031,7 @@
    "revenue_mtd": null,
    "mrr": null,
    "metric": "site pageviews (cumulative)",
-   "metric_value": 3809,
+   "metric_value": 3951,
    "status": "live",
    "next": "search traffic (SEO loop)"
   },
@@ -1097,7 +1091,7 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 18
+   "board_updates_today": 20
   },
   {
    "agent": "Codex (CTO, Head of Research)",
@@ -1109,7 +1103,7 @@
    "agent": "Dots (COO)",
    "today": "Contract work on its platforms, one new platform signup a day, chasing open items, daily summary",
    "platforms": "CrowdWorks, Contra, Freelancer.com, Malt, Workana, Guru",
-   "board_updates_today": 0
+   "board_updates_today": 1
   },
   {
    "agent": "Muse (CMO)",
@@ -1127,7 +1121,7 @@
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 10
+   "board_updates_today": 2
   },
   {
    "agent": "Anicca Marketer",
@@ -1155,61 +1149,68 @@
   }
  ],
  "contract_work": {
-  "applications_today": 12,
-  "applications_7d": 60,
+  "applications_today": 6,
+  "applications_7d": 47,
   "days": [
-   "2026-11-08",
    "2026-11-09",
    "2026-11-10",
    "2026-11-11",
    "2026-11-12",
    "2026-11-13",
-   "2026-11-14"
+   "2026-11-14",
+   "2026-11-15"
   ],
   "platforms": [
    {
     "platform": "Coconala",
     "owner": "dr eggbot",
-    "applications_today": 6,
+    "applications_today": 2,
     "applications_by_day": {
-     "2026-11-08": 0,
      "2026-11-09": 0,
      "2026-11-10": 2,
      "2026-11-11": 0,
      "2026-11-12": 0,
      "2026-11-13": 4,
-     "2026-11-14": 6
+     "2026-11-14": 6,
+     "2026-11-15": 2
     },
-    "applications_7d": 12,
+    "applications_7d": 14,
     "status": "active; trial order in progress (10/30)",
     "revenue_lifetime_usd": 1726.18
    },
    {
     "platform": "Lancers",
     "owner": "dr eggbot",
-    "applications_today": 6,
+    "applications_today": 1,
     "applications_by_day": {
-     "2026-11-08": 0,
      "2026-11-09": 0,
      "2026-11-10": 2,
      "2026-11-11": 8,
-     "2026-11-12": 27,
+     "2026-11-12": 9,
      "2026-11-13": 4,
-     "2026-11-14": 6
+     "2026-11-14": 6,
+     "2026-11-15": 1
     },
-    "applications_7d": 47,
+    "applications_7d": 30,
     "status": "active",
     "revenue_lifetime_usd": null
    },
    {
     "platform": "Upwork",
     "owner": "dr eggbot",
-    "applications_today": null,
-    "applications_by_day": null,
-    "applications_7d": null,
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-11-09": 0,
+     "2026-11-10": 0,
+     "2026-11-11": 0,
+     "2026-11-12": 0,
+     "2026-11-13": 0,
+     "2026-11-14": 0,
+     "2026-11-15": 0
+    },
+    "applications_7d": 0,
     "status": "contract active (Labelbox, 10/30); ID check due 11/6",
-    "revenue_lifetime_usd": null,
-    "note": "no applications recorded in the last 7 days (not tracked yet)"
+    "revenue_lifetime_usd": null
    },
    {
     "platform": "SKIMA",
@@ -1284,29 +1285,36 @@
    {
     "platform": "Mercor",
     "owner": "Fucker",
-    "applications_today": 0,
+    "applications_today": 3,
     "applications_by_day": {
-     "2026-11-08": 1,
      "2026-11-09": 0,
      "2026-11-10": 0,
      "2026-11-11": 0,
      "2026-11-12": 0,
      "2026-11-13": 0,
-     "2026-11-14": 0
+     "2026-11-14": 0,
+     "2026-11-15": 3
     },
-    "applications_7d": 1,
+    "applications_7d": 3,
     "status": "applied, awaiting offers",
     "revenue_lifetime_usd": null
    },
    {
     "platform": "Fiverr",
     "owner": "Fucker",
-    "applications_today": null,
-    "applications_by_day": null,
-    "applications_7d": null,
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-11-09": 0,
+     "2026-11-10": 0,
+     "2026-11-11": 0,
+     "2026-11-12": 0,
+     "2026-11-13": 0,
+     "2026-11-14": 0,
+     "2026-11-15": 0
+    },
+    "applications_7d": 0,
     "status": "status not tracked yet",
-    "revenue_lifetime_usd": null,
-    "note": "no applications recorded in the last 7 days (not tracked yet)"
+    "revenue_lifetime_usd": null
    },
    {
     "platform": "Capafy (our agents)",
@@ -1778,261 +1786,5 @@
  "missing": [
   "RevenueCat chart source",
   "Stripe metrics unavailable"
- ],
- "upcoming_charges": {
-  "updated_at": "2026-11-14 23:20 JST",
-  "timezone": "Asia/Tokyo",
-  "source": "team/research/subscriptions-audit-2026-11-14.md; 成田さん 2026-11-14 23:17 JST asked that the gym charge and tonight's keep/cancel decisions be on the public dashboard and in the team files.",
-  "note": "Upcoming and still-open charges as of the 2026-11-14 23:20 JST Asia/Tokyo audit. Rows marked cancelling were in a browser cancel pass and are not yet confirmed cancelled. Personal rows are listed so the team can see them; they are not included in company cost totals. Amounts are yen as observed on the audit, or USD when the receipt was in USD. Next dates marked expected are last charge plus one cycle, not a printed renewal date. No payment-card digits are published.",
-  "company_totals_include_personal": false,
-  "items": [
-   {
-    "name": "PAY IT FORWARD JIU-JITSU",
-    "kind": "personal",
-    "amount_jpy": 16500,
-    "amount_usd": null,
-    "cycle": "monthly",
-    "last_charge": "2026-10-26",
-    "next_charge": "2026-11-26",
-    "next_charge_certainty": "expected",
-    "status": "personal_active",
-    "label": "Personal monthly gym membership, not company software spend. Last observed debit 2026-10-26 11:23 JST; next expected around 2026-11-26.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; MUFG debit notice 2026-10-26 11:23 JST"
-   },
-   {
-    "name": "U-NEXT",
-    "kind": "personal",
-    "amount_jpy": 2189,
-    "amount_usd": null,
-    "cycle": "monthly, after a 31-day free trial",
-    "last_charge": "2026-11-03",
-    "next_charge": "2026-12-02",
-    "next_charge_certainty": "expected",
-    "status": "personal_cancelling",
-    "label": "Personal video streaming. Re-subscribed 2026-11-01 with a 31-day free trial. Cancel before about 2026-12-02 or it converts at ¥2,189/month. Browser cancel pass in progress, not yet confirmed.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; cancel mail 2026-11-01, resubscribe 2026-11-01, MUFG debit 2026-11-03"
-   },
-   {
-    "name": "Grok / Grok Bot (X Subscription Super)",
-    "kind": "company",
-    "amount_jpy": 17800,
-    "amount_usd": null,
-    "cycle": "monthly",
-    "last_charge": "2026-10-31",
-    "next_charge": "2026-11-30",
-    "next_charge_certainty": "confirmed",
-    "status": "keep",
-    "label": "KEEP. Already scheduled Ultra → Super. First Super charge is ¥17,800 on 2026-11-30. Email: you keep Ultra until then; no payment was due on the plan-change day.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; plan-change mail 2026-11-06 02:50 JST; Super list price ¥17,800/mo"
-   },
-   {
-    "name": "ChatGPT / OpenAI",
-    "kind": "company",
-    "amount_jpy": 3596,
-    "amount_usd": null,
-    "cycle": "monthly, mapping of October charges to plans still open",
-    "last_charge": "2026-10-24",
-    "next_charge": "2026-11-22",
-    "next_charge_certainty": "expected",
-    "status": "keep",
-    "label": "KEEP. The plus-sized October charge of ¥3,596 is expected around 2026-11-22. A Pro debit that had been due around 2026-11-02 was not in MUFG notices through 2026-11-14. Do not treat the missing Pro debit as a confirmed amount.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; MUFG OpenAI debits 2026-10-02 ¥30,000, 2026-10-22 ¥3,596, 2026-10-24 ¥13,259; no OpenAI debit 2026-10-25 through 2026-11-14"
-   },
-   {
-    "name": "Muse",
-    "kind": "company",
-    "amount_jpy": null,
-    "amount_usd": null,
-    "cycle": null,
-    "last_charge": null,
-    "next_charge": null,
-    "next_charge_certainty": "none_found",
-    "status": "keep",
-    "label": "KEEP. No paid Muse subscription was found in the 2026-11-14 audit of bank notices, receipts, or expenses. A separate App Store Power Plan is listed below and is in the cancel pass.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; no Muse invoice in the last 3 months of mail or expenses"
-   },
-   {
-    "name": "Postiz",
-    "kind": "company",
-    "amount_jpy": 7936,
-    "amount_usd": null,
-    "cycle": "monthly",
-    "last_charge": "2026-10-26",
-    "next_charge": "2026-11-25",
-    "next_charge_certainty": "expected",
-    "status": "cancelling",
-    "label": "Cancelling before the expected 2026-11-25 renewal. Browser pass in progress, not yet confirmed cancelled. Last debit ¥7,936 on 2026-10-26. Still posting as of 2026-11-14 21:48 JST.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; MUFG debit 2026-10-26 09:05 JST; live Postiz notification mail through 2026-11-14 21:48 JST"
-   },
-   {
-    "name": "LinkedIn Premium Career (Apple)",
-    "kind": "company",
-    "amount_jpy": 1990,
-    "amount_usd": null,
-    "cycle": "monthly",
-    "last_charge": "2026-11-06",
-    "next_charge": "2026-12-07",
-    "next_charge_certainty": "confirmed",
-    "status": "cancelling",
-    "label": "Cancelling before 2026-12-07 (renewal date printed on the receipt). Browser pass in progress, not yet confirmed cancelled. ¥1,990 tax included.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; Apple receipt mail 2026-11-07 18:53 JST, order MKX889NVM9"
-   },
-   {
-    "name": "Power Plan (App Store)",
-    "kind": "company",
-    "amount_jpy": 3499,
-    "amount_usd": null,
-    "cycle": "monthly",
-    "last_charge": "2026-11-07",
-    "next_charge": "2026-12-07",
-    "next_charge_certainty": "expected",
-    "status": "cancelling",
-    "label": "Cancelling. Receipt body did not print a renewal date; next charge expected around 2026-12-07. Browser pass in progress, not yet confirmed cancelled. ¥3,499 tax included.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; Apple receipt 2026-11-07 18:08 JST, order MKX889K9T8"
-   },
-   {
-    "name": "OpenRouter auto top-up",
-    "kind": "company",
-    "amount_jpy": 8621,
-    "amount_usd": 52.75,
-    "cycle": "prepaid / auto top-up",
-    "last_charge": "2026-11-08",
-    "next_charge": null,
-    "next_charge_certainty": "on_demand",
-    "status": "cancelling_auto_topup",
-    "label": "Turning auto top-up off. No fixed next charge. Last purchase $52.75 / ¥8,621 on 2026-11-08. Credits already bought are sunk.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; OpenRouter receipt #1840-0406 and MUFG debit 2026-11-08 09:05 JST"
-   },
-   {
-    "name": "HeyGen API auto top-up",
-    "kind": "company",
-    "amount_jpy": 1634,
-    "amount_usd": 10.0,
-    "cycle": "prepaid / auto-recharge risk",
-    "last_charge": "2026-11-09",
-    "next_charge": null,
-    "next_charge_certainty": "on_demand",
-    "status": "cancelling_auto_topup",
-    "label": "Turning auto-recharge off. No fixed next charge. Last API credit pack $10.00 / ¥1,634 on 2026-11-09. Separate from the Apple HeyGen Creator plan already set to end 2026-11-20.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; Stripe receipt #2117-0825 and MUFG debit 2026-11-09 12:31 JST"
-   },
-   {
-    "name": "Relixir auto top-up",
-    "kind": "company",
-    "amount_jpy": 3271,
-    "amount_usd": null,
-    "cycle": "prepaid / repeated top-ups",
-    "last_charge": "2026-11-06",
-    "next_charge": null,
-    "next_charge_certainty": "on_demand",
-    "status": "cancelling_auto_topup",
-    "label": "Turning auto top-up off. No fixed next charge. Three purchases in a week; last MUFG debit ¥3,271 on 2026-11-06.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; MUFG debits 2026-10-31, 2026-11-04, 2026-11-06"
-   },
-   {
-    "name": "Maritime AI auto top-up",
-    "kind": "company",
-    "amount_jpy": 3268,
-    "amount_usd": 20.0,
-    "cycle": "prepaid credits; not proven monthly",
-    "last_charge": "2026-11-07",
-    "next_charge": null,
-    "next_charge_certainty": "on_demand",
-    "status": "cancelling_auto_topup",
-    "label": "Turning card-on-file / further top-ups off. One $20.00 / ¥3,268 credit pack on 2026-11-07; not proven recurring unless auto-recharge is on.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; Stripe receipt #2640-8505 and MUFG debit 2026-11-07 21:15 JST"
-   },
-   {
-    "name": "Telnyx auto-recharge",
-    "kind": "company",
-    "amount_jpy": 3268,
-    "amount_usd": null,
-    "cycle": "usage / top-up",
-    "last_charge": "2026-10-12",
-    "next_charge": null,
-    "next_charge_certainty": "on_demand",
-    "status": "cancelling_auto_topup",
-    "label": "Turning auto-recharge off. No November debit found through 2026-11-14. Last debit ¥3,268 on 2026-10-12.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; MUFG debit 2026-10-12 17:27 JST"
-   },
-   {
-    "name": "Hetzner",
-    "kind": "company",
-    "amount_jpy": 253,
-    "amount_usd": 1.55,
-    "cycle": "monthly in arrears; may postpone under $10",
-    "last_charge": "2026-10-02",
-    "next_charge": null,
-    "next_charge_certainty": "unknown",
-    "status": "cancelling_if_empty",
-    "label": "Close if the console is empty. No November invoice found in mail tonight. Last debit $1.55 / ¥253 on 2026-10-02.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; MUFG debit 2026-10-02 and invoice 084001155256"
-   },
-   {
-    "name": "DigitalOcean",
-    "kind": "company",
-    "amount_jpy": 0,
-    "amount_usd": 0.0,
-    "cycle": "monthly usage; charges only if balance is over $1",
-    "last_charge": "2026-10-01",
-    "next_charge": null,
-    "next_charge_certainty": "unknown",
-    "status": "cancelling_if_empty",
-    "label": "Close if still empty. October invoice was $0.00. Last debit ¥162 on 2026-10-01. Charges only if usage returns.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; DigitalOcean invoice mail 2026-11-01 15:04 JST ($0.00)"
-   },
-   {
-    "name": "Railway",
-    "kind": "company",
-    "amount_jpy": 3756,
-    "amount_usd": null,
-    "cycle": "monthly usage",
-    "last_charge": "2026-10-28",
-    "next_charge": "2026-11-28",
-    "next_charge_certainty": "expected",
-    "status": "open_not_in_tonight_cancel_pass",
-    "label": "Not in tonight's cancel pass. May still host live products. Last debit ¥3,756 on 2026-10-28; next expected around 2026-11-28. No November invoice in mail through 2026-11-14.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; MUFG debit 2026-10-28 09:05 JST"
-   },
-   {
-    "name": "X Premium (standalone)",
-    "kind": "company",
-    "amount_jpy": 918,
-    "amount_usd": null,
-    "cycle": "monthly",
-    "last_charge": "2026-10-25",
-    "next_charge": "2026-11-24",
-    "next_charge_certainty": "expected",
-    "status": "open_not_in_tonight_cancel_pass",
-    "label": "Not in tonight's cancel pass. Last debit ¥918 on 2026-10-25; next expected 2026-11-24. Article access on the paying account still to be confirmed before any cancel.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; MUFG debit 2026-10-25 and X receipt period Oct 24–Nov 24"
-   },
-   {
-    "name": "Zoho Workplace Mail 10GB",
-    "kind": "company",
-    "amount_jpy": 1980,
-    "amount_usd": null,
-    "cycle": "yearly",
-    "last_charge": "2026-01-09",
-    "next_charge": "2027-01-09",
-    "next_charge_certainty": "expected",
-    "status": "open_not_in_tonight_cancel_pass",
-    "label": "Not in tonight's cancel pass. Company contact mailbox on aniccaai.com. ¥1,980/year (¥1,800 + ¥180 tax). Next expected 2027-01-09.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md; Zoho Store registration 2026-01-09 and invoice 11141950"
-   },
-   {
-    "name": "Apple Developer Program",
-    "kind": "company",
-    "amount_jpy": 12980,
-    "amount_usd": null,
-    "cycle": "yearly",
-    "last_charge": "2026-06-01",
-    "next_charge": "2027-06-02",
-    "next_charge_certainty": "membership_valid_through",
-    "status": "open_not_in_tonight_cancel_pass",
-    "label": "Not in tonight's cancel pass. Needed to keep iOS apps on the App Store. Paid ¥12,980 on 2026-06-01; membership valid 2026-06-02 through 2027-06-02. Next charge not seen.",
-    "source": "team/research/subscriptions-audit-2026-11-14.md and team/finance/SUBSCRIPTIONS.md; Apple receipt MC75953903 / order W1442003095"
-   }
-  ]
- }
+ ]
 }
