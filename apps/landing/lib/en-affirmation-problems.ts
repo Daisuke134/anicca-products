@@ -1636,6 +1636,476 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'Related guides: affirmations for healing and affirmations for letting go, linked below. If grief is joined by feelings that frighten you, or you cannot sleep, eat, or function for a long stretch, please reach out to a doctor, a grief counselor, or a local crisis line. This page is self-care writing for an affirmation app — not medical advice, diagnosis, or treatment.',
   },
+  {
+    slug: 'affirmations-for-self-esteem',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for self-esteem: respect that survives an ordinary day',
+    h1: 'Affirmations for self-esteem: respect that survives an ordinary day',
+    directAnswer: [
+      'Affirmations for self-esteem are reminders to treat yourself with basic respect even when you feel unimpressive. A line such as "I can dislike a choice without disliking the person who made it" separates a mistake from your whole identity. Read one after a harsh self-judgment, then name the specific thing you can change.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for self-esteem?', a: 'Choose lines that leave room for an imperfect day: "My ordinary self deserves ordinary kindness." "A mistake can need repair without making me worthless." They offer respect without asking you to pretend you did everything well.' },
+      { q: 'How is self-esteem different from confidence?', a: 'Confidence is about trusting yourself with a task; self-esteem is about how you regard yourself when the task goes badly. You can be unsure about giving a presentation and still believe you deserve to be heard. These lines focus on that second part.' },
+      { q: 'What if I cannot believe a positive statement about myself?', a: 'Start with fair treatment instead of praise. "I am willing to describe this mistake without insulting myself" asks less than "I love everything about myself." You do not have to admire yourself before you stop speaking to yourself cruelly.' },
+      { q: 'How can I use self-esteem affirmations after criticism?', a: 'Separate the specific feedback from the verdict you added. "The report needs clearer examples" gives you something to revise; "I am useless" does not. Read one line about respect, then write down the revision that is actually being requested.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for self-esteem',
+    metaDescription:
+      '10 believable affirmations for self-esteem when criticism becomes a verdict on your worth, plus a two-minute fair-description practice. Free lines from Anicca.',
+    whyItHappens: [
+      'Low self-esteem can show up in the little translations you make all day. A forgotten appointment becomes "I am hopeless." Someone else getting picked becomes "I have nothing to offer." The event is specific, but the sentence about you has no limits. By evening, a few ordinary disappointments can feel like a complete account of who you are.',
+      'If approval has usually arrived after achievement, it can feel strange to offer yourself respect before you have earned a compliment. You might even worry that kindness will make you careless. But describing a mistake accurately gives you a repair to make. Insulting your whole character leaves you with a much larger problem and no clear next step.',
+      'The lines below keep the distinction small and practical: your choices can need work while you remain a person worth caring for. Try one after catching an absolute judgment, especially words like "useless" or "unlovable." You are not trying to win a debate about how wonderful you are. You are practicing a fairer description of what happened.',
+      'If the harshest verdict tends to arrive at the same time each evening, that can be a useful moment for a reminder from Anicca, an iPhone affirmation app with 13 self-care topics and no streaks. It is free to download with optional subscriptions. You can also keep one of these free lines beside the notebook where you review your day.',
+    ],
+    affirmations: [
+      'My ordinary self deserves ordinary kindness.',
+      'I can dislike a choice without disliking the person who made it.',
+      'A mistake can need repair without making me worthless.',
+      'I do not lose my right to respect when someone is disappointed.',
+      'My quiet qualities count even when nobody applauds them.',
+      'I can accept a compliment without arguing against myself.',
+      'I am allowed to describe myself without an insult attached.',
+      'One awkward moment cannot contain all of who I am.',
+      'I can improve something without declaring myself defective.',
+      'I deserve a fair description, including from myself.',
+    ],
+    practice: {
+      heading: 'A two-minute fair-description practice',
+      steps: [
+        'For thirty seconds, write the judgment you just made about yourself. Under it, name the event that prompted it, using only what happened.',
+        'Spend thirty seconds reading one affirmation slowly. Replace the insult with a specific description: "I forgot the appointment" is enough.',
+        'Use the last minute to name one repair or one need. Write "reschedule the appointment" or "take a break," then leave the larger verdict unwritten.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for confidence and affirmations for self-love, linked below. Let respect stay available on the days praise feels out of reach. This page is self-care writing for an affirmation app, not medical advice.',
+  },
+  {
+    slug: 'affirmations-for-work',
+    jaSlug: 'burnout',
+    title: 'Affirmations for work: steady lines for a crowded workday',
+    h1: 'Affirmations for work: steady lines for a crowded workday',
+    directAnswer: [
+      'Affirmations for work are short reminders for handling priorities, feedback, and boundaries during the workday. "I can clarify the priority before accepting the deadline" points toward a concrete conversation instead of pretending the workload is easy. Read one before opening your inbox, joining a meeting, or closing your shift.',
+    ],
+    faq: [
+      { q: 'What are useful affirmations for work?', a: 'Use lines about actions available in your job: "I can ask what done looks like before I begin." "A full inbox does not make every message equally urgent." These give you a next move when vague expectations or competing requests fill the day.' },
+      { q: 'Can I use affirmations before a difficult meeting?', a: 'Yes. Choose a line about asking or listening, then prepare one sentence you need to say. For example, read "I can disagree with a proposal and still respect the person," then write the specific concern you want the meeting to address.' },
+      { q: 'What should I say to myself after a mistake at work?', a: 'Try "I can own an error without making it my job title." Then identify who needs to know and what needs correcting. A kind line should help you take responsibility, not hide the mistake or turn it into a day of self-punishment.' },
+      { q: 'Do work affirmations mean tolerating an unreasonable workload?', a: 'No. A reminder cannot create staffing, time, or fair treatment. Use it to prepare a specific request about priorities or support. If your role gives you little control, asking what can change is more honest than promising to handle everything cheerfully.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for work',
+    metaDescription:
+      '10 practical affirmations for work about priorities, meetings, feedback, and ending your shift, plus a two-minute workload reset. Free lines from Anicca.',
+    whyItHappens: [
+      'A crowded workday often starts with several people treating their request as the next thing. The inbox, the rota, the customer, and the meeting all have different clocks. You can spend the whole morning responding and still feel as if you have not started. That feeling can reflect competing demands rather than a personal failure to organize yourself.',
+      'Unclear expectations add another layer. If nobody has said what finished looks like, it is easy to keep polishing, stay late, or read a brief message as disappointment. An affirmation cannot settle those expectations for you. It can give you a plain sentence to stand behind while you ask for the missing information.',
+      'Work affirmations are useful here as cues for specific actions: clarify a priority, acknowledge an error, ask a question, or record where you stopped. They do not need to make you love every task. A line that helps you handle one meeting honestly is already doing a reasonable amount of work.',
+      'For a reminder at the start or end of a shift, Anicca offers short lines on iPhone across 13 self-care topics, without streaks. Downloading is free, with optional subscriptions. Keep these lines where your work actually happens — beside a desk, in a pocket notebook, or near the place you put down your keys after a shift.',
+    ],
+    affirmations: [
+      'I can clarify the priority before accepting the deadline.',
+      'A full inbox does not make every message equally urgent.',
+      'I can ask what done looks like before I begin.',
+      'My contribution includes the questions that prevent confusion.',
+      'I can own an error without making it my job title.',
+      'I can disagree with a proposal and still respect the person.',
+      'A clear handover is a useful place to stop.',
+      'I can request support before the task becomes a crisis.',
+      'My break belongs in the workday, not only after exhaustion.',
+      'I can leave a note for tomorrow instead of carrying the whole shift home.',
+    ],
+    practice: {
+      heading: 'A two-minute workload reset',
+      steps: [
+        'Spend thirty seconds listing the requests competing for your attention. Circle the one with a clear agreed priority; if none has one, mark the question you need to ask.',
+        'Read one work affirmation for thirty seconds. Draft a plain sentence such as "Which of these should come first today?"',
+        'Use the final minute to write the first action for the agreed task, or prepare the clarification request. Keep the other requests on the list instead of in your head.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for burnout and affirmations for confidence, linked below. A manageable workday needs realistic expectations as well as kind self-talk. This page offers self-care writing, not a promise of promotion or a solution to unsafe working conditions.',
+  },
+  {
+    slug: 'affirmations-for-students',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for students: learning without making every grade a verdict',
+    h1: 'Affirmations for students: learning without making every grade a verdict',
+    directAnswer: [
+      'Affirmations for students are believable lines for studying, asking questions, and responding to grades. "An unanswered question shows me where to study next" turns confusion into a specific starting point. Read one before a study session, then choose a single question or problem to work on.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for students?', a: 'Try lines that allow learning to be unfinished: "I am allowed to need another explanation." "My first attempt is material I can learn from." They fit a real study session better than a promise to know every answer or get the highest grade.' },
+      { q: 'What affirmation can I use before an exam?', a: 'Try "I can read the question in front of me before worrying about the next one." Pair it with a practical check of the instructions and available time. A phrase cannot guarantee a result, but it can remind you what you are doing in this minute.' },
+      { q: 'How do I use affirmations after a disappointing grade?', a: 'Read a line that separates the result from your identity, then look at one piece of feedback. Identify whether you misunderstood a concept, missed an instruction, or need help with the method. Bring that specific question to your teacher or tutor.' },
+      { q: 'Can students use these without adding another daily habit?', a: 'Yes. Put one line inside the notebook you already open. Read it when you meet a difficult question, then return to the material. There is no need to track a streak, recite the whole list, or make affirmation practice another assignment.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for students',
+    metaDescription:
+      '10 affirmations for students facing exams, confusing lessons, and disappointing grades, plus a two-minute study-entry practice. Free lines from Anicca.',
+    whyItHappens: [
+      'School gives learning a visible scoreboard: marks, deadlines, class rankings, acceptance letters. Those measures can matter without telling the whole story of a student. When every result feels like a judgment about intelligence, the moments that learning requires — getting stuck, asking again, making an attempt — can start to feel embarrassing.',
+      'Comparison makes the room look more certain than it is. You see someone finish early, but not the practice they did yesterday or the topic they find difficult elsewhere. If you also work, commute, or care for family, comparing study hours can hide real differences in the time available. Your next useful study step has to fit your actual day.',
+      'These lines are meant to make room for the unfinished part of learning. They point toward asking a specific question, trying a worked example, or reading feedback without turning it into a personal label. An affirmation is a cue to return to the material; it cannot replace practice, instruction, or support when the course is moving too quickly.',
+      'Anicca is an iPhone affirmation app with 13 self-care topics and no streaks, free to download with optional subscriptions. A reminder before your usual study period can mark the start without becoming another grade to earn. These free lines also work on a card tucked into your textbook.',
+    ],
+    affirmations: [
+      'An unanswered question shows me where to study next.',
+      'I am allowed to need another explanation.',
+      'My first attempt is material I can learn from.',
+      'I can read the question in front of me before worrying about the next one.',
+      'A grade describes this submission, not every possibility ahead of me.',
+      'Asking during office hours is part of being a student.',
+      'I can study one example without mastering the chapter tonight.',
+      'My learning still counts when it takes longer to show.',
+      'I can compare my notes with the lesson instead of my life with a classmate.',
+      'I can bring one clear question to the next class.',
+    ],
+    practice: {
+      heading: 'A two-minute study-entry practice',
+      steps: [
+        'For thirty seconds, open the material and choose one question you cannot yet answer. Make the target smaller than the whole chapter.',
+        'Spend thirty seconds reading one affirmation and writing what you already know about that question, even if it is only a definition.',
+        'Use the last minute to attempt the first step or mark the exact point where you need an explanation. That is your starting point for studying or asking for help.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for confidence and affirmations for focus, linked below. If the workload is outgrowing the time or support you have, bring a concrete example to a teacher or adviser. These lines are self-care prompts, not a guarantee of exam results.',
+  },
+  {
+    slug: 'affirmations-for-men',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for men: room to be human behind the capable face',
+    h1: 'Affirmations for men: room to be human behind the capable face',
+    directAnswer: [
+      'Affirmations for men can offer a plain way to question the pressure to be useful, certain, and silent about difficulty. "I can be dependable without being invulnerable" leaves room for both responsibility and support. Read one before a conversation where you would usually say you are fine, then name what is actually happening.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for men?', a: 'Try lines that make room for an ordinary human need: "I can be dependable without being invulnerable." "My worth is not a payslip or a performance." Choose the pressure you recognize rather than a statement about how every man should be.' },
+      { q: 'Do affirmations for men have to sound tough?', a: 'No. If you already spend the day trying to look unshakable, another demand to be strong may add to the load. A useful line can be quiet and practical, such as "I can tell a friend the part I usually leave out."' },
+      { q: 'How can I use an affirmation when asking for help feels awkward?', a: 'Read a line about receiving support, then draft a specific request. "Could we talk for ten minutes? I have had a rough week" gives someone a way to respond. You do not have to explain your whole life in the first message.' },
+      { q: 'Are these lines only for fathers or providers?', a: 'No. Men have different roles, relationships, and ways of living. These lines address pressures you may recognize, not requirements for manhood. Keep the ones that fit your day and leave the rest.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for men',
+    metaDescription:
+      '10 affirmations for men about support, responsibility, and worth beyond achievement, plus a two-minute honest check-in. Free lines from Anicca.',
+    whyItHappens: [
+      'Some men learn to answer almost every check-in with "fine." It can be easier to discuss work, a result, or a broken appliance than to say you feel lonely or uncertain. If being capable has become your main way of belonging, admitting difficulty can feel like giving up the very thing people value about you.',
+      'That pressure does not look the same in every life. It might be the expectation to earn more, solve a family problem, hide disappointment, or never need reassurance. The common thread is a narrow job description for being a person: useful when needed, unobtrusive when hurting. Nobody can live inside that description all the time.',
+      'The lines below offer more room without asking you to abandon responsibility. Asking for help can sit beside keeping a promise. Naming a feeling can sit beside deciding what to do about it. Pick the line that answers your actual pressure, then use it to make one conversation a little more honest.',
+      'Anicca is an iPhone affirmation app with 13 self-care topics and no streaks, free to download with optional subscriptions. A short reminder before the trip home can be a moment to check how you are doing beneath the list of things you handled. The free lines here also fit in a note you keep for yourself.',
+    ],
+    affirmations: [
+      'I can be dependable without being invulnerable.',
+      'My worth is not a payslip or a performance.',
+      'I can tell a friend the part I usually leave out.',
+      'Needing reassurance does not make me less of a man.',
+      'I can name disappointment without turning it into a fight.',
+      'My care matters even when I cannot fix the problem.',
+      'I can receive support without paying it back immediately.',
+      'Being honest about my limits is part of being reliable.',
+      'I am allowed friendships with room for difficult conversations.',
+      'I can choose what being a man means in my own daily actions.',
+    ],
+    practice: {
+      heading: 'A two-minute honest check-in',
+      steps: [
+        'For thirty seconds, finish the sentence "Underneath fine, I feel..." with one plain word. There is no need to justify it.',
+        'Read one affirmation for thirty seconds. Name one thing you need today: company, quiet, help with a task, or a chance to talk.',
+        'Use the last minute to draft a specific request to someone you trust. If you are not ready to send it, keep the words so the next conversation has a starting point.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for self-esteem and affirmations for burnout, linked below. You can take your responsibilities seriously and still let another person see how you are doing. These lines are self-care writing, not a definition of masculinity or a substitute for professional support.',
+  },
+  {
+    slug: 'affirmations-for-love',
+    jaSlug: 'heartbreak',
+    title: 'Affirmations for love: connection with room for both people',
+    h1: 'Affirmations for love: connection with room for both people',
+    directAnswer: [
+      'Affirmations for love are reminders to seek connection without abandoning your needs or trying to control another person. "I can want closeness and still ask for clarity" gives you a starting point for an honest conversation. Read one when you are guessing what someone feels, then separate what you know from what you need to ask.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for love?', a: 'Choose lines that allow mutual choice: "I can want closeness and still ask for clarity." "I can offer affection without making it a bargain." They leave room for your needs and the other person instead of promising a particular response.' },
+      { q: 'Can affirmations make a specific person love me?', a: 'No. A sentence cannot decide another person\u2019s feelings or consent. Use affirmations to clarify how you want to participate in a relationship: honestly, with care, and with boundaries. Their choice remains theirs.' },
+      { q: 'Can I use love affirmations while single?', a: 'Yes. Love is also present in friendships, family relationships, and the ways people look after each other. A line about receiving care can fit a call with a friend. Being single does not make connection a future-only possibility.' },
+      { q: 'What affirmation fits a disagreement with a partner?', a: 'Try "I can listen to a different need without erasing my own." Then name the specific issue rather than guessing motives. A line can support a respectful conversation; it does not require staying in a conversation or relationship where you feel unsafe.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for love',
+    metaDescription:
+      '10 affirmations for love about mutual care, honest requests, and boundaries, plus a two-minute connection practice. Free lines from Anicca.',
+    whyItHappens: [
+      'Wanting love can make small uncertainties feel enormous. A delayed reply becomes a story about losing interest; a disagreement becomes a question about whether the relationship will last. When connection matters, it is tempting to search for certainty in details that cannot supply it. You can end up rehearsing a conversation you have not actually had.',
+      'Another pressure is the idea that being easy to love means needing very little. You might agree to plans you dislike, hide disappointment, or give care while hoping the other person will guess what you need in return. That leaves both people working with incomplete information. A clear request may feel exposed, but it gives the relationship something real to respond to.',
+      'The affirmations here focus on mutual care rather than attracting or securing a person. They leave space for affection, disagreement, boundaries, and a reply you cannot choose. Use a line to prepare your side of an honest exchange, not to predict how the other side will go.',
+      'Anicca offers short reminders on iPhone across 13 self-care topics, with no streaks and optional subscriptions after a free download. A reminder during an evening pause can be a cue to notice the care already present in your life. You can use these free lines in friendships and family conversations as well as romantic relationships.',
+    ],
+    affirmations: [
+      'I can want closeness and still ask for clarity.',
+      'My needs belong in the conversation about our relationship.',
+      'I can offer affection without making it a bargain.',
+      'I can listen to a different need without erasing my own.',
+      'A boundary can make room for more honest connection.',
+      'I can receive kindness without searching for the catch.',
+      'Another person\u2019s uncertainty does not decide my lovability.',
+      'I can enjoy connection without rushing it into a promise.',
+      'Love in my friendships counts as love in my life.',
+      'I can ask directly instead of building a story from silence.',
+    ],
+    practice: {
+      heading: 'A two-minute connection practice',
+      steps: [
+        'Spend thirty seconds naming one relationship moment on your mind. Write what happened separately from what you think it meant.',
+        'Read one affirmation for thirty seconds. Identify whether you want to express appreciation, ask a question, or state a need.',
+        'Use the final minute to write one clear sentence to share when the time is right. Make it a request or an observation, leaving the other person room to answer.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for self-love and affirmations for letting go, linked below. Closeness can include clear requests and room for a no. These lines are self-care prompts, not promises of romance or reasons to overlook harmful behavior.',
+  },
+  {
+    slug: 'affirmations-for-money',
+    jaSlug: 'money-worry',
+    title: 'Affirmations for money: a kinder way to face the numbers',
+    h1: 'Affirmations for money: a kinder way to face the numbers',
+    directAnswer: [
+      'Affirmations for money can help you approach an uncomfortable money task without turning the numbers into a judgment of your character. "I can look at a balance without making it a measure of me" keeps the task specific. Read one before opening a statement, then write down one fact and one question you need answered.',
+    ],
+    faq: [
+      { q: 'What are realistic affirmations for money?', a: 'Use lines about facing information: "I can look at a balance without making it a measure of me." "An unfamiliar money term is something I can ask about." These remain usable when money is tight because they do not claim that you already have plenty.' },
+      { q: 'Do money affirmations attract wealth?', a: 'No affirmation can guarantee income, erase a bill, or change a price. A line can serve as a cue to open a document or ask a question you have been avoiding. The financial situation still needs practical attention on its own terms.' },
+      { q: 'How do I use affirmations when I feel ashamed about money?', a: 'Choose a line that separates your circumstances from your worth. Then describe one fact without an insult: "This bill is unopened" rather than "I am hopeless with money." You can work with the first sentence more easily.' },
+      { q: 'What if looking at everything feels overwhelming?', a: 'Limit this practice to one document and one question. You do not need to solve every money concern in two minutes. If you need help understanding your circumstances, use the question as a starting point with an appropriately qualified adviser.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for money',
+    metaDescription:
+      '10 grounded affirmations for money worries, with no promises of wealth, plus a two-minute practice for facing one money task. Free lines from Anicca.',
+    whyItHappens: [
+      'A number on a screen can seem to say much more than it does. A balance becomes a verdict on adulthood; an unexpected expense becomes proof that you should have planned better. Money has practical consequences, so the worry is not imaginary. But a judgment about your entire character adds another burden to a situation that already needs attention.',
+      'When opening a statement feels like opening a criticism, postponing it can offer a moment of relief. The unopened document then takes up space in the background of the day. This is the small moment these lines address: approaching information without requiring yourself to feel calm, capable, or proud first.',
+      'Affirmations about effortless wealth skip that moment. They can sound particularly distant when income is uncertain or costs have risen beyond what you can manage. The lines below make smaller claims about dignity, questions, and looking at what is actually there. They are prompts for self-talk, not a budget, an investment method, or an explanation for why someone has less.',
+      'Anicca is an iPhone affirmation app with 13 self-care topics, no streaks, and optional subscriptions after a free download. If you already set aside time for paperwork, a short reminder can mark that moment. You can also keep a free line from this page beside the folder you tend to leave closed.',
+    ],
+    affirmations: [
+      'I can look at a balance without making it a measure of me.',
+      'An unopened bill is a task, not a character description.',
+      'I can ask a money question without apologizing for not knowing.',
+      'My circumstances deserve attention without shame attached.',
+      'I can name a cost honestly even when I wish it were different.',
+      'Someone else\u2019s spending does not set the standard for my day.',
+      'An unfamiliar money term is something I can ask about.',
+      'I can say a plan is outside my budget without inventing an excuse.',
+      'I deserve respectful help with a difficult money situation.',
+      'One clear fact is a useful place to begin this paperwork.',
+    ],
+    practice: {
+      heading: 'A two-minute money-paperwork practice',
+      steps: [
+        'For thirty seconds, choose one statement, bill, or money question. Leave the rest of the pile outside this two-minute task.',
+        'Spend thirty seconds reading an affirmation. Name the feeling that comes up without turning it into a label about your ability.',
+        'Use the final minute to note one fact from the document and one thing you do not understand. Keep that question for the next practical conversation or paperwork session.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for success and affirmations for self-esteem, linked below. A money problem can be real without being a verdict on you. This page offers self-care writing, not financial advice or a promise of income.',
+  },
+  {
+    slug: 'affirmations-for-focus',
+    jaSlug: 'burnout',
+    title: 'Affirmations for focus: one clear place to return your attention',
+    h1: 'Affirmations for focus: one clear place to return your attention',
+    directAnswer: [
+      'Affirmations for focus are brief cues to choose one task and return to it after a distraction. "I can return to this sentence without criticizing the detour" makes returning part of the practice. Read one, name the next visible action, and give that action a short stretch of attention.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for focus?', a: 'Choose a line that tells you where to return: "For this minute, this paragraph is my task." "I can park a new idea without following it immediately." Specific cues are easier to use than demanding perfect concentration for the whole day.' },
+      { q: 'What should I say when I notice I am distracted?', a: 'Try "Noticing the distraction gives me a chance to return." Then find your place and do the next small action. A long argument about why you drifted can become another interruption; you can investigate recurring obstacles after the work period.' },
+      { q: 'Can I use focus affirmations while studying?', a: 'Yes. Match the line to a small unit such as one example, one paragraph, or one question. Write unrelated reminders on a separate note so you do not have to keep rehearsing them while you study.' },
+      { q: 'Can affirmations fix ongoing concentration problems?', a: 'They are self-care cues, not a diagnosis or treatment. If concentration regularly disrupts your daily life, a qualified professional can help you explore what is happening. You do not need to treat persistent difficulty as a failure to repeat the right sentence.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for focus',
+    metaDescription:
+      '10 affirmations for focus that make returning after distraction part of the practice, plus a two-minute single-task reset. Free lines from Anicca.',
+    whyItHappens: [
+      'Sometimes the hard part of focusing is deciding what deserves the next minute. A document is open, a message needs an answer, and an unrelated errand keeps appearing in your thoughts. Each item feels unfinished, so each asks for attention. Switching between them can leave you busy without giving any one task enough room to move.',
+      'A vague task makes the problem harder. "Work on the project" offers many possible entrances, while "write the first heading" tells you where to put your hands. Distraction can also reflect interruptions, fatigue, or a setting that makes sustained attention difficult. A stern sentence about discipline does not remove those conditions.',
+      'These affirmations treat focus as a return you can make, rather than a perfect state you must protect. Pair one with a visible next action and a place to put unrelated thoughts. When attention moves, the line gives you a short route back without adding a speech about what is wrong with you.',
+      'Anicca sends short reminders on iPhone and covers 13 self-care topics without streaks. It is free to download with optional subscriptions. If reminders fit your routine, place one before a work period; during the period, a line written beside the task may be enough.',
+    ],
+    affirmations: [
+      'For this minute, this paragraph is my task.',
+      'I can return to this sentence without criticizing the detour.',
+      'I can park a new idea without following it immediately.',
+      'My next action can be smaller than my whole project.',
+      'Noticing the distraction gives me a chance to return.',
+      'I can leave another tab unopened while I finish this thought.',
+      'A wandering moment does not erase the attention I already gave.',
+      'I can make my workspace quieter before demanding more of myself.',
+      'I can write the reminder down and release it from rehearsal.',
+      'I am practicing returning, not proving I never drift.',
+    ],
+    practice: {
+      heading: 'A two-minute single-task reset',
+      steps: [
+        'Use thirty seconds to name one visible action: read a paragraph, label a diagram, or draft a reply. Put a spare note beside it for unrelated thoughts.',
+        'Spend thirty seconds reading one affirmation and closing one avoidable source of interruption. Keep the material for your chosen action in view.',
+        'Work on that action for the final minute. If something else comes to mind, jot down a few words on the spare note and return to your place.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for students and affirmations for work, linked below. A useful focus practice leaves you a clear place to return. These lines are self-care prompts, not treatment for attention difficulties.',
+  },
+  {
+    slug: 'affirmations-for-patience',
+    jaSlug: 'self-blame',
+    title: 'Affirmations for patience: a little room between waiting and reacting',
+    h1: 'Affirmations for patience: a little room between waiting and reacting',
+    directAnswer: [
+      'Affirmations for patience are reminders to choose your response when events move more slowly than you want. "I can feel impatient without making someone else carry it" allows the feeling while leaving your next words open. Read one during a delay, then decide whether the moment needs a pause, a question, or a clear limit.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for patience?', a: 'Try "I can feel impatient without making someone else carry it" or "A delay can be inconvenient without becoming an insult." These lines acknowledge frustration instead of asking you to enjoy waiting.' },
+      { q: 'How do I practice patience when someone is moving slowly?', a: 'Read a line before repeating your request. Check whether they need information, time, or a clearer explanation. You can ask what is happening without deciding that their pace is a personal slight.' },
+      { q: 'Does patience mean waiting indefinitely?', a: 'No. A delivery, a decision, or an unanswered request may need a follow-up time or a boundary. Patience can mean making that request clearly, without turning the delay into a fight. It does not require accepting neglect or harm.' },
+      { q: 'What if I already snapped at someone?', a: 'Try "I can repair a sharp reply without defending it." Acknowledge the words you used, apologize plainly, and state your request again if it still matters. Being patient includes learning how to return after an impatient moment.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for patience',
+    metaDescription:
+      '10 affirmations for patience during delays, slow progress, and tense conversations, plus a two-minute pause-before-reply practice. Free lines from Anicca.',
+    whyItHappens: [
+      'Waiting feels different when you have already spent the day hurrying. A slow queue or a repeated question can become the point where all the earlier frustration arrives. The present delay is real, but it may be carrying the weight of a missed bus, an unfinished task, and a plan that had no spare minutes in it.',
+      'Impatience can also come from the story attached to the delay: nobody respects your time, nothing is improving, you will always be stuck here. Sometimes there is a real issue to address. Sometimes the story has run ahead of the information. Separating the two gives you a better chance of asking for what is actually needed.',
+      'The lines below make room between the feeling and the reply. You do not have to become a person who loves queues or slow progress. You can notice irritation, decide whether a useful action is available, and choose words that do not create a second problem. A limit stated calmly can be a patient response too.',
+      'Anicca is an iPhone affirmation app with 13 self-care topics and no streaks, free to download with optional subscriptions. A reminder before a usually rushed transition can put one of these lines within reach. Keep a free line near the place where you tend to send hurried replies.',
+    ],
+    affirmations: [
+      'I can feel impatient without making someone else carry it.',
+      'A delay can be inconvenient without becoming an insult.',
+      'I can ask for an update without demanding an instant outcome.',
+      'My next sentence can be slower than my first reaction.',
+      'Another person is allowed time to understand my request.',
+      'I can set a limit without rushing into a fight.',
+      'Slow progress deserves a closer look before I call it no progress.',
+      'I can repair a sharp reply without defending it.',
+      'Waiting does not require me to rehearse my frustration.',
+      'I can let this pause stay a pause instead of filling it with blame.',
+    ],
+    practice: {
+      heading: 'A two-minute pause-before-reply practice',
+      steps: [
+        'For thirty seconds, describe the delay in plain facts. Separate "I have waited ten minutes" from the meaning you are assigning to it.',
+        'Spend thirty seconds reading one affirmation before sending or saying your next response. Name whether you need information, a boundary, or simply more time.',
+        'Use the last minute to draft one respectful request or choose when to check again. If there is nothing useful to do now, let your hands rest instead of refreshing for that minute.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for letting go and affirmations for work, linked below. Patience can include an honest follow-up and a clear stopping point. These lines offer a self-care pause, not a reason to ignore a problem that needs action.',
+  },
+  {
+    slug: 'affirmations-for-creativity',
+    jaSlug: 'comparison',
+    title: 'Affirmations for creativity: permission to make the rough version',
+    h1: 'Affirmations for creativity: permission to make the rough version',
+    directAnswer: [
+      'Affirmations for creativity are short permissions to explore an idea before deciding whether it is good. "My first draft can ask questions the final version will answer" gives unfinished work a purpose. Read one at the blank page, then make a small sketch, sentence, or variation that does not need an audience yet.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for creativity?', a: 'Try "I can make something before I know what to call it" or "A rough version gives my idea somewhere to develop." These lines support the uncertain beginning instead of requiring you to feel inspired or original on command.' },
+      { q: 'Can I use creativity affirmations if I am a beginner?', a: 'Yes. You do not need a professional title to experiment with words, sounds, materials, or ideas. Choose a line that lets you practice one small thing without deciding whether you are a creative person forever.' },
+      { q: 'How do I use affirmations when I keep comparing my work?', a: 'Read a line about your own unfinished process, then put the reference aside briefly and make one choice in your draft. A finished piece can teach you something, but it is not a fair description of what your first attempt should already look like.' },
+      { q: 'What if I still have no ideas after reading a line?', a: 'Give yourself a concrete prompt: describe an object, change one shape, or write three possible openings. The affirmation is permission to try, not a source of guaranteed inspiration. A small experiment can be useful even if you decide not to keep it.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for creativity',
+    metaDescription:
+      '10 affirmations for creativity when judgment arrives before the first draft, plus a two-minute rough-version practice. Free lines from Anicca.',
+    whyItHappens: [
+      'A blank page can become crowded before you put anything on it. You imagine the finished piece, the response it might get, and the ways it will fall short. Evaluating work that does not exist yet leaves little room for discovering what you actually want to make. The first mark starts carrying the expectations of the final one.',
+      'Seeing polished work all day can make that beginning feel especially clumsy. You see the selected image, not the discarded sketches; the finished song, not the uncertain choices along the way. References can be useful teachers, but comparing them with your private first attempt can turn exploration into an exam you did not mean to take.',
+      'These affirmations keep making and judging from occupying the same instant. You can sketch an option now and decide what deserves revision later. This is not a promise that every experiment will work. It is permission to produce something concrete enough to learn from, change, combine, or leave behind.',
+      'Anicca offers short iPhone reminders across 13 self-care topics, without streaks. It is free to download with optional subscriptions. A line before your usual making time can mark the shift from looking at other work to trying your own; the free lines below can also live on the first page of a sketchbook.',
+    ],
+    affirmations: [
+      'My first draft can ask questions the final version will answer.',
+      'I can make something before I know what to call it.',
+      'A rough version gives my idea somewhere to develop.',
+      'I can follow a curious detail without knowing the whole design.',
+      'My unfinished work does not need an audience yet.',
+      'I can admire another maker without abandoning my own attempt.',
+      'An experiment I discard can still teach me a useful choice.',
+      'I am allowed to try a different shape for this idea.',
+      'I can leave evaluation until there is something to evaluate.',
+      'One imperfect mark is enough to give this page a beginning.',
+    ],
+    practice: {
+      heading: 'A two-minute rough-version practice',
+      steps: [
+        'For thirty seconds, choose one small prompt: a sentence about an object, a sketch of its outline, or a few notes that suggest its mood.',
+        'Spend thirty seconds reading an affirmation and putting away one comparison source. Give this attempt a private place where it does not need to look finished.',
+        'Use the final minute to make a rough version without correcting it as you go. At the end, circle one detail you might explore next rather than rating the whole piece.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for new beginnings and affirmations for confidence, linked below. An unfinished piece is allowed to remain a place of discovery. These lines are self-care prompts, not a promise of inspiration, recognition, or creative income.',
+  },
+  {
+    slug: 'affirmations-for-athletes',
+    jaSlug: 'comparison',
+    title: 'Affirmations for athletes: steady self-talk beyond the scoreboard',
+    h1: 'Affirmations for athletes: steady self-talk beyond the scoreboard',
+    directAnswer: [
+      'Affirmations for athletes are short reminders to return to preparation, a practiced cue, and the next action instead of judging yourself by every result. "The last play is information, not an instruction to panic" gives a mistake a smaller role. Read one before training or competition and pair it with a cue you already use.',
+    ],
+    faq: [
+      { q: 'What are good affirmations for athletes?', a: 'Use lines about your part in the next action: "I can bring my attention back to the cue I practiced." "My effort deserves an honest review, not an insult." They remain useful after a difficult session because they do not promise victory.' },
+      { q: 'How can I use an affirmation before competition?', a: 'Choose one line before the event and connect it to a familiar part of your preparation. Keep the cue short enough to remember under pressure. You are reminding yourself of practiced work, not trying to learn a new technique in the final minute.' },
+      { q: 'What should I say after a mistake during a game?', a: 'Try "The last play is information, not an instruction to panic." Return to the next job your role requires, and save a fuller review for an appropriate break or after the event. One error does not need to become commentary over every following action.' },
+      { q: 'Do athlete affirmations mean pushing through pain or skipping rest?', a: 'No. A line should not override your training plan or professional guidance. Use "I can report a concern without treating it as an excuse" when you need to speak up. These are self-care prompts, not training or injury advice.' },
+    ],
+    campaignPrefix: 'seo_en',
+    shortTitle: 'Affirmations for athletes',
+    metaDescription:
+      '10 affirmations for athletes about preparation, mistakes, and worth beyond results, plus a two-minute familiar-cue practice. Free lines from Anicca.',
+    whyItHappens: [
+      'Sport makes some outcomes unusually visible: a time, a score, a selection list, a place on the bench. Those results matter within the activity, but they can begin to feel like a complete assessment of the person doing it. A disappointing performance may follow you home long after the session itself has ended.',
+      'During competition, reviewing a mistake can also compete with the next task. You may still be replaying the missed shot while the situation in front of you changes. Trying to demand certainty about the final result adds another job to a moment that already asks for attention. A familiar cue gives you something more immediate to work with.',
+      'The affirmations below focus on preparation, honest feedback, and the next action available in your role. They do not guarantee a personal best or ask you to ignore limits. Their purpose is to keep self-talk useful enough that a difficult result can become something to discuss and learn from, rather than a reason to insult yourself.',
+      'Anicca is an iPhone affirmation app with 13 self-care topics and no streaks, free to download with optional subscriptions. A reminder before leaving for practice can be a quiet place to choose your line. These free affirmations also fit on a card in your kit bag, ready before the phone is put away.',
+    ],
+    affirmations: [
+      'I can bring my attention back to the cue I practiced.',
+      'The last play is information, not an instruction to panic.',
+      'My effort deserves an honest review, not an insult.',
+      'I can compete with commitment without promising myself a win.',
+      'A selection decision does not contain my entire sporting life.',
+      'I can ask my coach one clear question about what to work on.',
+      'I can report a concern without treating it as an excuse.',
+      'Rest in my plan is something I can respect.',
+      'My teammate\u2019s good performance does not cancel my contribution.',
+      'I can leave the scoreboard at the venue and remain a whole person.',
+    ],
+    practice: {
+      heading: 'A two-minute familiar-cue practice',
+      steps: [
+        'Before the session, spend thirty seconds naming one part of your role you can attend to today. Choose something already in your preparation or coaching plan.',
+        'Read one affirmation for thirty seconds. Pair it with a short cue you have practiced, rather than adding a new technical instruction.',
+        'Use the final minute to write when you will return to that cue, such as after a mistake or at a scheduled break. Then put the note away and follow your usual preparation.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for confidence and affirmations for focus, linked below. A result deserves context, and the person who achieved it deserves care. This page is self-care writing, not coaching, injury treatment, or a promise of athletic results.',
+  },
 ];
 
 export function getEnAffirmationProblem(
