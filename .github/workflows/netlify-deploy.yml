@@ -118,16 +118,38 @@ jobs:
           CAPAFY_WEB_TOKEN: ${{ secrets.CAPAFY_WEB_TOKEN }}
           LIFE_MANAGER_REVISION: c895c9b7210665068c5f39ba8c79d4d10ead1e59
         run: |
-          set -euo pipefail
+          set -uo pipefail
           tmp="$(mktemp -d)"
           trap 'rm -rf "$tmp"' EXIT
           base="https://raw.githubusercontent.com/Daisuke134/life-manager/$LIFE_MANAGER_REVISION/skills/earn/capafy-marketing/scripts"
           script_dir="$tmp/skills/earn/capafy-marketing/scripts"
           mkdir -p "$script_dir" "$tmp/skills/capafy" out/open
-          curl --fail --silent --show-error --location "$base/capafy_open_snapshot.py" -o "$script_dir/capafy_open_snapshot.py"
-          curl --fail --silent --show-error --location "$base/capafy_hourly_reconcile.py" -o "$script_dir/capafy_hourly_reconcile.py"
-          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$LIFE_MANAGER_REVISION/skills/capafy/FROZEN.json" -o "$tmp/skills/capafy/FROZEN.json"
-          python3 "$script_dir/capafy_open_snapshot.py" --output out/open/capafy.json
+          # Failure isolation (2026-11-16): a stale/rejected CAPAFY_WEB_TOKEN made
+          # capafy_open_snapshot.py raise at its freshness gate and killed every
+          # deploy for ~4h, freezing the whole /open dashboard. Capafy is one
+          # section of the dashboard; its read failure must never block the rest.
+          # On failure, deploy the last committed measured snapshot instead and
+          # mark it explicitly as unmeasured for this run (observed_at stays
+          # visible on the page, so the staleness is honest, never fabricated).
+          if curl --fail --silent --show-error --location "$base/capafy_open_snapshot.py" -o "$script_dir/capafy_open_snapshot.py" \
+            && curl --fail --silent --show-error --location "$base/capafy_hourly_reconcile.py" -o "$script_dir/capafy_hourly_reconcile.py" \
+            && curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$LIFE_MANAGER_REVISION/skills/capafy/FROZEN.json" -o "$tmp/skills/capafy/FROZEN.json" \
+            && python3 "$script_dir/capafy_open_snapshot.py" --output out/open/capafy.json; then
+            echo "Capafy snapshot collected for this deploy."
+          else
+            echo "::warning::Capafy snapshot collection failed; deploying the last committed Capafy snapshot marked as unmeasured for this run."
+            cp public/open/capafy.json out/open/capafy.json
+            python3 - <<'PYEOF'
+          import json
+          from pathlib import Path
+          path = Path("out/open/capafy.json")
+          data = json.loads(path.read_text())
+          data["collection_status"] = "unmeasured_fallback"
+          data["collection_note"] = "Fresh Capafy collection failed in this deploy; values below are the last committed measured snapshot (see observed_at), not current measurements."
+          path.write_text(json.dumps(data, indent=2) + "\n")
+          print("Capafy fallback snapshot staged with collection_status=unmeasured_fallback")
+          PYEOF
+          fi
 
       - name: Stage latest Open dashboard data snapshot
         working-directory: apps/landing
