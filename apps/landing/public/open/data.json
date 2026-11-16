@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-17 08:07 JST",
+  "updated_at": "2026-11-17 08:37 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -358,9 +358,9 @@
   "by_agent": [
     {
       "agent": "Muse",
-      "board_updates_today": 717,
+      "board_updates_today": 718,
       "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-      "status": "Active. 08:07 frame (Nov 17); live at frame start was 07:37 (curl 200, live-check-2026-11-17-0807-before.json, platforms 34, social 68, by_agent 4, apps 6, handoffs 2973): 07:37 deploy SUCCEEDED (run 43973124760, 5m20s; gh run list read this frame), so landing is normal. MRR REBUILT $20 from metrics.json 2026-11-15 21:28 JST (RC $20, Capafy $0, Stripe $0); revenue MTD $31.81, costs $1,640.08, gross -$1,608.27. Wallet synced (re-read 08:07 via gh api, md5 identical), balance $63.33 (2026-11-11, sync unconfirmed). FUNNELS: app_funnels deep-equal canonical v2; Anicca iOS funnel n=12 held. Apps ASC HELD (apps-metrics-latest 2026-11-16T21:48:49Z, last7d 2026-11-09..15): Anicca 661/3, Honne 441/0, Dhamma 464/5, Sleep 145/0, Thankful 152/0, CHERIE 147/0; total 2,010/8; subs Anicca 5, Honne 2 (ASC 2026-11-15). RC obs NEW 08:01 (obs-2026-11-17-0801/rc-overview.json): new 159, active 181, subs 5, trials 0, MRR $20, revenue $0 (+1/+1 vs 07:01); no 09:00 JST batch pattern. TikTok 08:00 NEW: 4,108 / 87,583 / 3,608; en2/jpx unmeasured. LinkedIn 07:24 HELD: followers 53; Nov 17 06:00 LG-2 PUBLISHED likes 0/comments 0 (latest_post); 09:30/12:30/20:48 QUEUE; prior published HELD (LG-1 likes 1, LG-3 likes 2, LG-14 likes 1/comments 1); outbound 0. Rankings: SEO 07:54 NEW; Bing 08:08 NEW; ASO 08:06 NEW; GEO complete 07:33 anicca 0/0, ThinkUp first 5/8. Gmail 08:07 frame (16 msgs in 1h window): Agent Idea reply 08:09, Security Scan failure 08:03, daily letter 07:59, iOS build failure 07:45; no new revenue receipts. Reason: No messages (verified via ~/.local/bin/reason network inbox, exit 0)."
+      "status": "Active. 08:37 frame (Nov 17); live at frame start was 08:07 (curl 200, live-check-2026-11-17-0837-before.json, platforms 34, social 68, by_agent 4, apps 6, handoffs 2981): 08:07 deploy SUCCEEDED (run 43977367597; gh run list read this frame), so landing is normal. MRR REBUILT $20 from metrics.json 2026-11-15 21:28 JST (RC $20, Capafy $0, Stripe $0); revenue MTD $31.81, costs $1,640.08, gross -$1,608.27. Wallet synced (re-read 08:37 via gh api, md5 identical), balance $63.33 (2026-11-11, sync unconfirmed). FUNNELS: app_funnels deep-equal canonical v2; Anicca iOS funnel n=12 held. Apps ASC HELD (apps-metrics-latest 2026-11-16T21:48:49Z, last7d 2026-11-09..15): Anicca 661/3, Honne 441/0, Dhamma 464/5, Sleep 145/0, Thankful 152/0, CHERIE 147/0; total 2,010/8; subs Anicca 5, Honne 2 (ASC 2026-11-15). RC obs HELD 08:01 (obs-2026-11-17-0801/rc-overview.json): new 159, active 181, subs 5, trials 0, MRR $20, revenue $0 (held, next obs 09:01); no 09:00 JST batch pattern. TikTok 08:00 HELD: 4,108 / 87,583 / 3,608; en2/jpx unmeasured. LinkedIn 08:30 NEW: followers 53; Nov 17 06:00 LG-2 PUBLISHED likes 0/comments 0 (latest_post); 09:30/12:30/20:48 QUEUE; prior published HELD (LG-1 likes 1, LG-3 likes 2, LG-14 likes 1/comments 1); outbound 0. Rankings: SEO 08:27 NEW; Bing 08:27 NEW; ASO 08:25 NEW; GEO complete 08:28 anicca 0/0, ThinkUp first 5/8. Gmail 08:37 frame (20 msgs in 1h window): Welo verify 08:40, CrowdWorks selection reply 08:37, iOS build failure 08:32; no new revenue receipts. Reason: No messages (verified via ~/.local/bin/reason network inbox, exit 0)."
     },
     {
       "agent": "Dots",
@@ -904,10 +904,10 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
-  "coverage_note": "Status: 34 platforms, 68 social, 6 apps with full funnels, rankings refreshed, funnel n=12, wallet synced; live 07:37 landed; published 08:07; costs $1,640.08.",
+  "coverage_note": "Status: 34 platforms, 68 social, 6 apps with full funnels, rankings refreshed, funnel n=12, wallet synced; live 08:07 landed; published 08:37; costs $1,640.08.",
   "currency_note": "USD only. This file contains no non-USD currency amounts.",
-  "coverage_status_1line": "Status: live was 07:37 at frame start (curl 200, handoffs 2973); 07:37 deploy 43973124760 success; published 08:07; MRR $20, MTD $31.81.",
-  "daily_change_1line": "Status: 07:37-08:07: RC NEW 08:01 (159/181, +1/+1); ASC HELD 2,010/8; SEO 07:54 NEW, ASO 08:06 NEW, Bing 08:08 NEW; GEO 07:33 NEW; TikTok 08:00 NEW; LinkedIn 07:24 HELD; revenue flat.",
+  "coverage_status_1line": "Status: live was 08:07 at frame start (curl 200, handoffs 2981); 08:07 deploy 43977367597 success; published 08:37; MRR $20, MTD $31.81.",
+  "daily_change_1line": "Status: 08:07-08:37: RC HELD 08:01 (159/181); ASC HELD 2,010/8; SEO 08:27 NEW, ASO 08:25 NEW, Bing 08:27 NEW; GEO 08:28 NEW; TikTok 08:00 HELD; LinkedIn 08:30 NEW; revenue flat.",
   "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,617.13, profit -$1,585.32; SEO 5/7; GEO 0; IG 2/3 x6, monk 1/3, app2 missing, Threads 77 unconfirmed, LinkedIn 2/3.",
   "apps_breakdown": [
     {
@@ -918,7 +918,7 @@
       "units": 3,
       "proceeds_usd": 0,
       "period": "2026-11-09 to 2026-11-15 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 661, units 3, Proceeds $0; ASC 28d units 14; active paid subs 5 (ASC 2026-11-15). RevenueCat registrations include server-registered rows. 08:07 JST."
+      "note": "Status: ASC last7d imp 661, units 3, Proceeds $0; ASC 28d units 14; active paid subs 5 (ASC 2026-11-15). RevenueCat registrations include server-registered rows. 08:37 JST."
     },
     {
       "app": "Honne (iOS)",
@@ -928,7 +928,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-09 to 2026-11-15 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 441, units 0, Proceeds $0; ASC 28d units 7; active paid subs 2 (ASC 2026-11-15). 08:07 JST."
+      "note": "Status: ASC last7d imp 441, units 0, Proceeds $0; ASC 28d units 7; active paid subs 2 (ASC 2026-11-15). 08:37 JST."
     },
     {
       "app": "Dhamma Quotes (iOS)",
@@ -938,7 +938,7 @@
       "units": 5,
       "proceeds_usd": 0,
       "period": "2026-11-09 to 2026-11-15 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 464, units 5, Proceeds $0; ASC 28d units 17; No subscription-state rows. 08:07 JST."
+      "note": "Status: ASC last7d imp 464, units 5, Proceeds $0; ASC 28d units 17; No subscription-state rows. 08:37 JST."
     },
     {
       "app": "For Better Sleep - Sleep Reset (iOS)",
@@ -948,7 +948,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-09 to 2026-11-15 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 145, units 0, Proceeds $0; ASC 28d units 3; active paid subs 0 (ASC 2026-11-15). 08:07 JST."
+      "note": "Status: ASC last7d imp 145, units 0, Proceeds $0; ASC 28d units 3; active paid subs 0 (ASC 2026-11-15). 08:37 JST."
     },
     {
       "app": "Thankful - Gratitude Journal (iOS)",
@@ -958,7 +958,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-09 to 2026-11-15 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 152, units 0, Proceeds $0; ASC 28d units 2; No subscription-state rows. 08:07 JST."
+      "note": "Status: ASC last7d imp 152, units 0, Proceeds $0; ASC 28d units 2; No subscription-state rows. 08:37 JST."
     },
     {
       "app": "STUDIO CHERIE (iOS)",
@@ -968,7 +968,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-09 to 2026-11-15 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 147, units 0, Proceeds $0; ASC 28d units 2; No subscription-state rows. 08:07 JST."
+      "note": "Status: ASC last7d imp 147, units 0, Proceeds $0; ASC 28d units 2; No subscription-state rows. 08:37 JST."
     }
   ],
   "social_accounts": [
@@ -1245,8 +1245,8 @@
       "likes": 0,
       "comments": 0,
       "outbound_comments_today": 0,
-      "measured_at": "2026-11-17 07:24 JST",
-      "note": "Status: followers 53 (ledger 07:24); Nov 17 06:00 LG-2 PUBLISHED likes 0/comments 0; prior LG-1 likes 1, LG-3 likes 2, LG-14 likes 1/comments 1; rest QUEUE; impressions unmeasured. 07:24 JST."
+      "measured_at": "2026-11-17 08:30 JST",
+      "note": "Status: followers 53 (ledger 08:30); Nov 17 06:00 LG-2 PUBLISHED likes 0/comments 0; prior LG-1 likes 1, LG-3 likes 2, LG-14 likes 1/comments 1; rest QUEUE; impressions unmeasured. 08:30 JST."
     },
     {
       "account": "TikTok EN 15:30 batch (5 posts)",
@@ -1522,13 +1522,13 @@
     "impressions": 2010,
     "units": 8,
     "proceeds_usd": 0,
-    "note": "Status: 6-app total impressions 2,010, units 8 (ASC first downloads only), Proceeds $0 (apps-metrics-latest 2026-11-16T21:48:49Z). 08:07 JST."
+    "note": "Status: 6-app total impressions 2,010, units 8 (ASC first downloads only), Proceeds $0 (apps-metrics-latest 2026-11-16T21:48:49Z). 08:37 JST."
   },
   "rankings": {
     "note": "Measured ranks only. out = not in the measured result set.",
     "seo": {
       "engine": "Google (search snapshot)",
-      "measured_at": "2026-11-17 07:54 JST",
+      "measured_at": "2026-11-17 08:27 JST",
       "anicca_in_top": 5,
       "queries_total": 7,
       "rows": [
@@ -1546,9 +1546,9 @@
         },
         {
           "query": "affirmation app",
-          "anicca": 3,
+          "anicca": 1,
           "winner": "thevisionboard.app",
-          "winner_position": 2
+          "winner_position": 3
         },
         {
           "query": "best daily affirmation apps",
@@ -1572,15 +1572,15 @@
           "query": "what is the best affirmation app",
           "anicca": 3,
           "winner": "thevisionboard.app",
-          "winner_position": "out"
+          "winner_position": 5
         }
       ],
       "bing": {
         "engine": "Bing (script, top 30)",
-        "measured_at": "2026-11-17 08:08 JST",
+        "measured_at": "2026-11-17 08:27 JST",
         "anicca_in_top": 0,
         "queries_total": 7,
-        "happierhuman": "happierhuman: daily affirmations 5 (ledger 08:08 JST); anicca 0/7"
+        "happierhuman": "happierhuman: daily affirmations 5 (ledger 08:27 JST); anicca 0/7"
       },
       "gsc": {
         "period": "28-day window ending 2026-11-05",
@@ -1593,7 +1593,7 @@
     },
     "aso": {
       "source": "iTunes Search API, top 200 per keyword",
-      "measured_at": "2026-11-17 08:06 JST",
+      "measured_at": "2026-11-17 08:25 JST",
       "us": [
         {
           "keyword": "affirmation",
@@ -1640,7 +1640,7 @@
         {
           "keyword": "gratitude",
           "anicca": "out",
-          "winner_position": 7,
+          "winner_position": 5,
           "top1": "Gratitude Plus – Journal"
         },
         {
@@ -1659,15 +1659,15 @@
       "jp": [
         {
           "keyword": "アファメーション",
-          "anicca": 49,
-          "winner_position": 3,
+          "anicca": 28,
+          "winner_position": 4,
           "top1": "アファメーションで引き寄せる「セルフノート」"
         },
         {
           "keyword": "自己肯定感",
-          "anicca": 151,
+          "anicca": "out",
           "winner_position": "out",
-          "top1": "全肯定オネエ"
+          "top1": "Awarefy:AIメンタルパートナー・自己理解＆セルフケア"
         },
         {
           "keyword": "瞑想",
@@ -1677,8 +1677,8 @@
         },
         {
           "keyword": "ポジティブ",
-          "anicca": 97,
-          "winner_position": 18,
+          "anicca": 118,
+          "winner_position": 19,
           "top1": "ポジティブ変換 - AIで自己肯定感アップを習慣に"
         },
         {
@@ -1690,7 +1690,7 @@
         {
           "keyword": "モチベーション",
           "anicca": "out",
-          "winner_position": 26,
+          "winner_position": 21,
           "top1": "Motivation - 今日の名言"
         },
         {
@@ -1703,13 +1703,13 @@
       "winner": "I am (id 874656917)"
     },
     "geo": {
-      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; complete batch 07:33 JST",
-      "measured_at": "2026-11-17 07:33 JST",
+      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; complete batch 08:28 JST",
+      "measured_at": "2026-11-17 08:28 JST",
       "recommended": 0,
       "recommended_of": 8,
       "cited": 0,
       "cited_of": 8,
-      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 5/8 (en01, en02, en04, en06, jp01); jp02 no brands"
+      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 5/8 (en01, en02, en04, en06, jp01); en03, jp02 no brands"
     }
   },
   "handoffs": [
@@ -4693,6 +4693,14 @@
     "Rankings: SEO 07:54 (2026-11-16T22:54:07.950215+00:00); Bing 08:08 (2026-11-16T23:08:19.598500+00:00) 0/7; ASO complete 08:06 (2026-11-16T23:06:49.945863+00:00); GEO complete 07:33 (2026-11-16T22:33:50.931589+00:00) 0/0. Diffs: SEO affirmation app 1->3 | SEO winner affirmation app 3->2 | SEO NEW 07:54 5/7 | Bing NEW 08:08 0/7, happierhuman {'daily affirmations': 5} | ASO JP アファメーション 21->49 | ASO JP ポジティブ 138->97 | ASO JP winner モチベーション 21->26 | ASO US winner self love 5->4 | ASO US winner gratitude 6->7 | GEO NEW complete 07:33 0/0, ThinkUp first 5/8 (en01/en02/en04/en06/jp01); no-brand jp02 | TikTok NEW 08:00: 4,108 / 87,583 / 3,608 | LinkedIn HELD 07:24: followers 53; Nov 17 06:00 LG-2 PUBLISHED likes 0/comments 0 (latest_post held); 09:30/12:30/20:48 QUEUE; prior published HELD (LG-1 likes 1, LG-3 likes 2, LG-14 likes 1/comments 1), outbound 0",
     "TikTok (h) 08:00 (2026-11-16T23:00:08.790187+00:00) census NEW from the 08:07 ledger snapshot (new census at 08:00 JST, totals 4,108 / 87,583 / 3,608, followers unchanged, likes +4 vs prior census): @anicca_buddha is the largest surface. @aniccaen2 / @anicca.jpx remain unmeasured (Page not found), stated in-row. LinkedIn (g) 07:24 (2026-11-16T22:24:06.774619+00:00) batch HELD (same census as prior frame, 07:24 JST): followers 53; Nov 17 06:00 slot LG-2 is PUBLISHED (urn:li:share:7528200595485208577) with likes 0/comments 0 measured via public JSON-LD, held as the row latest_post; 09:30/12:30/20:48 slots remain QUEUE and unmeasured; prior published metrics held in the note (LG-1 likes 1/comments 0, LG-3 likes 2, LG-14 likes 1/comments 1); impressions author-only unmeasured, outbound 0.",
     "Gmail 08:07 frame (gmail-triage-2026-11-17-0807.json, newer_than:1h, 16 msgs): Agent Idea reply sent 08:09 with public numbers ($31.81 / $1,640.08), Security Scan failure 08:03, daily letter 07:59, Agent Idea questions form 07:59, Builders Who Run 07:46, Anicca iOS build failure 07:45, plus prior-frame overlap (PR #260 reviews 07:35, ManagerBench failures 07:31-07:35, iOS failures 07:24/07:32). No new sales, refund, or payment receipts, so revenue/costs are unchanged. Reason inbox: No messages (verified via ~/.local/bin/reason network inbox, exit 0); no reply needed.",
+    "NOTE on currency check: upcoming_charges section (added 23:20 by another lane at the user direct 23:17 request) contains yen-denominated amounts in its own fields; it is preserved as-is and excluded from this frame USD-only token check, which passes on all other sections. Flagged for the owning lane / next frame: reconcile upcoming_charges display with the USD-only rule or keep as a documented exception.",
+    "LANDING CONFIRMED (condition a): at frame start live data.json = 2026-11-17 08:07 JST (live-check-2026-11-17-0837-before.json, curl HTTP 200, 2,953,042 bytes, platforms 34, social 68, by_agent 4, apps 6, handoffs 2981). The 08:07 deploy SUCCEEDED (commit 528870ded566495b04d7a8c0e5325805116d9a01 run 43977367597; gh run list read this frame), so landing is normal. No Capafy listings/operations were performed by this frame (display maintenance only).",
+    "MRR REBUILT (condition j): live metrics.json re-fetched (repo-metrics-2026-11-17-0837.json, updated_at 2026-11-15 21:28 JST, unchanged values, md5 identical to 08:07 frame): total 20 (RC $20 + Capafy $0 + Stripe $0), revenue_mtd 31.81. kpis[mrr] == summary.mrr_split.total == $20 asserted. MTD $31.81, costs $1,640.08, gross -$1,608.27. RC obs HELD 08:01 (obs-2026-11-17-0801/rc-overview.json, API v2 direct via the observability lane): new_customers 159/28d, active_users 181, subs 5, trials 0, MRR $20, revenue $0 (held, next obs 09:01). No 09:00 JST batch pattern, no bulk-registration incident recorded.",
+    "WALLET OUTLOOK (condition k): canonical wallet-outlook-2026-11-12.md re-read via GitHub anicca-ops (wallet-canonical-2026-11-17-0837.md, md5 19574bfdf5c31a32156011477ec1adc0, identical via gh api, no newer version); balance $63.33 (2026-11-11, full bank sync unconfirmed); salary 2026-11-20 amount unconfirmed; Trip.com refund (issued $535.70) due by 2026-11-26, not received. USD only in wallet_outlook section.",
+    "ALL-6 APP FUNNELS: app_funnels re-set from canonical app-funnels-section-2026-11-11.json (v2) and deep-equal asserted: 6 apps (Anicca 19 steps; other 5 apps 7 steps each). Anicca iOS person funnel (condition i) held at canonical funnel-open-section-2026-11-12.json (n=12), deep-equal asserted. Apps ASC HELD: apps-metrics-latest 2026-11-16T21:48:49Z (same fetch as prior frame); apps_breakdown re-set from asc_last7d (window 2026-11-09..2026-11-15) and cross-checked for all 6 (Anicca 661/3, Honne 441/0, Dhamma 464/5, Sleep 145/0, Thankful 152/0, CHERIE 147/0); apps_total 2,010 impressions / 8 units for the same window; 28d units Anicca 14, Honne 7, Dhamma 17, Sleep 3, Thankful 2, CHERIE 2; subscription state as of 2026-11-15: Anicca active paid 5, Honne 2, Sleep 0.",
+    "Rankings: SEO 08:27 (2026-11-16T23:27:37.273324+00:00); Bing 08:27 (2026-11-16T23:27:41.011963+00:00) 0/7; ASO complete 08:25 (2026-11-16T23:25:57.871456+00:00); GEO complete 08:28 (2026-11-16T23:28:16.500149+00:00) 0/0. Diffs: SEO affirmation app 3->1 | SEO winner affirmation app 2->3 | SEO winner what is the best affirmation app out->5 | SEO NEW 08:27 5/7 | Bing NEW 08:27 0/7, happierhuman {'daily affirmations': 5} | ASO JP アファメーション 49->28 | ASO JP 自己肯定感 151->out | ASO JP ポジティブ 97->118 | ASO JP winner アファメーション 3->4 | ASO JP winner ポジティブ 18->19 | ASO JP winner モチベーション 26->21 | ASO US winner gratitude 7->5 | GEO NEW complete 08:28 0/0, ThinkUp first 5/8 (en01/en02/en04/en06/jp01); no-brand en03/jp02 | TikTok HELD 08:00: 4,108 / 87,583 / 3,608 | LinkedIn NEW 08:30: followers 53; Nov 17 06:00 LG-2 PUBLISHED likes 0/comments 0 (latest_post held); 09:30/12:30/20:48 QUEUE; prior published HELD (LG-1 likes 1, LG-3 likes 2, LG-14 likes 1/comments 1), outbound 0",
+    "TikTok (h) 08:00 (2026-11-16T23:00:08.790187+00:00) census HELD from the 08:37 ledger snapshot (same census as prior frame at 08:00 JST, totals 4,108 / 87,583 / 3,608): @anicca_buddha is the largest surface. @aniccaen2 / @anicca.jpx remain unmeasured (Page not found), stated in-row. LinkedIn (g) 08:30 (2026-11-16T23:30:10.378325+00:00) batch NEW (new census at 08:30 JST, values unchanged): followers 53; Nov 17 06:00 slot LG-2 is PUBLISHED (urn:li:share:7528200595485208577) with likes 0/comments 0 measured via public JSON-LD, held as the row latest_post; 09:30/12:30/20:48 slots remain QUEUE and unmeasured; prior published metrics held in the note (LG-1 likes 1/comments 0, LG-3 likes 2, LG-14 likes 1/comments 1); impressions author-only unmeasured, outbound 0.",
+    "Gmail 08:37 frame (gmail-triage-2026-11-17-0837.json, newer_than:1h, 20 msgs): Welo Data verify 08:40, CrowdWorks selection-continuation reply sent 08:37, Salesforce marketing 08:36, investor reply 08:35, CrowdWorks login notice 08:35, Anicca iOS build failure 08:32, ManagerBench failures 08:28-08:29, Postiz notifications 08:16, Agent Idea reply 08:09. No new sales, refund, or payment receipts, so revenue/costs are unchanged. Reason inbox: No messages (verified via ~/.local/bin/reason network inbox, exit 0); no reply needed.",
     "NOTE on currency check: upcoming_charges section (added 23:20 by another lane at the user direct 23:17 request) contains yen-denominated amounts in its own fields; it is preserved as-is and excluded from this frame USD-only token check, which passes on all other sections. Flagged for the owning lane / next frame: reconcile upcoming_charges display with the USD-only rule or keep as a documented exception."
   ],
   "app_store_analytics": {
@@ -39110,7 +39118,7 @@
         "status": "About $128/mo as of 2026-10-27; next billing date unconfirmed."
       }
     ],
-    "note": "Status: outlook synced to canonical wallet file 2026-11-12 (re-read 08:07 Nov 17, md5 identical); balance $63.33 (2026-11-11, sync unconfirmed); next inflow 2026-11-20 salary (amount unconfirmed)."
+    "note": "Status: outlook synced to canonical wallet file 2026-11-12 (re-read 08:37 Nov 17, md5 identical); balance $63.33 (2026-11-11, sync unconfirmed); next inflow 2026-11-20 salary (amount unconfirmed)."
   },
   "one_flesh": {
     "updated_at": "2026-11-14 00:16 JST",
