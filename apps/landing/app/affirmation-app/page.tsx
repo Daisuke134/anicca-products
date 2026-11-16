@@ -45,7 +45,7 @@ const faqLd = {
     { '@type': 'Question', name: "What is Anicca?", acceptedAnswer: { '@type': 'Answer', text: "Anicca is an iPhone affirmation app with short cards for difficult days. Choose the areas you want support with to get started." } },
     { '@type': 'Question', name: "How do I receive cards?", acceptedAnswer: { '@type': 'Answer', text: "Choose the topics you want support with, then allow notifications on your iPhone to receive cards. You can manage notification permission in iPhone Settings." } },
     { '@type': 'Question', name: "What does Anicca mean?", acceptedAnswer: { '@type': 'Answer', text: "Anicca is a Pāli word for impermanence: things change. It is the idea behind the app's gentle tone." } },
-    { '@type': 'Question', name: "How much does it cost?", acceptedAnswer: { '@type': 'Answer', text: "Anicca is free to download with optional in-app subscriptions. Available plans, local prices, and renewal terms are shown on the purchase screen." } },
+    { '@type': 'Question', name: "How much does it cost?", acceptedAnswer: { '@type': 'Answer', text: "Anicca is free to download. Anicca Premium is $59.99/year in the US, with a 3-day free trial. Local prices, available plans, and renewal terms are shown on the purchase screen." } },
     { '@type': 'Question', name: "Which iPhones are supported?", acceptedAnswer: { '@type': 'Answer', text: "Anicca requires iOS 16.6 or later. Check the App Store listing for current compatibility." } },
     { '@type': 'Question', name: "Where can I read about privacy?", acceptedAnswer: { '@type': 'Answer', text: "The Privacy Policy is linked from the App Store listing. Read it for details about how your data is handled." } },
   ],
