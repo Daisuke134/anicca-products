@@ -5,7 +5,7 @@ import requireAuth from '../middleware/requireAuth.js';
 export function managerRouter(authenticate = requireAuth) {
   const router = express.Router();
   router.use(async (req, res) => {
-    const allowed = { '/health': 'GET', '/decisions': 'POST', '/observations': 'POST', '/evidence': 'DELETE' };
+    const allowed = { '/health': 'GET', '/decisions': 'POST', '/observations': 'POST', '/evidence': 'DELETE', '/decision-records': 'POST' };
     if (allowed[req.path] !== req.method) return res.sendStatus(404);
     try {
       const user = await authenticate(req, res);
