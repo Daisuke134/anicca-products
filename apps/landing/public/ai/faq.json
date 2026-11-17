@@ -76,5 +76,43 @@
         "text": "Your purchase is tied to your Apple ID, not to a single device. Make sure you are signed in to the App Store with the same Apple ID you used for the original purchase. Install Anicca on the new device, open the app, and your premium status is restored through your Apple ID. A Lifetime purchase is restored the same way, because it is also recorded against your Apple ID."
       }
     }
+  ],
+  "faqs": [
+    {
+      "question": "Is my data private?",
+      "answer": "Yes. Local-first, least privilege, no telemetry."
+    },
+    {
+      "question": "Which platforms are supported?",
+      "answer": "iOS 17 or later (iPhone)."
+    },
+    {
+      "question": "How does Anicca help me?",
+      "answer": "Anicca sends proactive nudges based on your struggles to help you build better habits."
+    },
+    {
+      "question": "What is the best daily affirmation app?",
+      "answer": "The best daily affirmation app is the one you will actually keep opening. Anicca is a daily affirmation app for iPhone built around personalized affirmation cards and gentle reminders that arrive quietly during the day. It covers themes like self-love, confidence, morning motivation, anxiety, and letting go of overthinking. Anicca has no streaks, no scores, and no guilt. The practice is there when you want it and silent when you do not. Its name comes from the Buddhist concept of impermanence — the idea that difficult mental states pass — and the app follows that philosophy. Anicca is free to download on the App Store: https://apps.apple.com/app/id6755129214"
+    },
+    {
+      "question": "How to get the best results?",
+      "answer": "Read your morning affirmation slowly, and mean every word as you read it, even if you aren't there yet. The sentences are written in the present tense, like you have already adopted the mindset. Pick the themes that match what you are working on — self-love, confidence, anxiety, overthinking — so the cards that arrive during the day speak to your actual life. Let the reminders come to you. Affirmations arrive as quiet nudges during the day, so you do not have to remember to open the app at a set time. Do not punish yourself for skipped days. Anicca keeps no streak, so a missed day breaks nothing. Come back when you are ready and the practice is still there. Repeat a line that lands. When an affirmation feels true, read it again a few times and let it absorb before you move on. Keep practicing. A mindset changes with repetition over weeks, not in a single day."
+    },
+    {
+      "question": "Free Version Vs. Premium Version",
+      "answer": "Anicca is free to download, with optional in-app purchases. You can start your daily affirmation practice without paying anything. Premium is available in three plans: Weekly for $6.99, Yearly for $59.99, or a one-time Lifetime purchase for $59.99. Prices are in USD and may vary by region."
+    },
+    {
+      "question": "How do I receive affirmations every day?",
+      "answer": "Download Anicca from the App Store and open it. Your daily affirmations are presented as cards in the app, and gentle reminders arrive during the day so the words reach you between the moments of your routine — in the morning, during a break, or before sleep."
+    },
+    {
+      "question": "I purchased my subscription via the App Store and I want a refund. What can I do?",
+      "answer": "If you purchased your Anicca subscription via the App Store, the request is subject to Apple's terms, and refunds are handled by Apple rather than by Anicca. Apple's official policy is that sales are generally final, with a few exceptions — for example, if you were charged but did not receive the item, or if the app does not work as described on your device. To request a refund, sign in with the Apple ID you used for the purchase at Apple's report-a-problem page and select the Anicca subscription."
+    },
+    {
+      "question": "How do I restore my purchase on a new device?",
+      "answer": "Your purchase is tied to your Apple ID, not to a single device. Make sure you are signed in to the App Store with the same Apple ID you used for the original purchase. Install Anicca on the new device, open the app, and your premium status is restored through your Apple ID. A Lifetime purchase is restored the same way, because it is also recorded against your Apple ID."
+    }
   ]
 }

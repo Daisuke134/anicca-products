@@ -18,5 +18,11 @@
     "@type": "Organization",
     "name": "Anicca",
     "url": "https://aniccaai.com"
-  }
+  },
+  "capabilities": [
+    "Daily affirmation cards delivered by notification",
+    "Personalized support topics (self-criticism, overthinking, anxiety, and more)",
+    "Lock Screen widget affirmations",
+    "No streaks and nothing to catch up on after a missed day"
+  ]
 }
