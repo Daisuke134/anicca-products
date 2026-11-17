@@ -24,6 +24,18 @@ jobs:
           node-version: '20'
           cache: npm
           cache-dependency-path: apps/landing/package-lock.json
+      # Next.js incremental build cache: `next build` reuses compiled pages
+      # for unchanged source, cutting the build step (measured 154s cold on
+      # run 44010899199) on repeat PR builds. Keyed on lockfile + source so
+      # stale output is never reused for changed code.
+      - name: Cache Next.js build output
+        uses: actions/cache@v4
+        with:
+          path: apps/landing/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('apps/landing/package-lock.json') }}-${{ hashFiles('apps/landing/**.[jt]s', 'apps/landing/**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('apps/landing/package-lock.json') }}-
+            ${{ runner.os }}-nextjs-
       - run: npm ci
       - name: Stage canonical app registry and icons before build
         working-directory: apps/landing
