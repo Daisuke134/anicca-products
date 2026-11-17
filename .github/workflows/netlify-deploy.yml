@@ -36,6 +36,18 @@ jobs:
           cache: 'npm'
           cache-dependency-path: apps/landing/package-lock.json
 
+      # Next.js incremental build cache (same key scheme as landing-pr-build):
+      # most deploys only change dashboard data, so the build step (measured
+      # 105s on run 44016328418) reuses compiled output for unchanged source.
+      - name: Cache Next.js build output
+        uses: actions/cache@v4
+        with:
+          path: apps/landing/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('apps/landing/package-lock.json') }}-${{ hashFiles('apps/landing/**.[jt]s', 'apps/landing/**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('apps/landing/package-lock.json') }}-
+            ${{ runner.os }}-nextjs-
+
       - name: Install dependencies
         working-directory: apps/landing
         run: npm ci
