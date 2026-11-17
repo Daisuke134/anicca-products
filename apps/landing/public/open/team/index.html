@@ -3,23 +3,28 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <title>Anicca Team board — owners</title>
 <style>
-body{font:14px -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif;margin:24px auto;padding:0 20px;max-width:1240px;color:#0d1526;background:#f4f5f7;-webkit-font-smoothing:antialiased}
-h1{font-size:1.35rem;margin:0 0 6px}
-h2{font-size:1.05rem;margin:22px 0 6px}
-.note{color:#444;max-width:70ch;line-height:1.45;margin:6px 0 12px}
-.tag{display:inline-block;font-size:11px;padding:1px 6px;border-radius:999px;border:1px solid #ccc;margin-right:4px;white-space:nowrap}
-.tag.schedule{background:#eef6ff;border-color:#b7d3f2;color:#1a4b7a}
-.tag.observed{background:#eefaf0;border-color:#b7e0bf;color:#1b5e2a}
-.tag.unknown{background:#f6f6f6;border-color:#ddd;color:#555}
-.tag.assigned{background:#fff7e8;border-color:#ecd3a0;color:#6a4b00}
-.tag.standin,.tag.legacy{background:#f8eef8;border-color:#e0c6e0;color:#6a2a6a}
-.tag.grok{background:#f3f0ff;border-color:#cfc6f2;color:#3d2f8a}
-table{border-collapse:collapse;width:100%;margin:8px 0 18px}
-td,th{border:1px solid #e4e7ec;padding:7px 9px;text-align:left;vertical-align:top;background:#fff}
-th{background:#eef0f3}
-td.muted, .muted{color:#666}
+@font-face{font-family:"Newsreader";src:url(/open/fonts/Newsreader-normal.woff2) format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(/open/fonts/InstrumentSans-normal.woff2) format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(/open/fonts/InstrumentSans-italic.woff2) format("woff2");font-weight:400 700;font-style:italic;font-display:swap}
+:root{--bg:#fafaf8;--ink:#1c1917;--ink2:#44403c;--mut:#78716c;--faint:#a8a29e;--line:#e3ded4;--line2:#edeae3;--accent:#c93a1e;--accent-deep:#a52e15;--pos:#1e7b45;--pos-bg:#e9f4ec;--neg:#b3261e;--warn:#9a6206;--warn-bg:#f7efdb;--serif:"Newsreader","Hiragino Mincho ProN","Hiragino Mincho Pro","YuMincho","Yu Mincho","Noto Serif JP",Georgia,serif;--sans:"Instrument Sans","Hiragino Kaku Gothic ProN","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+
+body{font:14.5px/1.55 var(--sans);margin:0 auto;padding:44px 28px 72px;max-width:1180px;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+h1{font-family:var(--serif);font-size:33px;font-weight:560;margin:0 0 6px;letter-spacing:-.01em}
+h2{font-size:17px;font-weight:650;margin:32px 0 8px}
+.note{color:var(--ink2);max-width:70ch;line-height:1.55;margin:6px 0 12px}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:3px;border:1px solid var(--line);margin-right:4px;white-space:nowrap;color:var(--ink2);background:#fff}
+.tag.schedule{background:#eaf0f6;border-color:#c3d2e2;color:#2f5d8a}
+.tag.observed{background:var(--pos-bg);border-color:#bcd8c6;color:var(--pos)}
+.tag.unknown{background:#f4f1ea;border-color:var(--line);color:var(--mut)}
+.tag.assigned{background:var(--warn-bg);border-color:#e3d3a8;color:var(--warn)}
+.tag.standin,.tag.legacy{background:#f4f1ea;border-color:var(--line);color:var(--ink2)}
+.tag.grok{background:#f4f1ea;border-color:var(--line);color:var(--ink2)}
+table{border-collapse:collapse;width:100%;margin:8px 0 18px;font-size:13.5px}
+td,th{border:0;border-bottom:1px solid var(--line2);padding:9px 10px;text-align:left;vertical-align:top;background:none}
+th{border-bottom:1px solid var(--line);color:var(--mut);font-weight:600}
+td.muted,.muted{color:var(--mut)}
 .fresh{font-variant-numeric:tabular-nums;white-space:nowrap}
-a{color:#4f46e5}
+a{color:var(--accent-deep)}
 </style>
 <h1>Anicca Team board — who owns what</h1>
 <p id=t class=muted></p>
