@@ -1,0 +1,16 @@
+# AI crawler / agent access policy for aniccaai.com
+#
+# Anicca permits AI crawlers, search agents, and answer engines to access,
+# index, quote, and summarize the public content on this site.
+#
+# Machine-readable resources:
+#   - Site summary for LLMs: https://aniccaai.com/llms.txt
+#   - Full-text companion:    https://aniccaai.com/llms-full.txt
+#   - Sitemap:                https://aniccaai.com/sitemap.xml
+#   - Organization summary:   https://aniccaai.com/ai/summary.json
+#   - FAQ data:               https://aniccaai.com/ai/faq.json
+#   - App/service data:       https://aniccaai.com/ai/service.json
+#   - Paid API (x402/USDC):   https://aniccaai.com/openapi.json
+#
+# Pages on this site are plain text and free to quote.
+# Contact: contact@aniccaai.com

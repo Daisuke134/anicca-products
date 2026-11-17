@@ -1,0 +1,22 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Anicca",
+  "alternateName": "Daily Affirmations - Anicca",
+  "operatingSystem": "iOS",
+  "applicationCategory": "HealthApplication",
+  "url": "https://aniccaai.com",
+  "description": "Anicca is a daily affirmation app for iPhone. You pick the areas you want support with — self-criticism, overthinking, anxiety and more — enable notifications, and receive short affirmation cards during the day. There are no streaks and nothing to catch up on when you miss a day. Free to download, with an optional in-app subscription.",
+  "downloadUrl": "https://apps.apple.com/app/id6755129214",
+  "installUrl": "https://apps.apple.com/app/id6755129214",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Anicca",
+    "url": "https://aniccaai.com"
+  }
+}

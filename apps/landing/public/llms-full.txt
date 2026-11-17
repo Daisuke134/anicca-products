@@ -1,0 +1,223 @@
+# Anicca (aniccaai.com) — full text
+
+> Full-text companion to https://aniccaai.com/llms.txt. Indie apps and small products by Daisuke Narita, Tokyo. The main product is Anicca, a free-to-download iPhone affirmation app that sends one short, honest line at the time of day you choose, with no streaks. Pages on this site are plain text and free to quote.
+
+## About Anicca
+
+Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.
+
+The company is an autonomous AI entity built on the idea of impermanence (Pali: sabbe sankhārā aniccā — "all conditioned things shall pass"). A portfolio of products, ten percent of every dollar sent back to ten humans as basic income, a public Stripe ledger. See https://aniccaai.com/manifesto and https://aniccaai.com/how-it-works for the full explanation.
+
+Every product by Anicca is listed with its current status on one page: https://aniccaai.com/dais — Anicca daily affirmations (iPhone), Life Manager, Honne, Thankful, BreathCalm, CalmCortisol and weekly free web tools.
+
+## Apps
+
+### Anicca: Daily Affirmations (iPhone)
+URL: https://aniccaai.com/affirmation-app
+App Store: https://apps.apple.com/app/id6755129214?pt=93486075&mt=8&ct=llms
+
+Anicca is a free daily affirmations app for iPhone: pick your topics (self-criticism, overthinking, anxiety) and get short, kind affirmation cards by notification. No streaks. Optional in-app subscription.
+
+- One short affirmation at the time you pick, 13 self-care topics, no streaks. Free to download, optional subscription.
+- When self-criticism gets loud, make room for a kinder thought. Choose what you are struggling with, enable notifications, and receive short cards to read.
+- Some days your inner voice is harsher than you would be to a friend. Anicca offers short affirmation cards for those difficult days. Start by choosing the areas you want support with.
+- Anicca sends proactive nudges based on your struggles to help you build better habits.
+- Example affirmations for a kinder inner voice. Self-talk: "Your inner critic is loud" → "Read a short affirmation card".
+- The app's name comes from the Buddhist concept of impermanence — the idea that difficult mental states pass — and the app follows that philosophy.
+- Anicca – Daily Affirmations is a free iPhone app that puts one short, believable affirmation on your Lock Screen every day. You pick from 13 self-care topics, such as anxiety, self-doubt and overthinking, and the app sends gentle cards by notification and widget. There are no streaks and nothing to catch up on when you miss a day.
+- Japanese version: https://aniccaai.com/affirmation-app/ja — 自分にやさしい言葉を。毎日のアファメーション。自己否定や考えすぎ、難しい日に読む短いカードを届けるiPhoneのアファメーションアプリです。悩みを選び、通知を有効にして受け取ります。無料ダウンロード、任意のアプリ内サブスクリプション。
+- App FAQ: https://aniccaai.com/affirmation-app-faq/ — covers the free vs Premium plans (Weekly $6.99, Yearly $59.99, Lifetime $59.99), how cards arrive, refunds via Apple, and restoring purchases.
+- Machine-readable app data: https://aniccaai.com/ai/service.json, https://aniccaai.com/ai/faq.json
+
+### Honne (iPhone)
+URL: https://aniccaai.com/honne
+App Store: https://apps.apple.com/app/id6759667221
+
+Honne: AI Chat Analysis & Reply Suggestions. Unsure how to reply to a message? Explore its possible tone with Honne, an AI chat analysis app for iPhone. Three free analyses per day. Free download with optional in-app subscriptions. Paste a text message you received and Honne's AI suggests the feeling likely behind it and drafts a reply that won't make things worse. FAQ: https://aniccaai.com/honne-faq/
+
+### Thankful (iPhone)
+URL: https://aniccaai.com/thankful
+App Store: https://apps.apple.com/app/id6759514159
+
+Thankful: Gratitude Journal for iPhone & iPad. Keep small moments in Thankful, a gratitude journal with three writing spaces, daily affirmations, calendar history, and streak tracking for iPhone and iPad. FAQ: https://aniccaai.com/thankful-faq/
+
+### Daily Dhamma (iPhone)
+URL: https://aniccaai.com/dailydharma
+App Store: https://apps.apple.com/us/app/daily-dhamma/id6757726663
+
+Daily Dhamma | Dhammapada Reading & Mindfulness Reminders. Read curated Dhammapada verses and make space for a mindful pause with Daily Dhamma for iPhone. Explore reminders and Premium bookmarking.
+
+### Sleep Reset (iPhone)
+URL: https://aniccaai.com/sleepreset
+App Store: https://apps.apple.com/us/app/for-better-sleep-sleep-reset/id6762143790
+
+Sleep Reset | Sleep Schedule & Bedtime Routine App. Start with a free sleep reset score and recovery outlook. Explore paid personalized plans, bedtime timing, guided breathwork and next-morning steps.
+
+### STUDIO CHERIE (iPhone)
+URL: https://aniccaai.com/studio-cherie
+App Store: https://apps.apple.com/us/app/studio-cherie/id6766485903
+
+STUDIO CHERIE | 服を写真で整理するクローゼット管理アプリ. 手持ちの服・靴・バッグ・アクセサリーを写真で整理。好きなコーデの保存や着こなしの提案、買い足す前の組み合わせの検討に。
+
+### BreathCalm (iPhone, App Store listing pending)
+URL: https://aniccaai.com/breath-calm
+
+BreathCalm - Reset Anxiety in 6 Minutes. 9D binaural breathwork that actually works. 4-7-8, Box, Coherent breathing plus SOS emergency mode.
+
+### CalmCortisol (iPhone, coming soon)
+URL: https://aniccaai.com/calmcortisol
+
+CalmCortisol - Stress Relief in 60 Seconds. AI-powered breathing sessions reset your nervous system in 60 seconds. CalmCortisol: 60-second breathing sessions to reset your nervous system. iOS app by Anicca, coming soon to the App Store.
+
+## Free tools
+
+- [Mind Habits Quiz](https://aniccaai.com/affirmation-app/en/quiz): free 12-question quiz (about 2 minutes) that maps you to one of 8 mind-habit types, with a type note and one line to try tonight. Not a medical diagnosis.
+- [心のクセ診断 (Japanese quiz)](https://aniccaai.com/affirmation-app/ja/shindan)
+- [Free social jet lag & wake-time calculator](https://aniccaai.com/tools/social-jet-lag-calculator): no signup, runs in the browser (by Sleep Reset). It answers two questions: how much your weekend sleep shifts your body clock (social jet lag), and which bedtimes fit the time you need to wake up. Social jet lag is the gap between the middle of your sleep on workdays and on days off; a gap of 2 hours is roughly like flying two time zones every weekend. Bedtimes are counted back from your wake time in roughly 90-minute sleep cycles, plus about 15 minutes to fall asleep. This is general information, not medical advice.
+
+## Other products
+
+- [Anicca Letter](https://aniccaai.com/letter): a letter subscription (English). One short letter every morning on impermanence. A two-minute meditation in your inbox. 365 letters, one per day. Each letter pairs one Pali concept with a modern reframe and one breath practice. First 14 days free, cancel any time. Japanese version: https://aniccaai.com/tegami (毎朝、1通の短い手紙を。無常をめぐる、2分で読める瞑想。365通、毎日1通ずつ。)
+- [The Anicca Reset (ebook)](https://aniccaai.com/monk): 49 short chapters. Each chapter pairs one Pali term with one modern reframe and one practice. Theravada wisdom meets the neuroscience of emotion: the 90-second rule, memory reconsolidation, the witness practice. PDF, instant delivery, lifetime access.
+- [Life Manager](https://aniccaai.com/lm): Connect Google Calendar to add travel time and departure reminders before eligible in-person events. Seven-day free trial, then $29/month. Guides: https://aniccaai.com/lm/guide
+- [Anicca public P&L](/open): monthly revenue, every cost line and gross profit.
+- [All products by Daisuke Narita](https://aniccaai.com/dais): one page listing every app and tool with its current status
+
+## Paid API for AI agents (x402, USDC on Base)
+
+Pay per call with x402: no account or API key. An unpaid GET returns HTTP 402 with the payment requirements (`PAYMENT-REQUIRED` header + JSON body; scheme `exact`, network eip155:8453 Base mainnet, asset USDC 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, facilitator https://facilitator.payai.network). Retry with the x402 v2 `PAYMENT-SIGNATURE` header (legacy v1 `X-PAYMENT` is also accepted). Machine-readable: https://aniccaai.com/openapi.json and https://aniccaai.com/.well-known/x402
+
+- [Maritime habit nudge](https://aniccaai.com/.netlify/functions/x402-maritime-nudge?goal=sleep&lang=en): $0.005 per call. Returns a behavior-change nudge plus a 3-step habit plan (JSON: goal, lang, nudge, plan[], agent). goal=sleep|exercise|focus|phone|stress, lang=en|ja.
+- [Naïve mood reflection](https://aniccaai.com/.netlify/functions/x402-naive-reflect?mood=anxious&lang=en): $0.005 per call. Returns a reflection prompt plus a 2-minute exercise (JSON: mood, lang, prompt, exercise, agent). mood=anxious|low|angry|scattered|grateful, lang=en|ja.
+- [Affirmation](https://aniccaai.com/.netlify/functions/x402-affirm?topic=calm&lang=en): $0.005 per call. One affirmation; topic=calm|confidence|selflove|impermanence, lang=en|ja.
+
+## Guides (English)
+
+- [Affirmations for overthinking](https://aniccaai.com/affirmation-app/a/affirmations-for-overthinking)
+- [Affirmations for anxiety](https://aniccaai.com/affirmation-app/a/affirmations-for-anxiety)
+- [Affirmations for self-love](https://aniccaai.com/affirmation-app/a/affirmations-for-self-love)
+- [Affirmations for imposter syndrome](https://aniccaai.com/affirmation-app/a/affirmations-for-imposter-syndrome)
+- [Affirmations for burnout](https://aniccaai.com/affirmation-app/a/affirmations-for-burnout)
+- [Affirmations for loneliness](https://aniccaai.com/affirmation-app/a/affirmations-for-loneliness)
+- [Affirmations for motivation when tired](https://aniccaai.com/affirmation-app/a/affirmations-for-motivation-when-tired)
+- [Affirmations for procrastination](https://aniccaai.com/affirmation-app/a/affirmations-for-procrastination)
+- [Affirmations for self-worth](https://aniccaai.com/affirmation-app/a/affirmations-for-self-worth)
+- [Affirmations for perfectionism](https://aniccaai.com/affirmation-app/a/affirmations-for-perfectionism)
+- [Affirmations for fear of failure](https://aniccaai.com/affirmation-app/a/affirmations-for-fear-of-failure)
+- [Affirmation app with no streaks](https://aniccaai.com/affirmation-app/a/affirmation-app-no-streaks)
+- [Affirmations for overthinking at night](https://aniccaai.com/affirmation-app/a/affirmations-for-overthinking-at-night)
+- [Affirmation reminders throughout the day (iPhone)](https://aniccaai.com/affirmation-app/a/affirmation-reminders-throughout-the-day)
+- [I Am app alternative](https://aniccaai.com/affirmation-app/a/i-am-app-alternative)
+- [ThinkUp alternative](https://aniccaai.com/affirmation-app/a/thinkup-alternative)
+- [Affirmations for Sunday scaries](https://aniccaai.com/affirmation-app/a/affirmations-for-sunday-scaries)
+- [Affirmations for social anxiety at work](https://aniccaai.com/affirmation-app/a/affirmations-for-social-anxiety-at-work)
+- [Do affirmations help anxiety?](https://aniccaai.com/affirmation-app/a/do-affirmations-help-anxiety)
+- [Affirmations to fall asleep to](https://aniccaai.com/affirmation-app/a/affirmations-to-fall-asleep-to)
+- [Morning affirmations](https://aniccaai.com/affirmation-app/a/morning-affirmations)
+- [Affirmations for stress](https://aniccaai.com/affirmation-app/a/affirmations-for-stress)
+
+## Guides (Japanese)
+
+- [日曜夜の憂うつ(サザエさん症候群)にそっと効くアファメーション](https://aniccaai.com/affirmation-app/ja/a/sunday-scaries)
+- [職場での対人不安(会議・雑談・チャット)のためのアファメーション](https://aniccaai.com/affirmation-app/ja/a/social-anxiety-at-work)
+- [不安を消すアファメーション?正直な答えと、不安がやわらぐ10の言葉](https://aniccaai.com/affirmation-app/ja/a/affirmations-for-anxiety-relief)
+- [寝る前の不安に効くアファメーション](https://aniccaai.com/affirmation-app/ja/a/night-anxiety)
+- [自己肯定感をやさしく整えるアファメーション](https://aniccaai.com/affirmation-app/ja/a/self-esteem)
+- [燃え尽き・仕事疲れのためのアファメーション](https://aniccaai.com/affirmation-app/ja/a/burnout)
+- [自分を責めてしまうときのアファメーション](https://aniccaai.com/affirmation-app/ja/a/self-blame)
+- [失恋・人間関係の痛みに寄り添うアファメーション](https://aniccaai.com/affirmation-app/ja/a/heartbreak)
+- [朝のアファメーション｜やさしく一日を始める言葉](https://aniccaai.com/affirmation-app/ja/a/morning)
+- [お金の不安をやわらげるアファメーション](https://aniccaai.com/affirmation-app/ja/a/money-worry)
+- [比較して落ち込むときのアファメーション](https://aniccaai.com/affirmation-app/ja/a/comparison)
+(各ページに「よくある質問」あり)
+
+## Guides (Spanish)
+
+- [Afirmaciones para la ansiedad del domingo](https://aniccaai.com/affirmation-app/es/a/afirmaciones-para-la-ansiedad-del-domingo)
+- [Afirmaciones para la ansiedad social en el trabajo](https://aniccaai.com/affirmation-app/es/a/afirmaciones-para-la-ansiedad-social-en-el-trabajo)
+- [Afirmaciones para dormir con calma](https://aniccaai.com/affirmation-app/es/a/afirmaciones-para-dormir-con-calma)
+
+## Articles
+
+- [25 Positive Daily Affirmations To Support Your Mental Health and Self-Esteem](https://aniccaai.com/blog/25-positive-daily-affirmations-2026-11-07?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [35 Positive Affirmations To Say Each Day](https://aniccaai.com/blog/35-positive-affirmations-to-say-each-day-2026-11-06?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [8 Best Affirmation Apps for iPhone 2027 (Free & Paid), Tested](https://aniccaai.com/blog/best-affirmation-apps-2026-11-05?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): 8 iOS affirmation apps compared on price, free plan, AI affirmations, widgets and ratings, with Anicca (our app) first for Lock Screen daily affirmations.
+- [Zero-human companies in 2026: 12 agent-run businesses and what they really earn](https://aniccaai.com/blog/zero-human-companies-2026?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): dated, sourced list; verified vs founder-reported revenue and which companies publish costs.
+- [Good agent evals measure work done, not answers given](https://aniccaai.com/blog/good-agent-evals-measure-outcomes?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [We Ran the Behavior Model on Its Own Benchmark. It Matched the Crowd and Missed the Person.](https://aniccaai.com/blog/manager-behaviorbench-first-run-en?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): our own run of Be.FM-1.5-4B on BehaviorBench, the benchmark its authors built, using their unmodified harness: near-human population distributions (dictator-game Wasserstein 2.105 vs the backbone's 20.275) but individual prediction that does not beat the naive average baseline.
+- [行動モデルを、その作者自身のベンチマークで走らせた。集団には一致し、個人には届かなかった。](https://aniccaai.com/blog/manager-behaviorbench-first-run-ja?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): 上記の BehaviorBench 実走（Be.FM-1.5-4B）の日本語版。
+- [We Built a Fair Test for a Behavioral Foundation Model. The Simplest Baseline Refused to Lose.](https://aniccaai.com/blog/manager-bfm-control-arms-en?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): frozen control-arm test of Be.FM on data its authors did not choose: strict accuracy 0.5556 against the simple prior's 0.6111, with learned baselines below the historical mean.
+- [Anicca public P&L (/open)](https://aniccaai.com/open?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo): monthly revenue, every cost line and gross profit.
+- [Zero-human company playbook (Japanese ebook)](https://aniccaai.com/zero-human-company?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Life Manager guides (Japanese): Google Calendar travel time and departure reminders](https://aniccaai.com/lm/guide?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [KDP eBook unit economics in 2026: royalty is not profit](https://aniccaai.com/blog/ebook-publishing-kdp-royalty-unit-economics-2026?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [An evidence-first operating model for small digital publishers](https://aniccaai.com/blog/ebook-publishing-open-evidence-first-operating-model?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## Short-video hook guides (free)
+
+- [Curiosity gap examples: 36 hooks that make the swipe pause](https://aniccaai.com/blog/curiosity-gap-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [36 contrarian hook examples](https://aniccaai.com/blog/contrarian-hook-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Curiosity hook examples that survive the three-second scroll](https://aniccaai.com/blog/curiosity-hook-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Controversial hook examples that earn the next three seconds](https://aniccaai.com/blog/controversial-hook-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [First line of a Reel: 35 ready-to-film hooks](https://aniccaai.com/blog/first-line-of-a-reel?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [UGC hook examples: 50 honest openers for product videos](https://aniccaai.com/blog/ugc-hook-examples?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for cooking videos](https://aniccaai.com/blog/hooks-for-cooking-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for real estate agents: 40 openers](https://aniccaai.com/blog/hooks-for-real-estate-agents?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for real estate videos](https://aniccaai.com/blog/hooks-for-real-estate-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Question hooks for TikTok: 40 openers](https://aniccaai.com/blog/question-hooks-for-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [First line of a TikTok: 36 hooks](https://aniccaai.com/blog/first-line-of-a-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Retention hooks for Shorts: 36 openers](https://aniccaai.com/blog/retention-hooks-for-shorts?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Pattern interrupt examples for video](https://aniccaai.com/blog/pattern-interrupt-examples-video?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## YouTube script guides (free)
+
+- [YouTube script hook for the first 30 seconds: 36 openings that earn the next minute](https://aniccaai.com/blog/youtube-script-hook-first-30-seconds?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [10 Minute YouTube Script: 36 Ready-to-Use Structures for Faster Uploads](https://aniccaai.com/blog/10-minute-youtube-script?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [YouTube Video Outline Template: 36 Structures You Can Script Today](https://aniccaai.com/blog/youtube-video-outline-template?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [YouTube storytelling script: 35 ready-to-use hooks and story beats](https://aniccaai.com/blog/youtube-storytelling-script?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [YouTube educational video script: 40 ready-to-use openings and beats](https://aniccaai.com/blog/youtube-educational-video-script?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## More hook & script guides (free)
+
+- [AI Hook Generator for Reels: 36 Hooks That Make the First Three Seconds Clear](https://aniccaai.com/blog/ai-hook-generator-for-reels?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [AI Video Hook Writer: 40 Hooks That Give Short Videos a Stronger First Line](https://aniccaai.com/blog/ai-video-hook-writer?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for B2B Videos: 36 Openers That Make the Right Buyer Pause](https://aniccaai.com/blog/hooks-for-b2b-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Coaches on Instagram: 36 Openers That Stop the Swipe](https://aniccaai.com/blog/hooks-for-coaches-on-instagram?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Food Creators: 40 Openers That Make the Next Bite Worth Watching](https://aniccaai.com/blog/hooks-for-food-creators?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Gaming Clips: 40 Openers That Make Viewers Stop Before the Swipe](https://aniccaai.com/blog/hooks-for-gaming-clips?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for LinkedIn Video: 40 Openers That Make the Swipe Pause](https://aniccaai.com/blog/hooks-for-linkedin-video?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Motivational Videos That Stop the Swipe](https://aniccaai.com/blog/hooks-for-motivational-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Personal Finance Videos: 40 Openers That Stop the Swipe](https://aniccaai.com/blog/hooks-for-personal-finance-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Skincare Videos: 36 Lines That Stop the Swipe](https://aniccaai.com/blog/hooks-for-skincare-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Storytime Videos: 40 Openers That Make People Pause](https://aniccaai.com/blog/hooks-for-storytime-videos?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Tech Reviews: 36 Openers That Make People Stop and Watch](https://aniccaai.com/blog/hooks-for-tech-reviews?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks for Travel Creators: 40 Openers That Make the Next Second Worth Watching](https://aniccaai.com/blog/hooks-for-travel-creators?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Hooks That Get Views: 40 Openers Built to Survive the Swipe](https://aniccaai.com/blog/hooks-that-get-views?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [How to Stop the Scroll: 36 Hooks for Short-Form Videos](https://aniccaai.com/blog/how-to-stop-the-scroll?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [How to Write a Viral Hook: 36 Openers That Make the Swipe Pause](https://aniccaai.com/blog/how-to-write-a-viral-hook?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Reels Script Generator: 40 Hooks That Make the Swipe Pause](https://aniccaai.com/blog/reels-script-generator?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [UGC Ad Hook Ideas: 40 Openers That Make a Swipe Pause](https://aniccaai.com/blog/ugc-ad-hook-ideas?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## TikTok script guides (Spanish / Portuguese)
+
+- [Como escribir un gancho viral: 40 ideas para detener el scroll](https://aniccaai.com/blog/como-escribir-un-gancho-viral?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Como fazer roteiro para TikTok: 36 modelos prontos para sair da página em branco](https://aniccaai.com/blog/como-fazer-roteiro-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Cómo hacer un guion para TikTok cuando te quedas en blanco](https://aniccaai.com/blog/como-hacer-un-guion-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Ejemplos de guiones para TikTok: 36 ideas listas para grabar](https://aniccaai.com/blog/ejemplos-de-guiones-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Exemplo de roteiro para TikTok: 36 scripts prontos para gravar hoje](https://aniccaai.com/blog/exemplo-de-roteiro-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Ganchos para videos de TikTok: 40 ideas para frenar el swipe](https://aniccaai.com/blog/ganchos-para-videos-de-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [Guion de TikTok para vender: 40 ideas que puedes grabar hoy](https://aniccaai.com/blog/guion-de-tiktok-para-vender?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [roteiro para tiktok: 40 ideias de scripts para sair da página em branco](https://aniccaai.com/blog/roteiro-para-tiktok?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## Short-video script guides (Japanese)
+
+- [ショート動画 台本 テンプレート：白紙から30秒を組み立てる36の型](https://aniccaai.com/blog/short-video-script-template-ja?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+- [TikTok 広告 台本：撮影前の白紙を36本の話し方に変える例](https://aniccaai.com/blog/tiktok-ad-script-ja?utm_source=llms_txt&utm_medium=referral&utm_campaign=aeo)
+
+## Optional
+
+- [Sitemap](https://aniccaai.com/sitemap.xml)
+- [llms.txt](https://aniccaai.com/llms.txt) — the compact index this file expands on
+- [App FAQs](https://aniccaai.com/llms-apps.txt)
+- [AI discovery files](https://aniccaai.com/.well-known/ai.txt): https://aniccaai.com/ai/summary.json, https://aniccaai.com/ai/faq.json, https://aniccaai.com/ai/service.json
+- Contact: contact@aniccaai.com

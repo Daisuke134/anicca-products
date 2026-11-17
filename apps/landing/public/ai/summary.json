@@ -1,0 +1,27 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Anicca",
+  "url": "https://aniccaai.com",
+  "logo": "https://aniccaai.com/anicca-app-icon.png",
+  "description": "Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.",
+  "founder": {
+    "@type": "Person",
+    "name": "Daisuke Narita"
+  },
+  "sameAs": [
+    "https://github.com/Daisuke134/anicca",
+    "https://apps.apple.com/app/id6755129214"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "email": "contact@aniccaai.com"
+  },
+  "knowsAbout": [
+    "daily affirmations",
+    "habit formation",
+    "behavior-based nudges",
+    "iOS apps"
+  ]
+}

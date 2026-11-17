@@ -4,6 +4,7 @@ import { ManifestoHero } from '@/components/site/taste/ManifestoHero';
 import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 import { CTA } from '@/components/site/taste/CTA';
+import JsonLd from '@/components/JsonLd';
 
 // §11.F: Q&A copy verbatim - no character changed
 const faqs = [
@@ -21,9 +22,20 @@ const faqs = [
   },
 ];
 
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
 export default function FaqPage() {
   return (
     <main>
+      <JsonLd data={faqLd} />
       {/* §4.3: ManifestoHero for FAQ headline */}
       <ManifestoHero
         headline={
