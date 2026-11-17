@@ -23,6 +23,24 @@
   status = 200
   force = true
 
+# Markdown content negotiation for the homepage: forced rewrites route "/"
+# and "/en" to the markdown-home function (the /apple-rss/* pattern below).
+# The function returns Markdown for `Accept: text/markdown` and the static
+# homepage HTML otherwise. Keep this block identical in the other
+# netlify.toml (GHA deploys run from apps/landing; Netlify's own git builds
+# read the repository-root config).
+[[redirects]]
+  from = "/"
+  to = "/.netlify/functions/markdown-home"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/en"
+  to = "/.netlify/functions/markdown-home"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/life-manager"
   to = "/lm"
