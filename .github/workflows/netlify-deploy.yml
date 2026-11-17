@@ -202,7 +202,21 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
-        run: node scripts/open-app-store-analytics.mjs --input out/open/data.json
+        run: |
+          # Failure isolation (2026-11-18): an ASC HTTP 500 for one app
+          # (/v1/apps/6759514159/relationships/analyticsReportRequests) killed
+          # the 01:37 and 02:07 JST deploys (runs 44128770824, 44134481240)
+          # and froze the whole /open dashboard at the 01:07 version — the
+          # same failure class that froze /open for ~4h via Capafy before its
+          # step got isolation on 2026-11-16. App Store analytics is one
+          # section of the dashboard; its read failure must never block the
+          # rest. On failure, deploy with the previous snapshot seeded by the
+          # step above (measured_at stays visible, so staleness is honest).
+          if node scripts/open-app-store-analytics.mjs --input out/open/data.json; then
+            echo "App Store analytics collected for this deploy."
+          else
+            echo "::warning::App Store Connect analytics collection failed; deploying with the seeded previous App Store analytics snapshot."
+          fi
 
       - name: Collect Anicca Mixpanel screen funnel
         working-directory: apps/landing
