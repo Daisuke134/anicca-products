@@ -1,7 +1,17 @@
+const SITE_TITLE = 'Anicca — an AI lab to end suffering';
+const SITE_DESCRIPTION =
+  "Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.";
+
 export const metadata = {
-  title: 'Anicca, an agent-run company — Life Manager and daily affirmation apps',
-  description:
-    "Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: 'https://aniccaai.com',
+    type: 'website',
+    siteName: 'Anicca',
+  },
   icons: {
     icon: '/favicon.png',
     shortcut: '/favicon.png',
@@ -21,7 +31,39 @@ import 'lite-youtube-embed/src/lite-yt-embed.css';
 import React from 'react';
 import { display, mono, notoSansJP } from './fonts';
 import SiteHitTracker from '@/components/SiteHitTracker';
+import JsonLd from '@/components/JsonLd';
 import Script from 'next/script';
+
+const SITE_JSONLD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: 'Anicca',
+      url: 'https://aniccaai.com',
+      logo: 'https://aniccaai.com/anicca-app-icon.png',
+      description: SITE_DESCRIPTION,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        email: 'contact@aniccaai.com',
+      },
+      sameAs: [
+        'https://github.com/Daisuke134/anicca',
+        'https://apps.apple.com/app/id6755129214',
+      ],
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Anicca',
+      operatingSystem: 'iOS',
+      applicationCategory: 'HealthApplication',
+      url: 'https://aniccaai.com',
+      downloadUrl: 'https://apps.apple.com/app/id6755129214',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+  ],
+};
 
 // GA4 (property "Anicca", web stream "Anicca Web"). The Measurement ID is injected at
 // build time via NEXT_PUBLIC_GA_MEASUREMENT_ID (see .github/workflows/netlify-deploy.yml).
@@ -32,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${mono.variable} ${notoSansJP.variable}`}>
       <body className="font-sans">
+        <JsonLd data={SITE_JSONLD} />
         <SiteHitTracker />
         {GA_MEASUREMENT_ID && (
           <>
