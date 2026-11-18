@@ -42,12 +42,14 @@ TODO / cursor:
 - [x] 捏造guardのRED→GREEN、関連suite（修正前6件の捏造が通過、修正後30 PASS）
 - [x] 同一32条件を1回実行（既存前払残高のみ、38応答・6 retry）
 - [x] 全候補判定・費用確認（課金差異は未解消と記録）
-- [ ] 指定成果物commit/push・remote確認
+- [x] 指定成果物commit/push・remote確認
 
 実行中観測: 標準GLM 5.3が4096 tokensを推論だけで消費しcontent=null、finish_reason=lengthになる。既存harnessはAttributeErrorをtransport failureと粗く記録するが、raw responseにより実際はHTTP成功後の候補欠落と識別する。比較条件を変えず、再抽選もしない。既存前払残高59.205556692 USDを確認し、完走費用に合わせ評価専用キーlimitだけ0.25→1 USDへ変更してprovider readback。入金・auto-reload APIは呼ばない。
 
 Round 3結果: NO-GO。32/32条件終了・受理0・送信可能文0（FAIL率は算出不能）。38応答中31件length/content=null、残る7セットはgrounding reject。全生成40文を全文確認: FAIL6/40=15%、捏造4、tone0、none7。question24/40=60%。導入済みJanomeの固定語彙は『調子』『過去』『手』『きっかけ』など正常な介入語も拒否し、過剰棄却する。ガードは捏造完全検出を保証しない。
 応答cost Decimal合計0.3629275269 USD。generation37 receiptと1件404応答fallback合計0.362927526 USD。公式key usageとの差は結果レポートへ併記。原harnessのnull.strip()→AttributeErrorはJSON/validation retryの対象外なので31件はretryなし。比較を守り実行中・終了後の再抽選やmax_tokens変更は行わない。
-現在cursor: コード成果物push、opsの指定結果ファイルcommit/pushとremote照合。
+現在cursor: 完了。結果NO-GOを保持し、本番は有効化しない。
 
 費用最終照合: key usageの遅延反映後0.397379636 USD、開始前0.03445211 USD、差分0.362927526 USDでreceipt/fallback合計と一致。completion costとの差は0.0000000009 USD。key-final-v3.jsonに保存。
+
+ops成果物: repo Daisuke134/anicca-ops、worktree /Users/anicca/work/ops-notification-eval-v3、branch codex/notification-eval-v3-glm-20261118、commit 92b36bf。指定ローカルpath /Users/anicca/anicca-ops/files/notification-eval-v3-glm-result-2026-11-18.md とGitHub contents APIのblob SHAが一致（925295d9a8073c1d5d82f725e9cd124b2d8e9a70）。既存ops checkoutの他者編集はstageしない。残TODOなし。
