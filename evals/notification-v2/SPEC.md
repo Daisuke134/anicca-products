@@ -125,3 +125,5 @@ TODO:
 根拠: 指定v6結果commit08cffbd753b23946f1a802753ff1cf500f21f47f全文、v6/v7タスク全文、v6実装全体。固定回数検索は今回の指定構造修正に不要で、上位の必要範囲調査を優先する。
 
 Round 7開始前: 公式models canonical一致。専用key usage1.415294704、残枠0.084705296のため許可内limit1.50→2.00へ変更し公式readback、SSOT metadata同期。credits155。購入/reloadなし。generator/validator/judgeをこのcommitで凍結し1回実行する。現在cursor: 固定32条件実行。
+
+上限PATCHは2.00を返すが直後GETは1.50の旧値でassert失敗。mutation再送せずGETを追加し2.00を確認、runner開始時GETも2.00/usage1.415294704。旧readbackを保存し開始snapshotはrunner取得を採用。SSOT limit2.00へ同期。
