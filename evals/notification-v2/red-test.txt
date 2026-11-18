@@ -1,0 +1,223 @@
+FFFFFFFFF....FFFF.                                                       [100%]Running teardown with pytest sessionfinish...
+
+=================================== FAILURES ===================================
+_ test_reject_corrupt_japanese[\u300c\u300d\u3092\u898b\u3066\u304f\u3060\u3055\u3044\u3002] _
+
+text = '「」を見てください。'
+
+    @pytest.mark.parametrize("text", ["「」を見てください。", "『まだ続きます。", "今、\ufffdを感じて。", "今はhello worldに集中しましょう。", "今、心Приветを見て。", "今、ゆっくりゆっくりゆっくりゆっくり。", "みたいな日だね。", "今日の気持ちを、", "くるくるせっけんかんティールのみョンを置いて。"])
+    def test_reject_corrupt_japanese(text):
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(text))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:15: Failed
+_ test_reject_corrupt_japanese[\u300e\u307e\u3060\u7d9a\u304d\u307e\u3059\u3002] _
+
+text = '『まだ続きます。'
+
+    @pytest.mark.parametrize("text", ["「」を見てください。", "『まだ続きます。", "今、\ufffdを感じて。", "今はhello worldに集中しましょう。", "今、心Приветを見て。", "今、ゆっくりゆっくりゆっくりゆっくり。", "みたいな日だね。", "今日の気持ちを、", "くるくるせっけんかんティールのみョンを置いて。"])
+    def test_reject_corrupt_japanese(text):
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(text))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:15: Failed
+_ test_reject_corrupt_japanese[\u4eca\u3001\ufffd\u3092\u611f\u3058\u3066\u3002] _
+
+text = '今、�を感じて。'
+
+    @pytest.mark.parametrize("text", ["「」を見てください。", "『まだ続きます。", "今、\ufffdを感じて。", "今はhello worldに集中しましょう。", "今、心Приветを見て。", "今、ゆっくりゆっくりゆっくりゆっくり。", "みたいな日だね。", "今日の気持ちを、", "くるくるせっけんかんティールのみョンを置いて。"])
+    def test_reject_corrupt_japanese(text):
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(text))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:15: Failed
+_ test_reject_corrupt_japanese[\u4eca\u306fhello world\u306b\u96c6\u4e2d\u3057\u307e\u3057\u3087\u3046\u3002] _
+
+text = '今はhello worldに集中しましょう。'
+
+    @pytest.mark.parametrize("text", ["「」を見てください。", "『まだ続きます。", "今、\ufffdを感じて。", "今はhello worldに集中しましょう。", "今、心Приветを見て。", "今、ゆっくりゆっくりゆっくりゆっくり。", "みたいな日だね。", "今日の気持ちを、", "くるくるせっけんかんティールのみョンを置いて。"])
+    def test_reject_corrupt_japanese(text):
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(text))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:15: Failed
+_ test_reject_corrupt_japanese[\u4eca\u3001\u5fc3\u041f\u0440\u0438\u0432\u0435\u0442\u3092\u898b\u3066\u3002] _
+
+text = '今、心Приветを見て。'
+
+    @pytest.mark.parametrize("text", ["「」を見てください。", "『まだ続きます。", "今、\ufffdを感じて。", "今はhello worldに集中しましょう。", "今、心Приветを見て。", "今、ゆっくりゆっくりゆっくりゆっくり。", "みたいな日だね。", "今日の気持ちを、", "くるくるせっけんかんティールのみョンを置いて。"])
+    def test_reject_corrupt_japanese(text):
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(text))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:15: Failed
+_ test_reject_corrupt_japanese[\u4eca\u3001\u3086\u3063\u304f\u308a\u3086\u3063\u304f\u308a\u3086\u3063\u304f\u308a\u3086\u3063\u304f\u308a\u3002] _
+
+text = '今、ゆっくりゆっくりゆっくりゆっくり。'
+
+    @pytest.mark.parametrize("text", ["「」を見てください。", "『まだ続きます。", "今、\ufffdを感じて。", "今はhello worldに集中しましょう。", "今、心Приветを見て。", "今、ゆっくりゆっくりゆっくりゆっくり。", "みたいな日だね。", "今日の気持ちを、", "くるくるせっけんかんティールのみョンを置いて。"])
+    def test_reject_corrupt_japanese(text):
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(text))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:15: Failed
+_ test_reject_corrupt_japanese[\u307f\u305f\u3044\u306a\u65e5\u3060\u306d\u3002] _
+
+text = 'みたいな日だね。'
+
+    @pytest.mark.parametrize("text", ["「」を見てください。", "『まだ続きます。", "今、\ufffdを感じて。", "今はhello worldに集中しましょう。", "今、心Приветを見て。", "今、ゆっくりゆっくりゆっくりゆっくり。", "みたいな日だね。", "今日の気持ちを、", "くるくるせっけんかんティールのみョンを置いて。"])
+    def test_reject_corrupt_japanese(text):
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(text))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:15: Failed
+_ test_reject_corrupt_japanese[\u4eca\u65e5\u306e\u6c17\u6301\u3061\u3092\u3001] _
+
+text = '今日の気持ちを、'
+
+    @pytest.mark.parametrize("text", ["「」を見てください。", "『まだ続きます。", "今、\ufffdを感じて。", "今はhello worldに集中しましょう。", "今、心Приветを見て。", "今、ゆっくりゆっくりゆっくりゆっくり。", "みたいな日だね。", "今日の気持ちを、", "くるくるせっけんかんティールのみョンを置いて。"])
+    def test_reject_corrupt_japanese(text):
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(text))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:15: Failed
+_ test_reject_corrupt_japanese[\u304f\u308b\u304f\u308b\u305b\u3063\u3051\u3093\u304b\u3093\u30c6\u30a3\u30fc\u30eb\u306e\u307f\u30e7\u30f3\u3092\u7f6e\u3044\u3066\u3002] _
+
+text = 'くるくるせっけんかんティールのみョンを置いて。'
+
+    @pytest.mark.parametrize("text", ["「」を見てください。", "『まだ続きます。", "今、\ufffdを感じて。", "今はhello worldに集中しましょう。", "今、心Приветを見て。", "今、ゆっくりゆっくりゆっくりゆっくり。", "みたいな日だね。", "今日の気持ちを、", "くるくるせっけんかんティールのみョンを置いて。"])
+    def test_reject_corrupt_japanese(text):
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(text))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:15: Failed
+______________________________ test_reject_humor _______________________________
+
+    def test_reject_humor():
+>       with pytest.raises(ValueError): m.validate_candidates(candidates(kind="humor"))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:22: Failed
+_________ test_retry_once_and_replay_without_generation[distribution] __________
+
+tmp_path = PosixPath('/private/var/folders/c1/11fd4j597vx4fb8tnv25y28r0000gn/T/pytest-of-anicca/pytest-8/test_retry_once_and_replay_wit0')
+failure = 'distribution'
+
+    @pytest.mark.parametrize("failure", ["distribution", "json"])
+    def test_retry_once_and_replay_without_generation(tmp_path, failure):
+        calls=[]
+        def generate(context):
+            calls.append(context)
+            if len(calls)==1:
+                if failure=="json": raise json.JSONDecodeError("broken", "", 0)
+                return [dict(c, probability=.1) for c in candidates()]
+            return candidates()
+        store=m.InterventionStore(tmp_path/"store.db",generate,draw=lambda:.1)
+>       result=store.decide("test",ID,CTX)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+evals/notification-v2/tests/test_interventions.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+evals/notification-v2/reference/interventions.py:174: in decide
+    validate_candidates(candidates)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+candidates = [{'id': 'a', 'kind': 'question', 'probability': 0.1, 'text': '今、小さく始めるなら何を選びますか？'}, {'id': 'n', 'kind': 'none', 'probability': 0.1, 'text': ''}]
+
+    def validate_candidates(candidates):
+        if not isinstance(candidates, list) or not 2 <= len(candidates) <= 8:
+            raise ValueError('expected 2..8 candidates including no-send')
+        ids = set()
+        for c in candidates:
+            if set(c) != {'id', 'kind', 'text', 'probability'} or c['id'] in ids:
+                raise ValueError('invalid candidate shape or duplicate ID')
+            if not isinstance(c['id'], str) or not c['id'].isascii() or not c['id'].isalnum() or len(c['id']) > 40:
+                raise ValueError('invalid ID')
+            ids.add(c['id'])
+            p = c['probability']
+            if isinstance(p, bool) or not isinstance(p, (int, float)) or not math.isfinite(p) or not 0 < p <= 1:
+                raise ValueError('invalid probability')
+            if c['kind'] not in KINDS or not isinstance(c['text'], str) or len(c['text']) > 500:
+                raise ValueError('invalid content')
+            if (c['kind'] == 'none') != (c['text'] == ''):
+                raise ValueError('no-send must have empty text; send must have text')
+        if sum(c['kind'] == 'none' for c in candidates) != 1 or abs(math.fsum(c['probability'] for c in candidates) - 1) > 1e-12:
+>           raise ValueError('invalid distribution')
+E           ValueError: invalid distribution
+
+evals/notification-v2/reference/interventions.py:47: ValueError
+_____________ test_retry_once_and_replay_without_generation[json] ______________
+
+tmp_path = PosixPath('/private/var/folders/c1/11fd4j597vx4fb8tnv25y28r0000gn/T/pytest-of-anicca/pytest-8/test_retry_once_and_replay_wit1')
+failure = 'json'
+
+    @pytest.mark.parametrize("failure", ["distribution", "json"])
+    def test_retry_once_and_replay_without_generation(tmp_path, failure):
+        calls=[]
+        def generate(context):
+            calls.append(context)
+            if len(calls)==1:
+                if failure=="json": raise json.JSONDecodeError("broken", "", 0)
+                return [dict(c, probability=.1) for c in candidates()]
+            return candidates()
+        store=m.InterventionStore(tmp_path/"store.db",generate,draw=lambda:.1)
+>       result=store.decide("test",ID,CTX)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+evals/notification-v2/tests/test_interventions.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+evals/notification-v2/reference/interventions.py:173: in decide
+    candidates = self.generate(context)
+                 ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+context = {'desired_state': 'calm', 'language': 'ja', 'source': 'notification', 'time_band': 'day'}
+
+    def generate(context):
+        calls.append(context)
+        if len(calls)==1:
+>           if failure=="json": raise json.JSONDecodeError("broken", "", 0)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           json.decoder.JSONDecodeError: broken: line 1 column 1 (char 0)
+
+evals/notification-v2/tests/test_interventions.py:32: JSONDecodeError
+____________________ test_retry_exhausted_does_not_persist _____________________
+
+tmp_path = PosixPath('/private/var/folders/c1/11fd4j597vx4fb8tnv25y28r0000gn/T/pytest-of-anicca/pytest-8/test_retry_exhausted_does_not_0')
+
+    def test_retry_exhausted_does_not_persist(tmp_path):
+        calls=[]
+        def generate(context):
+            calls.append(context)
+            return candidates("「」")
+        store=m.InterventionStore(tmp_path/"store.db",generate)
+>       with pytest.raises(ValueError): store.decide("test",ID,CTX)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+evals/notification-v2/tests/test_interventions.py:47: Failed
+=========================== short test summary info ============================
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_corrupt_japanese[\u300c\u300d\u3092\u898b\u3066\u304f\u3060\u3055\u3044\u3002]
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_corrupt_japanese[\u300e\u307e\u3060\u7d9a\u304d\u307e\u3059\u3002]
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_corrupt_japanese[\u4eca\u3001\ufffd\u3092\u611f\u3058\u3066\u3002]
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_corrupt_japanese[\u4eca\u306fhello world\u306b\u96c6\u4e2d\u3057\u307e\u3057\u3087\u3046\u3002]
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_corrupt_japanese[\u4eca\u3001\u5fc3\u041f\u0440\u0438\u0432\u0435\u0442\u3092\u898b\u3066\u3002]
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_corrupt_japanese[\u4eca\u3001\u3086\u3063\u304f\u308a\u3086\u3063\u304f\u308a\u3086\u3063\u304f\u308a\u3086\u3063\u304f\u308a\u3002]
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_corrupt_japanese[\u307f\u305f\u3044\u306a\u65e5\u3060\u306d\u3002]
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_corrupt_japanese[\u4eca\u65e5\u306e\u6c17\u6301\u3061\u3092\u3001]
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_corrupt_japanese[\u304f\u308b\u304f\u308b\u305b\u3063\u3051\u3093\u304b\u3093\u30c6\u30a3\u30fc\u30eb\u306e\u307f\u30e7\u30f3\u3092\u7f6e\u3044\u3066\u3002]
+FAILED evals/notification-v2/tests/test_interventions.py::test_reject_humor
+FAILED evals/notification-v2/tests/test_interventions.py::test_retry_once_and_replay_without_generation[distribution]
+FAILED evals/notification-v2/tests/test_interventions.py::test_retry_once_and_replay_without_generation[json]
+FAILED evals/notification-v2/tests/test_interventions.py::test_retry_exhausted_does_not_persist
+13 failed, 5 passed in 0.21s

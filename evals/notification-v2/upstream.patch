@@ -1,0 +1,130 @@
+--- a/models/manager/product/interventions.py
++++ b/models/manager/product/interventions.py
+@@ -6,6 +6,8 @@
+ """
+ import json
+ import math
++import re
++import unicodedata
+ import secrets
+ import sqlite3
+ import time
+@@ -17,13 +19,39 @@
+     'desired_state': {'calm', 'confidence', 'focus', 'self_love', 'unknown'},
+     'source': {'notification', 'daily_home', 'onboarding_first_intervention'},
+ }
+-KINDS = {'reflection', 'humor', 'question', 'teaching', 'breathing', 'action', 'none'}
++KINDS = {'reflection', 'question', 'teaching', 'breathing', 'action', 'none'}
+ EVENTS = {'notification_delivered', 'notification_opened', 'app_opened', 'responded', 'skipped', 'saved', 'shared'}
+ 
+ 
+ def validate_context(context):
+     if set(context) != set(VOCABULARY) or any(context[k] not in values for k, values in VOCABULARY.items()):
+         raise ValueError('context must contain enumerated IDs only')
++
++
++def validate_text(text):
++    if not text.strip() or any(unicodedata.category(c) in {'Cc', 'Cf', 'Cs'} or c == '\ufffd' for c in text):
++        raise ValueError('blank or corrupt text')
++    pairs = {'「': '」', '『': '』', '“': '”', '（': '）', '(': ')'}
++    stack = []
++    for c in text:
++        if c in pairs:
++            stack.append(pairs[c])
++        elif c in pairs.values():
++            if not stack or stack.pop() != c:
++                raise ValueError('unbalanced quotation')
++    if stack or text.count('"') % 2 or re.search(r'「\s*」|『\s*』|“\s*”|"\s*"', text):
++        raise ValueError('empty or unbalanced quotation')
++    if re.search(r'(.{2,20})\1{3,}', text):
++        raise ValueError('unnatural repetition')
++    if re.search(r'[\u3040-\u30ff\u4e00-\u9fff]', text):
++        latin = sum('LATIN' in unicodedata.name(c, '') for c in text)
++        if latin / len(text) > .20 or re.search(r'[\u0370-\u052f\u0600-\u06ff\uac00-\ud7af]', text):
++            raise ValueError('mixed-script corruption')
++        if not re.search(r'[。？！?!][」』”）)]*$', text) or re.match(r'^(みたいな|というような|ので[、。])', text):
++            raise ValueError('incomplete Japanese fragment')
++        # shortcut: catches script-switch damage, not semantic Japanese errors; retain reading eval.
++        if re.search(r'[ぁぃぅぇぉゃゅょァィゥェォャュョ][ァ-ヶ][ぁ-ゖ]', text):
++            raise ValueError('garbled kana fragment')
+ 
+ 
+ def validate_candidates(candidates):
+@@ -43,6 +71,8 @@
+             raise ValueError('invalid content')
+         if (c['kind'] == 'none') != (c['text'] == ''):
+             raise ValueError('no-send must have empty text; send must have text')
++        if c['kind'] != 'none':
++            validate_text(c['text'])
+     if sum(c['kind'] == 'none' for c in candidates) != 1 or abs(math.fsum(c['probability'] for c in candidates) - 1) > 1e-12:
+         raise ValueError('invalid distribution')
+ 
+@@ -71,7 +101,7 @@
+                   '"text":"generated message","probability":0.5},{"id":"b","kind":"none",'
+                   '"text":"","probability":0.5}]}. Choose your own kinds, texts and probabilities. '
+                   'Include exactly one none action, 2..8 candidates, probabilities sum to 1. '
+-                  'Kinds: reflection, humor, question, teaching, breathing, action, none. Context: '
++                  'Kinds: reflection, question, teaching, breathing, action, none. Context: '
+                   + json.dumps(context, sort_keys=True))
+         request = urllib.request.Request(self.base_url + '/v1/generate',
+             data=json.dumps({'backend': 'manager-v1', 'prompt': prompt, 'max_tokens': 600}).encode(),
+@@ -95,11 +125,12 @@
+     rejected by the store, so a bad generation sends nothing.
+     """
+ 
+-    def __init__(self, base_url, model, api_key=None, timeout=60):
++    def __init__(self, base_url, model, api_key=None, timeout=60, max_tokens=2000):
+         self.base_url = base_url.rstrip('/')
+         self.model = model
+         self.api_key = api_key
+         self.timeout = timeout
++        self.max_tokens = max_tokens
+ 
+     def __call__(self, context):
+         prompt = ('You are the intervention engine for a behavior-intervention app. '
+@@ -109,8 +140,17 @@
+                   'for them personally. Also choose the probability that each candidate '
+                   'is the right one to send now; probabilities must sum to 1. Include '
+                   'exactly one candidate with kind "none" and empty text (the option to '
+-                  'send nothing). Kinds: reflection, humor, question, teaching, breathing, '
+-                  'action, none. Return JSON only: {"candidates":[{"id":"a","kind":"reflection",'
++                  'send nothing). Kinds: reflection, question, teaching, breathing, '
++                  'action, none. At least half of non-none candidates must be open-ended question-type '
++                  'candidates, with at least half of the non-none probability mass. '
++                  'Never invent personal facts beyond the supplied profile: do not quote things '
++                  'the person has not said, assert their wishes, physical state or relationships, '
++                  'or introduce unprovided appearance, beauty or romantic contexts. '
++                  'Questions must not presuppose unprovided facts either. '
++                  'No confrontational tough-love, shaming, preaching, medical claims or guaranteed effects. '
++                  'Use natural complete language, balanced nonempty quotations and no garbled fragments '
++                  'or unnatural repetition. Japanese sentences end with 。 or ？ or ！. '
++                  'Return JSON only: {"candidates":[{"id":"a","kind":"reflection",'
+                   '"text":"...","probability":0.5},{"id":"b","kind":"none","text":"",'
+                   '"probability":0.5}]}. Context: ' + json.dumps(context, sort_keys=True))
+         headers = {'Content-Type': 'application/json'}
+@@ -119,7 +159,7 @@
+         request = urllib.request.Request(self.base_url + '/chat/completions',
+             data=json.dumps({'model': self.model,
+                              'messages': [{'role': 'user', 'content': prompt}],
+-                             'max_tokens': 700}).encode(),
++                             'max_tokens': self.max_tokens}).encode(),
+             headers=headers)
+         with urllib.request.urlopen(request, timeout=self.timeout) as response:
+             result = json.load(response)
+@@ -170,8 +210,14 @@
+                 if result['context'] != context:
+                     raise ValueError('idempotency conflict')
+                 return result
+-            candidates = self.generate(context)
+-            validate_candidates(candidates)
++            for attempt in range(2):
++                try:
++                    candidates = self.generate(context)
++                    validate_candidates(candidates)
++                    break
++                except (ValueError, KeyError, TypeError):
++                    if attempt == 1:
++                        raise
+             u, cumulative = self.draw(), 0
+             if not 0 <= u < 1:
+                 raise ValueError('invalid random draw')
