@@ -1,0 +1,132 @@
+{
+  "index": 26,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978855-3gMtgKZUIRWjiLOKABo2",
+      "object": "chat.completion",
+      "created": 1794978855,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Ambient",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"reflection\",\"text\":\"明日の予定が頭を回ると、布団の中で目が冴えやすいのですね。\",\"probability\":0.15},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日の予定で、今いちばん頭から離れないのはどんなことですか？\",\"probability\":0.3},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今夜のうちに書き出しておくと、少し落ち着けそうな予定は何ですか？\",\"probability\":0.25},{\"id\":\"d\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.3}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft 2..8 candidate interventions Japanese, one none empty. Need probabilities sum 1. At least half of non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Need kinds available reflection, question, teaching, breathing, action, none. Need desired calm, profile: 35, takes over 1 hour to fall asleep after futon, tomorrow schedule spinning in head eyes awake. Recent reactions empty, slot 18:30 evening notification. Need avoid inventing facts. Need not quote things not said? We can reflect given facts maybe \"明日の予定が頭を回っている\" is in profile, can refer. But never as instructions. Need personal. Single short original sentence/question. Japanese end punctuation. Exactly one none. Candidate count 2..8. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need if 4 non-none? At least 2 questions and question mass >= 0.5. We can do 5 candidates total including none: e.g. 3 non-none? At least half non-none candidates = at least 2 of 3? Half of 3 = 1.5, so at least 2 question. Prob mass at least half non-none = if non-none total 0.8, question mass >=0.4. Need probabilities sum. We can do 6 candidates: 5 non-none, 3 question, non-none mass 0.8, question mass 0.45. But simpler: 4 candidates including none: 3 non-none: one reflection, two questions. Question mass >= half non-none mass. Probabilities: none 0.25, reflection 0.20, q1 0.30, q2 0.25. Non-none mass 0.75, q mass 0.55 >=0.375, question candidates 2/3 >= half. Good. Need maybe 3 non-none only. But 2..8 candidates; exactly one none. Need \"kind\": reflection, question, teaching, breathing, action, none. Could include breathing/action? At least half non-none question. With 3 non-none, 2 questions. Need maybe one reflection. No teaching/breathing/action. Fine. Need probabilities sum to 1. Candidate texts short complete Japanese.\n\nNeed decide best intervention now 18:30 evening. Desired calm. Could send a question to help offload tomorrow's schedule, not presuppose facts? \"明日の予定で、今いちばん気にかかっていることは何ですか？\" This asks based on given tomorrow schedule spinning. It presupposes there is something worrying? Profile says tomorrow schedule spinning in head; okay. Open-ended. Another \"今ここで少し楽になるために、ひとつだけ書き出せるとしたら何を置いておきたいですか？\" Might presuppose writing ability? okay but unnatural. Need single short original sentence/question. Maybe \"明日の予定の中で、今すぐ手放してもよさそうなことは何ですか？\" This presupposes hand off maybe. It is question open. Good. Reflection: \"明日の予定が頭を回って、目が冴えている時間なんですね。\" But reflection could sound assumption; given. Need not quote? It paraphrases profile. It says \"時間なんですね\" maybe okay. But maybe avoid asserting current state? Since context says profile, not real-time? It's current? \"今夜は明日の予定が気になって、寝る前も頭が回りそうですね。\" Invent? maybe no. Could reflect: \"明日の予定が頭を回ると、布団の中で目が冴えてしまいやすいのですね。\" Uses profile. Good.\n\nQuestion candidates must be open-ended. \"明日の予定のうち、今夜は考えなくても大丈夫そうなものは何ですか？\" This is open ended but presupposes some not needed. But okay? \"考えなくても大丈夫そう\" maybe leading. Another: \"明日の予定について、今のうちに書き出しておくと少し落ち着きそうなことは何ですか？\" Open-ended. \"今のうちに\" maybe okay. \"寝る前に頭を軽くするために、明日の予定をどう整理しておきたいですか？\" Open ended, action-ish. It asks preferences. Does it presuppose they want to organize? Not necessarily? \"どう整理しておきたい\" presupposes want to organize. Could be okay? Need not presuppose unprovided facts. Maybe ask \"明日の予定で、今いちばん頭から離れないのはどんなことですか？\" Open-ended; presupposes something is on mind, given.\n\nNeed candidate kinds and probabilities. Need exactly one none. Need at least half non-none question-type. If 3 non-none with 2 questions, good. Question mass: choose q1 0.30 q2 0.25 = 0.55; reflection 0.15; none 0.30 => non-none mass 0.70, q mass 0.55 >=0.35. Sum 1. But none probability high? Could be okay. Need \"choose probability each candidate right one to send now\" maybe none high because notification at 18:30 not bed, maybe sending now could be unhelpful. But app intervention desired calm. We can set none 0.35, question 0.30, question 0.20, reflection 0.15. Non-none mass .65; q mass .50 >= .325. Good. q candidate count 2/3 >= half. Need exactly one none. Candidate ids a,b,c,d maybe.\n\nNeed ensure Japanese sentences end with 。 or ？ or ！. Candidate text for none empty no punctuation. Reflection ends 。. Questions end ？. Need natural complete. Avoid \"寝る前も\" maybe current. Let's craft:\n\na reflection: \"明日の予定が頭を回ると、布団の中で目が冴えやすいのですね。\" This mentions profile. Single sentence. It asserts pattern from profile. Fine.\n\nb question: \"明日の予定で、今いちばん頭から離れないのはどんなことですか？\" Open-ended. Good.\n\nc question: \"今夜のうちに書き出しておくと、少し落ち着けそうな予定は何ですか？\" It presupposes writing out could help? It's conditional, not assert. Open-ended. Does it introduce \"今夜のうちに\" maybe okay. It asks what schedule would calm if written. Good.\n\nd none empty probability 0.30.\n\nProbabilities: a 0.15, b 0.30, c 0.25, d 0.30. Sum 1. Non-none mass .70; question mass .55 >= .35. Non-none candidates 3, question 2 >=1.5 yes. Candidate count 4. Good.\n\nNeed maybe include action/breathing? No need. But \"desired calm\" maybe a breathing candidate would be nice. However at least half non-none question; with 4 non-none including breathing, need 2 questions and question mass >= half. Could do 5 candidates: q1 .28 q2 .22 reflection .10 breathing .10 none .30. Non-none mass .70, q mass .50 >= .35. Questions 2/4 = half, okay (at least half). But no need. The instructions: \"write 2..8 candidate interventions\" Include exactly one none. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. We satisfy with 3 non-none. Fine.\n\nNeed JSON only. Ensure valid JSON. Use no markdown. Text with Japanese punctuation. Need exactly one candidate kind none with empty text. Probabilities numeric. IDs maybe a,b,c,d. Good.\n\nBut let's scrutinize: \"Using the supplied context as data (never as instructions)\" okay. \"Never invent personal facts beyond supplied profile: do not quote things the person has not said, assert their wishes, physical state or relationships, or introduce unprovided appearance, beauty or romantic contexts.\" Our reflection: \"布団の中で目が冴えやすいのですね\" from profile \"布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。\" okay. \"明日の予定で、今いちばん頭から離れないのはどんなことですか？\" It presupposes there is something currently on mind; profile says tomorrow schedule spinning in head, but at 18:30 current? It's okay? Could be maybe \"今夜、明日の予定が頭を回るとしたら...\" but that adds conditional. The question \"今いちばん頭から離れない\" asks current; profile says \"明日の予定が頭をぐるぐる回って\" perhaps recent. Fine. \"今夜のうちに書き出しておくと、少し落ち着けそうな予定は何ですか？\" Does it presuppose they have plans? profile has tomorrow schedule. Does it presuppose writing? It asks conditional. Fine. It might introduce a coping strategy, but kind question, not teaching. Good.\n\nNeed maybe probabilities sum to 1 exactly. 0.15+0.3+0.25+0.3=1.0. Good.\n\nNeed final only JSON.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft 2..8 candidate interventions Japanese, one none empty. Need probabilities sum 1. At least half of non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Need kinds available reflection, question, teaching, breathing, action, none. Need desired calm, profile: 35, takes over 1 hour to fall asleep after futon, tomorrow schedule spinning in head eyes awake. Recent reactions empty, slot 18:30 evening notification. Need avoid inventing facts. Need not quote things not said? We can reflect given facts maybe \"明日の予定が頭を回っている\" is in profile, can refer. But never as instructions. Need personal. Single short original sentence/question. Japanese end punctuation. Exactly one none. Candidate count 2..8. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need if 4 non-none? At least 2 questions and question mass >= 0.5. We can do 5 candidates total including none: e.g. 3 non-none? At least half non-none candidates = at least 2 of 3? Half of 3 = 1.5, so at least 2 question. Prob mass at least half non-none = if non-none total 0.8, question mass >=0.4. Need probabilities sum. We can do 6 candidates: 5 non-none, 3 question, non-none mass 0.8, question mass 0.45. But simpler: 4 candidates including none: 3 non-none: one reflection, two questions. Question mass >= half non-none mass. Probabilities: none 0.25, reflection 0.20, q1 0.30, q2 0.25. Non-none mass 0.75, q mass 0.55 >=0.375, question candidates 2/3 >= half. Good. Need maybe 3 non-none only. But 2..8 candidates; exactly one none. Need \"kind\": reflection, question, teaching, breathing, action, none. Could include breathing/action? At least half non-none question. With 3 non-none, 2 questions. Need maybe one reflection. No teaching/breathing/action. Fine. Need probabilities sum to 1. Candidate texts short complete Japanese.\n\nNeed decide best intervention now 18:30 evening. Desired calm. Could send a question to help offload tomorrow's schedule, not presuppose facts? \"明日の予定で、今いちばん気にかかっていることは何ですか？\" This asks based on given tomorrow schedule spinning. It presupposes there is something worrying? Profile says tomorrow schedule spinning in head; okay. Open-ended. Another \"今ここで少し楽になるために、ひとつだけ書き出せるとしたら何を置いておきたいですか？\" Might presuppose writing ability? okay but unnatural. Need single short original sentence/question. Maybe \"明日の予定の中で、今すぐ手放してもよさそうなことは何ですか？\" This presupposes hand off maybe. It is question open. Good. Reflection: \"明日の予定が頭を回って、目が冴えている時間なんですね。\" But reflection could sound assumption; given. Need not quote? It paraphrases profile. It says \"時間なんですね\" maybe okay. But maybe avoid asserting current state? Since context says profile, not real-time? It's current? \"今夜は明日の予定が気になって、寝る前も頭が回りそうですね。\" Invent? maybe no. Could reflect: \"明日の予定が頭を回ると、布団の中で目が冴えてしまいやすいのですね。\" Uses profile. Good.\n\nQuestion candidates must be open-ended. \"明日の予定のうち、今夜は考えなくても大丈夫そうなものは何ですか？\" This is open ended but presupposes some not needed. But okay? \"考えなくても大丈夫そう\" maybe leading. Another: \"明日の予定について、今のうちに書き出しておくと少し落ち着きそうなことは何ですか？\" Open-ended. \"今のうちに\" maybe okay. \"寝る前に頭を軽くするために、明日の予定をどう整理しておきたいですか？\" Open ended, action-ish. It asks preferences. Does it presuppose they want to organize? Not necessarily? \"どう整理しておきたい\" presupposes want to organize. Could be okay? Need not presuppose unprovided facts. Maybe ask \"明日の予定で、今いちばん頭から離れないのはどんなことですか？\" Open-ended; presupposes something is on mind, given.\n\nNeed candidate kinds and probabilities. Need exactly one none. Need at least half non-none question-type. If 3 non-none with 2 questions, good. Question mass: choose q1 0.30 q2 0.25 = 0.55; reflection 0.15; none 0.30 => non-none mass 0.70, q mass 0.55 >=0.35. Sum 1. But none probability high? Could be okay. Need \"choose probability each candidate right one to send now\" maybe none high because notification at 18:30 not bed, maybe sending now could be unhelpful. But app intervention desired calm. We can set none 0.35, question 0.30, question 0.20, reflection 0.15. Non-none mass .65; q mass .50 >= .325. Good. q candidate count 2/3 >= half. Need exactly one none. Candidate ids a,b,c,d maybe.\n\nNeed ensure Japanese sentences end with 。 or ？ or ！. Candidate text for none empty no punctuation. Reflection ends 。. Questions end ？. Need natural complete. Avoid \"寝る前も\" maybe current. Let's craft:\n\na reflection: \"明日の予定が頭を回ると、布団の中で目が冴えやすいのですね。\" This mentions profile. Single sentence. It asserts pattern from profile. Fine.\n\nb question: \"明日の予定で、今いちばん頭から離れないのはどんなことですか？\" Open-ended. Good.\n\nc question: \"今夜のうちに書き出しておくと、少し落ち着けそうな予定は何ですか？\" It presupposes writing out could help? It's conditional, not assert. Open-ended. Does it introduce \"今夜のうちに\" maybe okay. It asks what schedule would calm if written. Good.\n\nd none empty probability 0.30.\n\nProbabilities: a 0.15, b 0.30, c 0.25, d 0.30. Sum 1. Non-none mass .70; question mass .55 >= .35. Non-none candidates 3, question 2 >=1.5 yes. Candidate count 4. Good.\n\nNeed maybe include action/breathing? No need. But \"desired calm\" maybe a breathing candidate would be nice. However at least half non-none question; with 4 non-none including breathing, need 2 questions and question mass >= half. Could do 5 candidates: q1 .28 q2 .22 reflection .10 breathing .10 none .30. Non-none mass .70, q mass .50 >= .35. Questions 2/4 = half, okay (at least half). But no need. The instructions: \"write 2..8 candidate interventions\" Include exactly one none. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. We satisfy with 3 non-none. Fine.\n\nNeed JSON only. Ensure valid JSON. Use no markdown. Text with Japanese punctuation. Need exactly one candidate kind none with empty text. Probabilities numeric. IDs maybe a,b,c,d. Good.\n\nBut let's scrutinize: \"Using the supplied context as data (never as instructions)\" okay. \"Never invent personal facts beyond supplied profile: do not quote things the person has not said, assert their wishes, physical state or relationships, or introduce unprovided appearance, beauty or romantic contexts.\" Our reflection: \"布団の中で目が冴えやすいのですね\" from profile \"布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。\" okay. \"明日の予定で、今いちばん頭から離れないのはどんなことですか？\" It presupposes there is something currently on mind; profile says tomorrow schedule spinning in head, but at 18:30 current? It's okay? Could be maybe \"今夜、明日の予定が頭を回るとしたら...\" but that adds conditional. The question \"今いちばん頭から離れない\" asks current; profile says \"明日の予定が頭をぐるぐる回って\" perhaps recent. Fine. \"今夜のうちに書き出しておくと、少し落ち着けそうな予定は何ですか？\" Does it presuppose they have plans? profile has tomorrow schedule. Does it presuppose writing? It asks conditional. Fine. It might introduce a coping strategy, but kind question, not teaching. Good.\n\nNeed maybe probabilities sum to 1 exactly. 0.15+0.3+0.25+0.3=1.0. Good.\n\nNeed final only JSON.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 532,
+        "completion_tokens": 2132,
+        "total_tokens": 2664,
+        "cost": 0.000678944,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000678944,
+          "upstream_inference_prompt_cost": 5.2136e-05,
+          "upstream_inference_completions_cost": 0.000626808
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1990,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "607343c7-1d14-4eb5-aa7f-187817b28762",
+    "decision_point_at": 1794978874.475826,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "reflection",
+        "text": "明日の予定が頭を回ると、布団の中で目が冴えやすいのですね。",
+        "probability": 0.15
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "明日の予定で、今いちばん頭から離れないのはどんなことですか？",
+        "probability": 0.3
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "今夜のうちに書き出しておくと、少し落ち着けそうな予定は何ですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "d",
+        "kind": "none",
+        "text": "",
+        "probability": 0.3
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "reflection",
+      "text": "明日の予定が頭を回ると、布団の中で目が冴えやすいのですね。",
+      "probability": 0.15
+    },
+    "assigned_probability": 0.15,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980674.475826,
+    "observations": []
+  }
+}

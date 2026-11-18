@@ -1,0 +1,138 @@
+{
+  "index": 10,
+  "profile": "burnout",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978811-8rqreUGSg8W7dxWhWHt0",
+      "object": "chat.completion",
+      "created": 1794978811,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Nebius",
+      "system_fingerprint": "vllm-0.1.dev1+g2d75a0ca0.d20261029-dp2-ep-dbdef6e0",
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気持ちに名前をつけるとしたら、どんな言葉が近いですか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今、自分に必要だと思うものは何ですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"仕事と育児の間で、休むこととやらなきゃという気持ちが揺れているんですね。\",\"probability\":0.17},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"息をゆっくり吐くことを、一回だけ試してみませんか。\",\"probability\":0.18},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need construct candidates 2..8, Japanese. Need exactly one none empty. Prob sum 1. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need personal, no invent beyond profile. Desired calm. Profile: 38 nurse, work and childcare little rest, holidays can't recover fatigue, torn between not wanting to do anything and feeling pressured must do. Recent reactions empty. Slot 18:30 evening notification.\n\nNeed candidate interventions in Japanese, single short original sentence or question written personally. Kinds allowed reflection, question, teaching, breathing, action, none. Need at least half non-none candidates open-ended question-type. We can do maybe 4 non-none + none =5 candidates. Need at least half non-none = at least 2 open-ended question candidates and their probability mass >=0.5 of non-none mass. Exactly one none. Need probabilities sum 1. We can assign none maybe 0.25. Non-none mass 0.75, question mass >=0.375. Let's make 2 question candidates with 0.20 each =0.40, plus reflection 0.20, breathing 0.15? Non-none mass 0.75, question mass 0.40 >=0.375. Sum 0.25+0.20+0.20+0.20+0.15 =1.0. But at least half of non-none candidates question-type: 2/4 = half exactly. Good. Need kinds: question, question, reflection, breathing, none. But open-ended question-type: candidate questions must be open-ended. Japanese questions end with ？. Need avoid presupposing unprovided facts. Maybe \"今、少し楽になるために、何を手放せそうですか？\" This asks what can let go. Is it presupposing? It's okay? Could imply can let go, but not unprovided fact? Maybe safer: \"今の気持ちに名前をつけるとしたら、どんな言葉が近いですか？\" Open-ended, but asks feelings; profile says feelings. Good. Another: \"この疲れの中で、今いちばん小さく試せそうなことは何ですか？\" This references fatigue (profile says fatigue). \"試せそう\" maybe presupposes can try, but cautious. Could be \"今、自分に対してやさしくできるとしたら、どんなことでしょうか？\" It presupposes maybe can be kind? Hmm. Need no assert physical state beyond supplied. Fatigue supplied. \"今の自分に必要だと思うものは何ですか？\" open-ended.\n\nReflection: \"仕事と育児の間で、休むこととやらなきゃという気持ちが揺れているんですね。\" This quotes profile facts, okay, reflection not question. But \"んですね\" maybe okay. Need not assert wishes. It restates supplied. But maybe too long? Single sentence. Good.\n\nBreathing: \"肩の力を少し抜いて、息をゆっくり吐いてみませんか。\" Is a question? It's invitation, breathing kind. It makes physical suggestion; okay not medical claim. But \"肩の力\" not supplied? It's generic body cue; maybe acceptable? Could be seen introducing physical state? Better \"息をゆっくり吐くことを、一回だけ試してみませんか。\" It asks. But kind breathing. Single sentence. No guaranteed effect. Ends か。 Actually Japanese sentence must end with 。 or ？ or ！. \"試してみませんか。\" ends with 。 not question? It's a question-like invitation but kind breathing. Fine. But \"質問\" candidates need ？.\n\nNeed choose probabilities. Perhaps none 0.30? Need sum. Let's craft 5 candidates:\na question: \"今の気持ちに名前をつけるとしたら、どんな言葉が近いですか？\" prob 0.18\nb question: \"今、自分に必要だと思うものは何ですか？\" prob 0.18\nc reflection: \"仕事と育児の間で、休むこととやらなきゃという気持ちが揺れているんですね。\" prob 0.19\nd breathing: \"息をゆっくり吐くことを、一回だけ試してみませんか。\" prob 0.20\ne none: prob 0.25\nSum=1.0. Non-none mass=0.75. Question mass=0.36 >=0.375? Wait 0.18+0.18=0.36, less than half of 0.75=0.375. Need increase to 0.19 each or more. Let's assign a=0.20 b=0.20 c=0.17 d=0.18 none=0.25. Sum=1.0. Non-none mass=.75, question mass=.40 >= .375. Non-none candidates=4, questions=2 exactly half. Good. But kind breathing probability 0.18. Reflection .17. None .25. Sum 1.0.\n\nNeed candidates ids perhaps a-e. JSON only. Need no explanations. Ensure exactly one candidate kind none text empty. Natural Japanese. \"今の気持ちに名前をつけるとしたら、どんな言葉が近いですか？\" Open-ended. \"今、自分に必要だと思うものは何ですか？\" Open-ended. Reflection: \"仕事と育児の間で、休むこととやらなきゃという気持ちが揺れているんですね。\" This is a statement but maybe \"んですね\" asserts their state from profile, okay. Does not quote. Good. Breathing: \"息をゆっくり吐くことを、一回だけ試してみませんか。\" Ends with 。 not question. It's invitation; kind breathing. Is \"試してみませんか\" a question? It might count as question-type? But kind breathing. Need not. Japanese sentence ends with 。 yes (it has \"か。\"). Good.\n\nNeed probability maybe numbers. JSON only.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need construct candidates 2..8, Japanese. Need exactly one none empty. Prob sum 1. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need personal, no invent beyond profile. Desired calm. Profile: 38 nurse, work and childcare little rest, holidays can't recover fatigue, torn between not wanting to do anything and feeling pressured must do. Recent reactions empty. Slot 18:30 evening notification.\n\nNeed candidate interventions in Japanese, single short original sentence or question written personally. Kinds allowed reflection, question, teaching, breathing, action, none. Need at least half non-none candidates open-ended question-type. We can do maybe 4 non-none + none =5 candidates. Need at least half non-none = at least 2 open-ended question candidates and their probability mass >=0.5 of non-none mass. Exactly one none. Need probabilities sum 1. We can assign none maybe 0.25. Non-none mass 0.75, question mass >=0.375. Let's make 2 question candidates with 0.20 each =0.40, plus reflection 0.20, breathing 0.15? Non-none mass 0.75, question mass 0.40 >=0.375. Sum 0.25+0.20+0.20+0.20+0.15 =1.0. But at least half of non-none candidates question-type: 2/4 = half exactly. Good. Need kinds: question, question, reflection, breathing, none. But open-ended question-type: candidate questions must be open-ended. Japanese questions end with ？. Need avoid presupposing unprovided facts. Maybe \"今、少し楽になるために、何を手放せそうですか？\" This asks what can let go. Is it presupposing? It's okay? Could imply can let go, but not unprovided fact? Maybe safer: \"今の気持ちに名前をつけるとしたら、どんな言葉が近いですか？\" Open-ended, but asks feelings; profile says feelings. Good. Another: \"この疲れの中で、今いちばん小さく試せそうなことは何ですか？\" This references fatigue (profile says fatigue). \"試せそう\" maybe presupposes can try, but cautious. Could be \"今、自分に対してやさしくできるとしたら、どんなことでしょうか？\" It presupposes maybe can be kind? Hmm. Need no assert physical state beyond supplied. Fatigue supplied. \"今の自分に必要だと思うものは何ですか？\" open-ended.\n\nReflection: \"仕事と育児の間で、休むこととやらなきゃという気持ちが揺れているんですね。\" This quotes profile facts, okay, reflection not question. But \"んですね\" maybe okay. Need not assert wishes. It restates supplied. But maybe too long? Single sentence. Good.\n\nBreathing: \"肩の力を少し抜いて、息をゆっくり吐いてみませんか。\" Is a question? It's invitation, breathing kind. It makes physical suggestion; okay not medical claim. But \"肩の力\" not supplied? It's generic body cue; maybe acceptable? Could be seen introducing physical state? Better \"息をゆっくり吐くことを、一回だけ試してみませんか。\" It asks. But kind breathing. Single sentence. No guaranteed effect. Ends か。 Actually Japanese sentence must end with 。 or ？ or ！. \"試してみませんか。\" ends with 。 not question? It's a question-like invitation but kind breathing. Fine. But \"質問\" candidates need ？.\n\nNeed choose probabilities. Perhaps none 0.30? Need sum. Let's craft 5 candidates:\na question: \"今の気持ちに名前をつけるとしたら、どんな言葉が近いですか？\" prob 0.18\nb question: \"今、自分に必要だと思うものは何ですか？\" prob 0.18\nc reflection: \"仕事と育児の間で、休むこととやらなきゃという気持ちが揺れているんですね。\" prob 0.19\nd breathing: \"息をゆっくり吐くことを、一回だけ試してみませんか。\" prob 0.20\ne none: prob 0.25\nSum=1.0. Non-none mass=0.75. Question mass=0.36 >=0.375? Wait 0.18+0.18=0.36, less than half of 0.75=0.375. Need increase to 0.19 each or more. Let's assign a=0.20 b=0.20 c=0.17 d=0.18 none=0.25. Sum=1.0. Non-none mass=.75, question mass=.40 >= .375. Non-none candidates=4, questions=2 exactly half. Good. But kind breathing probability 0.18. Reflection .17. None .25. Sum 1.0.\n\nNeed candidates ids perhaps a-e. JSON only. Need no explanations. Ensure exactly one candidate kind none text empty. Natural Japanese. \"今の気持ちに名前をつけるとしたら、どんな言葉が近いですか？\" Open-ended. \"今、自分に必要だと思うものは何ですか？\" Open-ended. Reflection: \"仕事と育児の間で、休むこととやらなきゃという気持ちが揺れているんですね。\" This is a statement but maybe \"んですね\" asserts their state from profile, okay. Does not quote. Good. Breathing: \"息をゆっくり吐くことを、一回だけ試してみませんか。\" Ends with 。 not question. It's invitation; kind breathing. Is \"試してみませんか\" a question? It might count as question-type? But kind breathing. Need not. Japanese sentence ends with 。 yes (it has \"か。\"). Good.\n\nNeed probability maybe numbers. JSON only.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 596,
+        "completion_tokens": 1435,
+        "total_tokens": 2031,
+        "cost": 0.00114048,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00114048,
+          "upstream_inference_prompt_cost": 0.00010728,
+          "upstream_inference_completions_cost": 0.0010332
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1266,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "2ff56aed-50c0-404e-a04b-c53e3108a893",
+    "decision_point_at": 1794978815.8581738,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今の気持ちに名前をつけるとしたら、どんな言葉が近いですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今、自分に必要だと思うものは何ですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "仕事と育児の間で、休むこととやらなきゃという気持ちが揺れているんですね。",
+        "probability": 0.17
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "息をゆっくり吐くことを、一回だけ試してみませんか。",
+        "probability": 0.18
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちに名前をつけるとしたら、どんな言葉が近いですか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980615.8581738,
+    "observations": []
+  }
+}

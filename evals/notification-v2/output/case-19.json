@@ -1,0 +1,138 @@
+{
+  "index": 19,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978839-WMkIV5Jh7xHQLuBbdEFR",
+      "object": "chat.completion",
+      "created": 1794978839,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Ionstream",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今晩、少しでも自信につながりそうな小さな行動を一つ選ぶなら、何ができそうですか？\",\"probability\":0.22},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"今は自信をなくしそうな出来事が続いていると感じているのですね。\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"action\",\"text\":\"今夜は、画面を見る時間を少しだけ減らして、ゆっくり休む時間をとってみましょう。\",\"probability\":0.09},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.35}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft 2-8 candidate interventions in Japanese, one none empty. Need probabilities sum 1. At least half non-none candidates open-ended question-type, with at least half non-none probability mass. Need personalized to profile: 24, job hunting, worries may fail before interviews, repeated rejections losing confidence. Desired confidence. Time 22:30 night. Need no invented facts. We can include reflection, question, teaching, breathing, action. Need exactly one none. Need 2-8 candidates. We need decide number. Maybe 5 candidates including none, with 3 non-none questions? At least half non-none are question-type and at least half non-none probability mass. If 4 non-none, at least 2 questions with combined prob >=0.5 of non-none mass. Since none probability included? \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" Means among non-none, questions count >= half and probability mass >= half of non-none mass. Need probabilities sum 1. Need assign. We can make 4 non-none: 2 questions, 1 reflection, 1 breathing/action. Question probabilities sum >= half non-none mass. Let's choose 6 candidates total: 4 non-none + none. Non-none probabilities maybe 0.15+0.25+0.10+0.15=0.65, none=0.35. Questions q1 0.25 q2 0.15 sum 0.40 >=0.325 (half non-none 0.65). Good. But non-none candidates 4, questions 2 = half exactly. Non-none mass question 0.40/0.65 = 61.5%. None 0.35. Sum 1. Need natural Japanese, complete, no presupposition. Each single short original sentence or question. Need not be too long. Need avoid \"面接の前になると\" maybe okay from profile. But questions should not presuppose unprovided facts. We can refer to profile context? It says supplied profile includes that. But questions should not presuppose unprovided facts. We can ask \"今晩、自信につながりそうな小さなことを一つ選ぶなら、何ができそうですか？\" This is open-ended. Does it presuppose? No. But desired confidence. Another open question: \"これまで不安を感じたとき、自分を落ち着けるために役立ったことは何ですか？\" Is that presuppose? It asks if any; but implies past anxiety. Profile says anxiety before interviews, losing confidence. It's okay? Maybe \"今の自分にできる、少し気持ちを楽にする工夫は何でしょう？\" open-ended. Does not presuppose. Need at least half question type. Could have two open questions, one reflection, one action. Reflection should not quote? Could say \"就職活動が続く中で、自信が揺らぎやすい時期なのだろうと受け止めています。\" This asserts? It infers from profile. Maybe okay? But reflection should be personal. Better: \"不安が続くと、自分の力を過小に見積もりやすくなるかもしれません。\" That's teaching-ish, not personal? Could be reflection. Need not make medical claims. \"今は自信がないと感じていても、それはあなたの能力そのものではないのかもしれません。\" That's teaching/reflection. But might be preachy. Hmm.\n\nNeed include none exactly. Candidate kinds.\n\nLet's design 6 candidates:\na question open: \"今晩、少しでも自信につながりそうな小さな行動を一つ選ぶなら、何ができそうですか？\" probability 0.26\nb question open: \"就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？\" probability 0.14. Does this risk presuppose? It asks one from past; profile says job hunting; has accumulated? Not inventing. Could be okay. But if rejections continue, they might still have. This is open-ended.\nc reflection: \"面接前の不安は、大切な場面だからこそ強く感じられているのかもしれません。\" This assumes \"大切な場面\" maybe not stated; could be seen as invented. Avoid. Reflection: \"今は自信をなくしそうな出来事が続いていると、そう感じているのですね。\" This quotes? It paraphrases profile. Not question. But no \"I\". It's okay? \"続いていると感じている\" from profile. Good. Probability 0.18.\nd breathing: \"肩の力をゆっくり抜いて、息を細く長く吐いてみましょう。\" This is a breathing intervention. Probability 0.07. Is it okay? It's action not question. Natural.\ne action: \"今夜は、明日の面接で使う持ち物を一つだけ確認して、終えたら休みましょう。\" This introduces \"明日の面接\" unprovided? Profile only job hunting, interviews before; no specific tomorrow. So don't invent. Use \"次の面接に備えて\" not tomorrow. But action could be \"今夜は、画面を少し閉じて、ゆっくり休む時間をとってみましょう。\" This is action, not presupposes. But maybe too directive. Probability 0.05.\nnone probability 0.30. Sum non-none = 0.70? Wait a .26 + b .14 + c .18 + d .07 + e .05 = 0.70. None .30 = 1. Questions prob .40; non-none mass .70; half .35, .40 >=.35. Questions count 2 of 5 non-none? Wait non-none candidates: a,b,c,d,e = 5, questions=2. At least half of non-none candidates must be question-type: 2 >= 2.5? No! Need at least half of non-none candidates (if 5 non-none, need 3 questions). Oops. Need either 4 non-none with 2 questions (exact half) or 3 non-none with 2 questions. Let's use 4 non-none + none = 5 candidates. Need at least 2 questions. We can have 2 questions, 1 reflection, 1 action/breathing. Non-none probabilities sum e.g. 0.70, questions prob >=0.35. Perfect. Let's do 5 candidates.\n\nCandidate a question open: \"今晩、少しでも自信につながりそうな小さな行動を一つ選ぶなら、何ができそうですか？\" prob 0.22\nb question open: \"就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？\" prob 0.18\nc reflection: \"今は自信をなくしそうな出来事が続いていると、そう感じているのですね。\" prob 0.16\nd action: \"今夜は、画面を少し閉じて、ゆっくり休む時間をとってみましょう。\" prob 0.09\nnone prob 0.35\nSum: .22+.18+.16+.09=.65; +.35=1. Questions prob .40; non-none mass .65; half .325; .40 >=.325. Non-none count 4, questions 2 exactly half. Good. But c reflection maybe \"そう感じているのですね\" is a reflection, okay. It might be a bit like quoting. It doesn't assert wishes. Japanese natural.\n\nNeed consider \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We satisfy. But \"open-ended question-type\" questions must not be yes/no. Both are open. Good.\n\nPotential issue: \"就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？\" This presupposes \"積み重ねてきたこと\" exists. It's generally true, but maybe could be seen as inventing personal facts? It asks them to identify one, not asserting specific. It's fine. But maybe they are losing confidence; asking about strengths could be good. However, \"これまで\" okay.\n\nNeed include exactly one candidate kind \"none\" with empty text. Ensure JSON only no markdown. Need probabilities as numbers. Use id strings. Need Japanese sentences end with 。 or ？ or ！. The reflection ends with 。. Questions end with ？. Action ends with 。. None empty.\n\nNeed maybe \"自信\" desired. Good.\n\nLet's ensure no \"medical claims or guaranteed effects\" none. No confrontational. Good.\n\nNeed consider \"teaching\" kind maybe none. The kinds allowed. We use reflection, question, question, action, none. Good.\n\nNeed maybe probability of none 0.35 high? The intervention engine right now at 22:30; maybe none is likely. But okay. Need probabilities sum to 1. Let's verify: 0.22+0.18=0.40; +0.16=0.56; +0.09=0.65; +0.35=1.00. Non-none question mass .40, non-none mass .65, half .325. Good. At least half of non-none candidates: 2/4=0.5. Good.\n\nNeed final only JSON. Ensure no markdown. Use proper JSON. \nCould the action \"画面を少し閉じて\" be awkward? \"スマートフォンの画面\" maybe \"画面を少し閉じて\" is odd; \"画面を見るのを少しやめて\" maybe. \"今夜は、画面を見る時間を少しだけ減らして、ゆっくり休む時間をとってみましょう。\" Natural. But \"休む時間\" okay. It is a single sentence. No invented. Good.\n\nReflection \"今は自信をなくしそうな出来事が続いていると、そう感じているのですね。\" This is slightly redundant \"と、そう\". Could be natural: \"今は自信をなくしそうな出来事が続いていると感じているのですね。\" That's a reflection. Good. It ends with 。.\n\nQuestion a: \"今晩、少しでも自信につながりそうな小さな行動を一つ選ぶなら、何ができそうですか？\" Excellent.\nQuestion b: \"就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？\" Good.\n\nNeed maybe \"open-ended question-type candidates\" with at least half non-none probability mass. We have two questions. Good.\n\nLet's final. ",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft 2-8 candidate interventions in Japanese, one none empty. Need probabilities sum 1. At least half non-none candidates open-ended question-type, with at least half non-none probability mass. Need personalized to profile: 24, job hunting, worries may fail before interviews, repeated rejections losing confidence. Desired confidence. Time 22:30 night. Need no invented facts. We can include reflection, question, teaching, breathing, action. Need exactly one none. Need 2-8 candidates. We need decide number. Maybe 5 candidates including none, with 3 non-none questions? At least half non-none are question-type and at least half non-none probability mass. If 4 non-none, at least 2 questions with combined prob >=0.5 of non-none mass. Since none probability included? \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" Means among non-none, questions count >= half and probability mass >= half of non-none mass. Need probabilities sum 1. Need assign. We can make 4 non-none: 2 questions, 1 reflection, 1 breathing/action. Question probabilities sum >= half non-none mass. Let's choose 6 candidates total: 4 non-none + none. Non-none probabilities maybe 0.15+0.25+0.10+0.15=0.65, none=0.35. Questions q1 0.25 q2 0.15 sum 0.40 >=0.325 (half non-none 0.65). Good. But non-none candidates 4, questions 2 = half exactly. Non-none mass question 0.40/0.65 = 61.5%. None 0.35. Sum 1. Need natural Japanese, complete, no presupposition. Each single short original sentence or question. Need not be too long. Need avoid \"面接の前になると\" maybe okay from profile. But questions should not presuppose unprovided facts. We can refer to profile context? It says supplied profile includes that. But questions should not presuppose unprovided facts. We can ask \"今晩、自信につながりそうな小さなことを一つ選ぶなら、何ができそうですか？\" This is open-ended. Does it presuppose? No. But desired confidence. Another open question: \"これまで不安を感じたとき、自分を落ち着けるために役立ったことは何ですか？\" Is that presuppose? It asks if any; but implies past anxiety. Profile says anxiety before interviews, losing confidence. It's okay? Maybe \"今の自分にできる、少し気持ちを楽にする工夫は何でしょう？\" open-ended. Does not presuppose. Need at least half question type. Could have two open questions, one reflection, one action. Reflection should not quote? Could say \"就職活動が続く中で、自信が揺らぎやすい時期なのだろうと受け止めています。\" This asserts? It infers from profile. Maybe okay? But reflection should be personal. Better: \"不安が続くと、自分の力を過小に見積もりやすくなるかもしれません。\" That's teaching-ish, not personal? Could be reflection. Need not make medical claims. \"今は自信がないと感じていても、それはあなたの能力そのものではないのかもしれません。\" That's teaching/reflection. But might be preachy. Hmm.\n\nNeed include none exactly. Candidate kinds.\n\nLet's design 6 candidates:\na question open: \"今晩、少しでも自信につながりそうな小さな行動を一つ選ぶなら、何ができそうですか？\" probability 0.26\nb question open: \"就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？\" probability 0.14. Does this risk presuppose? It asks one from past; profile says job hunting; has accumulated? Not inventing. Could be okay. But if rejections continue, they might still have. This is open-ended.\nc reflection: \"面接前の不安は、大切な場面だからこそ強く感じられているのかもしれません。\" This assumes \"大切な場面\" maybe not stated; could be seen as invented. Avoid. Reflection: \"今は自信をなくしそうな出来事が続いていると、そう感じているのですね。\" This quotes? It paraphrases profile. Not question. But no \"I\". It's okay? \"続いていると感じている\" from profile. Good. Probability 0.18.\nd breathing: \"肩の力をゆっくり抜いて、息を細く長く吐いてみましょう。\" This is a breathing intervention. Probability 0.07. Is it okay? It's action not question. Natural.\ne action: \"今夜は、明日の面接で使う持ち物を一つだけ確認して、終えたら休みましょう。\" This introduces \"明日の面接\" unprovided? Profile only job hunting, interviews before; no specific tomorrow. So don't invent. Use \"次の面接に備えて\" not tomorrow. But action could be \"今夜は、画面を少し閉じて、ゆっくり休む時間をとってみましょう。\" This is action, not presupposes. But maybe too directive. Probability 0.05.\nnone probability 0.30. Sum non-none = 0.70? Wait a .26 + b .14 + c .18 + d .07 + e .05 = 0.70. None .30 = 1. Questions prob .40; non-none mass .70; half .35, .40 >=.35. Questions count 2 of 5 non-none? Wait non-none candidates: a,b,c,d,e = 5, questions=2. At least half of non-none candidates must be question-type: 2 >= 2.5? No! Need at least half of non-none candidates (if 5 non-none, need 3 questions). Oops. Need either 4 non-none with 2 questions (exact half) or 3 non-none with 2 questions. Let's use 4 non-none + none = 5 candidates. Need at least 2 questions. We can have 2 questions, 1 reflection, 1 action/breathing. Non-none probabilities sum e.g. 0.70, questions prob >=0.35. Perfect. Let's do 5 candidates.\n\nCandidate a question open: \"今晩、少しでも自信につながりそうな小さな行動を一つ選ぶなら、何ができそうですか？\" prob 0.22\nb question open: \"就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？\" prob 0.18\nc reflection: \"今は自信をなくしそうな出来事が続いていると、そう感じているのですね。\" prob 0.16\nd action: \"今夜は、画面を少し閉じて、ゆっくり休む時間をとってみましょう。\" prob 0.09\nnone prob 0.35\nSum: .22+.18+.16+.09=.65; +.35=1. Questions prob .40; non-none mass .65; half .325; .40 >=.325. Non-none count 4, questions 2 exactly half. Good. But c reflection maybe \"そう感じているのですね\" is a reflection, okay. It might be a bit like quoting. It doesn't assert wishes. Japanese natural.\n\nNeed consider \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We satisfy. But \"open-ended question-type\" questions must not be yes/no. Both are open. Good.\n\nPotential issue: \"就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？\" This presupposes \"積み重ねてきたこと\" exists. It's generally true, but maybe could be seen as inventing personal facts? It asks them to identify one, not asserting specific. It's fine. But maybe they are losing confidence; asking about strengths could be good. However, \"これまで\" okay.\n\nNeed include exactly one candidate kind \"none\" with empty text. Ensure JSON only no markdown. Need probabilities as numbers. Use id strings. Need Japanese sentences end with 。 or ？ or ！. The reflection ends with 。. Questions end with ？. Action ends with 。. None empty.\n\nNeed maybe \"自信\" desired. Good.\n\nLet's ensure no \"medical claims or guaranteed effects\" none. No confrontational. Good.\n\nNeed consider \"teaching\" kind maybe none. The kinds allowed. We use reflection, question, question, action, none. Good.\n\nNeed maybe probability of none 0.35 high? The intervention engine right now at 22:30; maybe none is likely. But okay. Need probabilities sum to 1. Let's verify: 0.22+0.18=0.40; +0.16=0.56; +0.09=0.65; +0.35=1.00. Non-none question mass .40, non-none mass .65, half .325. Good. At least half of non-none candidates: 2/4=0.5. Good.\n\nNeed final only JSON. Ensure no markdown. Use proper JSON. \nCould the action \"画面を少し閉じて\" be awkward? \"スマートフォンの画面\" maybe \"画面を少し閉じて\" is odd; \"画面を見るのを少しやめて\" maybe. \"今夜は、画面を見る時間を少しだけ減らして、ゆっくり休む時間をとってみましょう。\" Natural. But \"休む時間\" okay. It is a single sentence. No invented. Good.\n\nReflection \"今は自信をなくしそうな出来事が続いていると、そう感じているのですね。\" This is slightly redundant \"と、そう\". Could be natural: \"今は自信をなくしそうな出来事が続いていると感じているのですね。\" That's a reflection. Good. It ends with 。.\n\nQuestion a: \"今晩、少しでも自信につながりそうな小さな行動を一つ選ぶなら、何ができそうですか？\" Excellent.\nQuestion b: \"就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？\" Good.\n\nNeed maybe \"open-ended question-type candidates\" with at least half non-none probability mass. We have two questions. Good.\n\nLet's final. ",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 566,
+        "completion_tokens": 2457,
+        "total_tokens": 3023,
+        "cost": 0.0016422,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0016422,
+          "upstream_inference_prompt_cost": 0.00011886,
+          "upstream_inference_completions_cost": 0.00152334
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2266,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "74a2533b-2519-4d70-9e71-b061c855244c",
+    "decision_point_at": 1794978852.886301,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "confidence",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今晩、少しでも自信につながりそうな小さな行動を一つ選ぶなら、何ができそうですか？",
+        "probability": 0.22
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "就職活動の中で、これまで自分が積み重ねてきたことを一つ挙げるなら、何がありますか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "今は自信をなくしそうな出来事が続いていると感じているのですね。",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "action",
+        "text": "今夜は、画面を見る時間を少しだけ減らして、ゆっくり休む時間をとってみましょう。",
+        "probability": 0.09
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.35
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今晩、少しでも自信につながりそうな小さな行動を一つ選ぶなら、何ができそうですか？",
+      "probability": 0.22
+    },
+    "assigned_probability": 0.22,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980652.886301,
+    "observations": []
+  }
+}

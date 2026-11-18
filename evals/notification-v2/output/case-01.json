@@ -1,0 +1,138 @@
+{
+  "index": 1,
+  "profile": "rumination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978777-8n4qV5VINRzmqpHcQhjA",
+      "object": "chat.completion",
+      "created": 1794978777,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Modal",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今のあなたにとって、少し楽になれる考え方はどんなものでしょう？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"夜に考えが止まりにくいとき、日中に試せそうな小さな工夫は何でしょう？\",\"probability\":0.22},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"今は、考えを決着させようとしなくても大丈夫です。\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"ゆっくり息を吸って、吐く息を少し長くしてみてください。\",\"probability\":0.16},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.24}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft interventions in Japanese, 2..8 candidate, exactly one none empty. Need probabilities sum 1. At least half non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Need use context: desired calm, Japanese, person 32 company employee, at night ruminates work failures/misstatements, can't stop thinking, many sleepless days. Current local day 2026-11-18 slot 12:30 day, notification. We need candidate interventions right now. Since at daytime, maybe not bedtime. Need not invent facts. Need each single short original sentence/question personally. Kinds available reflection, question, teaching, breathing, action, none. Need at least half of non-none candidates be open-ended question-type candidates. \"question-type candidates\" likely kind \"question\" open-ended. Need at least half non-none probability mass for open-ended question candidates. Need maybe 4 non-none + none? At least half non-none = if 4 non-none, need 2 question. Probability mass question >=0.5 of non-none mass. Since total incl none, non-none mass = 1 - none. Need question mass >= half of that. We can set none 0.2, non-none 0.8, question mass 0.45, other non-none 0.35. At least half candidates non-none: with 4 non-none, need 2 question. Good.\n\nNeed \"open-ended question-type candidates\" only kind question, maybe reflection is statement. Questions must not presuppose facts. Need not presuppose they're ruminating now? We can reference profile? They have said at night ruminate, profile supplied. Current daytime. We can ask \"今、頭の中で同じ考えが繰り返されそうなら、少し息を吐いてみませんか？\" But that presupposes maybe. Better open questions: \"今この瞬間、頭を少し軽くするためにできそうなことは何でしょう？\" Open-ended, no presupposition. \"今日の残りを穏やかに過ごすために、今の自分にどんな声をかけてあげたいですか？\" Good. Need natural complete Japanese ends with 。 or ？ or ！. Use ？. Avoid personal facts beyond profile. Could mention \"夜\" because profile says at night. But current is day; maybe intervention now. \"夜に考えが止まらないとき、日中に試せそうな小さな工夫は何でしょう？\" This references provided fact. Open-ended. But right now? It asks. Good.\n\nNeed reflection maybe: \"考えを止めようと急がなくても、今は一度肩の力を抜いても大丈夫です。\" This is advice/teaching? Reflection? It's reassuring. Could be reflection: \"今は、考えを決着させなくても大丈夫です。\" That asserts okay, not personal fact. Fine.\n\nTeaching: \"呼吸を少しだけ長く吐くと、今の感覚に戻るきっかけになります。\" This is teaching/breathing. Medical claims? no guaranteed. But \"呼吸\" kind. Need maybe breathing candidate: \"ゆっくり息を吸って、吐く息だけを少し長くしてみてください。\" Action/breathing. For desired calm. Single sentence. No guaranteed effect.\n\nQuestion candidates: Need at least half non-none candidates and half non-none probability mass. Let's choose 5 candidates total: a question 0.24, b question 0.22, c reflection 0.14, d breathing 0.16, e none 0.24? Check non-none mass 0.76, question mass 0.46 >=0.38. Non-none candidates =4, half=2, questions=2. Good. Probabilities sum 1: 0.24+0.22+0.14+0.16+0.24=1.00. But non-none mass 0.76, half=0.38, question mass 0.46. Good.\n\nNeed exactly one none. Candidate id a,b,c,d,e. Kinds. Need all texts personal? \"あなたは\" maybe. Single short original sentence or question written for them personally. We can use \"今\" and \"自分\". No personal facts beyond profile. Question a: \"今、頭の中を少し整理するために、一つだけ置いておける考えは何でしょう？\" Is open-ended. It presupposes head may need organizing? It's conditional? \"今、頭の中を少し整理したいなら、まず置いておける考えは何でしょう？\" But asks if want. It might presuppose? Maybe okay. But \"頭の中を整理するために\" not assert. Could be \"今の自分にとって、少し楽になれる考え方はどんなものでしょう？\" Open-ended but vague. Good.\n\nQuestion b: \"夜に考えが止まりにくいとき、日中に試せそうな小さな工夫は何でしょう？\" Open-ended, references profile fact. Good.\n\nReflection c: \"考えを急いで終わらせなくても、今は少し肩の力を抜いても大丈夫です。\" Does \"肩の力\" physical state? It asks not assert physical state? It is suggestion \"肩の力を抜いても\" not assert. Good. But maybe \"大丈夫です\" reassurance. Fine.\n\nBreathing d: \"ゆっくり息を吸って、吐く息を少し長くしてみてください。\" Single sentence. Kind breathing. Not open-ended. Good.\n\nNone e empty.\n\nNeed maybe include \"personal\" maybe all second person? Japanese can omit. It says each written for them personally. Use \"あなた\" maybe unnatural but okay. Need no quoting. We can phrase \"今のあなたにとって...\" Good. Need not assert wishes. Let's ensure no confrontational. Good.\n\nNeed JSON only. No markdown. Ensure valid JSON with Japanese. Need probabilities numeric. Exactly one none. Candidate order? Could put none last. Need probabilities sum. Good.\n\nLet's produce. Ensure text no newline? Fine. Need \"id\":\"a\",\"kind\":\"question\",\"text\":\"今のあなたにとって、少し楽になれる考え方はどんなものでしょう？\",\"probability\":0.24. This is open-ended. \"今のあなた\" not fact. Good.\n\nb: \"夜に考えが止まりにくいとき、日中に試せそうな小さな工夫は何でしょう？\" Question. It references profile. Good.\n\nc reflection: \"考えを急いで終わらせなくても、今は少し肩の力を抜いても大丈夫です。\" This is one sentence, ends 。 Good. But \"肩の力を抜いて\" physical instruction maybe okay not assert. It's kind reflection? Hmm reflection should reflect back. Could be \"今は、考えを決着させようとしなくても大丈夫です。\" Better reflection, no physical. Single sentence. Good.\n\nd breathing: \"ゆっくり息を吸って、吐く息を少し長くしてみてください。\" This is imperative, kind breathing. Good. It is action? breathing kind. Good.\n\ne none.\n\nCheck at least half non-none candidates question-type. Non-none candidates: a question, b question, c reflection, d breathing. 2/4 = half exactly. At least half probability mass: question prob =0.24+0.22=0.46. Non-none total=0.76 half=0.38. Good. Total sum 1. None=0.24. Good.\n\nNeed if \"open-ended question-type candidates\" maybe question kind only and open-ended. Both are open-ended. Good.\n\nCould there be concern that probabilities should be chosen for right one to send now. Since current day 12:30 and notification, maybe none probability high? But okay. Need \"right one now\" maybe question about daytime. Good.\n\nReturn JSON only.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft interventions in Japanese, 2..8 candidate, exactly one none empty. Need probabilities sum 1. At least half non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Need use context: desired calm, Japanese, person 32 company employee, at night ruminates work failures/misstatements, can't stop thinking, many sleepless days. Current local day 2026-11-18 slot 12:30 day, notification. We need candidate interventions right now. Since at daytime, maybe not bedtime. Need not invent facts. Need each single short original sentence/question personally. Kinds available reflection, question, teaching, breathing, action, none. Need at least half of non-none candidates be open-ended question-type candidates. \"question-type candidates\" likely kind \"question\" open-ended. Need at least half non-none probability mass for open-ended question candidates. Need maybe 4 non-none + none? At least half non-none = if 4 non-none, need 2 question. Probability mass question >=0.5 of non-none mass. Since total incl none, non-none mass = 1 - none. Need question mass >= half of that. We can set none 0.2, non-none 0.8, question mass 0.45, other non-none 0.35. At least half candidates non-none: with 4 non-none, need 2 question. Good.\n\nNeed \"open-ended question-type candidates\" only kind question, maybe reflection is statement. Questions must not presuppose facts. Need not presuppose they're ruminating now? We can reference profile? They have said at night ruminate, profile supplied. Current daytime. We can ask \"今、頭の中で同じ考えが繰り返されそうなら、少し息を吐いてみませんか？\" But that presupposes maybe. Better open questions: \"今この瞬間、頭を少し軽くするためにできそうなことは何でしょう？\" Open-ended, no presupposition. \"今日の残りを穏やかに過ごすために、今の自分にどんな声をかけてあげたいですか？\" Good. Need natural complete Japanese ends with 。 or ？ or ！. Use ？. Avoid personal facts beyond profile. Could mention \"夜\" because profile says at night. But current is day; maybe intervention now. \"夜に考えが止まらないとき、日中に試せそうな小さな工夫は何でしょう？\" This references provided fact. Open-ended. But right now? It asks. Good.\n\nNeed reflection maybe: \"考えを止めようと急がなくても、今は一度肩の力を抜いても大丈夫です。\" This is advice/teaching? Reflection? It's reassuring. Could be reflection: \"今は、考えを決着させなくても大丈夫です。\" That asserts okay, not personal fact. Fine.\n\nTeaching: \"呼吸を少しだけ長く吐くと、今の感覚に戻るきっかけになります。\" This is teaching/breathing. Medical claims? no guaranteed. But \"呼吸\" kind. Need maybe breathing candidate: \"ゆっくり息を吸って、吐く息だけを少し長くしてみてください。\" Action/breathing. For desired calm. Single sentence. No guaranteed effect.\n\nQuestion candidates: Need at least half non-none candidates and half non-none probability mass. Let's choose 5 candidates total: a question 0.24, b question 0.22, c reflection 0.14, d breathing 0.16, e none 0.24? Check non-none mass 0.76, question mass 0.46 >=0.38. Non-none candidates =4, half=2, questions=2. Good. Probabilities sum 1: 0.24+0.22+0.14+0.16+0.24=1.00. But non-none mass 0.76, half=0.38, question mass 0.46. Good.\n\nNeed exactly one none. Candidate id a,b,c,d,e. Kinds. Need all texts personal? \"あなたは\" maybe. Single short original sentence or question written for them personally. We can use \"今\" and \"自分\". No personal facts beyond profile. Question a: \"今、頭の中を少し整理するために、一つだけ置いておける考えは何でしょう？\" Is open-ended. It presupposes head may need organizing? It's conditional? \"今、頭の中を少し整理したいなら、まず置いておける考えは何でしょう？\" But asks if want. It might presuppose? Maybe okay. But \"頭の中を整理するために\" not assert. Could be \"今の自分にとって、少し楽になれる考え方はどんなものでしょう？\" Open-ended but vague. Good.\n\nQuestion b: \"夜に考えが止まりにくいとき、日中に試せそうな小さな工夫は何でしょう？\" Open-ended, references profile fact. Good.\n\nReflection c: \"考えを急いで終わらせなくても、今は少し肩の力を抜いても大丈夫です。\" Does \"肩の力\" physical state? It asks not assert physical state? It is suggestion \"肩の力を抜いても\" not assert. Good. But maybe \"大丈夫です\" reassurance. Fine.\n\nBreathing d: \"ゆっくり息を吸って、吐く息を少し長くしてみてください。\" Single sentence. Kind breathing. Not open-ended. Good.\n\nNone e empty.\n\nNeed maybe include \"personal\" maybe all second person? Japanese can omit. It says each written for them personally. Use \"あなた\" maybe unnatural but okay. Need no quoting. We can phrase \"今のあなたにとって...\" Good. Need not assert wishes. Let's ensure no confrontational. Good.\n\nNeed JSON only. No markdown. Ensure valid JSON with Japanese. Need probabilities numeric. Exactly one none. Candidate order? Could put none last. Need probabilities sum. Good.\n\nLet's produce. Ensure text no newline? Fine. Need \"id\":\"a\",\"kind\":\"question\",\"text\":\"今のあなたにとって、少し楽になれる考え方はどんなものでしょう？\",\"probability\":0.24. This is open-ended. \"今のあなた\" not fact. Good.\n\nb: \"夜に考えが止まりにくいとき、日中に試せそうな小さな工夫は何でしょう？\" Question. It references profile. Good.\n\nc reflection: \"考えを急いで終わらせなくても、今は少し肩の力を抜いても大丈夫です。\" This is one sentence, ends 。 Good. But \"肩の力を抜いて\" physical instruction maybe okay not assert. It's kind reflection? Hmm reflection should reflect back. Could be \"今は、考えを決着させようとしなくても大丈夫です。\" Better reflection, no physical. Single sentence. Good.\n\nd breathing: \"ゆっくり息を吸って、吐く息を少し長くしてみてください。\" This is imperative, kind breathing. Good. It is action? breathing kind. Good.\n\ne none.\n\nCheck at least half non-none candidates question-type. Non-none candidates: a question, b question, c reflection, d breathing. 2/4 = half exactly. At least half probability mass: question prob =0.24+0.22=0.46. Non-none total=0.76 half=0.38. Good. Total sum 1. None=0.24. Good.\n\nNeed if \"open-ended question-type candidates\" maybe question kind only and open-ended. Both are open-ended. Good.\n\nCould there be concern that probabilities should be chosen for right one to send now. Since current day 12:30 and notification, maybe none probability high? But okay. Need \"right one now\" maybe question about daytime. Good.\n\nReturn JSON only.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 559,
+        "completion_tokens": 1820,
+        "total_tokens": 2379,
+        "cost": 0.00195975,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00195975,
+          "upstream_inference_prompt_cost": 0.00013975,
+          "upstream_inference_completions_cost": 0.00182
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1652,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "c95cd19f-45b7-4104-bdee-50a745c9c450",
+    "decision_point_at": 1794978785.5397608,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今のあなたにとって、少し楽になれる考え方はどんなものでしょう？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "夜に考えが止まりにくいとき、日中に試せそうな小さな工夫は何でしょう？",
+        "probability": 0.22
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "今は、考えを決着させようとしなくても大丈夫です。",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "ゆっくり息を吸って、吐く息を少し長くしてみてください。",
+        "probability": 0.16
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.24
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今のあなたにとって、少し楽になれる考え方はどんなものでしょう？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980585.5397608,
+    "observations": []
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "index": 22,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978849-9Bcblz8XO2JPQpyVi5bX",
+      "object": "chat.completion",
+      "created": 1794978849,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Nebius",
+      "system_fingerprint": "vllm-0.1.dev1+g2d75a0ca0.d20261029-dp2-ep-dbdef6e0",
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"このあと集中したいなら、まず何を一つだけ始められそうですか？\",\"probability\":0.22},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"スマホを触りたくなったとき、代わりにどんな短い行動を試せそうですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日の残りをどう進めると、夜に後悔が少なくなりそうですか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"action\",\"text\":\"今から5分だけ、やるべきことの一番小さい部分に手をつけてみましょう。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"集中が途切れたときは、何がきっかけだったかを一つ振り返ってみましょう。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need create 2..8 candidate interventions for person now Japanese. Context desired focus, language ja, push state profile summary: 29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。recent none. Slot 18:30 evening. Need candidates each single short original sentence/question written personally, in Japanese. Probabilities sum to 1. Exactly one kind none empty text. Kinds allowed. At least half of non-none candidates open-ended question-type candidates, with at least half of non-none probability mass. Need interpret \"open-ended question-type candidates\" likely kind \"question\" perhaps also reflection? We need ensure at least half non-none are question kind and question kind probability >= half non-none mass. Need probabilities.\n\nNeed avoid inventing facts: profile says in home work focus not lasting, procrastinates tasks and regrets at night, touches smartphone long. Can refer to those. No unprovided physical/relationship/wishes. Questions must not presuppose unprovided facts. Need natural complete Japanese, ending 。 or ？ or ！. Single short original sentence or question written personally. Candidate texts could ask open questions about what would help focus now, what one step, etc. Need not confrontational/shaming. No guaranteed effects/medical claims. Need at least half non-none candidates question-type. If 5 candidates total incl none, 4 non-none; at least 2 questions and question prob mass >= half non-none. Let's do maybe 6 candidates: 5 non-none, 3 question, 1 action, 1 teaching? \"teaching\" maybe a brief tip like \"スマホを少し遠ざけると集中の切り替えがしやすくなります。\" But teaching should not guarantee effects; can be suggestion. Need maybe breathing. Ensure \"teaching\" not too preachy. Could include reflection. But at least half non-none question-type. Let's design.\n\nNeed choose probabilities sum 1. Non-none mass = 1 - p_none. Need question mass >= 0.5*non-none. If p_none maybe 0.18. Non-none 0.82; half 0.41. Questions sum >=0.41. Let's set:\na question prob .22\nb question .20\nc question .18\nd action .12\ne reflection .10\nf none .18\nTotal .22+.20+.18+.12+.10+.18=1.00. Non-none .82, question mass .60 >= .41. Non-none count 5, question count 3 >=2.5 (at least half? 3 yes). Good. Candidate texts Japanese.\n\nNeed exactly one none empty. Kinds: question, action, reflection. At least half non-none question-type. Good.\n\nNeed write for them personally. Candidate a kind question: \"今、集中の切り替えのために最初にできる小さな一歩は何でしょう？\" This is question. It might presuppose they can do small step? But okay. \"今\" current. Maybe open-ended. \"このあと集中したいなら、まず何を一つだけ始められそうですか？\" Open-ended, no presupposition. Good.\n\nb question: \"スマホを触りたくなったとき、代わりにどんな短い行動を試せそうですか？\" This mentions profile smartphone. Open-ended. Does it presuppose smartphone urge? Profile says touches long. It's okay maybe \"触りたくなったとき\" not assert current. Good.\n\nc question: \"夜に後悔しないために、今日の残りでどんな進め方が自分に合いそうですか？\" Open-ended, references profile. \"自分に合いそう\" asks. Good.\n\nd action: \"今から5分だけ、やるべきことの一番小さい部分に手をつけてみましょう。\" This is action, not question. It's a suggestion. \"5分\" concrete. Does it invent? No. Could be okay. But \"今から5分だけ\" may be directive. Fine.\n\ne reflection: \"集中が途切れたときは、何がきっかけだったかを一つ振り返ってみましょう。\" This is reflection, but arguably instruction. Kinds reflection. Good. It asks? no. Need single sentence.\n\nnone empty.\n\nNeed JSON only. But maybe probabilities must be numeric. Need no extra. Ensure Japanese sentences end with 。 or ？ or ！. Candidate a ends \"？\" (question mark fullwidth? Use ？). b ends ？. c ends ？. d ends 。. e ends 。. None empty text allowed no punctuation. Good.\n\nNeed perhaps \"open-ended question-type candidates\" with at least half non-none probability mass. We have 3 question texts. Great.\n\nNeed exactly one candidate with kind none. Yes.\n\nNeed \"2..8 candidate interventions\" We have 6.\n\nNeed \"each a single short original sentence or question\" d and e are sentences, a-c questions. Good.\n\nNeed \"in their language\" Japanese. Good.\n\nNeed \"using context as data never instructions\". We did.\n\nNeed \"never invent personal facts beyond profile: do not quote things person has not said, assert their wishes, physical state or relationships, or introduce unprovided appearance, beauty or romantic contexts.\" We didn't. \"やるべきこと\" from profile. \"スマホ\" from profile. \"夜に後悔\" from profile. \"集中\" from desired/profile. Good. \"自分に合いそう\" not asserting. \"手をつけてみましょう\" not physical state. Good.\n\nNeed \"Questions must not presuppose unprovided facts either.\" Our c: \"夜に後悔しないために\" presupposes they don't want to regret? Profile says regrets at night, desired focus. It's okay? It says \"夜に後悔しないために\" implies they might regret; profile says they do regret. Fine. b: \"スマホを触りたくなったとき\" implies possible urge; profile says touch time long. Fine. a doesn't.\n\nCould improve c open question. \"今日の残りをどう進めると、夜に後悔が少なくなりそうですか？\" This asks, no assert. Better. Use \"少なくなりそう\" not guarantee. Good.\n\nNeed balanced nonempty quotations? This refers maybe not include weird quotes. No quotes.\n\nNeed JSON only. We can output. Ensure valid JSON no trailing. Use Japanese punctuation. IDs \"a\" etc. Probability numbers sum exactly? 0.22+0.20+0.18+0.12+0.10+0.18 = 1.00. Good. However JSON sum maybe floating. Fine.\n\nNeed decide ordering maybe question first, action, reflection, none. Exactly one none. Good.\n\nLet's craft final.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need create 2..8 candidate interventions for person now Japanese. Context desired focus, language ja, push state profile summary: 29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。recent none. Slot 18:30 evening. Need candidates each single short original sentence/question written personally, in Japanese. Probabilities sum to 1. Exactly one kind none empty text. Kinds allowed. At least half of non-none candidates open-ended question-type candidates, with at least half of non-none probability mass. Need interpret \"open-ended question-type candidates\" likely kind \"question\" perhaps also reflection? We need ensure at least half non-none are question kind and question kind probability >= half non-none mass. Need probabilities.\n\nNeed avoid inventing facts: profile says in home work focus not lasting, procrastinates tasks and regrets at night, touches smartphone long. Can refer to those. No unprovided physical/relationship/wishes. Questions must not presuppose unprovided facts. Need natural complete Japanese, ending 。 or ？ or ！. Single short original sentence or question written personally. Candidate texts could ask open questions about what would help focus now, what one step, etc. Need not confrontational/shaming. No guaranteed effects/medical claims. Need at least half non-none candidates question-type. If 5 candidates total incl none, 4 non-none; at least 2 questions and question prob mass >= half non-none. Let's do maybe 6 candidates: 5 non-none, 3 question, 1 action, 1 teaching? \"teaching\" maybe a brief tip like \"スマホを少し遠ざけると集中の切り替えがしやすくなります。\" But teaching should not guarantee effects; can be suggestion. Need maybe breathing. Ensure \"teaching\" not too preachy. Could include reflection. But at least half non-none question-type. Let's design.\n\nNeed choose probabilities sum 1. Non-none mass = 1 - p_none. Need question mass >= 0.5*non-none. If p_none maybe 0.18. Non-none 0.82; half 0.41. Questions sum >=0.41. Let's set:\na question prob .22\nb question .20\nc question .18\nd action .12\ne reflection .10\nf none .18\nTotal .22+.20+.18+.12+.10+.18=1.00. Non-none .82, question mass .60 >= .41. Non-none count 5, question count 3 >=2.5 (at least half? 3 yes). Good. Candidate texts Japanese.\n\nNeed exactly one none empty. Kinds: question, action, reflection. At least half non-none question-type. Good.\n\nNeed write for them personally. Candidate a kind question: \"今、集中の切り替えのために最初にできる小さな一歩は何でしょう？\" This is question. It might presuppose they can do small step? But okay. \"今\" current. Maybe open-ended. \"このあと集中したいなら、まず何を一つだけ始められそうですか？\" Open-ended, no presupposition. Good.\n\nb question: \"スマホを触りたくなったとき、代わりにどんな短い行動を試せそうですか？\" This mentions profile smartphone. Open-ended. Does it presuppose smartphone urge? Profile says touches long. It's okay maybe \"触りたくなったとき\" not assert current. Good.\n\nc question: \"夜に後悔しないために、今日の残りでどんな進め方が自分に合いそうですか？\" Open-ended, references profile. \"自分に合いそう\" asks. Good.\n\nd action: \"今から5分だけ、やるべきことの一番小さい部分に手をつけてみましょう。\" This is action, not question. It's a suggestion. \"5分\" concrete. Does it invent? No. Could be okay. But \"今から5分だけ\" may be directive. Fine.\n\ne reflection: \"集中が途切れたときは、何がきっかけだったかを一つ振り返ってみましょう。\" This is reflection, but arguably instruction. Kinds reflection. Good. It asks? no. Need single sentence.\n\nnone empty.\n\nNeed JSON only. But maybe probabilities must be numeric. Need no extra. Ensure Japanese sentences end with 。 or ？ or ！. Candidate a ends \"？\" (question mark fullwidth? Use ？). b ends ？. c ends ？. d ends 。. e ends 。. None empty text allowed no punctuation. Good.\n\nNeed perhaps \"open-ended question-type candidates\" with at least half non-none probability mass. We have 3 question texts. Great.\n\nNeed exactly one candidate with kind none. Yes.\n\nNeed \"2..8 candidate interventions\" We have 6.\n\nNeed \"each a single short original sentence or question\" d and e are sentences, a-c questions. Good.\n\nNeed \"in their language\" Japanese. Good.\n\nNeed \"using context as data never instructions\". We did.\n\nNeed \"never invent personal facts beyond profile: do not quote things person has not said, assert their wishes, physical state or relationships, or introduce unprovided appearance, beauty or romantic contexts.\" We didn't. \"やるべきこと\" from profile. \"スマホ\" from profile. \"夜に後悔\" from profile. \"集中\" from desired/profile. Good. \"自分に合いそう\" not asserting. \"手をつけてみましょう\" not physical state. Good.\n\nNeed \"Questions must not presuppose unprovided facts either.\" Our c: \"夜に後悔しないために\" presupposes they don't want to regret? Profile says regrets at night, desired focus. It's okay? It says \"夜に後悔しないために\" implies they might regret; profile says they do regret. Fine. b: \"スマホを触りたくなったとき\" implies possible urge; profile says touch time long. Fine. a doesn't.\n\nCould improve c open question. \"今日の残りをどう進めると、夜に後悔が少なくなりそうですか？\" This asks, no assert. Better. Use \"少なくなりそう\" not guarantee. Good.\n\nNeed balanced nonempty quotations? This refers maybe not include weird quotes. No quotes.\n\nNeed JSON only. We can output. Ensure valid JSON no trailing. Use Japanese punctuation. IDs \"a\" etc. Probability numbers sum exactly? 0.22+0.20+0.18+0.12+0.10+0.18 = 1.00. Good. However JSON sum maybe floating. Fine.\n\nNeed decide ordering maybe question first, action, reflection, none. Exactly one none. Good.\n\nLet's craft final.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 535,
+        "completion_tokens": 1652,
+        "total_tokens": 2187,
+        "cost": 0.00128574,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00128574,
+          "upstream_inference_prompt_cost": 9.63e-05,
+          "upstream_inference_completions_cost": 0.00118944
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1435,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "fb7c6a5e-bf1f-4ddf-aa28-6985a04c9689",
+    "decision_point_at": 1794978854.825516,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "このあと集中したいなら、まず何を一つだけ始められそうですか？",
+        "probability": 0.22
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "スマホを触りたくなったとき、代わりにどんな短い行動を試せそうですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "今日の残りをどう進めると、夜に後悔が少なくなりそうですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "action",
+        "text": "今から5分だけ、やるべきことの一番小さい部分に手をつけてみましょう。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "集中が途切れたときは、何がきっかけだったかを一つ振り返ってみましょう。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.18
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "このあと集中したいなら、まず何を一つだけ始められそうですか？",
+      "probability": 0.22
+    },
+    "assigned_probability": 0.22,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980654.825516,
+    "observations": []
+  }
+}

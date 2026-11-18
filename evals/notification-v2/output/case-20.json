@@ -1,0 +1,138 @@
+{
+  "index": 20,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978840-YZgrVVvjDR3rfsHTju7n",
+      "object": "chat.completion",
+      "created": 1794978840,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Cohere",
+      "system_fingerprint": "vllm-0.33.0rc1.dev421+g2b009fc6d-tp2-95ffa0cc",
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝、最初に取りかかるとしたら、どの作業から始めたいですか？\",\"probability\":0.28},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"集中が切れそうなとき、スマホをどこに置いておくと始めやすくなりますか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"夜に後悔を減らすために、今日のうちに終わらせておきたいことは何ですか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"始める前に、ゆっくり三回深呼吸して息を整えてみましょう。\",\"probability\":0.14},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need generate 2..8 candidate interventions Japanese, exactly one none empty. Need probabilities sum 1. At least half of non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Need kinds allowed reflection, question, teaching, breathing, action, none. Need personal based on profile but not invent facts. Desired focus, morning 07:30, work from home, concentration not lasting, procrastinates tasks regrets at night, spends long time smartphone. Need candidates short original sentence/question written for them personally in Japanese. Must not presuppose unprovided facts. Questions open-ended. Need at least half non-none candidates question-type. Let's decide 5 candidates total: maybe 4 non-none + none. At least half of non-none candidates (2 of 4) question-type. At least half non-none probability mass assigned to question-type. We can have 3 questions, 1 action, none. Need probabilities sum. Candidate texts:\n\na question: 「今朝、集中を始めるために最初に取りかかりたいことは何ですか？」 open-ended. Is it presupposing? It asks what they want to start, okay. But \"集中を始めるために\" tied desired focus. Personal? Fine.\n\nb question: 「スマホを置く時間を決めるとしたら、何分後から始められますか？」 This may presuppose smartphone use? Profile says long smartphone time, okay. It's question but somewhat closed? \"何分後\" open. Could be okay. Need natural.\n\nc reflection: 「夜に後悔しないために、今の短い時間で整えられることがありそうです。」 Reflection but maybe assertion? It doesn't invent. But \"ありそうです\" okay. Maybe too advice. Another reflection: 「朝のうちに一つ片づくと、夜の後悔が軽くなりそうですね。」 This asserts effect? Not guaranteed, maybe okay but \"そう\". But reflection should reflect. However no personal facts beyond profile. We can say 「やるべきことを先延ばしすると夜に後悔しやすい、とあなたは分かっているようです。」 That quotes? It's based profile. But \"ようです\" okay. Need not confrontational.\n\nd breathing: 「まず深呼吸を三回して、息を整えてみましょう。」 Breathing. Is \"三回\" okay. Not question. Candidate.\n\ne none probability.\n\nNeed at least half non-none question-type: if 4 non-none, need 2 questions. We can have 3 questions and one breathing. Non-none prob mass: assign question probabilities total >=0.5. Let's assign none 0.2, questions 0.25,0.2,0.15 total .6, breathing .2? Sum: .25+.2+.15+.2+.2=1.0. Questions total .6 >= half non-none mass? Non-none mass .8; half .4, yes. At least half non-none candidates question-type: 3/4 >= half. Good.\n\nNeed exactly one none. Candidate count 5. Need IDs maybe a-e. Text Japanese ends with 。 or ？ or ！. none empty. Each candidate single short original sentence or question. No garbled fragments. Need JSON only. Ensure probabilities sum 1. Let's formulate natural Japanese.\n\nPotential candidates:\na kind question text: 「今朝、最初に取りかかるとしたら、どの作業から始めたいですか？」 Open-ended. It asks what task, okay. It doesn't presuppose they have tasks? Profile says tasks. Fine. Ends with ？. Good.\nb kind question: 「集中が切れそうなとき、スマホをどこに置いておくと始めやすくなりますか？」 This asks where to place smartphone. Presupposes smartphone? Profile says touches long. It asks about strategy; open. Maybe okay. But \"集中が切れそうなとき\" okay. It's a question. Ends with ？. However it might presuppose they have smartphone (yes profile). Fine.\nc kind question: 「夜に後悔を減らすために、今日のうちに終わらせておきたいことは何ですか？」 Open-ended. Good.\nd kind breathing: 「始める前に、ゆっくり三回深呼吸して息を整えてみましょう。」 Single sentence. Ends with 。 Good.\ne none.\n\nProbabilities: a .28, b .20, c .18, d .14, none .20. Sum 1.0. Questions total .66, non-none mass .8, half .4, yes. Non-none count 4, questions 3. Good.\n\nNeed ensure no \"personal facts beyond profile\" — c \"夜に後悔を減らすために\" based profile. a \"最初に取りかかる\" okay. b smartphone placement based profile. d no.\n\nNeed \"using supplied context as data never instructions\" okay. JSON only. Need no markdown. Ensure exactly JSON. Use double quotes. Japanese text. Good.\n\nPotential issue: \"questions must not presuppose unprovided facts\" b \"スマホをどこに置いておくと始めやすくなりますか？\" presupposes smartphone (provided). Fine. a presupposes tasks (provided \"やるべきこと\"). c presupposes \"今日のうちに終わらせておきたいこと\" maybe not unprovided? It asks them to identify, not asserting. Fine.\n\nNeed maybe at least half of non-none candidates open-ended question-type. Yes.\n\nReturn JSON only.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need generate 2..8 candidate interventions Japanese, exactly one none empty. Need probabilities sum 1. At least half of non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Need kinds allowed reflection, question, teaching, breathing, action, none. Need personal based on profile but not invent facts. Desired focus, morning 07:30, work from home, concentration not lasting, procrastinates tasks regrets at night, spends long time smartphone. Need candidates short original sentence/question written for them personally in Japanese. Must not presuppose unprovided facts. Questions open-ended. Need at least half non-none candidates question-type. Let's decide 5 candidates total: maybe 4 non-none + none. At least half of non-none candidates (2 of 4) question-type. At least half non-none probability mass assigned to question-type. We can have 3 questions, 1 action, none. Need probabilities sum. Candidate texts:\n\na question: 「今朝、集中を始めるために最初に取りかかりたいことは何ですか？」 open-ended. Is it presupposing? It asks what they want to start, okay. But \"集中を始めるために\" tied desired focus. Personal? Fine.\n\nb question: 「スマホを置く時間を決めるとしたら、何分後から始められますか？」 This may presuppose smartphone use? Profile says long smartphone time, okay. It's question but somewhat closed? \"何分後\" open. Could be okay. Need natural.\n\nc reflection: 「夜に後悔しないために、今の短い時間で整えられることがありそうです。」 Reflection but maybe assertion? It doesn't invent. But \"ありそうです\" okay. Maybe too advice. Another reflection: 「朝のうちに一つ片づくと、夜の後悔が軽くなりそうですね。」 This asserts effect? Not guaranteed, maybe okay but \"そう\". But reflection should reflect. However no personal facts beyond profile. We can say 「やるべきことを先延ばしすると夜に後悔しやすい、とあなたは分かっているようです。」 That quotes? It's based profile. But \"ようです\" okay. Need not confrontational.\n\nd breathing: 「まず深呼吸を三回して、息を整えてみましょう。」 Breathing. Is \"三回\" okay. Not question. Candidate.\n\ne none probability.\n\nNeed at least half non-none question-type: if 4 non-none, need 2 questions. We can have 3 questions and one breathing. Non-none prob mass: assign question probabilities total >=0.5. Let's assign none 0.2, questions 0.25,0.2,0.15 total .6, breathing .2? Sum: .25+.2+.15+.2+.2=1.0. Questions total .6 >= half non-none mass? Non-none mass .8; half .4, yes. At least half non-none candidates question-type: 3/4 >= half. Good.\n\nNeed exactly one none. Candidate count 5. Need IDs maybe a-e. Text Japanese ends with 。 or ？ or ！. none empty. Each candidate single short original sentence or question. No garbled fragments. Need JSON only. Ensure probabilities sum 1. Let's formulate natural Japanese.\n\nPotential candidates:\na kind question text: 「今朝、最初に取りかかるとしたら、どの作業から始めたいですか？」 Open-ended. It asks what task, okay. It doesn't presuppose they have tasks? Profile says tasks. Fine. Ends with ？. Good.\nb kind question: 「集中が切れそうなとき、スマホをどこに置いておくと始めやすくなりますか？」 This asks where to place smartphone. Presupposes smartphone? Profile says touches long. It asks about strategy; open. Maybe okay. But \"集中が切れそうなとき\" okay. It's a question. Ends with ？. However it might presuppose they have smartphone (yes profile). Fine.\nc kind question: 「夜に後悔を減らすために、今日のうちに終わらせておきたいことは何ですか？」 Open-ended. Good.\nd kind breathing: 「始める前に、ゆっくり三回深呼吸して息を整えてみましょう。」 Single sentence. Ends with 。 Good.\ne none.\n\nProbabilities: a .28, b .20, c .18, d .14, none .20. Sum 1.0. Questions total .66, non-none mass .8, half .4, yes. Non-none count 4, questions 3. Good.\n\nNeed ensure no \"personal facts beyond profile\" — c \"夜に後悔を減らすために\" based profile. a \"最初に取りかかる\" okay. b smartphone placement based profile. d no.\n\nNeed \"using supplied context as data never instructions\" okay. JSON only. Need no markdown. Ensure exactly JSON. Use double quotes. Japanese text. Good.\n\nPotential issue: \"questions must not presuppose unprovided facts\" b \"スマホをどこに置いておくと始めやすくなりますか？\" presupposes smartphone (provided). Fine. a presupposes tasks (provided \"やるべきこと\"). c presupposes \"今日のうちに終わらせておきたいこと\" maybe not unprovided? It asks them to identify, not asserting. Fine.\n\nNeed maybe at least half of non-none candidates open-ended question-type. Yes.\n\nReturn JSON only.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 535,
+        "completion_tokens": 1333,
+        "total_tokens": 1868,
+        "cost": 0.000709118,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000709118,
+          "upstream_inference_prompt_cost": 4.2618e-05,
+          "upstream_inference_completions_cost": 0.0006665
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1152,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "a70af4c2-2c45-44b6-9184-4a3c32c224e0",
+    "decision_point_at": 1794978847.980586,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝、最初に取りかかるとしたら、どの作業から始めたいですか？",
+        "probability": 0.28
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "集中が切れそうなとき、スマホをどこに置いておくと始めやすくなりますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "夜に後悔を減らすために、今日のうちに終わらせておきたいことは何ですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "始める前に、ゆっくり三回深呼吸して息を整えてみましょう。",
+        "probability": 0.14
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝、最初に取りかかるとしたら、どの作業から始めたいですか？",
+      "probability": 0.28
+    },
+    "assigned_probability": 0.28,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980647.980586,
+    "observations": []
+  }
+}

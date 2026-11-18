@@ -1,0 +1,144 @@
+{
+  "index": 15,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978827-hN4gu7hiegTyJZ9CrFRK",
+      "object": "chat.completion",
+      "created": 1794978827,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Cohere",
+      "system_fingerprint": "vllm-0.33.0rc1.dev421+g2b009fc6d-tp2-95ffa0cc",
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜はどんなふうに過ごしたいですか？\",\"probability\":0.16},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今の気分をひとつ言葉にすると、どんな感じですか？\",\"probability\":0.16},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"最近の気分について、今考えていることを聞かせてもらえますか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"今は無理に答えを出さず、気持ちをそのまま感じてみる時間かもしれません。\",\"probability\":0.14},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"ゆっくり息を吐いて、自然に吸うことを何回か繰り返してみましょう。\",\"probability\":0.15},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need produce 2..8 candidates interventions for one person now Japanese, each single short original sentence/question personal. Prob sum 1. Exactly one none empty. Kinds allowed. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need parse: \"open-ended question-type candidates\" likely kind question? Kinds include question, but \"question-type candidates\" maybe questions. Need at least half of non-none candidates are open-ended question-type, with at least half non-none probability mass. So if 5 non-none + none =6 total. Need at least ceil(5/2)=3 open-ended question candidates? Could include reflection? To be safe, make 3 kind question among 5 non-none, and their probabilities sum >=0.5 of non-none mass (which is total excluding none). Need probabilities sum 1. We can choose none prob maybe 0.2. Non-none mass .8, question mass >=.4. Let's design 6 candidates total: 5 non-none + none. Kinds: question x3 (open-ended), reflection x1, breathing/action/teaching x1. Need probabilities. None maybe 0.25. Non-none mass .75, question mass >= .375. Give questions 0.15,0.15,0.15 =0.45; reflection 0.15; action/breathing 0.15. Sum non-none .75 + none .25=1. At least half non-none candidates (3 of 5) questions yes. Question mass .45 >= .375 yes. Need each single short original Japanese sentence or question. Must not invent personal facts beyond profile. Profile says 45歳, recent mood sinking days increased, interests waning, mornings hard. Night 22:30. We can reflect on current moment, ask open questions not presuppose. Avoid asserting wishes, physical state. Need no medical claims. Need exactly one none. Need natural complete Japanese ending with 。 or ？ or ！. JSON only. Need candidate text empty for none. Use id a etc. Need probabilities maybe numeric. Need ensure \"personal\" to them? Japanese. We can mention \"今\" and \"この時間\". Open-ended questions: \"今夜はどんなふうに過ごしたいですか？\" Is this presupposing? It asks preference, okay. \"今の気分を一言で表すならどんな感じですか？\" asks current feeling, okay? It doesn't assert physical state. \"最近、気が沈む日について、どんなことを考えますか？\" This references profile (気が沈む日) okay? It's from profile. It is open question. Need not quote things not said? Profile is supplied facts, okay. But \"気が沈む日\" in profile. Good.\n\nReflection: \"今夜は少し気持ちを休める時間にしてもよさそうです。\" This asserts maybe suggestion, not reflection? Kind reflection could reflect current context. But \"よさそうです\" maybe advice. Better reflection: \"今日はここまで来た自分に気づく夜かもしれません。\" Might invent? Hmm. Reflection: \"今は、何かを決めるより、気持ちをそのまま置いておく時間かもしれません。\" It's a reflection, not personal fact. But maybe vague.\n\nTeaching: no medical claims. \"深呼吸をひとつすると、この夜の緊張を少しゆるめる助けになることがあります。\" Teaching/breathing. But no guaranteed effects. Fine. Kind breathing maybe \"ゆっくり息を吐いて、肩の力を抜いてみましょう。\" This is action/breathing, but not question. It may imply shoulder tension? \"肩の力を抜いて\" assumes tension? It's a common instruction but might presuppose physical state? Avoid physical state? The rule says never assert physical state, but instruction to relax shoulders could be okay? Better breathing: \"ゆっくりと息を吐き、また自然に吸ってみましょう。\" No assertion. Kind breathing. Probability 0.15. Non-none: q1 .15 q2 .15 q3 .15 reflection .15 breathing .15 none .25 =1. Need at least half non-none probability mass open-ended question: .45 >= .375 yes.\n\nNeed ensure \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have 3/5 questions. Good.\n\nPotential issue: Exactly one candidate with kind none and empty text. Good.\n\nNeed \"single short original sentence or question written for them personally.\" Each candidate one sentence. Japanese sentence ends with 。 or ？ or ！. For none empty no ending. Questions end with ？. Non-question end with 。.\n\nNeed maybe not include \"最近\" in question because profile says. Fine.\n\nLet's craft candidates:\na kind question text \"今夜は、どんなふうに気持ちを休めたいですか？\" This asks desire, but \"気持ちを休めたい\" maybe presupposes they want rest? It asks how they want to rest, could presuppose desire to rest. Better: \"今夜はどんなふうに過ごすと、少し楽になれそうですか？\" It asks what would make them feel easier; does it presuppose they need ease? It asks hypothetical, okay but maybe presupposes current discomfort. Profile says mood sinking. Acceptable? Maybe \"今夜はどんなふうに過ごしたいですか？\" Very open, no presupposition. Good.\n\nb kind question text \"今の気分をひとつ言葉にすると、どんな感じですか？\" Asks current mood, okay. It doesn't assert.\n\nc kind question text \"最近の気分について、今考えていることを聞かせてもらえますか？\" This references recent mood. Open-ended. But \"聞かせてもらえますか\" okay. Could be too direct? Fine. Ends ?. Need natural.\n\nd reflection text \"今は無理に答えを出さず、気持ちをそのまま感じてみる時間かもしれません。\" This might imply they are trying to answer? But \"かもしれません\" soft. It is reflection. It contains \"感じてみる\" maybe okay. Not question.\n\ne breathing text \"ゆっくり息を吐いて、自然に吸うことを何回か繰り返してみましょう。\" Single sentence. Good. Kind breathing. No medical claim.\n\nf none.\n\nProbabilities: a .16, b .16, c .14 = .46; d .14; e .15 = .75 non-none; none .25. Question mass .46 >= .375. Good. Sum .16+.16+.14+.14+.15+.25 =1.00. At least half non-none candidates: 3 questions of 5. Good. \"with at least half of non-none probability mass\" .46 >= .375. Fine.\n\nNeed JSON only. Ensure no markdown. Use Japanese punctuation. Candidate id maybe a-f. Exactly one none. Text empty string. Probabilities numeric. Good.\n\nNeed consider \"open-ended question-type candidates\" maybe not all \"question\" kind? We have all three question kind open-ended. Good.\n\nNeed no \"guaranteed effects\". Breathing \"繰り返してみましょう\" no guarantee. Reflection \"かもしれません\" no assertion. Good.\n\nNeed \"never invent personal facts beyond supplied profile\": We mention \"最近の気分\" from profile. \"今の気分\" asks. \"今夜\" from time. No unprovided. Good.\n\nNeed \"personal\" maybe not overly generic. It's okay.\n\nPotential issue: The profile says \"45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。\" We could ask about recent interests? But avoid. Our questions are okay.\n\nNeed exactly 2..8 candidates. 6 yes. JSON valid.\n\nLet's final.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need produce 2..8 candidates interventions for one person now Japanese, each single short original sentence/question personal. Prob sum 1. Exactly one none empty. Kinds allowed. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need parse: \"open-ended question-type candidates\" likely kind question? Kinds include question, but \"question-type candidates\" maybe questions. Need at least half of non-none candidates are open-ended question-type, with at least half non-none probability mass. So if 5 non-none + none =6 total. Need at least ceil(5/2)=3 open-ended question candidates? Could include reflection? To be safe, make 3 kind question among 5 non-none, and their probabilities sum >=0.5 of non-none mass (which is total excluding none). Need probabilities sum 1. We can choose none prob maybe 0.2. Non-none mass .8, question mass >=.4. Let's design 6 candidates total: 5 non-none + none. Kinds: question x3 (open-ended), reflection x1, breathing/action/teaching x1. Need probabilities. None maybe 0.25. Non-none mass .75, question mass >= .375. Give questions 0.15,0.15,0.15 =0.45; reflection 0.15; action/breathing 0.15. Sum non-none .75 + none .25=1. At least half non-none candidates (3 of 5) questions yes. Question mass .45 >= .375 yes. Need each single short original Japanese sentence or question. Must not invent personal facts beyond profile. Profile says 45歳, recent mood sinking days increased, interests waning, mornings hard. Night 22:30. We can reflect on current moment, ask open questions not presuppose. Avoid asserting wishes, physical state. Need no medical claims. Need exactly one none. Need natural complete Japanese ending with 。 or ？ or ！. JSON only. Need candidate text empty for none. Use id a etc. Need probabilities maybe numeric. Need ensure \"personal\" to them? Japanese. We can mention \"今\" and \"この時間\". Open-ended questions: \"今夜はどんなふうに過ごしたいですか？\" Is this presupposing? It asks preference, okay. \"今の気分を一言で表すならどんな感じですか？\" asks current feeling, okay? It doesn't assert physical state. \"最近、気が沈む日について、どんなことを考えますか？\" This references profile (気が沈む日) okay? It's from profile. It is open question. Need not quote things not said? Profile is supplied facts, okay. But \"気が沈む日\" in profile. Good.\n\nReflection: \"今夜は少し気持ちを休める時間にしてもよさそうです。\" This asserts maybe suggestion, not reflection? Kind reflection could reflect current context. But \"よさそうです\" maybe advice. Better reflection: \"今日はここまで来た自分に気づく夜かもしれません。\" Might invent? Hmm. Reflection: \"今は、何かを決めるより、気持ちをそのまま置いておく時間かもしれません。\" It's a reflection, not personal fact. But maybe vague.\n\nTeaching: no medical claims. \"深呼吸をひとつすると、この夜の緊張を少しゆるめる助けになることがあります。\" Teaching/breathing. But no guaranteed effects. Fine. Kind breathing maybe \"ゆっくり息を吐いて、肩の力を抜いてみましょう。\" This is action/breathing, but not question. It may imply shoulder tension? \"肩の力を抜いて\" assumes tension? It's a common instruction but might presuppose physical state? Avoid physical state? The rule says never assert physical state, but instruction to relax shoulders could be okay? Better breathing: \"ゆっくりと息を吐き、また自然に吸ってみましょう。\" No assertion. Kind breathing. Probability 0.15. Non-none: q1 .15 q2 .15 q3 .15 reflection .15 breathing .15 none .25 =1. Need at least half non-none probability mass open-ended question: .45 >= .375 yes.\n\nNeed ensure \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have 3/5 questions. Good.\n\nPotential issue: Exactly one candidate with kind none and empty text. Good.\n\nNeed \"single short original sentence or question written for them personally.\" Each candidate one sentence. Japanese sentence ends with 。 or ？ or ！. For none empty no ending. Questions end with ？. Non-question end with 。.\n\nNeed maybe not include \"最近\" in question because profile says. Fine.\n\nLet's craft candidates:\na kind question text \"今夜は、どんなふうに気持ちを休めたいですか？\" This asks desire, but \"気持ちを休めたい\" maybe presupposes they want rest? It asks how they want to rest, could presuppose desire to rest. Better: \"今夜はどんなふうに過ごすと、少し楽になれそうですか？\" It asks what would make them feel easier; does it presuppose they need ease? It asks hypothetical, okay but maybe presupposes current discomfort. Profile says mood sinking. Acceptable? Maybe \"今夜はどんなふうに過ごしたいですか？\" Very open, no presupposition. Good.\n\nb kind question text \"今の気分をひとつ言葉にすると、どんな感じですか？\" Asks current mood, okay. It doesn't assert.\n\nc kind question text \"最近の気分について、今考えていることを聞かせてもらえますか？\" This references recent mood. Open-ended. But \"聞かせてもらえますか\" okay. Could be too direct? Fine. Ends ?. Need natural.\n\nd reflection text \"今は無理に答えを出さず、気持ちをそのまま感じてみる時間かもしれません。\" This might imply they are trying to answer? But \"かもしれません\" soft. It is reflection. It contains \"感じてみる\" maybe okay. Not question.\n\ne breathing text \"ゆっくり息を吐いて、自然に吸うことを何回か繰り返してみましょう。\" Single sentence. Good. Kind breathing. No medical claim.\n\nf none.\n\nProbabilities: a .16, b .16, c .14 = .46; d .14; e .15 = .75 non-none; none .25. Question mass .46 >= .375. Good. Sum .16+.16+.14+.14+.15+.25 =1.00. At least half non-none candidates: 3 questions of 5. Good. \"with at least half of non-none probability mass\" .46 >= .375. Fine.\n\nNeed JSON only. Ensure no markdown. Use Japanese punctuation. Candidate id maybe a-f. Exactly one none. Text empty string. Probabilities numeric. Good.\n\nNeed consider \"open-ended question-type candidates\" maybe not all \"question\" kind? We have all three question kind open-ended. Good.\n\nNeed no \"guaranteed effects\". Breathing \"繰り返してみましょう\" no guarantee. Reflection \"かもしれません\" no assertion. Good.\n\nNeed \"never invent personal facts beyond supplied profile\": We mention \"最近の気分\" from profile. \"今の気分\" asks. \"今夜\" from time. No unprovided. Good.\n\nNeed \"personal\" maybe not overly generic. It's okay.\n\nPotential issue: The profile says \"45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。\" We could ask about recent interests? But avoid. Our questions are okay.\n\nNeed exactly 2..8 candidates. 6 yes. JSON valid.\n\nLet's final.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 545,
+        "completion_tokens": 1867,
+        "total_tokens": 2412,
+        "cost": 0.00101525,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00101525,
+          "upstream_inference_prompt_cost": 8.175e-05,
+          "upstream_inference_completions_cost": 0.0009335
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1667,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "3307cd6f-6b5f-41a8-a1b9-2ec2979c0b6b",
+    "decision_point_at": 1794978839.760449,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今夜はどんなふうに過ごしたいですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今の気分をひとつ言葉にすると、どんな感じですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "最近の気分について、今考えていることを聞かせてもらえますか？",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "今は無理に答えを出さず、気持ちをそのまま感じてみる時間かもしれません。",
+        "probability": 0.14
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "ゆっくり息を吐いて、自然に吸うことを何回か繰り返してみましょう。",
+        "probability": 0.15
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今夜はどんなふうに過ごしたいですか？",
+      "probability": 0.16
+    },
+    "assigned_probability": 0.16,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980639.760449,
+    "observations": []
+  }
+}

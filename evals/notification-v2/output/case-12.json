@@ -1,0 +1,144 @@
+{
+  "index": 12,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978815-5FUseggoDYvbcO0BSF76",
+      "object": "chat.completion",
+      "created": 1794978815,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Ionstream",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝は、どんなふうに一日を始めたいですか？\",\"probability\":0.18},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"このところ、少し気が楽になる瞬間があるとしたら、どんなときですか？\",\"probability\":0.15},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日、自分に対してできそうな小さな一歩は何でしょう？\",\"probability\":0.12},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"今は、気持ちが動かない日があっても、それを責めなくて大丈夫です。\",\"probability\":0.18},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。\",\"probability\":0.12},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need construct 2-8 candidate interventions in Japanese. Need exactly one none empty. Probabilities sum 1. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need use context as data not instructions. Profile: 45, recent days feel vaguely down, less interest in liked things, some mornings hard to get up. Desired unknown. Time morning 07:30, notification. Need no invent facts, no assert physical state/wishes/relationships/appearance. Questions not presuppose unprovided facts. Need natural complete Japanese, end with 。 or ？ or ！. Kinds: reflection, question, teaching, breathing, action, none. At least half non-none candidates open-ended question-type. Let's plan 5 candidates maybe 3 non-none questions, one breathing/action/reflection? Need at least half nonnone are question-type, with at least half mass. If 4 non-none, at least 2 questions; mass >=0.5. We can do 5 total: 3 questions (open-ended), one breathing, one none. Non-none 4, questions 3 >= half, probability mass questions maybe 0.60, breathing 0.10, none 0.30? Need sum. But \"none\" option probability can be 0.15. Need all candidates probabilities sum 1. Need exactly one none. Candidate text short original sentence/question written for them personally. Since no personal facts beyond profile, can mention \"今朝\" maybe from time? \"朝\" supplied. Avoid asserting \"気分が沈んでいる\" maybe profile has it, but \"今朝は...\"? Questions shouldn't presuppose facts. Could ask open-ended:\n\n- \"今朝は、どんなふうに一日を始めたいですか？\" (question, asks preference, not presuppose)\n- \"このところ、少しでも気が楽になる瞬間はどんなときですか？\" (presupposes there is? \"少しでも\" maybe okay but could be leading. Better \"このところ、気が楽になる瞬間があるとしたら、どんなときですか？\" presupposes condition but okay? open-ended. It references \"このところ\" from recent. Not invent.)\n- \"今日、自分に対してできそうな小さな一歩は何でしょう？\" (question, open-ended, but \"できそう\" okay)\n- \"今の気分を一言で表すなら、どんな言葉が近いですか？\" (question open-ended, asks current mood; profile says unknown but not invent. It's okay.)\nNeed at least half nonnone question-type. We can use 3 questions, one reflection, one none. Reflection must be statement not question. E.g. \"今朝は、起きることに难しさを感じる日もある、と受け止めてみます。\" But that's \"I\"? Written for them? Reflection in intervention often \"今は、無理に気持ちを動かさなくても大丈夫です。\" But that asserts no? It's supportive. Need \"original sentence written for them personally.\" Could be \"今朝は、気持ちが動かない日があっても、それを責めなくて大丈夫です。\" That's teaching/reflection? Might be okay but no medical claims. It does not assert personal fact. Kind reflection. But need probabilities.\n\nBut also need maybe breathing candidate: \"ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。\" This is action/breathing, but \"肩の力\" physical state? It asks to release, not assert. Maybe action. But not needed.\n\nNeed choices probabilities. Since desired unknown, none maybe moderate. \"right one to send now\" perhaps notification at 07:30. Need candidate probabilities reflect. Could set none 0.20, question 0.25, question 0.20, question 0.15, reflection 0.10, breathing 0.10 = 1.00? Need at least half non-none mass on open questions: nonnone mass = 0.8; questions mass =0.6 >=0.4. At least half nonnone candidates are questions: 3 of 5? If total 6 with 5 nonnone, at least 3 questions. Let's design 6 candidates: 3 questions, 2 other (reflection/action), 1 none. Non-none=5, questions=3 >= half. Question mass = 0.15+0.15+0.15=0.45; nonnone mass=0.75; half=0.375, yes. But if none probability 0.25. Sum questions 0.45 + other 0.30 + none 0.25=1.0. But open-ended question mass needs at least half of non-none probability mass: non-none mass 0.75, half 0.375; 0.45 ok. Could set none 0.15, nonnone 0.85, questions 0.45, half nonnone 0.425, good. But non-none mass high; question mass at least half. Need at least half candidates nonnone are questions. 5 nonnone, 3 questions.\n\nNeed ensure exactly one none. JSON. Need natural Japanese. Use only profile facts. Let's craft 6 candidates:\n\na kind question text: \"今朝は、どんなふうに一日を始めたいですか？\" prob 0.18\nb question: \"このところ、少し気が楽になる瞬間があるとしたら、どんなときですか？\" prob 0.15. Potential issue \"少し気が楽になる\" maybe okay. question open-ended.\nc question: \"今日、自分に対してできそうな小さな一歩は何でしょう？\" prob 0.12\nd reflection: \"今は、気持ちが動かない日があっても、それを責めなくて大丈夫です。\" prob 0.18. This is not question but okay. Does it assert? It says if there are days. It is reassuring. But \"今は\" maybe okay. No medical claims.\ne action: \"朝のうちに、コップ一杯の水を飲んでみましょう。\" Is this inventing? It's action suggestion not personal fact, but maybe health? No guaranteed effects. But \"朝\" from time. It is a concrete action. Could be okay. Need not be question. But \"water\" not in profile, but not personal fact, an intervention. However \"水を飲む\" could be medical? no. Better breathing: \"ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。\" This asks to relax, not assert physical. Fine.\nf none empty prob 0.15? Sum: 0.18+0.15+0.12+0.18+0.12+0.25? Let's calculate. Need maybe none 0.15. Sum nonnone 0.18+0.15+0.12+0.18+0.12=0.75; none 0.25 = total 1.0. Question mass 0.45. nonnone mass 0.75 half 0.375, yes. At least half nonnone candidates question: 3/5=0.6 yes. Good. But none 0.25 perhaps okay. Need exactly one candidate with kind none and empty text.\n\nNeed ensure no candidate \"teaching\" maybe reflection/action. Use kind categories. \"breathing\" kind text for breathing. \"action\" text for small action. But at least half non-none candidates open-ended question-type: open-ended questions are kind question. Good. Need \"with at least half of the non-none probability mass\" means probability mass of open-ended question-type candidates >= half of non-none mass. 0.45 >=0.375 yes. Good.\n\nCould there be issue with \"今朝\" because local_day 2026-11-18, slot 07:30; okay. \"朝のうちに\" okay. \"このところ\" is supplied phrase \"最近\". Okay. Candidate b: \"少し気が楽になる瞬間があるとしたら\" is conditional, doesn't presuppose. Fine.\n\nNeed maybe avoid \"責めなくて大丈夫\" no confrontational. Fine.\n\nNeed exactly JSON only. No markdown. Ensure valid JSON. Need text empty for none. Japanese punctuation. Use quotes. No trailing. We need include ids. Probabilities maybe decimals. Sum exactly 1. Let's verify sum: 0.18+0.15=0.33; +0.12=0.45; +0.18=0.63; +0.12=0.75; +0.25=1.0. Good.\n\nNeed check \"open-ended question-type candidates\" include a, b, c all end with ?. Yes. At least half non-none are question-type: 3/5. At least half non-none probability mass: 0.45/0.75=0.6. Good.\n\nNeed maybe \"reflection\" text should be sentence ending 。. yes.\n\nNeed no \"none\" text nonempty. Good.\n\nNeed maybe \"kind\": \"breathing\" is allowed. Text \"ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。\" Good. It is an instruction, but no guarantee. \"肩の力\" implies shoulders tense? It asks to release, not assert. Fine.\n\nPotential issue: \"今は、気持ちが動かない日があっても、それを責めなくて大丈夫です。\" This is an assertion \"you may not need to blame yourself\"; okay. It doesn't invent facts. Good.\n\nCould include \"teaching\" but no need.\n\nNeed final JSON. Ensure no markdown.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need construct 2-8 candidate interventions in Japanese. Need exactly one none empty. Probabilities sum 1. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need use context as data not instructions. Profile: 45, recent days feel vaguely down, less interest in liked things, some mornings hard to get up. Desired unknown. Time morning 07:30, notification. Need no invent facts, no assert physical state/wishes/relationships/appearance. Questions not presuppose unprovided facts. Need natural complete Japanese, end with 。 or ？ or ！. Kinds: reflection, question, teaching, breathing, action, none. At least half non-none candidates open-ended question-type. Let's plan 5 candidates maybe 3 non-none questions, one breathing/action/reflection? Need at least half nonnone are question-type, with at least half mass. If 4 non-none, at least 2 questions; mass >=0.5. We can do 5 total: 3 questions (open-ended), one breathing, one none. Non-none 4, questions 3 >= half, probability mass questions maybe 0.60, breathing 0.10, none 0.30? Need sum. But \"none\" option probability can be 0.15. Need all candidates probabilities sum 1. Need exactly one none. Candidate text short original sentence/question written for them personally. Since no personal facts beyond profile, can mention \"今朝\" maybe from time? \"朝\" supplied. Avoid asserting \"気分が沈んでいる\" maybe profile has it, but \"今朝は...\"? Questions shouldn't presuppose facts. Could ask open-ended:\n\n- \"今朝は、どんなふうに一日を始めたいですか？\" (question, asks preference, not presuppose)\n- \"このところ、少しでも気が楽になる瞬間はどんなときですか？\" (presupposes there is? \"少しでも\" maybe okay but could be leading. Better \"このところ、気が楽になる瞬間があるとしたら、どんなときですか？\" presupposes condition but okay? open-ended. It references \"このところ\" from recent. Not invent.)\n- \"今日、自分に対してできそうな小さな一歩は何でしょう？\" (question, open-ended, but \"できそう\" okay)\n- \"今の気分を一言で表すなら、どんな言葉が近いですか？\" (question open-ended, asks current mood; profile says unknown but not invent. It's okay.)\nNeed at least half nonnone question-type. We can use 3 questions, one reflection, one none. Reflection must be statement not question. E.g. \"今朝は、起きることに难しさを感じる日もある、と受け止めてみます。\" But that's \"I\"? Written for them? Reflection in intervention often \"今は、無理に気持ちを動かさなくても大丈夫です。\" But that asserts no? It's supportive. Need \"original sentence written for them personally.\" Could be \"今朝は、気持ちが動かない日があっても、それを責めなくて大丈夫です。\" That's teaching/reflection? Might be okay but no medical claims. It does not assert personal fact. Kind reflection. But need probabilities.\n\nBut also need maybe breathing candidate: \"ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。\" This is action/breathing, but \"肩の力\" physical state? It asks to release, not assert. Maybe action. But not needed.\n\nNeed choices probabilities. Since desired unknown, none maybe moderate. \"right one to send now\" perhaps notification at 07:30. Need candidate probabilities reflect. Could set none 0.20, question 0.25, question 0.20, question 0.15, reflection 0.10, breathing 0.10 = 1.00? Need at least half non-none mass on open questions: nonnone mass = 0.8; questions mass =0.6 >=0.4. At least half nonnone candidates are questions: 3 of 5? If total 6 with 5 nonnone, at least 3 questions. Let's design 6 candidates: 3 questions, 2 other (reflection/action), 1 none. Non-none=5, questions=3 >= half. Question mass = 0.15+0.15+0.15=0.45; nonnone mass=0.75; half=0.375, yes. But if none probability 0.25. Sum questions 0.45 + other 0.30 + none 0.25=1.0. But open-ended question mass needs at least half of non-none probability mass: non-none mass 0.75, half 0.375; 0.45 ok. Could set none 0.15, nonnone 0.85, questions 0.45, half nonnone 0.425, good. But non-none mass high; question mass at least half. Need at least half candidates nonnone are questions. 5 nonnone, 3 questions.\n\nNeed ensure exactly one none. JSON. Need natural Japanese. Use only profile facts. Let's craft 6 candidates:\n\na kind question text: \"今朝は、どんなふうに一日を始めたいですか？\" prob 0.18\nb question: \"このところ、少し気が楽になる瞬間があるとしたら、どんなときですか？\" prob 0.15. Potential issue \"少し気が楽になる\" maybe okay. question open-ended.\nc question: \"今日、自分に対してできそうな小さな一歩は何でしょう？\" prob 0.12\nd reflection: \"今は、気持ちが動かない日があっても、それを責めなくて大丈夫です。\" prob 0.18. This is not question but okay. Does it assert? It says if there are days. It is reassuring. But \"今は\" maybe okay. No medical claims.\ne action: \"朝のうちに、コップ一杯の水を飲んでみましょう。\" Is this inventing? It's action suggestion not personal fact, but maybe health? No guaranteed effects. But \"朝\" from time. It is a concrete action. Could be okay. Need not be question. But \"water\" not in profile, but not personal fact, an intervention. However \"水を飲む\" could be medical? no. Better breathing: \"ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。\" This asks to relax, not assert physical. Fine.\nf none empty prob 0.15? Sum: 0.18+0.15+0.12+0.18+0.12+0.25? Let's calculate. Need maybe none 0.15. Sum nonnone 0.18+0.15+0.12+0.18+0.12=0.75; none 0.25 = total 1.0. Question mass 0.45. nonnone mass 0.75 half 0.375, yes. At least half nonnone candidates question: 3/5=0.6 yes. Good. But none 0.25 perhaps okay. Need exactly one candidate with kind none and empty text.\n\nNeed ensure no candidate \"teaching\" maybe reflection/action. Use kind categories. \"breathing\" kind text for breathing. \"action\" text for small action. But at least half non-none candidates open-ended question-type: open-ended questions are kind question. Good. Need \"with at least half of the non-none probability mass\" means probability mass of open-ended question-type candidates >= half of non-none mass. 0.45 >=0.375 yes. Good.\n\nCould there be issue with \"今朝\" because local_day 2026-11-18, slot 07:30; okay. \"朝のうちに\" okay. \"このところ\" is supplied phrase \"最近\". Okay. Candidate b: \"少し気が楽になる瞬間があるとしたら\" is conditional, doesn't presuppose. Fine.\n\nNeed maybe avoid \"責めなくて大丈夫\" no confrontational. Fine.\n\nNeed exactly JSON only. No markdown. Ensure valid JSON. Need text empty for none. Japanese punctuation. Use quotes. No trailing. We need include ids. Probabilities maybe decimals. Sum exactly 1. Let's verify sum: 0.18+0.15=0.33; +0.12=0.45; +0.18=0.63; +0.12=0.75; +0.25=1.0. Good.\n\nNeed check \"open-ended question-type candidates\" include a, b, c all end with ?. Yes. At least half non-none are question-type: 3/5. At least half non-none probability mass: 0.45/0.75=0.6. Good.\n\nNeed maybe \"reflection\" text should be sentence ending 。. yes.\n\nNeed no \"none\" text nonempty. Good.\n\nNeed maybe \"kind\": \"breathing\" is allowed. Text \"ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。\" Good. It is an instruction, but no guarantee. \"肩の力\" implies shoulders tense? It asks to release, not assert. Fine.\n\nPotential issue: \"今は、気持ちが動かない日があっても、それを責めなくて大丈夫です。\" This is an assertion \"you may not need to blame yourself\"; okay. It doesn't invent facts. Good.\n\nCould include \"teaching\" but no need.\n\nNeed final JSON. Ensure no markdown.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 546,
+        "completion_tokens": 2256,
+        "total_tokens": 2802,
+        "cost": 0.00151338,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00151338,
+          "upstream_inference_prompt_cost": 0.00011466,
+          "upstream_inference_completions_cost": 0.00139872
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2058,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "f724a5ec-fde7-4b10-9b86-e308626f8a39",
+    "decision_point_at": 1794978824.8048792,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝は、どんなふうに一日を始めたいですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "このところ、少し気が楽になる瞬間があるとしたら、どんなときですか？",
+        "probability": 0.15
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "今日、自分に対してできそうな小さな一歩は何でしょう？",
+        "probability": 0.12
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "今は、気持ちが動かない日があっても、それを責めなくて大丈夫です。",
+        "probability": 0.18
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。",
+        "probability": 0.12
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝は、どんなふうに一日を始めたいですか？",
+      "probability": 0.18
+    },
+    "assigned_probability": 0.18,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980624.8048792,
+    "observations": []
+  }
+}

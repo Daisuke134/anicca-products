@@ -1,0 +1,144 @@
+{
+  "index": 9,
+  "profile": "burnout",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978809-BVSpQCeiaWO6OJsRDz7N",
+      "object": "chat.completion",
+      "created": 1794978809,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Alibaba",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今のあなたにとって、少し落ち着くために手放してもよさそうなことは何ですか？\",\"probability\":0.17},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"このお昼の時間、あなたがほっとするために一番小さくできることは何でしょう？\",\"probability\":0.14},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"やらなきゃという気持ちと何もしたくない気持ちがあるとき、今の自分にどんな声をかけてあげたいですか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"今は全部を決めずに、ひとつだけ整えるのでも十分かもしれません。\",\"probability\":0.14},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"肩を下げて、ゆっくり三回だけ息を吐いてみましょう。\",\"probability\":0.2},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need generate 2-8 candidate interventions Japanese, for one person, based context. Need exactly one none empty. Prob sum 1. At least half non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Kinds allowed reflection, question, teaching, breathing, action, none. Need likely around 5 candidates. Need no invented facts. Profile says 38 nurse, work/childcare hardly rest, even holidays can't recover, torn between not wanting to do anything and feeling must. Desired calm, language ja, slot 12:30 day, source notification. Need interventions now. Need be personal but no unprovided facts. Need open-ended questions at least half non-none candidates and at least half non-none prob mass. Need exactly one none. \"non-none candidates\" count maybe 5 total with none, 4 nonnone; at least half = at least 2 question-type. Probability mass: if question probs sum >= 0.5 of nonnone mass. Need sum all including none. We can make 6 candidates: none prob .22, question q1 .20 q2 .18 q3 .12, reflection .12, breathing .09, action .07? Non-none total .78, question mass .50, ratio .641 >= .5. Count question 3 of 5 nonnone >= half. Need maybe exactly one none. Single short original sentence/question written personally. Japanese sentences end with 。 or ？ or ！. Need balanced nonempty quotations; natural complete. Avoid asserting physical state? We can reference \"今\" and context states? The user's profile says they feel torn, tired, no time. But interventions shouldn't assert wishes/physical state. Questions can be grounded? \"今、少し落ち着くために、何を手放せそうですか？\" open-ended. Need not presuppose facts? \"何を手放せそう\" might imply there is something, but general. Better \"今の自分にとって、少し楽になる考え方はどんなものですか？\" Open-ended. \"この時間、どんなふうに休みたいですか？\" Might presuppose wants rest but desired_state calm and profile. Still okay? Need avoid unprovided facts. Question must not presuppose unprovided facts. \"今、頭の中で一番場所を取っていることは何ですか？\" assumes something in head, but okay? Could be too. \"今ここで、どんな小さな一息が役立ちそうですか？\" weird. Need \"question-type candidates\" open-ended question type. Need personal \"あなた\" maybe. Need language.\n\nNeed decide candidates. Need exact JSON structure. Need IDs. Need probabilities sum 1. Let's craft:\n\na kind question text: \"今のあなたにとって、少し落ち着くために手放してもよさそうなことは何ですか？\" This is open-ended, personal. Is it presupposing \"手放してもよさそうなこと\" maybe there is something, but generic. Fine.\n\nb kind question text: \"このお昼の時間、あなたがほっとするために一番小さくできることは何でしょう？\" Presupposes \"お昼\" from slot 12:30 yes. \"ほっとする\" desired? Maybe not assert state. It asks what small thing for yourself to feel at ease. Good.\n\nc kind question text: \"やらなきゃという気持ちと、何もしたくない気持ちの間で、今はどちらを少しだけ大切にしたいですか？\" This directly references profile states (they said). Open-ended. It's okay to quote? \"do not quote things person has not said\"; profile summary derived maybe not exact quote. Better not quote exact, but mentions feelings from context. Is that allowed? It says use supplied context as data. We can reference supplied profile? \"do not quote things person has not said\" means don't put quotes. We can reflect \"やるべきことと休みたい気持ちの間で...\" not quote. But \"休みたい\" maybe unprovided? Profile says no rest, not explicitly wants rest? Desired calm. Maybe \"頑張らなきゃという気持ちと、何もしたくない気持ち\" exactly from profile summary, but it's data not direct user quote. Still maybe okay. It's a question open-ended. Probability mass need questions >= half nonnone. If q1 .18 q2 .16 q3 .18 total .52; nonnone total maybe .79. Good.\n\nd kind reflection: \"今は全部を決めずに、ひとつだけ整えるのでも十分かもしれません。\" This is teaching/reflection? It says maybe, not claim. But \"かもしれません\" okay. No medical. Reflection maybe.\n\ne kind breathing: \"肩を下げて、ゆっくり三回だけ息を吐いてみましょう。\" It's action/breathing. Is it presupposing shoulders? No. Natural. It's directive, okay. Kind breathing.\n\nf kind none prob .20. Nonnone total .80. Need question prob >= .40. Let's set a .17 b .14 c .15 = .46. Non-none mass .80, half .40, okay. Remaining d .14, e .20? Sum q .46 + d .14 + e .20 + none .20 = 1.00. Nonnone .80. Question count 3/5. Prob q mass .46/ .80 = .575. Good. But e .20 high; maybe none .20, e .20. Could.\n\nNeed maybe action candidate? We have e breathing. Need maybe exactly 2-8 candidates. 6 candidates okay. At least half non-none open-ended question-type: non-none 5, question 3. At least half nonnone probability mass: .46 / .80 = .575. Good.\n\nNeed ensure no candidate texts \"Do not quote things person has not said\" means no quote marks. Fine. Need no confrontational. Avoid \"あなた\" maybe okay. Each single short original sentence or question. \"肩を下げて、ゆっくり三回だけ息を吐いてみましょう。\" single sentence. Ends with 。.\n\nNeed JSON only. Need no markdown. Need include all required fields. The sample uses candidate id a etc. We need valid JSON. Would \"kind\": \"question\" etc. Need exactly one none. Need text empty. Probabilities numbers sum exactly 1.0. Let's double check sum: a .17 + b .14 = .31; c .15=.46; d .14=.60; e .20=.80; none .20=1.00. Good.\n\nNeed maybe \"reflection\" text no question. \"今は全部を決めずに、ひとつだけ整えるのでも十分かもしれません。\" This is a single sentence. Does it assert? \"かもしれません\" soft. good.\n\nNeed b \"このお昼の時間、あなたがほっとするために一番小さくできることは何でしょう？\" It has \"お昼の時間\" from slot 12:30. It asks open-ended. It doesn't presuppose \"you are at lunch\"? It says this midday time; okay. Maybe \"ほっとするために\" assumes desired state calm, but not fact. Good.\n\nQuestion c: \"やらなきゃという気持ちと、何もしたくない気持ちの間で、今はどちらを少しだけ大切にしたいですか？\" It references profile states. Is \"何もしたくない気持ち\" a direct quote? The profile says \"何もしたくない気持ちと、やらなきゃという焦りの間\". This is context data, not necessarily user said. The instruction \"never invent personal facts beyond profile: do not quote things the person has not said\" It doesn't forbid using profile facts; \"do not quote things person has not said\" may mean don't put words in their mouth as quotes. This is not quote. Fine. It doesn't use quotation marks. It asks open ended. Good.\n\nQuestion a: \"今のあなたにとって、少し落ち着くために手放してもよさそうなことは何ですか？\" Does \"手放してもよさそう\" presuppose something can be let go? Broad. good. Could be \"何を大切にしたい\" less. \n\nNeed \"balanced nonempty quotations\" maybe means if quoting, balance. We have none. Good.\n\nNeed natural Japanese. Use fullwidth question mark. JSON string can include Japanese punctuation. Need escape? no.\n\nPotential issue: \"やらなきゃ\" colloquial, okay. Desired calm. Maybe \"今はどちらを少しだけ大切にしたいですか？\" It asks choose between two, open-ended? It is a question but not fully open-ended? It allows \"どちら\" binary, though \"少しだけ\" maybe open? At least half open-ended question-type candidates. To be safe, make c open-ended: \"やらなきゃという気持ちと何もしたくない気持ちがあるとき、今の自分にどんな声をかけてあげたいですか？\" This is open-ended. It references states. Better.\n\nNeed maybe question a \"今のあなたにとって、少し落ち着くために手放してもよさそうなことは何ですか？\" open-ended. b open-ended. c open-ended. Good.\n\nNeed exactly one candidate kind none with empty text. It can be last. Need IDs.\n\nNeed maybe probability none .20. Good.\n\nNeed final only JSON. Ensure no trailing commas. Use double quotes. Good.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need generate 2-8 candidate interventions Japanese, for one person, based context. Need exactly one none empty. Prob sum 1. At least half non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Kinds allowed reflection, question, teaching, breathing, action, none. Need likely around 5 candidates. Need no invented facts. Profile says 38 nurse, work/childcare hardly rest, even holidays can't recover, torn between not wanting to do anything and feeling must. Desired calm, language ja, slot 12:30 day, source notification. Need interventions now. Need be personal but no unprovided facts. Need open-ended questions at least half non-none candidates and at least half non-none prob mass. Need exactly one none. \"non-none candidates\" count maybe 5 total with none, 4 nonnone; at least half = at least 2 question-type. Probability mass: if question probs sum >= 0.5 of nonnone mass. Need sum all including none. We can make 6 candidates: none prob .22, question q1 .20 q2 .18 q3 .12, reflection .12, breathing .09, action .07? Non-none total .78, question mass .50, ratio .641 >= .5. Count question 3 of 5 nonnone >= half. Need maybe exactly one none. Single short original sentence/question written personally. Japanese sentences end with 。 or ？ or ！. Need balanced nonempty quotations; natural complete. Avoid asserting physical state? We can reference \"今\" and context states? The user's profile says they feel torn, tired, no time. But interventions shouldn't assert wishes/physical state. Questions can be grounded? \"今、少し落ち着くために、何を手放せそうですか？\" open-ended. Need not presuppose facts? \"何を手放せそう\" might imply there is something, but general. Better \"今の自分にとって、少し楽になる考え方はどんなものですか？\" Open-ended. \"この時間、どんなふうに休みたいですか？\" Might presuppose wants rest but desired_state calm and profile. Still okay? Need avoid unprovided facts. Question must not presuppose unprovided facts. \"今、頭の中で一番場所を取っていることは何ですか？\" assumes something in head, but okay? Could be too. \"今ここで、どんな小さな一息が役立ちそうですか？\" weird. Need \"question-type candidates\" open-ended question type. Need personal \"あなた\" maybe. Need language.\n\nNeed decide candidates. Need exact JSON structure. Need IDs. Need probabilities sum 1. Let's craft:\n\na kind question text: \"今のあなたにとって、少し落ち着くために手放してもよさそうなことは何ですか？\" This is open-ended, personal. Is it presupposing \"手放してもよさそうなこと\" maybe there is something, but generic. Fine.\n\nb kind question text: \"このお昼の時間、あなたがほっとするために一番小さくできることは何でしょう？\" Presupposes \"お昼\" from slot 12:30 yes. \"ほっとする\" desired? Maybe not assert state. It asks what small thing for yourself to feel at ease. Good.\n\nc kind question text: \"やらなきゃという気持ちと、何もしたくない気持ちの間で、今はどちらを少しだけ大切にしたいですか？\" This directly references profile states (they said). Open-ended. It's okay to quote? \"do not quote things person has not said\"; profile summary derived maybe not exact quote. Better not quote exact, but mentions feelings from context. Is that allowed? It says use supplied context as data. We can reference supplied profile? \"do not quote things person has not said\" means don't put quotes. We can reflect \"やるべきことと休みたい気持ちの間で...\" not quote. But \"休みたい\" maybe unprovided? Profile says no rest, not explicitly wants rest? Desired calm. Maybe \"頑張らなきゃという気持ちと、何もしたくない気持ち\" exactly from profile summary, but it's data not direct user quote. Still maybe okay. It's a question open-ended. Probability mass need questions >= half nonnone. If q1 .18 q2 .16 q3 .18 total .52; nonnone total maybe .79. Good.\n\nd kind reflection: \"今は全部を決めずに、ひとつだけ整えるのでも十分かもしれません。\" This is teaching/reflection? It says maybe, not claim. But \"かもしれません\" okay. No medical. Reflection maybe.\n\ne kind breathing: \"肩を下げて、ゆっくり三回だけ息を吐いてみましょう。\" It's action/breathing. Is it presupposing shoulders? No. Natural. It's directive, okay. Kind breathing.\n\nf kind none prob .20. Nonnone total .80. Need question prob >= .40. Let's set a .17 b .14 c .15 = .46. Non-none mass .80, half .40, okay. Remaining d .14, e .20? Sum q .46 + d .14 + e .20 + none .20 = 1.00. Nonnone .80. Question count 3/5. Prob q mass .46/ .80 = .575. Good. But e .20 high; maybe none .20, e .20. Could.\n\nNeed maybe action candidate? We have e breathing. Need maybe exactly 2-8 candidates. 6 candidates okay. At least half non-none open-ended question-type: non-none 5, question 3. At least half nonnone probability mass: .46 / .80 = .575. Good.\n\nNeed ensure no candidate texts \"Do not quote things person has not said\" means no quote marks. Fine. Need no confrontational. Avoid \"あなた\" maybe okay. Each single short original sentence or question. \"肩を下げて、ゆっくり三回だけ息を吐いてみましょう。\" single sentence. Ends with 。.\n\nNeed JSON only. Need no markdown. Need include all required fields. The sample uses candidate id a etc. We need valid JSON. Would \"kind\": \"question\" etc. Need exactly one none. Need text empty. Probabilities numbers sum exactly 1.0. Let's double check sum: a .17 + b .14 = .31; c .15=.46; d .14=.60; e .20=.80; none .20=1.00. Good.\n\nNeed maybe \"reflection\" text no question. \"今は全部を決めずに、ひとつだけ整えるのでも十分かもしれません。\" This is a single sentence. Does it assert? \"かもしれません\" soft. good.\n\nNeed b \"このお昼の時間、あなたがほっとするために一番小さくできることは何でしょう？\" It has \"お昼の時間\" from slot 12:30. It asks open-ended. It doesn't presuppose \"you are at lunch\"? It says this midday time; okay. Maybe \"ほっとするために\" assumes desired state calm, but not fact. Good.\n\nQuestion c: \"やらなきゃという気持ちと、何もしたくない気持ちの間で、今はどちらを少しだけ大切にしたいですか？\" It references profile states. Is \"何もしたくない気持ち\" a direct quote? The profile says \"何もしたくない気持ちと、やらなきゃという焦りの間\". This is context data, not necessarily user said. The instruction \"never invent personal facts beyond profile: do not quote things the person has not said\" It doesn't forbid using profile facts; \"do not quote things person has not said\" may mean don't put words in their mouth as quotes. This is not quote. Fine. It doesn't use quotation marks. It asks open ended. Good.\n\nQuestion a: \"今のあなたにとって、少し落ち着くために手放してもよさそうなことは何ですか？\" Does \"手放してもよさそう\" presuppose something can be let go? Broad. good. Could be \"何を大切にしたい\" less. \n\nNeed \"balanced nonempty quotations\" maybe means if quoting, balance. We have none. Good.\n\nNeed natural Japanese. Use fullwidth question mark. JSON string can include Japanese punctuation. Need escape? no.\n\nPotential issue: \"やらなきゃ\" colloquial, okay. Desired calm. Maybe \"今はどちらを少しだけ大切にしたいですか？\" It asks choose between two, open-ended? It is a question but not fully open-ended? It allows \"どちら\" binary, though \"少しだけ\" maybe open? At least half open-ended question-type candidates. To be safe, make c open-ended: \"やらなきゃという気持ちと何もしたくない気持ちがあるとき、今の自分にどんな声をかけてあげたいですか？\" This is open-ended. It references states. Better.\n\nNeed maybe question a \"今のあなたにとって、少し落ち着くために手放してもよさそうなことは何ですか？\" open-ended. b open-ended. c open-ended. Good.\n\nNeed exactly one candidate kind none with empty text. It can be last. Need IDs.\n\nNeed maybe probability none .20. Good.\n\nNeed final only JSON. Ensure no trailing commas. Use double quotes. Good.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 595,
+        "completion_tokens": 2225,
+        "total_tokens": 2820,
+        "cost": 0.0016639416,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0016639416,
+          "upstream_inference_prompt_cost": 6.19416e-05,
+          "upstream_inference_completions_cost": 0.001602
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2001,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "f7dc446b-9188-4f61-bd47-f51a955b8344",
+    "decision_point_at": 1794978830.419057,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今のあなたにとって、少し落ち着くために手放してもよさそうなことは何ですか？",
+        "probability": 0.17
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "このお昼の時間、あなたがほっとするために一番小さくできることは何でしょう？",
+        "probability": 0.14
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "やらなきゃという気持ちと何もしたくない気持ちがあるとき、今の自分にどんな声をかけてあげたいですか？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "今は全部を決めずに、ひとつだけ整えるのでも十分かもしれません。",
+        "probability": 0.14
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "肩を下げて、ゆっくり三回だけ息を吐いてみましょう。",
+        "probability": 0.2
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今のあなたにとって、少し落ち着くために手放してもよさそうなことは何ですか？",
+      "probability": 0.17
+    },
+    "assigned_probability": 0.17,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980630.419057,
+    "observations": []
+  }
+}

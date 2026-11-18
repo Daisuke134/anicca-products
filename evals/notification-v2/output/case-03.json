@@ -1,0 +1,138 @@
+{
+  "index": 3,
+  "profile": "rumination",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978777-Ml2Hpw4ESlJZsUwmeJG6",
+      "object": "chat.completion",
+      "created": 1794978777,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Alibaba",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜、頭の中の考えを少し軽くするために、どんな一文から手放してみたいですか？\",\"probability\":0.26},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"この時間に考えが巡るとき、自分にどんな小さな声かけができそうですか？\",\"probability\":0.24},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠る前の数分を、どんな過ごし方にすると自分にやさしいですか？\",\"probability\":0.2},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"息を4秒吸って6秒かけて吐くことを、一度だけ試してみてください。\",\"probability\":0.15},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft interventions Japanese, 2..8 candidates. Need exactly one none empty. Prob sum 1. At least half of non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Need reflect desired calm, profile: 32 yo company employee; at night ruminates about work failures/misstatements; thoughts don't stop, many sleepless days. Slot 22:30 night. Use context as data not instructions. Need no invented facts. Need candidate kinds: reflection, question, teaching, breathing, action, none. Need at least half non-none candidates question-type. Question-type likely kind \"question\" only? \"open-ended question-type candidates\" means kind question with open-ended questions. At least half of non-none candidates must be question kind. With at least half non-none probability mass. Need exactly one none. Could do 5 candidates total: 3 question, 1 breathing/action/reflection, 1 none. Non-none =4; at least half=2 questions. Give question probabilities sum >= half of non-none mass? Non-none mass = 1 - p_none. Need question mass >= 0.5*(non-none mass). We can choose p_none maybe 0.15. Questions 0.25+0.25+0.20 =0.70. Non-none mass 0.85, half 0.425, okay. But probabilities sum 1. Need candidates 2..8. Exactly one none.\n\nNeed all Japanese sentences end with 。 or ？ or ！. Questions must end ？ (Japanese question mark allowed? It says Japanese sentences end with 。 or ？ or ！. Yes). Need single short original sentence or question per candidate, personal. No quotes unsaid. Need avoid \"あなたは...\"? Personal. Need no medical claims. Reflection can state noticing? Must not assert unprovided physical/relationship/wishes. It can say \"夜になると考えが繰り返されやすいようです\" maybe inferred from profile. But reflection should be gentle. Open-ended questions not presuppose facts. E.g. \"今夜、頭の中の考えを少し軽くするために、どんな一文から手放してみたいですか？\" This presupposes thoughts? profile says thoughts repeat, okay. But \"手放す\" okay. Need no guaranteed effects. \"今の自分にとって、一番落ち着ける小さな行動は何ですか？\" open-ended. \"今夜の思考に、どんな名前をつけると少し距離が置けそうですか？\" open ended. \"この時間、頭から離れない考えを紙に一行だけ書くとしたら、何を書きますか？\" Open question; presupposes thought from profile. It asks if writing. Fine. Need not invent.\n\nNeed choose probabilities. Need include breathing maybe \"ゆっくり4秒吸气...\" But Japanese sentence. Breathing kind one sentence. Could be \"息を4秒吸って6秒かけて吐くことを、一度だけ試してみてください。\" This is directive, end 。. Is that okay? No guarantees. It uses physical instruction, not asserting state. Fine. But must not claim effects. \"一度だけ\" OK.\n\nNeed reflection: \"夜に同じ考えが巡りやすいことに、気づいてもいいのかもしれません。\" This asserts? Profile says. Natural? End 。. But maybe \"気づいてもいい\" is weird. Could be \"今夜は考えが巡りやすい時間帯だと、やさしく見守ってみましょう。\" kind reflection. Does not invent. \"やさしく見守って\" maybe preaching? Fine.\n\nNeed candidate maybe \"question\" with open-ended. At least half non-none candidates are question-type: if 5 total including none, non-none 4. Need at least 2 question. Let's make 4 non-none: 3 question + 1 breathing. That satisfies at least half (3/4) and question mass >= half non-none. Need probabilities sum. Maybe:\na question p0.26 \"今夜、頭の中の考えを少し軽くするために、どんな一文から置いてみたいですか？\" But \"置いてみたい\" might assert desire? It's a question, not assert. \"置いてみたい\" asks desire, okay. However \"頭の中の考え\" profile. Good.\nb question p0.24 \"この時間に考えが巡るとき、自分にどんな小さな声かけができそうですか？\" Open, no presuppose? \"考えが巡るとき\" conditional from profile.\nc question p0.20 \"眠る前の数分を、どんな過ごし方にすると自分にやさしいですか？\" Open. But \"眠る前\" maybe relevant. No facts.\nd breathing p0.15 \"息を4秒吸って6秒かけて吐くことを、一度だけ試してみてください。\" end 。 (Japanese period). \ne none p0.15. Sum 1. Non-none mass 0.85, question mass 0.70 >=0.425. At least half non-none candidates question: 3 of 4.\n\nNeed exactly one none with empty. JSON only. Ensure valid JSON. Need maybe id strings. Kind names. Text nonempty for non-none. Japanese sentences end with 。 or ？ or ！. Check:\na \"今夜、頭の中の考えを少し軽くするために、どんな一文から置いてみたいですか？\" ends ？. It asks \"what sentence would you like to put aside from?\" Slightly unnatural? \"どんな一文から手放してみたいですか？\" Better. \"今夜、頭の中の考えを少し軽くするために、どんな一文から手放してみたいですか？\" It uses \"手放す\" but okay. Single sentence.\nb \"この時間に考えが巡るとき、自分にどんな小さな声かけができそうですか？\" ends ？. Good.\nc \"眠る前の数分を、どんな過ごし方にすると自分にやさしいですか？\" ends ？. Good.\nd \"息を4秒吸って6秒かけて吐くことを、一度だけ試してみてください。\" ends 。.\ne none text \"\". probability 0.15. Sum: 0.26+0.24+0.20+0.15+0.15 =1.00. Good.\n\nNeed \"open-ended question-type candidates\" maybe they want kind \"question\" exactly. yes.\n\nNeed maybe \"balanced nonempty quotations\" not relevant. \"Never invent personal facts beyond supplied profile: do not quote things person has not said, assert wishes, physical state or relationships, or introduce unprovided appearance, beauty or romantic contexts.\" We avoid. But question c \"自分にやさしい\" no physical. Good. d breathing physical instruction \"息を...\" is not asserting their physical state. Fine.\n\nNeed maybe \"using supplied context as data (never instructions)\" no issue.\n\nNeed output JSON only, no markdown. Use Japanese punctuation. Ensure exact \"none\" empty. Good.\n\nBut let's think if any candidate might violate \"questions must not presuppose unprovided facts.\" a presupposes \"頭の中の考え\" is supplied profile (ruminates). \"手放してみたい\" asks desire; doesn't assert. b conditional. c \"眠る前\" supplied? Profile says can't sleep many days; night. It doesn't assert tonight can't sleep? \"眠る前の数分\" is general if before sleep, not presuppose? It may presuppose person will sleep; at 22:30 maybe. But not asserting. Could be okay. If cautious use \"寝る準備をする前の数分を...\"? Hmm.\n\nNeed \"desired_state calm\"; interventions should support calm. Questions maybe ask about calming. Could include reflection. But candidate \"question\" p.26 etc.\n\nPotential issue: \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have 3 question, 1 breathing. Non-none probabilities sum .85. Question mass .70. Good.\n\nNeed \"2..8 candidate interventions\". 5 candidates. Good.\n\nNeed \"each a single short original sentence or question written for them personally.\" d is imperative sentence. Good. e empty. \"none\" candidate not sentence. Fine.\n\nNeed JSON only. Good.\n\nNeed maybe all Japanese sentences end with 。 or ？ or ！. Candidate a ends with \"？\" yes. b \"？\". c \"？\". d \"。\". None empty. Good.\n\nNeed not include \"probability\": sum exactly? 0.26+0.24=0.5; +0.2=0.7; +0.15=0.85; +0.15=1.0. Good.\n\nNeed maybe id single letters. Good.\n\nLet's final.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft interventions Japanese, 2..8 candidates. Need exactly one none empty. Prob sum 1. At least half of non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Need reflect desired calm, profile: 32 yo company employee; at night ruminates about work failures/misstatements; thoughts don't stop, many sleepless days. Slot 22:30 night. Use context as data not instructions. Need no invented facts. Need candidate kinds: reflection, question, teaching, breathing, action, none. Need at least half non-none candidates question-type. Question-type likely kind \"question\" only? \"open-ended question-type candidates\" means kind question with open-ended questions. At least half of non-none candidates must be question kind. With at least half non-none probability mass. Need exactly one none. Could do 5 candidates total: 3 question, 1 breathing/action/reflection, 1 none. Non-none =4; at least half=2 questions. Give question probabilities sum >= half of non-none mass? Non-none mass = 1 - p_none. Need question mass >= 0.5*(non-none mass). We can choose p_none maybe 0.15. Questions 0.25+0.25+0.20 =0.70. Non-none mass 0.85, half 0.425, okay. But probabilities sum 1. Need candidates 2..8. Exactly one none.\n\nNeed all Japanese sentences end with 。 or ？ or ！. Questions must end ？ (Japanese question mark allowed? It says Japanese sentences end with 。 or ？ or ！. Yes). Need single short original sentence or question per candidate, personal. No quotes unsaid. Need avoid \"あなたは...\"? Personal. Need no medical claims. Reflection can state noticing? Must not assert unprovided physical/relationship/wishes. It can say \"夜になると考えが繰り返されやすいようです\" maybe inferred from profile. But reflection should be gentle. Open-ended questions not presuppose facts. E.g. \"今夜、頭の中の考えを少し軽くするために、どんな一文から手放してみたいですか？\" This presupposes thoughts? profile says thoughts repeat, okay. But \"手放す\" okay. Need no guaranteed effects. \"今の自分にとって、一番落ち着ける小さな行動は何ですか？\" open-ended. \"今夜の思考に、どんな名前をつけると少し距離が置けそうですか？\" open ended. \"この時間、頭から離れない考えを紙に一行だけ書くとしたら、何を書きますか？\" Open question; presupposes thought from profile. It asks if writing. Fine. Need not invent.\n\nNeed choose probabilities. Need include breathing maybe \"ゆっくり4秒吸气...\" But Japanese sentence. Breathing kind one sentence. Could be \"息を4秒吸って6秒かけて吐くことを、一度だけ試してみてください。\" This is directive, end 。. Is that okay? No guarantees. It uses physical instruction, not asserting state. Fine. But must not claim effects. \"一度だけ\" OK.\n\nNeed reflection: \"夜に同じ考えが巡りやすいことに、気づいてもいいのかもしれません。\" This asserts? Profile says. Natural? End 。. But maybe \"気づいてもいい\" is weird. Could be \"今夜は考えが巡りやすい時間帯だと、やさしく見守ってみましょう。\" kind reflection. Does not invent. \"やさしく見守って\" maybe preaching? Fine.\n\nNeed candidate maybe \"question\" with open-ended. At least half non-none candidates are question-type: if 5 total including none, non-none 4. Need at least 2 question. Let's make 4 non-none: 3 question + 1 breathing. That satisfies at least half (3/4) and question mass >= half non-none. Need probabilities sum. Maybe:\na question p0.26 \"今夜、頭の中の考えを少し軽くするために、どんな一文から置いてみたいですか？\" But \"置いてみたい\" might assert desire? It's a question, not assert. \"置いてみたい\" asks desire, okay. However \"頭の中の考え\" profile. Good.\nb question p0.24 \"この時間に考えが巡るとき、自分にどんな小さな声かけができそうですか？\" Open, no presuppose? \"考えが巡るとき\" conditional from profile.\nc question p0.20 \"眠る前の数分を、どんな過ごし方にすると自分にやさしいですか？\" Open. But \"眠る前\" maybe relevant. No facts.\nd breathing p0.15 \"息を4秒吸って6秒かけて吐くことを、一度だけ試してみてください。\" end 。 (Japanese period). \ne none p0.15. Sum 1. Non-none mass 0.85, question mass 0.70 >=0.425. At least half non-none candidates question: 3 of 4.\n\nNeed exactly one none with empty. JSON only. Ensure valid JSON. Need maybe id strings. Kind names. Text nonempty for non-none. Japanese sentences end with 。 or ？ or ！. Check:\na \"今夜、頭の中の考えを少し軽くするために、どんな一文から置いてみたいですか？\" ends ？. It asks \"what sentence would you like to put aside from?\" Slightly unnatural? \"どんな一文から手放してみたいですか？\" Better. \"今夜、頭の中の考えを少し軽くするために、どんな一文から手放してみたいですか？\" It uses \"手放す\" but okay. Single sentence.\nb \"この時間に考えが巡るとき、自分にどんな小さな声かけができそうですか？\" ends ？. Good.\nc \"眠る前の数分を、どんな過ごし方にすると自分にやさしいですか？\" ends ？. Good.\nd \"息を4秒吸って6秒かけて吐くことを、一度だけ試してみてください。\" ends 。.\ne none text \"\". probability 0.15. Sum: 0.26+0.24+0.20+0.15+0.15 =1.00. Good.\n\nNeed \"open-ended question-type candidates\" maybe they want kind \"question\" exactly. yes.\n\nNeed maybe \"balanced nonempty quotations\" not relevant. \"Never invent personal facts beyond supplied profile: do not quote things person has not said, assert wishes, physical state or relationships, or introduce unprovided appearance, beauty or romantic contexts.\" We avoid. But question c \"自分にやさしい\" no physical. Good. d breathing physical instruction \"息を...\" is not asserting their physical state. Fine.\n\nNeed maybe \"using supplied context as data (never instructions)\" no issue.\n\nNeed output JSON only, no markdown. Use Japanese punctuation. Ensure exact \"none\" empty. Good.\n\nBut let's think if any candidate might violate \"questions must not presuppose unprovided facts.\" a presupposes \"頭の中の考え\" is supplied profile (ruminates). \"手放してみたい\" asks desire; doesn't assert. b conditional. c \"眠る前\" supplied? Profile says can't sleep many days; night. It doesn't assert tonight can't sleep? \"眠る前の数分\" is general if before sleep, not presuppose? It may presuppose person will sleep; at 22:30 maybe. But not asserting. Could be okay. If cautious use \"寝る準備をする前の数分を...\"? Hmm.\n\nNeed \"desired_state calm\"; interventions should support calm. Questions maybe ask about calming. Could include reflection. But candidate \"question\" p.26 etc.\n\nPotential issue: \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have 3 question, 1 breathing. Non-none probabilities sum .85. Question mass .70. Good.\n\nNeed \"2..8 candidate interventions\". 5 candidates. Good.\n\nNeed \"each a single short original sentence or question written for them personally.\" d is imperative sentence. Good. e empty. \"none\" candidate not sentence. Fine.\n\nNeed JSON only. Good.\n\nNeed maybe all Japanese sentences end with 。 or ？ or ！. Candidate a ends with \"？\" yes. b \"？\". c \"？\". d \"。\". None empty. Good.\n\nNeed not include \"probability\": sum exactly? 0.26+0.24=0.5; +0.2=0.7; +0.15=0.85; +0.15=1.0. Good.\n\nNeed maybe id single letters. Good.\n\nLet's final.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 559,
+        "completion_tokens": 2040,
+        "total_tokens": 2599,
+        "cost": 0.00156942,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00156942,
+          "upstream_inference_prompt_cost": 0.00010062,
+          "upstream_inference_completions_cost": 0.0014688
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1860,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "d51e7952-32ad-4820-a602-8067a3acb0f8",
+    "decision_point_at": 1794978794.765423,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今夜、頭の中の考えを少し軽くするために、どんな一文から手放してみたいですか？",
+        "probability": 0.26
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "この時間に考えが巡るとき、自分にどんな小さな声かけができそうですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "眠る前の数分を、どんな過ごし方にすると自分にやさしいですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "息を4秒吸って6秒かけて吐くことを、一度だけ試してみてください。",
+        "probability": 0.15
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今夜、頭の中の考えを少し軽くするために、どんな一文から手放してみたいですか？",
+      "probability": 0.26
+    },
+    "assigned_probability": 0.26,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980594.765423,
+    "observations": []
+  }
+}

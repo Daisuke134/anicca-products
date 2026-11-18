@@ -1,0 +1,138 @@
+{
+  "index": 21,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978848-xLrhtEgHhTIB0jkEniaX",
+      "object": "chat.completion",
+      "created": 1794978848,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Nebius",
+      "system_fingerprint": "vllm-0.1.dev1+g2d75a0ca0.d20261029-dp2-ep-dbdef6e0",
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"reflection\",\"text\":\"集中が途切れたときは、何を後回しにしているかに気づくだけでも小さな一歩になります。\",\"probability\":0.18},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今の集中を途切れさせているものは、何だと思いますか？\",\"probability\":0.24},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"このあと最初に手をつけるなら、どんな小さな一歩が現実的ですか？\",\"probability\":0.22},{\"id\":\"d\",\"kind\":\"action\",\"text\":\"スマホを少し離れた場所に置いて、目の前の作業を5分だけ始めてみましょう。\",\"probability\":0.18},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need generate 2-8 candidate interventions for this person now Japanese focus desired. Need include exactly one none empty. Probabilities sum 1. At least half of non-none candidates must be open-ended question-type, with at least half non-none probability mass. Kinds allowed reflection, question, teaching, breathing, action, none. Need natural short original sentence/question personal. Avoid invent facts beyond profile. Profile: 29, WFH, concentration not lasting, procrastinates tasks then regrets at night, spends long time on smartphone. Desired focus. Time 12:30 day. Recent none.\n\nNeed decide candidates count maybe 5. Need at least half non-none open-ended question-type candidates, and >= half non-none probability mass. If 4 non-none, need at least 2 question; mass >=0.5 among non-none. Include none perhaps probability .20? Sum 1. Non-none mass total .8, question mass >= .4. Need exactly one none. We can do 5 candidates: 2 question, 1 action, 1 breathing, 1 none. Non-none=4; half=2 question. Prob: none .20; questions .25 + .20 = .45 (>=.4); action .20; breathing .15. Sum=1.0. Need maybe one reflection? Kinds? Could include reflection instead of breathing. But 2-8. Need exactly one none. At least half non-none candidates are open-ended question-type. \"question-type candidates\" kind question likely. Wording must be open-ended. Need make questions not presuppose unprovided facts. E.g.\n- \"今の集中を途切れさせているものは何だと感じますか？\" This asks feeling, okay.\n- \"このあと最初に手をつけるとしたら、どんな小さな一歩がよさそうですか？\" It presupposes they will choose? It's open. Maybe okay.\nNeed all candidates written for them personally, short original. Reflection: \"集中が続かないとき、何から始めるかを小さく決めると動きやすくなるかもしれません。\" teaching? This is teaching, no guaranteed. But kind teaching. Avoid medical. Maybe action: \"スマホを少し遠ざけて、目の前の作業を5分だけ開いてみましょう。\" This asserts can do? \"ましょう\" okay, not personal fact. But may be commandish? fine. Breathing: \"一度だけ肩の力を抜いて、ゆっくり息を吐いてみませんか？\" Open? kind breathing. It is a question but kind breathing, not counted. However requirement \"at least half of non-none candidates must be open-ended question-type candidates\" kind question, not just question punctuation. Need two question kind.\n\nNeed probabilities sum exactly. JSON only. Need IDs a-e. Include none text \"\". Need all Japanese sentences end with 。 or ？ or ！. Empty none exempt. Use Japanese. Need candidate probabilities maybe numbers. Ensure exactly one candidate kind none.\n\nPotential issue: \"none\" option to send nothing. Probability maybe 0.18. Questions mass: 0.24+0.22=0.46. Non-none total .82, half .41, okay. Other non-none: reflection .18, action .18, breathing .18? Sum none .18 + q .24 + q .22 + reflection .18 + action .18 = 1.00? Let's calculate .18+.24+.22+.18+.18=1.00 yes 5 candidates. Non-none=4. question count 2 = half. question mass .46 >= .41. Good. Kinds: reflection, question, question, action, none. No breathing. At least half non-none are question-type? exactly 2 of 4 yes. Need 2..8 candidates. 5 good.\n\nNeed ensure reflection is personal but not inventing. \"集中が続かないと感じたとき、始めることを一つだけ小さく決めると、夜の後悔が軽くなるかもしれません。\" This references profile \"concentration not lasting\" and regrets at night. But \"かもしれません\" no guarantee. Could be teaching. Kind reflection? Reflection should reflect person's state? Maybe \"集中が途切れやすい日は、始める前にスマホを少し遠ざけるだけでも流れが変わるかもしれません。\" This is teaching/reflection? Avoid \"日は\" maybe not fact? It's generic. Need kind reflection: reflect what they said: \"やるべきことを後回しにして夜に後悔する流れを、今のうちに小さく切り替えたいのかもしれません。\" This asserts wish? \"たいのかもしれません\" based on desired focus? Could be okay? Avoid assert wishes. Maybe \"後回しにしたまま夜になると後悔しやすい流れを、今は少しだけ変えられそうですか？\" That's question. Hmm.\n\nReflection candidate can be: \"集中が途切れたときは、何を後回しにしているかに気づくだけで十分な一歩になります。\" This is teaching-ish but not medical. It doesn't invent. Kind reflection maybe reflection on state.\n\nQuestion candidates:\n1 \"今の集中を途切れさせているものは、何だと思いますか？\" Open-ended, asks their thought. Does not presuppose.\n2 \"このあと最初に手をつけるなら、どんな小さな一歩が現実的ですか？\" Open-ended. \"このあと\" okay.\n\nAction:\n\"スマホを少し離れた場所に置いて、目の前の作業を5分だけ開いてみましょう。\" \"開いて\" weird for task; \"始めてみましょう\" better. \"スマホを少し離れた場所に置いて、目の前の作業を5分だけ始めてみましょう。\" It's an action suggestion. No guarantee.\n\nNone probability .18. Need maybe none should have high? Not specified. Good.\n\nNeed JSON only. Use valid JSON. No markdown. Ensure probabilities sum exactly 1.0. JSON numbers. Candidate IDs maybe a,b,c,d,e. Order maybe include none last. Need exactly one none. All non-none text Japanese complete. Need \"kind\":\"none\",\"text\":\"\",\"probability\":0.18. Could kind none with empty. Good.\n\nLet's craft final.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need generate 2-8 candidate interventions for this person now Japanese focus desired. Need include exactly one none empty. Probabilities sum 1. At least half of non-none candidates must be open-ended question-type, with at least half non-none probability mass. Kinds allowed reflection, question, teaching, breathing, action, none. Need natural short original sentence/question personal. Avoid invent facts beyond profile. Profile: 29, WFH, concentration not lasting, procrastinates tasks then regrets at night, spends long time on smartphone. Desired focus. Time 12:30 day. Recent none.\n\nNeed decide candidates count maybe 5. Need at least half non-none open-ended question-type candidates, and >= half non-none probability mass. If 4 non-none, need at least 2 question; mass >=0.5 among non-none. Include none perhaps probability .20? Sum 1. Non-none mass total .8, question mass >= .4. Need exactly one none. We can do 5 candidates: 2 question, 1 action, 1 breathing, 1 none. Non-none=4; half=2 question. Prob: none .20; questions .25 + .20 = .45 (>=.4); action .20; breathing .15. Sum=1.0. Need maybe one reflection? Kinds? Could include reflection instead of breathing. But 2-8. Need exactly one none. At least half non-none candidates are open-ended question-type. \"question-type candidates\" kind question likely. Wording must be open-ended. Need make questions not presuppose unprovided facts. E.g.\n- \"今の集中を途切れさせているものは何だと感じますか？\" This asks feeling, okay.\n- \"このあと最初に手をつけるとしたら、どんな小さな一歩がよさそうですか？\" It presupposes they will choose? It's open. Maybe okay.\nNeed all candidates written for them personally, short original. Reflection: \"集中が続かないとき、何から始めるかを小さく決めると動きやすくなるかもしれません。\" teaching? This is teaching, no guaranteed. But kind teaching. Avoid medical. Maybe action: \"スマホを少し遠ざけて、目の前の作業を5分だけ開いてみましょう。\" This asserts can do? \"ましょう\" okay, not personal fact. But may be commandish? fine. Breathing: \"一度だけ肩の力を抜いて、ゆっくり息を吐いてみませんか？\" Open? kind breathing. It is a question but kind breathing, not counted. However requirement \"at least half of non-none candidates must be open-ended question-type candidates\" kind question, not just question punctuation. Need two question kind.\n\nNeed probabilities sum exactly. JSON only. Need IDs a-e. Include none text \"\". Need all Japanese sentences end with 。 or ？ or ！. Empty none exempt. Use Japanese. Need candidate probabilities maybe numbers. Ensure exactly one candidate kind none.\n\nPotential issue: \"none\" option to send nothing. Probability maybe 0.18. Questions mass: 0.24+0.22=0.46. Non-none total .82, half .41, okay. Other non-none: reflection .18, action .18, breathing .18? Sum none .18 + q .24 + q .22 + reflection .18 + action .18 = 1.00? Let's calculate .18+.24+.22+.18+.18=1.00 yes 5 candidates. Non-none=4. question count 2 = half. question mass .46 >= .41. Good. Kinds: reflection, question, question, action, none. No breathing. At least half non-none are question-type? exactly 2 of 4 yes. Need 2..8 candidates. 5 good.\n\nNeed ensure reflection is personal but not inventing. \"集中が続かないと感じたとき、始めることを一つだけ小さく決めると、夜の後悔が軽くなるかもしれません。\" This references profile \"concentration not lasting\" and regrets at night. But \"かもしれません\" no guarantee. Could be teaching. Kind reflection? Reflection should reflect person's state? Maybe \"集中が途切れやすい日は、始める前にスマホを少し遠ざけるだけでも流れが変わるかもしれません。\" This is teaching/reflection? Avoid \"日は\" maybe not fact? It's generic. Need kind reflection: reflect what they said: \"やるべきことを後回しにして夜に後悔する流れを、今のうちに小さく切り替えたいのかもしれません。\" This asserts wish? \"たいのかもしれません\" based on desired focus? Could be okay? Avoid assert wishes. Maybe \"後回しにしたまま夜になると後悔しやすい流れを、今は少しだけ変えられそうですか？\" That's question. Hmm.\n\nReflection candidate can be: \"集中が途切れたときは、何を後回しにしているかに気づくだけで十分な一歩になります。\" This is teaching-ish but not medical. It doesn't invent. Kind reflection maybe reflection on state.\n\nQuestion candidates:\n1 \"今の集中を途切れさせているものは、何だと思いますか？\" Open-ended, asks their thought. Does not presuppose.\n2 \"このあと最初に手をつけるなら、どんな小さな一歩が現実的ですか？\" Open-ended. \"このあと\" okay.\n\nAction:\n\"スマホを少し離れた場所に置いて、目の前の作業を5分だけ開いてみましょう。\" \"開いて\" weird for task; \"始めてみましょう\" better. \"スマホを少し離れた場所に置いて、目の前の作業を5分だけ始めてみましょう。\" It's an action suggestion. No guarantee.\n\nNone probability .18. Need maybe none should have high? Not specified. Good.\n\nNeed JSON only. Use valid JSON. No markdown. Ensure probabilities sum exactly 1.0. JSON numbers. Candidate IDs maybe a,b,c,d,e. Order maybe include none last. Need exactly one none. All non-none text Japanese complete. Need \"kind\":\"none\",\"text\":\"\",\"probability\":0.18. Could kind none with empty. Good.\n\nLet's craft final.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 534,
+        "completion_tokens": 1506,
+        "total_tokens": 2040,
+        "cost": 0.00118044,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00118044,
+          "upstream_inference_prompt_cost": 9.612e-05,
+          "upstream_inference_completions_cost": 0.00108432
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1323,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "e09edab5-35a8-4453-98e7-dee91b4525c4",
+    "decision_point_at": 1794978852.974985,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "reflection",
+        "text": "集中が途切れたときは、何を後回しにしているかに気づくだけでも小さな一歩になります。",
+        "probability": 0.18
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今の集中を途切れさせているものは、何だと思いますか？",
+        "probability": 0.24
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "このあと最初に手をつけるなら、どんな小さな一歩が現実的ですか？",
+        "probability": 0.22
+      },
+      {
+        "id": "d",
+        "kind": "action",
+        "text": "スマホを少し離れた場所に置いて、目の前の作業を5分だけ始めてみましょう。",
+        "probability": 0.18
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.18
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "reflection",
+      "text": "集中が途切れたときは、何を後回しにしているかに気づくだけでも小さな一歩になります。",
+      "probability": 0.18
+    },
+    "assigned_probability": 0.18,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980652.974985,
+    "observations": []
+  }
+}

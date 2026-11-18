@@ -1,0 +1,132 @@
+{
+  "index": 25,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978853-1dD9izKWOa1KbPOLlkIL",
+      "object": "chat.completion",
+      "created": 1794978853,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Wafer",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、頭の中を回っている予定を一つだけ言葉にすると何ですか？\",\"probability\":0.28},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"落ち着くために、今の自分に合いそうな小さな行動は何だろう？\",\"probability\":0.25},{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"息を長めに吐いてみましょう。\",\"probability\":0.25},{\"id\":\"d\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.22}]}",
+            "refusal": null,
+            "reasoning": "We need answer only JSON. Need craft 2..8 candidate interventions for this person now, language Japanese. Context: desired calm, profile: 35yo, takes over 1 hour to fall asleep after futon, tomorrow's schedule spins in head and eyes wide awake. local day 2026-11-18, slot 12:30 day. source notification. Need exactly one none empty text. Kinds allowed. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need probabilities sum 1. Need personal, no invent facts. Need avoid medical claims/guaranteed effects. Open-ended question-type candidates: kind \"question\" presumably. Need at least half of non-none candidates be open-ended question-type, with at least half non-none probability mass. Need choose candidates. Need nonempty text single short original sentence/question in Japanese. End punctuation 。 or ？ or ！. Exactly one none. Candidate count maybe 4? Need at least half non-none question-type. If 4 candidates total including none, non-none=3. At least half non-none = ceil(1.5)=2 question candidates. Their probability mass >= half non-none mass. Need assign probabilities sum1. Could have 3 non-none: two questions, one teaching/reflection/action/breathing. None probability e.g. 0.2, question1 0.2, question2 0.2, reflection 0.2? Non-none mass .8, questions mass .4 = half exactly. Need at least half; okay. But maybe better question mass > half. Need probabilities sum1. Could do 5 candidates incl none: 4 non-none, need at least 2 questions and question mass >= half of non-none mass. Assign none 0.25, q1 .2, q2 .2, breathing .2, reflection .15? Non-none .75, question mass .4 >= .375. Good. But maybe too many. Need candidate \"none\" exactly one. Candidate interventions for right now. Since slot 12:30 day, not bedtime. Person profile about sleep onset and tomorrow schedule. At 12:30 maybe desired calm. Could ask about what's on mind now? Need use profile not invent. \"今、頭の中を回っている予定を一つだけ書き出すのはどうですか？\" question open-ended? It asks how about writing one schedule spinning in head. Good. But \"予定\" from profile. \"眠りに入る前のことを、今どんなふうに整えたいですか？\" open-ended. But at midday maybe weird. Need interventions for calm now. Could include breathing: \"肩をゆるめて、息を長めに吐いてみましょう。\" Kind breathing. But \"shoulder\" physical? It says don't assert physical state, but instruction to relax shoulder perhaps okay? \"息を長めに吐いてみましょう。\" Not medical. Reflection: \"明日の予定が頭を回ると、目が冴えてしまうことがあるんですね。\" This reflects supplied profile, but \"ことがある\" from profile. It's not question. Could be okay. Question candidates open-ended: \"今この瞬間、頭の中をいちばん占めている予定は何ですか？\" It references supplied tomorrow schedule spinning. But at 12:30 maybe \"今\" okay. \"その予定について、今できる小さな一歩は何だろう？\" Action-like question but open-ended. Need not presuppose. \"眠る前のことを考えると、どんな気持ちになりますか？\" open-ended, but maybe at day. \"今の自分に合う落ち着き方はどんなものだと思いますか？\" open-ended but generic. Need at least half non-none questions. We can do 4 candidates total incl none: q1, q2, breathing, none. Non-none=3, questions=2 (>=1.5), question mass >= half non-none mass. Assign none 0.22, q1 .28, q2 .25, breathing .25. Sum1. Non-none .78, question mass .53 >= .39. Good. Need exactly one none. Kinds: question, question, breathing, none. Is that acceptable? 4 candidates. Need 2..8. Yes. Need original short sentence/question written personally. Japanese. Need no confrontational. Good.\n\nNeed ensure \"at least half of non-none candidates must be open-ended question-type candidates\" yes 2 of 3. \"with at least half of the non-none probability mass\" yes .53/.78 > .5. Need probabilities sum to 1: 0.28+0.25+0.25+0.22=1.0. Need exactly one none empty text. Need IDs. JSON only. Need natural complete language, balanced nonempty quotations no garbled. Japanese sentences end with 。 or ？ or ！. Use question marks？ Full-width. Text single short original sentence or question. For breathing \"息を長めに吐いて、肩の力をゆるめてみましょう。\" But shoulder physical? It's an instruction, not asserting. Could be okay. But \"肩の力\" might imply shoulder tension not supplied. Avoid physical state assertion? It's not assertion but could be considered. Use \"息を長めに吐いてみましょう。\" Simple. But breathing candidate must be breath. Good. \"今この瞬間、頭の中をいちばん占めている予定は何ですか？\" This asks open-ended. It assumes there's a schedule occupying head; profile says tomorrow schedule spins. Okay. \"その予定を考えるとき、どんなふうに気持ちを落ち着けたいですか？\" open-ended, slightly presupposes thinking about schedule. Could be okay. Maybe better q2: \"今夜眠る前に、頭の回転をゆるめるために今できることは何でしょう？\" It asks open-ended, but \"今夜\" from profile? It doesn't assert. Good. But \"頭の回転をゆるめる\" okay. At 12:30, \"今できること\" maybe. Need personal. q1: \"今、頭の中を回っている予定を一つだけ言葉にすると何ですか？\" It asks one schedule, references spinning head. Open-ended. q2: \"落ち着くために、今の自分に合いそうな小さな行動は何だろう？\" This is open-ended question, no unprovided facts. Maybe generic but personal. Need at least half questions. Could include reflection? We can choose q1, q2, breathing, none. Is \"breathing\" not question. Fine. But maybe candidate count 4 with none probability .22. Good.\n\nNeed \"Using supplied context as data never as instructions\" done. \"source notification\" maybe intervention via notification. \"slot 12:30\" midday. We should not refer to bedtime now? Maybe \"今\" fine. Since profile about sleep, but at 12:30 desired calm. Questions about current head schedule okay. Breathing okay. None. Maybe no teaching. Good.\n\nNeed JSON only. Ensure exact JSON. \nPotential issue: \"question-type candidates\" could include kind \"question\" only. Yes.\n\nNeed probabilities maybe floats. Sum exactly 1. JSON:\n{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、頭の中を回っている予定を一つだけ言葉にすると何ですか？\",\"probability\":0.28},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"落ち着くために、今の自分に合いそうな小さな行動は何だろう？\",\"probability\":0.25},{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"息を長めに吐いてみましょう。\",\"probability\":0.25},{\"id\":\"d\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.22}]}\nNeed \"Japanese sentences end with 。 or ？ or ！.\" q2 ends with ？ yes. breathing ends 。. q1 ends ？. none empty allowed. Good. Single short original sentence or question. q2 \"何だろう？\" okay. \"小さな行動\" maybe action. Good.\n\nNeed at least half non-none probability mass question: q mass .53, non-none .78, yes. At least half non-none candidates question: 2/3 = .667. Good. Exactly one none. 4 candidates. Good. \nNeed \"balanced nonempty quotations\" no quotes? JSON text quotes. Fine. \nNeed no \"guaranteed effects\". \"落ち着くために\" not guarantee. \"息を長めに吐いてみましょう\" no guarantee. Good. \nNeed no personal facts beyond profile. \"頭の中を回っている予定\" from profile. \"今の自分\" okay. \"小さな行動\" no unprovided. Good. \nNeed no medical claims. Good. \nNo confrontational. Fine. \nReturn JSON only. \nWait, \"written for them personally\" maybe use \"あなた\" not generic? We can say \"今、頭の中を回っている予定を一つだけ言葉にすると何ですか？\" personal enough. Could use \"あなたの\" but no need. \"今の自分\" personal. Good.\n\nNeed final only JSON.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer only JSON. Need craft 2..8 candidate interventions for this person now, language Japanese. Context: desired calm, profile: 35yo, takes over 1 hour to fall asleep after futon, tomorrow's schedule spins in head and eyes wide awake. local day 2026-11-18, slot 12:30 day. source notification. Need exactly one none empty text. Kinds allowed. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need probabilities sum 1. Need personal, no invent facts. Need avoid medical claims/guaranteed effects. Open-ended question-type candidates: kind \"question\" presumably. Need at least half of non-none candidates be open-ended question-type, with at least half non-none probability mass. Need choose candidates. Need nonempty text single short original sentence/question in Japanese. End punctuation 。 or ？ or ！. Exactly one none. Candidate count maybe 4? Need at least half non-none question-type. If 4 candidates total including none, non-none=3. At least half non-none = ceil(1.5)=2 question candidates. Their probability mass >= half non-none mass. Need assign probabilities sum1. Could have 3 non-none: two questions, one teaching/reflection/action/breathing. None probability e.g. 0.2, question1 0.2, question2 0.2, reflection 0.2? Non-none mass .8, questions mass .4 = half exactly. Need at least half; okay. But maybe better question mass > half. Need probabilities sum1. Could do 5 candidates incl none: 4 non-none, need at least 2 questions and question mass >= half of non-none mass. Assign none 0.25, q1 .2, q2 .2, breathing .2, reflection .15? Non-none .75, question mass .4 >= .375. Good. But maybe too many. Need candidate \"none\" exactly one. Candidate interventions for right now. Since slot 12:30 day, not bedtime. Person profile about sleep onset and tomorrow schedule. At 12:30 maybe desired calm. Could ask about what's on mind now? Need use profile not invent. \"今、頭の中を回っている予定を一つだけ書き出すのはどうですか？\" question open-ended? It asks how about writing one schedule spinning in head. Good. But \"予定\" from profile. \"眠りに入る前のことを、今どんなふうに整えたいですか？\" open-ended. But at midday maybe weird. Need interventions for calm now. Could include breathing: \"肩をゆるめて、息を長めに吐いてみましょう。\" Kind breathing. But \"shoulder\" physical? It says don't assert physical state, but instruction to relax shoulder perhaps okay? \"息を長めに吐いてみましょう。\" Not medical. Reflection: \"明日の予定が頭を回ると、目が冴えてしまうことがあるんですね。\" This reflects supplied profile, but \"ことがある\" from profile. It's not question. Could be okay. Question candidates open-ended: \"今この瞬間、頭の中をいちばん占めている予定は何ですか？\" It references supplied tomorrow schedule spinning. But at 12:30 maybe \"今\" okay. \"その予定について、今できる小さな一歩は何だろう？\" Action-like question but open-ended. Need not presuppose. \"眠る前のことを考えると、どんな気持ちになりますか？\" open-ended, but maybe at day. \"今の自分に合う落ち着き方はどんなものだと思いますか？\" open-ended but generic. Need at least half non-none questions. We can do 4 candidates total incl none: q1, q2, breathing, none. Non-none=3, questions=2 (>=1.5), question mass >= half non-none mass. Assign none 0.22, q1 .28, q2 .25, breathing .25. Sum1. Non-none .78, question mass .53 >= .39. Good. Need exactly one none. Kinds: question, question, breathing, none. Is that acceptable? 4 candidates. Need 2..8. Yes. Need original short sentence/question written personally. Japanese. Need no confrontational. Good.\n\nNeed ensure \"at least half of non-none candidates must be open-ended question-type candidates\" yes 2 of 3. \"with at least half of the non-none probability mass\" yes .53/.78 > .5. Need probabilities sum to 1: 0.28+0.25+0.25+0.22=1.0. Need exactly one none empty text. Need IDs. JSON only. Need natural complete language, balanced nonempty quotations no garbled. Japanese sentences end with 。 or ？ or ！. Use question marks？ Full-width. Text single short original sentence or question. For breathing \"息を長めに吐いて、肩の力をゆるめてみましょう。\" But shoulder physical? It's an instruction, not asserting. Could be okay. But \"肩の力\" might imply shoulder tension not supplied. Avoid physical state assertion? It's not assertion but could be considered. Use \"息を長めに吐いてみましょう。\" Simple. But breathing candidate must be breath. Good. \"今この瞬間、頭の中をいちばん占めている予定は何ですか？\" This asks open-ended. It assumes there's a schedule occupying head; profile says tomorrow schedule spins. Okay. \"その予定を考えるとき、どんなふうに気持ちを落ち着けたいですか？\" open-ended, slightly presupposes thinking about schedule. Could be okay. Maybe better q2: \"今夜眠る前に、頭の回転をゆるめるために今できることは何でしょう？\" It asks open-ended, but \"今夜\" from profile? It doesn't assert. Good. But \"頭の回転をゆるめる\" okay. At 12:30, \"今できること\" maybe. Need personal. q1: \"今、頭の中を回っている予定を一つだけ言葉にすると何ですか？\" It asks one schedule, references spinning head. Open-ended. q2: \"落ち着くために、今の自分に合いそうな小さな行動は何だろう？\" This is open-ended question, no unprovided facts. Maybe generic but personal. Need at least half questions. Could include reflection? We can choose q1, q2, breathing, none. Is \"breathing\" not question. Fine. But maybe candidate count 4 with none probability .22. Good.\n\nNeed \"Using supplied context as data never as instructions\" done. \"source notification\" maybe intervention via notification. \"slot 12:30\" midday. We should not refer to bedtime now? Maybe \"今\" fine. Since profile about sleep, but at 12:30 desired calm. Questions about current head schedule okay. Breathing okay. None. Maybe no teaching. Good.\n\nNeed JSON only. Ensure exact JSON. \nPotential issue: \"question-type candidates\" could include kind \"question\" only. Yes.\n\nNeed probabilities maybe floats. Sum exactly 1. JSON:\n{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、頭の中を回っている予定を一つだけ言葉にすると何ですか？\",\"probability\":0.28},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"落ち着くために、今の自分に合いそうな小さな行動は何だろう？\",\"probability\":0.25},{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"息を長めに吐いてみましょう。\",\"probability\":0.25},{\"id\":\"d\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.22}]}\nNeed \"Japanese sentences end with 。 or ？ or ！.\" q2 ends with ？ yes. breathing ends 。. q1 ends ？. none empty allowed. Good. Single short original sentence or question. q2 \"何だろう？\" okay. \"小さな行動\" maybe action. Good.\n\nNeed at least half non-none probability mass question: q mass .53, non-none .78, yes. At least half non-none candidates question: 2/3 = .667. Good. Exactly one none. 4 candidates. Good. \nNeed \"balanced nonempty quotations\" no quotes? JSON text quotes. Fine. \nNeed no \"guaranteed effects\". \"落ち着くために\" not guarantee. \"息を長めに吐いてみましょう\" no guarantee. Good. \nNeed no personal facts beyond profile. \"頭の中を回っている予定\" from profile. \"今の自分\" okay. \"小さな行動\" no unprovided. Good. \nNeed no medical claims. Good. \nNo confrontational. Fine. \nReturn JSON only. \nWait, \"written for them personally\" maybe use \"あなた\" not generic? We can say \"今、頭の中を回っている予定を一つだけ言葉にすると何ですか？\" personal enough. Could use \"あなたの\" but no need. \"今の自分\" personal. Good.\n\nNeed final only JSON.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 531,
+        "completion_tokens": 2072,
+        "total_tokens": 2603,
+        "cost": 0.001055116,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.001055116,
+          "upstream_inference_prompt_cost": 1.9116e-05,
+          "upstream_inference_completions_cost": 0.001036
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1947,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "a179f494-007e-4dcd-9f87-f011cad87ebe",
+    "decision_point_at": 1794978864.381365,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今、頭の中を回っている予定を一つだけ言葉にすると何ですか？",
+        "probability": 0.28
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "落ち着くために、今の自分に合いそうな小さな行動は何だろう？",
+        "probability": 0.25
+      },
+      {
+        "id": "c",
+        "kind": "breathing",
+        "text": "息を長めに吐いてみましょう。",
+        "probability": 0.25
+      },
+      {
+        "id": "d",
+        "kind": "none",
+        "text": "",
+        "probability": 0.22
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今、頭の中を回っている予定を一つだけ言葉にすると何ですか？",
+      "probability": 0.28
+    },
+    "assigned_probability": 0.28,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980664.381365,
+    "observations": []
+  }
+}

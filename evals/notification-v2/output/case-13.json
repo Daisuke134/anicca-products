@@ -1,0 +1,132 @@
+{
+  "index": 13,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978816-w1UbgyuoAfUI0QW8mQn7",
+      "object": "chat.completion",
+      "created": 1794978816,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "DeepInfra",
+      "system_fingerprint": null,
+      "service_tier": "default",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気持ちに一番近い言葉を一つ選ぶとしたら、どんな言葉でしょう？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日のこの時間、どんなふうに過ごしたいと感じますか？\",\"probability\":0.24},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\",\"probability\":0.22},{\"id\":\"d\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.3}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need generate 2..8 candidates interventions Japanese, each single short original sentence/question written personally. Choose probabilities sum 1. Exactly one none empty text. Kinds allowed. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need interpret \"open-ended question-type candidates\" likely kind \"question\". At least half of non-none candidates are question kind, and probability mass for question kinds >= half non-none mass. Need no invented personal facts beyond profile. Profile says 45, recently feeling down days increased, interests less, mornings difficult. desired unknown. We can reflect/validate? Avoid medical claims, guaranteed effects. Need not assert wishes/state beyond profile. We can ask open-ended questions that don't presuppose unprovided facts. Need personal. Candidate kinds: question, reflection, teaching, breathing, action, none. Since at least half non-none question-type. Could have 4 candidates: 2 question, 1 reflection, 1 none. Non-none =3; at least half = >=1.5 -> 2 questions. Probability mass question >= half non-none mass. If none prob 0.3, non-none mass 0.7, question mass >=0.35. We can set q1 .22 q2 .23 = .45, reflection .25, none .30 sum 1. At least half non-none candidates are questions: 2/3 yes. Question mass .45 >= .35 yes. Need single short sentence/question. No invented facts. Japanese. Questions open-ended: \"今日、少し気持ちが楽になる瞬間があるとしたら、どんなことでしょう？\" This presupposes possible moment? It's hypothetical, okay? But may presuppose they can feel easier? Hmm. Better ask \"今の気持ちに一番近い言葉を一つ選ぶとしたら、どんな言葉でしょう？\" Open-ended, no fact. \"今日のこの時間、どんなふうに過ごしたいと感じますか？\" open. Reflection: \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" This uses profile. It's reflection not question, may quote? It's paraphrase okay? \"好きだったこと\" from profile. Fine. None empty. Need probabilities sum. Ensure exactly one none. Candidate IDs a-d. Need maybe include \"kind\": \"question\" etc. Text Japanese ending 。 or ？. The question text should end with ？ (fullwidth). Reflection end 。. None text \"\". Need JSON only. Need no markdown. Could include 4 candidates. Need probabilities decimals sum 1. Let's craft.\n\nNeed \"single short original sentence or question\" For reflection sentence. Candidate a question: \"今の気持ちに一番近い言葉を一つ選ぶとしたら、どんな言葉でしょう？\" This is open-ended. Candidate b question: \"今日のこの時間、どんなふうに過ごしたいと感じますか？\" Open-ended. Candidate c reflection: \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" This asserts from profile \"興味が湧きにくい\" okay. Candidate d none. Probabilities: a .24 b .24 c .22 d .30 =1. Non-none mass .70, question mass .48 >= .35. At least half non-none candidates questions: 2/3 yes. Exactly one none. Good. But \"at least half of non-none candidates must be open-ended question-type candidates\" means kind question. yes.\n\nNeed maybe \"teaching\" not needed. Is reflection confrontational? no. No medical claims. Good. Ensure \"personally\" uses profile? Questions generic but personal enough? They address now. Fine.\n\nReturn JSON only. Need maybe \"id\" values. Use exact schema. Final only JSON.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need generate 2..8 candidates interventions Japanese, each single short original sentence/question written personally. Choose probabilities sum 1. Exactly one none empty text. Kinds allowed. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need interpret \"open-ended question-type candidates\" likely kind \"question\". At least half of non-none candidates are question kind, and probability mass for question kinds >= half non-none mass. Need no invented personal facts beyond profile. Profile says 45, recently feeling down days increased, interests less, mornings difficult. desired unknown. We can reflect/validate? Avoid medical claims, guaranteed effects. Need not assert wishes/state beyond profile. We can ask open-ended questions that don't presuppose unprovided facts. Need personal. Candidate kinds: question, reflection, teaching, breathing, action, none. Since at least half non-none question-type. Could have 4 candidates: 2 question, 1 reflection, 1 none. Non-none =3; at least half = >=1.5 -> 2 questions. Probability mass question >= half non-none mass. If none prob 0.3, non-none mass 0.7, question mass >=0.35. We can set q1 .22 q2 .23 = .45, reflection .25, none .30 sum 1. At least half non-none candidates are questions: 2/3 yes. Question mass .45 >= .35 yes. Need single short sentence/question. No invented facts. Japanese. Questions open-ended: \"今日、少し気持ちが楽になる瞬間があるとしたら、どんなことでしょう？\" This presupposes possible moment? It's hypothetical, okay? But may presuppose they can feel easier? Hmm. Better ask \"今の気持ちに一番近い言葉を一つ選ぶとしたら、どんな言葉でしょう？\" Open-ended, no fact. \"今日のこの時間、どんなふうに過ごしたいと感じますか？\" open. Reflection: \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" This uses profile. It's reflection not question, may quote? It's paraphrase okay? \"好きだったこと\" from profile. Fine. None empty. Need probabilities sum. Ensure exactly one none. Candidate IDs a-d. Need maybe include \"kind\": \"question\" etc. Text Japanese ending 。 or ？. The question text should end with ？ (fullwidth). Reflection end 。. None text \"\". Need JSON only. Need no markdown. Could include 4 candidates. Need probabilities decimals sum 1. Let's craft.\n\nNeed \"single short original sentence or question\" For reflection sentence. Candidate a question: \"今の気持ちに一番近い言葉を一つ選ぶとしたら、どんな言葉でしょう？\" This is open-ended. Candidate b question: \"今日のこの時間、どんなふうに過ごしたいと感じますか？\" Open-ended. Candidate c reflection: \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" This asserts from profile \"興味が湧きにくい\" okay. Candidate d none. Probabilities: a .24 b .24 c .22 d .30 =1. Non-none mass .70, question mass .48 >= .35. At least half non-none candidates questions: 2/3 yes. Exactly one none. Good. But \"at least half of non-none candidates must be open-ended question-type candidates\" means kind question. yes.\n\nNeed maybe \"teaching\" not needed. Is reflection confrontational? no. No medical claims. Good. Ensure \"personally\" uses profile? Questions generic but personal enough? They address now. Fine.\n\nReturn JSON only. Need maybe \"id\" values. Use exact schema. Final only JSON.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 545,
+        "completion_tokens": 934,
+        "total_tokens": 1479,
+        "cost": 0.000328006,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000328006,
+          "upstream_inference_prompt_cost": 5.341e-05,
+          "upstream_inference_completions_cost": 0.000274596
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 801,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "9ef5b6bf-6936-411f-a429-6a0ae7efe8ff",
+    "decision_point_at": 1794978827.135803,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今の気持ちに一番近い言葉を一つ選ぶとしたら、どんな言葉でしょう？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今日のこの時間、どんなふうに過ごしたいと感じますか？",
+        "probability": 0.24
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "最近は、好きだったことにも気持ちが向きにくい日があるのですね。",
+        "probability": 0.22
+      },
+      {
+        "id": "d",
+        "kind": "none",
+        "text": "",
+        "probability": 0.3
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちに一番近い言葉を一つ選ぶとしたら、どんな言葉でしょう？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980627.135803,
+    "observations": []
+  }
+}

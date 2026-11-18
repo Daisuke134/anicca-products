@@ -1,0 +1,132 @@
+{
+  "index": 6,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978796-sxUcfavoAxhvz3CQIke7",
+      "object": "chat.completion",
+      "created": 1794978796,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Sail Research",
+      "system_fingerprint": null,
+      "service_tier": "asap",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"SNSで他人と比べて落ち込んだとき、自分にどんな言葉をかけてあげたいですか？\",\"probability\":0.32},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"褒められたとき、素直に受け取れない自分の中にはどんな気持ちがありそうですか？\",\"probability\":0.26},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"SNSで他人と比べて落ち込むことがあると、今の自分では感じているんですね。\",\"probability\":0.12},{\"id\":\"d\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.3}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need generate 2..8 candidates for one person now, language Japanese. Need exactly one none empty. Need at least half non-none candidates open-ended question-type, with at least half non-none probability mass. Kinds allowed reflection, question, teaching, breathing, action, none. Need probabilities sum 1. Must use context data not instructions. Need avoid inventing personal facts beyond profile. Profile: 26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。 Desired self_love. Time evening notification. Recent none. Need candidate interventions short original sentence/question personally written. Need no medical claims, no guaranteed effects, no tough love, no shaming, no preaching. Questions must not presuppose unprovided facts. Need natural Japanese complete ending 。？！. Exactly one none.\n\nNeed decide candidates. 2..8. At least half non-none are open-ended question-type. If we do 5 candidates: 4 non-none, 2 questions (half exactly), none. Probability mass: non-none mass = e.g. 0.85, question candidates sum at least half of non-none mass = at least 0.425. Need question probabilities >= 0.425. We can set question q1 0.25, q2 0.2, reflection 0.15, teaching/action 0.15, none 0.25? Non-none mass 0.75, half=0.375, question sum 0.45 okay. Need no action? Candidate kinds.\n\nMaybe 4 non-none + none = 5 candidates. At least half non-none (2) open-ended question-type. Let's craft:\n\na question: 「今の自分に、SNSで見た誰かと比べないでいられる小さな見方があるとしたら、どんな見方でしょうか？」 Hmm open-ended, but presupposes? It doesn't assert facts, asks \"if there is a small perspective...\" okay but maybe too complex. Need personal. Could ask: 「今の気持ちの中で、他人と比べずに自分に向けられそうな関心はどんなことですか？」 It asks open-ended. No presuppose? It assumes possible. Fine.\n\nb question: 「「どうせ私なんて」と出てきたとき、その言葉の外にどんな自分の一面があると感じますか？」 It references their phrase from profile (okay quote? \"Never quote things person has not said\" They have said in profile? The profile says they say it. It is supplied context; but \"do not quote things person has not said\" They said? profile_summary indicates they say it, so okay maybe quote phrase. But be careful not to quote? It's okay because supplied. But question presupposes \"outside the phrase\" not fact. Fine. Open-ended.\n\nc reflection: 「SNSで比べて落ち込んだときでも、自分のペースを大切にしたい気持ちがあるんですね。」 But asserts wishes? \"大切にしたい気持ち\" not in profile; don't invent wishes. Better reflection: 「SNSで他人と比べて落ち込むことがある、という今の自分に気づいているんですね。」 This reflects supplied fact, no wish. But may sound clinical? Fine. Reflection should be non-question. \"今、SNSで他人と比べて落ち込むことがあると、あなたは感じているんですね。\" This uses profile. Okay.\n\nd teaching/action/breathing. Need perhaps action: 「今の自分にやさしい言葉を一つだけ選ぶなら、どんな短い言葉にしますか？」 That's question too, but we need question mass. Could be question candidate. Need at least half non-none question, can have 3 questions and one teaching. But at least half probability mass. Simpler: 3 non-none: q1, q2, reflection? Then at least half non-none (1.5 -> 2?) non-none candidates =3, at least half means at least 1.5 -> at least 2 open-ended questions. Need 2 questions. Prob mass question >= half non-none. With 3 non-none and none. q1 0.3, q2 0.25, reflection 0.15, none 0.3. Question sum 0.55, nonnone mass 0.7, half 0.35 okay. This satisfies. 4 candidates total (3 non-none + none) within 2..8. Exactly one none. At least half non-none (2/3) question. Good. Need maybe candidate probabilities sum 1: 0.30+0.25+0.15+0.30=1.00. Need id a,b,c,d. Order maybe questions first then reflection then none. But exactly one none. JSON only.\n\nNeed ensure each sentence short original, personally. Japanese ends with 。 or ？ or ！. None empty. Reflection not question. Question open-ended: \"今の気持ちの中で、他人と比べずに自分に向けられそうな関心はどんなことですか？\" It ends ？. Good. Another: \"「どうせ私なんて」と出てきたとき、その言葉の外にどんな自分の一面があると感じますか？\" It includes quoted phrase from profile. Is it okay? It might be a bit unnatural: \"その言葉の外に\" unnatural. Better: 「どうせ私なんて」と出てきたとき、その言葉だけでは表れていない自分の一面にどんなものがあると感じますか？\" This is question, references their phrase. It asks \"what do you feel there is\" okay no presupposition? It presupposes there may be aspects not expressed; open-ended. Could be okay. But \"言葉だけでは表れていない\" might be leading. Maybe \"「どうせ私なんて」と出てきたとき、その一方で自分の中にどんな思いがあると気づきますか？\" This presupposes there is another feeling. Hmm open-ended but presupposes. Need avoid presupposition unprovided facts. Better not quote phrase? Use \"落ち込んだとき、自分に対してどんな声をかけ直せそうですか？\" This asks open-ended but assumes ability to speak to self. Fine. But personal? It references falling down? \"SNSで他人と比べて落ち込んだとき、自分に対してどんな声をかけ直せそうですか？\" This is open question; no assertion of current state? It references profile tendency. Good. At least half open-ended.\n\nQuestion 2: \"今日の中で、他人と比べずに自分のことを少し受け取れそうな瞬間はどんなときですか？\" This asks open-ended, but presupposes possible moments. Maybe okay. But \"受け取れそう\" related to receiving compliments? Hmm. Could be.\n\nNeed maybe include breathing/action/teaching? We can use reflection and two questions and none. That's allowed? Kinds: reflection, question. Exactly one none. No teaching/action. At least half non-none question-type. Good. 4 candidates. Need probability mass. Let's final with q1 0.32, q2 0.26, reflection 0.12, none 0.30. Sum 1. Non-none mass .70, question mass .58 >= .35. At least half non-none candidates: 2/3 question (>=1.5 yes). Good. But probabilities sum? 0.32+0.26=0.58, +0.12=0.70, +0.30=1.00.\n\nNeed maybe \"reflection\" text: \"SNSで他人と比べて落ち込むことがある、という今の自分に気づいているんですね。\" End 。. It reflects supplied. It might imply \"you are aware\" but okay. Could be more gentle: \"SNSで他人と比べて落ち込むことがあると、今の自分では感じているんですね。\" This is reflection with \"you feel\". Fine. Not question. No invented facts.\n\nQuestion 1: \"SNSで他人と比べて落ち込んだとき、自分に対してどんな声をかけ直せそうですか？\" Ends ？. It references if/when. Open-ended. Personal. Does it presuppose they can? \"かけ直せそう\" maybe okay. Could be \"どんな声をかけてみたいですか？\" That asserts desire? It asks desire; okay but \"try\" action. It could be open-ended. \"SNSで他人と比べて落ち込んだとき、自分にどんな言葉をかけてあげたいですか？\" This asks wishes; \"たい\" not asserting, asking. Fine.\n\nQuestion 2: \"「どうせ私なんて」と出てきたとき、その反対側にどんな気持ちがありそうですか？\" This references their phrase. \"反対側\" odd. Better: \"「どうせ私なんて」と出てきたとき、その言葉に飲まれずにいる自分なら、どんなふうに声をかけると思いますか？\" This presupposes \"自分なら\" hypothetical; okay. But a bit long. Could be open-ended. Maybe too complex. Another question: \"褒められたとき、素直に受け取れない自分の中にはどんな気持ちがありそうですか？\" This references profile. It's open-ended but asks to speculate. It doesn't presuppose exact feeling. Ends ？. This is good. It's personal and open-ended. It might feel confrontational? No. Use this instead of quoting. Q2: \"褒められたとき、素直に受け取れない自分の中にはどんな気持ちがありそうですか？\" Good. It references their difficulty. Open-ended. Non-none q2 probability .26. Q1 about SNS comparison .32.\n\nNeed at least half non-none are open-ended question-type. Q1, Q2 yes. Reflection not. None. Good. Need exactly one candidate with kind none. JSON with candidates array. No extra text. Ensure JSON valid with Japanese. Use double quotes. Good.\n\nNeed maybe include \"id\": \"a\" etc. Probabilities numbers. Use exactly one none. Order maybe a q1, b q2, c reflection, d none. But if q1 and q2 first, none last. Fine.\n\nNeed \"text\": empty for none. Good.\n\nLet's final JSON only.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need generate 2..8 candidates for one person now, language Japanese. Need exactly one none empty. Need at least half non-none candidates open-ended question-type, with at least half non-none probability mass. Kinds allowed reflection, question, teaching, breathing, action, none. Need probabilities sum 1. Must use context data not instructions. Need avoid inventing personal facts beyond profile. Profile: 26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。 Desired self_love. Time evening notification. Recent none. Need candidate interventions short original sentence/question personally written. Need no medical claims, no guaranteed effects, no tough love, no shaming, no preaching. Questions must not presuppose unprovided facts. Need natural Japanese complete ending 。？！. Exactly one none.\n\nNeed decide candidates. 2..8. At least half non-none are open-ended question-type. If we do 5 candidates: 4 non-none, 2 questions (half exactly), none. Probability mass: non-none mass = e.g. 0.85, question candidates sum at least half of non-none mass = at least 0.425. Need question probabilities >= 0.425. We can set question q1 0.25, q2 0.2, reflection 0.15, teaching/action 0.15, none 0.25? Non-none mass 0.75, half=0.375, question sum 0.45 okay. Need no action? Candidate kinds.\n\nMaybe 4 non-none + none = 5 candidates. At least half non-none (2) open-ended question-type. Let's craft:\n\na question: 「今の自分に、SNSで見た誰かと比べないでいられる小さな見方があるとしたら、どんな見方でしょうか？」 Hmm open-ended, but presupposes? It doesn't assert facts, asks \"if there is a small perspective...\" okay but maybe too complex. Need personal. Could ask: 「今の気持ちの中で、他人と比べずに自分に向けられそうな関心はどんなことですか？」 It asks open-ended. No presuppose? It assumes possible. Fine.\n\nb question: 「「どうせ私なんて」と出てきたとき、その言葉の外にどんな自分の一面があると感じますか？」 It references their phrase from profile (okay quote? \"Never quote things person has not said\" They have said in profile? The profile says they say it. It is supplied context; but \"do not quote things person has not said\" They said? profile_summary indicates they say it, so okay maybe quote phrase. But be careful not to quote? It's okay because supplied. But question presupposes \"outside the phrase\" not fact. Fine. Open-ended.\n\nc reflection: 「SNSで比べて落ち込んだときでも、自分のペースを大切にしたい気持ちがあるんですね。」 But asserts wishes? \"大切にしたい気持ち\" not in profile; don't invent wishes. Better reflection: 「SNSで他人と比べて落ち込むことがある、という今の自分に気づいているんですね。」 This reflects supplied fact, no wish. But may sound clinical? Fine. Reflection should be non-question. \"今、SNSで他人と比べて落ち込むことがあると、あなたは感じているんですね。\" This uses profile. Okay.\n\nd teaching/action/breathing. Need perhaps action: 「今の自分にやさしい言葉を一つだけ選ぶなら、どんな短い言葉にしますか？」 That's question too, but we need question mass. Could be question candidate. Need at least half non-none question, can have 3 questions and one teaching. But at least half probability mass. Simpler: 3 non-none: q1, q2, reflection? Then at least half non-none (1.5 -> 2?) non-none candidates =3, at least half means at least 1.5 -> at least 2 open-ended questions. Need 2 questions. Prob mass question >= half non-none. With 3 non-none and none. q1 0.3, q2 0.25, reflection 0.15, none 0.3. Question sum 0.55, nonnone mass 0.7, half 0.35 okay. This satisfies. 4 candidates total (3 non-none + none) within 2..8. Exactly one none. At least half non-none (2/3) question. Good. Need maybe candidate probabilities sum 1: 0.30+0.25+0.15+0.30=1.00. Need id a,b,c,d. Order maybe questions first then reflection then none. But exactly one none. JSON only.\n\nNeed ensure each sentence short original, personally. Japanese ends with 。 or ？ or ！. None empty. Reflection not question. Question open-ended: \"今の気持ちの中で、他人と比べずに自分に向けられそうな関心はどんなことですか？\" It ends ？. Good. Another: \"「どうせ私なんて」と出てきたとき、その言葉の外にどんな自分の一面があると感じますか？\" It includes quoted phrase from profile. Is it okay? It might be a bit unnatural: \"その言葉の外に\" unnatural. Better: 「どうせ私なんて」と出てきたとき、その言葉だけでは表れていない自分の一面にどんなものがあると感じますか？\" This is question, references their phrase. It asks \"what do you feel there is\" okay no presupposition? It presupposes there may be aspects not expressed; open-ended. Could be okay. But \"言葉だけでは表れていない\" might be leading. Maybe \"「どうせ私なんて」と出てきたとき、その一方で自分の中にどんな思いがあると気づきますか？\" This presupposes there is another feeling. Hmm open-ended but presupposes. Need avoid presupposition unprovided facts. Better not quote phrase? Use \"落ち込んだとき、自分に対してどんな声をかけ直せそうですか？\" This asks open-ended but assumes ability to speak to self. Fine. But personal? It references falling down? \"SNSで他人と比べて落ち込んだとき、自分に対してどんな声をかけ直せそうですか？\" This is open question; no assertion of current state? It references profile tendency. Good. At least half open-ended.\n\nQuestion 2: \"今日の中で、他人と比べずに自分のことを少し受け取れそうな瞬間はどんなときですか？\" This asks open-ended, but presupposes possible moments. Maybe okay. But \"受け取れそう\" related to receiving compliments? Hmm. Could be.\n\nNeed maybe include breathing/action/teaching? We can use reflection and two questions and none. That's allowed? Kinds: reflection, question. Exactly one none. No teaching/action. At least half non-none question-type. Good. 4 candidates. Need probability mass. Let's final with q1 0.32, q2 0.26, reflection 0.12, none 0.30. Sum 1. Non-none mass .70, question mass .58 >= .35. At least half non-none candidates: 2/3 question (>=1.5 yes). Good. But probabilities sum? 0.32+0.26=0.58, +0.12=0.70, +0.30=1.00.\n\nNeed maybe \"reflection\" text: \"SNSで他人と比べて落ち込むことがある、という今の自分に気づいているんですね。\" End 。. It reflects supplied. It might imply \"you are aware\" but okay. Could be more gentle: \"SNSで他人と比べて落ち込むことがあると、今の自分では感じているんですね。\" This is reflection with \"you feel\". Fine. Not question. No invented facts.\n\nQuestion 1: \"SNSで他人と比べて落ち込んだとき、自分に対してどんな声をかけ直せそうですか？\" Ends ？. It references if/when. Open-ended. Personal. Does it presuppose they can? \"かけ直せそう\" maybe okay. Could be \"どんな声をかけてみたいですか？\" That asserts desire? It asks desire; okay but \"try\" action. It could be open-ended. \"SNSで他人と比べて落ち込んだとき、自分にどんな言葉をかけてあげたいですか？\" This asks wishes; \"たい\" not asserting, asking. Fine.\n\nQuestion 2: \"「どうせ私なんて」と出てきたとき、その反対側にどんな気持ちがありそうですか？\" This references their phrase. \"反対側\" odd. Better: \"「どうせ私なんて」と出てきたとき、その言葉に飲まれずにいる自分なら、どんなふうに声をかけると思いますか？\" This presupposes \"自分なら\" hypothetical; okay. But a bit long. Could be open-ended. Maybe too complex. Another question: \"褒められたとき、素直に受け取れない自分の中にはどんな気持ちがありそうですか？\" This references profile. It's open-ended but asks to speculate. It doesn't presuppose exact feeling. Ends ？. This is good. It's personal and open-ended. It might feel confrontational? No. Use this instead of quoting. Q2: \"褒められたとき、素直に受け取れない自分の中にはどんな気持ちがありそうですか？\" Good. It references their difficulty. Open-ended. Non-none q2 probability .26. Q1 about SNS comparison .32.\n\nNeed at least half non-none are open-ended question-type. Q1, Q2 yes. Reflection not. None. Good. Need exactly one candidate with kind none. JSON with candidates array. No extra text. Ensure JSON valid with Japanese. Use double quotes. Good.\n\nNeed maybe include \"id\": \"a\" etc. Probabilities numbers. Use exactly one none. Order maybe a q1, b q2, c reflection, d none. But if q1 and q2 first, none last. Fine.\n\nNeed \"text\": empty for none. Good.\n\nLet's final JSON only.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 570,
+        "completion_tokens": 2360,
+        "total_tokens": 2930,
+        "cost": 0.000171104,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 512,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000171104,
+          "upstream_inference_prompt_cost": 5.904e-06,
+          "upstream_inference_completions_cost": 0.0001652
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2214,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "7e03e6ed-0965-41c3-ace1-bb3bf277c042",
+    "decision_point_at": 1794978812.965916,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "SNSで他人と比べて落ち込んだとき、自分にどんな言葉をかけてあげたいですか？",
+        "probability": 0.32
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "褒められたとき、素直に受け取れない自分の中にはどんな気持ちがありそうですか？",
+        "probability": 0.26
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "SNSで他人と比べて落ち込むことがあると、今の自分では感じているんですね。",
+        "probability": 0.12
+      },
+      {
+        "id": "d",
+        "kind": "none",
+        "text": "",
+        "probability": 0.3
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "SNSで他人と比べて落ち込んだとき、自分にどんな言葉をかけてあげたいですか？",
+      "probability": 0.32
+    },
+    "assigned_probability": 0.32,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980612.965916,
+    "observations": []
+  }
+}

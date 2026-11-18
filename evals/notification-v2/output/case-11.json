@@ -1,0 +1,138 @@
+{
+  "index": 11,
+  "profile": "burnout",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978813-lrqumoqZN9vEiaC9WATC",
+      "object": "chat.completion",
+      "created": 1794978813,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "InferenceNet",
+      "system_fingerprint": "inference.net",
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この瞬間、肩の力を少し抜くとしたら、どこからゆるめられそうですか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日の終わりに、自分にかけてあげたい小さな言葉は何ですか？\",\"probability\":0.23},{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"今夜は、ゆっくり吐く息をいつもより少し長くしてみましょう。\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"仕事と育児で休む時間が少ない中で、今の揺れている気持ちに少しだけ目を向けてみてもいいかもしれません。\",\"probability\":0.16},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.23}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft interventions Japanese, profile. Need 2..8 candidates. Exactly one none empty. At least half non-none candidates open-ended question-type. Kinds include reflection, question, teaching, breathing, action, none. Need probabilities sum 1. Need personal but no invented personal facts. Desired calm, night 22:30, notification. Need natural Japanese sentences end with 。 or ？ or ！. Need short original sentence/question written for them personally. Avoid medical claims, guaranteed effects, confrontational. Must not invent facts beyond supplied profile. Profile says 38 nurse, work/childcare little rest, holidays can't recover fatigue, wavering between not wanting to do anything and feeling must do. We can use that. No recent reactions. Need at least half non-none open-ended question candidates and at least half non-none probability mass. If 5 candidates total: none + 4 nonnone; need at least 2 open-ended question and their mass >= half nonnone mass. Need probabilities sum 1. We can do 6 candidates maybe. Need exactly one none. Need \"question\" kind candidates open-ended. Reflection can be statement. Teaching maybe gentle. Breathing/action. Need probabilities reasonable. Since night and notification, likely none high? But desired calm. Need candidate right now. We can assign none 0.25 maybe, questions 0.25+0.20, breathing 0.15, reflection/action 0.15. Need question mass >= half non-none (0.75*0.5=0.375). If q mass 0.45 okay. Need at least half non-none candidates q: 4 nonnone, need 2 q. Good.\n\nNeed ensure Japanese complete natural. Candidates:\n1 question: 「今この瞬間、肩の力を少し抜くとしたら、どこからゆるめられそうですか？」 This is open-ended, personal? Fine.\n2 question: 「今日の終わりに、自分をねぎらうとしたらどんな小さな言葉をかけたいですか？」 Open-ended. Does it presuppose? It asks hypothetical, okay. Maybe not assert wishes.\n3 breathing: 「今夜は、ゆっくり吐く息をいつもより少し長くしてみましょう。」 Teaching/breathing? It's an action/breathing. Does not guarantee. Maybe kind breathing.\n4 reflection: 「仕事と育児の間で揺れている今の気持ちに、少しだけ目を向けてみてもいいかもしれません。」 Reflection. Uses supplied. Good.\n5 action: 「寝る前に、明日やらなくてよいことを一つだけ心の中で置いておきましょう。」 Action? Might presuppose must do? It uses \"やらなくてよいこと\" not assert. Maybe okay. But could be action.\n6 none.\n\nNeed probabilities sum 1. Let's choose:\na question 0.23\nb question 0.22\nc breathing 0.12\nd reflection 0.11\ne action 0.10\nf none 0.22\nSum 1.0? 0.23+0.22=0.45, +0.12=0.57, +0.11=0.68, +0.10=0.78, +0.22=1.00. Non-none mass=0.78, question mass=0.45 >=0.39 yes. Non-none candidates count 5, question count 2 >=2.5? Wait at least half of non-none candidates: non-none=5, half=2.5, need at least 3? \"At least half\" means >= half. 2 is not >=2.5. Need 3 question candidates if 5 nonnone. Or reduce nonnone to 4 total with 2 q. Need 2..8 total including none. Let's do 5 total: none + 4 nonnone, at least 2 q. Prob mass q >= half nonnone. Good.\n\nCandidates:\na question 0.24\nb question 0.23\nc breathing 0.14\nd reflection 0.16\ne none 0.23\nSum 1.0? 0.24+0.23=0.47; +0.14=0.61; +0.16=0.77; +0.23=1.00. Non-none mass=0.77, half=0.385; q mass=0.47. Non-none count 4, need 2 q yes. Good. But maybe include action? Not necessary. Kinds question, question, breathing, reflection, none. At least half non-none q: 2/4 yes. Exactly one none. Good.\n\nNeed JSON only. Ensure IDs unique. Text Japanese. \"今この瞬間、肩の力を少し抜くとしたら、どこからゆるめられそうですか？\" Good. \"今日の終わりに、自分にかけてあげたい小さな言葉は何ですか？\" Good open-ended, no assert. Breathing: \"今夜は、ゆっくり吐く息をいつもより少し長くしてみましょう。\" Kind breathing. Reflection: \"仕事と育児で休む時間が少ない中で、今の揺れている気持ちに少しだけ目を向けてみてもいいかもしれません。\" Does this assert \"休む時間が少ない\" from profile yes. Fine. Could be reflection. End with 。. Probability.\n\nNeed no extra. JSON only. Use quotes. No markdown. Ensure valid JSON. Final.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft interventions Japanese, profile. Need 2..8 candidates. Exactly one none empty. At least half non-none candidates open-ended question-type. Kinds include reflection, question, teaching, breathing, action, none. Need probabilities sum 1. Need personal but no invented personal facts. Desired calm, night 22:30, notification. Need natural Japanese sentences end with 。 or ？ or ！. Need short original sentence/question written for them personally. Avoid medical claims, guaranteed effects, confrontational. Must not invent facts beyond supplied profile. Profile says 38 nurse, work/childcare little rest, holidays can't recover fatigue, wavering between not wanting to do anything and feeling must do. We can use that. No recent reactions. Need at least half non-none open-ended question candidates and at least half non-none probability mass. If 5 candidates total: none + 4 nonnone; need at least 2 open-ended question and their mass >= half nonnone mass. Need probabilities sum 1. We can do 6 candidates maybe. Need exactly one none. Need \"question\" kind candidates open-ended. Reflection can be statement. Teaching maybe gentle. Breathing/action. Need probabilities reasonable. Since night and notification, likely none high? But desired calm. Need candidate right now. We can assign none 0.25 maybe, questions 0.25+0.20, breathing 0.15, reflection/action 0.15. Need question mass >= half non-none (0.75*0.5=0.375). If q mass 0.45 okay. Need at least half non-none candidates q: 4 nonnone, need 2 q. Good.\n\nNeed ensure Japanese complete natural. Candidates:\n1 question: 「今この瞬間、肩の力を少し抜くとしたら、どこからゆるめられそうですか？」 This is open-ended, personal? Fine.\n2 question: 「今日の終わりに、自分をねぎらうとしたらどんな小さな言葉をかけたいですか？」 Open-ended. Does it presuppose? It asks hypothetical, okay. Maybe not assert wishes.\n3 breathing: 「今夜は、ゆっくり吐く息をいつもより少し長くしてみましょう。」 Teaching/breathing? It's an action/breathing. Does not guarantee. Maybe kind breathing.\n4 reflection: 「仕事と育児の間で揺れている今の気持ちに、少しだけ目を向けてみてもいいかもしれません。」 Reflection. Uses supplied. Good.\n5 action: 「寝る前に、明日やらなくてよいことを一つだけ心の中で置いておきましょう。」 Action? Might presuppose must do? It uses \"やらなくてよいこと\" not assert. Maybe okay. But could be action.\n6 none.\n\nNeed probabilities sum 1. Let's choose:\na question 0.23\nb question 0.22\nc breathing 0.12\nd reflection 0.11\ne action 0.10\nf none 0.22\nSum 1.0? 0.23+0.22=0.45, +0.12=0.57, +0.11=0.68, +0.10=0.78, +0.22=1.00. Non-none mass=0.78, question mass=0.45 >=0.39 yes. Non-none candidates count 5, question count 2 >=2.5? Wait at least half of non-none candidates: non-none=5, half=2.5, need at least 3? \"At least half\" means >= half. 2 is not >=2.5. Need 3 question candidates if 5 nonnone. Or reduce nonnone to 4 total with 2 q. Need 2..8 total including none. Let's do 5 total: none + 4 nonnone, at least 2 q. Prob mass q >= half nonnone. Good.\n\nCandidates:\na question 0.24\nb question 0.23\nc breathing 0.14\nd reflection 0.16\ne none 0.23\nSum 1.0? 0.24+0.23=0.47; +0.14=0.61; +0.16=0.77; +0.23=1.00. Non-none mass=0.77, half=0.385; q mass=0.47. Non-none count 4, need 2 q yes. Good. But maybe include action? Not necessary. Kinds question, question, breathing, reflection, none. At least half non-none q: 2/4 yes. Exactly one none. Good.\n\nNeed JSON only. Ensure IDs unique. Text Japanese. \"今この瞬間、肩の力を少し抜くとしたら、どこからゆるめられそうですか？\" Good. \"今日の終わりに、自分にかけてあげたい小さな言葉は何ですか？\" Good open-ended, no assert. Breathing: \"今夜は、ゆっくり吐く息をいつもより少し長くしてみましょう。\" Kind breathing. Reflection: \"仕事と育児で休む時間が少ない中で、今の揺れている気持ちに少しだけ目を向けてみてもいいかもしれません。\" Does this assert \"休む時間が少ない\" from profile yes. Fine. Could be reflection. End with 。. Probability.\n\nNeed no extra. JSON only. Use quotes. No markdown. Ensure valid JSON. Final.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 569,
+        "completion_tokens": 1354,
+        "total_tokens": 1923,
+        "cost": 0.000846258,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000846258,
+          "upstream_inference_prompt_cost": 2.7088e-05,
+          "upstream_inference_completions_cost": 0.00081917
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1166,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "7bf7dd9b-9e6c-4715-82a4-4cd59d25020e",
+    "decision_point_at": 1794978827.820606,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今この瞬間、肩の力を少し抜くとしたら、どこからゆるめられそうですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今日の終わりに、自分にかけてあげたい小さな言葉は何ですか？",
+        "probability": 0.23
+      },
+      {
+        "id": "c",
+        "kind": "breathing",
+        "text": "今夜は、ゆっくり吐く息をいつもより少し長くしてみましょう。",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "仕事と育児で休む時間が少ない中で、今の揺れている気持ちに少しだけ目を向けてみてもいいかもしれません。",
+        "probability": 0.16
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.23
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、肩の力を少し抜くとしたら、どこからゆるめられそうですか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980627.820606,
+    "observations": []
+  }
+}

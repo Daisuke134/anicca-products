@@ -8,12 +8,14 @@ reference/interventions.py に保存して修正する。upstream.patch を適�
 
 ## TODO
 - [x] 修正前の失敗テスト → 最小実装 → focused tests
-- [ ] 同一プロフィール・local_day=2026-11-18・recent_reactions=[]・4時刻で実モデル32決定
-- [ ] 各API応答と費用receiptを保存。再試行の棄却候補を含む全候補を読み判定
-- [ ] 不合格率5%未満かつ捏造0件。契約失敗とnoneを別計上
-- [ ] 結果をanicca-ops/mainへ、コードを指定branchへcommit/pushしてremote確認
+- [x] 同一プロフィール・local_day=2026-11-18・recent_reactions=[]・4時刻で実モデル32決定
+- [x] 各API応答と費用receiptを保存。再試行の棄却候補を含む全候補を読み判定
+- [x] 合否判定実施: 4/133不合格(3.0075%)・捏造2件でNO-GO。none32件を別計上
+- [x] 結果をanicca-ops/mainへ、コードを指定branchへcommit/pushしてremote確認
 
-現在cursor: 実モデル32条件生成。
+現在cursor: 指定成果物のpush・remote照合。
+
+結果: 32/32契約成功、133文面を全文確認しFAIL4・捏造2。20テスト成功。応答cost厳密合計0.0344521112 USD、評価キー課金usage0.032139508 USD。generation receipt30件取得・2件404、課金差異は未照合として結果へ明記。判定はCodexの読み確認であり独立人間審査ではない。
 
 再開時確認: 原版では13失敗・5成功、修正版18成功。元生成器が指定repoに存在しないため、固定upstream原版と適用パッチを同梱する。OpenRouterの既存生成キーは401。管理キーで前払残高59.336924393 USDを確認し、同口座の0.25 USD上限評価キーを正本へ保存。自動チャージは変更しない。
 

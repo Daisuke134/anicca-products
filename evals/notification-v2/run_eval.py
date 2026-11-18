@@ -102,7 +102,7 @@ def collect_cost():
                 cost = response["usage"]["cost"]
             total += cost
     (out/"cost.json").write_text(json.dumps(dict(total_cost_usd=str(total),receipt_count=len(receipts),generation_lookup_errors=errors,cost_source="generation total_cost; completion usage.cost only for 404 lookup",receipts=receipts),ensure_ascii=False,indent=2,default=str))
-    print("Exact total USD:", total, "receipts:", len(receipts))
+    print("Generation receipt/fallback total USD:", total, "receipts:", len(receipts), "lookup errors:", len(errors))
 
 
 if __name__ == "__main__":

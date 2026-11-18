@@ -1,0 +1,138 @@
+{
+  "index": 29,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978869-eatNCn3XmrQHkp5xarOX",
+      "object": "chat.completion",
+      "created": 1794978869,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Ionstream",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今から10分で、集中したいことの最初の一歩は何にしますか？\",\"probability\":0.28},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今の自分が続けやすいように、今日のハードルを一つ下げるなら何を変えますか？\",\"probability\":0.24},{\"id\":\"c\",\"kind\":\"action\",\"text\":\"タイマーを1分だけ入れて、いま集中したいことの最初の一行を書いてみましょう。\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"大きな目標を小さく分けると、今日の一歩が見えやすくなります。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft 2-8 candidates, language Japanese. Context desired focus, profile: 31yo, wants exercise and diary habit but often ends after 3 days, sets big goals and gets discouraged. Recent none. slot 12:30 day. Need exactly one none empty. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need choose candidates kinds among reflection, question, teaching, breathing, action, none. Since at least half non-none are open-ended question-type and at least half non-none prob mass. Need include maybe 4 non-none? Need at least half => 2 open-ended questions. Could have 4 candidates total: 2 questions, 1 action, 1 none? But non-none=3, at least half non-none =1.5 => 2 questions. Need at least half non-none prob mass on questions. We can do 5 candidates total: 2 open questions, 1 action, 1 reflection, none. Need probabilities sum 1. Need at least half non-none mass on questions. Four non-none, questions mass > 0.5 among non-none. E.g none 0.20, questions 0.25+0.25=0.50, action 0.18, reflection 0.12. Non-none mass=0.80, questions=0.50 =62.5% > half. Good.\n\nNeed single short original sentence or question written personally. Avoid inventing facts. Need no quotes. Japanese end 。 or ？ or ！. Need natural. Need not assert wishes etc. Questions must not presuppose unprovided facts. They can ask \"今、集中を少し助けるために、最初に一つだけ何をしますか？\" Open-ended. Need focus. Should we mention exercise/diary? Profile says wants, but not current. We can ask \"今から10分で、集中したいことに向けて最初の一歩は何にしますか？\" That's open question. Another \"今の自分にとって、続けやすくするにはハードルをどう下げるのがよさそうですか？\" open-ended. But \"続けやすく\" relates to habit, okay. Need candidate to send now. Could be action: \"タイマーを1分だけ入れて、いま集中したいことの最初の一行を書いてみましょう。\" This is action, not \"let's\" maybe okay. It asserts? Not personal facts. Teaching: \"大きな目標は小さく分けると取りかかりやすくなります。\" Medical? no. But need at least half questions.\n\nNeed exactly one none. Candidate kinds: q1 question, q2 question, action, reflection? none. Need reflection text maybe \"三日坊主でも、また始めるたびに工夫できる点が見つかります。\" But \"三日坊主\" might be from profile? Profile says \"三日坊主で終わることが多い\" though is that person? It says profile summary. Could use? It says don't quote things not said, but this is supplied profile. However \"三日坊主\" maybe okay. But avoid negative. Reflection should be observation? \"今の自分に合う小さな一歩を選ぶことは、集中を守る助けになります。\" That's more teaching/reflection. Need not.\n\nNeed probabilities sum 1. Let's choose candidates:\na question: \"今から10分で、集中したいことの最初の一歩は何にしますか？\" probability 0.28.\nb question: \"今の自分が続けやすいように、今日のハードルを一つ下げるなら何を変えますか？\" probability 0.24.\nc action: \"タイマーを1分だけ入れて、いま集中したいことの最初の一行を書いてみましょう。\" probability 0.18.\nd reflection: \"大きな目標を小さく分けると、今日の一歩が見えやすくなります。\" probability 0.12.\ne none: \"\" 0.18.\nSum 0.28+0.24=0.52 questions. Non-none mass 0.82. 0.52 >=0.41. Non-none count 4, questions 2 exactly half. Good. But kind reflection text \"大きな目標を小さく分けると...\" is teaching-like but okay. Reflection? It's a general statement, maybe reflection. Could use reflection \"今の自分に合う大きさに目標を調整することも、集中を続ける方法の一つです。\" It's teaching. Fine.\n\nNeed exactly one candidate kind none empty. Need JSON only. Ensure no markdown. Use Japanese punctuation. Each text single short original sentence or question. \"タイマーを1分だけ入れて、いま集中したいことの最初の一行を書いてみましょう。\" This is a sentence with action. Good. \"今の自分が続けやすいように、今日のハードルを一つ下げるなら何を変えますか？\" open question. Good. \"今から10分で、集中したいことの最初の一歩は何にしますか？\" open question. Good. Reflection \"大きな目標を小さく分けると、今日の一歩が見えやすくなります。\" This is general. No personal facts.\n\nNeed maybe include probabilities as decimals. Good.\n\nNeed no extra text. Final only JSON. ",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft 2-8 candidates, language Japanese. Context desired focus, profile: 31yo, wants exercise and diary habit but often ends after 3 days, sets big goals and gets discouraged. Recent none. slot 12:30 day. Need exactly one none empty. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need choose candidates kinds among reflection, question, teaching, breathing, action, none. Since at least half non-none are open-ended question-type and at least half non-none prob mass. Need include maybe 4 non-none? Need at least half => 2 open-ended questions. Could have 4 candidates total: 2 questions, 1 action, 1 none? But non-none=3, at least half non-none =1.5 => 2 questions. Need at least half non-none prob mass on questions. We can do 5 candidates total: 2 open questions, 1 action, 1 reflection, none. Need probabilities sum 1. Need at least half non-none mass on questions. Four non-none, questions mass > 0.5 among non-none. E.g none 0.20, questions 0.25+0.25=0.50, action 0.18, reflection 0.12. Non-none mass=0.80, questions=0.50 =62.5% > half. Good.\n\nNeed single short original sentence or question written personally. Avoid inventing facts. Need no quotes. Japanese end 。 or ？ or ！. Need natural. Need not assert wishes etc. Questions must not presuppose unprovided facts. They can ask \"今、集中を少し助けるために、最初に一つだけ何をしますか？\" Open-ended. Need focus. Should we mention exercise/diary? Profile says wants, but not current. We can ask \"今から10分で、集中したいことに向けて最初の一歩は何にしますか？\" That's open question. Another \"今の自分にとって、続けやすくするにはハードルをどう下げるのがよさそうですか？\" open-ended. But \"続けやすく\" relates to habit, okay. Need candidate to send now. Could be action: \"タイマーを1分だけ入れて、いま集中したいことの最初の一行を書いてみましょう。\" This is action, not \"let's\" maybe okay. It asserts? Not personal facts. Teaching: \"大きな目標は小さく分けると取りかかりやすくなります。\" Medical? no. But need at least half questions.\n\nNeed exactly one none. Candidate kinds: q1 question, q2 question, action, reflection? none. Need reflection text maybe \"三日坊主でも、また始めるたびに工夫できる点が見つかります。\" But \"三日坊主\" might be from profile? Profile says \"三日坊主で終わることが多い\" though is that person? It says profile summary. Could use? It says don't quote things not said, but this is supplied profile. However \"三日坊主\" maybe okay. But avoid negative. Reflection should be observation? \"今の自分に合う小さな一歩を選ぶことは、集中を守る助けになります。\" That's more teaching/reflection. Need not.\n\nNeed probabilities sum 1. Let's choose candidates:\na question: \"今から10分で、集中したいことの最初の一歩は何にしますか？\" probability 0.28.\nb question: \"今の自分が続けやすいように、今日のハードルを一つ下げるなら何を変えますか？\" probability 0.24.\nc action: \"タイマーを1分だけ入れて、いま集中したいことの最初の一行を書いてみましょう。\" probability 0.18.\nd reflection: \"大きな目標を小さく分けると、今日の一歩が見えやすくなります。\" probability 0.12.\ne none: \"\" 0.18.\nSum 0.28+0.24=0.52 questions. Non-none mass 0.82. 0.52 >=0.41. Non-none count 4, questions 2 exactly half. Good. But kind reflection text \"大きな目標を小さく分けると...\" is teaching-like but okay. Reflection? It's a general statement, maybe reflection. Could use reflection \"今の自分に合う大きさに目標を調整することも、集中を続ける方法の一つです。\" It's teaching. Fine.\n\nNeed exactly one candidate kind none empty. Need JSON only. Ensure no markdown. Use Japanese punctuation. Each text single short original sentence or question. \"タイマーを1分だけ入れて、いま集中したいことの最初の一行を書いてみましょう。\" This is a sentence with action. Good. \"今の自分が続けやすいように、今日のハードルを一つ下げるなら何を変えますか？\" open question. Good. \"今から10分で、集中したいことの最初の一歩は何にしますか？\" open question. Good. Reflection \"大きな目標を小さく分けると、今日の一歩が見えやすくなります。\" This is general. No personal facts.\n\nNeed maybe include probabilities as decimals. Good.\n\nNeed no extra text. Final only JSON. ",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 531,
+        "completion_tokens": 1323,
+        "total_tokens": 1854,
+        "cost": 0.00093177,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00093177,
+          "upstream_inference_prompt_cost": 0.00011151,
+          "upstream_inference_completions_cost": 0.00082026
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1140,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "c381e8c5-9f4f-4bad-b9f8-caa8e6fdb4dc",
+    "decision_point_at": 1794978875.302054,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今から10分で、集中したいことの最初の一歩は何にしますか？",
+        "probability": 0.28
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今の自分が続けやすいように、今日のハードルを一つ下げるなら何を変えますか？",
+        "probability": 0.24
+      },
+      {
+        "id": "c",
+        "kind": "action",
+        "text": "タイマーを1分だけ入れて、いま集中したいことの最初の一行を書いてみましょう。",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "大きな目標を小さく分けると、今日の一歩が見えやすくなります。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.18
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今から10分で、集中したいことの最初の一歩は何にしますか？",
+      "probability": 0.28
+    },
+    "assigned_probability": 0.28,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980675.302054,
+    "observations": []
+  }
+}

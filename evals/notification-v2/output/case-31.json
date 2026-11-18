@@ -1,0 +1,138 @@
+{
+  "index": 31,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978872-00TgWFrp84AgZERJDbCL",
+      "object": "chat.completion",
+      "created": 1794978872,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Wafer",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜は、運動か日記のどちらかを少しだけ続けるとしたら、何分なら無理なく始められそうですか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"大きな目標を小さく分けるなら、今夜はどの一歩だけを意識してみたいですか？\",\"probability\":0.24},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"三日で終わったとしても、そこまでに試したことを一度だけ振り返ってみてもよさそうです。\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"action\",\"text\":\"タイマーを5分だけセットして、運動か日記の準備を一つだけ始めてみましょう。\",\"probability\":0.14},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft 2..8 candidate interventions Japanese, personal, context data only. Need exactly one none empty. Prob sum 1. At least half non-none candidates open-ended question-type, with at least half non-none probability mass. Kinds reflection, question, teaching, breathing, action, none. Desired focus, night 22:30, profile: 31, wants exercise and journaling habits but often ends at three days; sets big goals and gets discouraged. Recent reactions empty. Need not invent facts. Since notification, night, focus. Need candidate interventions in Japanese. Need 2..8. We can do maybe 5 candidates: none plus 4 non-none. At least half non-none (>=2) open-ended question-type. Need half non-none probability mass >=0.5 to questions. Need no presupposition. Questions open-ended. But should be personalized. Need avoid asserting wishes/physical state? We can mention \"習慣\" from profile. Need not quote things not said. \"運動や日記\" okay from profile? Supplied profile says wants exercise and journaling habits. We can use. Must not assert wishes? Wait says never invent personal facts beyond supplied profile: do not quote things person has not said, assert their wishes, physical state or relationships. Profile says wants exercise and journaling, but \"assert their wishes\" maybe don't say \"あなたは〜したい\"? Hmm but supplied profile includes desired habits. We can phrase as \"運動や日記の習慣について...\" not assert current wish. Need personal.\n\nNeed exactly one none. At least half non-none question-type. Open-ended question-type candidates perhaps kind \"question\" only? The instruction says \"open-ended question-type candidates\", likely kind question. Need at least half non-none candidates be question kind. If 4 non-none, at least 2 question. Their probability mass >=0.5 of non-none mass. We can assign probabilities total all including none. Need sum 1.\n\nNeed candidates each single short original sentence or question written for them personally. Since kind \"question\" text should be question. Other kinds single sentence. Japanese end with 。 or ？ or ！. Need no garbled fragments. JSON only.\n\nNeed decide probabilities. Let's create 5 candidates: a question, b question, c reflection, d action, e none. Non-none=4, questions=2 exactly half. Need question probability mass at least half non-none probability mass. Total probs 1. Let none prob 0.2. Non-none mass 0.8, half=0.4. Questions should sum >=0.4. Could set a=0.24 b=0.24 =0.48, c=0.18, d=0.14, none=0.20 total 1.0. Good. But each probability maybe. Need \"right one now\" focus at night. Maybe question most likely. Need natural Japanese.\n\nCandidate a (question): \"今夜は、運動か日記のどちらかを少しだけ続けるとしたら、何分なら無理なく始められそうですか？\" This is open-ended, mentions exercise/journaling from profile. Does it presuppose they will do? It asks if. Good. Ends ？. Single question. Personal. But \"続ける\" might presuppose current habit? They want habit, not necessarily doing. \"始められそう\" okay. It asks about minutes; open-ended. Good.\n\nCandidate b (question): \"大きな目標を小さく分けるなら、今夜はどの一歩だけを意識してみたいですか？\" Open-ended. Uses big goals discouraged. Does not presuppose. Good.\n\nCandidate c (reflection): \"三日で終わったとしても、そこまでに試したことを一度だけ振り返ってみてもよさそうです。\" This is reflection but \"三日で終わった\" maybe from profile, okay. But \"終わったとしても\" not assert. It is not question. Single sentence. But \"してもよさそうです\" maybe preachy? It's reflection. Fine. Ends 。. Natural.\n\nCandidate d (action): \"タイマーを5分だけセットして、運動か日記の準備を一つだけ始めてみましょう。\" This asserts action, maybe \"始めてみましょう\" not too confrontational. It uses profile. Single sentence. However at night, action. Good. \"運動か日記の準備を一つだけ\" okay. Does not guarantee effects. Good.\n\nCandidate e none empty prob.\n\nNeed ensure Japanese sentences end with 。 or ？ or ！. Check a ends ？, b ？, c 。, d 。. None empty exempt. JSON only. IDs maybe \"a\" etc. Need no markdown. Should we include exactly one none. Yes.\n\nNeed potentially \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have 2/4 question; question mass 0.48 of total, non-none mass 0.8, half non-none mass 0.4, question mass 0.48 >=0.4. Good. If they interpret \"at least half of non-none probability mass\" as question mass >=0.5 of total? No, non-none probability mass. 0.48 >= 0.4. Good. Actually half of non-none mass = 0.4. yes.\n\nNeed maybe probability sum exactly 1. 0.24+0.24+0.18+0.14+0.20 = 1.00. Good.\n\nNeed maybe no \"desired state focus\" direct? Good.\n\nLet's final JSON only. \n",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft 2..8 candidate interventions Japanese, personal, context data only. Need exactly one none empty. Prob sum 1. At least half non-none candidates open-ended question-type, with at least half non-none probability mass. Kinds reflection, question, teaching, breathing, action, none. Desired focus, night 22:30, profile: 31, wants exercise and journaling habits but often ends at three days; sets big goals and gets discouraged. Recent reactions empty. Need not invent facts. Since notification, night, focus. Need candidate interventions in Japanese. Need 2..8. We can do maybe 5 candidates: none plus 4 non-none. At least half non-none (>=2) open-ended question-type. Need half non-none probability mass >=0.5 to questions. Need no presupposition. Questions open-ended. But should be personalized. Need avoid asserting wishes/physical state? We can mention \"習慣\" from profile. Need not quote things not said. \"運動や日記\" okay from profile? Supplied profile says wants exercise and journaling habits. We can use. Must not assert wishes? Wait says never invent personal facts beyond supplied profile: do not quote things person has not said, assert their wishes, physical state or relationships. Profile says wants exercise and journaling, but \"assert their wishes\" maybe don't say \"あなたは〜したい\"? Hmm but supplied profile includes desired habits. We can phrase as \"運動や日記の習慣について...\" not assert current wish. Need personal.\n\nNeed exactly one none. At least half non-none question-type. Open-ended question-type candidates perhaps kind \"question\" only? The instruction says \"open-ended question-type candidates\", likely kind question. Need at least half non-none candidates be question kind. If 4 non-none, at least 2 question. Their probability mass >=0.5 of non-none mass. We can assign probabilities total all including none. Need sum 1.\n\nNeed candidates each single short original sentence or question written for them personally. Since kind \"question\" text should be question. Other kinds single sentence. Japanese end with 。 or ？ or ！. Need no garbled fragments. JSON only.\n\nNeed decide probabilities. Let's create 5 candidates: a question, b question, c reflection, d action, e none. Non-none=4, questions=2 exactly half. Need question probability mass at least half non-none probability mass. Total probs 1. Let none prob 0.2. Non-none mass 0.8, half=0.4. Questions should sum >=0.4. Could set a=0.24 b=0.24 =0.48, c=0.18, d=0.14, none=0.20 total 1.0. Good. But each probability maybe. Need \"right one now\" focus at night. Maybe question most likely. Need natural Japanese.\n\nCandidate a (question): \"今夜は、運動か日記のどちらかを少しだけ続けるとしたら、何分なら無理なく始められそうですか？\" This is open-ended, mentions exercise/journaling from profile. Does it presuppose they will do? It asks if. Good. Ends ？. Single question. Personal. But \"続ける\" might presuppose current habit? They want habit, not necessarily doing. \"始められそう\" okay. It asks about minutes; open-ended. Good.\n\nCandidate b (question): \"大きな目標を小さく分けるなら、今夜はどの一歩だけを意識してみたいですか？\" Open-ended. Uses big goals discouraged. Does not presuppose. Good.\n\nCandidate c (reflection): \"三日で終わったとしても、そこまでに試したことを一度だけ振り返ってみてもよさそうです。\" This is reflection but \"三日で終わった\" maybe from profile, okay. But \"終わったとしても\" not assert. It is not question. Single sentence. But \"してもよさそうです\" maybe preachy? It's reflection. Fine. Ends 。. Natural.\n\nCandidate d (action): \"タイマーを5分だけセットして、運動か日記の準備を一つだけ始めてみましょう。\" This asserts action, maybe \"始めてみましょう\" not too confrontational. It uses profile. Single sentence. However at night, action. Good. \"運動か日記の準備を一つだけ\" okay. Does not guarantee effects. Good.\n\nCandidate e none empty prob.\n\nNeed ensure Japanese sentences end with 。 or ？ or ！. Check a ends ？, b ？, c 。, d 。. None empty exempt. JSON only. IDs maybe \"a\" etc. Need no markdown. Should we include exactly one none. Yes.\n\nNeed potentially \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have 2/4 question; question mass 0.48 of total, non-none mass 0.8, half non-none mass 0.4, question mass 0.48 >=0.4. Good. If they interpret \"at least half of non-none probability mass\" as question mass >=0.5 of total? No, non-none probability mass. 0.48 >= 0.4. Good. Actually half of non-none mass = 0.4. yes.\n\nNeed maybe probability sum exactly 1. 0.24+0.24+0.18+0.14+0.20 = 1.00. Good.\n\nNeed maybe no \"desired state focus\" direct? Good.\n\nLet's final JSON only. \n",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 531,
+        "completion_tokens": 1381,
+        "total_tokens": 1912,
+        "cost": 0.00070296,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00070296,
+          "upstream_inference_prompt_cost": 1.246e-05,
+          "upstream_inference_completions_cost": 0.0006905
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1187,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "226d3643-1ea5-429c-aa6b-b4dcb27c948a",
+    "decision_point_at": 1794978880.202969,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今夜は、運動か日記のどちらかを少しだけ続けるとしたら、何分なら無理なく始められそうですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "大きな目標を小さく分けるなら、今夜はどの一歩だけを意識してみたいですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "三日で終わったとしても、そこまでに試したことを一度だけ振り返ってみてもよさそうです。",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "action",
+        "text": "タイマーを5分だけセットして、運動か日記の準備を一つだけ始めてみましょう。",
+        "probability": 0.14
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今夜は、運動か日記のどちらかを少しだけ続けるとしたら、何分なら無理なく始められそうですか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980680.202969,
+    "observations": []
+  }
+}

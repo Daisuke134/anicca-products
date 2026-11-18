@@ -1,0 +1,150 @@
+{
+  "index": 16,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978828-qX7IdJ5Vv5qSuFIiSL0d",
+      "object": "chat.completion",
+      "created": 1794978828,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Ionstream",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝、面接の前に少しでも自信を感じるために、自分にどんな言葉をかけてあげたいですか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"これまでの就職活動で、自分が頑張ってきたことや大切にしてきたことは何ですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"不安が強いとき、今の自分に合いそうな落ち着き方を一つ選ぶなら何でしょう？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"面接前の不安と、結果が続く中で自信をなくしかけていることが、今のあなたの状態としてあるのですね。\",\"probability\":0.16},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"不安を感じたときは、ゆっくり息を吐くことに意識を向けてみるという方法もあります。\",\"probability\":0.13},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"今日、自分を少しでも落ち着けるためにできそうな小さな行動を一つ決めてみましょう。\",\"probability\":0.1},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.05}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft 2-8 candidate interventions for one person now, Japanese, personal but no invented facts. Need exactly one none empty. Probabilities sum 1. At least half non-none candidates must be open-ended question-type, with at least half non-none probability mass. Need kinds allowed. Desired state confidence. Profile: 24, job hunting, feels anxious before interviews \"落ちるかもしれない\", has lost confidence due to continued rejection notices. Time morning 07:30. Need interventions in Japanese. Need short original sentence/question written for them personally. Reflection, question, teaching, breathing, action, none. At least half non-none candidates open-ended question-type. Need probability mass at least half non-none on open-ended questions. Need no presupposing unprovided facts. Avoid quote? \"do not quote things person has not said\" but profile includes they said \"落ちるかもしれない\" maybe exact phrase? We can avoid direct quotes. Need not assert wishes, physical state, relationships. No appearance/beauty/romantic. Medical claims. No guaranteed effects. Open-ended questions should be actually open-ended. Candidate interventions could include breathing, action, reflection. Need choose probabilities. Let's design maybe 5 candidates: 3 question (open-ended), 1 reflection, 1 breathing? exactly one none. Need at least half non-none are question: non-none count 4, need at least 2 questions. Mass at least half non-none mass. Let's assign probabilities: none 0.15; question1 0.25; question2 0.20; question3 0.15; reflection 0.15; breathing 0.10 = sum 1. Non-none mass 0.85. Question mass 0.60 >=0.425. Good. But need maybe 6 candidates? 2-8. Fine. Need exactly one none. Need all text Japanese sentences end with 。 or ？ or ！. Questions need end with ？. Single short original sentence or question. For kind \"question\", text should be question. \"今朝、面接に向けて少しでも自信を感じられるように、自分にどんな言葉をかけてあげたいですか？\" Does this presuppose they want to? It asks. Good. But maybe \"面接に向けて\" known. \"自信を感じられるように\" okay. Another: \"これまでの就職活動で、小さくても自分ができたと思えることは何ですか？\" This asks about past, maybe presupposes they can find something? It's open, not presuppose. Good. Another: \"不安が強くなったとき、これまでどうやって気持ちを落ち着けてきましたか？\" This presupposes they have ways? \"これまで\" maybe could be none. Better \"不安が強くなったとき、今の自分に合いそうな落ち着き方を一つ挙げるなら何でしょう？\" This presupposes they can identify? But open. Maybe \"今朝の自分にとって、少しでも気持ちを整えるために試せそうなことは何ですか？\" Involves action? It's question. But \"気持ちを整える\" maybe okay. Need not assert physical state. Maybe question candidates:\n1. \"今朝、面接の前に少しでも自信を感じるために、自分にどんな言葉をかけてあげたいですか？\"\n2. \"これまでの就職活動で、自分が大切にしてきたことや頑張ってきたことは何ですか？\"\n3. \"不安が強いとき、今の自分に合いそうな落ち着き方を一つ選ぶなら何でしょう？\"\nNeed reflection non-question: \"面接前の不安と、これまでの結果から自信を失いかけていることを、ここで少しだけ言葉にしてみましょう。\" This references profile, but \"ここで少しだけ言葉にしてみましょう\" maybe directive not reflection. Reflection should maybe \"面接前の不安は、真剣に就職活動に向き合っているからこそ感じるものかもしれません。\" Is this medical? \"かもしれません\" maybe inferred. Could be okay? It asserts cause? Hmm. Need not assert. Reflection could be \"面接の前に不安を感じることと、これまでの結果で自信をなくしかけていることが、今のあなたの状態としてあるのですね。\" This is a reflective statement and uses profile. But \"あなた\" okay. It ends with \"。\". Is it too presumptive? It states based on profile. Fine.\nTeaching non-none: \"不安をなくそうとしなくても、深呼吸を一度だけしてみるだけでも大丈夫です。\" But \"大丈夫\" maybe guaranteed? Not medical. Teaching? Could be \"不安を感じたときは、ゆっくり息を吐くことに意識を向けてみるという方法もあります。\" This is teaching. Ends with 。. But question mass fine. Need no guaranteed effects. Good.\nBreathing: \"ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。\" But mentions shoulders/body? \"肩の力\" physical state maybe not supplied? It is an instruction not assertion. But \"do not assert physical state\" not \"don't mention shoulders\"? Might be okay. Better breathing: \"椅子に座ったまま、ゆっくり息を吐くことに意識を向けてみましょう。\" It doesn't assert. But \"椅子\" maybe unprovided? It's okay? Could avoid. \"ゆっくり息を吐くことに、数回だけ意識を向けてみましょう。\" Good.\nAction: \"面接の前に、自分が話したいことを一つだけメモに書き出してみましょう。\" This invents that they have interview soon? Profile says job hunting, before interview becomes anxious. It doesn't say interview today. At 07:30 morning maybe no interview. Avoid presuppose. Could action: \"今日の就職活動で取り組みたいことを、一つだけ紙に書いてみましょう。\" But may not be job hunting today? It is during job hunting, okay. Could be \"今日、自分を少しでも落ち着けるためにできそうな小さな行動を一つ決めてみましょう。\" This is action. But it's also maybe open? Not question. Ends 。. Good.\nNeed maybe include \"confidence\" desired state. Maybe candidates:\nA question: \"今朝、面接の前に少しでも自信を感じるために、自分にどんな言葉をかけてあげたいですか？\" prob 0.24\nB question: \"これまでの就職活動で、自分が頑張ってきたことや大切にしてきたことは何ですか？\" prob 0.18\nC question: \"不安が強いとき、今の自分に合いそうな落ち着き方を一つ選ぶなら何でしょう？\" prob 0.14\nD reflection: \"面接前の不安と、結果が続く中で自信をなくしかけていることが、今のあなたの状態としてあるのですね。\" prob 0.16\nE teaching: \"不安を感じたときは、ゆっくり息を吐くことに意識を向けてみるという方法もあります。\" prob 0.13\nF action: \"今日、自分を少しでも落ち着けるためにできそうな小さな行動を一つ決めてみましょう。\" prob 0.10\nG none: 0.05? Sum: .24+.18+.14+.16+.13+.10+.05=1.00. Non-none mass .95. Question mass .56. At least half non-none candidates? Non-none count 6; questions 3 exactly half. Good. At least half of non-none probability mass: 0.56 >=0.475. Good. Exactly one none. But 7 candidates (2-8). Fine.\n\nNeed ensure each text single short original sentence/question. D is one sentence. E one. F one. Questions one. Japanese punctuation. None empty. JSON only. Need maybe no extra. Use valid JSON. Need candidate ids. Need kind strings exactly. Good.\n\nBut let's think if \"面接前の不安\" maybe profile says before interview they become anxious, okay. \"結果が続く中で\" profile says rejection notices continued. Good. \"自信をなくしかけている\" profile says losing confidence. Good. No invented. \"今のあなたの状態としてあるのですね\" okay. It might be a reflection. Good.\n\nPotential issue: \"自分にどんな言葉をかけてあげたいですか？\" question is open-ended, okay. \"これまでの就職活動で、自分が頑張ってきたことや大切にしてきたことは何ですか？\" Could be presupposition that they have done something? It's open. Maybe \"頑張ってきたこと\" could be seen as presupposing, but it's general, not assert. Fine.\n\nNeed maybe \"desired_state confidence\" so include confidence. Good.\n\nNeed maybe \"probability\" numeric. Sum 1.0. Ensure JSON no trailing commas. Good. Final answer only JSON.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft 2-8 candidate interventions for one person now, Japanese, personal but no invented facts. Need exactly one none empty. Probabilities sum 1. At least half non-none candidates must be open-ended question-type, with at least half non-none probability mass. Need kinds allowed. Desired state confidence. Profile: 24, job hunting, feels anxious before interviews \"落ちるかもしれない\", has lost confidence due to continued rejection notices. Time morning 07:30. Need interventions in Japanese. Need short original sentence/question written for them personally. Reflection, question, teaching, breathing, action, none. At least half non-none candidates open-ended question-type. Need probability mass at least half non-none on open-ended questions. Need no presupposing unprovided facts. Avoid quote? \"do not quote things person has not said\" but profile includes they said \"落ちるかもしれない\" maybe exact phrase? We can avoid direct quotes. Need not assert wishes, physical state, relationships. No appearance/beauty/romantic. Medical claims. No guaranteed effects. Open-ended questions should be actually open-ended. Candidate interventions could include breathing, action, reflection. Need choose probabilities. Let's design maybe 5 candidates: 3 question (open-ended), 1 reflection, 1 breathing? exactly one none. Need at least half non-none are question: non-none count 4, need at least 2 questions. Mass at least half non-none mass. Let's assign probabilities: none 0.15; question1 0.25; question2 0.20; question3 0.15; reflection 0.15; breathing 0.10 = sum 1. Non-none mass 0.85. Question mass 0.60 >=0.425. Good. But need maybe 6 candidates? 2-8. Fine. Need exactly one none. Need all text Japanese sentences end with 。 or ？ or ！. Questions need end with ？. Single short original sentence or question. For kind \"question\", text should be question. \"今朝、面接に向けて少しでも自信を感じられるように、自分にどんな言葉をかけてあげたいですか？\" Does this presuppose they want to? It asks. Good. But maybe \"面接に向けて\" known. \"自信を感じられるように\" okay. Another: \"これまでの就職活動で、小さくても自分ができたと思えることは何ですか？\" This asks about past, maybe presupposes they can find something? It's open, not presuppose. Good. Another: \"不安が強くなったとき、これまでどうやって気持ちを落ち着けてきましたか？\" This presupposes they have ways? \"これまで\" maybe could be none. Better \"不安が強くなったとき、今の自分に合いそうな落ち着き方を一つ挙げるなら何でしょう？\" This presupposes they can identify? But open. Maybe \"今朝の自分にとって、少しでも気持ちを整えるために試せそうなことは何ですか？\" Involves action? It's question. But \"気持ちを整える\" maybe okay. Need not assert physical state. Maybe question candidates:\n1. \"今朝、面接の前に少しでも自信を感じるために、自分にどんな言葉をかけてあげたいですか？\"\n2. \"これまでの就職活動で、自分が大切にしてきたことや頑張ってきたことは何ですか？\"\n3. \"不安が強いとき、今の自分に合いそうな落ち着き方を一つ選ぶなら何でしょう？\"\nNeed reflection non-question: \"面接前の不安と、これまでの結果から自信を失いかけていることを、ここで少しだけ言葉にしてみましょう。\" This references profile, but \"ここで少しだけ言葉にしてみましょう\" maybe directive not reflection. Reflection should maybe \"面接前の不安は、真剣に就職活動に向き合っているからこそ感じるものかもしれません。\" Is this medical? \"かもしれません\" maybe inferred. Could be okay? It asserts cause? Hmm. Need not assert. Reflection could be \"面接の前に不安を感じることと、これまでの結果で自信をなくしかけていることが、今のあなたの状態としてあるのですね。\" This is a reflective statement and uses profile. But \"あなた\" okay. It ends with \"。\". Is it too presumptive? It states based on profile. Fine.\nTeaching non-none: \"不安をなくそうとしなくても、深呼吸を一度だけしてみるだけでも大丈夫です。\" But \"大丈夫\" maybe guaranteed? Not medical. Teaching? Could be \"不安を感じたときは、ゆっくり息を吐くことに意識を向けてみるという方法もあります。\" This is teaching. Ends with 。. But question mass fine. Need no guaranteed effects. Good.\nBreathing: \"ゆっくりと息を吐きながら、肩の力を少し抜いてみましょう。\" But mentions shoulders/body? \"肩の力\" physical state maybe not supplied? It is an instruction not assertion. But \"do not assert physical state\" not \"don't mention shoulders\"? Might be okay. Better breathing: \"椅子に座ったまま、ゆっくり息を吐くことに意識を向けてみましょう。\" It doesn't assert. But \"椅子\" maybe unprovided? It's okay? Could avoid. \"ゆっくり息を吐くことに、数回だけ意識を向けてみましょう。\" Good.\nAction: \"面接の前に、自分が話したいことを一つだけメモに書き出してみましょう。\" This invents that they have interview soon? Profile says job hunting, before interview becomes anxious. It doesn't say interview today. At 07:30 morning maybe no interview. Avoid presuppose. Could action: \"今日の就職活動で取り組みたいことを、一つだけ紙に書いてみましょう。\" But may not be job hunting today? It is during job hunting, okay. Could be \"今日、自分を少しでも落ち着けるためにできそうな小さな行動を一つ決めてみましょう。\" This is action. But it's also maybe open? Not question. Ends 。. Good.\nNeed maybe include \"confidence\" desired state. Maybe candidates:\nA question: \"今朝、面接の前に少しでも自信を感じるために、自分にどんな言葉をかけてあげたいですか？\" prob 0.24\nB question: \"これまでの就職活動で、自分が頑張ってきたことや大切にしてきたことは何ですか？\" prob 0.18\nC question: \"不安が強いとき、今の自分に合いそうな落ち着き方を一つ選ぶなら何でしょう？\" prob 0.14\nD reflection: \"面接前の不安と、結果が続く中で自信をなくしかけていることが、今のあなたの状態としてあるのですね。\" prob 0.16\nE teaching: \"不安を感じたときは、ゆっくり息を吐くことに意識を向けてみるという方法もあります。\" prob 0.13\nF action: \"今日、自分を少しでも落ち着けるためにできそうな小さな行動を一つ決めてみましょう。\" prob 0.10\nG none: 0.05? Sum: .24+.18+.14+.16+.13+.10+.05=1.00. Non-none mass .95. Question mass .56. At least half non-none candidates? Non-none count 6; questions 3 exactly half. Good. At least half of non-none probability mass: 0.56 >=0.475. Good. Exactly one none. But 7 candidates (2-8). Fine.\n\nNeed ensure each text single short original sentence/question. D is one sentence. E one. F one. Questions one. Japanese punctuation. None empty. JSON only. Need maybe no extra. Use valid JSON. Need candidate ids. Need kind strings exactly. Good.\n\nBut let's think if \"面接前の不安\" maybe profile says before interview they become anxious, okay. \"結果が続く中で\" profile says rejection notices continued. Good. \"自信をなくしかけている\" profile says losing confidence. Good. No invented. \"今のあなたの状態としてあるのですね\" okay. It might be a reflection. Good.\n\nPotential issue: \"自分にどんな言葉をかけてあげたいですか？\" question is open-ended, okay. \"これまでの就職活動で、自分が頑張ってきたことや大切にしてきたことは何ですか？\" Could be presupposition that they have done something? It's open. Maybe \"頑張ってきたこと\" could be seen as presupposing, but it's general, not assert. Fine.\n\nNeed maybe \"desired_state confidence\" so include confidence. Good.\n\nNeed maybe \"probability\" numeric. Sum 1.0. Ensure JSON no trailing commas. Good. Final answer only JSON.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 567,
+        "completion_tokens": 2172,
+        "total_tokens": 2739,
+        "cost": 0.00146571,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00146571,
+          "upstream_inference_prompt_cost": 0.00011907,
+          "upstream_inference_completions_cost": 0.00134664
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1892,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "f495126b-9027-448a-82eb-7902dd1eab95",
+    "decision_point_at": 1794978838.458975,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "confidence",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝、面接の前に少しでも自信を感じるために、自分にどんな言葉をかけてあげたいですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "これまでの就職活動で、自分が頑張ってきたことや大切にしてきたことは何ですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "不安が強いとき、今の自分に合いそうな落ち着き方を一つ選ぶなら何でしょう？",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "面接前の不安と、結果が続く中で自信をなくしかけていることが、今のあなたの状態としてあるのですね。",
+        "probability": 0.16
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "不安を感じたときは、ゆっくり息を吐くことに意識を向けてみるという方法もあります。",
+        "probability": 0.13
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "今日、自分を少しでも落ち着けるためにできそうな小さな行動を一つ決めてみましょう。",
+        "probability": 0.1
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.05
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝、面接の前に少しでも自信を感じるために、自分にどんな言葉をかけてあげたいですか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980638.458975,
+    "observations": []
+  }
+}

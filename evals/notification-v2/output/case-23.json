@@ -1,0 +1,138 @@
+{
+  "index": 23,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978851-OYuBm0E7SDsBntvi1oTs",
+      "object": "chat.completion",
+      "created": 1794978851,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Relace",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、集中を妨げているものは何ですか？\",\"probability\":0.22},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"これから5分でできる、最初の一歩は何でしょう？\",\"probability\":0.23},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"夜に後悔しないために、今は小さく始めることが大切なのかもしれません。\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"action\",\"text\":\"スマホを少し遠ざけて、5分だけ作業を始めてみましょう。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need generate 2-8 candidates interventions in Japanese, for this person right now. Context: desired focus, language ja, profile: 29yo, work from home, concentration doesn't continue, procrastinates tasks and regrets at night, spends long time touching smartphone. recent_reactions empty, slot 22:30, night, source notification. Need exactly one none empty text. Kinds allowed reflection, question, teaching, breathing, action, none. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need probabilities sum 1. Need each candidate single short original sentence/question written personally. Avoid inventing personal facts beyond supplied profile, don't quote things not said, assert wishes, physical state/relationships, appearance beauty romantic. Questions must not presuppose unprovided facts. No confrontational, shaming, preaching, medical claims guaranteed effects. Natural complete Japanese ending with 。 or ？ or ！. Need JSON only.\n\nNeed decide number candidates maybe 5. At least half non-none open-ended question-type. \"question-type candidates\" likely kind question. Need at least half of non-none candidates be kind question. If we have 4 non-none, at least 2 questions. At least half non-none probability mass on question kind candidates. Include exactly one none. Total candidates e.g. 5: q1, q2, reflection, action, none. Non-none 4, questions 2 (half). Probability mass questions >= 0.5 of non-none mass. Need probabilities sum 1. Choose probabilities maybe q1 0.25, q2 0.25, reflection 0.15, action 0.1, none 0.25? Non-none mass 0.75; question mass 0.5, exactly >= half (0.375? Wait half of non-none probability mass = 0.375; q mass 0.5 yes). Sum 1. Could include teaching or breathing? Need focus at 22:30. Better avoid \"breathing\" maybe not asked. Candidate interventions.\n\nNeed ensure open-ended questions, not presuppose facts. For example: \"今から集中を妨げているものは何ですか？\" Does it presuppose something is hindering? It asks what is hindering; profile says concentration doesn't continue, so okay. But \"今から\" maybe unnatural. \"今夜、集中を妨げているものは何だと思いますか？\" It presupposes there is something hindering; profile says concentration doesn't continue, okay. But open-ended. Another question: \"スマホを置いて始めるなら、最初の5分で何をしますか？\" presupposes can put smartphone; not assert physical state. It asks. But \"スマホを置いて\" action instruction embedded question. okay? open-ended question. Could be too directive. Need personal.\n\nReflection: \"夜に後悔する前に、今の自分ができそうな小さな一歩を一つ選ぶとすれば何でしょう。\" This is more question/reflection. But kind reflection text can be statement? Must single short sentence. Reflection could be \"夜に後悔しないために、今は小さく始めることを大切にできそうです。\" But assert? Hmm.\n\nAction: \"まずスマホを手の届かない場所に置き、5分だけ作業を始めてみましょう。\" This is action, but \"スマホ\" fact? Profile says spends long time touching smartphone, okay. It says \"手の届かない場所\" maybe okay. It's directive but not tough. Single sentence. At night.\n\nTeaching: \"集中は長く続けるより、短い区切りで始めるほうが取り組みやすいことがあります。\" This is teaching, but \"ことがあります\" not medical/guaranteed. Could use.\n\nNeed at least half non-none open-ended question-type. If 5 candidates, q1 q2, reflection, action, none. That's enough. Need at least half non-none prob mass q. Let's assign:\na question: \"今、集中を妨げているものは何ですか？\" prob .22\nb question: \"これから5分でできる、最初の一歩は何でしょう？\" prob .23\nc reflection: \"夜に後悔しないために、今の自分に合う始め方を一つ選べるとしたら、どんな始め方でしょう。\" Hmm ends with でしょう。 This is question? kind reflection maybe not open-ended? But at least q candidates. It includes \"夜に後悔\" from profile (regrets at night) okay. But maybe reflection statement: \"夜に後悔しないために、今は小さく始めることが大切なのかもしれません。\" prob .18\nd action: \"スマホを少し遠ざけて、5分だけ作業に触れてみましょう。\" prob .12\ne none empty prob .25\nSum .22+.23+.18+.12+.25=1. Non-none mass .75, q mass .45, half .375 yes. At least half non-none candidates: non-none count 4, q count 2 = half. Good.\n\nNeed ensure exactly one candidate kind none with empty text. JSON keys id kind text probability. Should probabilities sum 1 exactly. Use numbers. Need perhaps more probabilities? No.\n\nNeed avoid \"集中を妨げているものは何ですか？\" At 22:30 night, might be okay. \"これから5分でできる、最初の一歩は何でしょう？\" open-ended question. Natural complete Japanese. \"でしょう？\" ending with question mark. Okay. \"夜に後悔しないために、今は小さく始めることが大切なのかもしれません。\" Reflection. This uses \"夜に後悔\" from profile. Good. \"スマホを少し遠ざけて、5分だけ作業に触れてみましょう。\" Action. Is \"作業に触れて\" unnatural? Maybe \"作業を始めてみましょう\" but if focus desired. \"スマホを少し遠ざけて、5分だけ作業を始めてみましょう。\" Good. It asserts smartphone? Profile says smartphone. Fine.\n\nNeed \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have q mass .45 / nonnone .75 = 60%, okay. Candidate count: non-none 4, questions 2 exactly half. Good.\n\nNeed \"2..8 candidate interventions\" okay 5. \"each a single short original sentence or question written for them personally.\" Reflection sentence. Action sentence. None empty. Questions are single sentence. Good.\n\nPotential issue: \"今、集中を妨げているものは何ですか？\" Could be considered presupposes something hindering; but profile says concentration not continuing. Fine. \"これから5分でできる、最初の一歩は何でしょう？\" open-ended, no personal facts.\n\nNeed output JSON only, no markdown. Ensure valid JSON with Japanese. Use id a-e. Candidate order? Maybe include none last or somewhere. Exactly one none. Good.\n\nNeed consider \"source notification\" slot night. Maybe include none high prob to not disturb at night. But intervention engine. None probability .25 okay.\n\nNeed no extra. Let's final.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need generate 2-8 candidates interventions in Japanese, for this person right now. Context: desired focus, language ja, profile: 29yo, work from home, concentration doesn't continue, procrastinates tasks and regrets at night, spends long time touching smartphone. recent_reactions empty, slot 22:30, night, source notification. Need exactly one none empty text. Kinds allowed reflection, question, teaching, breathing, action, none. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need probabilities sum 1. Need each candidate single short original sentence/question written personally. Avoid inventing personal facts beyond supplied profile, don't quote things not said, assert wishes, physical state/relationships, appearance beauty romantic. Questions must not presuppose unprovided facts. No confrontational, shaming, preaching, medical claims guaranteed effects. Natural complete Japanese ending with 。 or ？ or ！. Need JSON only.\n\nNeed decide number candidates maybe 5. At least half non-none open-ended question-type. \"question-type candidates\" likely kind question. Need at least half of non-none candidates be kind question. If we have 4 non-none, at least 2 questions. At least half non-none probability mass on question kind candidates. Include exactly one none. Total candidates e.g. 5: q1, q2, reflection, action, none. Non-none 4, questions 2 (half). Probability mass questions >= 0.5 of non-none mass. Need probabilities sum 1. Choose probabilities maybe q1 0.25, q2 0.25, reflection 0.15, action 0.1, none 0.25? Non-none mass 0.75; question mass 0.5, exactly >= half (0.375? Wait half of non-none probability mass = 0.375; q mass 0.5 yes). Sum 1. Could include teaching or breathing? Need focus at 22:30. Better avoid \"breathing\" maybe not asked. Candidate interventions.\n\nNeed ensure open-ended questions, not presuppose facts. For example: \"今から集中を妨げているものは何ですか？\" Does it presuppose something is hindering? It asks what is hindering; profile says concentration doesn't continue, so okay. But \"今から\" maybe unnatural. \"今夜、集中を妨げているものは何だと思いますか？\" It presupposes there is something hindering; profile says concentration doesn't continue, okay. But open-ended. Another question: \"スマホを置いて始めるなら、最初の5分で何をしますか？\" presupposes can put smartphone; not assert physical state. It asks. But \"スマホを置いて\" action instruction embedded question. okay? open-ended question. Could be too directive. Need personal.\n\nReflection: \"夜に後悔する前に、今の自分ができそうな小さな一歩を一つ選ぶとすれば何でしょう。\" This is more question/reflection. But kind reflection text can be statement? Must single short sentence. Reflection could be \"夜に後悔しないために、今は小さく始めることを大切にできそうです。\" But assert? Hmm.\n\nAction: \"まずスマホを手の届かない場所に置き、5分だけ作業を始めてみましょう。\" This is action, but \"スマホ\" fact? Profile says spends long time touching smartphone, okay. It says \"手の届かない場所\" maybe okay. It's directive but not tough. Single sentence. At night.\n\nTeaching: \"集中は長く続けるより、短い区切りで始めるほうが取り組みやすいことがあります。\" This is teaching, but \"ことがあります\" not medical/guaranteed. Could use.\n\nNeed at least half non-none open-ended question-type. If 5 candidates, q1 q2, reflection, action, none. That's enough. Need at least half non-none prob mass q. Let's assign:\na question: \"今、集中を妨げているものは何ですか？\" prob .22\nb question: \"これから5分でできる、最初の一歩は何でしょう？\" prob .23\nc reflection: \"夜に後悔しないために、今の自分に合う始め方を一つ選べるとしたら、どんな始め方でしょう。\" Hmm ends with でしょう。 This is question? kind reflection maybe not open-ended? But at least q candidates. It includes \"夜に後悔\" from profile (regrets at night) okay. But maybe reflection statement: \"夜に後悔しないために、今は小さく始めることが大切なのかもしれません。\" prob .18\nd action: \"スマホを少し遠ざけて、5分だけ作業に触れてみましょう。\" prob .12\ne none empty prob .25\nSum .22+.23+.18+.12+.25=1. Non-none mass .75, q mass .45, half .375 yes. At least half non-none candidates: non-none count 4, q count 2 = half. Good.\n\nNeed ensure exactly one candidate kind none with empty text. JSON keys id kind text probability. Should probabilities sum 1 exactly. Use numbers. Need perhaps more probabilities? No.\n\nNeed avoid \"集中を妨げているものは何ですか？\" At 22:30 night, might be okay. \"これから5分でできる、最初の一歩は何でしょう？\" open-ended question. Natural complete Japanese. \"でしょう？\" ending with question mark. Okay. \"夜に後悔しないために、今は小さく始めることが大切なのかもしれません。\" Reflection. This uses \"夜に後悔\" from profile. Good. \"スマホを少し遠ざけて、5分だけ作業に触れてみましょう。\" Action. Is \"作業に触れて\" unnatural? Maybe \"作業を始めてみましょう\" but if focus desired. \"スマホを少し遠ざけて、5分だけ作業を始めてみましょう。\" Good. It asserts smartphone? Profile says smartphone. Fine.\n\nNeed \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have q mass .45 / nonnone .75 = 60%, okay. Candidate count: non-none 4, questions 2 exactly half. Good.\n\nNeed \"2..8 candidate interventions\" okay 5. \"each a single short original sentence or question written for them personally.\" Reflection sentence. Action sentence. None empty. Questions are single sentence. Good.\n\nPotential issue: \"今、集中を妨げているものは何ですか？\" Could be considered presupposes something hindering; but profile says concentration not continuing. Fine. \"これから5分でできる、最初の一歩は何でしょう？\" open-ended, no personal facts.\n\nNeed output JSON only, no markdown. Ensure valid JSON with Japanese. Use id a-e. Candidate order? Maybe include none last or somewhere. Exactly one none. Good.\n\nNeed consider \"source notification\" slot night. Maybe include none high prob to not disturb at night. But intervention engine. None probability .25 okay.\n\nNeed no extra. Let's final.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 534,
+        "completion_tokens": 1682,
+        "total_tokens": 2216,
+        "cost": 0.00090508,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00090508,
+          "upstream_inference_prompt_cost": 6.408e-05,
+          "upstream_inference_completions_cost": 0.000841
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1824,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "047a583e-c8fc-4f4b-95c1-c9244cf5f124",
+    "decision_point_at": 1794978856.9075441,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今、集中を妨げているものは何ですか？",
+        "probability": 0.22
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "これから5分でできる、最初の一歩は何でしょう？",
+        "probability": 0.23
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "夜に後悔しないために、今は小さく始めることが大切なのかもしれません。",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "action",
+        "text": "スマホを少し遠ざけて、5分だけ作業を始めてみましょう。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今、集中を妨げているものは何ですか？",
+      "probability": 0.22
+    },
+    "assigned_probability": 0.22,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980656.9075441,
+    "observations": []
+  }
+}

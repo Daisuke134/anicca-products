@@ -1,0 +1,138 @@
+{
+  "index": 5,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978794-8LaiDu6WBmdYQ2LKyrHI",
+      "object": "chat.completion",
+      "created": 1794978794,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Relace",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今のあなたが少し楽になれる小さな選択を、一つ挙げるとしたら何でしょう？\",\"probability\":0.23},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」と感じたとき、その言葉の隣に置いておきたい見方はどんなものでしょう？\",\"probability\":0.22},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"人と比べて落ち込んだときは、自分に返す言葉を一つだけ選び直してみてもよさそうです。\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"肩の力を少し抜いて、ゆっくり長めに息を吐いてみましょう。\",\"probability\":0.15},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need write 2-8 candidate interventions for person right now Japanese. Need exactly one none empty. Prob sum 1. Kinds allowed. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need interpret \"open-ended question-type candidates\" likely kind question and open-ended, possibly reflection? They say question-type candidates. Need at least half of non-none candidates be kind question, and question candidates probability mass >= half non-none mass. Need include reflection/teaching/breathing/action maybe. Desired state self_love, profile: 26, compares on SNS and feels down, says \"どうせ私なんて\", can't accept compliments. Recent reactions none. Day 12:30 notification. Need avoid inventing facts. Personal sentence or question. Need not quote? Can reference \"SNSで比べてしまう\" from supplied profile. Don't assert current state? Context says profile summary; can use? \"SNSを見て比べてしまうことがある\" maybe okay as profile. But interventions should be now. We can mention \"今\" maybe not presuppose. Need natural Japanese complete sentence ending。？！\n\nNeed choose probabilities. Need ensure non-none candidates maybe 4 non-none + none. At least half non-none candidates open-ended question-type: with 4 non-none, need at least 2 questions. Question prob mass at least half non-none. Let's make 5 candidates: q1 0.24, q2 0.24, reflection 0.12, action/breathing/teaching 0.15, none 0.25. Non-none mass 0.75, question mass 0.48 > 0.375. Non-none candidates 4, questions 2 = half. Good. But total sum: 0.24+0.24+0.12+0.15+0.25=1.00. Exactly one none.\n\nNeed candidate texts. Need kinds: question open-ended, reflection, breathing/action. At least half non-none question-type candidates. We can include exactly 2 question, 1 reflection, 1 breathing, none. Non-none count 4, question count 2 = half. Good.\n\nNeed avoid \"自分を大切に\" maybe teaching/preaching? Reflection can be non-question. Need make original short sentence. Person language Japanese.\n\nCandidate q1: \"今の自分に、SNSで見た誰かではなく、あなた自身が少し楽になれる小さな選択は何でしょう？\" This is question but mentions SNS from profile; asks open-ended, doesn't presuppose current SNS use? It says \"SNSで見た誰かではなく\" maybe could presuppose they saw someone. Better avoid unprovided current. \"今のあなたが少し楽になれる小さな選択を、一つ挙げるとしたら何でしょう？\" open-ended. Good.\n\nq2: \"「どうせ私なんて」が出てきたとき、その言葉のそばに置いておきたい別の見方はどんなものでしょう？\" This references phrase they say from profile. It's okay not quote? It quotes phrase they have said per profile. The prompt says do not quote things person has not said; they have said. Good. But question presupposes phrase appears? It's conditional \"出てきたとき\" okay. Open-ended.\n\nReflection: \"SNSで比べて落ち込んだ日も、あなたはここまで自分のペースで来ている。\" Hmm asserts current? It says SNS compare from profile. \"落ち込んだ日も\" maybe past fact? Profile says has many times. Natural. But maybe \"自分のペースで\" invent? Avoid. Reflection: \"人と比べて落ち込みやすいからこそ、自分に向ける言葉を少し変えてみる余地はありそうです。\" This is more teaching/reflection, maybe preachy? \"余地はありそうです\" okay. But it uses \"からこそ\" maybe assert. Need short.\n\nBreathing: \"肩の力を少し抜いて、息を長めに吐いてみましょう。\" Good action/breathing.\n\nMaybe use action: \"スマホを一度伏せて、両足の裏を床に感じてみましょう。\" This might presuppose phone, not safe. Breathing safer no facts. Need one non-question maybe breathing. Reflection. Good.\n\nNeed probabilities maybe question mass. Candidate probabilities:\na question: 0.23\nb question: 0.22\nc reflection: 0.15\nd breathing: 0.15\ne none: 0.25\nSum 1.0. Non-none mass .75. Question mass .45 >= .375. Non-none candidates 4, question 2 = half. Good.\n\nNeed exactly one none. Ensure JSON valid. \"id\": maybe a,b,c,d,e. Kinds exactly \"reflection\",\"question\",\"teaching\",\"breathing\",\"action\",\"none\". We use question twice, reflection, breathing, none. Good.\n\nNeed text each single short original sentence/question. Japanese ends with 。 or ？ or ！. Our questions end with ？ Japanese fullwidth? Prompt says Japanese sentences end with 。 or ？ or ！. Use fullwidth question mark ？. Ensure question text ends with ？. Reflection ends 。. Breathing ends 。. None empty text.\n\nNeed \"single short original sentence or question\" For q1 one sentence. Good.\n\nPotential issue \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have 2/4, okay. But \"open-ended question-type candidates\" maybe only kind \"question\" and not yes/no. Both open-ended. Good.\n\nNeed final JSON only no markdown. Need probabilities as numbers. Ensure sum 1. Use 0.23+0.22+0.15+0.15+0.25 = 1.00. Good.\n\nNeed maybe exactly 2..8 candidates; 5 okay. Text natural. Could improve reflection: \"人と比べて落ち込みやすい自分を責めるより、今日は自分に返す言葉を一つ選んでみてもよさそうです。\" This is a bit teaching, not reflection? Kind reflection could be reflection. \"SNSで比べて落ち込んだときは、自分にかける言葉を一つだけ選び直してみてもよさそうです。\" Hmm \"落ち込んだとき\" conditional. Good. But reflection should be reflection not advice? It is okay.\n\nLet's craft:\na question: \"今のあなたが少し楽になれる小さな選択を、一つ挙げるとしたら何でしょう？\"\nb question: \"「どうせ私なんて」と感じたとき、その言葉の隣に置いておきたい見方はどんなものでしょう？\"\nc reflection: \"人と比べて落ち込みやすい自分を責めるより、今日は自分に返す言葉を一つ選んでみてもよさそうです。\"\nd breathing: \"肩の力を少し抜いて、ゆっくり長めに息を吐いてみましょう。\"\ne none.\n\nNeed \"自然な完全言語\" okay. The reflection says \"よさそうです\" maybe not personal? Fine. No medical claims. No guaranteed effects. No confrontational. Good.\n\nNeed \"never invent personal facts beyond supplied profile\" Reflection mentions \"人と比べて落ち込みやすい自分\" from profile. \"責めるより\" maybe assumes self-blame? Profile says says どうせ私なんて, can't accept compliments; not explicitly self-blame. Avoid \"責める\". Reflection: \"人と比べて落ち込んだときは、自分に返す言葉を一つだけ選び直してみてもよさそうです。\" It doesn't assert current, conditional. Good. But \"落ち込んだとき\" from profile. Fine. Use this.\n\nNeed maybe no \"今日\" maybe context day. Fine.\n\nQuestion b: \"「どうせ私なんて」と感じたとき\" profile says says \"どうせ私なんて\". Good. \"隣に置いておきたい見方\" open-ended, no presuppose? It presupposes they might have felt phrase? Conditional. Good.\n\nNeed final JSON. Ensure no extra explanation. Use double quotes. Good. \nWait \"id\":\"a\" etc. Need all candidates. Prob sum exactly 1.0. \"probability\":0.23 etc. Good.\n\nLet's final. \n",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need write 2-8 candidate interventions for person right now Japanese. Need exactly one none empty. Prob sum 1. Kinds allowed. At least half non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need interpret \"open-ended question-type candidates\" likely kind question and open-ended, possibly reflection? They say question-type candidates. Need at least half of non-none candidates be kind question, and question candidates probability mass >= half non-none mass. Need include reflection/teaching/breathing/action maybe. Desired state self_love, profile: 26, compares on SNS and feels down, says \"どうせ私なんて\", can't accept compliments. Recent reactions none. Day 12:30 notification. Need avoid inventing facts. Personal sentence or question. Need not quote? Can reference \"SNSで比べてしまう\" from supplied profile. Don't assert current state? Context says profile summary; can use? \"SNSを見て比べてしまうことがある\" maybe okay as profile. But interventions should be now. We can mention \"今\" maybe not presuppose. Need natural Japanese complete sentence ending。？！\n\nNeed choose probabilities. Need ensure non-none candidates maybe 4 non-none + none. At least half non-none candidates open-ended question-type: with 4 non-none, need at least 2 questions. Question prob mass at least half non-none. Let's make 5 candidates: q1 0.24, q2 0.24, reflection 0.12, action/breathing/teaching 0.15, none 0.25. Non-none mass 0.75, question mass 0.48 > 0.375. Non-none candidates 4, questions 2 = half. Good. But total sum: 0.24+0.24+0.12+0.15+0.25=1.00. Exactly one none.\n\nNeed candidate texts. Need kinds: question open-ended, reflection, breathing/action. At least half non-none question-type candidates. We can include exactly 2 question, 1 reflection, 1 breathing, none. Non-none count 4, question count 2 = half. Good.\n\nNeed avoid \"自分を大切に\" maybe teaching/preaching? Reflection can be non-question. Need make original short sentence. Person language Japanese.\n\nCandidate q1: \"今の自分に、SNSで見た誰かではなく、あなた自身が少し楽になれる小さな選択は何でしょう？\" This is question but mentions SNS from profile; asks open-ended, doesn't presuppose current SNS use? It says \"SNSで見た誰かではなく\" maybe could presuppose they saw someone. Better avoid unprovided current. \"今のあなたが少し楽になれる小さな選択を、一つ挙げるとしたら何でしょう？\" open-ended. Good.\n\nq2: \"「どうせ私なんて」が出てきたとき、その言葉のそばに置いておきたい別の見方はどんなものでしょう？\" This references phrase they say from profile. It's okay not quote? It quotes phrase they have said per profile. The prompt says do not quote things person has not said; they have said. Good. But question presupposes phrase appears? It's conditional \"出てきたとき\" okay. Open-ended.\n\nReflection: \"SNSで比べて落ち込んだ日も、あなたはここまで自分のペースで来ている。\" Hmm asserts current? It says SNS compare from profile. \"落ち込んだ日も\" maybe past fact? Profile says has many times. Natural. But maybe \"自分のペースで\" invent? Avoid. Reflection: \"人と比べて落ち込みやすいからこそ、自分に向ける言葉を少し変えてみる余地はありそうです。\" This is more teaching/reflection, maybe preachy? \"余地はありそうです\" okay. But it uses \"からこそ\" maybe assert. Need short.\n\nBreathing: \"肩の力を少し抜いて、息を長めに吐いてみましょう。\" Good action/breathing.\n\nMaybe use action: \"スマホを一度伏せて、両足の裏を床に感じてみましょう。\" This might presuppose phone, not safe. Breathing safer no facts. Need one non-question maybe breathing. Reflection. Good.\n\nNeed probabilities maybe question mass. Candidate probabilities:\na question: 0.23\nb question: 0.22\nc reflection: 0.15\nd breathing: 0.15\ne none: 0.25\nSum 1.0. Non-none mass .75. Question mass .45 >= .375. Non-none candidates 4, question 2 = half. Good.\n\nNeed exactly one none. Ensure JSON valid. \"id\": maybe a,b,c,d,e. Kinds exactly \"reflection\",\"question\",\"teaching\",\"breathing\",\"action\",\"none\". We use question twice, reflection, breathing, none. Good.\n\nNeed text each single short original sentence/question. Japanese ends with 。 or ？ or ！. Our questions end with ？ Japanese fullwidth? Prompt says Japanese sentences end with 。 or ？ or ！. Use fullwidth question mark ？. Ensure question text ends with ？. Reflection ends 。. Breathing ends 。. None empty text.\n\nNeed \"single short original sentence or question\" For q1 one sentence. Good.\n\nPotential issue \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" We have 2/4, okay. But \"open-ended question-type candidates\" maybe only kind \"question\" and not yes/no. Both open-ended. Good.\n\nNeed final JSON only no markdown. Need probabilities as numbers. Ensure sum 1. Use 0.23+0.22+0.15+0.15+0.25 = 1.00. Good.\n\nNeed maybe exactly 2..8 candidates; 5 okay. Text natural. Could improve reflection: \"人と比べて落ち込みやすい自分を責めるより、今日は自分に返す言葉を一つ選んでみてもよさそうです。\" This is a bit teaching, not reflection? Kind reflection could be reflection. \"SNSで比べて落ち込んだときは、自分にかける言葉を一つだけ選び直してみてもよさそうです。\" Hmm \"落ち込んだとき\" conditional. Good. But reflection should be reflection not advice? It is okay.\n\nLet's craft:\na question: \"今のあなたが少し楽になれる小さな選択を、一つ挙げるとしたら何でしょう？\"\nb question: \"「どうせ私なんて」と感じたとき、その言葉の隣に置いておきたい見方はどんなものでしょう？\"\nc reflection: \"人と比べて落ち込みやすい自分を責めるより、今日は自分に返す言葉を一つ選んでみてもよさそうです。\"\nd breathing: \"肩の力を少し抜いて、ゆっくり長めに息を吐いてみましょう。\"\ne none.\n\nNeed \"自然な完全言語\" okay. The reflection says \"よさそうです\" maybe not personal? Fine. No medical claims. No guaranteed effects. No confrontational. Good.\n\nNeed \"never invent personal facts beyond supplied profile\" Reflection mentions \"人と比べて落ち込みやすい自分\" from profile. \"責めるより\" maybe assumes self-blame? Profile says says どうせ私なんて, can't accept compliments; not explicitly self-blame. Avoid \"責める\". Reflection: \"人と比べて落ち込んだときは、自分に返す言葉を一つだけ選び直してみてもよさそうです。\" It doesn't assert current, conditional. Good. But \"落ち込んだとき\" from profile. Fine. Use this.\n\nNeed maybe no \"今日\" maybe context day. Fine.\n\nQuestion b: \"「どうせ私なんて」と感じたとき\" profile says says \"どうせ私なんて\". Good. \"隣に置いておきたい見方\" open-ended, no presuppose? It presupposes they might have felt phrase? Conditional. Good.\n\nNeed final JSON. Ensure no extra explanation. Use double quotes. Good. \nWait \"id\":\"a\" etc. Need all candidates. Prob sum exactly 1.0. \"probability\":0.23 etc. Good.\n\nLet's final. \n",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 569,
+        "completion_tokens": 1973,
+        "total_tokens": 2542,
+        "cost": 0.00105478,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00105478,
+          "upstream_inference_prompt_cost": 6.828e-05,
+          "upstream_inference_completions_cost": 0.0009865
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2055,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "61441179-c336-48a6-9e12-576ac0763df7",
+    "decision_point_at": 1794978801.286499,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今のあなたが少し楽になれる小さな選択を、一つ挙げるとしたら何でしょう？",
+        "probability": 0.23
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "「どうせ私なんて」と感じたとき、その言葉の隣に置いておきたい見方はどんなものでしょう？",
+        "probability": 0.22
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "人と比べて落ち込んだときは、自分に返す言葉を一つだけ選び直してみてもよさそうです。",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "肩の力を少し抜いて、ゆっくり長めに息を吐いてみましょう。",
+        "probability": 0.15
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今のあなたが少し楽になれる小さな選択を、一つ挙げるとしたら何でしょう？",
+      "probability": 0.23
+    },
+    "assigned_probability": 0.23,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980601.286499,
+    "observations": []
+  }
+}

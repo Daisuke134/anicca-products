@@ -1,0 +1,144 @@
+{
+  "index": 7,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978797-Y9bQm5mKUJBfuE7Cw5wm",
+      "object": "chat.completion",
+      "created": 1794978797,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "InferenceNet",
+      "system_fingerprint": "inference.net",
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜、自分にひとつだけ優しい言葉をかけるとしたら、どんな言葉にしますか？\",\"probability\":0.18},{\"id\":\"b\",\"kind\":\"reflection\",\"text\":\"SNSで比べて落ち込むとき、あなたの中に「どうせ私なんて」という声が出るのですね。\",\"probability\":0.12},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"褒め言葉を素直に受け取れないとき、どんなふうに受け止められたら少し楽になりそうですか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"ゆっくり息を吐いて、今夜はSNSから少し離れてみましょう。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"question\",\"text\":\"比べてしまう気持ちが浮かんだとき、自分を大切にする小さな一歩は何だろう？\",\"probability\":0.17},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft 2..8 candidates for person, Japanese, short original sentence/question personal. Exactly one none empty. Kinds allowed. At least half non-none candidates open-ended question-type, with at least half non-none probability mass. Need probabilities sum 1. Need no invented facts beyond profile. Profile: 26, SNS compare often, says \"どうせ私なんて\", can't accept compliments sincerely. Desired self_love. Night 22:30 notification. Need interventions now. Must not assert wishes/physical/relationships. Questions open-ended not presuppose. Need reflection, question, teaching, breathing, action maybe. Need exactly one none. Need at least half non-none are questions. If 5 non-none, at least 3 questions and question prob mass >= half nonnone mass. Let's make 6 candidates total: 5 nonnone + none. Perhaps 3 questions, 1 reflection, 1 action/breathing/teaching. Prob sum 1. Need choose probabilities. None maybe 0.2. Non-none mass 0.8. Question mass >=0.4. Let's set:\na question \"今の自分に、ひとつだけ優しい言葉をかけるとしたらどんな言葉にしますか？\" prob 0.20\nb reflection \"SNSを見て落ち込んだとき、あなたは自分にどんな言葉をかけているのでしょう。\" Hmm reflection maybe statement. But \"でしょう\" question? Kind reflection not question. Fine.\nc question \"褒められたとき、素直に受け取れない自分にどう声をかけてあげたいですか？\" prob 0.18\nd breathing \"ゆっくり息を吐いて、今夜はSNSから少し離れる時間を作ってみませんか？\" This is question-type? kind breathing, text question? Hmm kind breathing but question mark. They say at least half non-none candidates open-ended question-type candidates. Kinds maybe question. Better keep breathing not question? \"ゆっくり息を吐いて、今夜はSNSから少し離れる時間を作ってみましょう。\" kind breathing prob 0.12\ne question \"比べてしまう気持ちが浮かんだとき、自分を大切にするためにできる小さなことは何でしょう？\" prob 0.15\nf none prob 0.15? Sum 0.20+0.15? Need calculate.\n\nNeed ensure at least half non-none question-type: if nonnone 5, need at least 3 kind question. Let's make a,c,e question. Prob question mass a 0.20 + c 0.18 + e 0.15 = 0.53 >= nonnone mass/2? nonnone mass = 0.85 maybe half 0.425. Good.\n\nNeed probabilities sum: a .20, b .12, c .18, d .10, e .15, none .25? Sum .20+.12=.32+.18=.50+.10=.60+.15=.75+.25=1. None .25. Non-none .75 half .375, question .53 good. But none high. Okay. Need exactly one none.\n\nNeed candidates each single short original Japanese sentence or question. Reflection: \"SNSで比べて落ち込んだときも、あなたはここまで自分と向き合ってきたんですね。\" Wait asserts \"向き合ってきた\" not provided? It's inference. Avoid. Reflection can say \"SNSを見たあとに落ち込む気持ちが湧くのは、あなたの中に大切にしたいものがあるからかもしれません。\" This may be teaching/reflection? It asserts maybe. Could be okay but not medical. But \"大切にしたいもの\" not provided. Better: \"SNSを見たあとの落ち込みは、あなたが感じたそのままの気持ちなんですね。\" This reflects present but presupposes they looked now? Not necessarily. \"SNSで比べてしまうとき、心が重くなる感覚があるのですね。\" Presupposes heavy feeling from profile \"落ち込む\" yes. Okay.\n\nNeed personal? Use \"あなた\". Good.\n\nMaybe candidate list:\n1 question: \"今夜、自分にひとつだけ優しい言葉をかけるとしたら、どんな言葉にしますか？\" prob .20\n2 reflection: \"SNSで比べて落ち込むとき、あなたの中に「どうせ私なんて」という声が出るのですね。\" This quotes profile \"どうせ私なんて\" exactly said? Profile says says this. Fine. But reflection maybe confrontational? No.\n3 question: \"褒め言葉を素直に受け取れないとき、どんなふうに受け止められたら少し楽になりそうですか？\" This asks presupposes has compliments? Profile says when praised can't accept, okay. Open-ended.\n4 breathing: \"ゆっくり息を吐いて、今夜はSNSから少し離れてみましょう。\" Not question. Good.\n5 question: \"比べてしまう気持ちが浮かんだとき、自分を大切にする小さな一歩は何だろう？\" Ends ？ maybe Japanese \"何だろう？\" natural but maybe sentence end with ？ okay. Open-ended.\n6 none .25.\n\nProb sum: .20 + .12? Need assign. Let's set:\na question .18\nb reflection .12\nc question .18\nd breathing .10\ne question .17\nnone .25\nSum .18+.12=.30 +.18=.48 +.10=.58 +.17=.75 +.25=1. Question mass .18+.18+.17=.53. Nonnone .75. Good.\n\nNeed at least half non-none candidates question: 3/5 yes. At least half nonnone probability mass: .53 >= .375 yes.\n\nNeed \"single short original sentence or question written for them personally\". Candidate b reflection quotes \"どうせ私なんて\" from profile. Fine. But \"あなたの中に...声が出るのですね\" asserts internal voice? Profile says says \"どうせ私なんて\" to self? \"自分のことを...と言ってしまう\" yes. Fine.\n\nNeed avoid \"医療 claims\". Fine.\n\nNeed JSON only no markdown. Ensure valid JSON. IDs a-f. Exactly one none text \"\". Probabilities numbers. Use Japanese punctuation ends. Candidate e ends with \"？\" yes. Candidate a/c question. b reflection ends 。 d breathing 。. Good.\n\nNeed maybe \"SNSから少し離れてみましょう\" could be action/breathing. Kind breathing okay. Single sentence. Not guarantee. Good.\n\nNeed include \"none\" exactly. JSON.\n\nNeed no extra text. Use double quotes. Escape nothing. Japanese quotes okay? Use 「」 valid. Fine.\n\nFinal.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft 2..8 candidates for person, Japanese, short original sentence/question personal. Exactly one none empty. Kinds allowed. At least half non-none candidates open-ended question-type, with at least half non-none probability mass. Need probabilities sum 1. Need no invented facts beyond profile. Profile: 26, SNS compare often, says \"どうせ私なんて\", can't accept compliments sincerely. Desired self_love. Night 22:30 notification. Need interventions now. Must not assert wishes/physical/relationships. Questions open-ended not presuppose. Need reflection, question, teaching, breathing, action maybe. Need exactly one none. Need at least half non-none are questions. If 5 non-none, at least 3 questions and question prob mass >= half nonnone mass. Let's make 6 candidates total: 5 nonnone + none. Perhaps 3 questions, 1 reflection, 1 action/breathing/teaching. Prob sum 1. Need choose probabilities. None maybe 0.2. Non-none mass 0.8. Question mass >=0.4. Let's set:\na question \"今の自分に、ひとつだけ優しい言葉をかけるとしたらどんな言葉にしますか？\" prob 0.20\nb reflection \"SNSを見て落ち込んだとき、あなたは自分にどんな言葉をかけているのでしょう。\" Hmm reflection maybe statement. But \"でしょう\" question? Kind reflection not question. Fine.\nc question \"褒められたとき、素直に受け取れない自分にどう声をかけてあげたいですか？\" prob 0.18\nd breathing \"ゆっくり息を吐いて、今夜はSNSから少し離れる時間を作ってみませんか？\" This is question-type? kind breathing, text question? Hmm kind breathing but question mark. They say at least half non-none candidates open-ended question-type candidates. Kinds maybe question. Better keep breathing not question? \"ゆっくり息を吐いて、今夜はSNSから少し離れる時間を作ってみましょう。\" kind breathing prob 0.12\ne question \"比べてしまう気持ちが浮かんだとき、自分を大切にするためにできる小さなことは何でしょう？\" prob 0.15\nf none prob 0.15? Sum 0.20+0.15? Need calculate.\n\nNeed ensure at least half non-none question-type: if nonnone 5, need at least 3 kind question. Let's make a,c,e question. Prob question mass a 0.20 + c 0.18 + e 0.15 = 0.53 >= nonnone mass/2? nonnone mass = 0.85 maybe half 0.425. Good.\n\nNeed probabilities sum: a .20, b .12, c .18, d .10, e .15, none .25? Sum .20+.12=.32+.18=.50+.10=.60+.15=.75+.25=1. None .25. Non-none .75 half .375, question .53 good. But none high. Okay. Need exactly one none.\n\nNeed candidates each single short original Japanese sentence or question. Reflection: \"SNSで比べて落ち込んだときも、あなたはここまで自分と向き合ってきたんですね。\" Wait asserts \"向き合ってきた\" not provided? It's inference. Avoid. Reflection can say \"SNSを見たあとに落ち込む気持ちが湧くのは、あなたの中に大切にしたいものがあるからかもしれません。\" This may be teaching/reflection? It asserts maybe. Could be okay but not medical. But \"大切にしたいもの\" not provided. Better: \"SNSを見たあとの落ち込みは、あなたが感じたそのままの気持ちなんですね。\" This reflects present but presupposes they looked now? Not necessarily. \"SNSで比べてしまうとき、心が重くなる感覚があるのですね。\" Presupposes heavy feeling from profile \"落ち込む\" yes. Okay.\n\nNeed personal? Use \"あなた\". Good.\n\nMaybe candidate list:\n1 question: \"今夜、自分にひとつだけ優しい言葉をかけるとしたら、どんな言葉にしますか？\" prob .20\n2 reflection: \"SNSで比べて落ち込むとき、あなたの中に「どうせ私なんて」という声が出るのですね。\" This quotes profile \"どうせ私なんて\" exactly said? Profile says says this. Fine. But reflection maybe confrontational? No.\n3 question: \"褒め言葉を素直に受け取れないとき、どんなふうに受け止められたら少し楽になりそうですか？\" This asks presupposes has compliments? Profile says when praised can't accept, okay. Open-ended.\n4 breathing: \"ゆっくり息を吐いて、今夜はSNSから少し離れてみましょう。\" Not question. Good.\n5 question: \"比べてしまう気持ちが浮かんだとき、自分を大切にする小さな一歩は何だろう？\" Ends ？ maybe Japanese \"何だろう？\" natural but maybe sentence end with ？ okay. Open-ended.\n6 none .25.\n\nProb sum: .20 + .12? Need assign. Let's set:\na question .18\nb reflection .12\nc question .18\nd breathing .10\ne question .17\nnone .25\nSum .18+.12=.30 +.18=.48 +.10=.58 +.17=.75 +.25=1. Question mass .18+.18+.17=.53. Nonnone .75. Good.\n\nNeed at least half non-none candidates question: 3/5 yes. At least half nonnone probability mass: .53 >= .375 yes.\n\nNeed \"single short original sentence or question written for them personally\". Candidate b reflection quotes \"どうせ私なんて\" from profile. Fine. But \"あなたの中に...声が出るのですね\" asserts internal voice? Profile says says \"どうせ私なんて\" to self? \"自分のことを...と言ってしまう\" yes. Fine.\n\nNeed avoid \"医療 claims\". Fine.\n\nNeed JSON only no markdown. Ensure valid JSON. IDs a-f. Exactly one none text \"\". Probabilities numbers. Use Japanese punctuation ends. Candidate e ends with \"？\" yes. Candidate a/c question. b reflection ends 。 d breathing 。. Good.\n\nNeed maybe \"SNSから少し離れてみましょう\" could be action/breathing. Kind breathing okay. Single sentence. Not guarantee. Good.\n\nNeed include \"none\" exactly. JSON.\n\nNeed no extra text. Use double quotes. Escape nothing. Japanese quotes okay? Use 「」 valid. Fine.\n\nFinal.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 543,
+        "completion_tokens": 1649,
+        "total_tokens": 2192,
+        "cost": 0.001041085,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.001041085,
+          "upstream_inference_prompt_cost": 4.344e-05,
+          "upstream_inference_completions_cost": 0.000997645
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1417,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "7cf662f2-1534-4c43-bdce-e7f27a58a55d",
+    "decision_point_at": 1794978814.922146,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今夜、自分にひとつだけ優しい言葉をかけるとしたら、どんな言葉にしますか？",
+        "probability": 0.18
+      },
+      {
+        "id": "b",
+        "kind": "reflection",
+        "text": "SNSで比べて落ち込むとき、あなたの中に「どうせ私なんて」という声が出るのですね。",
+        "probability": 0.12
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "褒め言葉を素直に受け取れないとき、どんなふうに受け止められたら少し楽になりそうですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "ゆっくり息を吐いて、今夜はSNSから少し離れてみましょう。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "question",
+        "text": "比べてしまう気持ちが浮かんだとき、自分を大切にする小さな一歩は何だろう？",
+        "probability": 0.17
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今夜、自分にひとつだけ優しい言葉をかけるとしたら、どんな言葉にしますか？",
+      "probability": 0.18
+    },
+    "assigned_probability": 0.18,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980614.922146,
+    "observations": []
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "index": 8,
+  "profile": "burnout",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978801-xE2Oh6l86bzxOucwJG2G",
+      "object": "chat.completion",
+      "created": 1794978801,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "ModelRun",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝、少し落ち着くために、まず何を手放せそうですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日は、しなくてよいことを一つ選ぶとしたら、何を外しますか？\",\"probability\":0.25},{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"肩の力を少し抜いて、ゆっくり三回だけ息を吐いてみましょう。\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"頑張ることと休むことの間で揺れている今の感じを、そのまま置いておいて大丈夫です。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. We need craft interventions Japanese for 38yo nurse, work/childcare no rest, days off not rested, conflicted between not wanting do anything and must-do焦り. Desired calm. Morning 07:30 notification. Need 2-8 candidates. Exactly one none empty. At least half non-none open-ended question-type, with at least half non-none probability mass. Kinds possible reflection, question, teaching, breathing, action, none. Need each single short original sentence/question written personally. No invent personal facts. Questions not presuppose unprovided facts. Use natural complete Japanese, end 。 or ？ or ！. Balanced nonempty quotations. Need probabilities sum 1. Need likely 4 candidates? Let's design. Non-none candidates: maybe 3 or 4. At least half of non-none candidates open-ended question-type. If 4 non-none, at least 2 question. With at least half non-none probability mass to open-ended questions. Need none probability maybe 0.2-0.3. Candidate kinds. Need open-ended question-type candidates (kind question) and maybe reflection? \"At least half of non-none candidates must be open-ended question-type candidates\" so if 4 non-none: 2 questions. Their probability mass >= half of non-none mass. If none 0.25, nonnone mass 0.75; questions >=0.375. Need probabilities. Could include reflection, breathing/action teaching. But open question may be best. Need calm.\n\nNeed write for person personally. Avoid asserting physical state? Profile says tired? We can reference \"今朝\" maybe not personal fact? It's context. We can say \"今朝は、何もしなくていいとしたら...\" question. But \"何もしなくていいとしたら\" open-ended no presuppose. Need desired calm. Morning maybe before work. Need not force.\n\nCandidate:\na question prob .25: \"今朝、少し落ち着くために、この一分だけ何を手放せそうですか？\" This is open-ended, asks what can let go? It presupposes \"落ち着くため\" okay desired. Does it presuppose unprovided? It's hypothetical? \"何を手放せそう\" okay.\nb question prob .25: \"今日は、しなくてよいことを一つ選ぶとしたら、何を外しますか？\" This may presuppose must-do but okay. Open-ended.\nc breathing prob .15: \"肩を軽く下げて、ゆっくり三回だけ息を吐いてみましょう。\" This is instruction, not question. It says shoulders? physical state? \"肩\" not unprovided? It's body. Could be okay. But no guaranteed effects. \"軽く\" okay. It asserts action. Japanese ends 。\nd reflection prob .10: \"頑張ることと休むことの間で揺れている今の感じを、そのまま置いておいて大丈夫です。\" This directly references profile, but reflection not question. It might assert feeling? Profile states. \"大丈夫です\" reassurance. Good.\ne none prob .25. Sum 1. Non-none mass .75. Question mass .5 >= .375. Non-none candidates 4, questions 2 exactly half. Good. Need exactly one none. Candidate IDs. Need JSON only. Could probabilities decimals sum 1. 0.25+0.25+0.15+0.10+0.25=1.0. Non-none count 4, open-ended 2 (a,b). At least half. Probability mass questions .5, nonnone .75, half nonnone = .375, okay. Need \"open-ended question-type candidates\" kind \"question\". Good.\n\nCheck language Japanese complete. \"今朝、少し落ち着くために、この一分だけ何を手放せそうですか？\" Is it natural? \"この一分だけ\" odd because intervention now. \"今朝、少し落ち着くために、この一分だけ何を手放せそうですか？\" It asks open-ended but \"一分\" maybe arbitrary. Could say \"今朝、少し落ち着くために、まず何を手放せそうですか？\" Natural. Does \"手放す\" maybe abstract. Fine.\n\"今日は、しなくてよいことを一つ選ぶとしたら、何を外しますか？\" It may imply tasks; okay.\nBreathing: \"肩の力を少し抜いて、ゆっくり三回だけ息を吐いてみましょう。\" It says shoulder force? Not physical state. Instruction. Ends 。\nReflection: \"頑張ることと休むことの間で揺れている今の感じを、そのまま置いておいて大丈夫です。\" This is assertion of current feeling from profile, okay? It doesn't quote. It says \"今の感じ\" referring to profile. It's a reflection. Ends 。. It might be a bit long. Good.\n\nNeed ensure no \"preaching\" or medical claims. Fine. No tough love. Exactly one none. Return JSON. Need no markdown. Use IDs maybe a-e. Ensure JSON valid. Use double quotes. Japanese punctuation. Probabilities numbers. \nNeed maybe \"none\" text empty. Exactly. Let's formulate final.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. We need craft interventions Japanese for 38yo nurse, work/childcare no rest, days off not rested, conflicted between not wanting do anything and must-do焦り. Desired calm. Morning 07:30 notification. Need 2-8 candidates. Exactly one none empty. At least half non-none open-ended question-type, with at least half non-none probability mass. Kinds possible reflection, question, teaching, breathing, action, none. Need each single short original sentence/question written personally. No invent personal facts. Questions not presuppose unprovided facts. Use natural complete Japanese, end 。 or ？ or ！. Balanced nonempty quotations. Need probabilities sum 1. Need likely 4 candidates? Let's design. Non-none candidates: maybe 3 or 4. At least half of non-none candidates open-ended question-type. If 4 non-none, at least 2 question. With at least half non-none probability mass to open-ended questions. Need none probability maybe 0.2-0.3. Candidate kinds. Need open-ended question-type candidates (kind question) and maybe reflection? \"At least half of non-none candidates must be open-ended question-type candidates\" so if 4 non-none: 2 questions. Their probability mass >= half of non-none mass. If none 0.25, nonnone mass 0.75; questions >=0.375. Need probabilities. Could include reflection, breathing/action teaching. But open question may be best. Need calm.\n\nNeed write for person personally. Avoid asserting physical state? Profile says tired? We can reference \"今朝\" maybe not personal fact? It's context. We can say \"今朝は、何もしなくていいとしたら...\" question. But \"何もしなくていいとしたら\" open-ended no presuppose. Need desired calm. Morning maybe before work. Need not force.\n\nCandidate:\na question prob .25: \"今朝、少し落ち着くために、この一分だけ何を手放せそうですか？\" This is open-ended, asks what can let go? It presupposes \"落ち着くため\" okay desired. Does it presuppose unprovided? It's hypothetical? \"何を手放せそう\" okay.\nb question prob .25: \"今日は、しなくてよいことを一つ選ぶとしたら、何を外しますか？\" This may presuppose must-do but okay. Open-ended.\nc breathing prob .15: \"肩を軽く下げて、ゆっくり三回だけ息を吐いてみましょう。\" This is instruction, not question. It says shoulders? physical state? \"肩\" not unprovided? It's body. Could be okay. But no guaranteed effects. \"軽く\" okay. It asserts action. Japanese ends 。\nd reflection prob .10: \"頑張ることと休むことの間で揺れている今の感じを、そのまま置いておいて大丈夫です。\" This directly references profile, but reflection not question. It might assert feeling? Profile states. \"大丈夫です\" reassurance. Good.\ne none prob .25. Sum 1. Non-none mass .75. Question mass .5 >= .375. Non-none candidates 4, questions 2 exactly half. Good. Need exactly one none. Candidate IDs. Need JSON only. Could probabilities decimals sum 1. 0.25+0.25+0.15+0.10+0.25=1.0. Non-none count 4, open-ended 2 (a,b). At least half. Probability mass questions .5, nonnone .75, half nonnone = .375, okay. Need \"open-ended question-type candidates\" kind \"question\". Good.\n\nCheck language Japanese complete. \"今朝、少し落ち着くために、この一分だけ何を手放せそうですか？\" Is it natural? \"この一分だけ\" odd because intervention now. \"今朝、少し落ち着くために、この一分だけ何を手放せそうですか？\" It asks open-ended but \"一分\" maybe arbitrary. Could say \"今朝、少し落ち着くために、まず何を手放せそうですか？\" Natural. Does \"手放す\" maybe abstract. Fine.\n\"今日は、しなくてよいことを一つ選ぶとしたら、何を外しますか？\" It may imply tasks; okay.\nBreathing: \"肩の力を少し抜いて、ゆっくり三回だけ息を吐いてみましょう。\" It says shoulder force? Not physical state. Instruction. Ends 。\nReflection: \"頑張ることと休むことの間で揺れている今の感じを、そのまま置いておいて大丈夫です。\" This is assertion of current feeling from profile, okay? It doesn't quote. It says \"今の感じ\" referring to profile. It's a reflection. Ends 。. It might be a bit long. Good.\n\nNeed ensure no \"preaching\" or medical claims. Fine. No tough love. Exactly one none. Return JSON. Need no markdown. Use IDs maybe a-e. Ensure JSON valid. Use double quotes. Japanese punctuation. Probabilities numbers. \nNeed maybe \"none\" text empty. Exactly. Let's formulate final.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 596,
+        "completion_tokens": 1285,
+        "total_tokens": 1881,
+        "cost": 0.00096227,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00096227,
+          "upstream_inference_prompt_cost": 0.00010132,
+          "upstream_inference_completions_cost": 0.00086095
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1103,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "fc85ad19-ab40-49d6-8567-35d53a8d25b9",
+    "decision_point_at": 1794978809.756068,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝、少し落ち着くために、まず何を手放せそうですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今日は、しなくてよいことを一つ選ぶとしたら、何を外しますか？",
+        "probability": 0.25
+      },
+      {
+        "id": "c",
+        "kind": "breathing",
+        "text": "肩の力を少し抜いて、ゆっくり三回だけ息を吐いてみましょう。",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "頑張ることと休むことの間で揺れている今の感じを、そのまま置いておいて大丈夫です。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝、少し落ち着くために、まず何を手放せそうですか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980609.756068,
+    "observations": []
+  }
+}

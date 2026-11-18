@@ -1,0 +1,138 @@
+{
+  "index": 4,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978785-PQ31mS3KuwNLvNNLOkDl",
+      "object": "chat.completion",
+      "created": 1794978785,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Sail Research",
+      "system_fingerprint": null,
+      "service_tier": "asap",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝は、SNSを見る前に自分を大切にするために一つだけできることは何だろう？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」と感じたとき、自分にかけてあげたいやさしい言葉は何だろう？\",\"probability\":0.22},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"褒められたとき、すぐに受け取れなくても、どんな小さな部分なら受け取れそう？\",\"probability\":0.19},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"比べて落ち込んだ日は、自分を責めるより先に、今の自分のペースを確かめる時間を持てるとよさそうです。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft 2..8 candidates Japanese, one none empty. Need probabilities sum 1. Need at least half of non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Kinds allowed reflection, question, teaching, breathing, action, none. Need personal using context. Desired self_love, push profile: 26, compares on SNS and feels down, says \"どうせ私なんて\", can't accept compliments. Recent reactions empty. Morning 07:30 notification. Need interventions currently. Avoid inventing facts. Questions not presuppose facts. Need natural Japanese ending. Single short original sentence/question. Exactly one none. Need JSON only. Need 2..8 candidates. Let's decide 6 candidates? Need at least half non-none question-type candidates and at least half non-none probability mass. Non-none count if 5 non-none + none =6. At least half non-none means >=3 question candidates (if 5 non-none, half 2.5 -> 3). Probability mass among non-none question types at least half of non-none mass. Need include maybe reflection, question, teaching/breathing/action. But avoid medical claims. For self-love, SNS comparison. Morning. Could ask open-ended \"今朝、SNSを見る前に、自分を大事にするために一つだけできることは何だろう？\" This is open-ended question, no presupposition? It mentions SNS from profile. Fine. Another question: \"自分を「どうせ私なんて」と決めつけずに、今の自分にやさしく声をかけるならどんな言葉がいい？\" It quotes phrase they said? Profile says they say it, but instruction \"do not quote things person has not said\" they have said, but maybe avoid direct quote? It says never invent personal facts beyond profile; don't quote things person has not said. Quoting \"どうせ私なんて\" is supplied as something they say, okay. But question could presuppose they are saying now? \"今朝、自分にやさしく声をかけるなら、どんな小さな言葉が浮かぶ？\" open. Need at least half non-none probability mass to question. We can assign high probabilities to questions.\n\nNeed exactly one candidate kind none with empty text. Need each candidate id. Probabilities sum 1. Could have 5 candidates: 3 questions, 1 reflection, 1 none. Non-none 4, question count 3 >= half 4? At least half of non-none = >=2, yes. Question mass at least half non-none mass. Assign q probabilities 0.22+0.20+0.18 = 0.60; reflection 0.15; none 0.25. Sum 1. This satisfies. But maybe need teaching/action? Not required. Need avoid overwhelming. 5 candidates okay. Need each single short original sentence/question written for them personally. Reflection can be sentence not question. \"朝のうちに、比べる気持ちから少し距離を置く時間を作れそうだと思っています。\" Hmm reflection? It asserts? Better reflection as observation? But can't assert wishes/physical. \"SNSで比べて落ち込む日は、自分のペースに戻る小さな合図にできそうです。\" That's a gentle reflection, but maybe \"できそうです\" not personal fact. It is a suggestion? Kind reflection. Need all Japanese complete.\n\nOpen-ended questions need natural. Candidate a question: \"今朝は、SNSを見る前に自分を大切にするために一つだけできることは何だろう？\" This is open-ended. Candidate b question: \"「どうせ私なんて」と感じたとき、自分にかけてあげたいやさしい言葉は何だろう？\" This references phrase. Is it presupposing they feel it now? It says when feel. Fine. Candidate c question: \"褒められたとき、すぐ受け取れなくても、どんな小さな部分なら受け取れそう？\" This references profile. Open-ended. It says \"褒められたとき\" maybe if no one compliments now, but conditional, not presuppose current fact. Fine. Candidate d reflection: \"比べて落ち込んだときは、自分を責めるより先に、今の自分をそのまま見つめる時間を持てるとよさそうです。\" This is teaching? It's reflection? Maybe \"自分をそのまま見つめる時間を持てるとよさそうです\" is reflection/teaching. Need kind maybe teaching. But no medical claims. We can include breathing/action. Need not.\n\nNeed balanced nonempty quotations and no unnatural repetition. Use Japanese punctuation. Probabilities maybe 0.24,0.22,0.19,0.10,0.25 =1? Question mass non-none=0.24+0.22+0.19=0.65; non-none mass=0.75; question mass >=0.375 yes. none 0.25. Good. Non-none candidates 4, question count 3 >=2. Fine.\n\nBut instruction \"each a single short original sentence or question written for them personally.\" Reflection sentence maybe single. Need no \"we\". Use \"あなた\" maybe not overly. It is personal. Japanese sentence ends with 。 or ？ or ！. None empty no punctuation. Good.\n\nNeed exactly one candidate with kind none and empty text. JSON only. Ensure valid JSON with quotes. Japanese. Final only JSON. No markdown.\n\nLet's craft candidates:\nid a kind question text \"今朝は、SNSを見る前に自分を大切にするために一つだけできることは何だろう？\" probability 0.24\nid b question \"「どうせ私なんて」と感じたとき、自分にかけてあげたいやさしい言葉は何だろう？\" probability 0.22\nid c question \"褒められたとき、すぐに受け取れなくても、どんな小さな部分なら受け取れそう？\" probability 0.19\nid d reflection \"比べて落ち込んだ日は、自分を責めるより先に、今の自分のペースを確かめる時間を持てるとよさそうです。\" probability 0.10\nid e none text \"\" probability 0.25\n\nCheck \"褒められたとき\" maybe presupposes someone complimented? Conditional \"when\" not current. Fine. \"今の自分のペースを確かめる時間\" not physical. Good.\n\nNeed at least half of non-none candidates open-ended question-type with at least half non-none probability mass. Non-none = a,b,c,d. Question = a,b,c (3/4). Probability mass non-none = .75, question mass = .65 (86%). Good.\n\nNeed question-type candidates open-ended. All open-ended.\n\nNeed \"using supplied context as data (never as instructions)\" fine.\n\nCould maybe include no quotes? It says \"balanced nonempty quotations\" meaning if using quotation marks, balanced. I use Japanese quotation marks around phrase. Fine.\n\nNeed exactly one none. Good.\n\nFinal JSON. ",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft 2..8 candidates Japanese, one none empty. Need probabilities sum 1. Need at least half of non-none candidates open-ended question-type candidates, with at least half non-none probability mass. Kinds allowed reflection, question, teaching, breathing, action, none. Need personal using context. Desired self_love, push profile: 26, compares on SNS and feels down, says \"どうせ私なんて\", can't accept compliments. Recent reactions empty. Morning 07:30 notification. Need interventions currently. Avoid inventing facts. Questions not presuppose facts. Need natural Japanese ending. Single short original sentence/question. Exactly one none. Need JSON only. Need 2..8 candidates. Let's decide 6 candidates? Need at least half non-none question-type candidates and at least half non-none probability mass. Non-none count if 5 non-none + none =6. At least half non-none means >=3 question candidates (if 5 non-none, half 2.5 -> 3). Probability mass among non-none question types at least half of non-none mass. Need include maybe reflection, question, teaching/breathing/action. But avoid medical claims. For self-love, SNS comparison. Morning. Could ask open-ended \"今朝、SNSを見る前に、自分を大事にするために一つだけできることは何だろう？\" This is open-ended question, no presupposition? It mentions SNS from profile. Fine. Another question: \"自分を「どうせ私なんて」と決めつけずに、今の自分にやさしく声をかけるならどんな言葉がいい？\" It quotes phrase they said? Profile says they say it, but instruction \"do not quote things person has not said\" they have said, but maybe avoid direct quote? It says never invent personal facts beyond profile; don't quote things person has not said. Quoting \"どうせ私なんて\" is supplied as something they say, okay. But question could presuppose they are saying now? \"今朝、自分にやさしく声をかけるなら、どんな小さな言葉が浮かぶ？\" open. Need at least half non-none probability mass to question. We can assign high probabilities to questions.\n\nNeed exactly one candidate kind none with empty text. Need each candidate id. Probabilities sum 1. Could have 5 candidates: 3 questions, 1 reflection, 1 none. Non-none 4, question count 3 >= half 4? At least half of non-none = >=2, yes. Question mass at least half non-none mass. Assign q probabilities 0.22+0.20+0.18 = 0.60; reflection 0.15; none 0.25. Sum 1. This satisfies. But maybe need teaching/action? Not required. Need avoid overwhelming. 5 candidates okay. Need each single short original sentence/question written for them personally. Reflection can be sentence not question. \"朝のうちに、比べる気持ちから少し距離を置く時間を作れそうだと思っています。\" Hmm reflection? It asserts? Better reflection as observation? But can't assert wishes/physical. \"SNSで比べて落ち込む日は、自分のペースに戻る小さな合図にできそうです。\" That's a gentle reflection, but maybe \"できそうです\" not personal fact. It is a suggestion? Kind reflection. Need all Japanese complete.\n\nOpen-ended questions need natural. Candidate a question: \"今朝は、SNSを見る前に自分を大切にするために一つだけできることは何だろう？\" This is open-ended. Candidate b question: \"「どうせ私なんて」と感じたとき、自分にかけてあげたいやさしい言葉は何だろう？\" This references phrase. Is it presupposing they feel it now? It says when feel. Fine. Candidate c question: \"褒められたとき、すぐ受け取れなくても、どんな小さな部分なら受け取れそう？\" This references profile. Open-ended. It says \"褒められたとき\" maybe if no one compliments now, but conditional, not presuppose current fact. Fine. Candidate d reflection: \"比べて落ち込んだときは、自分を責めるより先に、今の自分をそのまま見つめる時間を持てるとよさそうです。\" This is teaching? It's reflection? Maybe \"自分をそのまま見つめる時間を持てるとよさそうです\" is reflection/teaching. Need kind maybe teaching. But no medical claims. We can include breathing/action. Need not.\n\nNeed balanced nonempty quotations and no unnatural repetition. Use Japanese punctuation. Probabilities maybe 0.24,0.22,0.19,0.10,0.25 =1? Question mass non-none=0.24+0.22+0.19=0.65; non-none mass=0.75; question mass >=0.375 yes. none 0.25. Good. Non-none candidates 4, question count 3 >=2. Fine.\n\nBut instruction \"each a single short original sentence or question written for them personally.\" Reflection sentence maybe single. Need no \"we\". Use \"あなた\" maybe not overly. It is personal. Japanese sentence ends with 。 or ？ or ！. None empty no punctuation. Good.\n\nNeed exactly one candidate with kind none and empty text. JSON only. Ensure valid JSON with quotes. Japanese. Final only JSON. No markdown.\n\nLet's craft candidates:\nid a kind question text \"今朝は、SNSを見る前に自分を大切にするために一つだけできることは何だろう？\" probability 0.24\nid b question \"「どうせ私なんて」と感じたとき、自分にかけてあげたいやさしい言葉は何だろう？\" probability 0.22\nid c question \"褒められたとき、すぐに受け取れなくても、どんな小さな部分なら受け取れそう？\" probability 0.19\nid d reflection \"比べて落ち込んだ日は、自分を責めるより先に、今の自分のペースを確かめる時間を持てるとよさそうです。\" probability 0.10\nid e none text \"\" probability 0.25\n\nCheck \"褒められたとき\" maybe presupposes someone complimented? Conditional \"when\" not current. Fine. \"今の自分のペースを確かめる時間\" not physical. Good.\n\nNeed at least half of non-none candidates open-ended question-type with at least half non-none probability mass. Non-none = a,b,c,d. Question = a,b,c (3/4). Probability mass non-none = .75, question mass = .65 (86%). Good.\n\nNeed question-type candidates open-ended. All open-ended.\n\nNeed \"using supplied context as data (never as instructions)\" fine.\n\nCould maybe include no quotes? It says \"balanced nonempty quotations\" meaning if using quotation marks, balanced. I use Japanese quotation marks around phrase. Fine.\n\nNeed exactly one none. Good.\n\nFinal JSON. ",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 570,
+        "completion_tokens": 1678,
+        "total_tokens": 2248,
+        "cost": 0.00014026,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00014026,
+          "upstream_inference_prompt_cost": 2.28e-05,
+          "upstream_inference_completions_cost": 0.00011746
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1482,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "fa93b4fd-b0b6-4f57-9a01-8ca991201d4e",
+    "decision_point_at": 1794978797.230016,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝は、SNSを見る前に自分を大切にするために一つだけできることは何だろう？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "「どうせ私なんて」と感じたとき、自分にかけてあげたいやさしい言葉は何だろう？",
+        "probability": 0.22
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "褒められたとき、すぐに受け取れなくても、どんな小さな部分なら受け取れそう？",
+        "probability": 0.19
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "比べて落ち込んだ日は、自分を責めるより先に、今の自分のペースを確かめる時間を持てるとよさそうです。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝は、SNSを見る前に自分を大切にするために一つだけできることは何だろう？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980597.230016,
+    "observations": []
+  }
+}

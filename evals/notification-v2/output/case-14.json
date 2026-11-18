@@ -1,0 +1,138 @@
+{
+  "index": 14,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978825-FZKVmo5uEWccixyoiIhL",
+      "object": "chat.completion",
+      "created": 1794978825,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Morph",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気分に一番近い言葉は何でしょう？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"この時間に少し楽になれるとしたら、どんなことならできそうですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"肩の力を少し抜いて、ゆっくり息を吐いてみましょう。\",\"probability\":0.15},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.3}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need generate 2..8 candidates in Japanese. Need exactly one none with empty text. Prob sum 1. At least half non-none candidates open-ended question-type, with at least half non-none probability mass. Kinds allowed. Need personal from profile: 45, recent mood low, interests diminished, mornings hard. Current evening 18:30 notification. Desired unknown. Need not invent facts. Need be careful questions not presuppose unprovided facts. Open-ended question-type candidates: kind \"question\" likely. At least half of non-none candidates must be question-type. If total non-none say 4, need at least 2 question. Probability mass among questions >=0.5 of non-none mass. Include none maybe 0.25. Need short original sentence/question written for them personally. No medical claims, guaranteed effects, tough love. Could use reflection, question, teaching, breathing, action, none. Need exactly one none. Need candidates maybe 6 total: 4 non-none + none? At least half non-none question: if 4 non-none, 2 questions. Prob mass: none 0.25. Non-none mass 0.75. Questions need >=0.375. distribute q 0.2+0.2=0.4, reflections/action 0.35. Sum 1. Good.\n\nNeed text in Japanese ends with 。 or ？ or ！. Questions open-ended. Reflection maybe statement. Teaching? Avoid medical claims. Breathing maybe simple. Action simple. But at least half non-none open-ended question-type. We can include two questions. Need probabilities sum exactly 1.\n\nNeed consider \"none\" probability maybe high if uncertain. Candidate interventions right now via notification at 18:30. Person profile low mood. We should avoid assuming they are available. Maybe offer gentle reflection and questions.\n\nNeed exactly one candidate kind none with empty text. Other candidates each single short original sentence or question. All Japanese sentences end with proper punctuation. Open-ended question-type candidates, with \"question\" kind. Could include \"今の気分に一番近い言葉は何でしょう？\" Does this presuppose they have mood? profile says mood sinks days, okay. Open-ended. Another \"この時間、少し楽になれることと言えば何がありますか？\" open-ended. But \"この時間\" okay. Need personal maybe use \"今日\" but not invent. \"今日はどんな一日でしたか？\" open-ended but generic, not invent. Could be good.\n\nNeed maybe reflection: \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" This quotes profile summary exactly (recently interest not welling), it's a reflection, okay. Japanese complete. \"朝起きるのがつらい日があることも、そのまま受け止めておきます。\" Might be too therapist. Reflection maybe \"朝起きるのがつらい日がある、というのも今のあなたの一部なのですね。\" This could be weird. Need not assert wishes.\n\nTeaching: \"気分が沈む日は、まず一杯の水を飲むだけでも十分な一歩になります。\" This is teaching but could be advice. No guaranteed effects, no medical. But \"十分\" okay. Action: \"今から一分だけ、窓の外や部屋の中の静かなものを一つ眺めてみませんか？\" But it's a question? Kind action can be imperative but not question? Text can be question? The kind \"action\" perhaps. But if question form counts? The requirement \"open-ended question-type candidates\" likely kind \"question\". We need at least half non-none candidates question-type. Use kind question.\n\nBreathing: \"ゆっくり息を吐くことを、一度だけ試してみませんか？\" It's a question but kind breathing maybe? To avoid ambiguity, use kind breathing with sentence? But \"問いかけ\" type? They specifically mention kind. Need at least half of non-none candidates must be open-ended question-type candidates. The candidates with kind \"question\" probably. But breathing can be invitation question. We'll include kind \"question\" for open-ended.\n\nNeed \"probabilities must sum to 1.\" JSON only. IDs maybe a-e.\n\nLet's craft 6 candidates: \na question prob .18: \"今の気分に一番近い言葉は何でしょう？\"\nb question prob .18: \"この時間に少し楽になれるとしたら、どんなことならできそうですか？\" This presupposes \"できる\" maybe okay, asks possibility not fact. But \"この時間\" no unprovided. \"少し楽になれる\" maybe okay, not guarantee. Could be open-ended.\nc reflection prob .14: \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" It echoes profile. \nd breathing prob .12: \"肩の力を少し抜いて、ゆっくり息を吐いてみましょう。\" Not question. Kind breathing.\ne action prob .13: \"今から一分だけ、部屋の中で静かに見えるものを一つ眺めてみませんか？\" It's a question but kind action. Could count as question-type? Hmm. To ensure question mass, maybe kind question instead. But need variety. We can make action imperative not question: \"今から一分だけ、部屋の中で静かに見えるものを一つ眺めてみてください。\" Ends 。 Kind action. No presuppose? \"部屋\" may be unprovided? They are likely somewhere but not explicit. Avoid unprovided physical environment. Use \"目の前にあるもの\" - may presuppose visible. Better \"今から一分だけ、ゆっくり呼吸に意識を向けてみてください。\" But breathing. Action: \"今から一分だけ、手を止めてゆっくり座ってみてください。\" presupposes can sit? Better generic. \"今から一分だけ、いつもの動作をゆっくりしてみてください。\" Weird.\nMaybe no action. Non-none 4: question q1 q2 reflection breathing. At least half non-none = 2 of 4 questions. Question mass >= half non-none mass. none maybe .3. Non-none .7. q .2+.2=.4 > .35. Reflection .15 breathing .15 = .3, total non-none .7. Sum 1.0. Good. But requirement 2..8 candidate interventions; 5 total okay. Need exactly one none. Kinds: question, question, reflection, breathing, none. At least half non-none candidates open-ended question-type: 2 of 4 exactly half. Probability mass question .4 / non-none .7 > .5. Great.\n\nNeed maybe include action? Not necessary. But candidate count 5 (2..8). Good. However \"at least half of non-none candidates must be open-ended question-type candidates\" exactly half okay. \"with at least half of the non-none probability mass.\" q mass 0.2+0.2=0.4, non-none mass 0.7, .4 > .35. Good.\n\nNeed ensure reflection not too confrontational. \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" It's okay. Does it quote \"好きだったこと\" from profile. Yes. Could be seen as asserting. It's reflection based on supplied. Fine.\n\nBreathing: \"肩の力を少し抜いて、ゆっくり息を吐いてみましょう。\" This is a suggestion, not guaranteed. Ends 。 Good. But is \"肩の力\" physical state? It's an instruction, not assertion. Fine. Language natural.\n\nQuestion 1: \"今の気分に一番近い言葉は何でしょう？\" Open-ended. Ends ？.\nQuestion 2: \"この時間に少し楽になれるとしたら、どんなことならできそうですか？\" It asks hypothetical, open-ended. \"この時間\" current. \"少し楽になれる\" maybe guarantee? It says \"としたら\" hypothetical. Fine. Could be too leading? okay.\nNone empty prob .3. Need maybe none probability should reflect? Okay.\n\nNeed JSON only no markdown. Use double quotes. Japanese punctuation. Ensure probabilities sum: 0.2+0.2+0.15+0.15+0.3 = 1.0. Candidate order maybe none last. Exactly one kind none. Good.\n\nNeed \"short original sentence or question written for them personally\" Reflection has \"あなた\"? Not necessary. Personal maybe use \"あなた\" in reflection? \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" Second person implied. Fine.\n\nPotential issue \"open-ended question-type candidates\" could include kind \"question\" only. Good.\n\nNeed maybe candidate \"none\" text empty. id \"e\".\n\nFinal only JSON.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need generate 2..8 candidates in Japanese. Need exactly one none with empty text. Prob sum 1. At least half non-none candidates open-ended question-type, with at least half non-none probability mass. Kinds allowed. Need personal from profile: 45, recent mood low, interests diminished, mornings hard. Current evening 18:30 notification. Desired unknown. Need not invent facts. Need be careful questions not presuppose unprovided facts. Open-ended question-type candidates: kind \"question\" likely. At least half of non-none candidates must be question-type. If total non-none say 4, need at least 2 question. Probability mass among questions >=0.5 of non-none mass. Include none maybe 0.25. Need short original sentence/question written for them personally. No medical claims, guaranteed effects, tough love. Could use reflection, question, teaching, breathing, action, none. Need exactly one none. Need candidates maybe 6 total: 4 non-none + none? At least half non-none question: if 4 non-none, 2 questions. Prob mass: none 0.25. Non-none mass 0.75. Questions need >=0.375. distribute q 0.2+0.2=0.4, reflections/action 0.35. Sum 1. Good.\n\nNeed text in Japanese ends with 。 or ？ or ！. Questions open-ended. Reflection maybe statement. Teaching? Avoid medical claims. Breathing maybe simple. Action simple. But at least half non-none open-ended question-type. We can include two questions. Need probabilities sum exactly 1.\n\nNeed consider \"none\" probability maybe high if uncertain. Candidate interventions right now via notification at 18:30. Person profile low mood. We should avoid assuming they are available. Maybe offer gentle reflection and questions.\n\nNeed exactly one candidate kind none with empty text. Other candidates each single short original sentence or question. All Japanese sentences end with proper punctuation. Open-ended question-type candidates, with \"question\" kind. Could include \"今の気分に一番近い言葉は何でしょう？\" Does this presuppose they have mood? profile says mood sinks days, okay. Open-ended. Another \"この時間、少し楽になれることと言えば何がありますか？\" open-ended. But \"この時間\" okay. Need personal maybe use \"今日\" but not invent. \"今日はどんな一日でしたか？\" open-ended but generic, not invent. Could be good.\n\nNeed maybe reflection: \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" This quotes profile summary exactly (recently interest not welling), it's a reflection, okay. Japanese complete. \"朝起きるのがつらい日があることも、そのまま受け止めておきます。\" Might be too therapist. Reflection maybe \"朝起きるのがつらい日がある、というのも今のあなたの一部なのですね。\" This could be weird. Need not assert wishes.\n\nTeaching: \"気分が沈む日は、まず一杯の水を飲むだけでも十分な一歩になります。\" This is teaching but could be advice. No guaranteed effects, no medical. But \"十分\" okay. Action: \"今から一分だけ、窓の外や部屋の中の静かなものを一つ眺めてみませんか？\" But it's a question? Kind action can be imperative but not question? Text can be question? The kind \"action\" perhaps. But if question form counts? The requirement \"open-ended question-type candidates\" likely kind \"question\". We need at least half non-none candidates question-type. Use kind question.\n\nBreathing: \"ゆっくり息を吐くことを、一度だけ試してみませんか？\" It's a question but kind breathing maybe? To avoid ambiguity, use kind breathing with sentence? But \"問いかけ\" type? They specifically mention kind. Need at least half of non-none candidates must be open-ended question-type candidates. The candidates with kind \"question\" probably. But breathing can be invitation question. We'll include kind \"question\" for open-ended.\n\nNeed \"probabilities must sum to 1.\" JSON only. IDs maybe a-e.\n\nLet's craft 6 candidates: \na question prob .18: \"今の気分に一番近い言葉は何でしょう？\"\nb question prob .18: \"この時間に少し楽になれるとしたら、どんなことならできそうですか？\" This presupposes \"できる\" maybe okay, asks possibility not fact. But \"この時間\" no unprovided. \"少し楽になれる\" maybe okay, not guarantee. Could be open-ended.\nc reflection prob .14: \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" It echoes profile. \nd breathing prob .12: \"肩の力を少し抜いて、ゆっくり息を吐いてみましょう。\" Not question. Kind breathing.\ne action prob .13: \"今から一分だけ、部屋の中で静かに見えるものを一つ眺めてみませんか？\" It's a question but kind action. Could count as question-type? Hmm. To ensure question mass, maybe kind question instead. But need variety. We can make action imperative not question: \"今から一分だけ、部屋の中で静かに見えるものを一つ眺めてみてください。\" Ends 。 Kind action. No presuppose? \"部屋\" may be unprovided? They are likely somewhere but not explicit. Avoid unprovided physical environment. Use \"目の前にあるもの\" - may presuppose visible. Better \"今から一分だけ、ゆっくり呼吸に意識を向けてみてください。\" But breathing. Action: \"今から一分だけ、手を止めてゆっくり座ってみてください。\" presupposes can sit? Better generic. \"今から一分だけ、いつもの動作をゆっくりしてみてください。\" Weird.\nMaybe no action. Non-none 4: question q1 q2 reflection breathing. At least half non-none = 2 of 4 questions. Question mass >= half non-none mass. none maybe .3. Non-none .7. q .2+.2=.4 > .35. Reflection .15 breathing .15 = .3, total non-none .7. Sum 1.0. Good. But requirement 2..8 candidate interventions; 5 total okay. Need exactly one none. Kinds: question, question, reflection, breathing, none. At least half non-none candidates open-ended question-type: 2 of 4 exactly half. Probability mass question .4 / non-none .7 > .5. Great.\n\nNeed maybe include action? Not necessary. But candidate count 5 (2..8). Good. However \"at least half of non-none candidates must be open-ended question-type candidates\" exactly half okay. \"with at least half of the non-none probability mass.\" q mass 0.2+0.2=0.4, non-none mass 0.7, .4 > .35. Good.\n\nNeed ensure reflection not too confrontational. \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" It's okay. Does it quote \"好きだったこと\" from profile. Yes. Could be seen as asserting. It's reflection based on supplied. Fine.\n\nBreathing: \"肩の力を少し抜いて、ゆっくり息を吐いてみましょう。\" This is a suggestion, not guaranteed. Ends 。 Good. But is \"肩の力\" physical state? It's an instruction, not assertion. Fine. Language natural.\n\nQuestion 1: \"今の気分に一番近い言葉は何でしょう？\" Open-ended. Ends ？.\nQuestion 2: \"この時間に少し楽になれるとしたら、どんなことならできそうですか？\" It asks hypothetical, open-ended. \"この時間\" current. \"少し楽になれる\" maybe guarantee? It says \"としたら\" hypothetical. Fine. Could be too leading? okay.\nNone empty prob .3. Need maybe none probability should reflect? Okay.\n\nNeed JSON only no markdown. Use double quotes. Japanese punctuation. Ensure probabilities sum: 0.2+0.2+0.15+0.15+0.3 = 1.0. Candidate order maybe none last. Exactly one kind none. Good.\n\nNeed \"short original sentence or question written for them personally\" Reflection has \"あなた\"? Not necessary. Personal maybe use \"あなた\" in reflection? \"最近は、好きだったことにも気持ちが向きにくい日があるのですね。\" Second person implied. Fine.\n\nPotential issue \"open-ended question-type candidates\" could include kind \"question\" only. Good.\n\nNeed maybe candidate \"none\" text empty. id \"e\".\n\nFinal only JSON.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 546,
+        "completion_tokens": 1999,
+        "total_tokens": 2545,
+        "cost": 0.001071694,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.001071694,
+          "upstream_inference_prompt_cost": 3.2214e-05,
+          "upstream_inference_completions_cost": 0.00103948
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1844,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "c9c79e1b-4a73-494b-9b6d-c6508007df83",
+    "decision_point_at": 1794978840.696257,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今の気分に一番近い言葉は何でしょう？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "この時間に少し楽になれるとしたら、どんなことならできそうですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "最近は、好きだったことにも気持ちが向きにくい日があるのですね。",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "肩の力を少し抜いて、ゆっくり息を吐いてみましょう。",
+        "probability": 0.15
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.3
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今の気分に一番近い言葉は何でしょう？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980640.696257,
+    "observations": []
+  }
+}

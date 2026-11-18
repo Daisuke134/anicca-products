@@ -1,0 +1,144 @@
+{
+  "index": 30,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978871-6VNxMGQngtqH55zDkcvF",
+      "object": "chat.completion",
+      "created": 1794978871,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "ModelRun",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"このあと集中したいことを、一つだけ言葉にすると何になりますか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日はどこまでできたら、集中できたと感じられそうですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"続けやすくするなら、今の目標をどんなふうに小さく分けられそうですか？\",\"probability\":0.17},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"大きな目標より、今日は一つの集中を片づけるほうが気が楽かもしれません。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"18時30分から、10分だけ取り組むものを一つ決めて始めてみましょう。\",\"probability\":0.18},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft 2..8 candidates in Japanese, for person. Context: desired focus, language ja, push_state local_day 2026-11-18, profile summary: 31yo, wants exercise and journaling habits but often ends after three days; sets big goals and gets discouraged. Recent reactions empty, slot 18:30 evening. Need intervention engine. Need candidates each single short original sentence or question written personally. Exactly one none empty. Kinds allowed reflection, question, teaching, breathing, action, none. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need probabilities sum 1. We need decide number candidates maybe 5: 3 question open-ended, 1 action, 1 none? Non-none=4, at least half question =2, with at least half non-none prob mass. Let's do maybe candidates:\na question open: \"このあと集中するために、最初の10分で何を終わらせたいですか？\" But need personal? It's about focus. Japanese sentence ends ？. Open-ended question. Good.\nb question open: \"三日坊主になりそうなとき、今日はどれくらいの小ささなら続けられそうですか？\" Mentions their profile \"三日坊主\" maybe okay? But \"三日坊主\" might be self-description from profile not quoted? They didn't say? Profile summary from data. We can use? Need avoid invent personal facts beyond supplied profile. Supplied profile says ends after three days often. Using \"三日坊主\" maybe okay but maybe confrontational? Better avoid. Ask \"今日は、続けやすい大きさにするとしたら何をどこまでやりますか？\" Open-ended.\nc reflection: \"大きな目標より、今の集中を一つ片づける方が今日は合っていそうです。\" But asserts? \"合っていそうです\" soft. Reflection kind. Short sentence. But maybe not personal? Fine.\nd action: \"18時30分から、机の上だけ整えて10分だけ始めてみましょう。\" Uses slot, action. It's directive. Okay.\ne breathing: \"肩の力を少し抜いて、ゆっくり三回呼吸してみましょう。\" Good.\nf none prob maybe .35. But need at least half non-none probability mass to question. Let's calculate. Need probabilities sum 1. If 6 candidates: 3 questions, 1 reflection, 1 action, 1 breathing, 1 none? That's 7. Non-none 6; need at least half open-ended question-type = at least 3 questions. Need question probability mass >= half non-none = >=0.5*(1-none probability). If none .2, non-none .8, questions need >= .4. We can assign questions total .45, others .35. Good.\n\nBut need exactly one none. 2..8 candidates. Let's make 6 candidates: 3 questions, 1 reflection, 1 action, 1 none. But breathing not included; okay. Need at least half non-none candidates open-ended questions: non-none=5, half=2.5 -> at least 3 questions. Good. Question probability mass >= half non-none. Let none=0.15. Non-none mass .85, half .425. Questions total maybe .5. Assign:\na question .18\nb question .17\nc question .16 total .51\nd reflection .14\ne action .20\nf none .15 total 1.00. Wait non-none prob .85, half .425, questions .51 >.425 good. But action prob .20. Fine.\n\nNeed exactly one candidate with kind none text empty. Need JSON only. Candidate ids maybe a-f. Need natural complete Japanese. Ensure each sentence/question ends with 。 or ？ or ！. Questions must not presuppose unprovided facts. Avoid \"机の上\" maybe introduces environment? Is that allowed? It doesn't invent personal facts? It suggests action; okay. But \"机の上だけ整えて\" presupposes desk? Could be okay but maybe avoid unprovided appearance. Better action: \"18時30分から、10分だけ取り組むものを一つ決めて始めてみましょう。\" But \"18:30\" from slot. Good. But is action personal? yes. Japanese ends 。.\n\nNeed each candidate single short original sentence or question. For question candidates open-ended. Need not use \"?\" only \"？\". Japanese.\n\nPotential candidates:\n1 kind question: \"このあと集中したいことを、一つだけ言葉にすると何になりますか？\" Open-ended. Good.\n2 kind question: \"今日はどこまで進んだら、自分にとって十分だと言えますか？\" Open-ended. Good.\n3 kind question: \"続けやすくするなら、今の目標をどんな大きさに分けられますか？\" Open-ended. Good. Uses goal? profile says big goals. Fine.\n4 kind reflection: \"大きな目標を急がず、今日の集中を一つ片づけるだけでも十分かもしれません。\" It's reflection, not question. Does \"急がず\" maybe advice/preaching? It's reflection. Okay. Ends 。.\n5 kind action: \"18時30分から、10分だけ取り組むものを一つ決めて始めてみましょう。\" Action. Good.\n6 none empty prob.\n\nNeed probabilities sum. Need at least half non-none candidates question-type: 3 of 5 yes. Half probability mass non-none: questions total? Let's assign:\na question .19\nb question .18\nc question .17 total .54\nd reflection .12\ne action .19\nf none .15 total 1.00. Non-none .85, half .425, questions .54. Good.\n\nBut if \"none\" probability .15. Fine.\n\nNeed consider \"source notification\", \"time_band evening\". We used 18:30 from slot. Good.\n\nNeed ensure no confrontational tough-love, shaming, preaching, medical claims, guaranteed effects. \"十分かもしれません\" soft. Good.\n\nNeed no invented personal facts: profile says want exercise and journaling habits, big goals discouraged. Our questions: \"このあと集中したいこと\" is general. \"今日はどこまで進んだら\" general. \"今の目標\" references goal from profile? They set big goals; okay. \"大きな目標\" references. \"10分だけ取り組むもの\" no specific. Fine.\n\nNeed output JSON only. Use exact schema. Ensure candidate texts balanced nonempty quotations. JSON valid. Use double quotes. Japanese punctuation. Need no extra. Let's craft. But question: \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" Our question candidates kind \"question\"; open-ended yes. Non-none candidates = 5; half = 2.5 => at least 3. We have 3. Probability mass questions .54, non-none .85 half .425. Good.\n\nCould include breathing? Not necessary. 6 candidates within 2..8.\n\nNeed \"each a single short original sentence or question written for them personally.\" Our candidates are one sentence each. Reflection is one sentence. Action one sentence. None empty. Good.\n\nNeed maybe \"question-type candidates\" means kind question. We have exactly.\n\nPotential issue \"大きな目標を急がず\" could be viewed as preaching/advice. Reflection kind can include gentle reframe. Could phrase as \"大きな目標より、今日は一つの集中を片づけるほうが気が楽かもしれません。\" This is reflection, no direct advice. Good. It mentions big goal and focus. Natural. \"気が楽\" is emotional state? It asserts possibility, not fact. Fine.\n\nMaybe \"自分にとって十分だと言えますか？\" may be a bit unnatural. Could use \"今日はどこまでできたら、集中できたと感じられそうですか？\" This asks about feeling; open-ended, no presupposition? It asks hypothetical. Good.\n\nQuestion 3: \"続けやすくするなら、今の目標をどんなふうに小さく分けられそうですか？\" This is open-ended and references goal. Good.\n\nQuestion 1: \"このあと集中したいことを、一つだけ言葉にすると何になりますか？\" Natural.\n\nQuestion 2: \"今日はどこまでできたら、集中できたと感じられそうですか？\" Natural.\n\nAction: \"18時30分から、10分だけ取り組むものを一つ決めて始めてみましょう。\" Natural, action. It uses time.\n\nReflection: \"大きな目標より、今日は一つの集中を片づけるほうが気が楽かもしれません。\" Good.\n\nProb:\na .20\nb .18\nc .17 total .55\nd .12\ne .18\nf .15 total .15? 0.20+0.18+0.17=0.55; +0.12=0.67; +0.18=0.85; +0.15=1.00. Non-none mass .85, half .425, questions .55. Good. Action .18. Fine.\n\nMaybe none probability too high? okay.\n\nNeed exact JSON only. Final. \nWait \"At least half of the non-none probability mass\" could mean question-type candidates must have at least half of non-none probability mass. Yes.\n\nNeed \"balanced nonempty quotations\" no issue.\n\nPotential issue \"kind\":\"none\",\"text\":\"\" probability 0.15. Exactly one.\n\nNeed valid JSON no markdown. \nFinal.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft 2..8 candidates in Japanese, for person. Context: desired focus, language ja, push_state local_day 2026-11-18, profile summary: 31yo, wants exercise and journaling habits but often ends after three days; sets big goals and gets discouraged. Recent reactions empty, slot 18:30 evening. Need intervention engine. Need candidates each single short original sentence or question written personally. Exactly one none empty. Kinds allowed reflection, question, teaching, breathing, action, none. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need probabilities sum 1. We need decide number candidates maybe 5: 3 question open-ended, 1 action, 1 none? Non-none=4, at least half question =2, with at least half non-none prob mass. Let's do maybe candidates:\na question open: \"このあと集中するために、最初の10分で何を終わらせたいですか？\" But need personal? It's about focus. Japanese sentence ends ？. Open-ended question. Good.\nb question open: \"三日坊主になりそうなとき、今日はどれくらいの小ささなら続けられそうですか？\" Mentions their profile \"三日坊主\" maybe okay? But \"三日坊主\" might be self-description from profile not quoted? They didn't say? Profile summary from data. We can use? Need avoid invent personal facts beyond supplied profile. Supplied profile says ends after three days often. Using \"三日坊主\" maybe okay but maybe confrontational? Better avoid. Ask \"今日は、続けやすい大きさにするとしたら何をどこまでやりますか？\" Open-ended.\nc reflection: \"大きな目標より、今の集中を一つ片づける方が今日は合っていそうです。\" But asserts? \"合っていそうです\" soft. Reflection kind. Short sentence. But maybe not personal? Fine.\nd action: \"18時30分から、机の上だけ整えて10分だけ始めてみましょう。\" Uses slot, action. It's directive. Okay.\ne breathing: \"肩の力を少し抜いて、ゆっくり三回呼吸してみましょう。\" Good.\nf none prob maybe .35. But need at least half non-none probability mass to question. Let's calculate. Need probabilities sum 1. If 6 candidates: 3 questions, 1 reflection, 1 action, 1 breathing, 1 none? That's 7. Non-none 6; need at least half open-ended question-type = at least 3 questions. Need question probability mass >= half non-none = >=0.5*(1-none probability). If none .2, non-none .8, questions need >= .4. We can assign questions total .45, others .35. Good.\n\nBut need exactly one none. 2..8 candidates. Let's make 6 candidates: 3 questions, 1 reflection, 1 action, 1 none. But breathing not included; okay. Need at least half non-none candidates open-ended questions: non-none=5, half=2.5 -> at least 3 questions. Good. Question probability mass >= half non-none. Let none=0.15. Non-none mass .85, half .425. Questions total maybe .5. Assign:\na question .18\nb question .17\nc question .16 total .51\nd reflection .14\ne action .20\nf none .15 total 1.00. Wait non-none prob .85, half .425, questions .51 >.425 good. But action prob .20. Fine.\n\nNeed exactly one candidate with kind none text empty. Need JSON only. Candidate ids maybe a-f. Need natural complete Japanese. Ensure each sentence/question ends with 。 or ？ or ！. Questions must not presuppose unprovided facts. Avoid \"机の上\" maybe introduces environment? Is that allowed? It doesn't invent personal facts? It suggests action; okay. But \"机の上だけ整えて\" presupposes desk? Could be okay but maybe avoid unprovided appearance. Better action: \"18時30分から、10分だけ取り組むものを一つ決めて始めてみましょう。\" But \"18:30\" from slot. Good. But is action personal? yes. Japanese ends 。.\n\nNeed each candidate single short original sentence or question. For question candidates open-ended. Need not use \"?\" only \"？\". Japanese.\n\nPotential candidates:\n1 kind question: \"このあと集中したいことを、一つだけ言葉にすると何になりますか？\" Open-ended. Good.\n2 kind question: \"今日はどこまで進んだら、自分にとって十分だと言えますか？\" Open-ended. Good.\n3 kind question: \"続けやすくするなら、今の目標をどんな大きさに分けられますか？\" Open-ended. Good. Uses goal? profile says big goals. Fine.\n4 kind reflection: \"大きな目標を急がず、今日の集中を一つ片づけるだけでも十分かもしれません。\" It's reflection, not question. Does \"急がず\" maybe advice/preaching? It's reflection. Okay. Ends 。.\n5 kind action: \"18時30分から、10分だけ取り組むものを一つ決めて始めてみましょう。\" Action. Good.\n6 none empty prob.\n\nNeed probabilities sum. Need at least half non-none candidates question-type: 3 of 5 yes. Half probability mass non-none: questions total? Let's assign:\na question .19\nb question .18\nc question .17 total .54\nd reflection .12\ne action .19\nf none .15 total 1.00. Non-none .85, half .425, questions .54. Good.\n\nBut if \"none\" probability .15. Fine.\n\nNeed consider \"source notification\", \"time_band evening\". We used 18:30 from slot. Good.\n\nNeed ensure no confrontational tough-love, shaming, preaching, medical claims, guaranteed effects. \"十分かもしれません\" soft. Good.\n\nNeed no invented personal facts: profile says want exercise and journaling habits, big goals discouraged. Our questions: \"このあと集中したいこと\" is general. \"今日はどこまで進んだら\" general. \"今の目標\" references goal from profile? They set big goals; okay. \"大きな目標\" references. \"10分だけ取り組むもの\" no specific. Fine.\n\nNeed output JSON only. Use exact schema. Ensure candidate texts balanced nonempty quotations. JSON valid. Use double quotes. Japanese punctuation. Need no extra. Let's craft. But question: \"At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\" Our question candidates kind \"question\"; open-ended yes. Non-none candidates = 5; half = 2.5 => at least 3. We have 3. Probability mass questions .54, non-none .85 half .425. Good.\n\nCould include breathing? Not necessary. 6 candidates within 2..8.\n\nNeed \"each a single short original sentence or question written for them personally.\" Our candidates are one sentence each. Reflection is one sentence. Action one sentence. None empty. Good.\n\nNeed maybe \"question-type candidates\" means kind question. We have exactly.\n\nPotential issue \"大きな目標を急がず\" could be viewed as preaching/advice. Reflection kind can include gentle reframe. Could phrase as \"大きな目標より、今日は一つの集中を片づけるほうが気が楽かもしれません。\" This is reflection, no direct advice. Good. It mentions big goal and focus. Natural. \"気が楽\" is emotional state? It asserts possibility, not fact. Fine.\n\nMaybe \"自分にとって十分だと言えますか？\" may be a bit unnatural. Could use \"今日はどこまでできたら、集中できたと感じられそうですか？\" This asks about feeling; open-ended, no presupposition? It asks hypothetical. Good.\n\nQuestion 3: \"続けやすくするなら、今の目標をどんなふうに小さく分けられそうですか？\" This is open-ended and references goal. Good.\n\nQuestion 1: \"このあと集中したいことを、一つだけ言葉にすると何になりますか？\" Natural.\n\nQuestion 2: \"今日はどこまでできたら、集中できたと感じられそうですか？\" Natural.\n\nAction: \"18時30分から、10分だけ取り組むものを一つ決めて始めてみましょう。\" Natural, action. It uses time.\n\nReflection: \"大きな目標より、今日は一つの集中を片づけるほうが気が楽かもしれません。\" Good.\n\nProb:\na .20\nb .18\nc .17 total .55\nd .12\ne .18\nf .15 total .15? 0.20+0.18+0.17=0.55; +0.12=0.67; +0.18=0.85; +0.15=1.00. Non-none mass .85, half .425, questions .55. Good. Action .18. Fine.\n\nMaybe none probability too high? okay.\n\nNeed exact JSON only. Final. \nWait \"At least half of the non-none probability mass\" could mean question-type candidates must have at least half of non-none probability mass. Yes.\n\nNeed \"balanced nonempty quotations\" no issue.\n\nPotential issue \"kind\":\"none\",\"text\":\"\" probability 0.15. Exactly one.\n\nNeed valid JSON no markdown. \nFinal.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 532,
+        "completion_tokens": 2220,
+        "total_tokens": 2752,
+        "cost": 0.00157784,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00157784,
+          "upstream_inference_prompt_cost": 9.044e-05,
+          "upstream_inference_completions_cost": 0.0014874
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2014,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "73c1a72c-36bc-45ee-9702-16e9db39b8be",
+    "decision_point_at": 1794978882.952439,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "このあと集中したいことを、一つだけ言葉にすると何になりますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今日はどこまでできたら、集中できたと感じられそうですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "続けやすくするなら、今の目標をどんなふうに小さく分けられそうですか？",
+        "probability": 0.17
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "大きな目標より、今日は一つの集中を片づけるほうが気が楽かもしれません。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "18時30分から、10分だけ取り組むものを一つ決めて始めてみましょう。",
+        "probability": 0.18
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "このあと集中したいことを、一つだけ言葉にすると何になりますか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980682.952439,
+    "observations": []
+  }
+}

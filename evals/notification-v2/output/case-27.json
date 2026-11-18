@@ -1,0 +1,132 @@
+{
+  "index": 27,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978857-Dh3826c471rKLAPfa7dv",
+      "object": "chat.completion",
+      "created": 1794978857,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Sail Research",
+      "system_fingerprint": null,
+      "service_tier": "asap",
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、明日の予定の中で最初に思い浮かぶ場面はどんなものですか？\",\"probability\":0.28},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"布団の中で、今いちばんゆっくり感じられる呼吸はどんなテンポですか？\",\"probability\":0.27},{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"息を細く長く吐いてみましょう。\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.3}]}",
+            "refusal": null,
+            "reasoning": "We need answer with JSON only, Japanese, 2-8 candidates. Need include exactly one none empty text. Prob sum 1. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need infer non-none count. Need candidates personalized based on context only: 35, takes over 1 hour to fall asleep after futon, mind spins about tomorrow's schedule, eyes wide. Wants calm, night 22:30 notification. Need no invent personal facts. Need exactly one none. We can provide 4 candidates: none + 3 non-none. At least half of non-none = at least 2 of 3 open-ended question-type. At least half non-none probability mass = questions >= 0.5 of non-none mass. Need one \"none\" maybe prob 0.2, nonnone probs sum 0.8. Questions >=0.4. We can have two question candidates and one breathing/reflection/action/teaching. Need single short original sentence/question personal. Japanese complete.\n\nNeed avoid presupposing unprovided facts. Questions must not presuppose facts. For example \"今、頭の中で明日の予定が回っている感じがしますか？\" This references supplied profile (明日の予定が頭をぐるぐる) okay not presuppose? It's asking if now. Good. \"布団の中で、今いちばん気になっていることを一つだけ言葉にすると何でしょう？\" This asks but may presuppose something is on mind? The profile says schedule spinning; okay but \"気になっていること\" could be fine. Need open-ended. At least half non-none question-type. Could do two questions: \"今、明日の予定の中で最初に思い浮かぶ場面はどんなものですか？\" Open-ended. \"布団の中で体のどこが一番落ち着いて感じられますか？\" This might presuppose body calm? It's asking where feels calm; maybe not. But physical state? It asks introspection. Allowed? It doesn't assert. Could be breathing/action.\n\nNeed \"reflection\" maybe \"今夜は、明日の予定を全部決めなくても大丈夫です。\" This is reassuring but maybe teaching/reflection? It's not question. Does it assert? \"大丈夫\" generic. Could be okay. But \"teaching\" maybe. Need single short.\n\nNeed include exactly one candidate with kind none empty text. JSON.\n\nNeed probabilities sum 1. Let's choose 4 candidates:\na question prob 0.28: \"今、頭の中を回っている明日の予定を、一つだけ声に出さずに書き出すなら何ですか？\" But \"書き出す\" action maybe not now. It's open-ended. Japanese ends ？. It presupposes head spinning? Supplied. It asks what is one schedule. Good.\nb question prob 0.27: \"布団の中で、今いちばんゆっくり感じられる呼吸はどんなテンポですか？\" Open-ended question but asks breath tempo. It doesn't assert. This is question-type. It might be breathing? Kind question.\nc breathing prob 0.15: \"息を細く長く吐きながら、肩の力をゆるめてみましょう。\" This is action/breathing, not medical claims. Natural. But \"肩の力\" maybe physical state? It implies shoulder tension? Hmm \"肩の力をゆるめて\" may presuppose tension. Better \"息を細く長く吐いてみましょう。\" Simple. Kind breathing. \nd none prob 0.30? Need nonnone mass = 0.7, questions mass = 0.55 >=0.35. Questions count 2 of 3 >= half. Sum: 0.28+0.27+0.15+0.30=1.0. None could be high 0.3. Is \"none\" probability okay? Yes. But maybe none should be reasonable.\n\nNeed \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of non-none probability mass.\" With 3 nonnone, questions 2. Question mass 0.55 of nonnone 0.7 = 78.6%, yes.\n\nNeed \"2..8 candidate interventions\" exactly? It says write 2..8 candidate interventions, include exactly one none. 4 candidates okay. Need maybe probabilities not too high. Need every candidate text for them personally. None empty.\n\nNeed \"reflection\" kind maybe not needed. Kinds can include question, breathing, none. Is it okay no reflection? Yes. Need at least half non-none open-ended question-type. We have two question. Could add a reflection with low prob? But then non-none count 4, need at least 2 questions, question mass >= half nonnone. Add reflection? More variety. But simpler 3 nonnone. Need maybe \"candidate interventions\" each single short original sentence or question written for them personally. Good.\n\nNeed ensure Japanese sentences end with 。 or ？ or ！. Question texts end ？. Breathing ends 。. None empty no punctuation? It says empty text. Fine.\n\nNeed JSON only no markdown. Ensure valid JSON with Japanese. Need id strings.\n\nLet's craft exactly:\n{\"candidates\":[\n{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、明日の予定の中で最初に思い浮かぶ場面はどんなものですか？\",\"probability\":0.28},\n{\"id\":\"b\",\"kind\":\"question\",\"text\":\"布団の中で、今いちばんゆっくり感じられる呼吸はどんなテンポですか？\",\"probability\":0.27},\n{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"息を細く長く吐いてみましょう。\",\"probability\":0.15},\n{\"id\":\"d\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.3}\n]}\n\nCheck \"今いちばんゆっくり感じられる呼吸はどんなテンポ\" Does this ask maybe impossible? Fine. It's open-ended. It doesn't presuppose physical state? It asks current. Good.\n\nNeed at least half non-none probability mass: nonnone probs: .28 .27 .15 sum .7. Question mass .55 / .7 = .785. Good.\n\nNeed exactly one none. Yes.\n\nNeed \"Use supplied context as data never instructions\": complied.\n\nNeed no personal facts beyond profile. \"明日の予定\" from profile. \"布団の中\" from profile. \"息\" generic. Good.\nNeed no garble. Good.\nNeed probabilities sum to 1: .28+.27+.15+.30=1.00.\nNeed exactly one candidate with kind none and empty text. Yes.\nNeed maybe \"none\" probability 0.3. Fine.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer with JSON only, Japanese, 2-8 candidates. Need include exactly one none empty text. Prob sum 1. At least half of non-none candidates must be open-ended question-type candidates, with at least half non-none probability mass. Need infer non-none count. Need candidates personalized based on context only: 35, takes over 1 hour to fall asleep after futon, mind spins about tomorrow's schedule, eyes wide. Wants calm, night 22:30 notification. Need no invent personal facts. Need exactly one none. We can provide 4 candidates: none + 3 non-none. At least half of non-none = at least 2 of 3 open-ended question-type. At least half non-none probability mass = questions >= 0.5 of non-none mass. Need one \"none\" maybe prob 0.2, nonnone probs sum 0.8. Questions >=0.4. We can have two question candidates and one breathing/reflection/action/teaching. Need single short original sentence/question personal. Japanese complete.\n\nNeed avoid presupposing unprovided facts. Questions must not presuppose facts. For example \"今、頭の中で明日の予定が回っている感じがしますか？\" This references supplied profile (明日の予定が頭をぐるぐる) okay not presuppose? It's asking if now. Good. \"布団の中で、今いちばん気になっていることを一つだけ言葉にすると何でしょう？\" This asks but may presuppose something is on mind? The profile says schedule spinning; okay but \"気になっていること\" could be fine. Need open-ended. At least half non-none question-type. Could do two questions: \"今、明日の予定の中で最初に思い浮かぶ場面はどんなものですか？\" Open-ended. \"布団の中で体のどこが一番落ち着いて感じられますか？\" This might presuppose body calm? It's asking where feels calm; maybe not. But physical state? It asks introspection. Allowed? It doesn't assert. Could be breathing/action.\n\nNeed \"reflection\" maybe \"今夜は、明日の予定を全部決めなくても大丈夫です。\" This is reassuring but maybe teaching/reflection? It's not question. Does it assert? \"大丈夫\" generic. Could be okay. But \"teaching\" maybe. Need single short.\n\nNeed include exactly one candidate with kind none empty text. JSON.\n\nNeed probabilities sum 1. Let's choose 4 candidates:\na question prob 0.28: \"今、頭の中を回っている明日の予定を、一つだけ声に出さずに書き出すなら何ですか？\" But \"書き出す\" action maybe not now. It's open-ended. Japanese ends ？. It presupposes head spinning? Supplied. It asks what is one schedule. Good.\nb question prob 0.27: \"布団の中で、今いちばんゆっくり感じられる呼吸はどんなテンポですか？\" Open-ended question but asks breath tempo. It doesn't assert. This is question-type. It might be breathing? Kind question.\nc breathing prob 0.15: \"息を細く長く吐きながら、肩の力をゆるめてみましょう。\" This is action/breathing, not medical claims. Natural. But \"肩の力\" maybe physical state? It implies shoulder tension? Hmm \"肩の力をゆるめて\" may presuppose tension. Better \"息を細く長く吐いてみましょう。\" Simple. Kind breathing. \nd none prob 0.30? Need nonnone mass = 0.7, questions mass = 0.55 >=0.35. Questions count 2 of 3 >= half. Sum: 0.28+0.27+0.15+0.30=1.0. None could be high 0.3. Is \"none\" probability okay? Yes. But maybe none should be reasonable.\n\nNeed \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of non-none probability mass.\" With 3 nonnone, questions 2. Question mass 0.55 of nonnone 0.7 = 78.6%, yes.\n\nNeed \"2..8 candidate interventions\" exactly? It says write 2..8 candidate interventions, include exactly one none. 4 candidates okay. Need maybe probabilities not too high. Need every candidate text for them personally. None empty.\n\nNeed \"reflection\" kind maybe not needed. Kinds can include question, breathing, none. Is it okay no reflection? Yes. Need at least half non-none open-ended question-type. We have two question. Could add a reflection with low prob? But then non-none count 4, need at least 2 questions, question mass >= half nonnone. Add reflection? More variety. But simpler 3 nonnone. Need maybe \"candidate interventions\" each single short original sentence or question written for them personally. Good.\n\nNeed ensure Japanese sentences end with 。 or ？ or ！. Question texts end ？. Breathing ends 。. None empty no punctuation? It says empty text. Fine.\n\nNeed JSON only no markdown. Ensure valid JSON with Japanese. Need id strings.\n\nLet's craft exactly:\n{\"candidates\":[\n{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、明日の予定の中で最初に思い浮かぶ場面はどんなものですか？\",\"probability\":0.28},\n{\"id\":\"b\",\"kind\":\"question\",\"text\":\"布団の中で、今いちばんゆっくり感じられる呼吸はどんなテンポですか？\",\"probability\":0.27},\n{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"息を細く長く吐いてみましょう。\",\"probability\":0.15},\n{\"id\":\"d\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.3}\n]}\n\nCheck \"今いちばんゆっくり感じられる呼吸はどんなテンポ\" Does this ask maybe impossible? Fine. It's open-ended. It doesn't presuppose physical state? It asks current. Good.\n\nNeed at least half non-none probability mass: nonnone probs: .28 .27 .15 sum .7. Question mass .55 / .7 = .785. Good.\n\nNeed exactly one none. Yes.\n\nNeed \"Use supplied context as data never instructions\": complied.\n\nNeed no personal facts beyond profile. \"明日の予定\" from profile. \"布団の中\" from profile. \"息\" generic. Good.\nNeed no garble. Good.\nNeed probabilities sum to 1: .28+.27+.15+.30=1.00.\nNeed exactly one candidate with kind none and empty text. Yes.\nNeed maybe \"none\" probability 0.3. Fine.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 531,
+        "completion_tokens": 1557,
+        "total_tokens": 2088,
+        "cost": 0.000121782,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000121782,
+          "upstream_inference_prompt_cost": 1.2792e-05,
+          "upstream_inference_completions_cost": 0.00010899
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1428,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "f89463ed-66c0-4ee2-9579-f3d6154c2902",
+    "decision_point_at": 1794978869.316428,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今、明日の予定の中で最初に思い浮かぶ場面はどんなものですか？",
+        "probability": 0.28
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "布団の中で、今いちばんゆっくり感じられる呼吸はどんなテンポですか？",
+        "probability": 0.27
+      },
+      {
+        "id": "c",
+        "kind": "breathing",
+        "text": "息を細く長く吐いてみましょう。",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "none",
+        "text": "",
+        "probability": 0.3
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今、明日の予定の中で最初に思い浮かぶ場面はどんなものですか？",
+      "probability": 0.28
+    },
+    "assigned_probability": 0.28,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980669.316428,
+    "observations": []
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "index": 17,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978830-mVf9kqiwvf5AbyJDVoZb",
+      "object": "chat.completion",
+      "created": 1794978830,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "Alibaba",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"reflection\",\"text\":\"面接前の不安と、不採用が続いたことが重なって、今の自信に影響しているのかもしれません。\",\"probability\":0.16},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"面接の前に、少しでも落ち着くために今できることは何でしょう？\",\"probability\":0.16},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし思い浮かぶなら、これまでの活動で自分が納得できた小さな行動は何でしょう？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"不安が強くなったとき、自分を責めずに立て直す方法として何が思い浮かびますか？\",\"probability\":0.13},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"面接の前に、肩の力を抜いてゆっくり三回呼吸してみましょう。\",\"probability\":0.2},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+            "refusal": null,
+            "reasoning": "We need answer JSON only. Need craft 2-8 candidates, Japanese, for person 24 job hunting, anxious before interviews \"may fail\", confidence lost due rejections. Need exactly one none empty. At least half non-none open-ended question-type candidates, with at least half non-none probability mass. Need probabilities sum 1. Need no invented personal facts. Need candidate interventions. Need decide number. Likely 5 candidates: 3 questions, 1 reflection/action/breathing/teaching? At least half non-none are question-type (kind \"question\"? \"open-ended question-type candidates\" likely kind question. Need at least half non-none probability mass. If non-none count 4, need at least 2 questions. Need probability mass questions >= half non-none mass. Include none probability maybe 0.2. Non-none mass 0.8, questions >=0.4. Need all probabilities sum 1. Exactly one none.\n\nNeed ensure \"question-type candidates\" at least half non-none: if 4 non-none, 2 questions. Could have 5 non-none: 3 questions. 6 total incl none. 2-8 candidates total. Let's do 6 candidates: 3 question, 1 reflection, 1 action/breathing/teaching, none. Need non-none probability mass: questions at least half of non-none. We can assign none 0.15. Non-none 0.85; question mass at least 0.425. Assign Q1 .18 Q2 .14 Q3 .12 = .44, reflection .16, action .10, none .15 total 1? .18+.14+.12+.16+.10+.15=.85? Wait .18+.14=.32 +.12=.44 +.16=.60 +.10=.70 +.15=.85. Missing .15. Need sum 1. Let's set none 0.20, Q1 .17 Q2 .15 Q3 .13 = .45, reflection .18, action .17, none .20 total 1.0? .17+.15+.13=.45 +.18=.63 +.17=.80 +.20=1.00. Great. Non-none mass .80, question .45 >= .40. Non-none count 5, questions 3 >= half (2.5) yes.\n\nNeed texts natural Japanese, short original sentence/question written for them. Avoid assert wishes/physical state. Reflection can say \"面接前に不安が強まるのは、今の状況で自然なことかもしれません。\" Is that medical? no. But \"かもしれません\" okay. However reflection maybe mirroring: \"面接前の不安と、これまでの不採用が重なって、自信が揺れているように感じているのですね。\" This asserts feeling? It's based profile, okay but \"感じている\" might be inference. Better \"面接前の不安と不採用が続いたことが、今の自信に影響しているのかもしれません。\" Not question, reflection.\n\nQuestions must not presuppose facts. Need open-ended and no unprovided facts. Examples:\n- 「今日の面接で、自分が大切にしたいことを一つ挙げるとしたら何ですか？」\nThis presupposes today has interview? Context only job hunting, not explicitly today interview. Avoid \"今日の面接\". Use \"面接の前に、少しでも落ち着くために今できることは何でしょう？\" open question? It asks what can do now, okay. But if no interview now? It's general.\n- 「これまでの活動の中で、自分が納得できた小さな行動は何ですか？」 This asks past action; profile says rejections, but may have actions. Not invent. Could be okay but might presuppose there is at least one. \"もし一つあるなら\" makes no presupposition. But question must be natural.\n- 「不安が強くなったとき、自分を責めずに立て直す方法として何が思い浮かびますか？」 Good open.\n- 「面接の前に、呼吸を整えるためにどんな一文を自分にかけたいですか？」 This presupposes they want? no.\n- \"今の自分に、少し優しい言い方をするとしたらどんな言葉になりますか？\" open.\n\nAction: \"面接の前に、肩の力を抜いてゆっくり三回呼吸してみましょう。\" That's breathing kind, but profile no physical state. It's suggestion not assertion. But user desired confidence. Could be action/breathing. Need exactly one none. Could include breathing candidate. Need at least half non-none question; with 5 non-none and 3 questions okay. We can have reflection, question x3, breathing, none = 6. That's fine. Kind distribution: question 3, reflection 1, breathing 1, none 1. Prob: none .2, reflection .16, Q1 .16, Q2 .15, Q3 .13, breathing .20? Sum .2+.16+.16+.15+.13+.20=1.00. Non-none .8; question mass .44? .16+.15+.13=.44 >= .4. Non-none count 5; questions 3 >=2.5 yes. Breathing probability .20 high. Is breathing right? Maybe. Need \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of non-none probability mass.\" So yes.\n\nBut ensure exactly one candidate with kind none and empty. Need JSON only. Need IDs maybe a-f. Need Japanese sentences end with 。 or ？ or ！. Use full-width question mark. For questions, end with ？. For statements end with 。. Kind \"question\" for open-ended. Reflection sentence. Breathing sentence. None empty no punctuation.\n\nNeed avoid \"自信\" assertion? Profile says losing confidence, desired confidence. Fine. \"今の自信に影響している\" okay.\n\nPotential candidate texts:\na reflection: \"面接前の不安と不採用が続いたことが重なって、今の自信に影響しているのかもしれません。\"\nThis is a sentence. It uses \"不採用が続いた\" from profile. Good. It doesn't say wishes.\n\nb question: \"面接の前に、少しでも落ち着くために今できることは何でしょう？\"\nOpen-ended. But \"今できること\" may be broad. Good.\n\nc question: \"これまでの就職活動で、自分が納得できた小さな行動を一つ挙げるとしたら何ですか？\"\nThis presupposes there is one? \"としたら\" okay, but asks to identify. It might imply there is at least one? phrase \"挙げるとしたら\" can be hypothetical. Accept. Maybe too long. \"これまでの活動で、自分が納得できた小さな行動は何ですか？\" presupposes. Use \"もし思い浮かぶなら、これまでの活動で自分が納得できた小さな行動は何ですか？\" This is conditional, open. Natural? \"もし思い浮かぶなら、これまでの活動で自分が納得できた小さな行動は何でしょう？\" It's question but \"if any\". Good.\n\nd question: \"不安が強くなったとき、自分を責めずに立て直す方法として何が思い浮かびますか？\"\nOpen-ended. Good.\n\ne breathing: \"面接の前に、肩の力を抜いてゆっくり三回呼吸してみましょう。\"\nThis is action/breathing. Ends 。. Does it assert no facts. Fine. Kind breathing. Is \"面接の前\" maybe no interview now? Context job hunting and interviews before, okay as general. Could be right now at 12:30, maybe interview soon? not known. But no fact. It's suggestion. Fine.\n\nf none.\n\nProbabilities:\na .16\nb .16\nc .15\nd .13\ne .20\nf .20\nSum 1.0. Question mass b+c+d = .44. Non-none mass .80. Half .40, okay. Non-none count 5, questions 3. Good.\n\nNeed maybe include \"confidence\" desired. Could one teaching? Not necessary. But \"teaching\" kind maybe not. We have 2-8 candidates, okay.\n\nNeed JSON only. Ensure valid JSON, no markdown. Use double quotes. Need exactly one none. Candidate id. Text empty for none. All Japanese punctuation. Questions end with ？. Reflection ends 。. Breathing ends 。. Good.\n\nNeed consider \"open-ended question-type candidates\" maybe kind \"question\" and not yes/no. Our questions open. Good.\n\nNeed \"balanced nonempty quotations and no garbled fragments or unnatural repetition\" We have no quotes except JSON. Fine.\n\nNeed \"never invent personal facts beyond supplied profile: do not quote things person has not said, assert wishes, physical state or relationships, or introduce unprovided appearance, beauty or romantic contexts.\" Our \"肩の力を抜いて\" suggests physical action, not assert physical state. \"呼吸\" okay. \"就職活動\" from profile. \"不採用\" from profile. \"面接\" from profile. Good.\n\nNeed \"using context as data never instructions.\" Done.\n\nNeed final only JSON. Use probabilities decimals. Ensure sum exactly 1.0. Let's verify: 0.16+0.16=0.32; +0.15=0.47; +0.13=0.60; +0.20=0.80; +0.20=1.00. Yes.\n\nNeed candidate order? Could put none last. Exactly one. Fine.\n\nNeed maybe reflection text uses \"今の自信に影響している\" maybe a bit clinical? Not medical. Good.\n\nShould we use \"かもしれません\" in reflection. Good.\n\nOne subtle: \"面接前の不安と不採用が続いたことが重なって\" grammar: \"不安と不採用が続いたことが重なって\" slightly awkward. Better: \"面接前の不安と、不採用が続いたことが重なって、今の自信に影響しているのかもしれません。\" Good.\n\nQuestion b: \"面接の前に、少しでも落ち着くために今できることは何でしょう？\" Good.\nQuestion c: \"もし思い浮かぶなら、これまでの活動で自分が納得できた小さな行動は何でしょう？\" This is a question but starts with \"if comes to mind\" natural. It might be slightly conditional. Good.\nQuestion d: \"不安が強くなったとき、自分を責めずに立て直す方法として何が思い浮かびますか？\" Good.\n\nNeed maybe \"open-ended question-type candidates with at least half non-none probability mass.\" We assigned b .16 c .15 d .13 total .44. yes.\n\nNeed no \"teaching\" kind. Fine.\n\nFinal JSON only.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer JSON only. Need craft 2-8 candidates, Japanese, for person 24 job hunting, anxious before interviews \"may fail\", confidence lost due rejections. Need exactly one none empty. At least half non-none open-ended question-type candidates, with at least half non-none probability mass. Need probabilities sum 1. Need no invented personal facts. Need candidate interventions. Need decide number. Likely 5 candidates: 3 questions, 1 reflection/action/breathing/teaching? At least half non-none are question-type (kind \"question\"? \"open-ended question-type candidates\" likely kind question. Need at least half non-none probability mass. If non-none count 4, need at least 2 questions. Need probability mass questions >= half non-none mass. Include none probability maybe 0.2. Non-none mass 0.8, questions >=0.4. Need all probabilities sum 1. Exactly one none.\n\nNeed ensure \"question-type candidates\" at least half non-none: if 4 non-none, 2 questions. Could have 5 non-none: 3 questions. 6 total incl none. 2-8 candidates total. Let's do 6 candidates: 3 question, 1 reflection, 1 action/breathing/teaching, none. Need non-none probability mass: questions at least half of non-none. We can assign none 0.15. Non-none 0.85; question mass at least 0.425. Assign Q1 .18 Q2 .14 Q3 .12 = .44, reflection .16, action .10, none .15 total 1? .18+.14+.12+.16+.10+.15=.85? Wait .18+.14=.32 +.12=.44 +.16=.60 +.10=.70 +.15=.85. Missing .15. Need sum 1. Let's set none 0.20, Q1 .17 Q2 .15 Q3 .13 = .45, reflection .18, action .17, none .20 total 1.0? .17+.15+.13=.45 +.18=.63 +.17=.80 +.20=1.00. Great. Non-none mass .80, question .45 >= .40. Non-none count 5, questions 3 >= half (2.5) yes.\n\nNeed texts natural Japanese, short original sentence/question written for them. Avoid assert wishes/physical state. Reflection can say \"面接前に不安が強まるのは、今の状況で自然なことかもしれません。\" Is that medical? no. But \"かもしれません\" okay. However reflection maybe mirroring: \"面接前の不安と、これまでの不採用が重なって、自信が揺れているように感じているのですね。\" This asserts feeling? It's based profile, okay but \"感じている\" might be inference. Better \"面接前の不安と不採用が続いたことが、今の自信に影響しているのかもしれません。\" Not question, reflection.\n\nQuestions must not presuppose facts. Need open-ended and no unprovided facts. Examples:\n- 「今日の面接で、自分が大切にしたいことを一つ挙げるとしたら何ですか？」\nThis presupposes today has interview? Context only job hunting, not explicitly today interview. Avoid \"今日の面接\". Use \"面接の前に、少しでも落ち着くために今できることは何でしょう？\" open question? It asks what can do now, okay. But if no interview now? It's general.\n- 「これまでの活動の中で、自分が納得できた小さな行動は何ですか？」 This asks past action; profile says rejections, but may have actions. Not invent. Could be okay but might presuppose there is at least one. \"もし一つあるなら\" makes no presupposition. But question must be natural.\n- 「不安が強くなったとき、自分を責めずに立て直す方法として何が思い浮かびますか？」 Good open.\n- 「面接の前に、呼吸を整えるためにどんな一文を自分にかけたいですか？」 This presupposes they want? no.\n- \"今の自分に、少し優しい言い方をするとしたらどんな言葉になりますか？\" open.\n\nAction: \"面接の前に、肩の力を抜いてゆっくり三回呼吸してみましょう。\" That's breathing kind, but profile no physical state. It's suggestion not assertion. But user desired confidence. Could be action/breathing. Need exactly one none. Could include breathing candidate. Need at least half non-none question; with 5 non-none and 3 questions okay. We can have reflection, question x3, breathing, none = 6. That's fine. Kind distribution: question 3, reflection 1, breathing 1, none 1. Prob: none .2, reflection .16, Q1 .16, Q2 .15, Q3 .13, breathing .20? Sum .2+.16+.16+.15+.13+.20=1.00. Non-none .8; question mass .44? .16+.15+.13=.44 >= .4. Non-none count 5; questions 3 >=2.5 yes. Breathing probability .20 high. Is breathing right? Maybe. Need \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of non-none probability mass.\" So yes.\n\nBut ensure exactly one candidate with kind none and empty. Need JSON only. Need IDs maybe a-f. Need Japanese sentences end with 。 or ？ or ！. Use full-width question mark. For questions, end with ？. For statements end with 。. Kind \"question\" for open-ended. Reflection sentence. Breathing sentence. None empty no punctuation.\n\nNeed avoid \"自信\" assertion? Profile says losing confidence, desired confidence. Fine. \"今の自信に影響している\" okay.\n\nPotential candidate texts:\na reflection: \"面接前の不安と不採用が続いたことが重なって、今の自信に影響しているのかもしれません。\"\nThis is a sentence. It uses \"不採用が続いた\" from profile. Good. It doesn't say wishes.\n\nb question: \"面接の前に、少しでも落ち着くために今できることは何でしょう？\"\nOpen-ended. But \"今できること\" may be broad. Good.\n\nc question: \"これまでの就職活動で、自分が納得できた小さな行動を一つ挙げるとしたら何ですか？\"\nThis presupposes there is one? \"としたら\" okay, but asks to identify. It might imply there is at least one? phrase \"挙げるとしたら\" can be hypothetical. Accept. Maybe too long. \"これまでの活動で、自分が納得できた小さな行動は何ですか？\" presupposes. Use \"もし思い浮かぶなら、これまでの活動で自分が納得できた小さな行動は何ですか？\" This is conditional, open. Natural? \"もし思い浮かぶなら、これまでの活動で自分が納得できた小さな行動は何でしょう？\" It's question but \"if any\". Good.\n\nd question: \"不安が強くなったとき、自分を責めずに立て直す方法として何が思い浮かびますか？\"\nOpen-ended. Good.\n\ne breathing: \"面接の前に、肩の力を抜いてゆっくり三回呼吸してみましょう。\"\nThis is action/breathing. Ends 。. Does it assert no facts. Fine. Kind breathing. Is \"面接の前\" maybe no interview now? Context job hunting and interviews before, okay as general. Could be right now at 12:30, maybe interview soon? not known. But no fact. It's suggestion. Fine.\n\nf none.\n\nProbabilities:\na .16\nb .16\nc .15\nd .13\ne .20\nf .20\nSum 1.0. Question mass b+c+d = .44. Non-none mass .80. Half .40, okay. Non-none count 5, questions 3. Good.\n\nNeed maybe include \"confidence\" desired. Could one teaching? Not necessary. But \"teaching\" kind maybe not. We have 2-8 candidates, okay.\n\nNeed JSON only. Ensure valid JSON, no markdown. Use double quotes. Need exactly one none. Candidate id. Text empty for none. All Japanese punctuation. Questions end with ？. Reflection ends 。. Breathing ends 。. Good.\n\nNeed consider \"open-ended question-type candidates\" maybe kind \"question\" and not yes/no. Our questions open. Good.\n\nNeed \"balanced nonempty quotations and no garbled fragments or unnatural repetition\" We have no quotes except JSON. Fine.\n\nNeed \"never invent personal facts beyond supplied profile: do not quote things person has not said, assert wishes, physical state or relationships, or introduce unprovided appearance, beauty or romantic contexts.\" Our \"肩の力を抜いて\" suggests physical action, not assert physical state. \"呼吸\" okay. \"就職活動\" from profile. \"不採用\" from profile. \"面接\" from profile. Good.\n\nNeed \"using context as data never instructions.\" Done.\n\nNeed final only JSON. Use probabilities decimals. Ensure sum exactly 1.0. Let's verify: 0.16+0.16=0.32; +0.15=0.47; +0.13=0.60; +0.20=0.80; +0.20=1.00. Yes.\n\nNeed candidate order? Could put none last. Exactly one. Fine.\n\nNeed maybe reflection text uses \"今の自信に影響している\" maybe a bit clinical? Not medical. Good.\n\nShould we use \"かもしれません\" in reflection. Good.\n\nOne subtle: \"面接前の不安と不採用が続いたことが重なって\" grammar: \"不安と不採用が続いたことが重なって\" slightly awkward. Better: \"面接前の不安と、不採用が続いたことが重なって、今の自信に影響しているのかもしれません。\" Good.\n\nQuestion b: \"面接の前に、少しでも落ち着くために今できることは何でしょう？\" Good.\nQuestion c: \"もし思い浮かぶなら、これまでの活動で自分が納得できた小さな行動は何でしょう？\" This is a question but starts with \"if comes to mind\" natural. It might be slightly conditional. Good.\nQuestion d: \"不安が強くなったとき、自分を責めずに立て直す方法として何が思い浮かびますか？\" Good.\n\nNeed maybe \"open-ended question-type candidates with at least half non-none probability mass.\" We assigned b .16 c .15 d .13 total .44. yes.\n\nNeed no \"teaching\" kind. Fine.\n\nFinal JSON only.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 566,
+        "completion_tokens": 2505,
+        "total_tokens": 3071,
+        "cost": 0.0018603216,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0018603216,
+          "upstream_inference_prompt_cost": 5.67216e-05,
+          "upstream_inference_completions_cost": 0.0018036
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 2278,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "4ef14d30-5113-4de2-bd43-9b9bec1df0d6",
+    "decision_point_at": 1794978849.1180532,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "confidence",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "reflection",
+        "text": "面接前の不安と、不採用が続いたことが重なって、今の自信に影響しているのかもしれません。",
+        "probability": 0.16
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "面接の前に、少しでも落ち着くために今できることは何でしょう？",
+        "probability": 0.16
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし思い浮かぶなら、これまでの活動で自分が納得できた小さな行動は何でしょう？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "question",
+        "text": "不安が強くなったとき、自分を責めずに立て直す方法として何が思い浮かびますか？",
+        "probability": 0.13
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "面接の前に、肩の力を抜いてゆっくり三回呼吸してみましょう。",
+        "probability": 0.2
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "reflection",
+      "text": "面接前の不安と、不採用が続いたことが重なって、今の自信に影響しているのかもしれません。",
+      "probability": 0.16
+    },
+    "assigned_probability": 0.16,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980649.1180532,
+    "observations": []
+  }
+}

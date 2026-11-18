@@ -1,0 +1,144 @@
+{
+  "index": 24,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794978853-GmZIVbWe56tvb53Caleq",
+      "object": "chat.completion",
+      "created": 1794978853,
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "provider": "InferenceNet",
+      "system_fingerprint": "inference.net",
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝、頭の中でいちばん大きく鳴っている予定は何ですか？\",\"probability\":0.22},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今朝の頭の中から、一つだけ予定を選ぶならどれですか？\",\"probability\":0.16},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日が始まる前に、自分にどんな余白を残したいですか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜に回っていた予定も、朝の光の中では少し別の顔に見えることがあります。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"ゆっくり息を吐きながら、肩の力を抜いてみましょう。\",\"probability\":0.11},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+            "refusal": null,
+            "reasoning": "We need answer in Japanese? Context language ja. Need produce JSON only. Need 2..8 candidates. Exactly one none empty text. Probabilities sum 1. At least half of non-none candidates open-ended question-type, and at least half non-none probability mass. Need no invented facts. Person profile: 35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。 Desired calm, morning 07:30. Recent reactions empty. Need candidates for right now. Kinds allowed reflection, question, teaching, breathing, action, none. Need single short original sentence/question written personally. Japanese sentences end with 。？ ！. Need exact one none. At least half non-none candidates question-type. Let's choose maybe 5 candidates total: 3 non-none? At least half non-none candidates question-type. If 3 non-none, need at least 2 questions (since half 1.5 =>2). Prob mass among non-none at least half questions. We can do 4 non-none + none =5, need at least 2 questions and prob mass >=0.5. Better. Probabilities sum 1. Need plausible. Candidates personalized but not asserting facts beyond profile. Avoid \"明日の予定\" okay from profile. Right now morning. Need calm. Maybe question: \"今朝は、頭の中の予定を一つだけ紙に置いてみませんか？\" This is question-type? Open-ended? It is yes/no-ish \"ませんか\" not open-ended. Need open-ended question-type candidates. Use \"今朝、頭をいちばん占めている予定は何ですか？\" open-ended, personal based on profile. Another: \"布団から出る前に、今の体の感覚をひとつ選ぶならどんな感じですか？\" Open-ended, but asks body; profile doesn't give. It asks current, okay? Not presuppose? It presupposes can choose sensation, okay. But no physical state assertion. Good. Need teaching maybe \"眠る前の考えごとは、朝に紙へ出すだけでも少し整理されます。\" But medical claims? \"少し整理されます\" not guaranteed? Could be okay. But \"teaching\". Need breathing: \"ゆっくり息を吐きながら、肩の力を抜いてみましょう。\" No medical claim. Action: \"温かい飲み物を用意して、予定を一つだけメモしてみましょう。\" Introduces drink maybe not personal? It's suggestion not assertion. Fine. But need at least half non-none question-type and probability mass. Let's design 5 candidates: a question (0.30), b question (0.20), c reflection (0.15), d breathing/action (0.10), e none (0.25). Sum 1. Non-none prob mass =0.75, question mass =0.50, exactly half? \"at least half\" yes 0.50. Non-none candidates count=4, question count=2 exactly half. Good. But \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of non-none probability mass.\" Exactly half count and mass okay. But maybe safer 3 questions. Need 2..8 total. Use 6 candidates total: 5 non-none + none. Need at least 3 questions (half 2.5 =>3) and question prob mass >=0.5. Probabilities sum. Let's do:\na question: \"今朝、頭の中でいちばん大きく鳴っている予定は何ですか？\" prob 0.25\nb question: \"その予定について、今いちばん知りたいことは何ですか？\" prob 0.15 (open-ended, follows a? It references \"その予定\" but if sent individually, maybe okay? Could be ambiguous. Need standalone. Better: \"今朝の頭の中から、一つだけ予定を選ぶならどれですか？\" prob 0.20)\nc question: \"今日が始まる前に、自分にどんな余白を残したいですか？\" Open-ended, maybe abstract. prob 0.15\nd reflection: \"眠る前の考えごとは、朝のうちに外へ出しておくと楽になることがあります。\" prob 0.10 (teaching? reflection? It's teaching-ish. Use reflection maybe \"眠る前の考えごとが朝も続いているように感じるかもしれません。\" But asserts feeling? Avoid. Reflection can reflect context: \"布団の中で予定が回る夜と、朝の静かな時間は少し違うものです。\" Not personal? Hmm.\ne breathing: \"ゆっくり息を吐きながら、今ここで肩を下げてみましょう。\" prob 0.10 (breathing)\nf none prob 0.25? Sum: 0.25+0.20+0.15+0.10+0.10+0.25 =1.05. Need adjust. Let's recalc.\n\nWant none 0.25. Non-none total 0.75. Questions: three: 0.22,0.16,0.14 =0.52. Reflection 0.12. Breathing 0.11. Sum non-none 0.75; total 1.00. Count non-none 5, questions 3, good. Prob mass questions 0.52 >= half of 0.75 (0.375). Good. But maybe 5 non-none + none =6. Fine.\n\nNeed exactly one none with empty text. Need each candidate id. Need JSON only. Ensure Japanese sentences end with 。 or ？ or ！. None empty okay. Need no garbled. Need maybe avoid \"自分に\" okay. Candidate c \"今日が始まる前に、自分にどんな余白を残したいですか？\" It's question open-ended, no unprovided facts. Good.\nCandidate d reflection: \"眠る前の考えごとを朝に一つだけ書き出すと、頭の中が少し軽くなるかもしれません。\" This is teaching/action? It says \"かもしれません\" not guaranteed, okay. Kind reflection? Reflection usually reflect. Could be teaching. But we need exactly no constraints on kinds. Use kind \"reflection\": \"布団の中で予定が回る夜と、朝の静かな時間は少し違うものです。\" It doesn't assert their current state? It references profile. Good but \"静かな時間\" maybe not provided (morning time band but not quiet). Avoid. Reflection: \"夜に回っていた予定も、朝の光の中では少し別の顔に見えることがあります。\" Uses \"夜に回っていた\" from profile, okay. \"朝の光\" not provided but general. Maybe okay. But no personal facts beyond. Could be okay. Hmm.\n\nNeed natural complete Japanese. Candidate e breathing: \"ゆっくり息を吐きながら、肩の力を抜いてみましょう。\" Ends 。 okay. Does it assert? no.\n\nNeed probabilities maybe 0.22+0.16+0.14+0.12+0.11+0.25=1.00. Good.\n\nNeed \"open-ended question-type candidates\" kind \"question\". At least half non-none candidates: 3 of 5 yes. At least half non-none probability mass: question sum 0.52 vs non-none 0.75 yes. Exactly one none. Good.\n\nNeed maybe candidate b references \"一つだけ予定を選ぶならどれですか？\" Open-ended but asks choose. Good. Candidate a \"今朝、頭の中でいちばん大きく鳴っている予定は何ですか？\" Uses metaphor \"鳴っている\" okay, based on \"頭をぐるぐる\". Not invented? It describes mental content, okay. Candidate c \"今日が始まる前に、自分にどんな余白を残したいですか？\" Could be unnatural? \"余白を残したい\" okay. Maybe too abstract but fine.\n\nNeed final JSON only. Use double quotes. Japanese. Ensure no extra text. Let's craft final.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "We need answer in Japanese? Context language ja. Need produce JSON only. Need 2..8 candidates. Exactly one none empty text. Probabilities sum 1. At least half of non-none candidates open-ended question-type, and at least half non-none probability mass. Need no invented facts. Person profile: 35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。 Desired calm, morning 07:30. Recent reactions empty. Need candidates for right now. Kinds allowed reflection, question, teaching, breathing, action, none. Need single short original sentence/question written personally. Japanese sentences end with 。？ ！. Need exact one none. At least half non-none candidates question-type. Let's choose maybe 5 candidates total: 3 non-none? At least half non-none candidates question-type. If 3 non-none, need at least 2 questions (since half 1.5 =>2). Prob mass among non-none at least half questions. We can do 4 non-none + none =5, need at least 2 questions and prob mass >=0.5. Better. Probabilities sum 1. Need plausible. Candidates personalized but not asserting facts beyond profile. Avoid \"明日の予定\" okay from profile. Right now morning. Need calm. Maybe question: \"今朝は、頭の中の予定を一つだけ紙に置いてみませんか？\" This is question-type? Open-ended? It is yes/no-ish \"ませんか\" not open-ended. Need open-ended question-type candidates. Use \"今朝、頭をいちばん占めている予定は何ですか？\" open-ended, personal based on profile. Another: \"布団から出る前に、今の体の感覚をひとつ選ぶならどんな感じですか？\" Open-ended, but asks body; profile doesn't give. It asks current, okay? Not presuppose? It presupposes can choose sensation, okay. But no physical state assertion. Good. Need teaching maybe \"眠る前の考えごとは、朝に紙へ出すだけでも少し整理されます。\" But medical claims? \"少し整理されます\" not guaranteed? Could be okay. But \"teaching\". Need breathing: \"ゆっくり息を吐きながら、肩の力を抜いてみましょう。\" No medical claim. Action: \"温かい飲み物を用意して、予定を一つだけメモしてみましょう。\" Introduces drink maybe not personal? It's suggestion not assertion. Fine. But need at least half non-none question-type and probability mass. Let's design 5 candidates: a question (0.30), b question (0.20), c reflection (0.15), d breathing/action (0.10), e none (0.25). Sum 1. Non-none prob mass =0.75, question mass =0.50, exactly half? \"at least half\" yes 0.50. Non-none candidates count=4, question count=2 exactly half. Good. But \"at least half of non-none candidates must be open-ended question-type candidates, with at least half of non-none probability mass.\" Exactly half count and mass okay. But maybe safer 3 questions. Need 2..8 total. Use 6 candidates total: 5 non-none + none. Need at least 3 questions (half 2.5 =>3) and question prob mass >=0.5. Probabilities sum. Let's do:\na question: \"今朝、頭の中でいちばん大きく鳴っている予定は何ですか？\" prob 0.25\nb question: \"その予定について、今いちばん知りたいことは何ですか？\" prob 0.15 (open-ended, follows a? It references \"その予定\" but if sent individually, maybe okay? Could be ambiguous. Need standalone. Better: \"今朝の頭の中から、一つだけ予定を選ぶならどれですか？\" prob 0.20)\nc question: \"今日が始まる前に、自分にどんな余白を残したいですか？\" Open-ended, maybe abstract. prob 0.15\nd reflection: \"眠る前の考えごとは、朝のうちに外へ出しておくと楽になることがあります。\" prob 0.10 (teaching? reflection? It's teaching-ish. Use reflection maybe \"眠る前の考えごとが朝も続いているように感じるかもしれません。\" But asserts feeling? Avoid. Reflection can reflect context: \"布団の中で予定が回る夜と、朝の静かな時間は少し違うものです。\" Not personal? Hmm.\ne breathing: \"ゆっくり息を吐きながら、今ここで肩を下げてみましょう。\" prob 0.10 (breathing)\nf none prob 0.25? Sum: 0.25+0.20+0.15+0.10+0.10+0.25 =1.05. Need adjust. Let's recalc.\n\nWant none 0.25. Non-none total 0.75. Questions: three: 0.22,0.16,0.14 =0.52. Reflection 0.12. Breathing 0.11. Sum non-none 0.75; total 1.00. Count non-none 5, questions 3, good. Prob mass questions 0.52 >= half of 0.75 (0.375). Good. But maybe 5 non-none + none =6. Fine.\n\nNeed exactly one none with empty text. Need each candidate id. Need JSON only. Ensure Japanese sentences end with 。 or ？ or ！. None empty okay. Need no garbled. Need maybe avoid \"自分に\" okay. Candidate c \"今日が始まる前に、自分にどんな余白を残したいですか？\" It's question open-ended, no unprovided facts. Good.\nCandidate d reflection: \"眠る前の考えごとを朝に一つだけ書き出すと、頭の中が少し軽くなるかもしれません。\" This is teaching/action? It says \"かもしれません\" not guaranteed, okay. Kind reflection? Reflection usually reflect. Could be teaching. But we need exactly no constraints on kinds. Use kind \"reflection\": \"布団の中で予定が回る夜と、朝の静かな時間は少し違うものです。\" It doesn't assert their current state? It references profile. Good but \"静かな時間\" maybe not provided (morning time band but not quiet). Avoid. Reflection: \"夜に回っていた予定も、朝の光の中では少し別の顔に見えることがあります。\" Uses \"夜に回っていた\" from profile, okay. \"朝の光\" not provided but general. Maybe okay. But no personal facts beyond. Could be okay. Hmm.\n\nNeed natural complete Japanese. Candidate e breathing: \"ゆっくり息を吐きながら、肩の力を抜いてみましょう。\" Ends 。 okay. Does it assert? no.\n\nNeed probabilities maybe 0.22+0.16+0.14+0.12+0.11+0.25=1.00. Good.\n\nNeed \"open-ended question-type candidates\" kind \"question\". At least half non-none candidates: 3 of 5 yes. At least half non-none probability mass: question sum 0.52 vs non-none 0.75 yes. Exactly one none. Good.\n\nNeed maybe candidate b references \"一つだけ予定を選ぶならどれですか？\" Open-ended but asks choose. Good. Candidate a \"今朝、頭の中でいちばん大きく鳴っている予定は何ですか？\" Uses metaphor \"鳴っている\" okay, based on \"頭をぐるぐる\". Not invented? It describes mental content, okay. Candidate c \"今日が始まる前に、自分にどんな余白を残したいですか？\" Could be unnatural? \"余白を残したい\" okay. Maybe too abstract but fine.\n\nNeed final JSON only. Use double quotes. Japanese. Ensure no extra text. Let's craft final.",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 506,
+        "completion_tokens": 1915,
+        "total_tokens": 2421,
+        "cost": 0.001180623,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.001180623,
+          "upstream_inference_prompt_cost": 2.2048e-05,
+          "upstream_inference_completions_cost": 0.001158575
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1711,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "e8152013-e2b8-40dd-9163-34a3bfe4a23e",
+    "decision_point_at": 1794978872.4205692,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝、頭の中でいちばん大きく鳴っている予定は何ですか？",
+        "probability": 0.22
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今朝の頭の中から、一つだけ予定を選ぶならどれですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "今日が始まる前に、自分にどんな余白を残したいですか？",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "夜に回っていた予定も、朝の光の中では少し別の顔に見えることがあります。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "ゆっくり息を吐きながら、肩の力を抜いてみましょう。",
+        "probability": 0.11
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝、頭の中でいちばん大きく鳴っている予定は何ですか？",
+      "probability": 0.22
+    },
+    "assigned_probability": 0.22,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "deepseek/deepseek-v4.1-flash-1017",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794980672.4205692,
+    "observations": []
+  }
+}
