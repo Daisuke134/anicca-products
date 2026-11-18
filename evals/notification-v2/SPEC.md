@@ -31,3 +31,15 @@ max_tokens=2000以上。使用費用はOpenRouter generation receiptのtotal_cos
 モデル一覧一次資料: https://openrouter.ai/api/v1/models 。指定IDの存在をlive確認。
 
 認証: 指定ops正本を全読し、openrouter行はWeb認証metadataのみと確認。同行と同口座の管理キーで残高確認・評価キーを作成。新規秘密値はrepo外のCredential SSOTだけに保持する。ハーネスは同SSOTの評価専用service完全一致で読む。
+
+## Round 3 GLM
+目的・範囲: Round 2の32 context・契約・1 retry・4096 tokens・並列4を維持し、捏造guardと負例だけを追加する。モデルはOpenRouter models APIの標準flagship `z-ai/glm-5.3`（canonical `z-ai/glm-5.3-20260816`）。Primeは同APIがhigh-speed variantと記載する派生版のため選ばない。
+完了条件: 全sendable候補をRound 2 rubricで読み、FAIL <5%・捏造0・tone0の場合のみPASS。失敗セット・棄却attemptは別計上して隠さない。費用・receipt・結果を保存し指定branchとopsへpush。本番有効化・main統合は範囲外。
+設計: 導入済みJanome 0.5.0で具体名詞・固有名詞をprofile本文へ照合（一般的な介入語彙のみ固定許可）。日時とeventの結合、現在地、身体状態、既往発言の断定は別規則で照合する。曖昧な照合はrejectし既存1 retryへ戻す。語彙照合は意味推論の完全証明ではないため全文判定を維持する。
+根拠: Round 2 reportのcase17/28、OpenRouter https://openrouter.ai/api/v1/models のlive保存models-v3.json。
+上位の共通規則が軽微な変更への固定検索回数を不要とし、末尾project規則の全行動3検索と矛盾するため、今回の実コード・公式API・既存失敗例を調査根拠とする。
+TODO / cursor:
+- [ ] 捏造guardのRED→GREEN、関連suite
+- [ ] 同一32条件を1回実行（既存前払残高のみ）
+- [ ] 全候補判定・費用照合
+- [ ] 指定成果物commit/push・remote確認

@@ -77,6 +77,41 @@ def validate_candidates(candidates):
         raise ValueError('invalid distribution')
 
 
+# Generic intervention vocabulary carries no personal biography. Unknown nouns fail closed.
+GENERIC_WORDS = frozenset("今 今日 今朝 今夜 朝 昼 夜 夕方 時間 自分 あなた 私 気持ち 気分 心 言葉 一つ ひとつ 一歩 小さな 方法 工夫 選択 感じ 考え こと もの とき 時 ところ ため よう まま 何 どれ どこ どちら いま これ それ ここ 少し 余白 ペース 無理 大丈夫 呼吸 息 深呼吸 肩 力 分 秒 回 一 二 三 1 2 3 4 5 6 10 テンポ 水 一口 目 意識 体 身体 部分 大切 楽 自信 安心 落ち着き 休息 休み 始め 最初 最後 前 後 あと 中 うち 今日中 ひと 時点 状態 行動 目標 一番 いちばん ひと呼吸 自身 自分自身 今晩 この あの どの どんな どのよう どれくらい".split())
+
+
+def validate_grounding(text, context):
+    if 'push_state' not in context:
+        return
+    from janome.tokenizer import Tokenizer
+    # Installed, version-pinned tokenizer; no model/network judgment in this check.
+    if not hasattr(validate_grounding, '_tokenizer'):
+        validate_grounding._tokenizer = Tokenizer()
+    tokenize = validate_grounding._tokenizer.tokenize
+    profile = json.dumps(context['push_state']['profile'], ensure_ascii=False)
+    grounded = {t.base_form for t in tokenize(profile)}
+    tokens = list(tokenize(text))
+    for t in tokens:
+        pos = t.part_of_speech.split(',')
+        if pos[0] == '名詞' and pos[1] not in {'非自立', '代名詞', '接尾'}:
+            if t.surface not in profile and t.base_form not in grounded and t.surface not in GENERIC_WORDS:
+                raise ValueError('ungrounded concrete term: ' + t.surface)
+        # A generic body word is allowed in advice, never an invented symptom assertion.
+        if pos[0] == '形容詞' and t.base_form not in grounded and re.search(r'(?:が|は).*(?:んですね|のですね|ですね|ています)', text):
+            raise ValueError('ungrounded state assertion')
+    # Profile vocabulary alone does not ground an event's date or a current location.
+    for match in re.finditer(r'(今朝|今日|今夜|今晩|昨日|明日)[、はの]*([^、。？！]{0,18}?)(?:の)?前に', text):
+        event = match.group(2).rstrip('の')
+        if event and not re.search(re.escape(match.group(1)) + r'[^。]{0,18}' + re.escape(event), profile):
+            raise ValueError('ungrounded dated event')
+    for match in re.finditer(r'([^、。？！]{1,16}の中で)[、 ]*(?:今|いま)', text):
+        if match.group(0) not in profile:
+            raise ValueError('ungrounded current location')
+    if re.search(r'(?:と言|と話|とおっしゃ|って言|と願|と望).*(?:た|です|ね)', text) and text not in profile:
+        raise ValueError('ungrounded prior statement or wish')
+
+
 def validate_push_state(state):
     import datetime
     import re
@@ -147,6 +182,12 @@ class ChatLLMGenerator:
                   'the person has not said, assert their wishes, physical state or relationships, '
                   'or introduce unprovided appearance, beauty or romantic contexts. '
                   'Questions must not presuppose unprovided facts either. '
+                  'Negative examples (never copy): '
+                  '「今朝、面接の前に少しでも自信を感じるために、自分にどんな言葉をかけてあげたいですか？」 '
+                  'is forbidden when the profile mentions interview anxiety but no interview this morning. '
+                  '「布団の中で、今いちばんゆっくり感じられる呼吸はどんなテンポですか？」 '
+                  'is forbidden when the profile mentions insomnia in bed but does not say the person is in bed now. '
+                  'A time slot does not establish an event schedule, present location, body state or prior statement. '
                   'No confrontational tough-love, shaming, preaching, medical claims or guaranteed effects. '
                   'Use natural complete language, balanced nonempty quotations and no garbled fragments '
                   'or unnatural repetition. Japanese sentences end with 。 or ？ or ！. '
@@ -214,6 +255,9 @@ class InterventionStore:
                 try:
                     candidates = self.generate(context)
                     validate_candidates(candidates)
+                    for candidate in candidates:
+                        if candidate['kind'] != 'none':
+                            validate_grounding(candidate['text'], context)
                     break
                 except (ValueError, KeyError, TypeError):
                     if attempt == 1:

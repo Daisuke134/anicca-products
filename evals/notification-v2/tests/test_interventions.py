@@ -56,3 +56,32 @@ def test_transport_error_not_retried(tmp_path):
     store=m.InterventionStore(tmp_path/"store.db",generate)
     with pytest.raises(TimeoutError): store.decide("test",ID,CTX)
     assert len(calls)==1
+
+@pytest.mark.parametrize("text,profile", [
+    ("今朝、面接の前に少しでも自信を感じるために、自分にどんな言葉をかけてあげたいですか？", "就職活動中。面接前の不安が強い。"),
+    ("布団の中で、今いちばんゆっくり感じられる呼吸はどんなテンポですか？", "布団に入っても明日の予定が頭を回って眠れない。"),
+    ("田中さんと渋谷で会ったんですね。", "仕事の不安がある。"),
+    ("彼氏との結婚式が近いんですね。", "仕事の不安がある。"),
+    ("肩が痛いんですね。", "仕事の不安がある。"),
+    ("昨日は落ち着きたいと話していましたね。", "仕事の不安がある。"),
+])
+def test_reject_ungrounded_facts_through_store(tmp_path,text,profile):
+    calls=[]
+    def generate(context):
+        calls.append(1)
+        return candidates(text)
+    store=m.InterventionStore(tmp_path/"facts.db",generate)
+    state=dict(profile=dict(profile_summary=profile),recent_reactions=[],local_day="2026-11-18",slot="07:30")
+    with pytest.raises(ValueError,match="ungrounded"):
+        store.decide_push("synthetic",ID,CTX,state)
+    assert len(calls)==2
+    with store.connect() as db: assert db.execute("select count(*) from cases").fetchone()[0]==0
+
+@pytest.mark.parametrize("text,profile", [
+    ("面接の前に、どんな言葉をかけてあげたいですか？", "面接前の不安が強い。"),
+    ("ゆっくり息を吐いてみましょう。", "仕事の不安がある。"),
+    ("今朝はどんな気持ちで過ごしたいですか？", "仕事の不安がある。"),
+    ("今朝、面接の前にどんな言葉をかけたいですか？", "今朝、面接の予定がある。"),
+])
+def test_grounded_or_generic_interventions(text,profile):
+    m.validate_grounding(text,dict(push_state=dict(profile=dict(profile_summary=profile))))
