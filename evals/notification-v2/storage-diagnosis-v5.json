@@ -1,0 +1,10 @@
+{
+  "phase": "receipt-save",
+  "error_class": "OSError",
+  "exit_code": 1,
+  "error": "ENOSPC",
+  "effect": "model calls completed and saved; cost output incomplete",
+  "next_action": "reduce own ops sparse checkout then refetch read-only generation receipts; never replay model calls",
+  "recovered_available": "1.2GiB",
+  "cleanup_scope": "only unmodified files in task-owned ops v5 worktree and task test temp"
+}

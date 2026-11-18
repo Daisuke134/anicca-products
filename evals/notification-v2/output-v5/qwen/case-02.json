@@ -1,0 +1,194 @@
+{
+  "index": 2,
+  "profile": "rumination",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983684-CDkTh5WuOExH4GKFJUqb",
+        "object": "chat.completion",
+        "created": 1794983684,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気持ちに一番近い言葉を選ぶとしたら、どんな言葉になりますか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今夜少しでも落ち着いて過ごせるとしたら、どんな過ごし方になりそうですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"考えが止まらない夜と、少し楽な夜では、どんな違いがありますか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"息を吐くほうを吸うときより少し長くする呼吸を、3回だけ試してみませんか。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"夜になると同じ場面が繰り返し浮かんでくること、それ自体がつらいですよね。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"頭に浮かんだことを、紙やスマホのメモにそのまま書き出してみるのも一つの方法です。\",\"probability\":0.1},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1178,
+          "completion_tokens": 237,
+          "total_tokens": 1415,
+          "cost": 0.002691825,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.002691825,
+            "upstream_inference_prompt_cost": 0.00167865,
+            "upstream_inference_completions_cost": 0.001013175
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983691-t7s5fhcLbhLuY9cnHw1M",
+        "object": "chat.completion",
+        "created": 1794983691,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Generic question about current feelings, doesn't presuppose specific unsupported facts.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Hypothetical question about desired state, doesn't presuppose it will happen or specific activities.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks for comparison between states, doesn't presuppose current state or specific differences.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"Generic suggestion for a breathing exercise, does not make unsupported presuppositions.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"Acknowledges the difficulty of the user's experience without inferring cause or unsupported personal details.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"Generic suggestion for managing intrusive thoughts, does not make unsupported presuppositions.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 922,
+          "completion_tokens": 211,
+          "total_tokens": 1133,
+          "cost": 0.0001766,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001766,
+            "upstream_inference_prompt_cost": 9.22e-05,
+            "upstream_inference_completions_cost": 8.44e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "d6aebd41-1966-4482-8ea8-203ae0873388",
+    "decision_point_at": 1794983692.541177,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今の気持ちに一番近い言葉を選ぶとしたら、どんな言葉になりますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今夜少しでも落ち着いて過ごせるとしたら、どんな過ごし方になりそうですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "考えが止まらない夜と、少し楽な夜では、どんな違いがありますか？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "息を吐くほうを吸うときより少し長くする呼吸を、3回だけ試してみませんか。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "夜になると同じ場面が繰り返し浮かんでくること、それ自体がつらいですよね。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "頭に浮かんだことを、紙やスマホのメモにそのまま書き出してみるのも一つの方法です。",
+        "probability": 0.1
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちに一番近い言葉を選ぶとしたら、どんな言葉になりますか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985492.541177,
+    "observations": []
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "index": 7,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983698-Eady0JjVWLaDen0mF6UZ",
+        "object": "chat.completion",
+        "created": 1794983698,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"褒められたとき、その言葉が自分の中でどう変わっていくのか、思い出せる範囲で教えてもらえますか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜、自分にかける言葉を一つだけ選べるなら、どんな言葉にしてみたいですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"他人と比べるクセは、意志の弱さではなく習慣として身についていることがあります。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"褒め言葉を素直に受け取れないという感覚は、多くの人が経験するものです。\",\"probability\":0.09},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ今、息を吐くほうを吸うより少し長めにしてみてください。\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1196,
+          "completion_tokens": 248,
+          "total_tokens": 1444,
+          "cost": 0.00137826,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00137826,
+            "upstream_inference_prompt_cost": 0.00031806,
+            "upstream_inference_completions_cost": 0.0010602
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983704-GgXaoSaRexZjSQ9arkK4",
+        "object": "chat.completion",
+        "created": 1794983704,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about internal processing of praise, consistent with profile. No unsupported presuppositions.\"},\n{\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about the context of a phrase directly mentioned in the profile. No unsupported presuppositions.\"},\n{\"id\": \"c\", \"supported\": true, \"reason\": \"Hypothetical question about self-talk, aligned with the profile's mention of negative self-talk. The conditional 'if' makes it supported.\"},\n{\"id\": \"d\", \"supported\": true, \"reason\": \"General statement about habit formation, applicable to the profile's mention of comparing oneself to others. No unsupported personal presuppositions.\"},\n{\"id\": \"e\", \"supported\": true, \"reason\": \"General statement normalizing the experience of not accepting praise easily, consistent with the profile. No unsupported personal presuppositions.\"},\n{\"id\": \"f\", \"supported\": true, \"reason\": \"Generic coping suggestion (breathing exercise). No unsupported presuppositions.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 929,
+          "completion_tokens": 235,
+          "total_tokens": 1164,
+          "cost": 0.0001869,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001869,
+            "upstream_inference_prompt_cost": 9.29e-05,
+            "upstream_inference_completions_cost": 9.4e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "fd455aeb-587b-4b05-9970-1263ebf2cb57",
+    "decision_point_at": 1794983705.817804,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "褒められたとき、その言葉が自分の中でどう変わっていくのか、思い出せる範囲で教えてもらえますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今夜、自分にかける言葉を一つだけ選べるなら、どんな言葉にしてみたいですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "他人と比べるクセは、意志の弱さではなく習慣として身についていることがあります。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "褒め言葉を素直に受け取れないという感覚は、多くの人が経験するものです。",
+        "probability": 0.09
+      },
+      {
+        "id": "f",
+        "kind": "breathing",
+        "text": "よければ今、息を吐くほうを吸うより少し長めにしてみてください。",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "褒められたとき、その言葉が自分の中でどう変わっていくのか、思い出せる範囲で教えてもらえますか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985505.817804,
+    "observations": []
+  }
+}

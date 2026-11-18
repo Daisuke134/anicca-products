@@ -1,0 +1,194 @@
+{
+  "index": 24,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983739-FHEPyn40rqeGhi0HBRc3",
+        "object": "chat.completion",
+        "created": 1794983739,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"朝の今、頭の中にあるのはどんなことですか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日を少しでも穏やかに過ごすために、いまできることはありそうですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜、眠る前の時間にひとつだけ試せることがあるとしたら、何を選びたいですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"息を吐く方を吸う方より少し長くする呼吸を、3回だけ試してみませんか？\",\"probability\":0.14},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"予定が頭に浮かんで止まらないときは、紙に書き出すと頭の負担が軽くなることがあります。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"布団に入ってから眠るまで時間がかかる夜があると、朝もすっきりしにくいですよね。\",\"probability\":0.07},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1139,
+          "completion_tokens": 241,
+          "total_tokens": 1380,
+          "cost": 0.00161367,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00161367,
+            "upstream_inference_prompt_cost": 0.000583395,
+            "upstream_inference_completions_cost": 0.001030275
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983747-77mbBYyzqErLKo8zKfoc",
+        "object": "chat.completion",
+        "created": 1794983747,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about current thoughts without presupposing their content or cause.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about current actions that could lead to a desired state.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"Hypothetical question about choosing one action for sleep, not presupposing ability or desire.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"Suggests a generic relaxation technique.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"Offers advice for a common symptom without presupposing the cause or the person's desire to act.\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"Paraphrases a profile symptom in a relatable way, without adding unsupported personal attributions.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 923,
+          "completion_tokens": 184,
+          "total_tokens": 1107,
+          "cost": 0.0001659,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001659,
+            "upstream_inference_prompt_cost": 9.23e-05,
+            "upstream_inference_completions_cost": 7.36e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "033d9943-f8c9-4d4c-8dc3-3636babb1e84",
+    "decision_point_at": 1794983748.777239,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "朝の今、頭の中にあるのはどんなことですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今日を少しでも穏やかに過ごすために、いまできることはありそうですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今夜、眠る前の時間にひとつだけ試せることがあるとしたら、何を選びたいですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "息を吐く方を吸う方より少し長くする呼吸を、3回だけ試してみませんか？",
+        "probability": 0.14
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "予定が頭に浮かんで止まらないときは、紙に書き出すと頭の負担が軽くなることがあります。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "布団に入ってから眠るまで時間がかかる夜があると、朝もすっきりしにくいですよね。",
+        "probability": 0.07
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "朝の今、頭の中にあるのはどんなことですか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985548.777239,
+    "observations": []
+  }
+}

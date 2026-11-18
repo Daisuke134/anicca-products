@@ -1,0 +1,194 @@
+{
+  "index": 29,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983749-vNoul9TJCdGLB93j4Sph",
+        "object": "chat.completion",
+        "created": 1794983749,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日このあと、いちばん先に片づけたいことは何ですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"運動と日記、今日はどちらを小さく試してみたいですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし5分だけ使えるとしたら、何に使ってみたいですか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣は量を減らすほど続けやすくなります。日記なら一行からでも始められます。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"今やっていることを一度止めて、次の15分にやることを一つだけ決めてみませんか。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"大きな目標を立てては挫折する流れが続いているんですね。\",\"probability\":0.08},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.1}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1135,
+          "completion_tokens": 219,
+          "total_tokens": 1354,
+          "cost": 0.00116736,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00116736,
+            "upstream_inference_prompt_cost": 0.000231135,
+            "upstream_inference_completions_cost": 0.000936225
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983754-smzqHtbqRCSM0qDlN9aJ",
+        "object": "chat.completion",
+        "created": 1794983754,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about current priorities without presupposing them.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about current priorities without presupposing them.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"This is a conditional hypothetical about time allocation.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"This is generic advice about habit formation.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"This is a suggestion for time management.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"This paraphrases a profile fact about goal setting.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 902,
+          "completion_tokens": 164,
+          "total_tokens": 1066,
+          "cost": 0.0001558,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001558,
+            "upstream_inference_prompt_cost": 9.02e-05,
+            "upstream_inference_completions_cost": 6.56e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "f48c7fa5-d613-415a-aed1-9026b8056b02",
+    "decision_point_at": 1794983755.528036,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日このあと、いちばん先に片づけたいことは何ですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "運動と日記、今日はどちらを小さく試してみたいですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし5分だけ使えるとしたら、何に使ってみたいですか？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は量を減らすほど続けやすくなります。日記なら一行からでも始められます。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "今やっていることを一度止めて、次の15分にやることを一つだけ決めてみませんか。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "大きな目標を立てては挫折する流れが続いているんですね。",
+        "probability": 0.08
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.1
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日このあと、いちばん先に片づけたいことは何ですか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985555.528036,
+    "observations": []
+  }
+}

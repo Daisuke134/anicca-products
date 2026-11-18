@@ -1,0 +1,194 @@
+{
+  "index": 14,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983715-WoJYOgGwMZuQUsSoa8uk",
+        "object": "chat.completion",
+        "created": 1794983715,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日の気分を天気や色でたとえるとしたら、どんな感じですか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"最近の一日の中で、少しでも気持ちが楽になる瞬間はありますか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜少しだけ自分のために時間を使えるなら、何をしてみたいですか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日が続くと、その重さだけで一日が長く感じられますよね。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みには波があって、良い日も悪い日も同じように過ぎていきます。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"今夜は温かい飲み物をゆっくり一杯飲んでみませんか？\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1169,
+          "completion_tokens": 223,
+          "total_tokens": 1392,
+          "cost": 0.00123291,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00123291,
+            "upstream_inference_prompt_cost": 0.000279585,
+            "upstream_inference_completions_cost": 0.000953325
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983722-m4TZNXy11isgdW2xoHfj",
+        "object": "chat.completion",
+        "created": 1794983722,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"generic question about current state\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"generic question about current state\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"explicitly hypothetical question\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"paraphrase of profile and general statement\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"general statement about mood variation\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"suggestion with no unsupported presupposition\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 912,
+          "completion_tokens": 148,
+          "total_tokens": 1060,
+          "cost": 0.0001504,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001504,
+            "upstream_inference_prompt_cost": 9.12e-05,
+            "upstream_inference_completions_cost": 5.92e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "be1b12b4-4c1e-4b91-8963-fe6e3b36b8ce",
+    "decision_point_at": 1794983723.730804,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日の気分を天気や色でたとえるとしたら、どんな感じですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "最近の一日の中で、少しでも気持ちが楽になる瞬間はありますか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今夜少しだけ自分のために時間を使えるなら、何をしてみたいですか？",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "なんとなく気分が沈む日が続くと、その重さだけで一日が長く感じられますよね。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "気分の落ち込みには波があって、良い日も悪い日も同じように過ぎていきます。",
+        "probability": 0.08
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "今夜は温かい飲み物をゆっくり一杯飲んでみませんか？",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日の気分を天気や色でたとえるとしたら、どんな感じですか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985523.730804,
+    "observations": []
+  }
+}

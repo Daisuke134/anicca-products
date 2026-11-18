@@ -1,0 +1,188 @@
+{
+  "index": 31,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983751-TkMLVwQi8oJK4LIH8bqI",
+        "object": "chat.completion",
+        "created": 1794983751,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動と日記、いま気になっているのはどちらですか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし明日ひとつだけ小さく試すなら、どんな形にしてみたいですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"大きな目標を小さな一歩に分けるとしたら、最初の一分で何ができそうですか？\",\"probability\":0.17},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"続けるコツは、続かなかった日があっても翌日にまた小さく再開することだと言われています。\",\"probability\":0.15},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"運動と日記を習慣にしたいのに三日坊主で終わりやすい、というのが今の悩みですね。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1135,
+          "completion_tokens": 195,
+          "total_tokens": 1330,
+          "cost": 0.00106476,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00106476,
+            "upstream_inference_prompt_cost": 0.000231135,
+            "upstream_inference_completions_cost": 0.000833625
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983757-3BlYUlXPdNHvSbSKGezN",
+        "object": "chat.completion",
+        "created": 1794983757,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about current interest between two stated habits.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Hypothetical question about a small trial, not presupposing ability or desire.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks for a small step related to a large goal, not presupposing the goal itself.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"General advice about habit formation, not making personal assertions.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"Paraphrases the stated profile issue about habit formation.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 884,
+          "completion_tokens": 158,
+          "total_tokens": 1042,
+          "cost": 0.0001516,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001516,
+            "upstream_inference_prompt_cost": 8.84e-05,
+            "upstream_inference_completions_cost": 6.32e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "1a9f02de-5b0b-4fe9-b315-e3851a199a49",
+    "decision_point_at": 1794983758.473449,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "運動と日記、いま気になっているのはどちらですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もし明日ひとつだけ小さく試すなら、どんな形にしてみたいですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "大きな目標を小さな一歩に分けるとしたら、最初の一分で何ができそうですか？",
+        "probability": 0.17
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "続けるコツは、続かなかった日があっても翌日にまた小さく再開することだと言われています。",
+        "probability": 0.15
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "運動と日記を習慣にしたいのに三日坊主で終わりやすい、というのが今の悩みですね。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "運動と日記、いま気になっているのはどちらですか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985558.473449,
+    "observations": []
+  }
+}

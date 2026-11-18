@@ -1,0 +1,194 @@
+{
+  "index": 26,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983740-U9sbpmcNO8qtRU6FM5E3",
+        "object": "chat.completion",
+        "created": 1794983740,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、頭の中でいちばん大きく占めているのはどんなことですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"落ち着きたい今の気持ちに合う過ごし方は、どんなものだと思いますか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠る前の時間に、少しでも楽になれるとしたら何がありそうですか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"明日の予定が頭をぐるぐる回って、目が冴えてしまうことがあるんですね。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くとってみませんか？\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだ予定は、紙やメモに書き出すと頭の中だけで回し続けずに済むことがあります。\",\"probability\":0.07},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.13}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1139,
+          "completion_tokens": 235,
+          "total_tokens": 1374,
+          "cost": 0.0026277,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0026277,
+            "upstream_inference_prompt_cost": 0.001623075,
+            "upstream_inference_completions_cost": 0.001004625
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983748-lOwnkzfbKZiTmYJCtIfS",
+        "object": "chat.completion",
+        "created": 1794983748,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about current thoughts without presupposing their content.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about preferences for relaxation without presupposing current feelings or specific activities.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks about potential ways to feel better before sleep without presupposing specific difficulties or desires.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"Paraphrases profile information about racing thoughts before sleep.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"Offers a generic relaxation technique as a suggestion.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"Offers a generic coping strategy for racing thoughts as a suggestion.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 912,
+          "completion_tokens": 186,
+          "total_tokens": 1098,
+          "cost": 0.0001656,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001656,
+            "upstream_inference_prompt_cost": 9.12e-05,
+            "upstream_inference_completions_cost": 7.44e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "b15e902f-0fb4-4460-8a27-4d9fcbfdbf9b",
+    "decision_point_at": 1794983748.972779,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今、頭の中でいちばん大きく占めているのはどんなことですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "落ち着きたい今の気持ちに合う過ごし方は、どんなものだと思いますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "眠る前の時間に、少しでも楽になれるとしたら何がありそうですか？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "明日の予定が頭をぐるぐる回って、目が冴えてしまうことがあるんですね。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くとってみませんか？",
+        "probability": 0.08
+      },
+      {
+        "id": "f",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定は、紙やメモに書き出すと頭の中だけで回し続けずに済むことがあります。",
+        "probability": 0.07
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.13
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今、頭の中でいちばん大きく占めているのはどんなことですか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985548.972779,
+    "observations": []
+  }
+}

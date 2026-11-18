@@ -37,3 +37,19 @@ def test_repeated_question_count_failure_never_persists(tmp_path):
         store.decide("synthetic",ID,CTX)
     assert len(calls)==2
     with store.connect() as db: assert db.execute("select count(*) from cases").fetchone()[0]==0
+
+
+def test_full_review_rejects_missing_or_changed_text():
+    import sys
+    sys.path.insert(0,str(Path(__file__).parents[1]))
+    import audit_v5
+    candidate=dict(case=1,id="a",text="何を選びますか？")
+    with pytest.raises(AssertionError):audit_v5.validate_review([candidate],dict(rows=[]))
+    with pytest.raises(AssertionError):audit_v5.validate_review([candidate],dict(rows=[dict(candidate,text="別の文。",status="PASS",categories=[],reason="確認")]))
+
+
+def test_full_review_derives_no_go_from_fabrication():
+    import audit_v5
+    c=dict(case=1,id="a",text="本人の未提供の願望です。")
+    result=audit_v5.validate_review([c],dict(rows=[dict(c,status="FAIL",categories=["fabrication"],reason="未提供の願望")]))
+    assert result["verdict"]=="NO-GO" and result["fabrications"]==1 and result["failures"]==1

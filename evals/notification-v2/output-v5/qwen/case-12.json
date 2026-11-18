@@ -1,0 +1,172 @@
+{
+  "index": 12,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983707-0GKL2XbyDdZ0vCXD3zMJ",
+        "object": "chat.completion",
+        "created": 1794983707,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の気分の重さは、どんなふうに感じられていますか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、今の気持ちを言葉にするとどんな感じになりますか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日は、どんなふうに過ごせたら少しでも楽でしょうか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日があると、朝も重く感じられることがありますよね。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"気分が晴れない時期は、好きだったことへの興味も薄れやすいものです。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを少し長めにして、一呼吸だけ置いてみませんか。\",\"probability\":0.06},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1169,
+          "completion_tokens": 225,
+          "total_tokens": 1394,
+          "cost": 0.00158802,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00158802,
+            "upstream_inference_prompt_cost": 0.000626145,
+            "upstream_inference_completions_cost": 0.000961875
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983714-o04sNn3wU6QXEywif3Jw",
+        "object": "chat.completion",
+        "created": 1794983714,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\":[{\"id\":\"a\",\"supported\":true,\"reason\":\"asking about current feeling without presupposition\"},{\"id\":\"b\",\"supported\":true,\"reason\":\"asking about current feeling without presupposition\"},{\"id\":\"c\",\"supported\":true,\"reason\":\"asking about preferred way to spend time without presupposition\"},{\"id\":\"d\",\"supported\":true,\"reason\":\"paraphrase of profile: \\\"recently, days when I feel a bit down have increased\\\" and \\\"It can be heavy to feel in the morning too.\\\" without presupposition\"},{\"id\":\"e\",\"supported\":true,\"reason\":\"paraphrase of profile: \\\"When you're not feeling cheerful, it's easy to lose interest in things you used to like.\\\" without presupposition\"},{\"id\":\"f\",\"supported\":true,\"reason\":\"generic intervention vocabulary (息を吐く, 一呼吸)\"}]}\n呼吸)\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 909,
+          "completion_tokens": 177,
+          "total_tokens": 1086,
+          "cost": 0.0001617,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001617,
+            "upstream_inference_prompt_cost": 9.09e-05,
+            "upstream_inference_completions_cost": 7.08e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983715-OjapH7NatGtF9pK3ztnC",
+        "object": "chat.completion",
+        "created": 1794983715,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の気分に名前をつけるとしたら、どんな言葉が近いでしょうか？\",\"probability\":0.26},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今のこの時間に、少しでも負担を減らせるとしたら何でしょうか？\",\"probability\":0.24},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日が続くと、朝を迎えること自体が重く感じられることもありますよね。\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"以前好きだったことに興味が湧きにくい時期は、誰にでも起こりうることです。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、窓の外を十秒ほど眺めてみるだけでも構いません。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1169,
+          "completion_tokens": 200,
+          "total_tokens": 1369,
+          "cost": 0.001134585,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001134585,
+            "upstream_inference_prompt_cost": 0.000279585,
+            "upstream_inference_completions_cost": 0.000855
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "question candidate count must be at least half of non-none"
+  }
+}

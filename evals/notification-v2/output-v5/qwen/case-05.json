@@ -1,0 +1,194 @@
+{
+  "index": 5,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983691-L5RLSbJsnkbp5XLHQBEp",
+        "object": "chat.completion",
+        "created": 1794983691,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てきたとき、その前後で頭にはどんなことが浮かんでいますか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"SNSを開いたあとと閉じたあとでは、気分はどんなふうに変わりますか？\",\"probability\":0.16},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"褒められた言葉をそのまま受け取れたら、どんな感じがすると思いますか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"他人と自分を並べて比べる癖は、意志の弱さではなく習慣として身についていることがあります。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"褒められても素直に受け取れないという感覚は、それ自体がつらいものですね。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ今日、スマホを置く場所だけ先に決めてみませんか？\",\"probability\":0.07},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1196,
+          "completion_tokens": 243,
+          "total_tokens": 1439,
+          "cost": 0.001356885,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001356885,
+            "upstream_inference_prompt_cost": 0.00031806,
+            "upstream_inference_completions_cost": 0.001038825
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983698-qZejhDqsaH6N5OHAHxem",
+        "object": "chat.completion",
+        "created": 1794983698,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about thoughts related to a stated phrase without presupposing the phrase's cause.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about a change in feeling related to a stated behavior without presupposing the nature of the change.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks about a hypothetical feeling without presupposing it is achievable or desired.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"Paraphrases a general tendency about comparison as a habit, not a moral failing.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"Acknowledges the difficulty of a stated feeling without inferring its cause or a desire to change it.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"Offers a concrete, hypothetical suggestion without assuming readiness or desire.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 932,
+          "completion_tokens": 212,
+          "total_tokens": 1144,
+          "cost": 0.000178,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000178,
+            "upstream_inference_prompt_cost": 9.32e-05,
+            "upstream_inference_completions_cost": 8.48e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "3bf1762d-3219-4926-84ea-fd5c628c1b7a",
+    "decision_point_at": 1794983699.952728,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "「どうせ私なんて」という言葉が出てきたとき、その前後で頭にはどんなことが浮かんでいますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "SNSを開いたあとと閉じたあとでは、気分はどんなふうに変わりますか？",
+        "probability": 0.16
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "褒められた言葉をそのまま受け取れたら、どんな感じがすると思いますか？",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "他人と自分を並べて比べる癖は、意志の弱さではなく習慣として身についていることがあります。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "褒められても素直に受け取れないという感覚は、それ自体がつらいものですね。",
+        "probability": 0.08
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "よければ今日、スマホを置く場所だけ先に決めてみませんか？",
+        "probability": 0.07
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てきたとき、その前後で頭にはどんなことが浮かんでいますか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985499.952728,
+    "observations": []
+  }
+}

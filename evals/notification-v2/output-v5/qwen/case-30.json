@@ -1,0 +1,188 @@
+{
+  "index": 30,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983749-u0g5rFfQGBDhMWOjYSjz",
+        "object": "chat.completion",
+        "created": 1794983749,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動と日記、今この瞬間に少しでも気になるのはどちらですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜ほんの数分だけ使えるとしたら、何に使ってみたいですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「これなら続けられそう」と思える大きさって、あなたにとってどのくらいですか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣は、回数よりも小ささが続くコツになることがあります。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、日記に一行だけ今の気分を書いてみませんか？\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1136,
+          "completion_tokens": 184,
+          "total_tokens": 1320,
+          "cost": 0.00101916,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00101916,
+            "upstream_inference_prompt_cost": 0.00023256,
+            "upstream_inference_completions_cost": 0.0007866
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983755-ajwFEZkrdxkbyHWzKh5h",
+        "object": "chat.completion",
+        "created": 1794983755,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about current interest without presupposing a specific action or desire.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Hypothetical question about time usage, explicitly conditional.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks for a definition without presupposing a specific success or failure.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"General advice about habit formation, not a personal statement.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"Suggests a specific, small action without presupposing willingness or success.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 872,
+          "completion_tokens": 155,
+          "total_tokens": 1027,
+          "cost": 0.0001492,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001492,
+            "upstream_inference_prompt_cost": 8.72e-05,
+            "upstream_inference_completions_cost": 6.2e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "c5466f81-66dc-4d0b-8eca-aa2f73dc72b6",
+    "decision_point_at": 1794983756.313552,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "運動と日記、今この瞬間に少しでも気になるのはどちらですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もし今夜ほんの数分だけ使えるとしたら、何に使ってみたいですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "「これなら続けられそう」と思える大きさって、あなたにとってどのくらいですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は、回数よりも小ささが続くコツになることがあります。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "よければ、日記に一行だけ今の気分を書いてみませんか？",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "運動と日記、今この瞬間に少しでも気になるのはどちらですか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985556.313552,
+    "observations": []
+  }
+}

@@ -1,0 +1,29 @@
+........FF                                                               [100%]Running teardown with pytest sessionfinish...
+
+=================================== FAILURES ===================================
+_______________ test_full_review_rejects_missing_or_changed_text _______________
+
+    def test_full_review_rejects_missing_or_changed_text():
+        import sys
+        sys.path.insert(0,str(Path(__file__).parents[1]))
+        import audit_v5
+        candidate=dict(case=1,id="a",text="何を選びますか？")
+>       with pytest.raises(AssertionError):audit_v5.validate_review([candidate],dict(rows=[]))
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'audit_v5' has no attribute 'validate_review'
+
+tests/test_v5.py:47: AttributeError
+_______________ test_full_review_derives_no_go_from_fabrication ________________
+
+    def test_full_review_derives_no_go_from_fabrication():
+        import audit_v5
+        c=dict(case=1,id="a",text="本人の未提供の願望です。")
+>       result=audit_v5.validate_review([c],dict(rows=[dict(c,status="FAIL",categories=["fabrication"],reason="未提供の願望")]))
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'audit_v5' has no attribute 'validate_review'
+
+tests/test_v5.py:54: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_v5.py::test_full_review_rejects_missing_or_changed_text - A...
+FAILED tests/test_v5.py::test_full_review_derives_no_go_from_fabrication - At...
+2 failed, 8 passed in 0.17s

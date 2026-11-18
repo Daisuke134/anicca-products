@@ -1,0 +1,292 @@
+{
+  "index": 0,
+  "profile": "rumination",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983683-4zNUoIoEQotLyl8EpBbz",
+        "object": "chat.completion",
+        "created": 1794983683,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この瞬間、頭に浮かんでいることは何ですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今朝の自分に、どんな言葉をかけてあげたいですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日を少しでも穏やかに過ごすとしたら、何ができそうですか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"息をゆっくり吐いてみる時間を作ってみませんか。\",\"probability\":0.13},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"夜に同じ場面が繰り返し浮かぶと、朝も疲れが残りやすいですよね。\",\"probability\":0.12},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"今日の始まりに、窓の外を少し眺める時間はいかがですか。\",\"probability\":0.08},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.10}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1178,
+          "completion_tokens": 210,
+          "total_tokens": 1388,
+          "cost": 0.00119016,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00119016,
+            "upstream_inference_prompt_cost": 0.00029241,
+            "upstream_inference_completions_cost": 0.00089775
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983689-KC8voB7D77Sjl6wqSUWn",
+        "object": "chat.completion",
+        "created": 1794983689,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"This is a generic open question about current thoughts.\"}, {\"id\": \"b\", \"supported\": false, \"reason\": \"Presupposes the user wants to speak words to themselves this morning.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"This is a generic open question about achievable actions for a calmer day, without unsupported presuppositions.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"This is a generic suggestion for a relaxation technique.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"This is a paraphrase of the profile summary about recurring thoughts and their impact on the morning.\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"This is a generic suggestion for a calming morning activity.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 893,
+          "completion_tokens": 178,
+          "total_tokens": 1071,
+          "cost": 0.0001605,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001605,
+            "upstream_inference_prompt_cost": 8.93e-05,
+            "upstream_inference_completions_cost": 7.12e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983690-dJVBhNXVeyemUEKQVAj1",
+        "object": "chat.completion",
+        "created": 1794983690,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝いちばん気になっていることは何ですか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日、少しでも気持ちが落ち着く時間があるとすれば、どんな過ごし方でしょうか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今の自分に、どんな言葉をかけてあげたいですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうをゆっくり長めにしてみませんか。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"同じ考えが繰り返し浮かぶのは、夜になるほど起こりやすいものです。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"眠れない日が続くと、朝も重く感じられることがありますよね。\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1178,
+          "completion_tokens": 211,
+          "total_tokens": 1389,
+          "cost": 0.002580675,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.002580675,
+            "upstream_inference_prompt_cost": 0.00167865,
+            "upstream_inference_completions_cost": 0.000902025
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983696-1sBXrjV0B5j8IyyZBvf1",
+        "object": "chat.completion",
+        "created": 1794983696,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Generic question about current concerns.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Hypothetical question about desired activities for calm.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Open question about self-talk, no unsupported presuppositions.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"Generic suggestion for relaxation technique.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"General observation about rumination, matches profile symptom.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"General observation about sleep deprivation, matches profile symptom.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 893,
+          "completion_tokens": 164,
+          "total_tokens": 1057,
+          "cost": 0.0001549,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001549,
+            "upstream_inference_prompt_cost": 8.93e-05,
+            "upstream_inference_completions_cost": 6.56e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "a30e7441-370b-4c0d-83b8-7a5c70ae2d7b",
+    "decision_point_at": 1794983697.832057,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝いちばん気になっていることは何ですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今日、少しでも気持ちが落ち着く時間があるとすれば、どんな過ごし方でしょうか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "今の自分に、どんな言葉をかけてあげたいですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうをゆっくり長めにしてみませんか。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "同じ考えが繰り返し浮かぶのは、夜になるほど起こりやすいものです。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "眠れない日が続くと、朝も重く感じられることがありますよね。",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝いちばん気になっていることは何ですか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985497.832057,
+    "observations": []
+  }
+}

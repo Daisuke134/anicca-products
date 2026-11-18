@@ -1,0 +1,188 @@
+{
+  "index": 3,
+  "profile": "rumination",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983684-rFGW2LfQlbR9Oj73MWJR",
+        "object": "chat.completion",
+        "created": 1794983684,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、頭に浮かんでいることがあれば、どんなことか言葉にしてみませんか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今夜少しでも落ち着けるとしたら、どんな過ごし方が合いそうですか？\",\"probability\":0.22},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"いまの自分に必要だと感じるのは、休息でしょうか、それとも別の何かでしょうか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜に同じ場面を思い返してしまうと、頭が休まりにくいですよね。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息をゆっくり吐くことを数回だけ試してみませんか？\",\"probability\":0.09},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1177,
+          "completion_tokens": 193,
+          "total_tokens": 1370,
+          "cost": 0.0025023,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0025023,
+            "upstream_inference_prompt_cost": 0.001677225,
+            "upstream_inference_completions_cost": 0.000825075
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983690-oxqcWXWHyB4yFgWS97yN",
+        "object": "chat.completion",
+        "created": 1794983690,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n    {\n        \"id\": \"a\",\n        \"supported\": true,\n        \"reason\": \"Open question about current thoughts.\"\n    },\n    {\n        \"id\": \"b\",\n        \"supported\": true,\n        \"reason\": \"Explicitly hypothetical question about preferred evening activities.\"\n    },\n    {\n        \"id\": \"c\",\n        \"supported\": true,\n        \"reason\": \"Question about perceived needs.\"\n    },\n    {\n        \"id\": \"d\",\n        \"supported\": true,\n        \"reason\": \"General statement acknowledging a stated difficulty.\"\n    },\n    {\n        \"id\": \"e\",\n        \"supported\": true,\n        \"reason\": \"Suggestion for a simple physical action.\"\n    }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 882,
+          "completion_tokens": 172,
+          "total_tokens": 1054,
+          "cost": 0.000157,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000157,
+            "upstream_inference_prompt_cost": 8.82e-05,
+            "upstream_inference_completions_cost": 6.88e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "9a3ff4f4-9530-415f-a0c8-6f290a42f17a",
+    "decision_point_at": 1794983691.41246,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今、頭に浮かんでいることがあれば、どんなことか言葉にしてみませんか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今夜少しでも落ち着けるとしたら、どんな過ごし方が合いそうですか？",
+        "probability": 0.22
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "いまの自分に必要だと感じるのは、休息でしょうか、それとも別の何かでしょうか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "夜に同じ場面を思い返してしまうと、頭が休まりにくいですよね。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息をゆっくり吐くことを数回だけ試してみませんか？",
+        "probability": 0.09
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今、頭に浮かんでいることがあれば、どんなことか言葉にしてみませんか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985491.41246,
+    "observations": []
+  }
+}

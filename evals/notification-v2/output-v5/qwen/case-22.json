@@ -1,0 +1,188 @@
+{
+  "index": 22,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983733-r1uL4wqzsVd0l4pb7r8S",
+        "object": "chat.completion",
+        "created": 1794983733,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日やるべきことの中で、いちばん先に片づけたいのはどれですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？\",\"probability\":0.22},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"夜の後悔が軽くなる一日にするなら、今どんな一歩を置いておきたいですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"先延ばしは、作業を「最初の5分だけ」に区切ると動き出しやすくなることがあります。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"在宅ワークで集中が続かず、夜に後悔が残る日があるのですね。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1139,
+          "completion_tokens": 206,
+          "total_tokens": 1345,
+          "cost": 0.001117485,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001117485,
+            "upstream_inference_prompt_cost": 0.000236835,
+            "upstream_inference_completions_cost": 0.00088065
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983739-fBtAaUfYSa4HtCsILbZz",
+        "object": "chat.completion",
+        "created": 1794983739,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n    {\n        \"id\": \"a\",\n        \"supported\": true,\n        \"reason\": \"Asking about priorities is supported.\"\n    },\n    {\n        \"id\": \"b\",\n        \"supported\": true,\n        \"reason\": \"Explicitly hypothetical and does not presuppose ability to focus.\"\n    },\n    {\n        \"id\": \"c\",\n        \"supported\": true,\n        \"reason\": \"Asks about a future action without presupposing a specific outcome or current state.\"\n    },\n    {\n        \"id\": \"d\",\n        \"supported\": true,\n        \"reason\": \"Offers general advice about procrastination.\"\n    },\n    {\n        \"id\": \"e\",\n        \"supported\": true,\n        \"reason\": \"Paraphrases profile information.\"\n    }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 896,
+          "completion_tokens": 184,
+          "total_tokens": 1080,
+          "cost": 0.0001632,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001632,
+            "upstream_inference_prompt_cost": 8.96e-05,
+            "upstream_inference_completions_cost": 7.36e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "6661a689-9c4f-4a44-b623-5a49a7936fab",
+    "decision_point_at": 1794983740.097876,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+        "probability": 0.22
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "夜の後悔が軽くなる一日にするなら、今どんな一歩を置いておきたいですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "先延ばしは、作業を「最初の5分だけ」に区切ると動き出しやすくなることがあります。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "在宅ワークで集中が続かず、夜に後悔が残る日があるのですね。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985540.097876,
+    "observations": []
+  }
+}

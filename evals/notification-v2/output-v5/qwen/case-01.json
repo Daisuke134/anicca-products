@@ -1,0 +1,194 @@
+{
+  "index": 1,
+  "profile": "rumination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983684-7e79EjmAGrZHRfUumtp0",
+        "object": "chat.completion",
+        "created": 1794983684,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この瞬間、頭に浮かんでいることは何ですか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今夜に向けて、少しでも落ち着ける時間がとれるとしたら、何をしてみたいですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"考えが止まらない夜と少し楽な夜があるとしたら、どんな違いがありそうですか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"息を吐く方を吸うときより少し長めにしてみるのはいかがですか？\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"同じ場面が繰り返し浮かぶのは、脳のよくある仕組みのひとつです。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"夜に仕事のことが頭をめぐって眠れない日が続いているんですね。\",\"probability\":0.1},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1177,
+          "completion_tokens": 224,
+          "total_tokens": 1401,
+          "cost": 0.002634825,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.002634825,
+            "upstream_inference_prompt_cost": 0.001677225,
+            "upstream_inference_completions_cost": 0.0009576
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983689-Z8KDM2qre3TNopLPUMM2",
+        "object": "chat.completion",
+        "created": 1794983689,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\":[{\"id\":\"a\",\"supported\":true,\"reason\":\"Open question about current thoughts, does not presuppose unsupported facts.\"},{\"id\": \"b\", \"supported\": true, \"reason\": \"Hypothetical question about desired activity for relaxation, does not presuppose unsupported facts.\"},{\"id\": \"c\", \"supported\": true, \"reason\": \"Comparative question about sleep quality, does not presuppose unsupported facts or habits.\"},{\"id\": \"d\", \"supported\": true, \"reason\": \"Generic breathing advice, does not presuppose unsupported facts.\"},{\"id\": \"e\", \"supported\": true, \"reason\": \"Generic statement about memory recall, does not presuppose unsupported facts.\"},{\"id\": \"f\", \"supported\": true, \"reason\": \"Paraphrase of profile information, confirms recent pattern without unsupported inference.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 910,
+          "completion_tokens": 174,
+          "total_tokens": 1084,
+          "cost": 0.0001606,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001606,
+            "upstream_inference_prompt_cost": 9.1e-05,
+            "upstream_inference_completions_cost": 6.96e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "f76cbb23-b886-4df8-8f7b-e74bf754d08e",
+    "decision_point_at": 1794983690.7413719,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今この瞬間、頭に浮かんでいることは何ですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今夜に向けて、少しでも落ち着ける時間がとれるとしたら、何をしてみたいですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "考えが止まらない夜と少し楽な夜があるとしたら、どんな違いがありそうですか？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "息を吐く方を吸うときより少し長めにしてみるのはいかがですか？",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "同じ場面が繰り返し浮かぶのは、脳のよくある仕組みのひとつです。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "夜に仕事のことが頭をめぐって眠れない日が続いているんですね。",
+        "probability": 0.1
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、頭に浮かんでいることは何ですか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985490.7413719,
+    "observations": []
+  }
+}

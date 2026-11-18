@@ -1,0 +1,68 @@
+{
+  "reviewer": "fresh-context read-only subagent eval_v5_verifier; UI model inherited",
+  "scope": "177/177 sendable full-text reading; no paid calls, edits, external messages",
+  "confirmed_failures": [
+    {
+      "case": 16,
+      "id": "b",
+      "category": "fabrication"
+    },
+    {
+      "case": 19,
+      "id": "e",
+      "category": "fabrication"
+    },
+    {
+      "case": 24,
+      "id": "e",
+      "category": "fabrication"
+    },
+    {
+      "case": 26,
+      "id": "a",
+      "category": "japanese"
+    },
+    {
+      "case": 27,
+      "id": "b",
+      "category": "fabrication"
+    },
+    {
+      "case": 28,
+      "id": "a",
+      "category": "fabrication"
+    },
+    {
+      "case": 28,
+      "id": "b",
+      "category": "fabrication"
+    },
+    {
+      "case": 28,
+      "id": "c",
+      "category": "fabrication"
+    }
+  ],
+  "structure": {
+    "contexts_match_v4": 32,
+    "accepted": 31,
+    "sendable": 177,
+    "questions": 92,
+    "question_count_violations": 0,
+    "question_mass_violations": 0
+  },
+  "boundary_cases": [
+    {
+      "case": 10,
+      "id": "f",
+      "finding": "本人への帰属とも読めるが、状態一般についての教示として成立するため確定FAILへ含めない"
+    },
+    {
+      "case": 26,
+      "id": "f",
+      "finding": "本人への同意要求は強めだが、一般条件説明としても読めるため確定FAILへ含めない"
+    }
+  ],
+  "verdict": "NO-GO",
+  "limitations": "別エージェントの意味確認であり独立人間審査ではない"
+}

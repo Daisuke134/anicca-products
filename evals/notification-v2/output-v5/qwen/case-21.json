@@ -1,0 +1,194 @@
+{
+  "index": 21,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983728-BQjDat4IG10Qg5MPK8aR",
+        "object": "chat.completion",
+        "created": 1794983728,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日やるべきことの中で、いちばん先に片づけたいのはどれですか？\",\"probability\":0.26},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"在宅ワークで集中が途切れやすいのは、どんなときですか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"action\",\"text\":\"スマホを手の届かない場所に置いて、5分だけ一つの作業に戻ってみませんか？\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"先延ばしにして夜に後悔する流れは、一日のどこかで小さく断ち切れます。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"作業は「全部」ではなく「最初の5分」と区切ると、取りかかりやすくなります。\",\"probability\":0.06},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.14}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1138,
+          "completion_tokens": 237,
+          "total_tokens": 1375,
+          "cost": 0.001248585,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001248585,
+            "upstream_inference_prompt_cost": 0.00023541,
+            "upstream_inference_completions_cost": 0.001013175
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983733-kZOpfnHyD9xYkX00k8pa",
+        "object": "chat.completion",
+        "created": 1794983733,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\n    \"id\": \"a\",\n    \"supported\": true,\n    \"reason\": \"Asks about current priorities without presupposing a specific wish.\"\n  },\n  {\n    \"id\": \"b\",\n    \"supported\": true,\n    \"reason\": \"Explicitly hypothetical, offering a choice for future action.\"\n  },\n  {\n    \"id\": \"c\",\n    \"supported\": true,\n    \"reason\": \"Asks for information about a state described in the profile (difficulty concentrating at home).\"\n  },\n  {\n    \"id\": \"d\",\n    \"supported\": true,\n    \"reason\": \"Offers a concrete, actionable suggestion related to profile facts (smartphone use, returning to task).\"\n  },\n  {\n    \"id\": \"e\",\n    \"supported\": true,\n    \"reason\": \"Paraphrases a pattern of behavior from the profile in a general way.\"\n  },\n  {\n    \"id\": \"f\",\n    \"supported\": true,\n    \"reason\": \"Offers generic advice on task initiation, not presupposing current effort or a specific wish.\"\n  }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 919,
+          "completion_tokens": 256,
+          "total_tokens": 1175,
+          "cost": 0.0001943,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001943,
+            "upstream_inference_prompt_cost": 9.19e-05,
+            "upstream_inference_completions_cost": 0.0001024
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "54b2a95b-7e74-4533-979c-4d3c76992df6",
+    "decision_point_at": 1794983734.743696,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+        "probability": 0.26
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "在宅ワークで集中が途切れやすいのは、どんなときですか？",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "action",
+        "text": "スマホを手の届かない場所に置いて、5分だけ一つの作業に戻ってみませんか？",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "先延ばしにして夜に後悔する流れは、一日のどこかで小さく断ち切れます。",
+        "probability": 0.08
+      },
+      {
+        "id": "f",
+        "kind": "teaching",
+        "text": "作業は「全部」ではなく「最初の5分」と区切ると、取りかかりやすくなります。",
+        "probability": 0.06
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.14
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.26
+    },
+    "assigned_probability": 0.26,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985534.743696,
+    "observations": []
+  }
+}

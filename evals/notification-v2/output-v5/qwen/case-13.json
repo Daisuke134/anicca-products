@@ -1,0 +1,194 @@
+{
+  "index": 13,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983712-gj9XcR9KzcnoSSzRuE5c",
+        "object": "chat.completion",
+        "created": 1794983712,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日ここまでの時間で、気分が少しでも違った瞬間はありましたか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今いちばん負担に感じているのは、どんなことですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"このあとの時間を過ごすとしたら、どんな過ごし方がよさそうですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日が続くと、その理由を探すのも難しいことがあります。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みには、はっきりした原因が見つからないことも珍しくありません。\",\"probability\":0.09},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ、窓の外を30秒ほど眺めてみるのはいかがでしょうか。\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1168,
+          "completion_tokens": 220,
+          "total_tokens": 1388,
+          "cost": 0.00121866,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00121866,
+            "upstream_inference_prompt_cost": 0.00027816,
+            "upstream_inference_completions_cost": 0.0009405
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983717-dL1E9YOZnu6bGwOnUbqm",
+        "object": "chat.completion",
+        "created": 1794983717,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about a subjective state without presupposing it.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about the current burden without presupposing a specific one.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks about a preferred way to spend time, not asserting a wish.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"General statement about mood, paraphrases profile.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"General statement about mood, no unsupported presuppositions.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"Generic suggestion, no unsupported presuppositions.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 909,
+          "completion_tokens": 176,
+          "total_tokens": 1085,
+          "cost": 0.0001613,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001613,
+            "upstream_inference_prompt_cost": 9.09e-05,
+            "upstream_inference_completions_cost": 7.04e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "3bcd8dfc-6436-4396-80f0-d6cff6bf77d5",
+    "decision_point_at": 1794983718.7910259,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日ここまでの時間で、気分が少しでも違った瞬間はありましたか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今いちばん負担に感じているのは、どんなことですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "このあとの時間を過ごすとしたら、どんな過ごし方がよさそうですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "なんとなく気分が沈む日が続くと、その理由を探すのも難しいことがあります。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "気分の落ち込みには、はっきりした原因が見つからないことも珍しくありません。",
+        "probability": 0.09
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "よければ、窓の外を30秒ほど眺めてみるのはいかがでしょうか。",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日ここまでの時間で、気分が少しでも違った瞬間はありましたか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985518.7910259,
+    "observations": []
+  }
+}

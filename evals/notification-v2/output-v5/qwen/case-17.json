@@ -1,0 +1,194 @@
+{
+  "index": 17,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983721-lpNCpXQkzWUtE4aBysG4",
+        "object": "chat.completion",
+        "created": 1794983721,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この瞬間、いちばん気になっていることは何ですか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"面接の前に「落ちるかもしれない」という考えが浮かんだとき、そのあとどんなふうに過ごしていますか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし少しでも気持ちが軽くなる時間があるとしたら、何をしてみたいですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"不安が強いときは、結果の予想と今日の事実を分けて書き出すと、頭の中を整理しやすくなります。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"不合格の通知が続いて、自信が揺らいでいるんですね。\",\"probability\":0.09},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ一度、息をゆっくり吐いてから吸ってみませんか？\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1187,
+          "completion_tokens": 235,
+          "total_tokens": 1422,
+          "cost": 0.00130986,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00130986,
+            "upstream_inference_prompt_cost": 0.000305235,
+            "upstream_inference_completions_cost": 0.001004625
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983726-E91WFTOmoCdHJW5u5lC0",
+        "object": "chat.completion",
+        "created": 1794983726,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\":[{\"id\":\"a\",\"supported\":true,\"reason\":\"Asking about current focus, no unsupported presuppositions.\"},\n{\"id\":\"b\",\"supported\":true,\"reason\":\"Asks about a process following a stated feeling, does not presuppose the feeling itself.\"},\n{\"id\":\"c\",\"supported\":true,\"reason\":\"Explicitly hypothetical question about desired activities.\"},\n{\"id\":\"d\",\"supported\":true,\"reason\":\"Generic advice on managing anxiety, not making unsupported personal attributions.\"},\n{\"id\":\"e\",\"supported\":true,\"reason\":\"Paraphrases profile statement about loss of confidence.\"},\n{\"id\":\"f\",\"supported\":true,\"reason\":\"Generic suggestion for relaxation.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 918,
+          "completion_tokens": 140,
+          "total_tokens": 1058,
+          "cost": 0.0001478,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001478,
+            "upstream_inference_prompt_cost": 9.18e-05,
+            "upstream_inference_completions_cost": 5.6e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "18d020e0-4f49-4bf3-828d-4243fe8e00e5",
+    "decision_point_at": 1794983727.810306,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "confidence",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今この瞬間、いちばん気になっていることは何ですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "面接の前に「落ちるかもしれない」という考えが浮かんだとき、そのあとどんなふうに過ごしていますか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし少しでも気持ちが軽くなる時間があるとしたら、何をしてみたいですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "不安が強いときは、結果の予想と今日の事実を分けて書き出すと、頭の中を整理しやすくなります。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "不合格の通知が続いて、自信が揺らいでいるんですね。",
+        "probability": 0.09
+      },
+      {
+        "id": "f",
+        "kind": "breathing",
+        "text": "よければ一度、息をゆっくり吐いてから吸ってみませんか？",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.18
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、いちばん気になっていることは何ですか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985527.810306,
+    "observations": []
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "index": 27,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983744-atxSmIfsUhRyDNRj2LYZ",
+        "object": "chat.completion",
+        "created": 1794983744,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"頭をぐるぐる回っている明日の予定は、どんなことですか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今いちばん気になっているのは、明日のどの場面ですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠るまでのこの時間、少しでも落ち着けるとしたら何がありそうですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだ予定は紙やメモに書き出すと、覚えておこうとする働きが少し休まりやすくなります。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、吐く息を吸う息より少し長くとる呼吸を数回試してみませんか？\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"布団に入ってから眠るまで1時間以上かかる夜が続いているのですね。\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1138,
+          "completion_tokens": 238,
+          "total_tokens": 1376,
+          "cost": 0.00125286,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00125286,
+            "upstream_inference_prompt_cost": 0.00023541,
+            "upstream_inference_completions_cost": 0.00101745
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983750-BHArGNiTZq89T8BVFqqV",
+        "object": "chat.completion",
+        "created": 1794983750,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"Asks for details about the explicitly stated thought loop.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks for specifics about the preoccupation, which is related to the stated symptom.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"Open-ended question about potentially helpful activities for relaxation.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"Offers a practical suggestion for managing racing thoughts, related to the profile.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"Offers a relaxation technique, which is generic advice.\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"Confirms the user's stated experience of difficulty falling asleep.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 917,
+          "completion_tokens": 170,
+          "total_tokens": 1087,
+          "cost": 0.0001597,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001597,
+            "upstream_inference_prompt_cost": 9.17e-05,
+            "upstream_inference_completions_cost": 6.8e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "8d90564e-e4e7-4481-a361-8275c0f7aef1",
+    "decision_point_at": 1794983751.472404,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "頭をぐるぐる回っている明日の予定は、どんなことですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今いちばん気になっているのは、明日のどの場面ですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "眠るまでのこの時間、少しでも落ち着けるとしたら何がありそうですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定は紙やメモに書き出すと、覚えておこうとする働きが少し休まりやすくなります。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、吐く息を吸う息より少し長くとる呼吸を数回試してみませんか？",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "布団に入ってから眠るまで1時間以上かかる夜が続いているのですね。",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "頭をぐるぐる回っている明日の予定は、どんなことですか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985551.472404,
+    "observations": []
+  }
+}

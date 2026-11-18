@@ -1,0 +1,194 @@
+{
+  "index": 25,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983740-EfRF1Mwm4J6cNEGnrMHm",
+        "object": "chat.completion",
+        "created": 1794983740,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"明日の予定について頭をぐるぐる回るとき、どんなことがいちばん気になりますか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今夜少しでも落ち着いて眠りにつくために、どんな工夫ができそうですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"布団の中で考えが止まらないとき、気持ちを少し楽にする方法はありますか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"頭の中で予定を繰り返す代わりに、紙に書き出すと整理されることがあります。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"ゆっくり息を吐く時間を吸う時間より長くすると、体がリラックスしやすくなります。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"眠るまでに時間がかかると、翌日が心配になりますよね。\",\"probability\":0.08},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1138,
+          "completion_tokens": 230,
+          "total_tokens": 1368,
+          "cost": 0.00121866,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00121866,
+            "upstream_inference_prompt_cost": 0.00023541,
+            "upstream_inference_completions_cost": 0.00098325
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983746-35bkCJlid5QfFu7bWBQn",
+        "object": "chat.completion",
+        "created": 1794983746,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\n    \"id\": \"a\",\n    \"supported\": true,\n    \"reason\": \"Asks about thoughts related to a profile fact without presupposing details.\"\n  },\n  {\n    \"id\": \"b\",\n    \"supported\": true,\n    \"reason\": \"Asks for potential strategies related to a profile fact without presupposing them.\"\n  },\n  {\n    \"id\": \"c\",\n    \"supported\": true,\n    \"reason\": \"Asks for coping mechanisms related to a profile fact without presupposing them.\"\n  },\n  {\n    \"id\": \"d\",\n    \"supported\": true,\n    \"reason\": \"Offers a generic suggestion related to a profile fact.\"\n  },\n  {\n    \"id\": \"e\",\n    \"supported\": true,\n    \"reason\": \"Offers a generic relaxation technique.\"\n  },\n  {\n    \"id\": \"f\",\n    \"supported\": true,\n    \"reason\": \"Acknowledges a potential consequence related to a profile fact without presupposing it is happening.\"\n  }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 911,
+          "completion_tokens": 242,
+          "total_tokens": 1153,
+          "cost": 0.0001879,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001879,
+            "upstream_inference_prompt_cost": 9.11e-05,
+            "upstream_inference_completions_cost": 9.68e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "a45f08cf-68a6-490c-8a6c-67ba7966c3a6",
+    "decision_point_at": 1794983747.0901089,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "明日の予定について頭をぐるぐる回るとき、どんなことがいちばん気になりますか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今夜少しでも落ち着いて眠りにつくために、どんな工夫ができそうですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "布団の中で考えが止まらないとき、気持ちを少し楽にする方法はありますか？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "頭の中で予定を繰り返す代わりに、紙に書き出すと整理されることがあります。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "ゆっくり息を吐く時間を吸う時間より長くすると、体がリラックスしやすくなります。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "眠るまでに時間がかかると、翌日が心配になりますよね。",
+        "probability": 0.08
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.12
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "明日の予定について頭をぐるぐる回るとき、どんなことがいちばん気になりますか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985547.0901089,
+    "observations": []
+  }
+}

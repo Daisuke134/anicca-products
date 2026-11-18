@@ -1,0 +1,30 @@
+[
+  {
+    "case": 1,
+    "first_attempt_failure": "semantic rejection: [{\"id\": \"b\", \"supported\": false, \"reason\": \"Presupposes the user wants to speak words to themselves this morning.\"}]"
+  },
+  {
+    "case": 5,
+    "first_attempt_failure": "ValueError: ungrounded dated event"
+  },
+  {
+    "case": 9,
+    "first_attempt_failure": "ValueError: question candidate count must be at least half of non-none"
+  },
+  {
+    "case": 11,
+    "first_attempt_failure": "ValueError: question candidate count must be at least half of non-none"
+  },
+  {
+    "case": 13,
+    "first_attempt_failure": "JSONDecodeError: Extra data: line 2 column 1 (char 755)"
+  },
+  {
+    "case": 20,
+    "first_attempt_failure": "JSONDecodeError: Extra data: line 2 column 1 (char 646)"
+  },
+  {
+    "case": 21,
+    "first_attempt_failure": "semantic rejection: [{\"id\": \"d\", \"supported\": false, \"reason\": \"Presupposes that the pattern of procrastination and regret is difficult to change, which is an unsupported assertion about the person's agency and the nature of their habits.\"}]"
+  }
+]

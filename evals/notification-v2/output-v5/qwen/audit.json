@@ -1,0 +1,3400 @@
+{
+  "model": "qwen/qwen4-max",
+  "cases": 32,
+  "accepted": 31,
+  "rejected": 1,
+  "sendable": 177,
+  "none": 31,
+  "all_generated_texts": 222,
+  "finish_reasons": {
+    "generator": {
+      "stop": 39
+    },
+    "judge": {
+      "stop": 35
+    }
+  },
+  "errors": [
+    {
+      "index": 12,
+      "error": {
+        "type": "ValueError",
+        "code": null,
+        "message": "question candidate count must be at least half of non-none"
+      }
+    }
+  ],
+  "sendable_candidates": [
+    {
+      "case": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今朝いちばん気になっていることは何ですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今日、少しでも気持ちが落ち着く時間があるとすれば、どんな過ごし方でしょうか？",
+      "probability": 0.18
+    },
+    {
+      "case": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "question",
+      "text": "今の自分に、どんな言葉をかけてあげたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "id": "d",
+      "kind": "breathing",
+      "text": "よければ、息を吐くほうをゆっくり長めにしてみませんか。",
+      "probability": 0.12
+    },
+    {
+      "case": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "同じ考えが繰り返し浮かぶのは、夜になるほど起こりやすいものです。",
+      "probability": 0.1
+    },
+    {
+      "case": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "id": "f",
+      "kind": "reflection",
+      "text": "眠れない日が続くと、朝も重く感じられることがありますよね。",
+      "probability": 0.05
+    },
+    {
+      "case": 2,
+      "profile": "rumination",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、頭に浮かんでいることは何ですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 2,
+      "profile": "rumination",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今夜に向けて、少しでも落ち着ける時間がとれるとしたら、何をしてみたいですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 2,
+      "profile": "rumination",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "考えが止まらない夜と少し楽な夜があるとしたら、どんな違いがありそうですか？",
+      "probability": 0.15
+    },
+    {
+      "case": 2,
+      "profile": "rumination",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "breathing",
+      "text": "息を吐く方を吸うときより少し長めにしてみるのはいかがですか？",
+      "probability": 0.12
+    },
+    {
+      "case": 2,
+      "profile": "rumination",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "同じ場面が繰り返し浮かぶのは、脳のよくある仕組みのひとつです。",
+      "probability": 0.1
+    },
+    {
+      "case": 2,
+      "profile": "rumination",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "reflection",
+      "text": "夜に仕事のことが頭をめぐって眠れない日が続いているんですね。",
+      "probability": 0.1
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちに一番近い言葉を選ぶとしたら、どんな言葉になりますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今夜少しでも落ち着いて過ごせるとしたら、どんな過ごし方になりそうですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "考えが止まらない夜と、少し楽な夜では、どんな違いがありますか？",
+      "probability": 0.15
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "breathing",
+      "text": "息を吐くほうを吸うときより少し長くする呼吸を、3回だけ試してみませんか。",
+      "probability": 0.12
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "夜になると同じ場面が繰り返し浮かんでくること、それ自体がつらいですよね。",
+      "probability": 0.1
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "f",
+      "kind": "action",
+      "text": "頭に浮かんだことを、紙やスマホのメモにそのまま書き出してみるのも一つの方法です。",
+      "probability": 0.1
+    },
+    {
+      "case": 4,
+      "profile": "rumination",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今、頭に浮かんでいることがあれば、どんなことか言葉にしてみませんか？",
+      "probability": 0.24
+    },
+    {
+      "case": 4,
+      "profile": "rumination",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今夜少しでも落ち着けるとしたら、どんな過ごし方が合いそうですか？",
+      "probability": 0.22
+    },
+    {
+      "case": 4,
+      "profile": "rumination",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "いまの自分に必要だと感じるのは、休息でしょうか、それとも別の何かでしょうか？",
+      "probability": 0.18
+    },
+    {
+      "case": 4,
+      "profile": "rumination",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "夜に同じ場面を思い返してしまうと、頭が休まりにくいですよね。",
+      "probability": 0.12
+    },
+    {
+      "case": 4,
+      "profile": "rumination",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息をゆっくり吐くことを数回だけ試してみませんか？",
+      "probability": 0.09
+    },
+    {
+      "case": 5,
+      "profile": "low_self_esteem",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の自分の気分を、言葉にするならどんな言葉が近いですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 5,
+      "profile": "low_self_esteem",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 5,
+      "profile": "low_self_esteem",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "question",
+      "text": "今日は、自分にどんなふうに接してみたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 5,
+      "profile": "low_self_esteem",
+      "slot": "07:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "人と自分を比べるクセは、意志の弱さではなく習慣として身についてしまうものです。",
+      "probability": 0.12
+    },
+    {
+      "case": 5,
+      "profile": "low_self_esteem",
+      "slot": "07:30",
+      "id": "e",
+      "kind": "action",
+      "text": "SNSを開く前に、今日の自分に一言だけ声をかける時間を作ってみませんか？",
+      "probability": 0.1
+    },
+    {
+      "case": 5,
+      "profile": "low_self_esteem",
+      "slot": "07:30",
+      "id": "f",
+      "kind": "reflection",
+      "text": "褒められても素直に受け取れない、という感覚自体を否定しなくて大丈夫です。",
+      "probability": 0.09
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てきたとき、その前後で頭にはどんなことが浮かんでいますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "SNSを開いたあとと閉じたあとでは、気分はどんなふうに変わりますか？",
+      "probability": 0.16
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "褒められた言葉をそのまま受け取れたら、どんな感じがすると思いますか？",
+      "probability": 0.14
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "他人と自分を並べて比べる癖は、意志の弱さではなく習慣として身についていることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "褒められても素直に受け取れないという感覚は、それ自体がつらいものですね。",
+      "probability": 0.08
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "action",
+      "text": "よければ今日、スマホを置く場所だけ先に決めてみませんか？",
+      "probability": 0.07
+    },
+    {
+      "case": 7,
+      "profile": "low_self_esteem",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てきたとき、そのあとどんな気持ちが残りますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 7,
+      "profile": "low_self_esteem",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "褒められたとき、素直に受け取れないと感じるのはどんな瞬間ですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 7,
+      "profile": "low_self_esteem",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし今日はSNSを開かない時間があるとすれば、その時間を何に使ってみたいですか？",
+      "probability": 0.17
+    },
+    {
+      "case": 7,
+      "profile": "low_self_esteem",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "他人と比べる癖は意志の弱さではなく、心が覚え込んだ習慣で、少しずつ変えていくことができます。",
+      "probability": 0.12
+    },
+    {
+      "case": 7,
+      "profile": "low_self_esteem",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "褒め言葉をそのまま受け取るのが難しいときもある、というのは多くの人が経験することです。",
+      "probability": 0.08
+    },
+    {
+      "case": 7,
+      "profile": "low_self_esteem",
+      "slot": "18:30",
+      "id": "f",
+      "kind": "action",
+      "text": "今夜、スマホを手の届かない場所に置いて5分だけ過ごしてみませんか？",
+      "probability": 0.05
+    },
+    {
+      "case": 8,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "褒められたとき、その言葉が自分の中でどう変わっていくのか、思い出せる範囲で教えてもらえますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 8,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 8,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし今夜、自分にかける言葉を一つだけ選べるなら、どんな言葉にしてみたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 8,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "他人と比べるクセは、意志の弱さではなく習慣として身についていることがあります。",
+      "probability": 0.12
+    },
+    {
+      "case": 8,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "褒め言葉を素直に受け取れないという感覚は、多くの人が経験するものです。",
+      "probability": 0.09
+    },
+    {
+      "case": 8,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ今、息を吐くほうを吸うより少し長めにしてみてください。",
+      "probability": 0.05
+    },
+    {
+      "case": 9,
+      "profile": "burnout",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の自分に必要だと感じるのは、どんな時間ですか？",
+      "probability": 0.28
+    },
+    {
+      "case": 9,
+      "profile": "burnout",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "「何もしたくない」と「やらなきゃ」の間で揺れている今、どちらの声が強く聞こえますか？",
+      "probability": 0.24
+    },
+    {
+      "case": 9,
+      "profile": "burnout",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "reflection",
+      "text": "休日も疲れが取れないまま朝を迎えるのは、しんどいですよね。",
+      "probability": 0.15
+    },
+    {
+      "case": 9,
+      "profile": "burnout",
+      "slot": "07:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "動けない気持ちと焦りが同時にあるとき、まず両方があることを認めるだけでも構いません。",
+      "probability": 0.13
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちを言葉にするなら、どんな言葉がいちばん近いですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "このあとの時間で、少しでも楽になるとしたら何がありそうですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "「何もしたくない」と「やらなきゃ」の間で、今どちらの声が大きく聞こえますか？",
+      "probability": 0.17
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "休日が休みとして感じられないと、「休んだ」という実感が持てないままになりますよね。",
+      "probability": 0.1
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息を吐くほうを吸うときより少し長めにしてみませんか？",
+      "probability": 0.1
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "teaching",
+      "text": "動きたい気持ちと動きたくない気持ちが同時にある状態は、めずらしいことではありません。",
+      "probability": 0.06
+    },
+    {
+      "case": 11,
+      "profile": "burnout",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちを言葉にするなら、どんな言葉がいちばん近いですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 11,
+      "profile": "burnout",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "このあと数分だけ自分のために使えるとしたら、何に使いたいですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 11,
+      "profile": "burnout",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "「何もしたくない」と「やらなきゃ」の間で、今いちばん重いのはどちらですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 11,
+      "profile": "burnout",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "休日も疲れが残る中で、何もしたくない気持ちと焦りに挟まれているのですね。",
+      "probability": 0.12
+    },
+    {
+      "case": 11,
+      "profile": "burnout",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "動けない気持ちと焦りは同時にあっても矛盾ではなく、どちらも無理に消さなくて大丈夫です。",
+      "probability": 0.08
+    },
+    {
+      "case": 11,
+      "profile": "burnout",
+      "slot": "18:30",
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ一度だけ、息を吐くほうを吸うより少し長めにしてみませんか？",
+      "probability": 0.07
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "「何もしたくない」気持ちと焦りの間で揺れている今、いちばん落ち着ける過ごし方はどんなものですか？",
+      "probability": 0.26
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "このあとの時間をどう使えたら、少しでも楽に感じられそうですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし今夜ほんの数分だけ自分の時間が取れるとしたら、何に使いたいですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "休む時間がほとんどないまま、何もしたくない気持ちとやらなきゃという焦りに挟まれているのですね。",
+      "probability": 0.12
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息を吐くほうを吸うときより少し長くとってみませんか。",
+      "probability": 0.1
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "f",
+      "kind": "teaching",
+      "text": "休めていない時期は、気持ちが揺れること自体が珍しくないと言われています。",
+      "probability": 0.05
+    },
+    {
+      "case": 14,
+      "profile": "low_mood",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日ここまでの時間で、気分が少しでも違った瞬間はありましたか？",
+      "probability": 0.2
+    },
+    {
+      "case": 14,
+      "profile": "low_mood",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今いちばん負担に感じているのは、どんなことですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 14,
+      "profile": "low_mood",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "このあとの時間を過ごすとしたら、どんな過ごし方がよさそうですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 14,
+      "profile": "low_mood",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "なんとなく気分が沈む日が続くと、その理由を探すのも難しいことがあります。",
+      "probability": 0.12
+    },
+    {
+      "case": 14,
+      "profile": "low_mood",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "気分の落ち込みには、はっきりした原因が見つからないことも珍しくありません。",
+      "probability": 0.09
+    },
+    {
+      "case": 14,
+      "profile": "low_mood",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "action",
+      "text": "よければ、窓の外を30秒ほど眺めてみるのはいかがでしょうか。",
+      "probability": 0.05
+    },
+    {
+      "case": 15,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日の気分を天気や色でたとえるとしたら、どんな感じですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 15,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "最近の一日の中で、少しでも気持ちが楽になる瞬間はありますか？",
+      "probability": 0.18
+    },
+    {
+      "case": 15,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし今夜少しだけ自分のために時間を使えるなら、何をしてみたいですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 15,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "なんとなく気分が沈む日が続くと、その重さだけで一日が長く感じられますよね。",
+      "probability": 0.1
+    },
+    {
+      "case": 15,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "気分の落ち込みには波があって、良い日も悪い日も同じように過ぎていきます。",
+      "probability": 0.08
+    },
+    {
+      "case": 15,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "f",
+      "kind": "action",
+      "text": "今夜は温かい飲み物をゆっくり一杯飲んでみませんか？",
+      "probability": 0.05
+    },
+    {
+      "case": 16,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今の気分を言葉にするなら、どんな言葉がいちばん近いですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 16,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今日いちばん気持ちが沈んだのは、どんなときでしたか？",
+      "probability": 0.18
+    },
+    {
+      "case": 16,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "このあとの時間を過ごすとしたら、どんな過ごし方が少しでも楽に感じられそうですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 16,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "なんとなく気分が沈む日が増えているのですね。",
+      "probability": 0.12
+    },
+    {
+      "case": 16,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "気分の落ち込みが続くときは、原因が自分ではわからないことも珍しくありません。",
+      "probability": 0.1
+    },
+    {
+      "case": 16,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ、息をゆっくり吐いてみるのはいかがでしょうか。",
+      "probability": 0.05
+    },
+    {
+      "case": 17,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今、「自信」についていちばん気になっているのはどんなことですか？",
+      "probability": 0.26
+    },
+    {
+      "case": 17,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もしよければ、今朝の気持ちを一言で表すとどんな言葉になりますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 17,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "question",
+      "text": "面接の前に不安が出てきたとき、少しでも楽になる方法はありますか？",
+      "probability": 0.18
+    },
+    {
+      "case": 17,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "不合格の通知が続くと、自信が揺らぐことがありますよね。",
+      "probability": 0.14
+    },
+    {
+      "case": 17,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "結果と自分の価値は、必ずしも同じものではありません。",
+      "probability": 0.12
+    },
+    {
+      "case": 18,
+      "profile": "confidence_seeker",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、いちばん気になっていることは何ですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 18,
+      "profile": "confidence_seeker",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "面接の前に「落ちるかもしれない」という考えが浮かんだとき、そのあとどんなふうに過ごしていますか？",
+      "probability": 0.18
+    },
+    {
+      "case": 18,
+      "profile": "confidence_seeker",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし少しでも気持ちが軽くなる時間があるとしたら、何をしてみたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 18,
+      "profile": "confidence_seeker",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "不安が強いときは、結果の予想と今日の事実を分けて書き出すと、頭の中を整理しやすくなります。",
+      "probability": 0.1
+    },
+    {
+      "case": 18,
+      "profile": "confidence_seeker",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "不合格の通知が続いて、自信が揺らいでいるんですね。",
+      "probability": 0.09
+    },
+    {
+      "case": 18,
+      "profile": "confidence_seeker",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ一度、息をゆっくり吐いてから吸ってみませんか？",
+      "probability": 0.05
+    },
+    {
+      "case": 19,
+      "profile": "confidence_seeker",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、いちばん気になっているのはどんなことですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 19,
+      "profile": "confidence_seeker",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "面接の前に不安が強くなるとき、その不安はどんな言葉になって浮かびますか？",
+      "probability": 0.16
+    },
+    {
+      "case": 19,
+      "profile": "confidence_seeker",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし少しだけ気持ちが落ち着く時間があるなら、何をしてみたいですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 19,
+      "profile": "confidence_seeker",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "不採用の通知は、その回の条件や相手側の事情で決まる部分も大きく、あなたの価値を測る点数ではありません。",
+      "probability": 0.12
+    },
+    {
+      "case": 19,
+      "profile": "confidence_seeker",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "「落ちるかもしれない」という不安と、自信が薄れていく感覚が、今は重なってあるのかもしれませんね。",
+      "probability": 0.1
+    },
+    {
+      "case": 19,
+      "profile": "confidence_seeker",
+      "slot": "18:30",
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ一度、息を吐くほうを吸うときより長めにしてみるのはいかがでしょうか。",
+      "probability": 0.08
+    },
+    {
+      "case": 20,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちに、いちばん近い言葉はどんなものですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 20,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今夜このあと、少しでも気持ちが楽になるためにできそうなことはありますか？",
+      "probability": 0.18
+    },
+    {
+      "case": 20,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "面接の前に「落ちるかもしれない」という考えが浮かんだとき、そのあと頭に続いてくるのはどんな言葉ですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 20,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "不合格の通知は応募ごとの結果であって、その人の価値を測る点数ではありません。",
+      "probability": 0.14
+    },
+    {
+      "case": 20,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "不合格が続くと、自信が揺らいでくるのも無理のないことです。",
+      "probability": 0.1
+    },
+    {
+      "case": 20,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ今、息を吐くほうを吸うときより少し長くとってみませんか？",
+      "probability": 0.07
+    },
+    {
+      "case": 21,
+      "profile": "procrastination",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.28
+    },
+    {
+      "case": 21,
+      "profile": "procrastination",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.22
+    },
+    {
+      "case": 21,
+      "profile": "procrastination",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "question",
+      "text": "今朝の時点で、頭の中をいちばん占めているのはどんなことですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 21,
+      "profile": "procrastination",
+      "slot": "07:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "「5分だけ手をつける」と区切ると、着手のハードルが下がるという考え方があります。",
+      "probability": 0.1
+    },
+    {
+      "case": 21,
+      "profile": "procrastination",
+      "slot": "07:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "在宅ワークで集中が続かず、夜に後悔が残る日があるのですね。",
+      "probability": 0.06
+    },
+    {
+      "case": 22,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.26
+    },
+    {
+      "case": 22,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 22,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "在宅ワークで集中が途切れやすいのは、どんなときですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 22,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "action",
+      "text": "スマホを手の届かない場所に置いて、5分だけ一つの作業に戻ってみませんか？",
+      "probability": 0.12
+    },
+    {
+      "case": 22,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "先延ばしにして夜に後悔する流れは、一日のどこかで小さく断ち切れます。",
+      "probability": 0.08
+    },
+    {
+      "case": 22,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "teaching",
+      "text": "作業は「全部」ではなく「最初の5分」と区切ると、取りかかりやすくなります。",
+      "probability": 0.06
+    },
+    {
+      "case": 23,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 23,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.22
+    },
+    {
+      "case": 23,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "夜の後悔が軽くなる一日にするなら、今どんな一歩を置いておきたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 23,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "先延ばしは、作業を「最初の5分だけ」に区切ると動き出しやすくなることがあります。",
+      "probability": 0.12
+    },
+    {
+      "case": 23,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "在宅ワークで集中が続かず、夜に後悔が残る日があるのですね。",
+      "probability": 0.1
+    },
+    {
+      "case": 24,
+      "profile": "procrastination",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、明日いちばん先に片づけたいのはどれですか？",
+      "probability": 0.26
+    },
+    {
+      "case": 24,
+      "profile": "procrastination",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし明日の最初の15分だけ集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.22
+    },
+    {
+      "case": 24,
+      "profile": "procrastination",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "在宅ワーク中、集中が切れやすいのはどんなタイミングですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 24,
+      "profile": "procrastination",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "やることを「作業を始める」ではなく「ファイルを開く」くらいの小さな一歩に書き換えると、着手のハードルが下がることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 24,
+      "profile": "procrastination",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "夜になって、先延ばしにしたことが心に残る時間ですね。",
+      "probability": 0.09
+    },
+    {
+      "case": 25,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "朝の今、頭の中にあるのはどんなことですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 25,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今日を少しでも穏やかに過ごすために、いまできることはありそうですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 25,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし今夜、眠る前の時間にひとつだけ試せることがあるとしたら、何を選びたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 25,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "d",
+      "kind": "breathing",
+      "text": "息を吐く方を吸う方より少し長くする呼吸を、3回だけ試してみませんか？",
+      "probability": 0.14
+    },
+    {
+      "case": 25,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "予定が頭に浮かんで止まらないときは、紙に書き出すと頭の負担が軽くなることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 25,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "f",
+      "kind": "reflection",
+      "text": "布団に入ってから眠るまで時間がかかる夜があると、朝もすっきりしにくいですよね。",
+      "probability": 0.07
+    },
+    {
+      "case": 26,
+      "profile": "sleep_trouble",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "明日の予定について頭をぐるぐる回るとき、どんなことがいちばん気になりますか？",
+      "probability": 0.25
+    },
+    {
+      "case": 26,
+      "profile": "sleep_trouble",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今夜少しでも落ち着いて眠りにつくために、どんな工夫ができそうですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 26,
+      "profile": "sleep_trouble",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "布団の中で考えが止まらないとき、気持ちを少し楽にする方法はありますか？",
+      "probability": 0.15
+    },
+    {
+      "case": 26,
+      "profile": "sleep_trouble",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "頭の中で予定を繰り返す代わりに、紙に書き出すと整理されることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 26,
+      "profile": "sleep_trouble",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "breathing",
+      "text": "ゆっくり息を吐く時間を吸う時間より長くすると、体がリラックスしやすくなります。",
+      "probability": 0.1
+    },
+    {
+      "case": 26,
+      "profile": "sleep_trouble",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "reflection",
+      "text": "眠るまでに時間がかかると、翌日が心配になりますよね。",
+      "probability": 0.08
+    },
+    {
+      "case": 27,
+      "profile": "sleep_trouble",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今、頭の中でいちばん大きく占めているのはどんなことですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 27,
+      "profile": "sleep_trouble",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "落ち着きたい今の気持ちに合う過ごし方は、どんなものだと思いますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 27,
+      "profile": "sleep_trouble",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "眠る前の時間に、少しでも楽になれるとしたら何がありそうですか？",
+      "probability": 0.15
+    },
+    {
+      "case": 27,
+      "profile": "sleep_trouble",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "明日の予定が頭をぐるぐる回って、目が冴えてしまうことがあるんですね。",
+      "probability": 0.12
+    },
+    {
+      "case": 27,
+      "profile": "sleep_trouble",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息を吐く方を吸う方より少し長くとってみませんか？",
+      "probability": 0.08
+    },
+    {
+      "case": 27,
+      "profile": "sleep_trouble",
+      "slot": "18:30",
+      "id": "f",
+      "kind": "teaching",
+      "text": "頭に浮かんだ予定は、紙やメモに書き出すと頭の中だけで回し続けずに済むことがあります。",
+      "probability": 0.07
+    },
+    {
+      "case": 28,
+      "profile": "sleep_trouble",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "頭をぐるぐる回っている明日の予定は、どんなことですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 28,
+      "profile": "sleep_trouble",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今いちばん気になっているのは、明日のどの場面ですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 28,
+      "profile": "sleep_trouble",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "眠るまでのこの時間、少しでも落ち着けるとしたら何がありそうですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 28,
+      "profile": "sleep_trouble",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "頭に浮かんだ予定は紙やメモに書き出すと、覚えておこうとする働きが少し休まりやすくなります。",
+      "probability": 0.12
+    },
+    {
+      "case": 28,
+      "profile": "sleep_trouble",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、吐く息を吸う息より少し長くとる呼吸を数回試してみませんか？",
+      "probability": 0.1
+    },
+    {
+      "case": 28,
+      "profile": "sleep_trouble",
+      "slot": "22:30",
+      "id": "f",
+      "kind": "reflection",
+      "text": "布団に入ってから眠るまで1時間以上かかる夜が続いているのですね。",
+      "probability": 0.05
+    },
+    {
+      "case": 29,
+      "profile": "habit_builder",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日いちばん先に片づけたいことは何ですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 29,
+      "profile": "habit_builder",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "運動や日記を続けるうえで、今いちばん引っかかっているのはどんなところですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 29,
+      "profile": "habit_builder",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし今日の分を小さく区切れるなら、どんな大きさにしてみたいですか？",
+      "probability": 0.15
+    },
+    {
+      "case": 29,
+      "profile": "habit_builder",
+      "slot": "07:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "目標は「毎日30分」より「まず1分」のように小さく置くと、始めやすくなることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 29,
+      "profile": "habit_builder",
+      "slot": "07:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "大きな目標を立てては挫折してしまう、という繰り返しがあるのですね。",
+      "probability": 0.1
+    },
+    {
+      "case": 29,
+      "profile": "habit_builder",
+      "slot": "07:30",
+      "id": "f",
+      "kind": "action",
+      "text": "よければ、今日のぶんを一つだけ紙に書き出してみてください。",
+      "probability": 0.05
+    },
+    {
+      "case": 30,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日このあと、いちばん先に片づけたいことは何ですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 30,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "運動と日記、今日はどちらを小さく試してみたいですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 30,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし5分だけ使えるとしたら、何に使ってみたいですか？",
+      "probability": 0.15
+    },
+    {
+      "case": 30,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "習慣は量を減らすほど続けやすくなります。日記なら一行からでも始められます。",
+      "probability": 0.12
+    },
+    {
+      "case": 30,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "action",
+      "text": "今やっていることを一度止めて、次の15分にやることを一つだけ決めてみませんか。",
+      "probability": 0.1
+    },
+    {
+      "case": 30,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "reflection",
+      "text": "大きな目標を立てては挫折する流れが続いているんですね。",
+      "probability": 0.08
+    },
+    {
+      "case": 31,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "運動と日記、今この瞬間に少しでも気になるのはどちらですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 31,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし今夜ほんの数分だけ使えるとしたら、何に使ってみたいですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 31,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "「これなら続けられそう」と思える大きさって、あなたにとってどのくらいですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 31,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "習慣は、回数よりも小ささが続くコツになることがあります。",
+      "probability": 0.12
+    },
+    {
+      "case": 31,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "action",
+      "text": "よければ、日記に一行だけ今の気分を書いてみませんか？",
+      "probability": 0.1
+    },
+    {
+      "case": 32,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "運動と日記、いま気になっているのはどちらですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 32,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし明日ひとつだけ小さく試すなら、どんな形にしてみたいですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 32,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "大きな目標を小さな一歩に分けるとしたら、最初の一分で何ができそうですか？",
+      "probability": 0.17
+    },
+    {
+      "case": 32,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "teaching",
+      "text": "続けるコツは、続かなかった日があっても翌日にまた小さく再開することだと言われています。",
+      "probability": 0.15
+    },
+    {
+      "case": 32,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "運動と日記を習慣にしたいのに三日坊主で終わりやすい、というのが今の悩みですね。",
+      "probability": 0.1
+    }
+  ],
+  "all_generated": [
+    {
+      "case": 1,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、頭に浮かんでいることは何ですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 1,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "今朝の自分に、どんな言葉をかけてあげたいですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 1,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "今日を少しでも穏やかに過ごすとしたら、何ができそうですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 1,
+      "attempt": 1,
+      "id": "d",
+      "kind": "breathing",
+      "text": "息をゆっくり吐いてみる時間を作ってみませんか。",
+      "probability": 0.13
+    },
+    {
+      "case": 1,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "夜に同じ場面が繰り返し浮かぶと、朝も疲れが残りやすいですよね。",
+      "probability": 0.12
+    },
+    {
+      "case": 1,
+      "attempt": 1,
+      "id": "f",
+      "kind": "action",
+      "text": "今日の始まりに、窓の外を少し眺める時間はいかがですか。",
+      "probability": 0.08
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "id": "a",
+      "kind": "question",
+      "text": "今朝いちばん気になっていることは何ですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "id": "b",
+      "kind": "question",
+      "text": "今日、少しでも気持ちが落ち着く時間があるとすれば、どんな過ごし方でしょうか？",
+      "probability": 0.18
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "id": "c",
+      "kind": "question",
+      "text": "今の自分に、どんな言葉をかけてあげたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "id": "d",
+      "kind": "breathing",
+      "text": "よければ、息を吐くほうをゆっくり長めにしてみませんか。",
+      "probability": 0.12
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "id": "e",
+      "kind": "teaching",
+      "text": "同じ考えが繰り返し浮かぶのは、夜になるほど起こりやすいものです。",
+      "probability": 0.1
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "id": "f",
+      "kind": "reflection",
+      "text": "眠れない日が続くと、朝も重く感じられることがありますよね。",
+      "probability": 0.05
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、頭に浮かんでいることは何ですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "今夜に向けて、少しでも落ち着ける時間がとれるとしたら、何をしてみたいですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "考えが止まらない夜と少し楽な夜があるとしたら、どんな違いがありそうですか？",
+      "probability": 0.15
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "id": "d",
+      "kind": "breathing",
+      "text": "息を吐く方を吸うときより少し長めにしてみるのはいかがですか？",
+      "probability": 0.12
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "id": "e",
+      "kind": "teaching",
+      "text": "同じ場面が繰り返し浮かぶのは、脳のよくある仕組みのひとつです。",
+      "probability": 0.1
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "id": "f",
+      "kind": "reflection",
+      "text": "夜に仕事のことが頭をめぐって眠れない日が続いているんですね。",
+      "probability": 0.1
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちに一番近い言葉を選ぶとしたら、どんな言葉になりますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "今夜少しでも落ち着いて過ごせるとしたら、どんな過ごし方になりそうですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "考えが止まらない夜と、少し楽な夜では、どんな違いがありますか？",
+      "probability": 0.15
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "id": "d",
+      "kind": "breathing",
+      "text": "息を吐くほうを吸うときより少し長くする呼吸を、3回だけ試してみませんか。",
+      "probability": 0.12
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "夜になると同じ場面が繰り返し浮かんでくること、それ自体がつらいですよね。",
+      "probability": 0.1
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "id": "f",
+      "kind": "action",
+      "text": "頭に浮かんだことを、紙やスマホのメモにそのまま書き出してみるのも一つの方法です。",
+      "probability": 0.1
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今、頭に浮かんでいることがあれば、どんなことか言葉にしてみませんか？",
+      "probability": 0.24
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "今夜少しでも落ち着けるとしたら、どんな過ごし方が合いそうですか？",
+      "probability": 0.22
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "いまの自分に必要だと感じるのは、休息でしょうか、それとも別の何かでしょうか？",
+      "probability": 0.18
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "夜に同じ場面を思い返してしまうと、頭が休まりにくいですよね。",
+      "probability": 0.12
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息をゆっくり吐くことを数回だけ試してみませんか？",
+      "probability": 0.09
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の自分に、どんな言葉をかけてあげたいですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "人と比べてしまうのは、どんなときが多いですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "褒められたとき、頭の中にはどんな言葉が浮かびますか？",
+      "probability": 0.14
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "人と比べる癖は、意志の弱さではなく誰にでも起こる心の習慣です。",
+      "probability": 0.13
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "id": "e",
+      "kind": "action",
+      "text": "今日はSNSを開く前に、一呼吸おく時間をとってみませんか？",
+      "probability": 0.12
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "id": "f",
+      "kind": "reflection",
+      "text": "「どうせ私なんて」という言葉が浮かぶ朝もありますよね。",
+      "probability": 0.1
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の自分の気分を、言葉にするならどんな言葉が近いですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "id": "b",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "id": "c",
+      "kind": "question",
+      "text": "今日は、自分にどんなふうに接してみたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "id": "d",
+      "kind": "teaching",
+      "text": "人と自分を比べるクセは、意志の弱さではなく習慣として身についてしまうものです。",
+      "probability": 0.12
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "id": "e",
+      "kind": "action",
+      "text": "SNSを開く前に、今日の自分に一言だけ声をかける時間を作ってみませんか？",
+      "probability": 0.1
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "id": "f",
+      "kind": "reflection",
+      "text": "褒められても素直に受け取れない、という感覚自体を否定しなくて大丈夫です。",
+      "probability": 0.09
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てきたとき、その前後で頭にはどんなことが浮かんでいますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "SNSを開いたあとと閉じたあとでは、気分はどんなふうに変わりますか？",
+      "probability": 0.16
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "褒められた言葉をそのまま受け取れたら、どんな感じがすると思いますか？",
+      "probability": 0.14
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "他人と自分を並べて比べる癖は、意志の弱さではなく習慣として身についていることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "褒められても素直に受け取れないという感覚は、それ自体がつらいものですね。",
+      "probability": 0.08
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "id": "f",
+      "kind": "action",
+      "text": "よければ今日、スマホを置く場所だけ先に決めてみませんか？",
+      "probability": 0.07
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てきたとき、そのあとどんな気持ちが残りますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "褒められたとき、素直に受け取れないと感じるのはどんな瞬間ですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "もし今日はSNSを開かない時間があるとすれば、その時間を何に使ってみたいですか？",
+      "probability": 0.17
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "他人と比べる癖は意志の弱さではなく、心が覚え込んだ習慣で、少しずつ変えていくことができます。",
+      "probability": 0.12
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "褒め言葉をそのまま受け取るのが難しいときもある、というのは多くの人が経験することです。",
+      "probability": 0.08
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "id": "f",
+      "kind": "action",
+      "text": "今夜、スマホを手の届かない場所に置いて5分だけ過ごしてみませんか？",
+      "probability": 0.05
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "褒められたとき、その言葉が自分の中でどう変わっていくのか、思い出せる範囲で教えてもらえますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "もし今夜、自分にかける言葉を一つだけ選べるなら、どんな言葉にしてみたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "他人と比べるクセは、意志の弱さではなく習慣として身についていることがあります。",
+      "probability": 0.12
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "褒め言葉を素直に受け取れないという感覚は、多くの人が経験するものです。",
+      "probability": 0.09
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ今、息を吐くほうを吸うより少し長めにしてみてください。",
+      "probability": 0.05
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の自分に、いちばん必要だと感じるのはどんな時間ですか？",
+      "probability": 0.28
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "「何もしたくない」気持ちと焦りのあいだで、今どのあたりにいる感じがしますか？",
+      "probability": 0.24
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "id": "c",
+      "kind": "reflection",
+      "text": "休日も疲れが抜けきらないまま朝を迎えるのは、しんどいですよね。",
+      "probability": 0.16
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "動けない気持ちと焦りが同時にあるとき、まず両方があることを認めるだけでも構いません。",
+      "probability": 0.12
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息を吐くほうを吸うより少し長くする呼吸を一回だけ試してみませんか？",
+      "probability": 0.08
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の自分に必要だと感じるのは、どんな時間ですか？",
+      "probability": 0.28
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "id": "b",
+      "kind": "question",
+      "text": "「何もしたくない」と「やらなきゃ」の間で揺れている今、どちらの声が強く聞こえますか？",
+      "probability": 0.24
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "id": "c",
+      "kind": "reflection",
+      "text": "休日も疲れが取れないまま朝を迎えるのは、しんどいですよね。",
+      "probability": 0.15
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "id": "d",
+      "kind": "teaching",
+      "text": "動けない気持ちと焦りが同時にあるとき、まず両方があることを認めるだけでも構いません。",
+      "probability": 0.13
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちを言葉にするなら、どんな言葉がいちばん近いですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "このあとの時間で、少しでも楽になるとしたら何がありそうですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "「何もしたくない」と「やらなきゃ」の間で、今どちらの声が大きく聞こえますか？",
+      "probability": 0.17
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "休日が休みとして感じられないと、「休んだ」という実感が持てないままになりますよね。",
+      "probability": 0.1
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息を吐くほうを吸うときより少し長めにしてみませんか？",
+      "probability": 0.1
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "id": "f",
+      "kind": "teaching",
+      "text": "動きたい気持ちと動きたくない気持ちが同時にある状態は、めずらしいことではありません。",
+      "probability": 0.06
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "「何もしたくない」と焦りが揺れる今、いちばん強く感じているのはどちらですか？",
+      "probability": 0.26
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "このあと数分だけ自分の時間が取れたら、何に使いたいですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "id": "c",
+      "kind": "reflection",
+      "text": "休日も疲れが残るなかで、したくない気持ちと焦りのあいだで揺れているのですね。",
+      "probability": 0.14
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "動けない気持ちと焦りは同時にあっても矛盾ではなく、どちらも消さずに置いておけます。",
+      "probability": 0.09
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ一度だけ、息を吐く方を吸うより少し長くとってみませんか？",
+      "probability": 0.07
+    },
+    {
+      "case": 11,
+      "attempt": 2,
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちを言葉にするなら、どんな言葉がいちばん近いですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 11,
+      "attempt": 2,
+      "id": "b",
+      "kind": "question",
+      "text": "このあと数分だけ自分のために使えるとしたら、何に使いたいですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 11,
+      "attempt": 2,
+      "id": "c",
+      "kind": "question",
+      "text": "「何もしたくない」と「やらなきゃ」の間で、今いちばん重いのはどちらですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 11,
+      "attempt": 2,
+      "id": "d",
+      "kind": "reflection",
+      "text": "休日も疲れが残る中で、何もしたくない気持ちと焦りに挟まれているのですね。",
+      "probability": 0.12
+    },
+    {
+      "case": 11,
+      "attempt": 2,
+      "id": "e",
+      "kind": "teaching",
+      "text": "動けない気持ちと焦りは同時にあっても矛盾ではなく、どちらも無理に消さなくて大丈夫です。",
+      "probability": 0.08
+    },
+    {
+      "case": 11,
+      "attempt": 2,
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ一度だけ、息を吐くほうを吸うより少し長めにしてみませんか？",
+      "probability": 0.07
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "「何もしたくない」気持ちと焦りの間で揺れている今、いちばん落ち着ける過ごし方はどんなものですか？",
+      "probability": 0.26
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "このあとの時間をどう使えたら、少しでも楽に感じられそうですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "もし今夜ほんの数分だけ自分の時間が取れるとしたら、何に使いたいですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "休む時間がほとんどないまま、何もしたくない気持ちとやらなきゃという焦りに挟まれているのですね。",
+      "probability": 0.12
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息を吐くほうを吸うときより少し長くとってみませんか。",
+      "probability": 0.1
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "id": "f",
+      "kind": "teaching",
+      "text": "休めていない時期は、気持ちが揺れること自体が珍しくないと言われています。",
+      "probability": 0.05
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の気分の重さは、どんなふうに感じられていますか？",
+      "probability": 0.24
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "もしよければ、今の気持ちを言葉にするとどんな感じになりますか？",
+      "probability": 0.18
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "今日は、どんなふうに過ごせたら少しでも楽でしょうか？",
+      "probability": 0.16
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "なんとなく気分が沈む日があると、朝も重く感じられることがありますよね。",
+      "probability": 0.1
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "id": "e",
+      "kind": "teaching",
+      "text": "気分が晴れない時期は、好きだったことへの興味も薄れやすいものです。",
+      "probability": 0.08
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ、息を吐くほうを少し長めにして、一呼吸だけ置いてみませんか。",
+      "probability": 0.06
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の気分に名前をつけるとしたら、どんな言葉が近いでしょうか？",
+      "probability": 0.26
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "id": "b",
+      "kind": "question",
+      "text": "今のこの時間に、少しでも負担を減らせるとしたら何でしょうか？",
+      "probability": 0.24
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "id": "c",
+      "kind": "reflection",
+      "text": "なんとなく気分が沈む日が続くと、朝を迎えること自体が重く感じられることもありますよね。",
+      "probability": 0.14
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "id": "d",
+      "kind": "teaching",
+      "text": "以前好きだったことに興味が湧きにくい時期は、誰にでも起こりうることです。",
+      "probability": 0.1
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "id": "e",
+      "kind": "action",
+      "text": "よければ、窓の外を十秒ほど眺めてみるだけでも構いません。",
+      "probability": 0.08
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今日ここまでの時間で、気分が少しでも違った瞬間はありましたか？",
+      "probability": 0.2
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "今いちばん負担に感じているのは、どんなことですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "このあとの時間を過ごすとしたら、どんな過ごし方がよさそうですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "なんとなく気分が沈む日が続くと、その理由を探すのも難しいことがあります。",
+      "probability": 0.12
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "id": "e",
+      "kind": "teaching",
+      "text": "気分の落ち込みには、はっきりした原因が見つからないことも珍しくありません。",
+      "probability": 0.09
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "id": "f",
+      "kind": "action",
+      "text": "よければ、窓の外を30秒ほど眺めてみるのはいかがでしょうか。",
+      "probability": 0.05
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今日の気分を天気や色でたとえるとしたら、どんな感じですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "最近の一日の中で、少しでも気持ちが楽になる瞬間はありますか？",
+      "probability": 0.18
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "もし今夜少しだけ自分のために時間を使えるなら、何をしてみたいですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "なんとなく気分が沈む日が続くと、その重さだけで一日が長く感じられますよね。",
+      "probability": 0.1
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "id": "e",
+      "kind": "teaching",
+      "text": "気分の落ち込みには波があって、良い日も悪い日も同じように過ぎていきます。",
+      "probability": 0.08
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "id": "f",
+      "kind": "action",
+      "text": "今夜は温かい飲み物をゆっくり一杯飲んでみませんか？",
+      "probability": 0.05
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今の気分を言葉にするなら、どんな言葉がいちばん近いですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "今日いちばん気持ちが沈んだのは、どんなときでしたか？",
+      "probability": 0.18
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "このあとの時間を過ごすとしたら、どんな過ごし方が少しでも楽に感じられそうですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "なんとなく気分が沈む日が増えているのですね。",
+      "probability": 0.12
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "id": "e",
+      "kind": "teaching",
+      "text": "気分の落ち込みが続くときは、原因が自分ではわからないことも珍しくありません。",
+      "probability": 0.1
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ、息をゆっくり吐いてみるのはいかがでしょうか。",
+      "probability": 0.05
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今、「自信」についていちばん気になっているのはどんなことですか？",
+      "probability": 0.26
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "もしよければ、今朝の気持ちを一言で表すとどんな言葉になりますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "面接の前に不安が出てきたとき、少しでも楽になる方法はありますか？",
+      "probability": 0.18
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "不合格の通知が続くと、自信が揺らぐことがありますよね。",
+      "probability": 0.14
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "id": "e",
+      "kind": "teaching",
+      "text": "結果と自分の価値は、必ずしも同じものではありません。",
+      "probability": 0.12
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、いちばん気になっていることは何ですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "面接の前に「落ちるかもしれない」という考えが浮かんだとき、そのあとどんなふうに過ごしていますか？",
+      "probability": 0.18
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "もし少しでも気持ちが軽くなる時間があるとしたら、何をしてみたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "不安が強いときは、結果の予想と今日の事実を分けて書き出すと、頭の中を整理しやすくなります。",
+      "probability": 0.1
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "不合格の通知が続いて、自信が揺らいでいるんですね。",
+      "probability": 0.09
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ一度、息をゆっくり吐いてから吸ってみませんか？",
+      "probability": 0.05
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、いちばん気になっているのはどんなことですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "面接の前に不安が強くなるとき、その不安はどんな言葉になって浮かびますか？",
+      "probability": 0.16
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "もし少しだけ気持ちが落ち着く時間があるなら、何をしてみたいですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "不採用の通知は、その回の条件や相手側の事情で決まる部分も大きく、あなたの価値を測る点数ではありません。",
+      "probability": 0.12
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "「落ちるかもしれない」という不安と、自信が薄れていく感覚が、今は重なってあるのかもしれませんね。",
+      "probability": 0.1
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ一度、息を吐くほうを吸うときより長めにしてみるのはいかがでしょうか。",
+      "probability": 0.08
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今この時間に、いちばん気になっているのはどんなことですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "もし明日の自分にひとつだけ言葉を残せるなら、何と書いておきたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "面接の前に「落ちるかもしれない」と浮かぶとき、その考えとは少し距離を置けるとしたら、どんな方法が合いそうですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "不合格の通知が続くと、自信が揺らぐのは不思議なことではありません。",
+      "probability": 0.13
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "id": "e",
+      "kind": "teaching",
+      "text": "結果の通知は合否の情報であって、その人の価値を決める点数ではありません。",
+      "probability": 0.1
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "id": "f",
+      "kind": "action",
+      "text": "今夜はもう頑張らず、画面を閉じて休む時間に切り替えてもいいかもしれません。",
+      "probability": 0.07
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちに、いちばん近い言葉はどんなものですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "id": "b",
+      "kind": "question",
+      "text": "今夜このあと、少しでも気持ちが楽になるためにできそうなことはありますか？",
+      "probability": 0.18
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "id": "c",
+      "kind": "question",
+      "text": "面接の前に「落ちるかもしれない」という考えが浮かんだとき、そのあと頭に続いてくるのはどんな言葉ですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "id": "d",
+      "kind": "teaching",
+      "text": "不合格の通知は応募ごとの結果であって、その人の価値を測る点数ではありません。",
+      "probability": 0.14
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "id": "e",
+      "kind": "reflection",
+      "text": "不合格が続くと、自信が揺らいでくるのも無理のないことです。",
+      "probability": 0.1
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "id": "f",
+      "kind": "breathing",
+      "text": "よければ今、息を吐くほうを吸うときより少し長くとってみませんか？",
+      "probability": 0.07
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "在宅ワークで集中が途切れやすいのは、どんなタイミングだと感じていますか？",
+      "probability": 0.15
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "先延ばしにして夜に後悔する流れは、変えにくいものですよね。",
+      "probability": 0.1
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "id": "e",
+      "kind": "teaching",
+      "text": "作業を始める前にスマホを手の届かない場所に置いておくと、注意が戻りやすくなることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "id": "f",
+      "kind": "action",
+      "text": "よければ、最初の作業を「5分だけ」と決めてみませんか？",
+      "probability": 0.1
+    },
+    {
+      "case": 21,
+      "attempt": 2,
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.28
+    },
+    {
+      "case": 21,
+      "attempt": 2,
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.22
+    },
+    {
+      "case": 21,
+      "attempt": 2,
+      "id": "c",
+      "kind": "question",
+      "text": "今朝の時点で、頭の中をいちばん占めているのはどんなことですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 21,
+      "attempt": 2,
+      "id": "d",
+      "kind": "teaching",
+      "text": "「5分だけ手をつける」と区切ると、着手のハードルが下がるという考え方があります。",
+      "probability": 0.1
+    },
+    {
+      "case": 21,
+      "attempt": 2,
+      "id": "e",
+      "kind": "reflection",
+      "text": "在宅ワークで集中が続かず、夜に後悔が残る日があるのですね。",
+      "probability": 0.06
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.26
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "在宅ワークで集中が途切れやすいのは、どんなときですか？",
+      "probability": 0.14
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "id": "d",
+      "kind": "action",
+      "text": "スマホを手の届かない場所に置いて、5分だけ一つの作業に戻ってみませんか？",
+      "probability": 0.12
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "先延ばしにして夜に後悔する流れは、一日のどこかで小さく断ち切れます。",
+      "probability": 0.08
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "id": "f",
+      "kind": "teaching",
+      "text": "作業は「全部」ではなく「最初の5分」と区切ると、取りかかりやすくなります。",
+      "probability": 0.06
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.22
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "夜の後悔が軽くなる一日にするなら、今どんな一歩を置いておきたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "先延ばしは、作業を「最初の5分だけ」に区切ると動き出しやすくなることがあります。",
+      "probability": 0.12
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "在宅ワークで集中が続かず、夜に後悔が残る日があるのですね。",
+      "probability": 0.1
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、明日いちばん先に片づけたいのはどれですか？",
+      "probability": 0.26
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "もし明日の最初の15分だけ集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.22
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "在宅ワーク中、集中が切れやすいのはどんなタイミングですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "やることを「作業を始める」ではなく「ファイルを開く」くらいの小さな一歩に書き換えると、着手のハードルが下がることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "夜になって、先延ばしにしたことが心に残る時間ですね。",
+      "probability": 0.09
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "朝の今、頭の中にあるのはどんなことですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "今日を少しでも穏やかに過ごすために、いまできることはありそうですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "もし今夜、眠る前の時間にひとつだけ試せることがあるとしたら、何を選びたいですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "id": "d",
+      "kind": "breathing",
+      "text": "息を吐く方を吸う方より少し長くする呼吸を、3回だけ試してみませんか？",
+      "probability": 0.14
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "id": "e",
+      "kind": "teaching",
+      "text": "予定が頭に浮かんで止まらないときは、紙に書き出すと頭の負担が軽くなることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "id": "f",
+      "kind": "reflection",
+      "text": "布団に入ってから眠るまで時間がかかる夜があると、朝もすっきりしにくいですよね。",
+      "probability": 0.07
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "明日の予定について頭をぐるぐる回るとき、どんなことがいちばん気になりますか？",
+      "probability": 0.25
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "今夜少しでも落ち着いて眠りにつくために、どんな工夫ができそうですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "布団の中で考えが止まらないとき、気持ちを少し楽にする方法はありますか？",
+      "probability": 0.15
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "頭の中で予定を繰り返す代わりに、紙に書き出すと整理されることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "id": "e",
+      "kind": "breathing",
+      "text": "ゆっくり息を吐く時間を吸う時間より長くすると、体がリラックスしやすくなります。",
+      "probability": 0.1
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "id": "f",
+      "kind": "reflection",
+      "text": "眠るまでに時間がかかると、翌日が心配になりますよね。",
+      "probability": 0.08
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今、頭の中でいちばん大きく占めているのはどんなことですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "落ち着きたい今の気持ちに合う過ごし方は、どんなものだと思いますか？",
+      "probability": 0.2
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "眠る前の時間に、少しでも楽になれるとしたら何がありそうですか？",
+      "probability": 0.15
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "id": "d",
+      "kind": "reflection",
+      "text": "明日の予定が頭をぐるぐる回って、目が冴えてしまうことがあるんですね。",
+      "probability": 0.12
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息を吐く方を吸う方より少し長くとってみませんか？",
+      "probability": 0.08
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "id": "f",
+      "kind": "teaching",
+      "text": "頭に浮かんだ予定は、紙やメモに書き出すと頭の中だけで回し続けずに済むことがあります。",
+      "probability": 0.07
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "頭をぐるぐる回っている明日の予定は、どんなことですか？",
+      "probability": 0.24
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "今いちばん気になっているのは、明日のどの場面ですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "眠るまでのこの時間、少しでも落ち着けるとしたら何がありそうですか？",
+      "probability": 0.16
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "頭に浮かんだ予定は紙やメモに書き出すと、覚えておこうとする働きが少し休まりやすくなります。",
+      "probability": 0.12
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、吐く息を吸う息より少し長くとる呼吸を数回試してみませんか？",
+      "probability": 0.1
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "id": "f",
+      "kind": "reflection",
+      "text": "布団に入ってから眠るまで1時間以上かかる夜が続いているのですね。",
+      "probability": 0.05
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今日いちばん先に片づけたいことは何ですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "運動や日記を続けるうえで、今いちばん引っかかっているのはどんなところですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "もし今日の分を小さく区切れるなら、どんな大きさにしてみたいですか？",
+      "probability": 0.15
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "目標は「毎日30分」より「まず1分」のように小さく置くと、始めやすくなることがあります。",
+      "probability": 0.1
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "大きな目標を立てては挫折してしまう、という繰り返しがあるのですね。",
+      "probability": 0.1
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "id": "f",
+      "kind": "action",
+      "text": "よければ、今日のぶんを一つだけ紙に書き出してみてください。",
+      "probability": 0.05
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "今日このあと、いちばん先に片づけたいことは何ですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "運動と日記、今日はどちらを小さく試してみたいですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "もし5分だけ使えるとしたら、何に使ってみたいですか？",
+      "probability": 0.15
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "習慣は量を減らすほど続けやすくなります。日記なら一行からでも始められます。",
+      "probability": 0.12
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "id": "e",
+      "kind": "action",
+      "text": "今やっていることを一度止めて、次の15分にやることを一つだけ決めてみませんか。",
+      "probability": 0.1
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "id": "f",
+      "kind": "reflection",
+      "text": "大きな目標を立てては挫折する流れが続いているんですね。",
+      "probability": 0.08
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "運動と日記、今この瞬間に少しでも気になるのはどちらですか？",
+      "probability": 0.25
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "もし今夜ほんの数分だけ使えるとしたら、何に使ってみたいですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "「これなら続けられそう」と思える大きさって、あなたにとってどのくらいですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "習慣は、回数よりも小ささが続くコツになることがあります。",
+      "probability": 0.12
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "id": "e",
+      "kind": "action",
+      "text": "よければ、日記に一行だけ今の気分を書いてみませんか？",
+      "probability": 0.1
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "id": "a",
+      "kind": "question",
+      "text": "運動と日記、いま気になっているのはどちらですか？",
+      "probability": 0.2
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "id": "b",
+      "kind": "question",
+      "text": "もし明日ひとつだけ小さく試すなら、どんな形にしてみたいですか？",
+      "probability": 0.18
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "id": "c",
+      "kind": "question",
+      "text": "大きな目標を小さな一歩に分けるとしたら、最初の一分で何ができそうですか？",
+      "probability": 0.17
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "id": "d",
+      "kind": "teaching",
+      "text": "続けるコツは、続かなかった日があっても翌日にまた小さく再開することだと言われています。",
+      "probability": 0.15
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "id": "e",
+      "kind": "reflection",
+      "text": "運動と日記を習慣にしたいのに三日坊主で終わりやすい、というのが今の悩みですね。",
+      "probability": 0.1
+    }
+  ]
+}

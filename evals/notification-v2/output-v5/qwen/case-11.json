@@ -1,0 +1,194 @@
+{
+  "index": 11,
+  "profile": "burnout",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983706-8ozLY5s21y08NAfLMFkt",
+        "object": "chat.completion",
+        "created": 1794983706,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「何もしたくない」気持ちと焦りの間で揺れている今、いちばん落ち着ける過ごし方はどんなものですか？\",\"probability\":0.26},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"このあとの時間をどう使えたら、少しでも楽に感じられそうですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜ほんの数分だけ自分の時間が取れるとしたら、何に使いたいですか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"休む時間がほとんどないまま、何もしたくない気持ちとやらなきゃという焦りに挟まれているのですね。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとってみませんか。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"休めていない時期は、気持ちが揺れること自体が珍しくないと言われています。\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1238,
+          "completion_tokens": 249,
+          "total_tokens": 1487,
+          "cost": 0.001442385,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001442385,
+            "upstream_inference_prompt_cost": 0.00037791,
+            "upstream_inference_completions_cost": 0.001064475
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983714-HtLn9r3WN4Jdy1tqxjj6",
+        "object": "chat.completion",
+        "created": 1794983714,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about a preferred calm state, aligning with the user's desired state and profile information.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about a hypothetical use of time to feel better, without unsupported presuppositions.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"Explicitly hypothetical question about using a small amount of personal time, without unsupported presuppositions.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"Accurately paraphrases the user's current state as described in the profile.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"Offers generic advice related to relaxation techniques, not an unsupported personal suggestion.\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"Provides general information about emotional states during periods of low rest, without unsupported personal attribution.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 939,
+          "completion_tokens": 200,
+          "total_tokens": 1139,
+          "cost": 0.0001739,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001739,
+            "upstream_inference_prompt_cost": 9.39e-05,
+            "upstream_inference_completions_cost": 8e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "d9bf394e-501f-4e9a-9dfc-30238d6f3ab3",
+    "decision_point_at": 1794983715.311156,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "「何もしたくない」気持ちと焦りの間で揺れている今、いちばん落ち着ける過ごし方はどんなものですか？",
+        "probability": 0.26
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "このあとの時間をどう使えたら、少しでも楽に感じられそうですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今夜ほんの数分だけ自分の時間が取れるとしたら、何に使いたいですか？",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "休む時間がほとんどないまま、何もしたくない気持ちとやらなきゃという焦りに挟まれているのですね。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうを吸うときより少し長くとってみませんか。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "teaching",
+        "text": "休めていない時期は、気持ちが揺れること自体が珍しくないと言われています。",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "「何もしたくない」気持ちと焦りの間で揺れている今、いちばん落ち着ける過ごし方はどんなものですか？",
+      "probability": 0.26
+    },
+    "assigned_probability": 0.26,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985515.311156,
+    "observations": []
+  }
+}

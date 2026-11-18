@@ -79,9 +79,11 @@ Round 4最終結果: 両モデルNO-GO。Qwen28/32・160文FAIL6(3.75%)・捏造
 完了条件: 全sendable全文手読みjudgments.json・audit PASS、FAIL<5%かつ捏造0かつtone0でGO。それ以外NO-GO。専用key・既存prepaidのみ、最大limit2 USD、receipt Decimal合計とkey usage差分一致、credits開始/終了記録。ops隔離branch結果とproducts評価branchのコード・証拠をpush/readback。main統合・配送なし。
 TODO:
 - [x] RED/GREENとv4の41件を含む関連tests（追加8、49 PASS）
-- [ ] Qwen32条件（GLMは主目的遅延を避けv5未実行）
-- [ ] 全sendable手読み・audit・公式費用照合
+- [x] Qwen32条件（GLMは主目的遅延を避けv5未実行）
+- [x] 全sendable手読み・audit・公式費用照合
 - [ ] products/ops pushとremote blob照合
 現在cursor: テスト先行。v5有料呼び出し未実施。
 
 Round 5開始前: 専用key usage1.269280789 USD、limit1.50 USD（SSOT一致、変更なし）、残0.230719211 USD。credits155、total_usage97.073335793。公式models APIでQwenとjudgeを確認。auto_top_upはops credentialsのopenrouter行の保存済みOFF記録をliveで確認、設定UIの現在readbackは未取得。現在cursor: Qwen32条件実行。
+
+Round 5結果: Qwen31/32受理、177文の全文手読みでFAIL8（捏造7、日本語1、tone0、4.519774%）のためNO-GO。独立read-onlyエージェントも177文を全読し同じ8文を確認。質問候補数違反の最終棄却はcase13、受理31セットの違反0。関連51テストPASS。74公式receipt合計0.066280490 USDとkey usage1.269280789→1.335561279の差分がDecimal厳密一致。初期12receiptの404とkey usageは遅延反映し、最終fallback0。credits155→155、入金・auto-reload変更なし。receipt保存時ENOSPCは自所有ops疎checkout縮小で空き1.2GiBに回復し、モデル再実行なし。現在cursor: products/ops成果物push・GitHub照合。

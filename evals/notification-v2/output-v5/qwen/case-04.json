@@ -1,0 +1,243 @@
+{
+  "index": 4,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983690-kWatnhEXXTwJPTexLaaJ",
+        "object": "chat.completion",
+        "created": 1794983690,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の自分に、どんな言葉をかけてあげたいですか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"人と比べてしまうのは、どんなときが多いですか？\",\"probability\":0.16},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"褒められたとき、頭の中にはどんな言葉が浮かびますか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"人と比べる癖は、意志の弱さではなく誰にでも起こる心の習慣です。\",\"probability\":0.13},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"今日はSNSを開く前に、一呼吸おく時間をとってみませんか？\",\"probability\":0.12},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"「どうせ私なんて」という言葉が浮かぶ朝もありますよね。\",\"probability\":0.1},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1197,
+          "completion_tokens": 214,
+          "total_tokens": 1411,
+          "cost": 0.001580895,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001580895,
+            "upstream_inference_prompt_cost": 0.000666045,
+            "upstream_inference_completions_cost": 0.00091485
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983696-sW1bd2F1DXzAJQJgJIp3",
+        "object": "chat.completion",
+        "created": 1794983696,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の自分の気分を、言葉にするならどんな言葉が近いですか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日は、自分にどんなふうに接してみたいですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"人と自分を比べるクセは、意志の弱さではなく習慣として身についてしまうものです。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"SNSを開く前に、今日の自分に一言だけ声をかける時間を作ってみませんか？\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"褒められても素直に受け取れない、という感覚自体を否定しなくて大丈夫です。\",\"probability\":0.09},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1197,
+          "completion_tokens": 229,
+          "total_tokens": 1426,
+          "cost": 0.00129846,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00129846,
+            "upstream_inference_prompt_cost": 0.000319485,
+            "upstream_inference_completions_cost": 0.000978975
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983702-xUAk1N54UkKz1P6U4EHG",
+        "object": "chat.completion",
+        "created": 1794983702,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about current feelings without presupposing a specific state.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about the circumstances of a stated behavior, which is consistent with the profile.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks about desired self-treatment for the day, which is a generic suggestion related to self-love.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"Paraphrases a common psychological concept about habit formation, relevant to the profile's mention of negative self-talk.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"Suggests a practical, hypothetical action (making time for self-affirmation before social media use) related to the profile's concerns.\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"Normalizes a feeling mentioned in the profile (difficulty accepting praise) without adding unsupported attributions.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 915,
+          "completion_tokens": 220,
+          "total_tokens": 1135,
+          "cost": 0.0001795,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001795,
+            "upstream_inference_prompt_cost": 9.15e-05,
+            "upstream_inference_completions_cost": 8.8e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "7224332e-000b-41c3-b3eb-1814707e7d0b",
+    "decision_point_at": 1794983703.985622,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝の自分の気分を、言葉にするならどんな言葉が近いですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "今日は、自分にどんなふうに接してみたいですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "人と自分を比べるクセは、意志の弱さではなく習慣として身についてしまうものです。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "SNSを開く前に、今日の自分に一言だけ声をかける時間を作ってみませんか？",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "褒められても素直に受け取れない、という感覚自体を否定しなくて大丈夫です。",
+        "probability": 0.09
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の自分の気分を、言葉にするならどんな言葉が近いですか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985503.985622,
+    "observations": []
+  }
+}

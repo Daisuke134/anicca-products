@@ -1,0 +1,194 @@
+{
+  "index": 28,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794983747-TSTPar3v54JG7PKJhgl7",
+        "object": "chat.completion",
+        "created": 1794983747,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日いちばん先に片づけたいことは何ですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"運動や日記を続けるうえで、今いちばん引っかかっているのはどんなところですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今日の分を小さく区切れるなら、どんな大きさにしてみたいですか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"目標は「毎日30分」より「まず1分」のように小さく置くと、始めやすくなることがあります。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"大きな目標を立てては挫折してしまう、という繰り返しがあるのですね。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ、今日のぶんを一つだけ紙に書き出してみてください。\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1136,
+          "completion_tokens": 230,
+          "total_tokens": 1366,
+          "cost": 0.00156237,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00156237,
+            "upstream_inference_prompt_cost": 0.00057912,
+            "upstream_inference_completions_cost": 0.00098325
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983754-dLn8GwGZbhlRLQyKr84Q",
+        "object": "chat.completion",
+        "created": 1794983754,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about current priorities without presupposing an answer.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about current obstacles related to profile items.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Explicitly hypothetical question about task size.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"Generic advice related to profile patterns.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"Paraphrases a pattern described in the profile.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"Offers a concrete, generic suggestion related to the profile.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 908,
+          "completion_tokens": 165,
+          "total_tokens": 1073,
+          "cost": 0.0001568,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001568,
+            "upstream_inference_prompt_cost": 9.08e-05,
+            "upstream_inference_completions_cost": 6.6e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "2933aa50-4bad-4d7d-a13a-0d56237e932f",
+    "decision_point_at": 1794983755.1206641,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日いちばん先に片づけたいことは何ですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "運動や日記を続けるうえで、今いちばん引っかかっているのはどんなところですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今日の分を小さく区切れるなら、どんな大きさにしてみたいですか？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "目標は「毎日30分」より「まず1分」のように小さく置くと、始めやすくなることがあります。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "大きな目標を立てては挫折してしまう、という繰り返しがあるのですね。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "よければ、今日のぶんを一つだけ紙に書き出してみてください。",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日いちばん先に片づけたいことは何ですか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794985555.1206641,
+    "observations": []
+  }
+}
