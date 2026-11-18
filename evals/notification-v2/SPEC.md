@@ -131,3 +131,17 @@ Round 7開始前: 公式models canonical一致。専用key usage1.415294704、�
 Round 7結果: 13/32受理、44送信可能文をprimaryが全文手読みしFAIL1（2.272727%、捏造1、日本語0、tone0）でNO-GO。case12aの「もし今よければ」は現在の気がかり自体の仮定でなく、judgeも推論をentailedと誤判定。最終受理attemptの機械棄却27、全59attemptの機械棄却112（意味上の過剰棄却99・前提化正当6・根拠field契約不正5・未提供内容2）。27再生成、19最終拒否（意味13/schema6）。59judgeは意味拒否29/schema拒否17/受理13。118応答は全stop、118公式receipt合計0.137896200 USD、key usage1.415294704→1.553190904の差分とDecimal厳密一致。credits155→155。初回receipt取得HTTP408はGETのみ再取得して解決、モデル再生成なし。92tests・完全audit・全32offline replay PASS。generator/runnerは開始commit46f18a6とbytes一致。GO限定のPR941準備は条件不成立のため非実施。現在cursor: products証拠commit/push→ops結果push→remote bytes一致。
 
 Round 7納品完了: 固定products commit f79d3ab18ad4da21062413cc29ec42fbdd41235c のeval tree533 blobsとremote一致。ops最終commit ff7009e0b6e176702cbf8f9348b3cf57e0a3b45d の結果全bytesがGitHub contents APIと一致、blob 96cca89be0de60d898564005dbbaee3eb3d2104b。delivery-v7.jsonに記録。現在cursor: 完了。残TODOなし。NO-GOを保持。本番有効化・配送・main統合・PR941変更なし。
+
+## Round 8（owner: Mac Codex）
+目的・範囲: eval-v8-task.md全文の3構造変更だけを適用。v7のfalse entailmentを抑止し固定32条件で判定する。既存指定worktree/branchを継続しv6/v7は保持。main統合・配送・本番変更は禁止。
+設計: 質問にpresuppositions:[{claim,span}]（前提なしは[]）を要求しprofile本文の逐語substringを候補単位で検証する。欠落/不正引用/現在前提の無引用を除外し確率はnoneへ移す。v7マーカーに現在時点＋気がかり名詞句を追加する。judgeは明示本文だけで支持を決め、常識推論を禁止し指定5境界例を提示する。
+固定条件: v7と同じ8profile×4slot、ja、local_day2026-11-18、recent_reactions=[]、desired_state、時刻07:30/12:30/18:30/22:30、Qwen canonical qwen/qwen4-max-20261115、8192/reasoning無効、judge google/gemini-2.5-flash-lite/8192、最大1retry、並列4/draw .1。開始後prompt/validator調整や有料取り直し禁止。既払い残高のみ、reloadなし。
+完了条件: primaryが全non-none送信可能文を全文判定しFAIL<5%・捏造0・tone0でGO。棄却と過剰棄却、judge JSON/schema拒否、受理セット、全公式receipt Decimal費用を報告する。ops新規隔離branch結果をpushしremote bytes照合。GO時のみPR941 P1二件とCI/mergeable準備。mergeは禁止。
+TODO:
+- [ ] 回帰RED/GREEN、実装とrunner凍結
+- [ ] 固定32条件を1回完走
+- [ ] 全文/全棄却審査・judge拒否集計・receipt照合
+- [ ] GO限定PR941準備、products/ops push・remote bytes照合
+現在cursor: 回帰テスト。
+
+Round 8開始前: 17 RED→既存込み109 PASS。公式canonical/model確認、key usage1.553190904・limit2・残0.446809096、credits155。上限変更/購入/reloadなし。v6 case10c原文は仮定質問で、タスク説明の継続的気持ちは10bに対応するため両方をworked exampleに含める。reference/runnerをmanifest-v8.jsonと開始commitで凍結。現在cursor: 固定32条件の1回実行。

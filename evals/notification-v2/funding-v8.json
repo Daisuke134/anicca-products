@@ -1,0 +1,6 @@
+{
+  "service": "openrouter-notification-eval-v2",
+  "limit_changed": false,
+  "purchase_or_reload_calls": 0,
+  "auto_top_up_source": "funding-v7.json inherited OFF record; current settings UI unverified"
+}
