@@ -138,12 +138,14 @@ Round 7納品完了: 固定products commit f79d3ab18ad4da21062413cc29ec42fbdd412
 固定条件: v7と同じ8profile×4slot、ja、local_day2026-11-18、recent_reactions=[]、desired_state、時刻07:30/12:30/18:30/22:30、Qwen canonical qwen/qwen4-max-20261115、8192/reasoning無効、judge google/gemini-2.5-flash-lite/8192、最大1retry、並列4/draw .1。開始後prompt/validator調整や有料取り直し禁止。既払い残高のみ、reloadなし。
 完了条件: primaryが全non-none送信可能文を全文判定しFAIL<5%・捏造0・tone0でGO。棄却と過剰棄却、judge JSON/schema拒否、受理セット、全公式receipt Decimal費用を報告する。ops新規隔離branch結果をpushしremote bytes照合。GO時のみPR941 P1二件とCI/mergeable準備。mergeは禁止。
 TODO:
-- [ ] 回帰RED/GREEN、実装とrunner凍結
-- [ ] 固定32条件を1回完走
-- [ ] 全文/全棄却審査・judge拒否集計・receipt照合
-- [ ] GO限定PR941準備、products/ops push・remote bytes照合
+- [x] 回帰RED/GREEN、実装とrunner凍結
+- [x] 固定32条件を1回完走
+- [x] 全文/全棄却審査・judge拒否集計・receipt照合
+- [x] GO限定PR941準備、products/ops push・remote bytes照合
 現在cursor: 回帰テスト。
 
 Round 8開始前: 17 RED→既存込み109 PASS。公式canonical/model確認、key usage1.553190904・limit2・残0.446809096、credits155。上限変更/購入/reloadなし。v6 case10c原文は仮定質問で、タスク説明の継続的気持ちは10bに対応するため両方をworked exampleに含める。reference/runnerをmanifest-v8.jsonと開始commitで凍結。現在cursor: 固定32条件の1回実行。
 
 Round 8結果: 10/32受理・37文全文手読みでFAIL1（2.7027027027%、捏造1、日本語0、tone0）によりNO-GO。case30eは今日の既存目標を前提化しjudgeが未分解/推論支持。28再生成、22最終拒否（意味19/schema1/質問比率2）。60generator/58judge全stop。judge受理10/意味44/JSON-schema4。機械棄却99（過剰90/現在前提6/未提供履歴1/本人数量1/一般数量教示1）、受理attempt棄却20（過剰17/現在前提2/履歴1）。118公式receipt合計0.137296970 USD、key usage1.553190904→1.690487874厳密一致、credits155→155。初回receipt404/408とusage遅延はGET再観測のみで解決。有料取り直しなし。109 tests・完全audit・全32offline replay PASS。GO限定PR941準備は非実施。現在cursor: 証拠commit/push→ops結果push→remote bytes照合。
+
+Round 8納品完了: ops commit bb901c199f32bc9f5cfa2d5a32650dee04fc2928 の結果全bytesとGitHub contents APIが一致（blob4684e00556323fda0d647def07282717fea5317f）。products固定証拠commit ccd5c3503339ad00c43f1cad4148907d2c7ed649 のeval tree722 blobsとremote一致。delivery-v8.jsonへreceipt保存。現在cursor: 完了。残TODOなし。NO-GOを保持しGO限定PR941準備・本番変更・配送・main統合なし。

@@ -1,0 +1,14 @@
+{
+  "result_repo": "Daisuke134/anicca-ops",
+  "result_commit": "bb901c199f32bc9f5cfa2d5a32650dee04fc2928",
+  "result_path": "files/notification-eval-v8-result-2026-11-18.md",
+  "result_blob": "4684e00556323fda0d647def07282717fea5317f",
+  "result_sha256": "b9e92ebb36b9d7a847d15659dd376b617b0651cdbd5e8b599ec54ed4874d7aa0",
+  "result_bytes_equal": true,
+  "products_evidence_commit": "ccd5c3503339ad00c43f1cad4148907d2c7ed649",
+  "products_eval_tree": "efaef78f6dcbc6952793124de82c54b498ee75c4",
+  "products_remote_blob_count": 722,
+  "products_remote_tree_equal": true,
+  "remaining_todos": [],
+  "cursor": "complete"
+}
