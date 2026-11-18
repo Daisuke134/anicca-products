@@ -1,0 +1,211 @@
+{
+  "index": 23,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986151-Pu2zx9D7S4elLSIuHyma",
+        "object": "chat.completion",
+        "created": 1794986151,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日やるべきことの中で、いちばん先に片づけたいのはどれですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"夜の後悔を少しでも減らすとしたら、どんな一日にしたいですか？\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"スマホを触る時間が長くなるとき、どんな瞬間が多いですか？\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"在宅ワークでは集中が続きにくいことがあり、夜に後悔が残ることもあります。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ、次の作業を一つだけ紙に書き出してみませんか？\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1293,
+          "completion_tokens": 252,
+          "total_tokens": 1545,
+          "cost": 0.001533585,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001533585,
+            "upstream_inference_prompt_cost": 0.000456285,
+            "upstream_inference_completions_cost": 0.0010773
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986158-0aHwSOEkSN9i9Q4Za5nr",
+        "object": "chat.completion",
+        "created": 1794986158,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question asking about priorities, not a factual claim about the person.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is an explicit hypothetical question, not a factual claim about the person.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person spends a lot of time on their smartphone.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The candidate text is a question that presupposes the profile claim that the person spends a lot of time on their smartphone. The presupposition is directly supported by the profile.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person has difficulty concentrating during remote work.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person feels regret at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The candidate text directly paraphrases claims present in the profile summary.\"}, {\"id\": \"f\", \"claims\": [], \"reason\": \"This is a suggestion, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 941,
+          "completion_tokens": 252,
+          "total_tokens": 1193,
+          "cost": 0.0001949,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001949,
+            "upstream_inference_prompt_cost": 9.41e-05,
+            "upstream_inference_completions_cost": 0.0001008
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "6b746414-7292-4605-ba32-ec672393f566",
+    "decision_point_at": 1794986159.9120462,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+        "probability": 0.18,
+        "grounds": []
+      },
+      {
+        "id": "d",
+        "kind": "question",
+        "text": "スマホを触る時間が長くなるとき、どんな瞬間が多いですか？",
+        "probability": 0.12,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "在宅ワークでは集中が続きにくいことがあり、夜に後悔が残ることもあります。",
+        "probability": 0.1,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "よければ、次の作業を一つだけ紙に書き出してみませんか？",
+        "probability": 0.1,
+        "grounds": []
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.3,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "c",
+          "kind": "question",
+          "text": "夜の後悔を少しでも減らすとしたら、どんな一日にしたいですか？",
+          "probability": 0.15,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.2,
+      "grounds": []
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987959.9120462,
+    "observations": []
+  }
+}

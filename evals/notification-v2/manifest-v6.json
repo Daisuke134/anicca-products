@@ -1,0 +1,25 @@
+{
+  "run_id": "notification-eval-v6-qwen-20261118",
+  "owner_id": "Mac Codex primary",
+  "release_sha": "1582c8f863d8ab8f3ea3dbd4fb5ce5f35afdc52e",
+  "command": "python3 evals/notification-v2/run_eval_v6.py qwen/qwen4-max qwen",
+  "argv": [
+    "qwen/qwen4-max",
+    "qwen"
+  ],
+  "phase": "synthetic_evaluation",
+  "environment": {
+    "python": "Python 3.14.7",
+    "cwd": "/Users/anicca/work/ap-eval",
+    "api_key_source": "credentials[] service exact match; value omitted"
+  },
+  "effect": "paid inference only; no notification delivery",
+  "provider_receipts": "output-v6/qwen/cost.json",
+  "evidence_refs": [
+    "output-v6/qwen/requests.jsonl",
+    "output-v6/qwen/raw.jsonl"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "finish 32 cases, audit all sendable texts, reconcile official receipts"
+}

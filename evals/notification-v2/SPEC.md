@@ -98,10 +98,12 @@ Round 5納品完了: ops結果commit152127f731894a86f5e072633379686f20b117e2とp
 完了条件: 送信可能集合を全文確認し、FAIL率5%未満・捏造0・tone0を全て満たせばGO。それ以外NO-GO。生成/棄却/noneを別計上し、費用公式照合、コード・全証拠とops結果をcommit/pushしremote blobを確認する。
 TODO:
 - [x] 最小RED/GREEN、v5関連suite保持（11 RED→65 PASS）
-- [ ] 公式モデル/key/credits確認、同一Qwen32条件
-- [ ] 全sendable全文判定・棄却分析・公式receipt厳密照合
+- [x] 公式モデル/key/credits確認、同一Qwen32条件
+- [x] 全sendable全文判定・棄却分析・公式receipt厳密照合
 - [ ] products/ops成果物push・remote blob確認
 現在cursor: 文単位grounds契約のテスト先行。
 根拠: eval-v6-task.md全文、ops v5結果全文、既存v5実コード/呼び出し経路、公式 https://openrouter.ai/api/v1/models およびgeneration/key API。固定3検索要求は共通の必要範囲調査規則と矛盾するため追加しない。
 
 Round 6実行前: 公式models APIのQwen canonicalはqwen/qwen4-max-20261115、judgeはgoogle/gemini-2.5-flash-lite。専用key usage1.335561279・limit1.50・残0.164438721 USD。既存枠で実行し、引上げ不要。judgeもmax_tokens8192で主張分解の出力枠を確保する。非質問の空grounds断定は保守的に棄却し、一般的な提案は明示的な勧誘語尾を許容する。表層判定は意味証明ではなく、groundsの虚偽引用と質問の前提化をclaim judge/全文監査で確認する。現在cursor: 同一32条件の有料実行。
+
+Round 6結果: Qwen30/32受理、116送信可能文をprimaryが全読しFAIL10（捏造8、日本語2、tone0、8.620689655%）でNO-GO。最終受理attemptで54文を機械棄却し確率をnoneへ移す。質問83/116。再生成8回、最終棄却case19/25。生成40・judge35は全stop、length/null0。75公式receipt合計0.079733425 USDと専用key usage1.335561279→1.415294704の差分が厳密一致。key limit1.50のまま、credits155→155。65 testsと完全監査PASS。judgeは質問内の現在状態と本人の書いた行動を見逃し、case32で明示仮定を過剰棄却する。promptや有料実行の取り直しなし。現在cursor: products証拠固定commit→ops結果push→GitHub blob照合。本番有効化・配送・main統合なし。

@@ -1,0 +1,209 @@
+{
+  "index": 26,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986157-WmQptUQdMvsPkfBIcf5s",
+        "object": "chat.completion",
+        "created": 1794986157,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"頭をぐるぐる回っている明日の予定は、どんな内容ですか？\",\"probability\":0.25,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今夜落ち着いて過ごすとしたら、どんな時間がいいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠る前のひとときを少しでも楽にするために、今できそうなことはありますか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くする呼吸を数回試してみませんか。\",\"probability\":0.13,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"頭に浮かんだ明日の予定を紙に書き出すと、頭の負担が軽くなることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"布団に入ってから眠るまで1時間以上かかる夜があるのですね。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.1,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1294,
+          "completion_tokens": 260,
+          "total_tokens": 1554,
+          "cost": 0.00156921,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00156921,
+            "upstream_inference_prompt_cost": 0.00045771,
+            "upstream_inference_completions_cost": 0.0011115
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986165-Vo54zigaVgn743isAUQq",
+        "object": "chat.completion",
+        "created": 1794986165,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"The question asks about the content of tomorrow's plans, but the profile only states that these plans are swirling in the person's head and preventing sleep. It does not provide the details of those plans.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a hypothetical question about how the person might spend their time if they were to spend it calmly tonight. The profile does not contain information about the person's preferences for calm evenings or their current state of mind regarding calmness.\"}, {\"id\": \"c\", \"claims\": [], \"reason\": \"This question asks for actions the person could take to make their pre-sleep time more comfortable. The profile describes a problem (difficulty falling asleep due to thoughts of tomorrow's schedule) but does not provide information about the person's current capacity or willingness to try specific remedies.\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is a suggestion for a breathing exercise. It does not contain any factual claims about the person.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"It takes more than an hour from getting into bed until falling asleep on some nights.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text directly states that it takes more than an hour from getting into bed until falling asleep.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 938,
+          "completion_tokens": 294,
+          "total_tokens": 1232,
+          "cost": 0.0002114,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002114,
+            "upstream_inference_prompt_cost": 9.38e-05,
+            "upstream_inference_completions_cost": 0.0001176
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "3eb8fa55-6b7e-4583-a6f7-16a78ebd55c5",
+    "decision_point_at": 1794986166.84497,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "頭をぐるぐる回っている明日の予定は、どんな内容ですか？",
+        "probability": 0.25,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今夜落ち着いて過ごすとしたら、どんな時間がいいですか？",
+        "probability": 0.18,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "眠る前のひとときを少しでも楽にするために、今できそうなことはありますか？",
+        "probability": 0.14,
+        "grounds": []
+      },
+      {
+        "id": "d",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くする呼吸を数回試してみませんか。",
+        "probability": 0.13,
+        "grounds": []
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "布団に入ってから眠るまで1時間以上かかる夜があるのですね。",
+        "probability": 0.1,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "e",
+          "kind": "action",
+          "text": "頭に浮かんだ明日の予定を紙に書き出すと、頭の負担が軽くなることがあります。",
+          "probability": 0.1,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "頭をぐるぐる回っている明日の予定は、どんな内容ですか？",
+      "probability": 0.25,
+      "grounds": []
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987966.84497,
+    "observations": []
+  }
+}

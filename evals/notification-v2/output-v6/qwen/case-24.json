@@ -1,0 +1,172 @@
+{
+  "index": 24,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986153-GG4HyALuNH9nc6Dw91t8",
+        "object": "chat.completion",
+        "created": 1794986153,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝いちばん頭に残っているのは、どんな予定ですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今この時間に、少しでも気持ちを落ち着けられるとしたら、何をしてみたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"頭に浮かんでくる予定を、紙やスマホに書き出してみるとしたら、何から書きますか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"今夜はどんなふうに過ごせたら、少し楽だと感じられそうですか？\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ一度、息を吐く方を吸う方より長めにしてみるのはいかがでしょうか。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"予定は頭の中で回すより、一度外に書き出すと整理しやすくなることがあります。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1294,
+          "completion_tokens": 265,
+          "total_tokens": 1559,
+          "cost": 0.001937145,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001937145,
+            "upstream_inference_prompt_cost": 0.00080427,
+            "upstream_inference_completions_cost": 0.001132875
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986159-UJETJl4sUtmIlkkshYar",
+        "object": "chat.completion",
+        "created": 1794986159,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person's age is 35.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"It takes the person more than 1 hour to fall asleep after getting into bed.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's plans for tomorrow are swirling in their head, keeping them awake.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The candidate asks about the person's plans for tomorrow, which is related to the profile statement that their plans for tomorrow are swirling in their head and keeping them awake. The other claims are directly supported by the profile summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 908,
+          "completion_tokens": 167,
+          "total_tokens": 1075,
+          "cost": 0.0001576,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001576,
+            "upstream_inference_prompt_cost": 9.08e-05,
+            "upstream_inference_completions_cost": 6.68e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986161-vl6bLsl720Q5GJywA6Jy",
+        "object": "chat.completion",
+        "created": 1794986161,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の自分に、どんなふうに過ごしてほしいですか？\",\"probability\":0.28,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日の予定の中で、いちばん先に決めておきたいことは何ですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"よかったら、息を吐く方を吸う方より少し長くとってみませんか。\",\"probability\":0.13,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"action\",\"text\":\"朝の光を浴びる時間を数分つくるのも選択肢のひとつです。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"眠れない時間に時計を見ないでおくと、頭のぐるぐるが続きにくいことがあります。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1294,
+          "completion_tokens": 212,
+          "total_tokens": 1506,
+          "cost": 0.00101745,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00101745,
+            "upstream_inference_prompt_cost": 0.00011115,
+            "upstream_inference_completions_cost": 0.0009063
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "question candidate count must be at least half of non-none"
+  }
+}

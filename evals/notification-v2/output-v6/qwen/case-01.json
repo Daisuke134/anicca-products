@@ -1,0 +1,205 @@
+{
+  "index": 1,
+  "profile": "rumination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986096-eGfRYxnQznybFjeCfYpc",
+        "object": "chat.completion",
+        "created": 1794986096,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今のこの時間に、いちばん気になっていることは何ですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"夜に考えが巡り始めるとき、どんなふうに過ごせると少し楽だと感じますか？\",\"probability\":0.2,\"grounds\":[\"profile_summary\"]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜少しだけ自分の時間が取れるなら、何をしてみたいですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くとって、3回だけ呼吸してみてください。\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭の中で同じ場面が繰り返されるときは、浮かんだ言葉を紙に書き出すと、流れをいったん区切れることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.16,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1332,
+          "completion_tokens": 236,
+          "total_tokens": 1568,
+          "cost": 0.00152076,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00152076,
+            "upstream_inference_prompt_cost": 0.00051186,
+            "upstream_inference_completions_cost": 0.0010089
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986104-Rh6ovJEnwPKb2oHjfeAI",
+        "object": "chat.completion",
+        "created": 1794986104,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question asking for information and does not contain any factual claims about the person.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a question asking about potential coping mechanisms and does not contain any factual claims about the person.\"}, {\"id\": \"c\", \"claims\": [], \"reason\": \"This is an explicitly hypothetical question and does not contain any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 873,
+          "completion_tokens": 102,
+          "total_tokens": 975,
+          "cost": 0.0001281,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001281,
+            "upstream_inference_prompt_cost": 8.73e-05,
+            "upstream_inference_completions_cost": 4.08e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "7e413306-832a-4763-bd73-2d321d5c19fb",
+    "decision_point_at": 1794986105.296264,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今のこの時間に、いちばん気になっていることは何ですか？",
+        "probability": 0.24,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "夜に考えが巡り始めるとき、どんなふうに過ごせると少し楽だと感じますか？",
+        "probability": 0.2,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今夜少しだけ自分の時間が取れるなら、何をしてみたいですか？",
+        "probability": 0.16,
+        "grounds": []
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.4,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "d",
+          "kind": "breathing",
+          "text": "よければ、息を吐く方を吸う方より少し長くとって、3回だけ呼吸してみてください。",
+          "probability": 0.14,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭の中で同じ場面が繰り返されるときは、浮かんだ言葉を紙に書き出すと、流れをいったん区切れることがあります。",
+          "probability": 0.1,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今のこの時間に、いちばん気になっていることは何ですか？",
+      "probability": 0.24,
+      "grounds": []
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987905.296264,
+    "observations": []
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "index": 28,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986167-DQha0omdvcRWDLFAM4jm",
+        "object": "chat.completion",
+        "created": 1794986167,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日いちばん先に片づけたいことは何ですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし運動か日記のどちらかを1分だけやるなら、どんな形にしてみたいですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"続けられなかった日のことを振り返るとしたら、何に注目したいですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣は量より、毎日同じ合図にくっつける方が続きやすいと言われています。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、今日の分の行動を「これならできる」と思える大きさまで小さくしてみてください。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"大きな目標を立てては挫折する、という流れが続いているんですね。\",\"probability\":0.08,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.1,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1291,
+          "completion_tokens": 254,
+          "total_tokens": 1545,
+          "cost": 0.001885845,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001885845,
+            "upstream_inference_prompt_cost": 0.000799995,
+            "upstream_inference_completions_cost": 0.00108585
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986173-43oO1RYW8Ur7Z9cl5hhl",
+        "object": "chat.completion",
+        "created": 1794986173,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"verdicts\": [\n    {\n      \"id\": \"a\",\n      \"claims\": [],\n      \"reason\": \"This is a question about the user's priorities, not a factual claim about the user. It does not presuppose any unprovided information.\"\n    },\n    {\n      \"id\": \"b\",\n      \"claims\": [],\n      \"reason\": \"This is a hypothetical question and does not make any factual claims about the user. It does not presuppose any unprovided information.\"\n    },\n    {\n      \"id\": \"c\",\n      \"claims\": [],\n      \"reason\": \"This is a question about how the user would reflect on past failures, not a factual claim about the user. It does not presuppose any unprovided information.\"\n    },\n    {\n      \"id\": \"e\",\n      \"claims\": [],\n      \"reason\": \"This is advice or a suggestion, not a factual claim about the user. It does not presuppose any unprovided information.\"\n    },\n    {\n      \"id\": \"f\",\n      \"claims\": [\n        {\n          \"claim\": \"The user sets big goals and then fails.\",\n          \"profile_fields\": [\n            \"profile_summary\"\n          ],\n          \"entailed\": true\n        }\n      ],\n      \"reason\": \"The text directly paraphrases a statement present in the profile_summary.\"\n    }\n  ]\n}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 934,
+          "completion_tokens": 318,
+          "total_tokens": 1252,
+          "cost": 0.0002206,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002206,
+            "upstream_inference_prompt_cost": 9.34e-05,
+            "upstream_inference_completions_cost": 0.0001272
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "4d96bff4-1545-4c71-8b05-dd5b040c01d2",
+    "decision_point_at": 1794986175.151875,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日いちばん先に片づけたいことは何ですか？",
+        "probability": 0.24,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もし運動か日記のどちらかを1分だけやるなら、どんな形にしてみたいですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "続けられなかった日のことを振り返るとしたら、何に注目したいですか？",
+        "probability": 0.16,
+        "grounds": []
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "よければ、今日の分の行動を「これならできる」と思える大きさまで小さくしてみてください。",
+        "probability": 0.1,
+        "grounds": []
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "大きな目標を立てては挫折する、という流れが続いているんですね。",
+        "probability": 0.08,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.22,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "習慣は量より、毎日同じ合図にくっつける方が続きやすいと言われています。",
+          "probability": 0.12,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日いちばん先に片づけたいことは何ですか？",
+      "probability": 0.24,
+      "grounds": []
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987975.151875,
+    "observations": []
+  }
+}

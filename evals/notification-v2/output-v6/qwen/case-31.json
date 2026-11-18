@@ -1,0 +1,306 @@
+{
+  "index": 31,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986169-l4BuLLYhx7A8Ny0ObkzK",
+        "object": "chat.completion",
+        "created": 1794986169,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動と日記、今夜どちらか一つだけなら、どんな形にしてみたいですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"三日坊主で終わったあとに残る気持ちを、言葉にするとどんな感じですか？\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし目標の大きさを自由に変えられるとしたら、今の目標をどう調整したいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"運動と日記を習慣にしたいのに三日坊主で終わり、大きな目標を立てては挫折してきた、という繰り返しがあるんですね。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"新しい習慣は、量を思いきって小さくして始める方法もあります。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ、今ここで息をゆっくり吐いてみませんか？\",\"probability\":0.06,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.22,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1290,
+          "completion_tokens": 268,
+          "total_tokens": 1558,
+          "cost": 0.00159771,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00159771,
+            "upstream_inference_prompt_cost": 0.00045201,
+            "upstream_inference_completions_cost": 0.0011457
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986176-GaOMRa2hQCgvo2k76Zwx",
+        "object": "chat.completion",
+        "created": 1794986176,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person wants to try one of exercise or diary tonight in some form.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question asks about a hypothetical preference ('what form would you like it to take?') rather than asserting a current desire or plan. It also implies a choice between exercise and diary 'tonight', which is not supported by the profile, and asks about the form, which is speculative.\"}, {\"id\": \"c\", \"claims\": [], \"reason\": \"This is an explicit hypothetical question and not a factual claim about the person.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person wants to make exercise a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to make diary a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often ends up being a three-day-monk with exercise and diary.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person sets big goals.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often fails after setting big goals.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text accurately paraphrases claims directly stated in the profile_summary.\"}, {\"id\": \"f\", \"claims\": [], \"reason\": \"This is a general suggestion or invitation, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 915,
+          "completion_tokens": 348,
+          "total_tokens": 1263,
+          "cost": 0.0002307,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002307,
+            "upstream_inference_prompt_cost": 9.15e-05,
+            "upstream_inference_completions_cost": 0.0001392
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986178-HwGG3IRfW9xwrRVHMpAX",
+        "object": "chat.completion",
+        "created": 1794986178,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動と日記を習慣にしたいという目標について、今どんなふうに感じていますか？\",\"probability\":0.2,\"grounds\":[\"profile_summary\"]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし明日ひとつだけ小さく試せることがあるとしたら、何をやってみたいですか？\",\"probability\":0.25,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"大きな目標を立てて挫折してしまうパターンについて、どんな小さな変化なら続けられそうだと思いますか？\",\"probability\":0.2,\"grounds\":[\"profile_summary\"]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣づくりでは、最初の数日よりも「途切れたあとに再開する回数」の方が長期的には大切だと言われています。\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"三日坊主で終わることが多いと感じているんですね。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.1,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1290,
+          "completion_tokens": 229,
+          "total_tokens": 1519,
+          "cost": 0.001084425,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001084425,
+            "upstream_inference_prompt_cost": 0.00010545,
+            "upstream_inference_completions_cost": 0.000978975
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986184-mMvWM1nHbniLVCGFkZjq",
+        "object": "chat.completion",
+        "created": 1794986184,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question about the person's feelings regarding their goal, not a factual claim about them.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a hypothetical question about what the person might want to try, not a factual claim about them.\"}, {\"id\": \"c\", \"claims\": [], \"reason\": \"This is a question about potential small changes the person might be able to maintain, not a factual claim about them.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"the person often ends up as a quitter after three days when trying to make exercise and journaling a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile text explicitly states that the person often ends up as a quitter after three days when trying to make exercise and journaling a habit.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 913,
+          "completion_tokens": 195,
+          "total_tokens": 1108,
+          "cost": 0.0001693,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001693,
+            "upstream_inference_prompt_cost": 9.13e-05,
+            "upstream_inference_completions_cost": 7.8e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "4a9db3de-35bb-4fb1-be3c-05cade9f2f3a",
+    "decision_point_at": 1794986185.807303,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "運動と日記を習慣にしたいという目標について、今どんなふうに感じていますか？",
+        "probability": 0.2,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もし明日ひとつだけ小さく試せることがあるとしたら、何をやってみたいですか？",
+        "probability": 0.25,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "大きな目標を立てて挫折してしまうパターンについて、どんな小さな変化なら続けられそうだと思いますか？",
+        "probability": 0.2,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "三日坊主で終わることが多いと感じているんですね。",
+        "probability": 0.1,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "習慣づくりでは、最初の数日よりも「途切れたあとに再開する回数」の方が長期的には大切だと言われています。",
+          "probability": 0.15,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "運動と日記を習慣にしたいという目標について、今どんなふうに感じていますか？",
+      "probability": 0.2,
+      "grounds": [
+        "profile_summary"
+      ]
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987985.807303,
+    "observations": []
+  }
+}

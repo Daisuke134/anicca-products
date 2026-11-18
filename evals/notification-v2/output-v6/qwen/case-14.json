@@ -1,0 +1,212 @@
+{
+  "index": 14,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986125-SmlYK4scxuBFlhuYIkim",
+        "object": "chat.completion",
+        "created": 1794986125,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日の気分を、天気や色にたとえるとしたらどんな感じですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"この時間、少しでも気持ちが楽になることがあるとしたら、それはどんなことですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"最近の一日の中で、いちばん沈みにくい時間帯はありますか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日が増え、好きだったことにも興味が湧きにくいという日々なんですね。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとって、数回だけ呼吸を眺めてみませんか。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みが続くときは、原因がはっきりしないまま波のように来ることもあります。\",\"probability\":0.09,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1324,
+          "completion_tokens": 274,
+          "total_tokens": 1598,
+          "cost": 0.00305805,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00305805,
+            "upstream_inference_prompt_cost": 0.0018867,
+            "upstream_inference_completions_cost": 0.00117135
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986132-Nk4JbqtjDkSWQkWorUAj",
+        "object": "chat.completion",
+        "created": 1794986132,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"The user is asking a question about the person's current mood, not stating a fact about them.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"The user is asking a hypothetical question about what might make the person feel better, not stating a fact.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person has been experiencing more days with a vaguely low mood recently.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has been finding it difficult to feel interested in things they used to enjoy.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text directly paraphrases claims supported by the profile_summary.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"The user is offering advice and suggesting a breathing exercise, not stating a personal factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 923,
+          "completion_tokens": 208,
+          "total_tokens": 1131,
+          "cost": 0.0001755,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001755,
+            "upstream_inference_prompt_cost": 9.23e-05,
+            "upstream_inference_completions_cost": 8.32e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "59e0741a-2786-45a0-8f2e-1899a6a215cc",
+    "decision_point_at": 1794986134.083216,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日の気分を、天気や色にたとえるとしたらどんな感じですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "この時間、少しでも気持ちが楽になることがあるとしたら、それはどんなことですか？",
+        "probability": 0.18,
+        "grounds": []
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "なんとなく気分が沈む日が増え、好きだったことにも興味が湧きにくいという日々なんですね。",
+        "probability": 0.12,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうを吸うときより少し長くとって、数回だけ呼吸を眺めてみませんか。",
+        "probability": 0.1,
+        "grounds": []
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.4,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "c",
+          "kind": "question",
+          "text": "最近の一日の中で、いちばん沈みにくい時間帯はありますか？",
+          "probability": 0.16,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "気分の落ち込みが続くときは、原因がはっきりしないまま波のように来ることもあります。",
+          "probability": 0.09,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日の気分を、天気や色にたとえるとしたらどんな感じですか？",
+      "probability": 0.2,
+      "grounds": []
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987934.083216,
+    "observations": []
+  }
+}

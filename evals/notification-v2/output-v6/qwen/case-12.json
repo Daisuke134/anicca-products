@@ -1,0 +1,209 @@
+{
+  "index": 12,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986121-9gOSqfKKQ1TUDVZUU3t4",
+        "object": "chat.completion",
+        "created": 1794986121,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の気分を、天気や色でたとえるとしたらどんな感じですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今の自分に必要だと感じるものは、何だと思いますか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今日ひとつだけ負担を減らせるとしたら、何を減らしたいですか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"朝起きたときがつらい日は、どんなふうに過ごせると少しでも楽でしょうか？\",\"probability\":0.13,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとってみませんか。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みには波があって、良い日と悪い日が入れ替わることもあります。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1324,
+          "completion_tokens": 257,
+          "total_tokens": 1581,
+          "cost": 0.001945695,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001945695,
+            "upstream_inference_prompt_cost": 0.00084702,
+            "upstream_inference_completions_cost": 0.001098675
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986128-KR0dMX0zR3m1OSFttSZr",
+        "object": "chat.completion",
+        "created": 1794986128,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n    {\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question, not a personal factual claim.\"},\n    {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a question, not a personal factual claim.\"},\n    {\"id\": \"c\", \"claims\": [], \"reason\": \"This is a hypothetical question, not a personal factual claim.\"},\n    {\"id\": \"d\", \"claims\": [\n        {\"claim\": \"It is difficult to wake up in the morning on some days.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n    ], \"reason\": \"The candidate text directly asks about a situation mentioned in the profile summary.\"},\n    {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a suggestion, not a personal factual claim.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 940,
+          "completion_tokens": 183,
+          "total_tokens": 1123,
+          "cost": 0.0001672,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001672,
+            "upstream_inference_prompt_cost": 9.4e-05,
+            "upstream_inference_completions_cost": 7.32e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "f14b304b-a63c-453d-8914-7c289f75e652",
+    "decision_point_at": 1794986129.84415,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝の気分を、天気や色でたとえるとしたらどんな感じですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今の自分に必要だと感じるものは、何だと思いますか？",
+        "probability": 0.18,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今日ひとつだけ負担を減らせるとしたら、何を減らしたいですか？",
+        "probability": 0.14,
+        "grounds": []
+      },
+      {
+        "id": "d",
+        "kind": "question",
+        "text": "朝起きたときがつらい日は、どんなふうに過ごせると少しでも楽でしょうか？",
+        "probability": 0.13,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうを吸うときより少し長くとってみませんか。",
+        "probability": 0.1,
+        "grounds": []
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.25,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "気分の落ち込みには波があって、良い日と悪い日が入れ替わることもあります。",
+          "probability": 0.07,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の気分を、天気や色でたとえるとしたらどんな感じですか？",
+      "probability": 0.2,
+      "grounds": []
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987929.84415,
+    "observations": []
+  }
+}

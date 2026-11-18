@@ -1,0 +1,207 @@
+{
+  "index": 20,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986143-f6XfPlALwYQcps9V0FLN",
+        "object": "chat.completion",
+        "created": 1794986143,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日やるべきことの中で、いちばん先に片づけたいのはどれですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"集中が途切れやすいのは、どんな場面やタイミングが多いですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"スマホに手が向かう前に、どんな気持ちや状況があることが多いですか？\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、作業を5分だけと区切って、最初の一手を小さく決めてみませんか？\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"集中は一度に長く保つより、短く区切って戻ってくる形だと続けやすくなります。\",\"probability\":0.06,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.14,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1294,
+          "completion_tokens": 261,
+          "total_tokens": 1555,
+          "cost": 0.001920045,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001920045,
+            "upstream_inference_prompt_cost": 0.00080427,
+            "upstream_inference_completions_cost": 0.001115775
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986150-3chQaFFktORlMtz7ukmp",
+        "object": "chat.completion",
+        "created": 1794986150,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question asking about a preference, not a factual claim about the person.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a hypothetical question, not a factual claim about the person.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person experiences difficulty concentrating at certain times or in certain situations.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states the person has difficulty concentrating while working from home.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person often reaches for their smartphone.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states the person spends a lot of time on their smartphone.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a suggestion for a course of action, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 938,
+          "completion_tokens": 210,
+          "total_tokens": 1148,
+          "cost": 0.0001778,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001778,
+            "upstream_inference_prompt_cost": 9.38e-05,
+            "upstream_inference_completions_cost": 8.4e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "836cc6d2-bb26-4185-a210-57ce480705d2",
+    "decision_point_at": 1794986151.418967,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+        "probability": 0.24,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+        "probability": 0.18,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "集中が途切れやすいのは、どんな場面やタイミングが多いですか？",
+        "probability": 0.16,
+        "grounds": []
+      },
+      {
+        "id": "d",
+        "kind": "question",
+        "text": "スマホに手が向かう前に、どんな気持ちや状況があることが多いですか？",
+        "probability": 0.12,
+        "grounds": []
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "よければ、作業を5分だけと区切って、最初の一手を小さく決めてみませんか？",
+        "probability": 0.1,
+        "grounds": []
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "集中は一度に長く保つより、短く区切って戻ってくる形だと続けやすくなります。",
+          "probability": 0.06,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.24,
+      "grounds": []
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987951.418967,
+    "observations": []
+  }
+}

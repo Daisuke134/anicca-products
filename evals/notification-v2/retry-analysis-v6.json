@@ -1,0 +1,958 @@
+{
+  "attempts": [
+    {
+      "case": 1,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よければ、息を吐く方を吸う方より少し長くする呼吸を3回ほど試してみませんか。",
+            "probability": 0.08,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "teaching",
+            "text": "繰り返し浮かぶ考えは、追い払おうとするより「また浮かんだな」と気づいて手元の感覚に意識を戻す方法もあります。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐く方を吸う方より少し長くとって、3回だけ呼吸してみてください。",
+            "probability": 0.14,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "頭の中で同じ場面が繰り返されるときは、浮かんだ言葉を紙に書き出すと、流れをいったん区切れることがあります。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うときより少し長くとって、3回だけ呼吸に意識を向けてみませんか。",
+            "probability": 0.12,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "頭に浮かんだことは、紙に書き出すと頭の中で回り続けるのをいったん区切れることがあります。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "reflection",
+            "text": "夜は一日の出来事が頭に残りやすい時間帯で、同じ場面が浮かびやすくなることがあります。",
+            "probability": 0.08,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "同じ考えが繰り返し浮かぶときは、頭に浮かんだことを短い言葉で紙に書き出す方法もあります。",
+            "probability": 0.13,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "reflection",
+            "text": "夜はまわりが静かになる分、考えの声が大きく聞こえやすい時間帯です。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "teaching",
+            "text": "他人と自分を比べる癖は、多くの人が持つ思考の習慣で、気づいた瞬間から少しずつ変えていけます。",
+            "probability": 0.15,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "reflection",
+            "text": "人と比べて落ち込むことがあっても、それだけで自分の価値が決まるわけではありません。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "breathing",
+            "text": "よかったら、息をゆっくり吐いてから吸う呼吸を一度だけ試してみませんか？",
+            "probability": 0.05,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "自分を責める言葉が出てきたとき、まず「今、そんな言葉が浮かんでいる」と気づくだけでも、ひとつの関わり方になります。",
+            "probability": 0.13,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "reflection",
+            "text": "SNSで見えるのは他人の生活の一部だけで、その全体ではありません。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "reflection",
+            "text": "褒め言葉をすぐ信じられなくても、そのまま受け取ろうとしなくて大丈夫です。",
+            "probability": 0.12,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "pruned": [],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "question candidate count must be at least half of non-none"
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "action",
+            "text": "もし数秒でも隙間があれば、肩の力を一度抜いてみるのも選択肢です。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "c",
+            "kind": "question",
+            "text": "もし今日ほんの数分だけ自分の時間が取れるとしたら、何に使いたいですか？",
+            "probability": 0.16,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "b",
+            "kind": "question",
+            "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、いまの自分に必要だと感じるものは何ですか？",
+            "probability": 0.2,
+            "grounds": [
+              "profile"
+            ]
+          },
+          "reason": "grounds must reference nonempty profile fields"
+        },
+        {
+          "candidate": {
+            "id": "c",
+            "kind": "question",
+            "text": "休日に疲れが残るとき、どんな過ごし方なら少しでも楽になれると思いますか？",
+            "probability": 0.14,
+            "grounds": [
+              "profile"
+            ]
+          },
+          "reason": "grounds must reference nonempty profile fields"
+        },
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うより少し長めにして、3回だけ呼吸してみませんか？",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "休息は次の仕事や育児のための準備ではなく、それ自体に必要な時間です。",
+            "probability": 0.08,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "c",
+            "kind": "question",
+            "text": "もし今夜ほんの数分だけ自分の時間が取れるとしたら、何に使ってみたいですか？",
+            "probability": 0.14,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を、3回だけ試してみませんか。",
+            "probability": 0.08,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "teaching",
+            "text": "気分の落ち込みには波があって、良い日と悪い日が入れ替わることもあります。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "c",
+            "kind": "question",
+            "text": "最近の1日の中で、比較的すこしでも過ごしやすい時間帯はありますか？",
+            "probability": 0.14,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "action",
+            "text": "もし動けそうなら、窓の外を1分だけ眺めるなど、ごく小さなことを一つ選んでも構いません。",
+            "probability": 0.06,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "c",
+            "kind": "question",
+            "text": "最近の一日の中で、いちばん沈みにくい時間帯はありますか？",
+            "probability": 0.16,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "teaching",
+            "text": "気分の落ち込みが続くときは、原因がはっきりしないまま波のように来ることもあります。",
+            "probability": 0.09,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "c",
+            "kind": "question",
+            "text": "もしよければ、最近の一日でいちばん負担に感じたのはどのあたりか教えてもらえますか？",
+            "probability": 0.16,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "気分が沈む日は、原因がはっきりしないまま過ぎることもあります。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "invalid judge verdict count"
+    },
+    {
+      "case": 16,
+      "attempt": 2,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "b",
+            "kind": "question",
+            "text": "最近の一日の中で、少しでも気持ちがやわらぐ瞬間はありますか？",
+            "probability": 0.2,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "c",
+            "kind": "question",
+            "text": "もし今夜、自分のためにひとつだけ何かできるとしたら、何を選びたいですか？",
+            "probability": 0.14,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐く方を吸う方より少し長くする呼吸を、3回だけ試してみませんか。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "teaching",
+            "text": "気分の落ち込みが続くときは、原因がはっきりしないこと自体もよくあることです。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よければ一度、息を吐くほうを吸うより少し長くとってみませんか？",
+            "probability": 0.08,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "teaching",
+            "text": "面接の結果は、その場の条件や相手側の事情にも左右されます。",
+            "probability": 0.05,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "invalid judge verdict shape"
+    },
+    {
+      "case": 17,
+      "attempt": 2,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今日の自分にひとつだけ声をかけるとしたら、どんな言葉を選びますか？",
+            "probability": 0.18,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "question",
+            "text": "「落ちるかもしれない」という考えが浮かんだとき、そのあとに自分に言ってみたい言葉はありますか？",
+            "probability": 0.14,
+            "grounds": [
+              "profile"
+            ]
+          },
+          "reason": "grounds must reference nonempty profile fields"
+        },
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "面接の結果は、そのときの条件や相手側の事情にも左右されるもので、その人の価値をそのまま測る数字ではありません。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "breathing",
+            "text": "よければ、息を吐く方を吸う方より少し長くとって、3回だけ呼吸を数えてみませんか？",
+            "probability": 0.07,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "teaching",
+            "text": "面接の結果は、そのときの条件や相手側の事情にも左右されるもので、その人の価値をそのまま測るものではありません。",
+            "probability": 0.12,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ一度立ち上がって、肩をゆっくり回してみませんか？",
+            "probability": 0.08,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "pruned": [],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "invalid probability"
+    },
+    {
+      "case": 19,
+      "attempt": 2,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "自信は結果だけで決まるものではなく、小さな行動の積み重ねでも育っていきます。",
+            "probability": 0.08,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "breathing",
+            "text": "よかったら、ゆっくり息を吐いてから吸う呼吸を3回試してみませんか？",
+            "probability": 0.06,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "ungrounded semantic claims: [{\"id\": \"d\", \"claim\": {\"claim\": \"The person is seriously engaging with their job search.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "pruned": [],
+      "status": "accepted"
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "teaching",
+            "text": "集中は一度に長く保つより、短く区切って戻ってくる形だと続けやすくなります。",
+            "probability": 0.06,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "集中は長く続けるより、短く区切って戻ってくる方が続きやすいことがあります。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "c",
+            "kind": "question",
+            "text": "今日の一日を振り返ると、どんな時間帯が気になりますか？",
+            "probability": 0.14,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "teaching",
+            "text": "作業を始める前に「最初の5分だけ」と区切ると、取りかかりやすくなることがあります。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "c",
+            "kind": "question",
+            "text": "夜の後悔を少しでも減らすとしたら、どんな一日にしたいですか？",
+            "probability": 0.15,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よければ一度、息を吐く方を吸う方より長めにしてみるのはいかがでしょうか。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "teaching",
+            "text": "予定は頭の中で回すより、一度外に書き出すと整理しやすくなることがあります。",
+            "probability": 0.08,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "invalid judge verdict count"
+    },
+    {
+      "case": 25,
+      "attempt": 2,
+      "pruned": [],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "question candidate count must be at least half of non-none"
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "pruned": [],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "question candidate count must be at least half of non-none"
+    },
+    {
+      "case": 26,
+      "attempt": 2,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "teaching",
+            "text": "頭に浮かんだ予定を紙に書き出すと、考えをいったん頭の外に置いておきやすくなります。",
+            "probability": 0.12,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "f",
+            "kind": "reflection",
+            "text": "眠ろうとするときほど、頭が動き出すことはあります。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "action",
+            "text": "頭に浮かんだ明日の予定を紙に書き出すと、頭の負担が軽くなることがあります。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐く方を吸うときより長めにして、3回だけ試してみませんか？",
+            "probability": 0.12,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "眠りは頑張るほど遠のきやすいので、今日は「眠ること」ではなく「休むこと」を目標にする方法もあります。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "teaching",
+            "text": "習慣は量より、毎日同じ合図にくっつける方が続きやすいと言われています。",
+            "probability": 0.12,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "pruned": [],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "question candidate count must be at least half of non-none"
+    },
+    {
+      "case": 30,
+      "attempt": 2,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "b",
+            "kind": "question",
+            "text": "三日坊主で終わってしまう流れの中で、変えてみたい部分はどこですか？",
+            "probability": 0.2,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "teaching",
+            "text": "習慣は続ける日数よりも、再開しやすさで定着しやすくなります。",
+            "probability": 0.15,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "b",
+            "kind": "question",
+            "text": "三日坊主で終わったあとに残る気持ちを、少し言葉にしてみるとどうですか？",
+            "probability": 0.18,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "teaching",
+            "text": "習慣は回数よりも、続けやすい小ささに設計する方が続きやすいと言われています。",
+            "probability": 0.12,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "b",
+            "kind": "question",
+            "text": "三日坊主で終わったあとに残る気持ちを、言葉にするとどんな感じですか？",
+            "probability": 0.15,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        },
+        {
+          "candidate": {
+            "id": "e",
+            "kind": "teaching",
+            "text": "新しい習慣は、量を思いきって小さくして始める方法もあります。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "rejected",
+      "error_class": "ValueError",
+      "reason": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to try one of exercise or diary tonight in some form.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 32,
+      "attempt": 2,
+      "pruned": [
+        {
+          "candidate": {
+            "id": "d",
+            "kind": "teaching",
+            "text": "習慣づくりでは、最初の数日よりも「途切れたあとに再開する回数」の方が長期的には大切だと言われています。",
+            "probability": 0.15,
+            "grounds": []
+          },
+          "reason": "ungrounded assertion or attribution marker"
+        }
+      ],
+      "status": "accepted"
+    }
+  ],
+  "retries": 8,
+  "final_rejected_cases": [
+    19,
+    25
+  ],
+  "accepted_final_sentence_rejections": 54,
+  "all_attempt_recorded_sentence_rejections": 64,
+  "all_attempt_rejection_reasons": {
+    "question candidate count must be at least half of non-none": 4,
+    "invalid judge verdict count": 2,
+    "invalid judge verdict shape": 1,
+    "invalid probability": 1,
+    "ungrounded semantic claims": 2
+  }
+}

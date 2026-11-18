@@ -1,0 +1,205 @@
+{
+  "index": 17,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986134-M573EgtNfUm9ruSfJUsc",
+        "object": "chat.completion",
+        "created": 1794986134,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この瞬間、いちばん気になっていることは何ですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「落ちるかもしれない」という考えが浮かんだとき、どんなふうに過ごせると少し楽になりそうですか？\",\"probability\":0.2,\"grounds\":[\"profile_summary\"]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"面接の結果は、そのときの条件や相手側の事情にも左右されるもので、その人の価値をそのまま測るものではありません。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ一度立ち上がって、肩をゆっくり回してみませんか？\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1342,
+          "completion_tokens": 228,
+          "total_tokens": 1570,
+          "cost": 0.00288705,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00288705,
+            "upstream_inference_prompt_cost": 0.00191235,
+            "upstream_inference_completions_cost": 0.0009747
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986141-5BeehwLLfqpiSWd2xQc4",
+        "object": "chat.completion",
+        "created": 1794986141,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question asking for information, not a statement of fact about the person.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a hypothetical question, not a statement of fact about the person.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person sometimes thinks 'I might fail'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's confidence is waning due to consecutive rejections.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text asks about coping mechanisms for a stated fear and acknowledges a stated loss of confidence due to rejections. These are directly supported by the profile summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 883,
+          "completion_tokens": 174,
+          "total_tokens": 1057,
+          "cost": 0.0001579,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001579,
+            "upstream_inference_prompt_cost": 8.83e-05,
+            "upstream_inference_completions_cost": 6.96e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "12d1a8f0-05ec-4dba-96cf-1e204df6cfd5",
+    "decision_point_at": 1794986142.877013,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "confidence",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今この瞬間、いちばん気になっていることは何ですか？",
+        "probability": 0.24,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？",
+        "probability": 0.16,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "「落ちるかもしれない」という考えが浮かんだとき、どんなふうに過ごせると少し楽になりそうですか？",
+        "probability": 0.2,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.4,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "面接の結果は、そのときの条件や相手側の事情にも左右されるもので、その人の価値をそのまま測るものではありません。",
+          "probability": 0.12,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "candidate": {
+          "id": "e",
+          "kind": "action",
+          "text": "よければ一度立ち上がって、肩をゆっくり回してみませんか？",
+          "probability": 0.08,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今この瞬間、いちばん気になっていることは何ですか？",
+      "probability": 0.24,
+      "grounds": []
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987942.877013,
+    "observations": []
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "index": 11,
+  "profile": "burnout",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794986117-CWKlxh9GRVEgSdrNsHDh",
+        "object": "chat.completion",
+        "created": 1794986117,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、この時間にいちばん気になっていることは何ですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「何もしたくない」気持ちと焦りの間で揺れているとき、どんな言葉なら今の自分に合いそうですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜ほんの数分だけ自分の時間が取れるとしたら、何に使ってみたいですか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"何もしたくない気持ちと、やらなきゃという焦りが同時にある状態は、めずらしいことではありません。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くとる呼吸を、3回だけ試してみませんか。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.3,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1393,
+          "completion_tokens": 237,
+          "total_tokens": 1630,
+          "cost": 0.00161196,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00161196,
+            "upstream_inference_prompt_cost": 0.000598785,
+            "upstream_inference_completions_cost": 0.001013175
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794986124-F1gkjZfqyljkxveAjgXh",
+        "object": "chat.completion",
+        "created": 1794986124,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"The candidate is a question and does not contain any factual claims about the person.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"The candidate is a question and does not contain any factual claims about the person.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The state of having no desire to do anything and the feeling of urgency to get things done simultaneously is not unusual.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The candidate's statement is a general observation that applies to the person's described state.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 888,
+          "completion_tokens": 141,
+          "total_tokens": 1029,
+          "cost": 0.0001452,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001452,
+            "upstream_inference_prompt_cost": 8.88e-05,
+            "upstream_inference_completions_cost": 5.64e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "7e72bfdf-1623-4e3b-a236-b70b39cf9664",
+    "decision_point_at": 1794986125.3337731,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今、この時間にいちばん気になっていることは何ですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "「何もしたくない」気持ちと焦りの間で揺れているとき、どんな言葉なら今の自分に合いそうですか？",
+        "probability": 0.18,
+        "grounds": []
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "何もしたくない気持ちと、やらなきゃという焦りが同時にある状態は、めずらしいことではありません。",
+        "probability": 0.1,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.52,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "c",
+          "kind": "question",
+          "text": "もし今夜ほんの数分だけ自分の時間が取れるとしたら、何に使ってみたいですか？",
+          "probability": 0.14,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "candidate": {
+          "id": "e",
+          "kind": "breathing",
+          "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を、3回だけ試してみませんか。",
+          "probability": 0.08,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今、この時間にいちばん気になっていることは何ですか？",
+      "probability": 0.2,
+      "grounds": []
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794987925.3337731,
+    "observations": []
+  }
+}

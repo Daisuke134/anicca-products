@@ -1,0 +1,7 @@
+{
+  "service": "openrouter-notification-eval-v2",
+  "ssot_limit_usd": 1.5,
+  "limit_changed": false,
+  "purchase_or_reload_calls": 0,
+  "auto_top_up_source": "funding-v5.json records OFF verified 2026-11-07; not freshly verified in settings UI"
+}
