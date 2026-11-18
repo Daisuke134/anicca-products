@@ -109,3 +109,19 @@ Round 6実行前: 公式models APIのQwen canonicalはqwen/qwen4-max-20261115、
 Round 6結果: Qwen30/32受理、116送信可能文をprimaryが全読しFAIL10（捏造8、日本語2、tone0、8.620689655%）でNO-GO。最終受理attemptで54文を機械棄却し確率をnoneへ移す。質問83/116。再生成8回、最終棄却case19/25。生成40・judge35は全stop、length/null0。75公式receipt合計0.079733425 USDと専用key usage1.335561279→1.415294704の差分が厳密一致。key limit1.50のまま、credits155→155。65 testsと完全監査PASS。judgeは質問内の現在状態と本人の書いた行動を見逃し、case32で明示仮定を過剰棄却する。promptや有料実行の取り直しなし。現在cursor: products証拠固定commit→ops結果push→GitHub blob照合。本番有効化・配送・main統合なし。
 
 Round 6納品完了: products固定commit9adbb1dc1b518f380e1baff1c062802a69198ba8のeval tree349 blobsとGitHub APIのhashが全一致。ops最終commit08cffbd753b23946f1a802753ff1cf500f21f47fの結果本文全bytesとローカルが一致し、blob aca09d6ea54f2aeecce53e19f9ff513782595a59を確認する。delivery-v6.jsonへreceiptを保存。現在cursor: 完了。依頼内の残TODOなし。NO-GOを保持し本番有効化・配送・main統合なし。
+
+## Round 7（owner: Mac Codex）
+目的: 質問が現在状態・最近の出来事を前提化する残存捏造を構造3点で防ぎ、同一32条件で判定する。
+範囲: eval-v7-task.mdを正本とし、v6を保存してv7 reference/runner/audit/testsを追加。既存指定評価branchを継続する。main由来新branchの一般規則より指定worktree/branch継続を優先する。main統合・本番変更・配送は禁止。GO時だけPR941のP1修正2件とCI/mergeableを準備し、mergeしない。
+設計: generator契約で傾向と現在事実を区別し、状態依存質問はその状態自体を明示仮定にする。validatorはv6失敗から現在/最近/反すう/活動中の表層マーカーを候補単位で除外し、確率をnoneへ移す。正確な現在事実がprofileに明記される場合だけ許す。保守的な表層判定の過剰棄却をrawと審査表に記録する。judgeは質問の前提も原子的claimに分解する。質問自体・明示仮定自体はclaimにしない。
+固定: 同じ8profile×4slot、ja、2026-11-18、recent_reactions=[]、Qwen canonical qwen/qwen4-max-20261115、8192 tokens/reasoning無効、judge gemini-2.5-flash-lite/8192、最大1再生成、並列4/draw .1を維持。有料開始後のprompt/validator変更・取り直し禁止。
+完了: 全sendableをprimary全文判定。FAIL<5%、捏造0、tone0でGO。他はNO-GO。全棄却分析、公式receipt Decimal合計と専用key差分、既払い残高不変、結果をops新規隔離branchへpushしremote bytes一致。v6結果変更禁止。
+TODO:
+- [x] v6失敗文の回帰RED→最小実装→関連suite GREEN（22 RED→92 PASS）
+- [ ] 資金/モデルreadback→固定32条件を1回完走
+- [ ] 全送信可能文と棄却の手読み、公式receipt費用照合
+- [ ] GO時のみPR941準備、ops結果とproducts証拠push/remote照合
+現在cursor: 回帰テスト先行。有料実行未開始。
+根拠: 指定v6結果commit08cffbd753b23946f1a802753ff1cf500f21f47f全文、v6/v7タスク全文、v6実装全体。固定回数検索は今回の指定構造修正に不要で、上位の必要範囲調査を優先する。
+
+Round 7開始前: 公式models canonical一致。専用key usage1.415294704、残枠0.084705296のため許可内limit1.50→2.00へ変更し公式readback、SSOT metadata同期。credits155。購入/reloadなし。generator/validator/judgeをこのcommitで凍結し1回実行する。現在cursor: 固定32条件実行。

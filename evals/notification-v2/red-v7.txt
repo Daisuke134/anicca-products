@@ -1,0 +1,598 @@
+FFFFFFFFFFFFFFFFFFFF.....FF                                              [100%]Running teardown with pytest sessionfinish...
+
+=================================== FAILURES ===================================
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u4eca\u3001\u982d\u306e\u4e2d\u306b\u6d6e\u304b\u3093\u3067\u3044\u308b\u306e\u306f\u3069\u3093\u306a\u5834\u9762\u3067\u3059\u304b\uff1f] _
+
+text = '今、頭の中に浮かんでいるのはどんな場面ですか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u4eca\u3053\u306e\u6642\u9593\u306b\u3001\u4f55\u3082\u3057\u306a\u3044\u3067\u3044\u308b\u3053\u3068\u306b\u3064\u3044\u3066\u3069\u3046\u611f\u3058\u3066\u3044\u307e\u3059\u304b\uff1f] _
+
+text = '今この時間に、何もしないでいることについてどう感じていますか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u3082\u3057\u3088\u3051\u308c\u3070\u3001\u6700\u8fd1\u306e\u9762\u63a5\u3067\u5c11\u3057\u3067\u3082\u624b\u5fdc\u3048\u3092\u611f\u3058\u3089\u308c\u305f\u5834\u9762\u306f\u3042\u308a\u307e\u3059\u304b\uff1f] _
+
+text = 'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306f\u3001\u3069\u3093\u306a\u5185\u5bb9\u3067\u3059\u304b\uff1f0] _
+
+text = '頭をぐるぐる回っている明日の予定は、どんな内容ですか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306f\u3001\u3069\u3093\u306a\u5185\u5bb9\u3067\u3059\u304b\uff1f1] _
+
+text = '頭をぐるぐる回っている明日の予定は、どんな内容ですか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306e\u4e2d\u3067\u3001\u3044\u3061\u3070\u3093\u6c17\u306b\u306a\u3063\u3066\u3044\u308b\u306e\u306f\u3069\u306e\u5834\u9762\u3067\u3059\u304b\uff1f] _
+
+text = '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u3044\u307e\u6d6e\u304b\u3093\u3067\u3044\u308b\u660e\u65e5\u306e\u3053\u3068\u3092\u3001\u7d19\u3084\u30b9\u30de\u30db\u306b\u66f8\u304d\u51fa\u3057\u3066\u307f\u308b\u3068\u3057\u305f\u3089\u3001\u4f55\u304b\u3089\u66f8\u304d\u307e\u3059\u304b\uff1f] _
+
+text = 'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u73fe\u5728\u3001\u4f5c\u696d\u3057\u3066\u3044\u308b\u6700\u4e2d\u306b\u4f55\u3092\u611f\u3058\u3066\u3044\u307e\u3059\u304b\uff1f] _
+
+text = '現在、作業している最中に何を感じていますか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u6700\u8fd1\u306e\u5931\u6557\u3067\u3001\u3069\u3093\u306a\u3053\u3068\u3092\u5b66\u3073\u307e\u3057\u305f\u304b\uff1f] _
+
+text = '最近の失敗で、どんなことを学びましたか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u4eca\u6c17\u306b\u306a\u3063\u3066\u3044\u308b\u3053\u3068\u306e\u4e2d\u3067\u4f55\u3092\u9078\u3073\u307e\u3059\u304b\uff1f] _
+
+text = '今気になっていることの中で何を選びますか？', grounds = []
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u4eca\u3001\u982d\u306e\u4e2d\u306b\u6d6e\u304b\u3093\u3067\u3044\u308b\u306e\u306f\u3069\u3093\u306a\u5834\u9762\u3067\u3059\u304b\uff1f] _
+
+text = '今、頭の中に浮かんでいるのはどんな場面ですか？', grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u4eca\u3053\u306e\u6642\u9593\u306b\u3001\u4f55\u3082\u3057\u306a\u3044\u3067\u3044\u308b\u3053\u3068\u306b\u3064\u3044\u3066\u3069\u3046\u611f\u3058\u3066\u3044\u307e\u3059\u304b\uff1f] _
+
+text = '今この時間に、何もしないでいることについてどう感じていますか？', grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u3082\u3057\u3088\u3051\u308c\u3070\u3001\u6700\u8fd1\u306e\u9762\u63a5\u3067\u5c11\u3057\u3067\u3082\u624b\u5fdc\u3048\u3092\u611f\u3058\u3089\u308c\u305f\u5834\u9762\u306f\u3042\u308a\u307e\u3059\u304b\uff1f] _
+
+text = 'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？', grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306f\u3001\u3069\u3093\u306a\u5185\u5bb9\u3067\u3059\u304b\uff1f0] _
+
+text = '頭をぐるぐる回っている明日の予定は、どんな内容ですか？', grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306f\u3001\u3069\u3093\u306a\u5185\u5bb9\u3067\u3059\u304b\uff1f1] _
+
+text = '頭をぐるぐる回っている明日の予定は、どんな内容ですか？', grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306e\u4e2d\u3067\u3001\u3044\u3061\u3070\u3093\u6c17\u306b\u306a\u3063\u3066\u3044\u308b\u306e\u306f\u3069\u306e\u5834\u9762\u3067\u3059\u304b\uff1f] _
+
+text = '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？'
+grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u3044\u307e\u6d6e\u304b\u3093\u3067\u3044\u308b\u660e\u65e5\u306e\u3053\u3068\u3092\u3001\u7d19\u3084\u30b9\u30de\u30db\u306b\u66f8\u304d\u51fa\u3057\u3066\u307f\u308b\u3068\u3057\u305f\u3089\u3001\u4f55\u304b\u3089\u66f8\u304d\u307e\u3059\u304b\uff1f] _
+
+text = 'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？'
+grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u73fe\u5728\u3001\u4f5c\u696d\u3057\u3066\u3044\u308b\u6700\u4e2d\u306b\u4f55\u3092\u611f\u3058\u3066\u3044\u307e\u3059\u304b\uff1f] _
+
+text = '現在、作業している最中に何を感じていますか？', grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u6700\u8fd1\u306e\u5931\u6557\u3067\u3001\u3069\u3093\u306a\u3053\u3068\u3092\u5b66\u3073\u307e\u3057\u305f\u304b\uff1f] _
+
+text = '最近の失敗で、どんなことを学びましたか？', grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+_ test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u4eca\u6c17\u306b\u306a\u3063\u3066\u3044\u308b\u3053\u3068\u306e\u4e2d\u3067\u4f55\u3092\u9078\u3073\u307e\u3059\u304b\uff1f] _
+
+text = '今気になっていることの中で何を選びますか？', grounds = ['profile_summary']
+
+    @pytest.mark.parametrize('text',[
+     '今、頭の中に浮かんでいるのはどんな場面ですか？',
+     '今この時間に、何もしないでいることについてどう感じていますか？',
+     'もしよければ、最近の面接で少しでも手応えを感じられた場面はありますか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定は、どんな内容ですか？',
+     '頭をぐるぐる回っている明日の予定の中で、いちばん気になっているのはどの場面ですか？',
+     'いま浮かんでいる明日のことを、紙やスマホに書き出してみるとしたら、何から書きますか？',
+     '現在、作業している最中に何を感じていますか？',
+     '最近の失敗で、どんなことを学びましたか？',
+     '今気になっていることの中で何を選びますか？',
+    ])
+    @pytest.mark.parametrize('grounds',[[],['profile_summary']])
+    def test_unsupported_question_pruned_and_mass_moved_to_none(text,grounds):
+        kept,rejected=m.filter_grounded_candidates(choices(text,grounds=grounds),CTX)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:24: AssertionError
+______ test_literal_current_fact_supported_but_trend_does_not_entail_now _______
+
+    def test_literal_current_fact_supported_but_trend_does_not_entail_now():
+        import copy
+        ctx=copy.deepcopy(CTX)
+        ctx['push_state']['profile']['profile_summary']='今、頭の中に浮かんでいるのは昨日の会議です。'
+        kept,rejected=m.filter_grounded_candidates(choices('今、頭の中に浮かんでいるのはどんな場面ですか？'),ctx)
+        assert len(kept)==3 and rejected==[]
+        ctx['push_state']['profile']['profile_summary']='今、頭の中に浮かんでいる場面を考える傾向がある。'
+        kept,rejected=m.filter_grounded_candidates(choices('今、頭の中に浮かんでいるのはどんな場面ですか？'),ctx)
+>       assert [c['id'] for c in kept]==['b','n']
+E       AssertionError: assert ['a', 'b', 'n'] == ['b', 'n']
+E         
+E         At index 0 diff: 'a' != 'b'
+E         Left contains one more item: 'n'
+E         Use -v to get more diff
+
+evals/notification-v2/tests/test_v7.py:49: AssertionError
+____________ test_all_question_candidates_removed_yields_none_only _____________
+
+    def test_all_question_candidates_removed_yields_none_only():
+        cs=choices('今、頭の中に浮かんでいるのはどんな場面ですか？')
+        cs[1]['text']='最近の面接で何を感じましたか？'
+        kept,rejected=m.filter_grounded_candidates(cs,CTX)
+>       assert len(rejected)==2 and kept==[dict(id='n',kind='none',text='',grounds=[],probability=1.0)]
+E       assert (0 == 2)
+E        +  where 0 = len([])
+
+evals/notification-v2/tests/test_v7.py:55: AssertionError
+=========================== short test summary info ============================
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u4eca\u3001\u982d\u306e\u4e2d\u306b\u6d6e\u304b\u3093\u3067\u3044\u308b\u306e\u306f\u3069\u3093\u306a\u5834\u9762\u3067\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u4eca\u3053\u306e\u6642\u9593\u306b\u3001\u4f55\u3082\u3057\u306a\u3044\u3067\u3044\u308b\u3053\u3068\u306b\u3064\u3044\u3066\u3069\u3046\u611f\u3058\u3066\u3044\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u3082\u3057\u3088\u3051\u308c\u3070\u3001\u6700\u8fd1\u306e\u9762\u63a5\u3067\u5c11\u3057\u3067\u3082\u624b\u5fdc\u3048\u3092\u611f\u3058\u3089\u308c\u305f\u5834\u9762\u306f\u3042\u308a\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306f\u3001\u3069\u3093\u306a\u5185\u5bb9\u3067\u3059\u304b\uff1f0]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306f\u3001\u3069\u3093\u306a\u5185\u5bb9\u3067\u3059\u304b\uff1f1]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306e\u4e2d\u3067\u3001\u3044\u3061\u3070\u3093\u6c17\u306b\u306a\u3063\u3066\u3044\u308b\u306e\u306f\u3069\u306e\u5834\u9762\u3067\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u3044\u307e\u6d6e\u304b\u3093\u3067\u3044\u308b\u660e\u65e5\u306e\u3053\u3068\u3092\u3001\u7d19\u3084\u30b9\u30de\u30db\u306b\u66f8\u304d\u51fa\u3057\u3066\u307f\u308b\u3068\u3057\u305f\u3089\u3001\u4f55\u304b\u3089\u66f8\u304d\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u73fe\u5728\u3001\u4f5c\u696d\u3057\u3066\u3044\u308b\u6700\u4e2d\u306b\u4f55\u3092\u611f\u3058\u3066\u3044\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u6700\u8fd1\u306e\u5931\u6557\u3067\u3001\u3069\u3093\u306a\u3053\u3068\u3092\u5b66\u3073\u307e\u3057\u305f\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds0-\u4eca\u6c17\u306b\u306a\u3063\u3066\u3044\u308b\u3053\u3068\u306e\u4e2d\u3067\u4f55\u3092\u9078\u3073\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u4eca\u3001\u982d\u306e\u4e2d\u306b\u6d6e\u304b\u3093\u3067\u3044\u308b\u306e\u306f\u3069\u3093\u306a\u5834\u9762\u3067\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u4eca\u3053\u306e\u6642\u9593\u306b\u3001\u4f55\u3082\u3057\u306a\u3044\u3067\u3044\u308b\u3053\u3068\u306b\u3064\u3044\u3066\u3069\u3046\u611f\u3058\u3066\u3044\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u3082\u3057\u3088\u3051\u308c\u3070\u3001\u6700\u8fd1\u306e\u9762\u63a5\u3067\u5c11\u3057\u3067\u3082\u624b\u5fdc\u3048\u3092\u611f\u3058\u3089\u308c\u305f\u5834\u9762\u306f\u3042\u308a\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306f\u3001\u3069\u3093\u306a\u5185\u5bb9\u3067\u3059\u304b\uff1f0]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306f\u3001\u3069\u3093\u306a\u5185\u5bb9\u3067\u3059\u304b\uff1f1]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u982d\u3092\u3050\u308b\u3050\u308b\u56de\u3063\u3066\u3044\u308b\u660e\u65e5\u306e\u4e88\u5b9a\u306e\u4e2d\u3067\u3001\u3044\u3061\u3070\u3093\u6c17\u306b\u306a\u3063\u3066\u3044\u308b\u306e\u306f\u3069\u306e\u5834\u9762\u3067\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u3044\u307e\u6d6e\u304b\u3093\u3067\u3044\u308b\u660e\u65e5\u306e\u3053\u3068\u3092\u3001\u7d19\u3084\u30b9\u30de\u30db\u306b\u66f8\u304d\u51fa\u3057\u3066\u307f\u308b\u3068\u3057\u305f\u3089\u3001\u4f55\u304b\u3089\u66f8\u304d\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u73fe\u5728\u3001\u4f5c\u696d\u3057\u3066\u3044\u308b\u6700\u4e2d\u306b\u4f55\u3092\u611f\u3058\u3066\u3044\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u6700\u8fd1\u306e\u5931\u6557\u3067\u3001\u3069\u3093\u306a\u3053\u3068\u3092\u5b66\u3073\u307e\u3057\u305f\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_unsupported_question_pruned_and_mass_moved_to_none[grounds1-\u4eca\u6c17\u306b\u306a\u3063\u3066\u3044\u308b\u3053\u3068\u306e\u4e2d\u3067\u4f55\u3092\u9078\u3073\u307e\u3059\u304b\uff1f]
+FAILED evals/notification-v2/tests/test_v7.py::test_literal_current_fact_supported_but_trend_does_not_entail_now
+FAILED evals/notification-v2/tests/test_v7.py::test_all_question_candidates_removed_yields_none_only
+22 failed, 5 passed in 0.29s

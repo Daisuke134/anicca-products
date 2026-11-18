@@ -1,0 +1,195 @@
+{
+  "data": [
+    {
+      "id": "qwen/qwen4-max",
+      "canonical_slug": "qwen/qwen4-max-20261115",
+      "hugging_face_id": null,
+      "name": "Qwen: Qwen4 Max",
+      "created": 1794795526,
+      "description": "Qwen4 Max is the flagship model in Alibaba's Qwen4 series. It accepts text, image, and video input and returns text, with a 1M-token context window and reasoning enabled by default....",
+      "context_length": 1000000,
+      "architecture": {
+        "modality": "text+image+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen",
+        "instruct_type": null
+      },
+      "pricing": {
+        "prompt": "0.000001425",
+        "completion": "0.000004275",
+        "input_cache_read": "0.00000007125",
+        "input_cache_write": "0.00000178125"
+      },
+      "top_provider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 131072,
+        "is_moderated": false
+      },
+      "per_request_limits": null,
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "default_parameters": {},
+      "supported_voices": null,
+      "knowledge_cutoff": null,
+      "expiration_date": null,
+      "links": {
+        "details": "/api/v1/models/qwen/qwen4-max-20261115/endpoints"
+      },
+      "endpoints": [
+        "/api/v1/chat/completions",
+        "/api/v1/completions",
+        "/api/v1/messages",
+        "/api/v1/responses"
+      ],
+      "benchmarks": {
+        "design_arena": [],
+        "artificial_analysis": {
+          "intelligence_index": 42.9,
+          "coding_index": null,
+          "agentic_index": null,
+          "finance_and_accounting_index": 54.1,
+          "strategy_and_ops_index": 56.9,
+          "legal_index": 49.6,
+          "healthcare_and_medical_index": 48.2,
+          "engineering_index": 50.1,
+          "economics_index": 51.3,
+          "cyber_index": null,
+          "openness_index": null,
+          "multilingual_index": null,
+          "decision_index": null
+        }
+      },
+      "reasoning": {
+        "mandatory": false,
+        "default_enabled": true,
+        "supported_efforts": [
+          "xhigh",
+          "high",
+          "low",
+          "none"
+        ],
+        "default_effort": "high"
+      }
+    },
+    {
+      "id": "google/gemini-2.5-flash-lite",
+      "canonical_slug": "google/gemini-2.5-flash-lite",
+      "hugging_face_id": "",
+      "name": "Google: Gemini 2.5 Flash Lite",
+      "created": 1753200276,
+      "description": "Gemini 2.5 Flash-Lite is a lightweight reasoning model in the Gemini 2.5 family, optimized for ultra-low latency and cost efficiency. It offers improved throughput, faster token generation, and better performance...",
+      "context_length": 1048576,
+      "architecture": {
+        "modality": "text+image+file+audio+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file",
+          "audio",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Gemini",
+        "instruct_type": null
+      },
+      "pricing": {
+        "prompt": "0.0000001",
+        "completion": "0.0000004",
+        "image": "0.0000001",
+        "audio": "0.0000003",
+        "input_audio_cache": "0.00000003",
+        "web_search": "0.014",
+        "internal_reasoning": "0.0000004",
+        "input_cache_read": "0.00000001",
+        "input_cache_write": "0.0000000833333333333333"
+      },
+      "top_provider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 65535,
+        "is_moderated": false
+      },
+      "per_request_limits": null,
+      "supported_parameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ],
+      "default_parameters": {
+        "temperature": null,
+        "top_p": null,
+        "frequency_penalty": null
+      },
+      "supported_voices": null,
+      "knowledge_cutoff": "2025-01-31",
+      "expiration_date": null,
+      "links": {
+        "details": "/api/v1/models/google/gemini-2.5-flash-lite/endpoints"
+      },
+      "endpoints": [
+        "/api/v1/chat/completions",
+        "/api/v1/completions",
+        "/api/v1/messages",
+        "/api/v1/responses"
+      ],
+      "benchmarks": {
+        "design_arena": [],
+        "artificial_analysis": {
+          "intelligence_index": null,
+          "coding_index": null,
+          "agentic_index": null,
+          "finance_and_accounting_index": null,
+          "strategy_and_ops_index": null,
+          "legal_index": null,
+          "healthcare_and_medical_index": null,
+          "engineering_index": null,
+          "economics_index": null,
+          "cyber_index": null,
+          "openness_index": 5.6,
+          "multilingual_index": 0.838,
+          "decision_index": null
+        }
+      },
+      "reasoning": {
+        "mandatory": false
+      }
+    }
+  ],
+  "total_count": 478,
+  "links": {
+    "next": null
+  }
+}
