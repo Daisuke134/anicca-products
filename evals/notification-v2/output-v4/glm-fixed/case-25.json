@@ -1,0 +1,190 @@
+{
+  "index": 25,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982955-Yjpziy0zkpAWeiWrxfOL",
+        "object": "chat.completion",
+        "created": 1794982955,
+        "model": "z-ai/glm-5.3",
+        "provider": "Relace",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "```json\n{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"明日の予定が頭の中でぐるぐる回るとき、どんなふうに整理すると少し気持ちが軽くなりそうですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"昼間のこの時間に、気持ちを落ち着けるために普段何かしていることはありますか？\",\"probability\":0.12},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"夜、なかなか眠れないときにこれまで試してみて、少しでも役に立ったと感じたことはありますか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"明日のことがぐるぐる回るとき、気になったことを紙に書き出しておくと、頭の中の荷物が少し減ることがあります。\",\"probability\":0.25},{\"id\":\"e\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.20}]}\n```",
+              "refusal": null,
+              "reasoning": "Profile: 35 years old, takes over an hour to fall asleep after getting in futon, tomorrow's plans keep circling in head, eyes get tired. Desired state: calm. Language: Japanese. Slot 12:30, day time. No recent reactions.\n\nNeed 2-8 candidates, one \"none\". At least half non-none must be open-ended questions, with at least half probability mass.\n\nWrite 4 candidates: 3 questions + 1 teaching/reflection? Let's do 5 total: 4 non-none (2+ questions) + none. Questions must not presuppose present state.\n\nCandidates:\n- question: 「明日の予定のこと、頭の中でどう整理すると少し気持ちが軽くなりそうですか？」\n- question: 「昼間のこの時間に、心を静めるためにいつも何かしていることはありますか？」\n- question: 「眠れずに考えごとが続く夜、どんな方法を試してみたいと思っていますか？」 — presupposes they want methods? \"試してみたいと思っていますか\" presumes wish. Better: 「夜に頭を休めるために、今までに試してみて良かったことはありますか？」\n- reflection/teaching: 「明日のことがぐるぐる回るとき、それを紙に書き出しておくだけで頭の負担が減ることがあります。」— teaching, no guaranteed effect (\"ことがあります\" ok).\n- none.\n\nProbability: questions get at least half of non-none mass. Non-none total 0.6, questions 0.34+, e.g. q1 0.2, q2 0.08, q3 0.14 = 0.42 > 0.3. teaching 0.18? That sums 0.6, none 0.4? Maybe none lower, 0.25. Total: q's 0.4, teaching 0.15, none 0.20 → sum 0.75... need sum 1. Let's: q1 0.25, q2 0.12, q3 0.18 = 0.55; teaching 0.25? none 0.2. Sum = 0.55+0.25+0.2=1.0. Questions 0.55 ≥ half of 0.8 (0.4). Good. 3 of 4 non-none are questions. ✓",
+              "reasoning_details": [
+                {
+                  "type": "reasoning.text",
+                  "text": "Profile: 35 years old, takes over an hour to fall asleep after getting in futon, tomorrow's plans keep circling in head, eyes get tired. Desired state: calm. Language: Japanese. Slot 12:30, day time. No recent reactions.\n\nNeed 2-8 candidates, one \"none\". At least half non-none must be open-ended questions, with at least half probability mass.\n\nWrite 4 candidates: 3 questions + 1 teaching/reflection? Let's do 5 total: 4 non-none (2+ questions) + none. Questions must not presuppose present state.\n\nCandidates:\n- question: 「明日の予定のこと、頭の中でどう整理すると少し気持ちが軽くなりそうですか？」\n- question: 「昼間のこの時間に、心を静めるためにいつも何かしていることはありますか？」\n- question: 「眠れずに考えごとが続く夜、どんな方法を試してみたいと思っていますか？」 — presupposes they want methods? \"試してみたいと思っていますか\" presumes wish. Better: 「夜に頭を休めるために、今までに試してみて良かったことはありますか？」\n- reflection/teaching: 「明日のことがぐるぐる回るとき、それを紙に書き出しておくだけで頭の負担が減ることがあります。」— teaching, no guaranteed effect (\"ことがあります\" ok).\n- none.\n\nProbability: questions get at least half of non-none mass. Non-none total 0.6, questions 0.34+, e.g. q1 0.2, q2 0.08, q3 0.14 = 0.42 > 0.3. teaching 0.18? That sums 0.6, none 0.4? Maybe none lower, 0.25. Total: q's 0.4, teaching 0.15, none 0.20 → sum 0.75... need sum 1. Let's: q1 0.25, q2 0.12, q3 0.18 = 0.55; teaching 0.25? none 0.2. Sum = 0.55+0.25+0.2=1.0. Questions 0.55 ≥ half of 0.8 (0.4). Good. 3 of 4 non-none are questions. ✓",
+                  "format": "unknown",
+                  "index": 0
+                }
+              ]
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 625,
+          "completion_tokens": 723,
+          "total_tokens": 1348,
+          "cost": 0.0032137864,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0032137864,
+            "upstream_inference_prompt_cost": 4.39375e-05,
+            "upstream_inference_completions_cost": 0.0031698489
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 502,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982961-SBGLhkmRtWGi0QfBsOef",
+        "object": "chat.completion",
+        "created": 1794982961,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"Asks for strategies to calm the mind when thinking about tomorrow's schedule, aligning with the profile's description of overthinking the next day's plans.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about calming strategies during the daytime, which aligns with the general desire for a calm state, even if the specific time slot doesn't match the profile's primary concern of sleep.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks about past strategies for sleeplessness, which directly relates to the profile's difficulty falling asleep.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"Suggests a concrete strategy for managing thoughts about tomorrow's schedule, which is a direct paraphrase of the profile's stated issue.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 419,
+          "completion_tokens": 185,
+          "total_tokens": 604,
+          "cost": 0.0001159,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001159,
+            "upstream_inference_prompt_cost": 4.19e-05,
+            "upstream_inference_completions_cost": 7.4e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "bc61946d-e6ba-4572-bae6-88df8ad3842a",
+    "decision_point_at": 1794982962.9684532,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "明日の予定が頭の中でぐるぐる回るとき、どんなふうに整理すると少し気持ちが軽くなりそうですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "昼間のこの時間に、気持ちを落ち着けるために普段何かしていることはありますか？",
+        "probability": 0.12
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "夜、なかなか眠れないときにこれまで試してみて、少しでも役に立ったと感じたことはありますか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "明日のことがぐるぐる回るとき、気になったことを紙に書き出しておくと、頭の中の荷物が少し減ることがあります。",
+        "probability": 0.25
+      },
+      {
+        "id": "e",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "明日の予定が頭の中でぐるぐる回るとき、どんなふうに整理すると少し気持ちが軽くなりそうですか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "z-ai/glm-5.3",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984762.9684532,
+    "observations": []
+  }
+}

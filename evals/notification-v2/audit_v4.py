@@ -15,6 +15,19 @@ def audit(slug):
     assert len(raw)==sum(len(r["calls"]) for r in records)
     assert {r["response"]["id"] for r in raw}=={c["response"]["id"] for r in records for c in r["calls"]}
     assert len({r["response"]["id"] for r in raw})==len(raw)
+    requests=[json.loads(line) for line in (out/"requests.jsonl").read_text().splitlines()]
+    assert len(requests)==len(raw)
+    assert {r["occurrence_id"] for r in requests}=={r["occurrence_id"] for r in raw}
+    for row in records:
+        if "decision" not in row: continue
+        generators=[c for c in row["calls"] if c["phase"]=="generator"]
+        content=generators[-1]["response"]["choices"][0]["message"]["content"]
+        parsed=json.loads(content.strip().removeprefix("```json").removesuffix("```").strip())
+        assert parsed["candidates"]==row["decision"]["candidates"]
+        judges=[c for c in row["calls"] if c["phase"]=="judge"]
+        verdicts=json.loads(judges[-1]["response"]["choices"][0]["message"]["content"])["verdicts"]
+        assert all(v["supported"] is True for v in verdicts)
+        assert {v["id"] for v in verdicts}=={c["id"] for c in parsed["candidates"] if c["kind"]!="none"}
     sendable=[];all_texts=[];errors=[];none=0
     for row in records:
         if "error" in row:errors.append(dict(index=row["index"],error=row["error"]))

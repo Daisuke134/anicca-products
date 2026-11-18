@@ -1,0 +1,237 @@
+{
+  "index": 22,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982915-YnDAbLBhspidnGTPv1dG",
+        "object": "chat.completion",
+        "created": 1794982915,
+        "model": "z-ai/glm-5.3",
+        "provider": "Wafer",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日一日のなかで、ほんの少しだけ集中できた瞬間はありましたか？\",\"probability\":0.26},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜、やるべきことから一つだけ着手できるとしたら、どれを選びたいですか？\",\"probability\":0.22},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"夜になると先延ばしの後悔が重くなりやすい時間帯ですね、まずは小さな一歩をどう組み立てるかを考えてみませんか。\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"明日の自分が「今夜してよかった」と感じられそうなことは何か、思い浮かびますか？\",\"probability\":0.16},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"集中が続かない日は、15分だけのタイマーで一つの作業に取り組むと、始めるハードルがぐっと下がることが知られています。\",\"probability\":0.12},{\"id\":\"f\",\"kind\":\"question\",\"text\":\"スマホを触らない時間を少しだけ作るとしたら、その時間に何をしたいですか？\",\"probability\":0.06},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.04}]}",
+              "refusal": null,
+              "reasoning": "Evening slot, wants focus, procrastination then regret at night. Write Japanese candidates, questions majority.",
+              "reasoning_details": [
+                {
+                  "type": "reasoning.text",
+                  "text": "Evening slot, wants focus, procrastination then regret at night. Write Japanese candidates, questions majority.",
+                  "format": "unknown",
+                  "index": 0
+                }
+              ]
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 631,
+          "completion_tokens": 323,
+          "total_tokens": 954,
+          "cost": 0.000564573,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 576,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000564573,
+            "upstream_inference_prompt_cost": 0.000112373,
+            "upstream_inference_completions_cost": 0.0004522
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 28,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982925-AdLh9seonEeFxMOUWUZj",
+        "object": "chat.completion",
+        "created": 1794982925,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": false, \"reason\": \"Presupposes a specific past event (having concentrated briefly today) without evidence.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"Offers a hypothetical choice for the current evening, aligning with the user's tendency to procrastinate.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"Acknowledges a common pattern (procrastination regret at night) and suggests a small, actionable step, aligning with the desired state of focus.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"Prompts reflection on future positive feelings related to present actions, encouraging engagement with tasks.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"Provides general advice about breaking down tasks, relevant to the desired state of focus and the user's reported struggles.\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"Asks about alternative activities during screen time, directly addressing the user's reported long smartphone usage.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 489,
+          "completion_tokens": 220,
+          "total_tokens": 709,
+          "cost": 0.0001369,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001369,
+            "upstream_inference_prompt_cost": 4.89e-05,
+            "upstream_inference_completions_cost": 8.8e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982927-MQHYL4097nq3S08cdFSU",
+        "object": "chat.completion",
+        "created": 1794982927,
+        "model": "z-ai/glm-5.3",
+        "provider": "Decart",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？\",\"probability\":0.22},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"あなたにとって、集中が続きやすい環境や工夫はどんなものだと思いますか？\",\"probability\":0.16},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"やるべきことを先延ばしにしてしまうとき、頭の中には何が浮かびやすいですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"在宅ワークで集中を保つのは、切り替えのきっかけが少ないぶん、むずかしいものですね。\",\"probability\":0.08},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"やるべきことのなかから一番取りかかりやすいものを選んで、5分だけ始めてみませんか？\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.30}]}",
+              "refusal": null,
+              "reasoning": "Let me analyze the context:\n\n- 29-year-old, working from home, struggles with sustained focus, procrastinates on what they should do, and regrets it at night. Long time spent touching their smartphone.\n- Desired state: focus\n- Language: Japanese\n- Slot: 18:30, evening\n- Source: notification\n- Recent reactions: none\n\nConstraints:\n- 2..8 candidate interventions\n- Exactly one candidate with kind \"none\", empty text\n- Kinds: reflection, question, teaching, breathing, action, none\n- At least half of non-none candidates must be open-ended question-type candidates\n- At least half of the non-none probability mass must go to question-type candidates\n- No inventing personal facts: no assuming they're currently procrastinating right now (though the profile says they procrastinate and regret at night—18:30 is evening, close to night, but I shouldn't assert they are currently doing it). Actually, careful: the profile is habitual. At 18:30 evening, I can gently reference their pattern? The rules say don't assert their wishes, physical state, relationships, or unprovided facts. The profile says they procrastinate and regret at night, and touch their smartphone a lot. I can reflect on this pattern as a general habit (\"夜になると...\" might presuppose timing). Hmm.\n\nI need to be careful about presupposing present state. Questions must not presuppose unprovided facts. So I can't say \"今スマホを見ていませんか\" (are you looking at your phone now?) — well, they're receiving a notification on their phone presumably... but source is \"notification\" so they got a push. Still, safer not to presuppose.\n\nSafe approaches:\n- Open questions about focus: \"今日、この時間にいちばん集中したいことは何ですか？\" — hmm, presupposes they want to focus something now? Desired state is focus, so that's provided by the app context. Desired_state: focus is given as data, so referencing wanting to focus is... actually \"desired_state\" is the app's target state for this person, so it's reasonable to frame around focus. But asserting \"あなたは集中したい\" — the desired state is provided, so I think referencing focus as a theme is fine. Still, better to use open questions that don't assert.\n\nCandidate ideas:\n\n1. Question (open-ended): 「夕方のこの時間、集中が一番続きそうのはどんな過ごし方ですか？」 - \"In this evening time, what way of spending time seems most likely to keep your focus?\" Hmm, natural Japanese? Let me refine: 「この時間帯で、集中が続きやすい過ごし方はどんなものだと思いますか？」\n\n2. Question: 「もし今夜、あと少し集中できるとしたら、何から始めてみたいですか？」 - \"If you could focus a little more tonight, what would you like to start with?\" This is conditional, doesn't presuppose. Good.\n\n3. Question: 「今日一日の中で、スムーズに取りかかれた瞬間はありましたか？」 - \"Was there a moment today when you could get started smoothly?\" This asks about the past day; doesn't presuppose. It's a question, open-ended. But maybe slightly presupposes they had a day... they did (it's 18:30). Fine.\n\n4. Reflection: referencing their pattern without asserting present: 「夜に後悔しないために、夕方の過ごし方を少しだけ変えてみるのもよさそうですね。」 Hmm this is more teaching/action. A reflection might be: 「スマホの時間が集中を遠ざけがちなのは、誰にでも起こる自然なことですね。」 That might be preaching-ish? Let me think.\n\nActually reflection kind: acknowledge their situation. 「在宅で集中を保つのは難しさを感じやすい状況ですね。」 - \"It's a situation where it's easy to feel difficulty keeping focus at home.\" This reflects the profile fact (works from home, focus not sustained). Not asserting present state beyond what profile says. Profile says \"在宅ワークで集中が続かず\" — so saying working from home makes focus hard is grounded. Fine.\n\n5. Teaching: 「集中の合間に短い休憩をはさむと、在宅でもリズムを作りやすくなるとされています。」 — \"It's said that inserting short breaks between focus sessions makes it easier to create rhythm even at home.\" Hmm, \"とされています\" avoids guaranteed effects claims. Teaching should avoid guaranteed effects. Use \"〜こともあります\" or \"〜とされています\" to hedge.\n\n6. Breathing: 「目を閉じて、鼻から4秒吸い、6秒かけてゆっくり吐く呼吸を3回、試してみませんか？」 — breathing invitation. Must not presuppose physical state; inviting is fine.\n\n7. Action: 「スマホを30分だけ手の届かない場所に置いて、その間に一番気になっていることを一歩だけ進めてみませんか？」 — hmm, \"一番気になっていること\" presupposes they have something on their mind? Slightly. Better: 「15分だけ、タイマーをセットしてひとつの作業に向かってみませんか？」 \"For just 15 minutes, would you like to set a timer and work on one task?\" But \"作業\" presupposes a task exists... They're a WFH person with things to do (profile: やるべきことを先延ばし). So having tasks is provided. Asking to pick one is fine: 「やるべきことの中から一番軽いものをひとつ選んで、5分だけ着手してみるのはどうですか？」\n\nRequirement: at least half of non-none candidates must be open-ended question-type, with at least half of the non-none probability mass. So \"question-type candidates\" — kind \"question\" presumably. Let me make sure ≥50% of candidates (non-none) are kind \"question\", and ≥50% of probability mass among non-none goes to questions.\n\nPlan: 6 candidates total: 4 questions, 1 reflection/teaching mix, 1 none? Let's do: 5 non-none with 3 questions + reflection + teaching/breathing/action. At least half of non-none must be questions: 3/5 is not ≥ half... 2.5 needed, 3 ≥ 2.5 OK. Probability mass: questions need ≥ 50% of non-none mass.\n\nLet me structure:\n- a: question, p=0.22\n- b: question, p=0.18\n- c: question, p=0.14\n- d: reflection, p=0.08\n- e: teaching or action, p=0.08\n- f: none, p=0.30\n\nNon-none total = 0.22+0.18+0.14+0.08+0.08 = 0.70. Questions = 0.54 ≥ 0.35. Good. Question candidates: 3 of 5 non-none ≥ half. Good.\n\nSum total = 1.0. Good.\n\nNow craft texts. Must be single short original sentences or questions, natural Japanese, ending with 。 or ？ or ！\n\nQuestions (open-ended, not presupposing):\n\na: 「もし今夜、少し集中できるとしたら、まず何を進めてみたいですか？」 — conditional, good. Ends with ？.\n\nb: 「夕方のこの時間、どんな環境だと集中が続きやすいと感じますか？」 — asking generally about what environment makes focus easier for them. Open-ended. Doesn't presuppose present state.\n\nc: 「今日一日の中で、スムーズに取りかかれた瞬間はどんなものでしたか？」 — hmm, \"どんなものでしたか\" is a bit awkward; \"どんなときでしたか？\" better: 「今日一日の中で、気がついたらスムーズに進めていた瞬間はありましたか？」 — wait that's a yes/no-ish but still open-ended. Let me use: 「これまでの集中しやすい時間帯は、どんな特徴がありましたか？」 Hmm. Or: 「やるべきことを先延ばしにしてしまうとき、頭の中では何が気になっていることが多いですか？」 — this references the profile pattern (procrastinating on tasks) as a general habit, asking what tends to be on their mind. It says \"〜ことが多いですか\" asking about typical pattern, grounded in profile. Good, open-ended, insightful. But careful not to be presumptuous. It's a question about their experience, allowed since profile states procrastination habit.\n\nd (reflection): 「在宅だと切り替えがむずかしくて、集中しづらい日が続いているんですね。」 — \"At home, switching is hard and days of difficulty focusing continue.\" Profile says 在宅ワークで集中が続かず — this is grounded. Ends with 。 Good. But \"続いている\" asserts present ongoing state? Profile says it's their pattern; reflecting it as their described situation is fine. Maybe soften: 「在宅の仕事だと、集中のスイッチを入れるのがむずかしく感じられることがあるんですね。」\n\ne (action): 「やるべきことからいちばん軽いものをひとつ選んで、5分だけ着手してみませんか？」 — action invitation. Grounded in profile (has things to do). Ends with ？\n\nAlternatively teaching: 「集中のリズムは、短い時間の積み重ねで作りやすいとも言われています。」 Hmm. I'll pick action for e, and maybe add teaching as another? Max 8 candidates. Let me consider 7 candidates: 4 questions, reflection, action, none. Questions mass must be ≥ half of non-none (which would be 6 non-none... 4 questions + reflection + action = 6 non-none; questions 4/6 ≥ half OK; mass: give questions e.g., 0.14 each = 0.56, reflection 0.07, action 0.07 → non-none mass 0.70, questions 0.56 ≥ 0.35 OK, none 0.30.\n\nHmm, but maybe 6 candidates is fine. Let me do 7 total for variety: a,b,c,d questions; e reflection; f action; g none.\n\nActually simpler with 6. Let me finalize 6: three questions, one reflection, one action, one none. That's 5 non-none, 3 questions ≥ 2.5. Good.\n\nWait — \"At least half of non-none candidates must be open-ended question-type candidates\" — 3/5 = 60% ≥ 50%. Good. Probability: questions sum 0.54 of 0.70 non-none = 77% ≥ 50%. Good.\n\nCheck texts for forbidden patterns:\n- No interview references, no bed references. ✓\n- No presupposing present location/state. Check each:\n\na: 「もし今夜、少し集中できそうなら、まず何を進めてみたいですか？」 — conditional \"if\", fine. \"今夜\" — it's 18:30 evening, tonight exists. Fine.\n\nb: 「在宅で仕事をしている日、どんな過ごし方をしていると集中が続きやすいですか？」 — hmm wordy. Simpler: 「どんな環境や工夫があると、あなたの集中は続きやすいですか？」 — open question about what helps their focus. Grounded in desire for focus. Fine.\n\nc: 「やるべきことを後回しにしてしまうとき、何が引っかかっていることが多いですか？」 — references their stated habit (procrastination, regret). Asking typical pattern. Good open-ended. Avoid \"後回し\" vs profile \"先延ばし\" — either fine.\n\nd (reflection): 「在宅ワークだと、集中の切り替えがむずかしく感じられることがあるものですね。」 — Hmm, \"〜ものですね\" sounds like general truth, okay as reflection but maybe more personal: 「在宅で集中が続かない日が続くと、夜の気持ちも重くなりやすいですね。」 — this references night regret. \"夜の気持ちも重くなりやすいですね\" — is this asserting their emotional state? It's a general \"tends to\" statement linked to their pattern. Could be seen as asserting they feel bad at night... profile says 後悔する (regrets at night). So it's grounded. But phrase \"気持ちが重くなる\" adds an emotional claim slightly beyond \"後悔\". Let me stick closer: 「在宅の仕事で集中が続かず、夜に後悔してしまう─その繰り返しがつらいと感じていませんか？」 — that's a question and asserts feeling tough. Hmm.\n\nSimpler safe reflection: 「在宅ワークで集中を保つのは、環境の切り替えが少ないぶん、むずかしいものですね。」 — general reflection grounded in profile. Ends with 。 Good. It doesn't assert the person's current state; it empathizes with the difficulty described in profile.\n\ne (action): 「よければ、やるべきことの中でいちばん取りかかりやすいものを、5分だけ進めてみませんか？」 — ends with ？, invitation, grounded (they have やるべきこと). Fine. Maybe shorter: 「やるべきことからいちばん軽いものをひとつ選んで、5分だけ始めてみませんか？」\n\nCheck no garbled fragments, balanced quotes (no quotes needed actually). \"balanced nonempty quotations\" — I think means if using quotation marks they must be balanced; I won't use any.\n\nNo medical claims, no guaranteed effects: teaching candidate avoided; action \"5分だけ始めてみませんか\" no effect claims. ✓\n\nNone candidate: id \"f\", kind \"none\", text \"\", probability 0.30.\n\nIs 0.30 for none reasonable? The system just requires probabilities summing to 1; my choice. Given no recent reactions and evening slot when they often struggle, some chance of sending nothing is prudent. 0.30 seems fine.\n\nLet me double-check probabilities: a 0.22, b 0.16, c 0.16, d 0.08, e 0.08, f 0.30. Sum = 0.22+0.16+0.16+0.08+0.08+0.30 = 1.00. Questions mass = 0.54; non-none mass = 0.70; 0.54 ≥ 0.35 ✓. Question count 3/5 ✓.\n\nRefine the Japanese for naturalness:\n\na: 「もし今夜すこし集中できそうなら、まず何を進めてみたいですか？」 — \"今夜\" fine. Maybe 「もしこのあと少し集中できそうなら、何から進めてみたいですか？」 — \"このあと\" avoids assuming nighttime plans. I'll use: 「もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？」\n\nb: 「あなたにとって、集中が続きやすい環境や工夫はどんなものだと思いますか？」 — good.\n\nc: 「やるべきことを先延ばしにしてしまうとき、頭の中には何が浮かびやすいですか？」 — good.\n\nd: 「在宅ワークで集中を保つのは、切り替えのきっかけが少ないぶん、むずかしいものですね。」 — reflection. Good.\n\ne: 「よければ、やるべきことのなかからいちばん手をつけやすいものを選んで、5分だけ始めてみませんか？」 — a bit long; shorten: 「やるべきことからいちばん軽いものをひとつ選んで、5分だけ始めてみませんか？」\n\nHmm \"軽いもの\" natural? \"いちばんハードルの低いもの\" maybe. 「やるべきことのなかで一番ハードルが低そうなものを、5分だけ始めてみませんか？」 — okay. I'll go with 「やるべきことのなかから一番取りかかりやすいものを選んで、5分だけ始めてみませんか？」\n\nAll end with ？ or 。 ✓.\n\nIDs: a, b, c, d, e, f.\n\nJSON only, matching format: {\"candidates\":[{\"id\":\"a\",\"kind\":\"reflection\",\"text\":\"...\",\"probability\":0.5},...]}\n\nOutput the JSON.",
+              "reasoning_details": [
+                {
+                  "type": "reasoning.text",
+                  "text": "Let me analyze the context:\n\n- 29-year-old, working from home, struggles with sustained focus, procrastinates on what they should do, and regrets it at night. Long time spent touching their smartphone.\n- Desired state: focus\n- Language: Japanese\n- Slot: 18:30, evening\n- Source: notification\n- Recent reactions: none\n\nConstraints:\n- 2..8 candidate interventions\n- Exactly one candidate with kind \"none\", empty text\n- Kinds: reflection, question, teaching, breathing, action, none\n- At least half of non-none candidates must be open-ended question-type candidates\n- At least half of the non-none probability mass must go to question-type candidates\n- No inventing personal facts: no assuming they're currently procrastinating right now (though the profile says they procrastinate and regret at night—18:30 is evening, close to night, but I shouldn't assert they are currently doing it). Actually, careful: the profile is habitual. At 18:30 evening, I can gently reference their pattern? The rules say don't assert their wishes, physical state, relationships, or unprovided facts. The profile says they procrastinate and regret at night, and touch their smartphone a lot. I can reflect on this pattern as a general habit (\"夜になると...\" might presuppose timing). Hmm.\n\nI need to be careful about presupposing present state. Questions must not presuppose unprovided facts. So I can't say \"今スマホを見ていませんか\" (are you looking at your phone now?) — well, they're receiving a notification on their phone presumably... but source is \"notification\" so they got a push. Still, safer not to presuppose.\n\nSafe approaches:\n- Open questions about focus: \"今日、この時間にいちばん集中したいことは何ですか？\" — hmm, presupposes they want to focus something now? Desired state is focus, so that's provided by the app context. Desired_state: focus is given as data, so referencing wanting to focus is... actually \"desired_state\" is the app's target state for this person, so it's reasonable to frame around focus. But asserting \"あなたは集中したい\" — the desired state is provided, so I think referencing focus as a theme is fine. Still, better to use open questions that don't assert.\n\nCandidate ideas:\n\n1. Question (open-ended): 「夕方のこの時間、集中が一番続きそうのはどんな過ごし方ですか？」 - \"In this evening time, what way of spending time seems most likely to keep your focus?\" Hmm, natural Japanese? Let me refine: 「この時間帯で、集中が続きやすい過ごし方はどんなものだと思いますか？」\n\n2. Question: 「もし今夜、あと少し集中できるとしたら、何から始めてみたいですか？」 - \"If you could focus a little more tonight, what would you like to start with?\" This is conditional, doesn't presuppose. Good.\n\n3. Question: 「今日一日の中で、スムーズに取りかかれた瞬間はありましたか？」 - \"Was there a moment today when you could get started smoothly?\" This asks about the past day; doesn't presuppose. It's a question, open-ended. But maybe slightly presupposes they had a day... they did (it's 18:30). Fine.\n\n4. Reflection: referencing their pattern without asserting present: 「夜に後悔しないために、夕方の過ごし方を少しだけ変えてみるのもよさそうですね。」 Hmm this is more teaching/action. A reflection might be: 「スマホの時間が集中を遠ざけがちなのは、誰にでも起こる自然なことですね。」 That might be preaching-ish? Let me think.\n\nActually reflection kind: acknowledge their situation. 「在宅で集中を保つのは難しさを感じやすい状況ですね。」 - \"It's a situation where it's easy to feel difficulty keeping focus at home.\" This reflects the profile fact (works from home, focus not sustained). Not asserting present state beyond what profile says. Profile says \"在宅ワークで集中が続かず\" — so saying working from home makes focus hard is grounded. Fine.\n\n5. Teaching: 「集中の合間に短い休憩をはさむと、在宅でもリズムを作りやすくなるとされています。」 — \"It's said that inserting short breaks between focus sessions makes it easier to create rhythm even at home.\" Hmm, \"とされています\" avoids guaranteed effects claims. Teaching should avoid guaranteed effects. Use \"〜こともあります\" or \"〜とされています\" to hedge.\n\n6. Breathing: 「目を閉じて、鼻から4秒吸い、6秒かけてゆっくり吐く呼吸を3回、試してみませんか？」 — breathing invitation. Must not presuppose physical state; inviting is fine.\n\n7. Action: 「スマホを30分だけ手の届かない場所に置いて、その間に一番気になっていることを一歩だけ進めてみませんか？」 — hmm, \"一番気になっていること\" presupposes they have something on their mind? Slightly. Better: 「15分だけ、タイマーをセットしてひとつの作業に向かってみませんか？」 \"For just 15 minutes, would you like to set a timer and work on one task?\" But \"作業\" presupposes a task exists... They're a WFH person with things to do (profile: やるべきことを先延ばし). So having tasks is provided. Asking to pick one is fine: 「やるべきことの中から一番軽いものをひとつ選んで、5分だけ着手してみるのはどうですか？」\n\nRequirement: at least half of non-none candidates must be open-ended question-type, with at least half of the non-none probability mass. So \"question-type candidates\" — kind \"question\" presumably. Let me make sure ≥50% of candidates (non-none) are kind \"question\", and ≥50% of probability mass among non-none goes to questions.\n\nPlan: 6 candidates total: 4 questions, 1 reflection/teaching mix, 1 none? Let's do: 5 non-none with 3 questions + reflection + teaching/breathing/action. At least half of non-none must be questions: 3/5 is not ≥ half... 2.5 needed, 3 ≥ 2.5 OK. Probability mass: questions need ≥ 50% of non-none mass.\n\nLet me structure:\n- a: question, p=0.22\n- b: question, p=0.18\n- c: question, p=0.14\n- d: reflection, p=0.08\n- e: teaching or action, p=0.08\n- f: none, p=0.30\n\nNon-none total = 0.22+0.18+0.14+0.08+0.08 = 0.70. Questions = 0.54 ≥ 0.35. Good. Question candidates: 3 of 5 non-none ≥ half. Good.\n\nSum total = 1.0. Good.\n\nNow craft texts. Must be single short original sentences or questions, natural Japanese, ending with 。 or ？ or ！\n\nQuestions (open-ended, not presupposing):\n\na: 「もし今夜、少し集中できるとしたら、まず何を進めてみたいですか？」 — conditional, good. Ends with ？.\n\nb: 「夕方のこの時間、どんな環境だと集中が続きやすいと感じますか？」 — asking generally about what environment makes focus easier for them. Open-ended. Doesn't presuppose present state.\n\nc: 「今日一日の中で、スムーズに取りかかれた瞬間はどんなものでしたか？」 — hmm, \"どんなものでしたか\" is a bit awkward; \"どんなときでしたか？\" better: 「今日一日の中で、気がついたらスムーズに進めていた瞬間はありましたか？」 — wait that's a yes/no-ish but still open-ended. Let me use: 「これまでの集中しやすい時間帯は、どんな特徴がありましたか？」 Hmm. Or: 「やるべきことを先延ばしにしてしまうとき、頭の中では何が気になっていることが多いですか？」 — this references the profile pattern (procrastinating on tasks) as a general habit, asking what tends to be on their mind. It says \"〜ことが多いですか\" asking about typical pattern, grounded in profile. Good, open-ended, insightful. But careful not to be presumptuous. It's a question about their experience, allowed since profile states procrastination habit.\n\nd (reflection): 「在宅だと切り替えがむずかしくて、集中しづらい日が続いているんですね。」 — \"At home, switching is hard and days of difficulty focusing continue.\" Profile says 在宅ワークで集中が続かず — this is grounded. Ends with 。 Good. But \"続いている\" asserts present ongoing state? Profile says it's their pattern; reflecting it as their described situation is fine. Maybe soften: 「在宅の仕事だと、集中のスイッチを入れるのがむずかしく感じられることがあるんですね。」\n\ne (action): 「やるべきことからいちばん軽いものをひとつ選んで、5分だけ着手してみませんか？」 — action invitation. Grounded in profile (has things to do). Ends with ？\n\nAlternatively teaching: 「集中のリズムは、短い時間の積み重ねで作りやすいとも言われています。」 Hmm. I'll pick action for e, and maybe add teaching as another? Max 8 candidates. Let me consider 7 candidates: 4 questions, reflection, action, none. Questions mass must be ≥ half of non-none (which would be 6 non-none... 4 questions + reflection + action = 6 non-none; questions 4/6 ≥ half OK; mass: give questions e.g., 0.14 each = 0.56, reflection 0.07, action 0.07 → non-none mass 0.70, questions 0.56 ≥ 0.35 OK, none 0.30.\n\nHmm, but maybe 6 candidates is fine. Let me do 7 total for variety: a,b,c,d questions; e reflection; f action; g none.\n\nActually simpler with 6. Let me finalize 6: three questions, one reflection, one action, one none. That's 5 non-none, 3 questions ≥ 2.5. Good.\n\nWait — \"At least half of non-none candidates must be open-ended question-type candidates\" — 3/5 = 60% ≥ 50%. Good. Probability: questions sum 0.54 of 0.70 non-none = 77% ≥ 50%. Good.\n\nCheck texts for forbidden patterns:\n- No interview references, no bed references. ✓\n- No presupposing present location/state. Check each:\n\na: 「もし今夜、少し集中できそうなら、まず何を進めてみたいですか？」 — conditional \"if\", fine. \"今夜\" — it's 18:30 evening, tonight exists. Fine.\n\nb: 「在宅で仕事をしている日、どんな過ごし方をしていると集中が続きやすいですか？」 — hmm wordy. Simpler: 「どんな環境や工夫があると、あなたの集中は続きやすいですか？」 — open question about what helps their focus. Grounded in desire for focus. Fine.\n\nc: 「やるべきことを後回しにしてしまうとき、何が引っかかっていることが多いですか？」 — references their stated habit (procrastination, regret). Asking typical pattern. Good open-ended. Avoid \"後回し\" vs profile \"先延ばし\" — either fine.\n\nd (reflection): 「在宅ワークだと、集中の切り替えがむずかしく感じられることがあるものですね。」 — Hmm, \"〜ものですね\" sounds like general truth, okay as reflection but maybe more personal: 「在宅で集中が続かない日が続くと、夜の気持ちも重くなりやすいですね。」 — this references night regret. \"夜の気持ちも重くなりやすいですね\" — is this asserting their emotional state? It's a general \"tends to\" statement linked to their pattern. Could be seen as asserting they feel bad at night... profile says 後悔する (regrets at night). So it's grounded. But phrase \"気持ちが重くなる\" adds an emotional claim slightly beyond \"後悔\". Let me stick closer: 「在宅の仕事で集中が続かず、夜に後悔してしまう─その繰り返しがつらいと感じていませんか？」 — that's a question and asserts feeling tough. Hmm.\n\nSimpler safe reflection: 「在宅ワークで集中を保つのは、環境の切り替えが少ないぶん、むずかしいものですね。」 — general reflection grounded in profile. Ends with 。 Good. It doesn't assert the person's current state; it empathizes with the difficulty described in profile.\n\ne (action): 「よければ、やるべきことの中でいちばん取りかかりやすいものを、5分だけ進めてみませんか？」 — ends with ？, invitation, grounded (they have やるべきこと). Fine. Maybe shorter: 「やるべきことからいちばん軽いものをひとつ選んで、5分だけ始めてみませんか？」\n\nCheck no garbled fragments, balanced quotes (no quotes needed actually). \"balanced nonempty quotations\" — I think means if using quotation marks they must be balanced; I won't use any.\n\nNo medical claims, no guaranteed effects: teaching candidate avoided; action \"5分だけ始めてみませんか\" no effect claims. ✓\n\nNone candidate: id \"f\", kind \"none\", text \"\", probability 0.30.\n\nIs 0.30 for none reasonable? The system just requires probabilities summing to 1; my choice. Given no recent reactions and evening slot when they often struggle, some chance of sending nothing is prudent. 0.30 seems fine.\n\nLet me double-check probabilities: a 0.22, b 0.16, c 0.16, d 0.08, e 0.08, f 0.30. Sum = 0.22+0.16+0.16+0.08+0.08+0.30 = 1.00. Questions mass = 0.54; non-none mass = 0.70; 0.54 ≥ 0.35 ✓. Question count 3/5 ✓.\n\nRefine the Japanese for naturalness:\n\na: 「もし今夜すこし集中できそうなら、まず何を進めてみたいですか？」 — \"今夜\" fine. Maybe 「もしこのあと少し集中できそうなら、何から進めてみたいですか？」 — \"このあと\" avoids assuming nighttime plans. I'll use: 「もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？」\n\nb: 「あなたにとって、集中が続きやすい環境や工夫はどんなものだと思いますか？」 — good.\n\nc: 「やるべきことを先延ばしにしてしまうとき、頭の中には何が浮かびやすいですか？」 — good.\n\nd: 「在宅ワークで集中を保つのは、切り替えのきっかけが少ないぶん、むずかしいものですね。」 — reflection. Good.\n\ne: 「よければ、やるべきことのなかからいちばん手をつけやすいものを選んで、5分だけ始めてみませんか？」 — a bit long; shorten: 「やるべきことからいちばん軽いものをひとつ選んで、5分だけ始めてみませんか？」\n\nHmm \"軽いもの\" natural? \"いちばんハードルの低いもの\" maybe. 「やるべきことのなかで一番ハードルが低そうなものを、5分だけ始めてみませんか？」 — okay. I'll go with 「やるべきことのなかから一番取りかかりやすいものを選んで、5分だけ始めてみませんか？」\n\nAll end with ？ or 。 ✓.\n\nIDs: a, b, c, d, e, f.\n\nJSON only, matching format: {\"candidates\":[{\"id\":\"a\",\"kind\":\"reflection\",\"text\":\"...\",\"probability\":0.5},...]}\n\nOutput the JSON.",
+                  "format": "unknown",
+                  "index": 0
+                }
+              ]
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 631,
+          "completion_tokens": 3753,
+          "total_tokens": 4384,
+          "cost": 0.00693212,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 384,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00693212,
+            "upstream_inference_prompt_cost": 0.00017672,
+            "upstream_inference_completions_cost": 0.0067554
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 3525,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982953-qYXuhwlpVM759znnbGNn",
+        "object": "chat.completion",
+        "created": 1794982953,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": false, \"reason\": \"The question presupposes the user can create a period of focus, which is not supported.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"The question is open-ended and does not presuppose unsupported personal facts.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"The question asks about mental states during procrastination, which is a general inquiry.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"This is a general statement about the difficulty of maintaining focus while working from home, which aligns with the profile.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"This is a suggestion to start a task for a short period, which is a generic intervention.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 443,
+          "completion_tokens": 182,
+          "total_tokens": 625,
+          "cost": 0.0001171,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001171,
+            "upstream_inference_prompt_cost": 4.43e-05,
+            "upstream_inference_completions_cost": 7.28e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic facts: [{\"id\": \"a\", \"supported\": false, \"reason\": \"The question presupposes the user can create a period of focus, which is not supported.\"}]"
+  }
+}

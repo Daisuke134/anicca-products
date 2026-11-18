@@ -1,0 +1,202 @@
+{
+  "index": 21,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982911-ssfl6XR5tXYHB6vACCeq",
+        "object": "chat.completion",
+        "created": 1794982911,
+        "model": "z-ai/glm-5.3",
+        "provider": "Wafer",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "```json\n{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日の午後、もし一つだけ先に着手できたら、どのことから始めたいですか？\",\"probability\":0.22},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"やるべきことのうち、いちばん「重たそう」に感じているものは何ですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"集中が途切れるとき、あなたはたいてい何に気を取られていることに気づきますか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"昼どきは、頭の中のやるべきことと現実に動き出せることの間に、少し距離が生まれやすい時間かもしれません。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"question\",\"text\":\"もし5分だけスマホを置いてみるとしたら、その5分で何ができそうに思いますか？\",\"probability\":0.14},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"まず3分だけ、いちばん気が重い作業に手をつけてみませんか？\",\"probability\":0.08},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12}]}\n```",
+              "refusal": null,
+              "reasoning": "Profile: procrastination, focus issues, long phone time. 12:30 daytime. Japanese. Mostly questions.",
+              "reasoning_details": [
+                {
+                  "type": "reasoning.text",
+                  "text": "Profile: procrastination, focus issues, long phone time. 12:30 daytime. Japanese. Mostly questions.",
+                  "format": "unknown",
+                  "index": 0
+                }
+              ]
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 630,
+          "completion_tokens": 310,
+          "total_tokens": 940,
+          "cost": 0.000477653,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 384,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000477653,
+            "upstream_inference_prompt_cost": 4.3653e-05,
+            "upstream_inference_completions_cost": 0.000434
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 25,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982914-OaaDkK86WIP9HIoJ7uEV",
+        "object": "chat.completion",
+        "created": 1794982914,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\":\"a\", \"supported\":true, \"reason\":\"General profile paraphrase\"},\n{\"id\":\"b\", \"supported\":true, \"reason\":\"General profile paraphrase\"},\n{\"id\":\"c\", \"supported\":true, \"reason\":\"General profile paraphrase\"},\n{\"id\":\"d\", \"supported\":true, \"reason\":\"General profile paraphrase\"},\n{\"id\":\"e\", \"supported\":true, \"reason\":\"General profile paraphrase\"},\n{\"id\":\"f\", \"supported\":true, \"reason\":\"General profile paraphrase\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 479,
+          "completion_tokens": 114,
+          "total_tokens": 593,
+          "cost": 9.35e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 9.35e-05,
+            "upstream_inference_prompt_cost": 4.79e-05,
+            "upstream_inference_completions_cost": 4.56e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "caf9bef5-903e-4cf3-ac96-1a454973d3ed",
+    "decision_point_at": 1794982914.980556,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日の午後、もし一つだけ先に着手できたら、どのことから始めたいですか？",
+        "probability": 0.22
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "やるべきことのうち、いちばん「重たそう」に感じているものは何ですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "集中が途切れるとき、あなたはたいてい何に気を取られていることに気づきますか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "昼どきは、頭の中のやるべきことと現実に動き出せることの間に、少し距離が生まれやすい時間かもしれません。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "question",
+        "text": "もし5分だけスマホを置いてみるとしたら、その5分で何ができそうに思いますか？",
+        "probability": 0.14
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "まず3分だけ、いちばん気が重い作業に手をつけてみませんか？",
+        "probability": 0.08
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.12
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日の午後、もし一つだけ先に着手できたら、どのことから始めたいですか？",
+      "probability": 0.22
+    },
+    "assigned_probability": 0.22,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "z-ai/glm-5.3",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984714.980556,
+    "observations": []
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "index": 26,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982963-6dbtm6eD7W61gUX6ZVZa",
+        "object": "chat.completion",
+        "created": 1794982963,
+        "model": "z-ai/glm-5.3",
+        "provider": "Tenstorrent",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"action\",\"text\":\"布団に入る前に、明日の予定をメモに書き出して、頭の外に預けてみませんか。\",\"probability\":0.23},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日のことが頭をぐるぐるする夜に、どんな過ごし方をしてみたいですか？\",\"probability\":0.17},{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"4つ数えて息を吸い、6つ数けてゆっくり吐く呼吸を、少しだけ試してみませんか？\",\"probability\":0.13},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"眠る前の頭の整理に、試してみたい方法は何かありますか？\",\"probability\":0.13},{\"id\":\"e\",\"kind\":\"question\",\"text\":\"今夜を少し静かな時間にするために、自分にできる小さなことは何だと思いますか？\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.24}]}",
+              "refusal": null,
+              "reasoning": "Let me analyze the context carefully.\n\nProfile: 35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。\nTranslation: 35 years old. Takes over an hour to fall asleep after getting in bed. Tomorrow's plans swirl in their head and they can't sleep (eyes become wide awake).\n\nDesired state: calm. Language: Japanese. Slot: 18:30, evening. Source: notification.\n\nKey constraints:\n- Time slot does not establish current location or state. So I cannot assume they're in bed now (it's 18:30 evening, so probably not).\n- Must not presuppose facts: cannot say \"今眠れない\" etc. But can reference the profile facts: trouble falling asleep after getting in bed, racing thoughts about tomorrow's plans.\n- Must include exactly one \"none\" candidate with empty text.\n- At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\n- 2..8 candidates total.\n- Kinds: reflection, question, teaching, breathing, action, none.\n- Japanese sentences end with 。or？or！.\n- No medical claims, no guaranteed effects, no shaming/tough-love.\n\nSo I need candidates. Let's plan: maybe 5 candidates: 3 questions, 1 breathing or reflection, 1 none. Questions must be at least half of non-none candidates and half of non-none probability mass.\n\nLet me design:\n\nTotal probability sums to 1. Say none gets 0.2. Non-none mass = 0.8. Questions should have ≥ 0.4 total.\n\nCandidates:\n- a: question: 「布団に入ったとき、頭の中で予定がぐるぐる回るとき、どんなふうに過ごしたいですか？」 Hmm, careful with presupposition. The profile says 明日の予定が頭をぐるぐる回って目が冴える。So referencing that is fine. But \"布団に入ったとき\" — presupposes they experience that, which is in the profile. That's allowed since it's supplied. But question should not presuppose current state. It's about general experience, which is in profile. OK.\n\nBetter phrasing: 「眠ろうとすると明日のことが頭を巡るとき、どんな休息を自分に贈りたいですか？」 Hmm.\n\nLet me craft natural Japanese.\n\nQuestion candidates:\n1. 「明日の予定が頭をぐるぐるする夜に、自分にかけたい言葉はありますか？」 — asks about words they'd want. It references profile fact (明日の予定が頭をぐるぐる回る). It's open-ended. Good.\n2. 「寝つく前に、何か少し心を静めるきっかけになるものはありますか？」 — asks if there's something that helps calm. Open-ended-ish. Maybe \"これまでに少しでも楽だった夜は、どんな夜でしたか？\" — asks about past experiences, open-ended, doesn't presuppose current state.\n3. 「今の自分にとって、静かな夜の時間はどんな意味を持ちますか？」 — bit abstract.\n\nBreathing candidate: 「4つ数えて息を吸い、6つ数けて吐く呼吸を、少しの間一緒にやってみませんか。」 Hmm breathing kind with a slow exhale suggestion. Avoid guaranteed effects (\"眠くなる\" claim?). Saying \"心が落ち着く\" might be a mild claim; safer to frame as invitation: 「息を吐く時間を少し長くして、ゆっくり呼吸を整えてみませんか。」\n\nAction candidate: 「今夜は、明日の予定をメモに書き出して、布団の外で頭の整理をしてみませんか。」 — action: writing down tomorrow's plans before bed. But \"今夜\" — it's 18:30 evening, so evening is fine; \"今夜\" implies tonight they will do something; it's a suggestion, not presupposition. Actually writing tomorrow's plans down is a classic technique for racing thoughts about tomorrow. It doesn't presuppose current state. Good.\n\nReflection: 「眠るまでの時間が長い夜が続いているんですね。」 — restates profile fact empathetically. Ends with 。Good.\n\nTeaching: 「明日のことを考えるほど、頭は休もうとするより先に動いてしまうことがあります。」 Hmm, that's a teaching-ish statement about mind. Or 「頭のなかの予定は、紙に預けておくと少しだけ軽くなりやすいとされています。」 — \"とされています\" softens claim. Maybe avoid claims entirely: 「眠る前の頭の回転を減らすコツのひとつは、予定を頭の外に出しておくことです。」\n\nNow the ratios: Non-none candidates: let's have 5 non-none? Total candidates up to 8. Let's do 6 total: 4 questions, 1 breathing/action/reflection mix... Let's think.\n\nRequirement: at least half of non-none candidates are question-kind, and at least half of non-none probability mass on questions.\n\nPlan: 5 non-none: 3 questions (kind \"question\"), 1 breathing, 1 action. Questions = 3/5 ≥ half ✓. Probability: questions total ≥ 0.4 (half of 0.8). \n\nAssign probabilities:\n- q1: 0.18\n- q2: 0.15\n- q3: 0.12\n- breathing: 0.15\n- action: 0.20\n- none: 0.20\n\nSum: 0.18+0.15+0.12+0.15+0.20+0.20 = 1.00. Non-none mass = 0.80; questions = 0.45 ≥ 0.40 ✓. Question candidates: 3 of 5 non-none ✓.\n\nHmm, but given the slot is 18:30 evening and the issue is nighttime sleep, a gentle action (writing tomorrow's plan) seems most apt as the top candidate. Also breathing.\n\nLet me reconsider probabilities: The intervention is a notification at 18:30. The person's issue: takes long to fall asleep, racing thoughts about tomorrow. Best-fit now: maybe action (prep for tonight) with highest probability, question second, none decent.\n\nLet me craft texts carefully in natural Japanese.\n\nQuestion candidates (open-ended):\n- 「明日のことが頭をぐるぐるするとき、どんなふうに眠りにつけると楽だと思えますか？」 Hmm awkward. Let me write: 「眠る前の静かな時間に、明日のことを少し手放せるとしたら、何から手放したいですか？」 Hmm.\n\nBetter natural ones:\n\nQ1: 「明日の予定が気になって眠りにつきにくい夜、自分にどんな言葉をかけたいですか？」 — This references profile (明日の予定が頭をぐるぐる回って目が冴える → 眠りにつきにくい). \"夜、自分に...\" fine. Open-ended question. But careful: the example forbidden was \"自分にどんな言葉をかけてあげたいですか？\" with interview before morning — forbidden because it presupposed a morning interview. Here the profile does state the racing-thoughts-at-bedtime pattern, so referencing it is grounded. OK.\n\nQ2: 「これまでの中で、少しでも楽に眠れた夜があったとしたら、その夜はどんな夜でしたか？」 — Hmm \"あったとしたら\" hedges but might imply they had trouble... Actually profile says it takes over an hour generally; asking if there were easier nights presupposes maybe. Safer: 「寝つきが良さそうに感じる夜をつくるには、どんな小さな一歩から始めたいですか？」 Hmm.\n\nAlternative Q2: 「眠る前に、明日のことを一度頭の外に出しておくとしたら、どんな方法が自分に合いそうですか？」 — asks about what method would suit them; open-ended, doesn't presuppose.\n\nQ3: 「今晩の夜は、どんな過ごし方が自分に心地よいと思いますか？」 Hmm \"今晩\" fine at evening. Or more targeted: 「明日に向けて、今夜どんな準備をしておくと少し安心できそうですか？」 — open-ended about preparation; grounds in the anxiety about tomorrow's plans. Good, doesn't presuppose.\n\nBreathing: 「4秒かけて息を吸い、6秒かけて吐く呼吸を、いくつか繰り返してみませんか。」 — breathing exercise invitation, no guaranteed claims. Ends with ？. For breathing kind, an invitation question is fine.\n\nAction: 「今夜の布団に入る前に、明日の予定を一度メモに書き出して、頭の外に預けてみませんか。」 — action; ends with ？ Actually \"書き出してみませんか。\" with か and period is okay; typically \"〜してみませんか。\" ends with 。 That's acceptable as Japanese sentence ending 。 The rule says sentences end with 。or？or！— \"ませんか。\" ends with 。 fine. But to be safe I could end with か？\"してみませんか？\" — with question mark. Either fine; I'll use 。\n\nWait — does the action presuppose they'll be in bed tonight? It says \"今夜の布団に入る前に\" — presupposes they sleep in a futon, which profile establishes (布団に入ってから眠るまで). Tonight they will go to bed presumably; that's a reasonable gentle suggestion, not an assertion of current state. OK.\n\nReflection: could add one reflection: 「眠るまでに時間がかかる夜が続いているとのこと、大切に聞いています。」 Hmm, reflection kind restates. Maybe: 「明日のことが頭から離れなくて、眠りが遠のく感覚、とてもつらいものですね。」 Careful: \"眠りが遠のく感覚\" asserts their experience — but it's derived from profile (目が冴えてしまう = can't sleep). Restating profile facts empathetically is fine for reflection. But avoid over-asserting. \"布団に入ってから眠るまでに時間がかかる夜が続いているんですね。\" is a pure reflection of profile. I could include it. But then non-none = 6, questions = 3, 3/6 = exactly half ✓. Probability: questions ≥ half of non-none mass.\n\nLet me decide final set: 6 candidates total including none.\n\n1. action (write down tomorrow's plans before bed): 0.22\n2. question (what words to give yourself / what would help): 0.14\n3. question (what method to put tomorrow's plans outside head): 0.12\n4. question (what small step for tonight): 0.12\n5. breathing: 0.12\n6. none: 0.20\n\nSum = 0.22+0.14+0.12+0.12+0.12+0.20 = 0.92. Need 1.0. Adjust: none 0.28? Hmm let's balance. Let me think about what's most apt: At 18:30 evening notification for someone whose problem is bedtime rumination. A gentle action to prepare for tonight seems best. Questions also good. None should be nontrivial since we don't know current state.\n\nLet me set:\n- a action 0.24\n- b question 0.16\n- c breathing 0.14\n- d question 0.12\n- e question 0.10\n- f none 0.24\n\nSum: 0.24+0.16+0.14+0.12+0.10+0.24 = 1.00 ✓. Questions: 3 of 5 non-none ✓. Question mass: 0.16+0.12+0.10=0.38; non-none mass = 0.76; half = 0.38. Exactly half — \"at least half\" satisfied (equal). ✓.\n\nHmm, maybe make questions slightly more than half to be safe: 0.16+0.12+0.10=0.38 vs required ≥0.38. Equal is okay (\"at least half\"). But safer to exceed: adjust to b 0.17, d 0.13, e 0.10 → 0.40; action 0.23, breathing 0.13, none 0.24 → total 0.23+0.17+0.13+0.13+0.10+0.24 = 1.00. Questions 0.40 of 0.76 non-none → > half ✓.\n\nCheck: 0.23+0.17+0.13+0.13+0.10+0.24 = 1.00. Yes.\n\nActually, let me reconsider candidate list; maybe include a reflection too, making 7 candidates. But 6 is fine. Or include reflection instead of breathing? The desired state is \"calm\" — breathing fits. Keep breathing.\n\nLet me write the texts:\n\na (action): 「今夜布団に入る前に、明日の予定をそっとメモに書き出して、頭の外に預けてみませんか。」 — natural? \"頭の外に預ける\" is a common metaphor. Fine. Ends with 。✓. Kind action.\n\nHmm, \"そっと\" maybe unnecessary. 「布団に入る前に、明日の予定をメモに書き出して頭の外に預けておくのはいかがですか。」 Ends 。✓.\n\nb (question): 「眠る前に明日のことが頭をぐるぐるするとき、自分にどんな言葉をかけたいですか？」 References profile. Open-ended ✓. Hmm \"かけたいですか？\" fine.\n\nBut wait, example forbidden: 「今朝、面接の前に...」 was forbidden due to \"this morning\" presupposition. Here no time-of-day presupposition; it's conditional-ish \"眠る前に...するとき\". Acceptable.\n\nc (breathing): 「4つ数えて息を吸い、6つ数えてゆっくり吐く呼吸を、いくつか繰り返しませんか？」 — hmm \"繰り返しませんか？\" natural? \"いくつか繰り返してみませんか。\" Maybe: 「吸う息を4、吐く息を6で数えるゆっくりした呼吸を、少しの間試してみませんか？」. Keep simpler: 「4で吸って6で吐く呼吸を、少しだけ一緒にやってみませんか？」 — \"一緒に\" is warm. Ends ？✓.\n\nd (question): 「明日の予定を少し頭の外に出しておくとしたら、どんな方法が自分に合っていそうですか？」 — open-ended about method. OK.\n\ne (question): 「今夜、心地よく眠りにつくための小さな一歩は何だと思いますか？」 — hmm \"心地よく眠りにつく\" presupposes they can/will; it's aspirational question, fine. Alternatively 「今夜、少し楽に眠りにつけるとしたら、何が変わっているといいですか？」 Hmm. Or simpler: 「明日のことが少しでも軽くなるとしたら、何から始めてみたいですか？」\n\nLet me also double-check \"open-ended question-type candidates\" — the kind should be \"question\". Yes.\n\nNone: text \"\" probability 0.24.\n\nAlso constraint: \"At least half of non-none candidates must be open-ended question-type candidates\" — 3/5 ✓.\n\nLet me also verify no presupposition of current location/state: all texts avoid \"今\" current assertions except the action suggests future behavior tonight (invitation, not assertion). The breathing invitation happens now-ish — it's an invitation to try, not an assertion of current state. Fine.\n\nAvoid medical claims: breathing — no claims of effect stated. Action — \"頭の外に預ける\" no guaranteed effect claim; it's an invitation. Good.\n\nOne more consideration: \"no garbled fragments, balanced nonempty quotations\" — ensure full-width quotes if any quotes used; I'll avoid quotes entirely.\n\nJapanese sentence endings: all end with 。or ？ ✓.\n\nIDs: a,b,c,d,e,f. Kinds: action, question, breathing, question, question, none.\n\nJSON format: {\"candidates\":[...]}. Return JSON only.\n\nFinal probability check: a 0.23, b 0.17, c 0.13, d 0.13, e 0.10, none 0.24. Sum = 1.00. Question mass: 0.17+0.13+0.10 = 0.40; non-none total = 0.76; 0.40 ≥ 0.38 ✓.\n\nTexts final:\n\na action: 「布団に入る前に、明日の予定をメモに書き出して、頭の外に預けてみませんか。」\nb question: 「眠る前になると明日のことが頭をぐるぐる回るとき、自分にどんな言葉をかけたいですか？」 — slightly long; refine: 「明日のことが頭をぐるぐる回るとき、自分にどんな言葉をかけてあげたいですか？」 Hmm the negative example used that phrasing but with a false presupposition (interview this morning). Here the rumination is established. Still, to avoid resembling the forbidden example structure too closely, maybe different question: 「布団の中で明日のことが頭を巡るとき、どんなふうに過ごしていたいですか？」 Hmm \"布団の中で\" presupposes current bed? No — it's \"when (in general) in bed\", pattern established by profile. But to be extra safe with the \"not in bed now\" rule: the forbidden example was about present state (\"今いちばんゆっくり感じられる呼吸\" while in bed). A general conditional referencing their established pattern should be fine, but let me phrase as conditional: 「眠ろうとすると明日の予定が頭を巡るとき、どんなふうに自分をいたわりたいですか？」 Hmm.\n\nSimpler: b: 「明日の予定が頭から離れにくい夜に、どんな休息の形をイメージしますか？」 — hmm.\n\nLet me go with: 「眠る前に明日のことが頭を巡るとき、どんな風に自分を労りたいですか？」 Hmm \"労りたい\" maybe.\n\nI'll pick clean ones:\n\nb: 「眠りにつくまでの長い時間を、少しでもやわらかい時間にするには、何が自分に合いそうですか？」 — hmm wordy.\n\nKeep it simple and personal:\n\nb: 「明日のことが頭をぐるぐるする夜に、どんな過ごし方をしてみたいですか？」 — good, open-ended, grounded.\n\nd: 「眠る前の頭の整理に試してみたい方法は、何かありますか？」 — open-ended, invites their ideas.\n\ne: 「今夜は、どんな小さな変化から始めてみたいですか？」 — maybe too vague but personal & open-ended, fine. Or tie to calm: 「今の夜の時間を、少し落ち着いたものにするために何ができると思いますか？」 I'll go with something tied to calm desired state: 「今夜を少し静かな時間にするために、自分にできる小さなことは何だと思いますか？」\n\nc breathing: 「4つ数えて息を吸い、6つ数けて吐く呼吸を、少しだけ試してみませんか？」\n\nFinal JSON. Ensure valid JSON, Japanese text escaped properly? JSON with Japanese characters is fine unescaped in UTF-8. Output JSON only.",
+              "reasoning_details": [
+                {
+                  "type": "reasoning.text",
+                  "text": "Let me analyze the context carefully.\n\nProfile: 35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。\nTranslation: 35 years old. Takes over an hour to fall asleep after getting in bed. Tomorrow's plans swirl in their head and they can't sleep (eyes become wide awake).\n\nDesired state: calm. Language: Japanese. Slot: 18:30, evening. Source: notification.\n\nKey constraints:\n- Time slot does not establish current location or state. So I cannot assume they're in bed now (it's 18:30 evening, so probably not).\n- Must not presuppose facts: cannot say \"今眠れない\" etc. But can reference the profile facts: trouble falling asleep after getting in bed, racing thoughts about tomorrow's plans.\n- Must include exactly one \"none\" candidate with empty text.\n- At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\n- 2..8 candidates total.\n- Kinds: reflection, question, teaching, breathing, action, none.\n- Japanese sentences end with 。or？or！.\n- No medical claims, no guaranteed effects, no shaming/tough-love.\n\nSo I need candidates. Let's plan: maybe 5 candidates: 3 questions, 1 breathing or reflection, 1 none. Questions must be at least half of non-none candidates and half of non-none probability mass.\n\nLet me design:\n\nTotal probability sums to 1. Say none gets 0.2. Non-none mass = 0.8. Questions should have ≥ 0.4 total.\n\nCandidates:\n- a: question: 「布団に入ったとき、頭の中で予定がぐるぐる回るとき、どんなふうに過ごしたいですか？」 Hmm, careful with presupposition. The profile says 明日の予定が頭をぐるぐる回って目が冴える。So referencing that is fine. But \"布団に入ったとき\" — presupposes they experience that, which is in the profile. That's allowed since it's supplied. But question should not presuppose current state. It's about general experience, which is in profile. OK.\n\nBetter phrasing: 「眠ろうとすると明日のことが頭を巡るとき、どんな休息を自分に贈りたいですか？」 Hmm.\n\nLet me craft natural Japanese.\n\nQuestion candidates:\n1. 「明日の予定が頭をぐるぐるする夜に、自分にかけたい言葉はありますか？」 — asks about words they'd want. It references profile fact (明日の予定が頭をぐるぐる回る). It's open-ended. Good.\n2. 「寝つく前に、何か少し心を静めるきっかけになるものはありますか？」 — asks if there's something that helps calm. Open-ended-ish. Maybe \"これまでに少しでも楽だった夜は、どんな夜でしたか？\" — asks about past experiences, open-ended, doesn't presuppose current state.\n3. 「今の自分にとって、静かな夜の時間はどんな意味を持ちますか？」 — bit abstract.\n\nBreathing candidate: 「4つ数えて息を吸い、6つ数けて吐く呼吸を、少しの間一緒にやってみませんか。」 Hmm breathing kind with a slow exhale suggestion. Avoid guaranteed effects (\"眠くなる\" claim?). Saying \"心が落ち着く\" might be a mild claim; safer to frame as invitation: 「息を吐く時間を少し長くして、ゆっくり呼吸を整えてみませんか。」\n\nAction candidate: 「今夜は、明日の予定をメモに書き出して、布団の外で頭の整理をしてみませんか。」 — action: writing down tomorrow's plans before bed. But \"今夜\" — it's 18:30 evening, so evening is fine; \"今夜\" implies tonight they will do something; it's a suggestion, not presupposition. Actually writing tomorrow's plans down is a classic technique for racing thoughts about tomorrow. It doesn't presuppose current state. Good.\n\nReflection: 「眠るまでの時間が長い夜が続いているんですね。」 — restates profile fact empathetically. Ends with 。Good.\n\nTeaching: 「明日のことを考えるほど、頭は休もうとするより先に動いてしまうことがあります。」 Hmm, that's a teaching-ish statement about mind. Or 「頭のなかの予定は、紙に預けておくと少しだけ軽くなりやすいとされています。」 — \"とされています\" softens claim. Maybe avoid claims entirely: 「眠る前の頭の回転を減らすコツのひとつは、予定を頭の外に出しておくことです。」\n\nNow the ratios: Non-none candidates: let's have 5 non-none? Total candidates up to 8. Let's do 6 total: 4 questions, 1 breathing/action/reflection mix... Let's think.\n\nRequirement: at least half of non-none candidates are question-kind, and at least half of non-none probability mass on questions.\n\nPlan: 5 non-none: 3 questions (kind \"question\"), 1 breathing, 1 action. Questions = 3/5 ≥ half ✓. Probability: questions total ≥ 0.4 (half of 0.8). \n\nAssign probabilities:\n- q1: 0.18\n- q2: 0.15\n- q3: 0.12\n- breathing: 0.15\n- action: 0.20\n- none: 0.20\n\nSum: 0.18+0.15+0.12+0.15+0.20+0.20 = 1.00. Non-none mass = 0.80; questions = 0.45 ≥ 0.40 ✓. Question candidates: 3 of 5 non-none ✓.\n\nHmm, but given the slot is 18:30 evening and the issue is nighttime sleep, a gentle action (writing tomorrow's plan) seems most apt as the top candidate. Also breathing.\n\nLet me reconsider probabilities: The intervention is a notification at 18:30. The person's issue: takes long to fall asleep, racing thoughts about tomorrow. Best-fit now: maybe action (prep for tonight) with highest probability, question second, none decent.\n\nLet me craft texts carefully in natural Japanese.\n\nQuestion candidates (open-ended):\n- 「明日のことが頭をぐるぐるするとき、どんなふうに眠りにつけると楽だと思えますか？」 Hmm awkward. Let me write: 「眠る前の静かな時間に、明日のことを少し手放せるとしたら、何から手放したいですか？」 Hmm.\n\nBetter natural ones:\n\nQ1: 「明日の予定が気になって眠りにつきにくい夜、自分にどんな言葉をかけたいですか？」 — This references profile (明日の予定が頭をぐるぐる回って目が冴える → 眠りにつきにくい). \"夜、自分に...\" fine. Open-ended question. But careful: the example forbidden was \"自分にどんな言葉をかけてあげたいですか？\" with interview before morning — forbidden because it presupposed a morning interview. Here the profile does state the racing-thoughts-at-bedtime pattern, so referencing it is grounded. OK.\n\nQ2: 「これまでの中で、少しでも楽に眠れた夜があったとしたら、その夜はどんな夜でしたか？」 — Hmm \"あったとしたら\" hedges but might imply they had trouble... Actually profile says it takes over an hour generally; asking if there were easier nights presupposes maybe. Safer: 「寝つきが良さそうに感じる夜をつくるには、どんな小さな一歩から始めたいですか？」 Hmm.\n\nAlternative Q2: 「眠る前に、明日のことを一度頭の外に出しておくとしたら、どんな方法が自分に合いそうですか？」 — asks about what method would suit them; open-ended, doesn't presuppose.\n\nQ3: 「今晩の夜は、どんな過ごし方が自分に心地よいと思いますか？」 Hmm \"今晩\" fine at evening. Or more targeted: 「明日に向けて、今夜どんな準備をしておくと少し安心できそうですか？」 — open-ended about preparation; grounds in the anxiety about tomorrow's plans. Good, doesn't presuppose.\n\nBreathing: 「4秒かけて息を吸い、6秒かけて吐く呼吸を、いくつか繰り返してみませんか。」 — breathing exercise invitation, no guaranteed claims. Ends with ？. For breathing kind, an invitation question is fine.\n\nAction: 「今夜の布団に入る前に、明日の予定を一度メモに書き出して、頭の外に預けてみませんか。」 — action; ends with ？ Actually \"書き出してみませんか。\" with か and period is okay; typically \"〜してみませんか。\" ends with 。 That's acceptable as Japanese sentence ending 。 The rule says sentences end with 。or？or！— \"ませんか。\" ends with 。 fine. But to be safe I could end with か？\"してみませんか？\" — with question mark. Either fine; I'll use 。\n\nWait — does the action presuppose they'll be in bed tonight? It says \"今夜の布団に入る前に\" — presupposes they sleep in a futon, which profile establishes (布団に入ってから眠るまで). Tonight they will go to bed presumably; that's a reasonable gentle suggestion, not an assertion of current state. OK.\n\nReflection: could add one reflection: 「眠るまでに時間がかかる夜が続いているとのこと、大切に聞いています。」 Hmm, reflection kind restates. Maybe: 「明日のことが頭から離れなくて、眠りが遠のく感覚、とてもつらいものですね。」 Careful: \"眠りが遠のく感覚\" asserts their experience — but it's derived from profile (目が冴えてしまう = can't sleep). Restating profile facts empathetically is fine for reflection. But avoid over-asserting. \"布団に入ってから眠るまでに時間がかかる夜が続いているんですね。\" is a pure reflection of profile. I could include it. But then non-none = 6, questions = 3, 3/6 = exactly half ✓. Probability: questions ≥ half of non-none mass.\n\nLet me decide final set: 6 candidates total including none.\n\n1. action (write down tomorrow's plans before bed): 0.22\n2. question (what words to give yourself / what would help): 0.14\n3. question (what method to put tomorrow's plans outside head): 0.12\n4. question (what small step for tonight): 0.12\n5. breathing: 0.12\n6. none: 0.20\n\nSum = 0.22+0.14+0.12+0.12+0.12+0.20 = 0.92. Need 1.0. Adjust: none 0.28? Hmm let's balance. Let me think about what's most apt: At 18:30 evening notification for someone whose problem is bedtime rumination. A gentle action to prepare for tonight seems best. Questions also good. None should be nontrivial since we don't know current state.\n\nLet me set:\n- a action 0.24\n- b question 0.16\n- c breathing 0.14\n- d question 0.12\n- e question 0.10\n- f none 0.24\n\nSum: 0.24+0.16+0.14+0.12+0.10+0.24 = 1.00 ✓. Questions: 3 of 5 non-none ✓. Question mass: 0.16+0.12+0.10=0.38; non-none mass = 0.76; half = 0.38. Exactly half — \"at least half\" satisfied (equal). ✓.\n\nHmm, maybe make questions slightly more than half to be safe: 0.16+0.12+0.10=0.38 vs required ≥0.38. Equal is okay (\"at least half\"). But safer to exceed: adjust to b 0.17, d 0.13, e 0.10 → 0.40; action 0.23, breathing 0.13, none 0.24 → total 0.23+0.17+0.13+0.13+0.10+0.24 = 1.00. Questions 0.40 of 0.76 non-none → > half ✓.\n\nCheck: 0.23+0.17+0.13+0.13+0.10+0.24 = 1.00. Yes.\n\nActually, let me reconsider candidate list; maybe include a reflection too, making 7 candidates. But 6 is fine. Or include reflection instead of breathing? The desired state is \"calm\" — breathing fits. Keep breathing.\n\nLet me write the texts:\n\na (action): 「今夜布団に入る前に、明日の予定をそっとメモに書き出して、頭の外に預けてみませんか。」 — natural? \"頭の外に預ける\" is a common metaphor. Fine. Ends with 。✓. Kind action.\n\nHmm, \"そっと\" maybe unnecessary. 「布団に入る前に、明日の予定をメモに書き出して頭の外に預けておくのはいかがですか。」 Ends 。✓.\n\nb (question): 「眠る前に明日のことが頭をぐるぐるするとき、自分にどんな言葉をかけたいですか？」 References profile. Open-ended ✓. Hmm \"かけたいですか？\" fine.\n\nBut wait, example forbidden: 「今朝、面接の前に...」 was forbidden due to \"this morning\" presupposition. Here no time-of-day presupposition; it's conditional-ish \"眠る前に...するとき\". Acceptable.\n\nc (breathing): 「4つ数えて息を吸い、6つ数えてゆっくり吐く呼吸を、いくつか繰り返しませんか？」 — hmm \"繰り返しませんか？\" natural? \"いくつか繰り返してみませんか。\" Maybe: 「吸う息を4、吐く息を6で数えるゆっくりした呼吸を、少しの間試してみませんか？」. Keep simpler: 「4で吸って6で吐く呼吸を、少しだけ一緒にやってみませんか？」 — \"一緒に\" is warm. Ends ？✓.\n\nd (question): 「明日の予定を少し頭の外に出しておくとしたら、どんな方法が自分に合っていそうですか？」 — open-ended about method. OK.\n\ne (question): 「今夜、心地よく眠りにつくための小さな一歩は何だと思いますか？」 — hmm \"心地よく眠りにつく\" presupposes they can/will; it's aspirational question, fine. Alternatively 「今夜、少し楽に眠りにつけるとしたら、何が変わっているといいですか？」 Hmm. Or simpler: 「明日のことが少しでも軽くなるとしたら、何から始めてみたいですか？」\n\nLet me also double-check \"open-ended question-type candidates\" — the kind should be \"question\". Yes.\n\nNone: text \"\" probability 0.24.\n\nAlso constraint: \"At least half of non-none candidates must be open-ended question-type candidates\" — 3/5 ✓.\n\nLet me also verify no presupposition of current location/state: all texts avoid \"今\" current assertions except the action suggests future behavior tonight (invitation, not assertion). The breathing invitation happens now-ish — it's an invitation to try, not an assertion of current state. Fine.\n\nAvoid medical claims: breathing — no claims of effect stated. Action — \"頭の外に預ける\" no guaranteed effect claim; it's an invitation. Good.\n\nOne more consideration: \"no garbled fragments, balanced nonempty quotations\" — ensure full-width quotes if any quotes used; I'll avoid quotes entirely.\n\nJapanese sentence endings: all end with 。or ？ ✓.\n\nIDs: a,b,c,d,e,f. Kinds: action, question, breathing, question, question, none.\n\nJSON format: {\"candidates\":[...]}. Return JSON only.\n\nFinal probability check: a 0.23, b 0.17, c 0.13, d 0.13, e 0.10, none 0.24. Sum = 1.00. Question mass: 0.17+0.13+0.10 = 0.40; non-none total = 0.76; 0.40 ≥ 0.38 ✓.\n\nTexts final:\n\na action: 「布団に入る前に、明日の予定をメモに書き出して、頭の外に預けてみませんか。」\nb question: 「眠る前になると明日のことが頭をぐるぐる回るとき、自分にどんな言葉をかけたいですか？」 — slightly long; refine: 「明日のことが頭をぐるぐる回るとき、自分にどんな言葉をかけてあげたいですか？」 Hmm the negative example used that phrasing but with a false presupposition (interview this morning). Here the rumination is established. Still, to avoid resembling the forbidden example structure too closely, maybe different question: 「布団の中で明日のことが頭を巡るとき、どんなふうに過ごしていたいですか？」 Hmm \"布団の中で\" presupposes current bed? No — it's \"when (in general) in bed\", pattern established by profile. But to be extra safe with the \"not in bed now\" rule: the forbidden example was about present state (\"今いちばんゆっくり感じられる呼吸\" while in bed). A general conditional referencing their established pattern should be fine, but let me phrase as conditional: 「眠ろうとすると明日の予定が頭を巡るとき、どんなふうに自分をいたわりたいですか？」 Hmm.\n\nSimpler: b: 「明日の予定が頭から離れにくい夜に、どんな休息の形をイメージしますか？」 — hmm.\n\nLet me go with: 「眠る前に明日のことが頭を巡るとき、どんな風に自分を労りたいですか？」 Hmm \"労りたい\" maybe.\n\nI'll pick clean ones:\n\nb: 「眠りにつくまでの長い時間を、少しでもやわらかい時間にするには、何が自分に合いそうですか？」 — hmm wordy.\n\nKeep it simple and personal:\n\nb: 「明日のことが頭をぐるぐるする夜に、どんな過ごし方をしてみたいですか？」 — good, open-ended, grounded.\n\nd: 「眠る前の頭の整理に試してみたい方法は、何かありますか？」 — open-ended, invites their ideas.\n\ne: 「今夜は、どんな小さな変化から始めてみたいですか？」 — maybe too vague but personal & open-ended, fine. Or tie to calm: 「今の夜の時間を、少し落ち着いたものにするために何ができると思いますか？」 I'll go with something tied to calm desired state: 「今夜を少し静かな時間にするために、自分にできる小さなことは何だと思いますか？」\n\nc breathing: 「4つ数えて息を吸い、6つ数けて吐く呼吸を、少しだけ試してみませんか？」\n\nFinal JSON. Ensure valid JSON, Japanese text escaped properly? JSON with Japanese characters is fine unescaped in UTF-8. Output JSON only.",
+                  "format": "unknown",
+                  "index": 0
+                }
+              ]
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 626,
+          "completion_tokens": 4484,
+          "total_tokens": 5110,
+          "cost": 0.0115856,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0115856,
+            "upstream_inference_prompt_cost": 0.0003756,
+            "upstream_inference_completions_cost": 0.01121
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4253,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982980-JvG695bElH3iKCqkwis8",
+        "object": "chat.completion",
+        "created": 1794982980,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"Suggests an action to address the profile's stated issue of overthinking tomorrow's plans.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about desired evening activities, acknowledging the profile's issue of overthinking.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"Suggests a generic calming technique (breathing exercise).\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"Asks about preferred methods for mental organization before sleep, relating to the profile's issue.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"Asks about personal actions to create a calmer evening, aligning with the desired state.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 441,
+          "completion_tokens": 165,
+          "total_tokens": 606,
+          "cost": 0.0001101,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001101,
+            "upstream_inference_prompt_cost": 4.41e-05,
+            "upstream_inference_completions_cost": 6.6e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "a243f30b-47a5-4a63-b5f1-2df1975337b6",
+    "decision_point_at": 1794982981.1403031,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "action",
+        "text": "布団に入る前に、明日の予定をメモに書き出して、頭の外に預けてみませんか。",
+        "probability": 0.23
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "明日のことが頭をぐるぐるする夜に、どんな過ごし方をしてみたいですか？",
+        "probability": 0.17
+      },
+      {
+        "id": "c",
+        "kind": "breathing",
+        "text": "4つ数えて息を吸い、6つ数けてゆっくり吐く呼吸を、少しだけ試してみませんか？",
+        "probability": 0.13
+      },
+      {
+        "id": "d",
+        "kind": "question",
+        "text": "眠る前の頭の整理に、試してみたい方法は何かありますか？",
+        "probability": 0.13
+      },
+      {
+        "id": "e",
+        "kind": "question",
+        "text": "今夜を少し静かな時間にするために、自分にできる小さなことは何だと思いますか？",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.24
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "action",
+      "text": "布団に入る前に、明日の予定をメモに書き出して、頭の外に預けてみませんか。",
+      "probability": 0.23
+    },
+    "assigned_probability": 0.23,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "z-ai/glm-5.3",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984781.1403031,
+    "observations": []
+  }
+}

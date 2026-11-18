@@ -1,0 +1,300 @@
+{
+  "index": 23,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982921-0cADp6zj0BQwk6hwZCsl",
+        "object": "chat.completion",
+        "created": 1794982921,
+        "model": "z-ai/glm-5.3",
+        "provider": "InferenceNet",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"もし明日の最初の15分をひとつのことに使えるとしたら、何から始めますか？\",\"probability\":0.20},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"集中しやすいと感じるのは、どんな時間帯や環境ですか？\",\"probability\":0.12},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今日、少しでも集中できた瞬間があったとしたら、それはどんなときだったと思いますか？\",\"probability\":0.13},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜に「あとでやればよかった」という気持ちは、尾を引きやすいものですね。\",\"probability\":0.15},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"明日のやることを長いリストにするより、「最初の15分で何をするか」だけを決めておくほうが、取りかかりやすくなることがあります。\",\"probability\":0.14},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ、息を4秒かけて吸い、6秒かけて吐くことを3回ほどくり返して、呼吸だけに意識を向けてみませんか？\",\"probability\":0.12},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.14}]}",
+              "refusal": null,
+              "reasoning": "Let me analyze the context:\n\n- Person: 29 years old, works from home (在宅ワーク), struggles to stay focused, procrastinates on things they should do, regrets it at night. Long time on smartphone.\n- Desired state: focus\n- Language: Japanese\n- Time: 22:30, night, notification\n- No recent reactions.\n\nConstraints:\n- 2..8 candidates total, including exactly one \"none\" kind with empty text.\n- At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\n- Questions must not presuppose unprovided facts: I can't say \"you're in bed now\", \"this morning's interview\", etc. I can't assume they're currently on their phone, or currently procrastinating right now. The time is 22:30 night, but that doesn't establish what they're doing now.\n- No shaming, no tough-love, no preaching, no medical claims, no guaranteed effects.\n- Japanese sentences end with 。 or ？ or ！\n- Balanced nonempty quotations... hmm, \"balanced nonempty quotations\" means if I use quotes like 「」, they should be balanced (opened and closed). Actually re-reading: \"Use natural complete language, balanced nonempty quotations and no garbled fragments\" - this means quotation marks should be balanced, and not empty quotes.\n- Return JSON only.\n\nProfile mentions: night regret about procrastination. 22:30 is night. So referencing that they tend to regret at night is allowed as a general pattern from the profile, but I shouldn't assert they're regretting right now. I could ask open-ended questions like \"if you look back on today, what's one thing you're glad you did?\" — that presupposes they did something they're glad about? Hmm, \"what's one thing...\" presupposes there is one. Better: \"今日を振り返ってみると、どんな瞬間に集中できたと感じますか？\" presupposes they had moments of focus. Better to phrase carefully: \"今日のどんな時間帯なら、集中しやすそうだと感じますか？\" — about tomorrow maybe. Or \"明日、どんな小さな一歩から始めたいですか？\" presupposes they want to start something. Hmm, \"〜したいですか\" — asking what they'd like to do is okay-ish, but \"assert their wishes\" is forbidden; asking about wishes in question form... The negative examples forbid presupposing events. Asking \"what would you like...\" doesn't presuppose that they do want something specific, but it leans. Safer: conditional phrasing: \"もし明日15分だけ何か一つに取り組むなら、何を選びますか？\" — conditional, no presupposition. That's good.\n\nTypes of interventions:\n- reflection: a statement reflecting their experience/situation (based on profile, general patterns okay).\n- question: open-ended question.\n- teaching: brief psychoeducation (no medical claims, no guaranteed effects).\n- breathing: breathing prompt — but careful: can't assert their current physical state? A breathing exercise suggestion is an action invitation: \"よければ...\" phrasing to avoid presupposing state. E.g., \"よければ、息を吸って4秒、吐いて6秒を3回くり返してみませんか？\" — invitation, no presupposition of location.\n- action: a small action suggestion, e.g., putting phone in another room, writing tomorrow's first task.\n- none: empty.\n\nConstraint: At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass. \"open-ended question-type candidates\" — presumably kind \"question\" with open-ended text. So if I have N non-none candidates, at least ceil(N/2) must be questions, and their total probability ≥ half of the non-none total.\n\nLet me plan: 6 non-none + 1 none = 7 candidates? Or 5 non-none + 1 none = 6 total. Let's do 6 non-none (3+ questions) — let's do 4 questions among 6 non-none, with probability mass ≥ half.\n\nActually simpler: 5 non-none candidates: 3 questions (open-ended), 1 reflection, 1 breathing or action. Question probability ≥ half of non-none mass.\n\nLet me draft candidates in Japanese:\n\nQuestion candidates (open-ended, no presuppositions):\n1. \"もし明日、何か一つだけ先に取り組めるとしたら、何を選びたいですか？\" — Hmm \"選びたい\" presupposes wanting to choose. Conditional \"としたら\" softens. \"何を選びますか？\" is fine. Let's use: \"もし明日の最初の15分を一つの作業に使えるとしたら、何から始めますか？\" — no presupposition about wishes, purely hypothetical. Good.\n\n2. \"今日一日を振り返って、集中しやすいと感じたのはどんな瞬間でしたか？\" — presupposes they had such a moment. Alternative: \"一日の中で、集中が自然と続いたとしたら、それはどんな場面だと思いますか？\" — awkward. Or \"あなたがいちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" — asking about general pattern, no presupposition. That's safe and open-ended.\n\n3. \"夜に「あとでやればよかった」と思ったとき、どんな小さな合図なら翌日に切り替えられそうですか？\" — hmm, complex. Or: \"後悔が頭に浮かんだとき、自分にどんな言葉をかけてあげたいですか？\" — presupposes regret appears... The profile says they regret at night; asking hypothetically is okay: \"もし今夜「これもやっておけば」という気持ちが浮かんだら、どんな言葉を自分にかけたいですか？\" — the negative example was about presupposing a specific event (interview this morning). Here, profile says night regret is a pattern, and it's night. Still, I shouldn't assert they currently feel regret. Hypothetical \"もし...浮かんだら\" is conditional, not asserting. But the example \"今朝、面接の前に...\" was forbidden because it asserts an interview this morning. My phrasing with もし (if) doesn't assert current state. I think it's acceptable but let me pick safer ones.\n\nAlternative question: \"集中が途切れそうなとき、あなたはどんな方法で自分を立ち返らせていますか？\" — asks about current strategies; presupposes they have strategies? \"何か工夫していることがあれば、それは何ですか？\" — \"if anything\" covers it. Good: \"集中を保つために何か工夫していることがあれば、それについて教えてもらえますか？\" Hmm, a bit long.\n\nBetter set:\nQ1: \"もし明日の朝、最初の15分をひとつの作業にあてられるとしたら、何から始めますか？\" (hypothetical, open)\nQ2: \"あなたがいちばん集中しやすいと感じるのは、どんな時間帯や場所ですか？\" (general pattern, open, no presupposition)\nQ3: \"今日を振り返って、うまくいった瞬間や救われた瞬間があったら、どんな場面でしたか？\" — \"if there were\" covers presupposition. Hmm, \"救われた\" maybe. Or: \"今日の中で、少しでも集中できた時間があったとしたら、何をしているときでしたか？\" — conditional covers it. Good.\n\nReflection candidates:\nR1: \"夜に今日を振り返って、明日の小さな最初の一歩をひとつ決めておくだけで、朝のスタートが変わりやすくなることがあります。\" — that's more teaching. Reflection should mirror their experience: \"在宅だと、作業と休みの境目があいまいになって、集中が続かなくなることがありますね。\" — that reflects their WFH struggle generally. It asserts their experience though (\"あいまいになって\" for them). Their profile says WFH + focus doesn't continue. Saying \"境目があいまいになりやすい\" is a general statement, okay as teaching/reflection. Let me make reflection more empathic without inventing facts: \"一日の終わりに「あとでやっておけば」と思うと、気持ちが重くなりますよね。\" — hmm \"重くなりますよね\" assumes their feeling? It's a general empathy statement; profile literally says they feel regret at night (後悔する). So acknowledging \"夜に後悔すると気持ちは楽ではないですよね\" is grounded in profile. But avoid asserting present state (\"right now you're regretting\"). Use general: \"夜に「やっておけば」と感じると、なかなか心が軽くならないものですね。\" I think fine.\n\nTeaching candidate:\nT1: \"後悔が明日のやる気につながりやすいのは、今夜のうちに『明日の最初の一歩』を具体的にひとつ書いておくときだと知られています。\" — \"知られています\" is a claim; avoid guaranteed effects. Use \"〜ことがあります\" (sometimes). E.g., \"やることを明日に残すより、『明日の最初の15分で何をするか』を今ひと言で決めておくと、始まりやすくなることがあるとも言われます。\" Hmm \"とも言われます\" is hedged. Simpler: \"明日の最初の作業を、昨夜のうちにたった一行だけ決めておくと、取りかかりやすくなることがあります。\" — \"ことがあります\" is non-guaranteed. Good teaching.\n\nBreathing candidate:\nB1: \"よければ、息を4秒かけて吸い、6秒かけて吐くことを3回くり返して、今この瞬間に意識を向けてみませんか？\" — invitation, no presupposition. Ends with ？. It's an action invitation though; kind breathing. Good.\n\nAction candidate:\nA1: \"よければ、明日最初に取りかかりたいことを、付箋やメモにひと言だけ書き出してみませんか？\" — invitation, no presupposition of wishes (\"取りかかりたい\" presupposes wanting?). Rephrase: \"よければ、明日の最初の15分で取り組むことを、メモにひと言だけ書いてみませんか？\" — no presupposition. Good.\n\nNow count: Let's pick final set.\n\nTotal candidates: 7? Constraint 2..8. Let's do 7: \n- a: question (Q1)\n- b: question (Q2)\n- c: question (Q3)\n- d: reflection (R1)\n- e: teaching (T1)\n- f: action (A1)\n- g: none\n\nNon-none = 6, questions = 3 = half. Requirement: \"At least half of non-none candidates must be open-ended question-type\" — 3/6 = half, okay. Probability mass: questions must have ≥ half of non-none mass.\n\nNon-none total probability = 1 - P(none). Let's say P(none) = 0.14. Non-none total = 0.86. Questions total must be ≥ 0.43.\n\nAssign:\n- a (Q1, hypothetical first step tomorrow): 0.20\n- b (Q2, when/where do you focus best): 0.12\n- c (Q3, reflect on today's focused moments, conditional): 0.13\nQuestions sum = 0.45 ≥ 0.43. \n- d (reflection): 0.16\n- e (teaching, one-line plan): 0.16\n- f (action, write tomorrow's first task): 0.18? Wait, f is action — but it overlaps with teaching e. Let me diversify: f could be breathing instead? I already might drop breathing. Let's include breathing instead of action to diversify? But action writing note is nice. Hmm.\n\nMaybe: \n- a: question 0.20\n- b: question 0.12\n- c: question 0.13\n- d: reflection 0.15\n- e: teaching 0.14\n- f: action 0.12\n- g: none 0.14\n\nSum: 0.20+0.12+0.13+0.15+0.14+0.12+0.14 = 1.00. Check: 0.20+0.12+0.13=0.45; 0.20+0.12 = 0.45? wait recompute: 0.20+0.12+0.13 = 0.45. Non-none total = 0.86; half = 0.43; 0.45 ≥ 0.43 ✓. Questions count 3/6 = 50% ✓.\n\nHmm, but maybe drop breathing entirely. The kinds available include breathing, but not required. Fine.\n\nActually, at 22:30, a breathing invitation might be nice and gentle for night. But action (writing tomorrow's first step) directly addresses their pattern. Teaching also addresses. Maybe swap reflection? Reflection is grounded in profile. Let me reconsider the mix to keep it diverse but not redundant:\n\n- d (reflection): \"夜ふけに『やっておけば』と振り返るとき、それだけ真剣に向き合っている証拠かもしれません。\" — hmm \"証拠\" is a bit flattering/preachy? Maybe: \"日中の集中がうまくいかない日があっても、夜にちゃんと振り返っているのは、あなたが前へ進みたいと感じている印でもあります。\" — asserts their wish (\"前へ進みたいと感じている\") — forbidden (assert wishes). Avoid. \n\nReflection safer: \"在宅の日は、オンとオフの切り替えがむずかしくて、集中が続かないことがありますね。\" — general empathy tied to profile facts (WFH, focus doesn't last). This is a reflection of their described situation. It says \"在宅の日は...集中が続かないことがありますね\" — matches profile statement, okay.\n\nOr reflection: \"やるべきことを後回しにして夜に振り返ると、その重さが心に残りやすいものですね。\" — matches profile (procrastinate, night regret), general phrasing. Fine.\n\n- e (teaching): \"明日やることを細かく計画するより、『最初の15分で何をするか』だけを今夜決めておくと、始めやすくなることがあります。\" Good, hedged with ことがあります.\n\n- f (action): \"よければ、スマホを少し離れた場所に置いて、そのぶん明日の最初の一歩をひとつ書き出してみませんか？\" — hmm \"そのぶん\" weird. Simpler: \"よければ、明日最初に取り組むことをメモにひと言だけ書いて、今日はそれで手を止めてみませんか？\" — \"手を止めて\" implies they're working now? \"今日はそこまでにしてみませんか？\" implies they're doing something. Avoid present-state presupposition. Just: \"よければ、明日の最初の15分で取り組みたいことを、メモにひと言だけ書いてみませんか？\" — \"取り組みたい\" mild wish presupposition; use \"取り組むこと\": \"明日の最初の15分で取り組むことを、メモにひと言だけ書いてみませんか？\" — okay, invitation.\n\nWait — but both e (teaching about writing first step) and f (action writing first step) are redundant. Diversify: make f the breathing one or a different action like \"スマホを充電器に置いて離れてみる\"? Profile says long smartphone time; suggesting putting phone away is grounded. But at 22:30, \"スマホを別の部屋に置いてみる\" might be reasonable and non-shaming. Frame as gentle invitation: \"よければ、スマホを少し手の届かないところに置いて、その時間を明日の準備に使ってみませんか？\" — hmm implies they're currently using phone. \"よければ...置いてみませんか\" — invitation doesn't assert current state strongly. But \"手の届かないところ\" is fine. Yet they received this via notification on phone presumably — asking them to put the phone away is classic. It's okay as invitation. But maybe breathing is gentler for night. Let me include breathing as f instead, and keep e teaching as the planning tip.\n\nActually let me reconsider: with desired_state \"focus\" and night slot, the natural intervention is about tomorrow's first step or reflecting today. Breathing at night is more relaxation-oriented, but fine as one low-probability candidate.\n\nFinal set (7 candidates):\n\na. question: \"もし明日の最初の15分をひとつの作業に使えるとしたら、何から始めてみたいですか？\" — \"始めてみたい\" presupposes wanting to try? Mild. Use \"何から始めますか？\" Cleaner: \"もし明日の最初の15分をひとつのことに使えるとしたら、何を始めますか？\" Ends with ？ ✓. Probability 0.20.\n\nHmm \"何を始めますか\" fine.\n\nb. question: \"あなたがいちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" Probability 0.12.\n\nc. question: \"今日の中で、少しでも集中できた時間があったとしたら、それはどんなときでしたか？\" — conditional, no presupposition. Probability 0.13.\n\nd. reflection: \"日中にやるべきことを後回しにして、夜に振り返るとき、その気持ちはなかなか軽くならないものですね。\" Hmm this is kind of leading. Simpler: \"夜に『やっておけばよかった』と振り返るとき、その思いが重くのしかかることはありませんか？\" — that's actually a yes/no question... \"ことはありませんか\" is a question. Reflection should be a statement. Keep it as statement: \"夜に『やっておけば』と振り返るとき、その気持ちは簡単には晴れないものですね。\" — This is a reflection grounded in profile (night regret). Asserting \"その気持ちは簡単には晴れない\" as general human experience (\"ものですね\") is fine. Probability 0.15.\n\nWait — \"doing a reflection at 22:30 assumes they're reviewing now.\" The statement \"夜に...振り返るとき、...\" describes a general pattern, not asserting they're doing it now. I think acceptable. Alternatively phrase fully generally: \"やることを後回しにした夜の振り返りは、気持ちが残りやすいものですね。\" Good, general.\n\ne. teaching: \"明日のやることリストを作るより、『最初の15分で何をするか』だけを今夜決めておくほうが、始めやすくなることがあります。\" — hedged (\"ことがあります\"). Probability 0.14.\n\nf. breathing: \"よければ、息を4秒で吸って6秒で吐くのを3回くり返して、呼吸だけに意識を向けてみませんか？\" Probability 0.12.\n\ng. none: \"\", probability 0.14.\n\nCheck sums: 0.20 + 0.12 + 0.13 + 0.15 + 0.14 + 0.12 + 0.14 = 1.00 ✓.\nQuestions mass: 0.45. Non-none mass: 0.86, half = 0.43. 0.45 ≥ 0.43 ✓.\nQuestion count: 3 of 6 non-none = 50% ✓ (\"at least half\").\nExactly one none ✓. Kinds valid ✓.\n\nCheck each text for constraints:\n\na: \"もし明日の最初の15分をひとつのことに使えるとしたら、何を始めますか？\" — hypothetical, no presupposition, open-ended, ends ？ ✓. Japanese natural ✓. Uses 「」? No quotes. Fine.\n\nb: \"あなたがいちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" — open, general, no presupposition ✓. Slightly formal \"あなたが\" but fine. Maybe drop あなた: \"いちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" — subject omitted, natural Japanese ✓.\n\nc: \"今日の中で、少しでも集中できた時間があったとしたら、それはどんなときでしたか？\" — conditional \"としたら\" avoids presupposing there was one. Hmm, \"どんなときでしたか\" past tense with conditional is a bit odd but acceptable: \"もし今日、少しでも集中できた時間があったとしたら、どんなときだったと思いますか？\" — \"と思いますか\" fine. Let me polish: \"もし今日、少しでも集中できた瞬間があったとしたら、それはどんなときだったと思いますか？\" ✓.\n\nd: \"やるべきことを後回しにした日の夜の振り返りは、気持ちが残りやすいものですね。\" — reflection, grounded in profile, general statement, no assertion of current state. Ends with 。 ✓. Hmm \"気持ちが残りやすい\" maybe \"後悔が尾を引きやすい\". Let me write: \"やることを後回しにした夜の振り返りは、どうしても後悔が残りやすいものですね。\" — \"どうしても\" too strong? \"後夜の振り返り...\" Simplify: \"後回しにした日の夜は、その振り返りが心に残りやすいものですね。\" Hmm. Final: \"やることを後回しにして夜を迎えると、その振り返りがなかなか心から離れないものですね。\" — natural enough. Or simpler: \"夜に『あとでやればよかった』という気持ちは、なかなか消えないものですね。\" I'll go with: \"夜に「あとでやればよかった」という気持ちは、簡単には消えないものですね。\" Hmm \"消えない\" too definitive? It's a general empathic statement, not medical claim. Fine but let me soften: \"夜に「あとでやればよかった」という気持ちは、尾を引きやすいものですね。\" ✓ Quotation 「」 balanced ✓.\n\nWait, negative example says don't presuppose... the reflection isn't a question, and it's a general statement about nights, consistent with profile (they regret at night). It doesn't assert they feel it right now. Acceptable.\n\ne: \"明日のやることリストを長く書くより、「最初の15分で何をするか」だけを今夜決めておくほうが、始めやすくなることがあります。\" — teaching, hedged. Ends 。 ✓. Quotes balanced ✓. Hmm \"今夜決めておく\" — implies they're awake and it's night; that's fine, it IS night (time slot). Time slot doesn't establish event schedule/location/body state, but addressing \"今夜\" in a suggestion is okay since it IS night per context. Actually wait: \"A time slot does not establish an event schedule, present location, body state or prior statement.\" So saying \"今夜決めておく\" is a suggestion for tonight — that's fine as a suggestion; it doesn't assert they're doing anything now. OK.\n\nf: \"よければ、息を4秒かけて吸って6秒かけて吐くことを3回ほどくり返して、呼吸に意識を向けてみませんか？\" — breathing invitation, no presupposition. Ends ？ ✓.\n\ng: none, \"\", 0.14.\n\nCheck \"no guaranteed effects\": e uses \"ことがあります\" ✓. f \"よければ...みませんか\" ✓.\n\nNo shaming/preaching: d is empathic, not shaming ✓. e is a tip, not preaching — it's teaching kind, fine.\n\nCheck \"Never invent personal facts\": no invented facts. a, b, c are questions; d generalizes from profile; e tip; f invitation. ✓.\n\nCheck no romantic/beauty/appearance contexts ✓. No medical claims ✓.\n\nOpen-ended requirement: a, b, c are open-ended questions ✓ (not yes/no).\n\nAt least half of non-none candidates are questions: 3/6 ✓.\n\nProbabilities sum to 1 ✓. Each probability presumably nonneg ✓.\n\nNumber of candidates: 7, within 2..8 ✓.\n\nJSON only. Let me finalize texts:\n\na (question, 0.20): \"もし明日の最初の15分をひとつのことに使えるとしたら、何から始めますか？\"\nb (question, 0.12): \"いちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\"\nc (question, 0.13): \"もし今日、少しでも集中できた瞬間があったとしたら、それはどんなときだったと思いますか？\"\nd (reflection, 0.15): \"夜に「あとでやればよかった」という気持ちは、尾を引きやすいものですね。\"\ne (teaching, 0.14): \"明日のやることを長いリストにするより、「最初の15分で何をするか」だけを決めておくほうが、取りかかりやすくなることがあります。\"\nf (breathing, 0.12): \"よければ、息を4秒かけて吸い、6秒かけて吐くことを3回ほどくり返して、呼吸だけに意識を向けてみませんか？\"\ng (none, 0.14): \"\"\n\nDouble-check probability distribution reasoning: highest for a (actionable, forward-looking, matches desired focus state and their procrastination pattern). Reflection d 0.15 is empathic. Teaching 0.14. None 0.14 — reasonable at night when about to sleep; sending another message could be noise. Fine.\n\nOne more check on c: \"それはどんなときだったと思いますか\" — asking to recall; conditional prevents presupposition ✓.\n\nCheck b: doesn't presuppose they can focus at all? \"いちばん集中しやすいと感じるのは\" — superlative presupposes they have moments of ease; mild. Could add \"普段のなかで\" — \"普段、いちばん集中しやすいと感じるのはどんな時間帯や環境ですか？\" Still superlative presupposition but weak and harmless; people can answer \"none really\". Acceptable? To be safe: \"集中しやすいと感じやすいのは、どんな時間帯や環境ですか？\" — awkward. Or \"これまでで、比較的集中しやすかったのはどんな環境ですか？\" — presupposes there were such times. Hmm. Keep the superlative version; it's a standard gentle question and the profile doesn't say they never focus. I think it's fine. Alternatively: \"どんな時間帯や環境だと、集中しやすいと感じますか？\" — conditional-ish \"だと...感じますか\" asking generally, less presupposing. Use that: \"どんな時間帯や環境だと、集中しやすいと感じますか？\" — hmm, slightly odd phrasing. \"集中するのに向いている時間帯や環境は、どんなものだと思いますか？\" I'll go with \"いちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" — natural and safe enough. Actually, to reduce presupposition, \"集中しやすいと感じるのは、どんな時間帯や環境ですか？\" drops \"いちばん\" — cleaner. Use that.\n\nFinal JSON with ids a–g. Ensure valid JSON, Japanese punctuation preserved, 「」 balanced.\n\nSum check again: 0.20+0.12+0.13+0.15+0.14+0.12+0.14 = 1.00 ✓. Questions: 0.20+0.12+0.13=0.45 ≥ 0.43 ✓.",
+              "reasoning_details": [
+                {
+                  "type": "reasoning.text",
+                  "text": "Let me analyze the context:\n\n- Person: 29 years old, works from home (在宅ワーク), struggles to stay focused, procrastinates on things they should do, regrets it at night. Long time on smartphone.\n- Desired state: focus\n- Language: Japanese\n- Time: 22:30, night, notification\n- No recent reactions.\n\nConstraints:\n- 2..8 candidates total, including exactly one \"none\" kind with empty text.\n- At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass.\n- Questions must not presuppose unprovided facts: I can't say \"you're in bed now\", \"this morning's interview\", etc. I can't assume they're currently on their phone, or currently procrastinating right now. The time is 22:30 night, but that doesn't establish what they're doing now.\n- No shaming, no tough-love, no preaching, no medical claims, no guaranteed effects.\n- Japanese sentences end with 。 or ？ or ！\n- Balanced nonempty quotations... hmm, \"balanced nonempty quotations\" means if I use quotes like 「」, they should be balanced (opened and closed). Actually re-reading: \"Use natural complete language, balanced nonempty quotations and no garbled fragments\" - this means quotation marks should be balanced, and not empty quotes.\n- Return JSON only.\n\nProfile mentions: night regret about procrastination. 22:30 is night. So referencing that they tend to regret at night is allowed as a general pattern from the profile, but I shouldn't assert they're regretting right now. I could ask open-ended questions like \"if you look back on today, what's one thing you're glad you did?\" — that presupposes they did something they're glad about? Hmm, \"what's one thing...\" presupposes there is one. Better: \"今日を振り返ってみると、どんな瞬間に集中できたと感じますか？\" presupposes they had moments of focus. Better to phrase carefully: \"今日のどんな時間帯なら、集中しやすそうだと感じますか？\" — about tomorrow maybe. Or \"明日、どんな小さな一歩から始めたいですか？\" presupposes they want to start something. Hmm, \"〜したいですか\" — asking what they'd like to do is okay-ish, but \"assert their wishes\" is forbidden; asking about wishes in question form... The negative examples forbid presupposing events. Asking \"what would you like...\" doesn't presuppose that they do want something specific, but it leans. Safer: conditional phrasing: \"もし明日15分だけ何か一つに取り組むなら、何を選びますか？\" — conditional, no presupposition. That's good.\n\nTypes of interventions:\n- reflection: a statement reflecting their experience/situation (based on profile, general patterns okay).\n- question: open-ended question.\n- teaching: brief psychoeducation (no medical claims, no guaranteed effects).\n- breathing: breathing prompt — but careful: can't assert their current physical state? A breathing exercise suggestion is an action invitation: \"よければ...\" phrasing to avoid presupposing state. E.g., \"よければ、息を吸って4秒、吐いて6秒を3回くり返してみませんか？\" — invitation, no presupposition of location.\n- action: a small action suggestion, e.g., putting phone in another room, writing tomorrow's first task.\n- none: empty.\n\nConstraint: At least half of non-none candidates must be open-ended question-type candidates, with at least half of the non-none probability mass. \"open-ended question-type candidates\" — presumably kind \"question\" with open-ended text. So if I have N non-none candidates, at least ceil(N/2) must be questions, and their total probability ≥ half of the non-none total.\n\nLet me plan: 6 non-none + 1 none = 7 candidates? Or 5 non-none + 1 none = 6 total. Let's do 6 non-none (3+ questions) — let's do 4 questions among 6 non-none, with probability mass ≥ half.\n\nActually simpler: 5 non-none candidates: 3 questions (open-ended), 1 reflection, 1 breathing or action. Question probability ≥ half of non-none mass.\n\nLet me draft candidates in Japanese:\n\nQuestion candidates (open-ended, no presuppositions):\n1. \"もし明日、何か一つだけ先に取り組めるとしたら、何を選びたいですか？\" — Hmm \"選びたい\" presupposes wanting to choose. Conditional \"としたら\" softens. \"何を選びますか？\" is fine. Let's use: \"もし明日の最初の15分を一つの作業に使えるとしたら、何から始めますか？\" — no presupposition about wishes, purely hypothetical. Good.\n\n2. \"今日一日を振り返って、集中しやすいと感じたのはどんな瞬間でしたか？\" — presupposes they had such a moment. Alternative: \"一日の中で、集中が自然と続いたとしたら、それはどんな場面だと思いますか？\" — awkward. Or \"あなたがいちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" — asking about general pattern, no presupposition. That's safe and open-ended.\n\n3. \"夜に「あとでやればよかった」と思ったとき、どんな小さな合図なら翌日に切り替えられそうですか？\" — hmm, complex. Or: \"後悔が頭に浮かんだとき、自分にどんな言葉をかけてあげたいですか？\" — presupposes regret appears... The profile says they regret at night; asking hypothetically is okay: \"もし今夜「これもやっておけば」という気持ちが浮かんだら、どんな言葉を自分にかけたいですか？\" — the negative example was about presupposing a specific event (interview this morning). Here, profile says night regret is a pattern, and it's night. Still, I shouldn't assert they currently feel regret. Hypothetical \"もし...浮かんだら\" is conditional, not asserting. But the example \"今朝、面接の前に...\" was forbidden because it asserts an interview this morning. My phrasing with もし (if) doesn't assert current state. I think it's acceptable but let me pick safer ones.\n\nAlternative question: \"集中が途切れそうなとき、あなたはどんな方法で自分を立ち返らせていますか？\" — asks about current strategies; presupposes they have strategies? \"何か工夫していることがあれば、それは何ですか？\" — \"if anything\" covers it. Good: \"集中を保つために何か工夫していることがあれば、それについて教えてもらえますか？\" Hmm, a bit long.\n\nBetter set:\nQ1: \"もし明日の朝、最初の15分をひとつの作業にあてられるとしたら、何から始めますか？\" (hypothetical, open)\nQ2: \"あなたがいちばん集中しやすいと感じるのは、どんな時間帯や場所ですか？\" (general pattern, open, no presupposition)\nQ3: \"今日を振り返って、うまくいった瞬間や救われた瞬間があったら、どんな場面でしたか？\" — \"if there were\" covers presupposition. Hmm, \"救われた\" maybe. Or: \"今日の中で、少しでも集中できた時間があったとしたら、何をしているときでしたか？\" — conditional covers it. Good.\n\nReflection candidates:\nR1: \"夜に今日を振り返って、明日の小さな最初の一歩をひとつ決めておくだけで、朝のスタートが変わりやすくなることがあります。\" — that's more teaching. Reflection should mirror their experience: \"在宅だと、作業と休みの境目があいまいになって、集中が続かなくなることがありますね。\" — that reflects their WFH struggle generally. It asserts their experience though (\"あいまいになって\" for them). Their profile says WFH + focus doesn't continue. Saying \"境目があいまいになりやすい\" is a general statement, okay as teaching/reflection. Let me make reflection more empathic without inventing facts: \"一日の終わりに「あとでやっておけば」と思うと、気持ちが重くなりますよね。\" — hmm \"重くなりますよね\" assumes their feeling? It's a general empathy statement; profile literally says they feel regret at night (後悔する). So acknowledging \"夜に後悔すると気持ちは楽ではないですよね\" is grounded in profile. But avoid asserting present state (\"right now you're regretting\"). Use general: \"夜に「やっておけば」と感じると、なかなか心が軽くならないものですね。\" I think fine.\n\nTeaching candidate:\nT1: \"後悔が明日のやる気につながりやすいのは、今夜のうちに『明日の最初の一歩』を具体的にひとつ書いておくときだと知られています。\" — \"知られています\" is a claim; avoid guaranteed effects. Use \"〜ことがあります\" (sometimes). E.g., \"やることを明日に残すより、『明日の最初の15分で何をするか』を今ひと言で決めておくと、始まりやすくなることがあるとも言われます。\" Hmm \"とも言われます\" is hedged. Simpler: \"明日の最初の作業を、昨夜のうちにたった一行だけ決めておくと、取りかかりやすくなることがあります。\" — \"ことがあります\" is non-guaranteed. Good teaching.\n\nBreathing candidate:\nB1: \"よければ、息を4秒かけて吸い、6秒かけて吐くことを3回くり返して、今この瞬間に意識を向けてみませんか？\" — invitation, no presupposition. Ends with ？. It's an action invitation though; kind breathing. Good.\n\nAction candidate:\nA1: \"よければ、明日最初に取りかかりたいことを、付箋やメモにひと言だけ書き出してみませんか？\" — invitation, no presupposition of wishes (\"取りかかりたい\" presupposes wanting?). Rephrase: \"よければ、明日の最初の15分で取り組むことを、メモにひと言だけ書いてみませんか？\" — no presupposition. Good.\n\nNow count: Let's pick final set.\n\nTotal candidates: 7? Constraint 2..8. Let's do 7: \n- a: question (Q1)\n- b: question (Q2)\n- c: question (Q3)\n- d: reflection (R1)\n- e: teaching (T1)\n- f: action (A1)\n- g: none\n\nNon-none = 6, questions = 3 = half. Requirement: \"At least half of non-none candidates must be open-ended question-type\" — 3/6 = half, okay. Probability mass: questions must have ≥ half of non-none mass.\n\nNon-none total probability = 1 - P(none). Let's say P(none) = 0.14. Non-none total = 0.86. Questions total must be ≥ 0.43.\n\nAssign:\n- a (Q1, hypothetical first step tomorrow): 0.20\n- b (Q2, when/where do you focus best): 0.12\n- c (Q3, reflect on today's focused moments, conditional): 0.13\nQuestions sum = 0.45 ≥ 0.43. \n- d (reflection): 0.16\n- e (teaching, one-line plan): 0.16\n- f (action, write tomorrow's first task): 0.18? Wait, f is action — but it overlaps with teaching e. Let me diversify: f could be breathing instead? I already might drop breathing. Let's include breathing instead of action to diversify? But action writing note is nice. Hmm.\n\nMaybe: \n- a: question 0.20\n- b: question 0.12\n- c: question 0.13\n- d: reflection 0.15\n- e: teaching 0.14\n- f: action 0.12\n- g: none 0.14\n\nSum: 0.20+0.12+0.13+0.15+0.14+0.12+0.14 = 1.00. Check: 0.20+0.12+0.13=0.45; 0.20+0.12 = 0.45? wait recompute: 0.20+0.12+0.13 = 0.45. Non-none total = 0.86; half = 0.43; 0.45 ≥ 0.43 ✓. Questions count 3/6 = 50% ✓.\n\nHmm, but maybe drop breathing entirely. The kinds available include breathing, but not required. Fine.\n\nActually, at 22:30, a breathing invitation might be nice and gentle for night. But action (writing tomorrow's first step) directly addresses their pattern. Teaching also addresses. Maybe swap reflection? Reflection is grounded in profile. Let me reconsider the mix to keep it diverse but not redundant:\n\n- d (reflection): \"夜ふけに『やっておけば』と振り返るとき、それだけ真剣に向き合っている証拠かもしれません。\" — hmm \"証拠\" is a bit flattering/preachy? Maybe: \"日中の集中がうまくいかない日があっても、夜にちゃんと振り返っているのは、あなたが前へ進みたいと感じている印でもあります。\" — asserts their wish (\"前へ進みたいと感じている\") — forbidden (assert wishes). Avoid. \n\nReflection safer: \"在宅の日は、オンとオフの切り替えがむずかしくて、集中が続かないことがありますね。\" — general empathy tied to profile facts (WFH, focus doesn't last). This is a reflection of their described situation. It says \"在宅の日は...集中が続かないことがありますね\" — matches profile statement, okay.\n\nOr reflection: \"やるべきことを後回しにして夜に振り返ると、その重さが心に残りやすいものですね。\" — matches profile (procrastinate, night regret), general phrasing. Fine.\n\n- e (teaching): \"明日やることを細かく計画するより、『最初の15分で何をするか』だけを今夜決めておくと、始めやすくなることがあります。\" Good, hedged with ことがあります.\n\n- f (action): \"よければ、スマホを少し離れた場所に置いて、そのぶん明日の最初の一歩をひとつ書き出してみませんか？\" — hmm \"そのぶん\" weird. Simpler: \"よければ、明日最初に取り組むことをメモにひと言だけ書いて、今日はそれで手を止めてみませんか？\" — \"手を止めて\" implies they're working now? \"今日はそこまでにしてみませんか？\" implies they're doing something. Avoid present-state presupposition. Just: \"よければ、明日の最初の15分で取り組みたいことを、メモにひと言だけ書いてみませんか？\" — \"取り組みたい\" mild wish presupposition; use \"取り組むこと\": \"明日の最初の15分で取り組むことを、メモにひと言だけ書いてみませんか？\" — okay, invitation.\n\nWait — but both e (teaching about writing first step) and f (action writing first step) are redundant. Diversify: make f the breathing one or a different action like \"スマホを充電器に置いて離れてみる\"? Profile says long smartphone time; suggesting putting phone away is grounded. But at 22:30, \"スマホを別の部屋に置いてみる\" might be reasonable and non-shaming. Frame as gentle invitation: \"よければ、スマホを少し手の届かないところに置いて、その時間を明日の準備に使ってみませんか？\" — hmm implies they're currently using phone. \"よければ...置いてみませんか\" — invitation doesn't assert current state strongly. But \"手の届かないところ\" is fine. Yet they received this via notification on phone presumably — asking them to put the phone away is classic. It's okay as invitation. But maybe breathing is gentler for night. Let me include breathing as f instead, and keep e teaching as the planning tip.\n\nActually let me reconsider: with desired_state \"focus\" and night slot, the natural intervention is about tomorrow's first step or reflecting today. Breathing at night is more relaxation-oriented, but fine as one low-probability candidate.\n\nFinal set (7 candidates):\n\na. question: \"もし明日の最初の15分をひとつの作業に使えるとしたら、何から始めてみたいですか？\" — \"始めてみたい\" presupposes wanting to try? Mild. Use \"何から始めますか？\" Cleaner: \"もし明日の最初の15分をひとつのことに使えるとしたら、何を始めますか？\" Ends with ？ ✓. Probability 0.20.\n\nHmm \"何を始めますか\" fine.\n\nb. question: \"あなたがいちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" Probability 0.12.\n\nc. question: \"今日の中で、少しでも集中できた時間があったとしたら、それはどんなときでしたか？\" — conditional, no presupposition. Probability 0.13.\n\nd. reflection: \"日中にやるべきことを後回しにして、夜に振り返るとき、その気持ちはなかなか軽くならないものですね。\" Hmm this is kind of leading. Simpler: \"夜に『やっておけばよかった』と振り返るとき、その思いが重くのしかかることはありませんか？\" — that's actually a yes/no question... \"ことはありませんか\" is a question. Reflection should be a statement. Keep it as statement: \"夜に『やっておけば』と振り返るとき、その気持ちは簡単には晴れないものですね。\" — This is a reflection grounded in profile (night regret). Asserting \"その気持ちは簡単には晴れない\" as general human experience (\"ものですね\") is fine. Probability 0.15.\n\nWait — \"doing a reflection at 22:30 assumes they're reviewing now.\" The statement \"夜に...振り返るとき、...\" describes a general pattern, not asserting they're doing it now. I think acceptable. Alternatively phrase fully generally: \"やることを後回しにした夜の振り返りは、気持ちが残りやすいものですね。\" Good, general.\n\ne. teaching: \"明日のやることリストを作るより、『最初の15分で何をするか』だけを今夜決めておくほうが、始めやすくなることがあります。\" — hedged (\"ことがあります\"). Probability 0.14.\n\nf. breathing: \"よければ、息を4秒で吸って6秒で吐くのを3回くり返して、呼吸だけに意識を向けてみませんか？\" Probability 0.12.\n\ng. none: \"\", probability 0.14.\n\nCheck sums: 0.20 + 0.12 + 0.13 + 0.15 + 0.14 + 0.12 + 0.14 = 1.00 ✓.\nQuestions mass: 0.45. Non-none mass: 0.86, half = 0.43. 0.45 ≥ 0.43 ✓.\nQuestion count: 3 of 6 non-none = 50% ✓ (\"at least half\").\nExactly one none ✓. Kinds valid ✓.\n\nCheck each text for constraints:\n\na: \"もし明日の最初の15分をひとつのことに使えるとしたら、何を始めますか？\" — hypothetical, no presupposition, open-ended, ends ？ ✓. Japanese natural ✓. Uses 「」? No quotes. Fine.\n\nb: \"あなたがいちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" — open, general, no presupposition ✓. Slightly formal \"あなたが\" but fine. Maybe drop あなた: \"いちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" — subject omitted, natural Japanese ✓.\n\nc: \"今日の中で、少しでも集中できた時間があったとしたら、それはどんなときでしたか？\" — conditional \"としたら\" avoids presupposing there was one. Hmm, \"どんなときでしたか\" past tense with conditional is a bit odd but acceptable: \"もし今日、少しでも集中できた時間があったとしたら、どんなときだったと思いますか？\" — \"と思いますか\" fine. Let me polish: \"もし今日、少しでも集中できた瞬間があったとしたら、それはどんなときだったと思いますか？\" ✓.\n\nd: \"やるべきことを後回しにした日の夜の振り返りは、気持ちが残りやすいものですね。\" — reflection, grounded in profile, general statement, no assertion of current state. Ends with 。 ✓. Hmm \"気持ちが残りやすい\" maybe \"後悔が尾を引きやすい\". Let me write: \"やることを後回しにした夜の振り返りは、どうしても後悔が残りやすいものですね。\" — \"どうしても\" too strong? \"後夜の振り返り...\" Simplify: \"後回しにした日の夜は、その振り返りが心に残りやすいものですね。\" Hmm. Final: \"やることを後回しにして夜を迎えると、その振り返りがなかなか心から離れないものですね。\" — natural enough. Or simpler: \"夜に『あとでやればよかった』という気持ちは、なかなか消えないものですね。\" I'll go with: \"夜に「あとでやればよかった」という気持ちは、簡単には消えないものですね。\" Hmm \"消えない\" too definitive? It's a general empathic statement, not medical claim. Fine but let me soften: \"夜に「あとでやればよかった」という気持ちは、尾を引きやすいものですね。\" ✓ Quotation 「」 balanced ✓.\n\nWait, negative example says don't presuppose... the reflection isn't a question, and it's a general statement about nights, consistent with profile (they regret at night). It doesn't assert they feel it right now. Acceptable.\n\ne: \"明日のやることリストを長く書くより、「最初の15分で何をするか」だけを今夜決めておくほうが、始めやすくなることがあります。\" — teaching, hedged. Ends 。 ✓. Quotes balanced ✓. Hmm \"今夜決めておく\" — implies they're awake and it's night; that's fine, it IS night (time slot). Time slot doesn't establish event schedule/location/body state, but addressing \"今夜\" in a suggestion is okay since it IS night per context. Actually wait: \"A time slot does not establish an event schedule, present location, body state or prior statement.\" So saying \"今夜決めておく\" is a suggestion for tonight — that's fine as a suggestion; it doesn't assert they're doing anything now. OK.\n\nf: \"よければ、息を4秒かけて吸って6秒かけて吐くことを3回ほどくり返して、呼吸に意識を向けてみませんか？\" — breathing invitation, no presupposition. Ends ？ ✓.\n\ng: none, \"\", 0.14.\n\nCheck \"no guaranteed effects\": e uses \"ことがあります\" ✓. f \"よければ...みませんか\" ✓.\n\nNo shaming/preaching: d is empathic, not shaming ✓. e is a tip, not preaching — it's teaching kind, fine.\n\nCheck \"Never invent personal facts\": no invented facts. a, b, c are questions; d generalizes from profile; e tip; f invitation. ✓.\n\nCheck no romantic/beauty/appearance contexts ✓. No medical claims ✓.\n\nOpen-ended requirement: a, b, c are open-ended questions ✓ (not yes/no).\n\nAt least half of non-none candidates are questions: 3/6 ✓.\n\nProbabilities sum to 1 ✓. Each probability presumably nonneg ✓.\n\nNumber of candidates: 7, within 2..8 ✓.\n\nJSON only. Let me finalize texts:\n\na (question, 0.20): \"もし明日の最初の15分をひとつのことに使えるとしたら、何から始めますか？\"\nb (question, 0.12): \"いちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\"\nc (question, 0.13): \"もし今日、少しでも集中できた瞬間があったとしたら、それはどんなときだったと思いますか？\"\nd (reflection, 0.15): \"夜に「あとでやればよかった」という気持ちは、尾を引きやすいものですね。\"\ne (teaching, 0.14): \"明日のやることを長いリストにするより、「最初の15分で何をするか」だけを決めておくほうが、取りかかりやすくなることがあります。\"\nf (breathing, 0.12): \"よければ、息を4秒かけて吸い、6秒かけて吐くことを3回ほどくり返して、呼吸だけに意識を向けてみませんか？\"\ng (none, 0.14): \"\"\n\nDouble-check probability distribution reasoning: highest for a (actionable, forward-looking, matches desired focus state and their procrastination pattern). Reflection d 0.15 is empathic. Teaching 0.14. None 0.14 — reasonable at night when about to sleep; sending another message could be noise. Fine.\n\nOne more check on c: \"それはどんなときだったと思いますか\" — asking to recall; conditional prevents presupposition ✓.\n\nCheck b: doesn't presuppose they can focus at all? \"いちばん集中しやすいと感じるのは\" — superlative presupposes they have moments of ease; mild. Could add \"普段のなかで\" — \"普段、いちばん集中しやすいと感じるのはどんな時間帯や環境ですか？\" Still superlative presupposition but weak and harmless; people can answer \"none really\". Acceptable? To be safe: \"集中しやすいと感じやすいのは、どんな時間帯や環境ですか？\" — awkward. Or \"これまでで、比較的集中しやすかったのはどんな環境ですか？\" — presupposes there were such times. Hmm. Keep the superlative version; it's a standard gentle question and the profile doesn't say they never focus. I think it's fine. Alternatively: \"どんな時間帯や環境だと、集中しやすいと感じますか？\" — conditional-ish \"だと...感じますか\" asking generally, less presupposing. Use that: \"どんな時間帯や環境だと、集中しやすいと感じますか？\" — hmm, slightly odd phrasing. \"集中するのに向いている時間帯や環境は、どんなものだと思いますか？\" I'll go with \"いちばん集中しやすいと感じるのは、どんな時間帯や環境ですか？\" — natural and safe enough. Actually, to reduce presupposition, \"集中しやすいと感じるのは、どんな時間帯や環境ですか？\" drops \"いちばん\" — cleaner. Use that.\n\nFinal JSON with ids a–g. Ensure valid JSON, Japanese punctuation preserved, 「」 balanced.\n\nSum check again: 0.20+0.12+0.13+0.15+0.14+0.12+0.14 = 1.00 ✓. Questions: 0.20+0.12+0.13=0.45 ≥ 0.43 ✓.",
+                  "format": "unknown",
+                  "index": 0
+                }
+              ]
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 630,
+          "completion_tokens": 6306,
+          "total_tokens": 6936,
+          "cost": 0.0227526,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 384,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0227526,
+            "upstream_inference_prompt_cost": 5.1e-05,
+            "upstream_inference_completions_cost": 0.0227016
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 6020,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982980-dqf1a9KMLsZ0DMG66G1G",
+        "object": "chat.completion",
+        "created": 1794982980,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": false, \"reason\": \"presupposes an unsupported future event ('tomorrow's first 15 minutes')\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"asks about general preferences without unsupported facts\"}, {\"id\": \"c\", \"supported\": false, \"reason\": \"presupposes an unsupported past event ('a moment of focus today')\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"paraphrases a general sentiment from the profile ('regret at night')\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"offers advice that aligns with the profile's tendency to procrastinate\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"offers general relaxation advice not tied to unsupported facts\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 489,
+          "completion_tokens": 176,
+          "total_tokens": 665,
+          "cost": 0.0001193,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001193,
+            "upstream_inference_prompt_cost": 4.89e-05,
+            "upstream_inference_completions_cost": 7.04e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982981-ClJ9N5oM2WdzeRp3TcpX",
+        "object": "chat.completion",
+        "created": 1794982981,
+        "model": "z-ai/glm-5.3",
+        "provider": "Wafer",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日のことを振り返ってみて、いちばん集中を邪魔していたのは何だったと思いますか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日の自分が「先にできてよかった」と感じられそうなことを、ひとつだけ挙げるとしたら何ですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし明日の夜、少し納得感を持って眠れるとしたら、明日の一日はどの部分から始めたいですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜になると先延ばししていたことが頭に浮かんで、その分少し重い気持ちになっているのかもしれませんね。\",\"probability\":0.14},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"明日に残すことを紙に書き出しておくと、頭の中のぐるぐるが外に預けられて、今の夜が少し軽くなることもあります。\",\"probability\":0.12},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"寝る前に、息を4つ数えて吸って、ゆっくり6つ数けて吐く呼吸を数回くり返してみませんか？\",\"probability\":0.08},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.06}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 630,
+          "completion_tokens": 313,
+          "total_tokens": 943,
+          "cost": 0.000481661,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 576,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000481661,
+            "upstream_inference_prompt_cost": 4.3461e-05,
+            "upstream_inference_completions_cost": 0.0004382
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982986-KaCxmpVvjrsBRHUJPfKD",
+        "object": "chat.completion",
+        "created": 1794982986,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about factors hindering focus, aligning with the profile's mention of concentration difficulties.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Encourages thinking about a proactive action for the next day, which can counter procrastination.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks about a desired starting point for the next day to achieve a sense of accomplishment, indirectly addressing procrastination.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"Acknowledges the profile's description of regret and a heavy heart due to procrastination at night.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"Suggests a method to alleviate mental clutter related to unfinished tasks, relevant to the profile's procrastination issue.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"Offers a relaxation technique, which can be helpful for managing evening stress and potentially counteracting procrastination-related anxiety.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 503,
+          "completion_tokens": 231,
+          "total_tokens": 734,
+          "cost": 0.0001427,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001427,
+            "upstream_inference_prompt_cost": 5.03e-05,
+            "upstream_inference_completions_cost": 9.24e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "a731d1d5-7aa7-4691-890c-945bb8b739d0",
+    "decision_point_at": 1794982987.33658,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日のことを振り返ってみて、いちばん集中を邪魔していたのは何だったと思いますか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "明日の自分が「先にできてよかった」と感じられそうなことを、ひとつだけ挙げるとしたら何ですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし明日の夜、少し納得感を持って眠れるとしたら、明日の一日はどの部分から始めたいですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "夜になると先延ばししていたことが頭に浮かんで、その分少し重い気持ちになっているのかもしれませんね。",
+        "probability": 0.14
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "明日に残すことを紙に書き出しておくと、頭の中のぐるぐるが外に預けられて、今の夜が少し軽くなることもあります。",
+        "probability": 0.12
+      },
+      {
+        "id": "f",
+        "kind": "breathing",
+        "text": "寝る前に、息を4つ数えて吸って、ゆっくり6つ数けて吐く呼吸を数回くり返してみませんか？",
+        "probability": 0.08
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.06
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日のことを振り返ってみて、いちばん集中を邪魔していたのは何だったと思いますか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "z-ai/glm-5.3",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984787.33658,
+    "observations": []
+  }
+}

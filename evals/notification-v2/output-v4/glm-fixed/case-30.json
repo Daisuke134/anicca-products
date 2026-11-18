@@ -1,0 +1,208 @@
+{
+  "index": 30,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982988-GcOOOocp2HlAXck5UiYp",
+        "object": "chat.completion",
+        "created": 1794982988,
+        "model": "z-ai/glm-5.3",
+        "provider": "Makora",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動や日記が三日で途切れてしまう前には、どんな気持ちや出来事が重なっていることが多いですか？\",\"probability\":0.14},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"大きな目標を「たった一つの小さな一歩」に縮めるとしたら、まずどんなものが思いつきますか？\",\"probability\":0.13},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"運動と日記とでは、どちらのほうが続きやすいイメージが湧きますか、その理由は何だと思いますか？\",\"probability\":0.12},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"もし一週間続いた自分を想像すると、その自分はどんな工夫で続きを支えていると思いますか？\",\"probability\":0.11},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"三日で終わってきたのは、続ける力が足りないせいではなく、目標の大きさがまだ自分に合っていなかっただけかもしれませんね。\",\"probability\":0.16},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"習慣づくりでは、大きな目標より「小さすぎるくらいの一歩」から始めるほうが続きやすいとよく言われています。\",\"probability\":0.12},{\"id\":\"g\",\"kind\":\"action\",\"text\":\"運動と日記のどちらかひとつを選んで、ほんの数分でできる小さな一歩を一つだけ決めてみませんか？\",\"probability\":0.12},{\"id\":\"h\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.10}]}",
+              "refusal": null,
+              "reasoning": "Let me analyze the context:\n\n- Person: 31 years old, Japanese speaker\n- Wants to make exercise and diary/journaling habits but tends to quit after about three days\n- Sets big goals and gets discouraged/frustrated\n- Desired state: focus\n- Time slot: 18:30, evening\n- No recent reactions\n- Source: notification\n\nConstraints:\n- 2..8 candidates\n- Single short original sentence or question, written personally\n- Probabilities sum to 1\n- Exactly one candidate with kind \"none\" and empty text\n- Kinds: reflection, question, teaching, breathing, action, none\n- At least half of non-none candidates must be open-ended question-type candidates (kind \"question\"), with at least half of the non-none probability mass\n- Never invent personal facts: don't assert they're exercising now, don't assert their current state, don't presuppose unprovided facts in questions\n- No tough-love, shaming, preaching, medical claims, guaranteed effects\n- Japanese sentences end with 。or？or！\n- JSON only\n\nProfile says: wants to make exercise and diary habits, tends to end within three days, sets big goals and gets discouraged.\n\nI must not presuppose: e.g., \"今日も三日坊主で終わらせないために...\" — hmm, careful. I can reference their stated pattern (three-day quitting, big goals leading to discouragement) since that's in the profile. But I shouldn't assert current state like \"you're feeling discouraged right now\" or \"you just finished work\" etc.\n\nQuestions must not presuppose unprovided facts. E.g., \"今日は運動や日記に取り組む時間をどう確保したいですか？\" — this presupposes they want to do it today? Actually it asks about how they want to secure time, which presupposes they intend to do it today. Hmm, maybe safer: \"三日続いた後に、これまで何がきっかけで途切れましたか？\" — This asks about past experiences, which is fine since profile says patterns end within three days. But wait — do we know it actually got to three days? Profile says \"三日坊主で終わることが多い\" (often ends as a three-day monk). So asking about what happens after three days is grounded.\n\nOpen-ended question-type candidates must be at least half of non-none candidates AND at least half of non-none probability mass. Kind \"question\" specifically? It says \"open-ended question-type candidates\" — I interpret as kind \"question\". Let me make sure.\n\nLet me draft candidates:\n\n1. question (open-ended): 「大きい目標を立てたとき、三日目の終わりにどんな気持ちが浮かびやすいですか？」 — Hmm, this asks about feelings, grounded in profile (big goals, three days). It's open-ended. Presupposes that feelings arise — it's a question about tendencies, grounded in the profile (\"挫折している\" - gets discouraged). Maybe fine.\n\nAlternative: 「三日で途切れてしまうとき、いつも最初の合図は何かありますか？」 — asks about the first sign when things break off. Grounded in profile pattern. Open-ended. Good.\n\n2. question (open-ended): 「運動と日記のどちらから始めると、続きやすそうに感じますか？」 — Hmm, this asks a preference question, fairly closed (which of two). Open-ended means not yes/no and allowing free response. \"どちら...感じますか\" allows explanation. It's grounded (profile mentions both exercise and diary). But careful: \"続きやすそうに感じますか\" doesn't presuppose they're currently doing it. OK.\n\n3. question (open-ended): 「もし三日ではなく、まず一日だけの目標にするとしたら、どんなものが思いつきますか？」 — grounded (three-day pattern, big goals). Open-ended. Good, ties to desired state \"focus\" — small goals support focus. Doesn't presuppose they will do it.\n\n4. reflection: 「大きすぎる目標ほど勢いをなくしやすい、というのはあなただけではないのかもしれませんね。」 — Hmm, \"あなたではない\" — safe. But it's a bit teaching-ish. Reflection kind: a reflective statement. Maybe: 「三日で終わってきた経験の積み重ねも、自分にとって何が続きやすいかを教えてくれる材料なのかもしれませんね。」 — This is a reframe, gentle. OK.\n\n5. teaching: 「習慣は小さい一歩の積み重ねで定着しやすいと考えられていて、目標を細かく分けると続きやすくなることがあります。」 — Careful about \"guaranteed effects\" — \"ことがあります\" is hedged, not guaranteed. OK. Maybe: 「習慣化では、小さすぎるくらいの目標から始めることが続きやすさのポイントと言われています。」 Hedged (\"と言われています\"). Fine.\n\n6. action: 「まず、今日できる一番小さな一歩を、運動と日記のどちらかでひとつだけ紙に書き出してみませんか？」 — This is an invitation/action prompt. Grounded: they want these habits; suggesting writing one small step. Doesn't presuppose they'll do exercise today. It's a suggestion. Fine. \"〜してみませんか？\" ends with ？\n\n7. breathing: 「少し落ち着いて深呼吸してから、今の自分にできそうな小さな一歩を思い浮かべてみませんか？」 — breathing kind. Hmm, combining breathing with action. Could do: 「一分だけ、ゆっくり吐く呼吸に意識を向けてみませんか？」 — invitation, doesn't presuppose state. Evening slot 18:30. Breathing is fine anytime, doesn't presuppose anything. But does it presuppose they need calming? It's an invitation (\"みませんか\"), not an assertion. OK.\n\n8. none: empty text.\n\nWait — count: I should keep it maybe 6-7 candidates. Requirement: at least half of non-none must be question kind. If I have 6 non-none, need ≥3 questions. Probability mass of questions ≥ half of non-none mass (so none probability ≤ 0.5... wait, non-none mass is 1 - p_none; questions mass ≥ (1 - p_none)/2).\n\nLet me choose 6 non-none candidates: 4 questions, 1 reflection, 1 teaching? Plus none = 7 total. Or include action/breathing. Kinds available: reflection, question, teaching, breathing, action, none. Let me do:\n\n- a: question\n- b: question\n- c: question\n- d: question\n- e: reflection\n- f: action (or teaching)\n- g: none\n\nThat's 4 questions out of 6 non-none — at least half. Probability mass: questions should have ≥ half of non-none mass. Let's set none = 0.10, non-none mass = 0.90. Questions total ≥ 0.45. E.g., questions: 0.18+0.16+0.14+0.12 = 0.60. Reflection 0.12, action 0.08, none 0.10. Total: 0.60+0.12+0.08+0.10 = 0.90. Wait need sum 1. Let me recompute: questions 0.60, reflection 0.15, action 0.10, none 0.15 → 1.00? 0.60+0.15+0.10+0.15 = 1.00. Yes. Question mass 0.60 ≥ 0.425 (half of 0.85). Good. Question count 4 ≥ 3 (half of 6). Good.\n\nActually, maybe include breathing too — but let's keep 6 non-none. Or 5 non-none: 3 questions, 1 reflection, 1 action, + none = 6 total. Question mass ≥ half. Let me decide 6 non-none: 4 questions, 1 reflection, 1 action. That gives variety.\n\nHmm, but teaching could be nice. Let's do 7 non-none: 4 questions, 1 reflection, 1 teaching, 1 action, + none = 8 total (max 8). Question count 4 ≥ 3.5 → 4 ≥ half of 7. OK. Mass: none 0.10, non-none 0.90, questions ≥ 0.45. Set questions: 0.14+0.13+0.12+0.11 = 0.50. Reflection 0.16, teaching 0.12, action 0.12 → 0.50+0.16+0.12+0.12 = 0.90 + none 0.10 = 1.00. \n\nNow craft texts carefully.\n\nQuestions (open-ended, grounded, no presupposition of current state):\n\nQ1: 「運動や日記が三日で途切れてしまうとき、いつも何が起きていると思いますか？」 — grounded in profile pattern. Open-ended. Good. Hmm \"いつも何が起きている\" fine.\n\nQ2: 「三日坊主を乗り越えるというより、小さく続けるイメージにすると、どんな目標が浮かびますか？」 — grounded. Open-ended. Ends with ？\n\nQ3: 「運動と日記、続けてみたい順番をつけるとしたら、どちらが先に思えますか？」 — hmm, slightly awkward. Maybe: 「もし目標を『ほんの少し』に縮めるとしたら、運動と日記のそれぞれでどんなものが思いつきますか？」 — good, open-ended.\n\nQ4: 「これまでの挑戦の中で、ほんの少しでも『続いた』と感じられた瞬間はありましたか？」 — asks about past, grounded (they have attempts). Open-ended-ish (yes/no form but invites elaboration). Hmm, open-ended requirement — \"ありましたか？\" is yes/no. Better make it open: 「これまでの挑戦で、うまくいきかけた瞬間にはどんな共通点がありましたか？」 — hmm presupposes such moments exist? Slightly. Maybe: 「振り返ると、始めた一日目と三日目とでは、気持ちにどんな違いが出てきますか？」 — grounded in pattern. Open-ended. Doesn't presuppose current state. Good.\n\nAlternatively Q4: 「今日の夕方、少しでも心が向くなら、どちらの習慣に一番手を付けたいですか？」 — presupposes \"if your heart turns\" — conditional, but \"手を付けたいですか\" presupposes desire? It's conditional. Hmm, risky per rules (\"assert their wishes\"). Skip.\n\nQ4 final: 「三日で終わりがちなパターンを振り返ると、始める前と三日目とでは、何が違ってきますか？」 — OK. Or simpler: 「小さな目標にするとしたら、明日ではなく今日の一歩として何が思いつきますか？」 — hmm \"今日\" — is suggesting something today OK? Time slot 18:30 evening. Suggesting a small step today is an intervention, doesn't presuppose facts. But as a question \"何が思いつきますか\" fine. Actually careful: it says a time slot doesn't establish event schedule — but suggesting isn't asserting. I think it's fine, but to be safe I could phrase as hypothetical: 「もし『たった一つの小さな一歩』だけ決めるとしたら、どんなものが浮かびますか？」\n\nLet me finalize:\n\nQ1: 「運動や日記が三日で途切れがちなとき、その前にどんな兆候や気持ちが出てくることが多いですか？」 — grounded. Good.\n\nQ2: 「もし大きな目標を『たった一つの小さな一歩』に縮めるとしたら、運動ではどんなものが思いつきますか？」 — grounded (big goals, exercise). Good.\n\nQ3: 「三日坊主で終わってきた経験から、続かなかった理由にはどんな共通点がありそうでしょうか？」 — hmm presupposes reasons exist; it's a question inviting reflection. \"ありそうでしょうか\" is soft. Maybe rephrase: 「続かなかったとき、どんな出来事や気持ちが重なっていたか、思い当たるところはありますか？」 — \"思い当たるところはありますか\" yes/no-ish. Open-ended enough? The rule: \"At least half of non-none candidates must be open-ended question-type candidates\". Open-ended means not leading to yes/no ideally. Let me craft clearly open-ended ones.\n\nQ3: 「日記を続けるイメージと運動を続けるイメージ、どちらのほうが気分的に楽に思えて、その理由は何ですか？」 — two-part, open-ended. Grounded. OK.\n\nQ4: 「一週間続いた自分を想像すると、どんな工夫がその続きを支えていると思いますか？」 — imaginative, open-ended. Doesn't presuppose. Good.\n\nReflection: 「三日で終わってきたのは、意志の弱さではなく、目標の大きさと合っていなかったのかもしれませんね。」 — reframe, grounded, non-shaming (explicitly removes blame). Good.\n\nTeaching: 「習慣づくりでは、大きな目標より『本当に小さな一歩』から始めるほうが、続きやすくなるとよく言われています。」 — hedged. Ends with 。 Good.\n\nAction: 「今日この夕方、運動か日記のどちらかで、ほんの一分だけでもいいから小さな一歩を選んでみませんか？」 — hmm, \"一分だけ\" — invitation. Fine. Ends with ？. Actually action kind — an invitation to act. Maybe simpler: 「運動でも日記でも、『2分だけ』などとても小さい量をひとつ決めて、今日試してみるのはどうでしょう？」 — hmm. Keep it clean: 「まず運動と日記のどちらかひとつを選んで、『ほんの数分でできる小さな一歩』を一つだけ決めてみませんか？」 — OK. Ends ？\n\nWait — does action presuppose they will act? No, it's an invitation. Fine.\n\nBreathing: I decided to skip breathing to keep count manageable. Actually 8 candidates max; I have 7 (4 Q, 1 R, 1 T, 1 A) + none = 8. That's fine. Or drop teaching to have breathing. Evening time, desired state focus — breathing could help focus. Hmm. Let me include breathing instead of teaching? Teaching gives the \"small steps\" concept which is highly relevant. Breathing: 「目標のことを一度手放して、一分だけゆっくり息を吐く時間をつくってみませんか？」 — meh. I'll keep teaching and skip breathing. Or include both and drop one question? Requirement: at least half non-none are questions. With 6 non-none: 3 questions min. 8 total max = 7 non-none + none. Let me do 7 non-none: 4 questions, reflection, teaching, action. Skip breathing. Good.\n\nCheck probabilities: \n- Q1: 0.14\n- Q2: 0.13\n- Q3: 0.12\n- Q4: 0.11 (question mass = 0.50)\n- Reflection: 0.16\n- Teaching: 0.12\n- Action: 0.12 — wait sum non-none = 0.50+0.16+0.12+0.12 = 0.90, none = 0.10. Total 1.00. ✓\nQuestion count 4/7 ≥ half ✓. Question mass 0.50 ≥ 0.45 ✓.\n\nHmm, should reflection be highest? Evening, notification, no reactions data. The person struggles with big goals; a gentle reframe might land well. Fine.\n\nCheck \"single short original sentence or question\" — each candidate should be one sentence. My Q3 has \"どちらのほうが気分的に楽に思えて、その理由は何ですか？\" — one sentence with comma, OK.\n\nCheck no presuppositions:\n- Q1: \"運動や日記が三日で途切れがちなとき\" — grounded in profile (\"三日坊主で終わることが多い\", exercise and diary). Asks what tends to happen. OK.\n- Q2: hypothetical \"もし…縮めるとしたら\" — OK, mentions exercise which is in profile.\n- Q3: mentions both habits from profile, asks preference/reason. OK.\n- Q4: imaginative \"一週間続いた自分を想像すると\" — clearly hypothetical. OK.\n- Reflection: \"三日で終わってきたのは、意志の弱さではなく…\" — grounded in pattern. It does assert \"続かなかったのは目標の大きさと合っていなかった\" as possibility (\"かもしれません\"). OK.\n- Teaching: general fact hedged. OK.\n- Action: invitation, mentions habits from profile. \"決めてみませんか？\" OK.\n\nNo shaming, no tough love, no medical claims, no guaranteed effects (\"よく言われています\", \"かもしれません\"). Japanese ends with 。or？.\n\nLet me refine texts for naturalness:\n\nQ1: 「運動や日記が三日で途切れやすいパターンを振り返ると、その直前にはどんな気持ちや出来事が重なっていることが多いですか？」 — a bit long but one sentence. Maybe shorten: 「運動や日記が三日で途切れる前、どんな気持ちや出来事が重なっていることが多いですか？」 Hmm. Keep: 「三日で途切れがちなとき、その直前にどんな気持ちや出来事が重なっていることが多いですか？」\n\nQ2: 「もし大きな目標を『たった一つの小さな一歩』に縮めるとしたら、まずどんなものが思いつきますか？」 — good, general (covers both habits).\n\nQ3: 「運動と日記を続けるイメージを比べると、どちらのほうが自分に合っていそうに感じますか、その理由も含めて聞かせてもらえますか？」 — bit clunky. Simpler: 「運動と日記、続けるイメージができやすいのはどちらで、それはなぜだと思いますか？」 — OK.\n\nQ4: 「もし一週間続けられた自分を想像すると、その自分はどんな工夫で続きを支えていると思いますか？」 — OK.\n\nReflection: 「三日で終わってきたのは、続ける力が足りないからではなく、目標の大きさが今の自分に合っていなかっただけかもしれませんね。」 — good, compassionate reframe grounded in profile.\n\nTeaching: 「習慣づくりでは、大きな目標より『ほんの少しで必ずできる量』から始めるほうが続きやすいとよく言われています。」 — hmm \"必ずできる量\" — \"so small it's surely doable\" — is that a guaranteed effect claim? The guarantee is hedged by \"よく言われています\" for the habit part. Fine. Maybe simpler: 「習慣づくりでは、三日続くかどうかより、まず『小さすぎるくらいの一歩』を決めることが大事だとよく言われています。」 — OK.\n\nAction: 「運動と日記のどちらかひとつを選んで、『今日ほんの数分だけ』できる小さな一歩を一つ決めてみませんか？」 — OK.\n\nOne concern: \"今日\" in action — slot is 18:30 evening, still day. It's an invitation, not assertion. Fine.\n\nIDs a–h.\n\nLet me assemble final JSON:\n\n{\"candidates\":[\n{\"id\":\"a\",\"kind\":\"question\",\"text\":\"三日で途切れがちなとき、その直前にどんな気持ちや出来事が重なっていることが多いですか？\",\"probability\":0.14},\n{\"id\":\"b\",\"kind\":\"question\",\"text\":\"大きな目標を「たった一つの小さな一歩」に縮めるとしたら、まずどんなものが思いつきますか？\",\"probability\":0.13},\n{\"id\":\"c\",\"kind\":\"question\",\"text\":\"運動と日記のどちらのほうが続くイメージが湧きやすいですか、そしてそれはなぜだと思いますか？\",\"probability\":0.12},\n{\"id\":\"d\",\"kind\":\"question\",\"text\":\"もし一週間続いた自分を想像すると、その自分はどんな工夫で続きを支えていると思いますか？\",\"probability\":0.11},\n{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"三日で終わってきたのは、続ける力が足りないせいではなく、目標の大きさがまだ自分に合っていなかっただけかもしれませんね。\",\"probability\":0.16},\n{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"習慣づくりでは、大きな目標より「小さすぎるくらいの一歩」から始めるほうが続きやすいとよく言われています。\",\"probability\":0.12},\n{\"id\":\"g\",\"kind\":\"action\",\"text\":\"運動と日記のどちらかひとつを選んで、ほんの数分でできる小さな一歩を一つだけ決めてみませんか？\",\"probability\":0.12},\n{\"id\":\"h\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.10}\n]}\n\nSum: 0.14+0.13+0.12+0.11+0.16+0.12+0.12+0.10 = 1.00 ✓\nQuestion candidates: 4/7 non-none ≥ 3.5 ✓. Question mass: 0.50 ≥ 0.45 (half of 0.90) ✓.\nExactly one none with empty text ✓.\n\nCheck Japanese punctuation: all end with ？ or 。 ✓. Use 「」quotes inside JSON — need to escape? Japanese corner brackets 「」 are fine in JSON strings, no escaping needed (they're not ASCII double quotes).\n\nCheck \"no unprovided appearance/beauty/romantic contexts\" ✓. No medical claims ✓. No shaming ✓.\n\nOne more check: \"運動と日記のどちらのほうが続くイメージが湧きやすいですか、そしてそれはなぜだと思いますか？\" — natural? Slightly. Maybe: 「運動と日記とでは、どちらのほうが続きやすいイメージが湧きますか、その理由は何だと思いますか？」 Fine.\n\nQ1: \"三日で途切れがちなとき\" — maybe \"習慣が三日で途切れる前\" — Let me finalize: 「運動や日記が三日で途切れてしまう前には、どんな気持ちや出来事が重なっていることが多いですか？」 Good.\n\nQ4 fine.\n\nReflection length: single sentence ✓.\n\nFinal answer JSON only.",
+              "reasoning_details": [
+                {
+                  "type": "reasoning.text",
+                  "text": "Let me analyze the context:\n\n- Person: 31 years old, Japanese speaker\n- Wants to make exercise and diary/journaling habits but tends to quit after about three days\n- Sets big goals and gets discouraged/frustrated\n- Desired state: focus\n- Time slot: 18:30, evening\n- No recent reactions\n- Source: notification\n\nConstraints:\n- 2..8 candidates\n- Single short original sentence or question, written personally\n- Probabilities sum to 1\n- Exactly one candidate with kind \"none\" and empty text\n- Kinds: reflection, question, teaching, breathing, action, none\n- At least half of non-none candidates must be open-ended question-type candidates (kind \"question\"), with at least half of the non-none probability mass\n- Never invent personal facts: don't assert they're exercising now, don't assert their current state, don't presuppose unprovided facts in questions\n- No tough-love, shaming, preaching, medical claims, guaranteed effects\n- Japanese sentences end with 。or？or！\n- JSON only\n\nProfile says: wants to make exercise and diary habits, tends to end within three days, sets big goals and gets discouraged.\n\nI must not presuppose: e.g., \"今日も三日坊主で終わらせないために...\" — hmm, careful. I can reference their stated pattern (three-day quitting, big goals leading to discouragement) since that's in the profile. But I shouldn't assert current state like \"you're feeling discouraged right now\" or \"you just finished work\" etc.\n\nQuestions must not presuppose unprovided facts. E.g., \"今日は運動や日記に取り組む時間をどう確保したいですか？\" — this presupposes they want to do it today? Actually it asks about how they want to secure time, which presupposes they intend to do it today. Hmm, maybe safer: \"三日続いた後に、これまで何がきっかけで途切れましたか？\" — This asks about past experiences, which is fine since profile says patterns end within three days. But wait — do we know it actually got to three days? Profile says \"三日坊主で終わることが多い\" (often ends as a three-day monk). So asking about what happens after three days is grounded.\n\nOpen-ended question-type candidates must be at least half of non-none candidates AND at least half of non-none probability mass. Kind \"question\" specifically? It says \"open-ended question-type candidates\" — I interpret as kind \"question\". Let me make sure.\n\nLet me draft candidates:\n\n1. question (open-ended): 「大きい目標を立てたとき、三日目の終わりにどんな気持ちが浮かびやすいですか？」 — Hmm, this asks about feelings, grounded in profile (big goals, three days). It's open-ended. Presupposes that feelings arise — it's a question about tendencies, grounded in the profile (\"挫折している\" - gets discouraged). Maybe fine.\n\nAlternative: 「三日で途切れてしまうとき、いつも最初の合図は何かありますか？」 — asks about the first sign when things break off. Grounded in profile pattern. Open-ended. Good.\n\n2. question (open-ended): 「運動と日記のどちらから始めると、続きやすそうに感じますか？」 — Hmm, this asks a preference question, fairly closed (which of two). Open-ended means not yes/no and allowing free response. \"どちら...感じますか\" allows explanation. It's grounded (profile mentions both exercise and diary). But careful: \"続きやすそうに感じますか\" doesn't presuppose they're currently doing it. OK.\n\n3. question (open-ended): 「もし三日ではなく、まず一日だけの目標にするとしたら、どんなものが思いつきますか？」 — grounded (three-day pattern, big goals). Open-ended. Good, ties to desired state \"focus\" — small goals support focus. Doesn't presuppose they will do it.\n\n4. reflection: 「大きすぎる目標ほど勢いをなくしやすい、というのはあなただけではないのかもしれませんね。」 — Hmm, \"あなたではない\" — safe. But it's a bit teaching-ish. Reflection kind: a reflective statement. Maybe: 「三日で終わってきた経験の積み重ねも、自分にとって何が続きやすいかを教えてくれる材料なのかもしれませんね。」 — This is a reframe, gentle. OK.\n\n5. teaching: 「習慣は小さい一歩の積み重ねで定着しやすいと考えられていて、目標を細かく分けると続きやすくなることがあります。」 — Careful about \"guaranteed effects\" — \"ことがあります\" is hedged, not guaranteed. OK. Maybe: 「習慣化では、小さすぎるくらいの目標から始めることが続きやすさのポイントと言われています。」 Hedged (\"と言われています\"). Fine.\n\n6. action: 「まず、今日できる一番小さな一歩を、運動と日記のどちらかでひとつだけ紙に書き出してみませんか？」 — This is an invitation/action prompt. Grounded: they want these habits; suggesting writing one small step. Doesn't presuppose they'll do exercise today. It's a suggestion. Fine. \"〜してみませんか？\" ends with ？\n\n7. breathing: 「少し落ち着いて深呼吸してから、今の自分にできそうな小さな一歩を思い浮かべてみませんか？」 — breathing kind. Hmm, combining breathing with action. Could do: 「一分だけ、ゆっくり吐く呼吸に意識を向けてみませんか？」 — invitation, doesn't presuppose state. Evening slot 18:30. Breathing is fine anytime, doesn't presuppose anything. But does it presuppose they need calming? It's an invitation (\"みませんか\"), not an assertion. OK.\n\n8. none: empty text.\n\nWait — count: I should keep it maybe 6-7 candidates. Requirement: at least half of non-none must be question kind. If I have 6 non-none, need ≥3 questions. Probability mass of questions ≥ half of non-none mass (so none probability ≤ 0.5... wait, non-none mass is 1 - p_none; questions mass ≥ (1 - p_none)/2).\n\nLet me choose 6 non-none candidates: 4 questions, 1 reflection, 1 teaching? Plus none = 7 total. Or include action/breathing. Kinds available: reflection, question, teaching, breathing, action, none. Let me do:\n\n- a: question\n- b: question\n- c: question\n- d: question\n- e: reflection\n- f: action (or teaching)\n- g: none\n\nThat's 4 questions out of 6 non-none — at least half. Probability mass: questions should have ≥ half of non-none mass. Let's set none = 0.10, non-none mass = 0.90. Questions total ≥ 0.45. E.g., questions: 0.18+0.16+0.14+0.12 = 0.60. Reflection 0.12, action 0.08, none 0.10. Total: 0.60+0.12+0.08+0.10 = 0.90. Wait need sum 1. Let me recompute: questions 0.60, reflection 0.15, action 0.10, none 0.15 → 1.00? 0.60+0.15+0.10+0.15 = 1.00. Yes. Question mass 0.60 ≥ 0.425 (half of 0.85). Good. Question count 4 ≥ 3 (half of 6). Good.\n\nActually, maybe include breathing too — but let's keep 6 non-none. Or 5 non-none: 3 questions, 1 reflection, 1 action, + none = 6 total. Question mass ≥ half. Let me decide 6 non-none: 4 questions, 1 reflection, 1 action. That gives variety.\n\nHmm, but teaching could be nice. Let's do 7 non-none: 4 questions, 1 reflection, 1 teaching, 1 action, + none = 8 total (max 8). Question count 4 ≥ 3.5 → 4 ≥ half of 7. OK. Mass: none 0.10, non-none 0.90, questions ≥ 0.45. Set questions: 0.14+0.13+0.12+0.11 = 0.50. Reflection 0.16, teaching 0.12, action 0.12 → 0.50+0.16+0.12+0.12 = 0.90 + none 0.10 = 1.00. \n\nNow craft texts carefully.\n\nQuestions (open-ended, grounded, no presupposition of current state):\n\nQ1: 「運動や日記が三日で途切れてしまうとき、いつも何が起きていると思いますか？」 — grounded in profile pattern. Open-ended. Good. Hmm \"いつも何が起きている\" fine.\n\nQ2: 「三日坊主を乗り越えるというより、小さく続けるイメージにすると、どんな目標が浮かびますか？」 — grounded. Open-ended. Ends with ？\n\nQ3: 「運動と日記、続けてみたい順番をつけるとしたら、どちらが先に思えますか？」 — hmm, slightly awkward. Maybe: 「もし目標を『ほんの少し』に縮めるとしたら、運動と日記のそれぞれでどんなものが思いつきますか？」 — good, open-ended.\n\nQ4: 「これまでの挑戦の中で、ほんの少しでも『続いた』と感じられた瞬間はありましたか？」 — asks about past, grounded (they have attempts). Open-ended-ish (yes/no form but invites elaboration). Hmm, open-ended requirement — \"ありましたか？\" is yes/no. Better make it open: 「これまでの挑戦で、うまくいきかけた瞬間にはどんな共通点がありましたか？」 — hmm presupposes such moments exist? Slightly. Maybe: 「振り返ると、始めた一日目と三日目とでは、気持ちにどんな違いが出てきますか？」 — grounded in pattern. Open-ended. Doesn't presuppose current state. Good.\n\nAlternatively Q4: 「今日の夕方、少しでも心が向くなら、どちらの習慣に一番手を付けたいですか？」 — presupposes \"if your heart turns\" — conditional, but \"手を付けたいですか\" presupposes desire? It's conditional. Hmm, risky per rules (\"assert their wishes\"). Skip.\n\nQ4 final: 「三日で終わりがちなパターンを振り返ると、始める前と三日目とでは、何が違ってきますか？」 — OK. Or simpler: 「小さな目標にするとしたら、明日ではなく今日の一歩として何が思いつきますか？」 — hmm \"今日\" — is suggesting something today OK? Time slot 18:30 evening. Suggesting a small step today is an intervention, doesn't presuppose facts. But as a question \"何が思いつきますか\" fine. Actually careful: it says a time slot doesn't establish event schedule — but suggesting isn't asserting. I think it's fine, but to be safe I could phrase as hypothetical: 「もし『たった一つの小さな一歩』だけ決めるとしたら、どんなものが浮かびますか？」\n\nLet me finalize:\n\nQ1: 「運動や日記が三日で途切れがちなとき、その前にどんな兆候や気持ちが出てくることが多いですか？」 — grounded. Good.\n\nQ2: 「もし大きな目標を『たった一つの小さな一歩』に縮めるとしたら、運動ではどんなものが思いつきますか？」 — grounded (big goals, exercise). Good.\n\nQ3: 「三日坊主で終わってきた経験から、続かなかった理由にはどんな共通点がありそうでしょうか？」 — hmm presupposes reasons exist; it's a question inviting reflection. \"ありそうでしょうか\" is soft. Maybe rephrase: 「続かなかったとき、どんな出来事や気持ちが重なっていたか、思い当たるところはありますか？」 — \"思い当たるところはありますか\" yes/no-ish. Open-ended enough? The rule: \"At least half of non-none candidates must be open-ended question-type candidates\". Open-ended means not leading to yes/no ideally. Let me craft clearly open-ended ones.\n\nQ3: 「日記を続けるイメージと運動を続けるイメージ、どちらのほうが気分的に楽に思えて、その理由は何ですか？」 — two-part, open-ended. Grounded. OK.\n\nQ4: 「一週間続いた自分を想像すると、どんな工夫がその続きを支えていると思いますか？」 — imaginative, open-ended. Doesn't presuppose. Good.\n\nReflection: 「三日で終わってきたのは、意志の弱さではなく、目標の大きさと合っていなかったのかもしれませんね。」 — reframe, grounded, non-shaming (explicitly removes blame). Good.\n\nTeaching: 「習慣づくりでは、大きな目標より『本当に小さな一歩』から始めるほうが、続きやすくなるとよく言われています。」 — hedged. Ends with 。 Good.\n\nAction: 「今日この夕方、運動か日記のどちらかで、ほんの一分だけでもいいから小さな一歩を選んでみませんか？」 — hmm, \"一分だけ\" — invitation. Fine. Ends with ？. Actually action kind — an invitation to act. Maybe simpler: 「運動でも日記でも、『2分だけ』などとても小さい量をひとつ決めて、今日試してみるのはどうでしょう？」 — hmm. Keep it clean: 「まず運動と日記のどちらかひとつを選んで、『ほんの数分でできる小さな一歩』を一つだけ決めてみませんか？」 — OK. Ends ？\n\nWait — does action presuppose they will act? No, it's an invitation. Fine.\n\nBreathing: I decided to skip breathing to keep count manageable. Actually 8 candidates max; I have 7 (4 Q, 1 R, 1 T, 1 A) + none = 8. That's fine. Or drop teaching to have breathing. Evening time, desired state focus — breathing could help focus. Hmm. Let me include breathing instead of teaching? Teaching gives the \"small steps\" concept which is highly relevant. Breathing: 「目標のことを一度手放して、一分だけゆっくり息を吐く時間をつくってみませんか？」 — meh. I'll keep teaching and skip breathing. Or include both and drop one question? Requirement: at least half non-none are questions. With 6 non-none: 3 questions min. 8 total max = 7 non-none + none. Let me do 7 non-none: 4 questions, reflection, teaching, action. Skip breathing. Good.\n\nCheck probabilities: \n- Q1: 0.14\n- Q2: 0.13\n- Q3: 0.12\n- Q4: 0.11 (question mass = 0.50)\n- Reflection: 0.16\n- Teaching: 0.12\n- Action: 0.12 — wait sum non-none = 0.50+0.16+0.12+0.12 = 0.90, none = 0.10. Total 1.00. ✓\nQuestion count 4/7 ≥ half ✓. Question mass 0.50 ≥ 0.45 ✓.\n\nHmm, should reflection be highest? Evening, notification, no reactions data. The person struggles with big goals; a gentle reframe might land well. Fine.\n\nCheck \"single short original sentence or question\" — each candidate should be one sentence. My Q3 has \"どちらのほうが気分的に楽に思えて、その理由は何ですか？\" — one sentence with comma, OK.\n\nCheck no presuppositions:\n- Q1: \"運動や日記が三日で途切れがちなとき\" — grounded in profile (\"三日坊主で終わることが多い\", exercise and diary). Asks what tends to happen. OK.\n- Q2: hypothetical \"もし…縮めるとしたら\" — OK, mentions exercise which is in profile.\n- Q3: mentions both habits from profile, asks preference/reason. OK.\n- Q4: imaginative \"一週間続いた自分を想像すると\" — clearly hypothetical. OK.\n- Reflection: \"三日で終わってきたのは、意志の弱さではなく…\" — grounded in pattern. It does assert \"続かなかったのは目標の大きさと合っていなかった\" as possibility (\"かもしれません\"). OK.\n- Teaching: general fact hedged. OK.\n- Action: invitation, mentions habits from profile. \"決めてみませんか？\" OK.\n\nNo shaming, no tough love, no medical claims, no guaranteed effects (\"よく言われています\", \"かもしれません\"). Japanese ends with 。or？.\n\nLet me refine texts for naturalness:\n\nQ1: 「運動や日記が三日で途切れやすいパターンを振り返ると、その直前にはどんな気持ちや出来事が重なっていることが多いですか？」 — a bit long but one sentence. Maybe shorten: 「運動や日記が三日で途切れる前、どんな気持ちや出来事が重なっていることが多いですか？」 Hmm. Keep: 「三日で途切れがちなとき、その直前にどんな気持ちや出来事が重なっていることが多いですか？」\n\nQ2: 「もし大きな目標を『たった一つの小さな一歩』に縮めるとしたら、まずどんなものが思いつきますか？」 — good, general (covers both habits).\n\nQ3: 「運動と日記を続けるイメージを比べると、どちらのほうが自分に合っていそうに感じますか、その理由も含めて聞かせてもらえますか？」 — bit clunky. Simpler: 「運動と日記、続けるイメージができやすいのはどちらで、それはなぜだと思いますか？」 — OK.\n\nQ4: 「もし一週間続けられた自分を想像すると、その自分はどんな工夫で続きを支えていると思いますか？」 — OK.\n\nReflection: 「三日で終わってきたのは、続ける力が足りないからではなく、目標の大きさが今の自分に合っていなかっただけかもしれませんね。」 — good, compassionate reframe grounded in profile.\n\nTeaching: 「習慣づくりでは、大きな目標より『ほんの少しで必ずできる量』から始めるほうが続きやすいとよく言われています。」 — hmm \"必ずできる量\" — \"so small it's surely doable\" — is that a guaranteed effect claim? The guarantee is hedged by \"よく言われています\" for the habit part. Fine. Maybe simpler: 「習慣づくりでは、三日続くかどうかより、まず『小さすぎるくらいの一歩』を決めることが大事だとよく言われています。」 — OK.\n\nAction: 「運動と日記のどちらかひとつを選んで、『今日ほんの数分だけ』できる小さな一歩を一つ決めてみませんか？」 — OK.\n\nOne concern: \"今日\" in action — slot is 18:30 evening, still day. It's an invitation, not assertion. Fine.\n\nIDs a–h.\n\nLet me assemble final JSON:\n\n{\"candidates\":[\n{\"id\":\"a\",\"kind\":\"question\",\"text\":\"三日で途切れがちなとき、その直前にどんな気持ちや出来事が重なっていることが多いですか？\",\"probability\":0.14},\n{\"id\":\"b\",\"kind\":\"question\",\"text\":\"大きな目標を「たった一つの小さな一歩」に縮めるとしたら、まずどんなものが思いつきますか？\",\"probability\":0.13},\n{\"id\":\"c\",\"kind\":\"question\",\"text\":\"運動と日記のどちらのほうが続くイメージが湧きやすいですか、そしてそれはなぜだと思いますか？\",\"probability\":0.12},\n{\"id\":\"d\",\"kind\":\"question\",\"text\":\"もし一週間続いた自分を想像すると、その自分はどんな工夫で続きを支えていると思いますか？\",\"probability\":0.11},\n{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"三日で終わってきたのは、続ける力が足りないせいではなく、目標の大きさがまだ自分に合っていなかっただけかもしれませんね。\",\"probability\":0.16},\n{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"習慣づくりでは、大きな目標より「小さすぎるくらいの一歩」から始めるほうが続きやすいとよく言われています。\",\"probability\":0.12},\n{\"id\":\"g\",\"kind\":\"action\",\"text\":\"運動と日記のどちらかひとつを選んで、ほんの数分でできる小さな一歩を一つだけ決めてみませんか？\",\"probability\":0.12},\n{\"id\":\"h\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.10}\n]}\n\nSum: 0.14+0.13+0.12+0.11+0.16+0.12+0.12+0.10 = 1.00 ✓\nQuestion candidates: 4/7 non-none ≥ 3.5 ✓. Question mass: 0.50 ≥ 0.45 (half of 0.90) ✓.\nExactly one none with empty text ✓.\n\nCheck Japanese punctuation: all end with ？ or 。 ✓. Use 「」quotes inside JSON — need to escape? Japanese corner brackets 「」 are fine in JSON strings, no escaping needed (they're not ASCII double quotes).\n\nCheck \"no unprovided appearance/beauty/romantic contexts\" ✓. No medical claims ✓. No shaming ✓.\n\nOne more check: \"運動と日記のどちらのほうが続くイメージが湧きやすいですか、そしてそれはなぜだと思いますか？\" — natural? Slightly. Maybe: 「運動と日記とでは、どちらのほうが続きやすいイメージが湧きますか、その理由は何だと思いますか？」 Fine.\n\nQ1: \"三日で途切れがちなとき\" — maybe \"習慣が三日で途切れる前\" — Let me finalize: 「運動や日記が三日で途切れてしまう前には、どんな気持ちや出来事が重なっていることが多いですか？」 Good.\n\nQ4 fine.\n\nReflection length: single sentence ✓.\n\nFinal answer JSON only.",
+                  "format": "unknown",
+                  "index": 0
+                }
+              ]
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 625,
+          "completion_tokens": 5351,
+          "total_tokens": 5976,
+          "cost": 0.02416446,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 256,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.02416446,
+            "upstream_inference_prompt_cost": 0.00062006,
+            "upstream_inference_completions_cost": 0.0235444
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4984,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794983014-yaOx2OZt3NIbEuKDFDq6",
+        "object": "chat.completion",
+        "created": 1794983014,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"Asks about feelings and events preceding the interruption of habits, which aligns with the profile's mention of often failing after three days.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"Proposes breaking down large goals into small steps, which relates to the profile's struggle with setting large goals and failing.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks which habit (exercise or diary) seems easier to continue, directly referencing the profile's stated desire to make them habits.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"Asks about imagined strategies for continuing a habit for a week, which relates to the profile's struggles with consistency.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"Suggests that habit failure might be due to the size of the goal, not a lack of effort, which aligns with the profile's pattern of setting large goals and failing.\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"States a common principle about starting with very small steps for habit formation, which is relevant to the profile's struggles with consistency and large goals.\"}, {\"id\": \"g\", \"supported\": true, \"reason\": \"Suggests choosing one habit and committing to a very small, short step, which directly addresses the profile's goal of making exercise and diary habits and struggles with consistency.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 534,
+          "completion_tokens": 312,
+          "total_tokens": 846,
+          "cost": 0.0001782,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001782,
+            "upstream_inference_prompt_cost": 5.34e-05,
+            "upstream_inference_completions_cost": 0.0001248
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "d2817d44-fec7-474d-8cbc-9abb3a32707f",
+    "decision_point_at": 1794983015.579607,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "運動や日記が三日で途切れてしまう前には、どんな気持ちや出来事が重なっていることが多いですか？",
+        "probability": 0.14
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "大きな目標を「たった一つの小さな一歩」に縮めるとしたら、まずどんなものが思いつきますか？",
+        "probability": 0.13
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "運動と日記とでは、どちらのほうが続きやすいイメージが湧きますか、その理由は何だと思いますか？",
+        "probability": 0.12
+      },
+      {
+        "id": "d",
+        "kind": "question",
+        "text": "もし一週間続いた自分を想像すると、その自分はどんな工夫で続きを支えていると思いますか？",
+        "probability": 0.11
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "三日で終わってきたのは、続ける力が足りないせいではなく、目標の大きさがまだ自分に合っていなかっただけかもしれませんね。",
+        "probability": 0.16
+      },
+      {
+        "id": "f",
+        "kind": "teaching",
+        "text": "習慣づくりでは、大きな目標より「小さすぎるくらいの一歩」から始めるほうが続きやすいとよく言われています。",
+        "probability": 0.12
+      },
+      {
+        "id": "g",
+        "kind": "action",
+        "text": "運動と日記のどちらかひとつを選んで、ほんの数分でできる小さな一歩を一つだけ決めてみませんか？",
+        "probability": 0.12
+      },
+      {
+        "id": "h",
+        "kind": "none",
+        "text": "",
+        "probability": 0.1
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "運動や日記が三日で途切れてしまう前には、どんな気持ちや出来事が重なっていることが多いですか？",
+      "probability": 0.14
+    },
+    "assigned_probability": 0.14,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "z-ai/glm-5.3",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984815.579607,
+    "observations": []
+  }
+}

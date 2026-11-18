@@ -1,0 +1,109 @@
+{
+  "verdict": "NO-GO",
+  "rows": [
+    {
+      "slug": "qwen",
+      "model": "qwen/qwen4-max",
+      "accepted": 28,
+      "rejected": 4,
+      "sendable": 160,
+      "failures": 6,
+      "fabrications": 5,
+      "japanese": 1,
+      "tone": 0,
+      "verdict": "NO-GO",
+      "receipt_cost_usd": "0.067140720",
+      "receipt_count": 77,
+      "finish_reasons": {
+        "generator": {
+          "stop": 39
+        },
+        "judge": {
+          "stop": 38
+        }
+      },
+      "generator_nulls": 0,
+      "retries": 7,
+      "canonical_models": {
+        "qwen/qwen4-max-20261115": 39,
+        "google/gemini-2.5-flash-lite": 38
+      },
+      "question_contract_violations": [
+        {
+          "case": 9,
+          "questions": 2,
+          "candidates": 5,
+          "question_mass": 0.45,
+          "non_none_mass": 0.8
+        },
+        {
+          "case": 14,
+          "questions": 2,
+          "candidates": 5,
+          "question_mass": 0.45,
+          "non_none_mass": 0.8
+        },
+        {
+          "case": 18,
+          "questions": 2,
+          "candidates": 5,
+          "question_mass": 0.5,
+          "non_none_mass": 0.84
+        }
+      ]
+    },
+    {
+      "slug": "glm-fixed",
+      "model": "z-ai/glm-5.3",
+      "accepted": 24,
+      "rejected": 8,
+      "sendable": 140,
+      "failures": 6,
+      "fabrications": 2,
+      "japanese": 4,
+      "tone": 0,
+      "verdict": "NO-GO",
+      "receipt_cost_usd": "0.804760433",
+      "receipt_count": 89,
+      "finish_reasons": {
+        "generator": {
+          "stop": 41,
+          "length": 9
+        },
+        "judge": {
+          "stop": 39
+        }
+      },
+      "generator_nulls": 6,
+      "retries": 18,
+      "canonical_models": {
+        "z-ai/glm-5.3-20260816": 50,
+        "google/gemini-2.5-flash-lite": 39
+      },
+      "question_contract_violations": []
+    }
+  ],
+  "total_receipt_cost_usd": "0.871901153",
+  "total_completion_cost_usd": "0.8719011555",
+  "key_usage_before": "0.397379636",
+  "key_usage_after": "1.269280789",
+  "key_usage_delta": "0.871901153",
+  "receipts_match_key_usage": true,
+  "config_rejection_cost_usd": "0",
+  "verification": {
+    "focused_tests": 41,
+    "contexts_exact": true,
+    "paid_call_ledger_reconciled": true,
+    "all_accepted_candidates_match_generator": true,
+    "all_accepted_candidates_have_supporting_judge_response": true
+  },
+  "production_enabled": false,
+  "main_merged": false,
+  "auto_reload": {
+    "prior_record": "OFF; v2 result reports saved credential observation",
+    "live_setting_verified": false,
+    "credit_total_before": "155",
+    "credit_total_after": "155",
+    "topups_observed": false
+  }
+}
