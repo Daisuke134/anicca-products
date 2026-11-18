@@ -1,0 +1,12 @@
+{
+  "code_commit": "9adbb1dc1b518f380e1baff1c062802a69198ba8",
+  "code_tree": "92d0ccf32986a124e83e74a2c589a1aa88c4da0b",
+  "verified_code_blobs": 349,
+  "ops_commit": "08cffbd753b23946f1a802753ff1cf500f21f47f",
+  "ops_blob": "aca09d6ea54f2aeecce53e19f9ff513782595a59",
+  "method": "GitHub contents and recursive git tree API; local git object hashes and full result bytes equal",
+  "status": "PASS",
+  "ops_full_bytes_equal": true,
+  "remaining_todos": [],
+  "cursor": "complete"
+}
