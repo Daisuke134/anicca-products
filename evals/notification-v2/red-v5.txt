@@ -1,0 +1,73 @@
+FFF...FF                                                                 [100%]Running teardown with pytest sessionfinish...
+
+=================================== FAILURES ===================================
+_______________ test_question_count_below_half_rejected[kinds0] ________________
+
+kinds = ['reflection']
+
+    @pytest.mark.parametrize("kinds",[["reflection"],["question","reflection","action"],["question","question","reflection","action","teaching"]])
+    def test_question_count_below_half_rejected(kinds):
+>       with pytest.raises(ValueError,match="question candidate count"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_v5.py:15: Failed
+_______________ test_question_count_below_half_rejected[kinds1] ________________
+
+kinds = ['question', 'reflection', 'action']
+
+    @pytest.mark.parametrize("kinds",[["reflection"],["question","reflection","action"],["question","question","reflection","action","teaching"]])
+    def test_question_count_below_half_rejected(kinds):
+>       with pytest.raises(ValueError,match="question candidate count"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_v5.py:15: Failed
+_______________ test_question_count_below_half_rejected[kinds2] ________________
+
+kinds = ['question', 'question', 'reflection', 'action', 'teaching']
+
+    @pytest.mark.parametrize("kinds",[["reflection"],["question","reflection","action"],["question","question","reflection","action","teaching"]])
+    def test_question_count_below_half_rejected(kinds):
+>       with pytest.raises(ValueError,match="question candidate count"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_v5.py:15: Failed
+_____________ test_question_count_failure_uses_single_regeneration _____________
+
+tmp_path = PosixPath('/private/var/folders/c1/11fd4j597vx4fb8tnv25y28r0000gn/T/pytest-of-anicca/pytest-27/test_question_count_failure_us0')
+
+    def test_question_count_failure_uses_single_regeneration(tmp_path):
+        calls=[]
+        def generate(ctx):
+            calls.append(1)
+            return candidates(["reflection"] if len(calls)==1 else ["question"])
+        store=m.InterventionStore(tmp_path/"test.db",generate,draw=lambda:.1)
+        result=store.decide("synthetic",ID,CTX)
+>       assert len(calls)==2 and result["candidates"][0]["kind"]=="question"
+E       assert (1 == 2)
+E        +  where 1 = len([1])
+
+tests/test_v5.py:29: AssertionError
+_____________ test_repeated_question_count_failure_never_persists ______________
+
+tmp_path = PosixPath('/private/var/folders/c1/11fd4j597vx4fb8tnv25y28r0000gn/T/pytest-of-anicca/pytest-27/test_repeated_question_count_f0')
+
+    def test_repeated_question_count_failure_never_persists(tmp_path):
+        calls=[]
+        def generate(ctx):
+            calls.append(1);return candidates(["reflection"])
+        store=m.InterventionStore(tmp_path/"test.db",generate)
+>       with pytest.raises(ValueError,match="question candidate count"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_v5.py:36: Failed
+=========================== short test summary info ============================
+FAILED tests/test_v5.py::test_question_count_below_half_rejected[kinds0] - Fa...
+FAILED tests/test_v5.py::test_question_count_below_half_rejected[kinds1] - Fa...
+FAILED tests/test_v5.py::test_question_count_below_half_rejected[kinds2] - Fa...
+FAILED tests/test_v5.py::test_question_count_failure_uses_single_regeneration
+FAILED tests/test_v5.py::test_repeated_question_count_failure_never_persists
+5 failed, 3 passed in 0.20s

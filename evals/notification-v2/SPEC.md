@@ -78,8 +78,10 @@ Round 4最終結果: 両モデルNO-GO。Qwen28/32・160文FAIL6(3.75%)・捏造
 目的・範囲: eval-v5-task.mdの3点のみ。v4実失敗の動機/願望/努力/数量帰属をgeneratorとjudgeの負例へ追加し、質問kind候補数>=non-noneの半数を構造受理条件とする。既存再生成1回、8192 tokens、日時/現在地hard pattern、同一32 contextを維持。v4ファイルは変更しない。
 完了条件: 全sendable全文手読みjudgments.json・audit PASS、FAIL<5%かつ捏造0かつtone0でGO。それ以外NO-GO。専用key・既存prepaidのみ、最大limit2 USD、receipt Decimal合計とkey usage差分一致、credits開始/終了記録。ops隔離branch結果とproducts評価branchのコード・証拠をpush/readback。main統合・配送なし。
 TODO:
-- [ ] RED/GREENとv4の41件を含む関連tests
+- [x] RED/GREENとv4の41件を含む関連tests（追加8、49 PASS）
 - [ ] Qwen32条件（GLMは主目的遅延を避けv5未実行）
 - [ ] 全sendable手読み・audit・公式費用照合
 - [ ] products/ops pushとremote blob照合
 現在cursor: テスト先行。v5有料呼び出し未実施。
+
+Round 5開始前: 専用key usage1.269280789 USD、limit1.50 USD（SSOT一致、変更なし）、残0.230719211 USD。credits155、total_usage97.073335793。公式models APIでQwenとjudgeを確認。auto_top_upはops credentialsのopenrouter行の保存済みOFF記録をliveで確認、設定UIの現在readbackは未取得。現在cursor: Qwen32条件実行。

@@ -1,0 +1,8 @@
+{
+  "service": "openrouter-notification-eval-v2",
+  "ssot_limit_usd": 1.5,
+  "limit_changed": false,
+  "auto_top_up_record": "OFF (verified 2026-11-07 after sign-in; it was ON and caused the $52.75 charge on 2026-11-07)",
+  "auto_top_up_source": "anicca-ops credentials.json service=openrouter, live GitHub read; not a current settings UI readback",
+  "purchase_or_reload_calls": 0
+}
