@@ -89,3 +89,17 @@ Round 5開始前: 専用key usage1.269280789 USD、limit1.50 USD（SSOT一致、
 Round 5結果: Qwen31/32受理、177文の全文手読みでFAIL8（捏造7、日本語1、tone0、4.519774%）のためNO-GO。独立read-onlyエージェントも177文を全読し同じ8文を確認。質問候補数違反の最終棄却はcase13、受理31セットの違反0。関連51テストPASS。74公式receipt合計0.066280490 USDとkey usage1.269280789→1.335561279の差分がDecimal厳密一致。初期12receiptの404とkey usageは遅延反映し、最終fallback0。credits155→155、入金・auto-reload変更なし。receipt保存時ENOSPCは自所有ops疎checkout縮小で空き1.2GiBに回復し、モデル再実行なし。現在cursor: products/ops成果物push・GitHub照合。
 
 Round 5納品完了: ops結果commit152127f731894a86f5e072633379686f20b117e2とproducts証拠commit0df4fc4b9bbe381b97942f30a558ac73f2611a6eをGitHub contents API/remote treeでローカル同一blob照合。delivery-v5.jsonにreceiptを保存。現在cursor: 完了。残TODOなし。本番配送・main統合なし。
+
+## Round 6（owner: Mac Codex）
+目的: プロンプト負例の追加から、根拠契約・決定的な文単位棄却・主張分解judgeへ変更し、同一32条件で捏造0を検証する。
+範囲: v5固定commit7e83f661の続き。v5ファイルを保持しv6を追加する。専用評価branchを継続し、opsは新規隔離branchへ保存する。main統合・本番有効化・配送は実施しない。
+設計: 各候補にgrounds配列（profile項目名）を追加。質問、非本人事実の一般介入、profile事実の言い換えだけを許容する。grounds参照は実在profile項目に限定する。空groundsの断定文・過去本人行動/証/数量マーカーを文単位で棄却する。棄却確率はnoneへ移し、生存候補の確率は変更しない。全候補消失は送信しない。構造契約違反の既存1 retryは維持する。judgeは各候補の事実主張を分解しprofile entailmentを個別判定、unsupportedが1つでもあれば棄却する。質問そのものと「もし〜なら」の仮定は主張に数えず、独立した前提化は検査する。judge JSON異常はfail closed。
+固定条件: 8profile×4slot、ja、local_day/reactions/desired_state・8192 tokens・Qwen reasoning無効・並列4・draw .1・既存hard patternを維持。GLMは任意のため主目的に絞り未実行。費用は専用key上限最大2 USD内、既存prepaidのみ、receipt Decimal合計とkey usage差分を照合する。
+完了条件: 送信可能集合を全文確認し、FAIL率5%未満・捏造0・tone0を全て満たせばGO。それ以外NO-GO。生成/棄却/noneを別計上し、費用公式照合、コード・全証拠とops結果をcommit/pushしremote blobを確認する。
+TODO:
+- [ ] 最小RED/GREEN、v5関連suite保持
+- [ ] 公式モデル/key/credits確認、同一Qwen32条件
+- [ ] 全sendable全文判定・棄却分析・公式receipt厳密照合
+- [ ] products/ops成果物push・remote blob確認
+現在cursor: 文単位grounds契約のテスト先行。
+根拠: eval-v6-task.md全文、ops v5結果全文、既存v5実コード/呼び出し経路、公式 https://openrouter.ai/api/v1/models およびgeneration/key API。固定3検索要求は共通の必要範囲調査規則と矛盾するため追加しない。
