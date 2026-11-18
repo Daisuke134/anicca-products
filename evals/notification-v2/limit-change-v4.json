@@ -1,0 +1,10 @@
+{
+  "data": {
+    "disabled": false,
+    "limit": 1.5,
+    "limit_remaining": 1.004325546,
+    "usage": 0.495674454
+  },
+  "reason": "8192-token GLM with at most one retry across 32 cases; existing prepaid only",
+  "auto_reload_touched": false
+}

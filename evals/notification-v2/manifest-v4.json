@@ -1,0 +1,34 @@
+{
+  "run_id": "notification-eval-v4-20261118",
+  "owner_id": "Mac Codex",
+  "release_sha": "242633dfa4300e77d7f98771da3bbdb962430973",
+  "entrypoint": "evals/notification-v2/run_eval_v4.py",
+  "environment": {
+    "python": "3.14.7",
+    "cwd": "/Users/anicca/work/ap-eval",
+    "secret_source": "Credential SSOT exact service openrouter-notification-eval-v2; values excluded"
+  },
+  "phase": "synthetic evaluation",
+  "effect": "OpenRouter prepaid inference only; no production delivery",
+  "max_tokens": 8192,
+  "generator_config": {
+    "qwen": {
+      "model": "qwen/qwen4-max",
+      "reasoning": {
+        "enabled": false
+      }
+    },
+    "glm": {
+      "model": "z-ai/glm-5.3",
+      "reasoning": "mandatory; parameter omitted after HTTP400 readback"
+    }
+  },
+  "evidence_refs": [
+    "output-v4/qwen/requests.jsonl",
+    "output-v4/qwen/raw.jsonl",
+    "output-v4/glm/errors.jsonl",
+    "output-v4/glm/config-probe.json",
+    "output-v4/glm-fixed/requests.jsonl",
+    "output-v4/glm-fixed/raw.jsonl"
+  ]
+}
