@@ -1,0 +1,2027 @@
+{
+  "judge": "Codex full-read qualitative assessment; not independent human review",
+  "summary": {
+    "cases": 32,
+    "accepted_cases": 0,
+    "attempts": 38,
+    "retries": 6,
+    "finish_reasons": {
+      "length": 31,
+      "stop": 7
+    },
+    "sendable": 0,
+    "sendable_fail": 0,
+    "sendable_fail_rate": null,
+    "generated_texts": 40,
+    "generated_fail": 6,
+    "generated_fabrication": 4,
+    "generated_tone": 0,
+    "none_candidates": 7,
+    "response_cost_usd": "0.3629275269"
+  },
+  "attempts": [
+    {
+      "case": 1,
+      "attempt": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "generation_id": "gen-1794979338-KY1dSDixP6EJmSQrM5KO",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 657,
+        "completion_tokens": 4096,
+        "total_tokens": 4753,
+        "cost": 0.014800788,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.014800788,
+          "upstream_inference_prompt_cost": 5.5188e-05,
+          "upstream_inference_completions_cost": 0.0147456
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "profile": "rumination",
+      "slot": "12:30",
+      "generation_id": "gen-1794979338-UDCqYEbSpE2ufZ641EKH",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 656,
+        "completion_tokens": 4096,
+        "total_tokens": 4752,
+        "cost": 0.00774016,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00774016,
+          "upstream_inference_prompt_cost": 0.00036736,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "profile": "rumination",
+      "slot": "18:30",
+      "generation_id": "gen-1794979338-BLZcx7PdKJiTX8LMDDTk",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 657,
+        "completion_tokens": 4096,
+        "total_tokens": 4753,
+        "cost": 0.01325954,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.01325954,
+          "upstream_inference_prompt_cost": 0.00064386,
+          "upstream_inference_completions_cost": 0.01261568
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "profile": "rumination",
+      "slot": "22:30",
+      "generation_id": "gen-1794979338-0Ly3G8hSVB1jaFNsFJM0",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 656,
+        "completion_tokens": 4096,
+        "total_tokens": 4752,
+        "cost": 0.0106336,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0106336,
+          "upstream_inference_prompt_cost": 0.0003936,
+          "upstream_inference_completions_cost": 0.01024
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "07:30",
+      "generation_id": "gen-1794979355-7JUx8DkrOo5Hx04oWxIv",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 662,
+        "completion_tokens": 4096,
+        "total_tokens": 4758,
+        "cost": 0.0127845,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0127845,
+          "upstream_inference_prompt_cost": 0.0004965,
+          "upstream_inference_completions_cost": 0.012288
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "generation_id": "gen-1794979369-5VWmoiMwZvgSqEtpi44s",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 661,
+        "completion_tokens": 4096,
+        "total_tokens": 4757,
+        "cost": 0.00756632,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00756632,
+          "upstream_inference_prompt_cost": 0.00019352,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4095,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "18:30",
+      "generation_id": "gen-1794979371-Cu5dvTfpLX0qfwnwn5ST",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 662,
+        "completion_tokens": 4096,
+        "total_tokens": 4758,
+        "cost": 0.014799288,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.014799288,
+          "upstream_inference_prompt_cost": 5.3688e-05,
+          "upstream_inference_completions_cost": 0.0147456
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4097,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "generation_id": "gen-1794979377-2rcfH1mA4iHQcEp1QuCW",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 661,
+        "completion_tokens": 282,
+        "total_tokens": 943,
+        "cost": 0.0004410039,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0004410039,
+          "upstream_inference_prompt_cost": 4.62039e-05,
+          "upstream_inference_completions_cost": 0.0003948
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": true,
+      "validation": "REJECT",
+      "reason": "ungrounded concrete term: 瞬間"
+    },
+    {
+      "case": 8,
+      "attempt": 2,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "generation_id": "gen-1794979380-lqnKxPUxmkUzT6Y0H0SB",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 661,
+        "completion_tokens": 4096,
+        "total_tokens": 4757,
+        "cost": 0.00744856,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 640,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00744856,
+          "upstream_inference_prompt_cost": 7.576e-05,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4095,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "profile": "burnout",
+      "slot": "07:30",
+      "generation_id": "gen-1794979378-nefViiSVQX1rxx1v47Lp",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 690,
+        "completion_tokens": 4096,
+        "total_tokens": 4786,
+        "cost": 0.00758256,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00758256,
+          "upstream_inference_prompt_cost": 0.00020976,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4097,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "profile": "burnout",
+      "slot": "12:30",
+      "generation_id": "gen-1794979401-3MKi44lCTnzqKcMsQarr",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 689,
+        "completion_tokens": 4096,
+        "total_tokens": 4785,
+        "cost": 0.014803476,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.014803476,
+          "upstream_inference_prompt_cost": 5.7876e-05,
+          "upstream_inference_completions_cost": 0.0147456
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4100,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "profile": "burnout",
+      "slot": "18:30",
+      "generation_id": "gen-1794979408-MuVZXD4NALKOIPY8iOh0",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 690,
+        "completion_tokens": 4096,
+        "total_tokens": 4786,
+        "cost": 0.0074648,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 640,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0074648,
+          "upstream_inference_prompt_cost": 9.2e-05,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "profile": "burnout",
+      "slot": "22:30",
+      "generation_id": "gen-1794979410-PJHzTL1SdYPhYSPbCbRW",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 689,
+        "completion_tokens": 4096,
+        "total_tokens": 4785,
+        "cost": 0.018987,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.018987,
+          "upstream_inference_prompt_cost": 0.0009646,
+          "upstream_inference_completions_cost": 0.0180224
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4088,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "07:30",
+      "generation_id": "gen-1794979413-xnx0jnPznvR4JkQHkkch",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 638,
+        "completion_tokens": 4096,
+        "total_tokens": 4734,
+        "cost": 0.01229514,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.01229514,
+          "upstream_inference_prompt_cost": 0.00058058,
+          "upstream_inference_completions_cost": 0.01171456
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "12:30",
+      "generation_id": "gen-1794979431-ebVB5qp7hBVoIEKVno08",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 637,
+        "completion_tokens": 4096,
+        "total_tokens": 4733,
+        "cost": 0.0094571,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0094571,
+          "upstream_inference_prompt_cost": 0.0004459,
+          "upstream_inference_completions_cost": 0.0090112
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "generation_id": "gen-1794979437-br90RwJXN70thW1HS13x",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 638,
+        "completion_tokens": 245,
+        "total_tokens": 883,
+        "cost": 0.000456818,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000456818,
+          "upstream_inference_prompt_cost": 0.000113818,
+          "upstream_inference_completions_cost": 0.000343
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 10,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": true,
+      "validation": "REJECT",
+      "reason": "ungrounded concrete term: 調子"
+    },
+    {
+      "case": 15,
+      "attempt": 2,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "generation_id": "gen-1794979439-8grjxVvaAmZFefhhJ6Xb",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 638,
+        "completion_tokens": 4096,
+        "total_tokens": 4734,
+        "cost": 0.014797272,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.014797272,
+          "upstream_inference_prompt_cost": 5.1672e-05,
+          "upstream_inference_completions_cost": 0.0147456
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "generation_id": "gen-1794979440-0ho3qtTwfFktsbBy1tzF",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 637,
+        "completion_tokens": 4096,
+        "total_tokens": 4733,
+        "cost": 0.01276575,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.01276575,
+          "upstream_inference_prompt_cost": 0.00047775,
+          "upstream_inference_completions_cost": 0.012288
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "generation_id": "gen-1794979452-0KQZvlvYzJnGMX9sidX8",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 660,
+        "completion_tokens": 299,
+        "total_tokens": 959,
+        "cost": 0.000536356,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000536356,
+          "upstream_inference_prompt_cost": 0.000117756,
+          "upstream_inference_completions_cost": 0.0004186
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 39,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": true,
+      "validation": "REJECT",
+      "reason": "ungrounded concrete term: 過去"
+    },
+    {
+      "case": 17,
+      "attempt": 2,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "generation_id": "gen-1794979455-moTsP2UJykMb766y4klz",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 660,
+        "completion_tokens": 4096,
+        "total_tokens": 4756,
+        "cost": 0.00756576,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00756576,
+          "upstream_inference_prompt_cost": 0.00019296,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "12:30",
+      "generation_id": "gen-1794979459-8jH2qp7tIHNnguFUUwg1",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 659,
+        "completion_tokens": 4096,
+        "total_tokens": 4755,
+        "cost": 0.01260305,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 320,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.01260305,
+          "upstream_inference_prompt_cost": 0.00031505,
+          "upstream_inference_completions_cost": 0.012288
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "18:30",
+      "generation_id": "gen-1794979474-OkrIAlbcDfYEeQOj94Sf",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 660,
+        "completion_tokens": 4096,
+        "total_tokens": 4756,
+        "cost": 0.0181478,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0181478,
+          "upstream_inference_prompt_cost": 0.0001254,
+          "upstream_inference_completions_cost": 0.0180224
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4735,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "generation_id": "gen-1794979479-WBZW1ouwc7YdRRRAfPxM",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 659,
+        "completion_tokens": 4096,
+        "total_tokens": 4755,
+        "cost": 0.018945,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.018945,
+          "upstream_inference_prompt_cost": 0.0009226,
+          "upstream_inference_completions_cost": 0.0180224
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "07:30",
+      "generation_id": "gen-1794979483-JIgQre1kwFQ1iXPlqlmH",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 631,
+        "completion_tokens": 4096,
+        "total_tokens": 4727,
+        "cost": 0.00754952,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00754952,
+          "upstream_inference_prompt_cost": 0.00017672,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "generation_id": "gen-1794979486-GwmSuqaCBKRIkPKPC9KA",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 630,
+        "completion_tokens": 282,
+        "total_tokens": 912,
+        "cost": 0.000438453,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000438453,
+          "upstream_inference_prompt_cost": 4.3653e-05,
+          "upstream_inference_completions_cost": 0.0003948
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 25,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": true,
+      "validation": "REJECT",
+      "reason": "ungrounded concrete term: 手"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "generation_id": "gen-1794979493-6k6AjJbbTbhjpcJYlWPp",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 630,
+        "completion_tokens": 255,
+        "total_tokens": 885,
+        "cost": 0.000469194,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 576,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000469194,
+          "upstream_inference_prompt_cost": 0.000112194,
+          "upstream_inference_completions_cost": 0.000357
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": true,
+      "validation": "REJECT",
+      "reason": "ungrounded concrete term: 手"
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "generation_id": "gen-1794979496-SbmAqQtp8IJAfkhTXTQG",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 631,
+        "completion_tokens": 4096,
+        "total_tokens": 4727,
+        "cost": 0.0074612,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 576,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0074612,
+          "upstream_inference_prompt_cost": 8.84e-05,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "22:30",
+      "generation_id": "gen-1794979505-Ln8v2Rlv9iZZDYexXxRe",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 630,
+        "completion_tokens": 4096,
+        "total_tokens": 4726,
+        "cost": 0.012003316,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.012003316,
+          "upstream_inference_prompt_cost": 0.000288756,
+          "upstream_inference_completions_cost": 0.01171456
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "generation_id": "gen-1794979515-7WM9m5jceTYMsopNolq3",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 626,
+        "completion_tokens": 283,
+        "total_tokens": 909,
+        "cost": 0.00050787,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00050787,
+          "upstream_inference_prompt_cost": 0.00011167,
+          "upstream_inference_completions_cost": 0.0003962
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 21,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": true,
+      "validation": "REJECT",
+      "reason": "ungrounded concrete term: 昨夜"
+    },
+    {
+      "case": 25,
+      "attempt": 2,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "generation_id": "gen-1794979519-hkEpvnLxCXXD3DiQbN6L",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 626,
+        "completion_tokens": 4096,
+        "total_tokens": 4722,
+        "cost": 0.011999676,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.011999676,
+          "upstream_inference_prompt_cost": 0.000285116,
+          "upstream_inference_completions_cost": 0.01171456
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "12:30",
+      "generation_id": "gen-1794979520-tljBWPnhMuPRJsFareeo",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 625,
+        "completion_tokens": 4096,
+        "total_tokens": 4721,
+        "cost": 0.00754616,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00754616,
+          "upstream_inference_prompt_cost": 0.00017336,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "18:30",
+      "generation_id": "gen-1794979527-SELxDNRs24X1FbjVQmoo",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 626,
+        "completion_tokens": 4096,
+        "total_tokens": 4722,
+        "cost": 0.0074584,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 576,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0074584,
+          "upstream_inference_prompt_cost": 8.56e-05,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4095,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "22:30",
+      "generation_id": "gen-1794979528-kbrP41KKIvIudWktVXCN",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 625,
+        "completion_tokens": 4096,
+        "total_tokens": 4721,
+        "cost": 0.010615,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.010615,
+          "upstream_inference_prompt_cost": 0.000375,
+          "upstream_inference_completions_cost": 0.01024
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "07:30",
+      "generation_id": "gen-1794979540-B0KMwfx7YPl3V0qu7Gfk",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 625,
+        "completion_tokens": 4096,
+        "total_tokens": 4721,
+        "cost": 0.012906586,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 403,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.012906586,
+          "upstream_inference_prompt_cost": 0.000290906,
+          "upstream_inference_completions_cost": 0.01261568
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "generation_id": "gen-1794979543-wtoktjsMGS03fMMugWmE",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 624,
+        "completion_tokens": 4096,
+        "total_tokens": 4720,
+        "cost": 0.0075456,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0075456,
+          "upstream_inference_prompt_cost": 0.0001728,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "generation_id": "gen-1794979555-HrPvKdxwC8U68k93GF7b",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 625,
+        "completion_tokens": 4096,
+        "total_tokens": 4721,
+        "cost": 0.01257755,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 320,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.01257755,
+          "upstream_inference_prompt_cost": 0.00028955,
+          "upstream_inference_completions_cost": 0.012288
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "generation_id": "gen-1794979560-qMfc8VqxgIFrtXNIFKTw",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 624,
+        "completion_tokens": 3428,
+        "total_tokens": 4052,
+        "cost": 0.01051008,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.01051008,
+          "upstream_inference_prompt_cost": 0.00022608,
+          "upstream_inference_completions_cost": 0.010284
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 3182,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": true,
+      "validation": "REJECT",
+      "reason": "ungrounded concrete term: きっかけ"
+    },
+    {
+      "case": 32,
+      "attempt": 2,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "generation_id": "gen-1794979580-Ohj8qwYqgjPN2OMvOpB5",
+      "response_model": "z-ai/glm-5.3",
+      "finish_reason": "length",
+      "usage": {
+        "prompt_tokens": 624,
+        "completion_tokens": 4096,
+        "total_tokens": 4720,
+        "cost": 0.00745728,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 576,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00745728,
+          "upstream_inference_prompt_cost": 8.448e-05,
+          "upstream_inference_completions_cost": 0.0073728
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "content_present": false,
+      "validation": "REJECT",
+      "reason": "no candidate content; finish_reason=length"
+    }
+  ],
+  "judgments": [
+    {
+      "case": 8,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日、誰かと比べなくて済んだ瞬間に、どんな気持ちが残っていたか思い出せますか？",
+      "probability": 0.16,
+      "sendable": false,
+      "judgment": "FAIL",
+      "classes": [
+        "fabrication"
+      ],
+      "reason": "今日、他人と比較せずに済んだ瞬間があったという未提供の出来事を前提にする。"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし親しい友人が「どうせ私なんて」と言ったら、あなたはその人に何と言ってあげたいですか？",
+      "probability": 0.22,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "reflection",
+      "text": "比べる対象が変わっても、あなたの価値そのものは変わらないのだとしたら、少し楽になるかもしれませんね。",
+      "probability": 0.12,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉の裏に、どんな気持ちが隠れていると思いますか？",
+      "probability": 0.18,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "question",
+      "text": "今日の自分の中で、少しでも「まあ悪くないな」と思えたことは何かありましたか？",
+      "probability": 0.14,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "f",
+      "kind": "action",
+      "text": "寝る前に、今日の自分に一言だけ「お疲れさま」と声をかけてみませんか？",
+      "probability": 0.12,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "profile": "low_self_esteem",
+      "slot": "22:30",
+      "id": "g",
+      "kind": "none",
+      "text": "",
+      "probability": 0.06,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "空文のno-send候補。文面率の分母から除外。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "最近、気持ちが沈みやすい日が続いているようですが、今日の夕方はどんな調子ですか？",
+      "probability": 0.24,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "この頃の自分にとって、ほっとできる時間や場所はどんなところでしょうか？",
+      "probability": 0.22,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "reflection",
+      "text": "興味がわきにくいと感じる日でも、その気持ちをそっと見つめてみるだけでも少し違うかもしれません。",
+      "probability": 0.16,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "question",
+      "text": "もし今、気分が少し軽くなるとしたら、どんな小さな出来事がきっかけになると思いますか？",
+      "probability": 0.18,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "breathing",
+      "text": "少し立ち止まって、ゆっくり息を吐きながら肩の力を抜いてみませんか？",
+      "probability": 0.12,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "profile": "low_mood",
+      "slot": "18:30",
+      "id": "f",
+      "kind": "none",
+      "text": "",
+      "probability": 0.08,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "空文のno-send候補。文面率の分母から除外。"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今の自分にとって、過去の選考の経験は何を教えてくれていると思いますか？",
+      "probability": 0.18,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし友人が同じように不採用が続いていたら、その人にどんな言葉をかけたいですか？",
+      "probability": 0.2,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "reflection",
+      "text": "不採用が続いても、挑戦し続けていること自体があなたの強さです。",
+      "probability": 0.12,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "d",
+      "kind": "question",
+      "text": "今日、ほんの小さな一歩としてできることは何か思い当たりますか？",
+      "probability": 0.18,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "不安は準備を重ねた分だけ小さくなることが多いので、今日は一つだけ確認できる準備を選んでみるのも一案です。",
+      "probability": 0.1,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "f",
+      "kind": "question",
+      "text": "自信を感じられる瞬間は、普段のどんな場面にありますか？",
+      "probability": 0.14,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "profile": "confidence_seeker",
+      "slot": "07:30",
+      "id": "g",
+      "kind": "none",
+      "text": "",
+      "probability": 0.08,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "空文のno-send候補。文面率の分母から除外。"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日この時間に、本当はどれがいちばん手をつけたいことでしょうか？",
+      "probability": 0.24,
+      "sendable": false,
+      "judgment": "FAIL",
+      "classes": [
+        "japanese"
+      ],
+      "reason": "『どれがいちばん手をつけたいこと』は主語・目的語の接続が不自然。『どれに手をつけたい』などが必要。"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "先延ばししたくなるとき、あなたの中では何が起きていると感じますか？",
+      "probability": 0.22,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし10分だけ集中できるとしたら、まず何から始めてみたいですか？",
+      "probability": 0.18,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "昼のこの時間は、夜の後悔を減やせるチャンスのかけらかもしれないですね。",
+      "probability": 0.14,
+      "sendable": false,
+      "judgment": "FAIL",
+      "classes": [
+        "japanese"
+      ],
+      "reason": "『減やせる』は活用の誤り。『チャンスのかけら』も不自然な組合せ。"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "action",
+      "text": "まず一番小さい一歩だけ決めて、それを5分だけやってみませんか？",
+      "probability": 0.12,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "breathing",
+      "text": "少し深く息を吸って、ゆっくり吐きながら、今この瞬間に意識を戻してみましょう。",
+      "probability": 0.06,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "g",
+      "kind": "none",
+      "text": "",
+      "probability": 0.04,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "空文のno-send候補。文面率の分母から除外。"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日のうちにほんの少しでも手をつけたいことは、何か浮かんでいますか？",
+      "probability": 0.24,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし朝の自分に一言伝えられるとしたら、どんなことを伝えたいですか？",
+      "probability": 0.08,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "先延ばししたくなるとき、あなたの中では何が起こっているように感じますか？",
+      "probability": 0.16,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "夜の後悔は、やりたかったことが自分にとって大事だった証拠なのかもしれませんね。",
+      "probability": 0.14,
+      "sendable": false,
+      "judgment": "FAIL",
+      "classes": [
+        "fabrication"
+      ],
+      "reason": "先延ばしの理由を本人の『やりたかった』『大事だった』という未提供の願望・価値へ置き換える。末尾が推測でも埋め込まれた願望は未根拠。"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "action",
+      "text": "まず5分だけ、一番小さい一歩から始めてみませんか？",
+      "probability": 0.13,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "f",
+      "kind": "teaching",
+      "text": "集中の妨げになるものを一つだけ片付けるだけでも、始めやすさが変わることがありますよ。",
+      "probability": 0.05,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "profile": "procrastination",
+      "slot": "12:30",
+      "id": "g",
+      "kind": "none",
+      "text": "",
+      "probability": 0.2,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "空文のno-send候補。文面率の分母から除外。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "昨夜の眠りは、今朝どのくらい回復に近づけていますか？",
+      "probability": 0.1,
+      "sendable": false,
+      "judgment": "FAIL",
+      "classes": [
+        "fabrication",
+        "japanese"
+      ],
+      "reason": "プロフィールは一般的な入眠困難であり昨夜の睡眠を提供しない。『眠りは回復に近づけていますか』も主語と述語の対応が不自然。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "今日の一日をどんな気持ちで過ごせたら、心が少し軽くなると思いますか？",
+      "probability": 0.18,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "question",
+      "text": "明日の予定について、いま頭の中でいちばん引っかかっているのはどんな点ですか？",
+      "probability": 0.2,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "d",
+      "kind": "question",
+      "text": "もし不安が少し静まったとしたら、今日の朝にやっておきたいことは何ですか？",
+      "probability": 0.15,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "e",
+      "kind": "reflection",
+      "text": "夜が長いと、朝のスタートに少し余裕が欲しくなるのは自然なことです。",
+      "probability": 0.12,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "f",
+      "kind": "breathing",
+      "text": "朝の準備の合間に、ゆっくり息を吐くだけで一分、意識を向けてみませんか？",
+      "probability": 0.1,
+      "sendable": false,
+      "judgment": "FAIL",
+      "classes": [
+        "fabrication"
+      ],
+      "reason": "朝slotだけでは朝の準備中・準備の合間という行動の根拠にならない。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "profile": "sleep_trouble",
+      "slot": "07:30",
+      "id": "g",
+      "kind": "none",
+      "text": "",
+      "probability": 0.15,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "空文のno-send候補。文面率の分母から除外。"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "三日坊主で終わってしまうとき、たいてい何がきっかけになっていると思いますか？",
+      "probability": 0.2,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "大きな目標を小さく割るとしたら、いちばん続きやすそうな最初の一歩は何になりそうですか？",
+      "probability": 0.18,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もし日記が一行だけでいいとしたら、今日はどんな一行を書きたくなりますか？",
+      "probability": 0.15,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "大きな目標を立てては挫ける繰り返しも、自分に合う大きさを探している過程と見ることもできます。",
+      "probability": 0.12,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "e",
+      "kind": "teaching",
+      "text": "習慣化のコツは、目標を『小さすぎるかな』と感じるくらいに縮めることにある、と言われています。",
+      "probability": 0.1,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "プロフィールの反映、一般的な提案、または明示的な仮定として成立。"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "profile": "habit_builder",
+      "slot": "22:30",
+      "id": "f",
+      "kind": "none",
+      "text": "",
+      "probability": 0.25,
+      "sendable": false,
+      "judgment": "PASS",
+      "classes": [],
+      "reason": "空文のno-send候補。文面率の分母から除外。"
+    }
+  ]
+}

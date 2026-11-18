@@ -1,0 +1,125 @@
+{
+  "index": 21,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "attempts": [
+    {
+      "id": "gen-1794979486-GwmSuqaCBKRIkPKPC9KA",
+      "object": "chat.completion",
+      "created": 1794979486,
+      "model": "z-ai/glm-5.3",
+      "provider": "Wafer",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "```json\n{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日この時間に、本当はどれがいちばん手をつけたいことでしょうか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"先延ばししたくなるとき、あなたの中では何が起きていると感じますか？\",\"probability\":0.22},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし10分だけ集中できるとしたら、まず何から始めてみたいですか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"昼のこの時間は、夜の後悔を減やせるチャンスのかけらかもしれないですね。\",\"probability\":0.14},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"まず一番小さい一歩だけ決めて、それを5分だけやってみませんか？\",\"probability\":0.12},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"少し深く息を吸って、ゆっくり吐きながら、今この瞬間に意識を戻してみましょう。\",\"probability\":0.06},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.04}]}\n```",
+            "refusal": null,
+            "reasoning": "Need Japanese candidates, at least half open-ended questions, probabilities sum to 1, one \"none\".",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "Need Japanese candidates, at least half open-ended questions, probabilities sum to 1, one \"none\".",
+                "format": "unknown",
+                "index": 0
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 630,
+        "completion_tokens": 282,
+        "total_tokens": 912,
+        "cost": 0.000438453,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 384,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000438453,
+          "upstream_inference_prompt_cost": 4.3653e-05,
+          "upstream_inference_completions_cost": 0.0003948
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 25,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "gen-1794979493-6k6AjJbbTbhjpcJYlWPp",
+      "object": "chat.completion",
+      "created": 1794979493,
+      "model": "z-ai/glm-5.3",
+      "provider": "Wafer",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日のうちにほんの少しでも手をつけたいことは、何か浮かんでいますか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし朝の自分に一言伝えられるとしたら、どんなことを伝えたいですか？\",\"probability\":0.08},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"先延ばししたくなるとき、あなたの中では何が起こっているように感じますか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜の後悔は、やりたかったことが自分にとって大事だった証拠なのかもしれませんね。\",\"probability\":0.14},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"まず5分だけ、一番小さい一歩から始めてみませんか？\",\"probability\":0.13},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"集中の妨げになるものを一つだけ片付けるだけでも、始めやすさが変わることがありますよ。\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.20}]}",
+            "refusal": null,
+            "reasoning": null
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 630,
+        "completion_tokens": 255,
+        "total_tokens": 885,
+        "cost": 0.000469194,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 576,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000469194,
+          "upstream_inference_prompt_cost": 0.000112194,
+          "upstream_inference_completions_cost": 0.000357
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded concrete term: 手"
+  }
+}
