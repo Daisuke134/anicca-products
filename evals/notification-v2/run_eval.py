@@ -9,6 +9,7 @@ from pathlib import Path
 import tempfile
 import threading
 import urllib.request
+import urllib.error
 import uuid
 
 ROOT = Path(__file__).resolve().parent
@@ -85,16 +86,22 @@ def run():
 
 def collect_cost():
     key=credentials(); out=ROOT/"output"
-    run=json.loads((out/"run.json").read_text())
-    receipts=[]
+    run=json.loads((out/"run.json").read_text(),parse_float=Decimal)
+    receipts=[]; errors=[]; total=Decimal(0)
     for record in run["records"]:
         for response in record["attempts"]:
             req=urllib.request.Request("https://openrouter.ai/api/v1/generation?id="+response["id"],headers={"Authorization":"Bearer "+key})
-            with urllib.request.urlopen(req,timeout=30) as r:
-                receipt=json.loads(r.read(),parse_float=Decimal)
-            receipts.append(receipt)
-    total=sum((r["data"]["total_cost"] for r in receipts),Decimal(0))
-    (out/"cost.json").write_text(json.dumps(dict(total_cost_usd=str(total),receipt_count=len(receipts),receipts=receipts),ensure_ascii=False,indent=2,default=str))
+            try:
+                with urllib.request.urlopen(req,timeout=30) as r:
+                    receipt=json.loads(r.read(),parse_float=Decimal)
+                cost = receipt["data"]["total_cost"]
+                receipts.append(receipt)
+            except urllib.error.HTTPError as e:
+                if e.code != 404: raise
+                errors.append(dict(id=response["id"],status=e.code))
+                cost = response["usage"]["cost"]
+            total += cost
+    (out/"cost.json").write_text(json.dumps(dict(total_cost_usd=str(total),receipt_count=len(receipts),generation_lookup_errors=errors,cost_source="generation total_cost; completion usage.cost only for 404 lookup",receipts=receipts),ensure_ascii=False,indent=2,default=str))
     print("Exact total USD:", total, "receipts:", len(receipts))
 
 
