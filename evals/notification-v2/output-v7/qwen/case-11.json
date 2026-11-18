@@ -1,0 +1,205 @@
+{
+  "index": 11,
+  "profile": "burnout",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006148-OP74tMGIEyIgCrx2qdZ6",
+        "object": "chat.completion",
+        "created": 1795006148,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"もし今よければ、この時間にいちばん気になっていることを言葉にしてみませんか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「何もしたくない」と「やらなきゃ」の間で揺れているとき、どんな瞬間がいちばんしんどく感じますか？\",\"probability\":0.18,\"grounds\":[\"profile\"]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし少しでも休める時間が取れたら、その時間を何に使いたいですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"何もしたくない気持ちと、やらなきゃという焦りは、同時に存在することがあります。\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くする呼吸を、数回だけ試してみませんか。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1540,
+          "completion_tokens": 238,
+          "total_tokens": 1778,
+          "cost": 0.00182571,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00182571,
+            "upstream_inference_prompt_cost": 0.00080826,
+            "upstream_inference_completions_cost": 0.00101745
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006155-fStRyPON2WsQzEGzWRfn",
+        "object": "chat.completion",
+        "created": 1795006155,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is currently considering something.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question presupposes the person has something they are currently thinking about, which is a reasonable inference from the provided context of a busy and mentally occupied individual.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person has little time to rest.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is tired and unable to recover on holidays.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is experiencing a state of wanting to do nothing.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person feels rushed to do things.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question directly asks about a hypothetical scenario of having rest time, which presupposes the current lack of it and the associated feelings of wanting to do nothing and feeling rushed, all of which are directly supported by the profile summary.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a suggestion for a breathing exercise and does not contain any atomic factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1089,
+          "completion_tokens": 288,
+          "total_tokens": 1377,
+          "cost": 0.00013824,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 954,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00013824,
+            "upstream_inference_prompt_cost": 2.304e-05,
+            "upstream_inference_completions_cost": 0.0001152
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "09f4b54f-a5e8-4911-87be-77754c7f387f",
+    "decision_point_at": 1795006157.199826,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "もし今よければ、この時間にいちばん気になっていることを言葉にしてみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もし少しでも休める時間が取れたら、その時間を何に使いたいですか？",
+        "probability": 0.16,
+        "grounds": []
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くする呼吸を、数回だけ試してみませんか。",
+        "probability": 0.12,
+        "grounds": []
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.52,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どんな瞬間がいちばんしんどく感じますか？",
+          "probability": 0.18,
+          "grounds": [
+            "profile"
+          ]
+        },
+        "reason": "grounds must reference nonempty profile fields"
+      },
+      {
+        "candidate": {
+          "id": "d",
+          "kind": "reflection",
+          "text": "何もしたくない気持ちと、やらなきゃという焦りは、同時に存在することがあります。",
+          "probability": 0.14,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "もし今よければ、この時間にいちばん気になっていることを言葉にしてみませんか？",
+      "probability": 0.2,
+      "grounds": []
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795007957.199826,
+    "observations": []
+  }
+}

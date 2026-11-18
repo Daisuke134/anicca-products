@@ -1,0 +1,221 @@
+{
+  "index": 10,
+  "profile": "burnout",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006148-cmUmXMOripmemjmaLj24",
+        "object": "chat.completion",
+        "created": 1795006148,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この瞬間、いちばん気になっているのはどんなことですか？\",\"probability\":0.25,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし少しでも落ち着ける時間があるとしたら、どんなふうに過ごしたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が今は大きく聞こえますか？\",\"probability\":0.17,\"grounds\":[\"profile_summary\"]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"休日に疲れが残るとき、どんなことが頭に浮かびますか？\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くしてみる呼吸を、いっしょに一度だけやってみませんか。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"休息は次の仕事の準備ではなく、それ自体に必要な時間だと考える見方もあります。\",\"probability\":0.05,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1541,
+          "completion_tokens": 275,
+          "total_tokens": 1816,
+          "cost": 0.00337155,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00337155,
+            "upstream_inference_prompt_cost": 0.002195925,
+            "upstream_inference_completions_cost": 0.001175625
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006156-qpxtxNby0hOx0hY7FY10",
+        "object": "chat.completion",
+        "created": 1795006156,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is currently thinking about something.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question presupposes the person is currently thinking about something, but this is not stated in the profile.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is an explicit hypothetical question and does not make any factual claims about the person.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is torn between the feeling of 'wanting to do nothing' and the feeling of 'having to do something'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person feels like 'wanting to do nothing'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person feels like 'having to do something'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile directly states the person is torn between these two feelings.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person feels tired on holidays.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"When the person feels tired on holidays, something comes to mind.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The profile states the person feels tired on holidays. However, the question presupposes that something comes to mind when they feel tired, which is not stated in the profile.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1127,
+          "completion_tokens": 332,
+          "total_tokens": 1459,
+          "cost": 0.0002455,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002455,
+            "upstream_inference_prompt_cost": 0.0001127,
+            "upstream_inference_completions_cost": 0.0001328
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006157-Yy6DPEwadiIOA4uhs1h1",
+        "object": "chat.completion",
+        "created": 1795006157,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の自分に、いちばん必要だと感じるのはどんな時間ですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今少しでも休めるなら、どんなふうに過ごしたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「やらなきゃ」という焦りは、今どんな言葉で頭に浮かんでいますか？\",\"probability\":0.14,\"grounds\":[\"profile_summary\"]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"何もしたくない気持ちと、やらなきゃという焦りが同時にあることは、めずらしいことではありません。\",\"probability\":0.13,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うより少し長くとってみませんか？\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"休息は、やることを全部終えてから取るものとは限りません。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1541,
+          "completion_tokens": 258,
+          "total_tokens": 1799,
+          "cost": 0.003298875,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003298875,
+            "upstream_inference_prompt_cost": 0.002195925,
+            "upstream_inference_completions_cost": 0.00110295
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006164-Yg6VIo1NLX3OMm848aQ8",
+        "object": "chat.completion",
+        "created": 1795006164,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "[\n  {\n    \"id\": \"a\",\n    \"claims\": [],\n    \"reason\": \"This is a question asking for a preference, not a statement of fact about the person.\"\n  },\n  {\n    \"id\": \"b\",\n    \"claims\": [],\n    \"reason\": \"This is a hypothetical question ('if you could rest') and does not make a factual claim about the person's current state or desires.\"\n  },\n  {\n    \"id\": \"c\",\n    \"claims\": [\n      {\n        \"claim\": \"The person is currently experiencing a sense of urgency related to obligations.\",\n        \"profile_fields\": [\n          \"profile_summary\"\n        ],\n        \"entailed\": true\n      },\n      {\n        \"claim\": \"The person is experiencing a feeling of needing to do things.\",\n        \"profile_fields\": [\n          \"profile_summary\"\n        ],\n        \"entailed\": true\n      }\n    ],\n    \"reason\": \"The profile explicitly states '何もしたくない気持ちと、やらなきゃという焦りの間で揺れている' (swaying between feeling like doing nothing and the urgency of needing to do things).\"\n  },\n  {\n    \"id\": \"d\",\n    \"claims\": [\n      {\n        \"claim\": \"The person is experiencing a feeling of wanting to do nothing.\",\n        \"profile_fields\": [\n          \"profile_summary\"\n        ],\n        \"entailed\": true\n      },\n      {\n        \"claim\": \"The person is experiencing a sense of urgency related to obligations.\",\n        \"profile_fields\": [\n          \"profile_summary\"\n        ],\n        \"entailed\": true\n      },\n      {\n        \"claim\": \"The person is experiencing both the feeling of wanting to do nothing and the urgency of needing to do things simultaneously.\",\n        \"profile_fields\": [\n          \"profile_summary\"\n        ],\n        \"entailed\": true\n      }\n    ],\n    \"reason\": \"The profile explicitly states '何もしたくない気持ちと、やらなきゃという焦りの間で揺れている' which means the person is between the feeling of wanting to do nothing and the urgency of needing to do things. This implies both are present and being experienced.\"\n  },\n  {\n    \"id\": \"e\",\n    \"claims\": [],\n    \"reason\": \"This is an invitation or suggestion for a relaxation technique, not a factual claim about the person.\"\n  }\n]",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1157,
+          "completion_tokens": 542,
+          "total_tokens": 1699,
+          "cost": 0.00024628,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 958,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00024628,
+            "upstream_inference_prompt_cost": 2.948e-05,
+            "upstream_inference_completions_cost": 0.0002168
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "TypeError",
+    "code": null,
+    "message": "list indices must be integers or slices, not str"
+  }
+}

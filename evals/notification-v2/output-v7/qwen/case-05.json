@@ -1,0 +1,221 @@
+{
+  "index": 5,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006128-xRgJfyiwSxbhN4RI3g1w",
+        "object": "chat.completion",
+        "created": 1795006128,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てきたとき、その裏にどんな気持ちがあるか、少し言葉にしてみますか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、他人と比べていないときの自分のことを、どんなふうに捉えているか教えてもらえますか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"褒められたとき、素直に受け取れないのはどんな瞬間が多いですか？\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"今日はここまでで、自分に少しでも「まあいいか」と言えた場面はありましたか？\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"自分に向ける言葉の調子は、意識して少しずつ変えていくこともできます。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"自分を責める声に気づけたなら、それ自体がひとつの区切りになります。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1498,
+          "completion_tokens": 275,
+          "total_tokens": 1773,
+          "cost": 0.001924035,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001924035,
+            "upstream_inference_prompt_cost": 0.00074841,
+            "upstream_inference_completions_cost": 0.001175625
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006138-xDKNc38WlXRopVxvfiyt",
+        "object": "chat.completion",
+        "created": 1795006138,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\":[{\"id\":\"a\",\"claims\":[{\"claim\":\"The person sometimes says \\\"どうせ私なんて\\\"\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true},{\"claim\":\"The person is being asked to express the feelings behind saying \\\"どうせ私なんて\\\"\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false}],\"reason\":\"The first claim is directly stated in the profile. The second claim is not a personal factual claim about the person, but rather an action being proposed to them.\"},{\"id\":\"b\",\"claims\":[{\"claim\":\"The person is asked to describe their self-perception when not comparing themselves to others.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false}],\"reason\":\"This is a hypothetical question and does not assert a current state or fact about the person.\"},{\"id\":\"c\",\"claims\":[{\"claim\":\"The person sometimes finds it difficult to honestly accept praise.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true},{\"claim\":\"The person is asked about the specific moments when they find it difficult to accept praise.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false}],\"reason\":\"The first claim is directly supported by the profile. The second claim is a question about the circumstances, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1094,
+          "completion_tokens": 264,
+          "total_tokens": 1358,
+          "cost": 0.000215,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000215,
+            "upstream_inference_prompt_cost": 0.0001094,
+            "upstream_inference_completions_cost": 0.0001056
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006140-m4dDnMF1DEriIjbrbrbC",
+        "object": "chat.completion",
+        "created": 1795006140,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てきたとき、その裏にどんな気持ちがあると感じますか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし褒められた場面をひとつ思い出すなら、そのとき心の中で何が起きていましたか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"SNSで誰かと比べてしまうのは、どんな瞬間が多いですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"今日の自分に、他人と同じ基準ではなく自分の言葉で声をかけるなら、どんな言葉になりますか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"人から向けられた評価と、自分に向ける評価は、別の基準で動いていることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ今、息をゆっくり吐いて、肩の力を一度抜いてみてください。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1498,
+          "completion_tokens": 268,
+          "total_tokens": 1766,
+          "cost": 0.00154755,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00154755,
+            "upstream_inference_prompt_cost": 0.00040185,
+            "upstream_inference_completions_cost": 0.0011457
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006146-e3YxBQsM35uuN9ddOu7L",
+        "object": "chat.completion",
+        "created": 1795006146,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\":[{\"id\":\"a\",\"claims\":[{\"claim\":\"The person sometimes says \\\"どうせ私なんて\\\".\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true},{\"claim\":\"The person feels a certain emotion behind the phrase \\\"どうせ私なんて\\\".\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false}],\"reason\":\"The first claim is directly stated in the profile. The second claim is a presupposition of the question which cannot be confirmed by the profile text.\"},{\"id\":\"b\",\"claims\":[{\"claim\":\"The person can recall a specific instance of being praised.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false},{\"claim\":\"The person experienced an internal emotional reaction when praised.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false}],\"reason\":\"The question presupposes the person can recall a specific instance of being praised, and asks about the internal emotional reaction at that time. Neither is supported by the profile.\"},{\"id\":\"c\",\"claims\":[{\"claim\":\"The person compares themselves to others on SNS.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true},{\"claim\":\"There are specific moments when the person compares themselves to others on SNS.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true}],\"reason\":\"Both claims are directly entailed by the profile text.\"},{\"id\":\"d\",\"claims\":[{\"claim\":\"The person has a \\\"self\\\" that can be spoken to in their own words.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false},{\"claim\":\"The person is capable of giving themselves a voice with their own words, independent of others' standards.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false}],\"reason\":\"The question presupposes the existence of a personal voice and the ability to speak to oneself independently of external standards, neither of which is stated in the profile.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1119,
+          "completion_tokens": 381,
+          "total_tokens": 1500,
+          "cost": 0.00017826,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 956,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00017826,
+            "upstream_inference_prompt_cost": 2.586e-05,
+            "upstream_inference_completions_cost": 0.0001524
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person feels a certain emotion behind the phrase \\\"どうせ私なんて\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person can recall a specific instance of being praised.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person experienced an internal emotional reaction when praised.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person has a \\\"self\\\" that can be spoken to in their own words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person is capable of giving themselves a voice with their own words, independent of others' standards.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

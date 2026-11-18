@@ -1,0 +1,221 @@
+{
+  "index": 3,
+  "profile": "rumination",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006108-cQ483f9l8oGcH3y5ToYr",
+        "object": "chat.completion",
+        "created": 1795006108,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この時間に、いちばん気になっていることは何ですか？\",\"probability\":0.26,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜も考えが止まらないなら、どんなふうに過ごせたら少しでも楽になりそうですか？\",\"probability\":0.22,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"落ち着きたい今の自分に、どんな言葉をかけてあげたいですか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとってみませんか。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだことを紙に書き出すと、頭の中だけで回し続けるより整理しやすくなることがあります。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"夜はまわりの音が減って、昼間より考えが目立ちやすい時間帯です。\",\"probability\":0.05,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1479,
+          "completion_tokens": 264,
+          "total_tokens": 1743,
+          "cost": 0.001849935,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001849935,
+            "upstream_inference_prompt_cost": 0.000721335,
+            "upstream_inference_completions_cost": 0.0011286
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006119-YCifkO0FnvQLEIP1zgac",
+        "object": "chat.completion",
+        "created": 1795006119,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"b\", \"claims\": [{\"claim\": \"The person is a 32-year-old company employee.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person repeatedly thinks about work failures and misspoken words at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often cannot sleep because their thoughts do not stop.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's thoughts are currently unable to stop.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is a 32-year-old company employee.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is currently seeking calmness.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person is a 32-year-old company employee.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person repeatedly thinks about work failures and misspoken words at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often cannot sleep because their thoughts do not stop.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1081,
+          "completion_tokens": 339,
+          "total_tokens": 1420,
+          "cost": 0.00015784,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 954,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00015784,
+            "upstream_inference_prompt_cost": 2.224e-05,
+            "upstream_inference_completions_cost": 0.0001356
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006120-xYy2mQD7opUj0d4KuM79",
+        "object": "chat.completion",
+        "created": 1795006120,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、頭の中にあることを言葉にするとしたら、どんな言葉になりますか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜少しでも落ち着ける時間があるなら、どんなふうに過ごしてみたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"夜に考えが巡ってしまうとき、これまで少し楽になった瞬間はありましたか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くとる呼吸を、数回だけ試してみませんか。\",\"probability\":0.13,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだことを紙に書き出すと、同じ考えがぐるぐる回る流れが変わることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"夜に仕事の失敗や言い間違えた一言を何度も思い返して眠れない日もあるんですね。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1479,
+          "completion_tokens": 274,
+          "total_tokens": 1753,
+          "cost": 0.003278925,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003278925,
+            "upstream_inference_prompt_cost": 0.002107575,
+            "upstream_inference_completions_cost": 0.00117135
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006130-my86LiK0xyveOgMS4hoj",
+        "object": "chat.completion",
+        "created": 1795006130,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"a\", \"claims\": [\n{\"claim\": \"something is currently coming to mind\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"\"},\n{\"id\": \"b\", \"claims\": [\n{\"claim\": \"person can potentially have some time to calm down tonight\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}\n], \"reason\": \"The question is hypothetical and presupposes a potential future state that is not guaranteed by the profile.\"},\n{\"id\": \"c\", \"claims\": [\n{\"claim\": \"thoughts often race at night\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"there have been moments of relief when thoughts race at night\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}\n], \"reason\": \"The profile confirms that thoughts race at night, but does not mention any moments of relief.\"},\n{\"id\": \"d\", \"claims\": [], \"reason\": \"This is a suggestion for a breathing exercise and does not contain any factual claims about the person.\"},\n{\"id\": \"f\", \"claims\": [\n{\"claim\": \"person often thinks about work failures at night\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"person often thinks about misspoken words at night\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"person often has trouble sleeping due to racing thoughts at night\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1159,
+          "completion_tokens": 361,
+          "total_tokens": 1520,
+          "cost": 0.0002603,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002603,
+            "upstream_inference_prompt_cost": 0.0001159,
+            "upstream_inference_completions_cost": 0.0001444
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "invalid judge verdict shape"
+  }
+}

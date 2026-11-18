@@ -1,0 +1,200 @@
+{
+  "index": 7,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006132-J5xMzLvmg64diWWK3iOV",
+        "object": "chat.completion",
+        "created": 1795006132,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が浮かぶとき、その奥にはどんな気持ちがありそうですか？\",\"probability\":0.28,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし誰かに褒められたら、その言葉をそのまま受け取るとしたら、どんなふうに返してみたいですか？\",\"probability\":0.17,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"他人と比べてしまう自分ではなく、比べずにいられる瞬間があるとすれば、それはどんな場面でしょうか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"SNSで見えるのは切り取られた一部分だけで、その人の全体ではありません。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ今夜、自分にかけたい優しい言葉をひとつだけ書いてみませんか？\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1498,
+          "completion_tokens": 230,
+          "total_tokens": 1728,
+          "cost": 0.00173166,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00173166,
+            "upstream_inference_prompt_cost": 0.00074841,
+            "upstream_inference_completions_cost": 0.00098325
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006139-cSnUWoPIIZzJ0t0FdAbw",
+        "object": "chat.completion",
+        "created": 1795006139,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\n    \"id\": \"a\",\n    \"claims\": [\n      {\n        \"claim\": \"The person sometimes says \\\"どうせ私なんて\\\".\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      }\n    ],\n    \"reason\": \"The question \\\"「どうせ私なんて」という言葉が浮かぶとき、その奥にはどんな気持ちがありそうですか？\\\" presupposes that the person sometimes thinks the phrase \\\"どうせ私なんて\\\".\"\n  },\n  {\n    \"id\": \"b\",\n    \"claims\": [\n      {\n        \"claim\": \"The person sometimes receives praise.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      }\n    ],\n    \"reason\": \"The question \\\"もし誰かに褒められたら、その言葉をそのまま受け取るとしたら、どんなふうに返してみたいですか？\\\" presupposes that the person sometimes receives praise.\"\n  },\n  {\n    \"id\": \"c\",\n    \"claims\": [\n      {\n        \"claim\": \"The person sometimes compares themselves to others.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      }\n    ],\n    \"reason\": \"The question \\\"他人と比べてしまう自分ではなく、比べずにいられる瞬間があるとすれば、それはどんな場面でしょうか？\\\" presupposes that the person sometimes compares themselves to others.\"\n  },\n  {\n    \"id\": \"e\",\n    \"claims\": [],\n    \"reason\": \"The text is an invitation to write something and does not contain any atomic factual claims about the person.\"\n  }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1128,
+          "completion_tokens": 372,
+          "total_tokens": 1500,
+          "cost": 0.0002616,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002616,
+            "upstream_inference_prompt_cost": 0.0001128,
+            "upstream_inference_completions_cost": 0.0001488
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "baf6be8a-70ad-49ae-97ed-668baaa738b3",
+    "decision_point_at": 1795006140.692278,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "「どうせ私なんて」という言葉が浮かぶとき、その奥にはどんな気持ちがありそうですか？",
+        "probability": 0.28,
+        "grounds": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もし誰かに褒められたら、その言葉をそのまま受け取るとしたら、どんなふうに返してみたいですか？",
+        "probability": 0.17,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "他人と比べてしまう自分ではなく、比べずにいられる瞬間があるとすれば、それはどんな場面でしょうか？",
+        "probability": 0.16,
+        "grounds": []
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "よければ今夜、自分にかけたい優しい言葉をひとつだけ書いてみませんか？",
+        "probability": 0.12,
+        "grounds": []
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.27,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "d",
+          "kind": "reflection",
+          "text": "SNSで見えるのは切り取られた一部分だけで、その人の全体ではありません。",
+          "probability": 0.12,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が浮かぶとき、その奥にはどんな気持ちがありそうですか？",
+      "probability": 0.28,
+      "grounds": []
+    },
+    "assigned_probability": 0.28,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795007940.692278,
+    "observations": []
+  }
+}

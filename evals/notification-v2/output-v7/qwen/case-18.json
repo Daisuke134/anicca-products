@@ -1,0 +1,221 @@
+{
+  "index": 18,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006182-QvGpoQ0Xm3iCKqXvcbLL",
+        "object": "chat.completion",
+        "created": 1795006182,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"自信について、今いちばん気になっているのはどんなことですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近の就活で少しでも手応えを感じた瞬間はありましたか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"面接の前に「落ちるかもしれない」という不安が出てきたとき、どんなふうに過ごせると少し楽になりそうですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"不採用の通知は、その時点の募集条件との相性を示すもので、その人の価値を測る結果ではありません。\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"自信は、結果が出たあとだけでなく、続けている時間の中にも少しずつ育っていくものです。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1490,
+          "completion_tokens": 236,
+          "total_tokens": 1726,
+          "cost": 0.00209247,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00209247,
+            "upstream_inference_prompt_cost": 0.00108357,
+            "upstream_inference_completions_cost": 0.0010089
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006187-2WOw7zgY7qpXK5qoH2nf",
+        "object": "chat.completion",
+        "created": 1795006187,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"b\", \"claims\": [\n{\"claim\": \"The person has recently participated in job hunting activities.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"The person has experienced moments of perceived success or positive feedback in their recent job hunting activities.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}\n], \"reason\": \"The question presupposes that the person has had recent job hunting activities, which is supported by the profile. However, it also asks about specific moments of positive feedback, which is not mentioned in the profile.\"},\n{\"id\": \"c\", \"claims\": [\n{\"claim\": \"The person experiences anxiety about potentially failing an interview before it happens.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"The person is looking for ways to feel better when experiencing anxiety before an interview.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"The question directly reflects the profile's statement about the person feeling anxious ('落ちるかもしれない') before interviews. It also presupposes the person is seeking ways to alleviate this anxiety, which is a reasonable inference from asking for coping strategies.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1059,
+          "completion_tokens": 271,
+          "total_tokens": 1330,
+          "cost": 0.0002143,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002143,
+            "upstream_inference_prompt_cost": 0.0001059,
+            "upstream_inference_completions_cost": 0.0001084
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006189-QEcvN7rTynwTH3jXFVWI",
+        "object": "chat.completion",
+        "created": 1795006189,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、いちばん気になっているのはどんなことですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、自信について今どんなふうに考えているか聞かせてもらえますか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"面接の前に不安が出てくる時、どんな言葉が頭に浮かびますか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"不採用の通知が続くと、自信が揺らぐのは自然なことです。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"不安があるからといって、実力がないとは限りません。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よかったら、今日できたことをひとつだけ書き出してみませんか？\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1490,
+          "completion_tokens": 247,
+          "total_tokens": 1737,
+          "cost": 0.001446375,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001446375,
+            "upstream_inference_prompt_cost": 0.00039045,
+            "upstream_inference_completions_cost": 0.001055925
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006196-thiwEQri2GL2p9fnoqyI",
+        "object": "chat.completion",
+        "created": 1795006196,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"b\", \"claims\": [{\"claim\": \"The person is currently thinking about their confidence.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question is hypothetical and does not assert the person is currently thinking about their confidence. No other claims are present.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"When anxiety arises before interviews, specific words come to the person's mind.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person experiences anxiety before interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question asks about the specific words that come to mind, which is not stated in the profile. However, the profile explicitly states the person experiences anxiety before interviews.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person's confidence wavers when receiving consecutive rejection notices.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"This statement is a direct paraphrase of information present in the profile summary.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"The person is asked to write down one thing they accomplished today.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is an invitation and does not make any factual claims about the person. The action of writing is conditional on the person's willingness ('よかったら').\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1114,
+          "completion_tokens": 313,
+          "total_tokens": 1427,
+          "cost": 0.0002366,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002366,
+            "upstream_inference_prompt_cost": 0.0001114,
+            "upstream_inference_completions_cost": 0.0001252
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person is currently thinking about their confidence.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"When anxiety arises before interviews, specific words come to the person's mind.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"f\", \"claim\": {\"claim\": \"The person is asked to write down one thing they accomplished today.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

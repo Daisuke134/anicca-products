@@ -1,0 +1,221 @@
+{
+  "index": 25,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006205-yyT7nJiLtiaobkz9jHhr",
+        "object": "chat.completion",
+        "created": 1795006205,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜、布団に入る前に何か試してみたいことはありますか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日の予定が頭をぐるぐる回り始める夜もあるとのことですが、どんなときに特にそうなりやすいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今、少し落ち着きたい気分なら、どんな過ごし方がいちばん合いそうですか？\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"眠る前に明日の予定を紙に書き出しておくと、頭の中で繰り返し考えなくて済むことがあります。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くする呼吸を、数回だけ試してみませんか？\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"布団に入ってから眠るまで1時間以上かかることがあるんですね。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1440,
+          "completion_tokens": 272,
+          "total_tokens": 1712,
+          "cost": 0.0032148,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0032148,
+            "upstream_inference_prompt_cost": 0.002052,
+            "upstream_inference_completions_cost": 0.0011628
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006211-5tC4fbAc00zh3E7qDjdL",
+        "object": "chat.completion",
+        "created": 1795006211,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\":[{\"id\":\"b\",\"claims\":[{\"claim\":\"The person's tomorrow's schedule goes round and round their head sometimes at night.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true},{\"claim\":\"The user is asking about the conditions under which the person's tomorrow's schedule goes round and round their head particularly easily.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true}],\"reason\":\"The first claim is directly supported by the profile. The second claim is a presupposition of the question asked, seeking specific conditions for the aforementioned phenomenon.\"},{\"id\":\"c\",\"claims\":[{\"claim\":\"The person is feeling like they want to calm down a little right now.\",\"profile_fields\":[],\"entailed\":false}],\"reason\":\"The text is a hypothetical question about a desired state that is not present in the profile.\"},{\"id\":\"e\",\"claims\":[{\"claim\":\"The user is suggesting the person try a breathing exercise: exhaling slightly longer than inhaling, for a few times.\",\"profile_fields\":[],\"entailed\":false}],\"reason\":\"This is a suggestion, not a factual claim about the person.\"},{\"id\":\"f\",\"claims\":[{\"claim\":\"It takes the person more than an hour to fall asleep after getting into bed.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true}],\"reason\":\"This claim is directly supported by the profile text.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1122,
+          "completion_tokens": 287,
+          "total_tokens": 1409,
+          "cost": 0.00014096,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 956,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00014096,
+            "upstream_inference_prompt_cost": 2.616e-05,
+            "upstream_inference_completions_cost": 0.0001148
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006213-njq1tdpHun70M8hNMYYZ",
+        "object": "chat.completion",
+        "created": 1795006213,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜、眠る前の時間をどんなふうに過ごしたいですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日の予定について、今この場で書き出しておけることはありますか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜も頭がぐるぐる回り始めたら、どんな方法なら試してみたいですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くする呼吸を数回試してみてください。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだ予定は紙に書き出すと、頭の中で繰り返し思い出す必要が減ると言われています。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1440,
+          "completion_tokens": 225,
+          "total_tokens": 1665,
+          "cost": 0.001627635,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001627635,
+            "upstream_inference_prompt_cost": 0.00066576,
+            "upstream_inference_completions_cost": 0.000961875
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006219-qWYtbtrEtCs0DfVM7YIA",
+        "object": "chat.completion",
+        "created": 1795006219,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question about desired state, not a factual claim about the person.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person is currently thinking about tomorrow's schedule.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person can write down things about tomorrow's schedule right now.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person's head might start spinning with thoughts about tomorrow's schedule tonight.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is a general suggestion or instruction, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1110,
+          "completion_tokens": 195,
+          "total_tokens": 1305,
+          "cost": 0.00010305,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 955,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00010305,
+            "upstream_inference_prompt_cost": 2.505e-05,
+            "upstream_inference_completions_cost": 7.8e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "invalid judge verdict shape"
+  }
+}

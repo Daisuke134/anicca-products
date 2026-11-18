@@ -1,0 +1,221 @@
+{
+  "index": 2,
+  "profile": "rumination",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006108-jOoWxwBFAJqwJkS4lcO0",
+        "object": "chat.completion",
+        "created": 1795006108,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜を少しでも穏やかに過ごすとしたら、どんな時間がいいですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今また同じ場面が浮かんでくるなら、いちばん引っかかっているのはどの部分ですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠れない夜が続くとき、朝の自分にどんな影響が出ていますか？\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"考えが止まらない夜に、これまで試したことはありますか？\",\"probability\":0.14,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くする呼吸を数回だけ試してみませんか。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだことを紙に書き出すと、同じ考えがぐるぐる回る流れが変わることがあります。\",\"probability\":0.13,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1480,
+          "completion_tokens": 271,
+          "total_tokens": 1751,
+          "cost": 0.001881285,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001881285,
+            "upstream_inference_prompt_cost": 0.00072276,
+            "upstream_inference_completions_cost": 0.001158525
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006117-bK6cdBOnqhJ4rbyAUv3H",
+        "object": "chat.completion",
+        "created": 1795006117,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is considering ways to spend tonight more peacefully.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question is hypothetical and does not assert any current state or desire of the person.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person is currently recalling the same scene.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person is concerned about a specific part of the recalled scene.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question is hypothetical and does not assert that the person is currently recalling the scene or what specifically concerns them.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person experiences sleepless nights.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"Sleepless nights affect the person's morning self.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile states the person has many sleepless nights. The question presupposes an impact on the morning self, which is not supported by the profile.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person's thoughts do not stop at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has tried methods to cope with racing thoughts at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile states the person's thoughts do not stop at night. The question presupposes they have tried methods, which is not supported by the profile.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a suggestion for an exercise and does not contain any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1156,
+          "completion_tokens": 404,
+          "total_tokens": 1560,
+          "cost": 0.0002772,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002772,
+            "upstream_inference_prompt_cost": 0.0001156,
+            "upstream_inference_completions_cost": 0.0001616
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006119-88s3BsB19nDGqHd8ysJm",
+        "object": "chat.completion",
+        "created": 1795006119,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜を少しでも穏やかに過ごすとしたら、どんな時間がいいですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今、頭に浮かんでいることがあれば、それはどんなことですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠れない夜が続くと、日中はいちばん何に影響が出ますか？\",\"probability\":0.16,\"grounds\":[\"profile_summary\"]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"同じ場面が頭の中で繰り返し再生される状態は反芻と呼ばれ、意志の弱さとは別の心の働きです。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ一度、息を吐く方を吸う方より長くしてみてください。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1480,
+          "completion_tokens": 225,
+          "total_tokens": 1705,
+          "cost": 0.001338075,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001338075,
+            "upstream_inference_prompt_cost": 0.0003762,
+            "upstream_inference_completions_cost": 0.000961875
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006128-8UsJpPdJCpaYmTuYoNmL",
+        "object": "chat.completion",
+        "created": 1795006128,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"a\", \"claims\": [\n    {\"claim\": \"The person is considering what kind of time would be good for spending tonight more peacefully.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}\n  ], \"reason\": \"This is a hypothetical question, not a statement of fact about the person.\"},\n{\"id\": \"c\", \"claims\": [\n    {\"claim\": \"The person experiences sleepless nights.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n    {\"claim\": \"The person reflects on work mistakes and misspoken words multiple times at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n    {\"claim\": \"The person often cannot sleep because their thoughts do not stop.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n    {\"claim\": \"The person is asked about the main impact of sleepless nights on their daytime activities.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}\n  ], \"reason\": \"The question presupposes that the person experiences sleepless nights and asks about its impact. The claim about being asked the question is not a personal factual claim about the person.\"}\n]}\n]\n}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1048,
+          "completion_tokens": 268,
+          "total_tokens": 1316,
+          "cost": 0.00012632,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 952,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00012632,
+            "upstream_inference_prompt_cost": 1.912e-05,
+            "upstream_inference_completions_cost": 0.0001072
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "JSONDecodeError",
+    "code": null,
+    "message": "Extra data: line 12 column 1 (char 1117)"
+  }
+}

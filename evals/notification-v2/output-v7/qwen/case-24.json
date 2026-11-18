@@ -1,0 +1,221 @@
+{
+  "index": 24,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006200-07gVw3Kv50eLbBgYHwS5",
+        "object": "chat.completion",
+        "created": 1795006200,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気分を言葉にするなら、どんな言葉がいちばん近いですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜も眠るまで時間がかかりそうなら、どんな過ごし方を試してみたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"落ち着きたいとき、どんなことが少しでも助けになりそうですか？\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとってみませんか。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"予定が頭をぐるぐる回るときは、紙に書き出すと頭の外に置けることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"布団に入ってから眠るまで1時間以上かかることもあるんですね。\",\"probability\":0.07,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1441,
+          "completion_tokens": 261,
+          "total_tokens": 1702,
+          "cost": 0.00212952,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00212952,
+            "upstream_inference_prompt_cost": 0.001013745,
+            "upstream_inference_completions_cost": 0.001115775
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006207-f5sArDS9EaQMFq0sbGk6",
+        "object": "chat.completion",
+        "created": 1795006207,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a request for information that does not make any factual claims about the person.\"},\n{\"id\": \"b\", \"claims\": [\n{\"claim\": \"The person might take time to sleep tonight.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"The person is considering different ways to spend time if sleeping takes a while.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}\n], \"reason\": \"The notification presupposes that the person might take time to sleep, which is entailed by the profile. However, it invents a claim about the person considering different ways to spend time, which is not supported by the profile.\"},\n{\"id\": \"c\", \"claims\": [], \"reason\": \"This is a general suggestion and does not make any personal factual claims about the person.\"},\n{\"id\": \"d\", \"claims\": [], \"reason\": \"This is a suggestion and does not make any personal factual claims about the person.\"},\n{\"id\": \"f\", \"claims\": [\n{\"claim\": \"It takes the person over an hour to fall asleep after getting into bed.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"The profile explicitly states that it takes the person over an hour to fall asleep after getting into bed.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1140,
+          "completion_tokens": 304,
+          "total_tokens": 1444,
+          "cost": 0.0002356,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002356,
+            "upstream_inference_prompt_cost": 0.000114,
+            "upstream_inference_completions_cost": 0.0001216
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006209-vinwErSv3boRzlBdI1Z8",
+        "object": "chat.completion",
+        "created": 1795006209,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"朝のこの時間、頭の中にあるのはどんなことですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、今日の予定をひとつずつ書き出すとしたら、何から挙げますか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今夜、布団に入る前に少しでも落ち着けるとしたら、どんな過ごし方が合いそうですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"眠れない時間に浮かんだ予定は、メモに書き出して頭の外に置いておくと、考えをいったん区切る方法になります。\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ今、息を吐く方を吸うときより少し長くとって、3回ほど繰り返してみませんか？\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"布団に入ってから眠るまで1時間以上かかり、明日の予定が頭をぐるぐる回る夜もあるんですね。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.1,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1441,
+          "completion_tokens": 285,
+          "total_tokens": 1726,
+          "cost": 0.0032718,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0032718,
+            "upstream_inference_prompt_cost": 0.002053425,
+            "upstream_inference_completions_cost": 0.001218375
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006216-TZ2sgaL6zIdnNCKLGdRT",
+        "object": "chat.completion",
+        "created": 1795006216,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\n    \"id\": \"a\",\n    \"claims\": [\n      {\n        \"claim\": \"The person is currently thinking about things.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      }\n    ],\n    \"reason\": \"The question \\\"朝のこの時間、頭の中にあるのはどんなことですか？\\\" (What is on your mind at this time in the morning?) presupposes that the person currently has thoughts on their mind.\"\n  },\n  {\n    \"id\": \"b\",\n    \"claims\": [\n      {\n        \"claim\": \"The person can potentially create a focused block of time later today.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": false\n      }\n    ],\n    \"reason\": \"The question \\\"もしよければ、今日の予定をひとつずつ書き出すとしたら、何から挙げますか？\\\" (If you don't mind, if you were to list your plans for today one by one, what would you start with?) is a hypothetical scenario and does not make factual claims about the person's current state or abilities.\"\n  },\n  {\n    \"id\": \"f\",\n    \"claims\": [\n      {\n        \"claim\": \"It takes the person more than an hour to fall asleep after getting into bed.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      },\n      {\n        \"claim\": \"The person's mind races with tomorrow's plans, keeping them awake at night.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      }\n    ],\n    \"reason\": \"The text directly restates factual information present in the profile_summary.\"\n  }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1085,
+          "completion_tokens": 398,
+          "total_tokens": 1483,
+          "cost": 0.0002677,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002677,
+            "upstream_inference_prompt_cost": 0.0001085,
+            "upstream_inference_completions_cost": 0.0001592
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person can potentially create a focused block of time later today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

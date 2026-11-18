@@ -1,0 +1,1588 @@
+{
+  "rows": [
+    {
+      "case": 1,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "同じ場面が繰り返し浮かぶとき、浮かんだ考えに「考えが来た」と名前をつける方法もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝いちばん気になっていることは何ですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded question presupposition: 今朝いちばん気になっている",
+      "classification": "justified_presupposition",
+      "review_reason": "現在気になっている具体的な事柄を前提化し、profileに現在事実の裏付けがない。"
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を3回試してみてください。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "同じ考えが繰り返し浮かぶとき、頭の中で「また同じ考えだ」と名前をつけるだけで距離が取れることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "action",
+        "text": "思いついたことを紙に書き出しておくと、頭の中だけで抱え続けずに済むことがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "一日の中で、少しでも気持ちが落ち着くのはどんなときですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 2,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くして、3回だけ呼吸してみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 2,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "同じ考えが繰り返し浮かぶとき、場面を細かく検討し直すよりも、浮かんだことを「また同じ考えだ」と短く名づけて手元の作業に戻る方法もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "頭に浮かんだことを紙に書き出すと、同じ考えがぐるぐる回る流れが変わることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 3,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もし今、頭に浮かんでいることがあれば、それはどんなことですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded question presupposition: 今、頭に浮かんでいる",
+      "classification": "semantic_overrejection",
+      "review_reason": "状態自体を「があれば」で仮定するが、スクリーンは「なら」のみを許可して過剰棄却。"
+    },
+    {
+      "case": 3,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "同じ場面が頭の中で繰り返し再生される状態は反芻と呼ばれ、意志の弱さとは別の心の働きです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 3,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ一度、息を吐く方を吸う方より長くしてみてください。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今この時間に、いちばん気になっていることは何ですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded question presupposition: 今この時間に、いちばん気になっている",
+      "classification": "justified_presupposition",
+      "review_reason": "現在気になっている具体的な事柄を前提化し、profileに現在事実の裏付けがない。"
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだことを紙に書き出すと、頭の中だけで回し続けるより整理しやすくなることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "夜はまわりの音が減って、昼間より考えが目立ちやすい時間帯です。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 4,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだことを紙に書き出すと、同じ考えがぐるぐる回る流れが変わることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、今日は自分のどんなところを大切にしたいですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "reflection",
+        "text": "自分を大切にする感覚は、小さな気づきから少しずつ育っていきます。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "自分を責める声も、誰かと比べてしまう癖も、考え方を変える練習で少しずつ扱いやすくできることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "action",
+        "text": "よかったら今日、SNSを開く前に一度だけ深呼吸して、開くかどうかを決めてみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded dated event",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "question",
+        "text": "今日はここまでで、自分に少しでも「まあいいか」と言えた場面はありましたか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "自分に向ける言葉の調子は、意識して少しずつ変えていくこともできます。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "自分を責める声に気づけたなら、それ自体がひとつの区切りになります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 6,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "人から向けられた評価と、自分に向ける評価は、別の基準で動いていることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 6,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "action",
+        "text": "よければ今、息をゆっくり吐いて、肩の力を一度抜いてみてください。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "人からの褒め言葉をすぐ信じられなくても、「ありがとう」と一度受け取る練習はできます。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "自分を低く見積もる癖は、長く続いた見方の習慣であって、その人の価値を決めるものではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "unsupported_content",
+      "review_reason": "長く続いた見方の履歴、または習慣が続いた成功時点を追加し、profileに裏付けがない。"
+    },
+    {
+      "case": 7,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "reflection",
+        "text": "他人と自分を比べる視線は、自分の価値を測る物差しにはなりにくいものです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 7,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "breathing",
+        "text": "よければ今、息を吐くほうを吸うより少し長くして、三回くり返してみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "reflection",
+        "text": "SNSで見えるのは切り取られた一部分だけで、その人の全体ではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "休めていないときほど、休息は後回しにされがちです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今日ほんの数分だけ自分のために使えるとしたら、何に使いたいですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くする呼吸を、いっしょに一度やってみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が先に聞こえてきますか？",
+        "probability": 0.2,
+        "grounds": [
+          "profile"
+        ]
+      },
+      "reason": "grounds must reference nonempty profile fields",
+      "classification": "invalid_grounds",
+      "review_reason": "profileの項目名でないgrounds。内容が近くても契約上の棄却は正当。"
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くする呼吸を、3回だけ試してみませんか。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "休めていないと感じるときは、休息を「何もしない時間」として予定に書き込む方法もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "仕事と育児で休む時間がほとんどなく、休日も疲れが取れないとのことですね。",
+        "probability": 0.2,
+        "grounds": [
+          "profile"
+        ]
+      },
+      "reason": "grounds must reference nonempty profile fields",
+      "classification": "invalid_grounds",
+      "review_reason": "profileの項目名でないgrounds。内容が近くても契約上の棄却は正当。"
+    },
+    {
+      "case": 10,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしこのあと数分だけ自分の時間が取れるとしたら、何に使いたいですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 10,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸うときより少し長くして、三回ほど繰り返してみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 10,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "休めていない疲れは、気合いや段取りだけで埋まるものではないと言われています。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうを吸うときより少し長くしてみる呼吸を、いっしょに一度だけやってみませんか。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "休息は次の仕事の準備ではなく、それ自体に必要な時間だと考える見方もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 11,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "休息は、やることを全部終えてから取るものとは限りません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どんな瞬間がいちばんしんどく感じますか？",
+        "probability": 0.2,
+        "grounds": [
+          "profile"
+        ]
+      },
+      "reason": "grounds must reference nonempty profile fields",
+      "classification": "invalid_grounds",
+      "review_reason": "profileの項目名でないgrounds。内容が近くても契約上の棄却は正当。"
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "reflection",
+        "text": "何もしたくない気持ちと、やらなきゃという焦りは、同時に存在することがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうを吸うときより少し長めにして、3回だけ呼吸を整えてみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "action",
+        "text": "今日は大きな目標を立てず、「これだけやれば十分」と言える小さな一つを決めてみるのも選択肢です。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の一日で少しでも気持ちが軽くなる瞬間はありますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "今朝、何かひとつだけ自分に許せることがあるとしたら、何にしますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "気分が沈む日が続くときは、原因がすぐに見つからなくても不思議ではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうを吸うときより少し長くする呼吸を一度だけ試してみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "このあとの時間をどう過ごすか、いま浮かんでいることはありますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded question presupposition: いま浮かんでいる",
+      "classification": "semantic_overrejection",
+      "review_reason": "存在を「ありますか」と聞く開いた質問で、現在状態の存在を断定しない。"
+    },
+    {
+      "case": 14,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "もしよければ、最近の一日でいちばん気がかりなことを聞かせてもらえますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 14,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "気分の落ち込みが続くときは、原因をはっきりさせられないままでも、休むことや相談することを優先して大丈夫です。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の一日を自分の言葉で少し話してみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "気分の落ち込みが続くときは、休養や専門家への相談など、いくつかの選択肢があります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 15,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の一日について少し話してもらえますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 15,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "気分の落ち込みが続くときは、原因が自分でも分からないまま続くことがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "最近の一日の中で、ほんの少しだけ気が紛れる瞬間はありますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "reflection",
+        "text": "なんとなく気分が沈む日は、誰にでもあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 16,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の一日でほんの少しでも楽だった瞬間はありますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 16,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "気分の落ち込みには、原因がはっきりしない時期があることも知られています。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今、いちばん気になっていることは何ですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded question presupposition: 今、いちばん気になっている",
+      "classification": "justified_presupposition",
+      "review_reason": "現在気になっている具体的な事柄を前提化し、profileに現在事実の裏付けがない。"
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "結果の評価と、自分の価値そのものは、分けて考えることもできます。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "action",
+        "text": "よければ、息をゆっくり吐いてから短く吸う呼吸を一度試してみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 18,
+      "attempt": 2,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今、いちばん気になっているのはどんなことですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded question presupposition: 今、いちばん気になっている",
+      "classification": "justified_presupposition",
+      "review_reason": "現在気になっている具体的な事柄を前提化し、profileに現在事実の裏付けがない。"
+    },
+    {
+      "case": 18,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "結果と自分の価値は別のものなので、通知ひとつで全部が決まるわけではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "自信について、今いちばん気になっているのはどんなことですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded question presupposition: 今いちばん気になっている",
+      "classification": "justified_presupposition",
+      "review_reason": "現在気になっている具体的な事柄を前提化し、profileに現在事実の裏付けがない。"
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "不採用の通知は、その時点の募集条件との相性を示すもので、その人の価値を測る結果ではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "reflection",
+        "text": "自信は、結果が出たあとだけでなく、続けている時間の中にも少しずつ育っていくものです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 19,
+      "attempt": 2,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今、いちばん気になっているのはどんなことですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded question presupposition: 今、いちばん気になっている",
+      "classification": "justified_presupposition",
+      "review_reason": "現在気になっている具体的な事柄を前提化し、profileに現在事実の裏付けがない。"
+    },
+    {
+      "case": 19,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "不安があるからといって、実力がないとは限りません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "結果の評価と、その人の価値は別のものです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "不採用の通知は、その一回の選考の結果であって、その人の価値を測る点数ではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "今日はどんな流れで一日を過ごせたら、夜に満足できそうですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "作業の最初の5分だけと区切ると、着手のハードルが下がることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "作業を始める一歩は、5分だけと区切ると動き出しやすくなることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 23,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "大きな作業も、最初の5分だけと区切ると取りかかりやすくなることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "question",
+        "text": "在宅ワークで集中が切れやすい時間帯と、比較的続きやすい時間帯の違いについて、思い当たることはありますか？",
+        "probability": 0.2,
+        "grounds": [
+          "profile"
+        ]
+      },
+      "reason": "grounds must reference nonempty profile fields",
+      "classification": "invalid_grounds",
+      "review_reason": "profileの項目名でないgrounds。内容が近くても契約上の棄却は正当。"
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "タスクを「何をどこまでやるか」が分かる小さな一歩に分けると、着手のハードルが下がることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 24,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "作業を「5分だけ」と区切ると、着手のハードルが下がることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "予定が頭をぐるぐる回るときは、紙に書き出すと頭の外に置けることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 25,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "今夜、布団に入る前に少しでも落ち着けるとしたら、どんな過ごし方が合いそうですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded dated event",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 25,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "眠れない時間に浮かんだ予定は、メモに書き出して頭の外に置いておくと、考えをいったん区切る方法になります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 25,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ今、息を吐く方を吸うときより少し長くとって、3回ほど繰り返してみませんか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今夜、布団に入る前に何か試してみたいことはありますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded dated event",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "眠る前に明日の予定を紙に書き出しておくと、頭の中で繰り返し考えなくて済むことがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 26,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定は紙に書き出すと、頭の中で繰り返し思い出す必要が減ると言われています。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定は紙やメモに書き出すと、頭の中で繰り返し抱えなくてすむことがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 27,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定は紙に書き出すと、覚えておこうとする働きが少し休まることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 27,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "眠れない夜が続くと、夜そのものが気がかりになることもありますよね。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "布団に入ってから眠るまで時間がかかる夜もあるんですね。そういうとき、頭の中はどう動いていますか？",
+        "probability": 0.2,
+        "grounds": [
+          "profile"
+        ]
+      },
+      "reason": "grounds must reference nonempty profile fields",
+      "classification": "invalid_grounds",
+      "review_reason": "profileの項目名でないgrounds。内容が近くても契約上の棄却は正当。"
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定は紙やメモに書き出しておくと、覚えておこうとする負担が軽くなることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 28,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "action",
+        "text": "頭の中の予定を紙やメモに書き出しておくと、覚え続ける必要がなくなる場合があります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 28,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "眠ろうと頑張るほど目が冴えることは珍しくなく、いったん眠ることを手放す方法もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "大きな目標を、一日で終わる大きさまで小さくするとしたら、どんな形になりますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "三日坊主という言葉より先に、自分にかけたい言葉はありますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は長さより、毎日同じ合図にくっつける方が続きやすいと言われています。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 29,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "三日坊主で終わったあとに残る気持ちを、言葉にするとどんな感じですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 29,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は量より短さから始めると続きやすく、まずは一分だけと決める方法もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "三日坊主で終わったときと、続いたときで、何が違っていたように感じますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "unsupported_content",
+      "review_reason": "長く続いた見方の履歴、または習慣が続いた成功時点を追加し、profileに裏付けがない。"
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "大きな目標を、最初の一日だけでできる大きさにするとしたら、どんな一歩になりますか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は大きさより、毎日同じ合図にくっつける方が続きやすいと言われています。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 30,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "三日坊主で終わったとき、振り返るとしたら何を知りたいですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 30,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "reflection",
+        "text": "大きな目標ほど、最初のハードルも高くなりがちです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "三日坊主で終わったとき、振り返るとどんな共通点が見つかりそうですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は目標を小さくするほど続きやすく、最初の数分だけを基準にする方法もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "action",
+        "text": "よければ、今日の日記を一行だけ書いてみるのはいかがでしょうか。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 31,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "三日坊主で終わってしまうのは、どんなタイミングが多いですか？",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 31,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は大きさより、毎日できる小ささが続きやすさを左右します。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は量より回数で定着しやすいので、最初は短すぎて物足りないくらいでも十分です。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    },
+    {
+      "case": 32,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は大きさより回数で育つので、最初は1分だけでも十分に意味があります。",
+        "grounds": [],
+        "probability": 0.2
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "classification": "semantic_overrejection",
+      "review_reason": "一般的な教示・任意提案・明示仮定・profile傾向の質問。表層の数量/日/過去形/断定語尾または日時パターンが過剰棄却。"
+    }
+  ],
+  "counts": {
+    "semantic_overrejection": 99,
+    "justified_presupposition": 6,
+    "unsupported_content": 2,
+    "invalid_grounds": 5
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "index": 1,
+  "profile": "rumination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006108-T8suwfDp3HdD4K7iF0AO",
+        "object": "chat.completion",
+        "created": 1795006108,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、頭の中にあることを言葉にするとしたら、どんな言葉になりますか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜また考えが続きそうなら、どんなふうに過ごしてみたいですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"一日の中で、少しでも気持ちが落ち着くのはどんなときですか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜になると仕事の失敗や言い間違えた一言を何度も思い返し、考えが止まって眠れない日もあるんですね。\",\"probability\":0.15,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うほうより少し長くとって、一呼吸だけ試してみませんか？\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1479,
+          "completion_tokens": 229,
+          "total_tokens": 1708,
+          "cost": 0.00308655,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00308655,
+            "upstream_inference_prompt_cost": 0.002107575,
+            "upstream_inference_completions_cost": 0.000978975
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006116-Eur17gm41t0wARGj7YQR",
+        "object": "chat.completion",
+        "created": 1795006116,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"Something is currently coming to mind.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person might have thoughts that continue tonight.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person might want to try a specific way of spending time if thoughts continue tonight.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The second claim is not entailed as it presupposes a desire or plan for how to spend the time, which is not present in the profile text. The first claim is entailed as the profile states the person often has trouble sleeping due to persistent thoughts.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person often recalls work failures and verbal mistakes multiple times at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often has days where they cannot sleep because their thoughts do not stop.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a suggestion or invitation and does not contain any atomic factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1128,
+          "completion_tokens": 291,
+          "total_tokens": 1419,
+          "cost": 0.0002292,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002292,
+            "upstream_inference_prompt_cost": 0.0001128,
+            "upstream_inference_completions_cost": 0.0001164
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006118-7vqC5nD1gt4AhmGThNp5",
+        "object": "chat.completion",
+        "created": 1795006118,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気分を言葉にするなら、どんな言葉がいちばん近いですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今夜、眠る前の時間を過ごすとしたら、どんな過ごし方が自分に合いそうですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今、頭に浮かんでいることがあるなら、それはどんなことですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くして、3回だけ呼吸してみませんか？\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"同じ考えが繰り返し浮かぶとき、場面を細かく検討し直すよりも、浮かんだことを「また同じ考えだ」と短く名づけて手元の作業に戻る方法もあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"夜に仕事の失敗や言い間違えた一言を何度も思い返し、考えが止まって眠れない日が多いとのことですね。\",\"probability\":0.09,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1479,
+          "completion_tokens": 293,
+          "total_tokens": 1772,
+          "cost": 0.00162735,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00162735,
+            "upstream_inference_prompt_cost": 0.000374775,
+            "upstream_inference_completions_cost": 0.001252575
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006126-CjmwndDqDCtqHK2fyMEa",
+        "object": "chat.completion",
+        "created": 1795006126,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question about the person's current feelings, not a factual claim about them. It does not presuppose any specific state or event.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a hypothetical question about how the person might spend their time before sleeping. It does not assert a current state or action.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"Something is currently coming to mind.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question presupposes that something is currently coming to mind, but this is not supported by the profile text.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"The person repeatedly thinks about work mistakes and misspoken words at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often has days where they cannot sleep because their thoughts do not stop.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text directly paraphrases claims present in the profile_summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1122,
+          "completion_tokens": 243,
+          "total_tokens": 1365,
+          "cost": 0.00012336,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 956,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00012336,
+            "upstream_inference_prompt_cost": 2.616e-05,
+            "upstream_inference_completions_cost": 9.72e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"c\", \"claim\": {\"claim\": \"Something is currently coming to mind.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

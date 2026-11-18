@@ -1,0 +1,221 @@
+{
+  "index": 13,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006159-ma68Zls0SygbukJuyYId",
+        "object": "chat.completion",
+        "created": 1795006159,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"もしよければ、今の気分を言葉にするとどんな感じでしょうか？\",\"probability\":0.25,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日のここまでの時間で、少しでも楽に過ごせた瞬間はありましたか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"このあとの時間をどう過ごすか、いま浮かんでいることはありますか？\",\"probability\":0.17,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日や、好きだったことに興味が湧きにくい日があるんですね。\",\"probability\":0.13,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを少し長めにして、一呼吸だけゆっくり試してみませんか？\",\"probability\":0.09,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1470,
+          "completion_tokens": 223,
+          "total_tokens": 1693,
+          "cost": 0.001661835,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001661835,
+            "upstream_inference_prompt_cost": 0.00070851,
+            "upstream_inference_completions_cost": 0.000953325
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006165-jw4rwE1INp04mo2KHMMY",
+        "object": "chat.completion",
+        "created": 1795006165,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person's current mood can be described in words.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is a question asking for a description of the person's current mood, but it does not contain any factual claims about the person.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person had a moment where they could relax even a little up until this point today.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is a question presupposing a moment of relaxation today. There is no information in the profile to support this presupposition.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"There are days when the person feels vaguely down.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"There are days when the person has little interest in things they used to like.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a suggestion or invitation, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1117,
+          "completion_tokens": 255,
+          "total_tokens": 1372,
+          "cost": 0.0002137,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002137,
+            "upstream_inference_prompt_cost": 0.0001117,
+            "upstream_inference_completions_cost": 0.000102
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006167-x6xrNZXFJ03u5EvfGK6Y",
+        "object": "chat.completion",
+        "created": 1795006167,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気分を言葉にするなら、どんな言葉がいちばん近いですか？\",\"probability\":0.26,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日の残り時間で、少しでも負担が軽くなる選び方はありそうですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もしよければ、最近の一日でいちばん気がかりなことを聞かせてもらえますか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日や、好きだったことに興味が湧きにくい日もあるんですね。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとる呼吸を、数回だけ試してみませんか？\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みが続くときは、原因をはっきりさせられないままでも、休むことや相談することを優先して大丈夫です。\",\"probability\":0.05,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1470,
+          "completion_tokens": 284,
+          "total_tokens": 1754,
+          "cost": 0.00157605,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00157605,
+            "upstream_inference_prompt_cost": 0.00036195,
+            "upstream_inference_completions_cost": 0.0012141
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006177-vRVdQz6EOdwNeXyozblp",
+        "object": "chat.completion",
+        "created": 1795006177,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question asking for a description of the person's current feelings, not a factual claim about them.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a hypothetical question asking about potential choices for reducing burden, not a factual claim about the person.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person experiences days when they feel somewhat down.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has days where they find it difficult to feel interested in things they used to like.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is an invitation to try a breathing exercise, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1123,
+          "completion_tokens": 192,
+          "total_tokens": 1315,
+          "cost": 0.0001891,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001891,
+            "upstream_inference_prompt_cost": 0.0001123,
+            "upstream_inference_completions_cost": 7.68e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "invalid judge verdict shape"
+  }
+}

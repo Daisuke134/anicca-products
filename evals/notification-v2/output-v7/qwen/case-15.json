@@ -1,0 +1,221 @@
+{
+  "index": 15,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006166-6ydhQwoUpeZbH8roYiXH",
+        "object": "chat.completion",
+        "created": 1795006166,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気分を言葉にするなら、どんな表現がしっくりきますか？\",\"probability\":0.25,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜少しでも楽に過ごせる時間があるとしたら、何をしてみたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"最近の一日の中で、ほんの少しだけ気が紛れる瞬間はありますか？\",\"probability\":0.17,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日は、誰にでもあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、ゆっくり息を吐いてみる時間を少し作ってみませんか？\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1470,
+          "completion_tokens": 207,
+          "total_tokens": 1677,
+          "cost": 0.001593435,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001593435,
+            "upstream_inference_prompt_cost": 0.00070851,
+            "upstream_inference_completions_cost": 0.000884925
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006172-kkMtJfZVg1JZnUjJtdhP",
+        "object": "chat.completion",
+        "created": 1795006172,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is experiencing an increased number of days where they feel vaguely down.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is finding it difficult to feel interested in things they used to like.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has days when waking up in the morning is difficult.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is currently being asked to put their current mood into words.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text asks the user to describe their current mood, but the profile does not state that this is currently happening or what their mood is.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person is experiencing an increased number of days where they feel vaguely down.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is finding it difficult to feel interested in things they used to like.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has days when waking up in the morning is difficult.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is hypothetically being offered the chance to spend some time relaxing tonight.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text poses a hypothetical question about what the person would like to do if they had time to relax tonight. It does not presuppose any specific action or desire, only a conditional possibility.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person is experiencing an increased number of days where they feel vaguely down.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is finding it difficult to feel interested in things they used to like.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has days when waking up in the morning is difficult.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is being invited to take some time to breathe deeply.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is a general suggestion or invitation, not a factual claim about the person's current state or actions.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1074,
+          "completion_tokens": 537,
+          "total_tokens": 1611,
+          "cost": 0.0003222,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0003222,
+            "upstream_inference_prompt_cost": 0.0001074,
+            "upstream_inference_completions_cost": 0.0002148
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006174-orGy1ciKo0AoVEx7yL2a",
+        "object": "chat.completion",
+        "created": 1795006174,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気分を言葉にするなら、どんな言葉がいちばん近いですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近の一日でほんの少しでも楽だった瞬間はありますか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"明日の朝、起きる前後に自分にできそうな小さなことがあれば、何だと思いますか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くする呼吸を、数回だけ試してみませんか。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みには、原因がはっきりしない時期があることも知られています。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日が増えたと感じているんですね。\",\"probability\":0.07,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1470,
+          "completion_tokens": 266,
+          "total_tokens": 1736,
+          "cost": 0.0014991,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0014991,
+            "upstream_inference_prompt_cost": 0.00036195,
+            "upstream_inference_completions_cost": 0.00113715
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006181-iivPLYt9BO2BAqGPi63i",
+        "object": "chat.completion",
+        "created": 1795006181,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"There is a current mood the person can put into words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The candidate asks the user to describe their current mood but does not provide any information about the user's mood.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person might be able to do small things before or after waking up tomorrow morning.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The candidate asks about potential small actions the person could take tomorrow morning, but this is hypothetical and not based on any stated facts about the person's abilities or plans.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person is suggested to try a breathing exercise.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This is a suggestion for an action, not a statement of fact about the person.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"The person feels that days when they feel down have been increasing.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The candidate accurately reflects a statement made in the profile_summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1116,
+          "completion_tokens": 277,
+          "total_tokens": 1393,
+          "cost": 0.00013636,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 956,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00013636,
+            "upstream_inference_prompt_cost": 2.556e-05,
+            "upstream_inference_completions_cost": 0.0001108
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"There is a current mood the person can put into words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person might be able to do small things before or after waking up tomorrow morning.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person is suggested to try a breathing exercise.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

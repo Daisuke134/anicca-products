@@ -1,0 +1,204 @@
+{
+  "index": 16,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006177-HR6r0Asf1dA9Y34LPaE3",
+        "object": "chat.completion",
+        "created": 1795006177,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、いちばん気になっていることは何ですか？\",\"probability\":0.28,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近の就活でどんなことが頭に残っていますか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「落ちるかもしれない」という不安が出てきたとき、どんなふうに過ごせると少しでも楽でしょうか？\",\"probability\":0.16,\"grounds\":[\"profile_summary\"]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"不合格の通知が続くと、自信が揺らぐのは自然なことです。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よかったら、今日の自分にかけたい短い言葉を一つだけ書き出してみませんか？\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1490,
+          "completion_tokens": 217,
+          "total_tokens": 1707,
+          "cost": 0.003050925,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003050925,
+            "upstream_inference_prompt_cost": 0.00212325,
+            "upstream_inference_completions_cost": 0.000927675
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006183-meOO9IgSrlQWtbx5mWut",
+        "object": "chat.completion",
+        "created": 1795006183,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"b\", \"claims\": [{\"claim\": \"The person has recently participated in job hunting activities.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question presupposes recent job hunting activities, which is consistent with the profile stating the person is currently job hunting.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person experiences anxiety about potential failure before job interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is currently experiencing anxiety about potential failure before job interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question directly references the anxiety mentioned in the profile and asks how to cope with it, implying the person is currently experiencing it.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person has received consecutive rejections in their job search.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's confidence is shaken due to consecutive rejections.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"This statement directly reflects and validates the information provided in the profile summary regarding consecutive rejections and loss of confidence.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a general invitation and does not contain any specific factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1122,
+          "completion_tokens": 305,
+          "total_tokens": 1427,
+          "cost": 0.0002342,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002342,
+            "upstream_inference_prompt_cost": 0.0001122,
+            "upstream_inference_completions_cost": 0.000122
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "88503106-8a4c-4454-b32d-e610e64ca90d",
+    "decision_point_at": 1795006185.3856168,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "confidence",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の就活でどんなことが頭に残っていますか？",
+        "probability": 0.24,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "「落ちるかもしれない」という不安が出てきたとき、どんなふうに過ごせると少しでも楽でしょうか？",
+        "probability": 0.16,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "不合格の通知が続くと、自信が揺らぐのは自然なことです。",
+        "probability": 0.1,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "よかったら、今日の自分にかけたい短い言葉を一つだけ書き出してみませんか？",
+        "probability": 0.07,
+        "grounds": []
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.43000000000000005,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "今、いちばん気になっていることは何ですか？",
+          "probability": 0.28,
+          "grounds": []
+        },
+        "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+      }
+    ],
+    "chosen": {
+      "id": "b",
+      "kind": "question",
+      "text": "もしよければ、最近の就活でどんなことが頭に残っていますか？",
+      "probability": 0.24,
+      "grounds": []
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795007985.3856168,
+    "observations": []
+  }
+}

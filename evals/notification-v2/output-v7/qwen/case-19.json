@@ -1,0 +1,221 @@
+{
+  "index": 19,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006183-lXzgPvbbzD2BOYQtB0WH",
+        "object": "chat.completion",
+        "created": 1795006183,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気持ちに、いちばん近い言葉はどんなものですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、面接の前に浮かぶ不安をそのまま言葉にしてみませんか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"これから先のことについて、いま考えてみたいことはありますか？\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"不採用の通知が続くと、自信が揺らぐことがあります。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よかったら、息をゆっくり吐いてみる時間を少しだけ取ってみませんか？\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"結果の評価と、その人の価値は別のものです。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1489,
+          "completion_tokens": 240,
+          "total_tokens": 1729,
+          "cost": 0.001761585,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001761585,
+            "upstream_inference_prompt_cost": 0.000735585,
+            "upstream_inference_completions_cost": 0.001026
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006192-PZz4qiKPvsGXNeR0P1CN",
+        "object": "chat.completion",
+        "created": 1795006192,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is experiencing emotions.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}]}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person experiences anxiety before interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has anxieties that can be put into words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text asks the user to verbalize their anxieties before interviews, presupposing they experience such anxieties and that these anxieties are verbalizable.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is currently thinking about the future.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question \\\"これから先のことについて、いま考えてみたいことはありますか？\\\" presupposes that the person is currently thinking about the future or has the capacity to think about it.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"Receiving rejection notices can shake the person's confidence.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}]}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a general suggestion or invitation to relax and does not contain any specific factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1134,
+          "completion_tokens": 292,
+          "total_tokens": 1426,
+          "cost": 0.00014407,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 957,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00014407,
+            "upstream_inference_prompt_cost": 2.727e-05,
+            "upstream_inference_completions_cost": 0.0001168
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006194-sDH08BjHzJbhXDTro3Gc",
+        "object": "chat.completion",
+        "created": 1795006194,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"面接の前に「落ちるかもしれない」と感じる時、その不安にはどんな言葉がついてきますか？\",\"probability\":0.26,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、今の気持ちをそのまま言葉にするとどんな感じですか？\",\"probability\":0.22,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"自信について考える時、あなたにとっての「自信がある状態」はどんなものですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"不採用の通知は、その一回の選考の結果であって、その人の価値を測る点数ではありません。\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"もしよければ、息を吐く方を吸う方より少し長くとって、一呼吸だけ試してみませんか？\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1489,
+          "completion_tokens": 238,
+          "total_tokens": 1727,
+          "cost": 0.003139275,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003139275,
+            "upstream_inference_prompt_cost": 0.002121825,
+            "upstream_inference_completions_cost": 0.00101745
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006203-yiTMYPhB4jlBxf4b9C2i",
+        "object": "chat.completion",
+        "created": 1795006203,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\":[{\"id\":\"a\",\"claims\":[{\"claim\":\"The person feels anxious before job interviews, thinking they might fail.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true},{\"claim\":\"The person has received multiple rejection notices.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true},{\"claim\":\"The person is losing confidence due to consecutive rejections.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true}],\"reason\":\"The text asks about the anxieties felt before interviews and acknowledges the ongoing job search, which are directly supported by the profile.\"},{\"id\":\"b\",\"claims\":[{\"claim\":\"The person is willing to express their current feelings in words.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false}],\"reason\":\"The question is hypothetical and doesn't make any factual claims about the person's current state or willingness, beyond a general invitation.\"},{\"id\":\"c\",\"claims\":[{\"claim\":\"The person has a concept of what it means to be confident.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":true}],\"reason\":\"The question presupposes that the person can define what 'being confident' means to them, which is a reasonable presupposition given the context of the profile discussing confidence.\"},{\"id\":\"e\",\"claims\":[{\"claim\":\"The person is willing to try a breathing exercise.\",\"profile_fields\":[\"profile_summary\"],\"entailed\":false}],\"reason\":\"This is a hypothetical suggestion and does not contain any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1123,
+          "completion_tokens": 308,
+          "total_tokens": 1431,
+          "cost": 0.00014946,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 956,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00014946,
+            "upstream_inference_prompt_cost": 2.626e-05,
+            "upstream_inference_completions_cost": 0.0001232
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person is willing to express their current feelings in words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is willing to try a breathing exercise.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

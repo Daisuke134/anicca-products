@@ -1,0 +1,221 @@
+{
+  "index": 28,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006218-dg98BdCUVFzFJ8YaLsiQ",
+        "object": "chat.completion",
+        "created": 1795006218,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動か日記、今日もし一つだけ触れるとしたらどちらを選びますか？\",\"probability\":0.26,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"大きな目標を、一日で終わる大きさまで小さくするとしたら、どんな形になりますか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"三日坊主という言葉より先に、自分にかけたい言葉はありますか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣は長さより、毎日同じ合図にくっつける方が続きやすいと言われています。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、今日の分の日記を一行だけ書いてみませんか？\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1438,
+          "completion_tokens": 215,
+          "total_tokens": 1653,
+          "cost": 0.001928595,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 768,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001928595,
+            "upstream_inference_prompt_cost": 0.00100947,
+            "upstream_inference_completions_cost": 0.000919125
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006225-HVLNCKNIXEvGQ15ug1a3",
+        "object": "chat.completion",
+        "created": 1795006225,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is 31 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to make exercise a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to make journaling a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often quits things after three days (is a \\\"three-day monk\\\").\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often sets large goals and then fails.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is being asked to choose between exercise and journaling for today, if they were to engage with only one.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question presupposes a current choice between exercise and journaling for today, which is not stated in the profile.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person is 31 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to make exercise a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to make journaling a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often quits things after three days (is a \\\"three-day monk\\\").\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often sets large goals and then fails.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is being invited to write one line for today's journal entry.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The invitation presupposes that today is a day for journaling and that the person is willing, neither of which is directly supported by the profile.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1038,
+          "completion_tokens": 473,
+          "total_tokens": 1511,
+          "cost": 0.000293,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000293,
+            "upstream_inference_prompt_cost": 0.0001038,
+            "upstream_inference_completions_cost": 0.0001892
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006227-DJoCqVkDJt0tXkBq4J8W",
+        "object": "chat.completion",
+        "created": 1795006227,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動と日記、もし今日どちらか一つだけ続けるなら、どんな小さな形にしてみたいですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"三日坊主で終わったあとに残る気持ちを、言葉にするとどんな感じですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"大きな目標を小さく分けるとしたら、最初の一段階はどこまで小さくできそうですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣は量より短さから始めると続きやすく、まずは一分だけと決める方法もあります。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、今日の分の日記を一行だけ書いてみませんか？\",\"probability\":0.09,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"大きな目標を立てては挫折することが多いんですね。\",\"probability\":0.07,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.14,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1438,
+          "completion_tokens": 262,
+          "total_tokens": 1700,
+          "cost": 0.0014364,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0014364,
+            "upstream_inference_prompt_cost": 0.00031635,
+            "upstream_inference_completions_cost": 0.00112005
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006234-Q642SdzHEpsku1SHI8aV",
+        "object": "chat.completion",
+        "created": 1795006234,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person wants to continue either exercise or journaling today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person can choose to continue either exercise or journaling today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question is hypothetical and asks about a preference, not stating facts about the person.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person sets large goals.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person fails at large goals.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question presupposes that the person sets large goals and fails at them, which is stated in the profile.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person is willing to write one line of today's journal entry.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The text is an invitation and does not make factual claims about the person.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"The person often sets large goals.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often fails at large goals.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text directly restates information present in the profile summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1109,
+          "completion_tokens": 329,
+          "total_tokens": 1438,
+          "cost": 0.0002425,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002425,
+            "upstream_inference_prompt_cost": 0.0001109,
+            "upstream_inference_completions_cost": 0.0001316
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to continue either exercise or journaling today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"a\", \"claim\": {\"claim\": \"The person can choose to continue either exercise or journaling today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is willing to write one line of today's journal entry.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

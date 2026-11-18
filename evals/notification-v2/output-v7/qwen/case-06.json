@@ -1,0 +1,221 @@
+{
+  "index": 6,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006129-TONfLfSrSAbXEnXmjShe",
+        "object": "chat.completion",
+        "created": 1795006129,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が浮かぶとき、その奥にはどんな気持ちがありそうですか？\",\"probability\":0.26,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし褒められた場面をひとつ思い出すなら、そのとき心の中では何が起きていましたか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"SNSで誰かと比べてしまうとき、いちばん気になっているのはどんな部分ですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"人からの褒め言葉をすぐ信じられなくても、「ありがとう」と一度受け取る練習はできます。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ今日、自分に向けて言えそうな短いねぎらいの言葉を一つ書いてみませんか？\",\"probability\":0.09,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"自分を低く見積もる癖は、長く続いた見方の習慣であって、その人の価値を決めるものではありません。\",\"probability\":0.05,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.08,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1499,
+          "completion_tokens": 279,
+          "total_tokens": 1778,
+          "cost": 0.0033288,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0033288,
+            "upstream_inference_prompt_cost": 0.002136075,
+            "upstream_inference_completions_cost": 0.001192725
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006137-NI6wdP6SNJ7lQCQzFfsY",
+        "object": "chat.completion",
+        "created": 1795006137,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\n    \"id\": \"a\",\n    \"claims\": [\n      {\n        \"claim\": \"The person sometimes says \\\"どうせ私なんて\\\".\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      },\n      {\n        \"claim\": \"The person is asked about the feelings behind the phrase \\\"どうせ私なんて\\\".\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": false\n      }\n    ],\n    \"reason\": \"The first claim is directly supported by the profile. The second claim is a question about feelings, not a factual assertion about the person.\"\n  },\n  {\n    \"id\": \"b\",\n    \"claims\": [\n      {\n        \"claim\": \"The person sometimes struggles to accept praise genuinely.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      },\n      {\n        \"claim\": \"The person is asked to recall a moment of being praised and describe their internal state at that time.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": false\n      }\n    ],\n    \"reason\": \"The first claim is supported by the profile. The second claim is a hypothetical question about the person's internal state, not a statement of fact about them.\"\n  },\n  {\n    \"id\": \"c\",\n    \"claims\": [\n      {\n        \"claim\": \"The person often feels down comparing themselves to others on social media.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      },\n      {\n        \"claim\": \"The person is asked what aspect they are most concerned about when comparing themselves to others on social media.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": false\n      }\n    ],\n    \"reason\": \"The first claim is directly supported by the profile. The second claim is a question about the person's concerns, not a factual assertion about them.\"\n  },\n  {\n    \"id\": \"e\",\n    \"claims\": [],\n    \"reason\": \"This is an invitation to perform an action, not a statement of fact about the person.\"\n  }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1125,
+          "completion_tokens": 493,
+          "total_tokens": 1618,
+          "cost": 0.0003097,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0003097,
+            "upstream_inference_prompt_cost": 0.0001125,
+            "upstream_inference_completions_cost": 0.0001972
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006139-5Fuqb7PHOHCu35vweKAS",
+        "object": "chat.completion",
+        "created": 1795006139,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が浮かんだとき、その裏にどんな気持ちがあるか、少しだけ言葉にしてみませんか？\",\"probability\":0.25,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"SNSで誰かと比べてしまうとき、いちばん引っかかるのはどんな部分ですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし褒められた場面をひとつ思い出すなら、そのとき心の中でどんな声が返っていましたか？\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"他人と自分を比べる視線は、自分の価値を測る物差しにはなりにくいものです。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、今日あった出来事を評価も採点もせずに、一行だけ書き出してみてください。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ今、息を吐くほうを吸うより少し長くして、三回くり返してみませんか？\",\"probability\":0.05,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1499,
+          "completion_tokens": 285,
+          "total_tokens": 1784,
+          "cost": 0.00335445,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00335445,
+            "upstream_inference_prompt_cost": 0.002136075,
+            "upstream_inference_completions_cost": 0.001218375
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006146-kEkRBO5zOC4oOWNAf1df",
+        "object": "chat.completion",
+        "created": 1795006146,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person sometimes says or thinks \\\"どうせ私なんて\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is asked to try to put into words, even a little, the feelings behind the phrase \\\"どうせ私なんて\\\" when it comes to mind.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The first claim is directly supported by the profile. The second claim is a suggestion for an action, not a factual claim about the person, and therefore not entailed.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person compares themselves to others on social media.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is asked what aspect bothers them the most when they compare themselves to others on social media.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The first claim is directly supported by the profile. The second claim is a question asking for information, not a factual claim about the person, and therefore not entailed.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person sometimes has difficulty accepting praise directly.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person is hypothetically asked to recall one instance of being praised and describe the inner voice at that time.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The profile states the person has difficulty accepting praise, but does not explicitly state they *sometimes* do. The second claim is a hypothetical question and not a factual claim about the person, and therefore not entailed.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person is invited to write down one event from today without evaluation or scoring.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is an invitation for an action, not a factual claim about the person, and therefore not entailed.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1128,
+          "completion_tokens": 432,
+          "total_tokens": 1560,
+          "cost": 0.00019956,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 956,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00019956,
+            "upstream_inference_prompt_cost": 2.676e-05,
+            "upstream_inference_completions_cost": 0.0001728
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is asked to try to put into words, even a little, the feelings behind the phrase \\\"どうせ私なんて\\\" when it comes to mind.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is asked what aspect bothers them the most when they compare themselves to others on social media.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person sometimes has difficulty accepting praise directly.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is hypothetically asked to recall one instance of being praised and describe the inner voice at that time.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is invited to write down one event from today without evaluation or scoring.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

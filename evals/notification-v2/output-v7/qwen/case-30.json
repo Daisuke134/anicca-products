@@ -1,0 +1,221 @@
+{
+  "index": 30,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006234-vaFHkZtSR2ty5lfohiHM",
+        "object": "chat.completion",
+        "created": 1795006234,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動と日記、もし今からどちらか一つだけ選ぶとしたら、どちらにしますか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日このあと、集中の時間を少しでも作れるとしたら、何に使いたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"三日坊主で終わったとき、振り返るとどんな共通点が見つかりそうですか？\",\"probability\":0.14,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣は目標を小さくするほど続きやすく、最初の数分だけを基準にする方法もあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、今日の日記を一行だけ書いてみるのはいかがでしょうか。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"大きな目標を立てては挫折することが多いんですね。\",\"probability\":0.08,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1438,
+          "completion_tokens": 255,
+          "total_tokens": 1693,
+          "cost": 0.001753035,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001753035,
+            "upstream_inference_prompt_cost": 0.00066291,
+            "upstream_inference_completions_cost": 0.001090125
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006242-kpVuAUhTcD6j1LRmMb4z",
+        "object": "chat.completion",
+        "created": 1795006242,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person wants to exercise.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to keep a diary.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often quits after three days.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often sets big goals and fails.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is currently being asked to choose between exercising and keeping a diary.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The first four claims are directly supported by the profile summary. The last claim, however, is not entailed as the text is a hypothetical question about a potential choice, not a statement of current intent or action.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person is currently being asked what they would use a short period of focus time for.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This is a hypothetical question about a potential future action and does not make any factual claims about the person's current state or past behavior. Therefore, no claims can be extracted from it.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"The person often sets big goals and fails.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The claim that the person often sets big goals and fails is directly supported by the profile summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1076,
+          "completion_tokens": 356,
+          "total_tokens": 1432,
+          "cost": 0.00025,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00025,
+            "upstream_inference_prompt_cost": 0.0001076,
+            "upstream_inference_completions_cost": 0.0001424
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006243-RJaxheR61NSFbcMqXtA1",
+        "object": "chat.completion",
+        "created": 1795006243,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動と日記、どちらを先に習慣にしたいですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今日ひとつだけ小さくやるなら、何を選びますか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"三日坊主で終わってしまうのは、どんなタイミングが多いですか？\",\"probability\":0.16,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣は大きさより、毎日できる小ささが続きやすさを左右します。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、日記に一行だけ書いてみるのはいかがですか？\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1438,
+          "completion_tokens": 201,
+          "total_tokens": 1639,
+          "cost": 0.001175625,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001175625,
+            "upstream_inference_prompt_cost": 0.00031635,
+            "upstream_inference_completions_cost": 0.000859275
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006250-yCEbBgViYlAHgt3xooFq",
+        "object": "chat.completion",
+        "created": 1795006250,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is 31 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to make exercise a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to make keeping a diary a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often gives up after three days when trying to establish habits.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often sets big goals and then fails.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is being asked to choose which habit (exercise or diary) they want to prioritize first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The last claim is not entailed because the profile text does not contain any information about the person being asked this specific question or their response to it. The question itself is a prompt, not a factual statement about the person's current state or actions within the profile's scope.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person is being asked what small action they would choose to do if they could do just one thing today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The text is a hypothetical question and does not assert any facts about the person. The profile does not contain information to support the presupposition of this question.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person is being invited to try writing one line in their diary.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This is a suggestion and does not assert any factual claims about the person that are entailed by the profile.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1063,
+          "completion_tokens": 421,
+          "total_tokens": 1484,
+          "cost": 0.00018893,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 953,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00018893,
+            "upstream_inference_prompt_cost": 2.053e-05,
+            "upstream_inference_completions_cost": 0.0001684
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is being asked to choose which habit (exercise or diary) they want to prioritize first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is being asked what small action they would choose to do if they could do just one thing today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is being invited to try writing one line in their diary.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

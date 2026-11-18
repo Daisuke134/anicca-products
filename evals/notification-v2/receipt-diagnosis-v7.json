@@ -1,0 +1,8 @@
+{
+  "phase": "official_receipt_get",
+  "error_class": "HTTPError",
+  "status": 408,
+  "effect": "read_only",
+  "next_action": "persist each receipt and fetch missing GETs only",
+  "resolution": "118 of 118 official receipts obtained; no paid model replay"
+}

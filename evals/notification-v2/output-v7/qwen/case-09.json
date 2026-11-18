@@ -1,0 +1,315 @@
+{
+  "index": 9,
+  "profile": "burnout",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006145-yY666ce4IsqbI3XBEy2h",
+        "object": "chat.completion",
+        "created": 1795006145,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の自分に必要だと感じるのは、どんな時間ですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと少しだけ自分の時間が取れるなら、何に使いたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が先に聞こえてきますか？\",\"probability\":0.16,\"grounds\":[\"profile\"]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くする呼吸を、3回だけ試してみませんか。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"休めていないと感じるときは、休息を「何もしない時間」として予定に書き込む方法もあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"仕事と育児で休む時間がほとんどなく、休日も疲れが取れないとのことですね。\",\"probability\":0.08,\"grounds\":[\"profile\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1540,
+          "completion_tokens": 278,
+          "total_tokens": 1818,
+          "cost": 0.00199671,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00199671,
+            "upstream_inference_prompt_cost": 0.00080826,
+            "upstream_inference_completions_cost": 0.00118845
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006153-C8hBXcMgSlzyUtFkPtPR",
+        "object": "chat.completion",
+        "created": 1795006153,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is 38 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is a nurse.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has almost no time to rest due to work and childcare.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's fatigue does not disappear even on holidays.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is wavering between wanting to do nothing and feeling impatient to get things done.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person feels they need time for themselves right now.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text asks what kind of time the person feels they need, presupposing that they feel a need for some kind of time. The other claims are directly supported by the profile summary.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person is 38 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is a nurse.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has almost no time to rest due to work and childcare.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's fatigue does not disappear even on holidays.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is wavering between wanting to do nothing and feeling impatient to get things done.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is being asked what they would use their time for if they could take a little of their own time after this.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text poses a hypothetical question about how the person would use their time if they could get some free time. The other claims are directly supported by the profile summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1043,
+          "completion_tokens": 488,
+          "total_tokens": 1531,
+          "cost": 0.0002995,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002995,
+            "upstream_inference_prompt_cost": 0.0001043,
+            "upstream_inference_completions_cost": 0.0001952
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006155-YCHYuUZaU1xeb2IsZPbH",
+        "object": "chat.completion",
+        "created": 1795006155,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気持ちを言葉にするなら、どんな言葉がいちばん近いですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと数分だけ自分の時間が取れるとしたら、何に使いたいですか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「やらなきゃ」という焦りは、今どのくらい強く感じていますか？\",\"probability\":0.13,\"grounds\":[\"profile_summary\"]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"何もしたくない気持ちと、やらなきゃという焦りが同時にあっても、どちらかを無理に消さなくて大丈夫です。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸うときより少し長くして、三回ほど繰り返してみませんか？\",\"probability\":0.09,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"休めていない疲れは、気合いや段取りだけで埋まるものではないと言われています。\",\"probability\":0.06,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1540,
+          "completion_tokens": 277,
+          "total_tokens": 1817,
+          "cost": 0.001299315,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001299315,
+            "upstream_inference_prompt_cost": 0.00011514,
+            "upstream_inference_completions_cost": 0.001184175
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006164-zmUe0IeQOE6qkeJdcurw",
+        "object": "chat.completion",
+        "created": 1795006164,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a question asking for the person's current feelings, not making a factual claim about them.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is currently feeling a sense of urgency related to 'having to do things'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text directly asks about the intensity of the 'have to do' urgency, which is mentioned as a feeling the person is experiencing in the profile summary.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person experiences a feeling of wanting to do nothing.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person experiences a sense of urgency related to 'having to do things'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text states that it is okay to have both the feeling of wanting to do nothing and the urgency to do things simultaneously, directly referencing the conflicting feelings mentioned in the profile summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1095,
+          "completion_tokens": 239,
+          "total_tokens": 1334,
+          "cost": 0.0002051,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002051,
+            "upstream_inference_prompt_cost": 0.0001095,
+            "upstream_inference_completions_cost": 9.56e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "20df2674-ed33-4235-8482-3b0aea789f3e",
+    "decision_point_at": 1795006165.6426408,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今の気持ちを言葉にするなら、どんな言葉がいちばん近いですか？",
+        "probability": 0.24,
+        "grounds": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "「やらなきゃ」という焦りは、今どのくらい強く感じていますか？",
+        "probability": 0.13,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "何もしたくない気持ちと、やらなきゃという焦りが同時にあっても、どちらかを無理に消さなくて大丈夫です。",
+        "probability": 0.1,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.53,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "もしこのあと数分だけ自分の時間が取れるとしたら、何に使いたいですか？",
+          "probability": 0.18,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "candidate": {
+          "id": "e",
+          "kind": "breathing",
+          "text": "よければ、息を吐く方を吸うときより少し長くして、三回ほど繰り返してみませんか？",
+          "probability": 0.09,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "休めていない疲れは、気合いや段取りだけで埋まるものではないと言われています。",
+          "probability": 0.06,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今の気持ちを言葉にするなら、どんな言葉がいちばん近いですか？",
+      "probability": 0.24,
+      "grounds": []
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795007965.6426408,
+    "observations": []
+  }
+}

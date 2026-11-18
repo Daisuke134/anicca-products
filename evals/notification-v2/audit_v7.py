@@ -40,7 +40,13 @@ def audit(slug, complete=False):
     requests=[json.loads(line) for line in (out/"requests.jsonl").read_text().splitlines()]
     assert len(requests)==len(raw)
     assert {r["occurrence_id"] for r in requests}=={r["occurrence_id"] for r in raw}
+    for req in requests:
+        payload=req['request']
+        assert payload['max_tokens']==8192
+        assert payload['reasoning']==dict(enabled=False)
+        assert payload['model']==('google/gemini-2.5-flash-lite' if req['phase']=='judge' else 'qwen/qwen4-max')
     for row in records:
+        assert sum(c['phase']=='generator' for c in row['calls']) in {1,2}
         if "decision" not in row: continue
         cs=row["decision"]["candidates"]
         assert 2*sum(c["kind"]=="question" for c in cs)>=sum(c["kind"]!="none" for c in cs)
@@ -81,6 +87,8 @@ def audit(slug, complete=False):
         cost=json.loads((out/"cost.json").read_text())
         assert not cost["fallbacks"] and cost["receipt_count"]==len(raw)
         receipts=cost["receipts"]
+        for r in receipts:
+            assert r['receipt']['data']['model']==('google/gemini-2.5-flash-lite' if r['phase']=='judge' else 'qwen/qwen4-max-20261115')
         assert {r["receipt"]["data"]["id"] for r in receipts}=={r["response"]["id"] for r in raw}
         total=sum((Decimal(r["receipt"]["data"]["total_cost"]) for r in receipts),Decimal(0))
         before=json.loads((ROOT/"key-before-v7.json").read_text(),parse_float=Decimal)["data"]

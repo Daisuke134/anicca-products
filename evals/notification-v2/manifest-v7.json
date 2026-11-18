@@ -1,0 +1,17 @@
+{
+  "frozen_commit": "46f18a6",
+  "unchanged_since_paid_start": {
+    "reference/interventions_v7.py": true,
+    "run_eval_v7.py": true
+  },
+  "hashes": {
+    "reference/interventions_v7.py": "e236c48f74363eebeec6310fc216a7a074c46b746a50fe711dd3e2895a75717b",
+    "run_eval_v7.py": "cc66b76ec1bbae4a962deae5ea5408893fccafa1b848a589bebebac47ec7772c"
+  },
+  "model": "qwen/qwen4-max-20261115",
+  "judge": "google/gemini-2.5-flash-lite",
+  "cases": 32,
+  "max_tokens": 8192,
+  "reasoning": false,
+  "paid_reruns": 0
+}

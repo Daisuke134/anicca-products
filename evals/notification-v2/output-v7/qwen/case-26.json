@@ -1,0 +1,221 @@
+{
+  "index": 26,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006214-hDoBKjLr5bUrGYhsPoiV",
+        "object": "chat.completion",
+        "created": 1795006214,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜を少しでも穏やかに過ごせるとしたら、どんな時間がいいですか？\",\"probability\":0.24,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日の予定が頭をめぐるとき、いちばん気になっているのはどの部分ですか？\",\"probability\":0.16,\"grounds\":[\"profile_summary\"]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠るまでの時間をもう少し楽にできるとしたら、何を変えてみたいですか？\",\"probability\":0.14,\"grounds\":[\"profile_summary\"]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くする呼吸を、数回だけ試してみませんか。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだ予定は紙やメモに書き出すと、頭の中で繰り返し抱えなくてすむことがあります。\",\"probability\":0.09,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1441,
+          "completion_tokens": 240,
+          "total_tokens": 1681,
+          "cost": 0.003079425,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003079425,
+            "upstream_inference_prompt_cost": 0.002053425,
+            "upstream_inference_completions_cost": 0.001026
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006221-Nhw0Bmagfj7Z57EBwsic",
+        "object": "chat.completion",
+        "created": 1795006221,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is considering what kind of time would be good if they could spend tonight a little more peacefully.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is a hypothetical question, not an assertion about the person.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person's schedule for tomorrow is swirling around in their head.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"When the person's schedule for tomorrow is swirling around in their head, they are most concerned about a certain part.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person might want to change something to make the time until sleep a little easier.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is a suggestion and does not make any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1122,
+          "completion_tokens": 240,
+          "total_tokens": 1362,
+          "cost": 0.0002082,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002082,
+            "upstream_inference_prompt_cost": 0.0001122,
+            "upstream_inference_completions_cost": 9.6e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006222-mazsFGrkxwoZcumIQVR2",
+        "object": "chat.completion",
+        "created": 1795006222,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜を少しでも穏やかに過ごすとしたら、どんな時間がいいですか？\",\"probability\":0.25,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、眠る前のひとときに試してみたいことはありますか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"明日の予定が頭をめぐるとき、どんなふうに扱えると少し楽になりそうですか？\",\"probability\":0.17,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだ予定は紙に書き出すと、覚えておこうとする働きが少し休まることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、吐く息を吸う息より少し長くとる呼吸を数回試してみてください。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"眠れない夜が続くと、夜そのものが気がかりになることもありますよね。\",\"probability\":0.04,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1441,
+          "completion_tokens": 266,
+          "total_tokens": 1707,
+          "cost": 0.001804335,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001804335,
+            "upstream_inference_prompt_cost": 0.000667185,
+            "upstream_inference_completions_cost": 0.00113715
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006232-ZuGNVkVdLJm2Cr7Dz8WF",
+        "object": "chat.completion",
+        "created": 1795006232,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"the person is considering what kind of time would help them spend the night more peacefully\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The candidate is a hypothetical question and does not contain any factual claims about the person. It asks about a desired state in a hypothetical situation.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"the person might want to try something before sleeping\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The candidate is an invitation and a hypothetical question ('if you'd like'). It does not contain any factual claims about the person's current state or desires, other than a presupposition of a 'pre-sleep moment'.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"the person's schedule for tomorrow is swirling in their mind\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"the person is wondering how to deal with their schedule swirling in their mind to feel a little better\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The claim that the person's schedule is swirling in their mind is directly supported by the profile. However, the claim about the person's method for dealing with it is not supported and is part of the question's hypothetical framing.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is an impersonal suggestion and invitation to try a breathing technique. It does not contain any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1114,
+          "completion_tokens": 347,
+          "total_tokens": 1461,
+          "cost": 0.0002502,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002502,
+            "upstream_inference_prompt_cost": 0.0001114,
+            "upstream_inference_completions_cost": 0.0001388
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"the person is considering what kind of time would help them spend the night more peacefully\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"the person might want to try something before sleeping\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"the person is wondering how to deal with their schedule swirling in their mind to feel a little better\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

@@ -1,0 +1,323 @@
+{
+  "index": 17,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006178-cgKiHcPUeTrenLq7J2nT",
+        "object": "chat.completion",
+        "created": 1795006178,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、自信について思い浮かべていることはどんなことですか？\",\"probability\":0.25,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、面接の不安がいちばん強くなるのはどんな瞬間か教えてもらえますか？\",\"probability\":0.18,\"grounds\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"このあと少し時間が取れるとしたら、何に意識を向けてみたいですか？\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"不採用の通知が続くと、自信が揺らぐことがありますよね。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"結果の評価と、自分の価値そのものは、分けて考えることもできます。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ、息をゆっくり吐いてから短く吸う呼吸を一度試してみませんか？\",\"probability\":0.05,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1489,
+          "completion_tokens": 261,
+          "total_tokens": 1750,
+          "cost": 0.0032376,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0032376,
+            "upstream_inference_prompt_cost": 0.002121825,
+            "upstream_inference_completions_cost": 0.001115775
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006185-Qe3A3vj67iILNVJWmv55",
+        "object": "chat.completion",
+        "created": 1795006185,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n    {\n        \"id\": \"a\",\n        \"claims\": [\n            {\"claim\": \"The person is currently thinking about their confidence.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n        ],\n        \"reason\": \"The question presupposes the person is currently thinking about their confidence.\"\n    },\n    {\n        \"id\": \"b\",\n        \"claims\": [\n            {\"claim\": \"The person experiences anxiety before job interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n            {\"claim\": \"The person has had job interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n        ],\n        \"reason\": \"The question presupposes that the person experiences anxiety before interviews and has had interviews.\"\n    },\n    {\n        \"id\": \"c\",\n        \"claims\": [\n            {\"claim\": \"The person might be able to focus for a short period later.\", \"profile_fields\": [], \"entailed\": false}\n        ],\n        \"reason\": \"This is a hypothetical question and does not make any factual claims about the person. The premise that the person might be able to focus for a short period later is not supported by the profile.\"\n    },\n    {\n        \"id\": \"d\",\n        \"claims\": [\n            {\"claim\": \"The person's confidence wavers due to successive rejections.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n        ],\n        \"reason\": \"The statement directly reflects the information in the profile summary.\"\n    }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1114,
+          "completion_tokens": 354,
+          "total_tokens": 1468,
+          "cost": 0.000253,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000253,
+            "upstream_inference_prompt_cost": 0.0001114,
+            "upstream_inference_completions_cost": 0.0001416
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795006187-E4AQBYvt6DrIqZvSGkPE",
+        "object": "chat.completion",
+        "created": 1795006187,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、いちばん気になっているのはどんなことですか？\",\"probability\":0.2,\"grounds\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"面接の前に不安が出てくるとき、その不安はどんな言葉になって浮かびますか？\",\"probability\":0.15,\"grounds\":[\"profile_summary\"]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もしこのあと少し時間が取れるなら、就活のことで何から手をつけたいですか？\",\"probability\":0.13,\"grounds\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"「落ちるかもしれない」という考えが浮かんだとき、どんなふうに返せたら少しでも楽になりそうですか？\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"不採用の通知が続くと、自信が揺らぐのは自然なことです。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"結果と自分の価値は別のものなので、通知ひとつで全部が決まるわけではありません。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"breathing\",\"text\":\"よければ、息をゆっくり吐いてから吸う呼吸を数回試してみませんか？\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"h\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1489,
+          "completion_tokens": 310,
+          "total_tokens": 1799,
+          "cost": 0.003447075,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003447075,
+            "upstream_inference_prompt_cost": 0.002121825,
+            "upstream_inference_completions_cost": 0.00132525
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795006196-eMzXarMWyNgmyXDdgRhD",
+        "object": "chat.completion",
+        "created": 1795006196,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"b\", \"claims\": [{\"claim\": \"The person experiences anxiety before interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wonders what words represent their pre-interview anxiety.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question directly asks about the words associated with the person's pre-interview anxiety, which is stated in the profile.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is seeking employment.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is considering what to do next in their job search if they have a short amount of time.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question is hypothetical and asks about the person's priorities in their job search, which is a stated activity in the profile.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person has the thought 'I might fail' before interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is seeking ways to feel better when they have thoughts of failing interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question directly addresses the person's stated pre-interview fear and asks for coping mechanisms, implying a desire for relief.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person has experienced consecutive rejections.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"Consecutive rejections naturally shake the person's confidence.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The statement directly reflects and validates the information provided in the profile regarding rejections and their impact on confidence.\"}, {\"id\": \"g\", \"claims\": [], \"reason\": \"This is a general suggestion and not a personal factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1169,
+          "completion_tokens": 439,
+          "total_tokens": 1608,
+          "cost": 0.00020619,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 959,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00020619,
+            "upstream_inference_prompt_cost": 3.059e-05,
+            "upstream_inference_completions_cost": 0.0001756
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "62f6a1f5-5458-4908-ac96-eeb8c26aa21c",
+    "decision_point_at": 1795006198.1812842,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "confidence",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "面接の前に不安が出てくるとき、その不安はどんな言葉になって浮かびますか？",
+        "probability": 0.15,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "もしこのあと少し時間が取れるなら、就活のことで何から手をつけたいですか？",
+        "probability": 0.13,
+        "grounds": []
+      },
+      {
+        "id": "d",
+        "kind": "question",
+        "text": "「落ちるかもしれない」という考えが浮かんだとき、どんなふうに返せたら少しでも楽になりそうですか？",
+        "probability": 0.12,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "e",
+        "kind": "reflection",
+        "text": "不採用の通知が続くと、自信が揺らぐのは自然なことです。",
+        "probability": 0.1,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "g",
+        "kind": "breathing",
+        "text": "よければ、息をゆっくり吐いてから吸う呼吸を数回試してみませんか？",
+        "probability": 0.07,
+        "grounds": []
+      },
+      {
+        "id": "h",
+        "kind": "none",
+        "text": "",
+        "probability": 0.43,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "今、いちばん気になっているのはどんなことですか？",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+      },
+      {
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "結果と自分の価値は別のものなので、通知ひとつで全部が決まるわけではありません。",
+          "probability": 0.08,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "b",
+      "kind": "question",
+      "text": "面接の前に不安が出てくるとき、その不安はどんな言葉になって浮かびますか？",
+      "probability": 0.15,
+      "grounds": [
+        "profile_summary"
+      ]
+    },
+    "assigned_probability": 0.15,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795007998.1812842,
+    "observations": []
+  }
+}
