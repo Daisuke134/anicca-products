@@ -73,3 +73,13 @@ Qwen全文判定: accepted28、sendable160、FAIL6=3.75%、捏造5、日本語1�
 
 Round 4最終結果: 両モデルNO-GO。Qwen28/32・160文FAIL6(3.75%)・捏造5・tone0。GLM24/32・140文FAIL6(4.285714%)・捏造2・tone0。全300 sendable文をprimaryが全文判定しjudgments.jsonへ保存。GLM生成50応答（stop41/length9、null6）、judge39応答全stop、18 retry。Qwen生成39/judge38全stop、7 retry。全166receipt取得、fallback0。費用0.067140720+0.804760433=0.871901153 USD、公式key usage増分と厳密一致。completion申告合計との差0.0000000025 USDは末尾丸め差。credit totalは155のままで追加チャージなし。auto-reload OFFは既存記録を継承し現在UI設定は未確認。関連41テストと両runの監査PASS。Qwenの質問比率違反case9/14/18は別計上し、文単位FAIL率へ混ぜない。
 現在cursor: 完了。ops commit 0f6c67642e4611b1a94a4fe739c932fe73b38a9b の結果本文とローカルをGitHub contents APIで照合、blob SHA c18d8cf9b2108749e66d3149075eab4fb965ead8 が一致。コードsummaryも固定commit f7848105597c2018a1043a1496f51696f7125e29からreadback一致。残TODOなし。本番有効化・main統合なし。
+
+## Round 5（owner: Mac Codex）
+目的・範囲: eval-v5-task.mdの3点のみ。v4実失敗の動機/願望/努力/数量帰属をgeneratorとjudgeの負例へ追加し、質問kind候補数>=non-noneの半数を構造受理条件とする。既存再生成1回、8192 tokens、日時/現在地hard pattern、同一32 contextを維持。v4ファイルは変更しない。
+完了条件: 全sendable全文手読みjudgments.json・audit PASS、FAIL<5%かつ捏造0かつtone0でGO。それ以外NO-GO。専用key・既存prepaidのみ、最大limit2 USD、receipt Decimal合計とkey usage差分一致、credits開始/終了記録。ops隔離branch結果とproducts評価branchのコード・証拠をpush/readback。main統合・配送なし。
+TODO:
+- [ ] RED/GREENとv4の41件を含む関連tests
+- [ ] Qwen32条件（GLMは主目的遅延を避けv5未実行）
+- [ ] 全sendable手読み・audit・公式費用照合
+- [ ] products/ops pushとremote blob照合
+現在cursor: テスト先行。v5有料呼び出し未実施。
