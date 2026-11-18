@@ -5,6 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import { runMigrationsOnce } from './lib/migrate.js';
 import apiRouter from './routes/index.js';
+import managerRouter from './routes/manager.js';
 import { pool } from './lib/db.js';
 
 // Only load dotenv in development
@@ -155,6 +156,7 @@ app.get('/.well-known/x402.json', (req, res) => {
 
 // Mount new routing layer under /api
 app.use('/api', apiRouter);
+app.use('/manager', managerRouter);
 
 // Root endpoint -> health
 app.get('/', (req, res) => {
