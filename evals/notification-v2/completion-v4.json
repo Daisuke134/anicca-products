@@ -1,0 +1,15 @@
+{
+  "status": "complete",
+  "owner": "Mac Codex",
+  "code_evidence_commit": "f7848105597c2018a1043a1496f51696f7125e29",
+  "code_summary_remote_sha": "97ba62b348dd65ee4014d9f193da6308da1246b4",
+  "ops_commit": "0f6c67642e4611b1a94a4fe739c932fe73b38a9b",
+  "ops_result_blob_sha": "c18d8cf9b2108749e66d3149075eab4fb965ead8",
+  "result_path": "/Users/anicca/work/ops-notification-eval-v4/files/notification-eval-v4-result-2026-11-18.md",
+  "result_url": "https://github.com/Daisuke134/anicca-ops/blob/0f6c67642e4611b1a94a4fe739c932fe73b38a9b/files/notification-eval-v4-result-2026-11-18.md",
+  "remote_content_verified": true,
+  "verdict": "NO-GO",
+  "total_cost_usd": "0.871901153",
+  "production_enabled": false,
+  "main_merged": false
+}

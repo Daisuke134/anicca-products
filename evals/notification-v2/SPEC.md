@@ -64,7 +64,7 @@ TODO:
 - [x] null retry・意味judgeの最小RED/GREENテスト（現在41 PASS）
 - [x] 同一32条件Qwen、予算内でGLM実行（ケース単位保存・既存ケース再課金禁止）
 - [x] 全sendable全文判定・finish_reason・Decimal費用/公式key readback
-- [ ] コードと証拠push、ops結果保存とremote readback
+- [x] コードと証拠push、ops結果保存とremote readback
 現在cursor: テスト先行。v4の有料実行は未実施。
 
 Round 4中間観測: Qwen28/32受理・sendable160、77応答全stop、公式77receipt費用0.067140720 USD。GLMはreasoning無効をHTTP400で拒否。追加最小probeの公式errorは「Reasoning is mandatory for this endpoint and cannot be disabled.」。key usageはQwen費用以外に増分なし。未課金の拒否をoutput-v4/glmへ保存し、GLMだけreasoning指定を省略し8192 tokensでoutput-v4/glm-fixedへ実行する。モデル・prompt・32条件は維持する。
@@ -72,4 +72,4 @@ Round 4中間観測: Qwen28/32受理・sendable160、77応答全stop、公式77r
 Qwen全文判定: accepted28、sendable160、FAIL6=3.75%、捏造5、日本語1、tone0によりNO-GO。judgments.jsonに全160文の判定を保存。GLMは別モデル行として継続中。評価専用key上限だけ1→1.50 USDへ変更しreadback、Credential SSOTのlimit metadataも同期。
 
 Round 4最終結果: 両モデルNO-GO。Qwen28/32・160文FAIL6(3.75%)・捏造5・tone0。GLM24/32・140文FAIL6(4.285714%)・捏造2・tone0。全300 sendable文をprimaryが全文判定しjudgments.jsonへ保存。GLM生成50応答（stop41/length9、null6）、judge39応答全stop、18 retry。Qwen生成39/judge38全stop、7 retry。全166receipt取得、fallback0。費用0.067140720+0.804760433=0.871901153 USD、公式key usage増分と厳密一致。completion申告合計との差0.0000000025 USDは末尾丸め差。credit totalは155のままで追加チャージなし。auto-reload OFFは既存記録を継承し現在UI設定は未確認。関連41テストと両runの監査PASS。Qwenの質問比率違反case9/14/18は別計上し、文単位FAIL率へ混ぜない。
-現在cursor: 結果レポートをops隔離branchへ保存しpush/readback。本番有効化・main統合なし。
+現在cursor: 完了。ops commit 0f6c67642e4611b1a94a4fe739c932fe73b38a9b の結果本文とローカルをGitHub contents APIで照合、blob SHA c18d8cf9b2108749e66d3149075eab4fb965ead8 が一致。コードsummaryも固定commit f7848105597c2018a1043a1496f51696f7125e29からreadback一致。残TODOなし。本番有効化・main統合なし。
