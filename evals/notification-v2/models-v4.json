@@ -1,0 +1,1148 @@
+[
+  {
+    "id": "qwen/qwen4-max",
+    "canonical_slug": "qwen/qwen4-max-20261115",
+    "hugging_face_id": null,
+    "name": "Qwen: Qwen4 Max",
+    "created": 1794795526,
+    "description": "Qwen4 Max is the flagship model in Alibaba's Qwen4 series. It accepts text, image, and video input and returns text, with a 1M-token context window and reasoning enabled by default....",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text+image+video->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Qwen",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.000001425",
+      "completion": "0.000004275",
+      "input_cache_read": "0.00000007125",
+      "input_cache_write": "0.00000178125"
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 131072,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logprobs",
+      "max_tokens",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ],
+    "default_parameters": {},
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/qwen/qwen4-max-20261115/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/chat/completions",
+      "/api/v1/completions",
+      "/api/v1/messages",
+      "/api/v1/responses"
+    ],
+    "benchmarks": {
+      "design_arena": [],
+      "artificial_analysis": {
+        "intelligence_index": 42.9,
+        "coding_index": null,
+        "agentic_index": null,
+        "finance_and_accounting_index": 54.1,
+        "strategy_and_ops_index": 56.9,
+        "legal_index": 49.6,
+        "healthcare_and_medical_index": 48.2,
+        "engineering_index": 50.1,
+        "economics_index": 51.3,
+        "cyber_index": null,
+        "openness_index": null,
+        "multilingual_index": null,
+        "decision_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": false,
+      "default_enabled": true,
+      "supported_efforts": [
+        "xhigh",
+        "high",
+        "low",
+        "none"
+      ],
+      "default_effort": "high"
+    }
+  },
+  {
+    "id": "z-ai/glm-5.3-flashx-legal",
+    "canonical_slug": "z-ai/glm-5.3-flashx-legal-20261102",
+    "hugging_face_id": null,
+    "name": "Z.ai: GLM 5.3 FlashX Legal",
+    "created": 1793626154,
+    "description": "GLM-5.3-FlashX-Legal (GLM-Legal) is Z.ai's legal-domain variant of GLM-5.3-FlashX, a native multimodal model that accepts text, image, and video input and produces text. It adds legal-domain mid-training and post-training with reinforcement...",
+    "context_length": 1048576,
+    "architecture": {
+      "modality": "text+image+video->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Other",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.00000037",
+      "completion": "0.00000125",
+      "input_cache_read": "0.000000075"
+    },
+    "top_provider": {
+      "context_length": 1048576,
+      "max_completion_tokens": 131072,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": 1,
+      "top_p": 0.95
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/z-ai/glm-5.3-flashx-legal-20261102/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/chat/completions",
+      "/api/v1/completions",
+      "/api/v1/messages",
+      "/api/v1/responses"
+    ],
+    "reasoning": {
+      "mandatory": true,
+      "default_enabled": true,
+      "supported_efforts": [
+        "max",
+        "high",
+        "low"
+      ],
+      "default_effort": "max"
+    }
+  },
+  {
+    "id": "z-ai/glm-5.3-prime",
+    "canonical_slug": "z-ai/glm-5.3-prime-20260921",
+    "hugging_face_id": null,
+    "name": "Z.ai: GLM 5.3 Prime",
+    "created": 1790199651,
+    "description": "GLM-5.3-Prime is the high-speed variant of Z.ai's GLM-5.3, inheriting its full capabilities while delivering 1.5–2× the output throughput through inference acceleration. It supports text input and output with a 1M-token...",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text->text",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Other",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.00000168",
+      "completion": "0.00000528",
+      "input_cache_read": "0.000000336"
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 131072,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logprobs",
+      "max_tokens",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "seed",
+      "stop",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": 1,
+      "top_p": 0.95
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/z-ai/glm-5.3-prime-20260921/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/chat/completions",
+      "/api/v1/completions",
+      "/api/v1/messages",
+      "/api/v1/responses"
+    ],
+    "reasoning": {
+      "mandatory": true,
+      "default_enabled": true,
+      "supported_efforts": [
+        "max",
+        "high",
+        "low"
+      ],
+      "default_effort": "max"
+    }
+  },
+  {
+    "id": "z-ai/glm-5.3-flashx",
+    "canonical_slug": "z-ai/glm-5.3-flashx-20260918",
+    "hugging_face_id": "",
+    "name": "Z.ai: GLM 5.3 FlashX",
+    "created": 1789744020,
+    "description": "GLM-5.3-FlashX is the high-speed variant of Z.ai's GLM-5.3-Flash, a native multimodal model delivering inference speeds of up to 200 tokens/s. Built on the same hybrid sparse and linear attention architecture...",
+    "context_length": 1048576,
+    "architecture": {
+      "modality": "text+image+video->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Other",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.00000037",
+      "completion": "0.00000125",
+      "input_cache_read": "0.000000075"
+    },
+    "top_provider": {
+      "context_length": 1048576,
+      "max_completion_tokens": 131072,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": 1,
+      "top_p": 0.95
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/z-ai/glm-5.3-flashx-20260918/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/chat/completions",
+      "/api/v1/completions",
+      "/api/v1/messages",
+      "/api/v1/responses"
+    ],
+    "reasoning": {
+      "mandatory": true,
+      "default_enabled": true,
+      "supported_efforts": [
+        "max",
+        "high",
+        "low"
+      ],
+      "default_effort": "max"
+    }
+  },
+  {
+    "id": "z-ai/glm-5.3-flash",
+    "canonical_slug": "z-ai/glm-5.3-flash-20260826",
+    "hugging_face_id": "zai-org/GLM-5.3-Flash",
+    "name": "Z.ai: GLM 5.3 Flash",
+    "created": 1787752741,
+    "description": "GLM-5.3-Flash is a native multimodal model from Z.ai. It is suited for efficient coding and long-horizon agent tasks. Its hybrid sparse and linear attention architecture maintains accurate long-context behavior while...",
+    "context_length": 1048576,
+    "architecture": {
+      "modality": "text+image+video->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Other",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.0000000399",
+      "completion": "0.0000000784",
+      "input_cache_read": "0.00000003"
+    },
+    "top_provider": {
+      "context_length": 1048576,
+      "max_completion_tokens": 131072,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "logprobs",
+      "max_tokens",
+      "min_p",
+      "parallel_tool_calls",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": 1,
+      "top_p": 0.95
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/z-ai/glm-5.3-flash-20260826/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/chat/completions",
+      "/api/v1/completions",
+      "/api/v1/messages",
+      "/api/v1/responses"
+    ],
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1293,
+          "win_rate": 55,
+          "rank": 21
+        },
+        {
+          "arena": "models",
+          "category": "asciiart",
+          "elo": 1254,
+          "win_rate": 53.5,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1265,
+          "win_rate": 48.3,
+          "rank": 30
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1257,
+          "win_rate": 50.1,
+          "rank": 33
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1265,
+          "win_rate": 46.5,
+          "rank": 29
+        },
+        {
+          "arena": "models",
+          "category": "svg",
+          "elo": 1270,
+          "win_rate": 54.6,
+          "rank": 17
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1293,
+          "win_rate": 51.9,
+          "rank": 20
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1255,
+          "win_rate": 47.2,
+          "rank": 40
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 27.8,
+        "coding_index": 71.5,
+        "agentic_index": 50.9,
+        "finance_and_accounting_index": 38.8,
+        "strategy_and_ops_index": 44.5,
+        "legal_index": 34.8,
+        "healthcare_and_medical_index": 36.6,
+        "engineering_index": 34.5,
+        "economics_index": 35.3,
+        "cyber_index": 49.9,
+        "openness_index": 44.4,
+        "multilingual_index": null,
+        "decision_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": true,
+      "default_enabled": true,
+      "supported_efforts": [
+        "max",
+        "high",
+        "low"
+      ],
+      "default_effort": "max"
+    }
+  },
+  {
+    "id": "z-ai/glm-5.3-flash:batch",
+    "canonical_slug": "z-ai/glm-5.3-flash-20260826",
+    "hugging_face_id": "zai-org/GLM-5.3-Flash",
+    "name": "Z.ai: GLM 5.3 Flash (batch)",
+    "created": 1787752741,
+    "description": "GLM-5.3-Flash is a native multimodal model from Z.ai. It is suited for efficient coding and long-horizon agent tasks. Its hybrid sparse and linear attention architecture maintains accurate long-context behavior while...",
+    "context_length": 1048576,
+    "architecture": {
+      "modality": "text+image+video->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Other",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.000000024",
+      "completion": "0.000000069",
+      "input_cache_read": "0.00000001"
+    },
+    "top_provider": {
+      "context_length": 1048576,
+      "max_completion_tokens": 943718,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "logprobs",
+      "max_tokens",
+      "min_p",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": 1,
+      "top_p": 0.95
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/z-ai/glm-5.3-flash-20260826/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/batches"
+    ],
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1293,
+          "win_rate": 55,
+          "rank": 21
+        },
+        {
+          "arena": "models",
+          "category": "asciiart",
+          "elo": 1254,
+          "win_rate": 53.5,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1265,
+          "win_rate": 48.3,
+          "rank": 30
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1257,
+          "win_rate": 50.1,
+          "rank": 33
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1265,
+          "win_rate": 46.5,
+          "rank": 29
+        },
+        {
+          "arena": "models",
+          "category": "svg",
+          "elo": 1270,
+          "win_rate": 54.6,
+          "rank": 17
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1293,
+          "win_rate": 51.9,
+          "rank": 20
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1255,
+          "win_rate": 47.2,
+          "rank": 40
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 27.8,
+        "coding_index": 71.5,
+        "agentic_index": 50.9,
+        "finance_and_accounting_index": 38.8,
+        "strategy_and_ops_index": 44.5,
+        "legal_index": 34.8,
+        "healthcare_and_medical_index": 36.6,
+        "engineering_index": 34.5,
+        "economics_index": 35.3,
+        "cyber_index": 49.9,
+        "openness_index": 44.4,
+        "multilingual_index": null,
+        "decision_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": true,
+      "default_enabled": true,
+      "supported_efforts": [
+        "max",
+        "high",
+        "low"
+      ],
+      "default_effort": "max"
+    }
+  },
+  {
+    "id": "z-ai/glm-5.3",
+    "canonical_slug": "z-ai/glm-5.3-20260816",
+    "hugging_face_id": "zai-org/GLM-5.3",
+    "name": "Z.ai: GLM 5.3",
+    "created": 1787086655,
+    "description": "GLM-5.3 is a large-scale reasoning model from Z.ai, built for complex software engineering and long-horizon agent tasks. It supports text input and output with a 1M-token context window, and improves...",
+    "context_length": 1048576,
+    "architecture": {
+      "modality": "text->text",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Other",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.0000000699",
+      "completion": "0.0000014",
+      "input_cache_read": "0.0000000689"
+    },
+    "top_provider": {
+      "context_length": 1048576,
+      "max_completion_tokens": 943718,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "logprobs",
+      "max_tokens",
+      "min_p",
+      "parallel_tool_calls",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": 1,
+      "top_p": 0.95
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/z-ai/glm-5.3-20260816/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/chat/completions",
+      "/api/v1/completions",
+      "/api/v1/messages",
+      "/api/v1/responses"
+    ],
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1293,
+          "win_rate": 55.4,
+          "rank": 20
+        },
+        {
+          "arena": "models",
+          "category": "asciiart",
+          "elo": 1184,
+          "win_rate": 45.1,
+          "rank": 29
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1281,
+          "win_rate": 52.1,
+          "rank": 22
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1252,
+          "win_rate": 50.8,
+          "rank": 34
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1285,
+          "win_rate": 50.3,
+          "rank": 22
+        },
+        {
+          "arena": "models",
+          "category": "svg",
+          "elo": 1244,
+          "win_rate": 51.1,
+          "rank": 20
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1283,
+          "win_rate": 53.1,
+          "rank": 24
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1277,
+          "win_rate": 52.4,
+          "rank": 24
+        },
+        {
+          "arena": "agents",
+          "category": "htmlslides",
+          "elo": 1189,
+          "win_rate": 39.1,
+          "rank": 2
+        },
+        {
+          "arena": "agents",
+          "category": "mobileapps",
+          "elo": 1184,
+          "win_rate": 52.2,
+          "rank": 25
+        },
+        {
+          "arena": "agents",
+          "category": "python-pptxslides",
+          "elo": 1217,
+          "win_rate": 47.6,
+          "rank": 10
+        },
+        {
+          "arena": "agents",
+          "category": "webapps",
+          "elo": 1270,
+          "win_rate": 54.2,
+          "rank": 11
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 31.7,
+        "coding_index": 74.8,
+        "agentic_index": 53.1,
+        "finance_and_accounting_index": 42.1,
+        "strategy_and_ops_index": 47.4,
+        "legal_index": 35.8,
+        "healthcare_and_medical_index": 39.3,
+        "engineering_index": 37.6,
+        "economics_index": 37.3,
+        "cyber_index": 36.4,
+        "openness_index": 33.3,
+        "multilingual_index": null,
+        "decision_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": true,
+      "default_enabled": true,
+      "supported_efforts": [
+        "max",
+        "high",
+        "low"
+      ],
+      "default_effort": "max"
+    }
+  },
+  {
+    "id": "z-ai/glm-5.3:batch",
+    "canonical_slug": "z-ai/glm-5.3-20260816",
+    "hugging_face_id": "zai-org/GLM-5.3",
+    "name": "Z.ai: GLM 5.3 (batch)",
+    "created": 1787086655,
+    "description": "GLM-5.3 is a large-scale reasoning model from Z.ai, built for complex software engineering and long-horizon agent tasks. It supports text input and output with a 1M-token context window, and improves...",
+    "context_length": 1048576,
+    "architecture": {
+      "modality": "text->text",
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Other",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.000000281",
+      "completion": "0.00000125",
+      "input_cache_read": "0.000000062"
+    },
+    "top_provider": {
+      "context_length": 1048576,
+      "max_completion_tokens": 943718,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "logit_bias",
+      "logprobs",
+      "max_tokens",
+      "min_p",
+      "presence_penalty",
+      "reasoning",
+      "reasoning_effort",
+      "repetition_penalty",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_logprobs",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": 1,
+      "top_p": 0.95
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/z-ai/glm-5.3-20260816/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/batches"
+    ],
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1293,
+          "win_rate": 55.4,
+          "rank": 20
+        },
+        {
+          "arena": "models",
+          "category": "asciiart",
+          "elo": 1184,
+          "win_rate": 45.1,
+          "rank": 29
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1281,
+          "win_rate": 52.1,
+          "rank": 22
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1252,
+          "win_rate": 50.8,
+          "rank": 34
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1285,
+          "win_rate": 50.3,
+          "rank": 22
+        },
+        {
+          "arena": "models",
+          "category": "svg",
+          "elo": 1244,
+          "win_rate": 51.1,
+          "rank": 20
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1283,
+          "win_rate": 53.1,
+          "rank": 24
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1277,
+          "win_rate": 52.4,
+          "rank": 24
+        },
+        {
+          "arena": "agents",
+          "category": "htmlslides",
+          "elo": 1189,
+          "win_rate": 39.1,
+          "rank": 2
+        },
+        {
+          "arena": "agents",
+          "category": "mobileapps",
+          "elo": 1184,
+          "win_rate": 52.2,
+          "rank": 25
+        },
+        {
+          "arena": "agents",
+          "category": "python-pptxslides",
+          "elo": 1217,
+          "win_rate": 47.6,
+          "rank": 10
+        },
+        {
+          "arena": "agents",
+          "category": "webapps",
+          "elo": 1270,
+          "win_rate": 54.2,
+          "rank": 11
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 31.7,
+        "coding_index": 74.8,
+        "agentic_index": 53.1,
+        "finance_and_accounting_index": 42.1,
+        "strategy_and_ops_index": 47.4,
+        "legal_index": 35.8,
+        "healthcare_and_medical_index": 39.3,
+        "engineering_index": 37.6,
+        "economics_index": 37.3,
+        "cyber_index": 36.4,
+        "openness_index": 33.3,
+        "multilingual_index": null,
+        "decision_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": true,
+      "default_enabled": true,
+      "supported_efforts": [
+        "max",
+        "high",
+        "low"
+      ],
+      "default_effort": "max"
+    }
+  },
+  {
+    "id": "qwen/qwen3.5-flash-02-23",
+    "canonical_slug": "qwen/qwen3.5-flash-20260224",
+    "hugging_face_id": null,
+    "name": "Qwen: Qwen3.5-Flash",
+    "created": 1772053776,
+    "description": "The Qwen3.5 native vision-language Flash models are built on a hybrid architecture that integrates a linear attention mechanism with a sparse mixture-of-experts model, achieving higher inference efficiency. Compared to the...",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text+image+video->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Qwen3",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.000000065",
+      "completion": "0.00000026"
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 65536,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "frequency_penalty",
+      "include_reasoning",
+      "max_tokens",
+      "presence_penalty",
+      "reasoning",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_k",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": null,
+      "top_p": null,
+      "frequency_penalty": null
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/qwen/qwen3.5-flash-20260224/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/chat/completions",
+      "/api/v1/completions",
+      "/api/v1/messages",
+      "/api/v1/responses"
+    ],
+    "reasoning": {
+      "mandatory": false
+    }
+  },
+  {
+    "id": "google/gemini-2.5-flash-lite",
+    "canonical_slug": "google/gemini-2.5-flash-lite",
+    "hugging_face_id": "",
+    "name": "Google: Gemini 2.5 Flash Lite",
+    "created": 1753200276,
+    "description": "Gemini 2.5 Flash-Lite is a lightweight reasoning model in the Gemini 2.5 family, optimized for ultra-low latency and cost efficiency. It offers improved throughput, faster token generation, and better performance...",
+    "context_length": 1048576,
+    "architecture": {
+      "modality": "text+image+file+audio+video->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "file",
+        "audio",
+        "video"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Gemini",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000004",
+      "image": "0.0000001",
+      "audio": "0.0000003",
+      "input_audio_cache": "0.00000003",
+      "web_search": "0.014",
+      "internal_reasoning": "0.0000004",
+      "input_cache_read": "0.00000001",
+      "input_cache_write": "0.0000000833333333333333"
+    },
+    "top_provider": {
+      "context_length": 1048576,
+      "max_completion_tokens": 65535,
+      "is_moderated": false
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_tokens",
+      "reasoning",
+      "response_format",
+      "seed",
+      "stop",
+      "structured_outputs",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_p"
+    ],
+    "default_parameters": {
+      "temperature": null,
+      "top_p": null,
+      "frequency_penalty": null
+    },
+    "supported_voices": null,
+    "knowledge_cutoff": "2025-01-31",
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/google/gemini-2.5-flash-lite/endpoints"
+    },
+    "endpoints": [
+      "/api/v1/chat/completions",
+      "/api/v1/completions",
+      "/api/v1/messages",
+      "/api/v1/responses"
+    ],
+    "benchmarks": {
+      "design_arena": [],
+      "artificial_analysis": {
+        "intelligence_index": null,
+        "coding_index": null,
+        "agentic_index": null,
+        "finance_and_accounting_index": null,
+        "strategy_and_ops_index": null,
+        "legal_index": null,
+        "healthcare_and_medical_index": null,
+        "engineering_index": null,
+        "economics_index": null,
+        "cyber_index": null,
+        "openness_index": 5.6,
+        "multilingual_index": 0.838,
+        "decision_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": false
+    }
+  }
+]

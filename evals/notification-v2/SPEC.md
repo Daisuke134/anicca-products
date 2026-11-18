@@ -53,3 +53,16 @@ Round 3結果: NO-GO。32/32条件終了・受理0・送信可能文0（FAIL率�
 費用最終照合: key usageの遅延反映後0.397379636 USD、開始前0.03445211 USD、差分0.362927526 USDでreceipt/fallback合計と一致。completion costとの差は0.0000000009 USD。key-final-v3.jsonに保存。
 
 ops成果物: repo Daisuke134/anicca-ops、worktree /Users/anicca/work/ops-notification-eval-v3、branch codex/notification-eval-v3-glm-20261118、commit 92b36bf。指定ローカルpath /Users/anicca/anicca-ops/files/notification-eval-v3-glm-result-2026-11-18.md とGitHub contents APIのblob SHAが一致（925295d9a8073c1d5d82f725e9cd124b2d8e9a70）。既存ops checkoutの他者編集はstageしない。残TODOなし。
+
+## Round 4（owner: Mac Codex）
+目的: v3のnull応答と語彙過剰棄却を修正し、同一32条件の送信可能集合でFAIL<5%・捏造0・tone0を判定する。
+範囲: 既存codex/eval-v2-2026-11-18を継続（前回途中成果を保持）。main統合・本番配送なし。結果はopsの隔離branchへ保存しpush/readbackする。
+設計: generator max_tokens=8192、reasoning.enabled=false、null/空本文をValueErrorとして既存1 retryへ。語彙照合を除き日時・現在地のhard patternだけ維持し、各候補を安価な別モデルgoogle/gemini-2.5-flash-liteでprofileに意味照合する。judge欠落/異常はfail closed、棄却セットは既存1 retry、候補間引きなし。judgeは全候補を一括で個別判定しraw receiptを保存する。
+モデル: live https://openrouter.ai/api/v1/models でqwen/qwen4-maxを確認。予算が残ればz-ai/glm-5.3も実行。
+資金: 既存prepaidのみ、auto-reloadの変更・入金なし。評価キー上限1 USD（実行前残0.602620364 USD）。残高58.79856536 USD。auto-reload OFFの既存記録はあるが公開credits/key APIでは現在設定を返さないため、確認限界を明記する。
+TODO:
+- [ ] null retry・意味judgeの最小RED/GREENテスト
+- [ ] 同一32条件Qwen、予算内でGLM実行（ケース単位保存・既存ケース再課金禁止）
+- [ ] 全sendable全文判定・finish_reason・Decimal費用/公式key readback
+- [ ] コードと証拠push、ops結果保存とremote readback
+現在cursor: テスト先行。v4の有料実行は未実施。
