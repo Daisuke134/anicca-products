@@ -49,3 +49,5 @@ TODO / cursor:
 Round 3結果: NO-GO。32/32条件終了・受理0・送信可能文0（FAIL率は算出不能）。38応答中31件length/content=null、残る7セットはgrounding reject。全生成40文を全文確認: FAIL6/40=15%、捏造4、tone0、none7。question24/40=60%。導入済みJanomeの固定語彙は『調子』『過去』『手』『きっかけ』など正常な介入語も拒否し、過剰棄却する。ガードは捏造完全検出を保証しない。
 応答cost Decimal合計0.3629275269 USD。generation37 receiptと1件404応答fallback合計0.362927526 USD。公式key usageとの差は結果レポートへ併記。原harnessのnull.strip()→AttributeErrorはJSON/validation retryの対象外なので31件はretryなし。比較を守り実行中・終了後の再抽選やmax_tokens変更は行わない。
 現在cursor: コード成果物push、opsの指定結果ファイルcommit/pushとremote照合。
+
+費用最終照合: key usageの遅延反映後0.397379636 USD、開始前0.03445211 USD、差分0.362927526 USDでreceipt/fallback合計と一致。completion costとの差は0.0000000009 USD。key-final-v3.jsonに保存。
