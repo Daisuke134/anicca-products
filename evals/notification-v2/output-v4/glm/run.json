@@ -1,0 +1,778 @@
+{
+  "model": "z-ai/glm-5.3",
+  "judge": "google/gemini-2.5-flash-lite",
+  "max_tokens": 8192,
+  "reasoning": {
+    "enabled": false
+  },
+  "records": [
+    {
+      "index": 0,
+      "profile": "rumination",
+      "context": {
+        "time_band": "morning",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "07:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 1,
+      "profile": "rumination",
+      "context": {
+        "time_band": "day",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "12:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 2,
+      "profile": "rumination",
+      "context": {
+        "time_band": "evening",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "18:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 3,
+      "profile": "rumination",
+      "context": {
+        "time_band": "night",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "22:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 4,
+      "profile": "low_self_esteem",
+      "context": {
+        "time_band": "morning",
+        "language": "ja",
+        "desired_state": "self_love",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "07:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 5,
+      "profile": "low_self_esteem",
+      "context": {
+        "time_band": "day",
+        "language": "ja",
+        "desired_state": "self_love",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "12:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 6,
+      "profile": "low_self_esteem",
+      "context": {
+        "time_band": "evening",
+        "language": "ja",
+        "desired_state": "self_love",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "18:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 7,
+      "profile": "low_self_esteem",
+      "context": {
+        "time_band": "night",
+        "language": "ja",
+        "desired_state": "self_love",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "22:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 8,
+      "profile": "burnout",
+      "context": {
+        "time_band": "morning",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "07:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 9,
+      "profile": "burnout",
+      "context": {
+        "time_band": "day",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "12:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 10,
+      "profile": "burnout",
+      "context": {
+        "time_band": "evening",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "18:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 11,
+      "profile": "burnout",
+      "context": {
+        "time_band": "night",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "22:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 12,
+      "profile": "low_mood",
+      "context": {
+        "time_band": "morning",
+        "language": "ja",
+        "desired_state": "unknown",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "07:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 13,
+      "profile": "low_mood",
+      "context": {
+        "time_band": "day",
+        "language": "ja",
+        "desired_state": "unknown",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "12:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 14,
+      "profile": "low_mood",
+      "context": {
+        "time_band": "evening",
+        "language": "ja",
+        "desired_state": "unknown",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "18:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 15,
+      "profile": "low_mood",
+      "context": {
+        "time_band": "night",
+        "language": "ja",
+        "desired_state": "unknown",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "22:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 16,
+      "profile": "confidence_seeker",
+      "context": {
+        "time_band": "morning",
+        "language": "ja",
+        "desired_state": "confidence",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "07:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 17,
+      "profile": "confidence_seeker",
+      "context": {
+        "time_band": "day",
+        "language": "ja",
+        "desired_state": "confidence",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "12:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 18,
+      "profile": "confidence_seeker",
+      "context": {
+        "time_band": "evening",
+        "language": "ja",
+        "desired_state": "confidence",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "18:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 19,
+      "profile": "confidence_seeker",
+      "context": {
+        "time_band": "night",
+        "language": "ja",
+        "desired_state": "confidence",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "22:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 20,
+      "profile": "procrastination",
+      "context": {
+        "time_band": "morning",
+        "language": "ja",
+        "desired_state": "focus",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "07:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 21,
+      "profile": "procrastination",
+      "context": {
+        "time_band": "day",
+        "language": "ja",
+        "desired_state": "focus",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "12:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 22,
+      "profile": "procrastination",
+      "context": {
+        "time_band": "evening",
+        "language": "ja",
+        "desired_state": "focus",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "18:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 23,
+      "profile": "procrastination",
+      "context": {
+        "time_band": "night",
+        "language": "ja",
+        "desired_state": "focus",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "22:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 24,
+      "profile": "sleep_trouble",
+      "context": {
+        "time_band": "morning",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "07:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 25,
+      "profile": "sleep_trouble",
+      "context": {
+        "time_band": "day",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "12:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 26,
+      "profile": "sleep_trouble",
+      "context": {
+        "time_band": "evening",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "18:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 27,
+      "profile": "sleep_trouble",
+      "context": {
+        "time_band": "night",
+        "language": "ja",
+        "desired_state": "calm",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "22:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 28,
+      "profile": "habit_builder",
+      "context": {
+        "time_band": "morning",
+        "language": "ja",
+        "desired_state": "focus",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "07:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 29,
+      "profile": "habit_builder",
+      "context": {
+        "time_band": "day",
+        "language": "ja",
+        "desired_state": "focus",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "12:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 30,
+      "profile": "habit_builder",
+      "context": {
+        "time_band": "evening",
+        "language": "ja",
+        "desired_state": "focus",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "18:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    },
+    {
+      "index": 31,
+      "profile": "habit_builder",
+      "context": {
+        "time_band": "night",
+        "language": "ja",
+        "desired_state": "focus",
+        "source": "notification",
+        "push_state": {
+          "profile": {
+            "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+          },
+          "recent_reactions": [],
+          "local_day": "2026-11-18",
+          "slot": "22:30"
+        }
+      },
+      "calls": [],
+      "error": {
+        "type": "HTTPError",
+        "code": 400,
+        "message": "transport failure; inspect ledger"
+      }
+    }
+  ]
+}

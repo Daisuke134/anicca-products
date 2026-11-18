@@ -76,3 +76,14 @@ def test_cost_404_retains_exact_completion_cost(tmp_path,monkeypatch):
     monkeypatch.setattr(runner.urllib.request,'urlopen',missing)
     runner.cost('test')
     assert json.loads((out/'cost.json').read_text())['total_cost_usd']=='0.00123'
+
+
+def test_mandatory_reasoning_model_omits_disable_flag(monkeypatch):
+    payloads=[]
+    def response(req,**kw):
+        payloads.append(json.loads(req.data))
+        return io.BytesIO(json.dumps(dict(choices=[dict(message=dict(content=json.dumps(dict(candidates=CS))))])).encode())
+    monkeypatch.setattr(m.urllib.request,'urlopen',response)
+    g=m.ChatLLMGenerator('https://example.invalid','mandatory',reasoning=None,max_tokens=8192)
+    assert g(CTX)==CS
+    assert 'reasoning' not in payloads[0]

@@ -1,0 +1,24 @@
+{
+  "index": 21,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [],
+  "error": {
+    "type": "HTTPError",
+    "code": 400,
+    "message": "transport failure; inspect ledger"
+  }
+}

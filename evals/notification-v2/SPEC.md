@@ -66,3 +66,5 @@ TODO:
 - [ ] 全sendable全文判定・finish_reason・Decimal費用/公式key readback
 - [ ] コードと証拠push、ops結果保存とremote readback
 現在cursor: テスト先行。v4の有料実行は未実施。
+
+Round 4中間観測: Qwen28/32受理・sendable160、77応答全stop、公式77receipt費用0.067140720 USD。GLMはreasoning無効をHTTP400で拒否。追加最小probeの公式errorは「Reasoning is mandatory for this endpoint and cannot be disabled.」。key usageはQwen費用以外に増分なし。未課金の拒否をoutput-v4/glmへ保存し、GLMだけreasoning指定を省略し8192 tokensでoutput-v4/glm-fixedへ実行する。モデル・prompt・32条件は維持する。

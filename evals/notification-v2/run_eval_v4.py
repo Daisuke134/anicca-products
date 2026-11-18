@@ -41,7 +41,7 @@ def run(model,slug):
             with original(req,*args,**kwargs) as r:raw=r.read()
         except Exception as e:
             with lock:
-                with (out/"errors.jsonl").open("a") as f:f.write(json.dumps(dict(tag,error_class=type(e).__name__,status=getattr(e,"code",None),effect="unknown",next_action="provider readback; do not resend"))+"\n")
+                with (out/"errors.jsonl").open("a") as f:f.write(json.dumps(dict(tag,error_class=type(e).__name__,status=getattr(e,"code",None),body=e.read().decode() if isinstance(e,urllib.error.HTTPError) else None,effect="rejected" if getattr(e,"code",None)==400 else "unknown",next_action="inspect provider error and key usage before retry"))+"\n")
             raise
         response=json.loads(raw)
         with lock:
@@ -58,7 +58,7 @@ def run(model,slug):
         if i in touched:raise RuntimeError(f"Incomplete paid case {i}; reconcile ledger, never replay automatically")
         case=dict(index=i,profile=name,context=ctx,calls=[]);current.set(case)
         with tempfile.TemporaryDirectory() as tmp:
-            g=m.ChatLLMGenerator("https://openrouter.ai/api/v1",model,credentials(),timeout=150,max_tokens=8192)
+            g=m.ChatLLMGenerator("https://openrouter.ai/api/v1",model,credentials(),timeout=150,max_tokens=8192,reasoning=None if model=="z-ai/glm-5.3" else False)
             j=m.SemanticGroundingJudge("https://openrouter.ai/api/v1",JUDGE,credentials())
             store=m.InterventionStore(Path(tmp)/"synthetic.db",g,grounding=j,draw=lambda:.1)
             try:
@@ -74,7 +74,7 @@ def run(model,slug):
             futures=[pool.submit(one,i,name,ctx) for i,(name,ctx) in enumerate(conditions())]
             records=[f.result() for f in futures]
     finally:urllib.request.urlopen=original
-    (out/"run.json").write_text(json.dumps(dict(model=model,judge=JUDGE,max_tokens=8192,reasoning=dict(enabled=False),records=records),ensure_ascii=False,indent=2))
+    (out/"run.json").write_text(json.dumps(dict(model=model,judge=JUDGE,max_tokens=8192,reasoning=None if model=="z-ai/glm-5.3" else dict(enabled=False),records=records),ensure_ascii=False,indent=2))
     readback(out,"after")
 
 def cost(slug):

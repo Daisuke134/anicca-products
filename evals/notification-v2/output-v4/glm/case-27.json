@@ -1,0 +1,24 @@
+{
+  "index": 27,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [],
+  "error": {
+    "type": "HTTPError",
+    "code": 400,
+    "message": "transport failure; inspect ledger"
+  }
+}

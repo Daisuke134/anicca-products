@@ -142,12 +142,13 @@ class ChatLLMGenerator:
     rejected by the store, so a bad generation sends nothing.
     """
 
-    def __init__(self, base_url, model, api_key=None, timeout=60, max_tokens=2000):
+    def __init__(self, base_url, model, api_key=None, timeout=60, max_tokens=2000, reasoning=False):
         self.base_url = base_url.rstrip('/')
         self.model = model
         self.api_key = api_key
         self.timeout = timeout
         self.max_tokens = max_tokens
+        self.reasoning = reasoning
 
     def __call__(self, context):
         prompt = ('You are the intervention engine for a behavior-intervention app. '
@@ -182,7 +183,8 @@ class ChatLLMGenerator:
         request = urllib.request.Request(self.base_url + '/chat/completions',
             data=json.dumps({'model': self.model,
                              'messages': [{'role': 'user', 'content': prompt}],
-                             'max_tokens': self.max_tokens, 'reasoning': {'enabled': False}}).encode(),
+                             'max_tokens': self.max_tokens,
+                             **({'reasoning': {'enabled': self.reasoning}} if self.reasoning is not None else {})}).encode(),
             headers=headers)
         with urllib.request.urlopen(request, timeout=self.timeout) as response:
             result = json.load(response)

@@ -1,0 +1,24 @@
+{
+  "index": 16,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [],
+  "error": {
+    "type": "HTTPError",
+    "code": 400,
+    "message": "transport failure; inspect ledger"
+  }
+}
