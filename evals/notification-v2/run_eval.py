@@ -30,6 +30,7 @@ def conditions():
     for line in rows.splitlines():
         if not line.startswith("| ") or "（" not in line: continue
         cells = [x.strip() for x in line.strip("|").split("|")]
+        if cells[2] not in m.VOCABULARY["desired_state"]: continue
         profiles.append((cells[0].split("（")[0], cells[1], cells[2]))
     assert len(profiles) == 8
     return [(name, dict(time_band=band,language="ja",desired_state=state,source="notification",
