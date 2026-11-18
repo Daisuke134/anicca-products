@@ -1,0 +1,188 @@
+{
+  "index": 25,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982490-RefREof2h4UJiUedJpEv",
+        "object": "chat.completion",
+        "created": 1794982490,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"落ち着きたいとき、どんなふうに過ごせると自分に合っていると思いますか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日の予定が頭をぐるぐる回るとき、少しでも気が紛れることはありますか？\",\"probability\":0.22},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今の自分に「落ち着いた状態」はどんな感じか、言葉にしてみるとどうなりますか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"眠ろうとするほど頭が動き出すのは、それだけ気を配っていることがあるのかもしれませんね。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだ予定を一度紙に書き出しておくと、覚えておこうとする負担が少し減ることがあります。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.14}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 696,
+          "completion_tokens": 206,
+          "total_tokens": 902,
+          "cost": 0.00117933,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00117933,
+            "upstream_inference_prompt_cost": 0.00029868,
+            "upstream_inference_completions_cost": 0.00088065
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982498-Zyu8QIn0URSXcYRLLoAA",
+        "object": "chat.completion",
+        "created": 1794982498,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"Open question about self-reflection.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about coping strategies for a specific issue mentioned in the profile.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"Open question about describing a desired state.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"Acknowledges a behavior described in the profile and offers a potential interpretation without asserting it as fact.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"Offers a practical suggestion related to the profile's problem.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 444,
+          "completion_tokens": 141,
+          "total_tokens": 585,
+          "cost": 0.0001008,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001008,
+            "upstream_inference_prompt_cost": 4.44e-05,
+            "upstream_inference_completions_cost": 5.64e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "e7297465-c1ce-455e-a0b6-d4317442567f",
+    "decision_point_at": 1794982498.918805,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "落ち着きたいとき、どんなふうに過ごせると自分に合っていると思いますか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "明日の予定が頭をぐるぐる回るとき、少しでも気が紛れることはありますか？",
+        "probability": 0.22
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "今の自分に「落ち着いた状態」はどんな感じか、言葉にしてみるとどうなりますか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "眠ろうとするほど頭が動き出すのは、それだけ気を配っていることがあるのかもしれませんね。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定を一度紙に書き出しておくと、覚えておこうとする負担が少し減ることがあります。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.14
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "落ち着きたいとき、どんなふうに過ごせると自分に合っていると思いますか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984298.918805,
+    "observations": []
+  }
+}

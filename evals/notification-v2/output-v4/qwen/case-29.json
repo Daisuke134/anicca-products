@@ -1,0 +1,194 @@
+{
+  "index": 29,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982500-Nac5CiQItG8p1Uc4CRpB",
+        "object": "chat.completion",
+        "created": 1794982500,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日これからの時間で、集中したいことは何ですか？\",\"probability\":0.26},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"運動や日記を続けようとしたとき、どんな瞬間に手が止まりやすいですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"大きな目標ではなく、今日だけで終わる小さな一歩にするなら、何を選びますか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"三日で途切れてしまうのは、意志の弱さというより目標の大きさと噛み合っていないサインかもしれません。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"習慣は回数よりも、まず小さく始めて繰り返すほうが続きやすいと言われています。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"今日の分だけ、日記に一行書いてみませんか。\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 693,
+          "completion_tokens": 231,
+          "total_tokens": 924,
+          "cost": 0.00197505,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00197505,
+            "upstream_inference_prompt_cost": 0.000987525,
+            "upstream_inference_completions_cost": 0.000987525
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982508-AxM9lvtOUFdd3hKVFlmh",
+        "object": "chat.completion",
+        "created": 1794982508,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Generic question about future focus.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about moments of difficulty with habits without asserting specific past events or habits.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Asks about choosing a small step for today, which is supported by the profile's tendency to set large goals and fail.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"Offers a supportive interpretation of the profile's tendency to quit, suggesting it's a sign of misaligned goals rather than willpower.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"Provides general advice on habit formation, which aligns with the profile's desire to establish habits.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"Suggests a small, achievable action for today related to journaling, which is a habit the user wants to establish.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 454,
+          "completion_tokens": 228,
+          "total_tokens": 682,
+          "cost": 0.0001366,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001366,
+            "upstream_inference_prompt_cost": 4.54e-05,
+            "upstream_inference_completions_cost": 9.12e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "f1d5084d-b61c-4169-a140-54a9c3b5faed",
+    "decision_point_at": 1794982509.449397,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日これからの時間で、集中したいことは何ですか？",
+        "probability": 0.26
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "運動や日記を続けようとしたとき、どんな瞬間に手が止まりやすいですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "大きな目標ではなく、今日だけで終わる小さな一歩にするなら、何を選びますか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "三日で途切れてしまうのは、意志の弱さというより目標の大きさと噛み合っていないサインかもしれません。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "習慣は回数よりも、まず小さく始めて繰り返すほうが続きやすいと言われています。",
+        "probability": 0.08
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "今日の分だけ、日記に一行書いてみませんか。",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日これからの時間で、集中したいことは何ですか？",
+      "probability": 0.26
+    },
+    "assigned_probability": 0.26,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984309.449397,
+    "observations": []
+  }
+}

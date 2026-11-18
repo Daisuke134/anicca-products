@@ -1,0 +1,221 @@
+{
+  "index": 23,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982483-4deCkdqn0IIq8PA2c36s",
+        "object": "chat.completion",
+        "created": 1794982483,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日、いちばん集中が途切れやすかったのはどんな場面でしたか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日の自分が少しでも動き出しやすくなるように、今夜できる小さな準備はありますか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"スマホに手が伸びる直前、どんな気分になっていることが多いですか？\",\"probability\":0.17},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜に後悔が残るのは、それだけやりたいことを大切にしているからかもしれません。\",\"probability\":0.15},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"やることを「5分だけ」と小さく区切ると、着手のハードルが下がることがあります。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"もしよければ、明日最初にやることを一つだけ紙に書き出してみませんか？\",\"probability\":0.1},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.1}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 696,
+          "completion_tokens": 228,
+          "total_tokens": 924,
+          "cost": 0.0019665,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0019665,
+            "upstream_inference_prompt_cost": 0.0009918,
+            "upstream_inference_completions_cost": 0.0009747
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982490-7AM9TPvRKG9SFcZ9xap0",
+        "object": "chat.completion",
+        "created": 1794982490,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": false, \"reason\": \"presupposes an event (concentrating) happened today without evidence\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"generic advice for future preparation\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"asks about a feeling in relation to a behavior\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"general paraphrase of profile motivation\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"generic advice on task management\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"hypothetical suggestion for future action\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 463,
+          "completion_tokens": 157,
+          "total_tokens": 620,
+          "cost": 0.0001091,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001091,
+            "upstream_inference_prompt_cost": 4.63e-05,
+            "upstream_inference_completions_cost": 6.28e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982491-I8ecPdfLfATjwg0C3gA6",
+        "object": "chat.completion",
+        "created": 1794982491,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日を振り返ると、集中できた時間とできなかった時間の違いはどこにあったと思いますか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日、少しでも集中しやすくするために変えてみたいことは何ですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"スマホに手が伸びる前の自分には、どんな変化が起きていることが多いですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜に残った後悔は、集中したいという気持ちがまだ消えていないサインかもしれません。\",\"probability\":0.14},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"明日の最初の5分で取りかかることを一つだけ、短く書き出してみませんか。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"「やる気が出たら始める」より「まず2分だけ触れる」ほうが、着手のハードルは下がりやすいと言われています。\",\"probability\":0.07},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 696,
+          "completion_tokens": 240,
+          "total_tokens": 936,
+          "cost": 0.0020178,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0020178,
+            "upstream_inference_prompt_cost": 0.0009918,
+            "upstream_inference_completions_cost": 0.001026
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982499-RiXshS3fkVwGVOaz9x2W",
+        "object": "chat.completion",
+        "created": 1794982499,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": false, \"reason\": \"presupposes a past event (today)\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"open question, doesn't presuppose unsupported facts\"},\n  {\"id\": \"c\", \"supported\": false, \"reason\": \"presupposes a past event (reaching for phone)\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"interprets a state, relates to profile\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"suggests an action, doesn't presuppose unsupported facts\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"general advice, relates to profile\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 470,
+          "completion_tokens": 169,
+          "total_tokens": 639,
+          "cost": 0.0001146,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001146,
+            "upstream_inference_prompt_cost": 4.7e-05,
+            "upstream_inference_completions_cost": 6.76e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic facts: [{\"id\": \"a\", \"supported\": false, \"reason\": \"presupposes a past event (today)\"}, {\"id\": \"c\", \"supported\": false, \"reason\": \"presupposes a past event (reaching for phone)\"}]"
+  }
+}

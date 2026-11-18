@@ -1,0 +1,221 @@
+{
+  "index": 21,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982476-l3mNv1eGWIAQuEfo5B4h",
+        "object": "chat.completion",
+        "created": 1794982476,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日まだ手をつけていないことの中で、いちばん短く終わりそうなものはどれですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"集中が途切れるのは、どんな瞬間が多いですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"夜に後悔せずに済むには、今日のうちに何が少しでも進んでいれば十分ですか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"先延ばしにした日の夜に残る後悔は、その日の疲れとは少し違う重さかもしれません。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"スマホを手の届かない場所に置いて、5分だけ一つのことを進めてみませんか？\",\"probability\":0.12},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"やることを「作業全体」ではなく「最初の一手」の大きさに切り分けると、着手のハードルが下がりやすいと言われています。\",\"probability\":0.07},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.08}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 696,
+          "completion_tokens": 245,
+          "total_tokens": 941,
+          "cost": 0.002039175,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.002039175,
+            "upstream_inference_prompt_cost": 0.0009918,
+            "upstream_inference_completions_cost": 0.001047375
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982484-2SJSGfPryxta4p89GNmj",
+        "object": "chat.completion",
+        "created": 1794982484,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": false, \"reason\": \"This question asks to identify the task with the shortest completion time, which is not directly supported by the profile. The profile mentions procrastination but not the ability to estimate task duration.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"This question asks about the moments when focus is lost, which directly relates to the profile's statement about difficulty maintaining focus during remote work.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"This question aligns with the profile's description of regretting procrastination in the evening and aims to find a manageable step to avoid that regret.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"This statement reflects on the specific type of regret mentioned in the profile (regretting procrastination at night) and contrasts it with tiredness, which is a valid paraphrase.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"This suggestion directly addresses the profile's mention of spending a lot of time on the smartphone and proposes a concrete action to counter it, focusing on getting started.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"This statement offers a general strategy for overcoming procrastination by breaking down tasks, which is relevant to the profile's issues with procrastination and not a specific personal fact.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 477,
+          "completion_tokens": 296,
+          "total_tokens": 773,
+          "cost": 0.0001661,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001661,
+            "upstream_inference_prompt_cost": 4.77e-05,
+            "upstream_inference_completions_cost": 0.0001184
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982486-I69MDdL80AuBv2QBOJnD",
+        "object": "chat.completion",
+        "created": 1794982486,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日やるべきことの中で、いちばん先に片づけたいのはどれですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"集中が途切れるのは、どんな瞬間が多いですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"スマホに手が伸びる前に、どんな気持ちになっていることが多いですか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜に残った後悔を思い出すと、日中の選択も少し違って見えるかもしれません。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"まずはひとつだけ、5分で終わる作業を選んで手を動かしてみませんか？\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"作業の前にスマホを手の届かない場所に置くだけで、気が散るきっかけを減らせます。\",\"probability\":0.07},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.08}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 696,
+          "completion_tokens": 223,
+          "total_tokens": 919,
+          "cost": 0.001252005,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001252005,
+            "upstream_inference_prompt_cost": 0.00029868,
+            "upstream_inference_completions_cost": 0.000953325
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982493-UhXb1sr5CrNl4Az5akGK",
+        "object": "chat.completion",
+        "created": 1794982493,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\n    \"id\": \"a\",\n    \"supported\": false,\n    \"reason\": \"This question asks about the user's current priorities, which is too specific and not supported by the general profile.\"\n  },\n  {\n    \"id\": \"b\",\n    \"supported\": true,\n    \"reason\": \"This is a general question about focus, which aligns with the user's reported difficulty concentrating.\"\n  },\n  {\n    \"id\": \"c\",\n    \"supported\": true,\n    \"reason\": \"This question probes the user's emotional state before engaging with their phone, which relates to their long phone usage.\"\n  },\n  {\n    \"id\": \"d\",\n    \"supported\": true,\n    \"reason\": \"This statement reflects on the user's pattern of procrastination and regret, which is directly supported by the profile.\"\n  },\n  {\n    \"id\": \"e\",\n    \"supported\": true,\n    \"reason\": \"This is a generic suggestion for starting a task, consistent with addressing procrastination and focus issues.\"\n  },\n  {\n    \"id\": \"f\",\n    \"supported\": true,\n    \"reason\": \"This is a practical suggestion to reduce distractions, directly addressing the user's long phone usage and difficulty concentrating.\"\n  }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 456,
+          "completion_tokens": 292,
+          "total_tokens": 748,
+          "cost": 0.0001624,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001624,
+            "upstream_inference_prompt_cost": 4.56e-05,
+            "upstream_inference_completions_cost": 0.0001168
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic facts: [{\"id\": \"a\", \"supported\": false, \"reason\": \"This question asks about the user's current priorities, which is too specific and not supported by the general profile.\"}]"
+  }
+}

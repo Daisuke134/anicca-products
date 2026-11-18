@@ -1,0 +1,194 @@
+{
+  "index": 7,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982448-QQ7eanTqieB0ySOl8aP1",
+        "object": "chat.completion",
+        "created": 1794982448,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てきたとき、その奥にはどんな気持ちがありそうですか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"褒められたとき、素直に受け取るのをためらうのはどんな瞬間ですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日は、誰かと比べてしまう場面とそうでない場面がありましたか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"比べる癖も、褒め言葉をはね返す癖も、ずっと続いてきたものなら簡単には変わらないですよね。\",\"probability\":0.13},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"他人と比べてしまう気持ちは、自分の価値を測る物差しが外側にあるときに強まりやすいものです。\",\"probability\":0.12},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"今日の自分に、心の中でひとつだけ短いねぎらいの言葉をかけてみませんか。\",\"probability\":0.09},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.09}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 754,
+          "completion_tokens": 251,
+          "total_tokens": 1005,
+          "cost": 0.001454355,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001454355,
+            "upstream_inference_prompt_cost": 0.00038133,
+            "upstream_inference_completions_cost": 0.001073025
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982455-ke4H6pSiTOkGmFQaVZEh",
+        "object": "chat.completion",
+        "created": 1794982455,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"a\", \"supported\": true, \"reason\": \"It asks about feelings behind a phrase from the profile without asserting facts about the user.\"},\n{\"id\": \"b\", \"supported\": true, \"reason\": \"It asks about the circumstances of an action from the profile without asserting facts about the user.\"},\n{\"id\": \"c\", \"supported\": true, \"reason\": \"It asks about specific instances related to the profile's themes without asserting facts.\"},\n{\"id\": \"d\", \"supported\": true, \"reason\": \"It acknowledges the difficulty of changing habits mentioned in the profile without asserting current facts.\"},\n{\"id\": \"e\", \"supported\": true, \"reason\": \"It explains a general mechanism related to the profile's themes without asserting personal facts.\"},\n{\"id\": \"f\", \"supported\": true, \"reason\": \"It offers a gentle suggestion aligned with self-love, not asserting personal facts or habits.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 478,
+          "completion_tokens": 205,
+          "total_tokens": 683,
+          "cost": 0.0001298,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001298,
+            "upstream_inference_prompt_cost": 4.78e-05,
+            "upstream_inference_completions_cost": 8.2e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "5d79964f-7caa-4909-9c58-4d4aa9f541e4",
+    "decision_point_at": 1794982457.0084438,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "「どうせ私なんて」という言葉が出てきたとき、その奥にはどんな気持ちがありそうですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "褒められたとき、素直に受け取るのをためらうのはどんな瞬間ですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "今日は、誰かと比べてしまう場面とそうでない場面がありましたか？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "比べる癖も、褒め言葉をはね返す癖も、ずっと続いてきたものなら簡単には変わらないですよね。",
+        "probability": 0.13
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "他人と比べてしまう気持ちは、自分の価値を測る物差しが外側にあるときに強まりやすいものです。",
+        "probability": 0.12
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "今日の自分に、心の中でひとつだけ短いねぎらいの言葉をかけてみませんか。",
+        "probability": 0.09
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.09
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てきたとき、その奥にはどんな気持ちがありそうですか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984257.0084438,
+    "observations": []
+  }
+}

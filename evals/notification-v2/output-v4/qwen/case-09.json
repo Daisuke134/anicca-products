@@ -1,0 +1,194 @@
+{
+  "index": 9,
+  "profile": "burnout",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982449-hmD8hG25xSIqhZS0n94B",
+        "object": "chat.completion",
+        "created": 1794982449,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が今は大きめに聞こえますか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"ほんの少しでも落ち着けた瞬間があるとすれば、それはどんなときですか？\",\"probability\":0.16},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"焦りが少しゆるむとしたら、何が変わったときでしょうか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"休みたい気持ちと焦りの両方があるままでも、どちらか一方を選ばなくていいのかもしれません。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"疲れが残っているときは、休息を後回しにするほど回復に時間がかかりやすいと言われています。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"可能なら、次の用事の前に一分だけ手を止めて、肩の力を抜いてみてください。\",\"probability\":0.08},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.22}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 796,
+          "completion_tokens": 244,
+          "total_tokens": 1040,
+          "cost": 0.0021774,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0021774,
+            "upstream_inference_prompt_cost": 0.0011343,
+            "upstream_inference_completions_cost": 0.0010431
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982457-t4Gi4K8HJbx3U5qw5Ddj",
+        "object": "chat.completion",
+        "created": 1794982457,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"The question directly reflects the user's state of internal conflict, which is a paraphrase of the profile summary.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"The question asks about moments of calm, aligning with the desired state and the profile's mention of not having enough rest.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"The question probes what might alleviate the user's anxiety, directly relating to the profile's description of internal conflict.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"This statement offers a perspective that acknowledges and validates the user's conflicting feelings, consistent with the profile.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"This statement provides general information about fatigue and recovery, which is relevant to the profile's mention of persistent tiredness.\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"This is a generic intervention suggestion involving a brief pause and relaxation, which is supported by the general context of wanting to address the user's stress.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 483,
+          "completion_tokens": 240,
+          "total_tokens": 723,
+          "cost": 0.0001443,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001443,
+            "upstream_inference_prompt_cost": 4.83e-05,
+            "upstream_inference_completions_cost": 9.6e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "0be7fdc2-457d-4ed4-afa9-1317450481c2",
+    "decision_point_at": 1794982459.044308,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が今は大きめに聞こえますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "ほんの少しでも落ち着けた瞬間があるとすれば、それはどんなときですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "焦りが少しゆるむとしたら、何が変わったときでしょうか？",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "休みたい気持ちと焦りの両方があるままでも、どちらか一方を選ばなくていいのかもしれません。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "疲れが残っているときは、休息を後回しにするほど回復に時間がかかりやすいと言われています。",
+        "probability": 0.08
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "可能なら、次の用事の前に一分だけ手を止めて、肩の力を抜いてみてください。",
+        "probability": 0.08
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.22
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が今は大きめに聞こえますか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984259.044308,
+    "observations": []
+  }
+}

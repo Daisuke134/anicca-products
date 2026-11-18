@@ -1,0 +1,188 @@
+{
+  "index": 5,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982440-XhdtHshqeLSwn4GYvtpl",
+        "object": "chat.completion",
+        "created": 1794982440,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てきたとき、その奥にはどんな気持ちがありそうですか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"誰かと比べて落ち込むことが続いたあと、自分にどんなふうに接したいですか？\",\"probability\":0.22},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"褒められた言葉をそのまま受け取れないとき、心の中では何が起きていそうですか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"人と比べてしまう自分も、褒め言葉に戸惑ってしまう自分も、どちらも今のあなたの一部です。\",\"probability\":0.16},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"自分を大切にする練習は、大きな決意より「今日はここまででいい」と小さく区切ることから始められます。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.1}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 754,
+          "completion_tokens": 214,
+          "total_tokens": 968,
+          "cost": 0.00164274,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 256,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00164274,
+            "upstream_inference_prompt_cost": 0.00072789,
+            "upstream_inference_completions_cost": 0.00091485
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982448-FQzV5xO7ZkwaQ0QXKZlx",
+        "object": "chat.completion",
+        "created": 1794982448,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"This is an open question that asks about feelings related to a specific phrase, without presupposing unsupported facts.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"This is an open question about future desired behavior after a specific situation, without presupposing unsupported facts.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"This is an open question that asks about internal states related to a specific reaction, without presupposing unsupported facts.\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"This statement acknowledges and validates the user's current self-perceptions without inferring biography or scheduled events.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"This is a general piece of advice about starting self-care practices, which aligns with the desired state of self-love and does not make unsupported presuppositions.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 458,
+          "completion_tokens": 198,
+          "total_tokens": 656,
+          "cost": 0.000125,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000125,
+            "upstream_inference_prompt_cost": 4.58e-05,
+            "upstream_inference_completions_cost": 7.92e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "3c6e6bf9-d0af-424c-9674-ac5a4c04a6d4",
+    "decision_point_at": 1794982449.4808168,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "「どうせ私なんて」という言葉が出てきたとき、その奥にはどんな気持ちがありそうですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "誰かと比べて落ち込むことが続いたあと、自分にどんなふうに接したいですか？",
+        "probability": 0.22
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "褒められた言葉をそのまま受け取れないとき、心の中では何が起きていそうですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "人と比べてしまう自分も、褒め言葉に戸惑ってしまう自分も、どちらも今のあなたの一部です。",
+        "probability": 0.16
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "自分を大切にする練習は、大きな決意より「今日はここまででいい」と小さく区切ることから始められます。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.1
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てきたとき、その奥にはどんな気持ちがありそうですか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984249.4808168,
+    "observations": []
+  }
+}

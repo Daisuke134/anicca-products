@@ -1,0 +1,188 @@
+{
+  "index": 17,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982467-cXibOyypscv0tmlLpj8c",
+        "object": "chat.completion",
+        "created": 1794982467,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、「自信がある」と言えなくても、それでも続けている自分のどんなところを認められそうですか？\",\"probability\":0.26},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"結果の通知とは切り離して、今日の自分に少しでも評価をあげられるとしたら、どんなことでしょうか？\",\"probability\":0.24},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"不合格が続くと自信が削られていくのは自然なことで、それはあなたの価値が下がったという知らせではありません。\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"面接の結果は、その日の枠や相手との相性にも左右されるので、あなた一人の能力だけで決まる数字ではないと覚えておいてください。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"ここまで応募や準備で実際に手を動かしてきたことを、思いつく分だけ紙に書き出してみてください。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.16}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 745,
+          "completion_tokens": 232,
+          "total_tokens": 977,
+          "cost": 0.001706865,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 256,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001706865,
+            "upstream_inference_prompt_cost": 0.000715065,
+            "upstream_inference_completions_cost": 0.0009918
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982474-1CUHJ94N8iMOunEmzuws",
+        "object": "chat.completion",
+        "created": 1794982474,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"a\", \"supported\": true, \"reason\": \"The question does not presuppose unsupported facts and asks about self-recognition.\"},\n{\"id\": \"b\", \"supported\": true, \"reason\": \"The question focuses on self-evaluation without relying on external factors or specific past events.\"},\n{\"id\": \"c\", \"supported\": true, \"reason\": \"This statement acknowledges the user's feelings and reframes the meaning of rejections, aligning with the profile's concern about declining confidence.\"},\n{\"id\": \"d\", \"supported\": true, \"reason\": \"This statement offers a perspective on interview outcomes that could help mitigate the user's anxiety about failure, which is a key part of their profile.\"},\n{\"id\": \"e\", \"supported\": true, \"reason\": \"This is a generic suggestion for self-reflection on past actions, not tied to specific unsupported events or personal details.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 468,
+          "completion_tokens": 199,
+          "total_tokens": 667,
+          "cost": 0.0001264,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001264,
+            "upstream_inference_prompt_cost": 4.68e-05,
+            "upstream_inference_completions_cost": 7.96e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "4b099a6a-52ac-4d71-a8d8-b09fdef5aedb",
+    "decision_point_at": 1794982476.186144,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "confidence",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今、「自信がある」と言えなくても、それでも続けている自分のどんなところを認められそうですか？",
+        "probability": 0.26
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "結果の通知とは切り離して、今日の自分に少しでも評価をあげられるとしたら、どんなことでしょうか？",
+        "probability": 0.24
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "不合格が続くと自信が削られていくのは自然なことで、それはあなたの価値が下がったという知らせではありません。",
+        "probability": 0.14
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "面接の結果は、その日の枠や相手との相性にも左右されるので、あなた一人の能力だけで決まる数字ではないと覚えておいてください。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "ここまで応募や準備で実際に手を動かしてきたことを、思いつく分だけ紙に書き出してみてください。",
+        "probability": 0.08
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.16
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今、「自信がある」と言えなくても、それでも続けている自分のどんなところを認められそうですか？",
+      "probability": 0.26
+    },
+    "assigned_probability": 0.26,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984276.186144,
+    "observations": []
+  }
+}

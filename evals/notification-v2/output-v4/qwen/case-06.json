@@ -1,0 +1,194 @@
+{
+  "index": 6,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982446-CWdXrSE4JbkP4ggu3aZy",
+        "object": "chat.completion",
+        "created": 1794982446,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が浮かぶとき、その奥にはどんな気持ちがありますか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"褒められたとき、素直に受け取るのをためらわせるものは何だと思いますか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"他人と比べていないときの自分には、どんな良さがあると感じますか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"自分を低く見積もる癖は、性格ではなく長く続いた習慣かもしれません。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"比べる気持ちは自然なもので、感じたこと自体を責める必要はありません。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"今日あった小さな出来事を、評価せずに一つだけ書き出してみませんか？\",\"probability\":0.06},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 755,
+          "completion_tokens": 235,
+          "total_tokens": 990,
+          "cost": 0.00138738,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00138738,
+            "upstream_inference_prompt_cost": 0.000382755,
+            "upstream_inference_completions_cost": 0.001004625
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982452-CipZspncKKoGULFoTu1W",
+        "object": "chat.completion",
+        "created": 1794982452,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"The question asks about the feelings behind the phrase 'Douse watashi nante' (I'm just a nobody), which is a direct quote from the profile and an open question about feelings.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"The question asks about what prevents the user from accepting compliments, which relates to the profile statement that they cannot easily accept praise.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"This is an open question that prompts reflection on positive qualities when not comparing oneself to others, aligning with the profile's theme of self-comparison.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"This statement rephrases the user's self-deprecating tendency as a habit rather than a personality trait, which is a general paraphrase of the profile's intent.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"This statement offers a general perspective on comparative feelings, acknowledging their naturalness and advising against self-blame, which aligns with supporting self-love.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"This suggestion is a concrete action aimed at appreciating small events without evaluation, supporting the desired state of self-love and not relying on unsupported facts.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 465,
+          "completion_tokens": 296,
+          "total_tokens": 761,
+          "cost": 0.0001649,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001649,
+            "upstream_inference_prompt_cost": 4.65e-05,
+            "upstream_inference_completions_cost": 0.0001184
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "47443747-de8b-467d-8a1e-5dc704d305ec",
+    "decision_point_at": 1794982454.123111,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "「どうせ私なんて」という言葉が浮かぶとき、その奥にはどんな気持ちがありますか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "褒められたとき、素直に受け取るのをためらわせるものは何だと思いますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "他人と比べていないときの自分には、どんな良さがあると感じますか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "自分を低く見積もる癖は、性格ではなく長く続いた習慣かもしれません。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "比べる気持ちは自然なもので、感じたこと自体を責める必要はありません。",
+        "probability": 0.08
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "今日あった小さな出来事を、評価せずに一つだけ書き出してみませんか？",
+        "probability": 0.06
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.12
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が浮かぶとき、その奥にはどんな気持ちがありますか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984254.123111,
+    "observations": []
+  }
+}

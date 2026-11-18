@@ -1,0 +1,188 @@
+{
+  "index": 18,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982473-G10yPODP2LVBbaIfz4O7",
+        "object": "chat.completion",
+        "created": 1794982473,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"自信を取り戻したい今、どんな小さな瞬間なら自分を少し認められそうですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"面接で「落ちるかもしれない」と感じたとき、その不安はあなたに何を伝えようとしていると思いますか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"これまでの就活の中で、結果とは関係なく「これはやれた」と思えることは何ですか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"不合格が続くと、自分の価値まで否定されたように感じてしまうことがありますよね。\",\"probability\":0.15},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"自信は結果だけで決まるものではなく、準備した過程にも支えられています。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 746,
+          "completion_tokens": 202,
+          "total_tokens": 948,
+          "cost": 0.00123348,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00123348,
+            "upstream_inference_prompt_cost": 0.00036993,
+            "upstream_inference_completions_cost": 0.00086355
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982480-Pq6viQF3fkflEsmuWvZP",
+        "object": "chat.completion",
+        "created": 1794982480,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"The user wants to regain confidence and is asking about small moments to acknowledge themselves, which aligns with the profile's desire for confidence.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"The notification asks about the meaning of anxiety before interviews, which directly relates to the profile's stated anxiety about failing interviews.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"The notification prompts reflection on achievements during job hunting regardless of results, aligning with the profile's struggle with lost confidence due to repeated rejections.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"This statement acknowledges the user's potential feeling of self-worth being negated by repeated rejections, which is a direct paraphrase of the profile's situation.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"This notification offers encouragement by stating that confidence is not solely based on results but also on the preparation process, which indirectly supports the profile's goal of regaining confidence.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 441,
+          "completion_tokens": 237,
+          "total_tokens": 678,
+          "cost": 0.0001389,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001389,
+            "upstream_inference_prompt_cost": 4.41e-05,
+            "upstream_inference_completions_cost": 9.48e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "5e97c440-450c-448b-aaec-d7c5702e40be",
+    "decision_point_at": 1794982481.584625,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "confidence",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "自信を取り戻したい今、どんな小さな瞬間なら自分を少し認められそうですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "面接で「落ちるかもしれない」と感じたとき、その不安はあなたに何を伝えようとしていると思いますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "これまでの就活の中で、結果とは関係なく「これはやれた」と思えることは何ですか？",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "不合格が続くと、自分の価値まで否定されたように感じてしまうことがありますよね。",
+        "probability": 0.15
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "自信は結果だけで決まるものではなく、準備した過程にも支えられています。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.15
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "自信を取り戻したい今、どんな小さな瞬間なら自分を少し認められそうですか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984281.584625,
+    "observations": []
+  }
+}

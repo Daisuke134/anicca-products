@@ -1,0 +1,194 @@
+{
+  "index": 30,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982507-K2bxwPG479a7srM9TLjZ",
+        "object": "chat.completion",
+        "created": 1794982507,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動や日記を続けたい今、どんな小さな一歩なら取り組みやすそうですか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"大きな目標が途中でつらくなるのは、どんなときですか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"三日坊主で終わったあと、自分にどんな声をかけられたら少し立て直しやすいですか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"続けたい気持ちは、挫折した回数だけで消えるものではありません。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"習慣は量より、再開しやすさを先に置くと続けやすいことがあります。\",\"probability\":0.10},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"今日は運動か日記のどちらかを、ほんの一分だけ試してみてください。\",\"probability\":0.08},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 694,
+          "completion_tokens": 226,
+          "total_tokens": 920,
+          "cost": 0.00126198,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00126198,
+            "upstream_inference_prompt_cost": 0.00029583,
+            "upstream_inference_completions_cost": 0.00096615
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982515-WZLJr5HndA1dpYEpOjcw",
+        "object": "chat.completion",
+        "created": 1794982515,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"supported\": true, \"reason\": \"The question asks about small steps for continuing exercise and journaling, which aligns with the user's profile of wanting to make these habits and often failing.\"}, {\"id\": \"b\", \"supported\": true, \"reason\": \"The question probes the user's experience with large goals becoming difficult, which directly relates to the profile's statement about setting large goals and failing.\"}, {\"id\": \"c\", \"supported\": true, \"reason\": \"The question asks how the user would like to be encouraged after failing to stick to a habit, which aligns with the profile's mention of often ending as a \\\"three-day monk\\\" (giving up easily).\"}, {\"id\": \"d\", \"supported\": true, \"reason\": \"This statement is a general encouragement about perseverance, which is relevant to the user's profile of struggling with consistency and potentially feeling discouraged by setbacks.\"}, {\"id\": \"e\", \"supported\": true, \"reason\": \"This statement offers advice on habit formation by prioritizing ease of restarting over quantity, which is relevant to the user's profile of struggling to maintain habits.\"}, {\"id\": \"f\", \"supported\": true, \"reason\": \"This suggestion proposes a small, manageable action (trying exercise or journaling for one minute today), which aligns with the user's profile of wanting to establish these habits and often failing.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 452,
+          "completion_tokens": 294,
+          "total_tokens": 746,
+          "cost": 0.0001628,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001628,
+            "upstream_inference_prompt_cost": 4.52e-05,
+            "upstream_inference_completions_cost": 0.0001176
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "02932738-dd65-4843-a31b-95e7a518807e",
+    "decision_point_at": 1794982516.956513,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "運動や日記を続けたい今、どんな小さな一歩なら取り組みやすそうですか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "大きな目標が途中でつらくなるのは、どんなときですか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "三日坊主で終わったあと、自分にどんな声をかけられたら少し立て直しやすいですか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "続けたい気持ちは、挫折した回数だけで消えるものではありません。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "習慣は量より、再開しやすさを先に置くと続けやすいことがあります。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "今日は運動か日記のどちらかを、ほんの一分だけ試してみてください。",
+        "probability": 0.08
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.12
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "運動や日記を続けたい今、どんな小さな一歩なら取り組みやすそうですか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984316.956513,
+    "observations": []
+  }
+}

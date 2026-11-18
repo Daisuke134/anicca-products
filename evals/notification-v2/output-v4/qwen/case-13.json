@@ -1,0 +1,188 @@
+{
+  "index": 13,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982459-WGj9AkiEDdqXIUyvJrnN",
+        "object": "chat.completion",
+        "created": 1794982459,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気分を言葉にするなら、どんな表現がしっくりきますか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"最近の一日の中で、少しでも気持ちが軽くなる瞬間はありますか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"reflection\",\"text\":\"なんとなく沈む日が続くと、自分でも理由がわからず戸惑いますよね。\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みにはっきりした原因がないことは珍しくなく、無理に理由を探さなくても大丈夫です。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ一度、息をゆっくり吐いてみる時間をとってみませんか。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 726,
+          "completion_tokens": 194,
+          "total_tokens": 920,
+          "cost": 0.00117078,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00117078,
+            "upstream_inference_prompt_cost": 0.00034143,
+            "upstream_inference_completions_cost": 0.00082935
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982466-h8Vv3G92bvw4WM7CFOTJ",
+        "object": "chat.completion",
+        "created": 1794982466,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"Open question about current feelings, does not presuppose unsupported facts.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"Asks about positive moments without presupposing unsupported facts.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"Paraphrases profile summary, acknowledging a general state.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"Offers general reassurance about mood, without unsupported presuppositions.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"Suggests a simple coping mechanism, not an unsupported presupposition.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 431,
+          "completion_tokens": 154,
+          "total_tokens": 585,
+          "cost": 0.0001047,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001047,
+            "upstream_inference_prompt_cost": 4.31e-05,
+            "upstream_inference_completions_cost": 6.16e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "5ba37333-e6b5-492a-9a35-d322e1777625",
+    "decision_point_at": 1794982467.109545,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今の気分を言葉にするなら、どんな表現がしっくりきますか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "最近の一日の中で、少しでも気持ちが軽くなる瞬間はありますか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "reflection",
+        "text": "なんとなく沈む日が続くと、自分でも理由がわからず戸惑いますよね。",
+        "probability": 0.15
+      },
+      {
+        "id": "d",
+        "kind": "teaching",
+        "text": "気分の落ち込みにはっきりした原因がないことは珍しくなく、無理に理由を探さなくても大丈夫です。",
+        "probability": 0.1
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ一度、息をゆっくり吐いてみる時間をとってみませんか。",
+        "probability": 0.1
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今の気分を言葉にするなら、どんな表現がしっくりきますか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984267.109545,
+    "observations": []
+  }
+}

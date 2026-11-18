@@ -1,0 +1,243 @@
+{
+  "index": 26,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982495-tdcJKUG7S0JoPuDy7oF1",
+        "object": "chat.completion",
+        "created": 1794982495,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この瞬間、頭の中でいちばん大きく場所を取っているのはどんなことですか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「落ち着きたい」という今の気持ちに、自分ならどんな言葉をかけてあげられますか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"明日のことを考える時間を少しだけ区切るとしたら、どんな区切り方が自分に合いそうですか？\",\"probability\":0.15},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"予定がぐるぐる回り出す夜は、それだけ明日を大切にしている証かもしれません。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"吐く息だけを、吸う息よりほんの少し長めにしてみてください。\",\"probability\":0.07},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだ予定は一度紙やメモに書き出すと、頭の中だけで回し続ける必要がなくなります。\",\"probability\":0.06},{\"id\":\"g\",\"kind\":\"action\",\"text\":\"今夜は眠ろうとする前に、部屋の明かりを一段落とすところから始めてみませんか？\",\"probability\":0.04},{\"id\":\"h\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 697,
+          "completion_tokens": 280,
+          "total_tokens": 977,
+          "cost": 0.001497105,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001497105,
+            "upstream_inference_prompt_cost": 0.000300105,
+            "upstream_inference_completions_cost": 0.001197
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982504-xku9KENu2B6QCLZbE2sc",
+        "object": "chat.completion",
+        "created": 1794982504,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"明日の予定が頭をぐるぐる回るとき、どんな言葉にすると少し整理しやすくなりますか？\",\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今夜少しでも落ち着いて過ごせるとしたら、何があると助かりそうですか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠るまでの時間が長く感じられる夜と、そうでない夜には、どんな違いがありますか？\",\"probability\":0.16},{\"id\":\"d\",\"kind\":\"action\",\"text\":\"頭に浮かんでいる明日の予定を、思いついた順でそのまま書き出してみてください。\",\"probability\":0.13},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"気になる予定は紙に書き出すと、頭の中で繰り返し思い出す必要が少し減ることがあります。\",\"probability\":0.09},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"布団に入ってから眠るまで1時間以上かかるのは、それだけで消耗しますよね。\",\"probability\":0.08},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.1}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 697,
+          "completion_tokens": 244,
+          "total_tokens": 941,
+          "cost": 0.001343205,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001343205,
+            "upstream_inference_prompt_cost": 0.000300105,
+            "upstream_inference_completions_cost": 0.0010431
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982514-oaPaw02mPQRejPzcqiKU",
+        "object": "chat.completion",
+        "created": 1794982514,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"This is an open question asking for strategies without unsupported presuppositions.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"This is an open question asking about helpful resources for the desired state.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"This is an open question comparing scenarios without unsupported presuppositions.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"This is a concrete instruction that aligns with the profile's stated issue of racing thoughts about tomorrow's schedule.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"This is advice that offers a strategy to address the profile's stated issue of racing thoughts about tomorrow's schedule.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"This is a statement acknowledging and validating the difficulty of the profile's stated issue.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 470,
+          "completion_tokens": 213,
+          "total_tokens": 683,
+          "cost": 0.0001322,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001322,
+            "upstream_inference_prompt_cost": 4.7e-05,
+            "upstream_inference_completions_cost": 8.52e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "c774b143-827f-4597-bef8-491518f9f167",
+    "decision_point_at": 1794982516.11801,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "明日の予定が頭をぐるぐる回るとき、どんな言葉にすると少し整理しやすくなりますか？",
+        "probability": 0.24
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "今夜少しでも落ち着いて過ごせるとしたら、何があると助かりそうですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "眠るまでの時間が長く感じられる夜と、そうでない夜には、どんな違いがありますか？",
+        "probability": 0.16
+      },
+      {
+        "id": "d",
+        "kind": "action",
+        "text": "頭に浮かんでいる明日の予定を、思いついた順でそのまま書き出してみてください。",
+        "probability": 0.13
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "気になる予定は紙に書き出すと、頭の中で繰り返し思い出す必要が少し減ることがあります。",
+        "probability": 0.09
+      },
+      {
+        "id": "f",
+        "kind": "reflection",
+        "text": "布団に入ってから眠るまで1時間以上かかるのは、それだけで消耗しますよね。",
+        "probability": 0.08
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.1
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "明日の予定が頭をぐるぐる回るとき、どんな言葉にすると少し整理しやすくなりますか？",
+      "probability": 0.24
+    },
+    "assigned_probability": 0.24,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984316.11801,
+    "observations": []
+  }
+}

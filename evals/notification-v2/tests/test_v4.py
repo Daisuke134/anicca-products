@@ -46,3 +46,33 @@ def test_judge_response_validation(monkeypatch,verdicts):
     if verdicts and verdicts[0]["supported"] is True:judge(CS,CTX)
     else:
         with pytest.raises(ValueError):judge(CS,CTX)
+
+
+def test_saved_cases_resume_without_paid_calls(tmp_path,monkeypatch):
+    import sys
+    sys.path.insert(0,str(Path(__file__).parents[1]))
+    import run_eval_v4 as runner
+    monkeypatch.setattr(runner,'ROOT',tmp_path)
+    monkeypatch.setattr(runner,'readback',lambda *a:dict(limit_remaining=.5))
+    rows=[('synthetic',CTX)]
+    monkeypatch.setattr(runner,'conditions',lambda:rows)
+    out=tmp_path/'output-v4'/'test';out.mkdir(parents=True)
+    saved=dict(index=0,profile='synthetic',context=CTX,calls=[],error=dict(type='saved'))
+    (out/'case-00.json').write_text(json.dumps(saved))
+    monkeypatch.setattr(runner.urllib.request,'urlopen',lambda *a,**k:pytest.fail('paid replay'))
+    runner.run('test-model','test')
+    assert json.loads((out/'run.json').read_text())['records']==[saved]
+
+def test_cost_404_retains_exact_completion_cost(tmp_path,monkeypatch):
+    import run_eval_v4 as runner
+    import urllib.error
+    monkeypatch.setattr(runner,'ROOT',tmp_path)
+    monkeypatch.setattr(runner,'readback',lambda *a:dict(limit_remaining=.5))
+    monkeypatch.setattr(runner,'credentials',lambda:'test')
+    out=tmp_path/'output-v4'/'test';out.mkdir(parents=True)
+    row=dict(phase='generator',response=dict(id='gen-test',usage=dict(cost=.00123),choices=[dict(finish_reason='stop')]))
+    (out/'raw.jsonl').write_text(json.dumps(row)+'\n')
+    def missing(*a,**k):raise urllib.error.HTTPError('https://example.invalid',404,'Not found',{},None)
+    monkeypatch.setattr(runner.urllib.request,'urlopen',missing)
+    runner.cost('test')
+    assert json.loads((out/'cost.json').read_text())['total_cost_usd']=='0.00123'

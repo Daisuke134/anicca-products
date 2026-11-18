@@ -1,0 +1,194 @@
+{
+  "index": 14,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982464-U0uvHvIytA9Yr7ricvf0",
+        "object": "chat.completion",
+        "created": 1794982464,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日の気分を、天気や色でたとえるとしたらどんな感じですか？\",\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"最近の一日の中で、少しでも気持ちがやわらいだ瞬間はありましたか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今夜、自分にいちばん必要だと感じるのは何ですか？\",\"probability\":0.17},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"理由がはっきりしない沈んだ気分のまま一日を終えるのは、しんどいことですよね。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"興味が湧かない時期は、気持ちの側だけで決まるものではなく、波のように移り変わることもあります。\",\"probability\":0.08},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ一度だけ、吐く息を吸う息より少し長めにしてみませんか。\",\"probability\":0.05},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 727,
+          "completion_tokens": 236,
+          "total_tokens": 963,
+          "cost": 0.001351755,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001351755,
+            "upstream_inference_prompt_cost": 0.000342855,
+            "upstream_inference_completions_cost": 0.0010089
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982472-nMQIOeoE7DHY2pk38Gzz",
+        "object": "chat.completion",
+        "created": 1794982472,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"a\", \"supported\": true, \"reason\": \"The question asks for a metaphorical description of today's mood, which is a general inquiry about feelings and does not presuppose specific personal facts.\"},\n{\"id\": \"b\", \"supported\": true, \"reason\": \"The question asks about moments of relief within a recent day, which is a general inquiry about emotional states and does not presuppose specific events or unsupported personal facts.\"},\n{\"id\": \"c\", \"supported\": true, \"reason\": \"The question asks about the user's current needs for the evening, which is a general inquiry about present feelings and does not presuppose specific personal facts or events.\"},\n{\"id\": \"d\", \"supported\": true, \"reason\": \"This statement acknowledges and validates the user's potential experience of ending the day with unexplained low mood, which is a general empathetic statement and does not presuppose specific personal facts.\"},\n{\"id\": \"e\", \"supported\": true, \"reason\": \"This statement offers a general perspective on periods of low interest, framing it as a natural fluctuation rather than a fixed state, which is a general observation and does not presuppose specific personal facts.\"},\n{\"id\": \"f\", \"supported\": true, \"reason\": \"This is a gentle suggestion for a simple breathing exercise, framed as an optional offer, and does not presuppose any specific personal facts or events.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 467,
+          "completion_tokens": 300,
+          "total_tokens": 767,
+          "cost": 0.0001667,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001667,
+            "upstream_inference_prompt_cost": 4.67e-05,
+            "upstream_inference_completions_cost": 0.00012
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "85419da4-22f9-474a-a5cb-002209999f8b",
+    "decision_point_at": 1794982473.326248,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "unknown",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今日の気分を、天気や色でたとえるとしたらどんな感じですか？",
+        "probability": 0.2
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "最近の一日の中で、少しでも気持ちがやわらいだ瞬間はありましたか？",
+        "probability": 0.18
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "今夜、自分にいちばん必要だと感じるのは何ですか？",
+        "probability": 0.17
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "理由がはっきりしない沈んだ気分のまま一日を終えるのは、しんどいことですよね。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "興味が湧かない時期は、気持ちの側だけで決まるものではなく、波のように移り変わることもあります。",
+        "probability": 0.08
+      },
+      {
+        "id": "f",
+        "kind": "breathing",
+        "text": "よければ一度だけ、吐く息を吸う息より少し長めにしてみませんか。",
+        "probability": 0.05
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.2
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今日の気分を、天気や色でたとえるとしたらどんな感じですか？",
+      "probability": 0.2
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984273.326248,
+    "observations": []
+  }
+}

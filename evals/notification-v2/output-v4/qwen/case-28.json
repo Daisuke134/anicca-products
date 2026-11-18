@@ -1,0 +1,292 @@
+{
+  "index": 28,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982499-B3TxPStnEqNtQdLJpCRS",
+        "object": "chat.completion",
+        "created": 1794982499,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日を「これだけで合格」と言えるラインにするなら、どこに置きたいですか？\",\"probability\":0.26},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"運動と日記、今日はどちらか一つだけ選ぶとしたらどちらにしますか？\",\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"これまでの取り組みで、三日目あたりはどんな感じでしたか？\",\"probability\":0.14},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"目標の大きさを下げるのは妥協ではなく、続く形を探すための調整です。\",\"probability\":0.1},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"まず一動作だけ決めて、それを終えたら今日の分は完了にしてみませんか。\",\"probability\":0.1},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"大きな目標を立てては止まる、その繰り返し自体がもう続いている観察材料かもしれません。\",\"probability\":0.07},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 694,
+          "completion_tokens": 233,
+          "total_tokens": 927,
+          "cost": 0.001638465,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 256,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001638465,
+            "upstream_inference_prompt_cost": 0.00064239,
+            "upstream_inference_completions_cost": 0.000996075
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982506-sr9qjmTdx804Qc9eUQhs",
+        "object": "chat.completion",
+        "created": 1794982506,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"a\", \"supported\": false, \"reason\": \"Presupposes the user can define a target for 'passing' today, which is not in the profile.\"},\n{\"id\": \"b\", \"supported\": true, \"reason\": \"Asks a choice between two habits mentioned in the profile.\"},\n{\"id\": \"c\", \"supported\": true, \"reason\": \"References a common failure point (three days) mentioned in the profile.\"},\n{\"id\": \"d\", \"supported\": true, \"reason\": \"Paraphrases the profile's tendency to set large goals and fail.\"},\n{\"id\": \"e\", \"supported\": true, \"reason\": \"Suggests a small first step, related to the profile's difficulty with consistency.\"},\n{\"id\": \"f\", \"supported\": true, \"reason\": \"Reinterprets the profile's pattern of setting goals and stopping as an observation.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 459,
+          "completion_tokens": 200,
+          "total_tokens": 659,
+          "cost": 0.0001259,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001259,
+            "upstream_inference_prompt_cost": 4.59e-05,
+            "upstream_inference_completions_cost": 8e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1794982508-xAHkwHm725dB1zBewCqw",
+        "object": "chat.completion",
+        "created": 1794982508,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動や日記を続けるうえで、いちばんハードルが低く感じられる一歩はどんなものですか？\",\"probability\":0.25},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"三日坊主で終わったとき、そのあと自分にどんな声をかけていましたか？\",\"probability\":0.2},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"大きな目標ではなく、今日だけならできそうな小さなことを一つ挙げるとしたら何にしますか？\",\"probability\":0.18},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"続かなかった回数よりも、始めようとした回数の方がずっと多いのかもしれません。\",\"probability\":0.12},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"習慣は量より頻度から育てると言われていて、日記なら一行だけでも積み重ねになります。\",\"probability\":0.07},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"今日は運動も日記も「これだけ」と決めた最小の量で終えてみませんか？\",\"probability\":0.06},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 694,
+          "completion_tokens": 244,
+          "total_tokens": 938,
+          "cost": 0.00133893,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00133893,
+            "upstream_inference_prompt_cost": 0.00029583,
+            "upstream_inference_completions_cost": 0.0010431
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1794982516-nVhIjlLFjk7GoLBHAI6Y",
+        "object": "chat.completion",
+        "created": 1794982516,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\"id\": \"a\", \"supported\": true, \"reason\": \"The question asks about small steps for continuing exercise and journaling, which aligns with the profile's goal of making them habits. It does not presuppose unsupported facts.\"},\n  {\"id\": \"b\", \"supported\": true, \"reason\": \"The question asks about self-talk after giving up on habits, directly relating to the profile's tendency to quit easily (三日坊主). It doesn't assert unsupported facts.\"},\n  {\"id\": \"c\", \"supported\": true, \"reason\": \"The question suggests setting small, achievable goals for today, which is a strategy relevant to the profile's struggle with setting and failing large goals. It does not presuppose unsupported facts.\"},\n  {\"id\": \"d\", \"supported\": true, \"reason\": \"This statement reframes the user's experience by suggesting that the frequency of attempting to start is more important than the number of times they failed. This is a supportive statement about habits and does not infer specific unsupported personal facts.\"},\n  {\"id\": \"e\", \"supported\": true, \"reason\": \"This statement provides advice on building habits through frequency rather than quantity, using journaling as an example. It aligns with the profile's goals and does not assert unsupported facts.\"},\n  {\"id\": \"f\", \"supported\": true, \"reason\": \"This suggestion proposes setting a minimal, achievable goal for exercise and journaling for today. This is a concrete action that supports the user's stated goal of forming habits and does not presuppose unsupported facts.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 473,
+          "completion_tokens": 337,
+          "total_tokens": 810,
+          "cost": 0.0001821,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001821,
+            "upstream_inference_prompt_cost": 4.73e-05,
+            "upstream_inference_completions_cost": 0.0001348
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "92d6879c-7d2e-4071-a83f-43dfa8a4b35a",
+    "decision_point_at": 1794982518.21559,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "運動や日記を続けるうえで、いちばんハードルが低く感じられる一歩はどんなものですか？",
+        "probability": 0.25
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "三日坊主で終わったとき、そのあと自分にどんな声をかけていましたか？",
+        "probability": 0.2
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "大きな目標ではなく、今日だけならできそうな小さなことを一つ挙げるとしたら何にしますか？",
+        "probability": 0.18
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "続かなかった回数よりも、始めようとした回数の方がずっと多いのかもしれません。",
+        "probability": 0.12
+      },
+      {
+        "id": "e",
+        "kind": "teaching",
+        "text": "習慣は量より頻度から育てると言われていて、日記なら一行だけでも積み重ねになります。",
+        "probability": 0.07
+      },
+      {
+        "id": "f",
+        "kind": "action",
+        "text": "今日は運動も日記も「これだけ」と決めた最小の量で終えてみませんか？",
+        "probability": 0.06
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.12
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "運動や日記を続けるうえで、いちばんハードルが低く感じられる一歩はどんなものですか？",
+      "probability": 0.25
+    },
+    "assigned_probability": 0.25,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1794984318.21559,
+    "observations": []
+  }
+}

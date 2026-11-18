@@ -66,7 +66,7 @@ def run(model,slug):
             except Exception as e:
                 case["error"]=dict(type=type(e).__name__,code=getattr(e,"code",None),message=str(e) if isinstance(e,(ValueError,KeyError,TypeError)) else "transport failure; inspect ledger")
         temp=path.with_suffix(".tmp");temp.write_text(json.dumps(case,ensure_ascii=False,indent=2));temp.replace(path)
-        print(f"{slug} {i+1}/32 {name}/{ctx[time_band]} calls={len(case[calls])} {REJECT if error in case else ACCEPT}",flush=True)
+        print(f"{slug} {i+1}/32 {name}/{ctx["time_band"]} calls={len(case["calls"])} {"REJECT" if "error" in case else "ACCEPT"}",flush=True)
         return case
     urllib.request.urlopen=transport
     try:
@@ -80,7 +80,7 @@ def run(model,slug):
 def cost(slug):
     out=ROOT/"output-v4"/slug
     rows=[json.loads(x,parse_float=Decimal) for x in (out/"raw.jsonl").read_text().splitlines()]
-    assert len({r[response][id] for r in rows})==len(rows)
+    assert len({r["response"]["id"] for r in rows})==len(rows)
     receipts=[];fallbacks=[];total=Decimal(0);usage=Decimal(0);finish={}
     for row in rows:
         response=row["response"];usage+=response["usage"]["cost"]
