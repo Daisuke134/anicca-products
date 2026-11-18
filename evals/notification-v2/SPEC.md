@@ -27,3 +27,5 @@ max_tokens=2000以上。使用費用はOpenRouter generation receiptのtotal_cos
 
 根拠: ~/anicca-ops/files/notification-word-eval-2026-11-18.md §2,7,9。
 モデル一覧一次資料: https://openrouter.ai/api/v1/models 。指定IDの存在をlive確認。
+
+認証: 指定ops正本を全読し、openrouter行はWeb認証metadataのみと確認。同行と同口座の管理キーで残高確認・評価キーを作成。新規秘密値はrepo外のCredential SSOTだけに保持する。ハーネスは同SSOTの評価専用service完全一致で読む。

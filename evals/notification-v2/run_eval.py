@@ -19,7 +19,7 @@ spec.loader.exec_module(m)
 
 
 def credentials():
-    data = json.loads((Path.home()/"anicca-ops/credentials.json").read_text())
+    data = json.loads((Path.home()/".local/share/anicca/credentials.json").read_text())
     return next(e["api_key"] for e in data["credentials"] if e.get("service") == "openrouter-notification-eval-v2")
 
 
