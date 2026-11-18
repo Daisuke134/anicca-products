@@ -1,0 +1,39 @@
+{
+  "verified_at": "2026-11-18T06:41:40.217838+00:00",
+  "contents_api": [
+    {
+      "repo": "anicca-ops",
+      "commit": "152127f731894a86f5e072633379686f20b117e2",
+      "path": "files/notification-eval-v5-result-2026-11-18.md",
+      "blob": "9d0f6a693f58d5dcecb00634e1685a06b632f822",
+      "match": true
+    },
+    {
+      "repo": "anicca-products",
+      "commit": "0df4fc4b9bbe381b97942f30a558ac73f2611a6e",
+      "path": "evals/notification-v2/completion-v5.json",
+      "blob": "0a7ffb00a08edcb560634e98c07d1833647fd653",
+      "match": true
+    },
+    {
+      "repo": "anicca-products",
+      "commit": "0df4fc4b9bbe381b97942f30a558ac73f2611a6e",
+      "path": "evals/notification-v2/output-v5/qwen/judgments.json",
+      "blob": "68419737e950189594a22d7f4940435b17d58943",
+      "match": true
+    },
+    {
+      "repo": "anicca-products",
+      "commit": "0df4fc4b9bbe381b97942f30a558ac73f2611a6e",
+      "path": "evals/notification-v2/reference/interventions_v5.py",
+      "blob": "8e1fc2a038fdc93b434a55c62b956a2e08ba9124",
+      "match": true
+    }
+  ],
+  "products_tree_v5_blobs_verified": 62,
+  "products_evidence_commit": "0df4fc4b9bbe381b97942f30a558ac73f2611a6e",
+  "ops_result_commit": "152127f731894a86f5e072633379686f20b117e2",
+  "task_complete": true,
+  "main_merge": false,
+  "production_delivery": false
+}

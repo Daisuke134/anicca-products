@@ -81,9 +81,11 @@ TODO:
 - [x] RED/GREENとv4の41件を含む関連tests（追加8、49 PASS）
 - [x] Qwen32条件（GLMは主目的遅延を避けv5未実行）
 - [x] 全sendable手読み・audit・公式費用照合
-- [ ] products/ops pushとremote blob照合
+- [x] products/ops pushとremote blob照合
 現在cursor: テスト先行。v5有料呼び出し未実施。
 
 Round 5開始前: 専用key usage1.269280789 USD、limit1.50 USD（SSOT一致、変更なし）、残0.230719211 USD。credits155、total_usage97.073335793。公式models APIでQwenとjudgeを確認。auto_top_upはops credentialsのopenrouter行の保存済みOFF記録をliveで確認、設定UIの現在readbackは未取得。現在cursor: Qwen32条件実行。
 
 Round 5結果: Qwen31/32受理、177文の全文手読みでFAIL8（捏造7、日本語1、tone0、4.519774%）のためNO-GO。独立read-onlyエージェントも177文を全読し同じ8文を確認。質問候補数違反の最終棄却はcase13、受理31セットの違反0。関連51テストPASS。74公式receipt合計0.066280490 USDとkey usage1.269280789→1.335561279の差分がDecimal厳密一致。初期12receiptの404とkey usageは遅延反映し、最終fallback0。credits155→155、入金・auto-reload変更なし。receipt保存時ENOSPCは自所有ops疎checkout縮小で空き1.2GiBに回復し、モデル再実行なし。現在cursor: products/ops成果物push・GitHub照合。
+
+Round 5納品完了: ops結果commit152127f731894a86f5e072633379686f20b117e2とproducts証拠commit0df4fc4b9bbe381b97942f30a558ac73f2611a6eをGitHub contents API/remote treeでローカル同一blob照合。delivery-v5.jsonにreceiptを保存。現在cursor: 完了。残TODOなし。本番配送・main統合なし。
