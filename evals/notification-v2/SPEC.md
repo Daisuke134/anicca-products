@@ -39,7 +39,9 @@ max_tokens=2000以上。使用費用はOpenRouter generation receiptのtotal_cos
 根拠: Round 2 reportのcase17/28、OpenRouter https://openrouter.ai/api/v1/models のlive保存models-v3.json。
 上位の共通規則が軽微な変更への固定検索回数を不要とし、末尾project規則の全行動3検索と矛盾するため、今回の実コード・公式API・既存失敗例を調査根拠とする。
 TODO / cursor:
-- [ ] 捏造guardのRED→GREEN、関連suite
+- [x] 捏造guardのRED→GREEN、関連suite（修正前6件の捏造が通過、修正後30 PASS）
 - [ ] 同一32条件を1回実行（既存前払残高のみ）
 - [ ] 全候補判定・費用照合
 - [ ] 指定成果物commit/push・remote確認
+
+実行中観測: 標準GLM 5.3が4096 tokensを推論だけで消費しcontent=null、finish_reason=lengthになる。既存harnessはAttributeErrorをtransport failureと粗く記録するが、raw responseにより実際はHTTP成功後の候補欠落と識別する。比較条件を変えず、再抽選もしない。既存前払残高59.205556692 USDを確認し、完走費用に合わせ評価専用キーlimitだけ0.25→1 USDへ変更してprovider readback。入金・auto-reload APIは呼ばない。
