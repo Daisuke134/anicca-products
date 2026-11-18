@@ -1,0 +1,7 @@
+{
+  "required": 118,
+  "cached": 118,
+  "missing": [],
+  "effect": "read_only",
+  "next_action": "all official receipts present"
+}

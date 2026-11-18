@@ -1,0 +1,3 @@
+{"id": "gen-1795007249-mgKMrOi54wV3SlAwlDLj", "error_class": "HTTPError", "status": 404, "effect": "read_only", "next_action": "retry missing receipt GET only"}
+{"id": "gen-1795007300-3Yq7RbXd0prjCfZCUBKn", "error_class": "HTTPError", "status": 408, "effect": "read_only", "next_action": "retry missing receipt GET only"}
+{"id": "gen-1795007333-DffXK2XdUJhUi3Xtzdqe", "error_class": "HTTPError", "status": 408, "effect": "read_only", "next_action": "retry missing receipt GET only"}

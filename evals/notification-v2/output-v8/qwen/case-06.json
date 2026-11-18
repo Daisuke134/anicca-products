@@ -1,0 +1,221 @@
+{
+  "index": 6,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007240-n9xFMXXtGAQNHRylPOD4",
+        "object": "chat.completion",
+        "created": 1795007240,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"褒められたとき、その言葉がすっと入ってこない感じは、どんなふうに現れますか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今「どうせ私なんて」という言葉が浮かんでいるなら、その声に少し距離を置くとしたら、どんな言い方になりそうですか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"SNSで誰かと比べてしまうときの自分と、比べずにいられるときの自分には、どんな違いがありますか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.16},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"自分にやさしくなれる瞬間があるとすれば、それはどんな場面でしょうか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.14},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"自分を責める癖は、考え方を変えようとするより先に、まず気づいて名前をつけるだけでもゆるむことがあります。\",\"grounds\":[],\"probability\":0.1},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ、今日あった出来事をひとつだけ選んで、友達に話すような口調で自分に言い直してみてください。\",\"grounds\":[],\"probability\":0.07},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"grounds\":[],\"probability\":0.15}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1625,
+          "completion_tokens": 309,
+          "total_tokens": 1934,
+          "cost": 0.00225036,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00225036,
+            "upstream_inference_prompt_cost": 0.000929385,
+            "upstream_inference_completions_cost": 0.001320975
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007248-BK2grsBRAcaQuHhP9flc",
+        "object": "chat.completion",
+        "created": 1795007248,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"When praised, the words do not easily enter the person's mind.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The claim that praised words do not easily enter the person's mind is directly supported by the profile statement '褒められても素直に受け取れない' (even if praised, cannot honestly accept it).\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The phrase 'どうせ私なんて' (What am I anyway) is currently coming to mind.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"If the person were to distance themselves from the voice of 'どうせ私なんて' (What am I anyway), what would that phrasing be like?\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question is hypothetical ('もし今「どうせ私なんて」という言葉が浮かんでいるなら' - If the phrase 'What am I anyway' is currently coming to mind). It presupposes that the phrase might be coming to mind, but does not assert it as a fact. Therefore, the presupposition itself is not an entailed claim. The question part is asking for a hypothetical action, not stating a current fact.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"When comparing oneself to others on SNS, the person experiences a different state than when they are able to refrain from comparing.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person compares themselves to others on SNS.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states 'SNSで他人と比べて落ち込むことが多い' (often feels down comparing oneself to others on SNS), which supports the claim that the person compares themselves to others on SNS. The question asks about the difference between states, implying these distinct states exist.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"There are moments when the person can be kind to themselves.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question asks about hypothetical moments ('自分にやさしくなれる瞬間があるとすれば' - If there are moments when one can be kind to oneself). It does not assert that such moments currently exist or are experienced by the person. It is an open-ended question seeking a possibility, not confirming a current state or habit.\"}, {\"id\": \"f\", \"claims\": [], \"reason\": \"This is a general suggestion or invitation for the user to perform an action, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1856,
+          "completion_tokens": 574,
+          "total_tokens": 2430,
+          "cost": 0.00032682,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 982,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00032682,
+            "upstream_inference_prompt_cost": 9.722e-05,
+            "upstream_inference_completions_cost": 0.0002296
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007251-9Ea2TRMRuvwIzj5Si7a3",
+        "object": "chat.completion",
+        "created": 1795007251,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が浮かんだとき、その裏側にはどんな気持ちがありますか？\",\"probability\":0.22,\"grounds\":[],\"presuppositions\":[{\"claim\":\"自分に「どうせ私なんて」と言ってしまうことがある\",\"span\":\"自分のことを「どうせ私なんて」と言ってしまう\"}]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし褒められた場面をひとつ思い出すなら、そのとき心の中では何が起きていましたか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"他人と比べなくていいとしたら、今日いちばん大切にしたいのはどんな時間ですか？\",\"probability\":0.16,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"人と比べてしまうことと、自分の価値が決まってしまうことは、同じではありません。\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ今、「どうせ私なんて」の代わりに口にする短い言葉をひとつ決めてみませんか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1625,
+          "completion_tokens": 285,
+          "total_tokens": 1910,
+          "cost": 0.00145464,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00145464,
+            "upstream_inference_prompt_cost": 0.000236265,
+            "upstream_inference_completions_cost": 0.001218375
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007258-eN4j3VBfjrfpumnWnvZ1",
+        "object": "chat.completion",
+        "created": 1795007258,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person sometimes says the words \\\"どうせ私なんて\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wonders what feelings lie behind the phrase \\\"どうせ私なんて\\\".\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claim about the person saying \\\"どうせ私なんて\\\" is directly supported by the profile. The question about the feelings behind it does not assert any specific feelings, thus it is not entailed.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person is asked to recall a situation where they were praised.\", \"profile_fields\": [], \"entailed\": false}, {\"claim\": \"The person is asked about what was happening in their mind during a praised situation.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is a hypothetical question. It presupposes the possibility of recalling a praised moment and asks about the internal state during that hypothetical moment, but the profile does not provide information about the person's internal reactions to praise, only that they cannot accept it easily. Therefore, no factual claims about the person are entailed.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is asked what kind of time they would like to cherish today if they didn't have to compare themselves to others.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is a hypothetical question. It does not assert that the person *is* comparing themselves to others today, nor does it assert what they would prioritize. It's a conditional exploration.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person is invited to decide on a short phrase to say instead of \\\"どうせ私なんて\\\".\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is an invitation or suggestion, not a factual claim about the person's current state or actions.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1804,
+          "completion_tokens": 423,
+          "total_tokens": 2227,
+          "cost": 0.00026131,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00026131,
+            "upstream_inference_prompt_cost": 9.211e-05,
+            "upstream_inference_completions_cost": 0.0001692
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wonders what feelings lie behind the phrase \\\"どうせ私なんて\\\".\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is asked to recall a situation where they were praised.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is asked about what was happening in their mind during a praised situation.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is asked what kind of time they would like to cherish today if they didn't have to compare themselves to others.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is invited to decide on a short phrase to say instead of \\\"どうせ私なんて\\\".\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

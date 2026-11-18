@@ -1,0 +1,9 @@
+{
+  "first_after_usage": "1.674412119",
+  "before_usage": "1.553190904",
+  "official_receipt_total": "0.137296970",
+  "settled_after_usage": "1.690487874",
+  "effect": "read_only",
+  "cause": "provider usage readback delayed relative to final model responses",
+  "action": "GET key again; no generation replay"
+}

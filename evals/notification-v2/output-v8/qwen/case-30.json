@@ -1,0 +1,209 @@
+{
+  "index": 30,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007345-0NhOHg2vY7LsEFBbmMTC",
+        "object": "chat.completion",
+        "created": 1795007345,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動か日記、今日ひとつだけ小さくやるとしたら何を選びますか？\",\"probability\":0.26,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし続けることを考えるなら、どんな形がいちばん負担が少なそうですか？\",\"probability\":0.22,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"三日坊主で終わってしまう流れの中で、いちばん変えてみたい部分はどこですか？\",\"probability\":0.18,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣は回数よりも、短くても繰り返せる形にしておくと続きやすくなります。\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、明日の分の運動か日記を「これならできる」と言える大きさまで縮めてみてください。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1564,
+          "completion_tokens": 259,
+          "total_tokens": 1823,
+          "cost": 0.001603125,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001603125,
+            "upstream_inference_prompt_cost": 0.0004959,
+            "upstream_inference_completions_cost": 0.001107225
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007352-Yc1GwspnwGuPFpJRyExd",
+        "object": "chat.completion",
+        "created": 1795007352,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person might choose to do either exercise or journaling today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person might choose to do one small thing today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question asks about a hypothetical choice between two explicitly mentioned habits (exercise or journaling) and a small action today, all of which are consistent with the profile's mention of wanting to make these habits a routine, even if they often fail (三日坊主).\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person is considering continuing habits.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is looking for a less burdensome way to continue habits.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question presupposes a consideration of continuing habits and seeks the least burdensome form, which aligns with the profile's stated desire to establish exercise and journaling as habits despite a tendency to give up. The 'if' makes the state hypothetical, but the consideration of continuation is implied.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person often gives up on habits after a few days.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to change something within the pattern of giving up on habits after a few days.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question directly addresses the '三日坊主' (giving up after a few days) pattern mentioned in the profile and asks about changing it.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person is considering the possibility of doing exercise tomorrow.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is considering the possibility of doing journaling tomorrow.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is considering reducing the size of a task to make it achievable.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question asks the user to hypothetically 'shrink' tomorrow's exercise or journaling to an achievable size. This presupposes the user is considering these habits and is open to strategies for making them manageable, which fits the profile's stated struggle with consistency.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1795,
+          "completion_tokens": 541,
+          "total_tokens": 2336,
+          "cost": 0.0003077,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0003077,
+            "upstream_inference_prompt_cost": 9.13e-05,
+            "upstream_inference_completions_cost": 0.0002164
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "00968cb2-7034-4abb-a55f-a42a39e4675b",
+    "decision_point_at": 1795007354.805234,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "focus",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "運動か日記、今日ひとつだけ小さくやるとしたら何を選びますか？",
+        "probability": 0.26,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もし続けることを考えるなら、どんな形がいちばん負担が少なそうですか？",
+        "probability": 0.22,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "三日坊主で終わってしまう流れの中で、いちばん変えてみたい部分はどこですか？",
+        "probability": 0.18,
+        "grounds": [
+          "profile_summary"
+        ],
+        "presuppositions": []
+      },
+      {
+        "id": "e",
+        "kind": "action",
+        "text": "よければ、明日の分の運動か日記を「これならできる」と言える大きさまで縮めてみてください。",
+        "probability": 0.1,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.24000000000000002,
+        "grounds": [],
+        "presuppositions": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "習慣は回数よりも、短くても繰り返せる形にしておくと続きやすくなります。",
+          "probability": 0.14,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "運動か日記、今日ひとつだけ小さくやるとしたら何を選びますか？",
+      "probability": 0.26,
+      "grounds": [],
+      "presuppositions": []
+    },
+    "assigned_probability": 0.26,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795009154.805234,
+    "observations": []
+  }
+}

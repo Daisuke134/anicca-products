@@ -1,0 +1,221 @@
+{
+  "index": 10,
+  "profile": "burnout",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007260-a6FvFKw8dEGABUgIcCws",
+        "object": "chat.completion",
+        "created": 1795007260,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、この時間に少しでも気持ちが楽になることがあるとしたら、どんなことですか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.24},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、今の気持ちをそのまま言葉にするとどんな感じですか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「何もしたくない」と「やらなきゃ」の間で揺れているとのことですが、今どちらの声をもう少し聞いてみたいですか？\",\"presuppositions\":[{\"claim\":\"本人が「何もしたくない気持ちとやらなきゃという焦りの間で揺れている」と述べている\",\"span\":\"何もしたくない気持ちと、やらなきゃという焦りの間で揺れている\"}],\"grounds\":[\"profile_summary\"],\"probability\":0.16},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうだけ少し長めにしてみる時間を、ここで一緒に取りませんか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.1},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"休めない時期には、まず何もしない数分を予定に入れておく方法もあります。\",\"grounds\":[],\"probability\":0.07},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"grounds\":[],\"probability\":0.25}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1667,
+          "completion_tokens": 286,
+          "total_tokens": 1953,
+          "cost": 0.002211885,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.002211885,
+            "upstream_inference_prompt_cost": 0.000989235,
+            "upstream_inference_completions_cost": 0.00122265
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007267-dNoqAYKn7bjsAUflWUIR",
+        "object": "chat.completion",
+        "created": 1795007267,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"There is something that would make the person feel slightly better at this time.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question is hypothetical and does not assert that there is something that would make the person feel better. The profile does not contain any information about what would make the person feel better.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person's current feelings can be put into words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states the person is '揺れている' (wavering) between '何もしたくない気持ち' (feeling like doing nothing) and 'やらなきゃという焦り' (anxiety of having to do things), which are current feelings that can be put into words.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is wavering between wanting to do nothing and needing to do something.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person might want to listen to the voice of wanting to do nothing more.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person might want to listen to the voice of needing to do something more.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile explicitly states the person is wavering between '何もしたくない気持ち' and 'やらなきゃという焦り'. The second part of the claim, suggesting which voice the person might want to listen to more, is not supported by the profile text and represents an invented motive.\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is a suggestion for an activity and does not contain any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1807,
+          "completion_tokens": 396,
+          "total_tokens": 2203,
+          "cost": 0.00025081,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00025081,
+            "upstream_inference_prompt_cost": 9.241e-05,
+            "upstream_inference_completions_cost": 0.0001584
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007269-z663nIjddt909xTmRuqK",
+        "object": "chat.completion",
+        "created": 1795007269,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、何もしない時間とやらなきゃという気持ちの間で揺れているとしたら、どちらが少し強いですか？\",\"probability\":0.28,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今日一日を振り返って、少しでもホッとできた瞬間はありましたか？\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜ほんの数分だけ自分の時間が取れるなら、何に使いたいですか？\",\"probability\":0.13,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"何もしたくない気持ちと、やらなきゃという焦りが同時にあるのは、めずらしいことではありません。\",\"probability\":0.15,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うより少し長くする呼吸を、数回だけ試してみませんか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1667,
+          "completion_tokens": 270,
+          "total_tokens": 1937,
+          "cost": 0.001450365,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001450365,
+            "upstream_inference_prompt_cost": 0.000296115,
+            "upstream_inference_completions_cost": 0.00115425
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007276-Z1vIrHYLAOslkN2IK731",
+        "object": "chat.completion",
+        "created": 1795007276,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is experiencing a state of揺れ (wavering/fluctuation) between \\\"doing nothing\\\" and the feeling of \\\"having to do it\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The question asks which of the two feelings, \\\"doing nothing\\\" or \\\"having to do it\\\", is slightly stronger at this moment.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claim about the person wavering between \\\"doing nothing\\\" and \\\"having to do it\\\" is directly supported by the profile. The second claim is not a personal factual claim about the person, but a part of the question being asked.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person hypothetically has a few minutes of personal time available tonight.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is an explicitly hypothetical scenario and not a statement of fact about the person's current situation or desires.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"Having feelings of \\\"wanting to do nothing\\\" and \\\"having to do it\\\" simultaneously is not unusual.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The statement that it is not unusual to have both feelings simultaneously is a general observation that aligns with the profile's description of the person wavering between these two states. It's a generalized comment about the person's stated feelings.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a suggestion or invitation for an action and does not contain any atomic factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1816,
+          "completion_tokens": 365,
+          "total_tokens": 2181,
+          "cost": 0.0003276,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0003276,
+            "upstream_inference_prompt_cost": 0.0001816,
+            "upstream_inference_completions_cost": 0.000146
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The question asks which of the two feelings, \\\"doing nothing\\\" or \\\"having to do it\\\", is slightly stronger at this moment.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person hypothetically has a few minutes of personal time available tonight.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

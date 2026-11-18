@@ -1,0 +1,221 @@
+{
+  "index": 31,
+  "profile": "habit_builder",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007352-Q54N7K5sDAPfE09S744N",
+        "object": "chat.completion",
+        "created": 1795007352,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"もし今、運動か日記のどちらかをほんの一歩だけ小さくするなら、どんな形にしてみたいですか？\",\"probability\":0.26,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「これなら続けられそう」と思える大きさって、今のあなたにはどれくらいですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"大きな目標を立てたとき、最初にハードルになるのはどの部分でしょうか？\",\"probability\":0.14,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"運動と日記を習慣にしたいけれど三日坊主で終わりやすい、というのが今の悩みなんですね。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"習慣づくりでは、量を減らして回数を重ねる設計のほうが続きやすいと言われています。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ、明日やる一歩を「1分だけ」の大きさに書き出してみてください。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1563,
+          "completion_tokens": 294,
+          "total_tokens": 1857,
+          "cost": 0.001751325,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001751325,
+            "upstream_inference_prompt_cost": 0.000494475,
+            "upstream_inference_completions_cost": 0.00125685
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007360-89JsZbCE3DQ0Gr9dVpyD",
+        "object": "chat.completion",
+        "created": 1795007360,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is considering starting either exercise or journaling with a very small first step.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person wants to make either exercise or journaling a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text is a hypothetical question about a desired action. It presupposes a desire to engage in either exercise or journaling in a small way. The desire to make them habits is explicitly stated.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person has a perception of what size of action is sustainable.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This question asks about the person's current perception of sustainable action size, which is not explicitly stated in the profile.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person has set large goals.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person experiences difficulty with the initial stage of setting large goals.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states the person sets large goals and often fails, implying the initial stage is a hurdle.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person wants to make exercise a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to make journaling a habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person tends to stop engaging in habits after a short period.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"This is a direct rephrasing of the profile information.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"The person is invited to write down a small action for tomorrow of \\\"1 minute\\\" duration.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is an invitation and instruction, not a statement of fact about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1835,
+          "completion_tokens": 471,
+          "total_tokens": 2306,
+          "cost": 0.00028361,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00028361,
+            "upstream_inference_prompt_cost": 9.521e-05,
+            "upstream_inference_completions_cost": 0.0001884
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007362-sxQmLRDK6nCOTQOfpK0g",
+        "object": "chat.completion",
+        "created": 1795007362,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"運動と日記、もし続けるならどんな小さな形にしてみたいですか？\",\"probability\":0.28,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"大きな目標を振り返るとき、今どんなことが気になっていますか？\",\"probability\":0.22,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜ひとつだけ何かを試せるなら、何を選んでみたいですか？\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"習慣は大きさより、毎日できる小ささに寄せると続けやすくなります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"三日坊主という言葉には、続けたい気持ちが隠れていることもあります。\",\"probability\":0.06,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1563,
+          "completion_tokens": 219,
+          "total_tokens": 1782,
+          "cost": 0.00108414,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00108414,
+            "upstream_inference_prompt_cost": 0.000147915,
+            "upstream_inference_completions_cost": 0.000936225
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007368-Am9ZdJYFY7PX4N21cmva",
+        "object": "chat.completion",
+        "created": 1795007368,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person wants to make exercise and diary into habits.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often quits within three days.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person sets big goals and often fails.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is considering what small form exercise and diary could take if they were to continue them.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claim about considering small forms of exercise and diary is not supported by the profile text. The rest of the claims are directly supported.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person sets big goals and often fails.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"When reflecting on big goals, the person is currently concerned about something.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claim about current concerns when reflecting on big goals is not supported. The claim about setting and failing big goals is supported.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person sets big goals and often fails.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"If the person could try one thing tonight, they are considering what they would choose.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claim about considering what to choose tonight is not supported by the profile text. The claim about setting and failing big goals is supported.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1742,
+          "completion_tokens": 367,
+          "total_tokens": 2109,
+          "cost": 0.00023289,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 979,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00023289,
+            "upstream_inference_prompt_cost": 8.609e-05,
+            "upstream_inference_completions_cost": 0.0001468
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is considering what small form exercise and diary could take if they were to continue them.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"When reflecting on big goals, the person is currently concerned about something.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"If the person could try one thing tonight, they are considering what they would choose.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

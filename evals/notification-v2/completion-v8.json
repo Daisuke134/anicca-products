@@ -1,0 +1,16 @@
+{
+  "review": {
+    "total": 37,
+    "failures": 1,
+    "fabrications": 1,
+    "japanese": 0,
+    "tone": 0,
+    "fail_rate": "0.02702702702702702702702702703",
+    "verdict": "NO-GO"
+  },
+  "receipt_count": 118,
+  "cost_usd": "0.137296970",
+  "key_usage_delta_usd": "0.137296970",
+  "total_credits_unchanged": true,
+  "question_count_violations": 0
+}

@@ -1,0 +1,357 @@
+{
+  "counts": {
+    "semantic_rejection": 44,
+    "accepted": 10,
+    "json_schema_rejection": 4
+  },
+  "rows": [
+    {
+      "case": 1,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person feels a need for a certain type of time in their current state.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"It is hypothetically possible for the person to have a few minutes of time available today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person wants to deal with something first today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person might feel slightly better if they spend time in a certain way when their thoughts continue at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person is being invited to try breathing in a way that is slightly longer than exhaling.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 2,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current time is night.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"A specific past situation (work failure or misspoken word) may reoccur tonight.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is seeking ways to feel slightly better if a past situation recurs.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is looking for methods to rest their mind before sleep.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person has identified a specific need for a certain type of time tonight.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 2,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"the person is currently thinking about something\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"the person wants to spend tonight a little more peacefully\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"the person is able to try a way to spend tonight more peacefully\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"f\", \"claim\": {\"claim\": \"replaying the same scenes many times at night tends to be a painful time\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"When thoughts stop, the person wants to spend time in a certain way.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person wants to calm down.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is looking for a way to spend time that suits them when they want to calm down.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 3,
+      "attempt": 2,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "result": "json_schema_rejection",
+      "error": "Extra data: line 12 column 1 (char 1282)"
+    },
+    {
+      "case": 4,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current feelings can be described in words.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person might have some quiet time tonight.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is interested in how to engage with themselves when ruminating at night.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is being asked what words they would like to say to themselves this morning.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"f\", \"claim\": {\"claim\": \"The person is being invited to write a single kind word for themselves today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"When the phrase 'どうせ私なんて' comes to mind, there are feelings behind it.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person has been praised before.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"If the person recalls one praised instance, they had internal thoughts at that time.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "result": "json_schema_rejection",
+      "error": "Extra data: line 11 column 1 (char 1023)"
+    },
+    {
+      "case": 6,
+      "attempt": 2,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The phrase 'どうせ私なんて' (What am I anyway) is currently coming to mind.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"If the person were to distance themselves from the voice of 'どうせ私なんて' (What am I anyway), what would that phrasing be like?\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"There are moments when the person can be kind to themselves.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 7,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wonders what feelings lie behind the phrase \\\"どうせ私なんて\\\".\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is asked to recall a situation where they were praised.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is asked about what was happening in their mind during a praised situation.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is asked what kind of time they would like to cherish today if they didn't have to compare themselves to others.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is invited to decide on a short phrase to say instead of \\\"どうせ私なんて\\\".\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is currently experiencing feelings that they wish to express in words.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person tends to say \\\"どうせ私なんて\\\" when comparing themselves to others on social media.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person experiences moments where words of praise do not seem to resonate or stay with them.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person has a little time to rest now.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person wants to listen to the voice of 'not wanting to do anything' first.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is currently in the morning.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"There is something that would make the person feel slightly better at this time.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person might want to listen to the voice of wanting to do nothing more.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person might want to listen to the voice of needing to do something more.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 11,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The question asks which of the two feelings, \\\"doing nothing\\\" or \\\"having to do it\\\", is slightly stronger at this moment.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person hypothetically has a few minutes of personal time available tonight.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is currently being asked how they would like to spend a hypothetical small amount of free time.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is being asked which of these two feelings they would prefer to acknowledge first.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is being asked whether their body or mind feels more unrested when fatigued on holidays.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 12,
+      "attempt": 2,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is considering how they would describe this morning's mood using weather or colors.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is contemplating how to spend the day to feel a little better.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is being invited to try a simple breathing exercise.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current mood can be likened to weather or color.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current mood at this moment can be put into words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is spending their day in a particular way.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"f\", \"claim\": {\"claim\": \"It is painful for the person to have more days where they feel down.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"f\", \"claim\": {\"claim\": \"It is painful for the person to find it hard to get interested in things they used to like.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 14,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"d\", \"claim\": {\"claim\": \"There are times when the person feels a little lighter.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current mood is what the most fitting word describes.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"If the person spends tonight doing nothing, they will choose a way of spending time that is least burdensome.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 15,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"c\", \"claim\": {\"claim\": \"The person might have some free time tonight.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person might feel a little better by doing something.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is in a situation where they can feel confident about themselves.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"There is a moment today where the person's feelings can calm down a bit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person can write down one thing today that represents growth compared to their past self.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 17,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"There is something that needs to be dealt with first today.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"A state of being able to say 'I have confidence' exists.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "result": "json_schema_rejection",
+      "error": "Extra data: line 2 column 1 (char 1704)"
+    },
+    {
+      "case": 18,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is experiencing moments that feel like \\\"confidence\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person might have had an interview where they communicated well.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is considering what words to say to themselves after receiving a rejection notice.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person might be able to create some time after this.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person might want to work on something within their job search.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is currently thinking about a scene related to \\\"confidence\\\".\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person has a feeling closest to their heart right now.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 19,
+      "attempt": 2,
+      "result": "json_schema_rejection",
+      "error": "Extra data: line 2 column 1 (char 1063)"
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is considering a situation when they can feel confident in themselves.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person sometimes has nights where interview anxiety is strong.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is asked to share one recent event that moved them the most.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to complete something first today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 21,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to finish something first among today's tasks.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person has a habit of placing their smartphone within reach while working at their desk.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to know which of today's tasks the user wants to complete first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"There is a task that needs to be completed today, and the person wants to complete it first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person can create a short period of time for focused work later.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person might be able to create 30 minutes of focused time tomorrow.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person might be able to take one small step immediately.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 24,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to complete one of today's tasks first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current feeling is being sought.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person might have time to feel calm today.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 25,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person's head is more active than their sleepiness.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person has a schedule for today.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is considering how to spend the time before sleep tonight in a more peaceful way.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is considering expressing what comes to mind about tomorrow's schedule.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is considering trying something to cope with their mind racing at night before sleeping.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 26,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person wants to make the time before sleeping tonight more comfortable.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is willing to try some tricks.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is looking for a way to calm down if their thoughts start racing again tonight.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person is being invited to try a breathing exercise.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"d\", \"claim\": {\"claim\": \"Some people can calm down by writing down their to-do list, and the person is being asked if they want to try it.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 27,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"いちばん引っかかっている予定がある\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"the person is willing to express their current feelings\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"the person can spend the time after tonight in a way that feels most comfortable\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"the person can try breathing with exhales slightly longer than inhales a few times\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"If the person were to make exercise a habit, what would be an appropriate reduction of the initial hurdle?\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"When journaling failed to continue, what part was felt as the biggest burden?\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"If the person were to try something small today, what would they choose?\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"f\", \"claim\": {\"claim\": \"If it's okay, let's decide on just the first minute of exercise.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 29,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is willing to try one small thing today if given the opportunity.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is seeking ways to make habits easier to maintain.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is being asked to write down an action for today that takes only one minute.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is being asked to state their top priority task for today.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is being asked about a hypothetical situation where they can create a short period of focus after this.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is being asked what they think is the biggest hurdle in continuing to exercise or keep a diary.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is being asked to write just one line in today's diary entry.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 30,
+      "attempt": 2,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "result": "accepted",
+      "error": null
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is considering starting either exercise or journaling with a very small first step.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person has a perception of what size of action is sustainable.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"f\", \"claim\": {\"claim\": \"The person is invited to write down a small action for tomorrow of \\\"1 minute\\\" duration.\", \"profile_fields\": [], \"entailed\": false}}]"
+    },
+    {
+      "case": 32,
+      "attempt": 2,
+      "result": "semantic_rejection",
+      "error": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is considering what small form exercise and diary could take if they were to continue them.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"When reflecting on big goals, the person is currently concerned about something.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"If the person could try one thing tonight, they are considering what they would choose.\", \"profile_fields\": [], \"entailed\": false}}]"
+    }
+  ]
+}

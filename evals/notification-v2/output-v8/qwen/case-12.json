@@ -1,0 +1,221 @@
+{
+  "index": 12,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007268-8911jBqTWbEQMvqAETBv",
+        "object": "chat.completion",
+        "created": 1795007268,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の気分を、天気や色でたとえるとしたらどんな感じですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近の一日について少し話してみませんか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日はどんなふうに過ごせたら、少しでも楽だと感じられそうですか？\",\"probability\":0.17,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日が続くと、朝を迎えること自体が重く感じられることもありますよね。\",\"probability\":0.15,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長めにして、一呼吸だけゆっくり試してみてください。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1597,
+          "completion_tokens": 242,
+          "total_tokens": 1839,
+          "cost": 0.001577475,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001577475,
+            "upstream_inference_prompt_cost": 0.000542925,
+            "upstream_inference_completions_cost": 0.00103455
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007275-fj2ca7eu3loAw0nrhlpU",
+        "object": "chat.completion",
+        "created": 1795007275,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is considering how they would describe this morning's mood using weather or colors.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is a hypothetical question asking for a metaphorical description, not a statement of fact about the person's current state or actions.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is contemplating how to spend the day to feel a little better.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is a hypothetical question about desired future actions, not a statement of current fact.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person has been experiencing days where their mood is generally low.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"When days of general low mood continue, the act of facing the morning itself can feel burdensome.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text directly reflects the profile summary's statement about increased low mood days and the difficulty waking up.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person is being invited to try a simple breathing exercise.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is an instructional suggestion, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1803,
+          "completion_tokens": 300,
+          "total_tokens": 2103,
+          "cost": 0.00021201,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00021201,
+            "upstream_inference_prompt_cost": 9.201e-05,
+            "upstream_inference_completions_cost": 0.00012
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007277-qNXUDav253gaCd8uZdPF",
+        "object": "chat.completion",
+        "created": 1795007277,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の気分を、天気や色でたとえるとしたらどんな感じですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近いちばん気がかりなことを聞かせてもらえますか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今日ひとつだけ自分にゆるしてあげられることがあるとしたら、何にしますか？\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとってみませんか。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みには波があって、調子の出ない時期がずっと続くとは限りません。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"なんとなく沈む日が続くと、その重さは言葉にしにくいものですよね。\",\"probability\":0.05,\"grounds\":[\"profile_summary\"]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1597,
+          "completion_tokens": 291,
+          "total_tokens": 1888,
+          "cost": 0.00144039,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00144039,
+            "upstream_inference_prompt_cost": 0.000196365,
+            "upstream_inference_completions_cost": 0.001244025
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007287-TJDo97CvYllhbd1aWHb2",
+        "object": "chat.completion",
+        "created": 1795007287,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person's current mood can be likened to weather or color.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question is hypothetical and does not assert a current mood, nor does the profile provide information to support such a claim.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person has something that is recently most concerning.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states that the person has 'recently more days where they feel vaguely down', implying there is something concerning.\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is an impersonal suggestion or instruction and does not contain any atomic factual claims about the person.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"Days of vague sadness are difficult to put into words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states that the person has 'recently more days where they feel vaguely down', which supports the claim that such feelings are difficult to put into words.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1790,
+          "completion_tokens": 250,
+          "total_tokens": 2040,
+          "cost": 0.0001908,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001908,
+            "upstream_inference_prompt_cost": 9.08e-05,
+            "upstream_inference_completions_cost": 0.0001
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current mood can be likened to weather or color.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

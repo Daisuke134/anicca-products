@@ -1,0 +1,326 @@
+{
+  "index": 0,
+  "profile": "rumination",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007222-kWhqS19VWQ9DE2lIVMmn",
+        "object": "chat.completion",
+        "created": 1795007222,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の自分に必要だと感じるのは、どんな時間ですか？\",\"probability\":0.25,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、今日いちばん先に片づけたいことは何ですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"夜に考えが続きやすいとき、どんなふうに過ごせると少し楽になりそうですか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとってみませんか。\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだことは紙に書き出すと、頭の中だけで回し続けるより整理しやすくなることがあります。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1606,
+          "completion_tokens": 253,
+          "total_tokens": 1859,
+          "cost": 0.003370125,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003370125,
+            "upstream_inference_prompt_cost": 0.00228855,
+            "upstream_inference_completions_cost": 0.001081575
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007227-N5xIQk4ExrNnQeLMcjUR",
+        "object": "chat.completion",
+        "created": 1795007227,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is 32 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is an office worker.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"At night, the person repeatedly thinks back on work failures.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"At night, the person repeatedly thinks back on misspoken words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's thoughts often continue without stopping.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often cannot sleep due to racing thoughts.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person feels a need for a certain type of time in their current state.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The claim about the type of time needed is not supported by the profile.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person is 32 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is an office worker.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"It is hypothetically possible for the person to have a few minutes of time available today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person wants to deal with something first today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The text poses a hypothetical situation about what the person might want to do first today. The profile does not confirm they have time or a specific priority for today.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is 32 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is an office worker.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"At night, the person's thoughts tend to continue.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person might feel slightly better if they spend time in a certain way when their thoughts continue at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile confirms the tendency for thoughts to continue at night, but the suggestion for how to feel better is not a factual claim about the person or something entailed by the profile.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person is 32 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is an office worker.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is being invited to try breathing in a way that is slightly longer than exhaling.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This is an invitation or suggestion, not a factual claim about the person, and the specific breathing technique is not mentioned in the profile.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1783,
+          "completion_tokens": 731,
+          "total_tokens": 2514,
+          "cost": 0.0004707,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0004707,
+            "upstream_inference_prompt_cost": 0.0001783,
+            "upstream_inference_completions_cost": 0.0002924
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007230-ux8Zv4pAqkt7zp8i9plj",
+        "object": "chat.completion",
+        "created": 1795007230,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の自分に、どんなペースで過ごしてほしいですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、今日いちばん大切にしたいことは何ですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"夜に同じ場面が浮かんでくる時、いちばん引っかかっているのはどの部分でしょうか？\",\"probability\":0.14,\"grounds\":[\"profile_summary\"],\"presuppositions\":[{\"claim\":\"夜に仕事の失敗や言い間違えた一言を何度も思い返してしまう\",\"span\":\"夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう\"}]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くとる呼吸を、三回だけ試してみませんか？\",\"probability\":0.13,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだ考えは、頭の中で回すより紙に書き出すと整理しやすくなることがあります。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"朝の静かな時間は、それだけで気持ちが整いやすいことがあります。\",\"probability\":0.05,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1606,
+          "completion_tokens": 335,
+          "total_tokens": 1941,
+          "cost": 0.001987875,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001987875,
+            "upstream_inference_prompt_cost": 0.00055575,
+            "upstream_inference_completions_cost": 0.001432125
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007237-BGwmxRTOQjhkJYUcVqoC",
+        "object": "chat.completion",
+        "created": 1795007237,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a hypothetical question about desired pace, not a factual claim about the person. The profile does not mention anything about the person's desired pace for the morning.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is an explicit hypothetical question ('If you could, what would you like to cherish most today?'). It does not make a factual claim about the person's current priorities or desires.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person recalls the same scenes repeatedly at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person replays scenes from work failures at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person replays scenes of misspoken words at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's thoughts do not stop.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person often cannot sleep due to racing thoughts.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question directly asks about explicitly stated aspects of the person's experience: recalling scenes at night, specific types of scenes (work failures, misspoken words), racing thoughts preventing sleep, and frequent sleeplessness. These are all factual claims entailed by the profile summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1753,
+          "completion_tokens": 323,
+          "total_tokens": 2076,
+          "cost": 0.0003045,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0003045,
+            "upstream_inference_prompt_cost": 0.0001753,
+            "upstream_inference_completions_cost": 0.0001292
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "e9298505-a6c2-4906-bf1d-449134c15d1d",
+    "decision_point_at": 1795007238.974608,
+    "context": {
+      "time_band": "morning",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "07:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝の自分に、どんなペースで過ごしてほしいですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、今日いちばん大切にしたいことは何ですか？",
+        "probability": 0.18,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "夜に同じ場面が浮かんでくる時、いちばん引っかかっているのはどの部分でしょうか？",
+        "probability": 0.14,
+        "grounds": [
+          "profile_summary"
+        ],
+        "presuppositions": [
+          {
+            "claim": "夜に仕事の失敗や言い間違えた一言を何度も思い返してしまう",
+            "span": "夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう"
+          }
+        ]
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.48000000000000004,
+        "grounds": [],
+        "presuppositions": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "d",
+          "kind": "breathing",
+          "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を、三回だけ試してみませんか？",
+          "probability": 0.13,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭に浮かんだ考えは、頭の中で回すより紙に書き出すと整理しやすくなることがあります。",
+          "probability": 0.1,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "candidate": {
+          "id": "f",
+          "kind": "reflection",
+          "text": "朝の静かな時間は、それだけで気持ちが整いやすいことがあります。",
+          "probability": 0.05,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の自分に、どんなペースで過ごしてほしいですか？",
+      "probability": 0.2,
+      "grounds": [],
+      "presuppositions": []
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795009038.974608,
+    "observations": []
+  }
+}

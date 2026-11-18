@@ -1,0 +1,221 @@
+{
+  "index": 24,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007322-U1YPVJnPZy6WnX7gNf5M",
+        "object": "chat.completion",
+        "created": 1795007322,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気分を言葉にするなら、どんな言葉が近いでしょうか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、ゆっくり息を吐くところから始めてみませんか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日、少しでも気持ちが落ち着く時間があるとすれば、どんな過ごし方でしょうか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"息を吸うより吐く方を少し長めにすると、切り替えのきっかけになることがあります。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだ予定は、紙やメモに書き出すと頭の負担を減らせることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1567,
+          "completion_tokens": 233,
+          "total_tokens": 1800,
+          "cost": 0.00149625,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00149625,
+            "upstream_inference_prompt_cost": 0.000500175,
+            "upstream_inference_completions_cost": 0.000996075
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007327-rtvE749JoJjNfrxbwQo0",
+        "object": "chat.completion",
+        "created": 1795007327,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person's current feeling is being sought.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question asks about the person's current feeling but the profile does not contain information about their current feeling.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a suggestion for an action, not a factual claim about the person.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person might have time to feel calm today.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This is a hypothetical question about how the person might spend their time if they had a moment to feel calm. The profile does not state that they will have such time.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1744,
+          "completion_tokens": 169,
+          "total_tokens": 1913,
+          "cost": 0.00015389,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 979,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00015389,
+            "upstream_inference_prompt_cost": 8.629e-05,
+            "upstream_inference_completions_cost": 6.76e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007329-j9GdW438rHRicPLaGd6m",
+        "object": "chat.completion",
+        "created": 1795007329,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"明日の予定について、頭の中で回っているものを紙に書き出すとしたら、何から書きますか？\",\"probability\":0.24,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今も眠気より頭の動きの方が強いなら、どんなふうに過ごせたら少し楽になりそうですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日の時間の使い方として、いちばん先に決めておきたいことは何ですか？\",\"probability\":0.16,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くとる呼吸を、数回だけ試してみませんか。\",\"probability\":0.12,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"眠れない時間に時計を見続けるより、いったん起きて静かなことをしてから戻る方法もあります。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1567,
+          "completion_tokens": 256,
+          "total_tokens": 1823,
+          "cost": 0.001248015,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001248015,
+            "upstream_inference_prompt_cost": 0.000153615,
+            "upstream_inference_completions_cost": 0.0010944
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007336-kXxwNVYoBgFXnT2JlBUc",
+        "object": "chat.completion",
+        "created": 1795007336,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"b\", \"claims\": [{\"claim\": \"The person experiences sleep onset insomnia, taking over an hour to fall asleep after getting into bed.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's mind races with tomorrow's schedule, preventing sleep.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's head is more active than their sleepiness.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claim that the person's head is more active than their sleepiness is not entailed by the profile text. The text states that their mind races with tomorrow's schedule preventing sleep, which implies a struggle with sleep due to mental activity, but it does not explicitly state that the head activity is currently stronger than sleepiness. The question presupposes this state ('if head activity is stronger than sleepiness'), but the profile doesn't confirm it as a current, absolute state.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person has a schedule for today.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question asks about the person's priorities for today's time usage, but the profile does not contain information about the person's schedule for today. The claim that the person has a schedule for today is a presupposition of the question that is not supported by the provided profile.\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is a suggestion for a breathing exercise and does not contain any atomic factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1765,
+          "completion_tokens": 347,
+          "total_tokens": 2112,
+          "cost": 0.0002271,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002271,
+            "upstream_inference_prompt_cost": 8.83e-05,
+            "upstream_inference_completions_cost": 0.0001388
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person's head is more active than their sleepiness.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person has a schedule for today.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

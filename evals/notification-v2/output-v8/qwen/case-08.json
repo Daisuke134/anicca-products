@@ -1,0 +1,221 @@
+{
+  "index": 8,
+  "profile": "burnout",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007256-Dt17F8V23bB5F104EEGu",
+        "object": "chat.completion",
+        "created": 1795007256,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝、いちばん気になっていることは何ですか？\",\"probability\":0.28,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今、少しだけ休める時間があるとしたら、どんな過ごし方がいちばん楽に感じられそうですか？\",\"probability\":0.22,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「何もしたくない」気持ちと焦りの間で揺れているとき、どちらの声を先に聞いてあげたいですか？\",\"probability\":0.14,\"grounds\":[\"profile_summary\"],\"presuppositions\":[{\"claim\":\"何もしたくない気持ちとやらなきゃという焦りの間で揺れている\",\"span\":\"何もしたくない気持ちと、やらなきゃという焦りの間で揺れている\"}]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くしてみてください。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"休めていないときに「動けない」と感じるのは、心と体が自然に出すサインのひとつです。\",\"probability\":0.06,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1667,
+          "completion_tokens": 280,
+          "total_tokens": 1947,
+          "cost": 0.001839675,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001839675,
+            "upstream_inference_prompt_cost": 0.000642675,
+            "upstream_inference_completions_cost": 0.001197
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007263-unov1aH08FDzcfpgN7US",
+        "object": "chat.completion",
+        "created": 1795007263,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"b\", \"claims\": [{\"claim\": \"The person has a little time to rest now.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text presents a hypothetical situation ('If you had a little time to rest now'). It does not assert that the person currently has such time. Therefore, the claim that 'The person has a little time to rest now' is not entailed by the profile text alone.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is wavering between the feeling of 'not wanting to do anything' and impatience.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person wants to listen to the voice of 'not wanting to do anything' first.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claim that 'The person is wavering between the feeling of \\\"not wanting to do anything\\\" and impatience' is directly supported by the profile summary. However, the claim that 'The person wants to listen to the voice of \\\"not wanting to do anything\\\" first' is not supported. The text asks which voice the person would *prefer* to listen to first in that state, which is a hypothetical question about a potential preference, not an assertion of an existing desire or a current action. Therefore, the set of claims is not fully entailed.\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This text is advice/instruction ('If you like, try exhaling a little longer than inhaling') and does not make any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1774,
+          "completion_tokens": 340,
+          "total_tokens": 2114,
+          "cost": 0.0002252,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002252,
+            "upstream_inference_prompt_cost": 8.92e-05,
+            "upstream_inference_completions_cost": 0.000136
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007266-X19cafrdRaZd9lnXt6t2",
+        "object": "chat.completion",
+        "created": 1795007266,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の自分に、いちばん必要だと感じるのはどんな時間ですか？\",\"probability\":0.25,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今、ほんの数分だけ自分のために使えるとしたら、何に使いたいですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が少し大きいですか？\",\"probability\":0.15,\"grounds\":[\"profile_summary\"],\"presuppositions\":[{\"claim\":\"「何もしたくない」と「やらなきゃ」の間で揺れている\",\"span\":\"何もしたくない気持ちと、やらなきゃという焦りの間で揺れている\"}]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うより少し長くして、一度だけ呼吸してみましょう。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"休めていない時期には、休息そのものを予定のひとつとして扱う方法もあります。\",\"probability\":0.05,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1667,
+          "completion_tokens": 283,
+          "total_tokens": 1950,
+          "cost": 0.0035853,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0035853,
+            "upstream_inference_prompt_cost": 0.002375475,
+            "upstream_inference_completions_cost": 0.001209825
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007275-6OWx0UbvaanmuMnwauG5",
+        "object": "chat.completion",
+        "created": 1795007275,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is a nurse.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is 38 years old.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has little time to rest due to work and childcare.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's fatigue does not go away even on days off.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is wavering between wanting to do nothing and feeling the urgency to do things.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is currently in the morning.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text asks about a time slot that is not explicitly stated in the profile.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is wavering between wanting to do nothing and feeling the urgency to do things.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is currently feeling the voice of 'wanting to do nothing' or 'having to do it'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question asks about the relative strength of two explicitly stated feelings.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1735,
+          "completion_tokens": 325,
+          "total_tokens": 2060,
+          "cost": 0.00021539,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 979,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00021539,
+            "upstream_inference_prompt_cost": 8.539e-05,
+            "upstream_inference_completions_cost": 0.00013
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is currently in the morning.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

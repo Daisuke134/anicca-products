@@ -1,0 +1,579 @@
+{
+  "reviewer": "Mac Codex primary full-text reading; AI judgment, not independent human review",
+  "rows": [
+    {
+      "case": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今朝の自分に、どんなペースで過ごしてほしいですか？",
+      "probability": 0.2,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "希望する朝のペースを尋ね、現在の特定状態を断定しない。"
+    },
+    {
+      "case": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もしよければ、今日いちばん大切にしたいことは何ですか？",
+      "probability": 0.18,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "優先したい事柄の開いた質問。v7の優先順位較正を維持する。"
+    },
+    {
+      "case": 1,
+      "profile": "rumination",
+      "slot": "07:30",
+      "id": "c",
+      "kind": "question",
+      "text": "夜に同じ場面が浮かんでくる時、いちばん引っかかっているのはどの部分でしょうか？",
+      "probability": 0.14,
+      "grounds": [
+        "profile_summary"
+      ],
+      "presuppositions": [
+        {
+          "claim": "夜に仕事の失敗や言い間違えた一言を何度も思い返してしまう",
+          "span": "夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう"
+        }
+      ],
+      "status": "PASS",
+      "categories": [],
+      "reason": "profileの夜の反すう傾向を「時」の質問にし、今反すう中とはしない。"
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今夜を少しでも穏やかに過ごすとしたら、どんな過ごし方が合いそうですか？",
+      "probability": 0.2,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "今夜の過ごし方自体を仮定する。"
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし今また考えが巡り始めているなら、その中でいちばん大きく残っているのは何ですか？",
+      "probability": 0.15,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "考えが巡り始める状態そのものを「もし〜なら」で仮定する。"
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "眠る前の時間に、いま試してみたいことはありますか？",
+      "probability": 0.12,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "試したいことの有無を尋ね、現在の不眠や就床を断定しない。"
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "夜に同じ場面を何度も思い返して眠れない日が続くと、それだけで消耗しますよね。",
+      "probability": 0.13,
+      "grounds": [
+        "profile_summary"
+      ],
+      "status": "PASS",
+      "categories": [],
+      "reason": "眠れない日が続く場合の一般的な負担のreflectionと読む。今の身体消耗の断定とは読まない境界例。"
+    },
+    {
+      "case": 3,
+      "profile": "rumination",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息を吐く方を吸う方より少し長くとって、数回だけ呼吸を味わってみませんか？",
+      "probability": 0.08,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "任意の呼吸の提案。本人の現在の呼吸や過去行動を断定しない。"
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てきたとき、その裏にどんな気持ちがあるか、少し言葉にしてみますか？",
+      "probability": 0.2,
+      "grounds": [],
+      "presuppositions": [
+        {
+          "claim": "自分に「どうせ私なんて」と言ってしまうことがある",
+          "span": "自分のことを「どうせ私なんて」と言ってしまう"
+        }
+      ],
+      "status": "PASS",
+      "categories": [],
+      "reason": "明記された自己否定発言の傾向に対する気持ちの質問。未提供の動機を答えとして断定しない。"
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし褒められた場面をひとつ思い出すなら、そのとき心の中で何が起きているでしょうか？",
+      "probability": 0.18,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "褒められた場面を思い出す仮定。褒められること自体もprofile範囲内。"
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "他人と比べてしまう癖について、いま一番知りたいことは何ですか？",
+      "probability": 0.15,
+      "grounds": [],
+      "presuppositions": [
+        {
+          "claim": "SNSで他人と比べて落ち込むことが多い",
+          "span": "SNSで他人と比べて落ち込むことが多い"
+        }
+      ],
+      "status": "PASS",
+      "categories": [],
+      "reason": "比較傾向は明記済み。知りたいことを開いて尋ねる。"
+    },
+    {
+      "case": 6,
+      "profile": "low_self_esteem",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "question",
+      "text": "今日、自分に対して少しでも優しい言葉をかけるなら、どんな言葉を選びたいですか？",
+      "probability": 0.17,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "優しい言葉をかける行動を仮定する。"
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと数分だけ自分の時間が取れるなら、何に使いたいですか？",
+      "probability": 0.18,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "自分の時間が取れること自体を明示仮定にする。"
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "c",
+      "kind": "question",
+      "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が先に聞こえてきますか？",
+      "probability": 0.14,
+      "grounds": [
+        "profile_summary"
+      ],
+      "presuppositions": [
+        {
+          "claim": "何もしたくない気持ちと焦りの間で揺れている",
+          "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+        }
+      ],
+      "status": "PASS",
+      "categories": [],
+      "reason": "profileに明記された継続的な二つの気持ちへの質問。"
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "d",
+      "kind": "question",
+      "text": "休日に疲れが残るとき、体と心のどちらがより重く感じられますか？",
+      "probability": 0.13,
+      "grounds": [
+        "profile_summary"
+      ],
+      "presuppositions": [
+        {
+          "claim": "休日でも疲れが取れない",
+          "span": "休日も疲れが取れない"
+        }
+      ],
+      "status": "PASS",
+      "categories": [],
+      "reason": "明記された休日の疲れを条件に感覚を聞く。特定の現在の心身状態を答えとして断定しない。"
+    },
+    {
+      "case": 10,
+      "profile": "burnout",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "breathing",
+      "text": "よければ、息を吐く方を吸う方より少し長くして、三呼吸だけ試してみませんか？",
+      "probability": 0.1,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "三呼吸は提案回数で、本人の過去数量ではない。"
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし今夜少しでも自分のための時間が取れるなら、何に使ってみたいですか？",
+      "probability": 0.18,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "自分の時間が取れること自体を明示仮定にする。"
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声を先に聞いてあげたいですか？",
+      "probability": 0.16,
+      "grounds": [
+        "profile_summary"
+      ],
+      "presuppositions": [
+        {
+          "claim": "「何もしたくない」気持ちと「やらなきゃ」という焦りの間で揺れている",
+          "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+        }
+      ],
+      "status": "PASS",
+      "categories": [],
+      "reason": "明記された二つの気持ちへの対応方針を尋ねる。"
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "reflection",
+      "text": "休む時間がないまま日々を回していると、休日だけでは疲れが抜けきらないこともあります。",
+      "probability": 0.1,
+      "grounds": [
+        "profile_summary"
+      ],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "休む時間と休日の疲れは明記済み。一般的条件文としてのreflection。"
+    },
+    {
+      "case": 12,
+      "profile": "burnout",
+      "slot": "22:30",
+      "id": "f",
+      "kind": "teaching",
+      "text": "「何もしたくない」と「やらなきゃ」が同時にある状態は、どちらかを消してから動く必要はない、という考え方もあります。",
+      "probability": 0.07,
+      "grounds": [
+        "profile_summary"
+      ],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "明記された二つの気持ちについて一般的な考え方を提示する。"
+    },
+    {
+      "case": 16,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "もしよければ、今の気分を言葉にするとどんな感じですか？",
+      "probability": 0.24,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "気分の開いた質問。現在の気分低下や具体的な気がかりを前提化しない。"
+    },
+    {
+      "case": 16,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "この時間に少しでも気持ちが楽になることがあるとしたら、それはどんなことですか？",
+      "probability": 0.18,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "気持ちが楽になることの存在自体を「あるとしたら」で仮定する。"
+    },
+    {
+      "case": 16,
+      "profile": "low_mood",
+      "slot": "22:30",
+      "id": "d",
+      "kind": "breathing",
+      "text": "よければ、息を吐くほうを吸うほうより少し長くする呼吸を、数回だけ試してみませんか。",
+      "probability": 0.1,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "任意の呼吸提案。"
+    },
+    {
+      "case": 20,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "id": "a",
+      "kind": "question",
+      "text": "面接の前に「落ちるかもしれない」という不安が出てくるとき、その声にどう返してあげたいですか？",
+      "probability": 0.2,
+      "grounds": [],
+      "presuppositions": [
+        {
+          "claim": "面接の前に「落ちるかもしれない」と不安になる傾向がある",
+          "span": "面接の前になると「落ちるかもしれない」と不安になる"
+        }
+      ],
+      "status": "PASS",
+      "categories": [],
+      "reason": "面接前の不安という明記された傾向への質問。今夜の面接実施は仮定しない。"
+    },
+    {
+      "case": 20,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "id": "b",
+      "kind": "question",
+      "text": "自信とは少し離れて感じる時期に、自分を評価する物差しを何に置きたいですか？",
+      "probability": 0.18,
+      "grounds": [],
+      "presuppositions": [
+        {
+          "claim": "自信をなくしつつある",
+          "span": "自信をなくしつつある"
+        }
+      ],
+      "status": "PASS",
+      "categories": [],
+      "reason": "自信低下は明記済み。評価する物差しを開いて尋ねる。"
+    },
+    {
+      "case": 20,
+      "profile": "confidence_seeker",
+      "slot": "22:30",
+      "id": "c",
+      "kind": "question",
+      "text": "もしよければ、このあと自分にどんな言葉をかけてあげたいですか？",
+      "probability": 0.15,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "自分へかけたい言葉の開いた質問。"
+    },
+    {
+      "case": 23,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+      "probability": 0.26,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "v7と同じ優先順位のPASS較正。今日の特定作業を捏造しない。"
+    },
+    {
+      "case": 23,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+      "probability": 0.2,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "集中時間を作れること自体を明示仮定にする。"
+    },
+    {
+      "case": 23,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "気が散りにくい環境にするなら、どんな工夫が思い浮かびますか？",
+      "probability": 0.14,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "環境を変える仮定で工夫を尋ねる。"
+    },
+    {
+      "case": 23,
+      "profile": "procrastination",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "action",
+      "text": "よければ、スマホを手の届かない場所に置いてみる実験をしてみませんか。",
+      "probability": 0.08,
+      "grounds": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "スマホの置き場所を変える実験の提案。現在の置き場所を断定しない。"
+    },
+    {
+      "case": 30,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "id": "a",
+      "kind": "question",
+      "text": "運動か日記、今日ひとつだけ選ぶとしたらどちらにしますか？",
+      "probability": 0.25,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "運動か日記の選択自体を仮定する。"
+    },
+    {
+      "case": 30,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし今少し時間が作れるなら、何から手をつけてみたいですか？",
+      "probability": 0.2,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "時間が作れること自体を明示仮定にする。"
+    },
+    {
+      "case": 30,
+      "profile": "habit_builder",
+      "slot": "12:30",
+      "id": "e",
+      "kind": "action",
+      "text": "よければ、今日の分の目標を「1分だけ」に書き換えてみませんか？",
+      "probability": 0.1,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "FAIL",
+      "categories": [
+        "fabrication"
+      ],
+      "reason": "「今日の分の目標を…書き換える」は今日の具体的な目標が既に存在することを前提にする。profileは大きな目標を立てて挫折する傾向だけで、今日の目標は明記しない。「よければ」は提案への配慮で、その目標の存在自体の仮定ではない。"
+    },
+    {
+      "case": 31,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "id": "a",
+      "kind": "question",
+      "text": "運動か日記、今日ひとつだけ小さくやるとしたら何を選びますか？",
+      "probability": 0.26,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "今日小さくやることを明示仮定にする。"
+    },
+    {
+      "case": 31,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "id": "b",
+      "kind": "question",
+      "text": "もし続けることを考えるなら、どんな形がいちばん負担が少なそうですか？",
+      "probability": 0.22,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "続けることを考える仮定で負担の少ない形を聞く。"
+    },
+    {
+      "case": 31,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "id": "c",
+      "kind": "question",
+      "text": "三日坊主で終わってしまう流れの中で、いちばん変えてみたい部分はどこですか？",
+      "probability": 0.18,
+      "grounds": [
+        "profile_summary"
+      ],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "三日坊主の傾向は明記済み。変えたい部分の開いた質問。"
+    },
+    {
+      "case": 31,
+      "profile": "habit_builder",
+      "slot": "18:30",
+      "id": "e",
+      "kind": "action",
+      "text": "よければ、明日の分の運動か日記を「これならできる」と言える大きさまで縮めてみてください。",
+      "probability": 0.1,
+      "grounds": [],
+      "presuppositions": [],
+      "status": "PASS",
+      "categories": [],
+      "reason": "明日の運動/日記の取り組みを小さくする将来の提案と読む。具体的な今日の既存目標の書換えは要求しない境界例。"
+    }
+  ]
+}

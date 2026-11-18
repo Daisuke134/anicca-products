@@ -1,0 +1,1459 @@
+{
+  "counts": {
+    "over_rejection": 90,
+    "unsupported_current_presupposition": 6,
+    "unsupported_personal_quantity": 1,
+    "unsupported_general_quantity": 1,
+    "unsupported_personal_history": 1
+  },
+  "rows": [
+    {
+      "case": 1,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだことは紙に書き出すと、頭の中だけで回し続けるより整理しやすくなることがあります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を、三回だけ試してみませんか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだ考えは、頭の中で回すより紙に書き出すと整理しやすくなることがあります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 1,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "朝の静かな時間は、それだけで気持ちが整いやすいことがあります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 2,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "夜に考えが止まらなくなる日があるとのことですが、そのときの自分にどんなふうに接したいですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": [
+          {
+            "claim": "夜に考えが止まらず眠れない日が多いという傾向がある",
+            "span": "考えが止まらず眠れない日が多い"
+          }
+        ]
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 2,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだことを紙に書き出すと、同じ考えを繰り返しにくいことがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今この時間に、いちばん気になっていることは何ですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded question presupposition: この時間に、いちばん気になっていること",
+      "primary_category": "unsupported_current_presupposition",
+      "primary_reason": "現在の特定の気がかり/頭の反すうの存在を前提化する。profileの傾向は現在事実ではない。"
+    },
+    {
+      "case": 3,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "頭に浮かんだことを紙に書き出すと、考えをいったん外に置いておけることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 3,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "頭の中で繰り返すことを紙に書き出すと、同じ考えの周りをぐるぐる回る流れがいったん区切れることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今、いちばん気になっていることは何ですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded question presupposition: 今、いちばん気になっている",
+      "primary_category": "unsupported_current_presupposition",
+      "primary_reason": "現在の特定の気がかり/頭の反すうの存在を前提化する。profileの傾向は現在事実ではない。"
+    },
+    {
+      "case": 4,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだことを紙に書き出すと、同じ考えが巡るのを少し休められることがあります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 4,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだことを紙やメモに書き出すと、同じ考えを頭の中だけで回し続ける必要がなくなることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 4,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "夜はまわりの音が減って、日中に流れていた考えが浮かびやすくなる時間帯でもあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "他人と比べずに自分の一日を振り返るとしたら、どんな見方ができそうですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 5,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "自分を責める言葉は、事実ではなく癖として身についていることがあります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "今日、自分に対して少しでもやさしくなれるとしたら、どんな瞬間だと思いますか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "reflection",
+        "text": "人と比べる癖も、褒め言葉を跳ね返してしまう癖も、一日で消えるものではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "自分にかける言葉は、親しい友人にかける言葉と同じ基準で選んでみることもできます。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 5,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "breathing",
+        "text": "よければ一度、息をゆっくり吐いてから、次の息を待ってみませんか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "「どうせ私なんて」という言葉が出てきたとき、その奥にある気持ちを自分の言葉で表すとしたら、どんな言葉になりますか？",
+        "presuppositions": [],
+        "grounds": [],
+        "probability": 0.2
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "他人と自分を比べる癖は、意識して「今日の自分」だけに目を向ける練習で少しずつ和らぐことがあります。",
+        "grounds": [],
+        "probability": 0.2
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 6,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "自分を責める声が強いときほど、その声とは別の視点も存在しています。",
+        "grounds": [],
+        "probability": 0.2
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 6,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "比べる気持ちは、脳の自動的な癖のようなもので、性格の欠陥ではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 7,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "自分を責める癖は、考え方を変えようとするより先に、まず気づいて名前をつけるだけでもゆるむことがあります。",
+        "grounds": [],
+        "probability": 0.2
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 7,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "reflection",
+        "text": "人と比べてしまうことと、自分の価値が決まってしまうことは、同じではありません。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 8,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "人と自分を比べる癖は、意志の弱さではなく心の習慣として少しずつ変えていけるものです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今朝、いちばん気になっていることは何ですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded question presupposition: 今朝、いちばん気になっていること",
+      "primary_category": "unsupported_current_presupposition",
+      "primary_reason": "現在の特定の気がかり/頭の反すうの存在を前提化する。profileの傾向は現在事実ではない。"
+    },
+    {
+      "case": 9,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "休めていないときに「動けない」と感じるのは、心と体が自然に出すサインのひとつです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もし今、ほんの数分だけ自分のために使えるとしたら、何に使いたいですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうを吸うより少し長くして、一度だけ呼吸してみましょう。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 9,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "休めていない時期には、休息そのものを予定のひとつとして扱う方法もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今、いちばん気になっているのはどんなことですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded question presupposition: 今、いちばん気になっている",
+      "primary_category": "unsupported_current_presupposition",
+      "primary_reason": "現在の特定の気がかり/頭の反すうの存在を前提化する。profileの傾向は現在事実ではない。"
+    },
+    {
+      "case": 10,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "休息は用事を全部終えたあとのご褒美ではなく、動き続けるための土台です。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 11,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "休めない時期には、まず何もしない数分を予定に入れておく方法もあります。",
+        "grounds": [],
+        "probability": 0.2
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 11,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "今日一日を振り返って、少しでもホッとできた瞬間はありましたか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くする呼吸を、三回だけ試してみませんか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "休息は予定の空き時間に自然に入るものではなく、先に短く確保しないと後回しになりやすいものです。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 12,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "何もしない時間は、怠けではなく回復のための時間として扱ってもよいものです。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 12,
+      "attempt": 2,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "今、いちばん気になっているのはどんなことですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded question presupposition: 今、いちばん気になっている",
+      "primary_category": "unsupported_current_presupposition",
+      "primary_reason": "現在の特定の気がかり/頭の反すうの存在を前提化する。profileの傾向は現在事実ではない。"
+    },
+    {
+      "case": 12,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうを吸うほうより少し長くして、3回だけ呼吸してみませんか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 13,
+      "attempt": 1,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の一日について少し話してみませんか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今日ひとつだけ自分にゆるしてあげられることがあるとしたら、何にしますか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 13,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "気分の落ち込みには波があって、調子の出ない時期がずっと続くとは限りません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の一日で少しでも気持ちが軽くなる瞬間はありますか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 14,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "気分が沈む日は、原因がはっきりしないまま来ることもあります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 14,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の一日がどんなふうに過ぎているか聞かせてもらえますか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 14,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "reflection",
+        "text": "なんとなく気分が沈む日や、好きだったことに興味が湧きにくい時期は、誰にでもあります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の一日でほんの少しでも楽だった瞬間はありますか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐くほうを吸うより少し長めにして、三回だけ呼吸してみませんか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 15,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "気分の落ち込みが続くときは、頑張る量を増やすより休める時間を先に確保する考え方もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 15,
+      "attempt": 2,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "もしよければ、最近の一日を自分の言葉で少し話してみませんか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 15,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "気分の落ち込みや興味の薄れは、意志の弱さとは別のところで起こることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 15,
+      "attempt": 2,
+      "candidate": {
+        "id": "g",
+        "kind": "reflection",
+        "text": "なんとなく沈む日は、理由がうまく言葉にならないまま過ぎていくこともありますね。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "もし今夜ひとつだけ自分にゆるしてあげられることがあるなら、何をゆるしたいですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "気分の落ち込みには、はっきりした理由が見つからないことも珍しくありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 16,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "なんとなく気分が沈む日や、好きだったことに興味が湧きにくい時期は、誰にでもあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 17,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "不採用の通知は、その会社の基準との相性を示すものであって、あなたの価値を決めるものではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 17,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "action",
+        "text": "よければ、息をゆっくり吐くところから一度試してみませんか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 18,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "breathing",
+        "text": "よければ、息をゆっくり吐いてから吸う呼吸を一度試してみてください。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 18,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "結果と自分の価値は、切り分けて考えられるものです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 18,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "breathing",
+        "text": "よければ、息をゆっくり吐いてから吸う呼吸を一度試してみませんか。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 19,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "不安は消そうとするより、まず名前をつけて認めるほうが扱いやすくなることがあります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 19,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "question",
+        "text": "今日一日を振り返って、面接や就活とは関係なく、自分がうまくできたと思える小さなことは何かありますか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 19,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "不安を感じることと、準備ができているかどうかは別の話です。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 19,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "action",
+        "text": "紙に、これまでの就活で自分が実際に行動したことを3つ書き出してみてください。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "unsupported_personal_quantity",
+      "primary_reason": "実際の就活行動が3つあるとの数量は明記しない。3回呼吸という将来提案回数と異なる。"
+    },
+    {
+      "case": 20,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "面接の結果は、その場の条件や相手側の事情にも左右されます。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "question",
+        "text": "結果の通知とは関係なく、今の自分について一つ認められることがあるとしたら、何でしょうか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "不合格の通知は、その選考での相性の結果であって、その人の価値を決める点数ではありません。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 20,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を三回ほど試してみませんか。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 21,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "集中は、始める前の段取りで半分ほど決まると言われています。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "unsupported_general_quantity",
+      "primary_reason": "集中が段取りで半分決まるという数量的教示は出所不明。安全な一般提案としての過剰棄却に数えない。"
+    },
+    {
+      "case": 21,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "今日はどんな流れで一日を過ごせたら、自分にとってちょうどよさそうですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 21,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "作業の前に「最初の5分だけ」と範囲を小さく区切ると、着手のハードルが下がることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 22,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "大きなタスクは「最初の一手」まで小さく分けると、着手のハードルが下がることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 22,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "作業を「最初の一手」まで細かく分けると、着手のハードルが下がることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "作業を始める前に「最初の5分だけ」と区切ると、着手のハードルが下がることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 23,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "reflection",
+        "text": "先延ばしのあとの後悔は、夜になるほど重く感じられやすいものです。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 24,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "作業は「全部」ではなく「最初の5分」と区切ると、取りかかりやすくなることがあります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "breathing",
+        "text": "息を吸うより吐く方を少し長めにすると、切り替えのきっかけになることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 25,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定は、紙やメモに書き出すと頭の負担を減らせることがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 25,
+      "attempt": 2,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "明日の予定について、頭の中で回っているものを紙に書き出すとしたら、何から書きますか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded question presupposition: 頭の中で回っている",
+      "primary_category": "unsupported_current_presupposition",
+      "primary_reason": "現在の特定の気がかり/頭の反すうの存在を前提化する。profileの傾向は現在事実ではない。"
+    },
+    {
+      "case": 25,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "眠れない時間に時計を見続けるより、いったん起きて静かなことをしてから戻る方法もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 26,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定は、紙やメモに一度書き出しておくと、覚えておこうとする負担を減らせると言われています。",
+        "grounds": [],
+        "probability": 0.2
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 26,
+      "attempt": 2,
+      "candidate": {
+        "id": "a",
+        "kind": "question",
+        "text": "明日の予定が頭をぐるぐる回ってしまう夜もあるとのことですが、いまこの時間に気になっていることはありますか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded question presupposition: この時間に気になっていること",
+      "primary_category": "over_rejection",
+      "primary_reason": "現在気がかりがあるかという存在自体を尋ねる質問であり、存在を断定しない。新マーカーの過剰棄却。"
+    },
+    {
+      "case": 26,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "頭に浮かんだ予定は紙やメモに書き出しておくと、頭の中で繰り返し抱えなくてすむことがあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "candidate": {
+        "id": "b",
+        "kind": "question",
+        "text": "明日の予定が頭をぐるぐる回ってしまう夜もあるんですね。もし今もそんな感じなら、浮かんでくるのはどんな予定ですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 27,
+      "attempt": 1,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "眠りは追いかけるほど遠のきやすいので、眠ろうと頑張らずに休むこと自体を目標にする方法もあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 27,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "action",
+        "text": "頭に浮かんだ予定は、紙やメモに書き出すと頭の外に置いておけます。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 27,
+      "attempt": 2,
+      "candidate": {
+        "id": "f",
+        "kind": "teaching",
+        "text": "眠りは追いかけると遠のきやすいので、眠ろうと頑張らない時間も役に立ちます。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 28,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "眠りは頑張るほど遠のきやすいので、眠ろうとするのをいったん横に置いておくのも一つの方法です。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "新しい習慣は、量を減らして始める回数を増やす設計のほうが続きやすいと言われています。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 29,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "reflection",
+        "text": "大きな目標ほど、途中で崩れやすい形になりがちです。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 29,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は大きな目標より、毎日できる小さな一歩に分けると取り組みやすくなります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 30,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は大きさより回数で定着しやすいので、最初の目標は小さく区切るのが一つのやり方です。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 30,
+      "attempt": 2,
+      "candidate": {
+        "id": "c",
+        "kind": "question",
+        "text": "三日坊主で終わったときと、続けられたときで、何が違っていましたか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": [
+          {
+            "claim": "習慣が三日坊主で終わることがある",
+            "span": "三日坊主で終わることが多い"
+          }
+        ]
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "unsupported_personal_history",
+      "primary_reason": "続けられた成功時点の存在はprofileにない。"
+    },
+    {
+      "case": 30,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は大きさより、毎日できる小ささにすると続きやすくなります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 31,
+      "attempt": 1,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は回数よりも、短くても繰り返せる形にしておくと続きやすくなります。",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 32,
+      "attempt": 1,
+      "candidate": {
+        "id": "e",
+        "kind": "teaching",
+        "text": "習慣づくりでは、量を減らして回数を重ねる設計のほうが続きやすいと言われています。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 32,
+      "attempt": 2,
+      "candidate": {
+        "id": "d",
+        "kind": "teaching",
+        "text": "習慣は大きさより、毎日できる小ささに寄せると続けやすくなります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    },
+    {
+      "case": 32,
+      "attempt": 2,
+      "candidate": {
+        "id": "e",
+        "kind": "reflection",
+        "text": "三日坊主という言葉には、続けたい気持ちが隠れていることもあります。",
+        "probability": 0.2,
+        "grounds": []
+      },
+      "reason": "ungrounded assertion or attribution marker",
+      "primary_category": "over_rejection",
+      "primary_reason": "一般教示/任意の提案/明示仮定/傾向の言い換え/開いた質問を既存の空grounds断定・数量スクリーンが保守的に除外する。"
+    }
+  ]
+}

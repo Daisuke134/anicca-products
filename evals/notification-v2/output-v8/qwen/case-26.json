@@ -1,0 +1,221 @@
+{
+  "index": 26,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007327-MtHgZ75ji1Q23IdnMEzD",
+        "object": "chat.completion",
+        "created": 1795007327,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜、眠る前の時間をどんなふうに過ごしたいですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日の予定が頭をぐるぐる回ってしまう夜もあるんですね。もし今もそんな感じなら、浮かんでくるのはどんな予定ですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もしよければ、ゆっくり息を吐くのを数回いっしょにやってみませんか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"頭の中の予定を紙やメモに書き出しておくと落ち着ける人もいますが、試してみたいと思いますか？\",\"probability\":0.12,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"肩の力をゆるめて、吸う息より吐く息を少し長めにしてみてください。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"眠りは追いかけるほど遠のきやすいので、眠ろうと頑張らずに休むこと自体を目標にする方法もあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1567,
+          "completion_tokens": 307,
+          "total_tokens": 1874,
+          "cost": 0.0035454,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0035454,
+            "upstream_inference_prompt_cost": 0.002232975,
+            "upstream_inference_completions_cost": 0.001312425
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007334-1bY7edQhnv2pgbw1R5e0",
+        "object": "chat.completion",
+        "created": 1795007334,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person's bedtime routine takes over an hour, and their mind races with tomorrow's schedule, preventing sleep.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states that it takes over an hour to fall asleep after getting into bed and that the person's mind races with tomorrow's schedule, preventing sleep.\"}, {\"id\": \"c\", \"claims\": [], \"reason\": \"This is an invitation to perform an action, not a factual claim about the person.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"Some people can calm down by writing down their to-do list, and the person is being asked if they want to try it.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile mentions that the person's mind races with tomorrow's schedule, but it does not state that writing it down has been tried or that the person wants to try it. The question is a suggestion.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is an instruction or suggestion, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1791,
+          "completion_tokens": 259,
+          "total_tokens": 2050,
+          "cost": 0.0001945,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001945,
+            "upstream_inference_prompt_cost": 9.09e-05,
+            "upstream_inference_completions_cost": 0.0001036
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007335-RJdHEo5iqLrw51na7VcB",
+        "object": "chat.completion",
+        "created": 1795007335,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜を少しでも穏やかに過ごすとしたら、どんな時間がいいですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今、明日の予定が頭をぐるぐる回っているなら、いちばん引っかかっているのはどの予定ですか？\",\"probability\":0.16,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠る前の時間に、試してみたいことがあれば教えてください。\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとってみませんか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"頭に浮かんだ予定は、紙やメモに書き出すと頭の外に置いておけます。\",\"probability\":0.08,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"眠りは追いかけると遠のきやすいので、眠ろうと頑張らない時間も役に立ちます。\",\"probability\":0.07,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1567,
+          "completion_tokens": 304,
+          "total_tokens": 1871,
+          "cost": 0.001799775,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001799775,
+            "upstream_inference_prompt_cost": 0.000500175,
+            "upstream_inference_completions_cost": 0.0012996
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007343-TCc01E41M7GUeLvepQoJ",
+        "object": "chat.completion",
+        "created": 1795007343,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [], \"reason\": \"This is a hypothetical question asking about a desired state. It does not make any factual claims about the person.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"明日の予定が頭をぐるぐる回っている\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"いちばん引っかかっている予定がある\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The claim '明日の予定が頭をぐるぐる回っている' is directly entailed by the profile. However, the claim 'いちばん引っかかっている予定がある' is not supported by the profile text.\"}, {\"id\": \"c\", \"claims\": [], \"reason\": \"This is an invitation and a question about a potential future action, not a factual claim about the person.\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is a suggestion or invitation, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1788,
+          "completion_tokens": 221,
+          "total_tokens": 2009,
+          "cost": 0.000179,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000179,
+            "upstream_inference_prompt_cost": 9.06e-05,
+            "upstream_inference_completions_cost": 8.84e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"いちばん引っかかっている予定がある\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

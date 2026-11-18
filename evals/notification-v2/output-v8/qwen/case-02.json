@@ -1,0 +1,312 @@
+{
+  "index": 2,
+  "profile": "rumination",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007222-SqtS0KFEDPW4bkCFIkhW",
+        "object": "chat.completion",
+        "created": 1795007222,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この時間に、いちばん気になっていることは何ですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜また考えが止まらなくなったら、どんなふうに過ごしてみたいですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"落ち着きたいとき、どんな過ごし方が自分に合いそうですか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息をゆっくり吐いてみる時間を少しだけ作ってみませんか。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"夜に仕事の失敗や言い間違えた一言を何度も思い返してしまう夜もあるんですね。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだことを紙に書き出すと、考えをいったん外に置いておけることがあります。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1606,
+          "completion_tokens": 276,
+          "total_tokens": 1882,
+          "cost": 0.00173565,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00173565,
+            "upstream_inference_prompt_cost": 0.00055575,
+            "upstream_inference_completions_cost": 0.0011799
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007228-jDOv7k1KnuDerBlO9CMs",
+        "object": "chat.completion",
+        "created": 1795007228,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"b\", \"claims\": [{\"claim\": \"When thoughts stop, the person wants to spend time in a certain way.\", \"profile_fields\": [], \"entailed\": false}, {\"claim\": \"The person is experiencing thoughts stopping.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The prompt is hypothetical ('if tonight thoughts stop again'). It presupposes thoughts are stopping but this is not directly stated in the profile. The profile states that thoughts stop one from sleeping, not that they have stopped. The hypothetical scenario itself is about a future occurrence of thoughts stopping, which is not a current fact. The claim 'The person is experiencing thoughts stopping' is entailed because the profile states '考えが止まらず眠れない日が多い' (Many days when thoughts don't stop and they can't sleep), implying the stopping of thoughts is a potential event they are concerned about. However, the core of the question is about a hypothetical situation ('if thoughts stop again'), not a current factual state of thoughts stopping. The first claim about how they would spend time is not entailed as it's part of a hypothetical. The second claim, 'The person is experiencing thoughts stopping', is a presupposition of the hypothetical that their thoughts *will* stop again, and the profile supports that thoughts *do not stop* and cause sleeplessness, therefore this presupposition is not directly entailed as a current state.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person wants to calm down.\", \"profile_fields\": [], \"entailed\": false}, {\"claim\": \"The person is looking for a way to spend time that suits them when they want to calm down.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question asks for a general suggestion ('What kind of way of spending time seems to suit you when you want to calm down?') and does not make any specific factual claims about the person that can be entailed from the profile. It's an open-ended question seeking preference, not asserting a current state or desire.\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is a suggestion ('If you like, why not try making a little time to breathe slowly.') and not a factual claim about the person. It does not contain any personal factual assertions or presuppositions about the person.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person sometimes repeatedly thinks back on work failures or a word they misspoken at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"This claim is directly supported by the profile summary: '夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう' (At night, they repeatedly think back on work failures or a word they misspoken).\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1789,
+          "completion_tokens": 594,
+          "total_tokens": 2383,
+          "cost": 0.0004165,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0004165,
+            "upstream_inference_prompt_cost": 0.0001789,
+            "upstream_inference_completions_cost": 0.0002376
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007231-vtATj54tifa9lCKEwCJ1",
+        "object": "chat.completion",
+        "created": 1795007231,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今夜を少しでも穏やかに過ごすとしたら、どんな過ごし方が合いそうですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今また考えが巡り始めているなら、その中でいちばん大きく残っているのは何ですか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"眠る前の時間に、いま試してみたいことはありますか？\",\"probability\":0.12,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"夜に同じ場面を何度も思い返して眠れない日が続くと、それだけで消耗しますよね。\",\"probability\":0.13,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くとって、数回だけ呼吸を味わってみませんか？\",\"probability\":0.08,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"頭の中で繰り返すことを紙に書き出すと、同じ考えの周りをぐるぐる回る流れがいったん区切れることがあります。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1606,
+          "completion_tokens": 305,
+          "total_tokens": 1911,
+          "cost": 0.003592425,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003592425,
+            "upstream_inference_prompt_cost": 0.00228855,
+            "upstream_inference_completions_cost": 0.001303875
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007240-SH4t97Yn8vwgw4AgcGxT",
+        "object": "chat.completion",
+        "created": 1795007240,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n  {\n    \"id\": \"a\",\n    \"claims\": [],\n    \"reason\": \"This is a hypothetical question about a preferred way to spend time, not a factual claim about the person.\"\n  },\n  {\n    \"id\": \"b\",\n    \"claims\": [\n      {\n        \"claim\": \"Thoughts are currently circling.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      }\n    ],\n    \"reason\": \"The question presupposes that thoughts are currently circling, which aligns with the profile's description of \\\"考えが止まらず\\\" (thoughts not stopping).\"\n  },\n  {\n    \"id\": \"c\",\n    \"claims\": [],\n    \"reason\": \"This is a question about potential future actions, not a factual claim about the person's current state or past actions.\"\n  },\n  {\n    \"id\": \"d\",\n    \"claims\": [\n      {\n        \"claim\": \"The person repeatedly recalls the same scenes at night.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      },\n      {\n        \"claim\": \"The person has many days where they cannot sleep due to persistent thoughts.\",\n        \"profile_fields\": [\"profile_summary\"],\n        \"entailed\": true\n      }\n    ],\n    \"reason\": \"The text directly reflects the profile summary's statements about nightly rumination and consequent sleeplessness.\"\n  },\n  {\n    \"id\": \"e\",\n    \"claims\": [],\n    \"reason\": \"This is a suggestion or invitation for an activity, not a factual claim about the person.\"\n  }\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1836,
+          "completion_tokens": 372,
+          "total_tokens": 2208,
+          "cost": 0.0003324,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0003324,
+            "upstream_inference_prompt_cost": 0.0001836,
+            "upstream_inference_completions_cost": 0.0001488
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "841cefa4-4863-4267-a2b9-290c5ac588d9",
+    "decision_point_at": 1795007241.964101,
+    "context": {
+      "time_band": "evening",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "18:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "今夜を少しでも穏やかに過ごすとしたら、どんな過ごし方が合いそうですか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もし今また考えが巡り始めているなら、その中でいちばん大きく残っているのは何ですか？",
+        "probability": 0.15,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "眠る前の時間に、いま試してみたいことはありますか？",
+        "probability": 0.12,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "夜に同じ場面を何度も思い返して眠れない日が続くと、それだけで消耗しますよね。",
+        "probability": 0.13,
+        "grounds": [
+          "profile_summary"
+        ]
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くとって、数回だけ呼吸を味わってみませんか？",
+        "probability": 0.08,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.32,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "頭の中で繰り返すことを紙に書き出すと、同じ考えの周りをぐるぐる回る流れがいったん区切れることがあります。",
+          "probability": 0.07,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "今夜を少しでも穏やかに過ごすとしたら、どんな過ごし方が合いそうですか？",
+      "probability": 0.2,
+      "grounds": [],
+      "presuppositions": []
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795009041.964101,
+    "observations": []
+  }
+}

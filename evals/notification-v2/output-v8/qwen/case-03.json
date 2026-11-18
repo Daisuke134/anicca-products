@@ -1,0 +1,221 @@
+{
+  "index": 3,
+  "profile": "rumination",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007222-UmXEt2cMTnXkOD7Zw2Ja",
+        "object": "chat.completion",
+        "created": 1795007222,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、いちばん気になっていることは何ですか？\",\"probability\":0.25,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜少しでも気持ちを落ち着ける時間があるなら、どんなふうに過ごしてみたいですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"考えが止まらない夜には、どんなことが少しでも助けになりそうですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息をゆっくり吐いてから吸う呼吸を数回試してみてください。\",\"probability\":0.12,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだことを紙に書き出すと、同じ考えが巡るのを少し休められることがあります。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1605,
+          "completion_tokens": 247,
+          "total_tokens": 1852,
+          "cost": 0.00334305,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00334305,
+            "upstream_inference_prompt_cost": 0.002287125,
+            "upstream_inference_completions_cost": 0.001055925
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007228-lbJPQLXPsFMxjnhzogTQ",
+        "object": "chat.completion",
+        "created": 1795007228,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"b\", \"claims\": [\n{\"claim\": \"The person has time to calm down tonight.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false},\n{\"claim\": \"The person wants to spend time to calm down.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}\n], \"reason\": \"The text is a hypothetical question. It presupposes that the person might have a moment to calm down tonight, but this is not stated in the profile. It also asks about how the person would like to spend that time, implying a desire, which is not stated.\"},\n{\"id\": \"c\", \"claims\": [\n{\"claim\": \"The person experiences sleepless nights due to racing thoughts.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"The person is looking for ways to alleviate racing thoughts during sleepless nights.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}\n], \"reason\": \"The claim that the person experiences sleepless nights due to racing thoughts is directly supported by the profile. However, the claim that the person is looking for ways to alleviate these thoughts is not explicitly stated; the text asks what might help, not about an active search for help.\"},\n{\"id\": \"d\", \"claims\": [], \"reason\": \"This is a suggestion or instruction, not a factual claim about the person.\"}\n]}\n]\n}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1757,
+          "completion_tokens": 312,
+          "total_tokens": 2069,
+          "cost": 0.00021239,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 979,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00021239,
+            "upstream_inference_prompt_cost": 8.759e-05,
+            "upstream_inference_completions_cost": 0.0001248
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007229-bJfhuH3iJMdxga0Pu0YY",
+        "object": "chat.completion",
+        "created": 1795007229,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気持ちを言葉にするなら、どんな言葉がいちばん近いでしょうか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜少しでも落ち着ける時間があるなら、どんな過ごし方がよさそうですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"夜に考えがぐるぐる回りやすいとき、どんな関わり方をしてみたいですか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うより少し長めにして、数回だけ呼吸に意識を向けてみませんか。\",\"probability\":0.12,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"頭に浮かんだことを紙やメモに書き出すと、同じ考えを頭の中だけで回し続ける必要がなくなることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"夜はまわりの音が減って、日中に流れていた考えが浮かびやすくなる時間帯でもあります。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1605,
+          "completion_tokens": 304,
+          "total_tokens": 1909,
+          "cost": 0.001853925,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001853925,
+            "upstream_inference_prompt_cost": 0.000554325,
+            "upstream_inference_completions_cost": 0.0012996
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007238-MBegBzrvQFZr6vsfHJjD",
+        "object": "chat.completion",
+        "created": 1795007238,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person's current feelings can be described in words.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text asks for a description of current feelings, but the profile does not explicitly state what those feelings are or that they can be articulated. The claim about the person's current feelings being describable is not directly entailed.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person might have some quiet time tonight.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text presents a hypothetical scenario ('if there is some quiet time tonight'), and does not assert that the person will actually have such time. Therefore, the presupposition of having quiet time is not entailed.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person tends to ruminate at night.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is interested in how to engage with themselves when ruminating at night.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claim that the person tends to ruminate at night is directly supported by the profile. However, the claim about their interest in how to engage with themselves is not supported by the profile text.\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is an invitation or suggestion for a breathing exercise, not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1797,
+          "completion_tokens": 316,
+          "total_tokens": 2113,
+          "cost": 0.0003061,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0003061,
+            "upstream_inference_prompt_cost": 0.0001797,
+            "upstream_inference_completions_cost": 0.0001264
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current feelings can be described in words.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person might have some quiet time tonight.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is interested in how to engage with themselves when ruminating at night.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

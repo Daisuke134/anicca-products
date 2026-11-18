@@ -145,3 +145,5 @@ TODO:
 現在cursor: 回帰テスト。
 
 Round 8開始前: 17 RED→既存込み109 PASS。公式canonical/model確認、key usage1.553190904・limit2・残0.446809096、credits155。上限変更/購入/reloadなし。v6 case10c原文は仮定質問で、タスク説明の継続的気持ちは10bに対応するため両方をworked exampleに含める。reference/runnerをmanifest-v8.jsonと開始commitで凍結。現在cursor: 固定32条件の1回実行。
+
+Round 8結果: 10/32受理・37文全文手読みでFAIL1（2.7027027027%、捏造1、日本語0、tone0）によりNO-GO。case30eは今日の既存目標を前提化しjudgeが未分解/推論支持。28再生成、22最終拒否（意味19/schema1/質問比率2）。60generator/58judge全stop。judge受理10/意味44/JSON-schema4。機械棄却99（過剰90/現在前提6/未提供履歴1/本人数量1/一般数量教示1）、受理attempt棄却20（過剰17/現在前提2/履歴1）。118公式receipt合計0.137296970 USD、key usage1.553190904→1.690487874厳密一致、credits155→155。初回receipt404/408とusage遅延はGET再観測のみで解決。有料取り直しなし。109 tests・完全audit・全32offline replay PASS。GO限定PR941準備は非実施。現在cursor: 証拠commit/push→ops結果push→remote bytes照合。

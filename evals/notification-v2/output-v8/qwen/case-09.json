@@ -1,0 +1,230 @@
+{
+  "index": 9,
+  "profile": "burnout",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007260-rtnKAcV0AC74HGKaXd2X",
+        "object": "chat.completion",
+        "created": 1795007260,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、いちばん気になっているのはどんなことですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと数分だけ自分の時間が取れるなら、何に使いたいですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が先に聞こえてきますか？\",\"probability\":0.14,\"grounds\":[\"profile_summary\"],\"presuppositions\":[{\"claim\":\"何もしたくない気持ちと焦りの間で揺れている\",\"span\":\"何もしたくない気持ちと、やらなきゃという焦りの間で揺れている\"}]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"休日に疲れが残るとき、体と心のどちらがより重く感じられますか？\",\"probability\":0.13,\"grounds\":[\"profile_summary\"],\"presuppositions\":[{\"claim\":\"休日でも疲れが取れない\",\"span\":\"休日も疲れが取れない\"}]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くして、三呼吸だけ試してみませんか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"休息は用事を全部終えたあとのご褒美ではなく、動き続けるための土台です。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1666,
+          "completion_tokens": 347,
+          "total_tokens": 2013,
+          "cost": 0.002124675,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.002124675,
+            "upstream_inference_prompt_cost": 0.00064125,
+            "upstream_inference_completions_cost": 0.001483425
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007267-51JItYfjfFlC7UJc9BH3",
+        "object": "chat.completion",
+        "created": 1795007267,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"b\", \"claims\": [], \"reason\": \"This is a hypothetical question and does not make any factual claims about the person.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is oscillating between feeling \\\"nothing that I want to do\\\" and \\\"I have to do it\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text directly asks about the balance between two explicitly stated feelings in the profile.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person experiences lingering fatigue on holidays.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person experiences lingering fatigue on holidays.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question directly refers to the stated condition of lingering fatigue on holidays and asks to differentiate the feeling between body and mind.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is an invitation to try a breathing exercise and does not make any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1814,
+          "completion_tokens": 235,
+          "total_tokens": 2049,
+          "cost": 0.00018711,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00018711,
+            "upstream_inference_prompt_cost": 9.311e-05,
+            "upstream_inference_completions_cost": 9.4e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "66a29092-3d58-4e89-8d12-8dd28b4a7d93",
+    "decision_point_at": 1795007268.8126101,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もしこのあと数分だけ自分の時間が取れるなら、何に使いたいですか？",
+        "probability": 0.18,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が先に聞こえてきますか？",
+        "probability": 0.14,
+        "grounds": [
+          "profile_summary"
+        ],
+        "presuppositions": [
+          {
+            "claim": "何もしたくない気持ちと焦りの間で揺れている",
+            "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+          }
+        ]
+      },
+      {
+        "id": "d",
+        "kind": "question",
+        "text": "休日に疲れが残るとき、体と心のどちらがより重く感じられますか？",
+        "probability": 0.13,
+        "grounds": [
+          "profile_summary"
+        ],
+        "presuppositions": [
+          {
+            "claim": "休日でも疲れが取れない",
+            "span": "休日も疲れが取れない"
+          }
+        ]
+      },
+      {
+        "id": "e",
+        "kind": "breathing",
+        "text": "よければ、息を吐く方を吸う方より少し長くして、三呼吸だけ試してみませんか？",
+        "probability": 0.1,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.45,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "今、いちばん気になっているのはどんなことですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+      },
+      {
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "休息は用事を全部終えたあとのご褒美ではなく、動き続けるための土台です。",
+          "probability": 0.07,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "b",
+      "kind": "question",
+      "text": "もしこのあと数分だけ自分の時間が取れるなら、何に使いたいですか？",
+      "probability": 0.18,
+      "grounds": [],
+      "presuppositions": []
+    },
+    "assigned_probability": 0.18,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795009068.8126101,
+    "observations": []
+  }
+}

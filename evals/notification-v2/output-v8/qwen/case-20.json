@@ -1,0 +1,221 @@
+{
+  "index": 20,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007308-Ui8gGxVpns4U6tSoxoZ5",
+        "object": "chat.completion",
+        "created": 1795007308,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日やるべきことの中で、いちばん先に片づけたいのはどれですか？\",\"probability\":0.26,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"気が散りやすい時間帯と、比較的落ち着ける時間帯は、どんなふうに違いますか？\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"action\",\"text\":\"よければ、最初の5分だけ取り組む小さな作業を一つ決めてみませんか？\",\"probability\":0.12,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"集中は、始める前の段取りで半分ほど決まると言われています。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.23,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1567,
+          "completion_tokens": 240,
+          "total_tokens": 1807,
+          "cost": 0.001526175,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001526175,
+            "upstream_inference_prompt_cost": 0.000500175,
+            "upstream_inference_completions_cost": 0.001026
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007313-XleAyd92iYWz8tJgwgw5",
+        "object": "chat.completion",
+        "created": 1795007313,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person wants to complete something first today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question asks about a desired priority, which is not explicitly stated in the profile.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is a hypothetical question about a potential future action and does not make any factual claims about the person.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person has times when they are easily distracted.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has times when they are relatively calm.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states the person has trouble concentrating during remote work, implying periods of distraction and by contrast, periods of being more settled.\"}, {\"id\": \"d\", \"claims\": [], \"reason\": \"This is an invitation to set a small task and does not make any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1793,
+          "completion_tokens": 232,
+          "total_tokens": 2025,
+          "cost": 0.0001839,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001839,
+            "upstream_inference_prompt_cost": 9.11e-05,
+            "upstream_inference_completions_cost": 9.28e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007315-QJasWJ6SZv3uRG2gW9dm",
+        "object": "chat.completion",
+        "created": 1795007315,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日やるべきことの中で、いちばん先に片づけたいのはどれですか？\",\"probability\":0.28,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？\",\"probability\":0.24,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日はどんな流れで一日を過ごせたら、自分にとってちょうどよさそうですか？\",\"probability\":0.16,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"作業の前に「最初の5分だけ」と範囲を小さく区切ると、着手のハードルが下がることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、スマホを手の届かない場所に置いてから机に向かう、という順番を試してみませんか。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1567,
+          "completion_tokens": 252,
+          "total_tokens": 1819,
+          "cost": 0.001230915,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001230915,
+            "upstream_inference_prompt_cost": 0.000153615,
+            "upstream_inference_completions_cost": 0.0010773
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007321-znnESFFOf5yQ2wRZSCJb",
+        "object": "chat.completion",
+        "created": 1795007321,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person wants to finish something first among today's tasks.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question asks about a priority, but the profile does not explicitly state the person's priorities for today. Therefore, the claim that the person wants to finish something first is not entailed.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is an explicitly hypothetical question and does not make any factual claims about the person.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person has a habit of placing their smartphone within reach while working at their desk.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The suggestion implies the person keeps their phone within reach, but this is not an explicitly stated fact in the profile. The profile only mentions spending a lot of time on their smartphone, not its proximity during work.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1756,
+          "completion_tokens": 213,
+          "total_tokens": 1969,
+          "cost": 0.00017269,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 979,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00017269,
+            "upstream_inference_prompt_cost": 8.749e-05,
+            "upstream_inference_completions_cost": 8.52e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to finish something first among today's tasks.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person has a habit of placing their smartphone within reach while working at their desk.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

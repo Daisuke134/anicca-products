@@ -1,0 +1,221 @@
+{
+  "index": 16,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007289-SBDx6cvs67gdd7KjV2VK",
+        "object": "chat.completion",
+        "created": 1795007289,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、自分に自信があると感じられる場面はどんなときですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"面接でうまく伝えられた経験があれば、そのときはどんな準備をしていましたか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今日のどこかで少しだけ気持ちが落ち着く瞬間があるとしたら、それはどんな場面だと思いますか？\",\"probability\":0.17,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"不採用の通知は、その会社の基準との相性を示すものであって、あなたの価値を決めるものではありません。\",\"probability\":0.15,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"今日ひとつだけ、過去の自分より少しでも成長できたことを書き出してみませんか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1616,
+          "completion_tokens": 246,
+          "total_tokens": 1862,
+          "cost": 0.00196821,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00196821,
+            "upstream_inference_prompt_cost": 0.00091656,
+            "upstream_inference_completions_cost": 0.00105165
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007297-nlnEfmlSO4eVZEFdu2qH",
+        "object": "chat.completion",
+        "created": 1795007297,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is in a situation where they can feel confident about themselves.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile mentions a loss of confidence, but does not entail that there are specific situations where the person feels confident.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person has experience in job interviews.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has prepared for interviews in the past.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states that the person is job hunting and experiences anxiety before interviews, implying past interview experiences and preparation.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"There is a moment today where the person's feelings can calm down a bit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This is a hypothetical question about a potential future moment of calm, which is not an entailed factual claim about the person's current state or past experiences.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person can write down one thing today that represents growth compared to their past self.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"While the profile mentions job hunting and a loss of confidence, it does not entail that the person is currently in a state where they can identify growth or are willing to write it down.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1788,
+          "completion_tokens": 338,
+          "total_tokens": 2126,
+          "cost": 0.0002258,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002258,
+            "upstream_inference_prompt_cost": 9.06e-05,
+            "upstream_inference_completions_cost": 0.0001352
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007298-Ah0hnWNjulOiFIn6hkPT",
+        "object": "chat.completion",
+        "created": 1795007298,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日、いちばん先に片づけたいことは何ですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今、不安が少しでもあるなら、その中でいちばん大きいのはどんなことですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「自信がある」と言える状態は、あなたにとってどんな様子でしょうか？\",\"probability\":0.17,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"不採用の通知が続くと、自信が揺らぐことがあります。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、息をゆっくり吐くところから一度試してみませんか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1616,
+          "completion_tokens": 239,
+          "total_tokens": 1855,
+          "cost": 0.003324525,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003324525,
+            "upstream_inference_prompt_cost": 0.0023028,
+            "upstream_inference_completions_cost": 0.001021725
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007306-G0LEMfzphsle0v7iUfxu",
+        "object": "chat.completion",
+        "created": 1795007306,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"There is something that needs to be dealt with first today.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question asks about a priority without asserting that such a priority exists or is known.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"There is some anxiety.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The anxiety is currently present.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question presupposes the existence of anxiety and asks about its biggest component. The profile states the person becomes anxious before interviews and is losing confidence due to rejections, implying current anxiety.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"A state of being able to say 'I have confidence' exists.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question asks for a definition of a state of confidence, not asserting that the person is currently in that state or has ever been in that state.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"Rejection notices continue to arrive.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"Confidence wavers when rejection notices continue to arrive.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states that rejection notices continue to arrive and that this causes confidence to waver.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1783,
+          "completion_tokens": 328,
+          "total_tokens": 2111,
+          "cost": 0.0002213,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002213,
+            "upstream_inference_prompt_cost": 9.01e-05,
+            "upstream_inference_completions_cost": 0.0001312
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"There is something that needs to be dealt with first today.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"A state of being able to say 'I have confidence' exists.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

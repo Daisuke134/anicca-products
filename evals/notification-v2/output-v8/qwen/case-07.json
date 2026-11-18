@@ -1,0 +1,172 @@
+{
+  "index": 7,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007242-DczEPZHmphJCq0PFx3Mk",
+        "object": "chat.completion",
+        "created": 1795007242,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"もしよければ、いまの気持ちをどんな言葉で表したいですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？\",\"probability\":0.18,\"grounds\":[\"profile_summary\"],\"presuppositions\":[{\"claim\":\"「どうせ私なんて」という言葉が本人から出ることがある\",\"span\":\"自分のことを「どうせ私なんて」と言ってしまう\"}]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"褒められたとき、その言葉が心に残りにくいと感じる瞬間には、どんなことが浮かんでいますか？\",\"probability\":0.14,\"grounds\":[\"profile_summary\"],\"presuppositions\":[{\"claim\":\"褒められても素直に受け取れないことがある\",\"span\":\"褒められても素直に受け取れない\"}]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"人と自分を比べる癖は、意志の弱さではなく心の習慣として少しずつ変えていけるものです。\",\"probability\":0.13,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ今夜、「どうせ私なんて」の代わりに自分に言ってみたい短い言葉をひとつ考えてみませんか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1624,
+          "completion_tokens": 312,
+          "total_tokens": 1936,
+          "cost": 0.0019152,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0019152,
+            "upstream_inference_prompt_cost": 0.0005814,
+            "upstream_inference_completions_cost": 0.0013338
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007249-mgKMrOi54wV3SlAwlDLj",
+        "object": "chat.completion",
+        "created": 1795007249,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is currently experiencing feelings that they wish to express in words.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question is a hypothetical invitation and does not presuppose any current feelings or a desire to express them.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person sometimes says the phrase 'どうせ私なんて'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person tends to say \\\"どうせ私なんて\\\" when comparing themselves to others on social media.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The profile states the person says 'どうせ私なんて' and often feels down comparing themselves to others on social media. However, the text does not explicitly link the saying of the phrase to social media comparisons.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person sometimes finds it difficult to internalize praise.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person experiences moments where words of praise do not seem to resonate or stay with them.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The profile states the person cannot easily accept praise. The question asks about the thoughts that arise during these moments, which are not explicitly provided.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person sometimes says the phrase 'どうせ私なんて'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question is an invitation to consider an alternative phrase for 'どうせ私なんて', presupposing the person sometimes uses this phrase.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1803,
+          "completion_tokens": 372,
+          "total_tokens": 2175,
+          "cost": 0.00024081,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00024081,
+            "upstream_inference_prompt_cost": 9.201e-05,
+            "upstream_inference_completions_cost": 0.0001488
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007251-7jqSSOze2DuAmyAliDN8",
+        "object": "chat.completion",
+        "created": 1795007251,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"もしよければ、今の気持ちをそのまま言葉にするとどんな感じですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が浮かぶとき、その裏側にはどんな気持ちがありますか？\",\"probability\":0.18,\"grounds\":[\"profile_summary\"],\"presuppositions\":[{\"claim\":\"「どうせ私なんて」と言ってしまう傾向がある\",\"span\":\"自分のことを「どうせ私なんて」と言ってしまう\"}]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もしSNSを少し閉じる時間があるとすれば、その代わりに何をして過ごしたいですか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"誰かと比べる癖は、意識していてもすぐに出てくることがあります。\",\"probability\":0.12,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"褒め言葉をすぐ受け取れないときは、「ありがとう」とだけ返して、あとは後から考える方法もあります。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よかったら、息を吐く方を吸う方より少し長くとって、数回呼吸してみませんか？\",\"probability\":0.07,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"action\",\"text\":\"今夜はスマホを手の届かない場所に置いて、一日を終えてみるのもひとつの選択です。\",\"probability\":0.06,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"h\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1624,
+          "completion_tokens": 382,
+          "total_tokens": 2006,
+          "cost": 0.00186789,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00186789,
+            "upstream_inference_prompt_cost": 0.00023484,
+            "upstream_inference_completions_cost": 0.00163305
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "question candidate count must be at least half of non-none"
+  }
+}

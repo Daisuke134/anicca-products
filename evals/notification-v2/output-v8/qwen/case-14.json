@@ -1,0 +1,221 @@
+{
+  "index": 14,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "evening",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "18:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007278-qcMsHVmOWaMjHXdEjLvd",
+        "object": "chat.completion",
+        "created": 1795007278,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今の気分を言葉にするなら、どんな言葉がいちばん近いですか？\",\"probability\":0.26,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近の一日でほんの少しでも楽だった瞬間はありますか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今夜、何もしないで過ごすとしたら、どんな過ごし方がいちばん負担が少なそうですか？\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日が増えたり、好きだったことに興味が湧きにくくなる時期は、誰にでも起こりうることです。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うより少し長めにして、三回だけ呼吸してみませんか？\",\"probability\":0.08,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みが続くときは、頑張る量を増やすより休める時間を先に確保する考え方もあります。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1597,
+          "completion_tokens": 314,
+          "total_tokens": 1911,
+          "cost": 0.001885275,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001885275,
+            "upstream_inference_prompt_cost": 0.000542925,
+            "upstream_inference_completions_cost": 0.00134235
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007286-XEIkfr3njmTro9IzPSP1",
+        "object": "chat.completion",
+        "created": 1795007286,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person's current mood is what the most fitting word describes.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question asks about the person's current mood, but the profile only mentions that 'recently, days when they feel somewhat down have increased'. It does not provide specific details about their current mood that can be directly mapped to an answer. The claim 'The person's current mood is what the most fitting word describes' is presupposed by the question, but the profile does not entail it.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"If the person spends tonight doing nothing, they will choose a way of spending time that is least burdensome.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This is an explicit hypothetical, and the profile does not provide information about the person's preferences for how they would spend free time, especially when feeling down. Therefore, no factual claims about the person can be entailed.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person experiences days when they feel somewhat down more often recently.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has less interest in things they used to like.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text directly states general advice and impersonal teachings, but it also refers to specific states of the person ('なんとなく気分が沈む日が増えたり、好きだったことに興味が湧きにくくなる時期') which are supported by the profile summary.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1776,
+          "completion_tokens": 361,
+          "total_tokens": 2137,
+          "cost": 0.0002338,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002338,
+            "upstream_inference_prompt_cost": 8.94e-05,
+            "upstream_inference_completions_cost": 0.0001444
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007288-Jx06CJ4D2vHkCu2mcbN0",
+        "object": "chat.completion",
+        "created": 1795007288,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この時間に、どんな気分ですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近の一日を自分の言葉で少し話してみませんか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もし今夜少しでも余裕があるなら、何をしているとほんの少し楽になりますか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"朝起きるのがつらい日について、もう少し聞かせてもらえますか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"気分の落ち込みや興味の薄れは、意志の弱さとは別のところで起こることがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よかったら、息を吐くほうを吸うより少し長くする呼吸を、数回だけ試してみてください。\",\"probability\":0.08,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"reflection\",\"text\":\"なんとなく沈む日は、理由がうまく言葉にならないまま過ぎていくこともありますね。\",\"probability\":0.07,\"grounds\":[]},{\"id\":\"h\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1597,
+          "completion_tokens": 316,
+          "total_tokens": 1913,
+          "cost": 0.001547265,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001547265,
+            "upstream_inference_prompt_cost": 0.000196365,
+            "upstream_inference_completions_cost": 0.0013509
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007296-ek2x6dvVIs7qrYylAqiN",
+        "object": "chat.completion",
+        "created": 1795007296,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is feeling something at this moment.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question asks about the person's current feeling.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person might have some free time tonight.\", \"profile_fields\": [], \"entailed\": false}, {\"claim\": \"The person might feel a little better by doing something.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question is hypothetical and asks about a potential future state and a hypothetical feeling. No specific claims about the person are entailed by the profile.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person has days where waking up is difficult.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question directly asks about a state mentioned in the profile.\"}, {\"id\": \"f\", \"claims\": [], \"reason\": \"This is a suggestion for a breathing exercise and does not make any factual claims about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1783,
+          "completion_tokens": 239,
+          "total_tokens": 2022,
+          "cost": 0.0001857,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001857,
+            "upstream_inference_prompt_cost": 9.01e-05,
+            "upstream_inference_completions_cost": 9.56e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"c\", \"claim\": {\"claim\": \"The person might have some free time tonight.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person might feel a little better by doing something.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "index": 17,
+  "profile": "confidence_seeker",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "confidence",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007290-AHTQtPB4oHBDxVAlEjLW",
+        "object": "chat.completion",
+        "created": 1795007290,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、自信についてどんなことが頭に浮かんでいますか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"面接の前に不安が出てくる時、その不安はどんな形で現れますか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"もしこのあと少し時間が取れるなら、自分のために何をしてみたいですか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"不合格の通知が続く中で、今の自分にかけたい言葉はありますか？\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"「落ちるかもしれない」という考えが浮かぶことと、実際の結果は別のことです。\",\"probability\":0.13,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ、息をゆっくり吐いてから吸う呼吸を一度試してみてください。\",\"probability\":0.08,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.12,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1615,
+          "completion_tokens": 290,
+          "total_tokens": 1905,
+          "cost": 0.003541125,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.003541125,
+            "upstream_inference_prompt_cost": 0.002301375,
+            "upstream_inference_completions_cost": 0.00123975
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007298-ckvFcWWWK27iFvyzJ0RF",
+        "object": "chat.completion",
+        "created": 1795007298,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is currently thinking about confidence.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile mentions the person losing confidence, but the text asks what is currently coming to mind about confidence, which is not explicitly entailed.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"When anxiety arises before an interview, the anxiety manifests in a certain form.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile states that anxiety arises before interviews, but the specific form of manifestation is not provided.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"If the person can spare a little time later, they want to do something for themselves.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This is a hypothetical question about what the person would like to do, not a statement of fact about their current desires or plans.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person wants to say something to themselves amidst a series of rejection notices.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile states that the person is losing confidence due to rejection notices, but it does not state that they want to say something to themselves.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The thought 'I might fail' and the actual result are different things.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states '面接の前になると「落ちるかもしれない」と不安になる', which directly supports the claim that the thought of failing might arise. The statement is a general observation about this specific thought process.\"}]}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1820,
+          "completion_tokens": 386,
+          "total_tokens": 2206,
+          "cost": 0.00024811,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00024811,
+            "upstream_inference_prompt_cost": 9.371e-05,
+            "upstream_inference_completions_cost": 0.0001544
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007300-3Yq7RbXd0prjCfZCUBKn",
+        "object": "chat.completion",
+        "created": 1795007300,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、「自信」に近いと感じられる瞬間はどんなときですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、面接でうまく伝えられたことを一つ思い返してみませんか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"不採用の通知を受け取ったあと、自分にどんな言葉をかけてあげたいですか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"もしこのあと少し時間が作れるなら、就職活動の中で何に取り組んでみたいですか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"結果と自分の価値は、切り分けて考えられるものです。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ、息をゆっくり吐いてから吸う呼吸を一度試してみませんか。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1615,
+          "completion_tokens": 269,
+          "total_tokens": 1884,
+          "cost": 0.00206511,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00206511,
+            "upstream_inference_prompt_cost": 0.000915135,
+            "upstream_inference_completions_cost": 0.001149975
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007308-DIqZIKnqu3KPk4CTOqUJ",
+        "object": "chat.completion",
+        "created": 1795007308,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is experiencing moments that feel like \\\"confidence\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile states the person is losing confidence due to rejections, but does not mention specific moments of confidence.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person might have had an interview where they communicated well.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The prompt is a hypothetical invitation to recall a successful interview communication. The profile only mentions anxiety before interviews and subsequent rejections, not successful communication.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is considering what words to say to themselves after receiving a rejection notice.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile states that rejection notices have led to a loss of confidence, but it does not state that the person is currently thinking about what self-affirming words they want to say to themselves after a rejection. This claim presupposes an ongoing internal dialogue that is not explicitly supported.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person might be able to create some time after this.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person might want to work on something within their job search.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This is a hypothetical question. The profile mentions job searching but does not guarantee the ability to create time or suggest a specific area of focus within the job search.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1786,
+          "completion_tokens": 360,
+          "total_tokens": 2146,
+          "cost": 0.0002344,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002344,
+            "upstream_inference_prompt_cost": 9.04e-05,
+            "upstream_inference_completions_cost": 0.000144
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is experiencing moments that feel like \\\"confidence\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person might have had an interview where they communicated well.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is considering what words to say to themselves after receiving a rejection notice.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person might be able to create some time after this.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person might want to work on something within their job search.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

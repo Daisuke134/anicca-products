@@ -1,0 +1,5220 @@
+[
+  {
+    "case": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今の自分に必要だと感じるのは、どんな時間ですか？",
+            "probability": 0.25,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしよければ、今日いちばん先に片づけたいことは何ですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "夜に考えが続きやすいとき、どんなふうに過ごせると少し楽になりそうですか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うときより少し長くとってみませんか。",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.25,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "頭に浮かんだことは紙に書き出すと、頭の中だけで回し続けるより整理しやすくなることがあります。",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今朝の自分に、どんなペースで過ごしてほしいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしよければ、今日いちばん大切にしたいことは何ですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "夜に同じ場面が浮かんでくる時、いちばん引っかかっているのはどの部分でしょうか？",
+            "probability": 0.14,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": [
+              {
+                "claim": "夜に仕事の失敗や言い間違えた一言を何度も思い返してしまう",
+                "span": "夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう"
+              }
+            ]
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.48000000000000004,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "breathing",
+              "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を、三回だけ試してみませんか？",
+              "probability": 0.13,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "頭に浮かんだ考えは、頭の中で回すより紙に書き出すと整理しやすくなることがあります。",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "reflection",
+              "text": "朝の静かな時間は、それだけで気持ちが整いやすいことがあります。",
+              "probability": 0.05,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭に浮かんだことは紙に書き出すと、頭の中だけで回し続けるより整理しやすくなることがあります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "breathing",
+          "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を、三回だけ試してみませんか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭に浮かんだ考えは、頭の中で回すより紙に書き出すと整理しやすくなることがあります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "f",
+          "kind": "reflection",
+          "text": "朝の静かな時間は、それだけで気持ちが整いやすいことがあります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 2,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今夜、考えが浮かびやすい時間帯はありますか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今夜また同じ場面が浮かんできたら、どんなふうに過ごせると少し楽になりそうですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "眠る前に頭を休めるために、試してみたい方法はありますか？",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "question",
+            "text": "今夜の自分に、いちばん必要だと感じるのはどんな時間ですか？",
+            "probability": 0.12,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "reflection",
+            "text": "夜に仕事の失敗や言い間違えた一言を何度も思い返してしまい、考えが止まらず眠れない日が多いんですね。",
+            "probability": 0.12,
+            "grounds": [
+              "profile_summary"
+            ]
+          },
+          {
+            "id": "f",
+            "kind": "breathing",
+            "text": "よければ今、息を吐くほうを吸うときより少し長くしてみてください。",
+            "probability": 0.08,
+            "grounds": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.2,
+            "grounds": []
+          }
+        ],
+        "rejected": []
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "もしよければ、今どんなことを考えているか聞かせてもらえますか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "今夜を少しでも穏やかに過ごすとしたら、どんな過ごし方を試してみたいですか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息をゆっくり吐いてから吸う呼吸を数回試してみてください。",
+            "probability": 0.14,
+            "grounds": []
+          },
+          {
+            "id": "f",
+            "kind": "reflection",
+            "text": "夜に同じ場面が何度も浮かんでくるのは、つらい時間になりがちですよね。",
+            "probability": 0.07,
+            "grounds": [
+              "profile_summary"
+            ]
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.43,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "b",
+              "kind": "question",
+              "text": "夜に考えが止まらなくなる日があるとのことですが、そのときの自分にどんなふうに接したいですか？",
+              "probability": 0.18,
+              "grounds": [],
+              "presuppositions": [
+                {
+                  "claim": "夜に考えが止まらず眠れない日が多いという傾向がある",
+                  "span": "考えが止まらず眠れない日が多い"
+                }
+              ]
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "頭に浮かんだことを紙に書き出すと、同じ考えを繰り返しにくいことがあります。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "夜に考えが止まらなくなる日があるとのことですが、そのときの自分にどんなふうに接したいですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": [
+            {
+              "claim": "夜に考えが止まらず眠れない日が多いという傾向がある",
+              "span": "考えが止まらず眠れない日が多い"
+            }
+          ]
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭に浮かんだことを紙に書き出すと、同じ考えを繰り返しにくいことがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"the person is currently thinking about something\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"the person wants to spend tonight a little more peacefully\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"the person is able to try a way to spend tonight more peacefully\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"f\", \"claim\": {\"claim\": \"replaying the same scenes many times at night tends to be a painful time\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 3,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今夜また考えが止まらなくなったら、どんなふうに過ごしてみたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "落ち着きたいとき、どんな過ごし方が自分に合いそうですか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息をゆっくり吐いてみる時間を少しだけ作ってみませんか。",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "reflection",
+            "text": "夜に仕事の失敗や言い間違えた一言を何度も思い返してしまう夜もあるんですね。",
+            "probability": 0.12,
+            "grounds": [
+              "profile_summary"
+            ]
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.45,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "a",
+              "kind": "question",
+              "text": "今この時間に、いちばん気になっていることは何ですか？",
+              "probability": 0.2,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded question presupposition: この時間に、いちばん気になっていること"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "teaching",
+              "text": "頭に浮かんだことを紙に書き出すと、考えをいったん外に置いておけることがあります。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今夜を少しでも穏やかに過ごすとしたら、どんな過ごし方が合いそうですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今また考えが巡り始めているなら、その中でいちばん大きく残っているのは何ですか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "眠る前の時間に、いま試してみたいことはありますか？",
+            "probability": 0.12,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "夜に同じ場面を何度も思い返して眠れない日が続くと、それだけで消耗しますよね。",
+            "probability": 0.13,
+            "grounds": [
+              "profile_summary"
+            ]
+          },
+          {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よければ、息を吐く方を吸う方より少し長くとって、数回だけ呼吸を味わってみませんか？",
+            "probability": 0.08,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.32,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "teaching",
+              "text": "頭の中で繰り返すことを紙に書き出すと、同じ考えの周りをぐるぐる回る流れがいったん区切れることがあります。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "今この時間に、いちばん気になっていることは何ですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded question presupposition: この時間に、いちばん気になっていること"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "頭に浮かんだことを紙に書き出すと、考えをいったん外に置いておけることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "頭の中で繰り返すことを紙に書き出すと、同じ考えの周りをぐるぐる回る流れがいったん区切れることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 4,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今夜少しでも気持ちを落ち着ける時間があるなら、どんなふうに過ごしてみたいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "考えが止まらない夜には、どんなことが少しでも助けになりそうですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息をゆっくり吐いてから吸う呼吸を数回試してみてください。",
+            "probability": 0.12,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.5,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "a",
+              "kind": "question",
+              "text": "今、いちばん気になっていることは何ですか？",
+              "probability": 0.25,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "頭に浮かんだことを紙に書き出すと、同じ考えが巡るのを少し休められることがあります。",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今の気持ちを言葉にするなら、どんな言葉がいちばん近いでしょうか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今夜少しでも落ち着ける時間があるなら、どんな過ごし方がよさそうですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "夜に考えがぐるぐる回りやすいとき、どんな関わり方をしてみたいですか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うより少し長めにして、数回だけ呼吸に意識を向けてみませんか。",
+            "probability": 0.12,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.35,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "頭に浮かんだことを紙やメモに書き出すと、同じ考えを頭の中だけで回し続ける必要がなくなることがあります。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "reflection",
+              "text": "夜はまわりの音が減って、日中に流れていた考えが浮かびやすくなる時間帯でもあります。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "今、いちばん気になっていることは何ですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭に浮かんだことを紙に書き出すと、同じ考えが巡るのを少し休められることがあります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭に浮かんだことを紙やメモに書き出すと、同じ考えを頭の中だけで回し続ける必要がなくなることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "f",
+          "kind": "reflection",
+          "text": "夜はまわりの音が減って、日中に流れていた考えが浮かびやすくなる時間帯でもあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current feelings can be described in words.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person might have some quiet time tonight.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is interested in how to engage with themselves when ruminating at night.\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 5,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今朝の自分に、どんな言葉をかけてあげたいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし褒め言葉が素直に届かないときがあるなら、そのとき心の中では何が起きていそうですか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "reflection",
+            "text": "「どうせ私なんて」と言ってしまうことがあるんですね。",
+            "probability": 0.13,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "action",
+            "text": "よければ、今日の自分にひとつだけ優しい言葉をメモしてみてください。",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.41000000000000003,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "c",
+              "kind": "question",
+              "text": "他人と比べずに自分の一日を振り返るとしたら、どんな見方ができそうですか？",
+              "probability": 0.14,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "自分を責める言葉は、事実ではなく癖として身についていることがあります。",
+              "probability": 0.12,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "「どうせ私なんて」という言葉が浮かぶとき、その裏側にはどんな気持ちがありますか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "自分に「どうせ私なんて」と言ってしまうことがある",
+                "span": "自分のことを「どうせ私なんて」と言ってしまう"
+              }
+            ]
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし褒められた場面をひとつ思い出すなら、そのとき心の中でどんな声がしていましたか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.62,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "c",
+              "kind": "question",
+              "text": "今日、自分に対して少しでもやさしくなれるとしたら、どんな瞬間だと思いますか？",
+              "probability": 0.16,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "reflection",
+              "text": "人と比べる癖も、褒め言葉を跳ね返してしまう癖も、一日で消えるものではありません。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "自分にかける言葉は、親しい友人にかける言葉と同じ基準で選んでみることもできます。",
+              "probability": 0.06,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "breathing",
+              "text": "よければ一度、息をゆっくり吐いてから、次の息を待ってみませんか？",
+              "probability": 0.05,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "c",
+          "kind": "question",
+          "text": "他人と比べずに自分の一日を振り返るとしたら、どんな見方ができそうですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "自分を責める言葉は、事実ではなく癖として身についていることがあります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "c",
+          "kind": "question",
+          "text": "今日、自分に対して少しでもやさしくなれるとしたら、どんな瞬間だと思いますか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "reflection",
+          "text": "人と比べる癖も、褒め言葉を跳ね返してしまう癖も、一日で消えるものではありません。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "自分にかける言葉は、親しい友人にかける言葉と同じ基準で選んでみることもできます。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "f",
+          "kind": "breathing",
+          "text": "よければ一度、息をゆっくり吐いてから、次の息を待ってみませんか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"When the phrase 'どうせ私なんて' comes to mind, there are feelings behind it.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person has been praised before.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"If the person recalls one praised instance, they had internal thoughts at that time.\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 6,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしSNSで誰かと比べて落ち込む瞬間があるなら、そのとき自分にかけてあげたい言葉はありますか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.18
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "褒められたとき、素直に受け取るのを難しくしているものは何だと思いますか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.17
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "今日あった小さな出来事の中から、自分で「まあよかった」と思えるものを一つだけ書き出してみませんか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.12
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "grounds": [],
+            "probability": 0.53
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "a",
+              "kind": "question",
+              "text": "「どうせ私なんて」という言葉が出てきたとき、その奥にある気持ちを自分の言葉で表すとしたら、どんな言葉になりますか？",
+              "presuppositions": [],
+              "grounds": [],
+              "probability": 0.2
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "他人と自分を比べる癖は、意識して「今日の自分」だけに目を向ける練習で少しずつ和らぐことがあります。",
+              "grounds": [],
+              "probability": 0.15
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "reflection",
+              "text": "自分を責める声が強いときほど、その声とは別の視点も存在しています。",
+              "grounds": [],
+              "probability": 0.08
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "「どうせ私なんて」という言葉が出てきたとき、その裏にどんな気持ちがあるか、少し言葉にしてみますか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "自分に「どうせ私なんて」と言ってしまうことがある",
+                "span": "自分のことを「どうせ私なんて」と言ってしまう"
+              }
+            ]
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし褒められた場面をひとつ思い出すなら、そのとき心の中で何が起きているでしょうか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "他人と比べてしまう癖について、いま一番知りたいことは何ですか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "SNSで他人と比べて落ち込むことが多い",
+                "span": "SNSで他人と比べて落ち込むことが多い"
+              }
+            ]
+          },
+          {
+            "id": "d",
+            "kind": "question",
+            "text": "今日、自分に対して少しでも優しい言葉をかけるなら、どんな言葉を選びたいですか？",
+            "probability": 0.17,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.30000000000000004,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "比べる気持ちは、脳の自動的な癖のようなもので、性格の欠陥ではありません。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "「どうせ私なんて」という言葉が出てきたとき、その奥にある気持ちを自分の言葉で表すとしたら、どんな言葉になりますか？",
+          "presuppositions": [],
+          "grounds": [],
+          "probability": 0.2
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "他人と自分を比べる癖は、意識して「今日の自分」だけに目を向ける練習で少しずつ和らぐことがあります。",
+          "grounds": [],
+          "probability": 0.2
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "reflection",
+          "text": "自分を責める声が強いときほど、その声とは別の視点も存在しています。",
+          "grounds": [],
+          "probability": 0.2
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "比べる気持ちは、脳の自動的な癖のようなもので、性格の欠陥ではありません。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 7,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "褒められたとき、その言葉がすっと入ってこない感じは、どんなふうに現れますか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.2
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今「どうせ私なんて」という言葉が浮かんでいるなら、その声に少し距離を置くとしたら、どんな言い方になりそうですか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.18
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "SNSで誰かと比べてしまうときの自分と、比べずにいられるときの自分には、どんな違いがありますか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.16
+          },
+          {
+            "id": "d",
+            "kind": "question",
+            "text": "自分にやさしくなれる瞬間があるとすれば、それはどんな場面でしょうか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.14
+          },
+          {
+            "id": "f",
+            "kind": "action",
+            "text": "よければ、今日あった出来事をひとつだけ選んで、友達に話すような口調で自分に言い直してみてください。",
+            "grounds": [],
+            "probability": 0.07
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "grounds": [],
+            "probability": 0.25
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "自分を責める癖は、考え方を変えようとするより先に、まず気づいて名前をつけるだけでもゆるむことがあります。",
+              "grounds": [],
+              "probability": 0.1
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "「どうせ私なんて」という言葉が浮かんだとき、その裏側にはどんな気持ちがありますか？",
+            "probability": 0.22,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "自分に「どうせ私なんて」と言ってしまうことがある",
+                "span": "自分のことを「どうせ私なんて」と言ってしまう"
+              }
+            ]
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし褒められた場面をひとつ思い出すなら、そのとき心の中では何が起きていましたか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "他人と比べなくていいとしたら、今日いちばん大切にしたいのはどんな時間ですか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ今、「どうせ私なんて」の代わりに口にする短い言葉をひとつ決めてみませんか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.34,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "reflection",
+              "text": "人と比べてしまうことと、自分の価値が決まってしまうことは、同じではありません。",
+              "probability": 0.14,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "自分を責める癖は、考え方を変えようとするより先に、まず気づいて名前をつけるだけでもゆるむことがあります。",
+          "grounds": [],
+          "probability": 0.2
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "reflection",
+          "text": "人と比べてしまうことと、自分の価値が決まってしまうことは、同じではありません。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wonders what feelings lie behind the phrase \\\"どうせ私なんて\\\".\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is asked to recall a situation where they were praised.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is asked about what was happening in their mind during a praised situation.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is asked what kind of time they would like to cherish today if they didn't have to compare themselves to others.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is invited to decide on a short phrase to say instead of \\\"どうせ私なんて\\\".\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 8,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "もしよければ、いまの気持ちをどんな言葉で表したいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "「どうせ私なんて」という言葉が出てくるのは、どんなときが多いですか？",
+            "probability": 0.18,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": [
+              {
+                "claim": "「どうせ私なんて」という言葉が本人から出ることがある",
+                "span": "自分のことを「どうせ私なんて」と言ってしまう"
+              }
+            ]
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "褒められたとき、その言葉が心に残りにくいと感じる瞬間には、どんなことが浮かんでいますか？",
+            "probability": 0.14,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": [
+              {
+                "claim": "褒められても素直に受け取れないことがある",
+                "span": "褒められても素直に受け取れない"
+              }
+            ]
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ今夜、「どうせ私なんて」の代わりに自分に言ってみたい短い言葉をひとつ考えてみませんか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.33,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "人と自分を比べる癖は、意志の弱さではなく心の習慣として少しずつ変えていけるものです。",
+              "probability": 0.13,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "error": "question candidate count must be at least half of non-none"
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "人と自分を比べる癖は、意志の弱さではなく心の習慣として少しずつ変えていけるものです。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "question candidate count must be at least half of non-none"
+  },
+  {
+    "case": 9,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今、少しだけ休める時間があるとしたら、どんな過ごし方がいちばん楽に感じられそうですか？",
+            "probability": 0.22,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "「何もしたくない」気持ちと焦りの間で揺れているとき、どちらの声を先に聞いてあげたいですか？",
+            "probability": 0.14,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": [
+              {
+                "claim": "何もしたくない気持ちとやらなきゃという焦りの間で揺れている",
+                "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+              }
+            ]
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うときより少し長くしてみてください。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.54,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "a",
+              "kind": "question",
+              "text": "今朝、いちばん気になっていることは何ですか？",
+              "probability": 0.28,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded question presupposition: 今朝、いちばん気になっていること"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "休めていないときに「動けない」と感じるのは、心と体が自然に出すサインのひとつです。",
+              "probability": 0.06,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今朝の自分に、いちばん必要だと感じるのはどんな時間ですか？",
+            "probability": 0.25,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が少し大きいですか？",
+            "probability": 0.15,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": [
+              {
+                "claim": "「何もしたくない」と「やらなきゃ」の間で揺れている",
+                "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+              }
+            ]
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.6,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "b",
+              "kind": "question",
+              "text": "もし今、ほんの数分だけ自分のために使えるとしたら、何に使いたいですか？",
+              "probability": 0.2,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "breathing",
+              "text": "よければ、息を吐くほうを吸うより少し長くして、一度だけ呼吸してみましょう。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "休めていない時期には、休息そのものを予定のひとつとして扱う方法もあります。",
+              "probability": 0.05,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "今朝、いちばん気になっていることは何ですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded question presupposition: 今朝、いちばん気になっていること"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "休めていないときに「動けない」と感じるのは、心と体が自然に出すサインのひとつです。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "もし今、ほんの数分だけ自分のために使えるとしたら、何に使いたいですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "breathing",
+          "text": "よければ、息を吐くほうを吸うより少し長くして、一度だけ呼吸してみましょう。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "休めていない時期には、休息そのものを予定のひとつとして扱う方法もあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is currently in the morning.\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 10,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしこのあと数分だけ自分の時間が取れるなら、何に使いたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が先に聞こえてきますか？",
+            "probability": 0.14,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": [
+              {
+                "claim": "何もしたくない気持ちと焦りの間で揺れている",
+                "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+              }
+            ]
+          },
+          {
+            "id": "d",
+            "kind": "question",
+            "text": "休日に疲れが残るとき、体と心のどちらがより重く感じられますか？",
+            "probability": 0.13,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": [
+              {
+                "claim": "休日でも疲れが取れない",
+                "span": "休日も疲れが取れない"
+              }
+            ]
+          },
+          {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よければ、息を吐く方を吸う方より少し長くして、三呼吸だけ試してみませんか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.45,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "a",
+              "kind": "question",
+              "text": "今、いちばん気になっているのはどんなことですか？",
+              "probability": 0.2,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "teaching",
+              "text": "休息は用事を全部終えたあとのご褒美ではなく、動き続けるための土台です。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "今、いちばん気になっているのはどんなことですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "休息は用事を全部終えたあとのご褒美ではなく、動き続けるための土台です。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 11,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今、この時間に少しでも気持ちが楽になることがあるとしたら、どんなことですか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.24
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしよければ、今の気持ちをそのまま言葉にするとどんな感じですか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.18
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとのことですが、今どちらの声をもう少し聞いてみたいですか？",
+            "presuppositions": [
+              {
+                "claim": "本人が「何もしたくない気持ちとやらなきゃという焦りの間で揺れている」と述べている",
+                "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+              }
+            ],
+            "grounds": [
+              "profile_summary"
+            ],
+            "probability": 0.16
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうだけ少し長めにしてみる時間を、ここで一緒に取りませんか？",
+            "presuppositions": [],
+            "grounds": [],
+            "probability": 0.1
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "grounds": [],
+            "probability": 0.32
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "休めない時期には、まず何もしない数分を予定に入れておく方法もあります。",
+              "grounds": [],
+              "probability": 0.07
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今、何もしない時間とやらなきゃという気持ちの間で揺れているとしたら、どちらが少し強いですか？",
+            "probability": 0.28,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もし今夜ほんの数分だけ自分の時間が取れるなら、何に使いたいですか？",
+            "probability": 0.13,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "何もしたくない気持ちと、やらなきゃという焦りが同時にあるのは、めずらしいことではありません。",
+            "probability": 0.15,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うより少し長くする呼吸を、数回だけ試してみませんか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.34,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "b",
+              "kind": "question",
+              "text": "今日一日を振り返って、少しでもホッとできた瞬間はありましたか？",
+              "probability": 0.14,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "休めない時期には、まず何もしない数分を予定に入れておく方法もあります。",
+          "grounds": [],
+          "probability": 0.2
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "今日一日を振り返って、少しでもホッとできた瞬間はありましたか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The question asks which of the two feelings, \\\"doing nothing\\\" or \\\"having to do it\\\", is slightly stronger at this moment.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person hypothetically has a few minutes of personal time available tonight.\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 12,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今、何もしなくていい時間が少しでもあるとしたら、どんなふうに過ごしたいですか？",
+            "probability": 0.22,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声を先に聞いてあげたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "「何もしたくない」気持ちと「やらなきゃ」という焦りの間で揺れている",
+                "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+              }
+            ]
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "休日に疲れが残るとき、体と心のどちらがより休めていない感じがしますか？",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "休日でも疲れが取れない",
+                "span": "休日も疲れが取れない"
+              }
+            ]
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.45999999999999996,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "breathing",
+              "text": "よければ、息を吐く方を吸う方より少し長くする呼吸を、三回だけ試してみませんか？",
+              "probability": 0.13,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "休息は予定の空き時間に自然に入るものではなく、先に短く確保しないと後回しになりやすいものです。",
+              "probability": 0.09,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "reflection",
+              "text": "何もしない時間は、怠けではなく回復のための時間として扱ってもよいものです。",
+              "probability": 0.06,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今夜少しでも自分のための時間が取れるなら、何に使ってみたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声を先に聞いてあげたいですか？",
+            "probability": 0.16,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": [
+              {
+                "claim": "「何もしたくない」気持ちと「やらなきゃ」という焦りの間で揺れている",
+                "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+              }
+            ]
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "休む時間がないまま日々を回していると、休日だけでは疲れが抜けきらないこともあります。",
+            "probability": 0.1,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "teaching",
+            "text": "「何もしたくない」と「やらなきゃ」が同時にある状態は、どちらかを消してから動く必要はない、という考え方もあります。",
+            "probability": 0.07,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.49,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "a",
+              "kind": "question",
+              "text": "今、いちばん気になっているのはどんなことですか？",
+              "probability": 0.24,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "breathing",
+              "text": "よければ、息を吐くほうを吸うほうより少し長くして、3回だけ呼吸してみませんか？",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "breathing",
+          "text": "よければ、息を吐く方を吸う方より少し長くする呼吸を、三回だけ試してみませんか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "休息は予定の空き時間に自然に入るものではなく、先に短く確保しないと後回しになりやすいものです。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "reflection",
+          "text": "何もしない時間は、怠けではなく回復のための時間として扱ってもよいものです。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "今、いちばん気になっているのはどんなことですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "breathing",
+          "text": "よければ、息を吐くほうを吸うほうより少し長くして、3回だけ呼吸してみませんか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 13,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今朝の気分を、天気や色でたとえるとしたらどんな感じですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "今日はどんなふうに過ごせたら、少しでも楽だと感じられそうですか？",
+            "probability": 0.17,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "なんとなく気分が沈む日が続くと、朝を迎えること自体が重く感じられることもありますよね。",
+            "probability": 0.15,
+            "grounds": [
+              "profile_summary"
+            ]
+          },
+          {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うときより少し長めにして、一呼吸だけゆっくり試してみてください。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.38,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "b",
+              "kind": "question",
+              "text": "もしよければ、最近の一日について少し話してみませんか？",
+              "probability": 0.18,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今朝の気分を、天気や色でたとえるとしたらどんな感じですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしよければ、最近いちばん気がかりなことを聞かせてもらえますか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うときより少し長くとってみませんか。",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "reflection",
+            "text": "なんとなく沈む日が続くと、その重さは言葉にしにくいものですよね。",
+            "probability": 0.05,
+            "grounds": [
+              "profile_summary"
+            ]
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.47000000000000003,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "c",
+              "kind": "question",
+              "text": "もし今日ひとつだけ自分にゆるしてあげられることがあるとしたら、何にしますか？",
+              "probability": 0.14,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "気分の落ち込みには波があって、調子の出ない時期がずっと続くとは限りません。",
+              "probability": 0.08,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "もしよければ、最近の一日について少し話してみませんか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "c",
+          "kind": "question",
+          "text": "もし今日ひとつだけ自分にゆるしてあげられることがあるとしたら、何にしますか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "気分の落ち込みには波があって、調子の出ない時期がずっと続くとは限りません。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person's current mood can be likened to weather or color.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  },
+  {
+    "case": 14,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今この瞬間の気分を、言葉にするならどんな感じですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "今日はどんなふうに過ごしていますか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よかったら、息を吐くほうを少し長めにして、一呼吸だけゆっくりしてみませんか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "reflection",
+            "text": "なんとなく気分が沈む日が増えたり、好きだったことに興味が湧きにくかったりするのは、つらいことですね。",
+            "probability": 0.1,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.45,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "b",
+              "kind": "question",
+              "text": "もしよければ、最近の一日で少しでも気持ちが軽くなる瞬間はありますか？",
+              "probability": 0.15,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "気分が沈む日は、原因がはっきりしないまま来ることもあります。",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今この瞬間、どんな気分ですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "朝起きるのがつらい日について、もう少し詳しく話してみますか？",
+            "probability": 0.14,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "question",
+            "text": "もし少しでも気持ちが軽くなる時間があるとしたら、それはどんなときでしょうか？",
+            "probability": 0.13,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "breathing",
+            "text": "よければ、息をゆっくり吐いてから吸う呼吸を、数回だけ試してみてください。",
+            "probability": 0.05,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.48,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "b",
+              "kind": "question",
+              "text": "もしよければ、最近の一日がどんなふうに過ぎているか聞かせてもらえますか？",
+              "probability": 0.18,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "reflection",
+              "text": "なんとなく気分が沈む日や、好きだったことに興味が湧きにくい時期は、誰にでもあります。",
+              "probability": 0.07,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "もしよければ、最近の一日で少しでも気持ちが軽くなる瞬間はありますか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "気分が沈む日は、原因がはっきりしないまま来ることもあります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "もしよければ、最近の一日がどんなふうに過ぎているか聞かせてもらえますか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "reflection",
+          "text": "なんとなく気分が沈む日や、好きだったことに興味が湧きにくい時期は、誰にでもあります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"d\", \"claim\": {\"claim\": \"There are times when the person feels a little lighter.\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 15,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今の気分を言葉にするなら、どんな言葉がいちばん近いですか？",
+            "probability": 0.26,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "今夜、何もしないで過ごすとしたら、どんな過ごし方がいちばん負担が少なそうですか？",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "なんとなく気分が沈む日が増えたり、好きだったことに興味が湧きにくくなる時期は、誰にでも起こりうることです。",
+            "probability": 0.12,
+            "grounds": [
+              "profile_summary"
+            ]
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.48,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "b",
+              "kind": "question",
+              "text": "もしよければ、最近の一日でほんの少しでも楽だった瞬間はありますか？",
+              "probability": 0.18,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "breathing",
+              "text": "よければ、息を吐くほうを吸うより少し長めにして、三回だけ呼吸してみませんか？",
+              "probability": 0.08,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "teaching",
+              "text": "気分の落ち込みが続くときは、頑張る量を増やすより休める時間を先に確保する考え方もあります。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今この時間に、どんな気分ですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もし今夜少しでも余裕があるなら、何をしているとほんの少し楽になりますか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "question",
+            "text": "朝起きるのがつらい日について、もう少し聞かせてもらえますか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "breathing",
+            "text": "よかったら、息を吐くほうを吸うより少し長くする呼吸を、数回だけ試してみてください。",
+            "probability": 0.08,
+            "grounds": []
+          },
+          {
+            "id": "h",
+            "kind": "none",
+            "text": "",
+            "probability": 0.47,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "b",
+              "kind": "question",
+              "text": "もしよければ、最近の一日を自分の言葉で少し話してみませんか？",
+              "probability": 0.15,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "気分の落ち込みや興味の薄れは、意志の弱さとは別のところで起こることがあります。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "g",
+              "kind": "reflection",
+              "text": "なんとなく沈む日は、理由がうまく言葉にならないまま過ぎていくこともありますね。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "もしよければ、最近の一日でほんの少しでも楽だった瞬間はありますか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "breathing",
+          "text": "よければ、息を吐くほうを吸うより少し長めにして、三回だけ呼吸してみませんか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "気分の落ち込みが続くときは、頑張る量を増やすより休める時間を先に確保する考え方もあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "もしよければ、最近の一日を自分の言葉で少し話してみませんか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "気分の落ち込みや興味の薄れは、意志の弱さとは別のところで起こることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "g",
+          "kind": "reflection",
+          "text": "なんとなく沈む日は、理由がうまく言葉にならないまま過ぎていくこともありますね。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"c\", \"claim\": {\"claim\": \"The person might have some free time tonight.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person might feel a little better by doing something.\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 16,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "もしよければ、今の気分を言葉にするとどんな感じですか？",
+            "probability": 0.24,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "この時間に少しでも気持ちが楽になることがあるとしたら、それはどんなことですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うほうより少し長くする呼吸を、数回だけ試してみませんか。",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.48000000000000004,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "c",
+              "kind": "question",
+              "text": "もし今夜ひとつだけ自分にゆるしてあげられることがあるなら、何をゆるしたいですか？",
+              "probability": 0.13,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "気分の落ち込みには、はっきりした理由が見つからないことも珍しくありません。",
+              "probability": 0.08,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "reflection",
+              "text": "なんとなく気分が沈む日や、好きだったことに興味が湧きにくい時期は、誰にでもあります。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "c",
+          "kind": "question",
+          "text": "もし今夜ひとつだけ自分にゆるしてあげられることがあるなら、何をゆるしたいですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "気分の落ち込みには、はっきりした理由が見つからないことも珍しくありません。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "reflection",
+          "text": "なんとなく気分が沈む日や、好きだったことに興味が湧きにくい時期は、誰にでもあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 17,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今、自分に自信があると感じられる場面はどんなときですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "面接でうまく伝えられた経験があれば、そのときはどんな準備をしていましたか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もし今日のどこかで少しだけ気持ちが落ち着く瞬間があるとしたら、それはどんな場面だと思いますか？",
+            "probability": 0.17,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "今日ひとつだけ、過去の自分より少しでも成長できたことを書き出してみませんか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.35,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "不採用の通知は、その会社の基準との相性を示すものであって、あなたの価値を決めるものではありません。",
+              "probability": 0.15,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日、いちばん先に片づけたいことは何ですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今、不安が少しでもあるなら、その中でいちばん大きいのはどんなことですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "「自信がある」と言える状態は、あなたにとってどんな様子でしょうか？",
+            "probability": 0.17,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "不採用の通知が続くと、自信が揺らぐことがあります。",
+            "probability": 0.1,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.35,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "action",
+              "text": "よければ、息をゆっくり吐くところから一度試してみませんか？",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "不採用の通知は、その会社の基準との相性を示すものであって、あなたの価値を決めるものではありません。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "action",
+          "text": "よければ、息をゆっくり吐くところから一度試してみませんか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"There is something that needs to be dealt with first today.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"A state of being able to say 'I have confidence' exists.\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 18,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今、自信についてどんなことが頭に浮かんでいますか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "面接の前に不安が出てくる時、その不安はどんな形で現れますか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もしこのあと少し時間が取れるなら、自分のために何をしてみたいですか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "question",
+            "text": "不合格の通知が続く中で、今の自分にかけたい言葉はありますか？",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "reflection",
+            "text": "「落ちるかもしれない」という考えが浮かぶことと、実際の結果は別のことです。",
+            "probability": 0.13,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "breathing",
+              "text": "よければ、息をゆっくり吐いてから吸う呼吸を一度試してみてください。",
+              "probability": 0.08,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今、「自信」に近いと感じられる瞬間はどんなときですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしよければ、面接でうまく伝えられたことを一つ思い返してみませんか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "不採用の通知を受け取ったあと、自分にどんな言葉をかけてあげたいですか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "question",
+            "text": "もしこのあと少し時間が作れるなら、就職活動の中で何に取り組んでみたいですか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.4,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "結果と自分の価値は、切り分けて考えられるものです。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "breathing",
+              "text": "よければ、息をゆっくり吐いてから吸う呼吸を一度試してみませんか。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "breathing",
+          "text": "よければ、息をゆっくり吐いてから吸う呼吸を一度試してみてください。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "結果と自分の価値は、切り分けて考えられるものです。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "f",
+          "kind": "breathing",
+          "text": "よければ、息をゆっくり吐いてから吸う呼吸を一度試してみませんか。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is experiencing moments that feel like \\\"confidence\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person might have had an interview where they communicated well.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is considering what words to say to themselves after receiving a rejection notice.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person might be able to create some time after this.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person might want to work on something within their job search.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  },
+  {
+    "case": 19,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今、「自信」という言葉から思い浮かべるのはどんな場面ですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "面接の前に不安が強くなる夜もあるとしたら、そのとき自分にどんな言葉をかけてみたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もしよければ、いま心にいちばん近くにある気持ちをそのまま言葉にしてみませんか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "不採用の通知が続くと、自信が揺らぐことがあります。",
+            "probability": 0.12,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "breathing",
+            "text": "よかったら、息を吐くほうを吸うほうより少し長くする呼吸を数回試してみませんか。",
+            "probability": 0.09,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.25,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "不安は消そうとするより、まず名前をつけて認めるほうが扱いやすくなることがあります。",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "面接の前に「落ちるかもしれない」という不安が出てくる時、その声はどんな言葉で語りかけてきますか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "面接の前に「落ちるかもしれない」と不安になる傾向がある",
+                "span": "面接の前になると「落ちるかもしれない」と不安になる"
+              }
+            ]
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今、自信について少しでも考えてみる余裕があるなら、自分に対してどんな言葉をかけてみたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "不合格の通知が続く中で、それでも続けている就活の原動力になっているものは何ですか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "不合格の通知が続いている",
+                "span": "不合格の通知が続いて"
+              }
+            ]
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.47,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "question",
+              "text": "今日一日を振り返って、面接や就活とは関係なく、自分がうまくできたと思える小さなことは何かありますか？",
+              "probability": 0.15,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "不安を感じることと、準備ができているかどうかは別の話です。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "action",
+              "text": "紙に、これまでの就活で自分が実際に行動したことを3つ書き出してみてください。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "不安は消そうとするより、まず名前をつけて認めるほうが扱いやすくなることがあります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "question",
+          "text": "今日一日を振り返って、面接や就活とは関係なく、自分がうまくできたと思える小さなことは何かありますか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "不安を感じることと、準備ができているかどうかは別の話です。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "f",
+          "kind": "action",
+          "text": "紙に、これまでの就活で自分が実際に行動したことを3つ書き出してみてください。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "Extra data: line 2 column 1 (char 1063)"
+  },
+  {
+    "case": 20,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今、自分に自信があると思える場面はどんなときですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "面接の不安が強い夜には、どんなふうに過ごすことが多いですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もしよければ、最近いちばん心が動いた出来事をひとつ教えてもらえますか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "不採用が続くと、自信が揺らぐのは自然なことです。",
+            "probability": 0.14,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "breathing",
+            "text": "よかったら、息を吐くほうを吸うより少し長くとってみませんか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.22999999999999998,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "teaching",
+              "text": "面接の結果は、その場の条件や相手側の事情にも左右されます。",
+              "probability": 0.08,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "面接の前に「落ちるかもしれない」という不安が出てくるとき、その声にどう返してあげたいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "面接の前に「落ちるかもしれない」と不安になる傾向がある",
+                "span": "面接の前になると「落ちるかもしれない」と不安になる"
+              }
+            ]
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "自信とは少し離れて感じる時期に、自分を評価する物差しを何に置きたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "自信をなくしつつある",
+                "span": "自信をなくしつつある"
+              }
+            ]
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もしよければ、このあと自分にどんな言葉をかけてあげたいですか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.47000000000000003,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "question",
+              "text": "結果の通知とは関係なく、今の自分について一つ認められることがあるとしたら、何でしょうか？",
+              "probability": 0.14,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "不合格の通知は、その選考での相性の結果であって、その人の価値を決める点数ではありません。",
+              "probability": 0.13,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "breathing",
+              "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を三回ほど試してみませんか。",
+              "probability": 0.08,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "面接の結果は、その場の条件や相手側の事情にも左右されます。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "question",
+          "text": "結果の通知とは関係なく、今の自分について一つ認められることがあるとしたら、何でしょうか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "不合格の通知は、その選考での相性の結果であって、その人の価値を決める点数ではありません。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "f",
+          "kind": "breathing",
+          "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を三回ほど試してみませんか。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 21,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+            "probability": 0.26,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "気が散りやすい時間帯と、比較的落ち着ける時間帯は、どんなふうに違いますか？",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "action",
+            "text": "よければ、最初の5分だけ取り組む小さな作業を一つ決めてみませんか？",
+            "probability": 0.12,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.30000000000000004,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "集中は、始める前の段取りで半分ほど決まると言われています。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+            "probability": 0.28,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+            "probability": 0.24,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ、スマホを手の届かない場所に置いてから机に向かう、という順番を試してみませんか。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.41000000000000003,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "c",
+              "kind": "question",
+              "text": "今日はどんな流れで一日を過ごせたら、自分にとってちょうどよさそうですか？",
+              "probability": 0.16,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "作業の前に「最初の5分だけ」と範囲を小さく区切ると、着手のハードルが下がることがあります。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "集中は、始める前の段取りで半分ほど決まると言われています。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "c",
+          "kind": "question",
+          "text": "今日はどんな流れで一日を過ごせたら、自分にとってちょうどよさそうですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "作業の前に「最初の5分だけ」と範囲を小さく区切ると、着手のハードルが下がることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to finish something first among today's tasks.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person has a habit of placing their smartphone within reach while working at their desk.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  },
+  {
+    "case": 22,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+            "probability": 0.28,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+            "probability": 0.24,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "スマホが手元にあるとき、どんなタイミングで触ってしまうことが多いですか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "action",
+            "text": "よければ、作業をひとつだけ選んで、最初の5分だけやってみませんか。",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.22,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "大きなタスクは「最初の一手」まで小さく分けると、着手のハードルが下がることがあります。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+            "probability": 0.25,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "気が散りやすい時間帯と、比較的落ち着いている時間帯はありますか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "action",
+            "text": "タイマーを5分だけかけて、ひとつのことを小さく進めてみませんか。",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.3,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "作業を「最初の一手」まで細かく分けると、着手のハードルが下がることがあります。",
+              "probability": 0.08,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "大きなタスクは「最初の一手」まで小さく分けると、着手のハードルが下がることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "作業を「最初の一手」まで細かく分けると、着手のハードルが下がることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"There is a task that needs to be completed today, and the person wants to complete it first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person can create a short period of time for focused work later.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  },
+  {
+    "case": 23,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+            "probability": 0.26,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "気が散りにくい環境にするなら、どんな工夫が思い浮かびますか？",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ、スマホを手の届かない場所に置いてみる実験をしてみませんか。",
+            "probability": 0.08,
+            "grounds": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.32,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "作業を始める前に「最初の5分だけ」と区切ると、着手のハードルが下がることがあります。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "reflection",
+              "text": "先延ばしのあとの後悔は、夜になるほど重く感じられやすいものです。",
+              "probability": 0.07,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "作業を始める前に「最初の5分だけ」と区切ると、着手のハードルが下がることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "reflection",
+          "text": "先延ばしのあとの後悔は、夜になるほど重く感じられやすいものです。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 24,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+            "probability": 0.26,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし明日の最初の30分だけ集中の時間が作れるなら、何から始めてみたいですか？",
+            "probability": 0.24,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "スマホに手が伸びる前に置ける場所をひとつ決めるとしたら、どこがよさそうですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ、今すぐできる小さな一歩をひとつだけ紙に書き出してみませんか？",
+            "probability": 0.07,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.25,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "作業は「全部」ではなく「最初の5分」と区切ると、取りかかりやすくなることがあります。",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+            "probability": 0.26,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+            "probability": 0.22,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "スマホが手元にあると気が散りやすいとき、どんな置き方を試してみたいですか？",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "先延ばしにした日の夜に後悔が残るのは、珍しいことではありません。",
+            "probability": 0.1,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ、明日の最初の5分でやることを一つだけ紙に書き出してみてください。",
+            "probability": 0.08,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": []
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "作業は「全部」ではなく「最初の5分」と区切ると、取りかかりやすくなることがあります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to complete one of today's tasks first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  },
+  {
+    "case": 25,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今の気分を言葉にするなら、どんな言葉が近いでしょうか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしよければ、ゆっくり息を吐くところから始めてみませんか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "今日、少しでも気持ちが落ち着く時間があるとすれば、どんな過ごし方でしょうか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.47,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "breathing",
+              "text": "息を吸うより吐く方を少し長めにすると、切り替えのきっかけになることがあります。",
+              "probability": 0.12,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "頭に浮かんだ予定は、紙やメモに書き出すと頭の負担を減らせることがあります。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今も眠気より頭の動きの方が強いなら、どんなふうに過ごせたら少し楽になりそうですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "今日の時間の使い方として、いちばん先に決めておきたいことは何ですか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐く方を吸う方より少し長くとる呼吸を、数回だけ試してみませんか。",
+            "probability": 0.12,
+            "grounds": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.52,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "a",
+              "kind": "question",
+              "text": "明日の予定について、頭の中で回っているものを紙に書き出すとしたら、何から書きますか？",
+              "probability": 0.24,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded question presupposition: 頭の中で回っている"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "眠れない時間に時計を見続けるより、いったん起きて静かなことをしてから戻る方法もあります。",
+              "probability": 0.08,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "breathing",
+          "text": "息を吸うより吐く方を少し長めにすると、切り替えのきっかけになることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭に浮かんだ予定は、紙やメモに書き出すと頭の負担を減らせることがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "明日の予定について、頭の中で回っているものを紙に書き出すとしたら、何から書きますか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded question presupposition: 頭の中で回っている"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "眠れない時間に時計を見続けるより、いったん起きて静かなことをしてから戻る方法もあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person's head is more active than their sleepiness.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person has a schedule for today.\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 26,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今夜、眠る前の時間を少しでも穏やかに過ごすとしたら、どんなふうに過ごしてみたいですか？",
+            "grounds": [],
+            "presuppositions": [],
+            "probability": 0.25
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしよければ、明日の予定について頭に浮かんでくることを、今ここで言葉にしてみませんか？",
+            "grounds": [],
+            "presuppositions": [],
+            "probability": 0.18
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "眠るまでの時間に頭が動き出す夜もあるとのことですが、そういうとき試してみたいことはありますか？",
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": [],
+            "probability": 0.15
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うときより少し長めにして、数回呼吸を続けてみませんか。",
+            "grounds": [],
+            "probability": 0.1
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "grounds": [],
+            "probability": 0.32
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "頭に浮かんだ予定は、紙やメモに一度書き出しておくと、覚えておこうとする負担を減らせると言われています。",
+              "grounds": [],
+              "probability": 0.07
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "今夜眠る前の時間を少しでも過ごしやすくするために、どんな工夫を試してみたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もし今夜また考えが止まらなくなったら、どんなふうに過ごせたら落ち着けそうですか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吸うより吐くほうを少し長めにして、数回だけ呼吸を数えてみませんか。",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.52,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "a",
+              "kind": "question",
+              "text": "明日の予定が頭をぐるぐる回ってしまう夜もあるとのことですが、いまこの時間に気になっていることはありますか？",
+              "probability": 0.2,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded question presupposition: この時間に気になっていること"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "頭に浮かんだ予定は紙やメモに書き出しておくと、頭の中で繰り返し抱えなくてすむことがあります。",
+              "probability": 0.12,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭に浮かんだ予定は、紙やメモに一度書き出しておくと、覚えておこうとする負担を減らせると言われています。",
+          "grounds": [],
+          "probability": 0.2
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "明日の予定が頭をぐるぐる回ってしまう夜もあるとのことですが、いまこの時間に気になっていることはありますか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded question presupposition: この時間に気になっていること"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "頭に浮かんだ予定は紙やメモに書き出しておくと、頭の中で繰り返し抱えなくてすむことがあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"The person wants to make the time before sleeping tonight more comfortable.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person is willing to try some tricks.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is looking for a way to calm down if their thoughts start racing again tonight.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"d\", \"claim\": {\"claim\": \"The person is being invited to try a breathing exercise.\", \"profile_fields\": [], \"entailed\": false}}]"
+  },
+  {
+    "case": 27,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今夜、眠る前の時間をどんなふうに過ごしたいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もしよければ、ゆっくり息を吐くのを数回いっしょにやってみませんか？",
+            "probability": 0.15,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "question",
+            "text": "頭の中の予定を紙やメモに書き出しておくと落ち着ける人もいますが、試してみたいと思いますか？",
+            "probability": 0.12,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "breathing",
+            "text": "肩の力をゆるめて、吸う息より吐く息を少し長めにしてみてください。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.43,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "b",
+              "kind": "question",
+              "text": "明日の予定が頭をぐるぐる回ってしまう夜もあるんですね。もし今もそんな感じなら、浮かんでくるのはどんな予定ですか？",
+              "probability": 0.18,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "teaching",
+              "text": "眠りは追いかけるほど遠のきやすいので、眠ろうと頑張らずに休むこと自体を目標にする方法もあります。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今夜を少しでも穏やかに過ごすとしたら、どんな時間がいいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今、明日の予定が頭をぐるぐる回っているなら、いちばん引っかかっているのはどの予定ですか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "眠る前の時間に、試してみたいことがあれば教えてください。",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うときより少し長くとってみませんか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.4,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "action",
+              "text": "頭に浮かんだ予定は、紙やメモに書き出すと頭の外に置いておけます。",
+              "probability": 0.08,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "f",
+              "kind": "teaching",
+              "text": "眠りは追いかけると遠のきやすいので、眠ろうと頑張らない時間も役に立ちます。",
+              "probability": 0.07,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "b",
+          "kind": "question",
+          "text": "明日の予定が頭をぐるぐる回ってしまう夜もあるんですね。もし今もそんな感じなら、浮かんでくるのはどんな予定ですか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "眠りは追いかけるほど遠のきやすいので、眠ろうと頑張らずに休むこと自体を目標にする方法もあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "action",
+          "text": "頭に浮かんだ予定は、紙やメモに書き出すと頭の外に置いておけます。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "f",
+          "kind": "teaching",
+          "text": "眠りは追いかけると遠のきやすいので、眠ろうと頑張らない時間も役に立ちます。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"b\", \"claim\": {\"claim\": \"いちばん引っかかっている予定がある\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  },
+  {
+    "case": 28,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "もしよければ、今の気持ちをそのまま言葉にしてみませんか？",
+            "probability": 0.24,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "明日の予定が頭をぐるぐる回る夜もあるとのことですが、そんなとき頭に浮かんでくるのはどんな場面ですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "今夜このあとの時間を過ごすとしたら、どんな過ごし方がいちばん楽に感じられそうですか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "breathing",
+            "text": "よければ、息を吐くほうを吸うときより少し長くとる呼吸を、数回だけ試してみませんか。",
+            "probability": 0.13,
+            "grounds": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.29000000000000004,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "眠りは頑張るほど遠のきやすいので、眠ろうとするのをいったん横に置いておくのも一つの方法です。",
+              "probability": 0.09,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "error": "question candidate count must be at least half of non-none"
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "眠りは頑張るほど遠のきやすいので、眠ろうとするのをいったん横に置いておくのも一つの方法です。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "question candidate count must be at least half of non-none"
+  },
+  {
+    "case": 29,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "運動を習慣にするとして、最初のハードルをどこまで下げるのがちょうどよさそうですか？",
+            "probability": 0.24,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "日記が続かなかったとき、いちばん負担に感じたのはどの部分でしたか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": [
+              {
+                "claim": "the person has experienced journaling not continuing",
+                "span": "三日坊主で終わることが多い"
+              }
+            ]
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もし今日ひとつだけ小さく試すなら、何を選んでみますか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "action",
+            "text": "よかったら、運動の最初の一分だけを決めてみませんか？",
+            "probability": 0.08,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.33999999999999997,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "新しい習慣は、量を減らして始める回数を増やす設計のほうが続きやすいと言われています。",
+              "probability": 0.12,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "reflection",
+              "text": "大きな目標ほど、途中で崩れやすい形になりがちです。",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日、もし一つだけ小さく取り組むとしたら、何を選びたいですか？",
+            "probability": 0.28,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "運動と日記、どちらをどんな小さな形にしてみたいですか？",
+            "probability": 0.24,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "続けやすい仕組みを考えるとしたら、どんな工夫が浮かびますか？",
+            "probability": 0.16,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ、今日の分の行動を「1分だけ」の大きさに書き出してみてください。",
+            "probability": 0.07,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.25,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "習慣は大きな目標より、毎日できる小さな一歩に分けると取り組みやすくなります。",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "新しい習慣は、量を減らして始める回数を増やす設計のほうが続きやすいと言われています。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "reflection",
+          "text": "大きな目標ほど、途中で崩れやすい形になりがちです。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "習慣は大きな目標より、毎日できる小さな一歩に分けると取り組みやすくなります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is willing to try one small thing today if given the opportunity.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"The person is seeking ways to make habits easier to maintain.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}, {\"id\": \"e\", \"claim\": {\"claim\": \"The person is being asked to write down an action for today that takes only one minute.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  },
+  {
+    "case": 30,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "運動か日記を続けるうえで、いま一番のハードルになっているのは何だと思いますか？",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ、今日の分の日記に一行だけ書いてみませんか。",
+            "probability": 0.1,
+            "grounds": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.38,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "習慣は大きさより回数で定着しやすいので、最初の目標は小さく区切るのが一つのやり方です。",
+              "probability": 0.12,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "運動か日記、今日ひとつだけ選ぶとしたらどちらにしますか？",
+            "probability": 0.25,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし今少し時間が作れるなら、何から手をつけてみたいですか？",
+            "probability": 0.2,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ、今日の分の目標を「1分だけ」に書き換えてみませんか？",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.45,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "c",
+              "kind": "question",
+              "text": "三日坊主で終わったときと、続けられたときで、何が違っていましたか？",
+              "probability": 0.15,
+              "grounds": [],
+              "presuppositions": [
+                {
+                  "claim": "習慣が三日坊主で終わることがある",
+                  "span": "三日坊主で終わることが多い"
+                }
+              ]
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "習慣は大きさより、毎日できる小ささにすると続きやすくなります。",
+              "probability": 0.1,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "習慣は大きさより回数で定着しやすいので、最初の目標は小さく区切るのが一つのやり方です。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "c",
+          "kind": "question",
+          "text": "三日坊主で終わったときと、続けられたときで、何が違っていましたか？",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": [
+            {
+              "claim": "習慣が三日坊主で終わることがある",
+              "span": "三日坊主で終わることが多い"
+            }
+          ]
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "習慣は大きさより、毎日できる小ささにすると続きやすくなります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 31,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "運動か日記、今日ひとつだけ小さくやるとしたら何を選びますか？",
+            "probability": 0.26,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "もし続けることを考えるなら、どんな形がいちばん負担が少なそうですか？",
+            "probability": 0.22,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "三日坊主で終わってしまう流れの中で、いちばん変えてみたい部分はどこですか？",
+            "probability": 0.18,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "e",
+            "kind": "action",
+            "text": "よければ、明日の分の運動か日記を「これならできる」と言える大きさまで縮めてみてください。",
+            "probability": 0.1,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.24000000000000002,
+            "grounds": [],
+            "presuppositions": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "習慣は回数よりも、短くても繰り返せる形にしておくと続きやすくなります。",
+              "probability": 0.14,
+              "grounds": [],
+              "presuppositions": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "習慣は回数よりも、短くても繰り返せる形にしておくと続きやすくなります。",
+          "probability": 0.2,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ACCEPT"
+  },
+  {
+    "case": 32,
+    "attempts": [
+      {
+        "attempt": 1,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "もし今、運動か日記のどちらかをほんの一歩だけ小さくするなら、どんな形にしてみたいですか？",
+            "probability": 0.26,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "「これなら続けられそう」と思える大きさって、今のあなたにはどれくらいですか？",
+            "probability": 0.18,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "大きな目標を立てたとき、最初にハードルになるのはどの部分でしょうか？",
+            "probability": 0.14,
+            "grounds": [
+              "profile_summary"
+            ],
+            "presuppositions": []
+          },
+          {
+            "id": "d",
+            "kind": "reflection",
+            "text": "運動と日記を習慣にしたいけれど三日坊主で終わりやすい、というのが今の悩みなんですね。",
+            "probability": 0.12,
+            "grounds": [
+              "profile_summary"
+            ]
+          },
+          {
+            "id": "f",
+            "kind": "action",
+            "text": "よければ、明日やる一歩を「1分だけ」の大きさに書き出してみてください。",
+            "probability": 0.07,
+            "grounds": []
+          },
+          {
+            "id": "g",
+            "kind": "none",
+            "text": "",
+            "probability": 0.22999999999999998,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "teaching",
+              "text": "習慣づくりでは、量を減らして回数を重ねる設計のほうが続きやすいと言われています。",
+              "probability": 0.08,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      },
+      {
+        "attempt": 2,
+        "kept": [
+          {
+            "id": "a",
+            "kind": "question",
+            "text": "運動と日記、もし続けるならどんな小さな形にしてみたいですか？",
+            "probability": 0.28,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "b",
+            "kind": "question",
+            "text": "大きな目標を振り返るとき、今どんなことが気になっていますか？",
+            "probability": 0.22,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "c",
+            "kind": "question",
+            "text": "もし今夜ひとつだけ何かを試せるなら、何を選んでみたいですか？",
+            "probability": 0.14,
+            "grounds": [],
+            "presuppositions": []
+          },
+          {
+            "id": "f",
+            "kind": "none",
+            "text": "",
+            "probability": 0.36,
+            "grounds": []
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "id": "d",
+              "kind": "teaching",
+              "text": "習慣は大きさより、毎日できる小ささに寄せると続けやすくなります。",
+              "probability": 0.1,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          },
+          {
+            "candidate": {
+              "id": "e",
+              "kind": "reflection",
+              "text": "三日坊主という言葉には、続けたい気持ちが隠れていることもあります。",
+              "probability": 0.06,
+              "grounds": []
+            },
+            "reason": "ungrounded assertion or attribution marker"
+          }
+        ]
+      }
+    ],
+    "all_filters": [
+      {
+        "attempt": 1,
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "習慣づくりでは、量を減らして回数を重ねる設計のほうが続きやすいと言われています。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "d",
+          "kind": "teaching",
+          "text": "習慣は大きさより、毎日できる小ささに寄せると続けやすくなります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      },
+      {
+        "attempt": 2,
+        "candidate": {
+          "id": "e",
+          "kind": "reflection",
+          "text": "三日坊主という言葉には、続けたい気持ちが隠れていることもあります。",
+          "probability": 0.2,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "final": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person is considering what small form exercise and diary could take if they were to continue them.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"When reflecting on big goals, the person is currently concerned about something.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"c\", \"claim\": {\"claim\": \"If the person could try one thing tonight, they are considering what they would choose.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+]

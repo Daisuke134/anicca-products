@@ -1,0 +1,221 @@
+{
+  "index": 23,
+  "profile": "procrastination",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "focus",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007318-gSE0Wjftd8UrG1GbIKmn",
+        "object": "chat.completion",
+        "created": 1795007318,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日やるべきことの中で、いちばん先に片づけたいのはどれですか？\",\"probability\":0.26,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし明日の最初の30分だけ集中の時間が作れるなら、何から始めてみたいですか？\",\"probability\":0.24,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"スマホに手が伸びる前に置ける場所をひとつ決めるとしたら、どこがよさそうですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"作業は「全部」ではなく「最初の5分」と区切ると、取りかかりやすくなることがあります。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、今すぐできる小さな一歩をひとつだけ紙に書き出してみませんか？\",\"probability\":0.07,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1566,
+          "completion_tokens": 265,
+          "total_tokens": 1831,
+          "cost": 0.001631625,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001631625,
+            "upstream_inference_prompt_cost": 0.00049875,
+            "upstream_inference_completions_cost": 0.001132875
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007324-6lv9ANRs8SvlPD4OS0bo",
+        "object": "chat.completion",
+        "created": 1795007324,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is considering which of today's tasks they want to complete first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The question asks about the person's priority among today's tasks, which is directly supported by the profile's mention of procrastination and the need to decide what to do first.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person might be able to create 30 minutes of focused time tomorrow.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person is considering what they would like to start with if they could create 30 minutes of focused time tomorrow.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The claim that the person might be able to create 30 minutes of focused time is a hypothetical premise and not an entailed fact. The claim about considering what to start with is a direct response to the hypothetical scenario and is entailed.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person's hand reaches for their smartphone.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is considering where to place their smartphone to avoid reaching for it.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states the person spends a lot of time on their smartphone, directly entailing that their hand reaches for it. The question about where to place it to avoid reaching for it is a direct consequence of this habit and is thus entailed.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person might be able to take one small step immediately.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}, {\"claim\": \"The person is being invited to write down one small step they can take immediately.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The claim that the person might be able to take one small step immediately is a hypothetical premise and not an entailed fact. The claim that the person is invited to write down a step is a factual statement about the nature of the prompt and is entailed.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1796,
+          "completion_tokens": 490,
+          "total_tokens": 2286,
+          "cost": 0.0002874,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002874,
+            "upstream_inference_prompt_cost": 9.14e-05,
+            "upstream_inference_completions_cost": 0.000196
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007327-rk79HtDitkdTr9drFl9x",
+        "object": "chat.completion",
+        "created": 1795007327,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今日やるべきことの中で、いちばん先に片づけたいのはどれですか？\",\"probability\":0.26,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？\",\"probability\":0.22,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"スマホが手元にあると気が散りやすいとき、どんな置き方を試してみたいですか？\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"先延ばしにした日の夜に後悔が残るのは、珍しいことではありません。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"よければ、明日の最初の5分でやることを一つだけ紙に書き出してみてください。\",\"probability\":0.08,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1566,
+          "completion_tokens": 252,
+          "total_tokens": 1818,
+          "cost": 0.00122949,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00122949,
+            "upstream_inference_prompt_cost": 0.00015219,
+            "upstream_inference_completions_cost": 0.0010773
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007333-DffXK2XdUJhUi3Xtzdqe",
+        "object": "chat.completion",
+        "created": 1795007333,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person wants to complete one of today's tasks first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question asks about the person's priority among today's tasks, but it does not assert that the person has a specific task they want to complete first. The profile states the person procrastinates, but not what they prioritize for a given day.\"}, {\"id\": \"b\", \"claims\": [], \"reason\": \"This is an explicitly hypothetical question about what the person might want to do if they could create a short period of focus. It does not assert any current state or desire.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person's phone is easily distracting when it is nearby.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person has a tendency to be distracted by their phone when it is nearby.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states that the person has a long time on their smartphone, and the question directly addresses the distraction caused by the phone being nearby. The question 'どんな置き方を試してみたいですか？' (what kind of placement would you like to try?) presupposes that the phone being nearby is a source of distraction, which is consistent with the profile's mention of spending a lot of time on the smartphone and being unable to concentrate during remote work. The claim about the person having a tendency to be distracted is entailed because the profile indicates they spend a long time on their phone and have trouble concentrating during remote work.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"Regret remains on the night of a postponed day.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states that the person postpones tasks and regrets them at night. The statement '先延ばしにした日の夜に後悔が残るのは、珍しいことではありません。' (It is not unusual to have regrets on the night of a postponed day) directly reflects this stated fact.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is an invitation or suggestion for an action, not a factual claim about the person. It includes a hypothetical premise ('if you'd like'), but the core is an impersonal suggestion.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1826,
+          "completion_tokens": 514,
+          "total_tokens": 2340,
+          "cost": 0.00029991,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00029991,
+            "upstream_inference_prompt_cost": 9.431e-05,
+            "upstream_inference_completions_cost": 0.0002056
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"The person wants to complete one of today's tasks first.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}}]"
+  }
+}

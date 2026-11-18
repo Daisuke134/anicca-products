@@ -1,0 +1,221 @@
+{
+  "index": 13,
+  "profile": "low_mood",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "unknown",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007276-Beptn46ejbAPjmaxS0ks",
+        "object": "chat.completion",
+        "created": 1795007276,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この瞬間の気分を、言葉にするならどんな感じですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近の一日で少しでも気持ちが軽くなる瞬間はありますか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日はどんなふうに過ごしていますか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"気分が沈む日は、原因がはっきりしないまま来ることもあります。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よかったら、息を吐くほうを少し長めにして、一呼吸だけゆっくりしてみませんか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日が増えたり、好きだったことに興味が湧きにくかったりするのは、つらいことですね。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1596,
+          "completion_tokens": 290,
+          "total_tokens": 1886,
+          "cost": 0.00351405,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00351405,
+            "upstream_inference_prompt_cost": 0.0022743,
+            "upstream_inference_completions_cost": 0.00123975
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007284-EGFvHQgaAci6trrDxhM0",
+        "object": "chat.completion",
+        "created": 1795007284,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person's current mood at this moment can be put into words.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile states that the person has had more days where they feel down recently, but it does not entail that they can articulate their current mood at this exact moment. This is an inference about their ability to express their feelings, not a direct claim about their state.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person is spending their day in a particular way.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The profile mentions that the person has had more days where they feel down recently and finds it hard to get up in the morning on some days. However, it does not entail a specific description of how they are spending their day today. The question asks for this information, but it is not present in the profile.\"}, {\"id\": \"e\", \"claims\": [], \"reason\": \"This is a suggestion or invitation to perform a breathing exercise and does not contain any atomic factual claims about the person.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"The person has had more days where they feel down recently.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person finds it hard to get interested in things they used to like.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"It is painful for the person to have more days where they feel down.\", \"profile_fields\": [], \"entailed\": false}, {\"claim\": \"It is painful for the person to find it hard to get interested in things they used to like.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The first two claims are directly supported by the profile summary. The last two claims interpret the situation as 'painful,' which is an inference about the person's subjective experience or emotional response that is not explicitly stated in the profile.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1792,
+          "completion_tokens": 445,
+          "total_tokens": 2237,
+          "cost": 0.000269,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000269,
+            "upstream_inference_prompt_cost": 9.1e-05,
+            "upstream_inference_completions_cost": 0.000178
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007286-AftiRB2ozFJrlWv42Gql",
+        "object": "chat.completion",
+        "created": 1795007286,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今この瞬間、どんな気分ですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしよければ、最近の一日がどんなふうに過ぎているか聞かせてもらえますか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"朝起きるのがつらい日について、もう少し詳しく話してみますか？\",\"probability\":0.14,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"もし少しでも気持ちが軽くなる時間があるとしたら、それはどんなときでしょうか？\",\"probability\":0.13,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"なんとなく気分が沈む日や、好きだったことに興味が湧きにくい時期は、誰にでもあります。\",\"probability\":0.07,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ、息をゆっくり吐いてから吸う呼吸を、数回だけ試してみてください。\",\"probability\":0.05,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.23,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1596,
+          "completion_tokens": 294,
+          "total_tokens": 1890,
+          "cost": 0.00179835,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00179835,
+            "upstream_inference_prompt_cost": 0.0005415,
+            "upstream_inference_completions_cost": 0.00125685
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007294-rluM9ie2I4GVzddWl5VR",
+        "object": "chat.completion",
+        "created": 1795007294,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is feeling something at this moment.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile states the person has had more days with low mood recently, implying a current emotional state.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person has days when it is difficult to wake up.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states '朝起きるのがつらい日がある' (There are days when it is difficult to wake up).\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"There are times when the person feels a little lighter.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"This claim is not supported by the profile text. The profile mentions increased low mood and loss of interest, but does not suggest there are specific times when they feel lighter.\"}, {\"id\": \"f\", \"claims\": [], \"reason\": \"This is an instruction/invitation and not a factual claim about the person.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1780,
+          "completion_tokens": 243,
+          "total_tokens": 2023,
+          "cost": 0.0002752,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002752,
+            "upstream_inference_prompt_cost": 0.000178,
+            "upstream_inference_completions_cost": 9.72e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"d\", \"claim\": {\"claim\": \"There are times when the person feels a little lighter.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

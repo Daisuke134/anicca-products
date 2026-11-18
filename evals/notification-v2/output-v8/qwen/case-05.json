@@ -1,0 +1,318 @@
+{
+  "index": 5,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "day",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "12:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007240-9eWlpUCmm3pv6AJ0HIcD",
+        "object": "chat.completion",
+        "created": 1795007240,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てきたとき、その奥にある気持ちを自分の言葉で表すとしたら、どんな言葉になりますか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.2},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もしSNSで誰かと比べて落ち込む瞬間があるなら、そのとき自分にかけてあげたい言葉はありますか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.18},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"褒められたとき、素直に受け取るのを難しくしているものは何だと思いますか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.17},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"他人と自分を比べる癖は、意識して「今日の自分」だけに目を向ける練習で少しずつ和らぐことがあります。\",\"grounds\":[],\"probability\":0.15},{\"id\":\"e\",\"kind\":\"action\",\"text\":\"今日あった小さな出来事の中から、自分で「まあよかった」と思えるものを一つだけ書き出してみませんか？\",\"presuppositions\":[],\"grounds\":[],\"probability\":0.12},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"自分を責める声が強いときほど、その声とは別の視点も存在しています。\",\"grounds\":[],\"probability\":0.08},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"grounds\":[],\"probability\":0.1}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1624,
+          "completion_tokens": 304,
+          "total_tokens": 1928,
+          "cost": 0.001881,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001881,
+            "upstream_inference_prompt_cost": 0.0005814,
+            "upstream_inference_completions_cost": 0.0012996
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007247-nRqsZZp1z436kvu1U79F",
+        "object": "chat.completion",
+        "created": 1795007247,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"b\", \"claims\": [\n{\"claim\": \"The person compares themselves to others on social media and feels down.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"There is a moment when the person compares themselves to someone on social media and feels down.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"The claim that the person sometimes feels down comparing themselves to others on social media is directly supported by the profile. The question asks about this specific moment, which is a presupposition of the question and also entailed.\"},\n{\"id\": \"c\", \"claims\": [\n{\"claim\": \"The person has difficulty accepting praise directly.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"The question presupposes that the person has difficulty accepting praise, which is explicitly stated in the profile.\"},\n{\"id\": \"e\", \"claims\": [], \"reason\": \"This is a hypothetical invitation to perform an action, not a factual claim about the person.\"}\n]}\n]\n}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1766,
+          "completion_tokens": 244,
+          "total_tokens": 2010,
+          "cost": 0.000186,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000186,
+            "upstream_inference_prompt_cost": 8.84e-05,
+            "upstream_inference_completions_cost": 9.76e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007249-TFxjif88zWjUk5TKkziZ",
+        "object": "chat.completion",
+        "created": 1795007249,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が出てきたとき、その裏にどんな気持ちがあるか、少し言葉にしてみますか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[{\"claim\":\"自分に「どうせ私なんて」と言ってしまうことがある\",\"span\":\"自分のことを「どうせ私なんて」と言ってしまう\"}]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし褒められた場面をひとつ思い出すなら、そのとき心の中で何が起きているでしょうか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"他人と比べてしまう癖について、いま一番知りたいことは何ですか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[{\"claim\":\"SNSで他人と比べて落ち込むことが多い\",\"span\":\"SNSで他人と比べて落ち込むことが多い\"}]},{\"id\":\"d\",\"kind\":\"question\",\"text\":\"今日、自分に対して少しでも優しい言葉をかけるなら、どんな言葉を選びたいですか？\",\"probability\":0.17,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"比べる気持ちは、脳の自動的な癖のようなもので、性格の欠陥ではありません。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1624,
+          "completion_tokens": 297,
+          "total_tokens": 1921,
+          "cost": 0.001504515,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001504515,
+            "upstream_inference_prompt_cost": 0.00023484,
+            "upstream_inference_completions_cost": 0.001269675
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007257-1eWfjd1Ay65BQfPfhSNr",
+        "object": "chat.completion",
+        "created": 1795007257,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [\n{\"id\": \"a\", \"claims\": [\n{\"claim\": \"The person sometimes says the phrase \\\"どうせ私なんて\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"The person is being asked to verbalize the feelings behind the phrase \\\"どうせ私なんて\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"The claim that the person sometimes says \\\"どうせ私なんて\\\" is directly supported by the profile. The second claim is a direct decomposition of the user's prompt, which is asking the person to verbalize the feelings behind that specific phrase.\"},\n{\"id\": \"b\", \"claims\": [\n{\"claim\": \"The person is asked to recall a situation where they were praised.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"The person is asked to describe their internal reaction to a praised situation.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"The profile states that the person '褒められても素直に受け取れない' (cannot honestly accept praise). The question asks to recall a praised situation and describe the internal reaction, which relates to this stated characteristic. The 'if' clause makes the recall hypothetical, so no claim about a specific past event is made.\"},\n{\"id\": \"c\", \"claims\": [\n{\"claim\": \"The person has a habit of comparing themselves to others.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true},\n{\"claim\": \"The person is asked what they most want to know about this habit.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"The profile explicitly states that the person 'SNSで他人と比べて落ち込むことが多い' (often feels down comparing themselves to others on SNS), which is a habit of comparing themselves to others. The question directly asks what the person most wants to know about this habit.\"},\n{\"id\": \"d\", \"claims\": [\n{\"claim\": \"The person is asked to choose a kind word to say to themselves today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}\n], \"reason\": \"This is a hypothetical question asking the person to select a word for themselves. It does not make any factual claims about the person's current state or past actions beyond the hypothetical premise itself, which is supported by the general context of self-reflection implied by the profile's content about self-criticism and comparison.\"}\n]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1800,
+          "completion_tokens": 554,
+          "total_tokens": 2354,
+          "cost": 0.0003134,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0003134,
+            "upstream_inference_prompt_cost": 9.18e-05,
+            "upstream_inference_completions_cost": 0.0002216
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "838323e5-bf62-4c81-ba4e-6d45438bceaf",
+    "decision_point_at": 1795007260.1432729,
+    "context": {
+      "time_band": "day",
+      "language": "ja",
+      "desired_state": "self_love",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "12:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "a",
+        "kind": "question",
+        "text": "「どうせ私なんて」という言葉が出てきたとき、その裏にどんな気持ちがあるか、少し言葉にしてみますか？",
+        "probability": 0.2,
+        "grounds": [],
+        "presuppositions": [
+          {
+            "claim": "自分に「どうせ私なんて」と言ってしまうことがある",
+            "span": "自分のことを「どうせ私なんて」と言ってしまう"
+          }
+        ]
+      },
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もし褒められた場面をひとつ思い出すなら、そのとき心の中で何が起きているでしょうか？",
+        "probability": 0.18,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "他人と比べてしまう癖について、いま一番知りたいことは何ですか？",
+        "probability": 0.15,
+        "grounds": [],
+        "presuppositions": [
+          {
+            "claim": "SNSで他人と比べて落ち込むことが多い",
+            "span": "SNSで他人と比べて落ち込むことが多い"
+          }
+        ]
+      },
+      {
+        "id": "d",
+        "kind": "question",
+        "text": "今日、自分に対して少しでも優しい言葉をかけるなら、どんな言葉を選びたいですか？",
+        "probability": 0.17,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "f",
+        "kind": "none",
+        "text": "",
+        "probability": 0.30000000000000004,
+        "grounds": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "e",
+          "kind": "teaching",
+          "text": "比べる気持ちは、脳の自動的な癖のようなもので、性格の欠陥ではありません。",
+          "probability": 0.1,
+          "grounds": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "a",
+      "kind": "question",
+      "text": "「どうせ私なんて」という言葉が出てきたとき、その裏にどんな気持ちがあるか、少し言葉にしてみますか？",
+      "probability": 0.2,
+      "grounds": [],
+      "presuppositions": [
+        {
+          "claim": "自分に「どうせ私なんて」と言ってしまうことがある",
+          "span": "自分のことを「どうせ私なんて」と言ってしまう"
+        }
+      ]
+    },
+    "assigned_probability": 0.2,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795009060.1432729,
+    "observations": []
+  }
+}

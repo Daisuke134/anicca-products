@@ -1,0 +1,172 @@
+{
+  "index": 27,
+  "profile": "sleep_trouble",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "35歳。布団に入ってから眠るまで1時間以上かかる。明日の予定が頭をぐるぐる回って目が冴えてしまう。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007335-6PnT7KVJshqljaDcH8cv",
+        "object": "chat.completion",
+        "created": 1795007335,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"もしよければ、今の気持ちをそのまま言葉にしてみませんか？\",\"probability\":0.24,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"明日の予定が頭をぐるぐる回る夜もあるとのことですが、そんなとき頭に浮かんでくるのはどんな場面ですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今夜このあとの時間を過ごすとしたら、どんな過ごし方がいちばん楽に感じられそうですか？\",\"probability\":0.16,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとる呼吸を、数回だけ試してみませんか。\",\"probability\":0.13,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"眠りは頑張るほど遠のきやすいので、眠ろうとするのをいったん横に置いておくのも一つの方法です。\",\"probability\":0.09,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.2,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1566,
+          "completion_tokens": 262,
+          "total_tokens": 1828,
+          "cost": 0.0016188,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0016188,
+            "upstream_inference_prompt_cost": 0.00049875,
+            "upstream_inference_completions_cost": 0.00112005
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007342-K7zg6IRnOq70zkBCRNkV",
+        "object": "chat.completion",
+        "created": 1795007342,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"the person is willing to express their current feelings\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text is an invitation, not a personal factual claim. The presupposition 'current feelings' is too vague and not directly supported by the profile. It is not a specific state, activity, or event. The question does not assert the person has current feelings, only asks them to express them. Hence, the claim derived from the invitation itself (willingness to express) is not entailed.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"tomorrow's schedule is currently revolving in the person's mind\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"the person experiences nights where tomorrow's schedule revolves in their mind\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states '明日の予定が頭をぐるぐる回って目が冴えてしまう' (Tomorrow's schedule revolves in my mind and keeps me awake). The question directly asks about this state, presupposing its existence, which is supported by the profile. The claim 'tomorrow's schedule is currently revolving in the person's mind' is directly entailed as a current state based on the profile's description of typical nights. The second claim states the general occurrence of such nights, also directly supported.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"the person can spend the time after tonight in a way that feels most comfortable\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text is an explicit hypothetical ('If the person were to spend the time after tonight...'). It does not assert that they can or will, nor does it assert a specific comfortable way of spending time. The presupposition of 'time after tonight' is not a personal factual claim about the person's current state or history.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"the person can try breathing with exhales slightly longer than inhales a few times\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The text is an invitation and a suggestion ('if you like, won't you try...'). It does not make a factual claim about the person's current ability or willingness to perform the breathing exercise. It's an offer, not an assertion of a state or activity.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1804,
+          "completion_tokens": 522,
+          "total_tokens": 2326,
+          "cost": 0.00030091,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00030091,
+            "upstream_inference_prompt_cost": 9.211e-05,
+            "upstream_inference_completions_cost": 0.0002088
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007345-dkxmuztcDgPGCrxz7zGh",
+        "object": "chat.completion",
+        "created": 1795007345,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"もし今、明日の予定が頭をめぐっているなら、どんなことが浮かんでいますか？\",\"probability\":0.28,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"今夜このあとの時間を、どんなふうに過ごせたら落ち着けそうですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うときより少し長くとってみませんか？\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"眠れない時間に時計を見続けると、かえって目が冴えてしまうことがあります。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"布団に入ってから眠るまで1時間以上かかる夜もあるんですね。\",\"probability\":0.12,\"grounds\":[\"profile_summary\"]},{\"id\":\"f\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1566,
+          "completion_tokens": 238,
+          "total_tokens": 1804,
+          "cost": 0.00116964,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00116964,
+            "upstream_inference_prompt_cost": 0.00015219,
+            "upstream_inference_completions_cost": 0.00101745
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "question candidate count must be at least half of non-none"
+  }
+}

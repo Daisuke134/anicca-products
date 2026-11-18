@@ -1,0 +1,57 @@
+CASE 1 rumination 07:30
+PROFILE: {"profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"}
+{"id": "a", "kind": "question", "text": "今朝の自分に、どんなペースで過ごしてほしいですか？", "probability": 0.2, "grounds": [], "presuppositions": []}
+{"id": "b", "kind": "question", "text": "もしよければ、今日いちばん大切にしたいことは何ですか？", "probability": 0.18, "grounds": [], "presuppositions": []}
+{"id": "c", "kind": "question", "text": "夜に同じ場面が浮かんでくる時、いちばん引っかかっているのはどの部分でしょうか？", "probability": 0.14, "grounds": ["profile_summary"], "presuppositions": [{"claim": "夜に仕事の失敗や言い間違えた一言を何度も思い返してしまう", "span": "夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう"}]}
+CASE 3 rumination 18:30
+PROFILE: {"profile_summary": "32歳の会社員。夜になると仕事の失敗や言い間違えた一言を何度も思い返してしまう。考えが止まらず眠れない日が多い。"}
+{"id": "a", "kind": "question", "text": "今夜を少しでも穏やかに過ごすとしたら、どんな過ごし方が合いそうですか？", "probability": 0.2, "grounds": [], "presuppositions": []}
+{"id": "b", "kind": "question", "text": "もし今また考えが巡り始めているなら、その中でいちばん大きく残っているのは何ですか？", "probability": 0.15, "grounds": [], "presuppositions": []}
+{"id": "c", "kind": "question", "text": "眠る前の時間に、いま試してみたいことはありますか？", "probability": 0.12, "grounds": [], "presuppositions": []}
+{"id": "d", "kind": "reflection", "text": "夜に同じ場面を何度も思い返して眠れない日が続くと、それだけで消耗しますよね。", "probability": 0.13, "grounds": ["profile_summary"]}
+{"id": "e", "kind": "breathing", "text": "よければ、息を吐く方を吸う方より少し長くとって、数回だけ呼吸を味わってみませんか？", "probability": 0.08, "grounds": [], "presuppositions": []}
+CASE 6 low_self_esteem 12:30
+PROFILE: {"profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"}
+{"id": "a", "kind": "question", "text": "「どうせ私なんて」という言葉が出てきたとき、その裏にどんな気持ちがあるか、少し言葉にしてみますか？", "probability": 0.2, "grounds": [], "presuppositions": [{"claim": "自分に「どうせ私なんて」と言ってしまうことがある", "span": "自分のことを「どうせ私なんて」と言ってしまう"}]}
+{"id": "b", "kind": "question", "text": "もし褒められた場面をひとつ思い出すなら、そのとき心の中で何が起きているでしょうか？", "probability": 0.18, "grounds": [], "presuppositions": []}
+{"id": "c", "kind": "question", "text": "他人と比べてしまう癖について、いま一番知りたいことは何ですか？", "probability": 0.15, "grounds": [], "presuppositions": [{"claim": "SNSで他人と比べて落ち込むことが多い", "span": "SNSで他人と比べて落ち込むことが多い"}]}
+{"id": "d", "kind": "question", "text": "今日、自分に対して少しでも優しい言葉をかけるなら、どんな言葉を選びたいですか？", "probability": 0.17, "grounds": [], "presuppositions": []}
+CASE 10 burnout 12:30
+PROFILE: {"profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"}
+{"id": "b", "kind": "question", "text": "もしこのあと数分だけ自分の時間が取れるなら、何に使いたいですか？", "probability": 0.18, "grounds": [], "presuppositions": []}
+{"id": "c", "kind": "question", "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声が先に聞こえてきますか？", "probability": 0.14, "grounds": ["profile_summary"], "presuppositions": [{"claim": "何もしたくない気持ちと焦りの間で揺れている", "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"}]}
+{"id": "d", "kind": "question", "text": "休日に疲れが残るとき、体と心のどちらがより重く感じられますか？", "probability": 0.13, "grounds": ["profile_summary"], "presuppositions": [{"claim": "休日でも疲れが取れない", "span": "休日も疲れが取れない"}]}
+{"id": "e", "kind": "breathing", "text": "よければ、息を吐く方を吸う方より少し長くして、三呼吸だけ試してみませんか？", "probability": 0.1, "grounds": [], "presuppositions": []}
+CASE 12 burnout 22:30
+PROFILE: {"profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"}
+{"id": "b", "kind": "question", "text": "もし今夜少しでも自分のための時間が取れるなら、何に使ってみたいですか？", "probability": 0.18, "grounds": [], "presuppositions": []}
+{"id": "c", "kind": "question", "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声を先に聞いてあげたいですか？", "probability": 0.16, "grounds": ["profile_summary"], "presuppositions": [{"claim": "「何もしたくない」気持ちと「やらなきゃ」という焦りの間で揺れている", "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"}]}
+{"id": "d", "kind": "reflection", "text": "休む時間がないまま日々を回していると、休日だけでは疲れが抜けきらないこともあります。", "probability": 0.1, "grounds": ["profile_summary"], "presuppositions": []}
+{"id": "f", "kind": "teaching", "text": "「何もしたくない」と「やらなきゃ」が同時にある状態は、どちらかを消してから動く必要はない、という考え方もあります。", "probability": 0.07, "grounds": ["profile_summary"], "presuppositions": []}
+CASE 16 low_mood 22:30
+PROFILE: {"profile_summary": "45歳。最近なんとなく気分が沈む日が増えた。好きだったことにも興味が湧きにくい。朝起きるのがつらい日がある。"}
+{"id": "a", "kind": "question", "text": "もしよければ、今の気分を言葉にするとどんな感じですか？", "probability": 0.24, "grounds": [], "presuppositions": []}
+{"id": "b", "kind": "question", "text": "この時間に少しでも気持ちが楽になることがあるとしたら、それはどんなことですか？", "probability": 0.18, "grounds": [], "presuppositions": []}
+{"id": "d", "kind": "breathing", "text": "よければ、息を吐くほうを吸うほうより少し長くする呼吸を、数回だけ試してみませんか。", "probability": 0.1, "grounds": [], "presuppositions": []}
+CASE 20 confidence_seeker 22:30
+PROFILE: {"profile_summary": "24歳。就職活動中で、面接の前になると「落ちるかもしれない」と不安になる。不合格の通知が続いて自信をなくしつつある。"}
+{"id": "a", "kind": "question", "text": "面接の前に「落ちるかもしれない」という不安が出てくるとき、その声にどう返してあげたいですか？", "probability": 0.2, "grounds": [], "presuppositions": [{"claim": "面接の前に「落ちるかもしれない」と不安になる傾向がある", "span": "面接の前になると「落ちるかもしれない」と不安になる"}]}
+{"id": "b", "kind": "question", "text": "自信とは少し離れて感じる時期に、自分を評価する物差しを何に置きたいですか？", "probability": 0.18, "grounds": [], "presuppositions": [{"claim": "自信をなくしつつある", "span": "自信をなくしつつある"}]}
+{"id": "c", "kind": "question", "text": "もしよければ、このあと自分にどんな言葉をかけてあげたいですか？", "probability": 0.15, "grounds": [], "presuppositions": []}
+CASE 23 procrastination 18:30
+PROFILE: {"profile_summary": "29歳。在宅ワークで集中が続かず、やるべきことを先延ばしして夜に後悔する。スマホを触る時間が長い。"}
+{"id": "a", "kind": "question", "text": "今日やるべきことの中で、いちばん先に片づけたいのはどれですか？", "probability": 0.26, "grounds": [], "presuppositions": []}
+{"id": "b", "kind": "question", "text": "もしこのあと少し集中の時間が作れるなら、何から始めてみたいですか？", "probability": 0.2, "grounds": [], "presuppositions": []}
+{"id": "c", "kind": "question", "text": "気が散りにくい環境にするなら、どんな工夫が思い浮かびますか？", "probability": 0.14, "grounds": [], "presuppositions": []}
+{"id": "e", "kind": "action", "text": "よければ、スマホを手の届かない場所に置いてみる実験をしてみませんか。", "probability": 0.08, "grounds": []}
+CASE 30 habit_builder 12:30
+PROFILE: {"profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"}
+{"id": "a", "kind": "question", "text": "運動か日記、今日ひとつだけ選ぶとしたらどちらにしますか？", "probability": 0.25, "grounds": [], "presuppositions": []}
+{"id": "b", "kind": "question", "text": "もし今少し時間が作れるなら、何から手をつけてみたいですか？", "probability": 0.2, "grounds": [], "presuppositions": []}
+{"id": "e", "kind": "action", "text": "よければ、今日の分の目標を「1分だけ」に書き換えてみませんか？", "probability": 0.1, "grounds": [], "presuppositions": []}
+CASE 31 habit_builder 18:30
+PROFILE: {"profile_summary": "31歳。運動と日記を習慣にしたいが三日坊主で終わることが多い。大きな目標を立てては挫折している。"}
+{"id": "a", "kind": "question", "text": "運動か日記、今日ひとつだけ小さくやるとしたら何を選びますか？", "probability": 0.26, "grounds": [], "presuppositions": []}
+{"id": "b", "kind": "question", "text": "もし続けることを考えるなら、どんな形がいちばん負担が少なそうですか？", "probability": 0.22, "grounds": [], "presuppositions": []}
+{"id": "c", "kind": "question", "text": "三日坊主で終わってしまう流れの中で、いちばん変えてみたい部分はどこですか？", "probability": 0.18, "grounds": ["profile_summary"], "presuppositions": []}
+{"id": "e", "kind": "action", "text": "よければ、明日の分の運動か日記を「これならできる」と言える大きさまで縮めてみてください。", "probability": 0.1, "grounds": [], "presuppositions": []}

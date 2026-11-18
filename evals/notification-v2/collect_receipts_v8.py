@@ -28,7 +28,15 @@ def one(row):
     return dict(phase=row['phase'],receipt=data)
 
 if __name__=='__main__':
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:receipts=list(pool.map(one,rows))
+    receipts=[];errors=[]
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        futures={pool.submit(one,row):row['response']['id'] for row in rows}
+        for future in concurrent.futures.as_completed(futures):
+            try:receipts.append(future.result())
+            except Exception as e:errors.append(dict(id=futures[future],error_class=type(e).__name__,status=getattr(e,'code',None)))
+    diagnosis=dict(required=len(rows),cached=len(receipts),missing=errors,effect='read_only',next_action='GET missing receipts only' if errors else 'all official receipts present')
+    (out/'receipt-diagnosis.json').write_text(json.dumps(diagnosis,indent=2))
+    if errors:raise RuntimeError(f'{len(errors)} missing official receipts; progress persisted')
     total=sum((r['receipt']['data']['total_cost'] for r in receipts),Decimal(0))
     usage=sum((r['response']['usage']['cost'] for r in rows),Decimal(0))
     finish={p:dict(Counter(r['response']['choices'][0]['finish_reason'] for r in rows if r['phase']==p)) for p in ['generator','judge']}

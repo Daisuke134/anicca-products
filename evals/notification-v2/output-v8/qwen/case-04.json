@@ -1,0 +1,221 @@
+{
+  "index": 4,
+  "profile": "low_self_esteem",
+  "context": {
+    "time_band": "morning",
+    "language": "ja",
+    "desired_state": "self_love",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "26歳。SNSで他人と比べて落ち込むことが多い。自分のことを「どうせ私なんて」と言ってしまう。褒められても素直に受け取れない。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "07:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007239-wbm2OegnHeNeiVmo4Vxe",
+        "object": "chat.completion",
+        "created": 1795007239,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今朝の自分に、どんな言葉をかけてあげたいですか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし褒め言葉が素直に届かないときがあるなら、そのとき心の中では何が起きていそうですか？\",\"probability\":0.16,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"他人と比べずに自分の一日を振り返るとしたら、どんな見方ができそうですか？\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"teaching\",\"text\":\"自分を責める言葉は、事実ではなく癖として身についていることがあります。\",\"probability\":0.12,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"reflection\",\"text\":\"「どうせ私なんて」と言ってしまうことがあるんですね。\",\"probability\":0.13,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"action\",\"text\":\"よければ、今日の自分にひとつだけ優しい言葉をメモしてみてください。\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1625,
+          "completion_tokens": 284,
+          "total_tokens": 1909,
+          "cost": 0.001796925,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001796925,
+            "upstream_inference_prompt_cost": 0.000582825,
+            "upstream_inference_completions_cost": 0.0012141
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007245-3qYtQbm87ng8TY8Hgmw4",
+        "object": "chat.completion",
+        "created": 1795007245,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is being asked what words they would like to say to themselves this morning.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"The question asks about a hypothetical morning self-talk, which is not an explicitly stated fact about the person in the profile. The profile does not contain any information about the person's morning routine or self-talk.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person sometimes cannot honestly accept compliments.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"When the person cannot honestly accept compliments, something is happening in their mind.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states that the person cannot honestly accept compliments. The question presupposes that something is happening in their mind when this occurs, which is a reasonable inference given the context of psychological states.\"}, {\"id\": \"e\", \"claims\": [{\"claim\": \"The person sometimes says \\\"How could I possibly...\\\" or similar self-deprecating remarks.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The profile explicitly states that the person says 'どうせ私なんて' (roughly 'How could I possibly...' or 'I'm hopeless anyway') about themselves.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"The person is being invited to write a single kind word for themselves today.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": false}], \"reason\": \"This is a suggestion or invitation, not a factual claim about the person. The profile does not state that the person will write a kind word for themselves.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1785,
+          "completion_tokens": 379,
+          "total_tokens": 2164,
+          "cost": 0.0002419,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002419,
+            "upstream_inference_prompt_cost": 9.03e-05,
+            "upstream_inference_completions_cost": 0.0001516
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007247-5Jf6IKJiLEkZ0SiaMxif",
+        "object": "chat.completion",
+        "created": 1795007247,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"「どうせ私なんて」という言葉が浮かぶとき、その裏側にはどんな気持ちがありますか？\",\"probability\":0.2,\"grounds\":[],\"presuppositions\":[{\"claim\":\"自分に「どうせ私なんて」と言ってしまうことがある\",\"span\":\"自分のことを「どうせ私なんて」と言ってしまう\"}]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし褒められた場面をひとつ思い出すなら、そのとき心の中でどんな声がしていましたか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"今日、自分に対して少しでもやさしくなれるとしたら、どんな瞬間だと思いますか？\",\"probability\":0.16,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"人と比べる癖も、褒め言葉を跳ね返してしまう癖も、一日で消えるものではありません。\",\"probability\":0.1,\"grounds\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"自分にかける言葉は、親しい友人にかける言葉と同じ基準で選んでみることもできます。\",\"probability\":0.06,\"grounds\":[]},{\"id\":\"f\",\"kind\":\"breathing\",\"text\":\"よければ一度、息をゆっくり吐いてから、次の息を待ってみませんか？\",\"probability\":0.05,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.25,\"grounds\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1625,
+          "completion_tokens": 323,
+          "total_tokens": 1948,
+          "cost": 0.00161709,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00161709,
+            "upstream_inference_prompt_cost": 0.000236265,
+            "upstream_inference_completions_cost": 0.001380825
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007255-st0zBoFNMS0WcE4YBPEg",
+        "object": "chat.completion",
+        "created": 1795007255,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person sometimes says 'どうせ私なんて'.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"When the phrase 'どうせ私なんて' comes to mind, there are feelings behind it.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The first claim is directly supported by the profile text. The second claim is a presupposition of the question but is not supported by the profile text; the profile states the person *says* the phrase, not that there are necessarily *feelings* behind it when it comes to mind, and the question's premise about the 'feelings behind it' is not a factual claim about the person that can be entailed from the profile.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person has been praised before.\", \"profile_fields\": [], \"entailed\": false}, {\"claim\": \"If the person recalls one praised instance, they had internal thoughts at that time.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The question is hypothetical and asks about a state ('if the person recalls a praised instance') that is not presupposed by the profile. The profile states the person *cannot accept praise easily*, not that they have been praised or can recall praise. Therefore, the presuppositions are not entailed.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1729,
+          "completion_tokens": 299,
+          "total_tokens": 2028,
+          "cost": 0.00020439,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 979,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00020439,
+            "upstream_inference_prompt_cost": 8.479e-05,
+            "upstream_inference_completions_cost": 0.0001196
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "code": null,
+    "message": "ungrounded semantic claims: [{\"id\": \"a\", \"claim\": {\"claim\": \"When the phrase 'どうせ私なんて' comes to mind, there are feelings behind it.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"The person has been praised before.\", \"profile_fields\": [], \"entailed\": false}}, {\"id\": \"b\", \"claim\": {\"claim\": \"If the person recalls one praised instance, they had internal thoughts at that time.\", \"profile_fields\": [], \"entailed\": false}}]"
+  }
+}

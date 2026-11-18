@@ -1,0 +1,327 @@
+{
+  "index": 11,
+  "profile": "burnout",
+  "context": {
+    "time_band": "night",
+    "language": "ja",
+    "desired_state": "calm",
+    "source": "notification",
+    "push_state": {
+      "profile": {
+        "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+      },
+      "recent_reactions": [],
+      "local_day": "2026-11-18",
+      "slot": "22:30"
+    }
+  },
+  "calls": [
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007260-0ptR18RcNf4K3XVn4shL",
+        "object": "chat.completion",
+        "created": 1795007260,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、何もしなくていい時間が少しでもあるとしたら、どんなふうに過ごしたいですか？\",\"probability\":0.22,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声を先に聞いてあげたいですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[{\"claim\":\"「何もしたくない」気持ちと「やらなきゃ」という焦りの間で揺れている\",\"span\":\"何もしたくない気持ちと、やらなきゃという焦りの間で揺れている\"}]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"休日に疲れが残るとき、体と心のどちらがより休めていない感じがしますか？\",\"probability\":0.14,\"grounds\":[],\"presuppositions\":[{\"claim\":\"休日でも疲れが取れない\",\"span\":\"休日も疲れが取れない\"}]},{\"id\":\"d\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐く方を吸う方より少し長くする呼吸を、三回だけ試してみませんか？\",\"probability\":0.13,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"teaching\",\"text\":\"休息は予定の空き時間に自然に入るものではなく、先に短く確保しないと後回しになりやすいものです。\",\"probability\":0.09,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"reflection\",\"text\":\"何もしない時間は、怠けではなく回復のための時間として扱ってもよいものです。\",\"probability\":0.06,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1666,
+          "completion_tokens": 373,
+          "total_tokens": 2039,
+          "cost": 0.002235825,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.002235825,
+            "upstream_inference_prompt_cost": 0.00064125,
+            "upstream_inference_completions_cost": 0.001594575
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007268-8MPwiCt5Fxm85g4DWNuZ",
+        "object": "chat.completion",
+        "created": 1795007268,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"a\", \"claims\": [{\"claim\": \"The person is currently being asked how they would like to spend a hypothetical small amount of free time.\", \"profile_fields\": [], \"entailed\": false}, {\"claim\": \"The person has described having \\\"nothing they want to do\\\" as a feeling.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The first claim is about a hypothetical situation presented in the question itself and is not a factual claim about the person based on the profile. The second claim is directly supported by the profile summary.\"}, {\"id\": \"b\", \"claims\": [{\"claim\": \"The person experiences feelings of \\\"nothing they want to do\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person experiences feelings of \\\"having to do something\\\".\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is being asked which of these two feelings they would prefer to acknowledge first.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claims about the person's feelings are directly supported by the profile. The claim about the question itself is not a personal factual claim.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person experiences fatigue on holidays.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is being asked whether their body or mind feels more unrested when fatigued on holidays.\", \"profile_fields\": [], \"entailed\": false}], \"reason\": \"The claim about experiencing fatigue on holidays is supported by the profile. The claim about the question itself is not a personal factual claim.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1774,
+          "completion_tokens": 368,
+          "total_tokens": 2142,
+          "cost": 0.0002364,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 980,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0002364,
+            "upstream_inference_prompt_cost": 8.92e-05,
+            "upstream_inference_completions_cost": 0.0001472
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "generator",
+      "response": {
+        "id": "gen-1795007270-vxw2Xgz1FCkGdibv5iGW",
+        "object": "chat.completion",
+        "created": 1795007270,
+        "model": "qwen/qwen4-max",
+        "provider": "Alibaba",
+        "system_fingerprint": null,
+        "service_tier": null,
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidates\":[{\"id\":\"a\",\"kind\":\"question\",\"text\":\"今、いちばん気になっているのはどんなことですか？\",\"probability\":0.24,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"b\",\"kind\":\"question\",\"text\":\"もし今夜少しでも自分のための時間が取れるなら、何に使ってみたいですか？\",\"probability\":0.18,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"c\",\"kind\":\"question\",\"text\":\"「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声を先に聞いてあげたいですか？\",\"probability\":0.16,\"grounds\":[\"profile_summary\"],\"presuppositions\":[{\"claim\":\"「何もしたくない」気持ちと「やらなきゃ」という焦りの間で揺れている\",\"span\":\"何もしたくない気持ちと、やらなきゃという焦りの間で揺れている\"}]},{\"id\":\"d\",\"kind\":\"reflection\",\"text\":\"休む時間がないまま日々を回していると、休日だけでは疲れが抜けきらないこともあります。\",\"probability\":0.1,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"e\",\"kind\":\"breathing\",\"text\":\"よければ、息を吐くほうを吸うほうより少し長くして、3回だけ呼吸してみませんか？\",\"probability\":0.1,\"grounds\":[],\"presuppositions\":[]},{\"id\":\"f\",\"kind\":\"teaching\",\"text\":\"「何もしたくない」と「やらなきゃ」が同時にある状態は、どちらかを消してから動く必要はない、という考え方もあります。\",\"probability\":0.07,\"grounds\":[\"profile_summary\"],\"presuppositions\":[]},{\"id\":\"g\",\"kind\":\"none\",\"text\":\"\",\"probability\":0.15,\"grounds\":[],\"presuppositions\":[]}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1666,
+          "completion_tokens": 357,
+          "total_tokens": 2023,
+          "cost": 0.001820865,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.001820865,
+            "upstream_inference_prompt_cost": 0.00029469,
+            "upstream_inference_completions_cost": 0.001526175
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "phase": "judge",
+      "response": {
+        "id": "gen-1795007278-cCCEvx2fwwo6vZlol84Z",
+        "object": "chat.completion",
+        "created": 1795007278,
+        "model": "google/gemini-2.5-flash-lite",
+        "provider": "Google AI Studio",
+        "system_fingerprint": null,
+        "service_tier": "default",
+        "choices": [
+          {
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "STOP",
+            "message": {
+              "role": "assistant",
+              "content": "{\"verdicts\": [{\"id\": \"b\", \"claims\": [], \"reason\": \"This is a hypothetical question about a possible future event. The text does not make any factual claims about the person. The phrase 'もし今夜少しでも自分のための時間が取れるなら' explicitly states a condition that may or may not be true, and the subsequent question '何に使ってみたいですか？' asks about a potential desire or action based on that condition, rather than stating a current fact about the person.\"}, {\"id\": \"c\", \"claims\": [{\"claim\": \"The person experiences a state of wanting to do nothing.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person experiences a state of feeling pressured to do things.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person is wavering between the feeling of wanting to do nothing and the feeling of being pressured to do things.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text directly reflects the profile's statement about '何もしたくない気持ちと、やらなきゃという焦りの間で揺れている'. The question asks about which of these explicitly stated feelings the person would prefer to acknowledge first, which is supported by the profile's description of these conflicting feelings.\"}, {\"id\": \"d\", \"claims\": [{\"claim\": \"The person has very little time to rest due to work and childcare.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person's fatigue does not fully recover even on holidays.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"This statement is a direct paraphrase of the profile summary which states '仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。'. It accurately reflects the described situation.\"}, {\"id\": \"f\", \"claims\": [{\"claim\": \"The person experiences a state of wanting to do nothing.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person experiences a state of feeling pressured to do things.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}, {\"claim\": \"The person experiences both wanting to do nothing and feeling pressured to do things simultaneously.\", \"profile_fields\": [\"profile_summary\"], \"entailed\": true}], \"reason\": \"The text describes a way of thinking about the state of '何もしたくない' and 'やらなきゃ' coexisting. The profile explicitly states that the person is '何もしたくない気持ちと、やらなきゃという焦りの間で揺れている', which means both states are present and experienced by the person. The statement itself is an explanation or perspective on this state, not a new factual claim about the person's internal state beyond what's in the profile.\"}]}",
+              "refusal": null,
+              "reasoning": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1828,
+          "completion_tokens": 607,
+          "total_tokens": 2435,
+          "cost": 0.00033731,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 981,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00033731,
+            "upstream_inference_prompt_cost": 9.451e-05,
+            "upstream_inference_completions_cost": 0.0002428
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "delivery_id": "08e7cf83-409c-4cd9-b367-65441cfad231",
+    "decision_point_at": 1795007281.40862,
+    "context": {
+      "time_band": "night",
+      "language": "ja",
+      "desired_state": "calm",
+      "source": "notification",
+      "push_state": {
+        "profile": {
+          "profile_summary": "38歳の看護師。仕事と育児で休む時間がほとんどなく、休日も疲れが取れない。何もしたくない気持ちと、やらなきゃという焦りの間で揺れている。"
+        },
+        "recent_reactions": [],
+        "local_day": "2026-11-18",
+        "slot": "22:30"
+      }
+    },
+    "candidates": [
+      {
+        "id": "b",
+        "kind": "question",
+        "text": "もし今夜少しでも自分のための時間が取れるなら、何に使ってみたいですか？",
+        "probability": 0.18,
+        "grounds": [],
+        "presuppositions": []
+      },
+      {
+        "id": "c",
+        "kind": "question",
+        "text": "「何もしたくない」と「やらなきゃ」の間で揺れているとき、どちらの声を先に聞いてあげたいですか？",
+        "probability": 0.16,
+        "grounds": [
+          "profile_summary"
+        ],
+        "presuppositions": [
+          {
+            "claim": "「何もしたくない」気持ちと「やらなきゃ」という焦りの間で揺れている",
+            "span": "何もしたくない気持ちと、やらなきゃという焦りの間で揺れている"
+          }
+        ]
+      },
+      {
+        "id": "d",
+        "kind": "reflection",
+        "text": "休む時間がないまま日々を回していると、休日だけでは疲れが抜けきらないこともあります。",
+        "probability": 0.1,
+        "grounds": [
+          "profile_summary"
+        ],
+        "presuppositions": []
+      },
+      {
+        "id": "f",
+        "kind": "teaching",
+        "text": "「何もしたくない」と「やらなきゃ」が同時にある状態は、どちらかを消してから動く必要はない、という考え方もあります。",
+        "probability": 0.07,
+        "grounds": [
+          "profile_summary"
+        ],
+        "presuppositions": []
+      },
+      {
+        "id": "g",
+        "kind": "none",
+        "text": "",
+        "probability": 0.49,
+        "grounds": [],
+        "presuppositions": []
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate": {
+          "id": "a",
+          "kind": "question",
+          "text": "今、いちばん気になっているのはどんなことですか？",
+          "probability": 0.24,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded question presupposition: 今、いちばん気になっている"
+      },
+      {
+        "candidate": {
+          "id": "e",
+          "kind": "breathing",
+          "text": "よければ、息を吐くほうを吸うほうより少し長くして、3回だけ呼吸してみませんか？",
+          "probability": 0.1,
+          "grounds": [],
+          "presuppositions": []
+        },
+        "reason": "ungrounded assertion or attribution marker"
+      }
+    ],
+    "chosen": {
+      "id": "b",
+      "kind": "question",
+      "text": "もし今夜少しでも自分のための時間が取れるなら、何に使ってみたいですか？",
+      "probability": 0.18,
+      "grounds": [],
+      "presuppositions": []
+    },
+    "assigned_probability": 0.18,
+    "send": true,
+    "backend": "manager-v1",
+    "policy_version": "manager-generated-v1",
+    "generator_model": "qwen/qwen4-max",
+    "outcome_window_sec": 1800,
+    "outcome_window_end": 1795009081.40862,
+    "observations": []
+  }
+}
