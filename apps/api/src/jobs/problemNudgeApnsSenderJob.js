@@ -26,10 +26,37 @@ function pushDecisionId(profileId, day, slot) {
   return `${hex.slice(0,8)}-${hex.slice(8,12)}-4${hex.slice(13,16)}-a${hex.slice(17,20)}-${hex.slice(20,32)}`;
 }
 
+class ManagerDecisionError extends Error {
+  constructor(failureClass) {
+    super(failureClass);
+    this.failureClass = failureClass;
+  }
+}
+
+function validateManagerDecision(decision, deliveryId) {
+  if (decision?.delivery_id !== deliveryId || decision?.backend !== 'manager-v1' ||
+      decision.policy_version !== 'manager-generated-v1' || typeof decision.send !== 'boolean' ||
+      !Number.isFinite(decision.assigned_probability) || decision.assigned_probability <= 0 ||
+      decision.assigned_probability > 1 || typeof decision.chosen?.text !== 'string' ||
+      decision.chosen.text.length > 500 || (decision.send && !decision.chosen.text.trim())) {
+    throw new ManagerDecisionError('invalid_response');
+  }
+  return decision;
+}
+
+function savedManagerDecision(snapshot) {
+  try {
+    return validateManagerDecision(JSON.parse(snapshot.messageDetail), snapshot.id);
+  } catch {
+    // Legacy catalog and malformed snapshots are never regenerated or delivered.
+    return null;
+  }
+}
+
 async function managerPushDecision({ profileId, deliveryDayLocal, scheduledTime, lang }) {
   const url = process.env.MANAGER_PRODUCT_URL;
   const token = process.env.MANAGER_SENDER_TOKEN;
-  if (!url || !token) throw new Error('Manager sender unavailable');
+  if (!url || !token) throw new ManagerDecisionError('config_missing');
   const profile = await prisma.profile.findUnique({ where: { id: profileId }, select: { metadata: true } });
   const reactions = await prisma.nudgeOutcome.findMany({
     where: { event: { userId: profileId } }, orderBy: { createdAt: 'desc' }, take: 20,
@@ -37,26 +64,28 @@ async function managerPushDecision({ profileId, deliveryDayLocal, scheduledTime,
   });
   const hour = Number(scheduledTime.slice(0, 2));
   const delivery_id = pushDecisionId(profileId, deliveryDayLocal, scheduledTime);
-  const response = await fetch(`${url.replace(/\/$/, '')}/manager/push-decisions`, {
-    method: 'POST', signal: AbortSignal.timeout(15000),
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ decisions: [{ subject: profileId, delivery_id,
-      context: { source: 'notification', language: lang, desired_state: 'unknown',
-        time_band: hour < 12 ? 'morning' : hour < 17 ? 'day' : hour < 21 ? 'evening' : 'night' },
-      push_state: { profile: profile?.metadata || {}, recent_reactions: reactions,
-        local_day: deliveryDayLocal, slot: scheduledTime },
-    }] }),
-  });
-  if (!response.ok) throw new Error('Manager decision unavailable');
-  const decision = (await response.json()).decisions?.[0];
-  if (decision?.delivery_id !== delivery_id || decision.backend !== 'manager-v1' ||
-      decision.policy_version !== 'manager-generated-v1' || typeof decision.send !== 'boolean' ||
-      !Number.isFinite(decision.assigned_probability) || decision.assigned_probability <= 0 ||
-      decision.assigned_probability > 1 || typeof decision.chosen?.text !== 'string' ||
-      decision.chosen.text.length > 500 || (decision.send && !decision.chosen.text.trim())) {
-    throw new Error('Invalid Manager decision');
+  let response;
+  try {
+    response = await fetch(`${url.replace(/\/$/, '')}/manager/push-decisions`, {
+      method: 'POST', signal: AbortSignal.timeout(15000),
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ decisions: [{ subject: profileId, delivery_id,
+        context: { source: 'notification', language: lang, desired_state: 'unknown',
+          time_band: hour < 12 ? 'morning' : hour < 17 ? 'day' : hour < 21 ? 'evening' : 'night' },
+        push_state: { profile: profile?.metadata || {}, recent_reactions: reactions,
+          local_day: deliveryDayLocal, slot: scheduledTime },
+      }] }),
+    });
+  } catch {
+    throw new ManagerDecisionError('unreachable');
   }
-  return decision;
+  if (!response.ok) {
+    throw new ManagerDecisionError([401, 403].includes(response.status) ? 'auth' :
+      response.status >= 500 ? 'unreachable' : 'invalid_response');
+  }
+  let body;
+  try { body = await response.json(); } catch { throw new ManagerDecisionError('invalid_response'); }
+  return validateManagerDecision(body?.decisions?.[0], delivery_id);
 }
 
 function parseHHMM(s) {
@@ -271,6 +300,10 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
   let sent = 0;
   let queued = 0;
   let failed = 0;
+  let managerFailed = 0;
+  let outcomeUnknown = 0;
+  const managerFailures = { config_missing: 0, unreachable: 0, auth: 0, invalid_response: 0 };
+  const staleCutoff = new Date(nowUtc.getTime() - 5 * 60 * 1000);
 
   // Group by profileId so that free cap selection is enforced per-profile (not per-device).
   const tokensByProfileId = new Map();
@@ -307,6 +340,149 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
     const affirmationSlots = plan === 'free' ? AFFIRMATION_FREE_SLOTS : AFFIRMATION_PRO_SLOTS;
 
     for (const t of profileTokens) {
+      const sendSaved = async (snapshot, sendRow) => {
+        const decision = savedManagerDecision(snapshot);
+        if (!decision?.send || !sendRow) return;
+        const { id: deliveryId, problemType, scheduledTime, quoteId } = snapshot;
+        const deliveryDayLocal = ymdFromDateOnly(snapshot.deliveryDayLocal);
+        const title = snapshot.messageTitle;
+        const hook = snapshot.messageBody;
+        if (sendRow.status === 'sending') {
+          const unknown = await prisma.nudgeDeliverySend.updateMany({
+            where: { id: sendRow.id, status: 'sending', lastAttemptAt: { lte: staleCutoff } },
+            data: { status: 'outcome_unknown', nextAttemptAt: null, error: 'stale_sending_outcome_unknown' },
+          });
+          outcomeUnknown += unknown.count;
+          return;
+        }
+        if (sendRow.status === 'sent') return;
+        if (sendRow.nextAttemptAt && sendRow.nextAttemptAt.getTime() > nowUtc.getTime()) return;
+
+        const payload = {
+          aps: {
+            alert: { title, body: hook },
+            category: 'AFFIRMATION',
+            sound: 'default',
+          },
+          messageId: deliveryId,
+          deliveryId,
+          quoteId,
+          scheduledTime,
+          deliveryDayLocal,
+        };
+
+        let ownsClaim = false;
+        let apnsInvoked = false;
+        let receiptSaved = false;
+        try {
+          // Claim this send atomically to avoid double-send across replicas.
+          const claimed = await prisma.nudgeDeliverySend.updateMany({
+            where: {
+              id: sendRow.id,
+              OR: [
+                {
+                  status: { in: ['queued', 'failed'] },
+                  OR: [{ status: 'queued', nextAttemptAt: null }, { nextAttemptAt: { lte: nowUtc } }],
+                },
+                { status: 'claimed', lastAttemptAt: { lte: staleCutoff } },
+              ],
+            },
+            data: {
+              status: 'claimed',
+              attemptCount: { increment: 1 },
+              lastAttemptAt: nowUtc,
+              nextAttemptAt: null,
+              error: null,
+            },
+          });
+          if ((claimed?.count || 0) !== 1) return;
+          ownsClaim = true;
+
+          // Only this device's claim grants permission. Parent status is aggregate visibility.
+          const sending = await prisma.nudgeDeliverySend.updateMany({
+            where: { id: sendRow.id, status: 'claimed', lastAttemptAt: nowUtc },
+            data: { status: 'sending' },
+          });
+          if (sending.count !== 1) return;
+          apnsInvoked = true;
+          const out = await client.sendAlert({
+            deviceToken: t.token,
+            payload,
+            apnsIdempotencyKey: `${t.id}:${problemType}:${scheduledTime}:${deliveryDayLocal}`,
+          });
+          sent += 1;
+          await prisma.nudgeDeliverySend.update({
+            where: { id: sendRow.id },
+            data: { status: 'sent', apnsId: out.apnsId || null, sentAt: new Date() },
+          });
+          receiptSaved = true;
+          // Update parent delivery for operator visibility (sends table remains the SSOT).
+          await prisma.nudgeDelivery.update({
+            where: { id: deliveryId },
+            data: { status: 'sent', sentAt: new Date(), apnsId: out.apnsId || null, error: null },
+          });
+        } catch (e) {
+          failed += 1;
+          if (!ownsClaim) {
+            logger.error('Device claim failed before APNs invocation');
+            return;
+          }
+          if (receiptSaved) {
+            logger.error('APNs receipt saved; parent visibility update failed');
+            return;
+          }
+          let reason = null;
+          let status = null;
+          if (e instanceof ApnsError) {
+            reason = e.reason;
+            status = e.status;
+          }
+
+          const attemptCount = Math.max(1, Number(sendRow.attemptCount || 0) + 1);
+          const isGlobalConfigOrAuthError =
+            status === 403 ||
+            reason === 'BadTopic' ||
+            reason === 'InvalidProviderToken' ||
+            reason === 'ExpiredProviderToken';
+          const isPermanentTokenError = reason === 'Unregistered' || reason === 'BadDeviceToken';
+
+          const backoffSec = isGlobalConfigOrAuthError
+            ? 5 * 60
+            : Math.min(60 * Math.pow(2, Math.min(attemptCount, 4)), 15 * 60);
+          const unknown = apnsInvoked && !(e instanceof ApnsError);
+          if (unknown) outcomeUnknown += 1;
+          const nextAttemptAt = isPermanentTokenError || unknown ? null : new Date(nowUtc.getTime() + backoffSec * 1000);
+
+          await prisma.nudgeDeliverySend.update({
+            where: { id: sendRow.id },
+            data: {
+              status: unknown ? 'outcome_unknown' : 'failed',
+              error: unknown ? 'apns_outcome_unknown' : (reason || 'pre_send_failure'),
+              nextAttemptAt,
+            },
+          });
+
+          // Disable token only on truly permanent, user-specific errors.
+          if (isPermanentTokenError) {
+            await prisma.pushToken.update({
+              where: { id: t.id },
+              data: { disabledAt: new Date(), lastError: reason, updatedAt: new Date() },
+            });
+          } else {
+            await prisma.pushToken.update({
+              where: { id: t.id },
+              data: { lastError: reason ? `${reason}` : (status ? `http_${status}` : 'unknown'), updatedAt: new Date() },
+            });
+          }
+
+          if (isGlobalConfigOrAuthError) {
+            logger.error(`APNs send failed (config/auth): ${reason || `http_${status}` || e?.message || e}`);
+            throw e;
+          } else {
+            logger.warn(`APNs send failed: ${reason || e?.message || e}`);
+          }
+        }
+      };
       const sendOne = async ({ scheduledTime, slotIndex, slotsPerDay }) => {
         if (!isSlotDue({ nowUtc, timezone, scheduledTime })) return;
 
@@ -323,15 +499,20 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
           deliveryDayLocal: new Date(`${deliveryDayLocal}T00:00:00.000Z`),
         } });
         let decision;
-        try {
-          decision = snapshot ? JSON.parse(snapshot.messageDetail || '{}') :
-            await managerPushDecision({ profileId, deliveryDayLocal, scheduledTime, lang });
-        } catch {
-          logger.warn('Manager unavailable; push suppressed (no catalogue fallback)');
-          return;
+        if (snapshot) {
+          decision = savedManagerDecision(snapshot);
+        } else {
+          try {
+            decision = await managerPushDecision({ profileId, deliveryDayLocal, scheduledTime, lang });
+          } catch (e) {
+            const failureClass = e instanceof ManagerDecisionError ? e.failureClass : 'unreachable';
+            managerFailed += 1;
+            managerFailures[failureClass] += 1;
+            logger.error(`Manager push decision failed: ${failureClass}`);
+            return;
+          }
         }
-        // Old catalogue rows must never be silently re-sent as model decisions.
-        if (decision.backend !== 'manager-v1' || !decision.send) return;
+        if (!decision?.send) return;
         const quoteId = null;
         const title = snapshot?.messageTitle || appName(lang);
         const hook = snapshot?.messageBody || decision.chosen.text;
@@ -465,120 +646,22 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
           }
         }
         if (!sendRow) return;
-        if (sendRow.status === 'sent') return;
-        if (sendRow.nextAttemptAt && sendRow.nextAttemptAt.getTime() > nowUtc.getTime()) return;
-
-        const payload = {
-          aps: {
-            alert: { title, body: hook },
-            category: 'AFFIRMATION',
-            sound: 'default',
-          },
-          messageId: deliveryId,
-          deliveryId,
-          quoteId,
-          scheduledTime,
-          deliveryDayLocal,
-        };
-
-        try {
-          // Claim this send atomically to avoid double-send across replicas.
-          const staleCutoff = new Date(nowUtc.getTime() - 5 * 60 * 1000);
-          const claimed = await prisma.nudgeDeliverySend.updateMany({
-            where: {
-              id: sendRow.id,
-              OR: [
-                {
-                  status: 'queued',
-                  OR: [{ nextAttemptAt: null }, { nextAttemptAt: { lte: nowUtc } }],
-                },
-
-              ],
-            },
-            data: {
-              status: 'sending',
-              attemptCount: { increment: 1 },
-              lastAttemptAt: nowUtc,
-              nextAttemptAt: null,
-              error: null,
-            },
-          });
-          if ((claimed?.count || 0) !== 1) return;
-
-          const parentClaim = await prisma.nudgeDelivery.updateMany({
-            where: { id: deliveryId, status: 'queued' }, data: { status: 'sending' },
-          });
-          if (parentClaim.count !== 1) return;
-
-          const out = await client.sendAlert({
-            deviceToken: t.token,
-            payload,
-            apnsIdempotencyKey: `${t.id}:${problemType}:${scheduledTime}:${deliveryDayLocal}`,
-          });
-          sent += 1;
-          await prisma.nudgeDeliverySend.update({
-            where: { id: sendRow.id },
-            data: { status: 'sent', apnsId: out.apnsId || null, sentAt: new Date() },
-          });
-          // Update parent delivery for operator visibility (sends table remains the SSOT).
-          await prisma.nudgeDelivery.update({
-            where: { id: deliveryId },
-            data: { status: 'sent', sentAt: new Date(), apnsId: out.apnsId || null, error: null },
-          });
-        } catch (e) {
-          failed += 1;
-          let reason = null;
-          let status = null;
-          if (e instanceof ApnsError) {
-            reason = e.reason;
-            status = e.status;
-          }
-
-          const attemptCount = Math.max(1, Number(sendRow.attemptCount ?? 1));
-          const isGlobalConfigOrAuthError =
-            status === 403 ||
-            reason === 'BadTopic' ||
-            reason === 'InvalidProviderToken' ||
-            reason === 'ExpiredProviderToken';
-          const isPermanentTokenError = reason === 'Unregistered' || reason === 'BadDeviceToken';
-
-          const backoffSec = isGlobalConfigOrAuthError
-            ? 5 * 60
-            : Math.min(60 * Math.pow(2, Math.min(attemptCount, 4)), 15 * 60);
-          const nextAttemptAt = isPermanentTokenError ? null : new Date(nowUtc.getTime() + backoffSec * 1000);
-
-          await prisma.nudgeDeliverySend.update({
-            where: { id: sendRow.id },
-            data: {
-              status: 'failed',
-              error: reason ? `${reason}` : String(e?.message || e),
-              nextAttemptAt,
-            },
-          });
-
-          // Disable token only on truly permanent, user-specific errors.
-          if (isPermanentTokenError) {
-            await prisma.pushToken.update({
-              where: { id: t.id },
-              data: { disabledAt: new Date(), lastError: reason, updatedAt: new Date() },
-            });
-          } else {
-            await prisma.pushToken.update({
-              where: { id: t.id },
-              data: { lastError: reason ? `${reason}` : (status ? `http_${status}` : 'unknown'), updatedAt: new Date() },
-            });
-          }
-
-          if (isGlobalConfigOrAuthError) {
-            logger.error(`APNs send failed (config/auth): ${reason || `http_${status}` || e?.message || e}`);
-            throw e;
-          } else {
-            logger.warn(`APNs send failed: ${reason || e?.message || e}`);
-          }
-        }
+        // Always load the winning persisted snapshot, including concurrent insert races.
+        const persisted = await prisma.nudgeDelivery.findUnique({ where: { id: deliveryId } });
+        if (persisted) await sendSaved(persisted, sendRow);
       };
 
       try {
+        // Retries are independent of the slot minute and never call Manager again.
+        const pending = await prisma.nudgeDeliverySend.findMany({
+          where: { pushTokenId: t.id, OR: [
+            { status: 'queued' },
+            { status: 'failed', nextAttemptAt: { lte: nowUtc } },
+            { status: { in: ['claimed', 'sending'] }, lastAttemptAt: { lte: staleCutoff } },
+          ] },
+          include: { delivery: true },
+        });
+        for (const row of pending) await sendSaved(row.delivery, row);
         for (let slotIndex = 0; slotIndex < affirmationSlots.length; slotIndex += 1) {
           await sendOne({
             scheduledTime: affirmationSlots[slotIndex],
@@ -598,9 +681,11 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
             reason === 'ExpiredProviderToken';
           if (isGlobalConfigOrAuthError) break mainLoop;
         }
+        logger.error('APNs sender processing failed');
+        failed += 1;
       }
     }
   }
 
-  return { ok: true, env, queued, sent, failed };
+  return { ok: failed === 0 && managerFailed === 0 && outcomeUnknown === 0, env, queued, sent, failed, managerFailed, managerFailures, outcomeUnknown };
 }

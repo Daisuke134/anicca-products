@@ -1,26 +1,26 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('../../services/subscriptionStore.js', () => ({
   getEntitlementState: vi.fn(async () => ({ plan: 'pro', status: 'active', currentPeriodEnd: null })),
 }));
 
-import { prismaMock } from '../../test/setup.js';
+import { prismaMock, loggerMock } from '../../test/setup.js';
 
 import { isSlotDue, effectiveDeliveryDayLocal, ymdFromDateOnly, selectFreeDailySlots, runProblemNudgeApnsSender } from '../problemNudgeApnsSenderJob.js';
 import { ApnsError } from '../../services/apns/apnsClient.js';
 import { getEntitlementState } from '../../services/subscriptionStore.js';
 
 describe('problemNudgeApnsSenderJob helpers', () => {
-  it('isSlotDue matches within 30min window', () => {
+  it('isSlotDue matches only the scheduled minute', () => {
     const nowUtc = new Date('2026-02-13T07:35:00.000Z');
-    expect(isSlotDue({ nowUtc, timezone: 'UTC', scheduledTime: '07:30' })).toBe(true);
+    expect(isSlotDue({ nowUtc, timezone: 'UTC', scheduledTime: '07:35' })).toBe(true);
     expect(isSlotDue({ nowUtc, timezone: 'UTC', scheduledTime: '07:00' })).toBe(false);
     expect(isSlotDue({ nowUtc, timezone: 'UTC', scheduledTime: '07:36' })).toBe(false);
   });
 
-  it('isSlotDue handles day-wrap window (e.g. 23:45 due at 00:05)', () => {
+  it('does not backfill a slot across midnight', () => {
     const nowUtc = new Date('2026-02-13T00:05:00.000Z');
-    expect(isSlotDue({ nowUtc, timezone: 'UTC', scheduledTime: '23:45' })).toBe(true);
+    expect(isSlotDue({ nowUtc, timezone: 'UTC', scheduledTime: '23:45' })).toBe(false);
   });
 
   it('effectiveDeliveryDayLocal uses previous local date for staying_up_late 00:00/01:00', () => {
@@ -50,321 +50,213 @@ describe('problemNudgeApnsSenderJob helpers', () => {
   });
 });
 
-describe('runProblemNudgeApnsSender', () => {
+// Model mutable rows and conditional claims, rather than unconditionally granting locks.
+function matches(row, where = {}) {
+  return Object.entries(where).every(([key, value]) => {
+    if (key === 'OR') return value.some(w => matches(row, w));
+    if (value && typeof value === 'object' && !(value instanceof Date)) {
+      if ('in' in value) return value.in.includes(row[key]);
+      if ('lte' in value) return row[key] != null && row[key] <= value.lte;
+      if ('lt' in value) return row[key] != null && row[key] < value.lt;
+      return matches(row[key], value);
+    }
+    return value instanceof Date ? row[key]?.getTime() === value.getTime() : row[key] === value;
+  });
+}
+const now = new Date('2026-11-18T08:00:00Z');
+const profileId = '00000000-0000-0000-0000-000000000001';
+let deliveries, sends, tokens, apnsClient;
+function apply(row, data) {
+  for (const [key, value] of Object.entries(data)) row[key] = value?.increment ? (row[key] || 0) + value.increment : value;
+  return { ...row };
+}
+function saved(status = 'queued', extra = {}) {
+  const decision = { delivery_id: 'saved-id', backend: 'manager-v1', policy_version: 'manager-generated-v1',
+    send: true, assigned_probability: 1, chosen: { text: 'Saved text' } };
+  const delivery = { id: 'saved-id', profileId, problemType: 'affirmation', scheduledTime: '08:00',
+    deliveryDayLocal: new Date('2026-11-18T00:00:00Z'), timezone: 'UTC', lang: 'en', status: 'sending',
+    messageTitle: 'Anicca', messageBody: 'Saved text', messageDetail: JSON.stringify(decision) };
+  deliveries.push(delivery);
+  const row = { id: 'send-1', deliveryId: delivery.id, pushTokenId: tokens[0].id,
+    status, attemptCount: 1, nextAttemptAt: null, ...extra };
+  sends.push(row); return { delivery, row };
+}
+const run = (date = now) => runProblemNudgeApnsSender(date, { apnsClient });
+describe('runProblemNudgeApnsSender Manager delivery', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-    process.env.PUSH_ENV = 'dev';
-    process.env.APNS_ENDPOINT = 'development';
-
-    prismaMock.$executeRaw.mockResolvedValue(0);
+    vi.stubEnv('PUSH_ENV', 'dev'); vi.stubEnv('APNS_ENDPOINT', 'development');
+    vi.stubEnv('MANAGER_PRODUCT_URL', 'https://manager.invalid'); vi.stubEnv('MANAGER_SENDER_TOKEN', 'test-secret');
+    getEntitlementState.mockResolvedValue({ plan: 'pro' });
+    deliveries = []; sends = []; tokens = [{ id: 'token-1', profileId, token: 'device-one' }];
+    apnsClient = { sendAlert: vi.fn().mockResolvedValue({ apnsId: 'receipt' }) };
+    vi.stubGlobal('fetch', vi.fn(async (_url, options) => {
+      const request = JSON.parse(options.body).decisions[0];
+      return { ok: true, json: async () => ({ decisions: [{ delivery_id: request.delivery_id,
+        backend: 'manager-v1', policy_version: 'manager-generated-v1', send: true,
+        assigned_probability: 1, chosen: { text: 'Manager text' } }] }) };
+    }));
+    prismaMock.pushToken.findMany.mockImplementation(async () => tokens.filter(t => !t.disabledAt));
+    prismaMock.pushToken.update.mockImplementation(async ({ where, data }) => apply(tokens.find(t => t.id === where.id), data));
+    prismaMock.userSetting.findUnique.mockResolvedValue({ notificationsEnabled: true, timezone: 'UTC', language: 'en' });
+    prismaMock.profile.findUnique.mockResolvedValue({ metadata: {} }); prismaMock.nudgeOutcome.findMany.mockResolvedValue([]);
     prismaMock.$transaction.mockImplementation(async fn => fn(prismaMock));
-
-    prismaMock.pushToken.findMany.mockResolvedValue([
-      { id: 'ptok-1', profileId: '00000000-0000-0000-0000-000000000001', deviceId: 'device-1', token: 'a'.repeat(64) },
-    ]);
-    prismaMock.userSetting.findUnique.mockResolvedValue({
-      notificationsEnabled: true,
-      timezone: 'UTC',
-      language: 'en',
+    prismaMock.nudgeDelivery.count.mockImplementation(async ({ where }) => deliveries.filter(d => matches(d, where)).length);
+    prismaMock.nudgeDelivery.findFirst.mockImplementation(async ({ where }) => deliveries.find(d => matches(d, where)) || null);
+    prismaMock.nudgeDelivery.findUnique.mockImplementation(async ({ where }) => deliveries.find(d => matches(d, where)) || null);
+    prismaMock.nudgeDelivery.create.mockImplementation(async ({ data }) => { deliveries.push({ ...data }); return { ...data }; });
+    prismaMock.nudgeDelivery.update.mockImplementation(async ({ where, data }) => apply(deliveries.find(d => matches(d, where)), data));
+    prismaMock.nudgeDelivery.updateMany.mockImplementation(async ({ where, data }) => {
+      const rows = deliveries.filter(d => matches(d, where)); rows.forEach(d => apply(d, data)); return { count: rows.length };
     });
-    prismaMock.mobileProfile.findMany.mockResolvedValue([{ profile: { struggles: ['anxiety'] } }]);
-
-    prismaMock.userSetting.upsert.mockResolvedValue({
-      nudgeDay0LocalDate: new Date('2026-02-01T00:00:00.000Z'),
-      timezone: 'UTC',
-      nudgeDay0Source: 'profile_created_at',
-    });
-    prismaMock.profile.findUnique.mockResolvedValue({ createdAt: new Date('2026-02-01T00:00:00.000Z') });
-
-    prismaMock.nudgeDelivery.findFirst.mockResolvedValue(null);
-    prismaMock.nudgeDelivery.count.mockResolvedValue(0);
-    prismaMock.nudgeDelivery.create.mockResolvedValue({ id: '11111111-1111-1111-1111-111111111111' });
-    prismaMock.nudgeDeliverySend.findMany.mockResolvedValue([]);
-    prismaMock.nudgeDeliverySend.findUnique.mockResolvedValue(null);
-    prismaMock.nudgeDeliverySend.create.mockResolvedValue({ id: 'send-1', status: 'queued', nextAttemptAt: null, attemptCount: 0 });
-    prismaMock.nudgeDeliverySend.updateMany.mockResolvedValue({ count: 1 });
-    prismaMock.nudgeDeliverySend.update.mockResolvedValue({});
-    prismaMock.pushToken.update.mockResolvedValue({});
-  });
-
-  it('queues and sends one due delivery', async () => {
-    const apnsClient = {
-      sendAlert: vi.fn().mockResolvedValue({ ok: true, apnsId: 'apns-1' }),
-    };
-
-    const nowUtc = new Date('2026-02-13T12:20:00.000Z'); // 12:15 anxiety slot due at 12:20
-    const out = await runProblemNudgeApnsSender(nowUtc, { apnsClient });
-    expect(out.ok).toBe(true);
-    expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
-    expect(prismaMock.nudgeDelivery.create).toHaveBeenCalledTimes(1);
-    expect(prismaMock.nudgeDeliverySend.create).toHaveBeenCalledTimes(1);
-    expect(prismaMock.nudgeDeliverySend.updateMany).toHaveBeenCalledTimes(1);
-    expect(prismaMock.nudgeDeliverySend.update).toHaveBeenCalledTimes(1);
-  });
-
-  it('free users send only the selected 3 daily slots (example: 14:00 rumination slot)', async () => {
-    getEntitlementState.mockResolvedValueOnce({ plan: 'free', status: 'active', currentPeriodEnd: null });
-
-    prismaMock.mobileProfile.findMany.mockResolvedValueOnce([{ profile: { struggles: ['obsessive', 'rumination', 'staying_up_late'] } }]);
-
-    const apnsClient = {
-      sendAlert: vi.fn().mockResolvedValue({ ok: true, apnsId: 'apns-1' }),
-    };
-
-    // 14:10 UTC is within 30 minutes of 14:00 UTC.
-    const nowUtc = new Date('2026-02-13T14:10:00.000Z');
-    const out = await runProblemNudgeApnsSender(nowUtc, { apnsClient });
-    expect(out.ok).toBe(true);
-    expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
-    expect(apnsClient.sendAlert.mock.calls[0][0].payload.problemType).toBe('rumination');
-    expect(apnsClient.sendAlert.mock.calls[0][0].payload.scheduledTime).toBe('14:00');
-  });
-
-  it('enforces free cap even if struggles change mid-day (never creates >3 deliveries per day)', async () => {
-    getEntitlementState.mockResolvedValue({ plan: 'free', status: 'active', currentPeriodEnd: null });
-
-    // Struggles change across runs.
-    prismaMock.mobileProfile.findMany
-      .mockResolvedValueOnce([{ profile: { struggles: ['anxiety'] } }])
-      .mockResolvedValueOnce([{ profile: { struggles: ['bad_mouthing'] } }])
-      .mockResolvedValueOnce([{ profile: { struggles: ['anxiety'] } }])
-      .mockResolvedValueOnce([{ profile: { struggles: ['bad_mouthing'] } }]);
-
-    const apnsClient = {
-      sendAlert: vi.fn().mockResolvedValue({ ok: true, apnsId: 'apns-1' }),
-    };
-
-    const deliveries = new Map(); // key -> deliveryId
-    let deliverySeq = 0;
-    prismaMock.nudgeDelivery.findFirst.mockImplementation(async ({ where }) => {
-      const key = `${where.profileId}|${where.problemType}|${where.scheduledTime}|${where.deliveryDayLocal.toISOString()}`;
-      const id = deliveries.get(key);
-      return id ? { id } : null;
-    });
-    prismaMock.nudgeDelivery.create.mockImplementation(async ({ data }) => {
-      const key = `${data.profileId}|${data.problemType}|${data.scheduledTime}|${data.deliveryDayLocal.toISOString()}`;
-      const id = `delivery-${++deliverySeq}`;
-      deliveries.set(key, id);
-      return { id };
-    });
-    prismaMock.nudgeDelivery.count.mockImplementation(async ({ where }) => {
-      const suffix = where.deliveryDayLocal.toISOString();
-      let c = 0;
-      for (const k of deliveries.keys()) {
-        if (k.endsWith(suffix)) c += 1;
-      }
-      return c;
-    });
-
-    const sendRows = new Map(); // key -> row
-    let sendSeq = 0;
+    prismaMock.nudgeDeliverySend.findMany.mockImplementation(async ({ where }) => sends.filter(s => matches(s, where))
+      .map(s => ({ ...s, delivery: deliveries.find(d => d.id === s.deliveryId) })));
     prismaMock.nudgeDeliverySend.findUnique.mockImplementation(async ({ where }) => {
-      const key = `${where.deliveryId_pushTokenId.deliveryId}|${where.deliveryId_pushTokenId.pushTokenId}`;
-      return sendRows.get(key) || null;
+      const row = sends.find(s => matches(s, where.deliveryId_pushTokenId || where)); return row ? { ...row } : null;
     });
     prismaMock.nudgeDeliverySend.create.mockImplementation(async ({ data }) => {
-      const key = `${data.deliveryId}|${data.pushTokenId}`;
-      const row = { id: `send-${++sendSeq}`, status: 'queued', nextAttemptAt: null, attemptCount: 0 };
-      sendRows.set(key, row);
-      return row;
+      const row = { id: `send-${sends.length + 1}`, attemptCount: 0, nextAttemptAt: null, ...data };
+      sends.push(row); return { ...row };
     });
-    prismaMock.nudgeDeliverySend.updateMany.mockResolvedValue({ count: 1 });
-    prismaMock.nudgeDeliverySend.update.mockResolvedValue({});
-
-    await runProblemNudgeApnsSender(new Date('2026-02-13T07:35:00.000Z'), { apnsClient }); // anxiety 07:30 due
-    await runProblemNudgeApnsSender(new Date('2026-02-13T09:35:00.000Z'), { apnsClient }); // bad_mouthing 09:30 due
-    await runProblemNudgeApnsSender(new Date('2026-02-13T12:20:00.000Z'), { apnsClient }); // anxiety 12:15 due
-    await runProblemNudgeApnsSender(new Date('2026-02-13T14:35:00.000Z'), { apnsClient }); // bad_mouthing 14:30 due (must be capped)
-
-    expect(deliveries.size).toBe(3);
+    prismaMock.nudgeDeliverySend.updateMany.mockImplementation(async ({ where, data }) => {
+      const rows = sends.filter(s => matches(s, where)); rows.forEach(s => apply(s, data)); return { count: rows.length };
+    });
+    prismaMock.nudgeDeliverySend.update.mockImplementation(async ({ where, data }) => apply(sends.find(s => matches(s, where)), data));
   });
-
-  it('blocks delivery and stops run on config/auth APNs errors (e.g. 403 BadTopic)', async () => {
-    prismaMock.pushToken.findMany.mockResolvedValueOnce([
-      { id: 'ptok-1', profileId: '00000000-0000-0000-0000-000000000001', deviceId: 'device-1', token: 'a'.repeat(64) },
-      { id: 'ptok-2', profileId: '00000000-0000-0000-0000-000000000002', deviceId: 'device-2', token: 'b'.repeat(64) },
-    ]);
-
-    const apnsClient = {
-      sendAlert: vi.fn().mockRejectedValue(new ApnsError({ status: 403, reason: 'BadTopic' })),
-    };
-
-    const nowUtc = new Date('2026-02-13T12:20:00.000Z'); // 12:15 anxiety slot due at 12:20
-    const out1 = await runProblemNudgeApnsSender(nowUtc, { apnsClient });
-    expect(out1.ok).toBe(true);
+  afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
+  it('sends Manager text and never replays a sent row', async () => {
+    expect(await run()).toMatchObject({ ok: true, sent: 1 });
+    expect(apnsClient.sendAlert.mock.calls[0][0].payload.aps.alert.body).toBe('Manager text');
+    await run(); expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1); expect(fetch).toHaveBeenCalledTimes(1);
+  });
+  it.each(['missing-url', 'missing-token', '401', '403', '503', 'timeout', 'network', 'json', 'validation'])(
+    'surfaces Manager %s failure without APNs or secret leakage', async kind => {
+      const expected = kind.startsWith('missing') ? 'config_missing' : ['401', '403'].includes(kind) ? 'auth' :
+        ['json', 'validation'].includes(kind) ? 'invalid_response' : 'unreachable';
+      if (kind === 'missing-url') vi.stubEnv('MANAGER_PRODUCT_URL', '');
+      else if (kind === 'missing-token') vi.stubEnv('MANAGER_SENDER_TOKEN', '');
+      else if (/^\d+$/.test(kind)) fetch.mockResolvedValue({ ok: false, status: Number(kind) });
+      else if (kind === 'timeout') fetch.mockRejectedValue(new DOMException('test-secret', 'TimeoutError'));
+      else if (kind === 'network') fetch.mockRejectedValue(new Error('test-secret'));
+      else if (kind === 'json') fetch.mockResolvedValue({ ok: true, json: async () => { throw new Error('test-secret'); } });
+      else fetch.mockResolvedValue({ ok: true, json: async () => ({ decisions: [{}] }) });
+      expect(await run()).toMatchObject({ ok: false, managerFailed: 1, managerFailures: { [expected]: 1 } });
+      expect(apnsClient.sendAlert).not.toHaveBeenCalled();
+      expect(JSON.stringify(loggerMock.error.mock.calls)).toContain(expected);
+      expect(JSON.stringify(loggerMock.error.mock.calls)).not.toContain('test-secret');
+    });
+  it('honors Manager no-send', async () => {
+    const impl = fetch.getMockImplementation(); fetch.mockImplementation(async (...args) => {
+      const response = await impl(...args); const body = await response.json(); body.decisions[0].send = false;
+      return { ok: true, json: async () => body };
+    });
+    expect(await run()).toMatchObject({ ok: true, sent: 0 }); expect(apnsClient.sendAlert).not.toHaveBeenCalled();
+  });
+  it.each(['queued', 'failed', 'sending'])('rejects old catalog rows (%s) without regeneration', async status => {
+    const { delivery } = saved(status, { nextAttemptAt: new Date(now.getTime() - 1000), lastAttemptAt: new Date(now.getTime() - 600000) });
+    delivery.messageDetail = 'old catalog detail'; await run(); await run(new Date(now.getTime() + 600000));
+    expect(apnsClient.sendAlert).not.toHaveBeenCalled(); expect(fetch).not.toHaveBeenCalled();
+  });
+  it.each([false, true])('sends both devices despite first device permanent failure=%s', async badFirst => {
+    tokens.push({ id: 'token-2', profileId, token: 'device-two' });
+    if (badFirst) apnsClient.sendAlert.mockRejectedValueOnce(new ApnsError({ status: 410, reason: 'Unregistered' }));
+    await run(); expect(apnsClient.sendAlert).toHaveBeenCalledTimes(2);
+    expect(sends.find(s => s.pushTokenId === 'token-2').status).toBe('sent'); expect(fetch).toHaveBeenCalledTimes(1);
+  });
+  it('reuses saved decision with Manager config absent', async () => {
+    saved(); vi.stubEnv('MANAGER_PRODUCT_URL', ''); expect(await run()).toMatchObject({ ok: true, sent: 1 });
+    expect(apnsClient.sendAlert.mock.calls[0][0].payload.aps.alert.body).toBe('Saved text'); expect(fetch).not.toHaveBeenCalled();
+  });
+  it('retries explicit APNs rejection after backoff outside the slot', async () => {
+    apnsClient.sendAlert.mockRejectedValueOnce(new ApnsError({ status: 503, reason: 'ServiceUnavailable' }));
+    expect(await run()).toMatchObject({ failed: 1 }); expect(sends[0].status).toBe('failed');
+    await run(new Date(now.getTime() + 60000)); expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
+    expect(await run(new Date(now.getTime() + 600000))).toMatchObject({ sent: 1 });
+    expect(sends[0]).toMatchObject({ status: 'sent', attemptCount: 2 }); expect(fetch).toHaveBeenCalledTimes(1);
+  });
+  it('recovers stale pre-send claim using saved text', async () => {
+    saved('claimed', { lastAttemptAt: new Date(now.getTime() - 600000) });
+    expect(await run(new Date(now.getTime() + 60000))).toMatchObject({ sent: 1 });
+    expect(fetch).not.toHaveBeenCalled(); expect(sends[0].status).toBe('sent');
+  });
+  it('does not steal a fresh claim', async () => {
+    saved('claimed', { lastAttemptAt: now }); await run(); expect(apnsClient.sendAlert).not.toHaveBeenCalled();
+  });
+  it('quarantines stale sending as unknown without replay', async () => {
+    saved('sending', { lastAttemptAt: new Date(now.getTime() - 600000) });
+    expect(await run(new Date(now.getTime() + 60000))).toMatchObject({ ok: false, outcomeUnknown: 1 });
+    expect(sends[0]).toMatchObject({ status: 'outcome_unknown', nextAttemptAt: null });
+    await run(new Date(now.getTime() + 120000)); expect(apnsClient.sendAlert).not.toHaveBeenCalled();
+  });
+  it('does not retry transport failure with unknown APNs outcome', async () => {
+    apnsClient.sendAlert.mockRejectedValueOnce(new Error('connection reset'));
+    expect(await run()).toMatchObject({ ok: false, outcomeUnknown: 1 }); expect(sends[0].status).toBe('outcome_unknown');
+    await run(new Date(now.getTime() + 600000)); expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
+  });
+  it('does not replay APNs acceptance when receipt persistence fails', async () => {
+    prismaMock.nudgeDeliverySend.update.mockRejectedValueOnce(new Error('database unavailable'));
+    expect(await run()).toMatchObject({ ok: false, outcomeUnknown: 1 });
+    await run(new Date(now.getTime() + 600000)); expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
+  });
+  it('does not change an unowned row when the atomic claim fails', async () => {
+    saved();
+    prismaMock.nudgeDeliverySend.updateMany.mockRejectedValueOnce(new Error('database unavailable'));
+    expect(await run(new Date(now.getTime() + 60000))).toMatchObject({ ok: false, failed: 1 });
+    expect(sends[0].status).toBe('queued');
+    expect(apnsClient.sendAlert).not.toHaveBeenCalled();
+  });
+  it('retries a definite failure before APNs invocation', async () => {
+    saved();
+    const update = prismaMock.nudgeDeliverySend.updateMany.getMockImplementation();
+    prismaMock.nudgeDeliverySend.updateMany.mockImplementationOnce(update)
+      .mockRejectedValueOnce(new Error('database unavailable'));
+    expect(await run(new Date(now.getTime() + 60000))).toMatchObject({ ok: false, failed: 1, outcomeUnknown: 0 });
+    expect(apnsClient.sendAlert).not.toHaveBeenCalled();
+    expect(await run(new Date(now.getTime() + 600000))).toMatchObject({ sent: 1 });
+  });
+  it('keeps a saved APNs receipt when the parent update fails', async () => {
+    prismaMock.nudgeDelivery.update.mockRejectedValueOnce(new Error('database unavailable'));
+    expect(await run()).toMatchObject({ ok: false, sent: 1 });
+    expect(sends[0]).toMatchObject({ status: 'sent', apnsId: 'receipt' });
+    await run(new Date(now.getTime() + 600000));
     expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
-    expect(prismaMock.nudgeDeliverySend.update).toHaveBeenCalledWith(
-      expect.objectContaining({
-        data: expect.objectContaining({ status: 'failed' }),
-      })
-    );
-
-    // Next run should skip sending within backoff window (no repeated APNs hammering).
-    apnsClient.sendAlert.mockClear();
-    prismaMock.nudgeDeliverySend.findUnique.mockResolvedValueOnce({
-      id: 'send-1',
-      status: 'failed',
-      nextAttemptAt: new Date(nowUtc.getTime() + 5 * 60 * 1000),
-      attemptCount: 1,
-    });
-    const out2 = await runProblemNudgeApnsSender(nowUtc, { apnsClient });
-    expect(out2.ok).toBe(true);
-    expect(apnsClient.sendAlert).toHaveBeenCalledTimes(0);
   });
-
-  it('sends to multiple devices for the same profile (multi-device safe)', async () => {
-    prismaMock.pushToken.findMany.mockResolvedValueOnce([
-      { id: 'ptok-1', profileId: '00000000-0000-0000-0000-000000000001', deviceId: 'device-1', token: 'a'.repeat(64) },
-      { id: 'ptok-2', profileId: '00000000-0000-0000-0000-000000000001', deviceId: 'device-2', token: 'b'.repeat(64) },
-    ]);
-    prismaMock.mobileProfile.findMany.mockResolvedValueOnce([{ profile: { struggles: ['anxiety'] } }, { profile: { struggles: ['anxiety'] } }]);
-
-    const apnsClient = {
-      sendAlert: vi.fn().mockResolvedValue({ ok: true, apnsId: 'apns-1' }),
-    };
-
-    prismaMock.nudgeDelivery.findFirst
-      .mockResolvedValueOnce(null)
-      .mockResolvedValueOnce({ id: '11111111-1111-1111-1111-111111111111' });
-
-    prismaMock.nudgeDeliverySend.create
-      .mockResolvedValueOnce({ id: 'send-1', status: 'queued', nextAttemptAt: null, attemptCount: 0 })
-      .mockResolvedValueOnce({ id: 'send-2', status: 'queued', nextAttemptAt: null, attemptCount: 0 });
-
-    const nowUtc = new Date('2026-02-13T12:20:00.000Z');
-    const out = await runProblemNudgeApnsSender(nowUtc, { apnsClient });
-    expect(out.ok).toBe(true);
-    expect(apnsClient.sendAlert).toHaveBeenCalledTimes(2);
-  });
-
-  it('defaults to free cap when entitlement lookup fails (still sends, no over-send)', async () => {
-    getEntitlementState.mockRejectedValueOnce(new Error('db down'));
-
-    const apnsClient = {
-      sendAlert: vi.fn(),
-    };
-
-    const nowUtc = new Date('2026-02-13T12:20:00.000Z');
-    const out = await runProblemNudgeApnsSender(nowUtc, { apnsClient });
-    expect(out.ok).toBe(true);
+  it('only one concurrent runner sends a queued device row', async () => {
+    saved();
+    await Promise.all([run(), run()]);
     expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
   });
-
-  it('day-wrap late-night slot uses previous deliveryDayLocal (does not block same-day slot)', async () => {
-    // Use a slot at 23:45 (porn_addiction) and send it at 00:05.
-    prismaMock.mobileProfile.findMany.mockResolvedValue([{ profile: { struggles: ['porn_addiction'] } }]);
-
-    const apnsClient = {
-      sendAlert: vi.fn().mockResolvedValue({ ok: true, apnsId: 'apns-1' }),
-    };
-
-    const deliveries = new Map(); // key -> deliveryId
-    let deliverySeq = 0;
-    prismaMock.nudgeDelivery.findFirst.mockImplementation(async ({ where }) => {
-      const key = `${where.profileId}|${where.problemType}|${where.scheduledTime}|${where.deliveryDayLocal.toISOString()}`;
-      const id = deliveries.get(key);
-      return id ? { id } : null;
-    });
-    prismaMock.nudgeDelivery.create.mockImplementation(async ({ data }) => {
-      const key = `${data.profileId}|${data.problemType}|${data.scheduledTime}|${data.deliveryDayLocal.toISOString()}`;
-      const id = `delivery-${++deliverySeq}`;
-      deliveries.set(key, id);
-      return { id };
-    });
-
-    const sendRows = new Map(); // key -> row
-    let sendSeq = 0;
-    prismaMock.nudgeDeliverySend.findUnique.mockImplementation(async ({ where }) => {
-      const key = `${where.deliveryId_pushTokenId.deliveryId}|${where.deliveryId_pushTokenId.pushTokenId}`;
-      return sendRows.get(key) || null;
-    });
-    prismaMock.nudgeDeliverySend.create.mockImplementation(async ({ data }) => {
-      const key = `${data.deliveryId}|${data.pushTokenId}`;
-      const row = { id: `send-${++sendSeq}`, status: 'queued', nextAttemptAt: null, attemptCount: 0 };
-      sendRows.set(key, row);
-      return row;
-    });
-    prismaMock.nudgeDeliverySend.updateMany.mockResolvedValue({ count: 1 });
-    prismaMock.nudgeDeliverySend.update.mockResolvedValue({});
-
-    // 00:05 should send the 23:45 slot, attributed to the previous local day.
-    const out1 = await runProblemNudgeApnsSender(new Date('2026-02-13T00:05:00.000Z'), { apnsClient });
-    expect(out1.ok).toBe(true);
-    expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
-    expect(apnsClient.sendAlert.mock.calls[0][0].payload.problemType).toBe('porn_addiction');
-    expect(apnsClient.sendAlert.mock.calls[0][0].payload.scheduledTime).toBe('23:45');
-    expect(apnsClient.sendAlert.mock.calls[0][0].payload.deliveryDayLocal).toBe('2026-02-12');
-
-    // Later that day, 23:50 should still send the actual same-day 23:45 slot (not blocked).
-    apnsClient.sendAlert.mockClear();
-    const out2 = await runProblemNudgeApnsSender(new Date('2026-02-13T23:50:00.000Z'), { apnsClient });
-    expect(out2.ok).toBe(true);
-    expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
-    expect(apnsClient.sendAlert.mock.calls[0][0].payload.deliveryDayLocal).toBe('2026-02-13');
-
-    expect(deliveries.size).toBe(2);
+  it('keeps fresh sending and terminal token failures from replaying', async () => {
+    saved('sending', { lastAttemptAt: now }); await run();
+    expect(apnsClient.sendAlert).not.toHaveBeenCalled();
+    sends[0].status = 'failed'; sends[0].nextAttemptAt = null;
+    await run(); expect(apnsClient.sendAlert).not.toHaveBeenCalled();
   });
-
-  it('enforces free cap per profile even when devices have different struggles (max 3 deliveries/day)', async () => {
-    getEntitlementState.mockResolvedValue({ plan: 'free', status: 'active', currentPeriodEnd: null });
-
-    prismaMock.pushToken.findMany.mockResolvedValueOnce([
-      { id: 'ptok-1', profileId: '00000000-0000-0000-0000-000000000001', deviceId: 'device-1', token: 'a'.repeat(64) },
-      { id: 'ptok-2', profileId: '00000000-0000-0000-0000-000000000001', deviceId: 'device-2', token: 'b'.repeat(64) },
-    ]);
-
-    // Two devices disagree; cap must still be enforced at the profile level.
-    prismaMock.mobileProfile.findMany.mockResolvedValueOnce([
-      { profile: { struggles: ['anxiety'] } },
-      { profile: { struggles: ['bad_mouthing'] } },
-    ]);
-
-    const apnsClient = {
-      sendAlert: vi.fn().mockResolvedValue({ ok: true, apnsId: 'apns-1' }),
-    };
-
-    // Minimal in-memory simulation for idempotent delivery creation.
-    const deliveries = new Map(); // key -> deliveryId
-    let deliverySeq = 0;
-    prismaMock.nudgeDelivery.findFirst.mockImplementation(async ({ where }) => {
-      const key = `${where.profileId}|${where.problemType}|${where.scheduledTime}|${where.deliveryDayLocal.toISOString()}`;
-      const id = deliveries.get(key);
-      return id ? { id } : null;
-    });
-    prismaMock.nudgeDelivery.create.mockImplementation(async ({ data }) => {
-      const key = `${data.profileId}|${data.problemType}|${data.scheduledTime}|${data.deliveryDayLocal.toISOString()}`;
-      const id = `delivery-${++deliverySeq}`;
-      deliveries.set(key, id);
-      return { id };
-    });
-
-    const sendRows = new Map(); // key -> row
-    let sendSeq = 0;
-    prismaMock.nudgeDeliverySend.findUnique.mockImplementation(async ({ where }) => {
-      const key = `${where.deliveryId_pushTokenId.deliveryId}|${where.deliveryId_pushTokenId.pushTokenId}`;
-      return sendRows.get(key) || null;
-    });
-    prismaMock.nudgeDeliverySend.create.mockImplementation(async ({ data }) => {
-      const key = `${data.deliveryId}|${data.pushTokenId}`;
-      const row = { id: `send-${++sendSeq}`, status: 'queued', nextAttemptAt: null, attemptCount: 0 };
-      sendRows.set(key, row);
-      return row;
-    });
-    prismaMock.nudgeDeliverySend.updateMany.mockResolvedValue({ count: 1 });
-    prismaMock.nudgeDeliverySend.update.mockResolvedValue({});
-
-    // Run across times that would create 6 distinct deliveries/day if selection were token-scoped.
-    process.env.PUSH_ENV = 'dev';
-    process.env.APNS_ENDPOINT = 'development';
-
-    await runProblemNudgeApnsSender(new Date('2026-02-13T07:35:00.000Z'), { apnsClient }); // anxiety 07:30 would be due
-    await runProblemNudgeApnsSender(new Date('2026-02-13T09:35:00.000Z'), { apnsClient }); // bad_mouthing 09:30 due
-    await runProblemNudgeApnsSender(new Date('2026-02-13T12:20:00.000Z'), { apnsClient }); // anxiety 12:15 would be due
-    await runProblemNudgeApnsSender(new Date('2026-02-13T14:35:00.000Z'), { apnsClient }); // bad_mouthing 14:30 due
-    await runProblemNudgeApnsSender(new Date('2026-02-13T18:50:00.000Z'), { apnsClient }); // anxiety 18:45 would be due
-    await runProblemNudgeApnsSender(new Date('2026-02-13T19:40:00.000Z'), { apnsClient }); // bad_mouthing 19:30 due
-
-    // With profile-scoped selection, the job can create at most 3 deliveries/day for a free profile.
-    expect(deliveries.size).toBeLessThanOrEqual(3);
+  it.each(['policy', 'id', 'probability', 'text'])('rejects malformed saved Manager %s', async field => {
+    const { delivery } = saved();
+    const decision = JSON.parse(delivery.messageDetail);
+    if (field === 'policy') decision.policy_version = 'old';
+    if (field === 'id') decision.delivery_id = 'another-delivery';
+    if (field === 'probability') decision.assigned_probability = 0;
+    if (field === 'text') decision.chosen.text = '';
+    delivery.messageDetail = JSON.stringify(decision);
+    await run(); await run(new Date(now.getTime() + 60000));
+    expect(apnsClient.sendAlert).not.toHaveBeenCalled(); expect(fetch).not.toHaveBeenCalled();
+  });
+  it.each(['missing', 'mismatch'])('fails closed on %s APNs endpoint', async kind => {
+    vi.stubEnv('APNS_ENDPOINT', kind === 'missing' ? '' : 'production');
+    expect(await run()).toMatchObject({ ok: false, sent: 0 });
+    expect(apnsClient.sendAlert).not.toHaveBeenCalled(); expect(fetch).not.toHaveBeenCalled();
+  });
+  it('surfaces global APNs auth failure once and stops the run', async () => {
+    tokens.push({ id: 'token-2', profileId, token: 'device-two' });
+    apnsClient.sendAlert.mockRejectedValueOnce(new ApnsError({ status: 403, reason: 'InvalidProviderToken' }));
+    expect(await run()).toMatchObject({ ok: false, failed: 1 });
+    expect(apnsClient.sendAlert).toHaveBeenCalledTimes(1);
+    expect(sends[0]).toMatchObject({ status: 'failed', nextAttemptAt: new Date(now.getTime() + 300000) });
+  });
+  it('keeps the free cap per profile with two devices', async () => {
+    getEntitlementState.mockResolvedValue({ plan: 'free' }); tokens.push({ id: 'token-2', profileId, token: 'device-two' });
+    for (const hour of [9, 14, 20]) await run(new Date(`2026-11-18T${hour.toString().padStart(2, '0')}:00:00Z`));
+    expect(deliveries).toHaveLength(3); expect(apnsClient.sendAlert).toHaveBeenCalledTimes(6);
   });
 });
