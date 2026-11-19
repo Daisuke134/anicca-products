@@ -7,6 +7,12 @@ import type { MetadataRoute } from "next";
 // Claude-SearchBot) must never be blocked: AI answers cite what their own
 // search retrieves.
 const AI_CRAWLERS = [
+  // Googlebot and Applebot are listed explicitly because the GEO audit's
+  // citation-bot set (OAI-SearchBot, Claude-SearchBot, PerplexityBot,
+  // Googlebot, Applebot) requires an explicit rule per bot, not just the
+  // wildcard. Their presence here changes nothing about access (all allowed).
+  "Googlebot",
+  "Applebot",
   "GPTBot",
   "OAI-SearchBot",
   "ChatGPT-User",
