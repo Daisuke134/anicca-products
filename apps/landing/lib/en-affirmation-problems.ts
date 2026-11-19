@@ -428,6 +428,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for imposter syndrome',
     metaDescription:
       'Honest affirmations for imposter syndrome, plus a two-minute exercise for when you feel like a fraud at work. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for imposter syndrome',
+    directAnswer: [
+      'If you are looking for affirmations for imposter syndrome, the honest answer is that imposter syndrome is the persistent feeling that your results are luck or an error, and that people will soon notice. It is not an official diagnosis, and it shows up in people who are objectively doing the work. The practical question is not “how do I feel confident?” but “what can I say to myself that I can actually believe today?”',
+      'The feeling tends to grow because your mind collects every doubt as evidence and discards every success as an exception — your attention has a filter, and the filter is set to look for flaws. That is why “I am the best” style affirmations often backfire: your mind argues, and the argument wins. Lines that work better are factual and modest — things you did, things you are learning — because you are allowed to feel like a beginner and to be competent at the same time. Anicca is a free-to-download iPhone affirmation app built around that kind of line: it sends one short affirmation at the time of day you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a self-care tool, not treatment. If feelings of being a fraud are constant, affect your sleep or work for weeks, or come with hopeless feelings, please talk with a doctor, therapist, or local helpline.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we have a stake in this topic. Here is the short version first. Imposter syndrome is the persistent feeling that your results are luck or an error, and that people will soon notice. It is not an official diagnosis, and it shows up in people who are objectively doing the work. The practical question is not "how do I feel confident?" but "what can I say to myself that I can actually believe today?"',
       'The feeling tends to grow when the bar keeps moving. You finish a project and immediately look at what you missed. You get praise and file it under "they are just being nice." Over time your mind collects every doubt as evidence and discards every success as an exception. Nothing about this means you are secretly unqualified. It means your attention has a filter, and the filter is set to look for flaws.',
@@ -454,6 +460,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly, then read your list once. Keep the list somewhere you can add to it, because your mind will not do this on its own.',
       ],
     },
+    faq: [
+      {
+        q: 'What is imposter syndrome?',
+        a: 'Imposter syndrome is the persistent feeling that your results are luck or an error, and that people will soon notice. It is not an official diagnosis, and it shows up in people who are objectively doing the work. Nothing about it means you are secretly unqualified — it means your attention has a filter, and the filter is set to look for flaws.',
+      },
+      {
+        q: 'What are good affirmations for imposter syndrome?',
+        a: 'Factual, modest lines from this page, for example: “I was hired, chosen, or trusted for reasons. I do not have to re-prove them every day.” “Feeling like a beginner and being capable can both be true.” “My doubt is loud, but it is not a record of my work.” Lines like “I am the best” often backfire because your mind argues back; a line you can actually believe today works better.',
+      },
+      {
+        q: 'How do I practise imposter syndrome affirmations in two minutes?',
+        a: 'Try the two-minute evidence list on this page: write three plain facts about work you did in the last month, such as “I shipped the report” — facts, not adjectives. Next to each fact, write who or what it helped. Then read one affirmation from the list twice, slowly, and read your list once. Keep the list somewhere you can add to it.',
+      },
+      {
+        q: 'What app helps with imposter syndrome affirmations?',
+        a: 'Anicca is a free-to-download iPhone affirmation app built around factual, modest lines: it sends one short affirmation at the time of day you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for self-love and affirmations for anxiety, linked below. If feelings of being a fraud are constant, affect your sleep or work for weeks, or come with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
