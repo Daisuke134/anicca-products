@@ -12,12 +12,34 @@
 // every page the layout cannot reach — and applies only facts that are
 // already true: /feed.xml is a live RSS feed of Anicca articles, and the
 // knowsAbout list is copied verbatim from app/layout.tsx.
+//
+// Authorship / freshness parity (2026-11-19, hourly GEO audit run 6):
+// the served homepage declared no author and no date at all (audit
+// G-BYLINE warn, G-DATES warn, signals has_freshness=false), while the
+// content's author is the Anicca organization itself (the homepage's own
+// publisher) and the served homepage document did change on 2026-11-19
+// (the GEO head-parity injection above landed that day). DATE_MODIFIED
+// is therefore a literal for that real change — update it only when the
+// homepage document actually changes; never auto-bump it per deploy.
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 export const RSS_LINK =
   '<link rel="alternate" type="application/rss+xml" title="Anicca Articles" href="https://aniccaai.com/feed.xml">';
+
+export const DATE_MODIFIED = "2026-11-19";
+
+export const AUTHOR_META = '<meta name="author" content="Anicca">';
+
+export const MODIFIED_META = `<meta property="article:modified_time" content="${DATE_MODIFIED}">`;
+
+// The homepage's author/publisher: the Anicca organization itself.
+export const WEBSITE_AUTHOR = {
+  "@type": "Organization",
+  name: "Anicca",
+  url: "https://aniccaai.com",
+};
 
 // Verbatim from app/layout.tsx SITE_JSONLD Organization.knowsAbout.
 export const KNOWS_ABOUT = [
@@ -38,7 +60,7 @@ export const KNOWS_ABOUT = [
 // exported root document when present.
 export const HOMEPAGE_FILES = ["en.html", "index.html", "ja.html"];
 
-function addKnowsAboutToLdJson(html) {
+function addHomepageFactsToLdJson(html) {
   return html.replace(
     /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g,
     (block, jsonText) => {
@@ -49,18 +71,31 @@ function addKnowsAboutToLdJson(html) {
         return block;
       }
       let changed = false;
-      const visit = (node) => {
-        if (!node || typeof node !== "object") return;
+      // Enrich only top-level entities: the root object itself and the
+      // direct members of its @graph. Nested sub-objects (a WebSite's
+      // publisher, or the author attribution added below) are never
+      // enriched — the author stays a plain attribution, the shared
+      // WEBSITE_AUTHOR constant never mutates, and re-running the
+      // injector on its own output is a no-op (idempotent).
+      const enrich = (node) => {
+        if (!node || typeof node !== "object" || Array.isArray(node)) return;
         if (node["@type"] === "Organization" && !("knowsAbout" in node)) {
           node.knowsAbout = KNOWS_ABOUT;
           changed = true;
         }
-        for (const value of Object.values(node)) {
-          if (Array.isArray(value)) value.forEach(visit);
-          else visit(value);
+        if (node["@type"] === "WebSite") {
+          if (!("dateModified" in node)) {
+            node.dateModified = DATE_MODIFIED;
+            changed = true;
+          }
+          if (!("author" in node)) {
+            node.author = { ...WEBSITE_AUTHOR };
+            changed = true;
+          }
         }
       };
-      visit(data);
+      if (Array.isArray(data["@graph"])) data["@graph"].forEach(enrich);
+      else enrich(data);
       if (!changed) return block;
       return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
     },
@@ -69,10 +104,16 @@ function addKnowsAboutToLdJson(html) {
 
 export function injectGeoHomeIntoHtml(html) {
   let out = html;
-  if (!out.includes("application/rss+xml") && /<\/head>/i.test(out)) {
-    out = out.replace(/<\/head>/i, `${RSS_LINK}</head>`);
+  if (/<\/head>/i.test(out)) {
+    const headBits = [];
+    if (!out.includes("application/rss+xml")) headBits.push(RSS_LINK);
+    if (!/name="author"/i.test(out)) headBits.push(AUTHOR_META);
+    if (!out.includes("article:modified_time")) headBits.push(MODIFIED_META);
+    if (headBits.length) {
+      out = out.replace(/<\/head>/i, `${headBits.join("")}</head>`);
+    }
   }
-  out = addKnowsAboutToLdJson(out);
+  out = addHomepageFactsToLdJson(out);
   return out;
 }
 

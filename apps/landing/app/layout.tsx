@@ -5,6 +5,10 @@ const SITE_DESCRIPTION =
 export const metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  // Authorship parity with the static homepage (GEO audit 2026-11-19:
+  // G-BYLINE warn — no author declared). The author is the Anicca
+  // organization itself, the site's publisher.
+  authors: [{ name: 'Anicca', url: 'https://aniccaai.com' }],
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
@@ -77,6 +81,15 @@ const SITE_JSONLD = {
       name: 'Anicca',
       url: 'https://aniccaai.com',
       publisher: { '@type': 'Organization', name: 'Anicca' },
+      author: {
+        '@type': 'Organization',
+        name: 'Anicca',
+        url: 'https://aniccaai.com',
+      },
+      // The site template (this layout) last changed on 2026-11-19
+      // (GEO head parity: RSS alternate, knowsAbout, authorship).
+      // Update only when the template actually changes.
+      dateModified: '2026-11-19',
       inLanguage: ['en', 'ja'],
     },
     {
