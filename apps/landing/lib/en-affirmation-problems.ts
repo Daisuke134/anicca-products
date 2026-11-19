@@ -848,6 +848,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for fear of failure',
     metaDescription:
       'Steady affirmations for fear of failure, plus a two-minute exercise for taking one small risk. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for fear of failure',
+    directAnswer: [
+      'If you are looking for affirmations for fear of failure, the honest answer is that an affirmation will not guarantee success. It can make the cost of trying feel a little smaller, which is often what is needed to begin. Fear of failure is the worry that getting something wrong will say something bad about you, or cost you respect. It is common and it often shows up as avoidance, over-preparing, or not trying at all.',
+      'Believable lines separate the outcome from your worth. They admit that failing is uncomfortable, and that you can survive it, learn from it, and try again. They do not promise it will go well. Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a self-care tool, not treatment. If fear keeps you from daily life for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so take our view with that in mind. The short version: an affirmation will not guarantee success. It can make the cost of trying feel a little smaller, which is often what is needed to begin.',
       'Fear of failure is the worry that getting something wrong will say something bad about you, or cost you respect. It is common and it often shows up as avoidance, over-preparing, or not trying at all. Avoiding the risk feels safe in the moment but can keep you from things you care about.',
@@ -874,6 +880,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly, then schedule that small step in your calendar.',
       ],
     },
+    faq: [
+      {
+        q: 'What is fear of failure?',
+        a: 'Fear of failure is the worry that getting something wrong will say something bad about you, or cost you respect. It is common and it often shows up as avoidance, over-preparing, or not trying at all. Avoiding the risk feels safe in the moment but can keep you from things you care about.',
+      },
+      {
+        q: 'What are good affirmations for fear of failure?',
+        a: 'Steady, believable lines from this page, for example: “A failed attempt is information, not a verdict on me.” “My worth does not ride on this result.” “I can try something and not know how it will turn out.” Believable lines separate the outcome from your worth. They admit that failing is uncomfortable, and that you can survive it, learn from it, and try again. They do not promise it will go well.',
+      },
+      {
+        q: 'How do I practise fear of failure affirmations in two minutes?',
+        a: 'Try the two-minute worst-case, then next-step exercise on this page: write the worst realistic outcome in one sentence, then write how you would cope with it, even roughly. Write one small, low-stakes version of the attempt that you could do in the next day, such as sending a draft to one person. Then read one affirmation from the list twice, slowly, and schedule that small step in your calendar.',
+      },
+      {
+        q: 'What app helps with fear of failure affirmations?',
+        a: 'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines on this page are free to use with or without the app. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for perfectionism and affirmations for anxiety, linked below. If fear keeps you from daily life for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
