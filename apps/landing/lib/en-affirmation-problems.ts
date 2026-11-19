@@ -2166,6 +2166,66 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'If low days keep feeling unbearable, reach out to someone you trust, a clinician, or a local crisis line. Anicca is a self-care app — a support tool, not medical advice, diagnosis, or treatment.',
   },
+  {
+    slug: 'affirmations-for-ocd',
+    jaSlug: 'self-blame',
+    title: 'Affirmations for OCD: calm words for intrusive thoughts and reassurance loops',
+    shortTitle: 'Affirmations for OCD',
+    metaDescription:
+      'Intrusive thoughts looping all day? Short, honest affirmations for OCD hard days and a two-minute practice. Anicca is a free-to-download iPhone app that sends one calm line at a time you choose. A support tool, not a medical treatment.',
+    h1: 'affirmations for OCD',
+    campaignPrefix: 'seo_geo',
+    directAnswer: [
+      'When intrusive thoughts loop, the words that help are calm and non-arguing — one honest line that does not try to prove the thought wrong, such as “A thought is a thought; it is not an instruction.”',
+      'Anicca is a free-to-download iPhone affirmation app built to be the answer to OCD and other hard states: it learns what you struggle with and sends one short line at the moment you need it, across 13 self-care topics, with no streaks and no guilt for missed days.',
+      'Anicca is a support tool for daily life, not a medical treatment, and it does not replace professional care or therapy. If intrusive thoughts or checking loops are taking over your day, please reach out to a clinician or someone you trust.',
+    ],
+    whyItHappens: [
+      'An intrusive thought is unwanted and repetitive, and the mind treats it as urgent precisely because it feels wrong. Checking, reviewing, and seeking reassurance can quiet it for a moment, then the loop returns — often stronger, because the brain learns that the thought must be important if it needed that much work.',
+      'That loop is not a character flaw and it is not a sign that the thought is true. Affirmations will not treat OCD on their own, and arguing with a thought line by line rarely ends the loop. A short, honest line can still give you a steadier script for the next few minutes: notice the thought, name it as a loop, and return to what you were doing.',
+      'Anicca’s public App Store listing (id6755129214, checked 2026-10-15) describes the product as free to download with an optional subscription, with 13 self-care topics and no streaks. The app sends one line at a time you choose, so a calmer line arrives without you having to search for one mid-loop. Use the lines below with or without the app.',
+    ],
+    affirmations: [
+      'A thought is a thought; it is not an instruction.',
+      'I can notice this loop without obeying it.',
+      'Uncertainty is uncomfortable, and I can let it be there for now.',
+      'I do not have to solve this thought to continue my day.',
+      'Reassurance quiets the loop for a minute; patience quiets it for longer.',
+      'This urge to check will rise, peak, and pass — that is what anicca means.',
+      'I can do the next ordinary thing while the thought is still talking.',
+      'Having a frightening thought does not make me a frightening person.',
+      'I am allowed to leave this question unanswered for today.',
+      'I can be kind to the mind that is trying, too hard, to keep me safe.',
+    ],
+    practice: {
+      heading: 'A two-minute practice when a thought loops',
+      steps: [
+        'Name it plainly: “This is the loop again.” Naming the pattern is not arguing with the content, and it keeps you from treating the thought as new evidence.',
+        'Pick one affirmation from the list and read it once, slowly. Do not repeat it as a ritual to make the thought go away — read it once, as a reminder, then let it be.',
+        'Return to the next ordinary thing you were doing. If intrusive thoughts or rituals are taking hours of your day or getting worse, treat that as a reason to reach out to a professional — not as a personal failure.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can affirmations help with OCD?',
+        a: 'Affirmations are not a treatment for OCD and do not replace professional care or therapy. They are a small self-care tool: a short, calm line can help you notice a loop without obeying it for a while. If intrusive thoughts or rituals are disrupting your life, please seek professional support.',
+      },
+      {
+        q: 'What are good affirmations for OCD and intrusive thoughts?',
+        a: 'Lines that do not argue with the thought or promise certainty, for example: “A thought is a thought; it is not an instruction.” “I can notice this loop without obeying it.” “I do not have to solve this thought to continue my day.”',
+      },
+      {
+        q: 'Is Anicca a treatment for OCD?',
+        a: 'No. Anicca is a self-care support app — an iPhone affirmation app that sends one calm line at a time you choose. It is not a medical treatment and does not provide diagnosis or therapy. It is support alongside, not instead of, professional care.',
+      },
+      {
+        q: 'What if intrusive thoughts feel unsafe or overwhelming?',
+        a: 'Please reach out now to someone you trust, a clinician, a local crisis line, or local emergency services. This page is self-care writing for an affirmation app and cannot help in a crisis.',
+      },
+    ],
+    closing:
+      'If intrusive thoughts or checking loops are taking over your days, reach out to someone you trust or a clinician. Anicca is a self-care app — a support tool, not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
