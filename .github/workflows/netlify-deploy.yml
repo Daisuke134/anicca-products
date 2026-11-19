@@ -244,6 +244,14 @@ jobs:
         working-directory: apps/landing
         run: node scripts/inject-ga4.mjs out
 
+      # Same bypass, GEO layer (2026-11-19): the overlay homepage never passes
+      # through app/layout.tsx, so it was served without the RSS alternate link
+      # and without the Organization knowsAbout topics the layout declares.
+      # Apply that head parity to the homepage documents only, idempotently.
+      - name: Inject GEO head parity into the homepage
+        working-directory: apps/landing
+        run: node scripts/inject-geo-home.mjs out
+
       - name: Deploy to Netlify
         working-directory: apps/landing
         env:
