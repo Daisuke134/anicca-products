@@ -368,6 +368,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for burnout',
     metaDescription:
       'Gentle affirmations for burnout and exhaustion, plus a two-minute reset for the end of a draining day. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for burnout',
+    directAnswer: [
+      'If you are burned out, the honest answer is that affirmations cannot fix burnout. If you are worn out because of workload, caring for others, or long stretches without rest, the real fixes are rest, support, and changes to the load. Burnout is exhaustion that does not fully go away with a normal weekend, and it is not a character flaw and not laziness. What a short, permission-giving line can do is make a hard evening a little less harsh, so you are not also fighting yourself.',
+      'Anicca is a free-to-download iPhone affirmation app that sends one short line at the time you choose. It covers 13 self-care topics, has no streaks that punish you for missing a day, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. If exhaustion lasts for weeks, affects your health, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline, and consider speaking with your employer about workload where that is possible.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral here. The short version: affirmations cannot fix burnout. If you are worn out because of workload, caring for others, or long stretches without rest, the real fixes are rest, support, and changes to the load. What a short line can do is make a hard evening a little less harsh, so you are not also fighting yourself.',
       'Burnout is usually described as exhaustion that does not fully go away with a normal weekend, often with cynicism about work and a feeling that nothing you do is enough. It is not a character flaw, and it is not laziness. It tends to build quietly, and the common reaction is to push harder, which makes the tiredness worse.',
@@ -394,6 +400,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly. Then put your phone down for a few minutes, if you can.',
       ],
     },
+    faq: [
+      {
+        q: 'Is burnout just laziness or a character flaw?',
+        a: 'No. Burnout is usually described as exhaustion that does not fully go away with a normal weekend, often with cynicism about work and a feeling that nothing you do is enough. It is not a character flaw, and it is not laziness. It tends to build quietly, and pushing harder usually makes the tiredness worse.',
+      },
+      {
+        q: 'Do affirmations fix burnout?',
+        a: 'No. Affirmations cannot fix burnout. If you are worn out because of workload, caring for others, or long stretches without rest, the real fixes are rest, support, and changes to the load. What a short line can do is make a hard evening a little less harsh, so you are not also fighting yourself.',
+      },
+      {
+        q: 'What are good affirmations for burnout?',
+        a: 'Short, permission-giving lines that sound like a kind friend, for example: “I am tired because I have been carrying a lot, not because I am weak.” “Resting is not a reward I have to earn.” “I can do less today and still be a responsible person.”',
+      },
+      {
+        q: 'What app helps with burnout and exhaustion?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that sends one short line at the time you choose, covers 13 self-care topics, and has no streaks that punish you for missing a day, with an optional subscription. It is a self-care support tool, not a medical treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for anxiety and affirmations for overthinking, linked below. If exhaustion lasts for weeks, affects your health, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline, and consider speaking with your employer about workload where that is possible. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
