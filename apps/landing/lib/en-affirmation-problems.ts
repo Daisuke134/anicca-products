@@ -728,6 +728,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for self-worth',
     metaDescription:
       'Grounded affirmations for self-worth, plus a two-minute exercise for separating your value from your output. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for self-worth',
+    directAnswer: [
+      'If you are looking for affirmations for self-worth, the honest answer is that repeating “I am worthy” will not by itself change how you feel. It tends to help more when the line is believable and you pair it with small actions that match it. Low self-worth often comes from conditional rules learned early: I am okay when I perform, when people approve, or when I do not make mistakes. When worth is tied to results, every bad day becomes a verdict, and every good day feels temporary.',
+      'Lines that help are steady rather than grand. They say that worth is not earned daily, that you can be imperfect and still deserve care, and that you can treat yourself the way you would treat a friend in the same spot. Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a self-care tool, not treatment. If feelings of worthlessness are constant, last for weeks, or come with hopeless feelings or thoughts of self-harm, please talk with a doctor, therapist, or local helpline right away.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral. The short version: repeating "I am worthy" will not by itself change how you feel. It tends to help more when the line is believable and you pair it with small actions that match it.',
       'Low self-worth often comes from conditional rules learned early: I am okay when I perform, when people approve, or when I do not make mistakes. When worth is tied to results, every bad day becomes a verdict, and every good day feels temporary.',
@@ -754,6 +760,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly, then reread your friend-voice reply once.',
       ],
     },
+    faq: [
+      {
+        q: 'What is self-worth?',
+        a: 'Self-worth is the sense that your value does not have to be earned daily. Low self-worth often comes from conditional rules learned early: I am okay when I perform, when people approve, or when I do not make mistakes. When worth is tied to results, every bad day becomes a verdict, and every good day feels temporary.',
+      },
+      {
+        q: 'What are good affirmations for self-worth?',
+        a: 'Steady, believable lines from this page, for example: “My worth is not a score I have to keep up.” “I can be imperfect and still deserve kindness.” “A mistake is something I did, not something I am.” Lines that help are steady rather than grand — they say that worth is not earned daily, and that you can treat yourself the way you would treat a friend in the same spot.',
+      },
+      {
+        q: 'How do I practise self-worth affirmations in two minutes?',
+        a: 'Try the two-minute friend-voice exercise on this page: write down the harshest thing you said to yourself today, word for word. Imagine a friend said that same thing about themselves, and write what you would honestly tell them back, in one or two plain sentences. Then read one affirmation from the list twice, slowly, and reread your friend-voice reply once.',
+      },
+      {
+        q: 'What app helps with self-worth affirmations?',
+        a: 'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines on this page are free to use with or without the app. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for self-love and affirmations for imposter syndrome, linked below. If feelings of worthlessness are constant, last for weeks, or come with hopeless feelings or thoughts of self-harm, please talk with a doctor, therapist, or local helpline right away. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
