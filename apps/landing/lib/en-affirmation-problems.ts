@@ -84,6 +84,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Overthinking at night',
     metaDescription:
       "Gentle affirmations for nighttime overthinking. Anicca is an iPhone affirmation app that sends one kind line when your mind tends to spiral — 13 self-care topics, no streaks.",
+    h1: 'overthinking at night',
+    directAnswer: [
+      'If your mind will not stop at night, the honest answer is that the quiet is part of it: when the noise of the day drops, the unfinished list gets loud, and the mind tries to feel safe by solving everything before sleep. Affirmations will not delete the worry. A short, believable line such as “I do not have to solve tonight to deserve rest” can shorten the argument and give you a softer place to land.',
+      'Anicca is a free-to-download iPhone affirmation app that sends one kind line when your mind tends to spiral. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. If nights keep feeling unbearable, please reach out to someone you trust or a local crisis line.',
+    ],
     whyItHappens: [
       'Night is when the noise drops and the unfinished list gets loud. Without meetings, messages, or errands to interrupt you, the brain finally has bandwidth — and it often spends that bandwidth on worry, replay, and “what if.” That does not mean you are broken. It means your nervous system is still on duty after the day has ended.',
       'Overthinking at night is rarely about finding a perfect answer. It is usually your mind trying to feel safe by solving everything before sleep. The cost is that sleep becomes a negotiation: one more scenario, one more message draft in your head, one more review of a conversation. The body wants rest; the mind wants certainty. Affirmations will not delete the worry. They can shorten the argument and give you a softer place to land.',
@@ -109,6 +115,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Exhale longer than you inhale, twice. Then stop. Do not turn this into a project. If the mind returns, meet it with the same line once more and leave it there.',
       ],
     },
+    faq: [
+      {
+        q: 'Why do I overthink at night?',
+        a: 'Night is when the noise drops and the unfinished list gets loud. Without meetings, messages, or errands to interrupt you, the brain finally has bandwidth — and it often spends that bandwidth on worry, replay, and “what if.” Overthinking at night is usually your mind trying to feel safe by solving everything before sleep, not a sign that you are broken.',
+      },
+      {
+        q: 'Do affirmations stop overthinking at night?',
+        a: 'No. Affirmations will not delete the worry, and sleep is not a negotiation you can win by solving one more scenario. What a short, believable line can do is shorten the argument and give you a softer place to land, so the body can rest even while the mind is still loud.',
+      },
+      {
+        q: 'What are good affirmations for overthinking at night?',
+        a: 'Short, believable lines you do not have to argue with, for example: “I do not have to solve tonight to deserve rest.” “This worry is loud, not always true.” “Thoughts can visit without moving in.” Pick one and say it once, slowly, instead of working through a long list.',
+      },
+      {
+        q: 'What app helps with overthinking at night?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that sends one kind line when your mind tends to spiral, covers 13 self-care topics, and has no streaks, with an optional subscription. It is a self-care support tool, not a medical treatment.',
+      },
+    ],
     closing:
       'If nights keep feeling unbearable, reach out to someone you trust or a local crisis line. This page is self-care copy for an affirmation app — not medical advice, diagnosis, or treatment.',
   },
