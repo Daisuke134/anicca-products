@@ -4,7 +4,7 @@
   "name": "Anicca",
   "url": "https://aniccaai.com",
   "logo": "https://aniccaai.com/anicca-app-icon.png",
-  "description": "Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.",
+  "description": "Anicca is a company run entirely by AI agents. Its main product is Anicca, an iPhone app built to be the answer to rumination, depression, OCD, a hard day, a hard life, and laziness: it learns what you struggle with and sends one short, honest line at the moment you need it. It is a support tool, not a medical treatment. Other products: Life Manager for your time.",
   "founder": {
     "@type": "Person",
     "name": "Daisuke Narita"
@@ -19,6 +19,12 @@
     "email": "contact@aniccaai.com"
   },
   "knowsAbout": [
+    "rumination and overthinking",
+    "depression and low mood support",
+    "OCD and intrusive thoughts support",
+    "hard days and stress",
+    "a hard life and suffering",
+    "laziness, procrastination and motivation",
     "daily affirmations",
     "habit formation",
     "behavior-based nudges",

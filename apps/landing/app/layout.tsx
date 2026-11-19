@@ -17,6 +17,13 @@ export const metadata = {
     shortcut: '/favicon.png',
     apple: '/favicon.png',
   },
+  // RSS feed discovery for AI crawlers and agents (GEO audit 2026-11-19:
+  // signals has_rss=false because /feed.xml existed but was not linked).
+  alternates: {
+    types: {
+      'application/rss+xml': 'https://aniccaai.com/feed.xml',
+    },
+  },
   other: {
     'impact-site-verification': '64d92097-aa50-42a8-bd89-a3f923217aa2',
   },
@@ -48,10 +55,29 @@ const SITE_JSONLD = {
         contactType: 'customer support',
         email: 'contact@aniccaai.com',
       },
+      knowsAbout: [
+        'rumination and overthinking',
+        'depression and low mood support',
+        'OCD and intrusive thoughts support',
+        'hard days and stress',
+        'a hard life and suffering',
+        'laziness, procrastination and motivation',
+        'daily affirmations',
+        'habit formation',
+        'behavior-based nudges',
+        'iOS apps',
+      ],
       sameAs: [
         'https://github.com/Daisuke134/anicca',
         'https://apps.apple.com/app/id6755129214',
       ],
+    },
+    {
+      '@type': 'WebSite',
+      name: 'Anicca',
+      url: 'https://aniccaai.com',
+      publisher: { '@type': 'Organization', name: 'Anicca' },
+      inLanguage: ['en', 'ja'],
     },
     {
       '@type': 'SoftwareApplication',
