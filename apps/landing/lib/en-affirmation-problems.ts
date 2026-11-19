@@ -416,6 +416,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for motivation when tired',
     metaDescription:
       'Honest affirmations for finding a little motivation when you are tired, plus a two-minute five-minute-start exercise. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for motivation when tired',
+    directAnswer: [
+      'If you are tired and waiting to feel motivated before you begin, the honest answer is that motivation often follows action rather than preceding it. When the tiredness is from lack of sleep or overload, rest comes first — a pep talk will not give you energy. On an ordinary low-energy day, what helps is lowering the bar: one believable line, then a very small start, such as five minutes.',
+      'Anicca is a free-to-download iPhone affirmation app that sends one short line at the time you choose, instead of waiting for you to feel ready. It covers 13 self-care topics, has no streaks, and the lines below are free to use with or without the app.',
+      'Affirmations are a small self-care tool, not a treatment. If you feel tired and unmotivated nearly all the time for weeks, or it comes with hopeless feelings, please talk with a doctor, therapist, or local helpline.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not a neutral source. The short version: when you are genuinely tired, a pep talk will not give you energy. If the tiredness is from lack of sleep or overload, rest comes first. But on an ordinary low-energy day, the right small line can help you make a start, and starting is often the hardest part.',
       'Many people wait for motivation before they begin, then feel worse when it does not show up. In practice, motivation often follows action rather than preceding it. A very small start, such as five minutes, lowers the cost of beginning, and once you are moving the task often feels less heavy. This is a common observation, not a guarantee.',
@@ -442,6 +448,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly, then start the timer. If you stop at five minutes, that was still a success.',
       ],
     },
+    faq: [
+      {
+        q: 'Why do I have no motivation when I am tired?',
+        a: 'When you are genuinely tired, a pep talk will not give you energy: if the tiredness is from lack of sleep or overload, rest comes first. Believable lines work better than "you can do anything!" lines because they lower the bar, give you permission to do the small version, and separate "I am tired" from "I am failing."',
+      },
+      {
+        q: 'Do I need to feel motivated before I start?',
+        a: 'No. Many people wait for motivation before they begin, then feel worse when it does not show up. In practice, motivation often follows action rather than preceding it. A very small start, such as five minutes, lowers the cost of beginning, and once you are moving the task often feels less heavy.',
+      },
+      {
+        q: 'What are good affirmations for motivation when you are tired?',
+        a: 'Short, believable lines that lower the bar, for example: “I do not need to feel ready. I only need to start small.” “Five minutes counts as a real start.” “I can do the smaller version of this today.”',
+      },
+      {
+        q: 'What app helps with motivation when you are tired?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that sends one short line at the time you choose, covers 13 self-care topics, and has no streaks, with an optional subscription. It is a self-care support tool, not a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for overthinking and affirmations for self-love, linked below. If you feel tired and unmotivated nearly all the time for weeks, or it comes with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
