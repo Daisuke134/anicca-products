@@ -1202,6 +1202,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for Sunday scaries',
     metaDescription:
       'Calm affirmations for Sunday scaries, plus a two-minute exercise for easing Monday dread. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for sunday scaries',
+    directAnswer: [
+      'If you are looking for affirmations for Sunday scaries, the honest answer is that affirmations will not change your job or your Monday. They can make the dread a little quieter so Sunday evening is less of a loss. Sunday scaries are the anxious, heavy feeling many people get as the weekend ends, often from anticipating the week: an unfinished task, a hard conversation, or a long to-do list your mind keeps rehearsing.',
+      'Lines that help are modest. They do not claim Monday will be great. They acknowledge the dread, remind you that the week arrives one task at a time, and give you permission to enjoy what is left of today. Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a self-care tool, not treatment. If dread about work is constant, affects your sleep or health for weeks, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we have a stake in this topic. The short version first: affirmations will not change your job or your Monday. They can make the dread a little quieter so Sunday evening is less of a loss.',
       'Sunday scaries are the anxious, heavy feeling many people get as the weekend ends. It often comes from anticipating the week: an unfinished task, a hard conversation, or a long to-do list your mind keeps rehearsing. Dreading the future steals the present, which makes the last hours of the weekend feel worse.',
@@ -1228,6 +1234,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly, then close the list and do something you enjoy for the next ten minutes.',
       ],
     },
+    faq: [
+      {
+        q: 'What are Sunday scaries?',
+        a: 'Sunday scaries are the anxious, heavy feeling many people get as the weekend ends. It often comes from anticipating the week: an unfinished task, a hard conversation, or a long to-do list your mind keeps rehearsing. Dreading the future steals the present, which makes the last hours of the weekend feel worse.',
+      },
+      {
+        q: 'What are good affirmations for Sunday scaries?',
+        a: 'Modest, believable lines from this page, for example: “I do not have to solve the whole week tonight.” “Monday will come one task at a time.” “My worries are not a forecast.” Lines that help do not claim Monday will be great. They acknowledge the dread, remind you that the week arrives one task at a time, and give you permission to enjoy what is left of today.',
+      },
+      {
+        q: 'How do I practise Sunday scaries affirmations in two minutes?',
+        a: 'Try the two-minute Sunday-evening reset on this page: write the one or two things about Monday that are worrying you most, in plain words, and next to each write one small first action, or “nothing to do tonight.” Pick one thing from the week that you are looking forward to or can tolerate, even something small like a coffee. Then read one affirmation from the list twice, slowly, close the list, and do something you enjoy for the next ten minutes.',
+      },
+      {
+        q: 'What app helps with Sunday scaries affirmations?',
+        a: 'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines on this page are free to use with or without the app. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for overthinking at night and affirmations for anxiety, linked below. If dread about work is constant, affects your sleep or health for weeks, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
