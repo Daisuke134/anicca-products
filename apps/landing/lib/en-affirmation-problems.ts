@@ -368,6 +368,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for self-love',
     metaDescription:
       'Believable affirmations for self-love, plus a short practice for being kinder to yourself. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for self-love',
+    directAnswer: [
+      'If you are looking for affirmations for self-love, the honest answer is that self-love is smaller and more practical than it sounds. It is not waking up one day adoring everything about yourself. It is treating yourself with the basic respect and patience you would offer a friend — less about feeling amazing, and more about not adding cruelty to a hard day.',
+      'Affirmations for self-love help you practise a different tone toward yourself, with one condition: they need to be believable. “I love everything about me” can feel false when you feel the opposite, and a false line makes your mind argue back, while “I am allowed to be a work in progress” is a sentence most people can accept — and acceptance is the part that matters. Anicca is a free-to-download iPhone affirmation app that sends one short line of kindness at the moments your mind tends to spiral, rather than asking you to remember a routine, across 13 self-care topics, with no streaks to keep alive and an optional subscription. The lines below are yours to use however you like, with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a self-care tool, not treatment. If you are struggling with persistent low mood, self-harm thoughts, or feelings of hopelessness, please reach out to a mental health professional or a local crisis line.',
+    ],
     whyItHappens: [
       'Self-love can sound like a big, vague goal, as if you are supposed to wake up one day adoring everything about yourself. In practice it is smaller and more practical: treating yourself with the basic respect and patience you would offer a friend. It is less about feeling amazing and more about not adding cruelty to a hard day.',
       'Many of us have a strict inner voice that was trained over years. It points out mistakes quickly and rarely mentions what went well. It may have started as a way to keep you safe or keep you improving. But a voice that only criticises is tiring to live with, and it does not make most people more capable. Often it just makes them more afraid of trying.',
@@ -394,6 +400,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read your reply to yourself once, slowly. Then pick one affirmation from the list to carry for the rest of the day, perhaps as a note on your phone.',
       ],
     },
+    faq: [
+      {
+        q: 'What does self-love actually mean in practice?',
+        a: 'In practice it is smaller and more practical than it sounds: treating yourself with the basic respect and patience you would offer a friend. It is less about feeling amazing and more about not adding cruelty to a hard day.',
+      },
+      {
+        q: 'What are good affirmations for self-love?',
+        a: 'Believable lines from this page, for example: “I am allowed to be a work in progress.” “I can speak to myself the way I would speak to a friend.” “My worth is not something I have to earn today.” A line needs to be believable — if you tell yourself “I love everything about me” while feeling the opposite, your mind will argue, and the exercise backfires.',
+      },
+      {
+        q: 'How do I practise self-love affirmations in two minutes?',
+        a: 'Try the two-minute kindness check-in on this page: write down the harshest thing you said to yourself today, exactly as it came. Imagine a close friend saying that sentence about themselves, and write what you would honestly say back — short and true, not fake-cheerful. Read your reply to yourself once, slowly, then pick one affirmation from the list to carry for the rest of the day.',
+      },
+      {
+        q: 'What app helps with self-love affirmations?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that sends one short line of kindness at the moments your mind tends to spiral, rather than asking you to remember a routine, across 13 self-care topics, with no streaks to keep alive and an optional subscription. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for overthinking and affirmations for anxiety, linked below. If you are struggling with persistent low mood, self-harm thoughts, or feelings of hopelessness, please reach out to a mental health professional or a local crisis line. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
