@@ -202,6 +202,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Comparing yourself',
     metaDescription:
       'Affirmations for comparison and the scroll spiral. Anicca is an iPhone affirmation app — one kind line, 13 topics, no streaks, free to download.',
+    h1: 'affirmations for comparing yourself',
+    directAnswer: [
+      'If you keep comparing yourself to others, the honest answer is that the feed is not data about your worth. The scroll spiral is efficient: other people’s highlight reels arrive in high resolution, while your own life arrives as laundry, drafts, and unfinished tabs. Comparison thrives on incomplete information — you see the promotion, not the anxiety; the trip, not the credit card; the calm selfie, not the argument five minutes earlier.',
+      'Affirmations for comparing yourself are for the moment your thumb keeps moving and your chest gets tight. They will not fix social media, but they can give you a sentence to hold while you put the phone face-down. Anicca is a free-to-download iPhone affirmation app that sends one kind line when your mind tends to spiral, across 13 self-care topics, with no streaks and an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a support tool, not a treatment. If comparison is tangled with depression, disordered eating, or crisis feelings, please talk to a professional or a local helpline.',
+    ],
     whyItHappens: [
       'The scroll spiral is efficient: other people’s highlight reels arrive in high resolution, while your own life arrives as laundry, drafts, and unfinished tabs. Your brain treats the feed like data about your worth. It is not. It is curated marketing mixed with real lives you only see from the outside.',
       'Comparison thrives on incomplete information. You see the promotion, not the anxiety. The trip, not the credit card. The calm selfie, not the argument five minutes earlier. Still, the body reacts as if you lost a race you never entered. That reaction is human. Feeding it with more scrolling usually makes it louder.',
@@ -227,6 +233,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation slowly. If you want a next step offline, choose one tiny real-world action (water, stretch, text a friend) — not another feed.',
       ],
     },
+    faq: [
+      {
+        q: 'Why do I keep comparing myself to others on social media?',
+        a: 'Because comparison thrives on incomplete information. You see the promotion, not the anxiety. The trip, not the credit card. The calm selfie, not the argument five minutes earlier. Your brain treats the feed like data about your worth — it is not. It is curated marketing mixed with real lives you only see from the outside.',
+      },
+      {
+        q: 'What are good affirmations for comparing yourself?',
+        a: 'Small, honest lines from this page, for example: “Someone else’s timeline is not my homework.” “A highlight is not a full life.” “I am not behind; I am here.”',
+      },
+      {
+        q: 'What should I do when I catch myself comparing?',
+        a: 'Flip the phone face-down, feel both feet on the floor for ten seconds, and name what you were comparing — career, body, relationship, money, or creativity. Read one affirmation slowly, then choose one tiny real-world action, not another feed.',
+      },
+      {
+        q: 'What app helps with comparing yourself?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that sends one kind line when your mind tends to spiral, across 13 self-care topics, with no streaks and an optional subscription. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'If comparison is tangled with depression, disordered eating, or crisis feelings, please talk to a professional or a local helpline. This is self-care language for an affirmation app — not medical advice.',
   },
