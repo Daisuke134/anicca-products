@@ -2106,6 +2106,66 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'Related guides: affirmations for confidence and affirmations for focus, linked below. A result deserves context, and the person who achieved it deserves care. This page is self-care writing, not coaching, injury treatment, or a promise of athletic results.',
   },
+  {
+    slug: 'affirmations-for-depression',
+    jaSlug: 'self-blame',
+    title: 'Affirmations for depression: gentle words for heavy, empty days',
+    shortTitle: 'Affirmations for depression',
+    metaDescription:
+      'Feeling depressed and empty? Short, honest affirmations for heavy days and a two-minute practice. Anicca is a free-to-download iPhone app that sends one kind line at a time you choose. A support tool, not a medical treatment.',
+    h1: 'affirmations for depression',
+    campaignPrefix: 'seo_geo',
+    directAnswer: [
+      'When you feel depressed, the words that help are small and believable — not cheerful slogans, but one honest line you do not have to argue with, such as “Today can be smaller than yesterday.”',
+      'Anicca is a free-to-download iPhone affirmation app built to be the answer to depression and other hard states: it learns what you struggle with and sends one short line at the moment you need it, across 13 self-care topics, with no streaks and no guilt for missed days.',
+      'Anicca is a support tool for daily life, not a medical treatment, and it does not replace professional care. If low mood persists or gets worse, please reach out to a clinician or someone you trust.',
+    ],
+    whyItHappens: [
+      'A depressed day often shrinks everything: getting up, answering a message, and making food can all feel like separate mountains. That is not laziness and it is not a character flaw. Low mood drains the energy that ordinary tasks quietly depend on, so the same day costs far more than it used to.',
+      'Harsh self-talk tends to move into the empty space. “Everyone else is coping” and “I should be over this” sound like facts when you are low, but they are symptoms talking, not verdicts. Affirmations will not lift a depression on their own. A short, honest line can still give the inner voice a less cruel script for the next hour.',
+      'Anicca’s public App Store listing (id6755129214, checked 2026-10-15) describes the product as free to download with an optional subscription, with 13 self-care topics and no streaks. The app sends one line at a time you choose, so support arrives without you having to go looking for it on a day when looking for anything feels hard. Use the lines below with or without the app.',
+    ],
+    affirmations: [
+      'Today can be smaller than yesterday, and that is allowed.',
+      'Feeling empty is a state I am in, not a verdict on who I am.',
+      'I do not have to feel better to deserve kindness today.',
+      'One small thing done slowly still counts.',
+      'Resting is not the same as giving up.',
+      'This heaviness is real, and states change — that is what anicca means.',
+      'I can answer one message and let the rest wait.',
+      'Needing help is information, not failure.',
+      'I have survived every hard day so far, including quiet ones nobody saw.',
+      'I can be gentle with the version of me who is struggling.',
+    ],
+    practice: {
+      heading: 'A two-minute practice for a heavy day',
+      steps: [
+        'Shrink the day on purpose: name the single smallest next thing (sit up, drink water, open a curtain). Nothing after it exists yet.',
+        'Pick one affirmation from the list and read it once, slowly. If it feels untrue, soften it: “I am willing to believe today can be smaller.”',
+        'Do the one small thing. Then stop and rest without scoring yourself. If low mood persists for weeks or gets worse, treat that as a reason to reach out to a professional — not as a personal failure.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can affirmations help with depression?',
+        a: 'Affirmations are not a treatment for depression and do not replace professional care. They are a small self-care tool: a short, believable line can soften harsh self-talk for a while. If low mood persists, worsens, or affects your ability to function, please seek professional support.',
+      },
+      {
+        q: 'What are good affirmations for depression?',
+        a: 'Lines that are modest enough to believe on a bad day, for example: “Today can be smaller than yesterday, and that is allowed.” “Feeling empty is a state I am in, not a verdict on who I am.” “I do not have to feel better to deserve kindness today.”',
+      },
+      {
+        q: 'Is Anicca a treatment for depression?',
+        a: 'No. Anicca is a self-care support app — an iPhone affirmation app that sends one kind line at a time you choose. It is not a medical treatment and does not provide diagnosis or therapy. It is support alongside, not instead of, professional care.',
+      },
+      {
+        q: 'What if I feel unsafe or in crisis?',
+        a: 'Please reach out now to someone you trust, a local crisis line, or local emergency services. This page is self-care writing for an affirmation app and cannot help in a crisis.',
+      },
+    ],
+    closing:
+      'If low days keep feeling unbearable, reach out to someone you trust, a clinician, or a local crisis line. Anicca is a self-care app — a support tool, not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
