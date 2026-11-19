@@ -428,6 +428,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for loneliness',
     metaDescription:
       'Kind affirmations for loneliness, plus a two-minute exercise for reaching out in a small way. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for loneliness',
+    directAnswer: [
+      'If you are feeling lonely, the honest answer is that an affirmation cannot replace people. What it can do is soften the voice that says "something is wrong with me" when you feel alone, so you have a little more energy to reach out. Loneliness is the gap between the connection you want and the connection you have. It is not the same as being alone, and you can feel it in a crowd, in a relationship, or after moving to a new city. It is common, it is painful, and it often gets louder in the evening and on weekends when the structure of the day falls away.',
+      'Anicca is a free-to-download iPhone affirmation app that sends one short line at the time of day you choose. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app. Lines that help are warm and slightly practical: you are allowed to want company, one small message counts, and connection grows slowly.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a support tool, not a treatment. If loneliness is constant, comes with hopeless feelings, or you feel unsafe, please talk with a doctor, therapist, or local helpline.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so take our view with that in mind. The short version: an affirmation cannot replace people. What it can do is soften the voice that says "something is wrong with me" when you feel alone, so you have a little more energy to reach out.',
       'Loneliness is the gap between the connection you want and the connection you have. It is not the same as being alone, and you can feel it in a crowd, in a relationship, or after moving to a new city. It is common, it is painful, and it often gets louder in the evening and on weekends when the structure of the day falls away.',
@@ -454,6 +460,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly. If sending feels too hard, write the name down for tomorrow and let that be enough for tonight.',
       ],
     },
+    faq: [
+      {
+        q: 'Does feeling lonely mean something is wrong with me?',
+        a: 'No. A trap many people fall into is reading loneliness as proof that they are unlikable. That story makes reaching out feel riskier, which keeps the loneliness going. Loneliness is the gap between the connection you want and the connection you have — it is common and painful, and it is not proof that you are unlovable.',
+      },
+      {
+        q: 'Can affirmations replace people or fix loneliness?',
+        a: 'No. An affirmation cannot replace people. What it can do is soften the voice that says "something is wrong with me" when you feel alone, so you have a little more energy to reach out. One small message counts as a step, and connection grows slowly.',
+      },
+      {
+        q: 'What are good affirmations for loneliness?',
+        a: 'Warm, slightly practical lines, for example: “Feeling lonely does not mean I am unlovable.” “Wanting connection is a normal human need.” “I can reach out in a small way today.”',
+      },
+      {
+        q: 'What app helps with loneliness?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that sends one short line at the time of day you choose, covers 13 self-care topics, and has no streaks, with an optional subscription. It is a self-care support tool, not a medical treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for self-love and affirmations for anxiety, linked below. If loneliness is constant, comes with hopeless feelings, or you feel unsafe, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
