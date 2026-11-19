@@ -2286,6 +2286,66 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'However today went, you do not have to carry its verdict into sleep. Anicca is a self-care app that sends one kind line at the moment you need it — a support tool for hard days, not medical advice, diagnosis, or treatment.',
   },
+  {
+    slug: 'affirmations-for-a-hard-life',
+    jaSlug: 'self-blame',
+    title: 'Affirmations for a hard life: honest words for when life feels unbearable',
+    shortTitle: 'Affirmations for a hard life',
+    metaDescription:
+      'Life feels hard all the time and you do not see it getting better? Short, honest affirmations for a hard life and a two-minute practice for today. Anicca is a free-to-download iPhone app that sends one kind line at a time you choose.',
+    h1: 'affirmations for a hard life',
+    campaignPrefix: 'seo_geo',
+    directAnswer: [
+      'When life feels hard all the time, the words that help are honest — not “everything happens for a reason,” but one line that admits this season is hard and still separates it from forever, such as “This is a hard season of my life, not the whole of my life.”',
+      'Anicca is a free-to-download iPhone affirmation app built to be the answer to a hard life and other hard states: it learns what you struggle with and sends one short line at the moment you need it, across 13 self-care topics, with no streaks and no guilt for missed days.',
+      'You do not have to fix your whole life today. Take the next ordinary step — food, rest, one person you trust — and let one kind line carry today. If life ever feels unbearable or unsafe, please reach out to someone you trust, a clinician, a local crisis line, or local emergency services.',
+    ],
+    whyItHappens: [
+      'A hard life rarely feels hard for one reason. It stacks over months: money pressure, work that drains, relationships that hurt, health that will not settle, and losses that were never given time. When hard days stop having gaps between them, the mind starts calling the season a verdict — “this is just my life now” — which is exactly when that verdict is least reliable.',
+      'Trying to fix a whole life at once usually backfires: the list is too long, so nothing moves, and the stillness becomes more evidence. What helps instead is smaller and more honest — separating today from forever. A short line that names this as a season, not a summary, gives the mind a different sentence to carry than the one it was about to repeat.',
+      'Anicca’s public App Store listing (id6755129214, checked 2026-10-15) describes the product as free to download with an optional subscription, with 13 self-care topics and no streaks. The app sends one line at a time you choose, so a kinder line can arrive daily, in the middle of a hard season, without you having to go looking for it. Use the lines below with or without the app.',
+    ],
+    affirmations: [
+      'This is a hard season of my life, not the whole of my life.',
+      'A hard life is a life I am living, not a verdict on who I am.',
+      'I do not have to fix my whole life today; I only have to take today’s next step.',
+      'The hardest chapter so far is not the summary of the book.',
+      'I can grieve what this season cost me and still be on my own side.',
+      'Rest is part of getting through a hard life, not a reward for escaping it.',
+      'Seasons change — that is what anicca means. This one is not exempt.',
+      'I have survived every hard day so far, at the pace I had, not the pace I wished for.',
+      'Asking for help is part of coping, not proof that I failed at life.',
+      'Today gets its own evidence; it does not have to inherit yesterday’s verdict.',
+    ],
+    practice: {
+      heading: 'A two-minute practice for a hard life, today',
+      steps: [
+        'Name the season in one sentence, out loud or on paper: “This is a hard season, and seasons have edges.” Naming it as a season — not a life sentence — stops it from feeling like forever.',
+        'Pick one affirmation from the list and read it once, slowly. Then do one ordinary kindness that is actually in reach today: water, food, a shower, a short walk, or lights out earlier than usual.',
+        'If the verdict “my life will never get better” returns, return to the same line instead of arguing with it. If low mood, exhaustion, or hopelessness persists, affects your ability to function, or ever feels unsafe, treat that as a reason to reach out to someone you trust or a professional.',
+      ],
+    },
+    faq: [
+      {
+        q: 'What do you do when life feels hard all the time?',
+        a: 'Separate today from forever: name this as a hard season, take today’s next ordinary step — food, rest, one person you trust — and give your mind one honest line instead of the verdict, for example: “This is a hard season of my life, not the whole of my life.” You do not have to fix your whole life today. If life feels unbearable or unsafe, please reach out to someone you trust, a clinician, a local crisis line, or local emergency services.',
+      },
+      {
+        q: 'What are good affirmations for a hard life?',
+        a: 'Lines honest enough to believe in a hard season, for example: “This is a hard season of my life, not the whole of my life.” “A hard life is a life I am living, not a verdict on who I am.” “I do not have to fix my whole life today; I only have to take today’s next step.”',
+      },
+      {
+        q: 'What app helps when life feels hard?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that sends one short line at a time you choose, every day, across 13 self-care topics, with no streaks and no guilt for missed days. It is daily support for hard seasons — a support tool, not a medical treatment.',
+      },
+      {
+        q: 'When is a hard life more than affirmations can help?',
+        a: 'If low mood, exhaustion, or hopelessness persists for weeks, affects your ability to function, or ever feels unsafe, please reach out to someone you trust, a clinician, a local crisis line, or local emergency services. This page is self-care writing and cannot help in a crisis.',
+      },
+    ],
+    closing:
+      'However hard this season is, you do not have to carry its verdict as the summary of your life. Anicca is a self-care app that sends one kind line at the moment you need it — a support tool for a hard life, not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
