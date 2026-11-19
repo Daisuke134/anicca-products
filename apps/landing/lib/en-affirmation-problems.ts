@@ -143,6 +143,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Self-doubt',
     metaDescription:
       'Short affirmations for self-doubt days. Anicca sends one kind line when your mind spirals — 13 self-care topics, no streaks, free to download on iPhone.',
+    h1: 'affirmations for self-doubt',
+    directAnswer: [
+      'If self-doubt is loud today, the honest answer is that doubt is not proof that you are failing. Self-doubt often shows up as a private courtroom: you replay a message, a meeting, a photo, a silence — and the verdict arrives before the evidence does. “Not enough” becomes the default setting, even on days when nothing dramatic happened. Doubt is often a habit of scanning for threat so you will not be surprised by criticism.',
+      'Affirmations for self-doubt are not cheerleading. They are interruptions: small, honest sentences that refuse the harshest story for sixty seconds. Anicca is a free-to-download iPhone affirmation app that sends one kind line when your mind tends to spiral, across 13 self-care topics, with no streaks and an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a support tool, not a treatment. Persistent hopelessness, panic, or thoughts of harming yourself deserve real human support — please talk with a doctor, therapist, or crisis resources in your country.',
+    ],
     whyItHappens: [
       'Self-doubt often shows up as a private courtroom. You replay a message, a meeting, a photo, a silence — and the verdict arrives before the evidence does. “Not enough” becomes the default setting, even on days when nothing dramatic happened. Doubt is not proof that you are failing. It is often a habit of scanning for threat so you will not be surprised by criticism.',
       'Comparison, perfectionism, and old feedback can keep that habit well-fed. Social feeds compress other people’s highlights into a scoreboard. Work culture rewards constant output. Family scripts about being “responsible” or “impressive” linger. None of that means your worth is a grade. It means your attention has been trained to look for gaps.',
@@ -168,6 +174,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Replace it with one affirmation from above — or a gentler cousin that still feels believable. Read it twice. Stop. Optional: set a reminder later so kindness is not only a crisis tool.',
       ],
     },
+    faq: [
+      {
+        q: 'Does self-doubt mean I am failing?',
+        a: 'No. Doubt is not proof that you are failing. It is often a habit of scanning for threat so you will not be surprised by criticism. Self-doubt often shows up as a private courtroom where the verdict arrives before the evidence does — and “not enough” becomes the default setting, even on days when nothing dramatic happened.',
+      },
+      {
+        q: 'Are affirmations for self-doubt just cheerleading?',
+        a: 'No. Affirmations for self-doubt are not cheerleading. They are interruptions: small, honest sentences that refuse the harshest story for sixty seconds. Your worth is not a grade, and feedback is information, not a full identity.',
+      },
+      {
+        q: 'What are good affirmations for self-doubt?',
+        a: 'Small, honest lines from this page, for example: “I am allowed to take up space without a perfect resume.” “My value is not a performance review.” “Doubt can speak without getting the final vote.”',
+      },
+      {
+        q: 'What app helps with self-doubt?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that sends one kind line when your mind tends to spiral, across 13 self-care topics, with no streaks and an optional subscription. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'Persistent hopelessness, panic, or thoughts of harming yourself deserve real human support. Use crisis resources in your country. Anicca is a self-care app, not medical advice.',
   },
