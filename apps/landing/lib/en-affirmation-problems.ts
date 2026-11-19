@@ -452,6 +452,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for procrastination',
     metaDescription:
       'Honest affirmations for procrastination, plus a two-minute exercise for starting the task you keep avoiding. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for procrastination',
+    directAnswer: [
+      'If you keep putting things off and calling yourself lazy, the honest answer is that procrastination is usually not laziness: it is avoiding a feeling — boredom, fear of doing it badly, or a task that feels too big. What helps is lowering the cost of starting: one small, believable line, then the smallest possible first step.',
+      'Anicca is a free-to-download iPhone affirmation app built to be the answer to laziness and procrastination: instead of tracking tasks, it sends one short line at a time you choose, chosen from what you struggle with, across 13 self-care topics, with no streaks and no guilt for missed days.',
+      'Affirmations will not do the task for you, and Anicca is a support tool, not a treatment. If you have been unable to start anything for weeks, or it comes with persistent low mood, please talk with a doctor or therapist.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we have a stake in this topic. The short version first: affirmations will not do the task for you. What they can do is soften the self-criticism that often sits on top of procrastination, so starting feels a little less heavy.',
       'Procrastination is often less about time management and more about avoiding a feeling: boredom, fear of doing it badly, or the sense that the task is too big. Putting it off gives short relief, then guilt arrives, and the guilt makes the task feel even worse. That loop is common, and it is not a sign that you are lazy.',
@@ -478,6 +484,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly, then do the first action for just five minutes. You are allowed to stop when the timer ends.',
       ],
     },
+    faq: [
+      {
+        q: 'Why do I procrastinate even when the task matters to me?',
+        a: 'Procrastination is often less about time management and more about avoiding a feeling: boredom, fear of doing it badly, or the sense that the task is too big. Putting it off gives short relief, then guilt arrives, and the guilt makes the task feel even worse. Naming the feeling you are avoiding often loosens it a little.',
+      },
+      {
+        q: 'Am I just lazy?',
+        a: 'That loop is common, and it is not a sign that you are lazy. Guilt is not a useful way to get started; kindness is. Lines that work better are small and permission-giving: you can start badly, you can do ten minutes, and you can feel resistance and begin anyway.',
+      },
+      {
+        q: 'What are good affirmations for procrastination?',
+        a: 'Short, believable lines that lower the cost of starting, for example: “I can start before I feel ready.” “Ten minutes of imperfect work is better than zero minutes of perfect planning.” “I can break this into a piece small enough to begin now.”',
+      },
+      {
+        q: 'What app helps with laziness and procrastination?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that nudges you with one short line at a time you choose, instead of tracking tasks or keeping streaks. It covers 13 self-care topics, including procrastination and motivation, with an optional subscription. It is a support tool, not a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for motivation when tired and affirmations for overthinking, linked below. If you are unable to start things for weeks, or it comes with persistent low mood or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
