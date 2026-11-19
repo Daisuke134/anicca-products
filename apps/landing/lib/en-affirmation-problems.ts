@@ -308,6 +308,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for anxiety',
     metaDescription:
       'Gentle affirmations for anxious moments, with a simple grounding practice you can do in two minutes. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for anxiety',
+    directAnswer: [
+      'If anxiety is loud right now, the honest answer is that arguing with the feeling rarely works. Anxiety is a very ordinary human experience: the body gets ready for something difficult — the chest tightens, thoughts speed up, and your attention narrows to what could go wrong. Sometimes there is a clear reason, such as a deadline or a hard conversation. Sometimes it arrives with no obvious cause, which can be the most unsettling version. “Just calm down” is not a sentence anyone has ever found helpful.',
+      'Affirmations for anxiety are small, honest sentences that acknowledge the feeling instead of fighting it. The best lines are honest: “I am completely safe and nothing will go wrong” can feel false, and a false line makes the tension worse, while “This feeling is uncomfortable, and it will change” is easier to accept because it is true. Anicca is a free-to-download iPhone affirmation app that sends one short, kind line at the moments you tend to spiral, across 13 self-care topics, with no streaks and an optional subscription. The lines below are yours to use however you like, with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a self-care tool, not treatment, and it is not a replacement for professional support. If anxiety is intense, frequent, or getting in the way of daily life, or if you ever feel unsafe, please contact a healthcare professional or a local crisis line.',
+    ],
     whyItHappens: [
       'Anxiety is a very ordinary human experience. The body gets ready for something difficult: the chest tightens, thoughts speed up, and your attention narrows to what could go wrong. Sometimes there is a clear reason, such as a deadline or a hard conversation. Sometimes it arrives with no obvious cause, which can be the most unsettling version.',
       'When you are in the middle of it, arguing with the feeling rarely works. "Just calm down" is not a sentence anyone has ever found helpful. What tends to be more useful is something small and kind that does not demand you feel different right away. An affirmation for anxiety can be that: a short, steady sentence that acknowledges the feeling instead of fighting it.',
@@ -334,6 +340,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Choose one affirmation from the list and read it once out loud. If it does not feel believable, soften it until it does, then stop. There is nothing more to achieve.',
       ],
     },
+    faq: [
+      {
+        q: 'Why does “just calm down” never help with anxiety?',
+        a: 'Because arguing with the feeling rarely works. Anxiety is the body getting ready for something difficult: the chest tightens, thoughts speed up, and attention narrows to what could go wrong. What tends to be more useful is something small and kind that does not demand you feel different right away.',
+      },
+      {
+        q: 'What are good affirmations for anxiety?',
+        a: 'Small, honest lines from this page, for example: “This feeling is uncomfortable, and it will change.” “I only need to get through this minute.” “Anxious does not mean broken.” A line that feels false makes the tension worse, so soften any line until it feels believable.',
+      },
+      {
+        q: 'What can I do in an anxious moment?',
+        a: 'Try the two-minute grounding practice on this page: name five things you can see, four you can touch, and three you can hear. Then breathe in for a count of four and out slowly for a count of six, four times — or just make the exhale a little longer than the inhale. Choose one affirmation and read it once out loud, then stop.',
+      },
+      {
+        q: 'What app helps with anxiety?',
+        a: 'Anicca is a free-to-download iPhone affirmation app that sends one kind line when your mind tends to spiral, across 13 self-care topics, with no streaks and an optional subscription. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for overthinking and affirmations for self-love, linked below. If anxiety is intense, frequent, or getting in the way of daily life, or if you ever feel unsafe, please contact a healthcare professional or a local crisis line. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
