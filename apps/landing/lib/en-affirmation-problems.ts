@@ -788,6 +788,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for perfectionism',
     metaDescription:
       'Calm affirmations for perfectionism, plus a two-minute exercise for shipping something good enough. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for perfectionism',
+    directAnswer: [
+      'If you are looking for affirmations for perfectionism, the honest answer is that affirmations will not remove high standards, and you may not want them to. They can help with the harsh part, the voice that treats every flaw as a failure. Perfectionism is often described as setting very high standards combined with harsh self-judgment when they are missed. It can look like rewriting things many times, avoiding starting, or never feeling finished, and it can come from a wish to be safe from criticism, which is understandable.',
+      'Lines that help are not "lower your standards"; they separate quality from fear. Good enough for now can be a real, deliberate choice. Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a self-care tool, not treatment. If perfectionism causes constant distress, affects your health or sleep, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we have a stake here. The short version: affirmations will not remove high standards, and you may not want them to. They can help with the harsh part, the voice that treats every flaw as a failure.',
       'Perfectionism is often described as setting very high standards combined with harsh self-judgment when they are missed. It can look like rewriting things many times, avoiding starting, or never feeling finished. It can come from a wish to be safe from criticism, which is understandable.',
@@ -814,6 +820,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly, then make those changes only and set a stopping time.',
       ],
     },
+    faq: [
+      {
+        q: 'What is perfectionism?',
+        a: 'Perfectionism is often described as setting very high standards combined with harsh self-judgment when they are missed. It can look like rewriting things many times, avoiding starting, or never feeling finished. It can come from a wish to be safe from criticism, which is understandable.',
+      },
+      {
+        q: 'What are good affirmations for perfectionism?',
+        a: 'Calm, believable lines from this page, for example: “Good enough for now is a real choice, not a failure.” “A flaw is not the same as a failure.” “I can finish something and improve it later.” Lines that help are not “lower your standards”; they separate quality from fear, and good enough for now can be a real, deliberate choice.',
+      },
+      {
+        q: 'How do I practise perfectionism affirmations in two minutes?',
+        a: 'Try the two-minute good-enough check on this page: pick the thing you are polishing and write what "good enough for its purpose" would honestly look like in one sentence. List the one or two changes that would matter to the person who will use it, and ignore the rest for now. Then read one affirmation from the list twice, slowly, make those changes only, and set a stopping time.',
+      },
+      {
+        q: 'What app helps with perfectionism affirmations?',
+        a: 'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines on this page are free to use with or without the app. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for procrastination and affirmations for self-worth, linked below. If perfectionism causes constant distress, affects your health or sleep, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
