@@ -21,6 +21,14 @@
 // (the GEO head-parity injection above landed that day). DATE_MODIFIED
 // is therefore a literal for that real change — update it only when the
 // homepage document actually changes; never auto-bump it per deploy.
+//
+// og:image parity (2026-11-21, hourly GEO audit run 41): the audit reads
+// meta has_og_image=false — the served homepage declared og:title /
+// og:description / og:url / og:type but no og:image, and app/layout.tsx
+// declared none either (fixed in the same commit). The image is the
+// app's real icon, already served at /anicca-app-icon.png (1024x1024,
+// measured from the live PNG header) and already the Organization logo
+// in public/ai/summary.json — no new asset, no new claim.
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -33,6 +41,14 @@ export const DATE_MODIFIED = "2026-11-19";
 export const AUTHOR_META = '<meta name="author" content="Anicca">';
 
 export const MODIFIED_META = `<meta property="article:modified_time" content="${DATE_MODIFIED}">`;
+
+export const OG_IMAGE_URL = "https://aniccaai.com/anicca-app-icon.png";
+
+export const OG_IMAGE_META =
+  `<meta property="og:image" content="${OG_IMAGE_URL}">` +
+  '<meta property="og:image:width" content="1024">' +
+  '<meta property="og:image:height" content="1024">' +
+  '<meta property="og:image:alt" content="Anicca app icon">';
 
 // The homepage's author/publisher: the Anicca organization itself.
 export const WEBSITE_AUTHOR = {
@@ -109,6 +125,7 @@ export function injectGeoHomeIntoHtml(html) {
     if (!out.includes("application/rss+xml")) headBits.push(RSS_LINK);
     if (!/name="author"/i.test(out)) headBits.push(AUTHOR_META);
     if (!out.includes("article:modified_time")) headBits.push(MODIFIED_META);
+    if (!out.includes('property="og:image"')) headBits.push(OG_IMAGE_META);
     if (headBits.length) {
       out = out.replace(/<\/head>/i, `${headBits.join("")}</head>`);
     }

@@ -8,6 +8,8 @@ import {
   MODIFIED_META,
   DATE_MODIFIED,
   WEBSITE_AUTHOR,
+  OG_IMAGE_META,
+  OG_IMAGE_URL,
 } from "./inject-geo-home.mjs";
 
 const ORG_GRAPH =
@@ -68,6 +70,23 @@ test("does not overwrite an existing WebSite dateModified", () => {
   const html = `<html><head></head><body>${graph}</body></html>`;
   const out = injectGeoHomeIntoHtml(html);
   assert.ok(out.includes('"dateModified":"2026-01-01"'));
+});
+
+test("injects og:image metas before </head> when missing", () => {
+  const html = `<html><head><title>x</title></head><body>${ORG_GRAPH}</body></html>`;
+  const out = injectGeoHomeIntoHtml(html);
+  assert.ok(out.includes(OG_IMAGE_META));
+  assert.ok(out.includes(`property="og:image" content="${OG_IMAGE_URL}"`));
+  assert.ok(out.indexOf(OG_IMAGE_META) < out.indexOf("</head>"));
+});
+
+test("does not duplicate an existing og:image", () => {
+  const existing =
+    '<meta property="og:image" content="https://aniccaai.com/other.png">';
+  const html = `<html><head>${existing}</head><body>${ORG_GRAPH}</body></html>`;
+  const out = injectGeoHomeIntoHtml(html);
+  assert.equal(out.split('property="og:image"').length - 1, 1);
+  assert.ok(!out.includes(OG_IMAGE_META));
 });
 
 test("is idempotent", () => {

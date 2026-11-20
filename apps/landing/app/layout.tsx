@@ -15,6 +15,19 @@ export const metadata = {
     url: 'https://aniccaai.com',
     type: 'website',
     siteName: 'Anicca',
+    // og:image (GEO audit 2026-11-21: meta has_og_image=false on every
+    // surface — neither the layout nor the static homepage declared one).
+    // The image is the app's real icon, already served at
+    // /anicca-app-icon.png (1024x1024, measured) and already the
+    // Organization logo in public/ai/summary.json.
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
   },
   icons: {
     icon: '/favicon.png',
