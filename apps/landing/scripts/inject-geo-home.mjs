@@ -30,6 +30,21 @@
 // measured from the live PNG header) and already the Organization logo
 // in public/ai/summary.json — no new asset, no new claim.
 //
+// Brand-title separator parity (2026-11-21, hourly GEO audit run 44):
+// the JA homepage title / og:title use the fullwidth "｜" (U+FF5C) as
+// the brand separator ("Anicca｜苦しみを…"). The GEO audit's brand
+// check cuts a title at the first recognized separator (" — ", " – ",
+// " - ", " | ", " · ") to extract the brand name; "｜" is not in that
+// list, so the JA head brand candidate stayed the whole title string
+// and never matched the schema name "Anicca" (measured live: JA
+// brand_entity 5/12 with brand_name_consistent=false vs EN 7/12 with
+// it true, JA total 87 vs the 89 the 2 coherence points imply). This
+// step rewrites only that separator, only inside <title> and the
+// og:title / twitter:title metas, and only in lang="ja" documents, to
+// the em-dash separator the EN homepage already uses ("Anicca — …").
+// Typographic change only: no word, fact, number, date or URL changes,
+// and body text is never touched.
+//
 // Entity-graph parity (2026-11-21, hourly GEO audit run 42): the JA
 // homepage document carries only a WebSite JSON-LD block — no
 // Organization node at all (measured live: JA audit schema 7/14 with
@@ -58,6 +73,10 @@ export const DATE_MODIFIED = "2026-11-19";
 export const AUTHOR_META = '<meta name="author" content="Anicca">';
 
 export const MODIFIED_META = `<meta property="article:modified_time" content="${DATE_MODIFIED}">`;
+
+export const BRAND_TITLE_FROM = "Anicca｜";
+
+export const BRAND_TITLE_TO = "Anicca — ";
 
 export const OG_IMAGE_URL = "https://aniccaai.com/anicca-app-icon.png";
 
@@ -204,8 +223,27 @@ function ensureEntityGraph(html) {
   return html.replace(/<\/head>/i, `${script}</head>`);
 }
 
+export function normalizeJaBrandTitle(html) {
+  if (!/<html[^>]+lang="ja"/i.test(html)) return html;
+  const swap = (text) => text.split(BRAND_TITLE_FROM).join(BRAND_TITLE_TO);
+  let out = html.replace(
+    /(<title>)([^<]*)(<\/title>)/i,
+    (m, open, text, close) => `${open}${swap(text)}${close}`,
+  );
+  out = out.replace(
+    /(<meta[^>]+(?:property|name)="(?:og:title|twitter:title)"[^>]+content=")([^"]*)(")/gi,
+    (m, open, text, close) => `${open}${swap(text)}${close}`,
+  );
+  // Attribute order variant: content before property/name.
+  out = out.replace(
+    /(<meta[^>]+content=")([^"]*)("[^>]+(?:property|name)="(?:og:title|twitter:title)")/gi,
+    (m, open, text, close) => `${open}${swap(text)}${close}`,
+  );
+  return out;
+}
+
 export function injectGeoHomeIntoHtml(html) {
-  let out = html;
+  let out = normalizeJaBrandTitle(html);
   if (/<\/head>/i.test(out)) {
     const headBits = [];
     if (!out.includes("application/rss+xml")) headBits.push(RSS_LINK);

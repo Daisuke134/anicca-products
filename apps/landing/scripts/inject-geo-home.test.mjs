@@ -2,6 +2,9 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   injectGeoHomeIntoHtml,
+  normalizeJaBrandTitle,
+  BRAND_TITLE_FROM,
+  BRAND_TITLE_TO,
   RSS_LINK,
   KNOWS_ABOUT,
   AUTHOR_META,
@@ -128,6 +131,39 @@ test("does not append the entity @graph when an Organization node exists", () =>
 test("entity @graph injection is idempotent", () => {
   const once = injectGeoHomeIntoHtml(WEBSITE_ONLY_DOC);
   assert.equal(injectGeoHomeIntoHtml(once), once);
+});
+
+test("normalizes the JA brand title separator in title and og:title only", () => {
+  const jaTitle = "Anicca｜苦しみを終わらせるAIラボ";
+  const html =
+    `<html lang="ja"><head><title>${jaTitle}</title>` +
+    `<meta property="og:title" content="${jaTitle}"></head>` +
+    `<body><p>Anicca｜本文の区切りは変えない</p>${ORG_GRAPH}</body></html>`;
+  const out = injectGeoHomeIntoHtml(html);
+  assert.ok(out.includes(`<title>${BRAND_TITLE_TO}苦しみを終わらせるAIラボ</title>`));
+  assert.ok(
+    out.includes(`property="og:title" content="${BRAND_TITLE_TO}苦しみを終わらせるAIラボ"`),
+  );
+  // Body text is never touched.
+  assert.ok(out.includes("Anicca｜本文の区切りは変えない"));
+  assert.equal(out.split(BRAND_TITLE_FROM).length - 1, 1);
+});
+
+test("does not normalize titles in non-JA documents", () => {
+  const html =
+    '<html lang="en"><head><title>Anicca｜Some tagline</title></head>' +
+    `<body>${ORG_GRAPH}</body></html>`;
+  assert.equal(normalizeJaBrandTitle(html), html);
+  assert.ok(injectGeoHomeIntoHtml(html).includes("Anicca｜Some tagline"));
+});
+
+test("JA brand title normalization is idempotent", () => {
+  const html =
+    '<html lang="ja"><head><title>Anicca｜苦しみを終わらせるAIラボ</title></head>' +
+    `<body>${ORG_GRAPH}</body></html>`;
+  const once = injectGeoHomeIntoHtml(html);
+  assert.equal(injectGeoHomeIntoHtml(once), once);
+  assert.ok(!once.includes(BRAND_TITLE_FROM));
 });
 
 test("is idempotent", () => {
