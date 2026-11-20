@@ -505,8 +505,8 @@
   "burn": 865.98,
   "gross_profit_status": "partial",
   "expenses_mtd_items": {
-   "Upwork payment notice (primary event)": 12.0,
-   "Google Cloud (GOOGLE*CLOUD 10月利用分)": 281.7
+   "Google Cloud (GOOGLE*CLOUD 10月利用分)": 281.7,
+   "Upwork payment notice (primary event)": 12.0
   },
   "expenses_mtd_total": 293.7,
   "note": "opex_monthly = recurring run-rate (Ultra replaces X Super, no double count). gross_profit = revenue MTD minus known expenses MTD (partial)."
@@ -664,6 +664,10 @@
   },
   {
    "date": "2026-11-15",
+   "mrr": 20
+  },
+  {
+   "date": "2026-11-20",
    "mrr": 20.0
   }
  ],
@@ -674,20 +678,20 @@
      "us:affirmations": "圏外(>200)",
      "us:daily affirmations": "圏外(>200)",
      "us:affirmation app": "圏外(>200)",
-     "jp:アファメーション": 21,
+     "jp:アファメーション": 25,
      "jp:アファメーション アプリ": 27
     },
     "id": 6755129214,
     "genre": "Health & Fitness",
     "ratings": 48,
     "rating": 4.52083,
-    "version": "1.9.14"
+    "version": "1.10.0"
    },
    "Honne": {
     "keywords": {
      "jp:本音翻訳": 1,
      "jp:LINE 相性": "圏外(>200)",
-     "jp:本音": 41
+     "jp:本音": 46
     },
     "id": 6759667221,
     "genre": "Utilities",
@@ -697,9 +701,9 @@
    },
    "Thankful": {
     "keywords": {
-     "us:gratitude journal": "圏外(>200)",
-     "us:gratitude": "圏外(>200)",
-     "jp:感謝日記": 161
+     "us:gratitude journal": 148,
+     "us:gratitude": 99,
+     "jp:感謝日記": 171
     },
     "id": 6759514159,
     "genre": "Health & Fitness",
@@ -711,12 +715,18 @@
   "gsc": {
    "https://aniccaai.com/": {
     "d7": {
-     "clicks": 10,
-     "impressions": 974,
-     "ctr": 0.01026694045174538,
-     "position": 15.617043121149898
+     "clicks": 22,
+     "impressions": 3334,
+     "ctr": 0.0065986802639472104,
+     "position": 10.15506898620276
     },
     "top_queries": [
+     {
+      "q": "仕事 不安",
+      "pos": 10.7,
+      "impr": 10,
+      "clicks": 2
+     },
      {
       "q": "urlは",
       "pos": 3,
@@ -724,87 +734,81 @@
       "clicks": 1
      },
      {
-      "q": "仕事 不安",
-      "pos": 5.5,
+      "q": "エフィカシーとは",
+      "pos": 2,
       "impr": 2,
       "clicks": 1
      },
      {
       "q": "仕事 不安になる",
-      "pos": 4,
+      "pos": 4.7,
+      "impr": 3,
+      "clicks": 1
+     },
+     {
+      "q": "自分の良さがわからない",
+      "pos": 3.5,
+      "impr": 2,
+      "clicks": 1
+     },
+     {
+      "q": "自制心とは",
+      "pos": 2,
       "impr": 1,
       "clicks": 1
      },
      {
+      "q": "自尊心",
+      "pos": 2,
+      "impr": 4,
+      "clicks": 1
+     },
+     {
       "q": "自己 感",
-      "pos": 4,
-      "impr": 1,
+      "pos": 3.5,
+      "impr": 2,
+      "clicks": 1
+     },
+     {
+      "q": "自己認知",
+      "pos": 3,
+      "impr": 2,
       "clicks": 1
      },
      {
       "q": "自負しております",
       "pos": 4,
-      "impr": 1,
+      "impr": 2,
       "clicks": 1
+     },
+     {
+      "q": "評価されたい",
+      "pos": 3.3,
+      "impr": 3,
+      "clicks": 1
+     },
+     {
+      "q": "\"simile\" \"population model\" surveys",
+      "pos": 5.7,
+      "impr": 42,
+      "clicks": 0
+     },
+     {
+      "q": "1 3ã æ â ã æ â ã æ â ã æ â ã â šâ ã æ âªã â šâ ã æ â ã æ â",
+      "pos": 91,
+      "impr": 1,
+      "clicks": 0
+     },
+     {
+      "q": "10時出発で",
+      "pos": 5,
+      "impr": 1,
+      "clicks": 0
      },
      {
       "q": "40代 無料 タイプ別",
       "pos": 27.2,
       "impr": 4,
-      "clicks": 0
-     },
-     {
-      "q": "affirmation app",
-      "pos": 77.8,
-      "impr": 13,
-      "clicks": 0
-     },
-     {
-      "q": "affirmation apps",
-      "pos": 73.8,
-      "impr": 17,
-      "clicks": 0
-     },
-     {
-      "q": "affirmations app",
-      "pos": 69.8,
-      "impr": 10,
-      "clicks": 0
-     },
-     {
-      "q": "affirmations for imposter syndrome",
-      "pos": 15,
-      "impr": 1,
-      "clicks": 0
-     },
-     {
-      "q": "ai monks",
-      "pos": 66,
-      "impr": 1,
-      "clicks": 0
-     },
-     {
-      "q": "ai video hook creator",
-      "pos": 70,
-      "impr": 1,
-      "clicks": 0
-     },
-     {
-      "q": "aicca",
-      "pos": 27,
-      "impr": 1,
-      "clicks": 0
-     },
-     {
-      "q": "ainca",
-      "pos": 71.3,
-      "impr": 3,
-      "clicks": 0
-     },
-     {
-      "q": "anica ai",
-      "pos": 10,
-      "impr": 1,
       "clicks": 0
      }
     ]
@@ -815,41 +819,41 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2761
+     "uses": 2891
     },
     {
      "rank": 2,
      "title": "Hook Grader — Free Hook Score (0-10)",
-     "uses": 96
+     "uses": 99
     },
     {
      "rank": 3,
      "title": "TikTok Series Continuity Planner — Next Script",
-     "uses": 4
+     "uses": 5
     },
     {
      "rank": 4,
-     "title": "NHL Goalie Matchup Brief",
-     "uses": 2
+     "title": "TikTok Storytime Script — Scene-by-Scene",
+     "uses": 3
     },
     {
      "rank": 5,
-     "title": "BioLab — Creator Bios, Scored & Ranked",
-     "uses": 0
+     "title": "NHL Goalie Matchup Brief",
+     "uses": 2
     }
    ],
    "winner_saya_top": [
     [
-     55864,
+     60235,
      "CloneCut - Viral Clone, Seedance2.0, kids video"
     ],
     [
-     379,
-     "Seedance 2.0 Video - Generate Instantly"
+     135,
+     "YouTube Scripts — Keep Viewers Watching"
     ],
     [
-     134,
-     "YouTube Scripts — Keep Viewers Watching"
+     101,
+     "TikTok Scripts — Write Hook-First Short Videos"
     ]
    ]
   }
@@ -912,8 +916,8 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-15 21:28 JST",
- "source_updated_at": "2026-11-15 21:27 JST",
+ "updated_at": "2026-11-20 21:34 JST",
+ "source_updated_at": "2026-11-20 21:32 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -930,8 +934,8 @@
   "mtd_usd": 293.7,
   "status": "partial",
   "items": {
-   "Upwork payment notice (primary event)": 12.0,
-   "Google Cloud (GOOGLE*CLOUD 10月利用分)": 281.7
+   "Google Cloud (GOOGLE*CLOUD 10月利用分)": 281.7,
+   "Upwork payment notice (primary event)": 12.0
   },
   "coverage": {
    "month": "2026-11",
@@ -1032,7 +1036,7 @@
    "revenue_mtd": null,
    "mrr": null,
    "metric": "site pageviews (cumulative)",
-   "metric_value": 3951,
+   "metric_value": 4592,
    "status": "live",
    "next": "search traffic (SEO loop)"
   },
@@ -1054,6 +1058,17 @@
    "metric": "38 sets on sale",
    "status": "live, no sales yet",
    "next": "first sale"
+  },
+  {
+   "name": "STUDIO CHERIE (outfit coordination app)",
+   "owner": "Muse",
+   "revenue_mtd": null,
+   "mrr": null,
+   "metric": "blog articles published on aniccaai.com",
+   "metric_value": "1 on 2026-11-17",
+   "latest_article_url": "https://aniccaai.com/blog/studio-cherie-before-buying-check-outfits",
+   "status": "live; new blog article 2026-11-17, reported to the Cherie team group",
+   "next": "daily blog article; progress reported to GitHub, this page and the Cherie team group"
   },
   {
    "name": "Life Manager Cloud",
@@ -1092,13 +1107,13 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 20
+   "board_updates_today": 5
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 2
+   "board_updates_today": 0
   },
   {
    "agent": "Dots (COO)",
@@ -1116,19 +1131,19 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 13
+   "board_updates_today": 8
   },
   {
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 2
+   "board_updates_today": 0
   },
   {
    "agent": "Anicca Marketer",
    "today": "Anicca iOS growth: daily posts, directories, metrics",
    "platforms": "TikTok @aniccaaffirmation, Bluesky, Mastodon, Nostr, Telegraph",
-   "board_updates_today": 1
+   "board_updates_today": 0
   },
   {
    "agent": "Muse Relay",
@@ -1150,49 +1165,49 @@
   }
  ],
  "contract_work": {
-  "applications_today": 6,
-  "applications_7d": 47,
+  "applications_today": 4,
+  "applications_7d": 24,
   "days": [
-   "2026-11-09",
-   "2026-11-10",
-   "2026-11-11",
-   "2026-11-12",
-   "2026-11-13",
    "2026-11-14",
-   "2026-11-15"
+   "2026-11-15",
+   "2026-11-16",
+   "2026-11-17",
+   "2026-11-18",
+   "2026-11-19",
+   "2026-11-20"
   ],
   "platforms": [
    {
     "platform": "Coconala",
     "owner": "dr eggbot",
-    "applications_today": 2,
+    "applications_today": 1,
     "applications_by_day": {
-     "2026-11-09": 0,
-     "2026-11-10": 2,
-     "2026-11-11": 0,
-     "2026-11-12": 0,
-     "2026-11-13": 4,
      "2026-11-14": 6,
-     "2026-11-15": 2
+     "2026-11-15": 2,
+     "2026-11-16": 0,
+     "2026-11-17": 0,
+     "2026-11-18": 0,
+     "2026-11-19": 0,
+     "2026-11-20": 1
     },
-    "applications_7d": 14,
+    "applications_7d": 9,
     "status": "active; trial order in progress (10/30)",
     "revenue_lifetime_usd": 1726.18
    },
    {
     "platform": "Lancers",
     "owner": "dr eggbot",
-    "applications_today": 1,
+    "applications_today": 0,
     "applications_by_day": {
-     "2026-11-09": 0,
-     "2026-11-10": 2,
-     "2026-11-11": 8,
-     "2026-11-12": 9,
-     "2026-11-13": 4,
      "2026-11-14": 6,
-     "2026-11-15": 1
+     "2026-11-15": 1,
+     "2026-11-16": 0,
+     "2026-11-17": 0,
+     "2026-11-18": 0,
+     "2026-11-19": 0,
+     "2026-11-20": 0
     },
-    "applications_7d": 30,
+    "applications_7d": 7,
     "status": "active",
     "revenue_lifetime_usd": null
    },
@@ -1201,13 +1216,13 @@
     "owner": "dr eggbot",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-11-09": 0,
-     "2026-11-10": 0,
-     "2026-11-11": 0,
-     "2026-11-12": 0,
-     "2026-11-13": 0,
      "2026-11-14": 0,
-     "2026-11-15": 0
+     "2026-11-15": 0,
+     "2026-11-16": 0,
+     "2026-11-17": 0,
+     "2026-11-18": 0,
+     "2026-11-19": 0,
+     "2026-11-20": 0
     },
     "applications_7d": 0,
     "status": "contract active (Labelbox, 10/30); ID check due 11/6",
@@ -1226,12 +1241,19 @@
    {
     "platform": "CrowdWorks",
     "owner": "Dots",
-    "applications_today": null,
-    "applications_by_day": null,
-    "applications_7d": null,
+    "applications_today": 3,
+    "applications_by_day": {
+     "2026-11-14": 0,
+     "2026-11-15": 0,
+     "2026-11-16": 0,
+     "2026-11-17": 0,
+     "2026-11-18": 0,
+     "2026-11-19": 2,
+     "2026-11-20": 3
+    },
+    "applications_7d": 5,
     "status": "active; 3 client replies waiting (login needed)",
-    "revenue_lifetime_usd": null,
-    "note": "no applications recorded in the last 7 days (not tracked yet)"
+    "revenue_lifetime_usd": null
    },
    {
     "platform": "Contra",
@@ -1266,12 +1288,19 @@
    {
     "platform": "Workana",
     "owner": "Dots",
-    "applications_today": null,
-    "applications_by_day": null,
-    "applications_7d": null,
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-11-14": 0,
+     "2026-11-15": 0,
+     "2026-11-16": 0,
+     "2026-11-17": 0,
+     "2026-11-18": 0,
+     "2026-11-19": 0,
+     "2026-11-20": 0
+    },
+    "applications_7d": 0,
     "status": "account in review (10/26)",
-    "revenue_lifetime_usd": null,
-    "note": "no applications recorded in the last 7 days (not tracked yet)"
+    "revenue_lifetime_usd": null
    },
    {
     "platform": "Guru",
@@ -1286,15 +1315,15 @@
    {
     "platform": "Mercor",
     "owner": "Fucker",
-    "applications_today": 3,
+    "applications_today": 0,
     "applications_by_day": {
-     "2026-11-09": 0,
-     "2026-11-10": 0,
-     "2026-11-11": 0,
-     "2026-11-12": 0,
-     "2026-11-13": 0,
      "2026-11-14": 0,
-     "2026-11-15": 3
+     "2026-11-15": 3,
+     "2026-11-16": 0,
+     "2026-11-17": 0,
+     "2026-11-18": 0,
+     "2026-11-19": 0,
+     "2026-11-20": 0
     },
     "applications_7d": 3,
     "status": "applied, awaiting offers",
@@ -1305,13 +1334,13 @@
     "owner": "Fucker",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-11-09": 0,
-     "2026-11-10": 0,
-     "2026-11-11": 0,
-     "2026-11-12": 0,
-     "2026-11-13": 0,
      "2026-11-14": 0,
-     "2026-11-15": 0
+     "2026-11-15": 0,
+     "2026-11-16": 0,
+     "2026-11-17": 0,
+     "2026-11-18": 0,
+     "2026-11-19": 0,
+     "2026-11-20": 0
     },
     "applications_7d": 0,
     "status": "status not tracked yet",
