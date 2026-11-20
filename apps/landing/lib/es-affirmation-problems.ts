@@ -196,6 +196,24 @@ export const ES_AFFIRMATION_PROBLEMS: EsAffirmationProblem[] = [
       'No sustituyen el apoyo profesional ni son un tratamiento, pero pueden ayudarte a hablarte con más calma por la noche.',
       'Puedes leer las frases de esta página gratis, con o sin la app Anicca.',
     ],
+    faq: [
+      {
+        q: '¿Qué son las afirmaciones positivas para dormir?',
+        a: 'Son frases cortas y tranquilas que se leen antes de acostarse para dejar el día a un lado, sin prometer que dormirás. Las afirmaciones no te dormirán por orden ni son un tratamiento para problemas de sueño, pero a algunas personas unas pocas frases tranquilas antes de acostarse les ayudan a dejar el día a un lado.',
+      },
+      {
+        q: '¿Qué afirmaciones puedo leer antes de dormir?',
+        a: 'Frases suaves y creíbles que no exigen un resultado, por ejemplo: “No tengo que resolver el mañana esta noche.” “Descansar es suficiente por ahora.” “El día ha terminado y puedo dejarlo a un lado.” Elige una y léela despacio, dos veces.',
+      },
+      {
+        q: '¿Cómo uso las afirmaciones en dos minutos antes de dormir?',
+        a: 'Escribe en un papel algo que quedó pendiente, con un primer paso para mañana si quieres, para que tu mente no tenga que sostenerlo toda la noche. Suelta el aire despacio contando hasta seis, tres veces, con los hombros relajados. Lee una frase de la lista, despacio, dos veces. Deja el móvil y mantén la luz baja. Si sigues despierto, no pasa nada: descansa en silencio en lugar de forzar el sueño.',
+      },
+      {
+        q: '¿Las afirmaciones sustituyen la ayuda profesional?',
+        a: 'No. Esta página es texto de autocuidado para una app de afirmaciones; no es consejo médico, diagnóstico ni tratamiento. Si te cuesta dormir durante semanas, afecta tu día a día o tu salud, o viene con tristeza o pánico, habla con un médico, un terapeuta o una línea de ayuda de tu zona.',
+      },
+    ],
     campaignPrefix: 'seo_es',
   },
 ];
