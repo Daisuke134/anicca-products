@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import Purchases, {
   PurchasesPackage,
@@ -70,7 +70,6 @@ if (apiKey) {
 export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
   const queryClient = useQueryClient();
   const [isConfigured] = useState(!!apiKey);
-  const [isPremium, setIsPremium] = useState(false);
 
   // Link client events with RevenueCat's server-side rc_* events: once the
   // Mixpanel distinct ID exists, store it as the reserved RC attribute.
@@ -110,15 +109,21 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
         return null;
       }
       console.log('[RevenueCat] Fetching customer info');
-      const info = await Purchases.getCustomerInfo();
-      const hasAccess = typeof info.entitlements.active['premium'] !== 'undefined';
-      setIsPremium(hasAccess);
-      console.log('[RevenueCat] Customer info, isPremium:', hasAccess);
-      return info;
+      return Purchases.getCustomerInfo();
     },
     enabled: isConfigured,
     staleTime: 1000 * 60 * 5,
   });
+
+  // The query cache is the single access state, including on provider remount.
+  const isPremium = !!customerInfoQuery.data?.entitlements.active['premium'];
+  const updateCustomerInfo = useCallback(async (customerInfo: CustomerInfo) => {
+    const queryKey = ['revenuecat-customer-info', isConfigured];
+    // A lookup started before this SDK update must not overwrite a purchase,
+    // restore, or entitlement change when its older response arrives later.
+    await queryClient.cancelQueries({ queryKey });
+    queryClient.setQueryData(queryKey, customerInfo);
+  }, [isConfigured, queryClient]);
 
   const offeringsQuery = useQuery({
     queryKey: ['revenuecat-offerings', isConfigured],
@@ -149,7 +154,7 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
       const { customerInfo } = await Purchases.purchasePackage(pkg);
       return customerInfo;
     },
-    onSuccess: (customerInfo, pkg) => {
+    onSuccess: async (customerInfo, pkg) => {
       const entitlement = customerInfo.entitlements.active['premium'];
       const hasAccess = typeof entitlement !== 'undefined';
       if (hasAccess) {
@@ -162,9 +167,8 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
           );
         }
       }
-      setIsPremium(hasAccess);
+      await updateCustomerInfo(customerInfo);
       console.log('[RevenueCat] Purchase successful, isPremium:', hasAccess);
-      queryClient.setQueryData(['revenuecat-customer-info', isConfigured], customerInfo);
     },
     onError: (error: Error & { code?: string }, pkg) => {
       // キャンセルは正常な操作なのでエラーとして扱わない
@@ -185,12 +189,7 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
       const customerInfo = await Purchases.restorePurchases();
       return customerInfo;
     },
-    onSuccess: (customerInfo) => {
-      const hasAccess = typeof customerInfo.entitlements.active['premium'] !== 'undefined';
-      setIsPremium(hasAccess);
-      console.log('[RevenueCat] Restore successful, isPremium:', hasAccess);
-      queryClient.setQueryData(['revenuecat-customer-info', isConfigured], customerInfo);
-    },
+    onSuccess: updateCustomerInfo,
     onError: (error: Error) => {
       console.error('[RevenueCat] Restore error:', error.message);
     },
@@ -200,17 +199,14 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
     if (!isConfigured) return;
 
     const listener = (customerInfo: CustomerInfo) => {
-      const hasAccess = typeof customerInfo.entitlements.active['premium'] !== 'undefined';
-      setIsPremium(hasAccess);
-      console.log('[RevenueCat] Customer info updated, isPremium:', hasAccess);
-      queryClient.setQueryData(['revenuecat-customer-info', isConfigured], customerInfo);
+      void updateCustomerInfo(customerInfo);
     };
 
     Purchases.addCustomerInfoUpdateListener(listener);
     return () => {
       Purchases.removeCustomerInfoUpdateListener(listener);
     };
-  }, [isConfigured, queryClient]);
+  }, [isConfigured, updateCustomerInfo]);
 
   const currentOffering = offeringsQuery.data?.current ?? null;
 
@@ -231,6 +227,8 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
     customerInfo: customerInfoQuery.data ?? null,
     currentOffering,
     isLoadingOfferings: offeringsQuery.isLoading,
+    isRefreshingOfferings: offeringsQuery.isFetching,
+    refetchOfferings: () => offeringsQuery.refetch({ cancelRefetch: false }),
     isLoadingCustomerInfo: customerInfoQuery.isLoading,
     purchasePackage,
     restorePurchases,
@@ -240,3 +238,4 @@ export const [RevenueCatProvider, useRevenueCat] = createContextHook(() => {
     restoreError: restoreMutation.error,
   };
 });
+
