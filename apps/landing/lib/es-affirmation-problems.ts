@@ -130,6 +130,24 @@ export const ES_AFFIRMATION_PROBLEMS: EsAffirmationProblem[] = [
       'No eliminan los nervios ni sustituyen el apoyo profesional, pero pueden servirte como un apoyo tranquilo antes de una reunión.',
       'Puedes leer las frases de esta página gratis, con o sin la app Anicca.',
     ],
+    faq: [
+      {
+        q: '¿Qué son las afirmaciones para la ansiedad social en el trabajo?',
+        a: 'Son frases cortas y realistas que te recuerdan que puedes estar nervioso y aun así participar. Las afirmaciones no quitarán los nervios ni reemplazan el apoyo profesional, pero pueden darte algo más tranquilo que decirte justo antes de una reunión, un mensaje o una conversación.',
+      },
+      {
+        q: '¿Qué afirmaciones puedo leer antes de una reunión?',
+        a: 'Frases realistas que no dicen que te sentirás seguro, por ejemplo: “Puedo estar nervioso y aun así hablar.” “Pertenezco a esta reunión.” “No tengo que decir algo perfecto.” Elige una y léela dos veces, despacio.',
+      },
+      {
+        q: '¿Cómo uso las afirmaciones en dos minutos antes de una reunión?',
+        a: 'Con los pies firmes en el suelo, suelta el aire despacio contando hasta seis. Repite tres veces. Decide una pequeña aportación, como una pregunta o una frase, y escríbela con palabras sencillas. Lee una afirmación de la lista dos veces, despacio, y entra sabiendo que una sola frase es suficiente.',
+      },
+      {
+        q: '¿Las afirmaciones sustituyen la ayuda profesional?',
+        a: 'No. Esta página es texto de autocuidado para una app de afirmaciones; no es consejo médico, diagnóstico ni tratamiento. Si la ansiedad social afecta tu vida o tu trabajo durante mucho tiempo, o viene con tristeza intensa o desesperanza, habla con un médico, un terapeuta o una línea de ayuda de tu zona.',
+      },
+    ],
     campaignPrefix: 'seo_es',
   },
 // Batch 8 ES entry for ES_AFFIRMATION_PROBLEMS (apps/landing/lib/es-affirmation-problems.ts). Append verbatim at end of array.
