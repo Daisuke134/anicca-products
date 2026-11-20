@@ -1262,6 +1262,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations for social anxiety at work',
     metaDescription:
       'Steady affirmations for social anxiety at work, plus a two-minute exercise before a meeting or conversation. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations for social anxiety at work',
+    directAnswer: [
+      'If you are looking for affirmations for social anxiety at work, the honest answer is that affirmations will not remove nerves or replace professional support. They can give you a calmer thing to say to yourself right before a meeting, a message, or a conversation. Social anxiety at work often looks like rehearsing what to say, staying quiet in meetings, avoiding small talk, or replaying a conversation afterward. It is common, and it usually comes from a fear of being judged rather than from any lack of ability.',
+      'Lines that help are realistic. They do not say you will feel confident. They say you can be nervous and still speak, that a pause or an imperfect sentence is fine, and that people are mostly thinking about their own work. Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a self-care tool, not treatment. If anxiety keeps you from working or from daily life for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral. The short version: affirmations will not remove nerves or replace professional support. They can give you a calmer thing to say to yourself right before a meeting, a message, or a conversation.',
       'Social anxiety at work often looks like rehearsing what to say, staying quiet in meetings, avoiding small talk, or replaying a conversation afterward. It is common, and it usually comes from a fear of being judged rather than from any lack of ability.',
@@ -1288,6 +1294,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one affirmation from the list twice, slowly, then go in knowing that one sentence is enough.',
       ],
     },
+    faq: [
+      {
+        q: 'What is social anxiety at work?',
+        a: 'Social anxiety at work often looks like rehearsing what to say, staying quiet in meetings, avoiding small talk, or replaying a conversation afterward. It is common, and it usually comes from a fear of being judged rather than from any lack of ability.',
+      },
+      {
+        q: 'What are good affirmations for social anxiety at work?',
+        a: 'Realistic, believable lines from this page, for example: “I can be nervous and still speak.” “A pause is fine. I can take a breath before I speak.” “I do not have to say something perfect.” Lines that help do not say you will feel confident. They say you can be nervous and still speak, that a pause or an imperfect sentence is fine, and that people are mostly thinking about their own work.',
+      },
+      {
+        q: 'How do I practise social anxiety at work affirmations in two minutes?',
+        a: 'Try the two-minute pre-meeting steadying exercise on this page: breathe out slowly for a count of six, three times, with your feet flat on the floor. Decide on one small contribution, such as one question or one sentence you will say, and write it down in plain words. Then read one affirmation from the list twice, slowly, and go in knowing that one sentence is enough.',
+      },
+      {
+        q: 'What app helps with social anxiety at work affirmations?',
+        a: 'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines on this page are free to use with or without the app. It is a self-care support tool, not medical advice or a treatment.',
+      },
+    ],
     closing:
       'Related guides: affirmations for anxiety and affirmations for imposter syndrome, linked below. If anxiety keeps you from working or from daily life for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
