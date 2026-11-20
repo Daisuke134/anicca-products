@@ -1,4 +1,7 @@
-import type { EnAffirmationProblem } from '@/lib/en-affirmation-problems';
+import type {
+  EnAffirmationFaq,
+  EnAffirmationProblem,
+} from '@/lib/en-affirmation-problems';
 
 export type EsAffirmationProblem = Omit<
   EnAffirmationProblem,
@@ -63,6 +66,24 @@ export const ES_AFFIRMATION_PROBLEMS: EsAffirmationProblem[] = [
       'Las afirmaciones para la ansiedad del domingo son frases cortas y realistas que reconocen el agobio antes del lunes sin prometer que todo saldrá bien.',
       'No sustituyen el apoyo profesional, pero pueden ayudarte a hablarte con más amabilidad cuando acaba el fin de semana.',
       'Puedes leer las frases de esta página gratis, con o sin la app Anicca.',
+    ],
+    faq: [
+      {
+        q: '¿Qué son las afirmaciones para la ansiedad del domingo?',
+        a: 'Son frases cortas y realistas que reconocen el agobio antes del lunes sin prometer que todo saldrá bien. Las afirmaciones no cambiarán tu trabajo ni tu lunes, pero pueden hacer que el agobio suene un poco más bajo para que el domingo por la noche no se pierda del todo.',
+      },
+      {
+        q: '¿Qué afirmaciones puedo leer el domingo por la noche?',
+        a: 'Frases modestas que no prometen que el lunes será genial, por ejemplo: “No tengo que resolver toda la semana esta noche.” “El lunes llegará una tarea a la vez.” “Descansar ahora es parte de estar listo después.” Elige una y léela dos veces, despacio.',
+      },
+      {
+        q: '¿Cómo uso las afirmaciones en dos minutos el domingo por la noche?',
+        a: 'Escribe con palabras sencillas una o dos cosas del lunes que más te preocupan. Junto a cada una, anota un primer paso pequeño o "nada que hacer esta noche". Elige algo de la semana que esperes con ganas o que puedas llevar bien, aunque sea pequeño, como un café. Lee una afirmación de la lista dos veces, despacio. Luego cierra la lista y haz algo que disfrutes durante diez minutos.',
+      },
+      {
+        q: '¿Las afirmaciones sustituyen la ayuda profesional?',
+        a: 'No. Esta página es texto de autocuidado para una app de afirmaciones; no es consejo médico, diagnóstico ni tratamiento. Si el agobio por el trabajo es constante, afecta tu sueño o tu salud durante semanas o viene con sentimientos de desesperanza, habla con un médico, un terapeuta o una línea de ayuda de tu zona.',
+      },
     ],
     campaignPrefix: 'seo_es',
   },
@@ -169,4 +190,38 @@ export function getEsAffirmationProblem(
 
 export function allEsAffirmationSlugs(): string[] {
   return ES_AFFIRMATION_PROBLEMS.map((p) => p.slug);
+}
+
+export type EsAffirmationFaq = EnAffirmationFaq;
+
+/**
+ * FAQ shown on every /affirmation-app/es/a/* page (visible + FAQPage JSON-LD).
+ * Pages with a hand-written `faq` keep it; others get questions built only
+ * from their own on-page content (no new claims).
+ */
+export function esAffirmationFaq(
+  problem: EsAffirmationProblem,
+): EsAffirmationFaq[] {
+  if (problem.faq && problem.faq.length > 0) return problem.faq;
+  const out: EsAffirmationFaq[] = [];
+  const topic =
+    problem.shortTitle.charAt(0).toLowerCase() + problem.shortTitle.slice(1);
+  if (problem.affirmations.length >= 3) {
+    const [a, b, c] = problem.affirmations;
+    out.push({
+      q: `¿Qué ${topic} puedo leer?`,
+      a: `Las frases cortas y creíbles funcionan mejor, por ejemplo: “${a}” “${b}” “${c}” Elige una y léela despacio, una vez, en lugar de repetir una lista larga.`,
+    });
+  }
+  if (problem.practice.steps.length > 0) {
+    out.push({
+      q: `¿Cómo uso ${topic} en unos dos minutos?`,
+      a: problem.practice.steps.join(' '),
+    });
+  }
+  out.push({
+    q: '¿La app de afirmaciones Anicca es gratis?',
+    a: 'Anicca se puede descargar gratis en la App Store para iPhone, con suscripciones opcionales dentro de la app. Los planes disponibles y los precios locales se muestran en la pantalla de compra. No hay rachas.',
+  });
+  return out;
 }

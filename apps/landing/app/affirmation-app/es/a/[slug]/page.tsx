@@ -12,6 +12,7 @@ import {
   ES_AFFIRMATION_PROBLEMS,
   allEsAffirmationSlugs,
   esAffirmationAppStoreUrl,
+  esAffirmationFaq,
   getEsAffirmationProblem,
 } from '@/lib/es-affirmation-problems';
 
@@ -63,6 +64,8 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
   const published = '2026-10-16';
   const heading = problem.h1 ?? problem.title;
   const hasAffirmations = problem.affirmations.length > 0;
+  const faqItems = esAffirmationFaq(problem);
+  const hasFaq = faqItems.length > 0;
 
   const articleLd = {
     '@context': 'https://schema.org',
@@ -117,6 +120,21 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
     ],
   };
 
+  const faqLd = hasFaq
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.a,
+          },
+        })),
+      }
+    : null;
+
   const otherEs = ES_AFFIRMATION_PROBLEMS.filter((p) => p.slug !== problem.slug);
   const enGuides = EN_AFFIRMATION_PROBLEMS.filter((p) => p.slug !== problem.enSlug).slice(
     0,
@@ -127,6 +145,7 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
     <>
       <JsonLd data={articleLd} />
       <JsonLd data={breadcrumbLd} />
+      {faqLd ? <JsonLd data={faqLd} /> : null}
       <EsAffirmationSeoLayout breadcrumbCurrent={problem.shortTitle}>
         <article>
           <h1 className="text-[30px] font-semibold leading-tight tracking-tight sm:text-[38px]">
@@ -188,6 +207,24 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
               ))}
             </ol>
           </section>
+
+          {hasFaq ? (
+            <section className="mt-12">
+              <h2 className="text-[20px] font-semibold tracking-tight">
+                Preguntas frecuentes
+              </h2>
+              <dl className="mt-6 space-y-5">
+                {faqItems.map((item) => (
+                  <div key={item.q}>
+                    <dt className="text-[16px] font-semibold tracking-tight">{item.q}</dt>
+                    <dd className="mt-2 text-[15px] leading-relaxed text-[#5c5956]">
+                      {item.a}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ) : null}
 
           <section className="mt-12 rounded-[24px] border border-[#393634]/10 bg-[#fdfcfc] px-5 py-8 text-center">
             <h2 className="text-[22px] font-semibold tracking-tight">
