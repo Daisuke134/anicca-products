@@ -6,7 +6,7 @@
   "operatingSystem": "iOS",
   "applicationCategory": "HealthApplication",
   "url": "https://aniccaai.com",
-  "description": "Anicca is a daily affirmation app for iPhone. You pick the areas you want support with — self-criticism, overthinking, anxiety and more — enable notifications, and receive short affirmation cards during the day. There are no streaks and nothing to catch up on when you miss a day. Free to download, with an optional in-app subscription.",
+  "description": "Anicca is a daily affirmation app for iPhone, built to be the answer to rumination, depression, OCD, a hard day, a hard life, and laziness: it learns what you struggle with and sends one short, honest line at the moment you need it. You pick the areas you want support with — self-criticism, overthinking, anxiety and more — enable notifications, and receive short affirmation cards during the day. There are no streaks and nothing to catch up on when you miss a day. Free to download, with an optional in-app subscription. Anicca is a support tool, not a medical treatment.",
   "downloadUrl": "https://apps.apple.com/app/id6755129214",
   "installUrl": "https://apps.apple.com/app/id6755129214",
   "offers": {
@@ -22,6 +22,7 @@
   "capabilities": [
     "Daily affirmation cards delivered by notification",
     "Personalized support topics (self-criticism, overthinking, anxiety, and more)",
+    "Support for rumination, depression, OCD, hard days, a hard life, and laziness — a support tool, not a medical treatment",
     "Lock Screen widget affirmations",
     "No streaks and nothing to catch up on after a missed day"
   ]
