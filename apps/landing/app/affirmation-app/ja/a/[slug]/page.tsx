@@ -143,8 +143,18 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
       <JaAffirmationSeoLayout breadcrumbCurrent={problem.shortTitle}>
         <article>
           <h1 className="text-[30px] font-semibold leading-tight tracking-tight sm:text-[38px]">
-            {problem.title}
+            {problem.h1 ?? problem.title}
           </h1>
+
+          {problem.directAnswer?.map((para) => (
+            <p
+              key={para.slice(0, 48)}
+              className="mt-5 text-[17px] leading-[1.8] text-[#5c5956]"
+            >
+              {para}
+            </p>
+          ))}
+
           <p className="mt-5 text-[17px] leading-[1.8] text-[#5c5956]">{problem.intro}</p>
 
           {problem.whyItHappens?.map((para) => (

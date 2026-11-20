@@ -12,6 +12,16 @@ export type JaAffirmationProblem = {
   practice?: { heading: string; steps: string[] };
   /** Optional closing / medical disclaimer paragraph. */
   closing?: string;
+  /**
+   * Optional GEO fields (same pattern as the EN guides). When set, the page
+   * uses the exact phrase as H1, shows a quotable direct answer at the top,
+   * and uses these hand-written FAQs (+ FAQPage JSON-LD) instead of the
+   * auto-generated fallback.
+   */
+  h1?: string;
+  /** Usually three short paragraphs AI/search can quote. */
+  directAnswer?: string[];
+  faq?: JaAffirmationFaq[];
   /** True EN translation slug under /affirmation-app/a/* when one exists. */
   enSlug?: string;
   /** True ES translation slug under /affirmation-app/es/a/* when one exists. */
@@ -45,6 +55,30 @@ export const JA_AFFIRMATION_PROBLEMS: JaAffirmationProblem[] = [
     shortTitle: '寝る前の不安',
     metaDescription:
       '寝る前の不安をほどく短い日本語アファメーション集。アニッチャは、心が崩れ始めた瞬間に一行のやさしさを届ける iOS アプリです。',
+    h1: '寝る前の不安のアファメーション',
+    directAnswer: [
+      '寝る前の不安に効くアファメーションは、不安を消すための言葉ではありません。夜は考えが長くなりやすい時間で、静かになるほど、終わっていないことや明日の心配が大きく聞こえます。このページの言葉は、答えを出すためではなく、いまの気持ちに寄り添うためのものです。「今夜は、全部を解決しなくていい。」「この時間の心配は、朝の真実ではない。」のように、短くて信じられる一行を選ぶことが、寝る前の助けになります。',
+      'アニッチャは、心が崩れ始めた瞬間に一行のやさしさを届ける iOS アプリです。渦が来た瞬間に一行を届ける静かな同伴者として作られていて、ダウンロードは無料です（アプリ内に任意のサブスクリプションがあります）。ストリークはありません。このページの言葉は、アプリがなくてもそのまま使えます。',
+      'アファメーションは支援のためのセルフケアであり、医療上の助言・診断・治療ではありません。不安が頻繁に出る、眠れない日が続いて生活に影響している、といった状態が続くときは、医師やカウンセラー、地域の相談窓口に相談してください。',
+    ],
+    faq: [
+      {
+        q: '寝る前の不安に使えるアファメーションの例は？',
+        a: '短く、自分が信じられる言葉が向いています。たとえば「今夜は、全部を解決しなくていい。」「眠れなくても、横になっているだけで十分。」「答えは朝まで待たせていい。」。長いリストをくり返すより、一つ選んでゆっくり一回読むのがおすすめです。',
+      },
+      {
+        q: '寝る前にアファメーションはどう使えばいい？',
+        a: 'このページの言葉から、いちばん信じられる一行を選び、息をゆっくり吐きながら一回読みます。そのあとは「スマホを置いて、体の重さを感じていい。」のように、画面から離れて横になるのがおすすめです。気持ちが変わらなくても大丈夫です。必要なら別の一行を試してください。',
+      },
+      {
+        q: '眠れない夜でもアファメーションは役に立ちますか？',
+        a: 'アファメーションは眠りを約束するものではありません。ただ、眠れない時間を「失敗」と責める気持ちは少しやわらぎます。「眠れなくても、横になっているだけで十分。」『「まだ起きてる」は失敗ではない。』——横になって休んでいること自体に価値がある、という一行が助けになります。',
+      },
+      {
+        q: 'アニッチャのアファメーションアプリは無料ですか？',
+        a: 'アニッチャは iPhone 向けに App Store から無料でダウンロードできます。アプリ内には任意のサブスクリプションがあり、プランと価格は購入画面に表示されます。ストリークはありません。',
+      },
+    ],
     intro:
       '夜は考えが長くなりやすい時間です。ここにある一行は、答えを出すためではなく、いまの気持ちに寄り添うための言葉です。アニッチャは、渦が来た瞬間に一行を届ける静かな同伴者です。',
     affirmations: [
@@ -419,6 +453,7 @@ export type JaAffirmationFaq = { q: string; a: string };
  * Built only from each page's own lines and steps (no new claims).
  */
 export function jaAffirmationFaq(problem: JaAffirmationProblem): JaAffirmationFaq[] {
+  if (problem.faq && problem.faq.length > 0) return problem.faq;
   const out: JaAffirmationFaq[] = [];
   const st = problem.shortTitle;
   const isAff = /アファメーション$/.test(st);
