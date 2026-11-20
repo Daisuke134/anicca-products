@@ -89,6 +89,47 @@ test("does not duplicate an existing og:image", () => {
   assert.ok(!out.includes(OG_IMAGE_META));
 });
 
+const WEBSITE_ONLY_DOC =
+  '<html><head><meta name="description" content="JA description of Anicca.">' +
+  '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Anicca","url":"https://aniccaai.com/ja","publisher":{"@type":"Organization","name":"Anicca","url":"https://aniccaai.com"}}</script>' +
+  "</head><body><h1>x</h1></body></html>";
+
+test("appends the entity @graph when the document has no Organization node", () => {
+  const out = injectGeoHomeIntoHtml(WEBSITE_ONLY_DOC);
+  const blocks = [
+    ...out.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g),
+  ].map((m) => JSON.parse(m[1]));
+  const graphs = blocks.filter((b) => Array.isArray(b["@graph"]));
+  assert.equal(graphs.length, 1);
+  const org = graphs[0]["@graph"].find((n) => n["@type"] === "Organization");
+  assert.ok(org);
+  // The description is the page's own meta description, never invented.
+  assert.equal(org.description, "JA description of Anicca.");
+  assert.deepEqual(org.knowsAbout, KNOWS_ABOUT);
+  assert.deepEqual(org.sameAs, [
+    "https://github.com/Daisuke134/anicca",
+    "https://apps.apple.com/app/id6755129214",
+  ]);
+  assert.equal(org.contactPoint.email, "contact@aniccaai.com");
+  const app = graphs[0]["@graph"].find(
+    (n) => n["@type"] === "SoftwareApplication",
+  );
+  assert.ok(app);
+  assert.equal(app.downloadUrl, "https://apps.apple.com/app/id6755129214");
+});
+
+test("does not append the entity @graph when an Organization node exists", () => {
+  const html = `<html><head><meta name="description" content="EN description."></head><body>${ORG_GRAPH}</body></html>`;
+  const out = injectGeoHomeIntoHtml(html);
+  assert.ok(!out.includes("SoftwareApplication"));
+  assert.ok(!out.includes("contact@aniccaai.com"));
+});
+
+test("entity @graph injection is idempotent", () => {
+  const once = injectGeoHomeIntoHtml(WEBSITE_ONLY_DOC);
+  assert.equal(injectGeoHomeIntoHtml(once), once);
+});
+
 test("is idempotent", () => {
   const html = `<html><head><title>x</title></head><body>${ORG_GRAPH}</body></html>`;
   const once = injectGeoHomeIntoHtml(html);

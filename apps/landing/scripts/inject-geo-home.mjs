@@ -29,6 +29,23 @@
 // app's real icon, already served at /anicca-app-icon.png (1024x1024,
 // measured from the live PNG header) and already the Organization logo
 // in public/ai/summary.json — no new asset, no new claim.
+//
+// Entity-graph parity (2026-11-21, hourly GEO audit run 42): the JA
+// homepage document carries only a WebSite JSON-LD block — no
+// Organization node at all (measured live: JA audit schema 7/14 with
+// found_types ["WebSite"], brand_entity 4/12, vs EN 10/14 and 7/12
+// with the @graph the EN document carries). The enrichment above can
+// only add knowsAbout to an Organization that exists, so ja.html never
+// received the entity graph. When a homepage document has no
+// Organization node in any JSON-LD block, this step now appends the
+// @graph the EN homepage already serves (Organization +
+// SoftwareApplication, verbatim from app/layout.tsx SITE_JSONLD),
+// with the Organization description taken from the page's own meta
+// description — the same pattern the EN document follows (its
+// Organization description equals its meta description). Every other
+// field is a fact already live on the EN homepage and in
+// public/ai/summary.json: the contact email, the GitHub and App Store
+// sameAs URLs, the knowsAbout topics, and the free iOS app offer.
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -118,6 +135,75 @@ function addHomepageFactsToLdJson(html) {
   );
 }
 
+// The entity @graph for a homepage document that declares no
+// Organization at all. Organization + SoftwareApplication verbatim
+// from app/layout.tsx SITE_JSONLD (and the EN homepage's served
+// @graph); the description is filled from the page's own meta
+// description by ensureEntityGraph below.
+export const ENTITY_GRAPH = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      name: "Anicca",
+      url: "https://aniccaai.com",
+      logo: "https://aniccaai.com/anicca-app-icon.png",
+      description: "",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: "contact@aniccaai.com",
+      },
+      sameAs: [
+        "https://github.com/Daisuke134/anicca",
+        "https://apps.apple.com/app/id6755129214",
+      ],
+      knowsAbout: KNOWS_ABOUT,
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "Anicca",
+      operatingSystem: "iOS",
+      applicationCategory: "HealthApplication",
+      url: "https://aniccaai.com",
+      downloadUrl: "https://apps.apple.com/app/id6755129214",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    },
+  ],
+};
+
+function hasOrganizationNode(html) {
+  let found = false;
+  html.replace(
+    /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g,
+    (block, jsonText) => {
+      let data;
+      try {
+        data = JSON.parse(jsonText);
+      } catch {
+        return block;
+      }
+      const nodes = Array.isArray(data["@graph"]) ? data["@graph"] : [data];
+      for (const node of nodes) {
+        if (node && node["@type"] === "Organization") found = true;
+      }
+      return block;
+    },
+  );
+  return found;
+}
+
+function ensureEntityGraph(html) {
+  if (!/<\/head>/i.test(html)) return html;
+  if (hasOrganizationNode(html)) return html;
+  const desc = html.match(/<meta name="description" content="([^"]*)"/i);
+  if (!desc) return html;
+  const graph = JSON.parse(JSON.stringify(ENTITY_GRAPH));
+  graph["@graph"][0].description = desc[1];
+  const script = `<script type="application/ld+json">${JSON.stringify(graph)}</script>`;
+  return html.replace(/<\/head>/i, `${script}</head>`);
+}
+
 export function injectGeoHomeIntoHtml(html) {
   let out = html;
   if (/<\/head>/i.test(out)) {
@@ -131,6 +217,7 @@ export function injectGeoHomeIntoHtml(html) {
     }
   }
   out = addHomepageFactsToLdJson(out);
+  out = ensureEntityGraph(out);
   return out;
 }
 
