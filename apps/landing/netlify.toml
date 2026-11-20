@@ -4,10 +4,10 @@
 
 # The GitHub deploy workflow runs from apps/landing, so keep the Web-first
 # redirect in this deploy-root config as well as the repository-root config.
-# Markdown content negotiation for the homepage: forced rewrites route "/"
-# and "/en" to the markdown-home function (the /apple-rss/* pattern below).
-# The function returns Markdown for `Accept: text/markdown` and the static
-# homepage HTML otherwise. Keep this block identical in the other
+# Markdown content negotiation for the homepage: forced rewrites route "/",
+# "/en" and "/ja" to the markdown-home function (the /apple-rss/* pattern
+# below). The function returns Markdown for `Accept: text/markdown` and the
+# static homepage HTML otherwise. Keep this block identical in the other
 # netlify.toml (GHA deploys run from apps/landing; Netlify's own git builds
 # read the repository-root config).
 [[redirects]]
@@ -18,6 +18,12 @@
 
 [[redirects]]
   from = "/en"
+  to = "/.netlify/functions/markdown-home"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/ja"
   to = "/.netlify/functions/markdown-home"
   status = 200
   force = true
