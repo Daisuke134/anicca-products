@@ -1386,6 +1386,12 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     shortTitle: 'Affirmations to fall asleep to',
     metaDescription:
       'Calm affirmations to fall asleep to, how to use them at bedtime, and a two-minute wind-down. From the maker of Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    h1: 'affirmations to fall asleep to',
+    directAnswer: [
+      'Affirmations to fall asleep to are short, quiet lines you read or say at bedtime to give a busy mind something simple to rest on. The honest answer first: they will not put you to sleep on command, and they are not a treatment for sleep problems. For some people, a few quiet lines at bedtime are a gentle way to set the day down. It is a pause, not a switch.',
+      'A common reason sleep stalls is a busy mind: replaying the day, rehearsing tomorrow, or arguing with a worry. Lines tend to work better when they are soft and believable. "I will sleep perfectly tonight" can create pressure. Lines like "I do not have to solve tomorrow tonight" or "Resting is enough for now" do not demand a result, so there is nothing to fail at. Keep it low-stimulation: dim light, phone on night mode or set down after reading a line, and a slow pace, alongside the basics such as a regular schedule, a dark and cool room, and winding down before bed. Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+      'This page is self-care writing, not medical advice, diagnosis, or treatment. Anicca is a self-care tool, not a treatment for sleep problems. If trouble sleeping lasts for weeks, affects your daytime life or health, or comes with low mood or panic, please talk with a doctor, therapist, or local helpline.',
+    ],
     whyItHappens: [
       'Full disclosure: this site is run by Anicca, the company that makes the Anicca affirmation app, so we are not neutral. The honest short answer: affirmations will not put you to sleep on command, and they are not a treatment for sleep problems. For some people, a few quiet lines at bedtime are a gentle way to set the day down.',
       'A common reason sleep stalls is a busy mind: replaying the day, rehearsing tomorrow, or arguing with a worry. A short, steady sentence gives your mind something simple to rest on instead of the loop. It is a pause, not a switch.',
@@ -1413,6 +1419,24 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
         'Read one line from the list, slowly, twice. Put the phone down and keep the lights low. If you are still awake, that is okay: rest quietly instead of trying to force sleep.',
       ],
     },
+    faq: [
+      {
+        q: 'What are affirmations to fall asleep to?',
+        a: 'Affirmations to fall asleep to are short, quiet lines you read or say at bedtime to give a busy mind something simple to rest on. They will not put you to sleep on command, and they are not a treatment for sleep problems. For some people, a few quiet lines at bedtime are a gentle way to set the day down. It is a pause, not a switch.',
+      },
+      {
+        q: 'What are good affirmations to fall asleep to?',
+        a: 'Soft, believable lines from this page, for example: “I do not have to solve tomorrow tonight.” “Resting is enough for now.” “I do not have to force sleep. I can simply lie here and rest.” Lines like these do not demand a result, so there is nothing to fail at. "I will sleep perfectly tonight" can create pressure instead.',
+      },
+      {
+        q: 'How do I use affirmations to fall asleep?',
+        a: 'Try the two-minute wind-down on this page: write one unfinished thing on paper, with a first step for tomorrow if you like, so your mind does not have to hold it overnight. Breathe out slowly for a count of six, three times, with your shoulders loose. Read one line from the list, slowly, twice. Put the phone down and keep the lights low. If you are still awake, that is okay: rest quietly instead of trying to force sleep.',
+      },
+      {
+        q: 'What app sends affirmations to fall asleep to?',
+        a: 'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines on this page are free to use with or without the app. It is a self-care support tool, not medical advice or a treatment for sleep problems.',
+      },
+    ],
     closing:
       'Related guides: affirmations for overthinking at night and affirmations for anxiety, linked below. If trouble sleeping lasts for weeks, affects your daytime life or health, or comes with low mood or panic, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
