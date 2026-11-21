@@ -367,6 +367,14 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
                 Volver al listado
               </Link>
             </p>
+            <p className="mt-3 text-[14px]">
+              <Link
+                href="/about"
+                className="underline underline-offset-2 hover:text-[#393634]"
+              >
+                Sobre Anicca (en inglés)
+              </Link>
+            </p>
           </section>
         </article>
       </EsAffirmationSeoLayout>

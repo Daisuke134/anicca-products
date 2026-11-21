@@ -390,6 +390,14 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
                 Back to Anicca
               </Link>
             </p>
+            <p className="mt-3 text-[14px]">
+              <Link
+                href="/about"
+                className="underline underline-offset-2 hover:text-[#393634]"
+              >
+                About Anicca
+              </Link>
+            </p>
           </section>
         </article>
       </EnAffirmationSeoLayout>

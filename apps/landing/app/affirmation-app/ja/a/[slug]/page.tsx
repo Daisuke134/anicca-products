@@ -348,6 +348,14 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
                 一覧に戻る
               </Link>
             </p>
+            <p className="mt-3 text-[14px]">
+              <Link
+                href="/about/ja"
+                className="underline underline-offset-2 hover:text-[#393634]"
+              >
+                Aniccaについて
+              </Link>
+            </p>
           </section>
         </article>
       </JaAffirmationSeoLayout>
