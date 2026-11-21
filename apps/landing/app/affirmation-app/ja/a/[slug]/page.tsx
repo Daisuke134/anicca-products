@@ -45,13 +45,33 @@ export function generateMetadata({ params }: PageProps): Metadata {
   return {
     title: `${problem.title}｜アニッチャ`,
     description: problem.metaDescription,
-    alternates: { canonical: url, languages },
+    alternates: {
+      canonical: url,
+      languages,
+      // RSS parity with app/layout.tsx (GEO audit 2026-11-21: guide pages
+      // scored signals has_rss=false and meta has_og_image=false because
+      // this alternates/openGraph override drops the layout's RSS types
+      // and og:image). /feed.xml is the site's real articles feed.
+      types: {
+        'application/rss+xml': 'https://aniccaai.com/feed.xml',
+      },
+    },
     openGraph: {
       title: `${problem.title}｜アニッチャ`,
       description: problem.metaDescription,
       url,
       locale: 'ja_JP',
       type: 'article',
+      // Same real app icon the layout and homepage declare
+      // (/anicca-app-icon.png, 1024x1024, the Organization logo).
+      images: [
+        {
+          url: 'https://aniccaai.com/anicca-app-icon.png',
+          width: 1024,
+          height: 1024,
+          alt: 'Anicca app icon',
+        },
+      ],
     },
   };
 }
