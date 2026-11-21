@@ -1,6 +1,33 @@
-export const metadata = {
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: the EN support page scored 79/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3; this JA page
+// shares the same template pattern). The canonical is this page's own
+// real URL; the RSS type and og:image mirror app/layout.tsx (the real
+// /feed.xml and the real app icon, 1024x1024). Title and description
+// are unchanged.
+export const metadata: Metadata = {
   title: 'サポート | Anicca',
-  description: 'Aniccaのヘルプ - 音声で習慣を整えるコーチ'
+  description: 'Aniccaのヘルプ - 音声で習慣を整えるコーチ',
+  alternates: {
+    canonical: 'https://aniccaai.com/support/ja',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'サポート | Anicca',
+    description: 'Aniccaのヘルプ - 音声で習慣を整えるコーチ',
+    url: 'https://aniccaai.com/support/ja',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 export default function SupportJA() {
@@ -87,6 +114,9 @@ export default function SupportJA() {
           </li>
         </ul>
       </section>
+      <p className="mt-10 text-muted-foreground">
+        <a href="/about/ja" className="underline">Aniccaについて →</a>
+      </p>
     </main>
   )
 }
