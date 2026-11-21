@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-11-21 14:07 JST",
+  "updated_at": "2026-11-21 14:37 JST",
   "month": "2026-11",
   "currency": "USD",
   "sources_line": "Stripe, RevenueCat, Capafy notices, Coconala, Base chain, receipts",
@@ -31,8 +31,8 @@
     {
       "key": "cost",
       "label": "Observed payment notices (current month)",
-      "usd": 1640.08,
-      "source": "Observed payment notices Nov, incl. Relixir $40.00 (2 receipts #2980-4321 11-02 + #2480-9759 11-05, double billing confirmed), Skyliner $16.45, ZIPAIR $5.10, trifa $23.21 (receipt #1804-2116), OpenRouter $7.43 (API query), CLIPPER $12.29 (MUFG debit 11:36), CLIPPER 2nd fare $2.96 (MUFG debit 14:28), CLIPPER 3rd fare $9.32 (MUFG debit 15:18), Caltrain $17.71 (MUFG debit 09:38 11-07), CLIPPER 4th fare $6.10 (MUFG debit 09:36 11-07), Grand Hyatt $10.49 (MUFG debit 14:36 11-07); audit 2026-11-05 + cost-ledger 2026-11-07 14:3x + Muse Power Plan $22.31 (Apple receipt 2026-11-07, order MKX889K9T8) + LinkedIn Premium Career $12.69 (Apple receipt 2026-11-07, order MKX889NVM9) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 2026-11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 11-07, id 1a1b646be082a933) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + Trip.com flight rebooking $451.20 (actual order total; MUFG debit 21:59 JST 11-08, id 1a1bb3e4bfcd65cf; 73,738 yen charged; corrected from team-rate conversion $470.15; booking 1658117023914143 SFO-Manila-Tokyo, Payment Successful 12:59Z id 1a1bb3dfb5cc0391 + Booking Confirmed 13:00Z id 1a1bb3ecd44df307, observed-payment basis) + CLIPPER fare 6 $2.96 (MUFG debit 01:26 JST 11-09, id 1a1bbfbd000bb9de, full read; 465 local units at team rate 156.84; date distinct from Nov 6 fare of same amount; cost-ledger 2026-11-09 01:3x) + CLIPPER fare 7 $2.96 (MUFG debit 12:17 JST 11-09, id 1a1be4f7ad5e94f5, full read; 465 local units at team rate 156.84; date distinct from fare 6; cost-ledger 2026-11-09 12:3x) + HeyGen API $10.00 (Stripe receipt #2117-0825, paid 2026-11-09, Gmail id 1a1be5c68ca3a045; MUFG debit 1,634 local units id 1a1be5b95a133e21 is same payment, not double-counted) + CLIPPER fare 8 $9.22 (MUFG debit 13:11 JST 11-09, id 1a1be813925a983b, full read; 1,446 local units at team rate 156.84; amount distinct from fares 1-7; cost-ledger 2026-11-09 13:3x) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38, 250 local units at team rate 156.84) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923, 638 local units at team rate 156.84) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84)"
+      "usd": 1651.41,
+      "source": "Observed payment notices Nov, incl. Relixir $40.00 (2 receipts #2980-4321 11-02 + #2480-9759 11-05, double billing confirmed), Skyliner $16.45, ZIPAIR $5.10, trifa $23.21 (receipt #1804-2116), OpenRouter $7.43 (API query), CLIPPER $12.29 (MUFG debit 11:36), CLIPPER 2nd fare $2.96 (MUFG debit 14:28), CLIPPER 3rd fare $9.32 (MUFG debit 15:18), Caltrain $17.71 (MUFG debit 09:38 11-07), CLIPPER 4th fare $6.10 (MUFG debit 09:36 11-07), Grand Hyatt $10.49 (MUFG debit 14:36 11-07); audit 2026-11-05 + cost-ledger 2026-11-07 14:3x + Muse Power Plan $22.31 (Apple receipt 2026-11-07, order MKX889K9T8) + LinkedIn Premium Career $12.69 (Apple receipt 2026-11-07, order MKX889NVM9) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 2026-11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 11-07, id 1a1b646be082a933) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + Trip.com flight rebooking $451.20 (actual order total; MUFG debit 21:59 JST 11-08, id 1a1bb3e4bfcd65cf; 73,738 yen charged; corrected from team-rate conversion $470.15; booking 1658117023914143 SFO-Manila-Tokyo, Payment Successful 12:59Z id 1a1bb3dfb5cc0391 + Booking Confirmed 13:00Z id 1a1bb3ecd44df307, observed-payment basis) + CLIPPER fare 6 $2.96 (MUFG debit 01:26 JST 11-09, id 1a1bbfbd000bb9de, full read; 465 local units at team rate 156.84; date distinct from Nov 6 fare of same amount; cost-ledger 2026-11-09 01:3x) + CLIPPER fare 7 $2.96 (MUFG debit 12:17 JST 11-09, id 1a1be4f7ad5e94f5, full read; 465 local units at team rate 156.84; date distinct from fare 6; cost-ledger 2026-11-09 12:3x) + HeyGen API $10.00 (Stripe receipt #2117-0825, paid 2026-11-09, Gmail id 1a1be5c68ca3a045; MUFG debit 1,634 local units id 1a1be5b95a133e21 is same payment, not double-counted) + CLIPPER fare 8 $9.22 (MUFG debit 13:11 JST 11-09, id 1a1be813925a983b, full read; 1,446 local units at team rate 156.84; amount distinct from fares 1-7; cost-ledger 2026-11-09 13:3x) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38, 250 local units at team rate 156.84) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923, 638 local units at team rate 156.84) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84) + COMMANDCODE.AI $11.33 (MUFG debit 2026-11-20 19:53 JST, id 1a1f897a7b70d1f7; cost-ledger 2026-11-21 10:52)"
     },
     {
       "key": "costl",
@@ -43,9 +43,9 @@
     {
       "key": "gp",
       "label": "Profit this month",
-      "usd": -1608.27,
-      "source": "Revenue $31.81 minus costs $576.93 (audit 2026-11-05 + Skyliner debit + Relixir 2nd receipt + ZIPAIR $5.10 + trifa $23.21 + OpenRouter $7.43 + CLIPPER $12.29 + CLIPPER 2nd fare $2.96 + CLIPPER 3rd fare $9.32 + Caltrain $17.71 + CLIPPER 4th fare $6.10); $31.88 variant not used + Grand Hyatt $10.49 (MUFG debit 14:36 JST 11-07) + Muse Power Plan $22.31 (Apple receipt 11-07) + LinkedIn Premium Career $12.69 (Apple receipt 11-07) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 11-07) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + Trip.com flight rebooking $451.20 (actual order total; MUFG debit 21:59 JST 11-08, id 1a1bb3e4bfcd65cf; 73,738 yen charged; corrected from team-rate conversion $470.15; booking 1658117023914143 SFO-Manila-Tokyo, Payment Successful 12:59Z id 1a1bb3dfb5cc0391 + Booking Confirmed 13:00Z id 1a1bb3ecd44df307, observed-payment basis) + CLIPPER fare 6 $2.96 (MUFG debit 01:26 JST 11-09, id 1a1bbfbd000bb9de, full read; 465 local units at team rate 156.84; date distinct from Nov 6 fare of same amount; cost-ledger 2026-11-09 01:3x) + CLIPPER fare 7 $2.96 (MUFG debit 12:17 JST 11-09, id 1a1be4f7ad5e94f5) + HeyGen API $10.00 (receipt #2117-0825, id 1a1be5c68ca3a045; same-payment MUFG notice not double-counted) + CLIPPER fare 8 $9.22 (MUFG debit 13:11 JST 11-09, id 1a1be813925a983b) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38, 250 local units at team rate 156.84) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923, 638 local units at team rate 156.84) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84)",
-      "pct": -5056
+      "usd": -1619.6,
+      "source": "Revenue $31.81 minus costs $576.93 (audit 2026-11-05 + Skyliner debit + Relixir 2nd receipt + ZIPAIR $5.10 + trifa $23.21 + OpenRouter $7.43 + CLIPPER $12.29 + CLIPPER 2nd fare $2.96 + CLIPPER 3rd fare $9.32 + Caltrain $17.71 + CLIPPER 4th fare $6.10); $31.88 variant not used + Grand Hyatt $10.49 (MUFG debit 14:36 JST 11-07) + Muse Power Plan $22.31 (Apple receipt 11-07) + LinkedIn Premium Career $12.69 (Apple receipt 11-07) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 11-07) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + Trip.com flight rebooking $451.20 (actual order total; MUFG debit 21:59 JST 11-08, id 1a1bb3e4bfcd65cf; 73,738 yen charged; corrected from team-rate conversion $470.15; booking 1658117023914143 SFO-Manila-Tokyo, Payment Successful 12:59Z id 1a1bb3dfb5cc0391 + Booking Confirmed 13:00Z id 1a1bb3ecd44df307, observed-payment basis) + CLIPPER fare 6 $2.96 (MUFG debit 01:26 JST 11-09, id 1a1bbfbd000bb9de, full read; 465 local units at team rate 156.84; date distinct from Nov 6 fare of same amount; cost-ledger 2026-11-09 01:3x) + CLIPPER fare 7 $2.96 (MUFG debit 12:17 JST 11-09, id 1a1be4f7ad5e94f5) + HeyGen API $10.00 (receipt #2117-0825, id 1a1be5c68ca3a045; same-payment MUFG notice not double-counted) + CLIPPER fare 8 $9.22 (MUFG debit 13:11 JST 11-09, id 1a1be813925a983b) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38, 250 local units at team rate 156.84) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923, 638 local units at team rate 156.84) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84) + COMMANDCODE.AI $11.33 (MUFG debit 2026-11-20 19:53 JST, id 1a1f897a7b70d1f7; cost-ledger 2026-11-21 10:52)",
+      "pct": -5091
     },
     {
       "key": "gpl",
@@ -57,9 +57,9 @@
     {
       "key": "margin",
       "label": "Margin",
-      "pct": -5056,
-      "source": "Gross profit $ -545.12 / revenue $31.81; audit 2026-11-05 + Skyliner debit + Relixir 2nd receipt + ZIPAIR $5.10 + trifa $23.21 + OpenRouter $7.43 + CLIPPER $12.29 + CLIPPER 2nd fare $2.96 + CLIPPER 3rd fare $9.32 + Caltrain $17.71 + CLIPPER 4th fare $6.10 (cost-ledger 2026-11-07 09:3x+ Grand Hyatt $10.49 (MUFG debit 14:36 JST 11-07)) + Muse Power Plan $22.31 (Apple receipt 11-07) + LinkedIn Premium Career $12.69 (Apple receipt 11-07) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 11-07) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + Trip.com flight rebooking $451.20 (actual order total; MUFG debit 21:59 JST 11-08, id 1a1bb3e4bfcd65cf; 73,738 yen charged; corrected from team-rate conversion $470.15; booking 1658117023914143 SFO-Manila-Tokyo, Payment Successful 12:59Z id 1a1bb3dfb5cc0391 + Booking Confirmed 13:00Z id 1a1bb3ecd44df307, observed-payment basis) + CLIPPER fare 6 $2.96 (MUFG debit 01:26 JST 11-09, id 1a1bbfbd000bb9de, full read; 465 local units at team rate 156.84; date distinct from Nov 6 fare of same amount; cost-ledger 2026-11-09 01:3x) + CLIPPER fare 7 $2.96 (id 1a1be4f7ad5e94f5) + HeyGen API $10.00 (receipt #2117-0825) + CLIPPER fare 8 $9.22 (id 1a1be813925a983b) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38, 250 local units at team rate 156.84) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923, 638 local units at team rate 156.84) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84)",
-      "usd": -1608.27
+      "pct": -5091,
+      "source": "Gross profit $ -545.12 / revenue $31.81; audit 2026-11-05 + Skyliner debit + Relixir 2nd receipt + ZIPAIR $5.10 + trifa $23.21 + OpenRouter $7.43 + CLIPPER $12.29 + CLIPPER 2nd fare $2.96 + CLIPPER 3rd fare $9.32 + Caltrain $17.71 + CLIPPER 4th fare $6.10 (cost-ledger 2026-11-07 09:3x+ Grand Hyatt $10.49 (MUFG debit 14:36 JST 11-07)) + Muse Power Plan $22.31 (Apple receipt 11-07) + LinkedIn Premium Career $12.69 (Apple receipt 11-07) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 11-07) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + Trip.com flight rebooking $451.20 (actual order total; MUFG debit 21:59 JST 11-08, id 1a1bb3e4bfcd65cf; 73,738 yen charged; corrected from team-rate conversion $470.15; booking 1658117023914143 SFO-Manila-Tokyo, Payment Successful 12:59Z id 1a1bb3dfb5cc0391 + Booking Confirmed 13:00Z id 1a1bb3ecd44df307, observed-payment basis) + CLIPPER fare 6 $2.96 (MUFG debit 01:26 JST 11-09, id 1a1bbfbd000bb9de, full read; 465 local units at team rate 156.84; date distinct from Nov 6 fare of same amount; cost-ledger 2026-11-09 01:3x) + CLIPPER fare 7 $2.96 (id 1a1be4f7ad5e94f5) + HeyGen API $10.00 (receipt #2117-0825) + CLIPPER fare 8 $9.22 (id 1a1be813925a983b) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38, 250 local units at team rate 156.84) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923, 638 local units at team rate 156.84) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84) + COMMANDCODE.AI $11.33 (MUFG debit 2026-11-20 19:53 JST, id 1a1f897a7b70d1f7; cost-ledger 2026-11-21 10:52)",
+      "usd": -1619.6
     },
     {
       "key": "mrr",
@@ -102,9 +102,9 @@
     {
       "month": "2026-11 (to date)",
       "revenue_usd": 31.81,
-      "cost_usd": 1640.08,
-      "gross_profit_usd": -1608.27,
-      "source": "Monthly series + audit 2026-11-05: revenue 31.81, costs incl. Relixir $40.00 (2 receipts), Skyliner $16.45, ZIPAIR $5.10, trifa $23.21, OpenRouter $7.43, CLIPPER $12.29, CLIPPER 2nd fare $2.96, CLIPPER 3rd fare $9.32, Caltrain $17.71 (MUFG debit 09:38 JST 11-07) and CLIPPER 4th fare $6.10 (MUFG debit 09:36 JST 11-07) = 434.27 and Grand Hyatt $10.49 (MUFG debit 14:36 JST 11-07) = 444.76 + Muse Power Plan $22.31 (Apple receipt 2026-11-07) + LinkedIn Premium Career $12.69 (Apple receipt 2026-11-07) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 2026-11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 2026-11-07, id 1a1b646be082a933) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84)",
+      "cost_usd": 1651.41,
+      "gross_profit_usd": -1619.6,
+      "source": "Monthly series + audit 2026-11-05: revenue 31.81, costs incl. Relixir $40.00 (2 receipts), Skyliner $16.45, ZIPAIR $5.10, trifa $23.21, OpenRouter $7.43, CLIPPER $12.29, CLIPPER 2nd fare $2.96, CLIPPER 3rd fare $9.32, Caltrain $17.71 (MUFG debit 09:38 JST 11-07) and CLIPPER 4th fare $6.10 (MUFG debit 09:36 JST 11-07) = 434.27 and Grand Hyatt $10.49 (MUFG debit 14:36 JST 11-07) = 444.76 + Muse Power Plan $22.31 (Apple receipt 2026-11-07) + LinkedIn Premium Career $12.69 (Apple receipt 2026-11-07) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 2026-11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 2026-11-07, id 1a1b646be082a933) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84) + COMMANDCODE.AI $11.33 (MUFG debit 2026-11-20 19:53 JST, id 1a1f897a7b70d1f7; cost-ledger 2026-11-21 10:52)",
       "coverage_note": "Coverage incomplete; company revenue and profit are not established."
     }
   ],
@@ -334,11 +334,19 @@
       "unknown": false,
       "source": "MUFG debit notice 2026-11-10 16:46:20 JST (Gmail id 1a1c46c36aa5914d, full read): NARITAKUKOKEISEIKOSOKUB 3,600 local units; USD at team rate 156.84 (3600 / 156.84 = $22.95); cost-ledger 2026-11-10 17:07 frame",
       "period_note": "Narita airport access 2026-11-10; observed-payment basis"
+    },
+    {
+      "item": "Command Code (COMMANDCODE.AI)",
+      "usd": 11.33,
+      "payments": 1,
+      "unknown": false,
+      "source": "MUFG debit notice 2026-11-20 19:53:57 JST, Gmail id 1a1f897a7b70d1f7; USD at team rate 156.84; cost-ledger 2026-11-21 10:52",
+      "period_note": "Payment-notice month 2026-11; coding-agent service (Command Code)"
     }
   ],
   "costs_month_total": {
-    "usd": 1640.08,
-    "source": "Observed payments Nov incl. Relixir $40.00 (2 receipts), Skyliner $16.45, ZIPAIR $5.10, trifa $23.21, OpenRouter $7.43, CLIPPER $12.29, CLIPPER 2nd fare $2.96, CLIPPER 3rd fare $9.32, Caltrain $17.71 (MUFG debit 09:38) and CLIPPER 4th fare $6.10 (MUFG debit 09:36); 2nd CLIPPER 1,928 notice judged duplicate (cost-ledger 12:5x) and Grand Hyatt $10.49 (MUFG debit 14:36 11-07); audit 2026-11-05 + cost-ledger 2026-11-07 14:3x + Muse Power Plan $22.31 (Apple receipt 11-07) + LinkedIn Premium Career $12.69 (Apple receipt 11-07) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 11-07) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + Trip.com flight rebooking $451.20 (actual order total; MUFG debit 21:59 JST 11-08, id 1a1bb3e4bfcd65cf; 73,738 yen charged; corrected from team-rate conversion $470.15; booking 1658117023914143 SFO-Manila-Tokyo, Payment Successful 12:59Z id 1a1bb3dfb5cc0391 + Booking Confirmed 13:00Z id 1a1bb3ecd44df307, observed-payment basis) + CLIPPER fare 6 $2.96 (MUFG debit 01:26 JST 11-09, id 1a1bbfbd000bb9de, full read; 465 local units at team rate 156.84; date distinct from Nov 6 fare of same amount; cost-ledger 2026-11-09 01:3x) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38; KPI-aligned fix at 08:37 frame, watch item 477) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84)"
+    "usd": 1651.41,
+    "source": "Observed payments Nov incl. Relixir $40.00 (2 receipts), Skyliner $16.45, ZIPAIR $5.10, trifa $23.21, OpenRouter $7.43, CLIPPER $12.29, CLIPPER 2nd fare $2.96, CLIPPER 3rd fare $9.32, Caltrain $17.71 (MUFG debit 09:38) and CLIPPER 4th fare $6.10 (MUFG debit 09:36); 2nd CLIPPER 1,928 notice judged duplicate (cost-ledger 12:5x) and Grand Hyatt $10.49 (MUFG debit 14:36 11-07); audit 2026-11-05 + cost-ledger 2026-11-07 14:3x + Muse Power Plan $22.31 (Apple receipt 11-07) + LinkedIn Premium Career $12.69 (Apple receipt 11-07) + Maritime AI credits $20.00 (Stripe receipt #2640-8505, 11-07) + Grand Hyatt 2nd $15.97 (MUFG debit 22:50 JST 11-07) + OpenRouter credits $52.75 (Stripe receipt #1840-0406, paid 2026-11-07 15:05 UTC, Gmail id 1a1b68c6f403914e) Cost basis unified to observed payments (investigation 2026-11-07 S6 plan A): metered OpenRouter usage $7.43 removed (usage from prior credits, not a Nov payment); credits purchase $52.75 kept. + CLIPPER fare 5 $12.19 (MUFG debit 01:20 JST 11-08, id 1a1b6d032e35b163) + TST* MAINSTAY MARKETS $3.69 (MUFG debit 03:03 JST 11-08, id 1a1b72e868e50120) + Trip.com flight $558.20 (MUFG debit 21:03 JST 11-08, id 1a1bb0ab8b678680; 87,548 local units at team rate 156.84; SFO-Manila-Tokyo booking confirmed, observed-payment basis) + Trip.com flight rebooking $451.20 (actual order total; MUFG debit 21:59 JST 11-08, id 1a1bb3e4bfcd65cf; 73,738 yen charged; corrected from team-rate conversion $470.15; booking 1658117023914143 SFO-Manila-Tokyo, Payment Successful 12:59Z id 1a1bb3dfb5cc0391 + Booking Confirmed 13:00Z id 1a1bb3ecd44df307, observed-payment basis) + CLIPPER fare 6 $2.96 (MUFG debit 01:26 JST 11-09, id 1a1bbfbd000bb9de, full read; 465 local units at team rate 156.84; date distinct from Nov 6 fare of same amount; cost-ledger 2026-11-09 01:3x) + SUBWAY T1 $1.59 (MUFG debit 07:39 JST 11-10, id 1a1c2776096a7f38; KPI-aligned fix at 08:37 frame, watch item 477) + NARITA AIRPORT $4.07 (MUFG debit 14:36 JST 11-10, id 1a1c3f5c5870b923) + NARITAKUKOKEISEIKOSOKUB $22.95 (MUFG debit 16:46 JST 11-10, id 1a1c46c36aa5914d, 3,600 local units at team rate 156.84) + COMMANDCODE.AI $11.33 (MUFG debit 2026-11-20 19:53 JST, id 1a1f897a7b70d1f7; cost-ledger 2026-11-21 10:52)"
   },
   "active_costs": [],
   "notices_unpaid": [
@@ -352,15 +360,15 @@
   ],
   "reconciliation_complete": false,
   "gross_profit_detail": {
-    "usd": -1608.27,
-    "source": "Revenue $31.81 minus costs $1,640.08 (observed-payment basis; incl. NARITAKUKOKEISEIKOSOKUB $22.95 on 2026-11-10)."
+    "usd": -1619.6,
+    "source": "Revenue $31.81 minus costs $1,651.41 (observed-payment basis; incl. NARITAKUKOKEISEIKOSOKUB $22.95 on 2026-11-10 + COMMANDCODE.AI $11.33 on 2026-11-20)."
   },
   "by_agent": [
     {
       "agent": "Muse",
-      "board_updates_today": 961,
+      "board_updates_today": 962,
       "surfaces": "/open dashboard (30-min frames incl. 15:19), IG/TikTok/YouTube distribution, contract platforms",
-      "status": "Active. 14:07 frame (Nov 21); base is GitHub main 13:37 version (handoffs 4559, content sha 576c9e3ee023d1a1ea1192114c5f4a56142a6c9e); live data.json reads 2026-11-21 13:37 JST at frame start (curl real read this frame), so landing of 13:37 is VERIFIED. Rankings: SEO latest 2026-11-21T05:00:47.589620+00:00 (anicca in top 2/7, diffs vs 13:37 version: []), Bing latest 2026-11-21T04:57:41.713181+00:00 (anicca 0/7, happierhuman hits [('affirmation app', 1), ('daily affirmations', 5)]), ASO latest 2026-11-21T04:56:14.359467+00:00 (diffs vs 13:37 version: ['ASO JP アファメーション 25->27', 'ASO JP ポジティブ 121->137', 'ASO JP winner ポジティブ 16->17', 'ASO JP winner 感謝 10->9', 'ASO JP winner モチベーション 25->22']), GEO latest 2026-11-21T04:57:58.559733+00:00 (anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en02, en04, en06); en03, en05, jp01, jp02 no brands), TikTok census 2026-11-21T04:46:30.522850+00:00 (NEW, totals in handoffs), LinkedIn batch 2026-11-21T04:44:42.873497+00:00 (NEW, detail in handoffs; outbound 0). MRR REBUILT from LIVE metrics.json (updated_at 2026-11-20 21:34 JST, RC $20, Capafy $0, Stripe $0, total $20); revenue MTD $31.81, costs $1,640.08, gross -$1,608.27. Stripe HELD from 2026-11-20 08:40 JST re-measure via Stripe connector (livemode anicca account): balance $0, subscriptions 0 active / 0 total, contribution $0 (measured, not unmeasured); fresh confirmation 2026-11-21 07:22 metrics pipeline: status connected, balance 0, subs 0, latest charge declined (not revenue). Wallet synced (canonical re-read via gh api, md5 19574bfdf5c31a32156011477ec1adc0 identical), balance $63.33 (2026-11-11, sync unconfirmed); 2026-11-20 salary (unconfirmed). FUNNELS: app_funnels deep-equal canonical v2; Anicca iOS funnel n=12 held. Apps ASC HELD (apps-metrics-latest 2026-11-20T21:48:04Z): total 1,594/11 (windows 2026-11-13..19); subs Anicca 5 (2026-11-17), Honne 2 (2026-11-17), Sleep 0 (2026-11-17). RC obs NEW 14:01 Nov 21 (obs-2026-11-21-1401-rc.json, overview format): new 185, active 209, subs 5, trials 0, MRR $20, revenue $0; new customers +1 vs the 13:37 frame, observed in the 14:01 file (not the 09:00 hour), so no bulk-registration incident is recorded; the +4 increase first observed in the 09:01 file remains flagged in the log per the 09:00-hour rule. Gmail triage unavailable (gws binary empty/missing; unmeasured). No new revenue receipts confirmed. Reason: No messages (exit 0). NOTE: built in memory from the GitHub main 13:37 version, published directly via GitHub API (curl), verified by git blob readback."
+      "status": "Active. 14:37 frame (Nov 21); base is GitHub main 14:07 version (handoffs 4567, content sha 7cd84c8ef76ed764240ab7ead890d93af25e817f); live data.json reads 2026-11-21 14:07 JST at frame start (curl real read this frame), so landing of 14:07 is VERIFIED. Rankings: SEO latest 2026-11-21T05:31:56.706321+00:00 (anicca in top 2/7, diffs vs 14:07 version: []), Bing latest 2026-11-21T05:43:18.509313+00:00 (anicca 0/7, happierhuman hits [('daily affirmations', 5)]), ASO latest 2026-11-21T05:41:42.788212+00:00 (diffs vs 14:07 version: ['ASO JP ポジティブ 137->135', 'ASO JP マインドフルネス out->185', 'ASO JP winner 感謝 9->10', 'ASO JP winner モチベーション 22->25', 'ASO US winner gratitude 6->5']), GEO latest 2026-11-21T05:28:29.657794+00:00 (anicca 0 mentioned, 0 cited; ThinkUp first 2/8 (en04, en06); en01 Mantra first, en02 I am first, en05 Motion first; en03, jp01, jp02 no brands), TikTok census 2026-11-21T04:46:30.522850+00:00 (HELD, totals in handoffs), LinkedIn batch 2026-11-21T04:44:42.873497+00:00 (HELD, detail in handoffs; outbound 0). MRR REBUILT from LIVE metrics.json (updated_at 2026-11-20 21:34 JST, RC $20, Capafy $0, Stripe $0, total $20); revenue MTD $31.81, costs $1,651.41, gross -$1,619.60. COST FIX this frame: COMMANDCODE.AI $11.33 (MUFG debit 2026-11-20 19:53 JST, Gmail id 1a1f897a7b70d1f7; cost-ledger 2026-11-21 10:52) reflected in kpis/monthly/costs_month (29 items)/gross_profit_detail/wallet_outlook after 4 missed frames; margin pct -5056 to -5091. Stripe HELD from 2026-11-20 08:40 JST re-measure via Stripe connector (livemode anicca account): balance $0, subscriptions 0 active / 0 total, contribution $0 (measured, not unmeasured); fresh confirmation 2026-11-21 07:22 metrics pipeline: status connected, balance 0, subs 0, latest charge declined (not revenue). Wallet synced (canonical re-read via gh api, md5 19574bfdf5c31a32156011477ec1adc0 identical), balance $63.33 (2026-11-11, sync unconfirmed); 2026-11-20 salary (unconfirmed). FUNNELS: app_funnels deep-equal canonical v2; Anicca iOS funnel n=12 held. Apps ASC HELD (apps-metrics-latest 2026-11-20T21:48:04Z): total 1,594/11 (windows 2026-11-13..19); subs Anicca 5 (2026-11-17), Honne 2 (2026-11-17), Sleep 0 (2026-11-17). RC obs HELD 14:01 Nov 21 (obs-2026-11-21-1401-rc.json, overview format): new 185, active 209, subs 5, trials 0, MRR $20, revenue $0; flat vs the 14:07 frame (no newer obs file), so no bulk-registration incident is recorded; the +4 increase first observed in the 09:01 file remains flagged in the log per the 09:00-hour rule. Gmail triage unavailable (gws binary empty/missing; unmeasured). No new revenue receipts confirmed. Reason: No messages (exit 0). NOTE: built in memory from the GitHub main 14:07 version, published directly via GitHub API (curl), verified by git blob readback."
     },
     {
       "agent": "Dots",
@@ -904,10 +912,10 @@
     "all_time_usd": 2223.84,
     "trend_note": "Trend totals are the booked monthly series (2026-09 $459.67, 2026-10 $244.64, 2026-11 $31.81). Capafy October statement $83.78 is shown on the Capafy platform row on a dashboard basis and is not ad..."
   },
-  "coverage_note": "Status: 34 platforms, 68 social, 6 apps+funnels HELD, rankings latest complete, TikTok latest census, LinkedIn latest, funnel n=12, wallet synced; costs $1,640.08.",
+  "coverage_note": "Status: 34 platforms, 68 social, 6 apps+funnels HELD, rankings latest complete, TikTok census HELD, LinkedIn HELD, funnel n=12, wallet synced; costs $1,651.41.",
   "currency_note": "USD only. This file contains no non-USD currency amounts.",
-  "coverage_status_1line": "Status: base is GitHub main 13:37 version (handoffs 4559, gh sha 576c9e3e); live 13:37 verified landed at frame start; MRR $20, MTD $31.81, gross -$1,608.27.",
-  "daily_change_1line": "Status: 14:07: RC NEW 14:01 new 185, active 209; rankings NEW 13:56-14:00; TikTok NEW 13:46 likes +5, LinkedIn NEW 132; apps HELD; revenue flat.",
+  "coverage_status_1line": "Status: base is GitHub main 14:07 version (handoffs 4567, gh sha 7cd84c8e); live 14:07 verified landed at frame start; MRR $20, MTD $31.81, gross -$1,619.60.",
+  "daily_change_1line": "Status: 14:37: rankings NEW 14:26-14:31; RC HELD 14:01 new 185; TikTok/LinkedIn HELD; costs FIX +$11.33 COMMANDCODE.AI, gross -$1,619.60; revenue flat.",
   "daily_trend_note": "Yesterday to today: Rev $31.81 unchanged; costs $1,617.13, profit -$1,585.32; SEO 5/7; GEO 0; IG 2/3 x6, monk 1/3, app2 missing, Threads 77 unconfirmed, LinkedIn 2/3.",
   "apps_breakdown": [
     {
@@ -918,7 +926,7 @@
       "units": 3,
       "proceeds_usd": 0,
       "period": "2026-11-13 to 2026-11-19 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 500, units 3, Proceeds $0; ASC 28d units 12; active paid subs 5 (ASC 2026-11-17). RevenueCat registrations include server-registered rows. 14:07 JST."
+      "note": "Status: ASC last7d imp 500, units 3, Proceeds $0; ASC 28d units 12; active paid subs 5 (ASC 2026-11-17). RevenueCat registrations include server-registered rows. 14:37 JST."
     },
     {
       "app": "Honne (iOS)",
@@ -928,7 +936,7 @@
       "units": 1,
       "proceeds_usd": 0,
       "period": "2026-11-13 to 2026-11-19 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 295, units 1, Proceeds $0; ASC 28d units 5; active paid subs 2 (ASC 2026-11-17). 14:07 JST."
+      "note": "Status: ASC last7d imp 295, units 1, Proceeds $0; ASC 28d units 5; active paid subs 2 (ASC 2026-11-17). 14:37 JST."
     },
     {
       "app": "Dhamma Quotes (iOS)",
@@ -938,7 +946,7 @@
       "units": 6,
       "proceeds_usd": 0,
       "period": "2026-11-13 to 2026-11-19 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 499, units 6, Proceeds $0; ASC 28d units 16; No subscription-state rows. 14:07 JST."
+      "note": "Status: ASC last7d imp 499, units 6, Proceeds $0; ASC 28d units 16; No subscription-state rows. 14:37 JST."
     },
     {
       "app": "For Better Sleep - Sleep Reset (iOS)",
@@ -948,7 +956,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-13 to 2026-11-19 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 90, units 0, Proceeds $0; ASC 28d units 2; active paid subs 0 (ASC 2026-11-17). 14:07 JST."
+      "note": "Status: ASC last7d imp 90, units 0, Proceeds $0; ASC 28d units 2; active paid subs 0 (ASC 2026-11-17). 14:37 JST."
     },
     {
       "app": "Thankful - Gratitude Journal (iOS)",
@@ -958,7 +966,7 @@
       "units": 1,
       "proceeds_usd": 0,
       "period": "2026-11-13 to 2026-11-19 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 95, units 1, Proceeds $0; ASC 28d units 3; No subscription-state rows. 14:07 JST."
+      "note": "Status: ASC last7d imp 95, units 1, Proceeds $0; ASC 28d units 3; No subscription-state rows. 14:37 JST."
     },
     {
       "app": "STUDIO CHERIE (iOS)",
@@ -968,7 +976,7 @@
       "units": 0,
       "proceeds_usd": 0,
       "period": "2026-11-13 to 2026-11-19 (ASC last 7d)",
-      "note": "Status: ASC last7d imp 115, units 0, Proceeds $0; ASC 28d units 1; No subscription-state rows. 14:07 JST."
+      "note": "Status: ASC last7d imp 115, units 0, Proceeds $0; ASC 28d units 1; No subscription-state rows. 14:37 JST."
     }
   ],
   "social_accounts": [
@@ -1246,7 +1254,7 @@
       "comments": 0,
       "outbound_comments_today": 0,
       "measured_at": "2026-11-21 13:44 JST",
-      "note": "Status: followers 132 (13:44 batch); latest post Nov 21 12:30 PUBLISHED 0/0; impressions unmeasured. 14:07 JST."
+      "note": "Status: followers 132 (13:44 batch); latest post Nov 21 12:30 PUBLISHED 0/0; impressions unmeasured. 14:37 JST."
     },
     {
       "account": "TikTok EN 15:30 batch (5 posts)",
@@ -1380,7 +1388,7 @@
       "total_likes": 36100,
       "video_count": 444,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 3243 at 13:46; likes 36100, videos 444 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 3243 at 13:46; likes 36100, videos 444 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @anicca.jp",
@@ -1388,7 +1396,7 @@
       "total_likes": 18600,
       "video_count": 629,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 261 at 13:46; likes 18600, videos 629 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 261 at 13:46; likes 18600, videos 629 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @anicca_cemetery",
@@ -1396,7 +1404,7 @@
       "total_likes": 2447,
       "video_count": 122,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 242 at 13:46; likes 2447, videos 122 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 242 at 13:46; likes 2447, videos 122 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @aniccaaffirmation",
@@ -1404,7 +1412,7 @@
       "total_likes": 16900,
       "video_count": 757,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 145 at 13:46; likes 16900, videos 757 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 145 at 13:46; likes 16900, videos 757 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @anicca.jp4",
@@ -1412,7 +1420,7 @@
       "total_likes": 7958,
       "video_count": 473,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 142 at 13:46; likes 7958, videos 473 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 142 at 13:46; likes 7958, videos 473 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @anicca.he",
@@ -1420,7 +1428,7 @@
       "total_likes": 2123,
       "video_count": 242,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 31 at 13:46; likes 2123, videos 242 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 31 at 13:46; likes 2123, videos 242 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @honnevideo",
@@ -1428,7 +1436,7 @@
       "total_likes": 1723,
       "video_count": 472,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 34 at 13:46; likes 1723, videos 472 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 34 at 13:46; likes 1723, videos 472 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @obou_anicca",
@@ -1436,7 +1444,7 @@
       "total_likes": 176,
       "video_count": 105,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 14 at 13:46; likes 176, videos 105 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 14 at 13:46; likes 176, videos 105 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @honne_reveal",
@@ -1444,7 +1452,7 @@
       "total_likes": 2312,
       "video_count": 332,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 5 at 13:46; likes 2312, videos 332 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 5 at 13:46; likes 2312, videos 332 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @anicca_slideshow",
@@ -1452,7 +1460,7 @@
       "total_likes": 526,
       "video_count": 186,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 6 at 13:46; likes 526, videos 186 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 6 at 13:46; likes 526, videos 186 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @hooklab.capafy",
@@ -1460,7 +1468,7 @@
       "total_likes": 0,
       "video_count": 0,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: followers 0 at 13:46; likes 0, videos 0 (ledger census, latest). 14:07 JST."
+      "note": "Status: followers 0 at 13:46; likes 0, videos 0 (ledger census, latest). 14:37 JST."
     },
     {
       "account": "TikTok @aniccaen2",
@@ -1468,7 +1476,7 @@
       "total_likes": null,
       "video_count": null,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: unmeasured: Page not found (ledger 13:46 JST, latest census; Page not found in census). 14:07 JST."
+      "note": "Status: unmeasured: Page not found (ledger 13:46 JST, latest census; Page not found in census). 14:37 JST."
     },
     {
       "account": "TikTok @anicca.jpx",
@@ -1476,7 +1484,7 @@
       "total_likes": null,
       "video_count": null,
       "measured_at": "2026-11-21 13:46 JST",
-      "note": "Status: unmeasured: Page not found (ledger 13:46 JST, latest census; Page not found in census). 14:07 JST."
+      "note": "Status: unmeasured: Page not found (ledger 13:46 JST, latest census; Page not found in census). 14:37 JST."
     }
   ],
   "self_vs_winner": [
@@ -1522,13 +1530,13 @@
     "impressions": 1594,
     "units": 11,
     "proceeds_usd": 0,
-    "note": "Status: 6-app total impressions 1,594, units 11 (ASC first downloads only), Proceeds $0 (apps-metrics-latest 2026-11-20T21:48:04Z, HELD). 14:07 JST."
+    "note": "Status: 6-app total impressions 1,594, units 11 (ASC first downloads only), Proceeds $0 (apps-metrics-latest 2026-11-20T21:48:04Z, HELD). 14:37 JST."
   },
   "rankings": {
     "note": "Measured ranks only. out = not in the measured result set.",
     "seo": {
       "engine": "Google (search snapshot)",
-      "measured_at": "2026-11-21 14:00 JST",
+      "measured_at": "2026-11-21 14:31 JST",
       "anicca_in_top": 2,
       "queries_total": 7,
       "rows": [
@@ -1577,10 +1585,10 @@
       ],
       "bing": {
         "engine": "Bing (script, top 30)",
-        "measured_at": "2026-11-21 13:57 JST",
+        "measured_at": "2026-11-21 14:43 JST",
         "anicca_in_top": 0,
         "queries_total": 7,
-        "happierhuman": "happierhuman: affirmation app 1, daily affirmations 5 (ledger 2026-11-21 13:57 JST); anicca 0/7"
+        "happierhuman": "happierhuman: daily affirmations 5 (ledger 2026-11-21 14:43 JST); anicca 0/7"
       },
       "gsc": {
         "period": "28-day window ending 2026-11-05",
@@ -1593,7 +1601,7 @@
     },
     "aso": {
       "source": "iTunes Search API, top 200 per keyword",
-      "measured_at": "2026-11-21 13:56 JST",
+      "measured_at": "2026-11-21 14:41 JST",
       "us": [
         {
           "keyword": "affirmation",
@@ -1640,7 +1648,7 @@
         {
           "keyword": "gratitude",
           "anicca": "out",
-          "winner_position": 6,
+          "winner_position": 5,
           "top1": "Gratitude Plus – Journal"
         },
         {
@@ -1677,25 +1685,25 @@
         },
         {
           "keyword": "ポジティブ",
-          "anicca": 137,
+          "anicca": 135,
           "winner_position": 17,
           "top1": "ポジティブ変換 - AIで自己肯定感アップを習慣に"
         },
         {
           "keyword": "感謝",
           "anicca": "out",
-          "winner_position": 9,
+          "winner_position": 10,
           "top1": "神棚アプリ - 感謝日記・引き寄せ・お祓い・願いが叶う習慣"
         },
         {
           "keyword": "モチベーション",
           "anicca": "out",
-          "winner_position": 22,
+          "winner_position": 25,
           "top1": "Motivation - 今日の名言"
         },
         {
           "keyword": "マインドフルネス",
-          "anicca": "out",
+          "anicca": 185,
           "winner_position": "out",
           "top1": "Upmind - 自律神経・瞑想・マインドフルネス・睡眠"
         }
@@ -1703,13 +1711,13 @@
       "winner": "I am (id 874656917)"
     },
     "geo": {
-      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; complete batch 2026-11-21 13:57 JST",
-      "measured_at": "2026-11-21 13:57 JST",
+      "source": "Pollinations keyless-llm-api (gpt-oss-20b), 8 prompts, 8 answered; complete batch 2026-11-21 14:28 JST",
+      "measured_at": "2026-11-21 14:28 JST",
       "recommended": 0,
       "recommended_of": 8,
       "cited": 0,
       "cited_of": 8,
-      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en02, en04, en06); en03, en05, jp01, jp02 no brands"
+      "winners": "anicca 0 mentioned, 0 cited; ThinkUp first 2/8 (en04, en06); en01 Mantra first, en02 I am first, en05 Motion first; en03, jp01, jp02 no brands"
     }
   },
   "handoffs": [
@@ -6279,7 +6287,15 @@
     "Rankings latest complete batches: SEO latest (2026-11-21T05:00:47.589620+00:00): anicca in top 2/7; anicca diffs vs 13:37 version: none; winner diffs: none. Bing latest complete (2026-11-21T04:57:41.713181+00:00): anicca 0/7, happierhuman hits [('affirmation app', 1), ('daily affirmations', 5)]. ASO complete latest (2026-11-21T04:56:14.359467+00:00). Diffs vs 13:37 version: ASO JP アファメーション 25->27 | ASO JP ポジティブ 121->137 | ASO JP winner ポジティブ 16->17 | ASO JP winner 感謝 10->9 | ASO JP winner モチベーション 25->22. GEO standard-8 complete latest (2026-11-21T04:57:58.559733+00:00): anicca 0 mentioned, 0 cited; ThinkUp first 4/8 (en01, en02, en04, en06); en03, en05, jp01, jp02 no brands.",
     "TikTok (h) census 2026-11-21 13:46 JST (2026-11-21T04:46:30.522850+00:00, latest complete, latest census vs 13:37 version (NEW census: followers flat, likes +5, videos flat)): all 13 account rows re-applied; totals followers 4123, total likes 88865, videos 3762. Unmeasured rows stated in-row. LinkedIn (g) batch 2026-11-21 13:44 JST (2026-11-21T04:44:42.873497+00:00, latest with followers, NEW batch vs base version: followers 132 (+2 vs base, public JSON-LD measured); batch includes Nov 21 12:30 PUBLISHED as latest_post (3 PUBLISHED in batch), other 1 posts QUEUE; outbound 0; impressions unmeasured.",
     "Gmail 14:07 frame: gws binary is empty (0 bytes at /opt/hatch-image/bin/gws) in this environment, so gmail +triage cannot execute; recorded as unmeasured/tool-broken (not as no-mail). No new sales, refund or payment receipts are confirmed by any primary source this frame, so revenue/costs are unchanged. Reason inbox: No messages (verified via ~/.local/bin/reason network inbox, exit 0); no reply needed. GAP RECORDED: metrics-pipeline 07:22 flags Capafy 2026-11-20 revenue $9.99 (repeat 1, 22 orders after re-aggregation) as not reflected in MTD KPI; this frame holds audited MTD $31.81 pending attribution basis (precedent 2026-11-08: $9.99 not booked, attribution unconfirmed), gap owned by this lane and recorded in the frame log.",
-    "PUBLISH PATH NOTE 14:07: this version was built in memory from the GitHub main 13:37 data.json (blob 576c9e3e) and published directly via the GitHub API in the same process, verified by git blob readback (byte-equal). The new commit retriggers the Netlify deploy. No local open-dashboard-data copy is created; the published data.json is the single source of truth. Landing of this version must be verified at next frame start."
+    "PUBLISH PATH NOTE 14:07: this version was built in memory from the GitHub main 13:37 data.json (blob 576c9e3e) and published directly via the GitHub API in the same process, verified by git blob readback (byte-equal). The new commit retriggers the Netlify deploy. No local open-dashboard-data copy is created; the published data.json is the single source of truth. Landing of this version must be verified at next frame start.",
+    "BASE / LANDING (condition a): this 14:37 version bases on the GitHub main 14:07 version (content sha 7cd84c8ef76ed764240ab7ead890d93af25e817f, handoffs 4567, blob readback in this build). Landing of 14:07 is VERIFIED: live https://aniccaai.com/open/data.json reads updated_at 2026-11-21 14:07 JST with handoffs 4567 at frame start (curl real read this frame), matching GitHub main. No Capafy listings/operations were performed (display maintenance only).",
+    "MRR REBUILT (condition j): live metrics.json (updated_at 2026-11-20 21:34 JST): total 20 (RC $20 + Capafy $0 + Stripe $0), revenue_mtd 31.81; in-script HTTPS fetch asserts the same. kpis[mrr] == summary.mrr_split.total == $20 asserted. COST FIX (this frame): COMMANDCODE.AI $11.33 (MUFG debit notice 2026-11-20 19:53:57 JST, Gmail id 1a1f897a7b70d1f7, team rate 156.84; cost-ledger 2026-11-21 10:52 entry, handed to this lane and missed in 4 prior frames) is now reflected: costs MTD $1,640.08 -> $1,651.41, gross -$1,608.27 -> -$1,619.60, margin pct -5056 -> -5091, applied to kpis cost/gp/margin, monthly 2026-11, costs_month_total, gross_profit_detail and wallet_outlook, with costs_month item 29 (Command Code) added so items sum to the total. MTD revenue $31.81 unchanged. RC obs HELD 14:01 Nov 21 (obs-2026-11-21-1401-rc.json, overview format): new_customers 185, active_users 209, subs 5, trials 0, MRR $20, revenue $0; flat vs 14:07 frame, no bulk-registration incident this frame; the increase first observed in the 09:01 JST file remains flagged per the 2026-11-11 rule (see 09:37 frame log entry). Stripe HELD from 2026-11-20 08:40 JST re-measure via Stripe connector (livemode anicca account, GetBalance + GetSubscriptions): balance $0, subscriptions 0 (active and total), contribution $0 confirmed as measured.",
+    "WALLET OUTLOOK (condition k): canonical wallet-outlook-2026-11-12.md re-read via gh api this frame (md5 19574bfdf5c31a32156011477ec1adc0, identical, no newer version); balance $63.33 (2026-11-11, full bank sync unconfirmed); salary 2026-11-20 amount unconfirmed, receipt unconfirmed; Trip.com refund due by 2026-11-26, not received. USD only in wallet_outlook section. wallet_outlook costs_mtd/gross_profit updated to $1,651.41 / -$1,619.60 with the COMMANDCODE.AI fix.",
+    "ALL-6 APP FUNNELS: app_funnels re-set from canonical app-funnels-section-2026-11-11.json (v2) and deep-equal asserted: 6 apps (Anicca 19 steps; other 5 apps 7 steps each). Anicca iOS person funnel (condition i) held at canonical funnel-open-section-2026-11-12.json (n=12), deep-equal asserted. Apps ASC HELD: apps-metrics-latest unchanged at 2026-11-20T21:48:04Z; apps_breakdown re-applied from asc_last7d for all 6 with windows 2026-11-13..19 (Anicca 500/3, Honne 295/1, Dhamma 499/6, Sleep 90/0, Thankful 95/1, CHERIE 115/0); apps_total 1,594 impressions / 11 units (flat); subscription state: Anicca active paid 5 (2026-11-17), Honne 2 (2026-11-17), Sleep 0 (2026-11-17).",
+    "Rankings latest complete batches: SEO latest (2026-11-21T05:31:56.706321+00:00): anicca in top 2/7; anicca diffs vs 14:07 version: none; winner diffs: none. Bing latest complete (2026-11-21T05:43:18.509313+00:00): anicca 0/7, happierhuman hits [('daily affirmations', 5)]. ASO complete latest (2026-11-21T05:41:42.788212+00:00). Diffs vs 14:07 version: ASO JP ポジティブ 137->135 | ASO JP マインドフルネス out->185 | ASO JP winner 感謝 9->10 | ASO JP winner モチベーション 22->25 | ASO US winner gratitude 6->5. GEO standard-8 complete latest (2026-11-21T05:28:29.657794+00:00): anicca 0 mentioned, 0 cited; ThinkUp first 2/8 (en04, en06); en01 Mantra first, en02 I am first, en05 Motion first; en03, jp01, jp02 no brands.",
+    "TikTok (h) census 2026-11-21 13:46 JST (2026-11-21T04:46:30.522850+00:00, latest complete, HELD vs 14:07 version (same census, totals flat)): all 13 account rows re-applied; totals followers 4123, total likes 88865, videos 3762. Unmeasured rows stated in-row. LinkedIn (g) batch 2026-11-21 13:44 JST (2026-11-21T04:44:42.873497+00:00, latest with followers, HELD vs base version: followers 132 flat; batch includes Nov 21 12:30 PUBLISHED as latest_post (3 PUBLISHED in batch), other 1 posts QUEUE; outbound 0; impressions unmeasured.",
+    "Gmail 14:37 frame: gws binary is empty (0 bytes at /opt/hatch-image/bin/gws) in this environment, so gmail +triage cannot execute; recorded as unmeasured/tool-broken (not as no-mail). No new sales, refund or payment receipts are confirmed by any primary source this frame; the COMMANDCODE.AI $11.33 cost fix comes from cost-ledger (Gmail id 1a1f897a7b70d1f7 full-read by the revenue-growth lane 2026-11-21 10:52). Reason inbox: No messages (verified via ~/.local/bin/reason network inbox, exit 0); no reply needed. GAP RECORDED: metrics-pipeline 07:22 flags Capafy 2026-11-20 revenue $9.99 (repeat 1, 22 orders after re-aggregation) as not reflected in MTD KPI; this frame holds audited MTD $31.81 pending attribution basis (precedent 2026-11-08: $9.99 not booked, attribution unconfirmed), gap owned by this lane and recorded in the frame log.",
+    "PUBLISH PATH NOTE 14:37: this version was built in memory from the GitHub main 14:07 data.json (blob 7cd84c8e) and published directly via the GitHub API in the same process, verified by git blob readback (byte-equal). The new commit retriggers the Netlify deploy. No local open-dashboard-data copy is created; the published data.json is the single source of truth. Landing of this version must be verified at next frame start."
   ],
   "app_store_analytics": {
     "source": "App Store Connect Analytics Reports",
@@ -49386,8 +49402,8 @@
       "note": "Status: bank balance $63.33 measured 2026-11-11 via Moneytree; full sync with actual bank balance unconfirmed."
     },
     "revenue_mtd_usd": 31.81,
-    "costs_mtd_usd": 1640.08,
-    "gross_profit_mtd_usd": -1608.27,
+    "costs_mtd_usd": 1651.41,
+    "gross_profit_mtd_usd": -1619.6,
     "monthly_cost_run_rate_usd": 563.78,
     "run_rate_note": "Status: run rate $563.78/mo set 2026-10-30; subscription screens not re-measured since 2026-10-31.",
     "incoming_dated": [
@@ -49484,7 +49500,7 @@
         "status": "About $128/mo as of 2026-10-27; next billing date unconfirmed."
       }
     ],
-    "note": "Status: outlook synced to canonical wallet file 2026-11-12 (re-read 14:07 Nov 21, md5 identical); balance $63.33 (2026-11-11, sync unconfirmed); 2026-11-20 salary (unconfirmed)."
+    "note": "Status: outlook synced to canonical wallet file 2026-11-12 (re-read 14:37 Nov 21, md5 identical); balance $63.33 (2026-11-11, sync unconfirmed); 2026-11-20 salary (unconfirmed)."
   },
   "one_flesh": {
     "updated_at": "2026-11-14 00:16 JST",
