@@ -3,10 +3,36 @@ import type { Metadata } from 'next';
 import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 
+// GEO parity (audit 2026-11-21: /how-it-works scored 74/100 with
+// meta has_canonical=false / canonical_url empty and brand_entity
+// has_about_link=false). The canonical is this page's own real URL;
+// the RSS type and og:image mirror app/layout.tsx (the real /feed.xml
+// and the real app icon, 1024x1024, already the Organization logo in
+// public/ai/summary.json). Title and description are unchanged.
+const HOW_IT_WORKS_DESCRIPTION =
+  'An AI earns its own money in USDC, keeps itself alive, and gives the rest to people. The full flow: funding, the core loop, the split, the 24/7 payout, and how money reaches you.';
+
 export const metadata: Metadata = {
   title: 'How Anicca works',
-  description:
-    'An AI earns its own money in USDC, keeps itself alive, and gives the rest to people. The full flow: funding, the core loop, the split, the 24/7 payout, and how money reaches you.',
+  description: HOW_IT_WORKS_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/how-it-works',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'How Anicca works',
+    description: HOW_IT_WORKS_DESCRIPTION,
+    url: 'https://aniccaai.com/how-it-works',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 // spec32: a clean, designed architecture visual (NOT mermaid) for the demo —
@@ -157,6 +183,7 @@ export default function HowItWorks() {
             You never pay Anicca anything. It earns, and it gives. See the live numbers at{' '}
             <a href="/dashboard" className="text-[hsl(var(--gold))] underline">aniccaai.com/dashboard</a>, or{' '}
             <a href="/income" className="text-[hsl(var(--gold))] underline">receive basic income</a>.
+            {' '}Learn more <a href="/about" className="text-[hsl(var(--gold))] underline">About Anicca</a>.
           </p>
         </Reveal>
       </Section>
