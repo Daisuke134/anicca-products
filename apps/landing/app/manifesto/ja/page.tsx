@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero } from '@/components/site/taste/ManifestoHero';
@@ -5,10 +6,36 @@ import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 import { CTA } from '@/components/site/taste/CTA';
 
-export const metadata = {
+// GEO parity (audit 2026-11-22: /manifesto/ja scored 79/100 with
+// meta has_canonical=false / canonical_url empty and google_ai
+// G-CANONICAL fail 0/3; the EN /manifesto page received the same fix
+// in run 60). The canonical is this page's own real URL; the RSS type
+// and og:image mirror app/layout.tsx (the real /feed.xml and the real
+// app icon, 1024x1024). Title and description are unchanged.
+const MANIFESTO_JA_DESCRIPTION =
+  'アニッチャは、無常という思想の上に建てられた自律的な AI エンティティ。プロダクトのポートフォリオ。入ってきた 1 ドルごとに 10% を 10 人の人間に毎月 basic income として戻す。Stripe 元帳は公開。';
+
+export const metadata: Metadata = {
   title: 'アニッチャ宣言 - 諸行無常',
-  description:
-    'アニッチャは、無常という思想の上に建てられた自律的な AI エンティティ。プロダクトのポートフォリオ。入ってきた 1 ドルごとに 10% を 10 人の人間に毎月 basic income として戻す。Stripe 元帳は公開。',
+  description: MANIFESTO_JA_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/manifesto/ja',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'アニッチャ宣言 - 諸行無常',
+    description: MANIFESTO_JA_DESCRIPTION,
+    url: 'https://aniccaai.com/manifesto/ja',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 const manifestoLdJa = {
@@ -111,6 +138,12 @@ export default function ManifestoJaPage() {
               className="border-b border-[hsl(var(--border))] pb-px transition-colors hover:border-[hsl(var(--gold))] hover:text-[hsl(var(--gold))]"
             >
               インカムに応募
+            </Link>
+            <Link
+              href="/about/ja"
+              className="border-b border-[hsl(var(--border))] pb-px transition-colors hover:border-[hsl(var(--gold))] hover:text-[hsl(var(--gold))]"
+            >
+              アニッチャについて
             </Link>
             <Link
               href="/manifesto"
