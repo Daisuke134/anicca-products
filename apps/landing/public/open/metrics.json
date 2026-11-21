@@ -550,6 +550,10 @@
    "why": "not wired into collect_all yet (needs login/API); read by owner loops"
   },
   {
+   "item": "App Store search Honne 本音翻訳",
+   "why": "IncompleteRead"
+  },
+  {
    "item": "App Store category rank",
    "why": "Apple top-charts RSS only lists top 100-200 per genre; not in chart = no rank number"
   },
@@ -693,9 +697,8 @@
    },
    "Honne": {
     "keywords": {
-     "jp:本音翻訳": 1,
      "jp:LINE 相性": "圏外(>200)",
-     "jp:本音": 46
+     "jp:本音": 45
     },
     "id": 6759667221,
     "genre": "Utilities",
@@ -848,7 +851,7 @@
    ],
    "winner_saya_top": [
     [
-     60952,
+     60957,
      "CloneCut - Viral Clone, Seedance2.0, kids video"
     ],
     [
@@ -920,8 +923,8 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-21 21:15 JST",
- "source_updated_at": "2026-11-21 21:14 JST",
+ "updated_at": "2026-11-21 21:31 JST",
+ "source_updated_at": "2026-11-21 21:30 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
