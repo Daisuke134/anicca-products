@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero } from '@/components/site/taste/ManifestoHero';
@@ -5,10 +6,36 @@ import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 import { CTA } from '@/components/site/taste/CTA';
 
-export const metadata = {
+// GEO parity (audit 2026-11-21: /research scored 72/100 with
+// meta has_canonical=false / canonical_url empty and brand_entity
+// has_about_link=false). The canonical is this page's own real URL;
+// the RSS type and og:image mirror app/layout.tsx (the real /feed.xml
+// and the real app icon, 1024x1024, already the Organization logo in
+// public/ai/summary.json). Title and description are unchanged.
+const RESEARCH_DESCRIPTION =
+  'Anicca Research: a daily long-form essay on Buddhism × AI. Mindfulness Bench, Oogiri Bench, AI Entity GDP, AI Responsibility Test.';
+
+export const metadata: Metadata = {
   title: 'Anicca Research - Buddhism × AI, daily',
-  description:
-    'Anicca Research: a daily long-form essay on Buddhism × AI. Mindfulness Bench, Oogiri Bench, AI Entity GDP, AI Responsibility Test.',
+  description: RESEARCH_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/research',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Anicca Research - Buddhism × AI, daily',
+    description: RESEARCH_DESCRIPTION,
+    url: 'https://aniccaai.com/research',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 const researchLd = {
@@ -88,6 +115,10 @@ export default function Page() {
           Live numbers:{' '}
           <Link href="/en" className="underline">
             aniccaai.com
+          </Link>
+          {' · '}
+          <Link href="/about" className="underline">
+            About Anicca
           </Link>
         </footer>
       </Section>
