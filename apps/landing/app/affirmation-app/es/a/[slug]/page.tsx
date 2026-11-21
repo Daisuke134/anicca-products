@@ -7,6 +7,7 @@ import {
   alternatesFor,
   tripleForEsSlug,
 } from '@/lib/affirmation-alternates';
+import { AFFIRMATION_LIBRARY } from '@/lib/affirmation-library';
 import { EN_AFFIRMATION_PROBLEMS } from '@/lib/en-affirmation-problems';
 import {
   ES_AFFIRMATION_PROBLEMS,
@@ -237,6 +238,22 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
                   </li>
                 ))}
               </ol>
+              {/* Línea de datos de la biblioteca: cada cifra se calcula
+                  desde los propios datos de las guías
+                  (lib/affirmation-library.ts), nunca a mano. */}
+              <p className="mt-6 text-[14px] leading-relaxed text-[#898783]">
+                Esta página reúne {problem.affirmations.length} afirmaciones.
+                La biblioteca gratuita de Anicca suma{' '}
+                {AFFIRMATION_LIBRARY.totalAffirmations} afirmaciones en{' '}
+                {AFFIRMATION_LIBRARY.totalGuides} guías:{' '}
+                {AFFIRMATION_LIBRARY.en.affirmations} en{' '}
+                {AFFIRMATION_LIBRARY.en.guides} guías en inglés,{' '}
+                {AFFIRMATION_LIBRARY.ja.affirmations} en{' '}
+                {AFFIRMATION_LIBRARY.ja.guides} en japonés y{' '}
+                {AFFIRMATION_LIBRARY.es.affirmations} en{' '}
+                {AFFIRMATION_LIBRARY.es.guides} en español, gratis con o sin la
+                app.
+              </p>
             </>
           ) : null}
 

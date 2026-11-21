@@ -7,6 +7,7 @@ import {
   alternatesFor,
   tripleForEnSlug,
 } from '@/lib/affirmation-alternates';
+import { AFFIRMATION_LIBRARY } from '@/lib/affirmation-library';
 import {
   EN_AFFIRMATION_PROBLEMS,
   allEnAffirmationSlugs,
@@ -280,6 +281,22 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
                   </li>
                 ))}
               </ol>
+              {/* Library fact line: every count is computed from the guide
+                  data itself (lib/affirmation-library.ts), never hardcoded,
+                  so the numbers cannot drift or be invented. */}
+              <p className="mt-6 text-[14px] leading-relaxed text-[#898783]">
+                This page collects {problem.affirmations.length} affirmations.
+                Anicca&apos;s free affirmation library holds{' '}
+                {AFFIRMATION_LIBRARY.en.affirmations} affirmations in{' '}
+                {AFFIRMATION_LIBRARY.en.guides} English guides,{' '}
+                {AFFIRMATION_LIBRARY.ja.affirmations} in{' '}
+                {AFFIRMATION_LIBRARY.ja.guides} Japanese guides, and{' '}
+                {AFFIRMATION_LIBRARY.es.affirmations} in{' '}
+                {AFFIRMATION_LIBRARY.es.guides} Spanish guides —{' '}
+                {AFFIRMATION_LIBRARY.totalAffirmations} affirmations in{' '}
+                {AFFIRMATION_LIBRARY.totalGuides} guides in total, free to use
+                with or without the app.
+              </p>
             </>
           ) : null}
 

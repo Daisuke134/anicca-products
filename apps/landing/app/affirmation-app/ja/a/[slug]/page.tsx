@@ -7,6 +7,7 @@ import {
   alternatesFor,
   tripleForJaSlug,
 } from '@/lib/affirmation-alternates';
+import { AFFIRMATION_LIBRARY } from '@/lib/affirmation-library';
 import { JA_TO_EN_SLUG } from '@/lib/en-affirmation-problems';
 import {
   JA_AFFIRMATION_PROBLEMS,
@@ -220,6 +221,21 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
               </li>
             ))}
           </ol>
+
+          {/* ライブラリ事実行: 件数はガイドデータ自体から算出
+              (lib/affirmation-library.ts)。ハードコードしないので
+              実数からずれることはない。 */}
+          <p className="mt-6 text-[14px] leading-relaxed text-[#898783]">
+            このページには {problem.affirmations.length}{' '}
+            本のアファメーションを収録しています。アニッチャの無料アファメーション集は、英語{' '}
+            {AFFIRMATION_LIBRARY.en.affirmations} 本（{AFFIRMATION_LIBRARY.en.guides}{' '}
+            ガイド）、日本語 {AFFIRMATION_LIBRARY.ja.affirmations} 本（
+            {AFFIRMATION_LIBRARY.ja.guides} ガイド）、スペイン語{' '}
+            {AFFIRMATION_LIBRARY.es.affirmations} 本（{AFFIRMATION_LIBRARY.es.guides}{' '}
+            ガイド）で、全言語あわせて {AFFIRMATION_LIBRARY.totalAffirmations} 本（
+            {AFFIRMATION_LIBRARY.totalGuides}{' '}
+            ガイド）です。アプリなしでも無料で使えます。
+          </p>
 
           {problem.practice ? (
             <section className="mt-12">
