@@ -6,7 +6,9 @@
 # Machine-readable resources:
 #   - Site summary for LLMs: https://aniccaai.com/llms.txt
 #   - Full-text companion:    https://aniccaai.com/llms-full.txt
+#   - Apps index for LLMs:    https://aniccaai.com/llms-apps.txt
 #   - Sitemap:                https://aniccaai.com/sitemap.xml
+#   - Articles RSS feed:      https://aniccaai.com/feed.xml
 #   - Organization summary:   https://aniccaai.com/ai/summary.json
 #   - FAQ data:               https://aniccaai.com/ai/faq.json
 #   - App/service data:       https://aniccaai.com/ai/service.json
