@@ -1,4 +1,40 @@
-export const metadata = { title: 'Privacy Policy | Anicca' };
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this privacy page scored 79/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title is unchanged; the description is app/layout.tsx's
+// SITE_DESCRIPTION verbatim, which is the description this page
+// already serves via the layout, so nothing about the policy
+// text or its facts changes.
+const PRIVACY_DESCRIPTION =
+  'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Anicca',
+  description: PRIVACY_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/privacy',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Privacy Policy | Anicca',
+    description: PRIVACY_DESCRIPTION,
+    url: 'https://aniccaai.com/privacy',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
+};
 
 export default function PrivacyEN() {
   return (
@@ -103,6 +139,10 @@ export default function PrivacyEN() {
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">16. Contact</h2>
       <p className="mt-3 text-muted-foreground">Please contact keiodaisuke@gmail.com.</p>
+
+      <p className="mt-10 text-muted-foreground">
+        <a href="/about" className="underline">About Anicca →</a>
+      </p>
 
       <p className="mt-12 text-right text-sm text-muted-foreground">Last Updated: October 25, 2026</p>
     </main>

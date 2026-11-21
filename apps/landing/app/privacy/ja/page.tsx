@@ -1,4 +1,40 @@
-export const metadata = { title: 'プライバシーポリシー | Anicca' };
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this privacy page scored 79/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title is unchanged; the description is app/layout.tsx's
+// SITE_DESCRIPTION verbatim, which is the description this page
+// already serves via the layout, so nothing about the policy
+// text or its facts changes.
+const PRIVACY_DESCRIPTION =
+  'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.';
+
+export const metadata: Metadata = {
+  title: 'プライバシーポリシー | Anicca',
+  description: PRIVACY_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/privacy/ja',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'プライバシーポリシー | Anicca',
+    description: PRIVACY_DESCRIPTION,
+    url: 'https://aniccaai.com/privacy/ja',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
+};
 
 export default function PrivacyJA() {
   return (
@@ -100,6 +136,10 @@ export default function PrivacyJA() {
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">16. 問い合わせ</h2>
       <p className="mt-3 text-muted-foreground">keiodaisuke@gmail.com までご連絡ください。</p>
+
+      <p className="mt-10 text-muted-foreground">
+        <a href="/about/ja" className="underline">Aniccaについて →</a>
+      </p>
 
       <p className="mt-12 text-right text-sm text-muted-foreground">最終更新日: 2026年10月9日</p>
     </main>
