@@ -11,6 +11,13 @@ export const metadata = {
       en: 'https://aniccaai.com/affirmation-app',
       ja: 'https://aniccaai.com/affirmation-app/ja',
     },
+    // RSS parity with app/layout.tsx (GEO audit 2026-11-21: this page
+    // scored signals has_rss=false because this alternates override
+    // drops the layout's RSS types). /feed.xml is the site's real
+    // articles feed.
+    types: {
+      'application/rss+xml': 'https://aniccaai.com/feed.xml',
+    },
   },
 };
 
@@ -57,7 +64,7 @@ export default function Page() {
       <JsonLd data={jsonLd} />
       <JsonLd data={faqLd} />
       <AffirmationLanding locale="en" />
-      <nav aria-label="Guides and FAQ" style={{ maxWidth: 960, margin: "0 auto", padding: "24px 16px 48px" }}><h2>Guides and FAQ</h2><ul><li><a href="/blog/best-affirmation-apps-2026-11-05">Best affirmation apps for iPhone, tested and compared</a></li><li><a href="/affirmation-app-faq/">Anicca FAQ</a></li><li><a href="/guides/best-free-affirmation-app-iphone/">Best free daily affirmation app for iPhone</a></li><li><a href="/guides/affirmation-reminder-app/">How to set daily affirmation reminders on iPhone</a></li><li><a href="/ja/best-affirmation-apps">アファメーションアプリおすすめ比較（日本語）</a></li></ul></nav>
+      <nav aria-label="Guides and FAQ" style={{ maxWidth: 960, margin: "0 auto", padding: "24px 16px 48px" }}><h2>Guides and FAQ</h2><ul><li><a href="/blog/best-affirmation-apps-2026-11-05">Best affirmation apps for iPhone, tested and compared</a></li><li><a href="/affirmation-app-faq/">Anicca FAQ</a></li><li><a href="/guides/best-free-affirmation-app-iphone/">Best free daily affirmation app for iPhone</a></li><li><a href="/guides/affirmation-reminder-app/">How to set daily affirmation reminders on iPhone</a></li><li><a href="/ja/best-affirmation-apps">アファメーションアプリおすすめ比較（日本語）</a></li><li><a href="/about">About Anicca</a></li></ul></nav>
     </>
   );
 }

@@ -11,6 +11,13 @@ export const metadata = {
       en: 'https://aniccaai.com/affirmation-app',
       ja: 'https://aniccaai.com/affirmation-app/ja',
     },
+    // RSS parity with app/layout.tsx (GEO audit 2026-11-21: this page
+    // scored signals has_rss=false because this alternates override
+    // drops the layout's RSS types). /feed.xml is the site's real
+    // articles feed.
+    types: {
+      'application/rss+xml': 'https://aniccaai.com/feed.xml',
+    },
   },
 };
 
@@ -50,6 +57,7 @@ export default function Page() {
       <JsonLd data={jsonLd} />
       <JsonLd data={faqLd} />
       <AffirmationLanding locale="ja" />
+      <nav aria-label="ガイドと会社情報" style={{ maxWidth: 960, margin: "0 auto", padding: "24px 16px 48px" }}><h2>ガイドと会社情報</h2><ul><li><a href="/affirmation-app/ja/a">悩み別アファメーションガイド</a></li><li><a href="/about/ja">Aniccaについて</a></li></ul></nav>
     </>
   );
 }

@@ -866,12 +866,16 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
                         {String(i + 1).padStart(2, '0')}
                       </span>
                       <div className="col-span-11">
-                        <p
+                        {/* FAQ questions render as headings so the visible FAQ
+                            matches the FAQPage JSON-LD (GEO audit 2026-11-21:
+                            has_visible_faq=false when questions were <p>).
+                            Same classes/style as before — visual parity. */}
+                        <h3
                           className="font-soft text-[20px] italic text-ink sm:text-[22px]"
                           style={{ fontVariationSettings: SOFT_QUOTE }}
                         >
                           {f.q}
-                        </p>
+                        </h3>
                         <p className="mt-3 max-w-2xl text-[15px] leading-[1.65] text-ink-soft sm:text-[16px]">
                           {f.a}
                         </p>
