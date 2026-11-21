@@ -256,16 +256,16 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
               <h2 className="text-[20px] font-semibold tracking-tight">
                 Preguntas frecuentes
               </h2>
-              <dl className="mt-6 space-y-5">
+              <div className="mt-6 space-y-5">
                 {faqItems.map((item) => (
                   <div key={item.q}>
-                    <dt className="text-[16px] font-semibold tracking-tight">{item.q}</dt>
-                    <dd className="mt-2 text-[15px] leading-relaxed text-[#5c5956]">
+                    <h3 className="text-[16px] font-semibold tracking-tight">{item.q}</h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-[#5c5956]">
                       {item.a}
-                    </dd>
+                    </p>
                   </div>
                 ))}
-              </dl>
+              </div>
             </section>
           ) : null}
 
