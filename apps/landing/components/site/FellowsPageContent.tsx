@@ -107,6 +107,12 @@ export default function FellowsPageContent({ locale }: { locale: 'en' | 'ja' }) 
                       >
                         ← {en ? 'Back to anicca.ai' : 'anicca.ai に戻る'}
                       </Link>
+                      <Link
+                        href={en ? '/about' : '/about/ja'}
+                        className="mt-5 ml-6 inline-block border-b border-mist/40 font-mono-ui text-[11px] uppercase tracking-[0.18em] text-ink hover:border-ink"
+                      >
+                        {en ? 'About Anicca →' : 'Aniccaについて →'}
+                      </Link>
                     </div>
                   </div>
                 </li>

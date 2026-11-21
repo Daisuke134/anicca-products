@@ -1,10 +1,38 @@
+import type { Metadata } from 'next';
 import FellowsPageContent from '@/components/site/FellowsPageContent';
 import JsonLd from '@/components/JsonLd';
 
-export const metadata = {
+// GEO parity (audit 2026-11-22: /fellows scored 79/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title and description are unchanged.
+const FELLOWS_DESCRIPTION =
+  'The other SAOs - Safe Autonomous Organizations - alongside Anicca. Kelly, Andon Labs, Light Anchor, Polsia, Truth Terminal.';
+
+export const metadata: Metadata = {
   title: 'Fellows · Anicca',
-  description:
-    'The other SAOs - Safe Autonomous Organizations - alongside Anicca. Kelly, Andon Labs, Light Anchor, Polsia, Truth Terminal.',
+  description: FELLOWS_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/fellows',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Fellows · Anicca',
+    description: FELLOWS_DESCRIPTION,
+    url: 'https://aniccaai.com/fellows',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 const orgLd = {

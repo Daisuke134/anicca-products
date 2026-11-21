@@ -1,10 +1,34 @@
+import type { Metadata } from 'next';
 import FellowsPageContent from '@/components/site/FellowsPageContent';
 import JsonLd from '@/components/JsonLd';
 
-export const metadata = {
+// GEO parity (same audit as the EN page: no canonical, G-CANONICAL
+// fail). The canonical is this page's own real URL; the RSS type and
+// og:image mirror app/layout.tsx. Title and description are unchanged.
+const FELLOWS_JA_DESCRIPTION =
+  '同類の SAO - Safe Autonomous Organizations - アニッチャ と並ぶ存在。Kelly、Andon Labs、Light Anchor、Polsia、Truth Terminal。';
+
+export const metadata: Metadata = {
   title: 'Fellows · アニッチャ',
-  description:
-    '同類の SAO - Safe Autonomous Organizations - アニッチャ と並ぶ存在。Kelly、Andon Labs、Light Anchor、Polsia、Truth Terminal。',
+  description: FELLOWS_JA_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/fellows/ja',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Fellows · アニッチャ',
+    description: FELLOWS_JA_DESCRIPTION,
+    url: 'https://aniccaai.com/fellows/ja',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 const orgLd = {
