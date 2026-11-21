@@ -10,7 +10,18 @@ export const metadata: Metadata = {
   title: 'Guías de afirmaciones en español | Anicca',
   description:
     'Afirmaciones cortas en español para la ansiedad del domingo, la ansiedad social en el trabajo y más. Anicca es una app de afirmaciones para iPhone, gratis de descargar y sin rachas.',
-  alternates: { canonical: PAGE_URL },
+  alternates: {
+    canonical: PAGE_URL,
+    // RSS + og:image parity with app/layout.tsx (GEO audit 2026-11-21:
+    // this page scored signals has_rss=false and meta has_og_image=false
+    // because this alternates/openGraph override drops the layout's RSS
+    // types and og:image). /feed.xml is the site's real articles feed and
+    // /anicca-app-icon.png (1024x1024) is the app's real icon, already the
+    // Organization logo in public/ai/summary.json.
+    types: {
+      'application/rss+xml': 'https://aniccaai.com/feed.xml',
+    },
+  },
   openGraph: {
     title: 'Guías de afirmaciones en español | Anicca',
     description:
@@ -18,6 +29,14 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     locale: 'es_ES',
     type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
   },
 };
 
@@ -81,6 +100,12 @@ export default function EsAffirmationIndexPage() {
             </li>
           ))}
         </ul>
+
+        <p className="mt-10 text-[14px] leading-relaxed text-[#898783]">
+          <Link href="/about" className="underline underline-offset-2">
+            Sobre Anicca (en inglés)
+          </Link>
+        </p>
       </EsAffirmationSeoLayout>
     </>
   );
