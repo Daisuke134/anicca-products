@@ -79,8 +79,15 @@ const D = {
 } as const;
 
 export function generateMetadata() {
-  return { title: D.title, description: D.desc, alternates: { canonical: D.canonical, languages: { en: 'https://aniccaai.com/best-affirmation-apps', ja: 'https://aniccaai.com/ja/best-affirmation-apps' } },
-    openGraph: { title: D.title, description: D.desc, url: D.canonical, type: 'article' } };
+  return { title: D.title, description: D.desc, alternates: { canonical: D.canonical, languages: { en: 'https://aniccaai.com/best-affirmation-apps', ja: 'https://aniccaai.com/ja/best-affirmation-apps' },
+      // RSS + og:image parity with app/layout.tsx (GEO audit 2026-11-21:
+      // this page scored signals has_rss=false and meta has_og_image=false
+      // because this alternates/openGraph override drops the layout's RSS
+      // types and og:image). /feed.xml is the site's real articles feed and
+      // /anicca-app-icon.png (1024x1024) is the app's real icon, already the
+      // Organization logo in public/ai/summary.json.
+      types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' } },
+    openGraph: { title: D.title, description: D.desc, url: D.canonical, type: 'article', images: [{ url: 'https://aniccaai.com/anicca-app-icon.png', width: 1024, height: 1024, alt: 'Anicca app icon' }] } };
 }
 
 const s = { main: { maxWidth: 760, margin: '0 auto', padding: '48px 20px', lineHeight: 1.75, fontFamily: 'system-ui, sans-serif', color: '#1f2328' }, card: { border: '1px solid #e5e7eb', borderRadius: 12, padding: '16px 20px', margin: '16px 0' }, small: { color: '#57606a', fontSize: 14 } };
