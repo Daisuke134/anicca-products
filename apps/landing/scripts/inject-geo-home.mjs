@@ -21,6 +21,15 @@
 // (the GEO head-parity injection above landed that day). DATE_MODIFIED
 // is therefore a literal for that real change — update it only when the
 // homepage document actually changes; never auto-bump it per deploy.
+// Freshness literal advance (2026-11-21, hourly GEO audit run 45): the
+// homepage documents did change on 2026-11-21 — og:image parity
+// (721841410), the JA entity-graph append (a3918220c) and the JA
+// brand-title separator normalization (8da650a13) all landed that day —
+// while the served dateModified / article:modified_time still claimed
+// 2026-11-19 (measured live on both homepages). DATE_MODIFIED therefore
+// advances to 2026-11-21, the real last-change date of the documents;
+// app/layout.tsx carries the same literal for the same reason (its
+// template last changed in 721841410).
 //
 // og:image parity (2026-11-21, hourly GEO audit run 41): the audit reads
 // meta has_og_image=false — the served homepage declared og:title /
@@ -68,7 +77,7 @@ import { pathToFileURL } from "node:url";
 export const RSS_LINK =
   '<link rel="alternate" type="application/rss+xml" title="Anicca Articles" href="https://aniccaai.com/feed.xml">';
 
-export const DATE_MODIFIED = "2026-11-19";
+export const DATE_MODIFIED = "2026-11-21";
 
 export const AUTHOR_META = '<meta name="author" content="Anicca">';
 

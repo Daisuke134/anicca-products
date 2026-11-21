@@ -99,10 +99,11 @@ const SITE_JSONLD = {
         name: 'Anicca',
         url: 'https://aniccaai.com',
       },
-      // The site template (this layout) last changed on 2026-11-19
-      // (GEO head parity: RSS alternate, knowsAbout, authorship).
+      // The site template (this layout) last changed on 2026-11-21
+      // (GEO og:image parity; before that the 2026-11-19 GEO head
+      // parity: RSS alternate, knowsAbout, authorship).
       // Update only when the template actually changes.
-      dateModified: '2026-11-19',
+      dateModified: '2026-11-21',
       inLanguage: ['en', 'ja'],
     },
     {
