@@ -1,6 +1,34 @@
-export const metadata = {
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this page scored 78/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title and description are unchanged, so nothing about the legal
+// disclosure text or its facts changes.
+export const metadata: Metadata = {
   title: '特定商取引法に基づく表記 | Anicca',
-  description: '行動変容サポートサービス「Anicca」の有料プランに関する法的開示情報です。'
+  description: '行動変容サポートサービス「Anicca」の有料プランに関する法的開示情報です。',
+  alternates: {
+    canonical: 'https://aniccaai.com/tokushoho',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: '特定商取引法に基づく表記 | Anicca',
+    description: '行動変容サポートサービス「Anicca」の有料プランに関する法的開示情報です。',
+    url: 'https://aniccaai.com/tokushoho',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 export default function TokushohoPage() {
@@ -191,6 +219,10 @@ export default function TokushohoPage() {
           </dd>
         </div>
       </dl>
+
+      <p className="mt-10 text-muted-foreground">
+        <a href="/about/ja" className="underline">Aniccaについて →</a>
+      </p>
 
       <p className="mt-12 text-right text-sm text-muted-foreground">最終更新日: 2026年10月9日</p>
     </main>
