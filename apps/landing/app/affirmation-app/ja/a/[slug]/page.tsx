@@ -83,6 +83,14 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
   const pageUrl = `https://aniccaai.com/affirmation-app/ja/a/${problem.slug}`;
   const storeUrl = jaAffirmationAppStoreUrl(problem.slug);
   const published = '2026-10-09';
+  // Visible-date parity with the Article structured data (GEO audit
+  // G-DATES: the date was only in JSON-LD — "show it on the page too").
+  // The label is formatted from the same `published` literal the schema
+  // uses, so the visible date can never drift from datePublished.
+  const [publishedYear, publishedMonth, publishedDay] = published
+    .split('-')
+    .map(Number);
+  const publishedLabel = `${publishedYear}年${publishedMonth}月${publishedDay}日`;
   const hasExtended =
     Boolean(problem.whyItHappens?.length) ||
     Boolean(problem.practice) ||
@@ -165,6 +173,10 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
           <h1 className="text-[30px] font-semibold leading-tight tracking-tight sm:text-[38px]">
             {problem.h1 ?? problem.title}
           </h1>
+
+          <p className="mt-3 text-[13px] text-[#898783]">
+            公開日 <time dateTime={published}>{publishedLabel}</time> · Anicca
+          </p>
 
           {problem.directAnswer?.map((para) => (
             <p

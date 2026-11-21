@@ -79,6 +79,28 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
   const pageUrl = `https://aniccaai.com/affirmation-app/es/a/${problem.slug}`;
   const storeUrl = esAffirmationAppStoreUrl(problem.slug);
   const published = '2026-10-16';
+  // Visible-date parity with the Article structured data (GEO audit
+  // G-DATES: the date was only in JSON-LD — "show it on the page too").
+  // The label is formatted from the same `published` literal the schema
+  // uses, so the visible date can never drift from datePublished.
+  const [publishedYear, publishedMonth, publishedDay] = published
+    .split('-')
+    .map(Number);
+  const ES_MONTHS = [
+    'enero',
+    'febrero',
+    'marzo',
+    'abril',
+    'mayo',
+    'junio',
+    'julio',
+    'agosto',
+    'septiembre',
+    'octubre',
+    'noviembre',
+    'diciembre',
+  ];
+  const publishedLabel = `${publishedDay} de ${ES_MONTHS[publishedMonth - 1]} de ${publishedYear}`;
   const heading = problem.h1 ?? problem.title;
   const hasAffirmations = problem.affirmations.length > 0;
   const faqItems = esAffirmationFaq(problem);
@@ -168,6 +190,10 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
           <h1 className="text-[30px] font-semibold leading-tight tracking-tight sm:text-[38px]">
             {heading}
           </h1>
+
+          <p className="mt-3 text-[13px] text-[#898783]">
+            Publicado el <time dateTime={published}>{publishedLabel}</time> · Por Anicca
+          </p>
 
           {problem.directAnswer?.map((para) => (
             <p

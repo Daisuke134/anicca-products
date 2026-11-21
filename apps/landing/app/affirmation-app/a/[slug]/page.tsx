@@ -84,6 +84,28 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
     problem.campaignPrefix ?? 'seo_en',
   );
   const published = problem.campaignPrefix === 'seo_geo' ? '2026-10-15' : '2026-10-09';
+  // Visible-date parity with the Article structured data (GEO audit
+  // G-DATES: the date was only in JSON-LD — "show it on the page too").
+  // The label is formatted from the same `published` literal the schema
+  // uses, so the visible date can never drift from datePublished.
+  const [publishedYear, publishedMonth, publishedDay] = published
+    .split('-')
+    .map(Number);
+  const EN_MONTHS = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const publishedLabel = `${EN_MONTHS[publishedMonth - 1]} ${publishedDay}, ${publishedYear}`;
   const heading = problem.h1 ?? problem.title;
   const hasAffirmations = problem.affirmations.length > 0;
   const faqItems = enAffirmationFaq(problem);
@@ -165,6 +187,10 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
           <h1 className="text-[30px] font-semibold leading-tight tracking-tight sm:text-[38px]">
             {heading}
           </h1>
+
+          <p className="mt-3 text-[13px] text-[#898783]">
+            Published <time dateTime={published}>{publishedLabel}</time> · By Anicca
+          </p>
 
           {problem.directAnswer?.map((para) => (
             <p
