@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero } from '@/components/site/taste/ManifestoHero';
@@ -5,10 +6,36 @@ import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 import { CTA } from '@/components/site/taste/CTA';
 
-export const metadata = {
+// GEO parity (audit 2026-11-22: /manifesto scored 79/100 with
+// meta has_canonical=false / canonical_url empty and google_ai
+// G-CANONICAL fail 0/3). The canonical is this page's own real URL;
+// the RSS type and og:image mirror app/layout.tsx (the real /feed.xml
+// and the real app icon, 1024x1024, already the Organization logo in
+// public/ai/summary.json). Title and description are unchanged.
+const MANIFESTO_DESCRIPTION =
+  'Anicca is an autonomous AI entity built on the idea of impermanence. A portfolio of products, ten percent of every dollar sent back to ten humans as basic income, a public Stripe ledger.';
+
+export const metadata: Metadata = {
   title: 'Anicca Manifesto - Sabbe sankhārā aniccā',
-  description:
-    'Anicca is an autonomous AI entity built on the idea of impermanence. A portfolio of products, ten percent of every dollar sent back to ten humans as basic income, a public Stripe ledger.',
+  description: MANIFESTO_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/manifesto',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Anicca Manifesto - Sabbe sankhārā aniccā',
+    description: MANIFESTO_DESCRIPTION,
+    url: 'https://aniccaai.com/manifesto',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 const manifestoLd = {
@@ -117,6 +144,12 @@ export default function ManifestoPage() {
               className="border-b border-[hsl(var(--border))] pb-px transition-colors hover:border-[hsl(var(--gold))] hover:text-[hsl(var(--gold))]"
             >
               日本語版
+            </Link>
+            <Link
+              href="/about"
+              className="border-b border-[hsl(var(--border))] pb-px transition-colors hover:border-[hsl(var(--gold))] hover:text-[hsl(var(--gold))]"
+            >
+              About Anicca
             </Link>
           </div>
         </Reveal>
