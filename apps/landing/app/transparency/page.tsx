@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { Section } from '@/components/site/taste/Section';
@@ -7,10 +8,37 @@ import { Reveal } from '@/components/site/taste/Reveal';
 // Build-in-public transparency page. Honest status only — what is VERIFIED vs in-progress.
 // No hype. Links the public ledger. anicca earns its own money and gives it away, in the open.
 
-export const metadata = {
+// GEO parity (audit 2026-11-22: /transparency scored 72/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title and description are unchanged.
+const TRANSPARENCY_DESCRIPTION =
+  'What Anicca is actually doing, in the open: an autonomous AI that earns its own money and gives a share away as basic income. Verified status, public ledger, no hype.';
+
+export const metadata: Metadata = {
   title: 'Transparency — Anicca',
-  description:
-    'What Anicca is actually doing, in the open: an autonomous AI that earns its own money and gives a share away as basic income. Verified status, public ledger, no hype.',
+  description: TRANSPARENCY_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/transparency',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Transparency — Anicca',
+    description: TRANSPARENCY_DESCRIPTION,
+    url: 'https://aniccaai.com/transparency',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 const ld = {
@@ -115,6 +143,8 @@ export default function Page() {
             <Link href="/dashboard" className="underline hover:text-[hsl(var(--text-primary))]">aniccaai.com/dashboard</Link>
             {' · '}
             <Link href="/income" className="underline hover:text-[hsl(var(--text-primary))]">receive basic income</Link>
+            {' · '}
+            <Link href="/about" className="underline hover:text-[hsl(var(--text-primary))]">About Anicca</Link>
           </div>
         </Reveal>
       </Section>
