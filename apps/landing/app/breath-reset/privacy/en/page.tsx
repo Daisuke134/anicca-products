@@ -1,8 +1,35 @@
-export const metadata = {
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this page's live HTML had no
+// rel="canonical" and no About link; live baseline 21,069 bytes,
+// canonical x0, About x0 via pinned-DNS fetch). The canonical is
+// this page's own real URL; the RSS type and og:image mirror
+// app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title and description are unchanged, so nothing about the policy
+// text or its facts changes.
+export const metadata: Metadata = {
   title: "Privacy Policy - BreathReset",
   description: "BreathReset Privacy Policy",
+  alternates: {
+    canonical: 'https://aniccaai.com/breath-reset/privacy/en',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: "Privacy Policy - BreathReset",
+    description: "BreathReset Privacy Policy",
+    url: 'https://aniccaai.com/breath-reset/privacy/en',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
-
 export default function BreathResetPrivacyEN() {
   return (
     <main className="max-w-2xl mx-auto px-6 py-16 text-gray-800">
@@ -57,6 +84,10 @@ export default function BreathResetPrivacyEN() {
         <h2 className="text-xl font-semibold mb-3">7. Contact</h2>
         <p>Questions? Email us at <a href="mailto:support@anicca.app" className="text-blue-600 underline">support@anicca.app</a></p>
       </section>
+
+      <div className="mt-10 border-t pt-6 text-sm">
+        <a href="/about" className="text-blue-600 underline">About Anicca →</a>
+      </div>
     </main>
   );
 }
