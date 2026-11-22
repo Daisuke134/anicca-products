@@ -550,6 +550,10 @@
    "why": "not wired into collect_all yet (needs login/API); read by owner loops"
   },
   {
+   "item": "App Store search Honne LINE 相性",
+   "why": "RemoteDisconnected"
+  },
+  {
    "item": "App Store category rank",
    "why": "Apple top-charts RSS only lists top 100-200 per genre; not in chart = no rank number"
   },
@@ -686,7 +690,7 @@
      "us:affirmations": "圏外(>200)",
      "us:daily affirmations": "圏外(>200)",
      "us:affirmation app": "圏外(>200)",
-     "jp:アファメーション": 25,
+     "jp:アファメーション": 26,
      "jp:アファメーション アプリ": 27
     },
     "id": 6755129214,
@@ -698,8 +702,7 @@
    "Honne": {
     "keywords": {
      "jp:本音翻訳": 1,
-     "jp:LINE 相性": "圏外(>200)",
-     "jp:本音": 45
+     "jp:本音": 49
     },
     "id": 6759667221,
     "genre": "Utilities",
@@ -710,7 +713,7 @@
    "Thankful": {
     "keywords": {
      "us:gratitude journal": "圏外(>200)",
-     "us:gratitude": 94,
+     "us:gratitude": 100,
      "jp:感謝日記": "圏外(>200)"
     },
     "id": 6759514159,
@@ -852,7 +855,7 @@
    ],
    "winner_saya_top": [
     [
-     61636,
+     61637,
      "CloneCut - Viral Clone, Seedance2.0, kids video"
     ],
     [
@@ -924,8 +927,8 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-22 21:15 JST",
- "source_updated_at": "2026-11-22 21:12 JST",
+ "updated_at": "2026-11-22 21:17 JST",
+ "source_updated_at": "2026-11-22 21:13 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
