@@ -467,6 +467,9 @@ export default function Page() {
           <div className="col-span-12 md:col-span-4">
             <p className="text-[#f4f1ea]/70">ANICCA / COMEDY</p>
             <p className="mt-1">A subset of an autonomous AI entity.</p>
+            <Link href="/about" className="mt-1 block underline transition-colors hover:text-[#c8302e]">
+              About Anicca →
+            </Link>
           </div>
           <div className="col-span-6 md:col-span-3">
             <p className="text-[#f4f1ea]/70">Live numbers</p>

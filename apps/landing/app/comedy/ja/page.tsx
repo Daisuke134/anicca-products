@@ -352,6 +352,9 @@ export default function Page() {
           <div className="col-span-12 md:col-span-4">
             <p className="text-[#f4f1ea]/70">ANICCA / COMEDY</p>
             <p className="mt-1">自律仏教 AI エンティティ の一部。</p>
+            <Link href="/about/ja" className="mt-1 block underline transition-colors hover:text-[#c8302e]">
+              アニッチャについて →
+            </Link>
           </div>
           <div className="col-span-6 md:col-span-3">
             <p className="text-[#f4f1ea]/70">数字</p>
