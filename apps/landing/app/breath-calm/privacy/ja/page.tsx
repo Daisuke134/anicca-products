@@ -1,4 +1,39 @@
-export const metadata = { title: 'プライバシーポリシー | BreathCalm - 6分で不安をリセット' };
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this page scored 76/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3; the EN
+// counterpart was fixed in the 2026-11-22 14:00 run). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title is unchanged and the description is app/layout.tsx's
+// SITE_DESCRIPTION verbatim (the description already served via the
+// layout), so nothing about the policy text or its facts changes.
+export const metadata: Metadata = {
+  title: 'プライバシーポリシー | BreathCalm - 6分で不安をリセット',
+  description:
+    'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.',
+  alternates: {
+    canonical: 'https://aniccaai.com/breath-calm/privacy/ja',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'プライバシーポリシー | BreathCalm - 6分で不安をリセット',
+    description:
+      'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.',
+    url: 'https://aniccaai.com/breath-calm/privacy/ja',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
+};
 
 export default function BreathCalmPrivacyJA() {
   return (
@@ -103,6 +138,8 @@ export default function BreathCalmPrivacyJA() {
         <a href="/breath-calm/privacy/en" className="underline hover:text-foreground">English Privacy Policy</a>
         {' · '}
         <a href="/breath-calm" className="underline hover:text-foreground">BreathCalmに戻る</a>
+        {' · '}
+        <a href="/about/ja" className="underline hover:text-foreground">Aniccaについて →</a>
       </div>
     </main>
   );
