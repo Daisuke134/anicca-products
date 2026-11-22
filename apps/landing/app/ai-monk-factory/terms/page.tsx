@@ -1,6 +1,39 @@
+import type { Metadata } from 'next';
 import '../factory.css';
 
-export const metadata = { title: 'AI Monk Factory — Terms', robots: { index: false, follow: true } };
+// GEO parity (audit 2026-11-23: this page's live HTML had no
+// rel="canonical" and no About link; page audit 69/100
+// with G-CANONICAL fail 0/3). The canonical is this page's own
+// real URL; the RSS type and og:image mirror app/layout.tsx
+// (the real /feed.xml and the real app icon, 1024x1024, already
+// the Organization logo in public/ai/summary.json). Title is
+// unchanged; description is app/layout.tsx SITE_DESCRIPTION
+// verbatim, the description already served via the layout, so
+// nothing about the terms text or its facts changes. The
+// page's deliberate robots noindex is kept verbatim.
+export const metadata: Metadata = {
+  title: 'AI Monk Factory — Terms',
+  description: 'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.',
+  robots: { index: false, follow: true },
+  alternates: {
+    canonical: 'https://aniccaai.com/ai-monk-factory/terms',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'AI Monk Factory — Terms',
+    description: 'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.',
+    url: 'https://aniccaai.com/ai-monk-factory/terms',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
+};
 export default function FactoryTerms() {
   return <main className="mf-shell"><article className="mf-legal"><a href="/ai-monk-factory">← Monk Factory</a><h1>Factory terms</h1>
     <p>AI Monk Factory is operated by Daisuke Narita, an individual business owner. Contact: <a href="mailto:keiodaisuke@gmail.com">keiodaisuke@gmail.com</a>. These product terms apply alongside our <a href="/terms/en">general terms</a>.</p>
@@ -13,5 +46,6 @@ export default function FactoryTerms() {
     <p>The generated monk is a fictional AI character. Do not present it as a real person, copy another creator’s identity, or remove AI disclosures to mislead viewers. You remain responsible for the accounts and content you authorize us to publish.</p>
     <h2>What is and is not promised</h2><p>We provide creation and publishing tools. We do not guarantee followers, views, sales, earnings, or uninterrupted access to third-party platforms. The research database records sources and uncertainty; public claims about other creators are not audited financial results. Generated content is not professional medical, legal, or financial advice.</p>
     <h2>Your information</h2><p>See the <a href="/ai-monk-factory/privacy">Factory privacy notice</a> for the information used to create videos, manage subscriptions, and connect Instagram. Contact support to request access, correction, or deletion.</p>
+  <p><a href="/about">About Anicca →</a></p>
   </article></main>;
 }
