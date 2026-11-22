@@ -1,7 +1,37 @@
-export const metadata = {
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this page scored 77/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title and description are unchanged, so nothing about the policy
+// text or its facts changes.
+const HONNE_PRIVACY_DESCRIPTION =
+  'Privacy Policy for Honne Translation AI — what data is collected, how AI analysis works, and third-party sharing.';
+
+export const metadata: Metadata = {
   title: 'Privacy Policy | Honne Translation AI',
-  description:
-    'Privacy Policy for Honne Translation AI — what data is collected, how AI analysis works, and third-party sharing.',
+  description: HONNE_PRIVACY_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/honne/privacy',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Privacy Policy | Honne Translation AI',
+    description: HONNE_PRIVACY_DESCRIPTION,
+    url: 'https://aniccaai.com/honne/privacy',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 /**
@@ -186,6 +216,10 @@ export default function HonnePrivacyEn() {
         {' · '}
         <a href="/honne/support" className="underline hover:text-foreground">
           Support
+        </a>
+        {' · '}
+        <a href="/about" className="underline hover:text-foreground">
+          About Anicca →
         </a>
       </div>
     </main>
