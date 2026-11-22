@@ -1,6 +1,37 @@
-export const metadata = {
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this page scored 77/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title and description are unchanged, so nothing about the support
+// text or its facts changes.
+const HONNE_SUPPORT_DESCRIPTION =
+  'Get help with Honne — Chat Intent Revealed by AI';
+
+export const metadata: Metadata = {
   title: 'Support | Honne',
-  description: 'Get help with Honne — Chat Intent Revealed by AI',
+  description: HONNE_SUPPORT_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/honne/support',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Support | Honne',
+    description: HONNE_SUPPORT_DESCRIPTION,
+    url: 'https://aniccaai.com/honne/support',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 export default function HonneSupport() {
@@ -96,6 +127,11 @@ export default function HonneSupport() {
               className="text-primary hover:underline"
             >
               Terms of Use (EULA)
+            </a>
+          </li>
+          <li>
+            <a href="/about" className="text-primary hover:underline">
+              About Anicca →
             </a>
           </li>
         </ul>
