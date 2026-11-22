@@ -1,4 +1,38 @@
-export const metadata = { title: 'Privacy Policy | BreathCalm - Reset Anxiety in 6 Minutes' };
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this page scored 75/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title is unchanged and the description is app/layout.tsx's
+// SITE_DESCRIPTION verbatim (the description already served via the
+// layout), so nothing about the policy text or its facts changes.
+export const metadata: Metadata = {
+  title: 'Privacy Policy | BreathCalm - Reset Anxiety in 6 Minutes',
+  description:
+    'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.',
+  alternates: {
+    canonical: 'https://aniccaai.com/breath-calm/privacy/en',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Privacy Policy | BreathCalm - Reset Anxiety in 6 Minutes',
+    description:
+      'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.',
+    url: 'https://aniccaai.com/breath-calm/privacy/en',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
+};
 
 export default function BreathCalmPrivacyEN() {
   return (
@@ -103,6 +137,8 @@ export default function BreathCalmPrivacyEN() {
         <a href="/breath-calm/privacy/ja" className="underline hover:text-foreground">日本語版プライバシーポリシー</a>
         {' · '}
         <a href="/breath-calm" className="underline hover:text-foreground">Back to BreathCalm</a>
+        {' · '}
+        <a href="/about" className="underline hover:text-foreground">About Anicca →</a>
       </div>
     </main>
   );
