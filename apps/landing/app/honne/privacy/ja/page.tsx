@@ -1,7 +1,39 @@
-export const metadata = {
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this page's live HTML had no
+// rel="canonical" and no About link — the audit tool itself timed
+// out on this run because the site responds slower than its 10s
+// read budget, so the numeric baseline is NOT MEASURED this run;
+// the EN counterpart was fixed in the 2026-11-22 12:00 run). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title and description are unchanged, so nothing about the policy
+// text or its facts changes.
+const HONNE_PRIVACY_JA_DESCRIPTION =
+  '本音翻訳AIのプライバシーポリシー — 収集データ、AI分析、第三者への送信について。';
+
+export const metadata: Metadata = {
   title: 'プライバシーポリシー | 本音翻訳AI',
-  description:
-    '本音翻訳AIのプライバシーポリシー — 収集データ、AI分析、第三者への送信について。',
+  description: HONNE_PRIVACY_JA_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/honne/privacy/ja',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'プライバシーポリシー | 本音翻訳AI',
+    description: HONNE_PRIVACY_JA_DESCRIPTION,
+    url: 'https://aniccaai.com/honne/privacy/ja',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 /**
@@ -174,6 +206,10 @@ export default function HonnePrivacyJa() {
         {' · '}
         <a href="/honne/support" className="underline hover:text-foreground">
           サポート
+        </a>
+        {' · '}
+        <a href="/about/ja" className="underline hover:text-foreground">
+          Aniccaについて →
         </a>
       </div>
     </main>
