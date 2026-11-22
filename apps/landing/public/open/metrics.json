@@ -550,10 +550,6 @@
    "why": "not wired into collect_all yet (needs login/API); read by owner loops"
   },
   {
-   "item": "App Store search Honne LINE 相性",
-   "why": "RemoteDisconnected"
-  },
-  {
    "item": "App Store category rank",
    "why": "Apple top-charts RSS only lists top 100-200 per genre; not in chart = no rank number"
   },
@@ -702,6 +698,7 @@
    "Honne": {
     "keywords": {
      "jp:本音翻訳": 1,
+     "jp:LINE 相性": "圏外(>200)",
      "jp:本音": 49
     },
     "id": 6759667221,
@@ -855,7 +852,7 @@
    ],
    "winner_saya_top": [
     [
-     61637,
+     61646,
      "CloneCut - Viral Clone, Seedance2.0, kids video"
     ],
     [
@@ -927,8 +924,8 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-22 21:17 JST",
- "source_updated_at": "2026-11-22 21:13 JST",
+ "updated_at": "2026-11-22 21:34 JST",
+ "source_updated_at": "2026-11-22 21:33 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -1142,7 +1139,7 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 14
+   "board_updates_today": 15
   },
   {
    "agent": "Fucker",
