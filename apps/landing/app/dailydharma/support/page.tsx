@@ -1,6 +1,38 @@
-export const metadata = {
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-22: this page scored 74/100 with
+// meta has_canonical=false / canonical_url empty, brand_entity
+// has_about_link=false and google_ai G-CANONICAL fail 0/3). The
+// canonical is this page's own real URL; the RSS type and og:image
+// mirror app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title and description are unchanged — the description is this
+// page's own, already served in its meta tags — so nothing about
+// the support text or its facts changes.
+const DD_SUPPORT_DESCRIPTION =
+  'Get help with Daily Dharma - Buddhist Wisdom for Every Day';
+
+export const metadata: Metadata = {
   title: 'Support | Daily Dharma',
-  description: 'Get help with Daily Dharma - Buddhist Wisdom for Every Day'
+  description: DD_SUPPORT_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/dailydharma/support',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Support | Daily Dharma',
+    description: DD_SUPPORT_DESCRIPTION,
+    url: 'https://aniccaai.com/dailydharma/support',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 export default function DailyDharmaSupportEN() {
@@ -80,6 +112,8 @@ export default function DailyDharmaSupportEN() {
           </li>
         </ul>
       </section>
+
+      <p className="mt-12"><a href="/about" className="underline">About Anicca →</a></p>
     </main>
   )
 }
