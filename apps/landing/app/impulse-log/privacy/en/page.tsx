@@ -1,4 +1,36 @@
-export const metadata = { title: 'Privacy Policy | ImpulseLog' };
+import type { Metadata } from 'next';
+
+// GEO parity (audit 2026-11-23: this page's live HTML had no
+// rel="canonical" and no About link; page audit 69/100
+// with G-CANONICAL fail 0/3). The canonical is this page's own
+// real URL; the RSS type and og:image mirror app/layout.tsx
+// (the real /feed.xml and the real app icon, 1024x1024, already
+// the Organization logo in public/ai/summary.json). Title is
+// unchanged; description is app/layout.tsx SITE_DESCRIPTION
+// verbatim, the description already served via the layout, so
+// nothing about the policy text or its facts changes.
+export const metadata: Metadata = {
+  title: 'Privacy Policy | ImpulseLog',
+  description: 'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.',
+  alternates: {
+    canonical: 'https://aniccaai.com/impulse-log/privacy/en',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Privacy Policy | ImpulseLog',
+    description: 'Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.',
+    url: 'https://aniccaai.com/impulse-log/privacy/en',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
+};
 
 export default function ImpulseLogPrivacyEN() {
   return (
@@ -46,6 +78,9 @@ export default function ImpulseLogPrivacyEN() {
       <p className="mt-3 text-muted-foreground">
         Email: keiodaisuke@gmail.com
       </p>
+      <div className="mt-12 border-t pt-6">
+        <a href="/about" className="underline">About Anicca →</a>
+      </div>
     </main>
   );
 }
