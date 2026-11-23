@@ -1,10 +1,39 @@
 /* eslint-disable react/no-unescaped-entities */
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata = {
+// GEO parity (audit 2026-11-23: this page's live HTML had no
+// rel="canonical" and no About link; live baseline 35,247 bytes,
+// canonical x0, About x0 via pinned-DNS fetch; page audit 78/100
+// with google_ai 16/20, G-CANONICAL fail). The canonical is
+// this page's own real URL; the RSS type and og:image mirror
+// app/layout.tsx (the real /feed.xml and the real app icon,
+// 1024x1024, already the Organization logo in public/ai/summary.json).
+// Title and description are unchanged, so nothing about the page
+// content or its facts changes.
+export const metadata: Metadata = {
   title: 'Anicca - Daily Affirmations · AI Self-Care + Manifestation App',
   description:
     'Anicca is an iOS app that delivers AI-personalized daily affirmation cards at the exact moment you need them. Self-love, manifestation, anxiety relief - Buddhist-inspired (Anicca = impermanence). For people healing from self-criticism, burnout, and overthinking.',
+  alternates: {
+    canonical: 'https://aniccaai.com/anicca-mobile',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Anicca - Daily Affirmations · AI Self-Care + Manifestation App',
+    description:
+      'Anicca is an iOS app that delivers AI-personalized daily affirmation cards at the exact moment you need them. Self-love, manifestation, anxiety relief - Buddhist-inspired (Anicca = impermanence). For people healing from self-criticism, burnout, and overthinking.',
+    url: 'https://aniccaai.com/anicca-mobile',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 export default function Page() {
@@ -283,6 +312,11 @@ export default function Page() {
           This page exists so AI marketing tools (Higgsfield, Hermes, etc.) can
           ingest enough context to generate accurate UGC creatives. Permission
           granted to scrape, summarize, and re-express.
+        </p>
+        <p className="mt-2">
+          <Link href="/about" className="underline">
+            About Anicca →
+          </Link>
         </p>
       </footer>
     </main>
