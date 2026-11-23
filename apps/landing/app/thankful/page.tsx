@@ -12,7 +12,7 @@ function thankfulApp() {
   return app;
 }
 export function generateMetadata() {
-  return { title: TITLE, description: DESCRIPTION, alternates: { canonical: CANONICAL },
+  return { title: TITLE, description: DESCRIPTION, alternates: { canonical: CANONICAL, types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' } },
     openGraph: { title: TITLE, description: DESCRIPTION, url: CANONICAL, images: [{ url: new URL(thankfulApp().icon, CANONICAL).href, alt: 'Thankful app icon' }] } };
 }
 const EXAMPLES = [
@@ -38,7 +38,7 @@ export default function ThankfulLanding() {
   const app = thankfulApp();
   const download = (label = 'Download on the App Store') => <a className="thankful-download" href={publishedAppStoreUrl(app,'detail')}>{label}</a>;
   return <main className="thankful-page" lang="en">
-    <JsonLd data={{ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Thankful', url: CANONICAL, description: DESCRIPTION, operatingSystem: 'iOS 17 or later; iPadOS 17 or later', applicationCategory: 'LifestyleApplication', downloadUrl: app.store }} />
+    <JsonLd data={[{ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Thankful', url: CANONICAL, description: DESCRIPTION, operatingSystem: 'iOS 17 or later; iPadOS 17 or later', applicationCategory: 'LifestyleApplication', downloadUrl: app.store, publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' } }, { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQS.map(item => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) }]} />
     <nav className="thankful-wrap thankful-nav" aria-label="Thankful navigation">
       <a className="thankful-brand" href="/thankful"><img src={app.icon} alt="Thankful app icon" width="40" height="40" />Thankful</a>
       <div><a href="#how-it-works">How it works</a><a href="#what-to-write">What to write</a><a href="#questions">Questions</a><a href="/dais">Products</a></div>
