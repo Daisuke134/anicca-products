@@ -31,6 +31,11 @@ export default function CalmCortisolLanding() {
             Available on iOS - Coming Soon to App Store
           </p>
         </Reveal>
+        <Reveal delay={0.2}>
+          <p className="text-sm mt-8">
+            <a href="/about" className="underline underline-offset-4">About Anicca →</a>
+          </p>
+        </Reveal>
       </Section>
     </main>
   );
