@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
+import JsonLd from '@/components/JsonLd';
 
 // GEO parity (audit 2026-11-23: this page's live HTML had no
 // rel="canonical" and no About link; live baseline 22,197 bytes,
@@ -42,9 +43,58 @@ const features = [
   { icon: '🔒', title: '100% Private', body: 'All data stays on your device. No cloud sync, no sharing.' },
 ];
 
+
+const FAQS = [
+  {
+    question: 'What is ImpulseLog?',
+    answer:
+      'ImpulseLog is an iOS app by Anicca that helps people with ADHD and HSP track anger, impulses, and emotional surges - and discover the hidden triggers behind them. You log an emotional explosion in 30 seconds. ImpulseLog is a tracking diary, not a medical treatment.',
+  },
+  {
+    question: 'How long does it take to log an entry in ImpulseLog?',
+    answer:
+      'An entry takes 30 seconds. The log is designed for impulsive moments, so you can capture emotional surges before they fade.',
+  },
+  {
+    question: 'What do ImpulseLog pattern reports show?',
+    answer:
+      'Weekly pattern reports reveal your top triggers and most vulnerable times.',
+  },
+  {
+    question: 'Is ImpulseLog private?',
+    answer:
+      'Yes. All data stays on your device. There is no cloud sync and no sharing.',
+  },
+] as const;
+
+const impulseLogLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'ImpulseLog',
+    operatingSystem: 'iOS',
+    applicationCategory: 'HealthApplication',
+    url: 'https://aniccaai.com/impulse-log',
+    description:
+      'Log your emotional explosions in 30 seconds. Discover your ADHD/HSP triggers. Break the cycle of regret.',
+    downloadUrl: 'https://apps.apple.com/app/id6746798349',
+    publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  },
+];
+
 export default function ImpulseLogLanding() {
   return (
     <main className="min-h-screen bg-[hsl(var(--background))]">
+      <JsonLd data={impulseLogLd} />
       <SplitHero
         eyebrow="Available on iOS"
         headline={
@@ -87,6 +137,33 @@ export default function ImpulseLogLanding() {
             </Reveal>
           ))}
         </div>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <h2 className="text-2xl font-semibold">What is ImpulseLog?</h2>
+          <p className="text-base text-[hsl(var(--text-secondary))] max-w-2xl mt-4">
+            ImpulseLog is an iOS app by Anicca for people with ADHD and HSP: log an
+            emotional explosion in 30 seconds, track anger, impulses, and emotional
+            surges, and discover the hidden triggers behind them. Weekly pattern
+            reports reveal your top triggers and most vulnerable times. ImpulseLog
+            is a tracking diary, not a medical treatment.
+          </p>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <h2 className="text-2xl font-semibold">Questions about ImpulseLog</h2>
+          <div className="max-w-2xl mt-6">
+            {FAQS.map((f) => (
+              <div key={f.question} className="mt-6">
+                <h3 className="text-lg font-medium">{f.question}</h3>
+                <p className="text-base text-[hsl(var(--text-secondary))] mt-2">{f.answer}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </Section>
 
       <footer className="border-t border-[hsl(var(--border))] px-4 py-12 text-center">
