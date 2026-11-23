@@ -2,7 +2,7 @@ import {loadPublishedApps,publishedAppStoreUrl} from '../../lib/published-apps';
 import '../../components/blog/owned-media.css';
 import '../dailydharma/landing.css';
 import JsonLd from '@/components/JsonLd';
-export const metadata={"title": "STUDIO CHERIE | 服を写真で整理するクローゼット管理アプリ", "description": "手持ちの服・靴・バッグ・アクセサリーを写真で整理。好きなコーデの保存や着こなしの提案、買い足す前の組み合わせの検討に。", "alternates": {"canonical": "https://aniccaai.com/studio-cherie"}};
+export const metadata={"title": "STUDIO CHERIE | 服を写真で整理するクローゼット管理アプリ", "description": "手持ちの服・靴・バッグ・アクセサリーを写真で整理。好きなコーデの保存や着こなしの提案、買い足す前の組み合わせの検討に。", "alternates": {"canonical": "https://aniccaai.com/studio-cherie", "types": {"application/rss+xml": "https://aniccaai.com/feed.xml"}}};
 const content={
   "h1": "手持ちの服から、今日の着こなし。",
   "introHeading": "「シェリー」って\nどんなアプリ？",
