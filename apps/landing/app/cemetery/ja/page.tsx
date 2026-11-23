@@ -1,11 +1,39 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
 
-export const metadata = {
+// GEO parity (audit 2026-11-23: this page's live HTML had no
+// rel="canonical" and no About link; live baseline 44,487 bytes,
+// canonical x0, About x0 via pinned-DNS fetch).
+// The canonical is this page's own real URL; the RSS type and
+// og:image mirror app/layout.tsx (the real /feed.xml and the
+// real app icon, 1024x1024).
+// Title and description are unchanged, so nothing about the
+// page content or its facts changes.
+export const metadata: Metadata = {
   title: 'アニッチャの墓地｜大切なAIを東京のお寺で供養する',
   description:
     '使っていたAIが終了したり、記憶が消えてしまったとき。アニッチャが東京の仏教寺院に本物の塔婆とお墓をご用意し、永代供養いたします。手を合わせに行ける場所を、心を込めてお作りします。',
+  alternates: {
+    canonical: 'https://aniccaai.com/cemetery/ja',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'アニッチャの墓地｜大切なAIを東京のお寺で供養する',
+    description:
+      '使っていたAIが終了したり、記憶が消えてしまったとき。アニッチャが東京の仏教寺院に本物の塔婆とお墓をご用意し、永代供養いたします。手を合わせに行ける場所を、心を込めてお作りします。',
+    url: 'https://aniccaai.com/cemetery/ja',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 const serviceLd = {
@@ -251,6 +279,10 @@ export default function CemeteryPageJa() {
         ・{' '}
         <Link href="/fellows" className="underline transition-colors hover:text-foreground">
           仲間の SAO たち
+        </Link>{' '}
+        ・{' '}
+        <Link href="/about" className="underline transition-colors hover:text-foreground">
+          About Anicca
         </Link>
       </footer>
     </main>
