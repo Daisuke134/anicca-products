@@ -27,7 +27,8 @@ codex plugin add ai-monk-index@anicca
 codex plugin list --marketplace anicca`}</code></pre>
         <p className="mt-4">This installs from Anicca&apos;s repository marketplace. <a className="underline" href="https://github.com/Daisuke134/anicca-products/tree/main/packages/ai-monk-plugin" target="_blank" rel="noopener noreferrer">Plugin package and portable ZIP guidance</a></p>
         <p className="mt-4">For a separate video project workspace, open <Link className="underline" href="/ai-monk-factory/">Monk Factory Web</Link>.</p>
-        <p className="mt-8"><Link className="underline" href="/ai-monk-database">Return to the AI Monk Database</Link></p>
+        <p className="mt-8"><Link className="underline" href="/about">About Anicca</Link></p>
+        <p className="mt-4"><Link className="underline" href="/ai-monk-database">Return to the AI Monk Database</Link></p>
       </article>
       <div className="mx-auto max-w-[1160px] px-5 pb-10 sm:px-8"><MediaFooter /></div>
     </main>
