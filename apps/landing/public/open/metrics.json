@@ -550,10 +550,6 @@
    "why": "not wired into collect_all yet (needs login/API); read by owner loops"
   },
   {
-   "item": "App Store search Thankful 感謝日記",
-   "why": "IncompleteRead"
-  },
-  {
    "item": "App Store category rank",
    "why": "Apple top-charts RSS only lists top 100-200 per genre; not in chart = no rank number"
   },
@@ -718,7 +714,8 @@
    "Thankful": {
     "keywords": {
      "us:gratitude journal": 154,
-     "us:gratitude": 106
+     "us:gratitude": 106,
+     "jp:感謝日記": "圏外(>200)"
     },
     "id": 6759514159,
     "genre": "Health & Fitness",
@@ -859,7 +856,7 @@
    ],
    "winner_saya_top": [
     [
-     62409,
+     62419,
      "CloneCut - Viral Clone, Seedance2.0, kids video"
     ],
     [
@@ -931,8 +928,8 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-23 21:15 JST",
- "source_updated_at": "2026-11-23 21:14 JST",
+ "updated_at": "2026-11-23 21:33 JST",
+ "source_updated_at": "2026-11-23 21:32 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
