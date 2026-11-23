@@ -21,7 +21,8 @@ export default function AiMonkMcpPrivacyPage() {
         <p>Requests pass through Netlify. Hosting providers can process connection metadata and operational logs under their own policies; this notice does not promise a particular provider retention period. See <a className="underline" href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">Netlify&apos;s privacy policy</a>. Your MCP client also handles the queries and results under its own privacy settings and policies.</p>
         <h2 className="mb-2 mt-8 text-xl font-semibold">Corrections and contact</h2>
         <p>For a research correction or privacy concern, open an <a className="underline" href="https://github.com/Daisuke134/anicca-products/issues/new?title=AI%20Monk%20Index%20privacy" target="_blank" rel="noopener noreferrer">AI Monk Database issue</a>. Issues are public, so include only the record ID, public URL, and a description that is safe to publish.</p>
-        <p className="mt-8"><Link className="underline" href="/ai-monk-database">Return to the AI Monk Database</Link></p>
+        <p className="mt-8"><Link className="underline" href="/about">About Anicca</Link></p>
+        <p className="mt-4"><Link className="underline" href="/ai-monk-database">Return to the AI Monk Database</Link></p>
       </article>
       <div className="mx-auto max-w-[1160px] px-5 pb-10 sm:px-8"><MediaFooter /></div>
     </main>
