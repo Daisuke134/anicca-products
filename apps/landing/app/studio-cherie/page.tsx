@@ -62,6 +62,10 @@ const content={
   "close": "まずは、手持ちの服から。",
   "links": [
     [
+      "About Anicca",
+      "/about"
+    ],
+    [
       "商品一覧",
       "/dais/ja"
     ],
