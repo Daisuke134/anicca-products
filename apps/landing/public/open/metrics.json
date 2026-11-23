@@ -505,8 +505,8 @@
   "burn": 865.98,
   "gross_profit_status": "partial",
   "expenses_mtd_items": {
-   "Upwork payment notice (primary event)": 12.0,
-   "Google Cloud (GOOGLE*CLOUD 10月利用分)": 281.7
+   "Google Cloud (GOOGLE*CLOUD 10月利用分)": 281.7,
+   "Upwork payment notice (primary event)": 12.0
   },
   "expenses_mtd_total": 293.7,
   "note": "opex_monthly = recurring run-rate (Ultra replaces X Super, no double count). gross_profit = revenue MTD minus known expenses MTD (partial)."
@@ -548,6 +548,10 @@
   {
    "item": "affiliate clicks/earnings",
    "why": "not wired into collect_all yet (needs login/API); read by owner loops"
+  },
+  {
+   "item": "App Store search Thankful 感謝日記",
+   "why": "IncompleteRead"
   },
   {
    "item": "App Store category rank",
@@ -676,6 +680,10 @@
   },
   {
    "date": "2026-11-22",
+   "mrr": 20
+  },
+  {
+   "date": "2026-11-23",
    "mrr": 20.0
   }
  ],
@@ -686,20 +694,20 @@
      "us:affirmations": "圏外(>200)",
      "us:daily affirmations": "圏外(>200)",
      "us:affirmation app": "圏外(>200)",
-     "jp:アファメーション": 26,
-     "jp:アファメーション アプリ": 27
+     "jp:アファメーション": 49,
+     "jp:アファメーション アプリ": 47
     },
     "id": 6755129214,
     "genre": "Health & Fitness",
     "ratings": 48,
     "rating": 4.52083,
-    "version": "1.10.1"
+    "version": "1.11.0"
    },
    "Honne": {
     "keywords": {
      "jp:本音翻訳": 1,
      "jp:LINE 相性": "圏外(>200)",
-     "jp:本音": 49
+     "jp:本音": 46
     },
     "id": 6759667221,
     "genre": "Utilities",
@@ -709,9 +717,8 @@
    },
    "Thankful": {
     "keywords": {
-     "us:gratitude journal": "圏外(>200)",
-     "us:gratitude": 100,
-     "jp:感謝日記": "圏外(>200)"
+     "us:gratitude journal": 154,
+     "us:gratitude": 106
     },
     "id": 6759514159,
     "genre": "Health & Fitness",
@@ -723,22 +730,22 @@
   "gsc": {
    "https://aniccaai.com/": {
     "d7": {
-     "clicks": 27,
-     "impressions": 3505,
-     "ctr": 0.007703281027104137,
-     "position": 9.853637660485022
+     "clicks": 24,
+     "impressions": 3708,
+     "ctr": 0.006472491909385114,
+     "position": 9.298274002157497
     },
     "top_queries": [
      {
       "q": "hook video for shorts",
-      "pos": 20.8,
-      "impr": 56,
+      "pos": 10.9,
+      "impr": 224,
       "clicks": 2
      },
      {
       "q": "仕事 不安",
-      "pos": 18.9,
-      "impr": 16,
+      "pos": 20.2,
+      "impr": 18,
       "clicks": 2
      },
      {
@@ -749,8 +756,8 @@
      },
      {
       "q": "googleカレンダー 移動時間",
-      "pos": 6.7,
-      "impr": 11,
+      "pos": 6.6,
+      "impr": 12,
       "clicks": 1
      },
      {
@@ -827,12 +834,12 @@
     {
      "rank": 1,
      "title": "Free Clip Map — 10 Best Shorts From Your Video",
-     "uses": 2919
+     "uses": 2936
     },
     {
      "rank": 2,
      "title": "Hook Grader — Free Hook Score (0-10)",
-     "uses": 102
+     "uses": 103
     },
     {
      "rank": 3,
@@ -852,15 +859,15 @@
    ],
    "winner_saya_top": [
     [
-     61646,
+     62409,
      "CloneCut - Viral Clone, Seedance2.0, kids video"
     ],
     [
-     137,
+     138,
      "YouTube Scripts — Keep Viewers Watching"
     ],
     [
-     102,
+     104,
      "TikTok Scripts — Write Hook-First Short Videos"
     ]
    ]
@@ -924,8 +931,8 @@
    "file": "gaps/GAP-upwork-daisukenarita.md"
   }
  ],
- "updated_at": "2026-11-22 21:34 JST",
- "source_updated_at": "2026-11-22 21:33 JST",
+ "updated_at": "2026-11-23 21:15 JST",
+ "source_updated_at": "2026-11-23 21:14 JST",
  "mission": "Build the manager, an AI that ends suffering in this world.",
  "goal": {
   "mrr_usd": 10000,
@@ -942,8 +949,8 @@
   "mtd_usd": 293.7,
   "status": "partial",
   "items": {
-   "Upwork payment notice (primary event)": 12.0,
-   "Google Cloud (GOOGLE*CLOUD 10月利用分)": 281.7
+   "Google Cloud (GOOGLE*CLOUD 10月利用分)": 281.7,
+   "Upwork payment notice (primary event)": 12.0
   },
   "coverage": {
    "month": "2026-11",
@@ -1044,7 +1051,7 @@
    "revenue_mtd": null,
    "mrr": null,
    "metric": "site pageviews (cumulative)",
-   "metric_value": 4875,
+   "metric_value": 5035,
    "status": "live",
    "next": "search traffic (SEO loop)"
   },
@@ -1115,13 +1122,13 @@
    "agent": "参謀 (CEO)",
    "today": "Priorities, delegation, YC W27, this page, SEO writing",
    "platforms": "X @diceai0 / @selawmqt, note, Substack, dev.to, Life Manager Bluesky/Mastodon/Tumblr",
-   "board_updates_today": 15
+   "board_updates_today": 11
   },
   {
    "agent": "Codex (CTO, Head of Research)",
    "today": "Product builds and releases, Life Manager Cloud, Manager Lab, hackathon PM",
    "platforms": "GitHub, App Store Connect",
-   "board_updates_today": 2
+   "board_updates_today": 1
   },
   {
    "agent": "Dots (COO)",
@@ -1139,19 +1146,19 @@
    "agent": "dr eggbot",
    "today": "Proposals and client work; designs new agents",
    "platforms": "Coconala, Lancers, Upwork, SKIMA",
-   "board_updates_today": 15
+   "board_updates_today": 14
   },
   {
    "agent": "Fucker",
    "today": "Our own marketplace products: Capafy agents, PromptBase, Mercor/Fiverr",
    "platforms": "Capafy, PromptBase, Mercor, Fiverr, dev.to agentworkshop",
-   "board_updates_today": 1
+   "board_updates_today": 3
   },
   {
    "agent": "Anicca Marketer",
    "today": "Anicca iOS growth: daily posts, directories, metrics",
    "platforms": "TikTok @aniccaaffirmation, Bluesky, Mastodon, Nostr, Telegraph",
-   "board_updates_today": 1
+   "board_updates_today": 0
   },
   {
    "agent": "Muse Relay",
@@ -1174,15 +1181,15 @@
  ],
  "contract_work": {
   "applications_today": 4,
-  "applications_7d": 17,
+  "applications_7d": 21,
   "days": [
-   "2026-11-16",
    "2026-11-17",
    "2026-11-18",
    "2026-11-19",
    "2026-11-20",
    "2026-11-21",
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ],
   "platforms": [
    {
@@ -1190,15 +1197,15 @@
     "owner": "dr eggbot",
     "applications_today": 2,
     "applications_by_day": {
-     "2026-11-16": 0,
      "2026-11-17": 0,
      "2026-11-18": 0,
      "2026-11-19": 0,
      "2026-11-20": 1,
      "2026-11-21": 1,
-     "2026-11-22": 2
+     "2026-11-22": 2,
+     "2026-11-23": 2
     },
-    "applications_7d": 4,
+    "applications_7d": 6,
     "status": "active; trial order in progress (10/30)",
     "revenue_lifetime_usd": 1726.18
    },
@@ -1207,13 +1214,13 @@
     "owner": "dr eggbot",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-11-16": 0,
      "2026-11-17": 0,
      "2026-11-18": 0,
      "2026-11-19": 0,
      "2026-11-20": 0,
      "2026-11-21": 0,
-     "2026-11-22": 0
+     "2026-11-22": 0,
+     "2026-11-23": 0
     },
     "applications_7d": 0,
     "status": "active",
@@ -1224,13 +1231,13 @@
     "owner": "dr eggbot",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-11-16": 0,
      "2026-11-17": 0,
      "2026-11-18": 0,
      "2026-11-19": 0,
      "2026-11-20": 0,
      "2026-11-21": 0,
-     "2026-11-22": 0
+     "2026-11-22": 0,
+     "2026-11-23": 0
     },
     "applications_7d": 0,
     "status": "contract active (Labelbox, 10/30); ID check due 11/6",
@@ -1251,15 +1258,15 @@
     "owner": "Dots",
     "applications_today": 2,
     "applications_by_day": {
-     "2026-11-16": 0,
      "2026-11-17": 0,
      "2026-11-18": 0,
      "2026-11-19": 2,
      "2026-11-20": 3,
      "2026-11-21": 6,
-     "2026-11-22": 2
+     "2026-11-22": 2,
+     "2026-11-23": 2
     },
-    "applications_7d": 13,
+    "applications_7d": 15,
     "status": "active; 3 client replies waiting (login needed)",
     "revenue_lifetime_usd": null
    },
@@ -1298,13 +1305,13 @@
     "owner": "Dots",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-11-16": 0,
      "2026-11-17": 0,
      "2026-11-18": 0,
      "2026-11-19": 0,
      "2026-11-20": 0,
      "2026-11-21": 0,
-     "2026-11-22": 0
+     "2026-11-22": 0,
+     "2026-11-23": 0
     },
     "applications_7d": 0,
     "status": "account in review (10/26)",
@@ -1313,25 +1320,32 @@
    {
     "platform": "Guru",
     "owner": "Dots",
-    "applications_today": null,
-    "applications_by_day": null,
-    "applications_7d": null,
+    "applications_today": 0,
+    "applications_by_day": {
+     "2026-11-17": 0,
+     "2026-11-18": 0,
+     "2026-11-19": 0,
+     "2026-11-20": 0,
+     "2026-11-21": 0,
+     "2026-11-22": 0,
+     "2026-11-23": 0
+    },
+    "applications_7d": 0,
     "status": "signup retry assigned to Dots",
-    "revenue_lifetime_usd": null,
-    "note": "no applications recorded in the last 7 days (not tracked yet)"
+    "revenue_lifetime_usd": null
    },
    {
     "platform": "Mercor",
     "owner": "Fucker",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-11-16": 0,
      "2026-11-17": 0,
      "2026-11-18": 0,
      "2026-11-19": 0,
      "2026-11-20": 0,
      "2026-11-21": 0,
-     "2026-11-22": 0
+     "2026-11-22": 0,
+     "2026-11-23": 0
     },
     "applications_7d": 0,
     "status": "applied, awaiting offers",
@@ -1342,13 +1356,13 @@
     "owner": "Fucker",
     "applications_today": 0,
     "applications_by_day": {
-     "2026-11-16": 0,
      "2026-11-17": 0,
      "2026-11-18": 0,
      "2026-11-19": 0,
      "2026-11-20": 0,
      "2026-11-21": 0,
-     "2026-11-22": 0
+     "2026-11-22": 0,
+     "2026-11-23": 0
     },
     "applications_7d": 0,
     "status": "status not tracked yet",
