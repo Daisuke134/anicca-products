@@ -114,5 +114,6 @@ export default function Page() {
     <h2>FAQ</h2>
     {D.faq.map(f => <div key={f[0]}><h3>{f[0]}</h3><p>{f[1]}</p></div>)}
     <p><a href={D.cta[1]}>{D.cta[0]}</a></p>
+    <p style={s.small}><a href="/about">About Anicca →</a></p>
   </main>;
 }
