@@ -1,10 +1,39 @@
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
 
-export const metadata = {
+// GEO parity (audit 2026-11-23: this page's live HTML had no
+// rel="canonical" and no About link; live baseline 22,197 bytes,
+// canonical x0, About x0 via pinned-DNS fetch; page audit 75/100
+// with google_ai 16/20, G-CANONICAL fail, brand_entity 3/12).
+// The canonical is this page's own real URL; the RSS type and
+// og:image mirror app/layout.tsx (the real /feed.xml and the
+// real app icon, 1024x1024, already this page's hero asset).
+// Title and description are unchanged, so nothing about the
+// page content or its facts changes.
+export const metadata: Metadata = {
   title: 'ImpulseLog - Anger & ADHD Diary',
   description:
     'Log your emotional explosions in 30 seconds. Discover your ADHD/HSP triggers. Break the cycle of regret.',
+  alternates: {
+    canonical: 'https://aniccaai.com/impulse-log',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'ImpulseLog - Anger & ADHD Diary',
+    description:
+      'Log your emotional explosions in 30 seconds. Discover your ADHD/HSP triggers. Break the cycle of regret.',
+    url: 'https://aniccaai.com/impulse-log',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'ImpulseLog app icon',
+      },
+    ],
+  },
 };
 
 const features = [
@@ -65,6 +94,7 @@ export default function ImpulseLogLanding() {
           ImpulseLog by Anicca
         </p>
         <div className="flex justify-center gap-6 text-sm text-[hsl(var(--text-secondary))]">
+          <a href="/about" className="hover:text-[hsl(var(--text-primary))] transition-colors">About Anicca</a>
           <a href="/impulse-log/privacy/en" className="hover:text-[hsl(var(--text-primary))] transition-colors">Privacy Policy</a>
           <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" className="hover:text-[hsl(var(--text-primary))] transition-colors">Terms of Use</a>
         </div>
