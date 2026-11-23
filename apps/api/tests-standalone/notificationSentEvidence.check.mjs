@@ -94,3 +94,17 @@ test('PostHog network failure, non-2xx and absent event fail closed', async () =
     else process.env.POSTHOG_API_KEY = old;
   }
 });
+
+test('sender only emits after BOTH durable send-journal updates; no pre-APNs capture', async () => {
+  const { readFileSync } = await import('node:fs');
+  const source = readFileSync(new URL('../src/jobs/problemNudgeApnsSenderJob.js', import.meta.url), 'utf8');
+  const start = source.indexOf('const out = await client.sendAlert({');
+  const sendJournal = source.indexOf('await prisma.nudgeDeliverySend.update({', start);
+  const parentJournal = source.indexOf('await prisma.nudgeDelivery.update({', sendJournal);
+  const event = source.indexOf('const acceptedEvent = notificationSentEvent({', parentJournal);
+  const capture = source.indexOf('await captureEvent(acceptedEvent)', event);
+  const handler = source.indexOf('} catch (e) {', capture);
+  assert.ok(start >= 0 && sendJournal > start && parentJournal > sendJournal);
+  assert.ok(event > parentJournal && capture > event && handler > capture);
+  assert.equal(source.slice(start, sendJournal).includes('captureEvent('), false);
+});
