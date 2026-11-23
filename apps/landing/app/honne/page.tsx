@@ -8,6 +8,7 @@ export const metadata = {
   alternates: {
     canonical: 'https://aniccaai.com/honne',
     languages: { en: 'https://aniccaai.com/honne', ja: 'https://aniccaai.com/honne/ja' },
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
   },
 };
 
@@ -45,6 +46,13 @@ const FAQS: ContentItem[] = [
   { title: 'Which devices can I use?', body: 'The App Store lists iPhone and iPad support, requiring iOS 18 or iPadOS 18 or later. Check the listing for compatibility with your device.' },
   { title: 'Is Honne available in English?', body: 'The App Store lists English, and the screenshots on this page come from the current English App Store listing. Check the listing for the latest language and device information.' },
 ];
+const honneFaqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: [
+    ...FAQS.map(item => ({ '@type': 'Question', name: item.title, acceptedAnswer: { '@type': 'Answer', text: item.body } })),
+    { '@type': 'Question', name: 'What should I check before pasting a message?', acceptedAnswer: { '@type': 'Answer', text: 'Avoid unnecessary personal or confidential details, and only share text you have permission to use. Read the Privacy Policy before entering information you are not comfortable sharing.' } },
+  ],
+};
 const SHOTS = {
   input: { file: '3', alt: 'Honne Tone Translator screen with relationship context controls and a message text-entry field.' },
   context: { file: '2', alt: 'Honne onboarding asking who the user is trying to understand, with Partner, Friend, Coworker, and Family choices.' },
@@ -65,6 +73,7 @@ function Download() { return <a className="honne-download" href={APP_STORE_URL}>
 export default function HonneLandingEn() {
   return <main className="honne-page" lang="en">
     <JsonLd data={honneSoftwareLd} />
+    <JsonLd data={honneFaqLd} />
     <nav className="honne-nav honne-wrap" aria-label="Honne navigation">
       <a href="/honne" className="honne-brand"><Image src="/honne/app-icon.png" alt="" width={36} height={36} />Honne</a>
       <div className="honne-nav-links"><a href="#how-it-works">How it works</a><a href="#inside">Inside the app</a><a href="#plans">Free &amp; Premium</a><a href="#questions">FAQs</a><a href="/honne/ja" lang="ja">日本語</a></div>
