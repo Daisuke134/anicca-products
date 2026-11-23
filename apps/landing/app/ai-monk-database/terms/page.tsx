@@ -21,7 +21,8 @@ export default function AiMonkTermsPage() {
         <h2 className="mb-2 mt-8 text-xl font-semibold">Access and contact</h2>
         <p>Use only the documented read-only tools and avoid submitting private data or credentials. Availability and snapshot completeness are not guaranteed. No payment or recurring subscription is collected by this research endpoint. Your MCP client and hosting providers have their own terms and privacy practices.</p>
         <p className="mt-4">For help or corrections, see <Link className="underline" href="/ai-monk-database/support">support</Link> and the <Link className="underline" href="/ai-monk-database/privacy">privacy notice</Link>.</p>
-        <p className="mt-8"><Link className="underline" href="/ai-monk-database">Return to the AI Monk Database</Link></p>
+        <p className="mt-8"><Link className="underline" href="/about">About Anicca</Link></p>
+        <p className="mt-4"><Link className="underline" href="/ai-monk-database">Return to the AI Monk Database</Link></p>
       </article>
       <div className="mx-auto max-w-[1160px] px-5 pb-10 sm:px-8"><MediaFooter /></div>
     </main>
