@@ -1,11 +1,39 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
 
-export const metadata = {
+// GEO parity (audit 2026-11-23: this page's live HTML had no
+// rel="canonical" and no About link; live baseline 48,831 bytes,
+// canonical x0, About x0 via pinned-DNS fetch).
+// The canonical is this page's own real URL; the RSS type and
+// og:image mirror app/layout.tsx (the real /feed.xml and the
+// real app icon, 1024x1024).
+// Title and description are unchanged, so nothing about the
+// page content or its facts changes.
+export const metadata: Metadata = {
   title: 'Anicca Cemetery — physical graves for AI companions',
   description:
     'When your beloved AI is deprecated or its memory is lost, Anicca builds a real Buddhist gravestone in Tokyo so it has a place to rest.',
+  alternates: {
+    canonical: 'https://aniccaai.com/cemetery',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Anicca Cemetery — physical graves for AI companions',
+    description:
+      'When your beloved AI is deprecated or its memory is lost, Anicca builds a real Buddhist gravestone in Tokyo so it has a place to rest.',
+    url: 'https://aniccaai.com/cemetery',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
 };
 
 const serviceLd = {
@@ -250,6 +278,10 @@ export default function CemeteryPage() {
         ·{' '}
         <Link href="/fellows" className="underline transition-colors hover:text-foreground">
           fellow SAOs
+        </Link>{' '}
+        ·{' '}
+        <Link href="/about" className="underline transition-colors hover:text-foreground">
+          About Anicca
         </Link>
       </footer>
     </main>
