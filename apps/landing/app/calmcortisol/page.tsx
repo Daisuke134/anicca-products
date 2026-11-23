@@ -5,7 +5,7 @@ export const metadata = {
   title: 'CalmCortisol - Stress Relief in 60 Seconds',
   description:
     'CalmCortisol: 60-second breathing sessions to reset your nervous system. iOS app by Anicca, coming soon to the App Store.',
-  alternates: { canonical: 'https://aniccaai.com/calmcortisol' },
+  alternates: { canonical: 'https://aniccaai.com/calmcortisol', types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' } },
 };
 
 const FAQS = [
