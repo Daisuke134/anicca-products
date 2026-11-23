@@ -3,7 +3,7 @@ import {MediaNav} from '../../components/blog/OwnedMedia';
 import './landing.css';
 import JsonLd from '@/components/JsonLd';
 
-export const metadata={title:'Daily Dhamma | Dhammapada Reading & Mindfulness Reminders',description:'Read curated Dhammapada verses and make space for a mindful pause with Daily Dhamma for iPhone. Explore reminders and Premium bookmarking.',alternates:{canonical:'https://aniccaai.com/dailydharma'}};
+export const metadata={title:'Daily Dhamma | Dhammapada Reading & Mindfulness Reminders',description:'Read curated Dhammapada verses and make space for a mindful pause with Daily Dhamma for iPhone. Explore reminders and Premium bookmarking.',alternates:{canonical:'https://aniccaai.com/dailydharma',types:{'application/rss+xml':'https://aniccaai.com/feed.xml'}}};
 
 export default function DailyDhammaLanding(){
  const app=loadPublishedApps().find(app=>app.id==='6757726663');
