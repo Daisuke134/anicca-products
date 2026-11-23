@@ -1796,7 +1796,7 @@
     {
       "id": "product-price-followup-kael-whop-usd-20261024",
       "title": "Kael same-plan public Whop checkout USD and JP price headers",
-      "url": "https://whop.com/checkout/plan_HHeYgZIoZLVWj/",
+      "url": "https://whop.com/checkout/plan_mBr00B5qTDqH9/",
       "source_type": "first-party public checkout UI price observation",
       "checked_at": "2026-10-23",
       "captured_at": "2026-10-23T21:19:59.261048+00:00",
@@ -10530,7 +10530,7 @@
       "source_urls": [
         "https://www.instagram.com/kael.wisdom/",
         "http://linktr.ee/masterkaelwellness",
-        "https://whop.com/checkout/plan_HHeYgZIoZLVWj/"
+        "https://whop.com/checkout/plan_mBr00B5qTDqH9/"
       ],
       "platforms": [
         {
@@ -10603,7 +10603,7 @@
             "product-price-followup-kael-whop-usd-20261024"
           ],
           "status": "displayed_price_not_order_data",
-          "url": "https://whop.com/checkout/plan_HHeYgZIoZLVWj/",
+          "url": "https://whop.com/checkout/plan_mBr00B5qTDqH9/",
           "as_of": "2026-10-23",
           "captured_at": "2026-10-23T21:19:59.261048+00:00",
           "formats": [
