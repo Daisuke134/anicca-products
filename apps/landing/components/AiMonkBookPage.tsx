@@ -23,6 +23,13 @@ const copy = {
     contents: 'Contents', contentsDescription: 'Ten chapters cover the accounts, their content, their business models, and practical production methods.',
     research: 'Free research and database', yangMun: 'Yang Mun case study', overview: 'AI monk research article',
     rights: 'Original text and worksheets: CC BY 4.0. Referenced material remains with its owners.', seller: 'Seller information',
+    faqHeading: 'Questions about The Art of AI Monks',
+    faqs: [
+      ['What is this book about?', 'A sourced book about AI monk avatars, Yang Mun, video scripts, digital products, and building an original character. Its ten chapters cover the accounts, their content, their business models, and practical production methods, with profiles and public sources that distinguish observed facts from unverified claims.'],
+      ['How much does it cost, and what do I get?', 'The formatted PDF + EPUB is $9.99, one payment, with download after checkout. A bundle with the full data and the book is also available on Whop for $29 one-time.'],
+      ['Can I read it for free?', 'Yes. The full manuscript and sources are free on GitHub \u2014 the Read the full book for free link is on this page. Buying the formatted PDF and EPUB supports this research.'],
+      ['What will I learn to make?', 'How to create an original character: script exercises, a production pilot, and four practical worksheets, plus hooks, pacing, storefronts, product offers, and how to measure purchases. Original text and worksheets are CC BY 4.0; referenced material remains with its owners.'],
+    ],
   },
   ja: {
     label: 'AI僧侶アバターの調査書籍',
@@ -39,6 +46,13 @@ const copy = {
     contents: '目次', contentsDescription: 'アカウントの調査から、コンテンツ、ビジネスモデル、制作方法までを全10章で解説します。',
     research: '無料の調査記事とデータベース', yangMun: 'Yang Munの事例記事（日本語）', overview: 'AI僧侶の調査記事（英語）',
     rights: '本書の独自本文・ワークシート：CC BY 4.0。引用・参照資料の権利は各権利者に帰属します。', seller: '特定商取引法に基づく表記',
+    faqHeading: 'この本についての質問',
+    faqs: [
+      ['この本はどんな内容ですか？', 'AI僧侶アバターとYang Munを出典とともに解説する調査書籍です。アカウントの調査から、コンテンツ、ビジネスモデル、制作方法までを全10章で解説し、確認できた事実と未確認の主張を区別します。'],
+      ['価格と形式を教えてください', '整形済みPDF・EPUBは$9.99の一回払い（米ドル建て）で、支払い後にダウンロードできます。フルデータ＋書籍のバンドルはWhopで$29（一回払い）です。'],
+      ['無料で読めますか？', 'はい。原稿全文と出典はGitHubで無料公開しています。有料の整形済みPDF・EPUBの購入は、この調査活動の支援になります。'],
+      ['何が作れるようになりますか？', '独自キャラクターの制作です。台本の練習、小規模な制作実験、4つの実用ワークシートを収録し、導入、テンポ、ストア、商品構成、購入を測る方法を解説します。'],
+    ],
   },
 };
 
@@ -64,8 +78,13 @@ export default function AiMonkBookPage({ book }: { book: Book }) {
     bookEdition: book.edition, bookFormat: 'https://schema.org/EBook', image: cover(book), url,
     offers: { '@type': 'Offer', price: (book.unit_amount / 100).toFixed(2), priceCurrency: book.currency.toUpperCase(), availability: 'https://schema.org/InStock', url },
   };
+  const faqStructured = {
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: text.faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+  };
   return <main lang={book.language} className="min-h-screen bg-[#f5f1e7] text-[#28352b]">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structured).replace(/</g, '\\u003c') }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructured).replace(/</g, '\\u003c') }} />
     <div className="mx-auto max-w-6xl px-6 py-9 sm:px-10">
       <nav className="flex flex-wrap items-center justify-between gap-4 text-sm">
         <Link href="/" className="font-semibold tracking-[.2em]">ANICCA</Link>
@@ -102,6 +121,10 @@ export default function AiMonkBookPage({ book }: { book: Book }) {
           <Link href={japanese ? '/blog/ebook-publishing-yang-mun-case-study-ja' : '/blog/ebook-publishing-yang-mun-video-to-product'} className="underline underline-offset-4">{text.yangMun}</Link>
           <Link href="/blog/ebook-publishing-ai-monk-economy-2026" className="underline underline-offset-4">{text.overview}</Link>
         </div>
+      </section>
+      <section className="py-14">
+        <h2 className="font-serif text-4xl">{text.faqHeading}</h2>
+        <div className="mt-8 grid gap-8 sm:grid-cols-2">{text.faqs.map(([q, a]) => <div key={q}><h3 className="font-serif text-2xl">{q}</h3><p className="mt-3 text-sm leading-7 text-[#64705f]">{a}</p></div>)}</div>
       </section>
       <footer className="flex flex-wrap justify-between gap-4 py-10 text-xs leading-6 text-[#78806e]"><span>{text.rights}</span><Link href="/tokushoho" className="underline underline-offset-4">{text.seller}</Link></footer>
     </div>
