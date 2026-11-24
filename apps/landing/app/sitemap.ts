@@ -51,6 +51,7 @@ const STATIC_PATHS = [
   "/lm/ja/departure-calculator",
   "/lm/guide",
   "/tools/social-jet-lag-calculator",
+  "/lock-screen-affirmation-widget-iphone", // PK-SEO1 how-to (root route, canonical for this article)
   "/ai-monk-factory", // canonical has no trailing slash (the slash form 301s; GSC "Redirect error" 10/27–11/1)
 ];
 
