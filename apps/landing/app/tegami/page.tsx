@@ -23,6 +23,39 @@ const tegamiLd = {
   },
 };
 
+const FAQS = [
+  {
+    question: '毎日のアニッチャの手紙とは何ですか？',
+    answer:
+      '毎日のアニッチャの手紙は、毎朝届く1通の短い手紙です。無常をめぐる、2分で読める瞑想で、365通を毎日1通ずつお送りします。各手紙は約350字で、パーリ語1つと現代の言い換え、今夜できる呼吸の実践を含みます。全手紙のアーカイブも閲覧できます。',
+  },
+  {
+    question: '毎日のアニッチャの手紙の料金はいくらですか？',
+    answer:
+      '月額¥980です。最初の14日間は無料です。開始にはお支払い方法の登録が必要ですが、トライアル終了まで課金されません。',
+  },
+  {
+    question: '購読する前に試せますか？',
+    answer:
+      'はい。無料の3通の手紙をまずお送りします。3日間、朝に1通ずつ届き、それで終わりです。営業メールはありません。',
+  },
+  {
+    question: '解約やサブスクリプションの管理はどうすればいいですか？',
+    answer:
+      'いつでも受信メールから解約できます。サブスクリプションの管理は aniccaai.com/account から行えます。',
+  },
+] as const;
+
+const tegamiFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+
 export default function TegamiPage() {
   const [email, setEmail] = useState('');
   const [optInState, setOptInState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
@@ -80,6 +113,7 @@ export default function TegamiPage() {
   return (
     <main className="min-h-screen bg-[hsl(var(--background))] font-serif">
       <JsonLd data={tegamiLd} />
+      <JsonLd data={tegamiFaqLd} />
 
       <ManifestoHero
         headline={
@@ -159,6 +193,20 @@ export default function TegamiPage() {
               </form>
             )}
             {optInState === 'error' && <p className="text-xs text-red-700 mt-2">エラーが起きました。もう一度試してください。</p>}
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <div className="mx-auto max-w-xl">
+            <h2 className="text-xl font-light mb-4 text-[hsl(var(--text-primary))]">毎日のアニッチャの手紙についての質問</h2>
+            {FAQS.map((f) => (
+              <div key={f.question} className="mt-6">
+                <h3 className="text-base font-medium text-[hsl(var(--text-primary))]">{f.question}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[hsl(var(--text-secondary))]">{f.answer}</p>
+              </div>
+            ))}
           </div>
         </Reveal>
       </Section>
