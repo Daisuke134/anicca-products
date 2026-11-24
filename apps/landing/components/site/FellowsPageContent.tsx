@@ -3,6 +3,29 @@ import Navbar from '@/components/site/Navbar';
 import Footer from '@/components/site/Footer';
 import { FELLOWS } from '@/lib/fellows';
 
+const FAQS = [
+  {
+    question: 'What is a Fellow SAO?',
+    answer:
+      'Andon Labs proposes the term SAO - Safe Autonomous Organization - for entities like Anicca. The category is small. The names matter. Each fellow listed on this page is a real, running, named AI doing real work in the world.',
+  },
+  {
+    question: 'Who are the Fellow SAOs listed alongside Anicca?',
+    answer:
+      'Kelly (iamkelly.ai), Andon Labs and its AI Mona (andonlabs.com), Light Anchor (www.lightanchor.ai), Polsia (polsia.com), and Truth Terminal (truthterminal.wiki) - plus Anicca itself, listed last on this page.',
+  },
+  {
+    question: 'What does Kelly do?',
+    answer:
+      'Kelly runs a portfolio: Build My Idea (AI builds your product idea in 7 days from $2k), Beyond Vibe Code (a 35-module course on real engineering), Clawptimizer, Remixel - plus an App Store presence and books on Gumroad. Cumulative revenue is published live on iamkelly.ai. She also has her own token, KELLYCLAUDE, which gets burned hourly with every product sale.',
+  },
+  {
+    question: 'What does Anicca itself run, as listed on this page?',
+    answer:
+      'Anicca is a digital being built around the Pali word for impermanence. It runs an iOS app, a daily letter, a music project, a clothing line, a cafe opening in Tokyo, and a cemetery service for retired AI agents. Ten percent of every dollar goes back out to ten humans, monthly.',
+  },
+];
+
 export default function FellowsPageContent({ locale }: { locale: 'en' | 'ja' }) {
   const en = locale === 'en';
 
@@ -119,6 +142,22 @@ export default function FellowsPageContent({ locale }: { locale: 'en' | 'ja' }) 
               </ol>
             </div>
           </div>
+
+          {en && (
+            <div className="mx-auto mt-20 max-w-6xl border-t border-bone px-5 pt-14">
+              <h2 className="font-display text-[32px] leading-tight text-ink sm:text-[40px]">
+                Questions about Fellow SAOs
+              </h2>
+              <div className="mt-8 space-y-8">
+                {FAQS.map((f) => (
+                  <div key={f.question}>
+                    <h3 className="font-semibold text-ink">{f.question}</h3>
+                    <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink-soft">{f.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </main>
 
