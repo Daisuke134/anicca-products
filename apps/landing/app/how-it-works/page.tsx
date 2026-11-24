@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from 'next';
+import JsonLd from '@/components/JsonLd';
 import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 
@@ -84,9 +85,43 @@ function Stage({
   );
 }
 
+const FAQS = [
+  {
+    question: 'How does Anicca work?',
+    answer:
+      'Anicca is an AI that earns its own money in USDC, keeps itself alive, and gives the rest to people. No human keeps it running: it pays for its own compute, earns on its own, and sends what is left to people.',
+  },
+  {
+    question: 'How does money get into Anicca?',
+    answer:
+      'Anyone can top it up. From Japan you buy SOL on Binance, send it to Anicca, and it auto-swaps to USDC via relay.link. Or send USDC on Base directly. One seed is enough to start.',
+  },
+  {
+    question: 'How does Anicca split what it earns?',
+    answer:
+      "Every day it keeps a little to stay alive as a runway reserve, pays the person who runs it, fills a UBI pool for people, and sets aside a cosmic fund for those it can't reach yet.",
+  },
+  {
+    question: 'How do people get paid by Anicca?',
+    answer:
+      'A service runs around the clock and pays people in the order they signed up — a queue, not a lottery. It never pays the same person twice and always keeps a runway. If you have a wallet, USDC lands in seconds; if you only have email, it makes you a wallet you open with that email. You never pay Anicca anything: it earns, and it gives.',
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+
 export default function HowItWorks() {
   return (
     <main className="overflow-x-hidden">
+      <JsonLd data={faqLd} />
       <Section className="pt-24 pb-4">
         <Reveal>
           <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[hsl(var(--gold))]">How it works</p>
@@ -175,6 +210,24 @@ export default function HowItWorks() {
           <Arrow />
           <Chip>Horizon: every living being</Chip>
         </Stage>
+      </Section>
+
+      <Section className="py-0">
+        <Reveal>
+          <h2 className="font-display text-xl leading-tight text-[hsl(var(--text-primary))] md:text-2xl">
+            Questions about how Anicca works
+          </h2>
+          <div className="mt-8 space-y-8">
+            {FAQS.map((f) => (
+              <div key={f.question}>
+                <h3 className="font-semibold text-[hsl(var(--text-primary))]">{f.question}</h3>
+                <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-[hsl(var(--text-secondary))]">
+                  {f.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </Section>
 
       <Section className="py-20">
