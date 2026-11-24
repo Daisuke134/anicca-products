@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 284" role="img">
+<rect x="0" y="0" width="960" height="284" fill="#F9F9F6"/>
+<text x="480.0" y="34" text-anchor="middle" fill="#3B3B39" font-family="Georgia, 'Times New Roman', serif" font-size="19">ジム実験では「制限」が「奨励」に勝った</text>
+<text x="480.0" y="58" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">最初の7週間のジム来訪回数（群別、N=226・9週間プログラム）</text>
+<text x="288" y="113" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">ジムでだけ聴ける群</text>
+<rect x="300" y="96" width="580" height="22" fill="#5C8A95"/>
+<text x="888" y="112" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">7.8 回</text>
+<text x="288" y="157" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">自分の端末＋奨励の群</text>
+<rect x="300" y="140" width="483" height="22" fill="#5C8A95"/>
+<text x="791" y="156" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">6.5 回</text>
+<text x="288" y="201" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">対照群</text>
+<rect x="300" y="184" width="454" height="22" fill="#5C8A95"/>
+<text x="762" y="200" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">6.1 回</text>
+<text x="80" y="268" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">出典: Milkman, Minson &amp; Volpp (2014) Management Science。初期の対照比は制限群 +51%／奨励群 +29%。効果は休館後に減衰した。</text>
+</svg>

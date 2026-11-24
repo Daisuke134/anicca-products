@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 686" role="img">
+<rect x="0" y="0" width="960" height="686" fill="#F9F9F6"/>
+<text x="480.0" y="34" text-anchor="middle" fill="#3B3B39" font-family="Georgia, 'Times New Roman', serif" font-size="19">テンプテーション・バンドリング・ゲートの仕組み</text>
+<text x="480.0" y="58" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">want は should の最中にだけ開き、鍵は本人が持つ（Mermaid フローチャート構造）</text>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#3B3B39"/></marker></defs>
+<rect x="200.0" y="92" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="115" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">want / should のペアリングを記録する</text>
+<text x="480.0" y="134" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">アプリ別: want は事前テスト済みの魅力、should は遅延報酬で回避されがちな行動</text>
+<text x="186.0" y="124" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-0</text>
+<line x1="480.0" y1="146" x2="480.0" y2="177" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="180" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="203" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">want へのアクセスを should に制限する</text>
+<text x="480.0" y="222" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">should の文脈の中だけ、奨励でなく実効つきで、「後」ではなく「最中」に同時提供</text>
+<text x="186.0" y="212" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-1</text>
+<line x1="480.0" y1="234" x2="480.0" y2="265" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="268" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="291" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">相性と減衰を設計に入れる</text>
+<text x="480.0" y="310" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">want が should に要る注意を奪わないこと。rotation と休み明け restart を計画</text>
+<text x="186.0" y="300" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-2</text>
+<line x1="480.0" y1="322" x2="480.0" y2="353" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="356" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="379" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">制限は本人が所有する</text>
+<text x="480.0" y="398" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">opt-in で、変更・解除できる。want を罪悪感・羞恥で枠付けしない</text>
+<text x="186.0" y="388" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-3</text>
+<line x1="480.0" y1="410" x2="480.0" y2="441" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="444" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="467" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">最も忙しい層へ先に届ける</text>
+<text x="480.0" y="486" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">バンドル実施者を別コホートで頻度で読む。習慣化・自動性は主張しない</text>
+<text x="186.0" y="476" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-4</text>
+<line x1="480.0" y1="498" x2="480.0" y2="529" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="532" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="555" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">期待値は大規模研究で置く</text>
+<text x="480.0" y="574" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">小規模の初週 +51% ではなく +10〜14%（N=6,792）で計画し、数字は一次出典で引用</text>
+<text x="186.0" y="564" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-5</text>
+<text x="80" y="668" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">構造は design-doc-mermaid のフローチャート型に従う。ゲート定義: テンプテーション・バンドリング・ゲート仕様（2026-11-24）。</text>
+</svg>
