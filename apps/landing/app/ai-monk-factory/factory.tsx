@@ -6,6 +6,40 @@ import { getSession, onAuthChange, signInWithGoogle, signOut } from '@/lib/auth'
 import { factoryDestination, factoryRequest, type FactoryAction } from '@/lib/monk-factory-client.mjs';
 import { factoryActionBlockedMessage, factoryActionReady, factoryCapabilityUnavailable, factoryErrorMessage, factoryQuotaState, refreshFactoryActionStatus, requestFactoryAction } from './action-readiness.mjs';
 import { FactoryActionNotice } from './factory-action-notice.mjs';
+import JsonLd from '@/components/JsonLd';
+
+const FAQS = [
+  {
+    question: 'What is AI Monk Factory?',
+    answer:
+      'AI Monk Factory creates one original, fictional AI monk avatar for you, turns research-led scripts into narrated Reels, and publishes them to your Instagram. Research, creation, and publishing are in one place, and each script and caption points viewers to The Art of AI Monks, our sourced English ebook.',
+  },
+  {
+    question: 'How much does AI Monk Factory cost?',
+    answer:
+      'Your first 3 completed videos are free — up to 20 seconds each, with no card required, no time limit, and no three-day trial. Failed generations use one of up to six safety attempts but do not consume a completed video. After all 3 videos, the plan is $199 USD per month and renews until canceled, with up to 30 completed videos per month, 45 seconds each, and up to 36 generation attempts per paid period.',
+  },
+  {
+    question: 'How does daily posting work?',
+    answer:
+      'Connect Instagram once, using an Instagram Business or Creator account. Daily creation and posting then start automatically, finished videos post first, and you can preview your videos and see available post metrics. You can stop daily creation and posting any time.',
+  },
+  {
+    question: 'Does AI Monk Factory guarantee earnings or audience growth?',
+    answer:
+      'No. No earnings or audience growth are guaranteed. AI Monk Factory is for creators aged 18 and over.',
+  },
+] as const;
+
+const factoryFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
 
 type Account = {
   subscription_status?: string; trial_end?: string; period_end?: string; period_paid?: boolean;
@@ -252,6 +286,7 @@ export default function Factory() {
   );
 
   return <main className="mf-shell">
+    <JsonLd data={factoryFaqLd} />
     <nav className="mf-nav" aria-label="Main navigation">
       <a className="mf-wordmark" href="/ai-monk-factory"><span aria-hidden="true" className="mf-mark">m.</span> Monk Factory</a>
       <div className="mf-nav-links"><a href="/ai-monk-database">The database <span aria-hidden="true">↗</span></a>{session ? <button className="mf-text-button" disabled={!!busy} onClick={() => void logout()}>Sign out</button> : <button className="mf-text-button" disabled={!authReady || !!busy} onClick={() => void login()}>Sign in</button>}</div>
@@ -303,6 +338,8 @@ export default function Factory() {
       {session && hasBilling && <button className="mf-text-button mf-manage" disabled={!!busy} onClick={() => void act('portal')}>{busy === 'portal' ? 'Opening billing…' : 'Manage or cancel subscription ↗'}</button>}
       <p className="mf-fine">No card is required for the first 3 completed videos. We allow up to 6 generation attempts to make them. If the safety limit is reached early, we do not start a charge and will help complete the free offer. After all 3 videos, the $199 USD/month plan renews until canceled. No earnings or audience growth are guaranteed.</p><p className="mf-fine">For creators aged 18 and over. By starting, you confirm you are at least 18 and agree to the <a href="/ai-monk-factory/terms">Factory terms</a> and <a href="/ai-monk-factory/privacy">privacy notice</a>.</p>
     </div></section>
+
+    <section className="mf-faq" aria-labelledby="mf-faq-title"><p className="mf-eyebrow">Questions</p><h2 id="mf-faq-title">Questions about AI Monk Factory</h2><div>{FAQS.map((f) => (<div key={f.question} className="mf-faq-item"><h3>{f.question}</h3><p>{f.answer}</p></div>))}</div></section>
 
     <footer className="mf-footer"><a className="mf-wordmark" href="/ai-monk-factory">Monk Factory</a><p>A fictional voice. Something useful to say.</p><div><a href="/ai-monk-factory/terms">Terms</a><a href="/ai-monk-factory/privacy">Privacy</a><a href="mailto:keiodaisuke@gmail.com">Support ↗</a></div></footer>
   </main>;
