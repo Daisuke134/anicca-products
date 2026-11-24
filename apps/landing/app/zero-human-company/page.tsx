@@ -8,7 +8,7 @@ import LmOpsGuidePurchase from '@/components/LmOpsGuidePurchase';
 const description = 'Aniccaの運用から作った全12章・33ページの日本語実務ガイド。エージェントの役割、再開、重複防止、認証、予算、販売と納品を、一つの業務から設計する。本文版29ドル、編集用テンプレート版99ドル。';
 export const metadata: Metadata = {
   title: 'ゼロヒューマン会社の運営本 | Anicca', description,
-  alternates: { canonical: 'https://aniccaai.com/zero-human-company' },
+  alternates: { canonical: 'https://aniccaai.com/zero-human-company', types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' } },
   openGraph: { title: book.title, description, url: 'https://aniccaai.com/zero-human-company', type: 'book' },
   twitter: { card: 'summary', title: book.title, description },
 };
