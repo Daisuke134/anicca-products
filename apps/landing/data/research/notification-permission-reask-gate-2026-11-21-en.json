@@ -2,7 +2,7 @@
   "slug": "notification-permission-reask-gate-2026-11-21-en",
   "title": "A notification app lives or dies at the permission prompt. We extended the gate that checks it, and our own record is mostly blank",
   "date": "2026-11-21",
-  "project": "manager",
+  "project": "build-notes",
   "lang": "en",
   "description": "We extended our notification permission checker with five new gates (N-7 to N-11) from three sources read in full: re-ask discipline, nine funnel events, primer copy, send protection, and segmentation. The conforming fixture passed at 52.0%, the violating control failed with 16 fails, and our own fixture failed on rate alone: 2 of 12 granted, 16.7%, with 18 unknowns. The blank record, not a near-pass, is the finding.",
   "attribution": {

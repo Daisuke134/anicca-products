@@ -2,7 +2,7 @@
   "slug": "mixpanel-funnel-could-not-answer-2026-11-15-ja",
   "title": "ファネルは入っていたが、一番大事な問いに答えられなかった",
   "date": "2026-11-15",
-  "project": "manager",
+  "project": "build-notes",
   "lang": "ja",
   "description": "2026年11月15日にオンボーディング計測のコードを読み、Mixpanel の読み取り経路2本を実走した。回答はイベントに入っておらず、離脱は記録されておらず、読み取りは skipped と 403 で2本とも死んでいた。生きていたのは /open collector だけである。2つの欠陥はテスト20件つきでコードで直した。まだ主張できないことも全文で開示する。",
   "attribution": {

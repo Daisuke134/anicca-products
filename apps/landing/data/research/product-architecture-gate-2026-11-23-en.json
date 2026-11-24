@@ -2,7 +2,7 @@
   "slug": "product-architecture-gate-2026-11-23-en",
   "title": "Tidying up an old subscription product can stop renewals. Our catalog gate failed 15 of 18 checks",
   "date": "2026-11-23",
-  "project": "manager",
+  "project": "build-notes",
   "lang": "en",
   "description": "We read RevenueCat's price-change rules and a grandfathering glossary in full, built an 18-check catalog gate (PA-0 to PA-5), and ran it on ourselves today: compliant passes 18/18, contrast fails 7, our own record fails 15 with 3 passes.",
   "attribution": {

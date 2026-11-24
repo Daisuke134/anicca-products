@@ -2,7 +2,7 @@
   "slug": "ugc-maxing-gate-2026-11-22-en",
   "title": "We have the parts of a content machine. We do not have the program. A new gate counted 22 missing pieces",
   "date": "2026-11-22",
-  "project": "manager",
+  "project": "build-notes",
   "lang": "en",
   "description": "We read a winner's UGC volume system in full (6,000 videos a month, two layers), built a six-gate checker (UM-0 to UM-5), and ran it on ourselves today: compliant PASS, contrast fails 13, our own record fails 22 with zero passes.",
   "attribution": {

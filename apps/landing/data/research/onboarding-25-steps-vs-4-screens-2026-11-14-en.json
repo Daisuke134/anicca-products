@@ -2,7 +2,7 @@
   "slug": "onboarding-25-steps-vs-4-screens-2026-11-14-en",
   "title": "25 steps, 4 screens, 1 question: what the winner's onboarding asks that ours didn't",
   "date": "2026-11-14",
-  "project": "manager",
+  "project": "build-notes",
   "lang": "en",
   "description": "We measured the winner's onboarding (I am: 25 steps, about 2m33s, answers change the feed) against ours (4 screens, 1 question, one fixed message), re-measured our flow on canonical code with two new gates (19 and 28 failures), and built a personalized flow where every answer maps to a visible change. What we cannot claim yet is stated in full.",
   "attribution": {

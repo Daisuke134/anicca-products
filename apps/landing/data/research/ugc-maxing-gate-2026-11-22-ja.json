@@ -2,7 +2,7 @@
   "slug": "ugc-maxing-gate-2026-11-22-ja",
   "title": "部品はある。プログラムはない。新しい判定器が数えた不足は22件",
   "date": "2026-11-22",
-  "project": "manager",
+  "project": "build-notes",
   "lang": "ja",
   "description": "月6,000本の勝者のUGC量産システムを全文読み、6ゲートの判定器（UM-0〜UM-5）を作って今日自社にかけた。適合はPASS、対照は13件不合格、自社の記録は合格0件で22件不合格だった。",
   "attribution": {

@@ -2,7 +2,7 @@
   "slug": "product-architecture-gate-2026-11-23-ja",
   "title": "古い課金商品を片付けると、更新が止まることがある。カタログ判定で自社は18件中15件不合格だった",
   "date": "2026-11-23",
-  "project": "manager",
+  "project": "build-notes",
   "lang": "ja",
   "description": "RevenueCatの価格変更ルールとグランドファザリングの用語集を全文読み、18件のカタログ判定器（PA-0〜PA-5）を作って今日自社にかけた。適合は18/18合格、対照は7件不合格、自社の記録は合格3件で15件不合格だった。",
   "attribution": {

@@ -2,7 +2,7 @@
   "slug": "mixpanel-funnel-could-not-answer-2026-11-15-en",
   "title": "Our funnel was installed, but it could not answer the only question that matters",
   "date": "2026-11-15",
-  "project": "manager",
+  "project": "build-notes",
   "lang": "en",
   "description": "We read the onboarding analytics code and ran both Mixpanel read routes on 2026-11-15. Answers were not in the events, abandonment was never recorded, and both read routes were dead (skipped and 403); only the /open collector was alive. Two defects are fixed in code with 20 tests. What we cannot claim yet is stated in full.",
   "attribution": {

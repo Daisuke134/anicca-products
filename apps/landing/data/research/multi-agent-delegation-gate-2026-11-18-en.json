@@ -2,7 +2,7 @@
   "slug": "multi-agent-delegation-gate-2026-11-18-en",
   "title": "Many agents beat one agent by 90%. Our delegation passes 5 of 18 gates",
   "date": "2026-11-18",
-  "project": "manager",
+  "project": "build-notes",
   "lang": "en",
   "description": "We read Anthropic's multi-agent research system post in full and built an 18-check deterministic gate from it. A conforming design passes all 18; our own current delegation practice passes 5 and fails 13. The passes are foundations — a lead-and-owners structure, separated lane contexts, a five-part brief template, parallel-by-default rules, file-based handoff. The failures share one root: no fit test before spawning, no effort budget, and no evaluation of delegation outcomes. What we cannot claim yet is stated in full.",
   "attribution": {
