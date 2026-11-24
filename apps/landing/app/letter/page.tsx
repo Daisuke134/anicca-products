@@ -26,6 +26,39 @@ const letterLd = {
   },
 };
 
+const FAQS = [
+  {
+    question: 'What is The Daily Anicca Letter?',
+    answer:
+      'The Daily Anicca Letter is one short letter every morning on impermanence — a two-minute meditation in your inbox. There are 365 letters, one per day, and each letter pairs one Pali concept with a modern reframe and one breath practice. Each letter is about 150 words, and you can re-read any letter at any time in the forever-archive.',
+  },
+  {
+    question: 'How much does The Daily Anicca Letter cost?',
+    answer:
+      'The Daily Anicca Letter costs $9.99 per month. The first 14 days are free: a payment method is required to start, and there is no charge until the trial ends.',
+  },
+  {
+    question: 'Can I try The Daily Anicca Letter before subscribing?',
+    answer:
+      'Yes. You can get 3 free letters first — a short morning email for three days, then nothing. No spam.',
+  },
+  {
+    question: 'How do I cancel or manage my subscription?',
+    answer:
+      'You can cancel any time from your inbox, and you can manage your subscription at aniccaai.com/account.',
+  },
+] as const;
+
+const letterFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+
 export default function LetterPage() {
   const [email, setEmail] = useState('');
   const [optInState, setOptInState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
@@ -75,6 +108,7 @@ export default function LetterPage() {
   return (
     <main>
       <JsonLd data={letterLd} />
+      <JsonLd data={letterFaqLd} />
 
       {/* §4.3: ManifestoHero -- letter theme */}
       <ManifestoHero
@@ -231,6 +265,23 @@ export default function LetterPage() {
             </p>
           </Reveal>
         )}
+      </Section>
+
+      {/* FAQ -- visible questions matching the FAQPage schema above */}
+      <Section className="border-t border-[hsl(var(--border))]">
+        <Reveal>
+          <h2 className="mb-2 text-2xl font-light text-[hsl(var(--text-primary))]">
+            Questions about The Daily Anicca Letter
+          </h2>
+          <div className="max-w-[55ch]">
+            {FAQS.map((f) => (
+              <div key={f.question} className="mt-6">
+                <h3 className="text-base font-medium text-[hsl(var(--text-primary))]">{f.question}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[hsl(var(--text-secondary))]">{f.answer}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </Section>
 
       {/* Bottom CTA -- §11.F: /account verbatim */}
