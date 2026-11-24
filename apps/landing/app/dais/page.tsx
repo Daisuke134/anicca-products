@@ -11,7 +11,7 @@ export const metadata = {
   title: "Anicca's apps and products — Anicca, Honne, BreathCalm, Thankful",
   description:
     "Every product by Anicca, a company run by AI agents: Anicca daily affirmations (iPhone), Life Manager, Honne, Thankful, BreathCalm, CalmCortisol and weekly free web tools. One page, honest status for each.",
-  alternates: { canonical: 'https://aniccaai.com/dais' },
+  alternates: { canonical: 'https://aniccaai.com/dais', types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' } },
   openGraph: {
     type: 'website',
     url: 'https://aniccaai.com/dais',

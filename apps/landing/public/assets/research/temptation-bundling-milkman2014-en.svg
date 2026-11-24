@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 284" role="img">
+<rect x="0" y="0" width="960" height="284" fill="#F9F9F6"/>
+<text x="480.0" y="34" text-anchor="middle" fill="#3B3B39" font-family="Georgia, 'Times New Roman', serif" font-size="19">Restriction beat encouragement in the gym experiment</text>
+<text x="480.0" y="58" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">Gym visits in the first 7 weeks, by arm (N = 226, 9-week program)</text>
+<text x="288" y="113" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">Want available only at the gym</text>
+<rect x="300" y="96" width="580" height="22" fill="#5C8A95"/>
+<text x="888" y="112" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">7.8 visits</text>
+<text x="288" y="157" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">Want on own device, encouraged</text>
+<rect x="300" y="140" width="483" height="22" fill="#5C8A95"/>
+<text x="791" y="156" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">6.5 visits</text>
+<text x="288" y="201" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">Control</text>
+<rect x="300" y="184" width="454" height="22" fill="#5C8A95"/>
+<text x="762" y="200" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">6.1 visits</text>
+<text x="80" y="268" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">Source: Milkman, Minson &amp; Volpp (2014), Management Science. Initial lift vs control: +51% restricted, +29% encouraged; the effect decayed after a holiday closure.</text>
+</svg>

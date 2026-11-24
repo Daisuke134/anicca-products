@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 686" role="img">
+<rect x="0" y="0" width="960" height="686" fill="#F9F9F6"/>
+<text x="480.0" y="34" text-anchor="middle" fill="#3B3B39" font-family="Georgia, 'Times New Roman', serif" font-size="19">How the temptation-bundling gate works</text>
+<text x="480.0" y="58" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">A want opens only during a should, and the person owns the lock (flowchart, Mermaid structure)</text>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#3B3B39"/></marker></defs>
+<rect x="200.0" y="92" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="115" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">Record the want / should pairing</text>
+<text x="480.0" y="134" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">per app: the want is pre-tested as tempting, the should is delayed-reward and avoided</text>
+<text x="186.0" y="124" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-0</text>
+<line x1="480.0" y1="146" x2="480.0" y2="177" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="180" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="203" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">Restrict the want to the should</text>
+<text x="480.0" y="222" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">access only inside the should's context, enforced, and simultaneous - not after</text>
+<text x="186.0" y="212" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-1</text>
+<line x1="480.0" y1="234" x2="480.0" y2="265" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="268" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="291" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">Design for fit and decay</text>
+<text x="480.0" y="310" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">the want must not steal the attention the should needs; rotation and post-break restart planned</text>
+<text x="186.0" y="300" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-2</text>
+<line x1="480.0" y1="322" x2="480.0" y2="353" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="356" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="379" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">The person owns the restriction</text>
+<text x="480.0" y="398" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">opt-in, changeable, removable; the want is never framed with guilt or shame</text>
+<text x="186.0" y="388" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-3</text>
+<line x1="480.0" y1="410" x2="480.0" y2="441" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="444" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="467" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">Aim at the busiest first</text>
+<text x="480.0" y="486" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">read frequency in a separate bundler cohort; never claim habit or automaticity</text>
+<text x="186.0" y="476" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-4</text>
+<line x1="480.0" y1="498" x2="480.0" y2="529" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200.0" y="532" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="555" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" font-weight="600">Set expectations from the large study</text>
+<text x="480.0" y="574" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">plan on +10 to 14% (N = 6,792), not the +51% first week of a small one; quote primary numbers</text>
+<text x="186.0" y="564" text-anchor="end" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700">TB-5</text>
+<text x="80" y="668" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">Structure follows the design-doc-mermaid flowchart pattern. Gate definitions: temptation bundling gate spec, 2026-11-24.</text>
+</svg>

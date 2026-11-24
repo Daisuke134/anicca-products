@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img">
+<rect x="0" y="0" width="960" height="470" fill="#F9F9F6"/>
+<text x="480.0" y="34" text-anchor="middle" fill="#3B3B39" font-family="Georgia, 'Times New Roman', serif" font-size="19">現行の自社状態は全18件中2件だけ合格</text>
+<text x="480.0" y="58" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">同じ判定器で3つの設計を採点したゲート別合格数（2026-11-24）</text>
+<rect x="250" y="72" width="16" height="10" fill="#3B3B39"/>
+<text x="272" y="81" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12">適合設計 (18/18)</text>
+<rect x="386.8" y="72" width="16" height="10" fill="#5C8A95"/>
+<text x="408.8" y="81" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12">現在の自社 (2/18)</text>
+<rect x="523.6" y="72" width="16" height="10" fill="#969592"/>
+<text x="545.6" y="81" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12">対照の設計 (7/18)</text>
+<line x1="80" y1="380" x2="900" y2="380" stroke="#C8C7C2" stroke-width="1"/>
+<text x="72" y="384" text-anchor="end" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">0</text>
+<line x1="80" y1="290" x2="900" y2="290" stroke="#E4E3DE" stroke-width="1"/>
+<text x="72" y="294" text-anchor="end" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">1</text>
+<line x1="80" y1="200" x2="900" y2="200" stroke="#E4E3DE" stroke-width="1"/>
+<text x="72" y="204" text-anchor="end" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">2</text>
+<line x1="80" y1="110" x2="900" y2="110" stroke="#E4E3DE" stroke-width="1"/>
+<text x="72" y="114" text-anchor="end" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">3</text>
+<text x="30" y="245" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" transform="rotate(-90 30 245)">checks passed (of 3)</text>
+<rect x="92" y="110" width="34" height="270" fill="#3B3B39"/>
+<text x="109" y="104" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">3</text>
+<rect x="131" y="290" width="34" height="90" fill="#5C8A95"/>
+<text x="148" y="284" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">1</text>
+<rect x="170" y="200" width="34" height="180" fill="#969592"/>
+<text x="187" y="194" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">2</text>
+<text x="148" y="404" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">FS-0</text>
+<rect x="229" y="110" width="34" height="270" fill="#3B3B39"/>
+<text x="246" y="104" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">3</text>
+<rect x="268" y="380" width="34" height="0" fill="#5C8A95"/>
+<text x="285" y="374" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">0</text>
+<rect x="307" y="290" width="34" height="90" fill="#969592"/>
+<text x="324" y="284" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">1</text>
+<text x="285" y="404" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">FS-1</text>
+<rect x="366" y="110" width="34" height="270" fill="#3B3B39"/>
+<text x="383" y="104" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">3</text>
+<rect x="405" y="290" width="34" height="90" fill="#5C8A95"/>
+<text x="422" y="284" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">1</text>
+<rect x="444" y="200" width="34" height="180" fill="#969592"/>
+<text x="461" y="194" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">2</text>
+<text x="422" y="404" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">FS-2</text>
+<rect x="502" y="110" width="34" height="270" fill="#3B3B39"/>
+<text x="519" y="104" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">3</text>
+<rect x="541" y="380" width="34" height="0" fill="#5C8A95"/>
+<text x="558" y="374" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">0</text>
+<rect x="580" y="290" width="34" height="90" fill="#969592"/>
+<text x="597" y="284" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">1</text>
+<text x="558" y="404" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">FS-3</text>
+<rect x="639" y="110" width="34" height="270" fill="#3B3B39"/>
+<text x="656" y="104" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">3</text>
+<rect x="678" y="380" width="34" height="0" fill="#5C8A95"/>
+<text x="695" y="374" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">0</text>
+<rect x="717" y="290" width="34" height="90" fill="#969592"/>
+<text x="734" y="284" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">1</text>
+<text x="695" y="404" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">FS-4</text>
+<rect x="776" y="110" width="34" height="270" fill="#3B3B39"/>
+<text x="793" y="104" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">3</text>
+<rect x="815" y="380" width="34" height="0" fill="#5C8A95"/>
+<text x="832" y="374" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">0</text>
+<rect x="854" y="380" width="34" height="0" fill="#969592"/>
+<text x="871" y="374" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11.5">0</text>
+<text x="832" y="404" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">FS-5</text>
+<text x="80" y="440" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">出典: freshstart_check.py を記録済み fixture 3件に実行（2026-11-24）。fail は「会社記録に無い」という意味で、実機に無いことの証明ではない。</text>
+</svg>

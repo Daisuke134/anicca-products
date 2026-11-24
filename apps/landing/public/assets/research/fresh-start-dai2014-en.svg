@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 416" role="img">
+<rect x="0" y="0" width="960" height="416" fill="#F9F9F6"/>
+<text x="480.0" y="34" text-anchor="middle" fill="#3B3B39" font-family="Georgia, 'Times New Roman', serif" font-size="19">Gym visits jump at every kind of landmark</text>
+<text x="480.0" y="58" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">Increase in university gym visits at the start of a new period (11,912 members)</text>
+<text x="288" y="113" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">New semester</text>
+<rect x="300" y="96" width="580" height="22" fill="#5C8A95"/>
+<text x="888" y="112" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">47.1%</text>
+<text x="288" y="157" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">New week</text>
+<rect x="300" y="140" width="411" height="22" fill="#5C8A95"/>
+<text x="719" y="156" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">33.4%</text>
+<text x="288" y="201" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">After a break</text>
+<rect x="300" y="184" width="299" height="22" fill="#5C8A95"/>
+<text x="607" y="200" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">24.3%</text>
+<text x="288" y="245" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">New month</text>
+<rect x="300" y="228" width="177" height="22" fill="#5C8A95"/>
+<text x="485" y="244" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">14.4%</text>
+<text x="288" y="289" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">New year</text>
+<rect x="300" y="272" width="143" height="22" fill="#5C8A95"/>
+<text x="451" y="288" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">11.6%</text>
+<text x="288" y="333" text-anchor="end" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">After a birthday</text>
+<rect x="300" y="316" width="92" height="22" fill="#5C8A95"/>
+<text x="400" y="332" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">7.5%</text>
+<text x="80" y="400" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">Source: Dai, Milkman &amp; Riis (2014), Management Science, field data. Initiation only; the paper measures no maintenance effect.</text>
+</svg>

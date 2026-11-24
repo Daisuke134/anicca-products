@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" role="img">
+<rect x="0" y="0" width="960" height="500" fill="#F9F9F6"/>
+<text x="480.0" y="36" text-anchor="middle" fill="#3B3B39" font-family="Georgia, 'Times New Roman', serif" font-size="19">The hot minute, in the order the article judges it</text>
+<text x="480.0" y="60" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">The article's first two criteria, as a sequence</text>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#3B3B39"/></marker></defs>
+<rect x="180.0" y="94" width="600" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="117" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14">The cue lands: a reply that has not come</text>
+<text x="480.0" y="137" text-anchor="middle" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700">The event, stated plainly</text>
+<line x1="480.0" y1="148" x2="480.0" y2="177" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="180.0" y="180" width="600" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="203" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14">Between cue and reaction, one short sentence arrives</text>
+<text x="480.0" y="223" text-anchor="middle" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700">It must be small enough to believe</text>
+<line x1="480.0" y1="234" x2="480.0" y2="263" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="180.0" y="266" width="600" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="289" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14">The sentence separates event from verdict</text>
+<text x="480.0" y="309" text-anchor="middle" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700">What happened, not what it proves about you</text>
+<line x1="480.0" y1="320" x2="480.0" y2="349" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="180.0" y="352" width="600" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="375" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14">Afterwards, a written record of what was actually said</text>
+<text x="480.0" y="395" text-anchor="middle" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700">Checked against what the fear forecast</text>
+<text x="80" y="484" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">From the article's judging criteria (event vs verdict; arrival between cue and reaction).</text>
+</svg>

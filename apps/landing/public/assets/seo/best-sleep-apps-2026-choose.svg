@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" role="img">
+<rect x="0" y="0" width="960" height="500" fill="#F9F9F6"/>
+<text x="480.0" y="36" text-anchor="middle" fill="#3B3B39" font-family="Georgia, 'Times New Roman', serif" font-size="19">Choosing, by what is broken</text>
+<text x="480.0" y="60" text-anchor="middle" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5">The article's own evaluation criteria</text>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#3B3B39"/></marker></defs>
+<rect x="180.0" y="94" width="600" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="117" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14">Cannot fall asleep?</text>
+<text x="480.0" y="137" text-anchor="middle" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700">Calm or Headspace: stories, sounds, wind-down</text>
+<line x1="480.0" y1="148" x2="480.0" y2="177" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="180.0" y="180" width="600" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="203" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14">Want tracking without a wearable?</text>
+<text x="480.0" y="223" text-anchor="middle" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700">Sleep Cycle or Pillow</text>
+<line x1="480.0" y1="234" x2="480.0" y2="263" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="180.0" y="266" width="600" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="289" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14">Carrying sleep debt and low energy?</text>
+<text x="480.0" y="309" text-anchor="middle" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700">RISE: sleep debt and energy levels</text>
+<line x1="480.0" y1="320" x2="480.0" y2="349" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="180.0" y="352" width="600" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480.0" y="375" text-anchor="middle" fill="#3B3B39" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14">Schedule itself is broken?</text>
+<text x="480.0" y="395" text-anchor="middle" fill="#5C8A95" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" font-weight="700">Sleep Reset: reset score and bedtime timing</text>
+<text x="80" y="484" fill="#969592" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11">From the article's 'How we tested' and 'How to Choose the Right App' sections.</text>
+</svg>
