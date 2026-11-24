@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
   title: 'BreathCalm - Reset Anxiety in 6 Minutes',
@@ -8,9 +9,46 @@ export const metadata = {
     '9D binaural breathwork that actually works. 4-7-8, Box, Coherent breathing + SOS emergency mode. Reset anxiety in just 6 minutes.',
 };
 
+
+const FAQS = [
+  {
+    question: 'What is BreathCalm?',
+    answer:
+      'BreathCalm is a breathwork experience by Anicca that pairs 9D binaural audio with guided breathing techniques - 4-7-8, Box, Coherent, SOS, and Japanese Walking - to help you reset anxiety in about 6 minutes. BreathCalm is a breathing support tool, not a medical treatment; if anxiety is ongoing or severe, please work with a qualified professional.',
+  },
+  {
+    question: 'How long does a BreathCalm session take?',
+    answer:
+      'A standard session is designed to reset anxiety in 6 minutes. When anxiety spikes, SOS Emergency Mode is designed for instant calm in 3 minutes.',
+  },
+  {
+    question: 'Which breathing techniques does BreathCalm include?',
+    answer:
+      'BreathCalm includes 5 expert techniques: 4-7-8, Box, Coherent, SOS, and Japanese Walking, with immersive 9D binaural audio synchronized with every breath.',
+  },
+  {
+    question: 'Does BreathCalm track your progress?',
+    answer:
+      'Yes. BreathCalm tracks your mood score before and after each session, and includes a streak tracker to help you build a daily breathing habit.',
+  },
+] as const;
+
+const breathCalmLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  },
+];
+
 export default function BreathCalmLanding() {
   return (
     <main className="min-h-screen bg-[hsl(var(--background))]">
+      <JsonLd data={breathCalmLd} />
       <SplitHero
         eyebrow="Available on iOS"
         headline={
@@ -64,6 +102,36 @@ export default function BreathCalmLanding() {
             your heart rate, calm your nervous system, and help you think clearly again.
             Start free today.
           </p>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <h2 className="text-2xl font-semibold text-[hsl(var(--text-primary))]">What is BreathCalm?</h2>
+          <p className="text-lg text-[hsl(var(--text-secondary))] max-w-2xl mt-4">
+            BreathCalm is a breathwork experience by Anicca: 9D binaural audio
+            synchronized with every breath, across 5 expert techniques - 4-7-8,
+            Box, Coherent, SOS, and Japanese Walking. A standard session is
+            designed to reset anxiety in 6 minutes, and SOS Emergency Mode is
+            designed for instant calm in 3 minutes when anxiety spikes.
+            BreathCalm is a breathing support tool, not a medical treatment;
+            if anxiety is ongoing or severe, please work with a qualified
+            professional.
+          </p>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <h2 className="text-2xl font-semibold text-[hsl(var(--text-primary))]">Questions about BreathCalm</h2>
+          <div className="max-w-2xl">
+            {FAQS.map((f) => (
+              <div key={f.question} className="mt-6">
+                <h3 className="text-lg font-medium text-[hsl(var(--text-primary))]">{f.question}</h3>
+                <p className="text-base text-[hsl(var(--text-secondary))] mt-2">{f.answer}</p>
+              </div>
+            ))}
+          </div>
         </Reveal>
       </Section>
 
