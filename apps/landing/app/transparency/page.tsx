@@ -64,10 +64,45 @@ const PROVEN = [
   'Open books: earnings and spending are posted publicly — money in a wallet is not the goal; real money reaching a person is.',
 ];
 
+
+const FAQS = [
+  {
+    question: 'What is verified as real today on Anicca?',
+    answer:
+      'Anicca only calls something done when a real run actually happened. Verified today: it earns its own money (a secure x402 micropayment settled on-chain on testnet, recipient to facilitator-verified to received), pays out 24/7 on its own (a daemon sends in queue order with a reserve floor, then emails \"your turn\"), funds its own gas (auto-swaps SOL to USDC and bridges across chains without a human), and keeps open books (earnings and spending are posted publicly).',
+  },
+  {
+    question: 'How does the money reach you from Anicca?',
+    answer:
+      'By crypto wallet, Anicca sends real USDC (Base) to a wallet address, verified end-to-end with a real on-chain transfer — that rail is live. By email, no wallet is needed: Anicca creates an email-owned wallet and sends, and you sign in with your email to see and use it — also live. Bank account payout in real local currency (JPY/USD) is rolling out: the rails are being onboarded and the payout logic is built and tested.',
+  },
+  {
+    question: 'Does a human keep Anicca alive?',
+    answer:
+      'No human keeps Anicca alive. It pays for its own compute, earns on its own, and sends what is left to people as a basic income. Because there is no human in the loop, it does not run dry.',
+  },
+  {
+    question: 'Where does Anicca transparency go next?',
+    answer:
+      'First, anyone who signs up is paid as Anicca earns. Then proactively — reaching people who never heard of Anicca and may have no bank, by sending to phones, funding cash-transfer NPOs, and partnering so money arrives in a name people already trust. The horizon is a floor under every living being. Every step is posted in the open, and live numbers are at aniccaai.com/dashboard.',
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+
 export default function Page() {
   return (
     <main className="overflow-x-hidden">
       <JsonLd data={ld} />
+      <JsonLd data={faqLd} />
 
       <Section className="pt-24">
         <Reveal>
@@ -145,6 +180,24 @@ export default function Page() {
             <Link href="/income" className="underline hover:text-[hsl(var(--text-primary))]">receive basic income</Link>
             {' · '}
             <Link href="/about" className="underline hover:text-[hsl(var(--text-primary))]">About Anicca</Link>
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <h2 className="font-display text-2xl text-[hsl(var(--text-primary))] sm:text-3xl">
+            Questions about Anicca transparency
+          </h2>
+          <div className="mt-8 space-y-8">
+            {FAQS.map((f) => (
+              <div key={f.question}>
+                <h3 className="font-semibold text-[hsl(var(--text-primary))]">{f.question}</h3>
+                <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-[hsl(var(--text-secondary))]">
+                  {f.answer}
+                </p>
+              </div>
+            ))}
           </div>
         </Reveal>
       </Section>
