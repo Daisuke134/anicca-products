@@ -1,0 +1,147 @@
+# Anicca UX demo for social content (target ~20-40s of on-screen motion).
+# Path: onboarding → affirmation (plan reveal + feed) → paywall.
+# Selectors reused from aniccaios/maestro/v1.8.0/_onboarding_to_paywall.yaml (v7).
+# Do not add startRecording here — CI runs `maestro record --local` and a 9:16 simctl capture.
+#
+# Lock-screen widget: not in this in-app path. A fresh simulator cannot place
+# AniccaWidget on the iOS Lock Screen without SpringBoard editing, which Maestro
+# does not drive reliably. Muse can overlay the existing lock-screen App Store
+# screenshot as a hook frame. See team/research/MAESTRO-DEMO-VIDEOS.md.
+
+appId: ai.anicca.app.ios
+name: Anicca UX demo (onboarding, affirmation, paywall)
+tags:
+  - content
+  - demo
+
+---
+- clearState
+- clearKeychain
+- launchApp:
+    arguments:
+      UITESTING: "true"
+
+# StoreKit / iCloud prompts that sometimes appear after clearKeychain
+- tapOn:
+    text: "キャンセル|Cancel|Not Now"
+    optional: true
+
+# 1. Welcome
+- extendedWaitUntil:
+    visible:
+      id: "onboarding-welcome-cta"
+    timeout: 60000
+- wait: 1500
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
+- tapOn:
+    id: "onboarding-welcome-cta"
+
+# 2. Goal
+- extendedWaitUntil:
+    visible:
+      text: "よく眠れるようになる|Sleep better"
+    timeout: 15000
+- wait: 1200
+- tapOn:
+    text: "よく眠れるようになる|Sleep better"
+
+# 3. Pain points
+- extendedWaitUntil:
+    visible:
+      id: "onboarding-struggle-negative_thoughts"
+    timeout: 15000
+- wait: 1000
+- tapOn:
+    id: "onboarding-struggle-negative_thoughts"
+- tapOn:
+    id: "onboarding-struggles-next"
+
+# 4. Frequency
+- extendedWaitUntil:
+    visible:
+      id: "onboarding-depth-daily"
+    timeout: 15000
+- wait: 1000
+- tapOn:
+    id: "onboarding-depth-daily"
+
+# 5. Nudge times
+- extendedWaitUntil:
+    visible:
+      text: '朝 \(9時\)|Morning \(9 AM\)'
+    timeout: 15000
+- wait: 1000
+- tapOn:
+    text: '朝 \(9時\)|Morning \(9 AM\)'
+- tapOn:
+    text: "続ける|Continue"
+
+# 6-7. Processing then plan / affirmation reveal
+- extendedWaitUntil:
+    visible:
+      id: "onboarding-insight-cta"
+    timeout: 30000
+- wait: 2000
+- tapOn:
+    id: "onboarding-insight-cta"
+
+# 8. Comparison
+- extendedWaitUntil:
+    visible:
+      text: "続ける|Continue"
+    timeout: 15000
+- wait: 1200
+- tapOn:
+    text: "続ける|Continue"
+
+# 9. Rating prompt (system StoreKit dialog dismissed if it appears)
+- extendedWaitUntil:
+    visible:
+      text: "アニッチャを評価|Rate Anicca"
+    timeout: 15000
+- wait: 800
+- tapOn:
+    text: "アニッチャを評価|Rate Anicca"
+- tapOn:
+    text: "今はしない|Not Now"
+    optional: true
+
+# 10. Notifications
+- extendedWaitUntil:
+    visible:
+      id: "onboarding-notifications-allow"
+    timeout: 15000
+- wait: 800
+- tapOn:
+    id: "onboarding-notifications-allow"
+- tapOn:
+    text: "許可しない|Don't Allow|Don’t Allow|許可|Allow"
+    optional: true
+
+# Paywall primer → plan selection (hold so the offer is readable)
+- extendedWaitUntil:
+    visible:
+      id: "paywall-primer-cta"
+    timeout: 30000
+- wait: 1800
+- tapOn:
+    id: "paywall-primer-cta"
+- extendedWaitUntil:
+    visible:
+      id: "paywall-close-button"
+    timeout: 15000
+- wait: 2500
+- tapOn:
+    id: "paywall-close-button"
+- tapOn:
+    text: "今はしない|Not Now"
+    optional: true
+
+# Main feed — affirmation cards
+- extendedWaitUntil:
+    visible:
+      id: "feed-scroll"
+    timeout: 15000
+- wait: 2500
