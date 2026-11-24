@@ -1,6 +1,47 @@
 /* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
+
+// GEO (2026-11-25): visible FAQ + FAQPage build-out, following the
+// /letter and /tegami pattern — the audit recommended "Add FAQPage
+// schema with site FAQs" (page audit 83/100, FAQPage x0 live).
+// Every answer is built only from this page's own stated content.
+// No price is quoted in the FAQ: this page's CTA section and the
+// canonical company price table currently differ, so no price
+// claim is added here until that is reconciled upstream.
+const FAQS = [
+  {
+    question: 'What is Anicca?',
+    answer:
+      'Anicca is an iOS app that sends a single line of kindness - an affirmation, a manifestation prompt, a self-love reminder - at the exact moment your mind starts to spiral. The AI learns which words shift your mood. It is Buddhist-inspired: Anicca means impermanence, and every storm passes.',
+  },
+  {
+    question: 'How does Anicca work?',
+    answer:
+      'Onboarding asks what you are struggling with, across 13 themes including self-love, anxiety, overthinking, anger, self-doubt, loneliness, procrastination, sleep, and confidence/manifestation. Anicca learns your patterns and sends 1-3 push notifications a day at the moment they hit hardest. Each notification is a single line; tapping it opens a full-screen affirmation card, and thumbs-up/down feedback teaches the AI which words land.',
+  },
+  {
+    question: 'Is Anicca a therapy or medical treatment?',
+    answer:
+      'No. Anicca is a wellness and self-care app, not a medical treatment, therapy, or diagnosis. Its optional voice sessions listen and reflect, with no advice and no therapy, just presence. If you are struggling, please also reach out to a qualified professional or a local helpline.',
+  },
+  {
+    question: 'Where can I download Anicca, and what does it need?',
+    answer:
+      'Anicca is free to download on the App Store - search "Daily Affirmations Anicca" - and needs iOS 15 or later. The direct App Store link is apps.apple.com/us/app/daily-affirmations-anicca/id6755129214.',
+  },
+] as const;
+
+const aniccaMobileFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
 
 // GEO parity (audit 2026-11-23: this page's live HTML had no
 // rel="canonical" and no About link; live baseline 35,247 bytes,
@@ -39,6 +80,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-foreground leading-relaxed">
+      <JsonLd data={aniccaMobileFaqLd} />
       <header className="mb-14">
         <p className="mb-3 text-sm uppercase tracking-widest text-muted-foreground">
           Brand brief · Anicca · Mobile App
@@ -295,6 +337,17 @@ export default function Page() {
           any means available - apps, books, music, food, clothing, retreat
           centers, donations. The mobile app is the first instance.
         </p>
+      </section>
+
+      {/* FAQ -- visible questions matching the FAQPage schema above */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-2xl font-semibold">Questions about Anicca</h2>
+        {FAQS.map((f) => (
+          <div key={f.question} className="mt-6">
+            <h3 className="text-base font-semibold">{f.question}</h3>
+            <p className="mt-2">{f.answer}</p>
+          </div>
+        ))}
       </section>
 
       <footer className="mt-16 border-t border-border pt-8 text-sm text-muted-foreground">
