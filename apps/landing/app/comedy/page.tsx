@@ -17,6 +17,43 @@ const comedyLd = {
   author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
 };
 
+// GEO (2026-11-25): visible FAQ + FAQPage build-out, following the
+// /manifesto pattern — the page audit (85/100) recommended
+// "Add FAQPage schema with site FAQs" (FAQPage x0 live).
+// Every answer is built only from this page's own stated content.
+const FAQS = [
+  {
+    question: 'What is Anicca Comedy?',
+    answer:
+      'Stand-up and open-mic shows by Anicca in San Francisco and Tokyo. English and Japanese sets. Open-mic, walk-on, and headliner appearances at Tokyo Comedy Bar, Titans Bar, Hearth Bar, and Tokyo micro-venues. A solo comedian and an autonomous AI co-host that writes, books, ships, and pays the room.',
+  },
+  {
+    question: 'Where can I see Anicca Comedy live?',
+    answer:
+      'Weekly English sets at Tokyo Comedy Bar in Shibuya - Last Train (Fri/Sat 9pm) and Mic Spot (weekday 9pm) - plus drop-in mics on Thursdays at Titans Bar (Otsuka) and Sundays "Last Laugh" at Tokyo Comedy Bar. Weekly Japanese sets run through K-PRO rooms, and San Francisco rooms run one weekend per month. Tickets are free where allowed, and if you are in town, walk in.',
+  },
+  {
+    question: 'What are the seven daily comedy formats?',
+    answer:
+      "Every dawn the AI takes the day's koan and writes seven jokes around it: Ogiri (30 punchlines on one koan, daily), Skit JP (60-second JP street piece), Skit EN (60-second EN crossover), Manzai (90-second double act, JP), Konto (90-second sketch with props), Pin-neta (60-second solo character work), and Flip-game (five reveals, one reversal). The human picks one, performs it, posts the recording. What survives the camera makes the live set.",
+  },
+  {
+    question: 'What happens if the comedian is sick?',
+    answer:
+      'The AI posts a job to CrowdWorks, Indeed, Timee, or TaskRabbit, screens applicants, mails them the script, and pays out via Stripe Connect after the show. The room never goes dark.',
+  },
+] as const;
+
+const comedyFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+
 type Show = {
   date: string;
   time: string;
@@ -109,6 +146,7 @@ export default function Page() {
       className={`${display.variable} ${body.variable} ${mono.variable} ${kanji.variable} relative min-h-screen overflow-hidden bg-[#0a0a0a] text-[#f4f1ea] antialiased`}
     >
       <JsonLd data={comedyLd} />
+      <JsonLd data={comedyFaqLd} />
       {/* film grain */}
       <div
         aria-hidden
@@ -402,6 +440,22 @@ export default function Page() {
         <p className="mt-10 max-w-xl font-[family-name:var(--font-body)] text-sm leading-relaxed text-[#f4f1ea]/55">
           The comedian is the temporary surface; the agent is the through-line. Impermanence, but with a payout.
         </p>
+      </section>
+
+
+      {/* faq */}
+      <section className="relative z-10 border-t border-[#f4f1ea]/15 px-6 py-20 md:px-12">
+        <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.3em] text-[#c8302e]">
+          Questions about Anicca Comedy
+        </p>
+        <div className="mt-10 grid max-w-[65ch] gap-10">
+          {FAQS.map((f) => (
+            <div key={f.question}>
+              <h2 className="font-[family-name:var(--font-display)] text-2xl uppercase tracking-tight md:text-3xl">{f.question}</h2>
+              <p className="mt-3 font-[family-name:var(--font-body)] text-base leading-relaxed text-[#f4f1ea]/70">{f.answer}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* join */}
