@@ -13,7 +13,7 @@ const DESCRIPTION =
 export const metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: 'https://aniccaai.com/pdf-insight' },
+  alternates: { canonical: 'https://aniccaai.com/pdf-insight', types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' } },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
