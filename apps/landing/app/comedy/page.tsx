@@ -13,7 +13,7 @@ const comedyLd = {
   genre: 'Stand-up comedy',
   inLanguage: 'en',
   description:
-    'Stand-up and open-mic shows by Anicca in San Francisco and Tokyo. English and Japanese sets. Open-mic, walk-on, and headliner appearances at Tokyo Comedy Bar, Titans Bar, Hearth Bar, and Tokyo micro-venues.',
+    'Comedy by 記者 (Kisha): the AI makes wild claims, and 記者 is the reaction comedian dragged along. Upcoming confirmed: Shochiku school live on 2026-12-06 at Shinjuku Vatios.',
   author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
 };
 
@@ -22,24 +22,29 @@ type Show = {
   time: string;
   venue: string;
   city: string;
-  kind: 'open-mic' | 'headliner';
-  status: 'confirmed' | 'pending' | 'tentative';
+  kind: 'open-mic' | 'headliner' | 'school-live' | 'solo';
+  status: 'confirmed' | 'pending' | 'tentative' | 'planned';
   link?: string;
 };
 
 const SHOWS: Show[] = [
-  { date: '2026-05-16', time: '20:00 PDT', venue: 'Hearth Bar (open mic, EN)', city: 'San Francisco', kind: 'open-mic', status: 'tentative' },
-  { date: '2026-05-21', time: '20:00 JST', venue: 'GET ON THE MIC @ Titans Bar (walk-on, EN)', city: 'Otsuka, Tokyo', kind: 'open-mic', status: 'tentative' },
-  { date: '2026-05-22', time: '21:00 JST', venue: 'Last Train @ Tokyo Comedy Bar (EN)', city: 'Shibuya, Tokyo', kind: 'open-mic', status: 'confirmed' },
-  { date: '2026-05-23', time: '21:00 JST', venue: 'Last Train @ Tokyo Comedy Bar (EN)', city: 'Shibuya, Tokyo', kind: 'open-mic', status: 'confirmed' },
-  { date: '2026-05-24', time: '19:00 JST', venue: 'パワーオブフリー(S) vol.千23 (ピン JP)', city: 'なかの芸能小劇場, Nakano', kind: 'open-mic', status: 'pending' },
-  { date: '2026-05-25', time: '21:00 JST', venue: 'Mic Spot @ Tokyo Comedy Bar (EN)', city: 'Shibuya, Tokyo', kind: 'open-mic', status: 'confirmed' },
-  { date: '2026-05-26', time: '21:00 JST', venue: 'Mic Spot @ Tokyo Comedy Bar (EN)', city: 'Shibuya, Tokyo', kind: 'open-mic', status: 'confirmed' },
-  { date: '2026-05-28', time: '20:00 JST', venue: 'GET ON THE MIC @ Titans Bar (walk-on, EN)', city: 'Otsuka, Tokyo', kind: 'open-mic', status: 'tentative' },
-  { date: '2026-05-29', time: '19:00 JST', venue: '下北GRIP DASH (ピン JP)', city: '下北スラッシュ, Shimokitazawa', kind: 'open-mic', status: 'pending' },
-  { date: '2026-05-29', time: '21:00 JST', venue: 'Last Train @ Tokyo Comedy Bar (EN)', city: 'Shibuya, Tokyo', kind: 'open-mic', status: 'confirmed' },
-  { date: '2026-05-30', time: '21:00 JST', venue: 'Last Train @ Tokyo Comedy Bar (EN)', city: 'Shibuya, Tokyo', kind: 'open-mic', status: 'confirmed' },
-  { date: '2026-05-31', time: '21:00 JST', venue: 'Last Laugh @ Tokyo Comedy Bar (walk-on, EN)', city: 'Shibuya, Tokyo', kind: 'open-mic', status: 'tentative' },
+  {
+    date: '2026-12-06',
+    time: '12:00 JST (doors 11:40)',
+    venue: 'Shochiku school 40th-class live “ONE” — 記者',
+    city: 'Shinjuku Vatios, Tokyo',
+    kind: 'school-live',
+    status: 'confirmed',
+    link: 'https://shochikugeino.zaiko.io/ja/e/shochiku40-one-debut',
+  },
+  {
+    date: '2026-12-27',
+    time: 'TBD',
+    venue: '記者 first solo live “シミュレーション”',
+    city: 'Tokyo (venue not confirmed)',
+    kind: 'solo',
+    status: 'planned',
+  },
 ];
 
 type Regular = {
@@ -96,11 +101,14 @@ const STATUS_LABEL: Record<Show['status'], string> = {
   confirmed: 'CONFIRMED',
   pending: 'PENDING REVIEW',
   tentative: 'WALK-IN',
+  planned: 'PLANNED — VENUE TBD',
 };
 
 const KIND_LABEL: Record<Show['kind'], string> = {
   'open-mic': 'OPEN MIC',
   headliner: 'HEADLINER',
+  'school-live': 'SCHOOL LIVE',
+  solo: 'SOLO (PLANNED)',
 };
 
 export default function Page() {
@@ -162,11 +170,11 @@ export default function Page() {
               オチ。
             </p>
             <p className="mt-4 font-[family-name:var(--font-body)] text-sm leading-relaxed text-[#f4f1ea]/70">
-              A solo comedian and an autonomous AI co-host that writes, books,
-              ships, and pays the room.
+              Stage name: 記者 (Kisha). The AI makes reckless claims; 記者 is the
+              reaction comedian dragged along. AI's recklessness × human helplessness.
             </p>
             <p className="mt-1 font-[family-name:var(--font-kanji)] text-sm leading-relaxed text-[#f4f1ea]/60">
-              一人のコメディアンと、書く・予約する・流す・払う、を全部やる AI。
+              芸名は記者。AIがボケ、記者がそれに巻き込まれるリアクション芸。AIの適当さ × 人間の情けなさ。
             </p>
           </div>
         </div>
@@ -186,7 +194,7 @@ export default function Page() {
             Next shows
           </h2>
           <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.3em] text-[#f4f1ea]/50 md:text-xs">
-            Come laugh. Tickets free where allowed.
+            Dec 6 tickets are on sale. Dec 27 is planned, venue not set.
           </p>
         </div>
 

@@ -13,7 +13,7 @@ const comedyJaLd = {
   genre: 'スタンドアップ・お笑い',
   inLanguage: 'ja',
   description:
-    'アニッチャによる東京・サンフランシスコでのお笑いライブとオープンマイク出演情報。大喜利・スキット・漫才・コント・ピンネタ・フリップ芸の各フォーマットで制作中。',
+    '芸名は記者。AIがボケ、記者がリアクション芸人として巻き込まれる。確定の次の公演は 2026-12-06 松竹芸能養成所40期生ライブ（新宿バティオス）。',
   author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
 };
 
@@ -22,37 +22,28 @@ type Show = {
   time: string;
   venue: string;
   city: string;
-  kind: 'open-mic' | 'demo' | 'headliner';
-  status: 'confirmed' | 'pending' | 'tentative';
+  kind: 'open-mic' | 'demo' | 'headliner' | 'school-live' | 'solo';
+  status: 'confirmed' | 'pending' | 'tentative' | 'planned';
   link?: string;
 };
 
 const SHOWS: Show[] = [
   {
-    date: '2026-05-16',
-    time: '20:00 PDT',
-    venue: 'Hearth Bar',
-    city: 'San Francisco',
-    kind: 'open-mic',
-    status: 'tentative',
-  },
-  {
-    date: '2026-05-17',
-    time: '08:00 PDT',
-    venue: 'Y Combinator HQ - Call My Agent Hackathon',
-    city: 'San Francisco',
-    kind: 'demo',
-    status: 'pending',
-    link: 'https://events.ycombinator.com/CallMyAgentHackathon',
-  },
-  {
-    date: '2026-05-18',
-    time: '18:00 PDT',
-    venue: 'AI Tinkerers SF - GTM Engineering',
-    city: 'San Francisco',
-    kind: 'demo',
+    date: '2026-12-06',
+    time: '開場11:40 / 開演12:00',
+    venue: '松竹芸能養成所40期生ライブ「ONE〜新星誕生秘話〜」記者',
+    city: '新宿バティオス',
+    kind: 'school-live',
     status: 'confirmed',
-    link: 'https://sf.aitinkerers.org/p/ai-tinkerers-san-francisco-gtm-engineering-track',
+    link: 'https://shochikugeino.zaiko.io/ja/e/shochiku40-one-debut',
+  },
+  {
+    date: '2026-12-27',
+    time: '時間未定',
+    venue: '記者 初単独ライブ「シミュレーション」',
+    city: '東京（会場は未確定）',
+    kind: 'solo',
+    status: 'planned',
   },
 ];
 
@@ -60,7 +51,7 @@ const FORMATS = [
   { label: '大喜利', label_en: 'Ogiri', desc: '同じお題に対して 30 答、毎朝 04:00 に AI が量産する。' },
   { label: 'スキット 日', label_en: 'Skit JP', desc: '60 秒の街角ネタ。 一人芝居でカメラ向きに撮る用。' },
   { label: 'スキット 英', label_en: 'Skit EN', desc: 'SF/LA で通じる 60 秒の英語ネタ。 同じ無常を西海岸口調で。' },
-  { label: '漫才', label_en: 'Manzai', desc: '90 秒の二人芝居。ボケ＝アニッチャ、ツッコミ＝相方。' },
+  { label: '漫才', label_en: 'Manzai', desc: '90 秒のやり取り。ボケ＝AI、リアクション＝記者。' },
   { label: 'コント', label_en: 'Konto', desc: '90 秒の小道具コント。 寺の境内、SuicaIC、Slack 通知が舞台。' },
   { label: 'ピンネタ', label_en: 'Pin-neta', desc: '60 秒のピン芸。 一人で 2-3 キャラを演じ分ける。' },
   { label: 'フリップ芸', label_en: 'Flip-game', desc: 'フリップ 5-7 枚で前フリと裏切り。 視覚芸の基本形。' },
@@ -79,12 +70,15 @@ const STATUS_LABEL: Record<Show['status'], string> = {
   confirmed: '確定',
   pending: '審査中',
   tentative: '当日 sign-up',
+  planned: '希望・会場未確定',
 };
 
 const KIND_LABEL: Record<Show['kind'], string> = {
   'open-mic': 'オープンマイク',
   demo: 'AI ビルダー デモ',
   headliner: 'ヘッドライナー',
+  'school-live': '養成所ライブ',
+  solo: '単独（希望）',
 };
 
 export default function Page() {
@@ -141,12 +135,10 @@ export default function Page() {
               the punchline.
             </p>
             <p className="mt-4 font-[family-name:var(--font-body)] text-sm leading-relaxed text-[#f4f1ea]/70">
-              一人の僧侶コメディアンと、書く・予約する・流す・払う、を全部やる AI が、
-              無常を笑いに変える。
+              芸名は記者。AIがボケ（適当なことを言う）。記者がそれに巻き込まれるリアクション芸人。「AIの適当さ × 人間の情けなさ」。
             </p>
             <p className="mt-1 font-[family-name:var(--font-body)] text-sm leading-relaxed text-[#f4f1ea]/55">
-              A solo Buddhist comedian and an autonomous AI co-host that writes, books,
-              ships, and pays the room.
+              Stage name: 記者 (Kisha). The AI makes reckless claims; 記者 is dragged along.
             </p>
           </div>
         </div>
@@ -164,7 +156,7 @@ export default function Page() {
             次の出演
           </h2>
           <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.3em] text-[#f4f1ea]/50 md:text-xs">
-            来てくれ。チケットは原則 無料。
+            12/6 は有料チケット発売中。12/27 は希望で、会場は未確定。
           </p>
         </div>
 
