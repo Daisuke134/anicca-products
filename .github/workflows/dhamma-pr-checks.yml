@@ -1,0 +1,119 @@
+name: Dhamma PR checks
+
+on:
+  pull_request:
+    paths:
+      - 'web-apps/daily-dhamma-app/**'
+      - '.github/workflows/dhamma-pr-checks.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dhamma-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  dhamma:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: web-apps/daily-dhamma-app
+    env:
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+      EXPO_OFFLINE: '1'
+      EXPO_NO_DOTENV: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: web-apps/daily-dhamma-app
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # The existing lockfile includes React 19 with lucide's React <=18 peer
+      # range. Use its installation mode; no new packages or lifecycle scripts.
+      - name: Install locked dependencies
+        run: npm ci --legacy-peer-deps --ignore-scripts --no-audit --no-fund
+      - name: Run complete app test suite
+        run: npm test -- --runInBand
+      - name: Type check
+        run: npx --no-install tsc --noEmit
+      - name: Lint
+        run: npm run lint -- --no-cache
+      - name: Build iOS JavaScript and Hermes bundle
+        run: npx --no-install expo export --platform ios --max-workers 2 --output-dir /tmp/dhamma-ios-export
+
+  ios-simulator:
+    needs: dhamma
+    # Standard public-repository runner; no signing, store access or uploads.
+    runs-on: macos-26
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: web-apps/daily-dhamma-app
+    env:
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+      EXPO_NO_DOTENV: '1'
+      COCOAPODS_DISABLE_STATS: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: web-apps/daily-dhamma-app
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify native toolchain
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphonesimulator --show-sdk-version
+          pod --version
+      - name: Install locked dependencies
+        run: npm ci --legacy-peer-deps --ignore-scripts --no-audit --no-fund
+      - name: Generate native iOS project
+        run: npx --no-install expo prebuild --platform ios --no-install
+      - name: Install native dependencies
+        run: |
+          cd ios
+          pod install
+      - name: Compile unsigned Release app for iOS Simulator
+        run: |
+          set -o pipefail
+          WORKSPACE=$(find ios -maxdepth 1 -name '*.xcworkspace' -type d | head -1)
+          test -n "$WORKSPACE"
+          SCHEME=$(basename "$WORKSPACE" .xcworkspace)
+          xcodebuild build \
+            -workspace "$WORKSPACE" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/dhamma-ios" \
+            ARCHS=arm64 ONLY_ACTIVE_ARCH=YES \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY='' \
+            2>&1 | tee "$RUNNER_TEMP/dhamma-native-build.log" | tail -60
+      - name: Verify compiled app and embedded JavaScript
+        run: |
+          APP_PATH=$(find "$RUNNER_TEMP/dhamma-ios/Build/Products/Release-iphonesimulator" -maxdepth 1 -name '*.app' -type d | head -1)
+          test -n "$APP_PATH"
+          test -s "$APP_PATH/main.jsbundle"
+          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PATH/Info.plist")
+          test "$BUNDLE_ID" = 'com.dailydhamma.app'
+          EXECUTABLE=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP_PATH/Info.plist")
+          file "$APP_PATH/$EXECUTABLE"
+          plutil -extract CFBundleSupportedPlatforms json -o - "$APP_PATH/Info.plist"
+          echo "Verified unsigned Simulator app: $BUNDLE_ID"
+
+      - name: Launch, relaunch and inspect rendered Simulator screens
+        # Cold Simulator migration took 5m29s before the app could launch.
+        timeout-minutes: 15
+        run: bash scripts/smoke-ios-simulator.sh
+      - name: Print app crash reports on failure
+        if: failure()
+        run: |
+          if [ -d "$HOME/Library/Logs/DiagnosticReports" ]; then
+            find "$HOME/Library/Logs/DiagnosticReports" -maxdepth 1 -name 'DailyDhamma*' -type f -print -exec tail -80 {} +
+          fi
