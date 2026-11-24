@@ -13,6 +13,30 @@ export const metadata: Metadata = {
   twitter: { card: 'summary', title: book.title, description },
 };
 
+const FAQS = [
+  {
+    question: 'この本は何ですか？',
+    answer: 'Aniccaの実際の運用資料から、公開できる実務の形へ書き直した日本語の実務ガイドです。全12章・本文PDF 33ページで、エージェントの役割、再開、重複防止、認証、予算、販売と納品を、一つの業務から設計します。開発者、個人事業者、小さなチームで、すでにエージェントを使い始めている人へ向けた本です。',
+  },
+  {
+    question: '本文版とテンプレート版の違いは何ですか？',
+    answer: '両方とも一回払い・米ドル建てです。本文版は29ドルで、本文PDF 33ページ・全12章、本文Markdown、付録の記入用シートに、事業実例の素材（書籍『The Art of AI Monks』EPUB・AI Monk Database フルデータJSON）が付きます。テンプレート版は99ドルで、同じ本文に、編集可能なテンプレート12ファイルのZIP（役割契約、タスク、所有権、実行記録、外部効果台帳、予算・商品設定、実行手順、失敗対応、引き継ぎ、日次報告）が付きます。',
+  },
+  {
+    question: '「ゼロヒューマン」は完全無人化を保証しますか？',
+    answer: 'いいえ。「ゼロヒューマン」は運営方針を指します。現在も故障や手動対応が残り、完全無人化・利益・稼働率を保証する商品ではありません。テンプレートは文書・設定の雛形で、実行エンジン、認証機能、スケジューラ、決済機能、個別導入は含みません。自分の環境に合わせた設定が必要です。',
+  },
+  {
+    question: '購入後はどう受け取りますか？ソースは読めますか？',
+    answer: '支払い後、このページに戻ってダウンロードできます。原稿・テンプレートのソースは公開リポジトリでも読めます。有料版は整形済みPDFとダウンロード用パッケージです。ソースへの独占アクセス、将来の機能、運用代行、売上の保証は含みません。',
+  },
+] as const;
+
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })),
+};
+
 export default function ZeroHumanCompanyBook() {
   const offers = Object.entries(book.editions);
   const structured = {
@@ -28,6 +52,7 @@ export default function ZeroHumanCompanyBook() {
   };
   return <main lang="ja" className="min-h-screen bg-[#f5f1e7] text-[#28352b]">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structured).replace(/</g, '\\u003c') }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd).replace(/</g, '\\u003c') }} />
     <div className="mx-auto max-w-6xl px-6 py-9 sm:px-10">
       <nav className="flex items-center justify-between gap-4 text-sm"><Link href="/" className="font-semibold tracking-[.2em]">ANICCA</Link><a href="#editions" className="underline underline-offset-4">二つの版を見る</a></nav>
       <OpsPlaybookPurchase />
@@ -79,6 +104,10 @@ export default function ZeroHumanCompanyBook() {
         <h2 className="font-serif text-2xl text-[#28352b]">ソースと受け取り方について</h2>
         <p className="mt-4">原稿・テンプレートのソースは公開リポジトリでも読めます。有料版は整形済みPDFとダウンロード用パッケージです。ソースへの独占アクセス、将来の機能、運用代行、売上の保証は含みません。</p>
         <div className="mt-4 flex flex-wrap gap-5"><a className="underline underline-offset-4" href="https://github.com/Daisuke134/anicca-products/tree/main/apps/landing/private/ebooks">原稿・テンプレートのソース</a><a className="underline underline-offset-4" href="mailto:contact@aniccaai.com">受け取りの問い合わせ</a></div>
+      </section>
+      <section className="border-t border-[#cbd0be] py-10">
+        <h2 className="font-serif text-2xl text-[#28352b]">よくある質問</h2>
+        <div className="mt-6 space-y-8">{FAQS.map((f) => <div key={f.question}><h3 className="font-serif text-xl text-[#28352b]">{f.question}</h3><p className="mt-3 text-sm leading-8 text-[#64705f]">{f.answer}</p></div>)}</div>
       </section>
       <footer className="flex flex-wrap justify-between gap-4 border-t border-[#cbd0be] py-8 text-xs text-[#78806e]"><span>© Anicca</span><Link href="/tokushoho" className="underline underline-offset-4">特定商取引法に基づく表記・販売条件</Link></footer>
     </div>
