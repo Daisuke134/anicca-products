@@ -13,6 +13,7 @@ export const metadata = {
   title: 'Life Manager — never be late again: travel time and departure reminders in Google Calendar',
   description:
     'Connect Google Calendar to add travel time and departure reminders before eligible in-person events. Seven-day free trial, then $29/month.',
+  alternates: { canonical: 'https://aniccaai.com/lm', types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' } },
   other: {
     'life-manager-context-version': '2026-10-08.1',
     'life-manager-context-digest': '5b8e34cf01a7cf7589fc6049c080b3eb8458ec28b98103abc2ade395e8d0f90c',
