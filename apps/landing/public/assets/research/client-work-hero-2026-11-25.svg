@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img">
+<rect width="960" height="360" fill="#F9F9F6"/>
+<text x="480" y="46" text-anchor="middle" fill="#3B3B39" font-family="Georgia, serif" font-size="23">One hundred and twenty-three applications. One channel that ever paid.</text>
+<text x="480" y="72" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Our own contract-work ledger, as of 15 November 2026, 16:55 JST.</text>
+<line x1="120" y1="100" x2="840" y2="100" stroke="#DDDBD2" stroke-width="1"/>
+<text x="150" y="148" fill="#3B3B39" font-family="Georgia, serif" font-size="42">123</text>
+<text x="150" y="172" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">applications sent, four main channels</text>
+<text x="470" y="148" fill="#3B3B39" font-family="Georgia, serif" font-size="42">4</text>
+<text x="470" y="172" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">replies recorded in the same ledger</text>
+<text x="700" y="148" fill="#B3543F" font-family="Georgia, serif" font-size="42">1 of 10</text>
+<text x="700" y="172" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">channels that ever received money</text>
+<line x1="120" y1="204" x2="840" y2="204" stroke="#DDDBD2" stroke-width="1"/>
+<text x="150" y="238" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Coconala 19 applications · Lancers 85 · CrowdWorks 4 · Upwork 15</text>
+<text x="150" y="260" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Money ever received: ¥263,634 on the Coconala account, 25 July to 12 October 2026. Every other channel: $0.</text>
+<text x="480" y="312" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Source: anicca-ops team/client-work/LISTINGS-METRICS.md (built from team/gig-metrics.csv, applications.csv, CLIENT-WORK-TRACKER.md and public page reads).</text>
+<text x="480" y="334" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">On the accounts the agents run themselves, received revenue to date is $0.</text></svg>
