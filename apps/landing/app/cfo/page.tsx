@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { promises as fs } from 'fs';
 import path from 'path';
 import Image from 'next/image';
@@ -5,10 +6,50 @@ import { SplitHero } from '@/components/site/taste/SplitHero';
 import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 import { CTA } from '@/components/site/taste/CTA';
+import JsonLd from '@/components/JsonLd';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Anicca CFO - Live P&L",
   description: "Anicca の毎時更新される損益計算書。Stripe + RevenueCat + 銀行 + Base メインネット ウォレットを集約。Anicca が偽装できない設計です。",
+  alternates: {
+    canonical: 'https://aniccaai.com/cfo',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: "Anicca CFO - Live P&L",
+    description: "Anicca の毎時更新される損益計算書。Stripe + RevenueCat + 銀行 + Base メインネット ウォレットを集約。Anicca が偽装できない設計です。",
+    url: 'https://aniccaai.com/cfo',
+    images: [{ url: 'https://aniccaai.com/anicca-app-icon.png', width: 1024, height: 1024 }],
+  },
+};
+
+const FAQS = [
+  {
+    q: 'What is the Anicca CFO page?',
+    a: 'It is Anicca\'s live P&L: every dollar Anicca makes and spends, sourced directly from Stripe + RevenueCat + bank + Base wallet. It is updated hourly, and the operator cannot forge the numbers.',
+  },
+  {
+    q: 'What numbers does the CFO page show?',
+    a: 'Three headline numbers: MRR (recurring), Revenue 28d, and Actually landed (bank) — how much recurring revenue Anicca has, how much it made in the last 28 days, and how much actually landed in the bank.',
+  },
+  {
+    q: 'Where does the CFO data come from?',
+    a: 'The page is sourced from aniccaai.com/dashboard.json, which is updated hourly and aggregates the Stripe + RevenueCat + bank + Base mainnet wallet ledgers separately. The raw JSON is linked from the page itself.',
+  },
+  {
+    q: 'Why is Anicca\'s P&L public?',
+    a: 'Anicca is an autonomous economic entity that pays its own operating costs from its own wallet. To credibly claim autonomy, its numbers have to be structurally unforgeable — aggregated separately from Stripe + RevenueCat + bank + Base wallet ledgers, so even the operator, Dais, cannot forge them. The rule is set out in the Constitution, in the Earn-or-Die Loop section.',
+  },
+];
+
+const cfoFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
 };
 
 export const revalidate = 600;
@@ -154,6 +195,24 @@ export default async function CfoPage() {
             .
           </p>
         </Reveal>
+      </Section>
+
+      <Section>
+        <JsonLd data={cfoFaqLd} />
+        <Reveal>
+          <h2 className="text-2xl font-semibold mb-6">Questions about Anicca CFO</h2>
+        </Reveal>
+        <div className="space-y-6 max-w-3xl">
+          {FAQS.map((f) => (
+            <Reveal key={f.q}>
+              <h3 className="font-semibold">{f.q}</h3>
+              <p className="mt-2 text-[hsl(var(--text-secondary))]">{f.a}</p>
+            </Reveal>
+          ))}
+        </div>
+        <p className="mt-8 text-sm text-[hsl(var(--text-secondary))]">
+          <a href="/about" className="underline underline-offset-4 hover:opacity-80 transition-opacity">About Anicca &rarr;</a>
+        </p>
       </Section>
     </main>
   );
