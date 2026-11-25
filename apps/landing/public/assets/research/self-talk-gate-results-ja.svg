@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img">
+<rect x="0" y="0" width="960" height="470" fill="#F9F9F6"/>
+<text x="480" y="34" text-anchor="middle" fill="#3B3B39" font-family="Georgia, serif" font-size="19">自社の現状はセルフトーク判定 18件中 5件合格</text>
+<text x="480" y="58" text-anchor="middle" fill="#969592" font-family="sans-serif" font-size="12.5">ゲート別の合格数。同じ判定器で3設計を採点（2026-11-25）</text>
+<rect x="250" y="72" width="16" height="10" fill="#3B3B39"/><text x="272" y="81" fill="#3B3B39" font-family="sans-serif" font-size="12">適合 18/18</text>
+<rect x="470" y="72" width="16" height="10" fill="#5C8A95"/><text x="492" y="81" fill="#3B3B39" font-family="sans-serif" font-size="12">自社 5/18</text>
+<rect x="690" y="72" width="16" height="10" fill="#969592"/><text x="712" y="81" fill="#3B3B39" font-family="sans-serif" font-size="12">対照 10/18</text>
+<rect x="100" y="90.0" width="18" height="290.0" fill="#3B3B39"/><text x="109" y="84.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">3</text>
+<rect x="122" y="380.0" width="18" height="0.0" fill="#5C8A95"/><text x="131" y="374.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">0</text>
+<rect x="144" y="90.0" width="18" height="290.0" fill="#969592"/><text x="153" y="84.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">3</text>
+<text x="130" y="405" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="12">ST-0</text>
+<rect x="235" y="90.0" width="18" height="290.0" fill="#3B3B39"/><text x="244" y="84.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">3</text>
+<rect x="257" y="380.0" width="18" height="0.0" fill="#5C8A95"/><text x="266" y="374.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">0</text>
+<rect x="279" y="380.0" width="18" height="0.0" fill="#969592"/><text x="288" y="374.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">0</text>
+<text x="265" y="405" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="12">ST-1</text>
+<rect x="370" y="90.0" width="18" height="290.0" fill="#3B3B39"/><text x="379" y="84.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">3</text>
+<rect x="392" y="90.0" width="18" height="290.0" fill="#5C8A95"/><text x="401" y="84.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">3</text>
+<rect x="414" y="380.0" width="18" height="0.0" fill="#969592"/><text x="423" y="374.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">0</text>
+<text x="400" y="405" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="12">ST-2</text>
+<rect x="505" y="90.0" width="18" height="290.0" fill="#3B3B39"/><text x="514" y="84.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">3</text>
+<rect x="527" y="380.0" width="18" height="0.0" fill="#5C8A95"/><text x="536" y="374.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">0</text>
+<rect x="549" y="90.0" width="18" height="290.0" fill="#969592"/><text x="558" y="84.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">3</text>
+<text x="535" y="405" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="12">ST-3</text>
+<rect x="640" y="90.0" width="18" height="290.0" fill="#3B3B39"/><text x="649" y="84.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">3</text>
+<rect x="662" y="283.3333333333333" width="18" height="96.66666666666667" fill="#5C8A95"/><text x="671" y="277.3333333333333" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">1</text>
+<rect x="684" y="186.66666666666666" width="18" height="193.33333333333334" fill="#969592"/><text x="693" y="180.66666666666666" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">2</text>
+<text x="670" y="405" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="12">ST-4</text>
+<rect x="775" y="90.0" width="18" height="290.0" fill="#3B3B39"/><text x="784" y="84.0" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">3</text>
+<rect x="797" y="283.3333333333333" width="18" height="96.66666666666667" fill="#5C8A95"/><text x="806" y="277.3333333333333" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">1</text>
+<rect x="819" y="186.66666666666666" width="18" height="193.33333333333334" fill="#969592"/><text x="828" y="180.66666666666666" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="11">2</text>
+<text x="805" y="405" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="12">ST-5</text>
+<line x1="80" y1="380" x2="900" y2="380" stroke="#C8C7C2"/>
+</svg>

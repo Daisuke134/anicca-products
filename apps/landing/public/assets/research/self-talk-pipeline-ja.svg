@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 532" role="img">
+<rect x="0" y="0" width="960" height="532" fill="#F9F9F6"/>
+<text x="480" y="34" text-anchor="middle" fill="#3B3B39" font-family="Georgia, serif" font-size="19">セルフトーク・ゲートの仕組み</text>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#3B3B39"/></marker></defs>
+<rect x="200" y="80" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480" y="103" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="14.5" font-weight="600">面を棚卸しする</text>
+<text x="480" y="122" text-anchor="middle" fill="#969592" font-family="sans-serif" font-size="11.5">アプリごと: 言葉が次の行動と出会う場所</text>
+<text x="186" y="112" text-anchor="end" fill="#5C8A95" font-family="sans-serif" font-size="12.5" font-weight="700">STEP 1</text>
+<line x1="480" y1="134" x2="480" y2="165" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200" y="168" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480" y="191" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="14.5" font-weight="600">合図を課題に合わせる</text>
+<text x="480" y="210" text-anchor="middle" fill="#969592" font-family="sans-serif" font-size="11.5">精密・新規の手順には教示的、努力・持続には動機づけ的</text>
+<text x="186" y="200" text-anchor="end" fill="#5C8A95" font-family="sans-serif" font-size="12.5" font-weight="700">STEP 2</text>
+<line x1="480" y1="222" x2="480" y2="253" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200" y="256" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480" y="279" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="14.5" font-weight="600">本人が選び、練習する</text>
+<text x="480" y="298" text-anchor="middle" fill="#969592" font-family="sans-serif" font-size="11.5">短い合図を、渡すだけでなく練習する</text>
+<text x="186" y="288" text-anchor="end" fill="#5C8A95" font-family="sans-serif" font-size="12.5" font-weight="700">STEP 3</text>
+<line x1="480" y1="310" x2="480" y2="341" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200" y="344" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480" y="367" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="14.5" font-weight="600">直後の行動に結びつける</text>
+<text x="480" y="386" text-anchor="middle" fill="#969592" font-family="sans-serif" font-size="11.5">汎用的な気分主張ではなく、具体的な次の一歩へ</text>
+<text x="186" y="376" text-anchor="end" fill="#5C8A95" font-family="sans-serif" font-size="12.5" font-weight="700">STEP 4</text>
+<line x1="480" y1="398" x2="480" y2="429" stroke="#3B3B39" stroke-width="1.4" marker-end="url(#ar)"/>
+<rect x="200" y="432" width="560" height="54" rx="9" fill="#FFFFFF" stroke="#3B3B39" stroke-width="1.4"/>
+<text x="480" y="455" text-anchor="middle" fill="#3B3B39" font-family="sans-serif" font-size="14.5" font-weight="600">分けて測り、追跡する</text>
+<text x="480" y="474" text-anchor="middle" fill="#969592" font-family="sans-serif" font-size="11.5">課題完了と感情を分離し、直後の落ち着きだけで終わらない</text>
+<text x="186" y="464" text-anchor="end" fill="#5C8A95" font-family="sans-serif" font-size="12.5" font-weight="700">STEP 5</text>
+</svg>
