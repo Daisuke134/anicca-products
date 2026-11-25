@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img">
+<rect width="960" height="400" fill="#F9F9F6"/>
+<text x="480" y="38" text-anchor="middle" fill="#3B3B39" font-family="Georgia, serif" font-size="19">Two thirds of the shelf runs on the expensive model</text>
+<text x="480" y="62" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Worst-case monthly inference cost of one subscriber per listing, against the $29.99 monthly price (USD, zero baseline).</text>
+<line x1="300" y1="86" x2="300" y2="300" stroke="#DDDBD2" stroke-width="1"/>
+<text x="290" y="118" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Claude Sonnet 4.6 · 20 listings</text>
+<rect x="300" y="102" width="117" height="22" fill="#B3543F"/>
+<text x="427" y="118" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">$7.32 · 24% of the monthly price</text>
+<text x="290" y="175" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Claude Sonnet 5 · 29 listings</text>
+<rect x="300" y="159" width="78" height="22" fill="#D08A5C"/>
+<text x="388" y="175" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">$4.88 · 16%</text>
+<text x="290" y="232" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Gemini 3.5 Flash Lite · 6 listings</text>
+<rect x="300" y="216" width="4" height="22" fill="#4C956C"/>
+<text x="314" y="232" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">$0.21 · 0.7%</text>
+<text x="290" y="289" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">DeepSeek V4.1 Flash · 29 listings</text>
+<rect x="300" y="273" width="4" height="22" fill="#4C956C"/>
+<text x="314" y="289" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">$0.20 · 0.7%</text>
+<line x1="780" y1="96" x2="780" y2="300" stroke="#3B3B39" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="786" y="100" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12">$29.99</text>
+<text x="786" y="115" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12">monthly price</text>
+<text x="480" y="340" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">n = 94 listings. Assumption: worst case = 20,000 input / 8,192 output tokens per request × the 40-request monthly cap.</text>
+<text x="480" y="362" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Sources: Capafy publisher API model mix, 2026-11-25; per-listing P&amp;L audit, anicca-ops files/capafy-openrouter-pnl-2026-11-21.md.</text></svg>
