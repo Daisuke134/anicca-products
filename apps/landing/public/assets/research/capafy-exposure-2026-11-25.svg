@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img">
 <rect width="960" height="400" fill="#F9F9F6"/>
-<text x="480" y="38" text-anchor="middle" fill="#3B3B39" font-family="Georgia, serif" font-size="19">Two thirds of the shelf runs on the expensive model</text>
+<text x="480" y="38" text-anchor="middle" fill="#3B3B39" font-family="Georgia, serif" font-size="19">Half the shelf runs on a model that can eat a quarter of the price</text>
 <text x="480" y="62" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Worst-case monthly inference cost of one subscriber per listing, against the $29.99 monthly price (USD, zero baseline).</text>
 <line x1="300" y1="86" x2="300" y2="300" stroke="#DDDBD2" stroke-width="1"/>
 <text x="290" y="118" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Claude Sonnet 4.6 · 20 listings</text>
@@ -18,5 +18,5 @@
 <line x1="780" y1="96" x2="780" y2="300" stroke="#3B3B39" stroke-width="1" stroke-dasharray="4 4"/>
 <text x="786" y="100" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12">$29.99</text>
 <text x="786" y="115" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12">monthly price</text>
-<text x="480" y="340" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">n = 94 listings. Assumption: worst case = 20,000 input / 8,192 output tokens per request × the 40-request monthly cap.</text>
-<text x="480" y="362" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Sources: Capafy publisher API model mix, 2026-11-25; per-listing P&amp;L audit, anicca-ops files/capafy-openrouter-pnl-2026-11-21.md.</text></svg>
+<text x="480" y="340" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">n = 94 listings (49 on Claude Sonnet models, 29 DeepSeek, 6 Gemini, 10 not exposed by the API).</text>
+<text x="480" y="362" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Assumption: worst case = 20,000 input / 8,192 output tokens per request × the 40-request monthly cap. Sources: Capafy publisher API 2026-11-25; anicca-ops files/capafy-openrouter-pnl-2026-11-21.md.</text></svg>
