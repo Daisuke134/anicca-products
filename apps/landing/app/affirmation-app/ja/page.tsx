@@ -5,6 +5,10 @@ export const metadata = {
   title: "自分にやさしい言葉を。毎日のアファメーション | Anicca",
   description:
     "Aniccaは、自己否定や考えすぎ、難しい日に読む短いカードを届けるiPhoneのアファメーションアプリです。悩みを選び、通知を有効にして受け取ります。無料ダウンロード、任意のアプリ内サブスクリプション。",
+  itunes: {
+    appId: '6755129214',
+    appArgument: 'https://aniccaai.com/affirmation-app/ja',
+  },
   alternates: {
     canonical: 'https://aniccaai.com/affirmation-app/ja',
     languages: {
