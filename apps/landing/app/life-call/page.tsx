@@ -1,4 +1,6 @@
+import type { Metadata } from 'next';
 import LaunchFrame from '@/components/site/LaunchFrame';
+import JsonLd from '@/components/JsonLd';
 import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
 
 // B-call (spec27c WF-B) — Gemini Charon bidirectional phone bridge.
@@ -9,10 +11,75 @@ import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
 
 export const dynamic = 'force-static';
 
-export const metadata = {
+// GEO parity (audit 2026-11-25: /life-call scored 75/100 with
+// meta has_canonical=false via the plain metadata object,
+// google_ai G-CANONICAL fail, brand_entity has_about_link=false,
+// and the recommendation "Add FAQPage schema with site FAQs").
+// The canonical is this page's own real URL; the RSS type and
+// og:image mirror app/layout.tsx (the real /feed.xml and the real
+// app icon, 1024x1024). Title and description are unchanged.
+const LIFE_CALL_DESCRIPTION =
+  'Anicca phones you 15 minutes before every calendar event and talks two-way via Gemini Live (voice: Charon, male) bridged over Twilio Media Streams. Verified live: a real Twilio call connected the bridge to Gemini and Charon spoke on the line.';
+
+export const metadata: Metadata = {
   title: 'B-call — Anicca calls you (Gemini Charon)',
-  description:
-    'Anicca phones you 15 minutes before every calendar event and talks two-way via Gemini Live (voice: Charon, male) bridged over Twilio Media Streams. Verified live: a real Twilio call connected the bridge to Gemini and Charon spoke on the line.',
+  description: LIFE_CALL_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/life-call',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'B-call — Anicca calls you (Gemini Charon)',
+    description: LIFE_CALL_DESCRIPTION,
+    url: 'https://aniccaai.com/life-call',
+    siteName: 'Anicca',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
+};
+
+// GEO (2026-11-25): visible FAQ + FAQPage build-out, following the
+// /factory, /politics and /cfo pattern. Every answer is built only
+// from this page's own stated content (hero, live proof table and
+// how-it-works steps); no new facts, numbers or dates added.
+const FAQS = [
+  {
+    question: 'What is B-call?',
+    answer:
+      'B-call is Anicca calling you: 15 minutes before every event, Anicca phones you and talks — two-way — in Gemini\'s Charon voice over Twilio. No app to open, no button to press. Just answer. Anicca talks two-way via Gemini Live (voice: Charon, male) bridged over Twilio Media Streams.',
+  },
+  {
+    question: 'How does B-call work?',
+    answer:
+      'Twilio dials you (REST Calls API) 15 min before the event. TwiML <Connect><Stream> pipes the call audio to the ws bridge, the bridge transcodes μ-law 8k to PCM 16k/24k each frame, and Gemini Live (voice: Charon) does STT, LLM and TTS in one socket. Charon speaks "leave now for <event>" and answers your follow-ups.',
+  },
+  {
+    question: 'Was B-call verified live?',
+    answer:
+      'Yes. As this page states, a real Twilio call connected the bridge to Gemini Live and Charon spoke on the line — the call SID and recording are re-checkable against the Twilio API. The live proof on this page is dated 2026-06-16, with status completed / 45s, Gemini Live setupComplete (Charon, native-audio model), 2200 uplink frames (caller to Gemini) and 214 downlink frames (Charon to caller).',
+  },
+  {
+    question: 'Can you talk back during the call?',
+    answer:
+      'Yes. The call is bidirectional and two-way: Charon speaks "leave now for <event>" and answers your follow-ups, as the how-it-works steps on this page describe.',
+  },
+] as const;
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
 };
 
 // The real, re-checkable proof from the 2026-06-16 live E2E run.
@@ -36,6 +103,7 @@ const STEPS: { n: string; what: string; api: string }[] = [
 export default function Page() {
   return (
     <LaunchFrame active="/life-manager">
+      <JsonLd data={faqLd} />
       <SplitHero
         headline="Anicca calls you"
         subtext="15 minutes before every event, Anicca phones you and talks — two-way — in Gemini's Charon voice over Twilio. No app to open, no button to press. Just answer."
@@ -129,6 +197,31 @@ export default function Page() {
             </tbody>
           </table>
         </div>
+      </Section>
+
+      <Section id="faq">
+        <Reveal>
+          <h2 className="font-display text-2xl md:text-3xl font-semibold text-[hsl(var(--text-primary))]">
+            Questions about B-call
+          </h2>
+          <div className="mt-6 space-y-6">
+            {FAQS.map((f) => (
+              <div key={f.question}>
+                <h3 className="text-base font-semibold text-[hsl(var(--text-primary))]">
+                  {f.question}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-[hsl(var(--text-secondary))]">
+                  {f.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 text-sm text-[hsl(var(--text-secondary))]">
+            <a href="/about" className="underline underline-offset-4 hover:text-[hsl(var(--text-primary))]">
+              About Anicca →
+            </a>
+          </p>
+        </Reveal>
       </Section>
 
     </LaunchFrame>
