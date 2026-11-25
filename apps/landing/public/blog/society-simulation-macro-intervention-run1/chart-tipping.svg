@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="600" viewBox="0 0 920 600">
+<rect width="920" height="600" fill="#ffffff"/>
+<text x="460.0" y="40.0" font-size="18.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="700">Tipping sweep: final adoption vs seed share (Granovetter threshold model)</text>
+<text x="460.0" y="66.0" font-size="13.5" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">N = 1,000 · mean of 10 replications per point · whiskers = ±1 SD</text>
+<line x1="84" y1="494" x2="864" y2="494" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="499.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">0.00</text>
+<line x1="84" y1="408" x2="864" y2="408" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="413.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">0.25</text>
+<line x1="84" y1="322" x2="864" y2="322" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="327.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">0.50</text>
+<line x1="84" y1="236" x2="864" y2="236" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="241.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">0.75</text>
+<line x1="84" y1="150" x2="864" y2="150" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="155.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">1.00</text>
+<line x1="84" y1="494" x2="864" y2="494" stroke="#16283f" stroke-width="1.4"/>
+<text x="84.0" y="520.0" font-size="12.5" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">0.5%</text>
+<text x="214.0" y="520.0" font-size="12.5" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">1%</text>
+<text x="344.0" y="520.0" font-size="12.5" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">2%</text>
+<text x="474.0" y="520.0" font-size="12.5" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">3%</text>
+<text x="604.0" y="520.0" font-size="12.5" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">5%</text>
+<text x="734.0" y="520.0" font-size="12.5" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">8%</text>
+<text x="864.0" y="520.0" font-size="12.5" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">13%</text>
+<text x="474.0" y="546.0" font-size="13" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">seed share of population</text>
+<path d="M84,415 L214,374 L344,307 L474,268 L604,220 L734,175 L864,164" fill="none" stroke="#0e7c7b" stroke-width="1.6" opacity="0.45"/>
+<line x1="84" y1="393" x2="84" y2="437" stroke="#0e7c7b" stroke-width="1" opacity="0.27"/>
+<circle cx="84" cy="415" r="3" fill="#0e7c7b" opacity="0.45"/>
+<line x1="214" y1="341" x2="214" y2="408" stroke="#0e7c7b" stroke-width="1" opacity="0.27"/>
+<circle cx="214" cy="374" r="3" fill="#0e7c7b" opacity="0.45"/>
+<line x1="344" y1="281" x2="344" y2="332" stroke="#0e7c7b" stroke-width="1" opacity="0.27"/>
+<circle cx="344" cy="307" r="3" fill="#0e7c7b" opacity="0.45"/>
+<line x1="474" y1="236" x2="474" y2="300" stroke="#0e7c7b" stroke-width="1" opacity="0.27"/>
+<circle cx="474" cy="268" r="3" fill="#0e7c7b" opacity="0.45"/>
+<line x1="604" y1="202" x2="604" y2="237" stroke="#0e7c7b" stroke-width="1" opacity="0.27"/>
+<circle cx="604" cy="220" r="3" fill="#0e7c7b" opacity="0.45"/>
+<line x1="734" y1="155" x2="734" y2="194" stroke="#0e7c7b" stroke-width="1" opacity="0.27"/>
+<circle cx="734" cy="175" r="3" fill="#0e7c7b" opacity="0.45"/>
+<line x1="864" y1="156" x2="864" y2="173" stroke="#0e7c7b" stroke-width="1" opacity="0.27"/>
+<circle cx="864" cy="164" r="3" fill="#0e7c7b" opacity="0.45"/>
+<path d="M84,255 L214,249 L344,188 L474,157 L604,177 L734,172 L864,159" fill="none" stroke="#d6495b" stroke-width="1.6" opacity="0.45"/>
+<line x1="84" y1="114" x2="84" y2="396" stroke="#d6495b" stroke-width="1" opacity="0.27"/>
+<circle cx="84" cy="255" r="3" fill="#d6495b" opacity="0.45"/>
+<line x1="214" y1="109" x2="214" y2="390" stroke="#d6495b" stroke-width="1" opacity="0.27"/>
+<circle cx="214" cy="249" r="3" fill="#d6495b" opacity="0.45"/>
+<line x1="344" y1="91" x2="344" y2="285" stroke="#d6495b" stroke-width="1" opacity="0.27"/>
+<circle cx="344" cy="188" r="3" fill="#d6495b" opacity="0.45"/>
+<line x1="474" y1="152" x2="474" y2="162" stroke="#d6495b" stroke-width="1" opacity="0.27"/>
+<circle cx="474" cy="157" r="3" fill="#d6495b" opacity="0.45"/>
+<line x1="604" y1="115" x2="604" y2="238" stroke="#d6495b" stroke-width="1" opacity="0.27"/>
+<circle cx="604" cy="177" r="3" fill="#d6495b" opacity="0.45"/>
+<line x1="734" y1="152" x2="734" y2="192" stroke="#d6495b" stroke-width="1" opacity="0.27"/>
+<circle cx="734" cy="172" r="3" fill="#d6495b" opacity="0.45"/>
+<line x1="864" y1="152" x2="864" y2="165" stroke="#d6495b" stroke-width="1" opacity="0.27"/>
+<circle cx="864" cy="159" r="3" fill="#d6495b" opacity="0.45"/>
+<path d="M84,471 L214,473 L344,463 L474,465 L604,457 L734,447 L864,426" fill="none" stroke="#0e7c7b" stroke-width="3" opacity="1.0"/>
+<line x1="84" y1="452" x2="84" y2="490" stroke="#0e7c7b" stroke-width="1" opacity="0.6"/>
+<circle cx="84" cy="471" r="4" fill="#0e7c7b" opacity="1.0"/>
+<line x1="214" y1="464" x2="214" y2="482" stroke="#0e7c7b" stroke-width="1" opacity="0.6"/>
+<circle cx="214" cy="473" r="4" fill="#0e7c7b" opacity="1.0"/>
+<line x1="344" y1="450" x2="344" y2="476" stroke="#0e7c7b" stroke-width="1" opacity="0.6"/>
+<circle cx="344" cy="463" r="4" fill="#0e7c7b" opacity="1.0"/>
+<line x1="474" y1="454" x2="474" y2="476" stroke="#0e7c7b" stroke-width="1" opacity="0.6"/>
+<circle cx="474" cy="465" r="4" fill="#0e7c7b" opacity="1.0"/>
+<line x1="604" y1="443" x2="604" y2="472" stroke="#0e7c7b" stroke-width="1" opacity="0.6"/>
+<circle cx="604" cy="457" r="4" fill="#0e7c7b" opacity="1.0"/>
+<line x1="734" y1="436" x2="734" y2="459" stroke="#0e7c7b" stroke-width="1" opacity="0.6"/>
+<circle cx="734" cy="447" r="4" fill="#0e7c7b" opacity="1.0"/>
+<line x1="864" y1="412" x2="864" y2="440" stroke="#0e7c7b" stroke-width="1" opacity="0.6"/>
+<circle cx="864" cy="426" r="4" fill="#0e7c7b" opacity="1.0"/>
+<path d="M84,193 L214,158 L344,155 L474,157 L604,153 L734,151 L864,152" fill="none" stroke="#d6495b" stroke-width="3" opacity="1.0"/>
+<line x1="84" y1="101" x2="84" y2="286" stroke="#d6495b" stroke-width="1" opacity="0.6"/>
+<circle cx="84" cy="193" r="4" fill="#d6495b" opacity="1.0"/>
+<line x1="214" y1="152" x2="214" y2="164" stroke="#d6495b" stroke-width="1" opacity="0.6"/>
+<circle cx="214" cy="158" r="4" fill="#d6495b" opacity="1.0"/>
+<line x1="344" y1="151" x2="344" y2="158" stroke="#d6495b" stroke-width="1" opacity="0.6"/>
+<circle cx="344" cy="155" r="4" fill="#d6495b" opacity="1.0"/>
+<line x1="474" y1="150" x2="474" y2="163" stroke="#d6495b" stroke-width="1" opacity="0.6"/>
+<circle cx="474" cy="157" r="4" fill="#d6495b" opacity="1.0"/>
+<line x1="604" y1="150" x2="604" y2="156" stroke="#d6495b" stroke-width="1" opacity="0.6"/>
+<circle cx="604" cy="153" r="4" fill="#d6495b" opacity="1.0"/>
+<line x1="734" y1="149" x2="734" y2="152" stroke="#d6495b" stroke-width="1" opacity="0.6"/>
+<circle cx="734" cy="151" r="4" fill="#d6495b" opacity="1.0"/>
+<line x1="864" y1="149" x2="864" y2="154" stroke="#d6495b" stroke-width="1" opacity="0.6"/>
+<circle cx="864" cy="152" r="4" fill="#d6495b" opacity="1.0"/>
+<line x1="92" y1="92" x2="114" y2="92" stroke="#0e7c7b" stroke-width="1.6" opacity="0.55"/>
+<text x="120.0" y="96.0" font-size="12" fill="#16283f" text-anchor="start" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" opacity="0.65">Lattice · random</text>
+<line x1="360" y1="92" x2="382" y2="92" stroke="#0e7c7b" stroke-width="3" opacity="1.0"/>
+<text x="388.0" y="96.0" font-size="12" fill="#16283f" text-anchor="start" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">Lattice · clustered</text>
+<line x1="92" y1="113" x2="114" y2="113" stroke="#d6495b" stroke-width="3" opacity="1.0"/>
+<text x="120.0" y="117.0" font-size="12" fill="#16283f" text-anchor="start" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">Small-world · random</text>
+<line x1="360" y1="113" x2="382" y2="113" stroke="#d6495b" stroke-width="1.6" opacity="0.55"/>
+<text x="388.0" y="117.0" font-size="12" fill="#16283f" text-anchor="start" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" opacity="0.65">Small-world · clustered</text>
+<text x="460.0" y="586.0" font-size="12" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">Source: run1_results.json — Anicca society-sim run 1</text>
+</svg>

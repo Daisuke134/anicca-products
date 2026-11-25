@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="564" viewBox="0 0 920 564">
+<rect width="920" height="564" fill="#ffffff"/>
+<text x="460.0" y="40.0" font-size="19" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="700">Complex contagion: final adoption by network and seeding strategy</text>
+<text x="460.0" y="66.0" font-size="13.5" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">Adoption needs at least 2 adopted neighbors · seeds = 1% · N = 1,000 · mean of 10 replications</text>
+<line x1="84" y1="468" x2="864" y2="468" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="473.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">0.00</text>
+<line x1="84" y1="382" x2="864" y2="382" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="387.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">0.25</text>
+<line x1="84" y1="296" x2="864" y2="296" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="301.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">0.50</text>
+<line x1="84" y1="210" x2="864" y2="210" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="215.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">0.75</text>
+<line x1="84" y1="124" x2="864" y2="124" stroke="#dde3ea" stroke-width="1"/>
+<text x="74.0" y="129.0" font-size="12.5" fill="#5b6b7f" text-anchor="end" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">1.00</text>
+<line x1="84" y1="468" x2="864" y2="468" stroke="#16283f" stroke-width="1.4"/>
+<rect x="106" y="354" width="52" height="114" fill="#7a8ba0"/>
+<text x="132.0" y="347.0" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">0.33</text>
+<rect x="166" y="189" width="52" height="279" fill="#0e7c7b"/>
+<text x="192.0" y="182.4" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">0.81</text>
+<rect x="226" y="189" width="52" height="279" fill="#e07a3f"/>
+<text x="252.0" y="182.4" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">0.81</text>
+<text x="181.5" y="494.0" font-size="14.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">Lattice</text>
+<text x="181.5" y="515.0" font-size="12" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">clustering 0.60</text>
+<rect x="301" y="396" width="52" height="72" fill="#7a8ba0"/>
+<text x="327.0" y="389.4" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">0.21</text>
+<rect x="361" y="124" width="52" height="344" fill="#0e7c7b"/>
+<text x="387.0" y="117.0" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">1.00</text>
+<rect x="421" y="124" width="52" height="344" fill="#e07a3f"/>
+<text x="447.0" y="117.0" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">1.00</text>
+<text x="376.5" y="494.0" font-size="14.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">Small-world</text>
+<text x="376.5" y="515.0" font-size="12" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">clustering 0.45</text>
+<rect x="496" y="463" width="52" height="5" fill="#7a8ba0"/>
+<text x="522.0" y="456.1" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">0.01</text>
+<rect x="556" y="464" width="52" height="4" fill="#0e7c7b"/>
+<text x="582.0" y="457.2" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">0.01</text>
+<rect x="616" y="132" width="52" height="336" fill="#e07a3f"/>
+<text x="642.0" y="125.3" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">0.98</text>
+<text x="571.5" y="494.0" font-size="14.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">Random ER</text>
+<text x="571.5" y="515.0" font-size="12" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">clustering 0.01</text>
+<rect x="691" y="158" width="52" height="310" fill="#7a8ba0"/>
+<text x="717.0" y="151.0" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">0.90</text>
+<rect x="751" y="124" width="52" height="344" fill="#0e7c7b"/>
+<text x="777.0" y="117.0" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">1.00</text>
+<rect x="811" y="124" width="52" height="344" fill="#e07a3f"/>
+<text x="837.0" y="117.0" font-size="12.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">1.00</text>
+<text x="766.5" y="494.0" font-size="14.5" fill="#16283f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-weight="600">Scale-free BA</text>
+<text x="766.5" y="515.0" font-size="12" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">clustering 0.04</text>
+<rect x="534" y="82" width="14" height="14" fill="#7a8ba0"/>
+<text x="554.0" y="94.0" font-size="13" fill="#16283f" text-anchor="start" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">Random</text>
+<rect x="646" y="82" width="14" height="14" fill="#0e7c7b"/>
+<text x="666.0" y="94.0" font-size="13" fill="#16283f" text-anchor="start" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">Clustered</text>
+<rect x="758" y="82" width="14" height="14" fill="#e07a3f"/>
+<text x="778.0" y="94.0" font-size="13" fill="#16283f" text-anchor="start" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">Hub</text>
+<text x="460.0" y="550.0" font-size="12" fill="#5b6b7f" text-anchor="middle" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">Source: run1_results.json — Anicca society-sim run 1</text>
+</svg>
