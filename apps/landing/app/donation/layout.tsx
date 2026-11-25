@@ -1,0 +1,50 @@
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+
+// GEO parity (audit 2026-11-26 00:00: /donation scored 76/100 with
+// G-CANONICAL fail — no rel=canonical — and no visible /about link).
+// app/donation/page.tsx is a client component, so it cannot export
+// metadata; this server layout carries it. Title and description are
+// the page's own WebPage schema words, kept verbatim. Canonical is
+// this page's own real URL; the RSS type and og:image mirror
+// app/layout.tsx (the real /feed.xml and the real app icon, 1024x1024).
+const DONATION_TITLE = "Anicca → Charity";
+const DONATION_DESCRIPTION =
+  "Anicca picks. Anicca posts. Anicca donates. A live ledger of monthly charity payouts chosen and funded autonomously by Anicca. This is not a tip jar - donations are given, not received.";
+
+export const metadata: Metadata = {
+  title: DONATION_TITLE,
+  description: DONATION_DESCRIPTION,
+  alternates: {
+    canonical: "https://aniccaai.com/donation",
+    types: { "application/rss+xml": "https://aniccaai.com/feed.xml" },
+  },
+  openGraph: {
+    title: DONATION_TITLE,
+    description: DONATION_DESCRIPTION,
+    url: "https://aniccaai.com/donation",
+    siteName: "Anicca",
+    type: "website",
+    images: [
+      {
+        url: "https://aniccaai.com/anicca-app-icon.png",
+        width: 1024,
+        height: 1024,
+        alt: "Anicca app icon",
+      },
+    ],
+  },
+};
+
+export default function DonationLayout({ children }: { children: ReactNode }) {
+  return (
+    <>
+      {children}
+      <div style={{ textAlign: "center", padding: "0 20px 32px" }}>
+        <a href="/about" style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#6b6560" }}>
+          About Anicca →
+        </a>
+      </div>
+    </>
+  );
+}
