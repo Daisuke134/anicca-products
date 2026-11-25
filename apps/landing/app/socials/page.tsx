@@ -161,6 +161,12 @@ export default function Page() {
           >
             ← anicca.ai
           </Link>
+          <Link
+            href="/about"
+            className="ml-6 font-mono-ui text-[11px] uppercase tracking-[0.2em] text-mist hover:text-ink"
+          >
+            About Anicca →
+          </Link>
           <p className="font-mono-ui text-[10px] uppercase tracking-[0.18em] text-mist">
             updated {updated} · window {data.window_start} → {data.window_end}
           </p>
