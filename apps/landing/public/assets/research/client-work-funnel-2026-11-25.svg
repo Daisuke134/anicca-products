@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img">
+<rect width="960" height="400" fill="#F9F9F6"/>
+<text x="480" y="38" text-anchor="middle" fill="#3B3B39" font-family="Georgia, serif" font-size="19">We sent a lot of applications. Almost nobody answered.</text>
+<text x="480" y="62" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Applications sent (dark) against replies recorded (light), per channel. Zero baseline, count scale.</text>
+<line x1="180" y1="96" x2="180" y2="316" stroke="#DDDBD2" stroke-width="1"/>
+<text x="170" y="140" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Lancers</text>
+<rect x="180" y="121" width="500" height="18" fill="#3B3B39"/>
+<text x="690" y="135" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13">85 sent</text>
+<rect x="180" y="143" width="24" height="18" fill="#9FB6C9"/>
+<text x="214" y="157" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13">4 replies · 0 orders · ¥0</text>
+<text x="170" y="212" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Coconala</text>
+<rect x="180" y="193" width="112" height="18" fill="#3B3B39"/>
+<text x="302" y="207" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13">19 sent</text>
+<rect x="180" y="215" width="1" height="18" fill="#9FB6C9"/>
+<text x="191" y="229" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13">0 replies · 3 orders in the last 30 days · ¥263,634 received since 25 July</text>
+<text x="170" y="284" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Upwork</text>
+<rect x="180" y="265" width="88" height="18" fill="#3B3B39"/>
+<text x="278" y="279" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13">15 sent</text>
+<rect x="180" y="287" width="1" height="18" fill="#9FB6C9"/>
+<text x="191" y="301" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13">0 replies · 0 orders · $0</text>
+<text x="170" y="356" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">CrowdWorks</text>
+<rect x="180" y="337" width="24" height="18" fill="#3B3B39"/>
+<text x="214" y="351" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13">4 sent · 0 replies · 0 orders</text>
+<text x="480" y="382" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12">n = 123 applications across four channels. Replies are the ones the ledger records; orders are the most recent 30-day window where the ledger has one. Source: anicca-ops LISTINGS-METRICS.md, 2026-11-15.</text></svg>
