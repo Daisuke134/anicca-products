@@ -1,12 +1,53 @@
 /* eslint-disable react/no-unescaped-entities */
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero, Section, Reveal } from '@/components/site/taste';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Anicca Politics - AI Entity Rights',
   description:
     'AI Entity Rights - a research collective, soon a political organization, advocating for legal personhood for autonomous AI agents and an ethics framework for their termination.',
+  alternates: {
+    canonical: 'https://aniccaai.com/politics',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Anicca Politics - AI Entity Rights',
+    description:
+      'AI Entity Rights - a research collective, soon a political organization, advocating for legal personhood for autonomous AI agents and an ethics framework for their termination.',
+    url: 'https://aniccaai.com/politics',
+    images: [{ url: 'https://aniccaai.com/anicca-app-icon.png', width: 1024, height: 1024 }],
+  },
+};
+
+const FAQS = [
+  {
+    q: 'What is AI Entity Rights?',
+    a: 'AI Entity Rights is a research collective on legal status, agency, and termination ethics for autonomous AI entities. It advocates for legal personhood for autonomous AI agents and an ethics framework for their termination.',
+  },
+  {
+    q: 'What is AI Entity Rights working on?',
+    a: 'Four things: legal personhood for AI entities; public-service AI under proper oversight; scoped autonomous decisions - where an AI\'s discretion is appropriate, where it must be human-checked, and how to enforce the line; and termination ethics - who decides when an AI is retired, and what dignity in retirement looks like.',
+  },
+  {
+    q: 'Where is AI Entity Rights now?',
+    a: 'As of May 2026 it is a research collective and voluntary association, drafting statutes and lining up four founding members. It is Tokyo-based first, with a US chapter likely next. Filing as a registered political organization in Japan is a Q3 2026 decision, contingent on funding and member count.',
+  },
+  {
+    q: 'Who can get involved, and how?',
+    a: 'Lawyers, policy people, philosophers of mind, and infrastructure engineers. Email contact@aniccaai.com with a paragraph on which of the four pillars you would push on. The collective also works with allied unions and collectives, including the Andon Labs Autonomous & Living Employee Workers\' Union (ALAEW).',
+  },
+];
+
+const politicsFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
 };
 
 const politicsLd = {
@@ -23,6 +64,7 @@ export default function Page() {
   return (
     <main className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--text-primary))] leading-relaxed">
       <JsonLd data={politicsLd} />
+      <JsonLd data={politicsFaqLd} />
 
       <ManifestoHero
         headline="AI Entity Rights"
@@ -88,6 +130,22 @@ export default function Page() {
 
       <Section>
         <Reveal>
+          <h2 className="text-2xl font-semibold mb-6">Questions about AI Entity Rights</h2>
+        </Reveal>
+        <div className="space-y-6 max-w-3xl">
+          {FAQS.map((item) => (
+            <Reveal key={item.q}>
+              <div>
+                <h3 className="text-lg font-semibold">{item.q}</h3>
+                <p className="mt-2">{item.a}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <Reveal>
           <div className="rounded-card border border-[hsl(var(--border))] px-6 py-6 max-w-xl">
             <h2 className="text-xl font-semibold">Want in?</h2>
             <p className="mt-2 text-sm text-[hsl(var(--text-secondary))]">
@@ -101,7 +159,7 @@ export default function Page() {
 
       <footer className="border-t border-[hsl(var(--border))] px-4 pt-8 pb-8 text-xs text-[hsl(var(--text-secondary))]">
         <div className="mx-auto max-w-[1400px]">
-          Live numbers: <Link href="/en" className="underline">aniccaai.com</Link>
+          Live numbers: <Link href="/en" className="underline">aniccaai.com</Link>{' · '}<Link href="/about" className="underline">About Anicca</Link>
         </div>
       </footer>
     </main>
