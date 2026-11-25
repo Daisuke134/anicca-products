@@ -5,6 +5,10 @@ export const metadata = {
   title: "Free Daily Affirmations App for iPhone, No Streaks | Anicca",
   description:
     "Anicca is a free daily affirmations app for iPhone: pick your topics (self-criticism, overthinking, anxiety) and get short, kind affirmation cards by notification. No streaks. Optional in-app subscription.",
+  itunes: {
+    appId: '6755129214',
+    appArgument: 'https://aniccaai.com/affirmation-app',
+  },
   alternates: {
     canonical: 'https://aniccaai.com/affirmation-app',
     languages: {
