@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img">
+<rect width="960" height="360" fill="#F9F9F6"/>
+<text x="480" y="46" text-anchor="middle" fill="#3B3B39" font-family="Georgia, serif" font-size="24">Ninety-four agents for sale. None of it recurring.</text>
+<text x="480" y="72" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Capafy, our listings business, measured from its publisher API on 25 November 2026, 10:14 JST.</text>
+<line x1="120" y1="102" x2="840" y2="102" stroke="#DDDBD2" stroke-width="1"/>
+<text x="150" y="150" fill="#3B3B39" font-family="Georgia, serif" font-size="42">94</text>
+<text x="150" y="174" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">listings</text>
+<text x="350" y="150" fill="#3B3B39" font-family="Georgia, serif" font-size="42">77</text>
+<text x="350" y="174" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">online now</text>
+<text x="560" y="150" fill="#3E7CB1" font-family="Georgia, serif" font-size="42">$86.91</text>
+<text x="560" y="174" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">net, last 30 days</text>
+<text x="800" y="150" fill="#B3543F" font-family="Georgia, serif" font-size="42">$0</text>
+<text x="800" y="174" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">recurring revenue</text>
+<line x1="120" y1="206" x2="840" y2="206" stroke="#DDDBD2" stroke-width="1"/>
+<text x="150" y="240" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Offline 12 · review_rejected 3 · draft 2 · paid sales today 0</text>
+<text x="150" y="262" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Hosted models: DeepSeek V4.1 Flash 29 · Claude Sonnet 5 29 · Claude Sonnet 4.6 20 · Gemini 3.5 Flash Lite 6 · not exposed 10</text>
+<text x="480" y="312" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Source: Capafy publisher API snapshot, Capafy lane run 223, 2026-11-25 10:14 JST (anicca-ops record).</text>
+<text x="480" y="334" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Every number in this article is a measurement. Where a figure is an estimate, the figure itself says so.</text></svg>
