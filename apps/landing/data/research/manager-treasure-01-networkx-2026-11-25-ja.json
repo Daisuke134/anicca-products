@@ -1,0 +1,14 @@
+{
+  "slug": "manager-treasure-01-networkx-2026-11-25-ja",
+  "title": "社会ネットワークの構造と所属を別々に評価する",
+  "date": "2026-11-25",
+  "project": "manager",
+  "lang": "ja",
+  "description": "34ノード、78辺のZachary karate club graphでNetworkX 3.6.1のgreedy modularity（weight=None）を実行。群サイズ17、9、8、ARI .5684394。",
+  "attribution": {
+    "text": "Anicca research lab note / 2026-11-25. 公式ソースと実行レシートに基づく初期研究記録。実人間の効果・本番性能を主張しない。"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 社会ネットワークの構造と所属を別々に評価する\n\n2026-11-25 | Anicca Manager research note | preliminary / not fully validated\n\n**TL;DR.** 34ノード、78辺のZachary karate club graphでNetworkX 3.6.1のgreedy modularity（weight=None）を実行。群サイズ17、9、8、ARI .5684394。\n\n![研究ノートのカバー](/assets/research/manager-treasure-01-networkx-2026-11-25-ja-cover.svg)\n\n図：研究資産を示す表紙。実測図は結果節。\n\n## 問題\n構造最適化が本人の所属と一致するとは限らない。\n\n対象読者：行動モデルと介入評価を実装する研究者・開発者。Pythonと基礎統計を前提とする。\n\n## 方法・再現\n34ノード、78辺のZachary karate club graphでNetworkX 3.6.1のgreedy modularity（weight=None）を実行。群サイズ17、9、8、ARI .5684394。\n\n```python\nimport networkx as nx\nfrom networkx.algorithms.community import greedy_modularity_communities, modularity\ng = nx.karate_club_graph()\nprint(modularity(g,greedy_modularity_communities(g,weight=None),weight=None))\n```\n\n[出典・既存実行レシート](https://github.com/Daisuke134/anicca-ops/issues/679#issuecomment-7158242521)。Concordia以外は過去の保存結果の再確認で、今回の新規再実行ではない。\n\n## 結果\n![測定図](/assets/research/manager-treasure-01-networkx-2026-11-25-ja-chart.svg)\n\n図1：modularity、2026-11-25の実験。分母・範囲は上記方法を参照。\n\n| 条件 | 値 |\n|---|---:|\n| 検出3群 | 0.3806706114 |\n| 既知2群 | 0.358234714 |\n\n## 接続の設計\n![接続図](/assets/research/manager-treasure-01-networkx-2026-11-25-ja-pipeline.svg)\n\n図2：既存Managerへの接続候補。概念図であり、本番実装を示さない。\n\n## 限界・トレードオフ\n単一の歴史的実ネットワーク。時間分割、因果的拡散、製品統合は未検証。 低コストな部品テストで問題を絞れるが、E2Eの代わりにはならない。\n\n## 次の実験\n別の実ネットワークの時間分割と拡散の既存評価を実行する。\n\n[公式資産](https://networkx.org/documentation/stable/reference/generated/networkx.generators.social.karate_club_graph.html) · [実装・レシート](https://github.com/Daisuke134/anicca-ops/issues/679#issuecomment-7158242521) · [Master TODO](https://github.com/Daisuke134/anicca-ops/blob/main/files/master-todo-2026-11-24.md)\n\n公開研究原稿。公式ブログのライブ公開・査読・SNS投稿は別途確認する。\n\n\n[固定版の研究原稿と図](https://github.com/Daisuke134/anicca/blob/4ede1e26ed826daafbe3bd3a1a45724f7cb69f1c/docs/research/manager/treasure-runs/2026-11-25/01-networkx.md)。本稿は初期技術検証の公開ノートであり、E2Eが未完了の資産を完了扱いにしない。\n",
+  "word_count": 1886
+}

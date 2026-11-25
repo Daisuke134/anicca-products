@@ -1,0 +1,14 @@
+{
+  "slug": "manager-treasure-04-bcto-2026-11-25-ja",
+  "title": "メッセージ形式と科学的行動変容技法を分離する",
+  "date": "2026-11-25",
+  "project": "manager",
+  "lang": "ja",
+  "description": "公式2026-11-10版OWLから8技法の正式ID・ラベル・Publishedを照合。7ローカルテスト成功。",
+  "attribution": {
+    "text": "Anicca research lab note / 2026-11-25. 公式ソースと実行レシートに基づく初期研究記録。実人間の効果・本番性能を主張しない。"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# メッセージ形式と科学的行動変容技法を分離する\n\n2026-11-25 | Anicca Manager research note | preliminary / not fully validated\n\n**TL;DR.** 公式2026-11-10版OWLから8技法の正式ID・ラベル・Publishedを照合。7ローカルテスト成功。\n\n![研究ノートのカバー](/assets/research/manager-treasure-04-bcto-2026-11-25-ja-cover.svg)\n\n図：研究資産を示す表紙。実測図は結果節。\n\n## 問題\n質問や内省などの伝達形式から介入技法を一意には判断できない。\n\n対象読者：行動モデルと介入評価を実装する研究者・開発者。Pythonと基礎統計を前提とする。\n\n## 方法・再現\n公式2026-11-10版OWLから8技法の正式ID・ラベル・Publishedを照合。7ローカルテスト成功。\n\n```bash\npython -m unittest -v test_bcto_annotation\n```\n\n[出典・既存実行レシート](https://github.com/Daisuke134/anicca/pull/9492)。Concordia以外は過去の保存結果の再確認で、今回の新規再実行ではない。\n\n## 結果\n![測定図](/assets/research/manager-treasure-04-bcto-2026-11-25-ja-chart.svg)\n\n図1：件数（別の検証対象）、2026-11-25の実験。分母・範囲は上記方法を参照。\n\n| 条件 | 値 |\n|---|---:|\n| ID照合 | 8 |\n| テスト成功 | 7 |\n\n## 接続の設計\n![接続図](/assets/research/manager-treasure-04-bcto-2026-11-25-ja-pipeline.svg)\n\n図2：既存Managerへの接続候補。概念図であり、本番実装を示さない。\n\n## 限界・トレードオフ\nOWL推論、全カタログの自動分類、独立した人間との一致、介入効果は未検証。CC BY 4.0の帰属は元PRに記載。 低コストな部品テストで問題を絞れるが、E2Eの代わりにはならない。\n\n## 次の実験\n公式ガイドラインで既存カタログを独立分類し、ManagerBenchタグを接続する。\n\n[公式資産](https://github.com/HumanBehaviourChangeProject/ontologies) · [実装・レシート](https://github.com/Daisuke134/anicca/pull/9492) · [Master TODO](https://github.com/Daisuke134/anicca-ops/blob/main/files/master-todo-2026-11-24.md)\n\n公開研究原稿。公式ブログのライブ公開・査読・SNS投稿は別途確認する。\n\n\n[固定版の研究原稿と図](https://github.com/Daisuke134/anicca/blob/4ede1e26ed826daafbe3bd3a1a45724f7cb69f1c/docs/research/manager/treasure-runs/2026-11-25/04-bcto.md)。本稿は初期技術検証の公開ノートであり、E2Eが未完了の資産を完了扱いにしない。\n",
+  "word_count": 1504
+}
