@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero } from '@/components/site/taste/ManifestoHero';
@@ -5,10 +6,76 @@ import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 import { CTA } from '@/components/site/taste/CTA';
 
-export const metadata = {
+// GEO parity (audit 2026-11-25: /account scored 76/100 with
+// meta has_canonical=false via the plain metadata object,
+// google_ai G-CANONICAL fail, brand_entity has_about_link=false,
+// and the recommendation "Add FAQPage schema with site FAQs").
+// The canonical is this page's own real URL; the RSS type and
+// og:image mirror app/layout.tsx (the real /feed.xml and the real
+// app icon, 1024x1024). Title and description are unchanged.
+const ACCOUNT_DESCRIPTION =
+  'Manage your Anicca subscription. Cancel, pause, or update billing for the daily letter, BreathCalm, and other Anicca products via the Stripe billing portal.';
+
+export const metadata: Metadata = {
   title: 'Account - Manage your Anicca subscription',
-  description:
-    'Manage your Anicca subscription. Cancel, pause, or update billing for the daily letter, BreathCalm, and other Anicca products via the Stripe billing portal.',
+  description: ACCOUNT_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/account',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Account - Manage your Anicca subscription',
+    description: ACCOUNT_DESCRIPTION,
+    url: 'https://aniccaai.com/account',
+    siteName: 'Anicca',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
+};
+
+// GEO (2026-11-25): visible FAQ + FAQPage build-out, following the
+// /life-call, /factory, /politics and /cfo pattern. Every answer is
+// built only from this page's own stated content (hero, the
+// how-to steps, and the products list); no new facts, numbers,
+// dates or URLs added.
+const FAQS = [
+  {
+    question: 'What can I manage on this account page?',
+    answer:
+      'You can cancel, pause, or update billing for your Anicca subscriptions from one place. As this page states, you manage your subscription for the daily letter, BreathCalm, and other Anicca products via the Stripe billing portal, and the Stripe billing portal is the source of truth.',
+  },
+  {
+    question: 'How do I get my billing portal link?',
+    answer:
+      'Email contact@aniccaai.com from the address you signed up with, with the subject "Billing portal link". Anicca replies with a one-time Stripe customer portal link, signed for your email.',
+  },
+  {
+    question: 'What can I do inside the Stripe billing portal?',
+    answer:
+      'Inside the portal you can cancel, pause, change card, update billing address, and download invoices. Changes apply at the next billing cycle.',
+  },
+  {
+    question: 'Which products does this account page cover?',
+    answer:
+      'The products listed on this page are The Daily Anicca Letter ($9.99 / month; one short letter every morning, on impermanence; first 14 days free), BreathCalm (free with optional in-app purchases; the iOS app for the 4-7-8 breath practice), and Basic Income (the receiving end - 10 humans per cohort; if you receive monthly basic income from Anicca, manage your recipient profile here).',
+  },
+] as const;
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
 };
 
 const accountLd = {
@@ -46,6 +113,7 @@ export default function AccountPage() {
   return (
     <main>
       <JsonLd data={accountLd} />
+      <JsonLd data={faqLd} />
 
       <ManifestoHero
         headline={
@@ -133,6 +201,31 @@ export default function AccountPage() {
         <Reveal delay={0.16}>
           <p className="mt-4 max-w-[60ch] text-sm leading-relaxed text-[hsl(var(--text-secondary))]">
             毎朝の手紙について詳しくは <Link href="/tegami" className="underline transition-colors hover:text-[hsl(var(--gold))]">aniccaai.com/tegami</Link> をご覧ください。
+          </p>
+        </Reveal>
+      </Section>
+
+      <Section className="border-t border-[hsl(var(--border))]">
+        <Reveal>
+          <h2 className="font-display text-2xl md:text-3xl font-semibold text-[hsl(var(--text-primary))]">
+            Questions about your Anicca account
+          </h2>
+          <div className="mt-6 space-y-6">
+            {FAQS.map((f) => (
+              <div key={f.question}>
+                <h3 className="text-base font-semibold text-[hsl(var(--text-primary))]">
+                  {f.question}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-[hsl(var(--text-secondary))]">
+                  {f.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 text-sm text-[hsl(var(--text-secondary))]">
+            <Link href="/about" className="underline underline-offset-4 hover:text-[hsl(var(--text-primary))]">
+              About Anicca →
+            </Link>
           </p>
         </Reveal>
       </Section>
