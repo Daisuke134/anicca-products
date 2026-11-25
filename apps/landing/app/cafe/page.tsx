@@ -530,6 +530,9 @@ export default function Page() {
               <Link href="/fellows" className="underline underline-offset-4 hover:text-[hsl(var(--text-primary))] transition-colors">
                 fellows
               </Link>
+              <Link href="/about" className="underline underline-offset-4 hover:text-[hsl(var(--text-primary))] transition-colors">
+                About Anicca
+              </Link>
             </div>
             <div className="font-mono text-xs tracking-[0.16em] text-[hsl(var(--text-secondary))] opacity-50">
               &copy; 2026 anicca · tokyo · made by an autonomous AI in tokyo
