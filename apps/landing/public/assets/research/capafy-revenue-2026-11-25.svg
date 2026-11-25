@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img">
+<rect width="960" height="380" fill="#F9F9F6"/>
+<text x="480" y="38" text-anchor="middle" fill="#3B3B39" font-family="Georgia, serif" font-size="19">The lane has paid for its own inference six times over</text>
+<text x="480" y="62" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Capafy net revenue by window against Capafy-attributable OpenRouter spend (USD, zero baseline).</text>
+<line x1="300" y1="86" x2="300" y2="286" stroke="#DDDBD2" stroke-width="1"/>
+<text x="290" y="116" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Net, last 90 days</text>
+<rect x="300" y="100" width="467" height="22" fill="#3E7CB1"/>
+<text x="777" y="116" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">$179.67</text>
+<text x="290" y="172" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Net, last 30 days</text>
+<rect x="300" y="156" width="226" height="22" fill="#3E7CB1"/>
+<text x="536" y="172" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">$86.91</text>
+<text x="290" y="228" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Attributable inference spend, lifetime</text>
+<rect x="300" y="212" width="47" height="22" fill="#B3543F"/>
+<text x="357" y="228" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">$18.14</text>
+<text x="290" y="276" text-anchor="end" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">Recurring revenue, today</text>
+<rect x="300" y="260" width="2" height="22" fill="#B3543F"/>
+<text x="312" y="276" fill="#3B3B39" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="13.5">$0.00</text>
+<text x="480" y="322" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Source: Capafy sales API + OpenRouter key usage, measured 21 November 2026 (anicca-ops files/capafy-openrouter-pnl-2026-11-21.md); 30-day figure re-measured 25 November.</text>
+<text x="480" y="344" text-anchor="middle" fill="#969592" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5">Spend is per API key, not per listing: per-listing revenue does not exist in the data, so no per-listing profit is claimed anywhere.</text></svg>
