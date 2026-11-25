@@ -1,6 +1,8 @@
+import type { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 import LaunchFrame from '@/components/site/LaunchFrame';
+import JsonLd from '@/components/JsonLd';
 import CashOutBody from './CashOutBody';
 
 // /how-to-cash-out (spec31 §E / spec30 §12). Server reads the two trusted markdown
@@ -9,10 +11,54 @@ import CashOutBody from './CashOutBody';
 
 export const dynamic = 'force-static';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'How to cash out — Anicca',
   description:
     'How money moves between you and your Anicca. US: direct USDC on Base. Japan: Binance + PayPay + Solana. Honest about which paths are truly no-human-in-loop.',
+  alternates: {
+    canonical: 'https://aniccaai.com/how-to-cash-out',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'How to cash out — Anicca',
+    description:
+      'How money moves between you and your Anicca. US: direct USDC on Base. Japan: Binance + PayPay + Solana. Honest about which paths are truly no-human-in-loop.',
+    url: 'https://aniccaai.com/how-to-cash-out',
+    images: [{ url: 'https://aniccaai.com/anicca-app-icon.png', width: 1024, height: 1024 }],
+  },
+};
+
+export const FAQS = [
+  {
+    question: 'How does money move between me and my Anicca?',
+    answer:
+      'Your Anicca earns in USDC on Base. That is how money moves between you and your Anicca: in when you seed it, out when it pays you.',
+  },
+  {
+    question: 'How do I cash out in the US?',
+    answer:
+      'In the US it is direct, all on Base, with no exchange hop: it settles in seconds and you can do it daily. To seed, you send USDC (Base) from your wallet (MetaMask or Coinbase) to your Anicca\'s Base wallet address. For a payout, your Anicca sends USDC (Base) straight to your Base wallet address. That is the whole loop: one network, one token.',
+  },
+  {
+    question: 'How do I cash out in Japan?',
+    answer:
+      'Japan has no clean way to get from a bank straight onto Base, so the route goes through Binance Japan and Solana. For a payout, your Anicca sends USDC or SOL to your Binance deposit address, you sell it for yen on Binance, and you withdraw to PayPay — the Binance Japan app pays out to PayPay, and you can run this daily with no multi-day bank settlement. To invest, you move money into Binance Japan with a PayPay top-up, buy Solana (SOL), send the SOL to your MetaMask (Solana address), then swap and bridge SOL into USDC on Base with relay.link or Jupiter and send it to your Anicca\'s Base wallet.',
+  },
+  {
+    question: 'Is cashing out instant, with no human in the loop?',
+    answer:
+      'Only wallet to wallet on Base is instant with no human in the loop. Any path that touches a bank, an exchange, or PayPay needs your one-time KYC\'d account — that is the human bridge. Once it exists, the money runs daily.',
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
 };
 
 function inline(s: string): string {
@@ -116,7 +162,8 @@ export default function Page() {
   const htmlJa = load('ja');
   return (
     <LaunchFrame>
-      <CashOutBody htmlEn={htmlEn} htmlJa={htmlJa} />
+      <JsonLd data={faqLd} />
+      <CashOutBody htmlEn={htmlEn} htmlJa={htmlJa} faqs={FAQS} />
     </LaunchFrame>
   );
 }
