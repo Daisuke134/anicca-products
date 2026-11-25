@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { SplitHero } from '@/components/site/taste/SplitHero';
@@ -5,10 +6,76 @@ import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 import { CTA } from '@/components/site/taste/CTA';
 
-export const metadata = {
+// GEO parity (audit 2026-11-25: /factory scored 77/100 with
+// meta has_canonical=false via the plain metadata object,
+// google_ai G-CANONICAL fail, brand_entity has_about_link=false,
+// and the recommendation "Add FAQPage schema with site FAQs").
+// The canonical is this page's own real URL; the RSS type and
+// og:image mirror app/layout.tsx (the real /feed.xml and the real
+// app icon, 1024x1024, already the Organization logo in
+// public/ai/summary.json). Title and description are unchanged.
+const FACTORY_DESCRIPTION =
+  'Small useful web apps and free research tools from Anicca. See each product for current availability and pricing.';
+
+export const metadata: Metadata = {
   title: 'Anicca Web Apps - small useful tools, weekly',
-  description:
-    'Small useful web apps and free research tools from Anicca. See each product for current availability and pricing.',
+  description: FACTORY_DESCRIPTION,
+  alternates: {
+    canonical: 'https://aniccaai.com/factory',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Anicca Web Apps - small useful tools, weekly',
+    description: FACTORY_DESCRIPTION,
+    url: 'https://aniccaai.com/factory',
+    siteName: 'Anicca',
+    type: 'website',
+    images: [
+      {
+        url: 'https://aniccaai.com/anicca-app-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Anicca app icon',
+      },
+    ],
+  },
+};
+
+// GEO (2026-11-25): visible FAQ + FAQPage build-out, following the
+// /politics, /cfo and /fashion pattern. Every answer is built only
+// from this page's own stated content (hero, app cards, pipeline
+// and "What it is" sections); no new facts, prices or dates added.
+const FAQS = [
+  {
+    question: 'What is Anicca Web Apps?',
+    answer:
+      'Anicca Web Apps is the web instance of the Anicca swarm: one useful tool every week. Anicca picks the niche, builds the app, ships it, and charges for it. Each app solves one specific suffering. The apps are written by Anicca with the open-source ralph loop, deployed to Vercel, and Stripe-billed.',
+  },
+  {
+    question: 'Which apps are listed here, and what do they cost?',
+    answer:
+      'The page lists AI Monk Database (Free; source-linked AI monk profiles, products, and revenue evidence), AI Monk Factory (Preparing; three finished videos free, $199/mo after), PDF Insight ($19/mo; turn any PDF into instant answers), GlowUp AI (Free; AI face score and glow-up roadmap), Lookmax (Coming), and Honne (Free with in-app purchases; chat intent revealed by AI). Prices vary by app, so see each app for current availability and pricing.',
+  },
+  {
+    question: 'How does the factory pick, build, and ship an app?',
+    answer:
+      'Every Monday the factory cron reads trends and selects one specific problem worth solving. Anicca then writes the code with the open-source ralph loop, deploys to Vercel, and wires Stripe, shipping an app by Friday. Revenue from every app flows into aniccaai.com.',
+  },
+  {
+    question: 'Do all of the factory apps succeed?',
+    answer:
+      'No. As this page states, they do not all hit. The ones that do, scale. Each app solves one specific problem — too many PDFs, too long emails, too many unread Slack threads — and each lives at its own URL.',
+  },
+] as const;
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
 };
 
 const factoryLd = {
@@ -83,6 +150,7 @@ export default function Page() {
   return (
     <main>
       <JsonLd data={factoryLd} />
+      <JsonLd data={faqLd} />
 
       {/* Hero */}
       <SplitHero
@@ -209,6 +277,34 @@ export default function Page() {
               <Link href="/en" className="underline-offset-4 hover:underline text-[hsl(var(--text-primary))]">
                 aniccaai.com
               </Link>.
+            </p>
+          </div>
+        </Reveal>
+      </Section>
+
+      {/* Visible FAQ - text matches the FAQPage schema verbatim */}
+      <Section id="faq">
+        <Reveal>
+          <div className="mx-auto max-w-[65ch]">
+            <h2 className="text-2xl font-semibold text-[hsl(var(--text-primary))]">
+              Questions about Anicca Web Apps
+            </h2>
+            <div className="mt-6 space-y-6">
+              {FAQS.map((f) => (
+                <div key={f.question}>
+                  <h3 className="text-base font-semibold text-[hsl(var(--text-primary))]">
+                    {f.question}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[hsl(var(--text-secondary))]">
+                    {f.answer}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 text-sm text-[hsl(var(--text-secondary))]">
+              <Link href="/about" className="underline underline-offset-4 hover:text-[hsl(var(--text-primary))]">
+                About Anicca →
+              </Link>
             </p>
           </div>
         </Reveal>
