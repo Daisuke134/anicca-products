@@ -38,5 +38,14 @@ export const metadata: Metadata = {
 };
 
 export default function SocialsLayout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <div style={{ textAlign: 'center', padding: '0 20px 32px', background: '#faf6ef' }}>
+        <a href="/about" style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#6b6560' }}>
+          About Anicca →
+        </a>
+      </div>
+    </>
+  );
 }
