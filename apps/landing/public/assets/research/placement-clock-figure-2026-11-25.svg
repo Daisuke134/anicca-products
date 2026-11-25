@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img">
+<rect width="960" height="360" fill="#101418"/>
+<rect x="70" y="120" width="180" height="120" rx="10" fill="#1B232C"/>
+<rect x="70" y="120" width="180" height="34" rx="10" fill="#2A3644"/>
+<rect x="280" y="120" width="180" height="120" rx="10" fill="#1B232C"/>
+<rect x="280" y="120" width="180" height="34" rx="10" fill="#2A3644"/>
+<rect x="490" y="120" width="180" height="120" rx="10" fill="#1B232C"/>
+<rect x="490" y="120" width="180" height="34" rx="10" fill="#2A3644"/>
+<rect x="700" y="110" width="190" height="140" rx="10" fill="#1B232C" stroke="#E8B34B" stroke-width="3"/>
+<rect x="700" y="110" width="190" height="38" rx="10" fill="#E8B34B"/>
+<circle cx="160" cy="196" r="9" fill="#9FB4C7"/>
+<circle cx="370" cy="196" r="9" fill="#9FB4C7"/>
+<circle cx="580" cy="196" r="9" fill="#9FB4C7"/>
+<circle cx="795" cy="199" r="13" fill="#E8B34B"/>
+<line x1="70" y1="290" x2="890" y2="290" stroke="#5F7080" stroke-width="3"/>
+<polygon points="890,290 868,281 868,299" fill="#5F7080"/>
+</svg>

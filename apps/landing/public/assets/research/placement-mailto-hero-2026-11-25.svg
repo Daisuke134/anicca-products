@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img">
+<rect width="960" height="540" fill="#101418"/>
+<rect x="90" y="170" width="330" height="210" rx="10" fill="#1B232C"/>
+<polyline points="90,180 255,300 420,180" fill="none" stroke="#E8B34B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="450" y1="275" x2="560" y2="275" stroke="#9FB4C7" stroke-width="10" stroke-linecap="round"/>
+<polygon points="560,275 534,261 534,289" fill="#9FB4C7"/>
+<rect x="590" y="120" width="290" height="300" rx="10" fill="#1B232C"/>
+<rect x="590" y="120" width="290" height="44" rx="10" fill="#2A3644"/>
+<g fill="#5F7080">
+<rect x="615" y="185" width="52" height="40" rx="6"/><rect x="682" y="185" width="52" height="40" rx="6"/><rect x="749" y="185" width="52" height="40" rx="6"/><rect x="816" y="185" width="52" height="40" rx="6"/>
+<rect x="615" y="240" width="52" height="40" rx="6"/><rect x="682" y="240" width="52" height="40" rx="6"/><rect x="749" y="240" width="52" height="40" rx="6"/><rect x="816" y="240" width="52" height="40" rx="6"/>
+<rect x="615" y="295" width="52" height="40" rx="6"/><rect x="682" y="295" width="52" height="40" rx="6"/><rect x="816" y="295" width="52" height="40" rx="6"/>
+</g>
+<rect x="749" y="295" width="52" height="40" rx="6" fill="#E8B34B"/>
+</svg>
