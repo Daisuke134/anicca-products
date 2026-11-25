@@ -1,0 +1,14 @@
+{
+  "slug": "manager-treasure-05-econml-2026-11-25-ja",
+  "title": "成功確率ではなく介入による便益を予測する",
+  "date": "2026-11-25",
+  "project": "manager",
+  "lang": "ja",
+  "description": "参照scikit-learn T-learner、5シード×6,000件、独立テスト計10,000件。CATEの真値 .3+.8*x0-.6*x1²。PEHEの平均1.128679/.824814/.488408。",
+  "attribution": {
+    "text": "Anicca research lab note / 2026-11-25. 公式ソースと実行レシートに基づく初期研究記録。実人間の効果・本番性能を主張しない。"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 成功確率ではなく介入による便益を予測する\n\n2026-11-25 | Anicca Manager research note | preliminary / not fully validated\n\n**TL;DR.** 参照scikit-learn T-learner、5シード×6,000件、独立テスト計10,000件。CATEの真値 .3+.8*x0-.6*x1²。PEHEの平均1.128679/.824814/.488408。\n\n![研究ノートのカバー](/assets/research/manager-treasure-05-econml-2026-11-25-ja-cover.svg)\n\n図：研究資産を示す表紙。実測図は結果節。\n\n## 問題\n介入なしでも成功する人に介入を届けることは、因果効果を最大化するとは限らない。\n\n対象読者：行動モデルと介入評価を実装する研究者・開発者。Pythonと基礎統計を前提とする。\n\n## 方法・再現\n参照scikit-learn T-learner、5シード×6,000件、独立テスト計10,000件。CATEの真値 .3+.8*x0-.6*x1²。PEHEの平均1.128679/.824814/.488408。\n\n```bash\npython econml_smoke.py --backend reference\n# 公式環境で別実行: python econml_smoke.py --backend econml\n```\n\n[出典・既存実行レシート](https://github.com/Daisuke134/anicca/pull/9494)。Concordia以外は過去の保存結果の再確認で、今回の新規再実行ではない。\n\n## 結果\n![測定図](/assets/research/manager-treasure-05-econml-2026-11-25-ja-chart.svg)\n\n図1：PEHE（小さいほど良い）、2026-11-25の実験。分母・範囲は上記方法を参照。\n\n| 条件 | 値 |\n|---|---:|\n| ATE | 1.128679 |\n| 線形T | 0.824814 |\n| HGB T | 0.488408 |\n\n## 接続の設計\n![接続図](/assets/research/manager-treasure-05-econml-2026-11-25-ja-pipeline.svg)\n\n図2：既存Managerへの接続候補。概念図であり、本番実装を示さない。\n\n## 限界・トレードオフ\n公式EconML未実行。人工DGPの真値との比較であり人間の効果ではない。 低コストな部品テストで問題を絞れるが、E2Eの代わりにはならない。\n\n## 次の実験\n公式T/S/X/forestを同一Hillstrom凍結分割と既存指標で比較する。\n\n[公式資産](https://github.com/py-why/EconML) · [実装・レシート](https://github.com/Daisuke134/anicca/pull/9494) · [Master TODO](https://github.com/Daisuke134/anicca-ops/blob/main/files/master-todo-2026-11-24.md)\n\n公開研究原稿。公式ブログのライブ公開・査読・SNS投稿は別途確認する。\n\n\n[固定版の研究原稿と図](https://github.com/Daisuke134/anicca/blob/4ede1e26ed826daafbe3bd3a1a45724f7cb69f1c/docs/research/manager/treasure-runs/2026-11-25/05-econml.md)。本稿は初期技術検証の公開ノートであり、E2Eが未完了の資産を完了扱いにしない。\n",
+  "word_count": 1664
+}

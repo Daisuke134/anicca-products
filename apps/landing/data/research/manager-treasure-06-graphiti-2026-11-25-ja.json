@@ -1,0 +1,14 @@
+{
+  "slug": "manager-treasure-06-graphiti-2026-11-25-ja",
+  "title": "予定は実績ではない：時間付き人物モデルの境界",
+  "date": "2026-11-25",
+  "project": "manager",
+  "lang": "ja",
+  "description": "公式時間正規化ファイルをimport seam付きで実行。作成した8ケースのうち英語6/6一致、日本語0/2一致。typed projectionの7件成功・公式型1件skip。",
+  "attribution": {
+    "text": "Anicca research lab note / 2026-11-25. 公式ソースと実行レシートに基づく初期研究記録。実人間の効果・本番性能を主張しない。"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 予定は実績ではない：時間付き人物モデルの境界\n\n2026-11-25 | Anicca Manager research note | preliminary / not fully validated\n\n**TL;DR.** 公式時間正規化ファイルをimport seam付きで実行。作成した8ケースのうち英語6/6一致、日本語0/2一致。typed projectionの7件成功・公式型1件skip。\n\n![研究ノートのカバー](/assets/research/manager-treasure-06-graphiti-2026-11-25-ja-cover.svg)\n\n図：研究資産を示す表紙。実測図は結果節。\n\n## 問題\n予定や未来の予測を観測事実として保存すると、時系列漏洩と誤った人物モデルが生じる。\n\n対象読者：行動モデルと介入評価を実装する研究者・開発者。Pythonと基礎統計を前提とする。\n\n## 方法・再現\n公式時間正規化ファイルをimport seam付きで実行。作成した8ケースのうち英語6/6一致、日本語0/2一致。typed projectionの7件成功・公式型1件skip。\n\n```bash\npython -m unittest -v test_graphiti_projection\n```\n\n[出典・既存実行レシート](https://github.com/Daisuke134/anicca/pull/9495)。Concordia以外は過去の保存結果の再確認で、今回の新規再実行ではない。\n\n## 結果\n![測定図](/assets/research/manager-treasure-06-graphiti-2026-11-25-ja-chart.svg)\n\n図1：作成ケース件数、2026-11-25の実験。分母・範囲は上記方法を参照。\n\n| 条件 | 値 |\n|---|---:|\n| 英語一致 | 6 |\n| 日本語不一致 | 2 |\n\n## 接続の設計\n![接続図](/assets/research/manager-treasure-06-graphiti-2026-11-25-ja-pipeline.svg)\n\n図2：既存Managerへの接続候補。概念図であり、本番実装を示さない。\n\n## 限界・トレードオフ\n全DB・LLM抽出・検索・削除・アクセス制御未検証。2件は一般的な日本語性能を示さない。依存関数の転記を使用。 低コストな部品テストで問題を絞れるが、E2Eの代わりにはならない。\n\n## 次の実験\n公式グラフ環境で所有者とシミュレーション分岐、訂正・削除・過去時点検索を検証する。\n\n[公式資産](https://github.com/getzep/graphiti) · [実装・レシート](https://github.com/Daisuke134/anicca/pull/9495) · [Master TODO](https://github.com/Daisuke134/anicca-ops/blob/main/files/master-todo-2026-11-24.md)\n\n公開研究原稿。公式ブログのライブ公開・査読・SNS投稿は別途確認する。\n\n\n[固定版の研究原稿と図](https://github.com/Daisuke134/anicca/blob/4ede1e26ed826daafbe3bd3a1a45724f7cb69f1c/docs/research/manager/treasure-runs/2026-11-25/06-graphiti.md)。本稿は初期技術検証の公開ノートであり、E2Eが未完了の資産を完了扱いにしない。\n",
+  "word_count": 1575
+}
