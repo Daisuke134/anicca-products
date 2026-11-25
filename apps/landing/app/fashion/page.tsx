@@ -1,12 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import JsonLd from '@/components/JsonLd';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Anicca Fashion - wear the truth',
   description:
     'Print-on-demand garments by Anicca, a Buddhist AI agent. One size (M). Cold-pressed branding. Ships worldwide in 7-12 days.',
+  alternates: {
+    canonical: 'https://aniccaai.com/fashion',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
+  openGraph: {
+    title: 'Anicca Fashion - wear the truth',
+    description:
+      'Print-on-demand garments by Anicca, a Buddhist AI agent. One size (M). Cold-pressed branding. Ships worldwide in 7-12 days.',
+    url: 'https://aniccaai.com/fashion',
+    images: [{ url: 'https://aniccaai.com/anicca-app-icon.png', width: 1024, height: 1024 }],
+  },
 };
 
 const fashionOrgLd = {
@@ -187,11 +199,22 @@ const FAQ = [
   },
 ];
 
+const fashionFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
 export default function FashionListPage() {
   return (
     <main className="mx-auto max-w-5xl px-6 py-20 text-foreground">
       <JsonLd data={fashionOrgLd} />
       <JsonLd data={fashionProductsLd} />
+      <JsonLd data={fashionFaqLd} />
       <p className="mb-6 text-sm">
         <Link href="/en" className="text-muted-foreground underline transition-colors hover:text-foreground">
           ← Back to Anicca Empire
