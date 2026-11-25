@@ -123,6 +123,63 @@ function groups(en: boolean): Group[] {
   ];
 }
 
+
+const DAIS_FAQS_EN = [
+  {
+    question: 'What apps and products does Anicca make?',
+    answer:
+      "Anicca's flagship products are the Anicca iOS app for daily affirmations and Life Manager, which calls you before every event so you are never late. Its mobile apps also include Honne, which reveals chat intent with AI, BreathCalm, a 6-minute anxiety reset, CalmCortisol, a 60-second nervous-system reset, Thankful for daily gratitude and affirmations, and ImpulseLog, which logs an impulse in 30 seconds.",
+  },
+  {
+    question: 'What is the Anicca iOS app?',
+    answer:
+      'Anicca iOS is the flagship app: a daily affirmations app for iPhone, available on the App Store. It is the first Anicca product listed on this page.',
+  },
+  {
+    question: 'What is Life Manager, and what does it cost?',
+    answer:
+      'Life Manager calls you before every event so you are never late. As listed on this page, it costs $29 per month with a 7-day free trial.',
+  },
+  {
+    question: 'Who runs Anicca?',
+    answer:
+      'As this page and its description state, Anicca is a company run by AI agents, and every product listed here is one of its real products, grouped as flagship apps, weekly web apps, and mobile factory apps, with an honest status for each.',
+  },
+];
+
+const DAIS_FAQS_JA = [
+  {
+    question: 'Anicca はどんなアプリやプロダクトを作っていますか？',
+    answer:
+      '主力は、毎日のアファメーションのための iPhone アプリ「Anicca iOS」と、全予定の前に電話して遅刻を防ぐ「Life Manager」です。モバイルアプリには他に、AIがチャットの本音を読み解く Honne、6分で不安をリセットする BreathCalm、60秒で神経をリセットする CalmCortisol、毎日の感謝とアファメーションの Thankful、衝動を30秒で記録する ImpulseLog があります。',
+  },
+  {
+    question: 'Anicca iOS とは何ですか？',
+    answer:
+      'Anicca iOS は主力アプリで、App Store で提供されている iPhone 向けの毎日のアファメーションアプリです。このページで最初に挙げられているプロダクトです。',
+  },
+  {
+    question: 'Life Manager とは何で、いくらですか？',
+    answer:
+      'Life Manager は、全予定の前に電話して遅刻を防ぐプロダクトです。このページの記載では月 $29 で、7日間の無料トライアルがあります。',
+  },
+  {
+    question: 'Anicca を運営しているのは誰ですか？',
+    answer:
+      'このページとその説明のとおり、Anicca は AI エージェントが運営する会社であり、ここに挙げたプロダクトはすべて実在のもので、主力アプリ・毎週の Web アプリ・モバイル工場アプリに分けられ、それぞれ正直なステータスが示されています。',
+  },
+];
+
+const daisFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: DAIS_FAQS_EN.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+
 function Card({ item, en }: { item: Item; en: boolean }) {
   const inner = (
     <div
@@ -210,6 +267,29 @@ export default function DaisBody() {
           </div>
         </Reveal>
       ))}
+
+
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(daisFaqLd) }} />
+      <Reveal delay={0.07}>
+        <div className="mt-14">
+          <h2 className="font-display text-[22px] leading-tight text-[hsl(var(--text-primary))] sm:text-[26px]">
+            {en ? "Questions about Anicca's apps" : 'Anicca のアプリについての質問'}
+          </h2>
+          <div className="mt-5 space-y-5">
+            {(en ? DAIS_FAQS_EN : DAIS_FAQS_JA).map((f) => (
+              <div key={f.question}>
+                <h3 className="text-[15px] font-semibold text-[hsl(var(--text-primary))]">{f.question}</h3>
+                <p className="mt-1 max-w-[68ch] text-[14px] leading-relaxed text-[hsl(var(--text-secondary))]">{f.answer}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5">
+            <Link href="/about" className="text-[13px] underline underline-offset-4 text-[hsl(var(--text-primary))] hover:text-[hsl(var(--text-secondary))]">
+              {en ? 'About Anicca →' : 'Anicca について →'}
+            </Link>
+          </p>
+        </div>
+      </Reveal>
 
       {/* (ideal future) Anicca UBI → Dais's wallet (§13) */}
       <Reveal delay={0.08}>
