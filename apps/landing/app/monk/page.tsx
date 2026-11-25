@@ -25,6 +25,39 @@ const monkBookLd = {
   },
 };
 
+const MONK_FAQS = [
+  {
+    question: 'What is The Anicca Reset?',
+    answer:
+      'The Anicca Reset is an ebook of 49 short chapters on impermanence. Each chapter pairs one Pali term with one modern reframe and one practice you can do the same day. It brings Theravada wisdom together with the neuroscience of emotion, including the 90-second rule, memory reconsolidation, and the witness practice.',
+  },
+  {
+    question: 'How do I get the book, and what does it cost?',
+    answer:
+      'The book is a PDF with instant delivery and lifetime access. It is $10.99 at the limited-time release pricing shown on this page, reduced from $16.99. After purchase, the download link is shown on this page and also emailed to you.',
+  },
+  {
+    question: 'Is there anything free I can try first?',
+    answer:
+      'Yes. You can sign up on this page for a free 3-day letter on impermanence: a short morning email for three days, then nothing, with no spam. There is also the Daily Anicca Letter, one short letter every morning, free for the first 14 days and then $9.99 per month, cancellable at any time.',
+  },
+  {
+    question: 'Is The Anicca Reset a treatment for anxiety or other conditions?',
+    answer:
+      'No. As this page states, the book is for educational and inspirational purposes only. It is calm guidance about impermanence — the idea summed up in the book as: it is not about not feeling, it is about feeling and watching it leave. It is not medical advice or a treatment.',
+  },
+];
+
+const monkFaqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: MONK_FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+
 function ebookDownloadHref(sessionId: string) {
   return `/.netlify/functions/ebook-download?session_id=${encodeURIComponent(sessionId)}&format=pdf`;
 }
@@ -105,6 +138,7 @@ export default function MonkPage() {
   return (
     <main className="min-h-screen bg-[hsl(var(--background))] font-serif">
       <JsonLd data={monkBookLd} />
+      <JsonLd data={monkFaqLd} />
 
       {downloadSessionId && (
         <Section>
@@ -235,6 +269,45 @@ export default function MonkPage() {
         <Reveal>
           <div className="flex justify-center">
             <BuyButton label="Get the book - $10.99" />
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <div className="mx-auto max-w-xl">
+            <h2 className="text-xl font-light mb-4 text-[hsl(var(--text-primary))]">What is The Anicca Reset?</h2>
+            <p className="text-sm leading-relaxed text-[hsl(var(--text-secondary))] mb-4">
+              The Anicca Reset is a 49-chapter ebook about impermanence: the fact that everything passes — your anger,
+              your anxiety, and your heartbreak too. Each short chapter gives you one Pali term, one modern reframe,
+              and one practice you can do tonight, so the book is built to be read one chapter at a time, for example
+              at breakfast, and returned to whenever a feeling feels permanent.
+            </p>
+            <p className="text-sm leading-relaxed text-[hsl(var(--text-secondary))]">
+              The book pairs ancient Theravada wisdom with the neuroscience of emotion — the 90-second rule, memory
+              reconsolidation, and the witness practice. Its position is simple, in the book&apos;s own words:
+              it&apos;s not about not feeling; it&apos;s about feeling and watching it leave. The book is for
+              educational and inspirational purposes only and is not a treatment.
+            </p>
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <div className="mx-auto max-w-xl">
+            <h2 className="text-xl font-light mb-6 text-[hsl(var(--text-primary))]">Questions about The Anicca Reset</h2>
+            <div className="space-y-6">
+              {MONK_FAQS.map((f) => (
+                <div key={f.question}>
+                  <h3 className="text-base font-medium mb-2 text-[hsl(var(--text-primary))]">{f.question}</h3>
+                  <p className="text-sm leading-relaxed text-[hsl(var(--text-secondary))]">{f.answer}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm mt-8 text-[hsl(var(--text-secondary))]">
+              The book is published by <a href="/about" className="underline">About Anicca</a>.
+            </p>
           </div>
         </Reveal>
       </Section>
