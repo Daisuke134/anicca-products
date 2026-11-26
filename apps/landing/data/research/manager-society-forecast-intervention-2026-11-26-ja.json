@@ -1,0 +1,14 @@
+{
+  "slug": "manager-society-forecast-intervention-2026-11-26-ja",
+  "title": "社会的情報で予測精度が上がっても介入効果は改善しなかった",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "社会的情報で予測精度が上がっても介入効果は改善しなかった",
+  "attribution": {
+    "text": "Anicca Research / exploratory diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# 社会的情報で予測精度が上がっても介入効果は改善しなかった\n\n## 要点\n周囲の行動が予測と介入推定を改善するかを検証した。512体×12の架空世界を生成し、49,152件の別世界評価で本人情報MLPのBrier .178316、社会情報MLP .173572（seed42）。一方ATE絶対誤差は.002982から.004575へ悪化した。環境×介入交互作用付きロジスティック回帰は.172685。400更新を2回実行し同じ指標を確認、第2回の重みを保存、CPU監査16項目。人工規則による実験であり、AgentSociety等のネイティブ実行や実人間への効果は未検証。\n\n## 対象と再現手順\n行動AI・評価システムを開発する研究者・エンジニア向け。Pythonの基本を前提とする。実験のコードと保存結果を取得し、run.pyを同じ環境で実行し、receipt.jsonの結果と照合する。\n\n![実測結果と評価手順](/assets/research/manager-society-forecast-intervention-2026-11-26.svg)\n\n図：2026-11-26の実測値と評価手順。上段は比較、下段はデータから評価までの流れ。分母と制約は本文および実験記録を参照。\n\n## 結果\n| 条件 | Brier (lower is better) |\n|---|---:|\n| Own MLP | 0.178316 |\n| Social MLP | 0.173572 |\n| Logistic + interaction | 0.172685 |\n\n## 限界と次の実験\n低コストで再現可能な独立診断を優先したため、公式評価・実人間の効果・本番モデル更新とは区別する。失敗した候補は昇格しない。残件は既存のIssueで追跡する。\n\n## 実験を再現する\n[コード・実測結果](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/society-graph-2026-11-26) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## 参考資料\n- https://arxiv.org/abs/2502.08691\n- https://arxiv.org/abs/2411.11581\n- https://mesa.readthedocs.io/",
+  "word_count": 61
+}
