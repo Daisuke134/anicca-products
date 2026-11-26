@@ -1,0 +1,14 @@
+{
+  "slug": "managerbench-capability-scorecard-2026-11-26-en",
+  "title": "ManagerBench: capability-level evaluation of a released Manager adapter",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "ManagerBench: capability-level evaluation of a released Manager adapter",
+  "attribution": {
+    "text": "Anicca Research / source-pinned evaluation replay"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# ManagerBench: capability-level evaluation of a released Manager adapter\n\n## TL;DR\nDraft PR #9527 extends the existing ManagerBench replay with two pinned receipt adapters. The original 260 rows are byte-identical; 155 tests pass. The team has published a trained Gemma 4 E2B adapter on GitHub Releases.\n\n![Separate metrics and evaluation pipeline](/assets/research/managerbench-capability-scorecard-2026-11-26.svg)\n\nFigure: same reported GPU-stack comparison on 1,000 Hillstrom cases. Base values from release report, adapter values from attached aggregate receipt.\n\n| Metric | Base | Adapter |\n|---|---:|---:|\n| Brier | 0.1386 | 0.1197 |\n| Log loss | 1.2520 | 0.4032 |\n| AUC | 0.5541 | 0.5223 |\n\n## Methods and limitations\nImplemented as optional flags on the existing CLI. Recomputed BFM02 accuracy 10/16 and regret 0.0875 from 24 rows with 16 non-ties. Hillstrom remains aggregate-only. Synthetic anomaly detection is a separate diagnostic; missing tracks explicit. No new inference, training or production deployment.\n\nThe published adapter is 94.77 MB, trained by the team for 125 QLoRA steps. We independently verified the evaluation JSON SHA-256, not the weight bytes. AUC declined; no promotion. PR remains draft.\n\n[Evidence](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/managerbench-capability-2026-11-26/) · [PR #9527](https://github.com/Daisuke134/anicca/pull/9527) · [Model release](https://github.com/Daisuke134/anicca/releases/tag/manager-gemma4-e2b-hillstrom-2026-11-26)\n\n## Further reading\n- https://arxiv.org/abs/2211.09110\n- https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview",
+  "word_count": 192
+}
