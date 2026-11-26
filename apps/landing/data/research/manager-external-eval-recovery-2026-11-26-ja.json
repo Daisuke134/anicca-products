@@ -1,0 +1,14 @@
+{
+  "slug": "manager-external-eval-recovery-2026-11-26-ja",
+  "title": "外部評価を再開：Managerの数学・知識・指示遵守の実測",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "外部評価を再開：Managerの数学・知識・指示遵守の実測",
+  "attribution": {
+    "text": "Anicca Research / exploratory external benchmark recovery"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 外部評価を再開：Managerの数学・知識・指示遵守の実測\n\nMac miniの復旧後、同一のSmolLM2ベースとManager Pilot005で実評価を再開した。IFEvalは4問を1280トークン上限で生成しGoogle公式採点を実施。MMLU-Proは先頭32問（全てビジネス）に対して2選択肢順序、128回の確率推論。MATH-500は固定リビジョン6e4ed1a2a79af7d8630a6b768ec859cb5af4d3beからseed42で16問を抽出し、greedy256トークンとboxed抽出＋既存正規化関数で採点。\n\n| Task | Base | Pilot005 |\n|---|---:|---:|\n| IFEval strict prompt | 1/4 | 1/4 |\n| MMLU-Pro direct-choice | 5/32 | 2/32 |\n| MATH-500 boxed answer | 0/16 | 0/16 |\n\nGPQAの公式配布先は401。回避しない。全体の公式スコアではなく、性能改善や統計的優越は証明されていない。新規学習・有料支出・製品への昇格なし。\n\n![Actual model results](/assets/research/manager-external-eval-recovery-2026-11-26.svg)\n\n[ManagerBench research preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [MATH-500](https://huggingface.co/datasets/HuggingFaceH4/MATH-500) · [MMLU-Pro](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro) · [IFEval](https://huggingface.co/datasets/google/IFEval) · [Related research](https://aniccaai.com/blog/manager-ifeval-external-smoke-2026-11-26-ja) · [Open metrics](https://aniccaai.com/open/)",
+  "word_count": 1047
+}

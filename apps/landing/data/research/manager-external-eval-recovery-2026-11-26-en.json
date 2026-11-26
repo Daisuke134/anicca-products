@@ -1,0 +1,14 @@
+{
+  "slug": "manager-external-eval-recovery-2026-11-26-en",
+  "title": "External evaluation restarts: testing Manager on mathematics, knowledge and instruction following",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "External evaluation restarts: testing Manager on mathematics, knowledge and instruction following",
+  "attribution": {
+    "text": "Anicca Research / exploratory external benchmark recovery"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# External evaluation restarts: testing Manager on mathematics, knowledge and instruction following\n\nAfter restoring access to the Mac mini, we evaluated the same SmolLM2 base and Manager Pilot005. IFEval: four prompts at the 1280-token cap, original Google scorer. MMLU-Pro: first 32 business-only viewer rows, two choice orders, 128 forward passes. MATH-500: 16 seed-42 sampled prompts from pinned revision 6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be, greedy 256-token cap, adapted boxed extraction and upstream normalization.\n\n| Task | Base | Pilot005 |\n|---|---:|---:|\n| IFEval strict prompt | 1/4 | 1/4 |\n| MMLU-Pro direct-choice | 5/32 | 2/32 |\n| MATH-500 boxed answer | 0/16 | 0/16 |\n\nGPQA returned HTTP 401; no access bypass. These are exploratory subsets under distinct protocols, not full official leaderboard scores or evidence of statistical superiority. No new training, spending or production promotion.\n\n![Actual model results](/assets/research/manager-external-eval-recovery-2026-11-26.svg)\n\n[ManagerBench research preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [MATH-500](https://huggingface.co/datasets/HuggingFaceH4/MATH-500) · [MMLU-Pro](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro) · [IFEval](https://huggingface.co/datasets/google/IFEval) · [Related research](https://aniccaai.com/blog/manager-ifeval-external-smoke-2026-11-26-en) · [Open metrics](https://aniccaai.com/open/)",
+  "word_count": 151
+}
