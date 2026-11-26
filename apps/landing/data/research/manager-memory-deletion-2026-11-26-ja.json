@@ -1,0 +1,14 @@
+{
+  "slug": "manager-memory-deletion-2026-11-26-ja",
+  "title": "AIの記憶：削除した情報をモデルに判断させない",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "AIの記憶：削除した情報をモデルに判断させない",
+  "attribution": {
+    "text": "Anicca Research / synthetic memory and local deletion diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# AIの記憶：削除した情報をモデルに判断させない\n\n## 要点\n合成12件でQwen2.5 1.5Bを比較。全履歴11/12、直近4件7/12、現在状態6/12。現在状態から削除した項目について、4件すべて無関係な値を答えた。対象キーだけを渡し、欠測を決定的に処理する方法は9/12。既存製品の論理削除も隔離環境で確認した。\n\n## 方法\n行動AI開発者向け。更新・削除・古い項目の検索を各4ケース作り、greedy seed42、24トークン上限で36実推論。追加8実推論と4件のモデル呼び出し回避、24指標の独立再計算。直接キー検索12/12は構成上の正解でありモデル性能ではない。全履歴条件は人工データのみ。実際の削除済み個人情報を再入力しない。\n\n![Measured memory diagnostic and gate](/assets/research/manager-memory-deletion-2026-11-26.svg)\n\n図：2026-11-26、12件の合成評価と事前の記憶ゲート。\n\n| Condition | Exact |\n|---|---:|\n| Full history | 11/12 |\n| Last four events | 7/12 |\n| All current keys | 6/12 |\n| Target only + absent bypass | 9/12 |\n| Exact lookup (by construction) | 12/12 |\n\n## 製品検証\n固定製品SHA f17d87cbの既存InterventionStoreを一時環境で実行。2人分の出力を1人分に減らし、削除済みIDの再利用・新規選択・観測を拒否。別利用者を維持し繰り返し削除も成功。論理SQLite削除のみでVM、バックアップ、ログ、ベクトルストアの消去を証明しない。\n\n## 限界\nMemT Nano配布ファイル70.26GBはローカル容量不足。MemoryAgentBenchはMIT表記だが元データ権利確認と正式実行が未完了。公式スコア・実人間・製品配備・重み更新はなし。\n\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/memory-state-2026-11-26/) · [Open integration](https://github.com/Daisuke134/anicca/issues/9513) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://arxiv.org/abs/2507.05257\n- https://arxiv.org/abs/2610.26825\n- https://huggingface.co/datasets/ai-hyz/MemoryAgentBench",
+  "word_count": 84
+}
