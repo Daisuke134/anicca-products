@@ -1,0 +1,14 @@
+{
+  "slug": "manager-context-anomaly-2026-11-26-ja",
+  "title": "行動異常検知：変化は危険の証明ではない",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "行動異常検知：変化は危険の証明ではない",
+  "attribution": {
+    "text": "Anicca Research / synthetic contextual anomaly diagnostic"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# 行動異常検知：変化は危険の証明ではない\n\n## 要点\n64個の架空エンティティを比較。全体ベースラインの人工逸脱検出率31.93%に対し、個別ベースラインは99.32%。正当な変化の警報率は18.36%だったが、既知の文脈を加えると0.98%になった。\n\n## 方法\n学習4096、校正2048、正常2048、正当な変化2048、人工逸脱1024。校正のみで99パーセンタイル閾値を設定。MPSオートエンコーダ2 seed×160更新、2重み再ロード、NumPy独立監査20指標。\n\n![Measured synthetic alert rates](/assets/research/manager-context-anomaly-2026-11-26.svg)\n\n図：人工テレメトリにおける警報率。正当な変化の文脈は実験で既知。\n\n| Condition | Normal % | Authorized change % | Deviation % |\n|---|---:|---:|---:|\n| Global | 0.59 | 2.78 | 31.93 |\n| Entity | 1.32 | 18.36 | 99.32 |\n| Entity + context | 1.32 | 0.98 | 99.32 |\n| AE seed 42 | 1.22 | 1.12 | 93.85 |\n| AE seed 43 | 0.63 | 0.78 | 99.32 |\n\n## 製品との接続・限界\nAnicca既存の外部操作ガード・予算制約・再照合テスト19件が隔離環境で全件成功。異常スコアを権限や悪意の証拠にしない。文脈は真の変化量を与えた人工条件で、実環境での認可推定は未検証。Abnormal AIの独自モデルや実攻撃を評価したわけではない。本番配備・Manager重み昇格なし。\n\n[Reproduction and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/behavior-anomaly-2026-11-26/) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://abnormal.ai/glossary/behavioral-ai\n- https://abnormal.ai/platform/ai-agent-security\n- https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-94.pdf",
+  "word_count": 97
+}
