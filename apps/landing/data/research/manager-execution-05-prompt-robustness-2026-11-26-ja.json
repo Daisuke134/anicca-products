@@ -1,0 +1,14 @@
+{
+  "slug": "manager-execution-05-prompt-robustness-2026-11-26-ja",
+  "title": "言い換えや言語変更で人間の行動予測は変わるか",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "Run05: 5120 prompt evaluations; four checkpoints, 96 test cases; no promotion.",
+  "attribution": {
+    "text": "Anicca Research; POSIX, FormatSpread, Bayesian Prompt Ensembles; UCI CC BY 4.0"
+  },
+  "n_papers_cited": 3,
+  "markdown": "# 言い換えや言語変更で人間の行動予測は変わるか\n\n2026-11-26 | Anicca Research\n\n**要約。** 4モデル、5,120プロンプトを実測した。Base canonical 0.5351, ensemble 0.3167, raw range 0.0149; Weighted SFT canonical 0.5466, ensemble 0.3269, raw range 0.0151; DPO canonical 0.4227, ensemble 0.2324, raw range 0.0265; DPO + consistency canonical 0.5658, ensemble 0.3487, raw range 0.0176。本番昇格はしない。\n\n![cover](/assets/research/manager-execution-05-prompt-robustness-2026-11-26-cover.svg)\n\n表紙：Run05の実人間購買データ96件、陽性9件。\n\n## 問題\n回答順序の平均化は文章表現に対する頑健性を保証しない。対象は二値予測とLoRAを理解するMLエンジニア。\n\n## 実行手順\n1. SmolLM2基盤とRun04のseed42の3アダプターを再利用。新規学習なし。\n2. 原文・英語言い換え・日本語質問のみ・日本語全文の4テンプレート、2回答順序を固定。較正64、テスト96件（陽性9）。\n3. 原文で学習した較正器を全テンプレートへ適用。平均化予測は同じ較正分割で別途較正。平均最大最小差はPOSIXそのものではない。\n4. 個別予測と監査コードを保存し、AUROC/Brier計40値を再計算、2,000回の対応付き層別Bootstrap。\n\n![pipeline](/assets/research/manager-execution-05-prompt-robustness-2026-11-26-pipeline.svg)\n\n図1：実験経路。4モデル・4表現・2順序を同じ事例で比較。\n\n## 結果\n| Model | Canonical AUC | EN paraphrase | JP question | JP full | Ensemble AUC | Raw range | Calibrated range |\n|---|---:|---:|---:|---:|---:|---:|---:|\n| Base | 0.53512 | 0.35121 | 0.44189 | 0.32439 | 0.31673 | 0.01493 | 0.00886 |\n| Weighted SFT | 0.54662 | 0.36015 | 0.42656 | 0.32695 | 0.32695 | 0.01511 | 0.00896 |\n| DPO | 0.42273 | 0.21584 | 0.39080 | 0.27203 | 0.23244 | 0.02651 | 0.02130 |\n| DPO + consistency | 0.56577 | 0.39080 | 0.43934 | 0.33333 | 0.34866 | 0.01756 | 0.01013 |\n\n![chart](/assets/research/manager-execution-05-prompt-robustness-2026-11-26-chart.svg)\n\n図2：実測AUROC。96件の共通テスト。[証拠](https://github.com/Daisuke134/anicca/pull/9519)。\n\n## トレードオフと未検証\n4テンプレート平均は推論8回、単一テンプレートは2回。陽性9件・seed42のみ。日本語全文は回答選択肢の言語も変更しており、独立した翻訳判定は未実施。較正で確率差が小さくなっても順位は保証されない。全社・事前学習の重複、公式Benchmark、因果効果、人間の便益は未検証。本番昇格なし。\n\n## 再現・共同研究\n[実行コード、個別予測、監査](https://github.com/Daisuke134/anicca/pull/9519)から、独立した翻訳判定と大規模比較に参加できる。\n\n## 参考\n[POSIX](https://aclanthology.org/2024.findings-emnlp.852/), [FormatSpread](https://proceedings.iclr.cc/paper_files/paper/2024/hash/6c0e99d736da621403018ca7b32b1a4d-Abstract-Conference.html), [Bayesian Prompt Ensembles](https://aclanthology.org/2024.findings-acl.728/), [UCI](https://doi.org/10.24432/C5F88Q)\n",
+  "word_count": 173
+}
