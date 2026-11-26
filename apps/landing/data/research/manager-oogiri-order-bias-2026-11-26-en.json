@@ -1,0 +1,14 @@
+{
+  "slug": "manager-oogiri-order-bias-2026-11-26-en",
+  "title": "A humor judge can score 50% by always choosing B",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "A humor judge can score 50% by always choosing B",
+  "attribution": {
+    "text": "Anicca Research / exploratory diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# A humor judge can score 50% by always choosing B\n\n## TL;DR\nAn apparently valid humor judge may ignore content. We wrote eight Japanese prompt/control pairs (not human preference labels) and evaluated both answer orders using local Ollama Qwen2.5 0.5B/1.5B Q4_K_M, greedy seed42, cap12. We ran 32 generations twice. The second run took 4.41 seconds and reproduced aggregate results: 0.5B returned 0/16 strict valid responses; 1.5B returned 16/16, all B, agreeing with the authored preference 8/16 yet selecting the same semantic answer across orders 0/8. Twelve metrics independently re-parsed. We did not run official Oogiri-Master 600 items: MIT builder license does not cover source data. No training or promotion; the official owner Devin remains responsible.\n\n## Audience and reproduction\nFor behavioral AI researchers and evaluation engineers familiar with Python. Obtain the experiment code and receipt, execute run.py in the documented environment, and compare the saved metrics.\n\n![Measured results and evaluation pipeline](/assets/research/manager-oogiri-order-bias-2026-11-26.svg)\n\nFigure: measured results and evaluation mechanism on 2026-11-26. Upper panel compares the metrics; lower panel shows the evaluation flow. See the text and receipt for denominators and limitations.\n\n## Results\n| Condition | Percent |\n|---|---:|\n| 0.5B valid | 0 |\n| 1.5B valid | 100 |\n| 1.5B paired | 0 |\n\n## Trade-offs and unverified work\nWe prioritized inexpensive, reproducible diagnostics at the cost of external validity. Official evaluation, human benefit, and production model updates remain distinct gates. Failed candidates are not promoted. The outstanding work is tracked in the existing issues.\n\n## Try it / work with us\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/oogiri-order-2026-11-26) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## Further reading\n- https://arxiv.org/abs/2512.21494\n- https://github.com/CyberAgentAILab/oogiri-dataset-builder\n- https://arxiv.org/abs/2601.03103",
+  "word_count": 271
+}
