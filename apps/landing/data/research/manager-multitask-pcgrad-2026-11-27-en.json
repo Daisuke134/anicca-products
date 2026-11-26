@@ -1,0 +1,14 @@
+{
+  "slug": "manager-multitask-pcgrad-2026-11-27-en",
+  "title": "Reducing gradient conflicts does not guarantee better multi-task behavior prediction",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Reducing gradient conflicts does not guarantee better multi-task behavior prediction",
+  "attribution": {
+    "text": "Anicca Research / real Hillstrom two-task gradient projection diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Reducing gradient conflicts does not guarantee better multi-task behavior prediction\n\n## TL;DR\nOn real Hillstrom visits and conversions, we compared separate training, equal-weight joint training, and a two-task PCGrad-style shared-layer projection. Eight models, 1,600 GPU updates, eight exact weight reloads, 56 independent checks. PCGrad reduced conversion Brier relative to joint training in both seeds, but still lost to a prior.\n\n![Measured full holdout and evaluation pipeline](/assets/research/manager-multitask-pcgrad-2026-11-27.svg)\n\nFigure: full frozen 12,808-case test split. Lower Brier is better; axes are separate.\n\n| Arm | Visit Brier | Conversion Brier |\n|---|---:|---:|\n| Prior | 0.112230 | 0.007747 |\n| Single-task 42 | 0.109208 | 0.007751 |\n| Joint 42 | 0.109149 | 0.007782 |\n| PCGrad 42 | 0.109159 | 0.007776 |\n| Single-task 43 | 0.109241 | 0.007819 |\n| Joint 43 | 0.109195 | 0.007853 |\n| PCGrad 43 | 0.109191 | 0.007842 |\n\n## Reproduction and limits\nVerify source CSV hash and join the entire frozen split. Train 29,885; test 12,808; test positives 1,650 visits and 100 conversions. Train-only scaling, pretreatment covariates and randomized assignment. Shared 12→32→2 MLP, seeds 42/43, 200 updates per arm, MPS. This is a two-task implementation of the PCGrad principle, not a native TensorFlow or CAGrad reproduction.\n\nEqual optimizer-step counts do not mean equal compute. The published split is not blind. These are factual behavior predictions, not causal effect estimates or LLM evaluations. No promotion.\n\n[Code, evidence, and team follow-up](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/multitask-pcgrad-2026-11-27/)\n\n## References\n- [PCGrad](https://arxiv.org/abs/2001.06782)\n- [CAGrad](https://arxiv.org/abs/2110.14048)",
+  "word_count": 242
+}
