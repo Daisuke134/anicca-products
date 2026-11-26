@@ -1,0 +1,14 @@
+{
+  "slug": "manager-treasure-10-calibration-ranking-2026-11-26-ja",
+  "title": "確率を直しても人間の順位は変わらない：Managerの固定予測を再評価した",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "固定済み128予測の独立再評価。較正、順位、因果を分ける。",
+  "attribution": {
+    "text": "Anicca research lab note / preliminary; no new inference or causal claim."
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 確率を直しても人間の順位は変わらない：Managerの固定予測を再評価した\n\n2026-11-26 | Anicca Manager research note\n\n**TL;DR.** 固定済みPilot004の128件（購入24件）を独立再採点。ロジスティック回帰のAUROC .653846、Brier .146569に対し、較正済み混合LoRAは.571715、.152394。2,000回の層別対応bootstrapで差の区間はゼロを含む。新規推論・学習ではない。\n\n![研究表紙](/assets/research/manager-treasure-10-calibration-ranking-2026-11-26-ja-cover.svg)\n\n## 問題\n確率較正と順位付けは別の能力である。正の傾きを持つlogit変換は順位を保つため、AUROCを改善しない。介入効果も別の因果的課題である。\n\n## 方法\n固定Git blob d26f2019505c691955c91f6be1ae259db46d1aa5のPilot004予測を再採点。128テスト行、24陽性、104陰性。較正集合とのインデックス重複なし。AUROCは陽性・陰性ペアの順位比較（同点0.5）、Brierは二乗確率誤差。2,000回の対応付き層別bootstrap（seed20261126）は陽性と陰性を別々に再標本化し、モデル間の差を評価した。追加の推論、学習、閾値最適化は行わない。\n\n![順位比較](/assets/research/manager-treasure-10-calibration-ranking-2026-11-26-ja-chart.svg)\n\n図1：固定128件のAUROC。出典：今回の独立集計。\n\n| モデル | AUROC | Brier | 上位32件の購入件数 |\n|---|---:|---:|---:|\n| Logistic | .653846 | .146569 | 9 |\n| Base calibrated | .616186 | .152366 | 5 |\n| Single calibrated | .432692 | .152764 | 6 |\n| Mixed calibrated | .571715 | .152394 | 6 |\n| Calibration prior | .500000 | .152588 | 同点で未定義 |\n\nロジスティック回帰と混合LoRAのAUROC差 .082131、記述的95%区間[-.122997,.261218]。Brier差（混合−logistic）.005825、区間[-.001329,.012050]。全較正モデルの0.5閾値正答率は.8125で、全件陰性と同じ。順位差の確証はない。\n\n## Managerへの接続\n![評価経路](/assets/research/manager-treasure-10-calibration-ranking-2026-11-26-ja-pipeline.svg)\n\n図2：予測、較正、順位、介入評価を別々に記録する設計。実装・配信ではない。\n\n## 限界\n固定済み小規模UCI購買データの二次解析であり、リアルタイム介入、実人間の便益、独立した将来データの性能は未評価。層別bootstrapは固定予測・固定クラス数に条件づけ、学習不確実性を含まない。多重比較の補正なし。独立CLIラッパーは未実行。今回の候補は本番昇格しない。\n\n## 再現\n[独立集計JSON](https://github.com/Daisuke134/anicca-ops/blob/main/files/research-artifacts/manager-local-pilot-004/independent-ranking-audit-2026-11-26.json) · [再現コード](https://github.com/Daisuke134/anicca-ops/blob/main/files/research-artifacts/manager-local-pilot-004/independent-ranking-audit-2026-11-26.mjs) · [元レシート](https://github.com/Daisuke134/anicca-ops/blob/main/files/research-artifacts/manager-local-pilot-004/receipt.json)\n\n次は権利確認済みの新規データで、単純なベースラインと同一分割のモデルを比較する。CentaurとSOCRATESの著者に公式評価の技術的疑問を個別に問い合わせたが、回答は未確認。\n",
+  "word_count": 2013
+}
