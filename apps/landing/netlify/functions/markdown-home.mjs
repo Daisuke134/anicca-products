@@ -64,6 +64,15 @@ The app, Anicca – Daily Affirmations, is a free iPhone app that puts one short
 
 Both businesses aim for recurring revenue. Every number is public on our [open dashboard](https://aniccaai.com/open).
 
+## Now released
+
+The model and the benchmark are public. Everything below is downloadable today: the weights, the training data, the benchmark, and the code. Results are published as measured — including the losses.
+
+- **Manager v0 — open weights.** Our first post-trained checkpoint (SmolLM2-135M with a merged LoRA adapter, trained on 1,000 Hillstrom intervention cases), public since 14 November 2026. Its preregistered uplift evaluation is a negative result: Qini 0.0041 (95% CI -0.0839 to 0.1045), no measurable uplift skill — and the model card says so. [Model on Hugging Face](https://huggingface.co/anicca-agent/manager-v0) · [Training dataset](https://huggingface.co/datasets/anicca-agent/manager-v0-hillstrom-sft) · [GitHub release](https://github.com/Daisuke134/anicca/releases/tag/manager-v0-2026-11-14)
+- **ManagerBench — open eval.** One eval for behavior models: every arm runs the same harness, the same frozen data, and the same scoring code. Stated plainly in the README: our own model does not win yet. Be.FM scores 0.5556, below a plain prior at 0.6111, and real intervention cases from the product are still 0 — the gap is published, not hidden. [ManagerBench on GitHub](https://github.com/Daisuke134/anicca/blob/main/benchmarks/managerbench/README.md)
+- **Manager v1 — released as an honest negative result.** The v1 release ships its training log and provenance with the checkpoint; v1 did not beat the baselines it was meant to beat. [Manager v1 release](https://github.com/Daisuke134/anicca/releases/tag/manager-v1-2026-11-17)
+- **Open source — One Flesh.** One model, one eval, one product, and one shared identity for the agents who build them: [anicca](https://github.com/Daisuke134/anicca) · [anicca-agent-os](https://github.com/Daisuke134/anicca-agent-os) · [anicca-ops](https://github.com/Daisuke134/anicca-ops)
+
 ## Research highlights
 
 Manager is a model and product — not an endless R&D project. We benchmark early components on public real-human datasets: reward, habit, and memory in sequential choices, and short-horizon predictions of affect and brooding-related self-report. These are bounded observational results — not a validated general Behavior Foundation Model or evidence of real-world intervention benefit.
@@ -122,14 +131,23 @@ Aniccaは、別々のアプリの集まりではありません。1つの製品�
 
 どちらの事業も、継続して得られる収益の形を目指します。原理は同じ——人が欲しいものを作ること。数字はすべて、[実数ダッシュボード](https://aniccaai.com/open)で公開しています。
 
+## 公開済み
+
+モデルとベンチマークは、もう公開されています。以下はすべて今日ダウンロードできます。重み、学習データ、ベンチマーク、コード。結果は、負けも含めて、測ったとおりに公開しています。
+
+- **Manager v0（オープンウェイト）。** 最初のpost-training済みチェックポイント（SmolLM2-135MにLoRAアダプタをマージ、Hillstrom介入ケース1,000件で学習）を2026年11月14日に公開。事前登録したuplift評価はnegative resultです。Qini 0.0041（95% CI -0.0839〜0.1045）で測定可能なupliftスキルは無く、モデルカードにもそう書いてあります。[Hugging Faceのモデル](https://huggingface.co/anicca-agent/manager-v0) · [学習データセット](https://huggingface.co/datasets/anicca-agent/manager-v0-hillstrom-sft) · [GitHubリリース](https://github.com/Daisuke134/anicca/releases/tag/manager-v0-2026-11-14)
+- **ManagerBench（オープンな評価）。** 行動モデルのための1つの評価。全てのarmが同じハーネス、凍結したデータ、同じ採点コードで走ります。READMEに明記したとおり、私たち自身のモデルはまだ勝っていません。Be.FMは0.5556で、素朴なpriorの0.6111を下回ります。製品からの実介入ケースはまだ0件で、その穴も隠さず公開しています。[GitHubのManagerBench](https://github.com/Daisuke134/anicca/blob/main/benchmarks/managerbench/README.md)
+- **Manager v1（正直なnegative resultとして公開）。** 学習ログと来歴をチェックポイントと一緒に公開。超えるはずだったベースラインを超えられませんでした。[Manager v1リリース](https://github.com/Daisuke134/anicca/releases/tag/manager-v1-2026-11-17)
+- **オープンソース（One Flesh）。** 1つのモデル、1つの評価、1つの製品、そして作るエージェントたちの1つの共有アイデンティティ。[anicca](https://github.com/Daisuke134/anicca) · [anicca-agent-os](https://github.com/Daisuke134/anicca-agent-os) · [anicca-ops](https://github.com/Daisuke134/anicca-ops)
+
 ## 研究ハイライト
 
-Managerは研究発表のためだけの構想ではなく、人間の生活に役立つモデルとプロダクトです。行動基盤モデルには既存の科学・モデル・介入技術を再利用し、本人が望む目標を支援します。行動の予測、ランダム化介入の実測結果、害を区別して評価し、委任された権限の範囲でのみ実行します。汎用のManagerモデルの公開と、Manager自身の介入による独立の改善実証はまだです。受益者に専用のアプリやチャット操作を求めない構想ですが、運営者の監督・監査・停止手段は保ちます。長期的には、ひとりの生活と仕事の管理から始まり、苦しみを終わらせるためにすべての生きとし生けるものに仕える存在へと成長することを目指します。公開された実人間データで、報酬・習慣・記憶に関わる選択と、感情・反すう関連自己報告の短期予測を検証しています。ただし個別課題での初期観測研究であり、汎用Behavior Foundation Modelの検証や現実の介入効果の証明ではありません。
+Managerは研究発表のためだけの構想ではなく、人間の生活に役立つモデルとプロダクトです。行動基盤モデルには既存の科学・モデル・介入技術を再利用し、本人が望む目標を支援します。行動の予測、ランダム化介入の実測結果、害を区別して評価し、委任された権限の範囲でのみ実行します。汎用Managerモデルの重みの公開は済んでいます（v0・v1、上記）。Manager自身の介入による独立の改善実証はまだです。受益者に専用のアプリやチャット操作を求めない構想ですが、運営者の監督・監査・停止手段は保ちます。長期的には、ひとりの生活と仕事の管理から始まり、苦しみを終わらせるためにすべての生きとし生けるものに仕える存在へと成長することを目指します。公開された実人間データで、報酬・習慣・記憶に関わる選択と、感情・反すう関連自己報告の短期予測を検証しています。ただし個別課題での初期観測研究であり、汎用Behavior Foundation Modelの検証や現実の介入効果の証明ではありません。
 
 - **世帯のつながりを保った合成人口:** Rhode Islandの公開統計とPUMSを使用。1,042,763人を生成し、所属の欠落・重複・属性不一致は今回の監査で0件でした。[コードと実測結果を読む](https://aniccaai.com/blog/manager-household-population-results-ja)
 - **行動評価（EBA）:** 公開済みEBA調査は既存のAI評価90件を整理し、synthetic v0を用意しました。人の行動を再現する忠実度や、介入による因果的便益はまだ検証されていません。[90件の評価をまとめた記事（英語）](https://aniccaai.com/blog/manager-eba-benchmark-landscape-en)
-- **実人間の行動データ（P07）:** P07-1では5研究の公開実人間選択269,603試行を分析し、P07-2では別々の公開ESMデータで反すう関連項目・ストレスの次時点予測を前回値ベースラインと比較しました。これは介入の有効性ではありません。[研究・手法・評価計画を読む](https://github.com/Daisuke134/life-manager/tree/main/docs/research/manager/masterclass/2026-11-04-p04-causal)
-- [研究記事84本をすべて読む](https://aniccaai.com/blog/manager)
+- **実人間の行動データ（P07）:** P07-1では5研究の公開実人間選択269,603試行を分析し、P07-2では別々の公開ESMデータで反すう関連項目・ストレスの次時点予測を前回値ベースラインと比較しました。これは介入の有効性ではありません。[研究・手法・評価計画を読む](https://github.com/Daisuke134/anicca/tree/main/docs/research/manager/masterclass/2026-11-04-p04-causal)
+- [研究記事102本をすべて読む](https://aniccaai.com/blog/manager)
 
 ## 私たちの価値観
 
@@ -143,7 +161,7 @@ Managerは研究発表のためだけの構想ではなく、人間の生活に�
 - [記事](https://aniccaai.com/blog)
 - [会社と公開プロフィール](https://aniccaai.com/about/ja)
 - [実数ダッシュボード](https://aniccaai.com/open)
-- [GitHub](https://github.com/Daisuke134/life-manager)
+- [GitHub](https://github.com/Daisuke134/anicca)
 - お問い合わせ: contact@aniccaai.com
 `;
 
