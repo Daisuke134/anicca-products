@@ -1,0 +1,14 @@
+{
+  "slug": "manager-temporal-drift-2026-11-26-en",
+  "title": "When behavior changes: delayed-label continual learning",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "When behavior changes: delayed-label continual learning",
+  "attribution": {
+    "text": "Anicca Research / exploratory diagnostic"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# When behavior changes: delayed-label continual learning\n\n## TL;DR\nWe simulated an abrupt coefficient reversal at day 60 and delayed outcome availability by three days. A separate synthetic training population gave 9,728 rows; 15,360 sequential test outcomes were forecast before their labels became available. Two architectures and two seeds produced 1,200 actual MPS updates. Seed42 MLP Brier fell from .339236 fixed to .191538 online, but before drift rose from .172720 to .177115. The independent audit reaggregated daily Brier and replayed fixed heads (76 checks), plus 60 availability schedule checks. This is an artificial mechanism, not real human data or an Epochal native API run; local API key absent. Epochal's external time cutoff cannot remove knowledge in model weights.\n\n## Audience and reproduction\nFor behavioral AI researchers and evaluation engineers familiar with Python. Obtain the experiment code and receipt, execute run.py in the documented environment, and compare the saved metrics.\n\n![Measured results and evaluation pipeline](/assets/research/manager-temporal-drift-2026-11-26.svg)\n\nFigure: measured results and evaluation mechanism on 2026-11-26. Upper panel compares the metrics; lower panel shows the evaluation flow. See the text and receipt for denominators and limitations.\n\n## Results\n| Condition | Brier (lower is better) |\n|---|---:|\n| Fixed MLP | 0.339236 |\n| Online MLP | 0.191538 |\n| Rolling prior | 0.244424 |\n\n## Trade-offs and unverified work\nWe prioritized inexpensive, reproducible diagnostics at the cost of external validity. Official evaluation, human benefit, and production model updates remain distinct gates. Failed candidates are not promoted. The outstanding work is tracked in the existing issues.\n\n## Try it / work with us\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/epochal-temporal-2026-11-26) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## Further reading\n- https://epochal.com/blog/introducing-time-portal\n- https://docs.epochal.com/\n- https://github.com/Daisuke134/anicca-ops/blob/main/files/epochal-eval-2026-11-26.md",
+  "word_count": 276
+}
