@@ -1,0 +1,14 @@
+{
+  "slug": "manager-humor-multimodal-leakage-2026-11-26-en",
+  "title": "Predicting laughter without leaking the future",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "Predicting laughter without leaking the future",
+  "attribution": {
+    "text": "Anicca Research / synthetic diagnostic and CC BY 4.0 HTB prompt smoke"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Predicting laughter without leaking the future\n\n## TL;DR\nA laughter predictor can appear accurate if it sees the response itself. In a synthetic test of 4,096 examples, a leaky model scored .040259 Brier, then .714503 when the post-response marker was flipped. A time-gated model stayed at .175848.\n\n## Problem and reproduction\nFor behavioral AI engineers: generate three artificial features representing text, prosody and gesture, plus a forbidden post-response marker matching the outcome 96% of the time. Train 4 input arms × 2 seeds × 160 updates on Apple MPS with 8,192 examples. Evaluate a separate 4,096. Reload eight weights and independently audit 72 metrics on CPU. Audio missing means zeroing an artificial feature, not processing actual audio.\n\n![Measured leakage diagnostic and time gate](/assets/research/manager-humor-multimodal-leakage-2026-11-26.svg)\n\nFigure: Brier and prediction-time gate, 2026-11-26, seed42, n=4,096.\n\n| Condition | Brier |\n|---|---:|\n| Text | 0.235087 |\n| Text + audio | 0.193393 |\n| All pre-event | 0.175848 |\n| Leaky clean | 0.040259 |\n| Leaky marker flipped | 0.714503 |\n| Pre-event audio missing | 0.221749 |\n\n## Actual public dataset generation\nFrom Humor Transfer Bench (CC BY4.0, 400 prompts, pinned revision 1c2af899), sample one prompt in each of eight domains with seed42. Run local Qwen2.5 0.5B and 1.5B: 16 generations, all nonempty, zero length caps. No humor judgment.\n\n## Trade-offs and unverified work\nThe synthetic test is cheap and reproducible but cannot establish human validity. Native HumorGen 7B inference remains unrun (BF16 base exceeds local storage); UR-FUNNY data rights are unresolved. No human judgment, intervention effect or model promotion.\n\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/humor-multimodal-2026-11-26/) · [ManagerBench research preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Contribute to the open work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## Further reading\n- https://aclanthology.org/2026.emnlp-main.808/\n- https://aclanthology.org/D19-1211/\n- https://huggingface.co/datasets/Jayi2424/HumorTransferBench",
+  "word_count": 281
+}
