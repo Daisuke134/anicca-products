@@ -1,0 +1,15 @@
+{
+  "slug": "manager-execution-01-transfer-2026-11-26-ja",
+  "title": "心理実験の事後学習は購買行動へ転移するか：SmoltaurとManagerの実測比較",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "2026年11月26日、Mac miniで3モデル・1,536プロンプトを実行した。128件の購買テストでロジスティック回帰のAUROC .703605、Smoltaur .427236、Manager Pilot005 .334223。Brier差の信頼区間は0を含み、候補を昇格しなかった。",
+  "attribution": {
+    "text": "Anicca Research, Execution Run01; see linked receipt."
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 心理実験の事後学習は購買行動へ転移するか：SmoltaurとManagerの実測比較\n\n2026-11-26 | Anicca Research\n\n**TL;DR.** 2026年11月26日、Mac miniで3モデル・1,536プロンプトを実行した。128件の購買テストでロジスティック回帰のAUROC .703605、Smoltaur .427236、Manager Pilot005 .334223。Brier差の信頼区間は0を含み、候補を昇格しなかった。\n\n![研究表紙](/assets/research/manager-execution-01-transfer-2026-11-26-cover.svg)\n図：128件のテスト、Run01実測。\n\n## 課題\n心理実験で学んだモデルが別領域の行動も予測できるとは限らない。人間の行動モデルを研究する開発者向けに、Python、確率予測の基礎を前提として比較を示す。\n\n## 実行手順\n1. UCI Online Shoppers Purchasing Intention Dataset（CC BY 4.0）を取得し、過去の自分のPilotと重複しない分割を固定した。\n2. Mac miniの既存SmolLM2-135M、Smoltaur、Pilot005をCPUで読み込んだ。初回はパス変数の衝突で失敗したため修正し、再実行はexit 0。PyTorch 2.11.0、Transformers 4.57.6、PEFT 0.18.1。PEFTの2設定項目が無視された警告も記録した。\n3. 256件で古典的モデルを学習、128件で較正、別の128件（購入21件）を評価。各ニューラルモデルの回答順を反転した2条件を平均した。\n4. 5,000回の対応BootstrapでBrier差を計算した。新規ニューラルモデル学習ではない。\n\n![実験経路](/assets/research/manager-execution-01-transfer-2026-11-26-pipeline.svg)\n図1：固定分割、3モデル、較正と独立テストの経路。出典：Run01 receipt。\n\n## 結果\n| Model | Brier | NLL | AUROC |\n|---|---:|---:|---:|\n| logistic | 0.124485 | 0.406451 | 0.703605 |\n| base_cal | 0.137169 | 0.446444 | 0.657766 |\n| prior | 0.137390 | 0.447285 | 0.500000 |\n| smoltaur_cal | 0.137676 | 0.448154 | 0.427236 |\n| pilot005_cal | 0.138223 | 0.450537 | 0.334223 |\n\n![実測AUROC比較](/assets/research/manager-execution-01-transfer-2026-11-26-chart.svg)\n図2：128件の実測AUROC。順位付けの能力を比較。出典：Run01 receipt。\n\nSmoltaurとlogisticのBrier差は .013190、95%区間[-.001170,.028438]。Pilot005とlogisticは .013738、[-.001593,.031119]。両方とも0を含む。Pilot005の回答順変動は .013865、Smoltaurは .362204 だが、頑健性と順位精度は別能力だった。\n\n## トレードオフ・限界\n少量の既存CPU計算で再現可能な比較を優先した。公式Psych-101ではない。全チーム・事前学習とのデータ重複は不明。セッション終了時の特徴量を使う回顧的予測であり、未来の購買や介入効果を実証しない。個別予測未保存、AUROC差の区間未計算、複数比較補正なし。実製品への昇格なし。\n\n## 再現・参加\n[実行コードと結果](https://github.com/Daisuke134/anicca-ops/tree/main/files/execution-run01-smoltaur-transfer-2026-11-26/)を読み、同一分割の比較を改善する提案を[研究Issue](https://github.com/Daisuke134/anicca/issues/9483)へ。製品と研究の接続は[Anicca](https://apps.apple.com/app/id6755129214)、[公開経営指標](https://aniccaai.com/open/)を参照。\n\n## 参考資料\n[UCIデータ](https://doi.org/10.24432/C5F88Q)・[Centauri](https://github.com/socius-org/Centauri)・[ManagerBench](https://github.com/Daisuke134/anicca/tree/main/benchmarks/managerbench)・[較正と順位の前章](https://aniccaai.com/blog/manager-treasure-10-calibration-ranking-2026-11-26-ja)",
+  "word_count": 118,
+  "character_count": 2265
+}
