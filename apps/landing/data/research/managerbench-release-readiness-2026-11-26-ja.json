@@ -1,0 +1,14 @@
+{
+  "slug": "managerbench-release-readiness-2026-11-26-ja",
+  "title": "ManagerBench：評価証跡の取得と有効予測の違い",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "ManagerBench：評価証跡の取得と有効予測の違い",
+  "attribution": {
+    "text": "Anicca Research / real historical receipt replay"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# ManagerBench：評価証跡の取得と有効予測の違い\n\n## 要点\n既存BehaviorBenchの68件の評価条件を監査したところ、有効予測数を明示した条件は48件だった。未知の値をゼロにせず、正本の評価コードに分母監査を加えた。通常・最適化Pythonで159/159テスト成功。統合版候補はDraft PR #9527。\n\n![Receipt coverage and release gate](/assets/research/managerbench-release-readiness-2026-11-26.svg)\n\n図：固定された68評価条件のメタデータ監査。\n\n| Metric | Value |\n|---|---:|\n| Receipt arms | 68/68 |\n| Explicit valid-count arms | 48/68 |\n| Unknown valid-count arms | 20 |\n| Receipted predictions | 34918 |\n| Known valid count sum | 33018 |\n| All valid count | unknown |\n\n## 再現方法\nPRの固定コミットを隔離環境に取得し、既存CLIで260行・10未完了条件をリプレイ。元のSHA-256が一致し、新しいビューのハッシュも両モードで一致した。\n\n```bash\npython3 files/eval/managerbench/run.py --root . --check files/eval/managerbench/baseline-2026-11-15.json --capability-scorecard /tmp/managerbench-card.json\npython3 -m unittest discover -s files/eval/managerbench -t files/eval/managerbench\npython3 -O -m unittest discover -s files/eval/managerbench -t files/eval/managerbench\n```\n\n不正ハッシュは出力前に拒否し、出力先の衝突も拒否する。未知20件は予測失敗の証拠ではない。新規推論・学習・正式リリース・製品配備は実施していない。\n\n[Evidence](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/managerbench-release-2026-11-26/) · [PR and spec](https://github.com/Daisuke134/anicca/pull/9527) · [Existing preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://arxiv.org/abs/2606.24162\n- https://arxiv.org/abs/2211.09110",
+  "word_count": 106
+}
