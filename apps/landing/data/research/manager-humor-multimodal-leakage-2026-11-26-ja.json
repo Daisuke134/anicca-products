@@ -1,0 +1,14 @@
+{
+  "slug": "manager-humor-multimodal-leakage-2026-11-26-ja",
+  "title": "笑いの予測に未来の情報を混ぜると何が起こるか",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "笑いの予測に未来の情報を混ぜると何が起こるか",
+  "attribution": {
+    "text": "Anicca Research / synthetic diagnostic and CC BY 4.0 HTB prompt smoke"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# 笑いの予測に未来の情報を混ぜると何が起こるか\n\n## 要点\n笑いの発生予測では結果の情報を入力に混ぜると見かけの精度が跳ね上がる。人工データ4,096件でBrier .040259を記録した漏洩モデルは、事後マーカーを反転させただけで.714503に悪化した。正しい予測時点のモデルは.175848のままだった。\n\n## 問題と再現方法\n行動AI開発者向け。テキスト・音声・表情に見立てた独立の人工特徴3つと、結果を96%の確率で写す事後マーカーを生成。8,192件で4入力条件×2 seed×160更新をApple MPSで実行。別の4,096件を評価。8重み再ロードと独立CPU監査72指標。音声欠測は人工音声特徴を0にした感度検査であり、実音声は使っていない。\n\n![Measured leakage diagnostic and time gate](/assets/research/manager-humor-multimodal-leakage-2026-11-26.svg)\n\n図：2026-11-26、seed42のBrierと予測時点ゲート。評価4,096件。\n\n| Condition | Brier |\n|---|---:|\n| Text | 0.235087 |\n| Text + audio | 0.193393 |\n| All pre-event | 0.175848 |\n| Leaky clean | 0.040259 |\n| Leaky marker flipped | 0.714503 |\n| Pre-event audio missing | 0.221749 |\n\n## 実際の公式データでの生成\nHumor Transfer Bench（CC BY4.0、400問、固定revision 1c2af899）から8領域各1問をseed42で選択。Qwen2.5 0.5B/1.5Bで16推論、全出力非空、上限到達0。面白さの審査は未実施。\n\n## 限界と次の手\n人工診断は低コストで再現できるが人間への妥当性はない。HumorGen 7Bの正式アダプター推論は未実施（BF16ベースはローカル容量不足）、UR-FUNNYはデータ権利確認待ち。人間評価・介入効果・製品昇格なし。\n\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/humor-multimodal-2026-11-26/) · [ManagerBench research preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Contribute to the open work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## Further reading\n- https://aclanthology.org/2026.emnlp-main.808/\n- https://aclanthology.org/D19-1211/\n- https://huggingface.co/datasets/Jayi2424/HumorTransferBench",
+  "word_count": 96
+}
