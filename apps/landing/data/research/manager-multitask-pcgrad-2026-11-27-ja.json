@@ -1,0 +1,14 @@
+{
+  "slug": "manager-multitask-pcgrad-2026-11-27-ja",
+  "title": "マルチタスク学習の勾配衝突を減らしても、全能力は改善しない",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "マルチタスク学習の勾配衝突を減らしても、全能力は改善しない",
+  "attribution": {
+    "text": "Anicca Research / real Hillstrom two-task gradient projection diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# マルチタスク学習の勾配衝突を減らしても、全能力は改善しない\n\n## 要点\n実際のHillstrom訪問・購入データで単独学習、同時学習、PCGrad式の勾配射影を比較。8モデル、1,600 GPU更新、8重み再ロード、56独立監査。購入BrierはPCGradで同時学習より小さくなったが事前確率には負けた。\n\n![Measured full holdout and evaluation pipeline](/assets/research/manager-multitask-pcgrad-2026-11-27.svg)\n\n図：固定テスト12,808件、Brierは低いほど良い。\n\n| Arm | Visit Brier | Conversion Brier |\n|---|---:|---:|\n| Prior | 0.112230 | 0.007747 |\n| Single-task 42 | 0.109208 | 0.007751 |\n| Joint 42 | 0.109149 | 0.007782 |\n| PCGrad 42 | 0.109159 | 0.007776 |\n| Single-task 43 | 0.109241 | 0.007819 |\n| Joint 43 | 0.109195 | 0.007853 |\n| PCGrad 43 | 0.109191 | 0.007842 |\n\n## 再現方法と限界\n公開元CSVのSHA-256と既存分割を全件照合。学習29,885、テスト12,808、テスト陽性は訪問1,650、購入100。学習データのみで標準化し、介入前の特徴量と無作為割当を入力。共有12→32→2 MLP、seed42/43、各200更新、MPS。公式PCGradの原理に基づく2タスク実装であり、元のTensorFlow実装やCAGradの直接再現ではない。\n\n同一更新数での比較であり計算量は等しくない。公開済み分割はブラインドではない。行動予測であって因果効果やLLMの評価ではない。モデル昇格は行っていない。\n\n[Code, evidence, and team follow-up](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/multitask-pcgrad-2026-11-27/)\n\n## 先行研究\n- [PCGrad](https://arxiv.org/abs/2001.06782)\n- [CAGrad](https://arxiv.org/abs/2110.14048)",
+  "word_count": 94
+}
