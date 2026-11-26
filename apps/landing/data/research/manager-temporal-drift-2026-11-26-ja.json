@@ -1,0 +1,14 @@
+{
+  "slug": "manager-temporal-drift-2026-11-26-ja",
+  "title": "行動が変化するとき：遅延ラベルによる継続学習",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "行動が変化するとき：遅延ラベルによる継続学習",
+  "attribution": {
+    "text": "Anicca Research / exploratory diagnostic"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 行動が変化するとき：遅延ラベルによる継続学習\n\n## 要点\n60日目に係数を反転させ、結果の利用可能時刻を3日遅らせた人工世界で実験した。学習9,728件、時系列評価15,360件。2構造×2 seedでApple GPUを1,200更新。seed42 MLPのBrierは固定.339236から継続学習.191538に改善したが、変化前は.172720から.177115へ悪化。独立監査76指標と60時刻条件を確認。人工データであり実人間やEpochal APIの実走ではない。外部情報の時点制限はモデルの重みに含まれる未来知識を消さない。\n\n## 対象と再現手順\n行動AI・評価システムを開発する研究者・エンジニア向け。Pythonの基本を前提とする。実験のコードと保存結果を取得し、run.pyを同じ環境で実行し、receipt.jsonの結果と照合する。\n\n![実測結果と評価手順](/assets/research/manager-temporal-drift-2026-11-26.svg)\n\n図：2026-11-26の実測値と評価手順。上段は比較、下段はデータから評価までの流れ。分母と制約は本文および実験記録を参照。\n\n## 結果\n| 条件 | Brier (lower is better) |\n|---|---:|\n| Fixed MLP | 0.339236 |\n| Online MLP | 0.191538 |\n| Rolling prior | 0.244424 |\n\n## 限界と次の実験\n低コストで再現可能な独立診断を優先したため、公式評価・実人間の効果・本番モデル更新とは区別する。失敗した候補は昇格しない。残件は既存のIssueで追跡する。\n\n## 実験を再現する\n[コード・実測結果](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/epochal-temporal-2026-11-26) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## 参考資料\n- https://epochal.com/blog/introducing-time-portal\n- https://docs.epochal.com/\n- https://github.com/Daisuke134/anicca-ops/blob/main/files/epochal-eval-2026-11-26.md",
+  "word_count": 62
+}
