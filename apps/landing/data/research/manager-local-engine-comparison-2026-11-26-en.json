@@ -1,0 +1,14 @@
+{
+  "slug": "manager-local-engine-comparison-2026-11-26-en",
+  "title": "Same quantized weights, two local inference engines",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "Same quantized weights, two local inference engines",
+  "attribution": {
+    "text": "Anicca Research / local inference experiment"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# Same quantized weights, two local inference engines\n\nMagnitude 0.3.4 starts on an M4 16GB Mac and detects two existing Ollama models, but reports unsupported Qwen2 kernels and tokenizer. No Magnitude inference. We then verify the same existing 986048512-byte Qwen2.5 1.5B Q4_K_M GGUF SHA256 and run eight reused synthetic tasks with raw ChatML prompts, temperature 0, seed42, context512 and 64 output tokens in Ollama and llama.cpp. Both score 5/8 and produce 8/8 valid JSON. Engine-reported decode rates 92.90 and 83.48 tokens/s, excluding load/prefill; different JSON constraint and loading implementations, not a controlled speed ranking. Both fail budget, calendar and plan exact match. No official LifeVal, quantization ablation, training, or new spending. Temporary servers stopped.\n\n![Measured engine comparison](/assets/research/manager-local-engine-comparison-2026-11-26.svg)\n\n[Code and full receipt](https://github.com/Daisuke134/anicca-ops/tree/a569137f4aafd126a2544ee2e9bbb58bc61c7925/files/research-artifacts/magnitude-preflight-2026-11-26) · [Magnitude](https://github.com/magnitudedev/magnitude) · [Related research](https://aniccaai.com/blog/manager-research-evidence-2026-11-26-en) · [Open metrics](https://aniccaai.com/open/) · [Anicca iOS](https://apps.apple.com/app/id6755129214) (product link, not evidence of efficacy).",
+  "word_count": 138
+}

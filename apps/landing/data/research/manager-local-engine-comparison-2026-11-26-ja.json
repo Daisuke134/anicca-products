@@ -1,0 +1,14 @@
+{
+  "slug": "manager-local-engine-comparison-2026-11-26-ja",
+  "title": "同じ量子化モデルをOllamaとllama.cppで実行する",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "同じ量子化モデルをOllamaとllama.cppで実行する",
+  "attribution": {
+    "text": "Anicca Research / local inference experiment"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 同じ量子化モデルをOllamaとllama.cppで実行する\n\nMagnitude 0.3.4をM4 16GBのMac miniで一時起動。ローカルAPI接続と既存Ollamaモデル2件の検出成功。Qwen2の演算カーネルとトークナイザーが非対応と報告され、Magnitudeでの推論は未達。サービスは停止状態に復元した。次にQwen2.5 1.5B Q4_K_Mの同一GGUF（986048512 bytes、SHA256 183715c435899236895da3869489cc30ac241476b4971a20285b1a462818a5b4）を複製せず、Ollamaとllama.cppで同じ8合成問題を推論。各5/8正解、各8/8有効JSON、デコード92.90/83.48 tokens/s。両方とも予算残額を270円（正170円）、時刻を15:00（正14:45）、順序のキーを誤答。既存問題の再利用で、量子化比較・公式LifeVal・厳密な速度競争ではない。JSON制約実装とモデルロード方法は異なる。新規モデルダウンロード・課金なし。\n\n![Measured engine comparison](/assets/research/manager-local-engine-comparison-2026-11-26.svg)\n\n[Code and full receipt](https://github.com/Daisuke134/anicca-ops/tree/a569137f4aafd126a2544ee2e9bbb58bc61c7925/files/research-artifacts/magnitude-preflight-2026-11-26) · [Magnitude](https://github.com/magnitudedev/magnitude) · [Related research](https://aniccaai.com/blog/manager-research-evidence-2026-11-26-ja) · [Open metrics](https://aniccaai.com/open/) · [Anicca iOS](https://apps.apple.com/app/id6755129214) (product link, not evidence of efficacy).",
+  "word_count": 1034
+}
