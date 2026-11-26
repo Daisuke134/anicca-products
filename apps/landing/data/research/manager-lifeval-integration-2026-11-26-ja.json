@@ -1,0 +1,14 @@
+{
+  "slug": "manager-lifeval-integration-2026-11-26-ja",
+  "title": "LifeValから学ぶ：AIの有効なJSONは生活の改善を保証しない",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "LifeValから学ぶ：AIの有効なJSONは生活の改善を保証しない",
+  "attribution": {
+    "text": "Anicca Research / isolated product integration"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# LifeValから学ぶ：AIの有効なJSONは生活の改善を保証しない\n\n## 要点\n実際のAnicca製品コードを隔離環境で動かした。Maritime既存58テストは全成功。既存Manager生成器にローカルLLMを接続すると4件中3件を受理。構造化生成は形式上4/4成功したが2件が文字列「...」をそのままコピー。既存検証器を修正しPR #9523、修正前6失敗・修正後3テスト成功。\n\n## 問題と方法\nOpenAI LifeValは169件の個人化タスクを成果物と環境状態の変化で評価する。公式全問題は取得できず、今回は製品の実コードを固定SHA f17d87cbで隔離して確認した。オンボーディング相当の合成回答から生成、検証、SQLite記録、読み取り専用エクスポートを通す。Qwen2.5 0.5B/1.5B Q4_K_Mで既存生成器4回、固定seed42の比較8回。\n\n![Measured local generation and product pipeline](/assets/research/manager-lifeval-integration-2026-11-26.svg)\n\n図：2026-11-26、合成2プロフィール×2モデル。既存生成器の別実験と固定条件比較を区別。\n\n| Condition | Accepted |\n|---|---:|\n| Original local generator | 3/4 |\n| Strict JSON unconstrained | 0/4 |\n| Strict JSON constrained | 4/4 |\n| Existing parser, unconstrained | 4/4 |\n| Existing parser, constrained | 4/4 |\n| Constrained after placeholder gate | 2/4 |\n\n## 失敗から修正へ\n厳密JSON比較は非制約0/4対制約4/4だが、既存のコードフェンス除去を適用すれば両方4/4。形式の改善を意味品質の改善と誤認しない。実際に観測されたプレースホルダーを送信候補から拒否する修正を同じ製品に追加。無効な候補ではジャーナルに書き込まれないことを回帰テストで確認した。\n\n## 限界\n少数の合成プロフィール、モックMaritime。3件のfixture exportと1件のアプリ起動は実利用者の便益ではない。Python全APIテストは依存関係不整合で未完。VM本番実行、iPhone、App Store更新、重み更新・公開は未実施。\n\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/lifeval-integration-2026-11-26/) · [Product PR](https://github.com/Daisuke134/anicca/pull/9523) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://openai.com/index/lifeval/\n- https://arxiv.org/abs/2611.06687\n- https://github.com/Daisuke134/anicca/issues/9513",
+  "word_count": 94
+}
