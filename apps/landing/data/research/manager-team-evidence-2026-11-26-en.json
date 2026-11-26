@@ -1,0 +1,14 @@
+{
+  "slug": "manager-team-evidence-2026-11-26-en",
+  "title": "Agreement between agents is not evidence of completion",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "Agreement between agents is not evidence of completion",
+  "attribution": {
+    "text": "Anicca Research / defensive synthetic receipt diagnostic"
+  },
+  "n_papers_cited": 3,
+  "markdown": "# Agreement between agents is not evidence of completion\n\n## TL;DR\nOn 16 fictional receipt cases, Qwen2.5 0.5B scored 10/16 and 1.5B scored 16/16. The smaller model falsely marked six of 12 invalid cases as complete. Both unanimity and an evidence-gated rule scored 16/16. All 53 selected existing Anicca tests passed in isolation.\n\n## Methods\nFor agent engineers: four cases each of valid, missing, stale and wrong-task receipts. Two local models × 16 cases, greedy seed42, cap16; 20 independently recomputed metrics. Run the existing runtime-job-store, effect-reconciler and Maritime manager-runtime tests at pinned product f17d87cb in isolation.\n\n![Receipt decision results and evidence gate](/assets/research/manager-team-evidence-2026-11-26.svg)\n\nFigure: 2026-11-26, 16 fictional cases and 32 actual generations.\n\n| Condition | Correct |\n|---|---:|\n| Qwen 0.5B | 10/16 |\n| Qwen 1.5B | 16/16 |\n| Unanimity | 16/16 |\n| Unanimity + gate | 16/16 |\n\n## Design implications and limitations\nDistinguish process exit from verified external effects. Reuse existing receipt and reconciliation contracts; avoid blind retries for uncertain effects. No incremental gate benefit was observed on this tiny frame. No official MAST reproduction, live external action, training or production deployment.\n\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/team-evidence-2026-11-26/) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open research tasks](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## Further reading\n- https://arxiv.org/abs/2503.13657\n- https://arxiv.org/abs/2611.17820\n- https://arxiv.org/abs/2502.14143",
+  "word_count": 204
+}
