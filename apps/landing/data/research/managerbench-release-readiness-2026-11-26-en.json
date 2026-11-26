@@ -1,0 +1,14 @@
+{
+  "slug": "managerbench-release-readiness-2026-11-26-en",
+  "title": "ManagerBench: receipt coverage is not valid prediction coverage",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "ManagerBench: receipt coverage is not valid prediction coverage",
+  "attribution": {
+    "text": "Anicca Research / real historical receipt replay"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# ManagerBench: receipt coverage is not valid prediction coverage\n\n## TL;DR\nAll 68 historical BehaviorBench arms have receipts, but only 48 have explicit valid-prediction counts. We added a denominator audit to the existing harness without zero-filling unknowns. All 159 tests pass in normal and optimized Python. Unified release candidate remains draft PR #9527.\n\n![Receipt coverage and release gate](/assets/research/managerbench-release-readiness-2026-11-26.svg)\n\nFigure: metadata audit of 68 frozen evaluation arms.\n\n| Metric | Value |\n|---|---:|\n| Receipt arms | 68/68 |\n| Explicit valid-count arms | 48/68 |\n| Unknown valid-count arms | 20 |\n| Receipted predictions | 34918 |\n| Known valid count sum | 33018 |\n| All valid count | unknown |\n\n## Reproduction\nFetch the pinned PR head into an isolated checkout and replay the existing CLI: 260 rows, 10 historical incomplete arms. The original SHA-256 matches; the new view hash also matches across both execution modes.\n\n```bash\npython3 files/eval/managerbench/run.py --root . --check files/eval/managerbench/baseline-2026-11-15.json --capability-scorecard /tmp/managerbench-card.json\npython3 -m unittest discover -s files/eval/managerbench -t files/eval/managerbench\npython3 -O -m unittest discover -s files/eval/managerbench -t files/eval/managerbench\n```\n\nBad hashes fail before outputs; output path aliases are rejected. The 20 unknown arms do not establish prediction failures. No new inference, training, formal release or production deployment.\n\n[Evidence](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/managerbench-release-2026-11-26/) · [PR and spec](https://github.com/Daisuke134/anicca/pull/9527) · [Existing preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://arxiv.org/abs/2606.24162\n- https://arxiv.org/abs/2211.09110",
+  "word_count": 219
+}
