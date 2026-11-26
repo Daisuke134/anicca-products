@@ -1,0 +1,14 @@
+{
+  "slug": "manager-sft-dpo-matched-2026-11-26-ja",
+  "title": "SFTとDPOを同条件で学習したが、単純な事前確率に負けた",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "SFTとDPOを同条件で学習したが、単純な事前確率に負けた",
+  "attribution": {
+    "text": "Anicca Research / real Hillstrom matched local post-training"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# SFTとDPOを同条件で学習したが、単純な事前確率に負けた\n\n## 要点\n実際のHillstromデータとSmolLM2-135MでSFTと事実ラベルDPOを2シード比較。64回のGPU更新、4重み再ロード、35独立監査を完了。全学習候補はベースよりBrierが改善したが、学習データだけから算出した事前確率に負けた。\n\n![Matched post-training results](/assets/research/manager-sft-dpo-matched-2026-11-26.svg)\n\n図：実データ256件の同一ホールドアウト。\n\n| Arm | Brier | AUC |\n|---|---:|---:|\n| Train prior | 0.100586 | 0.500000 |\n| Base | 0.291316 | 0.384779 |\n| SFT 42 | 0.149760 | 0.340270 |\n| SFT 43 | 0.150091 | 0.338903 |\n| DPO 42 | 0.133842 | 0.348321 |\n| DPO 43 | 0.134634 | 0.344068 |\n\n## 方法\n固定済み学習・テスト分割から128/256件を選択。LoRA rank4、alpha8、q/v 230400学習可能パラメータ、学習率2e-4、16更新/アーム、seed42/43、MPS fp32。初回トークン境界チェックで停止し、既存仕様の末尾空白を入力に含めて修正。DPOは観測された事実ラベルと逆ラベルの1トークン対で、真の人間選好や反実仮想介入効果ではない。\n\n学習データの発生率13/128を予測するだけでBrier 0.100586、AUC 0.5。全学習候補のAUCはベースより低下。昇格なし。独立ブラインドデータ、フル規模、SFT後DPOの比較は未実施。\n\n[Reproducible code and aggregate evidence](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/posttrain-matched-2026-11-26/) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://arxiv.org/abs/2305.18290\n- https://arxiv.org/abs/2106.09685",
+  "word_count": 87
+}
