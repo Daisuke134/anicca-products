@@ -1,0 +1,14 @@
+{
+  "slug": "manager-treasure-09-socrates-2026-11-26-ja",
+  "title": "個人の正確さと集団分布を分ける：SocSci210の512推論を再採点した",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "保存済み512推論の独立再採点。正規化個人スコアと失敗率、集団Wasserstein距離を区別する。",
+  "attribution": {
+    "text": "Anicca research lab note. 実行・再採点レシートに基づく未査読の研究記録。"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# 個人の正確さと集団分布を分ける：SocSci210の512推論を再採点した\n\n2026-11-26 | Anicca Manager research note\n\n**TL;DR.** 保存済みSocSci210の512件のQwen2.5-0.5B-Instruct推論ログを直接再採点した。499有効、13無効、重複0。正規化個人スコアは有効のみ0.64529、失敗0点込み0.62891。これは新規推論でも公式SOCRATES重みの実行でもない。\n\n![研究表紙](/assets/research/manager-treasure-09-socrates-2026-11-26-ja-cover.svg)\n\n図：研究対象の表紙。\n\n## 問題\n個人の回答予測と集団分布の再現は異なる。さらに完全一致と正規化絶対誤差のスコアは異なる。これらを混同するとモデル比較が成立しない。\n\n## 方法\n2026-11-26、既存の一つの未見研究9nphmの512推論を固定Git blob 6b98b188930abea9ec89628bfd7a1a682f6a9c0dから取得。各回答の範囲と妥当性を確認し、1 − |予測 − 真値| / (上限 − 下限)を計算。無効回答は有効のみのスコアと、0点を与える独自の失敗ペナルティを分けて報告する。元推論は8条件×2結果×32件、fp32/bf16混在。原著の全40未見研究の再現ではない。\n\n[再採点コード](https://github.com/Daisuke134/anicca/blob/86ede91e4ab14a82537acd1ac55498b4fa004b14/docs/research/manager/treasure-runs/2026-11-26-bfm/socsci-score.mjs) · [集計JSON](https://github.com/Daisuke134/anicca/blob/86ede91e4ab14a82537acd1ac55498b4fa004b14/docs/research/manager/treasure-runs/2026-11-26-bfm/socsci-score.json)\n\n## 結果\n![個人スコア](/assets/research/manager-treasure-09-socrates-2026-11-26-ja-chart.svg)\n\n図1：512件の保存済み予測の再採点。正規化スコアと完全一致は異なる指標。出典：今回の集計。\n\n| 指標 | 値 |\n|---|---:|\n| 有効 | 499/512 |\n| 無効 | 13/512 |\n| 正規化個人（有効） | .64529 |\n| 正規化個人（失敗0点） | .62891 |\n| 完全一致（有効） | 56/499 |\n| 完全一致（全件） | 56/512 |\n\n過去の同じ研究における集団Wasserstein-1は.27005、一様参照.18784、16/16条件結果ペアで一様参照より悪かった。このW1は今回の新規推論ではなく既存の集計である。\n\n## Managerへの接続\n![評価経路](/assets/research/manager-treasure-09-socrates-2026-11-26-ja-pipeline.svg)\n\n図2：評価設計。個人の正規化誤差、無効率、集団W1を独立記録し、研究・条件・結果・参加者の分割を守る。\n\n## 限界と次の実験\n公式SOCRATESの8B SFT重みは約16.1GB、14B SFTは約29.5GB。今回のMac miniの空きは2.7GiBで、取得していない。原著チェックポイントの推論・全40研究・SFT/DPOの同条件比較は未実施。データの研究ごとの利用条件を確認し、既存の学習レーンに接続する。評価用データを追加学習に使用しない。新規学習、モデル公開、本番変更はなし。\n\n## 参考\n- [Kolluri et al., EMNLP 2025](https://aclanthology.org/2025.emnlp-main.1530/)\n- [公式SOCRATES](https://github.com/akaashkolluri/socrates)\n- [実験レシート](https://github.com/Daisuke134/anicca/blob/86ede91e4ab14a82537acd1ac55498b4fa004b14/docs/research/manager/treasure-runs/2026-11-26-bfm/README.md)\n",
+  "word_count": 1970
+}

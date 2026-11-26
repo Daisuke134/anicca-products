@@ -1,0 +1,14 @@
+{
+  "slug": "manager-treasure-09-centauri-2026-11-26-ja",
+  "title": "本人の履歴で行動予測は改善するか：Smoltaurを24人の実データで比較した",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "24人の人間行動データ、288回の実推論。LoRAで損失は低下したが、本人履歴の優位性は確認できなかった。",
+  "attribution": {
+    "text": "Anicca research lab note. 実行・再採点レシートに基づく未査読の研究記録。"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 本人の履歴で行動予測は改善するか：Smoltaurを24人の実データで比較した\n\n2026-11-26 | Anicca Manager research note\n\n**TL;DR.** 実際のSmolLM2-135MとSmoltaur LoRAで、Cross-Psych-101の公開テストビューアから選んだ24人の最初の二択行動を予測した。288 forward passes、24/24完了。本人履歴条件のNLLは1.7461から0.9904へ低下したが、別人履歴の0.9527より悪く、全条件が一様分布の0.6931に負けた。\n\n![研究表紙](/assets/research/manager-treasure-09-centauri-2026-11-26-ja-cover.svg)\n\n図：研究対象の表紙。\n\n## 問題\n行動基盤モデルに過去の行動を入力しても、その情報が本人特有の行動を予測する根拠になるとは限らない。本人履歴と、異なる本人の異なる履歴を入れ替えた対照条件を比較する。\n\n## 方法\n2026-11-26、Mac mini CPU、Torch 2.11.0、Transformers 4.57.6、PEFT 0.18.1。既存のSmolLM2-135MとSmoltaur-0.1B-LoRA-r16のキャッシュを使用。公開Cross-Psych-101の3種類の課題ペアから、二択と短い接頭辞を持つ最初の8人ずつを選択した。24人は今回の標本内で重複なし。前回16ケースとは行が異なるが参加者の重複は未確認。本人・別人・履歴なしを両モデルに入力し、観測された最初の回答の候補内確率を評価した。データのrevisionと取得ページのSHA-256を検証した。公式Psych-101-testはHTTP401のため使用していない。\n\n[実行コード](https://github.com/Daisuke134/anicca/blob/86ede91e4ab14a82537acd1ac55498b4fa004b14/docs/research/manager/treasure-runs/2026-11-26-bfm/eval.py) · [集計と信頼区間](https://github.com/Daisuke134/anicca/blob/86ede91e4ab14a82537acd1ac55498b4fa004b14/docs/research/manager/treasure-runs/2026-11-26-bfm/aggregate.json)\n\n## 結果\n![比較NLL](/assets/research/manager-treasure-09-centauri-2026-11-26-ja-chart.svg)\n\n図1：24人、3課題ペア、288 forward passes。候補内NLL。出典：今回の実行集計。\n\n| モデル | 履歴 | NLL | Brier | 正答 |\n|---|---|---:|---:|---:|\n| Base | 本人 | 1.7461 | .4487 | 12/24 |\n| Base | 別人 | 1.6936 | .4450 | 12/24 |\n| Base | なし | 1.4369 | .4060 | 12/24 |\n| Smoltaur | 本人 | .9904 | .3563 | 12/24 |\n| Smoltaur | 別人 | .9527 | .3431 | 12/24 |\n| Smoltaur | なし | 1.0218 | .3669 | 12/24 |\n| 一様確率 | — | .6931 | .2500 | — |\n\n本人履歴での基盤モデルとの差は0.75573、24人の対応付きbootstrap 10,000回の記述的区間[.28175,1.25473]。別人-minus-本人は-.03768、区間[-.08744,.00296]。履歴なし-minus-本人は.03139、区間[-.05570,.11519]。非無作為の小標本なので母集団への有意差推論とはしない。正答率改善はゼロ。\n\n## Managerへの接続\n![評価経路](/assets/research/manager-treasure-09-centauri-2026-11-26-ja-pipeline.svg)\n\n図2：評価設計。実際のモデル採用ではない。個人化の評価には本人履歴と別人履歴、履歴なしの対照を維持する。単純な確率ベースラインより良いことを別ゲートとする。\n\n## 限界と次の実験\n公式46課題の全評価、Cross-Centaur 8Bの原著チェックポイント、全トークン損失の再現ではない。Cross-Psych-101の明示ライセンスは未確認のため公開ビューアを研究目的でのみ使用し、元データ・個人ID・会話を公開しない。既存キャッシュの重みハッシュは今回再検証していない。新たな学習、本番モデル変更、介入効果の評価なし。次は公式データへの許可済みアクセスと同一条件でのモデル比較、複数課題・参加者の独立評価を行う。\n\n## 参考\n- [Centauri](https://github.com/socius-org/Centauri)\n- [Cross-Psych-101](https://huggingface.co/datasets/HikaruAsano/cross-psych-101)\n- [実験レシート](https://github.com/Daisuke134/anicca/blob/86ede91e4ab14a82537acd1ac55498b4fa004b14/docs/research/manager/treasure-runs/2026-11-26-bfm/README.md)\n",
+  "word_count": 2464
+}
