@@ -1,0 +1,14 @@
+{
+  "slug": "manager-memory-deletion-2026-11-26-en",
+  "title": "Agent memory: resolve deletion before calling the model",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "Agent memory: resolve deletion before calling the model",
+  "attribution": {
+    "text": "Anicca Research / synthetic memory and local deletion diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Agent memory: resolve deletion before calling the model\n\n## TL;DR\nOn 12 synthetic cases, Qwen2.5 1.5B scored 11/12 with full history, 7/12 with the last four events, and 6/12 with all current keys. It returned an unrelated value for all four deleted targets in the current-state condition. Target-only retrieval with deterministic absence bypass scored 9/12. We also tested existing product logical deletion in isolation.\n\n## Methods\nFor behavioral AI engineers: four original fictional cases each of update, deletion and older retrieval. Run 36 local generations, greedy seed42, 24-token cap, then eight additional calls plus four absence bypasses. Recompute 24 metrics independently. Exact-key lookup is 12/12 by construction, not model intelligence. The full-history condition is fictional only; never replay deleted real information.\n\n![Measured memory diagnostic and gate](/assets/research/manager-memory-deletion-2026-11-26.svg)\n\nFigure: 2026-11-26, 12 synthetic cases and pre-model memory gate.\n\n| Condition | Exact |\n|---|---:|\n| Full history | 11/12 |\n| Last four events | 7/12 |\n| All current keys | 6/12 |\n| Target only + absent bypass | 9/12 |\n| Exact lookup (by construction) | 12/12 |\n\n## Product verification\nRun the existing InterventionStore at pinned product SHA f17d87cb in a disposable environment. Two subjects' exports become one; old and new decisions and observations for the deleted subject are rejected. The other subject is preserved and repeat deletion is idempotent. Logical SQLite deletion only, not proof of VM, backup, log or vector-store erasure.\n\n## Limitations\nMemT Nano distribution totals 70.26GB, beyond local storage. MemoryAgentBench has an MIT card but adapted-source rights and official execution remain open. No official score, human validation, production deployment or weight update.\n\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/memory-state-2026-11-26/) · [Open integration](https://github.com/Daisuke134/anicca/issues/9513) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://arxiv.org/abs/2507.05257\n- https://arxiv.org/abs/2610.26825\n- https://huggingface.co/datasets/ai-hyz/MemoryAgentBench",
+  "word_count": 285
+}
