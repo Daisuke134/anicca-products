@@ -1,0 +1,15 @@
+{
+  "slug": "manager-execution-02-weighted-sft-2026-11-26-ja",
+  "title": "少数クラスを重視したLoRAは人間の行動をより識別できるか",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "実際に64学習ステップを実行。256件のテストで通常SFTのAUROC .464174に対して重み付きSFTは.624722、基盤モデル.536048、logistic .699488。対応AUROC差の区間はbase比較のみ0を除く（未補正）。候補は本番昇格しない。",
+  "attribution": {
+    "text": "Anicca Research, Execution Run02; linked measured results."
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 少数クラスを重視したLoRAは人間の行動をより識別できるか\n\n2026-11-26 | Anicca Research\n\n**TL;DR.** 実際に64学習ステップを実行。256件のテストで通常SFTのAUROC .464174に対して重み付きSFTは.624722、基盤モデル.536048、logistic .699488。対応AUROC差の区間はbase比較のみ0を除く（未補正）。候補は本番昇格しない。\n\n![研究表紙](/assets/research/manager-execution-02-weighted-sft-2026-11-26-cover.svg)\n表紙：Run02、実人間購買データ256件。\n\n## 課題\n前回のモデルは回答順に頑健でも順位付けが弱かった。人間行動モデルの開発者向けに、Python・二値分類を前提にクラス不均衡への対処を比較する。\n\n## 実行手順\n1. UCI Online Shoppersデータ（CC BY 4.0）を利用。seed42の過去の自分のPilotと重複しない分割を固定。学習256件（購入37）、較正128、テスト256（購入42）。\n2. Mac mini上でSmolLM2-135Mを読み込み、同一seed42・LoRA r4、alpha8、q/v、AdamW 3e-4、8例/バッチ、32ステップずつ。通常BCEと陽性重み219/37=5.918919を比較。回答順2条件を学習・評価に使用した。\n3. 2つのアダプターを保存して再読み込みし、テスト予測最大差0を確認。較正集合のみで正の傾きのlogit較正を実施。実行コード・重み・全テスト予測を[研究PR](https://github.com/Daisuke134/anicca/pull/9514)に保存した。\n4. 5,000回の対応case bootstrapでBrier差、別の独立集計で5,000回の層別対応bootstrapによるAUROC差を算出。5モデル×2指標の保存値を再計算して一致。\n\n![評価経路](/assets/research/manager-execution-02-weighted-sft-2026-11-26-pipeline.svg)\n図1：256/128/256件の分割と実際の学習・評価経路、Run02 receipt。\n\n## 結果\n| Model | AUROC | Brier | NLL |\n|---|---:|---:|---:|\n| logistic | 0.699488 | 0.126989 | 0.414971 |\n| weighted_cal | 0.624722 | 0.138310 | 0.450184 |\n| base_cal | 0.536048 | 0.138386 | 0.450420 |\n| prior | 0.500000 | 0.137207 | 0.446562 |\n| standard_cal | 0.464174 | 0.137497 | 0.447476 |\n\n![実測順位比較](/assets/research/manager-execution-02-weighted-sft-2026-11-26-chart.svg)\n図2：固定テスト256件のAUROC（42陽性）、Run02 receipt。\n\n重み付き−baseのAUROC差+.088674、95%区間[.018135,.155207]。重み付き−通常+.160547、[-.008901,.323654]。重み付き−logistic −.074766、[-.168336,.021584]。重み付き−logistic Brier差+.011321、[.000160,.022789]。順位改善の兆候はあるが、確率予測はlogisticを超えていない。\n\n## 限界・トレードオフ\nCPUで小規模な実験を優先し、学習seedは1つ。固定予測の区間であり学習の不確実性を含まず、多重比較補正なし。全チーム・事前学習の重複不明。終了済みセッションの回顧的予測であり、実人間への介入効果・公式Psych-101・製品便益は未評価。重み付き学習の生の確率は較正を必要とする。モデルは本番昇格しない。\n\n## 再現・参加\n[コード、重み、評価結果](https://github.com/Daisuke134/anicca/pull/9514)で比較を再現し、[研究Issue](https://github.com/Daisuke134/anicca/issues/9483)に改善を提案してほしい。[Aniccaアプリ](https://apps.apple.com/app/id6755129214)と[公開指標](https://aniccaai.com/open/)も参照。\n\n## 参考資料\n[UCIデータ](https://doi.org/10.24432/C5F88Q)・[Centauri](https://github.com/socius-org/Centauri)・[ManagerBench](https://github.com/Daisuke134/anicca/tree/main/benchmarks/managerbench)・[較正と順位](https://aniccaai.com/blog/manager-treasure-10-calibration-ranking-2026-11-26-ja)",
+  "word_count": 108,
+  "character_count": 2315
+}
