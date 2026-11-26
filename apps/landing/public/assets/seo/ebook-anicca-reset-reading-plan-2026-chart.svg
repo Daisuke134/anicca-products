@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img">
+<rect width="1200" height="520" fill="#FFFFFF"/><rect width="1200" height="8" fill="#8A6D3B"/>
+<text x="80" y="70" fill="#3B3B39" font-family="Georgia, serif" font-size="30">Two ways to finish 49 chapters</text>
+<text x="80" y="105" fill="#7A756E" font-size="17">Our own arithmetic from the book as sold on aniccaai.com/monk on 2026-11-26: 49 chapters total.</text>
+<text x="80" y="180" fill="#3B3B39" font-size="20">One chapter a day</text>
+<rect x="80" y="200" width="980" height="56" fill="#8A6D3B"/><text x="100" y="237" fill="#FFFFFF" font-size="20">49 days &#183; 7 weeks exactly</text>
+<text x="80" y="310" fill="#3B3B39" font-size="20">One chapter on weekdays only</text>
+<rect x="80" y="330" width="700" height="56" fill="#C8B48A"/><text x="100" y="367" fill="#3B3B39" font-size="20">49 chapters &#247; 5 per week = 9.8 weeks</text>
+<text x="80" y="450" fill="#7A756E" font-size="17">Free readings already on this blog: 66 (34 English, 32 Japanese), 2026-10-17 to 2026-11-11, counted from /blog/c/ebook on 2026-11-26.</text>
+</svg>
