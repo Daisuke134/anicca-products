@@ -1,0 +1,14 @@
+{
+  "slug": "manager-team-evidence-2026-11-26-ja",
+  "title": "AIチームの合意は実行証跡ではない",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "AIチームの合意は実行証跡ではない",
+  "attribution": {
+    "text": "Anicca Research / defensive synthetic receipt diagnostic"
+  },
+  "n_papers_cited": 3,
+  "markdown": "# AIチームの合意は実行証跡ではない\n\n## 要点\n架空16件でQwen2.5 0.5Bは10/16、1.5Bは16/16。小型モデルは証拠不十分な12件のうち6件を誤完了とした。二者一致と決定的証跡ゲートはともに16/16。既存Aniccaの53テストも隔離環境で成功した。\n\n## 方法\nAIエージェント開発者向け。正しい・欠落・古い・別タスクの証跡を各4件作成し、2モデル×16件、greedy seed42、16トークン上限で推論。独立監査20指標。既存製品f17d87cbのruntime-job-store、effect-reconciler、Maritime manager-runtimeテストを隔離環境で実行した。\n\n![Receipt decision results and evidence gate](/assets/research/manager-team-evidence-2026-11-26.svg)\n\n図：2026-11-26、人工16ケース・32推論。\n\n| Condition | Correct |\n|---|---:|\n| Qwen 0.5B | 10/16 |\n| Qwen 1.5B | 16/16 |\n| Unanimity | 16/16 |\n| Unanimity + gate | 16/16 |\n\n## 設計上の意味と限界\n実行終了と外部効果の成立を区別する。既存の証跡検証・再照合を再利用し、不確実な結果を盲目的に再試行しない。この少数ケースでは決定的ゲートの追加効果は観測されなかった。公式MAST再現・実際の外部実行・モデル学習・アプリ配備はなし。\n\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/team-evidence-2026-11-26/) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open research tasks](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## Further reading\n- https://arxiv.org/abs/2503.13657\n- https://arxiv.org/abs/2611.17820\n- https://arxiv.org/abs/2502.14143",
+  "word_count": 69
+}
