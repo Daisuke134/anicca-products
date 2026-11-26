@@ -1,0 +1,14 @@
+{
+  "slug": "manager-smallville-replay-2026-11-26-ja",
+  "title": "Smallvilleの行動予測：単純な移動履歴がMLPを上回った",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "Smallvilleの行動予測：単純な移動履歴がMLPを上回った",
+  "attribution": {
+    "text": "Anicca Research / official synthetic replay diagnostic"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# Smallvilleの行動予測：単純な移動履歴がMLPを上回った\n\n## 要点\n公式の3エージェント圧縮リプレイ8,655時点を因果的に復元し、10分後の位置変化を予測した。評価1,059件、6 MPSモデル計900更新。Social MLPのseed43 Brier .335684は、Own MLP .346658より良いが、直近移動ルール .220019に負けた。\n\n## 再現手順\n行動AI研究者向け。固定リビジョンの変化レコード4,532件を復元、2,820学習・330未使用検証・1,059評価を時系列分割し、時刻・自己履歴・社会履歴の3条件を2 seedで比較した。コードと監査結果は下記。\n\n![Measured Brier and pipeline](/assets/research/manager-smallville-replay-2026-11-26.svg)\n\n図：2026-11-26、1,059件のBrier比較と処理手順。\n\n| Model | Brier |\n|---|---:|\n| Recent motion | .220019 |\n| Global prior | .257917 |\n| Social MLP43 | .335684 |\n\n## 限界\n36項目の独立監査。単純ルールの確率は未校正。合成リプレイであり、実人間、25体の新規シミュレーション、Concordiaネイティブ実行は未検証。モデル昇格なし。\n\n[Code, evidence and audit](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/smallville-replay-2026-11-26/) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Remaining work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## Further reading\n- https://arxiv.org/abs/2304.03442\n- https://github.com/joonspk-research/generative_agents\n- https://github.com/google-deepmind/concordia",
+  "word_count": 66
+}
