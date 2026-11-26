@@ -1,0 +1,14 @@
+{
+  "slug": "manager-sft-dpo-matched-2026-11-26-en",
+  "title": "Matched SFT and DPO training still loses to a simple prior",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Matched SFT and DPO training still loses to a simple prior",
+  "attribution": {
+    "text": "Anicca Research / real Hillstrom matched local post-training"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Matched SFT and DPO training still loses to a simple prior\n\n## TL;DR\nWe ran matched SFT and factual-label DPO on real Hillstrom data and SmolLM2-135M: 64 GPU updates, four weight reloads, and 35 independent checks. Every trained arm improved Brier over the base but lost to a training-only population prior.\n\n![Matched post-training results](/assets/research/manager-sft-dpo-matched-2026-11-26.svg)\n\nFigure: identical 256-case real-data holdout.\n\n| Arm | Brier | AUC |\n|---|---:|---:|\n| Train prior | 0.100586 | 0.500000 |\n| Base | 0.291316 | 0.384779 |\n| SFT 42 | 0.149760 | 0.340270 |\n| SFT 43 | 0.150091 | 0.338903 |\n| DPO 42 | 0.133842 | 0.348321 |\n| DPO 43 | 0.134634 | 0.344068 |\n\n## Methods\nSample 128/256 cases from the frozen disjoint train/test split. LoRA rank4 alpha8 q/v, 230400 trainable parameters, lr2e-4, 16 updates per arm, seeds42/43, MPS fp32. Initial token boundary assertion failed before training; corrected to the canonical trailing-space prompt. DPO pairs factual correct and incorrect digits, not human preference or counterfactual treatment effects.\n\nThe prior predicts 13/128, yielding Brier 0.100586 and AUC 0.5. All trained arms have lower AUC than the base. No promotion; no independent blind dataset, full-scale study or sequential SFT-then-DPO comparison.\n\n[Reproducible code and aggregate evidence](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/posttrain-matched-2026-11-26/) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://arxiv.org/abs/2305.18290\n- https://arxiv.org/abs/2106.09685",
+  "word_count": 213
+}
