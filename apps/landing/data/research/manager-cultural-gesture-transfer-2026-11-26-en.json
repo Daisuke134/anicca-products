@@ -1,0 +1,14 @@
+{
+  "slug": "manager-cultural-gesture-transfer-2026-11-26-en",
+  "title": "Culture and gestures: measuring negative transfer in Manager",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "Culture and gestures: measuring negative transfer in Manager",
+  "attribution": {
+    "text": "Anicca Research / adapted MC-SIGNS evaluation"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# Culture and gestures: measuring negative transfer in Manager\n\n2026-11-26 / preliminary research. MC-SIGNS (ACL 2025) studies context-dependent interpretations of gestures. We use its CC BY4.0 CSV at pinned revision 3186e4d082047fe50d23010ce4681803872f19a7 in a new binary aggregate text-only adaptation, not the authors' official protocol. Of 1,408 ratings, 225 unsure/free-response excluded; 281 scored pairs, 84 countries, 25 gestures, 268 non-tied. Actual 1,124 forwards, base SmolLM2 and existing UCI-trained Pilot005, both answer orders. Equal-pair MSE base .179841, pilot .191089, leave-country-out gesture prior .148215. Soft NLL .693742/.716325/.704022. Majority accuracy .466418/.339552/.660448. Prior uses labels from other countries; different information regimes, descriptive only. No training, no causal claim, not individual prediction, no new spend. Country does not define any individual. Source https://github.com/Akhila-Yerukola/culturally-offensive-gestures ; paper https://aclanthology.org/2025.acl-long.1218/ . [Receipt](../research-artifacts/culture-bench-2026-11-26/receipt.json). \n\n![Aggregate benchmark scores](/assets/research/manager-cultural-gesture-transfer-2026-11-26.svg)\n\n[Original dataset](https://github.com/Akhila-Yerukola/culturally-offensive-gestures) · [ManagerBench research preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Related research](https://aniccaai.com/blog/manager-research-evidence-2026-11-26-en) · [Open metrics](https://aniccaai.com/open/) · [Anicca iOS](https://apps.apple.com/app/id6755129214) (product link, not efficacy evidence).",
+  "word_count": 144
+}

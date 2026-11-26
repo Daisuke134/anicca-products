@@ -1,0 +1,14 @@
+{
+  "slug": "manager-cultural-gesture-transfer-2026-11-26-ja",
+  "title": "文化と仕草：Managerの負の転移を公開データで測る",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "文化と仕草：Managerの負の転移を公開データで測る",
+  "attribution": {
+    "text": "Anicca Research / adapted MC-SIGNS evaluation"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# 文化と仕草：Managerの負の転移を公開データで測る\n\n文化的な仕草の意味は文脈によって異なる。MC-SIGNSの公開CSVを固定し、281組、1,183件の有効評価で、既存Manager Pilot005とベースの実推論を1,124回実行。多数決正答率は33.96%対46.64%、他国の同一仕草集計priorは66.04%。Pilot005は負の転移。国籍から個人の好みを決めつけず、文化と場面を条件とし不確実性を残す。公式ベンチマークの再現ではなく独自集計評価。アバター表現・コメディ・iOSの実装・人間の評価は未実施。ManagerBench研究プレビュー公開 https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview （再集計260行、150テスト成功、未完了10件）。 \n\n\n![Aggregate benchmark scores](/assets/research/manager-cultural-gesture-transfer-2026-11-26.svg)\n\n[Original dataset](https://github.com/Akhila-Yerukola/culturally-offensive-gestures) · [ManagerBench research preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Related research](https://aniccaai.com/blog/manager-research-evidence-2026-11-26-ja) · [Open metrics](https://aniccaai.com/open/) · [Anicca iOS](https://apps.apple.com/app/id6755129214) (product link, not efficacy evidence).",
+  "word_count": 933
+}
