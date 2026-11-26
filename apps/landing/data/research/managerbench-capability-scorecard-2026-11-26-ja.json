@@ -1,0 +1,14 @@
+{
+  "slug": "managerbench-capability-scorecard-2026-11-26-ja",
+  "title": "ManagerBench：能力別評価と新しいManagerの公開",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "ManagerBench：能力別評価と新しいManagerの公開",
+  "attribution": {
+    "text": "Anicca Research / source-pinned evaluation replay"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# ManagerBench：能力別評価と新しいManagerの公開\n\n## 要点\n既存ManagerBenchの260行のリプレイを完全一致で保持し、2種類の証跡アダプターを追加したPR #9527を作成。155テストが成功。Gemma 4 E2B学習済みアダプターはチームがGitHub Releaseに公開済み。\n\n![Separate metrics and evaluation pipeline](/assets/research/managerbench-capability-scorecard-2026-11-26.svg)\n\n図：Hillstrom 1,000件の同一GPUスタック比較。ベースはリリース報告、学習後は添付証跡の集計値。\n\n| Metric | Base | Adapter |\n|---|---:|---:|\n| Brier | 0.1386 | 0.1197 |\n| Log loss | 1.2520 | 0.4032 |\n| AUC | 0.5541 | 0.5223 |\n\n## 方法と限界\n既存CLIのオプションとして実装。BFM02の24行から16非同点ケースの正解率10/16と後悔値0.0875を再計算。Hillstromは集計のみで行単位再計算ではない。人工異常検知を別枠に分離し、未統合能力を明記。新規推論・学習・本番配備なし。\n\n公開アダプターは94.77MB、チームの125 QLoRA更新。添付評価JSONのSHA-256を独立確認したが、重み本体は再取得していない。AUC低下のため昇格なし。PRはDraft。\n\n[Evidence](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/managerbench-capability-2026-11-26/) · [PR #9527](https://github.com/Daisuke134/anicca/pull/9527) · [Model release](https://github.com/Daisuke134/anicca/releases/tag/manager-gemma4-e2b-hillstrom-2026-11-26)\n\n## Further reading\n- https://arxiv.org/abs/2211.09110\n- https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview",
+  "word_count": 65
+}
