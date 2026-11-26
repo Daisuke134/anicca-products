@@ -1,0 +1,14 @@
+{
+  "slug": "manager-ifeval-external-smoke-2026-11-26-en",
+  "title": "Evaluating Manager externally: first IFEval smoke run",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "Evaluating Manager externally: first IFEval smoke run",
+  "attribution": {
+    "text": "Anicca Research / IFEval exploratory subset"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# Evaluating Manager externally: first IFEval smoke run\n\n# IFEval external evaluation: first official-scored smoke run\n2026-11-26. Research-only. Source Google Research IFEval Apache-2.0, revision e6890f85757dd84e27ca6df2dd30651dafad28e0; 541 source prompts SHA256 67ffeee0fcb87c317c5b08a2de85557b4a7e96ada6178aa645b4954fe4b53d49. Fixed seed42 sample24, 37 instructions; existing SmolLM2 base vs UCI-trained Pilot005 adapter, both greedy, explicit ChatML (local tokenizer has no chat template), 128 new-token cap. 48 actual responses, 43.24 seconds generation. Original strict and loose functions, no judge. Langdetect seeded42, isolated dependencies. Initial pip build failure fixed no-build-isolation; initial chat-template error fixed explicit format. No new training or spend. Not full official leaderboard: sample and output cap and prompt format differ; unknown pretraining overlap. No evidence of statistical superiority.\n\n| Arm | Prompt strict | Instruction strict | Prompt loose | Instruction loose |\n|---|---:|---:|---:|---:|\n| Base | 9/24 | 14/37 | 9/24 | 16/37 |\n| Pilot005 | 8/24 | 13/37 | 8/24 | 14/37 |\n\nJP: 公式IFEvalの採点関数を利用し、実モデル48回答を採点。購買予測へ適応したPilot005はベースより指示遵守の点推定が低い。24問の探索的比較であり、統計的優劣・公式全体スコアを主張しない。次は全541問と標準生成条件・固定モデル識別子。モデル公開とベンチマーク公開とは別。公開研究プレビューを再確認: https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview .\nSource https://github.com/google-research/google-research/tree/e6890f85757dd84e27ca6df2dd30651dafad28e0/instruction_following_eval . See actual code, outputs and receipt.\n\n![Measured IFEval results](/assets/research/manager-ifeval-external-smoke-2026-11-26.svg)\n\n[Actual outputs, code and receipt](https://github.com/Daisuke134/anicca-ops/tree/4717715af8b872ad04e46e9dde7db199ef1b9ccf/files/research-artifacts/ifeval-2026-11-26) · [Original IFEval](https://huggingface.co/datasets/google/IFEval) · [ManagerBench research preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open metrics](https://aniccaai.com/open/)",
+  "word_count": 178
+}

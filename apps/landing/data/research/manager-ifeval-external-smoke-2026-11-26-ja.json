@@ -1,0 +1,14 @@
+{
+  "slug": "manager-ifeval-external-smoke-2026-11-26-ja",
+  "title": "Managerを外部評価する：IFEvalの初回実測",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "Managerを外部評価する：IFEvalの初回実測",
+  "attribution": {
+    "text": "Anicca Research / IFEval exploratory subset"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# Managerを外部評価する：IFEvalの初回実測\n\nGoogle ResearchのIFEval（Apache 2.0）の公式541問から、seed42で24問を固定抽出した。SmolLM2ベースと購買予測に追加学習したManager Pilot005をMac miniで比較。48回答をgreedy生成し43.24秒、上限128トークン、明示的ChatML形式。元のstrict/loose採点関数を使用した。\n\n| Model | Prompt strict | Instruction strict | Prompt loose | Instruction loose |\n|---|---:|---:|---:|---:|\n| Base | 9/24 | 14/37 | 9/24 | 16/37 |\n| Pilot005 | 8/24 | 13/37 | 8/24 | 14/37 |\n\n指示遵守の点推定は改善しなかった。小規模探索であり全体の公式Leaderboardスコアではない。事前学習での重複は不明。新規学習・支出なし。次は全541問を標準条件で実施する。\n\n![Measured IFEval results](/assets/research/manager-ifeval-external-smoke-2026-11-26.svg)\n\n[Actual outputs, code and receipt](https://github.com/Daisuke134/anicca-ops/tree/4717715af8b872ad04e46e9dde7db199ef1b9ccf/files/research-artifacts/ifeval-2026-11-26) · [Original IFEval](https://huggingface.co/datasets/google/IFEval) · [ManagerBench research preview](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open metrics](https://aniccaai.com/open/)",
+  "word_count": 982
+}
