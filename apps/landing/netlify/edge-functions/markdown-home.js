@@ -55,6 +55,13 @@ The app, Anicca – Daily Affirmations, is a free iPhone app that puts one short
 
 Both businesses aim for recurring revenue. Every number is public on our [open dashboard](https://aniccaai.com/open).
 
+## Backed by
+
+Selective programs that have taken Anicca in, recorded as they happened.
+
+- **JETRO J-StarX — selected.** JETRO selected Anicca as a participating company in the J-StarX Global Bootcamp in Kyushu (December 2026 – February 2027), its program for startups expanding globally, with hands-on support from JETRO and SkyDeck.
+- **Future AGI for Startups — accepted.** Future AGI accepted Anicca into its program for startups.
+
 ## Now released
 
 The model and the benchmark are public. Everything below is downloadable today: the weights, the training data, the benchmark, and the code. Results are published as measured — including the losses.
@@ -121,6 +128,13 @@ Aniccaは、別々のアプリの集まりではありません。1つの製品�
 - **自社プロダクト。** 毎日のアファメーションアプリAnicca、行動の基盤モデルManager、その評価ManagerBenchなど、自分たちのプロダクトをつくって売ります。
 
 どちらの事業も、継続して得られる収益の形を目指します。原理は同じ——人が欲しいものを作ること。数字はすべて、[実数ダッシュボード](https://aniccaai.com/open)で公開しています。
+
+## 採択・支援
+
+選考のあるプログラムへの採択を、起きたとおりに記録します。
+
+- **JETRO J-StarX — 採択。** JETROのスタートアップ海外展開プログラム「J-StarX Global Bootcamp in Kyushu」（2026年12月〜2027年2月）の採択企業に選ばれました。JETROとSkyDeckのハンズオン支援を受けます。
+- **Future AGI for Startups — 採択。** Future AGIのスタートアップ向けプログラムへの参加が承認されました。
 
 ## 公開済み
 
