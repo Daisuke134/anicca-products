@@ -1,0 +1,14 @@
+{
+  "slug": "manager-execution-03-binary-dpo-2026-11-26-ja",
+  "title": "二択DPOは回答順序への依存を増やさず人間の行動を予測できるか",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "実学習32ステップ。DPOのAUROC .5737、ロジスティック回帰 .6362。回答順序差が増加。本番昇格なし。",
+  "attribution": {
+    "text": "Anicca Research, Run03 actual receipt; Rafailov et al. 2023; UCI CC BY 4.0"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# 二択DPOは回答順序への依存を増やさず人間の行動を予測できるか\n\n2026-11-26 | Anicca Research\n\n**要約。** LoRAの8条件で実際に32学習ステップを実行した。64件のテストでDPOのAUROCは.5737、ロジスティック回帰は.6362。DPOの回答順序差は.2334、Weighted SFTは.0146だった。本番昇格はしない。\n\n![cover](/assets/research/manager-execution-03-binary-dpo-2026-11-26-cover.svg)\n\n表紙：Run03の実人間購買データ、テスト64件、陽性8件。\n\n## 問題\n前回のWeighted SFTは識別性能を改善したが、ロジスティック回帰に及ばなかった。今回はDPOを試す。対象は二値分類とLoRAの基本を理解するMLエンジニア。\n\n## 実行手順\n1. キャッシュ済みSmolLM2-135MとUCI Online Shoppersデータ（CC BY 4.0）を使用。学習32件（陽性5）、較正64件（陽性10）、テスト64件（陽性8）。自分たちのRun02テストとは重複しない。\n2. 4手法、seed 42・43、各4ステップ。rank4、alpha8、batch8、AdamW 3e-4、DPO beta .1。SFT→DPOは2ステップずつ、切替時のSFTモデルを固定参照とする。\n3. 8個のアダプターと個別予測を保存。二択DPOの損失は -logsigmoid(beta*(2*y-1)*(d_model-d_ref))。観測行動は擬似選好であり、本人の幸福を示すラベルではない。\n4. ニューラルモデルのみ較正し、二つの回答順序の予測を平均。順序差は選択肢入替時の較正前確率の平均絶対差。\n\n![pipeline](/assets/research/manager-execution-03-binary-dpo-2026-11-26-pipeline.svg)\n\n図1：Run03の実験分割と学習経路。全条件で同じ64件を評価。\n\n## 結果\n\n| Model | AUROC | Raw order gap |\n|---|---:|---:|\n| Logistic | 0.6362 | N/A |\n| DPO | 0.5737 | 0.2334 |\n| Weighted SFT | 0.5592 | 0.0146 |\n| Base | 0.5580 | 0.2052 |\n| Standard SFT | 0.5558 | 0.0266 |\n| SFT to DPO | 0.5547 | 0.0501 |\n\n![chart](/assets/research/manager-execution-03-binary-dpo-2026-11-26-chart.svg)\n\n図2：実測AUROCと回答順序差。学習条件は2 seed平均。[実測記録](https://github.com/Daisuke134/anicca/pull/9516)。DPOはBaseより識別性能が記述的に高い一方、順序差も増加した。\n\n## トレードオフと未検証項目\nCPUによる小規模実験であり、陽性は8件だけ。4ステップでは十分な学習や優越性を証明できない。SFT→DPOの各段階は異なる事例を使用し、Logisticの較正条件も非対称。チーム全体と事前学習でのデータ重複は不明。統計的優越性、公式ベンチマーク、重みの再読込一致、人間の便益は未検証。本番昇格しない。\n\n## 再現・共同研究\n[学習コード、重み、個別予測を含むDraft PR](https://github.com/Daisuke134/anicca/pull/9516)から、同一予算の複数seed比較と順序頑健性評価に参加できる。\n\n## 参考\n[DPO paper](https://arxiv.org/abs/2305.18290), [UCI data](https://doi.org/10.24432/C5F88Q), [Run 02](https://aniccaai.com/blog/manager-execution-02-weighted-sft-2026-11-26-en), [Code and receipts](https://github.com/Daisuke134/anicca/pull/9516)\n",
+  "word_count": 115
+}
