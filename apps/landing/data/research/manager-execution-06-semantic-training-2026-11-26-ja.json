@@ -1,0 +1,14 @@
+{
+  "slug": "manager-execution-06-semantic-training-2026-11-26-ja",
+  "title": "意味的一貫性学習で行動予測の頑健性は改善するか",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "Run06 matched semantic training: 16 steps, four adapters, 64 test cases, no promotion.",
+  "attribution": {
+    "text": "Anicca Research; xTune; UDA; UCI CC BY 4.0"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# 意味的一貫性学習で行動予測の頑健性は改善するか\n\n2026-11-26 | Anicca Research\n\n**要約。** 16ステップの実学習と4アダプターの再読み込みを実施。Base AUC 0.5882/0.6199/0.6184, range 0.0055, order gap 0.1372; Augmentation AUC 0.5935/0.6282/0.6146, range 0.0058, order gap 0.0677; Joint consistency AUC 0.5875/0.6184/0.6101, range 0.0063, order gap 0.0575。本番昇格なし。\n\n![cover](/assets/research/manager-execution-06-semantic-training-2026-11-26-cover.svg)\n\n表紙：実人間購買データ64件、陽性13件。\n\n## 問題\n前回は質問表現の変更で順位が崩れた。今回はデータ拡張単独と正則化追加を比較する。対象はLoRAと二値分類を理解するMLエンジニア。\n\n## 実行手順\n1. 32学習（陽性5）、32較正（陽性7）、64テスト（陽性13）。同じ3質問・2回答順序を学習に使用。\n2. Weighted SFTに順序MSEと意味MSEを各係数5で加える条件と比較。2 seeds、各4ステップ。\n3. 原文の較正器を未学習の英語・日本語質問にも適用。文脈と回答ラベルは英語のまま。\n4. 全4アダプターを保存・再読込。独立にAUROC/Brier再計算し、対応付き層別Bootstrap 2,000回。\n\n![pipeline](/assets/research/manager-execution-06-semantic-training-2026-11-26-pipeline.svg)\n\n図1：同一データ・学習予算と未知質問による評価。\n\n## 結果\n\n| Model | Original AUC | Held EN AUC | Held JA AUC | Raw range | Mean order gap |\n|---|---:|---:|---:|---:|---:|\n| Base | 0.58824 | 0.61991 | 0.61840 | 0.00553 | 0.13724 |\n| Augmentation | 0.59351 | 0.62821 | 0.61463 | 0.00585 | 0.06772 |\n| Joint consistency | 0.58748 | 0.61840 | 0.61011 | 0.00626 | 0.05747 |\n\n![chart](/assets/research/manager-execution-06-semantic-training-2026-11-26-chart.svg)\n\n図2：実測AUROCと較正前の確率範囲。共通64件。[証拠](https://github.com/Daisuke134/anicca/pull/9520)。\n\n## トレードオフと未検証\n小規模CPU試験、2 seeds、4ステップ。二つの正則化を一緒に追加したため個別寄与は不明。原文のみの学習対照なし。翻訳の独立判定なし。全社・事前学習重複、公式Benchmark、前向き予測、因果効果、利用者便益は未検証。本番昇格なし。\n\n## 再現・共同研究\n[学習コード、重み、個別予測、監査](https://github.com/Daisuke134/anicca/pull/9520)で再現し、大規模な要因実験に参加できる。\n\n## 参考\n[xTune](https://aclanthology.org/2021.acl-long.264/), [UDA](https://papers.neurips.cc/paper/2020/hash/44feb0096faa8326192570788b38c1d1-Abstract.html), [UCI](https://doi.org/10.24432/C5F88Q), [Code and audit](https://github.com/Daisuke134/anicca/pull/9520)\n",
+  "word_count": 133
+}
