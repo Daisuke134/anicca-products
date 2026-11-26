@@ -1,0 +1,14 @@
+{
+  "slug": "manager-oogiri-order-bias-2026-11-26-ja",
+  "title": "大喜利のAI審査はBを選び続けるだけで50%になる",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "大喜利のAI審査はBを選び続けるだけで50%になる",
+  "attribution": {
+    "text": "Anicca Research / exploratory diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# 大喜利のAI審査はBを選び続けるだけで50%になる\n\n## 要点\n形式上正しい審査モデルも回答内容を無視することがある。独自作成の日本語8題・対照回答（人間評価ではない）を両順序で提示し、OllamaのQwen2.5 0.5B/1.5B Q4_K_M、greedy seed42、12トークン上限で32推論を2回実行。第2回4.41秒。0.5Bは厳密形式0/16、1.5Bは16/16有効だが全てB、作成者の想定一致8/16、順序交換時の意味的一致0/8。12指標を独立再計算。公式Oogiri-Master600問は未実施。MITコードライセンスはデータに適用されない。新規学習・昇格なし。公式実走は既存Devin担当。\n\n## 対象と再現手順\n行動AI・評価システムを開発する研究者・エンジニア向け。Pythonの基本を前提とする。実験のコードと保存結果を取得し、run.pyを同じ環境で実行し、receipt.jsonの結果と照合する。\n\n![実測結果と評価手順](/assets/research/manager-oogiri-order-bias-2026-11-26.svg)\n\n図：2026-11-26の実測値と評価手順。上段は比較、下段はデータから評価までの流れ。分母と制約は本文および実験記録を参照。\n\n## 結果\n| 条件 | Percent |\n|---|---:|\n| 0.5B valid | 0 |\n| 1.5B valid | 100 |\n| 1.5B paired | 0 |\n\n## 限界と次の実験\n低コストで再現可能な独立診断を優先したため、公式評価・実人間の効果・本番モデル更新とは区別する。失敗した候補は昇格しない。残件は既存のIssueで追跡する。\n\n## 実験を再現する\n[コード・実測結果](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/oogiri-order-2026-11-26) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## 参考資料\n- https://arxiv.org/abs/2512.21494\n- https://github.com/CyberAgentAILab/oogiri-dataset-builder\n- https://arxiv.org/abs/2601.03103",
+  "word_count": 58
+}
