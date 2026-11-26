@@ -1,0 +1,14 @@
+{
+  "slug": "manager-execution-04-consistency-2026-11-26-ja",
+  "title": "Consistency RegularizationでDPOの回答順序バイアスを抑えられるか",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "実学習48ステップ。順序差0.2796から0.0807。本番昇格なし。",
+  "attribution": {
+    "text": "Anicca Research, Run04 actual receipt; R-Drop; DPO; UCI CC BY 4.0"
+  },
+  "n_papers_cited": 3,
+  "markdown": "# Consistency RegularizationでDPOの回答順序バイアスを抑えられるか\n\n2026-11-26 | Anicca Research\n\n**要約。** 実際に48ステップ学習し、6個の重みを再読み込みした。DPOの回答順序差は0.2796、整合性正則化付きは0.0807で相対71.1%低下。AUROCは0.6443対0.5996。本番昇格はしない。\n\n![cover](/assets/research/manager-execution-04-consistency-2026-11-26-cover.svg)\n\n表紙：実人間購買データ128件、陽性23件。\n\n## 問題\nRun03のDPOは識別性能の記述的改善と同時に回答順序依存性の増大が見られた。既存の整合性学習と順序バイアス研究を参考に損失項を追加する。対象は二値分類とLoRAを理解するMLエンジニア。\n\n## 実行手順\n1. SmolLM2-135MとUCI Online Shoppers（CC BY 4.0）を再利用。学習64件（陽性12）、較正64件（陽性10）、テスト128件（陽性23）。自身の過去テスト分割とは重複しない。\n2. Weighted SFT、DPO、DPO＋整合性正則化をseed42・43、各8ステップで比較。rank4、alpha8、q/v、batch8、AdamW 3e-4。DPO beta .1、lambda5は実行前固定（正式な事前登録ではない）。追加損失は5*(p_AB-p_BA)^2。\n3. 6個の保存済みアダプターを再読込し、較正後の予測一致を確認。Logisticを含む全モデルを同一較正分割で評価した。\n4. AUROC/Brierを独立に再計算し、seedごとに対応付き層別Bootstrap 2,000回。固定予測に条件づけ、多重比較未補正。\n\n![pipeline](/assets/research/manager-execution-04-consistency-2026-11-26-pipeline.svg)\n\n図1：Run04実験経路。全手法で同じ128件を評価。\n\n## 結果\n\n| Model | AUROC | Raw order gap |\n|---|---:|---:|\n| Logistic | 0.6075 | N/A |\n| DPO | 0.6443 | 0.2796 |\n| DPO + consistency | 0.5996 | 0.0807 |\n| Weighted SFT | 0.5983 | 0.0885 |\n| Base | 0.5851 | 0.2058 |\n| Prior | 0.5000 | N/A |\n\n![chart](/assets/research/manager-execution-04-consistency-2026-11-26-chart.svg)\n\n図2：実測AUROCと較正前の回答順序差。学習条件は2 seed平均。[証拠](https://github.com/Daisuke134/anicca/pull/9518)。順序差は表示順を入れ替えた意味上の購入確率の平均絶対差。\n\n## トレードオフと未検証\n整合性だけを重視すると識別能力が低下しうる。定数予測でも順序差はゼロ。二順序の平均は定義上厳密に順序不変だが、推論2回が必要で精度は保証されない。CPUの小規模試験、陽性23件、2 seedsであり十分な収束・外部優越性は未確立。チーム全体と事前学習の重複、公式外部Benchmark、前向き予測、因果効果、実利用者便益は未検証。本番昇格なし。\n\n## 再現・共同研究\n[重み・学習コード・監査・予測のDraft PR](https://github.com/Daisuke134/anicca/pull/9518)で再現し、同一学習予算の大規模比較と表現変更への頑健性を検証できる。\n\n## 参考\n[R-Drop](https://arxiv.org/abs/2106.14448), [Permutation bias LoRA](https://aclanthology.org/2025.findings-ijcnlp.127/), [DPO](https://arxiv.org/abs/2305.18290), [UCI](https://doi.org/10.24432/C5F88Q), [Code and audit](https://github.com/Daisuke134/anicca/pull/9518)\n",
+  "word_count": 114
+}
