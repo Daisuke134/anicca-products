@@ -1,0 +1,14 @@
+{
+  "slug": "manager-society-forecast-intervention-2026-11-26-en",
+  "title": "Better social forecasting did not improve intervention estimates",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "Better social forecasting did not improve intervention estimates",
+  "attribution": {
+    "text": "Anicca Research / exploratory diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Better social forecasting did not improve intervention estimates\n\n## TL;DR\nWe tested whether adding neighbors’ behavior helps a predictor and an intervention estimator. On 12 fictional worlds of 512 agents, the 49,152 held-world transitions gave Brier .178316 for own-history MLP and .173572 for social MLP (seed 42). But absolute ATE error rose from .002982 to .004575. A logistic model with the designed treatment/environment interaction scored .172685. Two GPU runs of 400 updates each reproduced metrics; the second run's weights are saved. CPU replay checked 16 metrics. The mechanism was deliberately synthetic; native AgentSociety, Mesa, AgentPy and OASIS remain unrun. This is not evidence of human benefit.\n\n## Audience and reproduction\nFor behavioral AI researchers and evaluation engineers familiar with Python. Obtain the experiment code and receipt, execute run.py in the documented environment, and compare the saved metrics.\n\n![Measured results and evaluation pipeline](/assets/research/manager-society-forecast-intervention-2026-11-26.svg)\n\nFigure: measured results and evaluation mechanism on 2026-11-26. Upper panel compares the metrics; lower panel shows the evaluation flow. See the text and receipt for denominators and limitations.\n\n## Results\n| Condition | Brier (lower is better) |\n|---|---:|\n| Own MLP | 0.178316 |\n| Social MLP | 0.173572 |\n| Logistic + interaction | 0.172685 |\n\n## Trade-offs and unverified work\nWe prioritized inexpensive, reproducible diagnostics at the cost of external validity. Official evaluation, human benefit, and production model updates remain distinct gates. Failed candidates are not promoted. The outstanding work is tracked in the existing issues.\n\n## Try it / work with us\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/society-graph-2026-11-26) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Open work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## Further reading\n- https://arxiv.org/abs/2502.08691\n- https://arxiv.org/abs/2411.11581\n- https://mesa.readthedocs.io/",
+  "word_count": 266
+}
