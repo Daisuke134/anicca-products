@@ -1,0 +1,14 @@
+{
+  "slug": "manager-lifeval-integration-2026-11-26-en",
+  "title": "LifeVal lessons: valid JSON is not a completed life task",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "LifeVal lessons: valid JSON is not a completed life task",
+  "attribution": {
+    "text": "Anicca Research / isolated product integration"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# LifeVal lessons: valid JSON is not a completed life task\n\n## TL;DR\nWe ran the existing Anicca product code in isolation: 58 Maritime fixture tests passed. Its current generator accepted 3/4 actual local model calls. Schema-constrained decoding produced 4/4 valid structures but two copied the literal placeholder '...'. We patched the existing validator in PR #9523: six failing assertions before, three passing tests after.\n\n## Problem and methods\nLifeVal grades 169 personalized tasks using artifacts and environment changes. Its full task frame was not accessible to us. We isolated real product source f17d87cb and tested synthetic onboarding context through generation, validation, SQLite persistence and read-only export. Qwen2.5 0.5B/1.5B Q4_K_M: four actual current-generator calls and eight matched seed42 decoding calls.\n\n![Measured local generation and product pipeline](/assets/research/manager-lifeval-integration-2026-11-26.svg)\n\nFigure: 2026-11-26, two synthetic profiles × two models. Separate original-generator probe and matched comparison.\n\n| Condition | Accepted |\n|---|---:|\n| Original local generator | 3/4 |\n| Strict JSON unconstrained | 0/4 |\n| Strict JSON constrained | 4/4 |\n| Existing parser, unconstrained | 4/4 |\n| Existing parser, constrained | 4/4 |\n| Constrained after placeholder gate | 2/4 |\n\n## From failure to repair\nStrict JSON accepted 0/4 vs 4/4, but applying the existing markdown-fence parser yields 4/4 in both arms. No semantic gain. We added the observed placeholder rejection to the existing product validator and verified that invalid candidates do not persist an assignment.\n\n## Trade-offs and limitations\nTiny synthetic profiles and mocked Maritime services. Three fixture exports and one observed app-open are not human benefit. Full Python API tests remain blocked by dependency incompatibility. No live VM, iPhone, App Store submission, weight update or promotion.\n\n[Code and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/lifeval-integration-2026-11-26/) · [Product PR](https://github.com/Daisuke134/anicca/pull/9523) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://openai.com/index/lifeval/\n- https://arxiv.org/abs/2611.06687\n- https://github.com/Daisuke134/anicca/issues/9513",
+  "word_count": 294
+}
