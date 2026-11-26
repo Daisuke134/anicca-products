@@ -1,0 +1,14 @@
+{
+  "slug": "manager-smallville-replay-2026-11-26-en",
+  "title": "Smallville replay: recent motion beat trained neural predictors",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "Smallville replay: recent motion beat trained neural predictors",
+  "attribution": {
+    "text": "Anicca Research / official synthetic replay diagnostic"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# Smallville replay: recent motion beat trained neural predictors\n\n## TL;DR\nWe reconstructed 8,655 time points from the official compressed three-agent replay without future information and predicted position change ten minutes ahead. Six MPS models received 900 updates. On 1,059 test examples, the social MLP (seed 43, Brier .335684) beat the own-history MLP (.346658), but lost to the recent-motion rule (.220019).\n\n## How we did it\nFor behavior AI researchers. Reconstruct 4,532 sparse changed-agent records, carry states forward, use the chronological 2,820/330 unused validation/1,059 test split, and compare clock, own and social features with two seeds. Code and audit are linked below.\n\n![Measured Brier and pipeline](/assets/research/manager-smallville-replay-2026-11-26.svg)\n\nFigure: measured Brier comparison and pipeline, 2026-11-26, n=1,059.\n\n| Model | Brier |\n|---|---:|\n| Recent motion | .220019 |\n| Global prior | .257917 |\n| Social MLP43 | .335684 |\n\n## Trade-offs and unverified work\n36 independent metric checks. The hard rule is uncalibrated. This is synthetic replay, not human behavior validation or a new 25-agent or Concordia run. No promotion.\n\n[Code, evidence and audit](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/smallville-replay-2026-11-26/) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview) · [Remaining work](https://github.com/Daisuke134/anicca-ops/issues/711)\n\n## Further reading\n- https://arxiv.org/abs/2304.03442\n- https://github.com/joonspk-research/generative_agents\n- https://github.com/google-deepmind/concordia",
+  "word_count": 187
+}
