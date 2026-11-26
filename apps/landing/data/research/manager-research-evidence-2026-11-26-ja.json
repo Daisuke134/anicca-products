@@ -1,0 +1,14 @@
+{
+  "slug": "manager-research-evidence-2026-11-26-ja",
+  "title": "評価を再現できても人間への便益は証明できない：ManagerBenchの27指標を独立検証",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "ja",
+  "description": "256件の保存予測から27指標を独立再計算。実介入便益とは別。",
+  "attribution": {
+    "text": "Anicca Research / preliminary saved-prediction audit"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# 評価を再現できても人間への便益は証明できない：ManagerBenchの27指標を独立検証\n\n**TL;DR.** 保存済み256件の購買予測を別実装で再採点し、9条件×3指標の27値が1e-8以内で一致した。校正済みManager v0のBrier .123713はLogistic回帰 .120993を上回らなかった（低いほど良い）。新規推論・実介入の結果ではない。\n\n![研究表紙](/assets/research/manager-research-evidence-2026-11-26-cover.svg)\n\n## 問題\nモデルの公開、評価結果の再現、実人間への介入便益は別の主張だ。最初に、論文に掲載する評価指標が保存済み予測から再計算できるか検証した。\n\n## 方法\nUCI Online Shoppers Purchasing Intention（[CC BY 4.0](https://doi.org/10.24432/C5F88Q)）の同一探索的テスト256件、購入37件。Pilot005の学習256・校正128・テスト256は分離されているが、他チームや事前学習での重複は不明。公開v0はChapter18で実際にロードした重み（revision 757102ac1e0f9d2eff7f42bb45c249e4aedee744）。今回は新たな推論を行わず、元の保存確率を標準Pythonで読み、Brier＝平均二乗確率誤差、NLL＝平均負対数尤度、AUROC＝陽性と陰性の順位比較（同点0.5）を独立実装した。\n\n```bash\n# anicca-ops の固定コミット 7f786bb6c1ade02856883431823efb902e1ca579\npython3 files/research-artifacts/paper-ch22-2026-11-26/audit.py\n```\n出力：n=256, positive=37, verified_metrics=27。元レシートSHAも検証した。\n\n## 結果\n![Brier比較](/assets/research/manager-research-evidence-2026-11-26-chart.svg)\n図1：256件の実データに対する保存予測の独立再計算。Brierは低いほど良い。\n\n| Model | Brier ↓ | NLL ↓ | AUROC ↑ |\n|---|---:|---:|---:|\n| Logistic | .120993 | .399619 | .631618 |\n| Calibration prior | .123779 | .413686 | .500000 |\n| Public Manager v0 calibrated | .123713 | .413395 | .543256 |\n| SmolLM2 base calibrated | .123954 | .414290 | .636925 |\n| Pilot005 calibrated | .124327 | .416064 | .397877 |\n\nv0−LogisticのBrier差は+.002720、既存の対応bootstrap区間は[-.006528,.012727]。優越性は未確立。追加学習で回答順序差が減ってもAUROCは悪化し得る。失敗も残す。\n\n## 評価と製品の境界\n![評価経路](/assets/research/manager-research-evidence-2026-11-26-pipeline.svg)\n図2：保存結果の監査と実人間の評価は別。製品側の合成3件の取り込みは0件だった。割当・配信・露出・結果・負担を別に記録する必要がある。\n\n## 限界と次の手順\n同じ探索的テストの再利用で、独立した新規ホールドアウトではない。実人間の便益とGraduationは未測定。Manager v0は研究公開済みだが介入ゲート不合格で本番昇格しない。次は利用条件を確認した外部データで新規比較し、実製品の同意・アウトカム契約を検証する。\n\n[実行コード・結果](https://github.com/Daisuke134/anicca-ops/tree/7f786bb6c1ade02856883431823efb902e1ca579/files/research-artifacts/paper-ch22-2026-11-26) · [関連研究](https://aniccaai.com/blog/manager-behaviorbench-first-run-en) · [会社の公開指標](https://aniccaai.com/open/) · [Anicca iOS](https://apps.apple.com/app/id6755129214)（製品リンク、今回の実験による便益の証明ではない）。",
+  "word_count": 2072
+}
