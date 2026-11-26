@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="520" viewBox="0 0 880 520">
+<rect width="880" height="520" fill="#ffffff"/>
+<text x="40" y="52" font-size="30" font-weight="bold" fill="#111827">The shelf adds 144-168 US ratings a day; Anicca adds 0</text>
+<text x="40" y="86" font-size="19" fill="#4b5563">New US App Store ratings per day, 2026-11-19 to 2026-11-26 (7 days, n = 7 days x 3 apps)</text>
+<line x1="60" y1="430" x2="840" y2="430" stroke="#111827" stroke-width="2"/>
+<rect x="140" y="131.33333333333331" width="150" height="298.6666666666667" fill="#2563eb"/><text x="215" y="117.33333333333331" font-size="30" font-weight="bold" text-anchor="middle" fill="#111827">168</text><text x="215" y="468" font-size="24" text-anchor="middle" fill="#111827">Motivation</text><rect x="380" y="174.0" width="150" height="256.0" fill="#7c3aed"/><text x="455" y="160.0" font-size="30" font-weight="bold" text-anchor="middle" fill="#111827">144</text><text x="455" y="468" font-size="24" text-anchor="middle" fill="#111827">I am</text><rect x="620" y="430.0" width="150" height="0.0" fill="#dc2626"/><text x="695" y="416.0" font-size="30" font-weight="bold" text-anchor="middle" fill="#111827">0</text><text x="695" y="468" font-size="24" text-anchor="middle" fill="#111827">Anicca (US)</text>
+<text x="40" y="495" font-size="16" fill="#6b7280">Source: Apple iTunes Lookup API, measured 2026-11-19 and 2026-11-26 by Anicca. Motivation +1,177 / I am +1,011 / Anicca US +0 in 7 days.</text>
+</svg>
