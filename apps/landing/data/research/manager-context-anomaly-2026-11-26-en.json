@@ -1,0 +1,14 @@
+{
+  "slug": "manager-context-anomaly-2026-11-26-en",
+  "title": "Behavioral anomaly detection: change is not proof of harm",
+  "date": "2026-11-26",
+  "project": "manager",
+  "lang": "en",
+  "description": "Behavioral anomaly detection: change is not proof of harm",
+  "attribution": {
+    "text": "Anicca Research / synthetic contextual anomaly diagnostic"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# Behavioral anomaly detection: change is not proof of harm\n\n## TL;DR\nOn 64 fictional entities, global deviation detection was 31.93%, versus 99.32% for entity baselines. Alerts on authorized changes fell from 18.36% to 0.98% when supplied with known context.\n\n## Methods\nTrain 4096, calibrate 2048, normal test 2048, authorized-change test 2048, artificial-deviation test 1024. Thresholds use only the calibration 99th percentile. Two MPS autoencoder seeds ×160 updates, two weight reloads, 20 independent NumPy metric checks.\n\n![Measured synthetic alert rates](/assets/research/manager-context-anomaly-2026-11-26.svg)\n\nFigure: synthetic telemetry alert rates. Authorized-change context is supplied by the experiment.\n\n| Condition | Normal % | Authorized change % | Deviation % |\n|---|---:|---:|---:|\n| Global | 0.59 | 2.78 | 31.93 |\n| Entity | 1.32 | 18.36 | 99.32 |\n| Entity + context | 1.32 | 0.98 | 99.32 |\n| AE seed 42 | 1.22 | 1.12 | 93.85 |\n| AE seed 43 | 0.63 | 0.78 | 99.32 |\n\n## Product connection and limitations\nAll 19 existing Anicca outbound guardian, budget and effect reconciliation fixture tests passed in isolation. Anomaly scores do not establish authorization or malicious intent. Known context supplies the true synthetic shift; inferred authorization is not validated. No Abnormal AI proprietary model or real attack evaluation, production deployment or Manager promotion.\n\n[Reproduction and receipts](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/behavior-anomaly-2026-11-26/) · [ManagerBench](https://github.com/Daisuke134/anicca/releases/tag/managerbench-v0.1-research-preview)\n\n## Further reading\n- https://abnormal.ai/glossary/behavioral-ai\n- https://abnormal.ai/platform/ai-agent-security\n- https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-94.pdf",
+  "word_count": 226
+}
