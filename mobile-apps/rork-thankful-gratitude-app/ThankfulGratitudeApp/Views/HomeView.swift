@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import StoreKit
 
 struct HomeView: View {
     let viewModel: AppViewModel
@@ -10,6 +11,8 @@ struct HomeView: View {
     @State private var gratitude2: String = ""
     @State private var gratitude3: String = ""
     @State private var showSavedFeedback: Bool = false
+    @Environment(\.requestReview) private var requestReview
+    @AppStorage("has_requested_review") private var hasRequestedReview: Bool = false
     @State private var affirmationBounce: Bool = false
 
     private var language: AppLanguage { viewModel.language }
@@ -216,6 +219,13 @@ struct HomeView: View {
         )
         modelContext.insert(entry)
         viewModel.didSaveEntry(entries: entries + [entry])
+
+        // Ask for a review only after real value: the user has saved at least
+        // 2 gratitude entries. Never on first launch, and only once ever.
+        if entries.count + 1 >= 2 && !hasRequestedReview {
+            hasRequestedReview = true
+            requestReview()
+        }
 
         withAnimation(.spring(duration: 0.3)) {
             showSavedFeedback = true
