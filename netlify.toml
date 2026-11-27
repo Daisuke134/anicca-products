@@ -114,6 +114,13 @@
   status = 200
   force = true
 
+# Short, shareable entry for posts and bios.
+[[redirects]]
+  from = "/newsletter"
+  to = "/lm/newsletter"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/money-printer"
   to = "https://life-call-production.up.railway.app/money-printer"

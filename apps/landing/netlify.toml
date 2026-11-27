@@ -152,6 +152,13 @@
   status = 200
   force = true
 
+# Short, shareable entry for posts and bios.
+[[redirects]]
+  from = "/newsletter"
+  to = "/lm/newsletter"
+  status = 301
+  force = true
+
 # Private CFO behind basic auth (Dais only)
 # Visit /private with Authorization: Basic <base64 of "dais:<password>">
 # Password in Netlify env: PRIVATE_CFO_PASSWORD
