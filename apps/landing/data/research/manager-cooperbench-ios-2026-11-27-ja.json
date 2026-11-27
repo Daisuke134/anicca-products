@@ -1,0 +1,14 @@
+{
+  "slug": "manager-cooperbench-ios-2026-11-27-ja",
+  "title": "CooperBenchとAnicca iOS：競合の集計と決定的選択",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "CooperBenchとAnicca iOS：競合の集計と決定的選択",
+  "attribution": {
+    "text": "Anicca Research / official metadata audit and actual iOS source regression"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# CooperBenchとAnicca iOS：競合の集計と決定的選択\n\n公式gold統合記録652組中499組が衝突ラベル、153組がcleanラベルだが6組にパッチ適用失敗、失敗フラグなしcleanは147組。flash_10は衝突7組、失敗フラグ0組。公式エージェント評価ではなくメタデータ監査。Anicca iOSの実Swiftキャッシュ修正はCLIで10/13から13/13へ改善、PR #959。Xcode・実機・マージ・公開と公式評価#753は未完了。\n\n[Evidence](https://github.com/Daisuke134/anicca-ops/pull/754) · [iOS patch](https://github.com/Daisuke134/anicca-products/pull/959)\n\nSources: [CooperBench](https://arxiv.org/abs/2601.13295), [official dataset](https://huggingface.co/datasets/CooperBench/cooperbench-dataset).\n",
+  "word_count": 15
+}
