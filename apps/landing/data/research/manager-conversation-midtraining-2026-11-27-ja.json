@@ -1,0 +1,14 @@
+{
+  "slug": "manager-conversation-midtraining-2026-11-27-ja",
+  "title": "会話Mid-trainingの改善と回帰",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "会話Mid-trainingの改善と回帰",
+  "attribution": {
+    "text": "Anicca Research / independent SGD continued-training diagnostic"
+  },
+  "n_papers_cited": 3,
+  "markdown": "# 会話Mid-trainingの改善と回帰\n\n公式SmolLM2-135Mを照合しSGDの別シャードで最終ブロックのみ32回実学習。未知会話32件/3038トークンPPL16.762→14.580、独自一般文16件/177トークン26.674→47.928。単一シード、人工会話の人による言い換えデータであり、自然会話・公式Persimmonの再現ではない。split内ID再利用を訂正し完全一致重複なし。意味的重複と事前学習露出は未確認。重み・生データ非公開、昇格なし。\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/midtraining-h13-20261127/files/research-artifacts/midtraining-h13-2026-11-27)\n\nSources: [Persimmon](https://persimmon.humansand.ai/blog/persimmon.html), [SGD](https://github.com/google-research-datasets/dstc8-schema-guided-dialogue), [SmolLM2](https://huggingface.co/HuggingFaceTB/SmolLM2-135M).\n",
+  "word_count": 11
+}
