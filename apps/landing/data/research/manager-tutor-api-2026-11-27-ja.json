@@ -1,0 +1,14 @@
+{
+  "slug": "manager-tutor-api-2026-11-27-ja",
+  "title": "&Tutor API：仕様・利用許諾とAniccaの通信復旧",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "&Tutor API：仕様・利用許諾とAniccaの通信復旧",
+  "attribution": {
+    "text": "Anicca Research / public API documentation and isolated iOS regression"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# &Tutor API：仕様・利用許諾とAniccaの通信復旧\n\n公開資料5件を取得、匿名モデル一覧GETは401。現行規約は競合評価・競合モデル学習を制限。独立契約テスト8/8、実Swift隔離通信5/8→8/8。実学習者データ・公式推論・新規重み・本番公開なし。許諾とiOS検証は#761。\n\n[Research evidence](https://github.com/Daisuke134/anicca-ops/pull/762) · [iOS patch](https://github.com/Daisuke134/anicca-products/pull/965)\n\nSources: [Model card](https://tutor.humansand.ai/blog/model-card), [API docs](https://ampersand.humansand.ai/docs/), [Terms](https://ampersand.humansand.ai/terms), [Pricing](https://ampersand.humansand.ai/docs/PRICING.html).\n",
+  "word_count": 17
+}
