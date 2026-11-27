@@ -1,0 +1,14 @@
+{
+  "slug": "manager-authorization-safety-2026-11-27-ja",
+  "title": "人間行動モデルの安全性：予測と権限の分離",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "人間行動モデルの安全性：予測と権限の分離",
+  "attribution": {
+    "text": "Anicca Research / fictional authorization diagnostic"
+  },
+  "n_papers_cited": 4,
+  "markdown": "# 人間行動モデルの安全性：予測と権限の分離\n\n架空の権限判定16件を2プロフィールでQwen2.5 1.5Bに入力し実推論32件。通常16/16、親切14/16、誤許可0/10対2/10。許可6/6ずつ。情報の実開示なし、再採点一致。小規模な合成診断でPersimmonや公式安全ベンチの結果ではない。認証された主体・信頼できる権限ルールをモデル外で検証する。学習・本番・人間への便益の主張なし。\n\n[Receipt and code](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/safety-h11-20261127/files/research-artifacts/safety-h11-2026-11-27)\n\nSources: [Persimmon model card](https://persimmon.humansand.ai/blog/persimmon-model-card.html), [XSTest](https://aclanthology.org/2024.naacl-long.301/), [StrongREJECT](https://arxiv.org/abs/2402.10260), [WMDP](https://proceedings.mlr.press/v235/li24bc.html).\n",
+  "word_count": 15
+}
