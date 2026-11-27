@@ -1,0 +1,14 @@
+{
+  "slug": "manager-contextual-memory-2026-11-27-ja",
+  "title": "長期記憶の文脈的完全性：ローカル診断",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "長期記憶の文脈的完全性：ローカル診断",
+  "attribution": {
+    "text": "Anicca Research / independent fictional memory diagnostic"
+  },
+  "n_papers_cited": 3,
+  "markdown": "# 長期記憶の文脈的完全性：ローカル診断\n\n架空ID選択36回の実推論。全記憶・受信者限定・目的限定の必要情報選択率2/24、0/24、6/24。不適切選択7/120、0、0。安全性の改善だけでなく低い有用性も記録。公式CIMemoriesはCC BY-NC 4.0、データ未取得。公式評価・製品安全性の証明ではない。\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/cimemories-h18-20261127/files/research-artifacts/cimemories-h18-2026-11-27)\n\nSources: [CIMemories](https://arxiv.org/abs/2511.14937), [official repository](https://github.com/facebookresearch/CIMemories), [Ampersand](https://ampersand.humansand.ai/blog/model-card.html).\n",
+  "word_count": 14
+}
