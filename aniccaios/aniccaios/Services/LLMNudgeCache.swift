@@ -18,24 +18,25 @@ final class LLMNudgeCache {
 
     /// 指定された問題タイプと時刻のNudgeを取得（30分ウィンドウでマッチング）
     func getNudge(for problem: ProblemType, hour: Int, minute: Int = 0) -> LLMGeneratedNudge? {
-        // 1. 完全一致を試す（分も含む）
-        let exactKey = "\(problem.rawValue)_\(hour)_\(minute)"
-        if let nudge = cacheByTime[exactKey] {
-            return nudge
-        }
-
-        // 2. 30分ウィンドウ内でマッチング
+        guard (0..<24).contains(hour), (0..<60).contains(minute) else { return nil }
         let targetMinutes = hour * 60 + minute
-        for (_, nudge) in cacheByTime where nudge.problemType == problem {
-            let nudgeMinutes = nudge.scheduledHour * 60 + nudge.scheduledMinute
-            if abs(nudgeMinutes - targetMinutes) <= 30 {
-                return nudge
-            }
-        }
 
-        // 3. 後方互換: 時間のみのキーで検索
-        let hourKey = "\(problem.rawValue)_\(hour)"
-        return cacheByHour[hourKey]
+        // Deterministic nearest slot; ties select the earlier slot.
+        // Legacy scheduledHour is decoded to HH:00, so it participates here too.
+        // Do not bypass the documented 30-minute limit via an hour-only fallback.
+        return cacheByTime.values
+            .filter { nudge in
+                nudge.problemType == problem &&
+                abs(nudge.scheduledHour * 60 + nudge.scheduledMinute - targetMinutes) <= 30
+            }
+            .min { lhs, rhs in
+                let l = lhs.scheduledHour * 60 + lhs.scheduledMinute
+                let r = rhs.scheduledHour * 60 + rhs.scheduledMinute
+                let ld = abs(l - targetMinutes), rd = abs(r - targetMinutes)
+                if ld != rd { return ld < rd }
+                if l != r { return l < r }
+                return lhs.id < rhs.id
+            }
     }
 
     /// 指定された問題タイプと時刻のNudgeが存在するか判定（getNudgeのnil判定ラッパー）
