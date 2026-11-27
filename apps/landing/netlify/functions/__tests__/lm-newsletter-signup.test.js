@@ -8,6 +8,11 @@ function memoryStore() {
     async setJSON(key, value) {
       data.set(key, structuredClone(value));
     },
+    async get(key, opts) {
+      if (!data.has(key)) return null;
+      const value = data.get(key);
+      return opts && opts.type === 'json' ? structuredClone(value) : value;
+    },
     async list({ prefix }) {
       return {
         blobs: Array.from(data.keys())
@@ -17,6 +22,9 @@ function memoryStore() {
     },
     size() {
       return data.size;
+    },
+    keys() {
+      return Array.from(data.keys());
     },
     entries() {
       return Array.from(data.entries());
@@ -62,18 +70,26 @@ test('POST stores the subscriber in blobs and answers with a receipt', async () 
   const body = JSON.parse(response.body);
   assert.equal(body.ok, true);
   assert.equal(body.stored.blobs, true);
-  assert.equal(store.size(), 1);
-  const [[key, value]] = store.entries();
-  assert.match(key, /^subscribers\/[0-9a-f]{64}\.json$/);
+  assert.equal(body.duplicate, false);
+  const subscriberKey = store.keys().find((key) => key.startsWith('subscribers/'));
+  assert.match(subscriberKey, /^subscribers\/[0-9a-f]{64}\.json$/);
+  const value = await store.get(subscriberKey, { type: 'json' });
   assert.equal(value.email, 'reader@example.com');
   assert.deepEqual(value.interests, ['voice', 'testing']);
+  assert.ok(store.keys().includes('index/summary.json'));
 });
 
 test('the same address does not create a second record', async () => {
   const store = memoryStore();
   await handle(post(GOOD), deps(store));
-  await handle(post({ ...GOOD, lang: 'en' }), deps(store));
-  assert.equal(store.size(), 1);
+  const second = await handle(post({ ...GOOD, lang: 'en' }), deps(store));
+  const body = JSON.parse(second.body);
+  assert.equal(body.duplicate, true);
+  assert.equal(
+    store.keys().filter((key) => key.startsWith('subscribers/')).length,
+    1,
+  );
+  assert.equal((await store.get('index/summary.json', { type: 'json' })).count, 1);
 });
 
 test('a filled honeypot is acknowledged but stores nothing', async () => {
@@ -101,7 +117,7 @@ test('an unavailable store is reported instead of a false success', async () => 
   assert.equal(response.statusCode, 503);
 });
 
-test('GET ?action=count returns the stored count only', async () => {
+test('GET ?action=count returns the stored count and nothing else', async () => {
   const store = memoryStore();
   await handle(post(GOOD), deps(store));
   const response = await handle(

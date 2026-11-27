@@ -24,6 +24,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const STORE_NAME = "lm-newsletter";
 const PREFIX = "subscribers/";
+const SUMMARY_KEY = "index/summary.json";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -95,7 +96,7 @@ function normalize(input) {
 async function saveToSupabase(record) {
   const url = String(process.env.SUPABASE_URL || "").replace(/\/+$/, "");
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return false;
+  if (!url || !key) return "not_configured";
   try {
     const response = await fetch(`${url}/rest/v1/lm_newsletter_subscribers`, {
       method: "POST",
@@ -115,9 +116,12 @@ async function saveToSupabase(record) {
         created_at: record.created_at,
       }),
     });
-    return response.ok;
+    if (response.ok) return "ok";
+    // PostgREST answers 404 / PGRST205 until the migration has been applied.
+    if (response.status === 404) return "table_missing";
+    return "error";
   } catch {
-    return false;
+    return "error";
   }
 }
 
@@ -140,6 +144,13 @@ function loadBlobs() {
 async function saveToBlobs(event, record, deps) {
   try {
     const store = openStore(event, deps);
+    const seenKey = `by-email/${record.email_hash}.json`;
+    let seen = null;
+    try {
+      seen = await store.get(seenKey, { type: "json" });
+    } catch {
+      /* a missing key is expected on the first signup for an address */
+    }
     // Key by hash so the store never exposes an address in a key name.
     await store.setJSON(`${PREFIX}${record.email_hash}.json`, {
       receipt: record.receipt,
@@ -150,17 +161,34 @@ async function saveToBlobs(event, record, deps) {
       source: record.source,
       created_at: record.created_at,
     });
-    return true;
-  } catch {
-    return false;
+    if (!seen) {
+      // Strongly-consistent summary document: `list()` is not, and the public
+      // ?action=count check must reflect a write immediately.
+      let summary = null;
+      try {
+        summary = await store.get(SUMMARY_KEY, { type: "json" });
+      } catch {
+        /* first write */
+      }
+      await store.setJSON(SUMMARY_KEY, {
+        count: Number((summary && summary.count) || 0) + 1,
+        updated_at: new Date().toISOString(),
+      });
+      await store.setJSON(seenKey, { since: record.created_at });
+    }
+    return { ok: true, duplicate: Boolean(seen) };
+  } catch (error) {
+    return { ok: false, error: error && error.name ? error.name : "blobs_error" };
   }
 }
 
-async function countBlobs(event, deps) {
+async function countStored(event, deps) {
   try {
     const store = openStore(event, deps);
+    const summary = await store.get(SUMMARY_KEY, { type: "json" });
+    if (summary && typeof summary.count === "number") return summary.count;
     const listed = await store.list({ prefix: PREFIX });
-    return listed.blobs.length;
+    return listed && listed.blobs ? listed.blobs.length : 0;
   } catch {
     return null;
   }
@@ -219,18 +247,18 @@ function welcomeHtml(lang, email) {
 async function sendWelcome(record) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = String(process.env.RESEND_FROM_EMAIL || "").trim();
-  if (!apiKey || !from) return false;
+  if (!apiKey || !from) return "not_configured";
   const mail = welcomeHtml(record.lang, record.email);
-  if (!mail) return false;
+  if (!mail) return "skipped";
   try {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({ from, to: record.email, subject: mail.subject, html: mail.html }),
     });
-    return response.ok;
+    return response.ok ? "sent" : `failed_${response.status}`;
   } catch {
-    return false;
+    return "failed";
   }
 }
 
@@ -240,7 +268,7 @@ async function handle(event, deps = {}) {
   if (event.httpMethod === "GET") {
     const action = (event.queryStringParameters || {}).action;
     if (action !== "count") return json(400, { ok: false, error: "unknown_action" });
-    const count = await countBlobs(event, deps);
+    const count = await countStored(event, deps);
     if (count === null) return json(503, { ok: false, error: "store_unavailable" });
     return json(200, { ok: true, count });
   }
@@ -259,14 +287,17 @@ async function handle(event, deps = {}) {
     saveToSupabase(record),
     saveToBlobs(event, record, deps),
   ]);
-  if (!supabase && !blobs) return json(503, { ok: false, error: "store_unavailable" });
+  if (supabase !== "ok" && !blobs.ok) {
+    return json(503, { ok: false, error: "store_unavailable", supabase, blobs: blobs.error });
+  }
 
-  const welcomed = await sendWelcome(record);
+  const welcomed = blobs.duplicate ? "skipped_duplicate" : await sendWelcome(record);
 
   return json(200, {
     ok: true,
     receipt: record.receipt,
-    stored: { supabase, blobs },
+    stored: { supabase, blobs: blobs.ok },
+    duplicate: Boolean(blobs.duplicate),
     welcome_email: welcomed,
   });
 }
