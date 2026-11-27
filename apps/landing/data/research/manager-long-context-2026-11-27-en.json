@@ -1,0 +1,14 @@
+{
+  "slug": "manager-long-context-2026-11-27-en",
+  "title": "Long-context coherence: state versus evidence availability",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Long-context coherence: state versus evidence availability",
+  "attribution": {
+    "text": "Anicca Research / scripted local model diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Long-context coherence: state versus evidence availability\n\nTwo fictional 80-turn histories, four probes, full versus recent8, 16 actual Qwen2.5 1.5B local calls. Strict global correctness 6/8 vs 3/8; post-hoc semantic scoring 8/8 vs 4/8; evidence-aware 8/8 vs 7/8. Recent visible 4/4 correct, hidden 3/4 appropriately unknown. Reported prompt tokens 3774 vs 1358. Not native Persimmon, not free-running dialogue or human validation. Two correlated scenarios only; no training or human efficacy claim.\n\n[実測 / receipt](https://github.com/Daisuke134/anicca-ops/blob/chatgpt/coherence-h09-20261127/files/research-artifacts/coherence-h09-20261127/rescore.json)\n\nSources: [Persimmon](https://persimmon.humansand.ai/blog/persimmon.html), [LoCoMo](https://aclanthology.org/2024.acl-long.747/).\n",
+  "word_count": 78
+}
