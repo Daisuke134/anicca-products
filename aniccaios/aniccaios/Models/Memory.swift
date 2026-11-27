@@ -26,7 +26,10 @@ final class MemoryStore: ObservableObject {
 
     private let userDefaultsKey = "anicca_memories"
 
-    private init() {
+    private let defaults: UserDefaults
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
         loadFromStorage()
     }
 
@@ -58,16 +61,22 @@ final class MemoryStore: ObservableObject {
 
     private func saveToStorage() {
         if let encoded = try? JSONEncoder().encode(Array(memories.values)) {
-            UserDefaults.standard.set(encoded, forKey: userDefaultsKey)
+            defaults.set(encoded, forKey: userDefaultsKey)
         }
     }
 
     private func loadFromStorage() {
-        guard let data = UserDefaults.standard.data(forKey: userDefaultsKey),
+        guard let data = defaults.data(forKey: userDefaultsKey),
               let decoded = try? JSONDecoder().decode([Memory].self, from: data) else {
             return
         }
-        memories = Dictionary(uniqueKeysWithValues: decoded.map { ($0.problemType, $0) })
+        memories = Dictionary(decoded.map { ($0.problemType, $0) }, uniquingKeysWith: { lhs, rhs in
+            // Recovery from duplicated persisted records: latest update wins.
+            if lhs.updatedAt != rhs.updatedAt {
+                return lhs.updatedAt > rhs.updatedAt ? lhs : rhs
+            }
+            return lhs.id.uuidString < rhs.id.uuidString ? lhs : rhs
+        })
     }
 }
 
