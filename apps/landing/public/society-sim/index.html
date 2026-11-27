@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Society Simulation — Jev Decision Stream | Anicca</title>
+<meta name="description" content="A living society simulation: every agent's decision is made by Jev, a structured decision model, and rendered here as it happened — probabilities, interventions, and scored outcomes.">
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#121922; --panel2:#0e141d; --line:#223041;
+    --text:#e8eef4; --muted:#93a5b5; --faint:#5f7285;
+    --teal:#2dd4bf; --teal-dim:#155e54; --gold:#f5c451; --rose:#fb7185;
+    --blue:#60a5fa; --violet:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+  a{color:var(--teal)}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 18px 80px}
+  header.top{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:22px}
+  .kicker{color:var(--teal);font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+  h1{font-size:30px;line-height:1.2;margin:8px 0 6px}
+  .sub{color:var(--muted);font-size:15px;line-height:1.55;max-width:820px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;
+    padding:5px 11px;font-size:12.5px;color:var(--muted)}
+  .chip b{color:var(--text);font-weight:600}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .kpi .v{font-size:21px;font-weight:700}
+  .kpi .l{font-size:11.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0}
+  .panel h2{font-size:17px;margin:0 0 4px}
+  .panel .hint{color:var(--muted);font-size:13px;margin:0 0 12px;line-height:1.5}
+  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .seg button{background:var(--panel2);color:var(--muted);border:0;padding:9px 16px;font-size:14px;cursor:pointer}
+  .seg button.on{background:var(--teal-dim);color:#d9fff8;font-weight:700}
+  .playbtn{background:var(--teal);color:#04231e;border:0;border-radius:10px;padding:9px 18px;
+    font-size:14px;font-weight:700;cursor:pointer}
+  input[type=range]{flex:1;min-width:160px;accent-color:var(--teal)}
+  .stepLabel{font-size:15px;font-weight:700;min-width:120px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+  svg{width:100%;height:auto;display:block}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin-top:8px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px}
+  .card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+  .card.sel{border-color:var(--teal)}
+  .card .who{display:flex;gap:10px;align-items:center}
+  .avatar{width:38px;height:38px;border-radius:50%;flex:0 0 38px;display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;color:#0b0f14}
+  .card .name{font-weight:700;font-size:14.5px}
+  .card .meta{color:var(--faint);font-size:12px}
+  .card .persona{color:var(--muted);font-size:12.5px;line-height:1.45;margin:8px 0}
+  .badge{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2.5px 9px;margin:2px 0}
+  .b-seed{background:#3a2f10;color:var(--gold);border:1px solid #6b5518}
+  .b-adopted{background:#0d3530;color:var(--teal);border:1px solid var(--teal-dim)}
+  .b-new{background:var(--teal);color:#04231e}
+  .b-wait{background:#1a2431;color:var(--muted);border:1px solid var(--line)}
+  .b-stim{background:#2c2145;color:var(--violet);border:1px solid #4c3a75}
+  .bar{height:8px;background:#1a2431;border-radius:99px;overflow:hidden;margin:4px 0 2px}
+  .bar>i{display:block;height:100%;background:var(--teal)}
+  .bar.rose>i{background:var(--rose)} .bar.blue>i{background:var(--blue)} .bar.gold>i{background:var(--gold)}
+  .lbl{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint)}
+  .stack{display:flex;height:10px;border-radius:99px;overflow:hidden;margin:4px 0 2px;background:#1a2431}
+  .stack>i{display:block;height:100%}
+  .stream{display:flex;flex-direction:column;gap:10px}
+  .dec{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .dec .head{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between}
+  .dec .who2{font-weight:700;font-size:14px}
+  .dec .state{color:var(--muted);font-size:12.5px}
+  .dec details{margin-top:8px}
+  .dec summary{cursor:pointer;color:var(--faint);font-size:12px}
+  .dec .full{color:var(--muted);font-size:12.5px;line-height:1.55;background:#0a0f16;border:1px solid var(--line);
+    border-radius:8px;padding:9px 11px;margin-top:6px}
+  .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  @media(max-width:700px){.cols{grid-template-columns:1fr}}
+  .mini{font-size:11.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.07em}
+  .note{border-left:3px solid var(--gold);background:#171307;padding:12px 14px;border-radius:0 10px 10px 0;
+    color:#e7d9ae;font-size:13.5px;line-height:1.6}
+  .loader{border:1px dashed var(--line);border-radius:12px;padding:16px;color:var(--muted);font-size:13.5px;line-height:1.6}
+  .loader input{margin-top:8px;color:var(--muted)}
+  .err{background:#2a1218;border:1px solid #6e2434;color:#fecdd3;border-radius:12px;padding:14px;font-size:14px}
+  footer{color:var(--faint);font-size:12.5px;line-height:1.7;margin-top:26px;border-top:1px solid var(--line);padding-top:16px}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">Anicca — Society Simulation, live run</div>
+    <h1 id="title">Loading simulation…</h1>
+    <p class="sub" id="design"></p>
+    <div class="chips" id="chips"></div>
+    <div class="kpis" id="kpis"></div>
+  </header>
+
+  <div id="errbox"></div>
+
+  <section class="panel" id="stagePanel">
+    <h2>The society, step by step</h2>
+    <p class="hint">Every dot is an agent. Every decision below was made by Jev — a structured decision model — from that agent's local situation, and the returned probability drove what happened next. Press play, or drag the step slider.</p>
+    <div class="controls">
+      <div class="seg" id="armSeg"></div>
+      <button class="playbtn" id="playBtn">▶ Play</button>
+      <input type="range" id="stepRange" min="0" max="5" step="1" value="0">
+      <div class="stepLabel" id="stepLabel">Step 0</div>
+    </div>
+    <div class="grid2" style="margin-top:14px">
+      <div>
+        <svg id="graph" viewBox="0 0 520 520" role="img" aria-label="Agent network"></svg>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--gold)"></span>Seed adopter</span>
+          <span><span class="dot" style="background:var(--teal)"></span>Adopted</span>
+          <span><span class="dot" style="background:#3d5a74"></span>Adopted this step</span>
+          <span><span class="dot" style="background:#54687c"></span>Not yet</span>
+        </div>
+      </div>
+      <div>
+        <svg id="curve" viewBox="0 0 520 300" role="img" aria-label="Adoption curves"></svg>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--blue)"></span>Control arm</span>
+          <span><span class="dot" style="background:var(--teal)"></span>Intervention arm</span>
+          <span>Marker = current step</span>
+        </div>
+        <div id="liftBox" style="margin-top:14px"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="interventionPanel">
+    <h2>The intervention, and its scored outcome</h2>
+    <p class="hint" id="interventionText"></p>
+    <div id="scoreBox"></div>
+    <div class="note" id="honestyNote" style="margin-top:14px"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Decision stream</h2>
+    <p class="hint" id="streamHint"></p>
+    <div class="controls" style="margin-bottom:12px">
+      <div class="seg" id="streamSeg">
+        <button data-mode="step" class="on">This step</button>
+        <button data-mode="all">All steps</button>
+      </div>
+    </div>
+    <div class="stream" id="stream"></div>
+  </section>
+
+  <section class="panel">
+    <h2>The agents</h2>
+    <p class="hint">Cards are generated from the run's agent profiles. Each card shows the agent's state at the selected step and the decision Jev made for them.</p>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Load a different run</h2>
+    <div class="loader">
+      This page is a renderer, not a dashboard: every view above is composed at load time from one simulation run file
+      (<code>anicca-society-sim-run/v1</code>). Drop a fresh run JSON here — produced by
+      <code>run_jev_society_ui.py</code> — and the whole page re-renders with no code changes.
+      <br><input type="file" id="fileInput" accept=".json,application/json">
+    </div>
+  </section>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+"use strict";
+const ACTION_COLORS = { try_app:"#2dd4bf", ask_friend:"#60a5fa", ignore:"#54687c", discourage:"#fb7185" };
+const OPEN_LABELS = ["Very resistant","Somewhat resistant","Neutral","Somewhat open","Very open"];
+let RUN = null, arm = "intervention", step = 0, streamMode = "step", playing = false, timer = null, selectedAgent = null;
+
+const $ = id => document.getElementById(id);
+const pct = x => (x*100).toFixed(1).replace(/\.0$/,"") + "%";
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function arms(){ return Object.keys(RUN.arms); }
+function curArm(){ return RUN.arms[arm]; }
+function maxStep(){ return Math.max(...arms().map(a => RUN.arms[a].steps.length-1)); }
+function stepData(a, s){ return RUN.arms[a].steps[Math.min(s, RUN.arms[a].steps.length-1)]; }
+function agentById(id){ return RUN.agents.find(a => a.id === id); }
+function decisionsUpTo(a, s){
+  const out = [];
+  RUN.arms[a].steps.forEach(st => { if (st.step <= s) st.decisions.forEach(d => out.push(d)); });
+  return out;
+}
+function decisionAt(a, agentId, s){
+  const ds = decisionsUpTo(a, s).filter(d => d.agent === agentId);
+  return ds.length ? ds[ds.length-1] : null;
+}
+function adoptedStepIn(a, agentId){
+  const ag = agentById(agentId);
+  const key = a === "control" ? "adopted_step_control" : "adopted_step_intervention";
+  if (ag && ag[key] !== undefined && ag[key] !== null) return ag[key];
+  for (const st of RUN.arms[a].steps) if (st.new_adopters.includes(agentId)) return st.step;
+  return null;
+}
+
+function renderHeader(){
+  $("title").textContent = RUN.title || "Society simulation";
+  $("design").textContent = RUN.design || "";
+  const u = RUN.usage || {}, e = RUN.engine || {};
+  const chips = [
+    ["Scenario", RUN.scenario_id], ["Decision model", e.decision_model],
+    ["Structure", e.structure], ["Stimulus", e.stimulus], ["Scoring", e.scoring],
+    ["Run at", RUN.generated_at ? new Date(RUN.generated_at).toLocaleString() : null],
+  ].filter(c => c[1]);
+  $("chips").innerHTML = chips.map(c => `<span class="chip">${esc(c[0])}: <b>${esc(c[1])}</b></span>`).join("");
+  const totalDecisions = arms().reduce((n,a) => n + RUN.arms[a].steps.reduce((m,s) => m + s.decisions.length, 0), 0);
+  const kpis = [
+    [RUN.agents.length, "agents in the society"],
+    [totalDecisions, "decisions rendered"],
+    [u.calls != null ? u.calls : "—", "live Jev calls"],
+    [u.total_cost_usd != null ? "$" + u.total_cost_usd.toFixed(4) : "—", "total decision cost"],
+    [u.cost_per_decision_usd != null ? "$" + u.cost_per_decision_usd.toFixed(5) : "—", "per decision"],
+    [u.latency_mean_s != null ? u.latency_mean_s.toFixed(2) + "s" : "—", "mean latency"],
+  ];
+  if (RUN.scoring){
+    kpis.push([pct(RUN.scoring.final_adoption_intervention), "final adoption — intervention"]);
+    kpis.push([pct(RUN.scoring.final_adoption_control), "final adoption — control"]);
+    kpis.push(["+" + RUN.scoring.lift_pp + " pt", "intervention lift"]);
+  }
+  $("kpis").innerHTML = kpis.map(k => `<div class="kpi"><div class="v">${esc(k[0])}</div><div class="l">${esc(k[1])}</div></div>`).join("");
+  $("footer").innerHTML =
+    `Generated from run file <b>${esc(RUN.format || "")}</b> · scenario <b>${esc(RUN.scenario_id || "")}</b>.<br>` +
+    `Funding: ${esc(u.funding || "OpenRouter already-paid credit only")}. ` +
+    `Anicca is building a behavioral foundation model to end suffering — Manager simulates, intervenes, and learns from verified results. This page is one run of that loop, shown whole.`;
+}
+
+function renderArmSeg(){
+  $("armSeg").innerHTML = arms().map(a =>
+    `<button data-arm="${esc(a)}" class="${a===arm?"on":""}">${esc(RUN.arms[a].label || a)}</button>`).join("");
+  $("armSeg").querySelectorAll("button").forEach(b => b.onclick = () => { arm = b.dataset.arm; renderAll(); });
+}
+
+function nodePos(i, n){
+  const ang = (i / n) * Math.PI * 2 - Math.PI/2;
+  const r = 205 + ((i * 37) % 3) * 18;
+  return [260 + r * Math.cos(ang), 260 + r * Math.sin(ang)];
+}
+function renderGraph(){
+  const sd = stepData(arm, step);
+  const adopted = new Set(sd.adopted), fresh = new Set(sd.new_adopters);
+  const n = RUN.agents.length;
+  let s = "";
+  RUN.network.edges.forEach(e => {
+    const [x1,y1] = nodePos(e[0], n), [x2,y2] = nodePos(e[1], n);
+    const hot = adopted.has(e[0]) && adopted.has(e[1]);
+    s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${hot ? "#2dd4bf" : "#223041"}" stroke-width="${hot ? 1.6 : 1}" opacity="${hot ? .65 : .8}"/>`;
+  });
+  RUN.agents.forEach(a => {
+    const [x,y] = nodePos(a.id, n);
+    const isSeed = a.seed_adopter, isAd = adopted.has(a.id), isNew = fresh.has(a.id) && step > 0;
+    const fill = isAd ? (isNew ? "#3d5a74" : "#2dd4bf") : "#54687c";
+    const ring = isSeed ? `<circle cx="${x}" cy="${y}" r="13" fill="none" stroke="#f5c451" stroke-width="2.5"/>` : "";
+    const sel = selectedAgent === a.id ? `<circle cx="${x}" cy="${y}" r="17" fill="none" stroke="#e8eef4" stroke-width="1.4" stroke-dasharray="3 3"/>` : "";
+    s += `${ring}${sel}<circle cx="${x}" cy="${y}" r="10" fill="${fill}" data-agent="${a.id}" style="cursor:pointer"><title>#${a.id} ${esc(a.persona)}</title></circle>` +
+         `<text x="${x}" y="${y+3.5}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0b0f14" style="pointer-events:none">${a.id}</text>`;
+  });
+  $("graph").innerHTML = s;
+  $("graph").querySelectorAll("circle[data-agent]").forEach(c => c.onclick = () => {
+    selectedAgent = Number(c.dataset.agent); renderAll();
+    const el = $("card-" + selectedAgent); if (el) el.scrollIntoView({behavior:"smooth", block:"center"});
+  });
+}
+
+function renderCurve(){
+  const W = 520, H = 300, L = 44, R = 14, T = 16, B = 34;
+  const ms = maxStep();
+  const X = s => L + (W-L-R) * (ms ? s/ms : 0), Y = v => T + (H-T-B) * (1 - v);
+  let s = "";
+  for (let g = 0; g <= 4; g++){
+    const v = g/4, y = Y(v);
+    s += `<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#223041"/><text x="${L-6}" y="${y+4}" text-anchor="end" font-size="11" fill="#5f7285">${Math.round(v*100)}%</text>`;
+  }
+  for (let st = 0; st <= ms; st++)
+    s += `<text x="${X(st)}" y="${H-10}" text-anchor="middle" font-size="11" fill="#5f7285">step ${st}</text>`;
+  const colors = { control:"#60a5fa", intervention:"#2dd4bf" };
+  arms().forEach(a => {
+    const pts = RUN.arms[a].steps.map(st => [X(st.step), Y(st.adoption_rate)]);
+    s += `<polyline points="${pts.map(p => p.join(",")).join(" ")}" fill="none" stroke="${colors[a] || "#a78bfa"}" stroke-width="2.5"/>`;
+    pts.forEach(p => { s += `<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="${colors[a] || "#a78bfa"}"/>`; });
+    const cur = stepData(a, step);
+    s += `<circle cx="${X(cur.step)}" cy="${Y(cur.adoption_rate)}" r="7" fill="none" stroke="${colors[a] || "#a78bfa"}" stroke-width="2"/>`;
+  });
+  if (RUN.intervention && step >= RUN.intervention.step_from)
+    s += `<line x1="${X(RUN.intervention.step_from)}" y1="${T}" x2="${X(RUN.intervention.step_from)}" y2="${H-B}" stroke="#a78bfa" stroke-dasharray="4 4" opacity=".7"/><text x="${X(RUN.intervention.step_from)+5}" y="${T+12}" font-size="11" fill="#a78bfa">intervention starts</text>`;
+  $("curve").innerHTML = s;
+  const sd = stepData(arm, step);
+  const other = arms().find(a => a !== arm);
+  const osd = other ? stepData(other, step) : null;
+  $("liftBox").innerHTML =
+    `<div class="mini">At step ${step} — ${esc(RUN.arms[arm].label || arm)}</div>` +
+    `<div style="font-size:15px;margin-top:4px">Adoption <b>${pct(sd.adoption_rate)}</b> (${sd.adopted.length}/${RUN.agents.length} agents)` +
+    (osd ? ` · other arm ${pct(osd.adoption_rate)}` : "") +
+    (sd.new_adopters.length ? ` · new this step: ${sd.new_adopters.map(i => "#"+i).join(", ")}` : " · no new adopters this step") + `</div>`;
+}
+
+function renderIntervention(){
+  const iv = RUN.intervention || {};
+  $("interventionText").innerHTML =
+    `From <b>step ${esc(iv.step_from)}</b>, the intervention arm applies the Manager stimulus to every non-adopter: <b>${esc(iv.description || "")}</b> ` +
+    `The control arm receives nothing. Personas, network, seeds, and the random stream are identical — the stimulus is the only difference.`;
+  const sc = RUN.scoring || {};
+  const lift = sc.per_step_lift || [];
+  const maxAbs = Math.max(0.05, ...lift.map(v => Math.abs(v)));
+  let bars = lift.map((v, i) =>
+    `<div class="lbl"><span>step ${i}</span><span>${v >= 0 ? "+" : ""}${(v*100).toFixed(1)} pt</span></div>` +
+    `<div class="bar ${v < 0 ? "rose" : ""}"><i style="width:${Math.min(100, Math.abs(v)/maxAbs*100)}%"></i></div>`).join("");
+  $("scoreBox").innerHTML =
+    `<div class="cols">
+       <div><div class="mini">Final adoption — intervention</div><div style="font-size:24px;font-weight:700">${pct(sc.final_adoption_intervention || 0)}</div></div>
+       <div><div class="mini">Final adoption — control</div><div style="font-size:24px;font-weight:700">${pct(sc.final_adoption_control || 0)}</div></div>
+       <div><div class="mini">Scored lift (${esc(sc.metric || "arm comparison")})</div><div style="font-size:24px;font-weight:700;color:var(--teal)">+${esc(sc.lift_pp)} pt</div></div>
+     </div>
+     <div style="margin-top:14px"><div class="mini" style="margin-bottom:6px">Adoption lift by step (intervention − control)</div>${bars}</div>`;
+  $("honestyNote").textContent = sc.honesty_note || "";
+}
+
+function probBar(label, v, cls){
+  return `<div class="lbl"><span>${esc(label)}</span><span>${pct(v)}</span></div><div class="bar ${cls||""}"><i style="width:${Math.max(0, Math.min(100, v*100))}%"></i></div>`;
+}
+function actionStack(probs){
+  const seg = Object.entries(probs).map(([k, v]) =>
+    v > 0 ? `<i style="width:${v*100}%;background:${ACTION_COLORS[k] || "#888"}" title="${esc(k)} ${pct(v)}"></i>` : "").join("");
+  const legend = Object.entries(probs).map(([k, v]) =>
+    `<span style="margin-right:10px"><span class="dot" style="background:${ACTION_COLORS[k] || "#888"}"></span>${esc(k)} ${pct(v)}</span>`).join("");
+  return `<div class="stack">${seg}</div><div style="font-size:11.5px;color:var(--faint)">${legend}</div>`;
+}
+function opennessBlock(o){
+  if (!o) return "";
+  const probs = o.probabilities || {};
+  const rows = Object.keys(probs).sort().map(k =>
+    `<div class="lbl"><span>${esc(OPEN_LABELS[Number(k)] || k)}</span><span>${pct(probs[k])}</span></div>` +
+    `<div class="bar gold"><i style="width:${probs[k]*100}%"></i></div>`).join("");
+  return `<div class="mini">Openness — Jev score ${o.score != null ? o.score.toFixed(2) : "—"} / 4 · confidence ${o.confidence != null ? o.confidence.toFixed(2) : "—"}</div>${rows}`;
+}
+function decisionHTML(d, showStep){
+  const a = agentById(d.agent) || { persona: "agent #" + d.agent };
+  const ad = d.answers.adopt || {}, ac = d.answers.action || {}, op = d.answers.openness || {};
+  const outcome = d.sampled_outcome === "adopted"
+    ? `<span class="badge b-new">sampled → adopted</span>` : `<span class="badge b-wait">sampled → not yet</span>`;
+  const stim = d.state && d.state.stimulus ? `<span class="badge b-stim">Manager stimulus applied</span>` : "";
+  return `<div class="dec">
+    <div class="head">
+      <span class="who2">#${d.agent} — ${esc(a.role || "")}${showStep ? ` · step ${d.step}` : ""}</span>
+      <span>${stim} ${outcome}</span>
+    </div>
+    <div class="state">${esc(a.persona || "")} Friends using: ${esc(d.state ? d.state.friends_using : "?")}/${esc(d.state ? d.state.friends_total : "?")}</div>
+    <div class="cols" style="margin-top:10px">
+      <div><div class="mini">Will adopt — Jev (noul)</div>${probBar("P(adopt)", ad.noul || 0)}</div>
+      <div><div class="mini">Next action — Jev (choice): ${esc(ac.choice || "—")} · conf ${ac.confidence != null ? ac.confidence.toFixed(2) : "—"}</div>${actionStack(ac.probabilities || {})}</div>
+      <div>${opennessBlock(op)}</div>
+    </div>
+    <details><summary>Full state Jev saw</summary><div class="full">${esc(d.state ? d.state.text : "")}</div></details>
+  </div>`;
+}
+function renderStream(){
+  const sd = stepData(arm, step);
+  $("streamHint").textContent = streamMode === "step"
+    ? `Decisions Jev made in the ${RUN.arms[arm].label || arm} arm at step ${step} (${sd.decisions.length} calls). Probabilities are the model's own outputs; the sampled outcome is what the society did with them.`
+    : `Every decision in the ${RUN.arms[arm].label || arm} arm, steps 1–${step}.`;
+  const list = streamMode === "step" ? sd.decisions.map(d => decisionHTML(d, false))
+    : decisionsUpTo(arm, step).map(d => decisionHTML(d, true));
+  $("stream").innerHTML = list.length ? list.join("") :
+    `<div class="dec"><span class="state">No decisions at this step — ${step === 0 ? "the society starts with its seed adopters; Jev is first called at step 1." : "every agent had already adopted."}</span></div>`;
+}
+
+function initials(role){
+  return (role || "?").split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase();
+}
+function hueFor(id){ return (id * 47) % 360; }
+function renderCards(){
+  const sd = stepData(arm, step);
+  const adopted = new Set(sd.adopted), fresh = new Set(sd.new_adopters);
+  $("cards").innerHTML = RUN.agents.map(a => {
+    const as = adoptedStepIn(arm, a.id);
+    let badge;
+    if (a.seed_adopter && adopted.has(a.id)) badge = `<span class="badge b-seed">Seed adopter</span>`;
+    else if (fresh.has(a.id) && step > 0) badge = `<span class="badge b-new">Adopted at step ${step}</span>`;
+    else if (adopted.has(a.id)) badge = `<span class="badge b-adopted">Adopted at step ${as}</span>`;
+    else badge = `<span class="badge b-wait">Not adopted yet</span>`;
+    const d = decisionAt(arm, a.id, step);
+    let dec = `<div class="state" style="color:var(--faint);font-size:12px;margin-top:8px">No Jev decision yet at this step.</div>`;
+    if (d){
+      const ad = d.answers.adopt || {}, ac = d.answers.action || {}, op = d.answers.openness || {};
+      dec = `<div style="margin-top:8px">
+        <div class="mini">Last Jev decision — step ${d.step}</div>
+        ${probBar("P(adopt)", ad.noul || 0)}
+        <div style="font-size:12.5px;margin-top:5px">Action: <b>${esc(ac.choice || "—")}</b> · Openness: <b>${op.score != null ? op.score.toFixed(2) : "—"}/4</b></div>
+        <div style="font-size:12px;color:var(--faint)">Sampled: ${d.sampled_outcome === "adopted" ? "adopted" : "not adopted"}</div>
+      </div>`;
+    }
+    return `<div class="card ${selectedAgent === a.id ? "sel" : ""}" id="card-${a.id}">
+      <div class="who">
+        <div class="avatar" style="background:hsl(${hueFor(a.id)},55%,68%)">${esc(initials(a.role))}</div>
+        <div><div class="name">#${a.id} · ${esc(a.role || "")}</div><div class="meta">age ${esc(a.age)} · ${esc(a.trait || "")}</div></div>
+      </div>
+      <p class="persona">${esc(a.persona || "")}</p>
+      ${badge}${dec}
+    </div>`;
+  }).join("");
+}
+
+function renderAll(){
+  renderArmSeg();
+  $("stepRange").max = maxStep();
+  if (step > maxStep()) step = maxStep();
+  $("stepRange").value = step;
+  $("stepLabel").textContent = "Step " + step + " / " + maxStep();
+  renderGraph(); renderCurve(); renderStream(); renderCards();
+}
+function setStep(s){ step = Math.max(0, Math.min(maxStep(), s)); renderAll(); }
+
+$("stepRange").addEventListener("input", e => setStep(Number(e.target.value)));
+$("streamSeg").querySelectorAll("button").forEach(b => b.onclick = () => {
+  streamMode = b.dataset.mode;
+  $("streamSeg").querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+  renderStream();
+});
+$("playBtn").onclick = () => {
+  if (playing){ playing = false; clearInterval(timer); $("playBtn").textContent = "▶ Play"; return; }
+  if (step >= maxStep()) step = 0;
+  playing = true; $("playBtn").textContent = "⏸ Pause"; renderAll();
+  timer = setInterval(() => {
+    if (step >= maxStep()){ playing = false; clearInterval(timer); $("playBtn").textContent = "▶ Play"; return; }
+    setStep(step + 1);
+  }, 1400);
+};
+function loadRun(data){
+  if (!data || !data.arms || !data.agents) throw new Error("Not an anicca-society-sim-run file: missing arms/agents.");
+  RUN = data;
+  arm = RUN.arms.intervention ? "intervention" : arms()[0];
+  step = 0; selectedAgent = null;
+  const hash = new URLSearchParams((location.hash || "").replace(/^#/, ""));
+  if (hash.get("arm") && RUN.arms[hash.get("arm")]) arm = hash.get("arm");
+  if (hash.get("step") != null && !isNaN(Number(hash.get("step")))) step = Math.max(0, Math.min(maxStep(), Number(hash.get("step"))));
+  renderHeader(); renderIntervention(); renderAll();
+  $("errbox").innerHTML = "";
+}
+$("fileInput").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  f.text().then(t => { try { loadRun(JSON.parse(t)); } catch (err) { showErr(err); } });
+});
+document.addEventListener("dragover", e => e.preventDefault());
+document.addEventListener("drop", e => {
+  e.preventDefault();
+  const f = e.dataTransfer.files && e.dataTransfer.files[0]; if (!f) return;
+  f.text().then(t => { try { loadRun(JSON.parse(t)); } catch (err) { showErr(err); } });
+});
+function showErr(err){
+  $("errbox").innerHTML = `<div class="err">Could not load the simulation run: ${esc(err.message || err)}</div>`;
+}
+const dataUrl = new URLSearchParams(location.search).get("data") || "run.json";
+fetch(dataUrl).then(r => { if (!r.ok) throw new Error("HTTP " + r.status + " for " + dataUrl); return r.json(); })
+  .then(loadRun).catch(showErr);
+</script>
+</body>
+</html>
