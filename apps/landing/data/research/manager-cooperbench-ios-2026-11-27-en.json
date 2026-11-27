@@ -1,0 +1,14 @@
+{
+  "slug": "manager-cooperbench-ios-2026-11-27-en",
+  "title": "CooperBench and Anicca iOS: conflict accounting and deterministic selection",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "CooperBench and Anicca iOS: conflict accounting and deterministic selection",
+  "attribution": {
+    "text": "Anicca Research / official metadata audit and actual iOS source regression"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# CooperBench and Anicca iOS: conflict accounting and deterministic selection\n\nOfficial gold merge report: 499/652 conflict labels, 153 clean labels including six patch-application failures, 147 clean without failure flags. Flash_10: seven conflict labels, zero flagged failures. This is metadata audit, not native agent evaluation. Actual Anicca iOS cache source compiled with Swift CLI: 10/13 before, 13/13 after deterministic nearest selection and strict time window, PR #959. Xcode/device/merge/release and native CooperBench #753 remain pending.\n\n[Evidence](https://github.com/Daisuke134/anicca-ops/pull/754) · [iOS patch](https://github.com/Daisuke134/anicca-products/pull/959)\n\nSources: [CooperBench](https://arxiv.org/abs/2601.13295), [official dataset](https://huggingface.co/datasets/CooperBench/cooperbench-dataset).\n",
+  "word_count": 82
+}
