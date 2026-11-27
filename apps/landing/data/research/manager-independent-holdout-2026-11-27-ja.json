@@ -1,0 +1,14 @@
+{
+  "slug": "manager-independent-holdout-2026-11-27-ja",
+  "title": "未知の購買データでもManagerは単純な事前確率に勝てなかった",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "未知の購買データでもManagerは単純な事前確率に勝てなかった",
+  "attribution": {
+    "text": "Anicca Research / UCI Online Shoppers, CC BY 4.0"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# 未知の購買データでもManagerは単純な事前確率に勝てなかった\n\n## 要点\nRun38の学習済みアダプター4個とベースモデルを固定し、UCI購買セッション256件で1,280回実推論。42独立監査。全学習候補はベースよりBrierを改善したが、学習元の事前確率に負けた。\n\n![External transfer metrics and pipeline](/assets/research/manager-independent-holdout-2026-11-27.svg)\n\n図：12,330件の公開データから固定抽出した256件、陽性48件。\n\n| Arm | Brier | AUC |\n|---|---:|---:|\n| Source prior | 0.159729 | 0.500000 |\n| Base | 0.277562 | 0.413962 |\n| SFT 42 | 0.191749 | 0.373197 |\n| SFT 43 | 0.190415 | 0.363281 |\n| DPO 42 | 0.180148 | 0.367989 |\n| DPO 43 | 0.180069 | 0.369391 |\n\n## 方法と限界\nUCI CC BY4データのZIP/CSV、ベース・全アダプターのSHA-256を照合。事前固定seed4001で256件選択。Month、Weekend、VisitorType、SpecialDayのみを入力しPageValuesや購入結果に近い特徴量を除外。MPS fp32、重み更新なし。\n\n全学習候補のAccuracy 81.25%は常に非購入と同じ。事前確率はHillstrom訪問の13/128であり、購買に対して校正済みではない。公開データは事前学習からブラインドとは保証できない。全件評価、独立非公開データ、CI、介入効果は未検証。昇格なし。\n\n[Code and aggregate evidence](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/independent-holdout-2026-11-27/)\n\n## References\n- [UCI Online Shoppers Purchasing Intention](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset), Sakar et al., CC BY 4.0.\n- [WILDS](https://proceedings.mlr.press/v139/koh21a.html), Koh et al. 2021.",
+  "word_count": 98
+}
