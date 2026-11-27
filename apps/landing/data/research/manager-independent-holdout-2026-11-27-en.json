@@ -1,0 +1,14 @@
+{
+  "slug": "manager-independent-holdout-2026-11-27-en",
+  "title": "Frozen Manager adapters fail a cross-study prior comparison",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Frozen Manager adapters fail a cross-study prior comparison",
+  "attribution": {
+    "text": "Anicca Research / UCI Online Shoppers, CC BY 4.0"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Frozen Manager adapters fail a cross-study prior comparison\n\n## TL;DR\nWe froze four Run38 adapters and the base model, ran 1,280 real forward examples on 256 UCI shopping sessions, and independently checked 42 metrics. All trained arms improved Brier versus base, but lost to the source prior.\n\n![External transfer metrics and pipeline](/assets/research/manager-independent-holdout-2026-11-27.svg)\n\nFigure: fixed sample of 256 from 12,330 public sessions, with 48 purchases.\n\n| Arm | Brier | AUC |\n|---|---:|---:|\n| Source prior | 0.159729 | 0.500000 |\n| Base | 0.277562 | 0.413962 |\n| SFT 42 | 0.191749 | 0.373197 |\n| SFT 43 | 0.190415 | 0.363281 |\n| DPO 42 | 0.180148 | 0.367989 |\n| DPO 43 | 0.180069 | 0.369391 |\n\n## Methods and limitations\nVerify UCI CC BY4 ZIP/CSV and all model hashes. Fixed uniform sample seed4001. Only Month, Weekend, VisitorType and SpecialDay are inputs; exclude PageValues and within-session outcome proxies. MPS fp32, no weight updates.\n\nAll trained arms' 81.25% accuracy equals the always-negative baseline. The source prior (13/128) predicts visits, not a calibrated purchase rate. Public data is not guaranteed unseen by base pretraining. Full-frame, sequestered study, confidence intervals and causal effects remain unverified. No promotion.\n\n[Code and aggregate evidence](https://github.com/Daisuke134/anicca-ops/tree/main/files/research-artifacts/independent-holdout-2026-11-27/)\n\n## References\n- [UCI Online Shoppers Purchasing Intention](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset), Sakar et al., CC BY 4.0.\n- [WILDS](https://proceedings.mlr.press/v139/koh21a.html), Koh et al. 2021.",
+  "word_count": 221
+}
