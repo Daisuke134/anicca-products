@@ -1,0 +1,14 @@
+{
+  "slug": "manager-adaptive-discriminator-2026-11-27-en",
+  "title": "Adaptive discriminator versus fixed reward: a synthetic policy comparison",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Adaptive discriminator versus fixed reward: a synthetic policy comparison",
+  "attribution": {
+    "text": "Anicca Research / independent synthetic policy diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Adaptive discriminator versus fixed reward: a synthetic policy comparison\n\nFive seeds, 1000 actual policy rounds, two contexts and four actions. JS divergence: initial .180073, fixed .061357, adaptive .000866, empirical behavioral cloning .000562. Adaptive beats fixed, not BC. Sampled categorical counts fit the discriminator; exact expected policy gradient, unequal classifier refits. No native Persimmon, sequential rollout, human validation or model promotion.\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/adaptive-h14-20261127/files/research-artifacts/adaptive-h14-2026-11-27)\n\nSources: [Persimmon](https://persimmon.humansand.ai/blog/persimmon.html), [GAIL](https://arxiv.org/abs/1606.03476).\n",
+  "word_count": 68
+}
