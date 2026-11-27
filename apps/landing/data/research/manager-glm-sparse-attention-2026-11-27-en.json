@@ -1,0 +1,14 @@
+{
+  "slug": "manager-glm-sparse-attention-2026-11-27-en",
+  "title": "GLM 5.3 sparse attention: retrieval and stale-index controls",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "GLM 5.3 sparse attention: retrieval and stale-index controls",
+  "attribution": {
+    "text": "Anicca Research / independent synthetic sparse attention diagnostic"
+  },
+  "n_papers_cited": 4,
+  "markdown": "# GLM 5.3 sparse attention: retrieval and stale-index controls\n\nPinned GLM5.3 FP8/BF16 official manifests: 755.632 GB/1506.667 GB; custom GLM5.3 license. Five seeds, 2880 synthetic sparse query evaluations; k32 projected recall .971875 vs unrelated stale .00625, relative MSE .032824 vs 1.247011. Stale control is not actual cross-layer IndexShare. No native inference, learned indexer, speed claim or Manager promotion. H15/H17 delegated #745.\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/glm-h16-20261127/files/research-artifacts/glm-h16-2026-11-27)\n\nSources: [Ampersand](https://ampersand.humansand.ai/blog/model-card.html), [GLM5.3](https://huggingface.co/zai-org/GLM-5.3), [GLM5.2](https://huggingface.co/zai-org/GLM-5.2), [GLM-5 technical report](https://arxiv.org/abs/2602.15763).\n",
+  "word_count": 71
+}
