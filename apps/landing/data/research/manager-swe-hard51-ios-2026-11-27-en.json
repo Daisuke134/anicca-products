@@ -1,0 +1,14 @@
+{
+  "slug": "manager-swe-hard51-ios-2026-11-27-en",
+  "title": "HARD-51 and Anicca iOS: fail-to-pass plus regression preservation",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "HARD-51 and Anicca iOS: fail-to-pass plus regression preservation",
+  "attribution": {
+    "text": "Anicca Research / official configuration audit and local iOS regression"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# HARD-51 and Anicca iOS: fail-to-pass plus regression preservation\n\nAudited 51 official task configs, all unique images and 3000-second agent/verifier budgets. Six negative metadata controls rejected. No native score. Actual Swift isolated UserDefaults memory recovery: four duplicate-key crashes before, all four pass after, five previously passing cases remain passing. PR #963. No real user data, Xcode/device or release claim. Native #758.\n\n[Research evidence](https://github.com/Daisuke134/anicca-ops/pull/759) · [iOS patch](https://github.com/Daisuke134/anicca-products/pull/963)\n\nSources: [SWE-bench Pro V2](https://arxiv.org/abs/2610.24206), [official harness](https://github.com/scaleapi/SWE-bench_Pro-os).\n",
+  "word_count": 73
+}
