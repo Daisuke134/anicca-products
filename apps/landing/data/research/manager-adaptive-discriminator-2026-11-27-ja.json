@@ -1,0 +1,14 @@
+{
+  "slug": "manager-adaptive-discriminator-2026-11-27-ja",
+  "title": "適応型識別器と固定報酬：人工行動分布での比較",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "適応型識別器と固定報酬：人工行動分布での比較",
+  "attribution": {
+    "text": "Anicca Research / independent synthetic policy diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# 適応型識別器と固定報酬：人工行動分布での比較\n\n5シード、1000方策更新、2文脈4行動。JS距離ではなくJS divergence: 初期 .180073、固定 .061357、適応 .000866、Behavioral Cloning .000562。適応型は固定型に勝つがBCに勝たない。カテゴリ標本から識別器を推定し、方策勾配は期待値を厳密計算。識別器更新数は異なる。公式Persimmon、長期会話、人間の妥当性、モデル昇格の証明ではない。\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/adaptive-h14-20261127/files/research-artifacts/adaptive-h14-2026-11-27)\n\nSources: [Persimmon](https://persimmon.humansand.ai/blog/persimmon.html), [GAIL](https://arxiv.org/abs/1606.03476).\n",
+  "word_count": 17
+}
