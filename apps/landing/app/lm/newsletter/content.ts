@@ -11,6 +11,8 @@ export type Lang = 'ja' | 'en' | 'es';
 export type SampleGig = {
   id: string;
   platform: string;
+  /** Where the platform's own name is not language-neutral. */
+  platformAlt?: Record<Lang, string>;
   title: Record<Lang, string>;
   pay: string;
   payNote: Record<Lang, string>;
@@ -155,7 +157,12 @@ export const SAMPLE_ISSUE: SampleGig[] = [
   },
   {
     id: 'questionpro-ux',
-    platform: 'QuestionPro UX（旧 Trymata）',
+    platform: 'QuestionPro UX',
+    platformAlt: {
+      ja: 'QuestionPro UX（旧 Trymata）',
+      en: 'QuestionPro UX (formerly Trymata)',
+      es: 'QuestionPro UX (antes Trymata)',
+    },
     title: {
       ja: 'Webサイト・アプリのユーザビリティテスト',
       en: 'Website and app usability test',
