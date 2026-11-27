@@ -47,6 +47,7 @@ const STATIC_PATHS = [
   "/ai-cafe-tokyo/",
   "/ai-grave/",
   "/lm",
+  "/lm/newsletter",
   "/lm/ja",
   "/lm/ja/departure-calculator",
   "/lm/guide",

@@ -105,6 +105,15 @@
   to = "/.netlify/functions/stats"
   status = 200
 
+# Life Manager newsletter onboarding (/lm/newsletter). The page is a static export,
+# so the form and any future posting link use this stable alias instead of the raw
+# function path.
+[[redirects]]
+  from = "/api/newsletter"
+  to = "/.netlify/functions/lm-newsletter-signup"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/money-printer"
   to = "https://life-call-production.up.railway.app/money-printer"
