@@ -56,6 +56,15 @@ final class LLMNudgeCache {
         cacheByTime.removeAll()
 
         for nudge in nudges {
+            // Reject malformed model-produced times before computed properties
+            // can coerce them to midnight or overflow arithmetic.
+            let bytes = Array(nudge.scheduledTime.utf8)
+            guard bytes.count == 5, bytes[2] == 58,
+                  [bytes[0], bytes[1], bytes[3], bytes[4]].allSatisfy({ (48...57).contains($0) }),
+                  (0..<24).contains(nudge.scheduledHour),
+                  (0..<60).contains(nudge.scheduledMinute) else {
+                continue
+            }
             // 後方互換: 時間のみのキー
             let hourKey = "\(nudge.problemType.rawValue)_\(nudge.scheduledHour)"
             cacheByHour[hourKey] = nudge

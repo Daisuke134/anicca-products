@@ -299,5 +299,20 @@ struct LLMNudgeCacheTests {
         #expect(cache.getNudge(for: .cantWakeUp, hour: 5, minute: 60) == nil)
         cache.clear()
     }
+
+    @Test("Malformed model times do not replace valid cached slots")
+    func test_malformedModelTimes() {
+        let cache = LLMNudgeCache.shared
+        let valid = LLMGeneratedNudge(id: "valid", problemType: .cantWakeUp,
+            scheduledTime: "06:00", hook: "h", content: "c")
+        for time in ["", "oops", "06::00", "24:00", "06:60", "6:00"] {
+            let malformed = LLMGeneratedNudge(id: "bad", problemType: .cantWakeUp,
+                scheduledTime: time, hook: "h", content: "c")
+            cache.setNudges([valid, malformed])
+            #expect(cache.count == 1)
+            #expect(cache.getNudge(for: .cantWakeUp, hour: 6)?.id == "valid")
+        }
+        cache.clear()
+    }
 }
 
