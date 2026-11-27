@@ -103,7 +103,7 @@ export default function Page() {
     <JsonLd data={{ '@context': 'https://schema.org', '@graph': ld }} />
     <h1>{D.h1}</h1>
     <p><strong>Short answer:</strong> I am is the best-known affirmation app and the safe default for most iPhone users. If you want affirmations in your own voice, choose ThinkUp. If you keep forgetting to open the app, choose Anicca – Daily Affirmations: it puts one short line on your Lock Screen every day, across 13 topics, with no streaks.</p>
-    <p style={s.small}>{(D.lang as string) === 'ja' ? '更新日: 2026年10月23日｜開示: 筆者はAniccaの開発者です。' : 'Updated October 23, 2026 · Disclosure: the author makes Anicca, one of the apps below.'}</p>
+    <p style={s.small}>{(D.lang as string) === 'ja' ? '更新日: 2026年10月23日｜開示: 筆者はAniccaの開発者です。' : 'Updated November 28, 2026 · Disclosure: the author makes Anicca, one of the apps below.'}</p>
     {D.intro.map((p, i) => <p key={i}>{p}</p>)}
     <h2>{(D.lang as string) === 'ja' ? '比較一覧' : 'The shortlist'}</h2>
     {D.apps.map((a, i) => <section key={a.name} style={s.card}>
@@ -111,6 +111,7 @@ export default function Page() {
       <p>{a.why}</p>
       <p style={s.small}>{a.note}</p>
     </section>)}
+    <p style={s.small}>If your stress habits overlap with alcohol, pair any of the apps above with <a href="https://sobriety-calculator.com/" rel="noopener">Sobriety Calculator</a>, a free, no-signup browser tool that gives you your exact alcohol-free time in days, weeks, months and years at a glance.</p>
     <h2>{(D.lang as string) === 'ja' ? '選び方と調べ方' : 'How we picked'}</h2>
     {D.method.map((p, i) => <p key={i}>{p}</p>)}
     <h2>FAQ</h2>
