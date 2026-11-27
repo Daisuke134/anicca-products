@@ -2,6 +2,9 @@
 
 # Anicca — Behavior Change Agent + Wake-up SaaS
 
+**One Bible · One Model（Manager）· One Eval（ManagerBench）· One Product（Aniccaモバイルアプリ）** — 成田さん 2026-11-27 t4388u / t4389u. Canonical: https://github.com/Daisuke134/anicca-ops/blob/main/team/BIBLE.md . The four Ones are the engine. Many products run on it; the flagship is the Anicca mobile app.
+
+
 Proactive agent that helps people break harmful patterns and build better
 habits. Two surfaces share one codebase:
 
