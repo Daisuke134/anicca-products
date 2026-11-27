@@ -1,0 +1,14 @@
+{
+  "slug": "manager-disclosure-timing-2026-11-27-ja",
+  "title": "情報の開示量が一致しても、開示内容とタイミングは一致しない",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "情報の開示量が一致しても、開示内容とタイミングは一致しない",
+  "attribution": {
+    "text": "Anicca Research / structured SGD annotation diagnostic (CC BY-SA 4.0 source)"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# 情報の開示量が一致しても、開示内容とタイミングは一致しない\n## 要点\nGoogle SGDの固定dev/test各128会話を実際に解析。testの対象124会話、746利用者ターン、391種類の会話内初出INFORM情報。SGDはシミュレーターが作った会話構造を人間が言い換えたデータであり、自然発生の人間行動ではない。\n![開示時刻と累積再現率の実測](/assets/research/manager-disclosure-timing-2026-11-27.svg)\n\n## 方法と実測\n同じ情報集合を最初、最後、元の順序、5乱数シードの開示時刻シャッフルに配置。厳密初出F1は1.000/0.322/0/0.510（元/最初/最後/シャッフル）、累積再現率1.000/1.000/0.205/0.893、開示時刻MAE0/1.598/3.867/1.038ターン。全条件の最終情報集合は完全一致。シャッフルでは累積情報数も完全一致するが、情報ごとの開示時刻は異なる。通常/-O証跡一致。会話単位2000回bootstrap、最初−最後F1の95%区間[0.267,0.375]。\n## 限界\n独立した評価指標の負の対照であり、公式Trickle Test・Persimmon推論・実人間の行動予測ではない。同意とプライバシーを優先し、個人情報抽出を最適化しない。モデル学習、課金、原文の再配布なし。ManagerBenchへの独立した時刻・情報・許可の評価を提案。\n## 出典\n- [Humans&公式](https://persimmon.humansand.ai/blog/persimmon.html)\n- [Rastogi et al., AAAI 2020](https://doi.org/10.1609/aaai.v34i05.6394)\n- [Google SGD固定版](https://github.com/google-research-datasets/dstc8-schema-guided-dialogue/tree/e852981ae34990f4358979625854259302feaa78) CC BY-SA 4.0。注釈から集計指標を作成、原データ再配布なし。\n\n[Reproducible code and evidence](https://github.com/Daisuke134/anicca-ops/blob/chatgpt/trickle-h08-20261127/files/research-artifacts/trickle-h08-2026-11-27/receipt.json)\n",
+  "word_count": 34
+}
