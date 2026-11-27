@@ -1,0 +1,14 @@
+{
+  "slug": "manager-tutormoments-real-data-2026-11-27-en",
+  "title": "Manager on real TutorMoments contexts: why the prior still wins",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Manager on real TutorMoments contexts: why the prior still wins",
+  "attribution": {
+    "text": "Anicca Research / Ai2 real heldout data and local model diagnostic"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# Manager on real TutorMoments contexts: why the prior still wins\n\n520 human-annotated moments from 112 conversations (Ai2 CC BY 4.0). Actual matched direct two-choice diagnostic: official SmolLM2 49.04%, Manager-v0 48.85%; Brier .38305 vs .34199, uniform .25. 5000 conversation cluster bootstrap, accuracy difference CI includes zero. Not official TutorMoments replay, no new training, no promotion or real human effect. Raw texts and row predictions not exported. Native and disjoint training #764. Canonical iOS recovery port #9542, release pending.\n\n[Research evidence](https://github.com/Daisuke134/anicca-ops/pull/766) · [Canonical iOS patch](https://github.com/Daisuke134/anicca/pull/9542)\n\nSource: [Ai2 TutorMoments](https://allenai.org/blog/tutormoments), [dataset CC BY 4.0](https://huggingface.co/datasets/allenai/tutormoments-preview), [code](https://github.com/allenai/tutormoments).\n",
+  "word_count": 93
+}
