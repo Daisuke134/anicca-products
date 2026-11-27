@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Reveal } from '@/components/site/taste';
 import { useLaunchLocale } from '@/lib/launchLocale';
 import { LIFE_MANAGER_WEB_APP_URL, lifeManagerCtaHref } from '@/lib/writer-cta-url';
@@ -102,6 +103,30 @@ export default function LmBody() {
                 </div>
               </aside>
             </div>
+          </section>
+        </Reveal>
+
+        <Reveal>
+          {/* 2026-11-27: the sibling surface — Life Manager's daily gig newsletter —
+              is linked from /lm only through this one band so the existing page
+              keeps its single CTA and nothing else moves. */}
+          <section className="mt-10 flex flex-col gap-4 rounded-card border border-[hsl(var(--border))] bg-[hsl(var(--surface))] p-6 md:flex-row md:items-center md:justify-between md:p-7">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--gold))]">
+                {locale === 'ja' ? 'デイリーニュースレター' : 'Daily newsletter'}
+              </p>
+              <p className="mt-2 font-display text-xl text-[hsl(var(--text-primary))]">
+                {locale === 'ja'
+                  ? 'スマホで稼げるドル案件を、毎朝1通・締切順で。'
+                  : 'The dollar gigs you can do on your phone, one email each morning.'}
+              </p>
+            </div>
+            <Link
+              href="/lm/newsletter"
+              className="inline-flex shrink-0 items-center justify-center rounded-pill border border-[hsl(var(--gold)/0.6)] px-5 py-2.5 text-sm font-semibold text-[hsl(var(--text-primary))] transition-all hover:border-[hsl(var(--gold))]"
+            >
+              {locale === 'ja' ? 'ニュースレターを見る' : 'See the newsletter'}
+            </Link>
           </section>
         </Reveal>
 
