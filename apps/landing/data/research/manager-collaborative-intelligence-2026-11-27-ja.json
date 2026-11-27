@@ -1,0 +1,14 @@
+{
+  "slug": "manager-collaborative-intelligence-2026-11-27-ja",
+  "title": "協働知能とAnicca iOSの誤り回復",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "協働知能とAnicca iOSの誤り回復",
+  "attribution": {
+    "text": "Anicca Research / official manifest audit and actual iOS source regression"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# 協働知能とAnicca iOSの誤り回復\n\n公式マニフェスト監査：公開160件中非商用7・暗号化3、Lite40件中非商用1・暗号化3。フラグなしは権利確認済みを意味しない。公式同条件評価は#755へ委任、モデルスコア・学習なし。架空API入力をデコードした実Swiftコードのキャッシュ検証2/16→16/16。不正時刻を排除し正常候補を維持。製品#961は#959上の候補、実機・公開未完。\n\n[Evidence](https://github.com/Daisuke134/anicca-ops/pull/756) · [iOS patch](https://github.com/Daisuke134/anicca-products/pull/961)\n\nSources: [paper](https://arxiv.org/abs/2611.02633), [official harness](https://github.com/zou-group/collaborative-intelligence), [Ampersand](https://ampersand.humansand.ai/blog/).\n",
+  "word_count": 14
+}

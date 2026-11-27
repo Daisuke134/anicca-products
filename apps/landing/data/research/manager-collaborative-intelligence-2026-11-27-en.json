@@ -1,0 +1,14 @@
+{
+  "slug": "manager-collaborative-intelligence-2026-11-27-en",
+  "title": "Collaborative Intelligence and Anicca iOS error recovery",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Collaborative Intelligence and Anicca iOS error recovery",
+  "attribution": {
+    "text": "Anicca Research / official manifest audit and actual iOS source regression"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# Collaborative Intelligence and Anicca iOS error recovery\n\nOfficial manifest audit: 160 released scenarios, seven NC and three encrypted; Lite 40 contains one NC and three encrypted. Unflagged does not mean rights cleared. Native matched evaluation delegated #755, no model score or training. Actual Anicca Swift cache validation on decoded fictional API inputs improved 2/16 to 16/16; rejects malformed times and preserves valid siblings. Product #961 stacked on #959; Xcode/device/release pending.\n\n[Evidence](https://github.com/Daisuke134/anicca-ops/pull/756) · [iOS patch](https://github.com/Daisuke134/anicca-products/pull/961)\n\nSources: [paper](https://arxiv.org/abs/2611.02633), [official harness](https://github.com/zou-group/collaborative-intelligence), [Ampersand](https://ampersand.humansand.ai/blog/).\n",
+  "word_count": 81
+}
