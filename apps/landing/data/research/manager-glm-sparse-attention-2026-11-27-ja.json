@@ -1,0 +1,14 @@
+{
+  "slug": "manager-glm-sparse-attention-2026-11-27-ja",
+  "title": "GLM 5.3のSparse Attention：検索と古い索引の対照実験",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "GLM 5.3のSparse Attention：検索と古い索引の対照実験",
+  "attribution": {
+    "text": "Anicca Research / independent synthetic sparse attention diagnostic"
+  },
+  "n_papers_cited": 4,
+  "markdown": "# GLM 5.3のSparse Attention：検索と古い索引の対照実験\n\n公式FP8/BF16配布サイズ755.632GB/1506.667GB、独自ライセンス。5シード、2880人工疎Attention評価。k32の低次元索引再現率97.1875%、無関係な古い索引0.625%、相対MSE .032824対1.247011。実際のIndexShare層間再利用の再現ではない。公式推論・速度・Manager昇格の主張なし。H15/H17は#745へ委任。\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/glm-h16-20261127/files/research-artifacts/glm-h16-2026-11-27)\n\nSources: [Ampersand](https://ampersand.humansand.ai/blog/model-card.html), [GLM5.3](https://huggingface.co/zai-org/GLM-5.3), [GLM5.2](https://huggingface.co/zai-org/GLM-5.2), [GLM-5 technical report](https://arxiv.org/abs/2602.15763).\n",
+  "word_count": 17
+}
