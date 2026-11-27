@@ -1,0 +1,14 @@
+{
+  "slug": "manager-tutor-api-2026-11-27-en",
+  "title": "&Tutor API: documented contract, authorization, and Anicca session recovery",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "&Tutor API: documented contract, authorization, and Anicca session recovery",
+  "attribution": {
+    "text": "Anicca Research / public API documentation and isolated iOS regression"
+  },
+  "n_papers_cited": 0,
+  "markdown": "# &Tutor API: documented contract, authorization, and Anicca session recovery\n\nFive public documents retrieved, anonymous model-list request HTTP 401; current terms restrict competitive benchmarking and competitor training. Eight offline contract tests passed in normal and optimized Python. Actual Anicca Swift service isolated transport tests improved 5/8 to 8/8. No real learner records, native generation, new weights, or app release. Rights and full iOS validation tracked in #761.\n\n[Research evidence](https://github.com/Daisuke134/anicca-ops/pull/762) · [iOS patch](https://github.com/Daisuke134/anicca-products/pull/965)\n\nSources: [Model card](https://tutor.humansand.ai/blog/model-card), [API docs](https://ampersand.humansand.ai/docs/), [Terms](https://ampersand.humansand.ai/terms), [Pricing](https://ampersand.humansand.ai/docs/PRICING.html).\n",
+  "word_count": 80
+}
