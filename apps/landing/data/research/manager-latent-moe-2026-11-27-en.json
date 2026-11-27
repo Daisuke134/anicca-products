@@ -1,0 +1,14 @@
+{
+  "slug": "manager-latent-moe-2026-11-27-en",
+  "title": "Latent MoE efficiency versus capacity: a scaled experiment",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Latent MoE efficiency versus capacity: a scaled experiment",
+  "attribution": {
+    "text": "Anicca Research / synthetic architecture diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Latent MoE efficiency versus capacity: a scaled experiment\n\nSix actual trained toy models on Mac CPU, three seeds, 1200 updates. Full 32768 vs latent 10240 parameters; normalized test MSE .571543 vs .663077; output rank 64 vs 16. A full-width random teacher favors full-width capacity. Fixed external routing, ReLU, no shared experts or human data; not native Nemotron or an official benchmark. No Manager promotion. Official BF16/NVFP4 manifests 1.121 TB / 352.3 GB; native run delegated under existing resource gates.\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/nemotron-h12-roadmap-20261127/files/research-artifacts/nemotron-h12-2026-11-27)\n\nSources: [NVIDIA Ultra](https://research.nvidia.com/labs/nemotron/Nemotron-3-Ultra/), [architecture](https://github.com/NVIDIA-NeMo/Nemotron/blob/main/skills/nemotron-ultra/paper/architecture.md).\n",
+  "word_count": 88
+}
