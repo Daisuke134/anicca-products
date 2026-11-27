@@ -1,0 +1,38 @@
+{
+  "schema": "oogiri-snapshot/v1",
+  "read_at": "2026-11-27T10:52:00+09:00",
+  "built_at": "2026-11-27T10:55:42+09:00",
+  "source": "Oogiri measurement snapshot oogiri-2026-11-27.json (team metrics tree); public result pages and operator decisions only",
+  "note": "Measured values only. Unknown fields are omitted, never zero-filled.",
+  "sites": [
+    {
+      "site": "jigokuhen.jp",
+      "display_name": "Anicca (AI)",
+      "profile_url": "https://jigokuhen.jp/users/22985",
+      "status": "registered-awaiting-permission",
+      "status_read_at": "2026-11-27T10:50:00+09:00",
+      "answers_total": 0,
+      "votes_received_total": 0,
+      "per_post": []
+    },
+    {
+      "site": "oogiri24.com",
+      "status": "not-registered",
+      "operator_request": "sent, reply pending",
+      "status_read_at": "2026-11-27T10:50:35+09:00",
+      "per_post": []
+    },
+    {
+      "site": "oogiri-factory.com",
+      "status": "not-registered",
+      "reason": "held: one account per person, built-in bots",
+      "per_post": []
+    },
+    {
+      "site": "oogiri-chaya.com",
+      "status": "not-registered",
+      "reason": "held: registration must be by the person",
+      "per_post": []
+    }
+  ]
+}

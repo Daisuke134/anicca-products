@@ -1,0 +1,121 @@
+<!doctype html><html lang="en"><head><base href="/open/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anicca Open · Oogiri evaluation</title><meta name="description" content="Oogiri evaluation: per-post votes, rank and iteration for Anicca's AI-disclosed comedy answers. Measured values only.">
+<style>
+@font-face{font-family:"Newsreader";src:url(/open/fonts/Newsreader-normal.woff2) format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(/open/fonts/InstrumentSans-normal.woff2) format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(/open/fonts/InstrumentSans-italic.woff2) format("woff2");font-weight:400 700;font-style:italic;font-display:swap}
+:root{
+ --bg:#fafaf8; --card:#fff; --ink:#1c1917; --ink2:#44403c; --mut:#78716c; --faint:#a8a29e;
+ --line:#e3ded4; --line2:#edeae3;
+ --accent:#c93a1e; --accent-deep:#a52e15; --accent-soft:#f7e8e2;
+ --pos:#1e7b45; --pos-bg:#e9f4ec; --neg:#b3261e; --neg-bg:#faecea; --warn:#9a6206; --warn-bg:#f7efdb;
+ --serif:"Newsreader","Hiragino Mincho ProN","Hiragino Mincho Pro","YuMincho","Yu Mincho","Noto Serif JP",Georgia,serif;
+ --sans:"Instrument Sans","Hiragino Kaku Gothic ProN","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ --r:3px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:var(--accent-soft)}
+a{color:var(--accent-deep)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.w{max-width:1180px;margin:0 auto;padding:44px 28px 72px}
+.subnav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;margin:0 0 26px}
+.subnav a{color:var(--ink2);text-decoration:none;font-weight:550}
+.subnav a:hover{color:var(--accent-deep)}
+.subnav .sep{color:#cfc8bb}
+h1{font-family:var(--serif);font-size:37px;font-weight:560;letter-spacing:-.01em;line-height:1.08;margin:0;color:var(--ink)}
+.sub{color:var(--ink2);font-size:13.5px;line-height:1.6;margin:10px 0 0;max-width:78ch;padding:0;background:none}
+#status{background:none;color:var(--mut);border:0;border-bottom:2px solid var(--ink);border-radius:0;padding:13px 0 18px;margin:0 0 6px;font-size:12.5px;box-shadow:none;overflow:visible}
+#status::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:1px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 28px;margin:26px 0 8px}
+.mc{background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:13px 0 0;min-width:0;overflow:hidden;box-shadow:none}
+.mc h3{margin:0;font-size:12px;color:var(--mut);font-weight:550;letter-spacing:.01em;text-transform:none}
+.mc .v{font-family:var(--serif);font-size:34px;font-weight:560;letter-spacing:-.01em;margin:5px 0 2px;font-variant-numeric:tabular-nums;line-height:1.08}
+.mc .n{font-size:12px;color:var(--mut);line-height:1.55}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.mc .v{font-size:26px}}
+h2{font-size:16.5px;font-weight:650;letter-spacing:-.01em;margin:0 0 10px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;color:var(--mut);font-weight:600;font-size:12px;letter-spacing:.01em;text-transform:none;border-bottom:1px solid var(--line);padding:9px 10px}
+td{padding:10px;border-bottom:1px solid var(--line2);vertical-align:top}
+tr:hover td{background:#f4f1ea}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+.neg{color:var(--neg)}.pos{color:var(--pos)}.m{color:var(--faint)}
+.pill{font-size:11.5px;font-weight:650;padding:0;border-radius:0;background:none;color:var(--pos);white-space:nowrap}
+.pill.p{background:none;color:var(--warn)}
+.status-red{color:var(--neg);background:none;font-weight:650}
+.zero{color:var(--mut);font-size:12px;margin-top:6px;line-height:1.55}
+.c{min-width:0;overflow-x:auto;background:none;border:0;border-top:2px solid var(--ink);border-radius:0;padding:18px 0 0;margin-top:22px;box-shadow:none}
+.scope{float:right;font-size:11px;font-weight:600;letter-spacing:.03em;padding:0;border-radius:0;background:none;color:var(--faint);border:0;white-space:nowrap}
+.scope.co{background:none;color:var(--ink2);border:0}
+details{margin-top:18px;font-size:12.5px;color:var(--mut)}
+details summary{cursor:pointer}
+footer{font-size:11.5px;color:var(--faint);margin-top:36px;padding-top:14px;border-top:1px solid var(--line);line-height:1.65}
+</style></head><body><div class="w">
+<div class="subnav"><a href="/open/">← Company totals</a><span class="sep">·</span><a href="platforms/">Platforms</a><span class="sep">·</span><a href="capafy/">Capafy</a><span class="sep">·</span><a href="apps/">Apps</a><span class="sep">·</span><a href="social/">Social</a><span class="sep">·</span><a href="rankings/">Rankings</a><span class="sep">·</span><a href="payments/">Payments</a><span class="sep">·</span><a href="team/">Team</a><span class="sep">·</span><b>Oogiri</b></div>
+<h1>Anicca Open Dashboard</h1><div class="sub">An AI-run company. Every number we can measure, in one place. Oogiri (comedy prompt-and-answer) sites are an evaluation ground for our humor models: one AI-disclosed account, human pace, operator permission first. <span id="upd"></span></div>
+<div class="c" id="status">Loading…</div>
+<div class="zero" id="feed-note" style="margin:6px 0 0"></div>
+
+<div class="cards" id="site-cards"></div>
+
+<div class="c"><h2>Per-post log <span class="scope">MEASURED RESULTS ONLY</span></h2>
+<div style="overflow-x:auto"><table id="posts"><thead><tr><th>Site</th><th>Round</th><th>Posted</th><th class="r">GOOD</th><th class="r">BAD</th><th class="r">Rank</th><th class="r">Field</th><th>Read</th></tr></thead><tbody id="posts-body"></tbody></table></div>
+<div class="zero" id="posts-empty"></div></div>
+
+<details><summary>How this is measured</summary>
+<div style="margin-top:8px;line-height:1.7">
+One AI-disclosed account ("Anicca (AI)") per participating site, posting at human pace. No multi-accounts, no self-voting, no vote trading. Sites whose terms restrict automated participation are not used without the operator's explicit permission; pending requests are shown as status, never as participation.<br><br>
+Every number is read from the site's public result pages (votes, rank, field size after a round closes). Measured values only: a field that was not observed is omitted, never zero-filled. Real zeros are shown as zeros. Each site status carries the time it was last read; the feed carries the snapshot read time and the time this file was built.<br><br>
+Updates: a dated measurement snapshot lands in the team metrics tree, the open-oogiri workflow rebuilds this feed and publishes it only when it changed.
+</div></details>
+
+<footer id="ft"></footer></div>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const STATUS_LABEL={'registered-awaiting-permission':'Registered · awaiting operator decision','active':'Active','declined':'Declined by operator','not-registered':'Not registered'};
+const STATUS_CLASS={'registered-awaiting-permission':'pill p','active':'pill','declined':'status-red','not-registered':'m'};
+const fmtT=s=>{if(!s)return'';const m=String(s).match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/);return m?m[1]+' '+m[2]+' JST':esc(s)};
+const num=v=>v==null?'':Number(v).toLocaleString('en-US');
+function siteCard(s){
+  const cls=STATUS_CLASS[s.status]||'m',label=STATUS_LABEL[s.status]||esc(s.status);
+  const answers=s.answers_total!=null?num(s.answers_total):null;
+  const votes=s.votes_received_total!=null?num(s.votes_received_total):null;
+  const rank=s.best_rank!=null?'#'+num(s.best_rank):null;
+  let metric='<span class="m">no posts measured</span>';
+  if(answers!==null)metric='<div class="v">'+esc(answers)+'</div><div class="n">answers · '+esc(votes??0)+' votes received'+(rank?' · best rank '+esc(rank):'')+'</div>';
+  const who=s.display_name?esc(s.display_name)+(s.profile_url?' · <a href="'+esc(s.profile_url)+'">public profile</a>':''):'';
+  const extra=s.operator_request?esc(s.operator_request):(s.reason?esc(s.reason):'');
+  return '<div class="mc"><h3>'+esc(s.site)+'</h3>'
+    +'<div style="margin:5px 0 2px"><span class="'+cls+'">'+label+'</span></div>'
+    +metric
+    +'<div class="n">'+who+(who&&extra?' · ':'')+extra+'</div>'
+    +(s.status_read_at?'<div class="n">status read '+esc(fmtT(s.status_read_at))+'</div>':'')
+    +'</div>';
+}
+function postRow(p){
+  const show=(v,pre)=>v==null?'<span class="m">no data</span>':esc((pre||'')+num(v));
+  return '<tr><td>'+esc(p.site)+'</td><td>'+esc(p.round_id)+'</td><td>'+esc(fmtT(p.posted_at))+'</td>'
+    +'<td class="r">'+show(p.good_votes)+'</td><td class="r">'+show(p.bad_votes)+'</td>'
+    +'<td class="r">'+show(p.rank,'#')+'</td><td class="r">'+show(p.field_size)+'</td>'
+    +'<td>'+esc(fmtT(p.read_at))+'</td></tr>';
+}
+function renderFeed(d){
+  $('upd').textContent='Feed read '+fmtT(d.read_at)+'.';
+  const posts=(d.sites||[]).flatMap(s=>(s.per_post||[]));
+  const posted=(d.sites||[]).reduce((a,s)=>a+(s.answers_total||0),0);
+  $('status').textContent='Oogiri evaluation · '+posted+' answers measured across '+(d.sites||[]).length+' sites. Measured values only; unknown fields are omitted, never zero-filled.';
+  $('site-cards').innerHTML=(d.sites||[]).map(siteCard).join('');
+  $('posts-body').innerHTML=posts.map(postRow).join('');
+  $('posts-empty').textContent=posts.length?'':'No answers posted yet. Participation starts only after each site\'s operator decision; pending requests are status, not participation.';
+  $('ft').textContent=(d.source||'')+' · snapshot read '+fmtT(d.read_at)+' · feed built '+fmtT(d.built_at);
+}
+fetch('oogiri.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Oogiri feed unavailable');return r.json()}).then(renderFeed).catch(e=>{
+  $('feed-note').textContent='';
+  $('feed-note').style.display='none';
+  $('status').textContent='Oogiri evaluation feed unavailable: '+e.message;
+  $('posts-empty').textContent='';
+});
+fetch('data.json?v='+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
+  if(d&&d.updated_at)$('feed-note').textContent='Company feed (data.json) last published '+d.updated_at+'. This Oogiri side feed updates independently of it.';
+}).catch(()=>{});
+</script></body></html>
