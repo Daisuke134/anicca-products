@@ -1,0 +1,14 @@
+{
+  "slug": "manager-conversation-midtraining-2026-11-27-en",
+  "title": "Conversation mid-training: improvement and regression",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Conversation mid-training: improvement and regression",
+  "attribution": {
+    "text": "Anicca Research / independent SGD continued-training diagnostic"
+  },
+  "n_papers_cited": 3,
+  "markdown": "# Conversation mid-training: improvement and regression\n\nVerified official SmolLM2-135M, separate CC BY-SA 4.0 SGD shards, last block only, 32 actual MPS updates. Heldout 32 dialogue prefixes/3038 tokens PPL16.762 to14.580; 16 general sentences/177 tokens PPL26.674 to47.928. Single seed, task-oriented simulated dialogues paraphrased by people, no natural-human or native Persimmon validation. Exact duplicate checks passed after correcting split-local ID collision; semantic overlap and base exposure unresolved. No adapted weights or raw data published, no promotion.\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/midtraining-h13-20261127/files/research-artifacts/midtraining-h13-2026-11-27)\n\nSources: [Persimmon](https://persimmon.humansand.ai/blog/persimmon.html), [SGD](https://github.com/google-research-datasets/dstc8-schema-guided-dialogue), [SmolLM2](https://huggingface.co/HuggingFaceTB/SmolLM2-135M).\n",
+  "word_count": 81
+}
