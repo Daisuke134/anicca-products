@@ -281,5 +281,23 @@ struct LLMNudgeCacheTests {
         #expect(cache.getNudge(for: .stayingUpLate, hour: 22, minute: 30)?.id == "n2")
         #expect(cache.getNudge(for: .stayingUpLate, hour: 0, minute: 0)?.id == "n3")
     }
+
+    @Test("Nearest slot is deterministic and never exceeds 30 minutes")
+    func test_nearestSlotContract() {
+        let cache = LLMNudgeCache.shared
+        let early = LLMGeneratedNudge(id: "early", problemType: .cantWakeUp,
+            scheduledTime: "06:00", hook: "h", content: "c")
+        let late = LLMGeneratedNudge(id: "late", problemType: .cantWakeUp,
+            scheduledTime: "06:30", hook: "h", content: "c")
+        for order in [[early, late], [late, early]] {
+            cache.setNudges(order)
+            #expect(cache.getNudge(for: .cantWakeUp, hour: 6, minute: 29)?.id == "late")
+            #expect(cache.getNudge(for: .cantWakeUp, hour: 6, minute: 15)?.id == "early")
+        }
+        cache.setNudges([early])
+        #expect(cache.getNudge(for: .cantWakeUp, hour: 6, minute: 59) == nil)
+        #expect(cache.getNudge(for: .cantWakeUp, hour: 5, minute: 60) == nil)
+        cache.clear()
+    }
 }
 
