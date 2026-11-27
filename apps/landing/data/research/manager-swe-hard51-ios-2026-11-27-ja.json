@@ -1,0 +1,14 @@
+{
+  "slug": "manager-swe-hard51-ios-2026-11-27-ja",
+  "title": "HARD-51とAnicca iOS：バグ修正と回帰防止",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "HARD-51とAnicca iOS：バグ修正と回帰防止",
+  "attribution": {
+    "text": "Anicca Research / official configuration audit and local iOS regression"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# HARD-51とAnicca iOS：バグ修正と回帰防止\n\n公式51件の設定を監査、全イメージ一意、エージェント・検証各3000秒。6異常設定を拒否。公式モデル評価なし。隔離UserDefaultsを用いた実Swiftの記憶重複クラッシュ4件を修正、既存正常5件も維持。PR #963、実ユーザーデータ・実機・公開なし。公式実行#758。\n\n[Research evidence](https://github.com/Daisuke134/anicca-ops/pull/759) · [iOS patch](https://github.com/Daisuke134/anicca-products/pull/963)\n\nSources: [SWE-bench Pro V2](https://arxiv.org/abs/2610.24206), [official harness](https://github.com/scaleapi/SWE-bench_Pro-os).\n",
+  "word_count": 17
+}
