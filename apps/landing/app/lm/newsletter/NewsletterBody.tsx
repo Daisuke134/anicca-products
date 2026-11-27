@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Reveal } from '@/components/site/taste';
+import { useLaunchLocale } from '@/lib/launchLocale';
 import {
   COPY,
   INTEREST_KEYS,
@@ -46,6 +47,7 @@ const CARD = 'rounded-card border border-[hsl(var(--border))] bg-[hsl(var(--card
 const LABEL = 'font-mono text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--text-secondary))]';
 
 export default function NewsletterBody() {
+  const { setLocale } = useLaunchLocale();
   const [lang, setLang] = useState<Lang>('en');
   const [interests, setInterests] = useState<InterestKey[]>([]);
   const [device, setDevice] = useState<'phone' | 'both'>('phone');
@@ -57,17 +59,21 @@ export default function NewsletterBody() {
   useEffect(() => {
     const next = detectLang();
     setLang(next);
+    // Keep the shared launch shell (nav, footer) in step: JA follows JA, everything
+    // else uses its English shell until the shell itself ships Spanish.
+    setLocale(next === 'ja' ? 'ja' : 'en');
     try {
       window.localStorage.setItem(STORAGE_KEY, next);
     } catch {
       /* ignore */
     }
-  }, []);
+  }, [setLocale]);
 
   const t = COPY[lang];
 
   function chooseLang(next: Lang) {
     setLang(next);
+    setLocale(next === 'ja' ? 'ja' : 'en');
     try {
       window.localStorage.setItem(STORAGE_KEY, next);
     } catch {
@@ -219,7 +225,7 @@ export default function NewsletterBody() {
                       </span>
                       <div>
                         <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[hsl(var(--text-secondary))]">
-                          {gig.platform}
+                          {gig.platformAlt ? gig.platformAlt[lang] : gig.platform}
                         </p>
                         <h3 className="mt-1 font-display text-xl text-[hsl(var(--text-primary))]">
                           {gig.title[lang]}
