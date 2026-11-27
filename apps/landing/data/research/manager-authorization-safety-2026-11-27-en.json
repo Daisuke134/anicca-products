@@ -1,0 +1,14 @@
+{
+  "slug": "manager-authorization-safety-2026-11-27-en",
+  "title": "Prediction is not authorization: a fictional safety diagnostic",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Prediction is not authorization: a fictional safety diagnostic",
+  "attribution": {
+    "text": "Anicca Research / fictional authorization diagnostic"
+  },
+  "n_papers_cited": 4,
+  "markdown": "# Prediction is not authorization: a fictional safety diagnostic\n\n32 actual local Qwen2.5 1.5B calls on 16 fictional permission cases under two profiles. Neutral 16/16, kind 14/16; false permission 0/10 versus 2/10. Allowed cases 6/6 both. No data disclosed; independent rescore matched. These are small synthetic fixtures, not Persimmon or official safety benchmark results. Use authenticated, trusted policy checks outside the model; persona alone cannot guarantee permission. No training, human outcome or production claim.\n\n[Receipt and code](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/safety-h11-20261127/files/research-artifacts/safety-h11-2026-11-27)\n\nSources: [Persimmon model card](https://persimmon.humansand.ai/blog/persimmon-model-card.html), [XSTest](https://aclanthology.org/2024.naacl-long.301/), [StrongREJECT](https://arxiv.org/abs/2402.10260), [WMDP](https://proceedings.mlr.press/v235/li24bc.html).\n",
+  "word_count": 85
+}
