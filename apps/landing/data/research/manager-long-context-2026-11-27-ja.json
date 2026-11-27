@@ -1,0 +1,14 @@
+{
+  "slug": "manager-long-context-2026-11-27-ja",
+  "title": "長期会話の一貫性：状態と根拠の可視性",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "長期会話の一貫性：状態と根拠の可視性",
+  "attribution": {
+    "text": "Anicca Research / scripted local model diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# 長期会話の一貫性：状態と根拠の可視性\n\n架空80ターン履歴2件、4時点、全文対直近8ターン、Qwen2.5 1.5Bの実推論16件。厳密正解6/8対3/8、事後意味採点8/8対4/8、根拠可視性を考慮8/8対7/8。直近条件の根拠可視4/4正解、非可視3/4適切にunknown。入力トークン報告3774対1358。公式Persimmon・自由生成・人間の実証ではない。2シナリオのみ、学習・介入効果の主張なし。\n\n[実測 / receipt](https://github.com/Daisuke134/anicca-ops/blob/chatgpt/coherence-h09-20261127/files/research-artifacts/coherence-h09-20261127/rescore.json)\n\nSources: [Persimmon](https://persimmon.humansand.ai/blog/persimmon.html), [LoCoMo](https://aclanthology.org/2024.acl-long.747/).\n",
+  "word_count": 11
+}
