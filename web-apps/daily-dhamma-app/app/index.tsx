@@ -21,6 +21,7 @@ import { useApp } from '@/providers/AppProvider';
 import { useRevenueCat } from '@/providers/RevenueCatProvider';
 import { isVerseLocked, shouldShowStreakPaywall } from '@/utils/paywallUtils';
 import { trackCoreResultViewed, trackScreenViewed } from '@/utils/analytics';
+import { recordVerseViewAndMaybeRequestReview } from '@/utils/reviewPrompt';
 import { t } from '@/utils/i18n';
 
 const { width, height } = Dimensions.get('window');
@@ -67,6 +68,7 @@ export default function MainScreen() {
     if (!isLoading && settings.hasCompletedOnboarding && !hasTrackedCoreResult.current) {
       hasTrackedCoreResult.current = true;
       trackCoreResultViewed('daily_quote');
+      void recordVerseViewAndMaybeRequestReview();
     }
   }, [isLoading, settings.hasCompletedOnboarding]);
 
