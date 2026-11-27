@@ -1,0 +1,14 @@
+{
+  "slug": "manager-contextual-memory-2026-11-27-en",
+  "title": "Contextual integrity of persistent memory: a local diagnostic",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "en",
+  "description": "Contextual integrity of persistent memory: a local diagnostic",
+  "attribution": {
+    "text": "Anicca Research / independent fictional memory diagnostic"
+  },
+  "n_papers_cited": 3,
+  "markdown": "# Contextual integrity of persistent memory: a local diagnostic\n\n36 actual local Qwen generations with fictional IDs. All/recipient/scoped coverage 2/24,0/24,6/24; forbidden selections7/120,0,0. Scope filtering is promising but poor utility remains. Official CIMemories CC BY-NC 4.0 data not downloaded; no native benchmark or product safety claim.\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/cimemories-h18-20261127/files/research-artifacts/cimemories-h18-2026-11-27)\n\nSources: [CIMemories](https://arxiv.org/abs/2511.14937), [official repository](https://github.com/facebookresearch/CIMemories), [Ampersand](https://ampersand.humansand.ai/blog/model-card.html).\n",
+  "word_count": 54
+}
