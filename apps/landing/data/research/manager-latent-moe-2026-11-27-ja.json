@@ -1,0 +1,14 @@
+{
+  "slug": "manager-latent-moe-2026-11-27-ja",
+  "title": "Latent MoEの効率と表現力：縮小実験",
+  "date": "2026-11-27",
+  "project": "manager",
+  "lang": "ja",
+  "description": "Latent MoEの効率と表現力：縮小実験",
+  "attribution": {
+    "text": "Anicca Research / synthetic architecture diagnostic"
+  },
+  "n_papers_cited": 2,
+  "markdown": "# Latent MoEの効率と表現力：縮小実験\n\nMac CPUで縮小MoE6モデルを実学習、3シード、1200更新。通常32768対Latent10240パラメータ、正規化テストMSE .571543対.663077、出力rank64対16。通常MoE教師に有利な人工回帰、固定ルーティング、ReLU、共有Expertなし。公式Nemotron・人間行動の再現ではない。BF16/NVFP4配布サイズ1.121TB/352.3GB。ネイティブ実行は既存資源制約のもと委任。Manager昇格なし。\n\n[Code and evidence](https://github.com/Daisuke134/anicca-ops/tree/chatgpt/nemotron-h12-roadmap-20261127/files/research-artifacts/nemotron-h12-2026-11-27)\n\nSources: [NVIDIA Ultra](https://research.nvidia.com/labs/nemotron/Nemotron-3-Ultra/), [architecture](https://github.com/NVIDIA-NeMo/Nemotron/blob/main/skills/nemotron-ultra/paper/architecture.md).\n",
+  "word_count": 14
+}
