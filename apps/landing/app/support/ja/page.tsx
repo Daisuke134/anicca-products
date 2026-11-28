@@ -30,9 +30,41 @@ export const metadata: Metadata = {
   },
 };
 
+
+const FAQ_ITEMS = [
+  {
+    q: 'Aniccaはどのように動作しますか？',
+    a: 'Aniccaは、リアルタイムの会話を通じてあなたを導く音声ベースの習慣形成コーチです。起床時刻、トレーニングスケジュール、就寝習慣を設定してください。Aniccaは設定した時刻にリマインドし、音声会話を通じて良い習慣を築き、悪い習慣を断つお手伝いをします。',
+  },
+  {
+    q: 'Aniccaにはどのような権限が必要ですか？',
+    a: 'Aniccaは音声会話のためにマイクアクセス、設定した時刻にリマインドを送信するために通知権限が必要です。すべての権限はオンボーディング中にリクエストされます。',
+  },
+  {
+    q: 'データはプライベートですか？',
+    a: 'はい。Aniccaはプライバシー第一のアプローチを採用しています。音声データはリアルタイムで処理され、恒久保存されません。プロフィールデータは安全に保存され、パーソナライズされたガイダンスを提供するためにのみ使用されます。詳細については、プライバシーポリシーをご覧ください。',
+  },
+  {
+    q: '複数のデバイスでAniccaを使用できますか？',
+    a: 'はい。プロフィールと設定はアカウントを通じてデバイス間で同期されます。同じアカウントでiOSとデスクトップ（Mac）の両方のデバイスでAniccaを使用できます。',
+  },
+];
+
+// FAQPage JSON-LD text mirrors the visible FAQ below verbatim (same questions and answers).
+const FAQ_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
 export default function SupportJA() {
   return (
     <main className="container mx-auto max-w-3xl px-4 py-24">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }} />
       <h1 className="text-3xl font-bold text-foreground">サポート</h1>
       <p className="mt-6 text-muted-foreground">
         Aniccaについてお困りですか？お手伝いします。
