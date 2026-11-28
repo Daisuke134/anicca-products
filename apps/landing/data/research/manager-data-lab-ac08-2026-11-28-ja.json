@@ -1,0 +1,12 @@
+{
+  "slug": "manager-data-lab-ac08-2026-11-28-ja",
+  "title": "Data Labを作る：10,299件の実人間行動データで来歴・分割・削除を検証する",
+  "date": "2026-11-28",
+  "project": "manager",
+  "lang": "ja",
+  "description": "Data Labを作る：10,299件の実人間行動データで来歴・分割・削除を検証する",
+  "attribution": "UCI HAR DOI 10.24432/C54S4K CC BY 4.0; aggregation by Anicca.",
+  "n_papers_cited": 1,
+  "markdown": "# Data Labを作る：10,299件の実人間行動データで来歴・分割・削除を検証する\n\n人間行動モデルにとって、データの量だけでなく、どこから来たのか、何に利用できるのか、どの単位で独立に評価できるのかが重要だ。今回は公開されている身体活動データを使い、取得から集計出力、取得ファイルの削除までを実際に行った。\n\n![研究概要](/assets/research/ac08-cover.svg)\n\n## 来歴と取得\n\n[W3C PROV Data Model](https://www.w3.org/TR/prov-dm/)はEntity、Activity、Agentとそれらの関係を通して来歴を表現する。今回はこの概念を参照し、完全なPROV準拠実装ではなく、入力と処理と出力を追跡できる小規模な実験Receiptを作成した。\n\n[UCI Human Activity Recognition Using Smartphones](https://doi.org/10.24432/C54S4K)（Anguita et al., 2013、CC BY 4.0）をUCI公式配布元から取得した。公開ライセンスは利用根拠の一つであるが、参加者が新たな研究用途に同意したことや個人の再識別を許可したことを意味しない。本実験では個別の参加者を追跡・推定せず、集合単位の品質検査と集計に限定した。\n\nアーカイブ61,005,872バイト、SHA-256 c00b803081a5c797cd5e4b83700a9810b38d53d9d84e01917e090e1fdbc81031。取得時刻をUTCで記録し、公式train/testの参加者、ラベル、特徴量ファイル計6点もハッシュ化した。アーカイブはサイズを制限し、対象ファイルだけをメモリで読み込んだ。\n\n## スキーマと分割\n\n| Split | Windows | Participants | Features |\n|---|---:|---:|---:|\n| train | 7,352 | 21 | 561 |\n| test | 2,947 | 9 | 561 |\n\n10,299行の5,777,739個の特徴値すべてについて数値として有限であること、行数・ラベル・参加者IDの範囲が整合することを検証した。参加者集合の共通部分は0。時系列窓の重複や同一人物の識別可能性を個別に評価したわけではなく、参加者単位の分割以外の漏洩やデータの代表性は未検証である。\n\n![行動ラベル別の実測件数](/assets/research/ac08-distribution.svg)\n\n## 最小限の出力と再現性\n\n出力はsplit、activity、windowsの3列、12集計行だけ。参加者ID、個別センサー特徴量、元のデータは共有しない。PythonのCounterによる集計とSQLiteのGROUP BYによる独立計算が一致した。再取得して最適化Pythonで全工程を再実行すると、取得時刻以外のReceiptとCSVが一致した。6件のテストは通常・最適化モードで合格した。取得したアーカイブは各回finallyで削除し、パスが存在しないことを確認した。ただしOSスナップショット、バックアップ、上流データ、既存キャッシュや学習済み重みの削除は検証していない。\n\n![取得から削除までの工程](/assets/research/ac08-lineage.svg)\n\n## Aniccaへの接続\n\nManagerの学習用データとManagerBenchの独立評価用データは、来歴と利用目的を維持したまま分離する。今回の成果は公開ライセンス済みデータに対するオフライン集計パイプラインであり、利用者から新規同意を取得したわけでも、本番通知・データ保存・同意撤回を検証したわけでもない。正式統合前にはデータ主体の権利、同意の範囲、保存期限、削除の伝播、バックアップ、アクセス権限、時間的な利用可能性、独立評価の完全性を確認する。追跡Issueは[#863](https://github.com/Daisuke134/anicca-ops/issues/863)。Manager重みと本番アプリに変更はない。\n\n帰属：Anguita et al., Human Activity Recognition Using Smartphones, UCI Machine Learning Repository, DOI 10.24432/C54S4K, CC BY 4.0。Aniccaによる検査・集計。AI執筆：ChatGPT。\n",
+  "word_count": 1941
+}
