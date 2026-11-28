@@ -36,6 +36,39 @@ function Step({ n, t, d }: { n: string; t: string; d: string }) {
   );
 }
 
+const FAQ_ITEMS = [
+  {
+    q: "アニッチャ アラームは、どうやって起こしますか？",
+    a: "毎朝、あなたに電話して、本当に起き上がるまでかけ続けます。起き上がって動き出すまで、かけ続ける。寝直したらまた鳴る、という仕組みです。通常のアラームは無意識に止められますが、「人からの電話」は脳を起こします。",
+  },
+  {
+    q: "始めるのに何が必要ですか？",
+    a: "起きたい時刻と電話番号だけ。30秒で完了します。電話番号は0から入力でOKで、自動で国際形式(+81)に変換します。",
+  },
+  {
+    q: "無料で試せますか？",
+    a: "体験は1番号につき1回・無料で、今すぐ1回、電話を体験できます。ただし継続プランに無料トライアルはありません。",
+  },
+  {
+    q: "料金はいくらですか？解約できますか？",
+    a: "$9.99/月・無料トライアルなし。いつでも解約できます。",
+  },
+  {
+    q: "起こし方は変わっていきますか？",
+    a: "起きた日も、起きられなかった日も学習します。何回で起きたか・何が効いたかを学習し、明日の起こし方を最適化するので、あなた用に進化します。",
+  },
+];
+
+const FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function AlarmPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -210,6 +243,20 @@ export default function AlarmPage() {
             遅れる時は関係者へ連絡（報・連・相）まで自動。もうカレンダーを見なくていい。
           </p>
         </motion.div>
+      </section>
+
+      {/* faq — visible text and FAQPage JSON-LD come from the same FAQ_ITEMS array */}
+      <section className="mx-auto max-w-5xl px-6 pb-24">
+        <motion.h2 {...fade(0)} className="font-soft text-3xl font-light text-white">よくある質問</motion.h2>
+        <div className="mt-8 space-y-6">
+          {FAQ_ITEMS.map((f) => (
+            <div key={f.q} className="border-t border-white/10 pt-5">
+              <h3 className="font-serif-jp text-base text-white">{f.q}</h3>
+              <p className="mt-2 font-serif-jp text-[15px] leading-relaxed text-white/55">{f.a}</p>
+            </div>
+          ))}
+        </div>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }} />
       </section>
 
       {/* pricing / cta */}
