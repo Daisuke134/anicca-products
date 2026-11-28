@@ -11,6 +11,7 @@ import rateLimit from 'express-rate-limit';
 import { prisma } from './lib/prisma.js';
 import {
   buildAgentCardDocument,
+  buildA2aAgentCard,
   buildLlmsText,
   buildOpenApiDocument,
   buildPaymentRoutes,
@@ -59,6 +60,7 @@ export async function createApp() {
     skip: (req) => req.path === '/openapi.json'
       || req.path === '/.well-known/x402'
       || req.path === '/.well-known/agent.json'
+      || req.path === '/.well-known/agent-card.json'
       || req.path === '/llms.txt'
       || req.path === '/'
       || req.path === '/favicon.ico',
@@ -81,6 +83,12 @@ export async function createApp() {
     const configuredOrigin = process.env.PUBLIC_ORIGIN;
     const requestOrigin = `${req.protocol}://${req.get('host')}`;
     return res.json(buildAgentCardDocument({ origin: configuredOrigin || requestOrigin }));
+  });
+
+  app.get('/.well-known/agent-card.json', (req, res) => {
+    const configuredOrigin = process.env.PUBLIC_ORIGIN;
+    const requestOrigin = `${req.protocol}://${req.get('host')}`;
+    return res.json(buildA2aAgentCard({ origin: configuredOrigin || requestOrigin }));
   });
 
   app.get('/llms.txt', (req, res) => {
@@ -218,6 +226,7 @@ export async function createApp() {
         || req.path === '/openapi.json'
         || req.path === '/.well-known/x402'
         || req.path === '/.well-known/agent.json'
+        || req.path === '/.well-known/agent-card.json'
         || req.path === '/llms.txt'
         || req.path === '/'
         || req.path === '/favicon.ico') return next();

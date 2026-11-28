@@ -523,6 +523,52 @@ export function buildAgentCardDocument({ origin }) {
   };
 }
 
+const A2A_SKILL_TAGS = Object.freeze({
+  '/context-compressor': ['context', 'memory', 'compression'],
+  '/emotion-detector': ['emotion', 'sentiment', 'wellbeing'],
+  '/buddhist-counsel': ['buddhism', 'counsel', 'wellbeing'],
+  '/focus-coach': ['focus', 'productivity', 'coaching'],
+  '/habit-designer': ['habit', 'behavior', 'coaching'],
+  '/prompt-sanitizer': ['security', 'prompt-injection', 'sanitizer'],
+  '/decision-clarifier': ['decision', 'reasoning', 'clarity'],
+  '/intent-router': ['intent', 'routing', 'classification'],
+});
+
+// A2A (Agent2Agent) protocol v0.3 AgentCard served at
+// /.well-known/agent-card.json. One skill per paid POST tool; GET-only
+// resources (funding-rates) are not conversational skills and stay in the
+// x402 manifest. Like the other discovery documents it carries prices and
+// descriptions only — never the payee address.
+export function buildA2aAgentCard({ origin }) {
+  const base = origin ? origin.replace(/\/+$/, '') : '';
+  const skills = Object.entries(PAID_ROUTE_CATALOG)
+    .map(([route, entry]) => ({ ...splitRoute(route), entry }))
+    .filter(({ method }) => method === 'POST')
+    .map(({ path, entry }) => ({
+      id: path.replace(/^\//, ''),
+      name: path.replace(/^\//, '').split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' '),
+      description: `${entry.description} x402 paid: USDC on Base, $${entry.price}/call, POST ${base}${path}`,
+      tags: A2A_SKILL_TAGS[path] || ['x402'],
+      examples: [JSON.stringify(entry.input.example)],
+      inputModes: ['application/json'],
+      outputModes: ['application/json'],
+    }));
+  return {
+    protocolVersion: '0.3.0',
+    name: SERVICE_NAME,
+    description: SERVICE_DESCRIPTION,
+    url: base,
+    preferredTransport: 'HTTP+JSON',
+    version: '1.0.0',
+    provider: { organization: 'Anicca', url: 'https://aniccaai.com' },
+    documentationUrl: `${base}/llms.txt`,
+    defaultInputModes: ['application/json'],
+    defaultOutputModes: ['application/json'],
+    capabilities: { streaming: false, pushNotifications: false, stateTransitionHistory: false },
+    skills,
+  };
+}
+
 // llms.txt (https://llmstxt.org/) index for LLM-driven buyers: the same
 // catalog facts as the OpenAPI document, in the plain-text discovery format.
 export function buildLlmsText({ origin }) {
