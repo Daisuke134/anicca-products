@@ -55,6 +55,7 @@ const STATIC_PATHS = [
   "/lock-screen-affirmation-widget-iphone", // PK-SEO1 how-to (root route, canonical for this article)
   "/home-screen-affirmation-widget-iphone", // PK-SEO2 how-to (root route, canonical for this article)
   "/ai-monk-factory", // canonical has no trailing slash (the slash form 301s; GSC "Redirect error" 10/27–11/1)
+  "/data", // Anicca Data Lab storefront (T1128-1310): free S1 sample, Lab Pro, Enterprise/Government
 ];
 
 function tripleLanguagesForEnSlug(enSlug: string) {
