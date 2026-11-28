@@ -1,0 +1,14 @@
+{
+  "slug": "manager-simulatorarena-order-2026-11-28-ja",
+  "title": "SimulatorArena Math：Manager-v0の選択肢順序依存",
+  "date": "2026-11-28",
+  "project": "manager",
+  "lang": "ja",
+  "description": "SimulatorArena Math：Manager-v0の選択肢順序依存",
+  "attribution": {
+    "text": "Anicca Research / independent real-data diagnostic"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# SimulatorArena Math：Manager-v0の選択肢順序依存\n\n実際の人間とAIの数学指導50対話で選択肢の意味を入れ替えると49件で判定が変化。順序平均正答率52%、Brier .248629対事前確率 .248097。同一条件を再実行し計200評価。公式シミュレーター再生とは異なる独立診断。新規学習・製品統合・昇格なし。\n\n[Research evidence](https://github.com/Daisuke134/anicca-ops/pull/775) · [Remaining execution](https://github.com/Daisuke134/anicca-ops/issues/773)\n\nSources: [SimulatorArena paper](https://aclanthology.org/2025.emnlp-main.1786/), [official repo](https://github.com/microsoft/SimulatorArena).\n",
+  "word_count": 17
+}

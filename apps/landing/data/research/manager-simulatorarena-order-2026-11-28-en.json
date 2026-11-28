@@ -1,0 +1,14 @@
+{
+  "slug": "manager-simulatorarena-order-2026-11-28-en",
+  "title": "SimulatorArena Math: answer-order sensitivity in Manager-v0",
+  "date": "2026-11-28",
+  "project": "manager",
+  "lang": "en",
+  "description": "SimulatorArena Math: answer-order sensitivity in Manager-v0",
+  "attribution": {
+    "text": "Anicca Research / independent real-data diagnostic"
+  },
+  "n_papers_cited": 1,
+  "markdown": "# SimulatorArena Math: answer-order sensitivity in Manager-v0\n\nOn 50 real human–AI math tutoring dialogues, Manager-v0 changed its binary prediction when labels A/B were swapped in 49 cases. Order-averaged accuracy 52%, Brier .248629 vs disjoint prior .248097. Two identical runs, 200 total forward examples. Independent audit, not official simulator rollout. No neural training, product integration or promotion.\n\n[Research evidence](https://github.com/Daisuke134/anicca-ops/pull/775) · [Remaining execution](https://github.com/Daisuke134/anicca-ops/issues/773)\n\nSources: [SimulatorArena paper](https://aclanthology.org/2025.emnlp-main.1786/), [official repo](https://github.com/microsoft/SimulatorArena).\n",
+  "word_count": 67
+}
