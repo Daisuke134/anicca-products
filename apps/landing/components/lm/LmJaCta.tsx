@@ -1,17 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { LIFE_MANAGER_WEB_APP_URL, lifeManagerCtaHref } from '@/lib/writer-cta-url';
+import { ANICCA_HOME_URL, lifeManagerCtaHref } from '@/lib/writer-cta-url';
 
 // Primary CTA for the Japanese Life Manager surfaces (/lm/ja, /lm/guide/*).
-// Same flow as /lm (LmBody): enter the Railway Web app's Google + Calendar setup.
+// Life Manager Cloud ended 2026-11-28: the button goes to the live Anicca site.
 // Visitor UTMs win; when none are present we tag the click with this page's defaults.
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
 export default function LmJaCta({
   campaign,
   content,
-  label = 'Googleカレンダーに接続（7日間無料）',
+  label = 'Aniccaを見る',
   className,
 }: {
   campaign: string;
@@ -25,7 +25,7 @@ export default function LmJaCta({
     utm_campaign: campaign,
     utm_content: content,
   });
-  const [href, setHref] = useState(`${LIFE_MANAGER_WEB_APP_URL}&${fallback.toString()}`);
+  const [href, setHref] = useState(`${ANICCA_HOME_URL}?${fallback.toString()}`);
   useEffect(() => {
     const search = window.location.search;
     const params = new URLSearchParams(search.replace(/^\?/, ''));

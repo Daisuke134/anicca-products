@@ -1,6 +1,7 @@
 "use strict";
 
-const LIFE_MANAGER_WEB_APP_URL = "https://life-call-production.up.railway.app/lm?start_calendar=1";
+// Life Manager Cloud ended 2026-11-28. CTAs go to the live Anicca site, not the retired Railway app.
+const ANICCA_HOME_URL = "https://aniccaai.com/";
 const WRITER_KEYS = Object.freeze(["product_id", "run_id", "artifact_id", "variant_id", "click_id"]);
 const UTM_LIMITS = Object.freeze({
   utm_source: 120,
@@ -21,7 +22,7 @@ function lifeManagerCtaHref(search) {
     return "/.netlify/functions/writer-cta?" + writerParams.toString();
   }
 
-  const target = new URL(LIFE_MANAGER_WEB_APP_URL);
+  const target = new URL(ANICCA_HOME_URL);
   for (const [key, maxBytes] of Object.entries(UTM_LIMITS)) {
     const candidates = params.getAll(key);
     if (candidates.length !== 1) continue;
@@ -32,4 +33,4 @@ function lifeManagerCtaHref(search) {
   return target.toString();
 }
 
-export { LIFE_MANAGER_WEB_APP_URL, WRITER_KEYS, lifeManagerCtaHref };
+export { ANICCA_HOME_URL, WRITER_KEYS, lifeManagerCtaHref };

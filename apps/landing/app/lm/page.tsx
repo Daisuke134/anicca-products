@@ -2,17 +2,15 @@ import LaunchFrame from '@/components/site/LaunchFrame';
 import LmBody from './LmBody';
 import JsonLd from '@/components/JsonLd';
 
-// /lm is the public Life Manager Cloud landing page. Its CTA enters the Railway Web app's
-// Google identity and Calendar-permission flow. The Google callback starts Calendar consent,
-// then the app scans events, writes travel blocks, and offers the seven-day trial.
-// LaunchFrame owns only the localized site shell; the Web app owns onboarding and billing.
+// /lm is the public Life Manager page. Life Manager Cloud ended 2026-11-28.
+// The primary CTA goes to the live Anicca site. The open-source repo remains available.
 
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'Life Manager — never be late again: travel time and departure reminders in Google Calendar',
+  title: 'Life Manager — travel time and departure reminders (cloud service ended)',
   description:
-    'Connect Google Calendar to add travel time and departure reminders before eligible in-person events. Seven-day free trial, then $29/month.',
+    'The hosted Life Manager Cloud service has ended. The open-source project remains on GitHub. See Anicca for the app we are building now.',
   alternates: { canonical: 'https://aniccaai.com/lm', types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' } },
   other: {
     'life-manager-context-version': '2026-10-08.1',
@@ -32,8 +30,8 @@ export default function Page() {
           applicationCategory: 'LifestyleApplication',
           operatingSystem: 'Web',
           description:
-            'Adds travel time and departure reminders to Google Calendar before eligible in-person events.',
-          offers: { '@type': 'Offer', price: '29', priceCurrency: 'USD', description: 'Seven-day free trial, then $29/month' },
+            'Life Manager Cloud has ended. The open-source project remains available.',
+          isAccessibleForFree: true,
           author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
           publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
         }}

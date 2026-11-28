@@ -121,22 +121,23 @@
   status = 301
   force = true
 
+# Life Manager Cloud retired 2026-11-28. Do not proxy to life-call-production.up.railway.app.
 [[redirects]]
   from = "/money-printer"
-  to = "https://life-call-production.up.railway.app/money-printer"
-  status = 200
+  to = "/"
+  status = 301
   force = true
 
 [[redirects]]
   from = "/api/panel/money-printer"
-  to = "https://life-call-production.up.railway.app/api/panel/money-printer"
-  status = 200
+  to = "/"
+  status = 301
   force = true
 
 [[redirects]]
   from = "/api/panel/money-printer/*"
-  to = "https://life-call-production.up.railway.app/api/panel/money-printer/:splat"
-  status = 200
+  to = "/"
+  status = 301
   force = true
 
 [[redirects]]

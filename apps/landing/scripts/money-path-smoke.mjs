@@ -1,62 +1,38 @@
-// money-path-smoke.mjs — C5/C6 (VCSDD life-manager-cost-connect-reliability). Post-deploy smoke:
-// assert the live site is up, /lm (the single gate) hands off directly to the Life Manager
-// web app, the retired /maritime page redirects to /lm, and payment stays server-side.
-// Exit 0 = PASS, exit 1 = FAIL (caller rolls back). Deterministic, no LLM. Usage: node money-path-smoke.mjs [baseUrl]
-// The link-assertion logic is the SINGLE tested source (apps/life-call/lib/money-path.js) — no reimplementation
-// (adversary FIND-006 drift). registry.json is the single known-good SSOT.
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
-import { createRequire } from "node:module";
-import { LIFE_MANAGER_WEB_APP_URL } from "../lib/writer-cta-url.js";
-
-const here = dirname(fileURLToPath(import.meta.url));
-const require = createRequire(import.meta.url);
-const { assertWebAppHandoff } = require(join(here, "../../life-call/lib/money-path.js"));
-const registry = JSON.parse(readFileSync(join(here, "../monitors/registry.json"), "utf8"));
+// money-path-smoke.mjs — post-deploy smoke after Life Manager Cloud retirement (2026-11-28).
+// Assert the live site is up, /lm no longer hands off to the retired Railway app,
+// /maritime still redirects to /lm, and checkout still loads. Exit 0 = PASS, 1 = FAIL.
+import { ANICCA_HOME_URL } from "../lib/writer-cta-url.js";
 
 const BASE = process.argv[2] || "https://aniccaai.com";
 const fail = (m) => { console.error("SMOKE FAIL:", m); process.exit(1); };
 
-// 1. core routes 200
 for (const p of ["/", "/life-manager", "/lm"]) {
   const r = await fetch(BASE + p);
   if (r.status !== 200) fail(`${p} returned ${r.status}`);
 }
-// 1b. The retired /maritime page must redirect to the single gate /lm.
+
 const retired = await fetch(BASE + "/maritime", { redirect: "manual" });
 if (![301, 302, 303, 307, 308].includes(retired.status)) fail(`/maritime returned ${retired.status}, expected a redirect to /lm`);
 const loc = retired.headers.get("location") || "";
 if (!loc.endsWith("/lm")) fail(`/maritime redirect Location is ${loc}, expected /lm`);
-// 2. /lm chunk links to the Life Manager web app and contains neither a Telegram handoff nor a direct Stripe link.
+
 const html = await (await fetch(`${BASE}/lm?cb=${Date.now()}`)).text();
-if (!html.includes("$29") || !html.includes("7-day free trial") || /\$20\/mo|coming soon|近日公開/i.test(html)) {
-  fail("/lm pricing/trial copy is stale or missing the live $29 plan");
+if (/life-call-production\.up\.railway\.app/i.test(html)) {
+  fail("/lm still links to the retired Life Manager Railway app");
 }
-const chunkPath = (html.match(/\/_next\/static\/chunks\/app\/lm\/page-[A-Za-z0-9]+\.js/) || [])[0];
-// Canonical marketing routes are static HTML; legacy pages still use a Next chunk.
-// Validate the actual handoff surface with the same tested invariant in either format.
-let chunk = html;
-if (chunkPath) {
-  const response = await fetch(BASE + chunkPath);
-  if (!response.ok) fail(`/lm page chunk returned ${response.status}`);
-  chunk += "\n" + await response.text();
-} else if (!html.includes('rel="canonical" href="https://aniccaai.com/lm"')) {
-  fail("no /lm page chunk or canonical static page found");
+if (/Connect Google Calendar/i.test(html) && /7-day free trial/i.test(html)) {
+  fail("/lm still offers the closed Life Manager Cloud trial");
 }
-const verdict = assertWebAppHandoff({ chunk });
-if (!verdict.ok) fail(verdict.reason);
-const webHealth = await fetch(new URL("/health", LIFE_MANAGER_WEB_APP_URL));
-if (webHealth.status !== 200) fail(`Life Manager web app health returned ${webHealth.status}`);
-const health = await webHealth.json().catch(() => null);
-if (!health || health.ok !== true || health.service !== "life-call") fail("Life Manager web app health response is invalid");
-// 3. Keep the legacy Payment Link reachable for existing users. New Web customers use
-// server-created Checkout after Calendar setup; the live $29 price remains unchanged.
-const pay = await fetch(registry.stripe_lm_url);
-if (pay.status !== 200) fail(`registry Stripe link not reachable (${pay.status})`);
-// A GET must reach the checkout handler's method guard without creating a Stripe session.
+
+const money = await fetch(`${BASE}/money-printer`, { redirect: "manual" });
+if (![301, 302, 303, 307, 308].includes(money.status)) fail(`/money-printer returned ${money.status}, expected a redirect off the retired Railway proxy`);
+const moneyLoc = money.headers.get("location") || "";
+if (/railway\.app/i.test(moneyLoc)) fail(`/money-printer still redirects to Railway (${moneyLoc})`);
+
 const checkout = await fetch(`${BASE}/.netlify/functions/checkout`);
 if (checkout.status !== 405) fail(`checkout function did not load cleanly (${checkout.status})`);
 
-console.log(`SMOKE PASS: ${BASE} up, /maritime redirects to /lm, /lm web-app handoff verified, life-call health is 200, no direct Stripe link, Checkout and legacy Payment Link remain reachable`);
+if (!ANICCA_HOME_URL.includes("aniccaai.com")) fail("ANICCA_HOME_URL is not the live Anicca site");
+
+console.log(`SMOKE PASS: ${BASE} up, /maritime redirects to /lm, /lm has no Railway Life Manager CTA, /money-printer leaves Railway, checkout reachable`);
 process.exit(0);
