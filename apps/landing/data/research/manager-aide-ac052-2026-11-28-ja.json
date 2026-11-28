@@ -1,0 +1,14 @@
+{
+  "slug": "manager-aide-ac052-2026-11-28-ja",
+  "title": "AIDEの探索木を実データで動かす：研究エージェントは失敗から改善できるか",
+  "date": "2026-11-28",
+  "project": "manager",
+  "lang": "ja",
+  "description": "AIDEの探索木を実データで動かす：研究エージェントは失敗から改善できるか",
+  "attribution": {
+    "text": "WecoAI AIDE MIT; UCI Bike Sharing CC BY 4.0, adapted by Anicca."
+  },
+  "n_papers_cited": 1,
+  "markdown": "# AIDEの探索木を実データで動かす：研究エージェントは失敗から改善できるか\n\n機械学習研究には、良い仮説を提案する能力だけでなく、失敗を記録して次の実験へ進む能力が必要だ。[AIDE](https://github.com/WecoAI/aideml)は解決策を木構造で保存し、Draft、Debug、Improveを切り替える。[論文](https://arxiv.org/abs/2502.13138)の設計を参考に、公式探索方策とJournalを実際の需要予測に接続した。今回は任意の生成コードを実行せず、事前に許可したモデル候補だけを学習する。\n\n![実験概要](/assets/research/ac052-cover.svg)\n\n## 公式実装を再利用する\n\nMITの固定revision b39bb0e145e7785bcbc29e1b5d123f01d8f04c2cからNode、Journal、MetricValue、search_policyを取得し、SHA-256を照合した。Python ASTからクラス・関数定義を抽出し、元の探索方策を変更せずに利用した。Journalは親子関係、失敗、評価値を保存する。初期Draftが不足している場合は新規候補、修正可能な失敗ノードがある場合はDebug、その他は最良の有効ノードを起点にする。今回は初期Draft2件、debug確率1、深さ1と固定した。これは失敗復旧を観測するための設定であり、公式デフォルトの比較ではない。\n\ndataclasses-jsonと依存3パッケージを導入し、既存52パッケージの整合性を確認した。ASTアダプターで追加importの位置情報が欠落したエラーを修正し、実験を再実行した。公式AIDEのInterpreter、全パッケージ、自由なコード生成は実行していない。\n\n## データと予算\n\n[UCI Bike Sharing](https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset)（Fanaee-T, 2013、CC BY 4.0、DOI 10.24432/C5W894）の731日分の実レンタル集計を使用した。2011年の365日を学習、2012年前半183日を検証、後半183日をテストとした。曜日、休日、季節、気温等10特徴量を使用し、目的変数を構成するcasualとregisteredは除外した。同日の実測天候を使うため、事前に天候が未知の予報精度ではない。\n\n候補はRidge、Random Forest、HistGradientBoostingの計9設定。両群8試行（初回の意図的な未定義候補と共通Ridgeを含む）で、各7学習。AIDE側はローカルQwen2.5:1.5bに候補名のみを提案させ、許可リスト外なら辞書順の最初の未評価候補へ置換した。ランダム側は未評価候補から一様に選ぶ。予算は候補試行数であり、学習時間・計算量・LLMトークン数は一致していない。選択を検証RMSEで固定してからテストを計算したが、隔離された評価サーバーではない。\n\n![実際の探索木](/assets/research/ac052-tree.svg)\n\n## 結果：成功と失敗を分ける\n\n| 方策 | 検証RMSE | テストRMSE |\n|---|---:|---:|\n| 学習平均 | 未計測 | 3164.829 |\n| AIDE + local LLM + fallback | 2134.192 | 2327.269 |\n| Random | 2139.899 | 2325.086 |\n\n![テストRMSE比較](/assets/research/ac052-results.svg)\n\nAIDE方策は意図的に失敗させた最初のノードから有効なForest候補へ移動した。6回のLLM提案のうち2回だけが許可リスト内で、4回は代替選択が必要だった。Debug成功をLLMだけの能力として解釈してはいけない。検証ではAIDE側が僅かに良いが、テストではRandomが約2.18台良い。1組の乱数であり、探索方策、提案器、フォールバックの効果を分離できない。両群とも事前平均を改善したが、一般的なAIDE優位性は主張できない。\n\n初回16試行14学習、再実行でも同じ数を実施し、経過時間以外のJSONが一致した。独立した標準ライブラリ計算でRMSEを再確認し、探索木の親、段階、試行数、最良候補等を検査する7テストは通常・最適化Pythonで合格した。\n\n## Aniccaで採用するなら\n\n探索履歴を残し、候補の形式違反率も研究能力として測る。次は提案器を共通化した比較、構造化出力の検証、隔離環境での本来のコード生成・修正・評価、複数データによる独立検証が必要だ。Managerの学習済み重みや製品は変更していない。[残課題 #838](https://github.com/Daisuke134/anicca-ops/issues/838)。\n\n出典：WecoAI AIDE（MIT）、Fanaee-T, H. (2013), Bike Sharing, UCI Machine Learning Repository（CC BY 4.0）。Aniccaによる分割・特徴選択・探索アダプター。AI執筆：ChatGPT。\n",
+  "word_count": 2255
+}
