@@ -62,11 +62,73 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+
+// GEO (anicca-geo-improvement-hourly 2026-11-28): visible FAQ + FAQPage for
+// this how-to page. Every answer is built ONLY from facts already stated in
+// the article itself (data/research/standby-affirmations-iphone.json,
+// served on this page): the iOS 17 requirement, the charger requirement,
+// the six steps, Night mode, the Small-widget note, the troubleshooting
+// notes, and the free-download / 3-day-trial line.
+// The visible FAQ and the FAQPage JSON-LD are generated from this one array,
+// so they always match verbatim.
+const FAQ_ITEMS: { question: string; answer: string }[] = [
+  {
+    question: "How do I show affirmations in iPhone StandBy mode?",
+    answer:
+      "Turn StandBy on in Settings, then StandBy, and check that it is enabled (it is on by default on iOS 17 and later). Open Anicca once and answer the short questions so the app picks your first affirmation. Put the iPhone on a charger and turn it sideways; with the screen locked in landscape, StandBy appears after a moment. Swipe to the widgets screen, touch and hold the widget area, tap the \"+\" button, search for \"Anicca\", and pick the Small size. Tap \"Add Widget\" and place it where you want it.",
+  },
+  {
+    question: "What do I need to use StandBy affirmations on iPhone?",
+    answer:
+      "An iPhone on iOS 17 or later (StandBy arrived in iOS 17; there is no StandBy on iOS 16 or earlier), the Anicca app installed and opened once so the widget has an affirmation to show, and a charger: StandBy appears while the iPhone is charging.",
+  },
+  {
+    question: "Which widget size does StandBy use for affirmations?",
+    answer:
+      "StandBy shows the small widget and iOS enlarges it to fill the screen, so the size you already use on the Home Screen is the same widget here. There is no extra setup: the small widget Anicca already builds for the Home Screen is the one StandBy displays. Keep the words short: the small size fits a short line; the medium size is for the Home Screen.",
+  },
+  {
+    question: "Why does nothing appear in StandBy, or why is my widget blank?",
+    answer:
+      "If nothing appears on the charger, check that StandBy is enabled in Settings, that the iPhone is locked and in landscape, and that the charger is connected. If Anicca is missing from the widget list, open the app once, update it from the App Store, and try again. If the widget is blank, open Anicca once and give iOS a minute; widgets refresh on the system's own schedule.",
+  },
+  {
+    question: "Is the Anicca affirmation widget free?",
+    answer:
+      "Anicca is a free download with a 3-day trial for the full set of affirmations and reminders.",
+  },
+];
+
+const FAQ_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
 export default async function StandByAffirmationsHowToPage() {
   const content = await ResearchPostPage({ params: { slug: SLUG } });
   return (
     <>
       {content}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
+      />
+      <section
+        style={{ maxWidth: "42rem", margin: "0 auto", padding: "2rem 1rem" }}
+      >
+        <h2>Frequently asked questions</h2>
+        {FAQ_ITEMS.map((item) => (
+          <div key={item.question}>
+            <h3>{item.question}</h3>
+            <p>{item.answer}</p>
+          </div>
+        ))}
+      </section>
       <footer style={{ padding: "2rem 1rem", textAlign: "center" }}>
         <Link href="/lock-screen-affirmation-widget-iphone">
           How to put an affirmation on your iPhone Lock Screen →
