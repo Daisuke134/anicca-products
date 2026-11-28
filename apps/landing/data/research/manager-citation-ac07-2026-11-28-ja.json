@@ -1,0 +1,12 @@
+{
+  "slug": "manager-citation-ac07-2026-11-28-ja",
+  "title": "論文が実在するだけでは引用は正しくない：SciFactとDOI監査の実測",
+  "date": "2026-11-28",
+  "project": "manager",
+  "lang": "ja",
+  "description": "論文が実在するだけでは引用は正しくない：SciFactとDOI監査の実測",
+  "attribution": "SciFact and Crossref; independent aggregate analysis by Anicca.",
+  "n_papers_cited": 3,
+  "markdown": "# 論文が実在するだけでは引用は正しくない：SciFactとDOI監査の実測\n\nAI研究者の報告は、論文が存在すること、書誌が一致すること、撤回されていないこと、主張を支持すること、適切な権利で利用できることを区別しなければならない。今回は実際の科学的主張を用いてこの違いを検証した。\n\n![研究概要](/assets/research/ac07-cover.svg)\n\n## 書誌を検証する\n\n[Crossref REST API](https://www.crossref.org/documentation/retrieve-metadata/rest-api/)を使い、6件の実在DOIと1件の人工的な不存在対照を取得した。HTTP 200は5件、429は1件、404は1件。CentaurのDOI 10.1038/s41586-025-09215-4 は取得制限に遭ったが、[Natureの原ページ](https://www.nature.com/articles/s41586-025-09215-4)で実在を別途確認した。429を不存在と扱ってはいけない。404もその照会先・時点に限る。撤回済み論文の表題には撤回表示がある一方、原論文側のupdate-toは空で、撤回通知側から元のDOIへの関係が得られた。[Crossrefの撤回データ解説](https://www.crossref.org/documentation/retrieve-metadata/retraction-watch/)も参照した。JITAIの原論文を示すはずの意図的な誤DOI 10.1093/abm/kay012 は別の論文を返した。正しいDOIは[10.1007/s12160-016-9830-8](https://doi.org/10.1007/s12160-016-9830-8)。本件は故意の不一致対照である。Crossrefのライセンス欄が空でも自由利用できるとは限らない。\n\n![書誌照会の結果](/assets/research/ac07-metadata.svg)\n\n## 科学的主張の検証\n\n[SciFact](https://aclanthology.org/2020.emnlp-main.609/)の公式[リポジトリ](https://github.com/allenai/scifact)を68b98a56d93e0f9da0d2aab4e6c3294699a0f72eに固定し、公式配布アーカイブを取得してハッシュを記録した。主張と注釈はCC BY 4.0、要旨データベースはODC-By 1.0、コードはApache 2.0。個々の論文全文に対する著作権と利用条件は別途確認が必要である。\n\n5,183論文要旨、300件の公開dev主張から、既知の引用文書を与える条件で短い要旨に限定し、重複しない主張IDを3クラス各12件、計36件抽出した。SUPPORT、CONTRADICT、NEI（根拠不足）を区別する。NEIは当該引用文書に注釈済み根拠がないことによる操作的ラベルであり、世界についての主張が偽という意味ではない。Qwen2.5:1.5bをローカルで温度0、JSON Schema付きで実行した。検索は評価せず、全文や根拠文の選択も評価しない。\n\n![混同行列](/assets/research/ac07-matrix.svg)\n\n結果は36件全てNEI、正解12/36（33.33%）、Macro F1 0.1667。全て指定形式を守ったが、常に同じクラスを返す対照を上回らなかった。再実行も同一集計で、経過時間だけが異なった。72ローカル推論、5単体テストが通常と最適化Pythonで合格。モデルの事前学習によるデータ重複は不明、公開devの小規模な均衡抽出であり公式の全体スコアではない。NEIの過剰予測は引用の誤承認を防ぐ一方、支持・反証された証拠を見落とす。全て拒否すれば良い評価器とはいえない。\n\n## 研究への応用\n\n引用はDOI、版、著者・年、原典の該当箇所、撤回・訂正、利用権、確認時刻、支持状態を別々に記録する。取得不能は不明、確認済みの不一致は不一致とする。今回の診断はモデル昇格を支持しない。全文・根拠文の照合、検索精度、独立した新規データ、複数評価者の検証は[Issue #858](https://github.com/Daisuke134/anicca-ops/issues/858)。生の要旨・主張は公開せず、集計とコードのみを共有する。Manager・本番評価器・アプリは変更していない。\n\n出典：Wadden et al. (2020), Fact or Fiction: Verifying Scientific Claims; Crossref; Nature; Nahum-Shani et al. DOI 10.1007/s12160-016-9830-8。AI執筆：ChatGPT。\n",
+  "word_count": 2085
+}
