@@ -7,6 +7,7 @@ import { toLocalDateString, toLocalTimeHHMM } from '../utils/timezone.js';
 import { normalizeCatalogLang } from '../modules/problem_nudges/catalogLoader.js';
 import { appName } from '../modules/affirmations/affirmationsLoader.js';
 import ApnsClient, { ApnsError } from '../services/apns/apnsClient.js';
+import { captureEvent, notificationSentEvent } from '../services/analytics/posthogCapture.js';
 import { getEntitlementState } from '../services/subscriptionStore.js';
 import { getRawPushEnv, parsePushEnv } from '../utils/pushEnv.js';
 
@@ -525,6 +526,13 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
             where: { id: deliveryId },
             data: { status: 'sent', sentAt: new Date(), apnsId: out.apnsId || null, error: null },
           });
+          // APNs 2xx + durable send journal only: not device delivery or an opened push.
+          // Telemetry failure must never turn a successful APNs send into a retry.
+          const acceptedEvent = notificationSentEvent({
+            profileId, deliveryId, sendRowId: sendRow.id,
+            scheduledTime, lang, decision, apnsResult: out,
+          });
+          if (acceptedEvent) await captureEvent(acceptedEvent).catch(() => false);
         } catch (e) {
           failed += 1;
           let reason = null;
