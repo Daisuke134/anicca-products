@@ -87,13 +87,18 @@ export default function EnterprisePage() {
 
       <Section>
         <div className="mx-auto max-w-[60rem]">
+          <Reveal>
+            <h2 className="font-display text-2xl font-semibold text-[hsl(var(--text-primary))]">
+              How it works
+            </h2>
+          </Reveal>
           {steps.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.07}>
               <div className="grid grid-cols-1 gap-4 border-t border-[hsl(var(--border))] py-10 md:grid-cols-2 md:gap-16">
                 <div>
-                  <p className="font-display text-lg font-semibold leading-snug text-[hsl(var(--text-primary))] md:text-xl">
+                  <h3 className="font-display text-lg font-semibold leading-snug text-[hsl(var(--text-primary))] md:text-xl">
                     {s.title}
-                  </p>
+                  </h3>
                 </div>
                 <div>
                   <p className="text-base leading-relaxed text-[hsl(var(--text-secondary))]">
@@ -110,17 +115,17 @@ export default function EnterprisePage() {
       <Section>
         <div className="mx-auto max-w-[60rem]">
           <Reveal>
-            <p className="font-display text-2xl font-semibold text-[hsl(var(--text-primary))]">
+            <h2 className="font-display text-2xl font-semibold text-[hsl(var(--text-primary))]">
               The pilot
-            </p>
+            </h2>
           </Reveal>
           {pilot.map((item, i) => (
             <Reveal key={item.q} delay={i * 0.07}>
               <div className="grid grid-cols-1 gap-4 border-t border-[hsl(var(--border))] py-10 md:grid-cols-2 md:gap-16">
                 <div>
-                  <p className="font-display text-lg font-semibold leading-snug text-[hsl(var(--text-primary))] md:text-xl">
+                  <h3 className="font-display text-lg font-semibold leading-snug text-[hsl(var(--text-primary))] md:text-xl">
                     {item.q}
-                  </p>
+                  </h3>
                 </div>
                 <div>
                   <p className="text-base leading-relaxed text-[hsl(var(--text-secondary))]">
