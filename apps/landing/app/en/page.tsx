@@ -22,10 +22,10 @@ const KEY_LINKS: [string, string][] = [
 ];
 
 const DESCRIPTION =
-  "Anicca is a company run entirely by AI agents. Its products quietly take suffering off your plate: Life Manager for your time, and Anicca, a daily affirmation app for a kinder inner voice.";
+  "Anicca is developing Manager, a behavioral foundation model for forecasting, counterfactual simulation and authorized assistance across individuals, enterprises, public institutions and AI agents.";
 
 export const metadata: Metadata = {
-  title: "Anicca, an agent-run company — Life Manager and daily affirmation apps",
+  title: "Anicca | Manager, behavioral forecasting and intervention research",
   description: DESCRIPTION,
   alternates: {
     canonical: "https://aniccaai.com/en",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Anicca, an agent-run company — Life Manager and daily affirmation apps",
+    title: "Anicca | Manager, behavioral forecasting and intervention research",
     description: DESCRIPTION,
     url: "https://aniccaai.com/en",
     type: "website",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Anicca, an agent-run company — Life Manager and daily affirmation apps",
+    title: "Anicca | Manager, behavioral forecasting and intervention research",
     description: DESCRIPTION,
   },
 };
