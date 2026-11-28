@@ -176,8 +176,23 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
               </p>
             </div>
           </section>
+          <section id="markets">
+            <div className="section-label">05 / 提供領域</div>
+            <div className="split">
+              <h2>モデルが製品です。</h2>
+              <div>
+                <p className="body-copy">Managerは、未来の予測、反実仮想の比較、計画、許可された行動、現実からの学習を一つの知能でつなぐ研究開発中のモデルです。アプリはその提供経路の一つです。</p>
+                <p className="body-copy"><strong>個人（B2C）。</strong> 本人が望む生活目標への支援。</p>
+                <p className="body-copy"><strong>企業（B2B）。</strong> 事業上の選択肢と成果のシミュレーション。</p>
+                <p className="body-copy"><strong>公共機関（B2G）。</strong> 公開・集計データを使う公共サービスの施策比較。</p>
+                <p className="body-copy"><strong>AIエージェント（B2A）。</strong> 予測・反実仮想・評価を呼び出すモデルAPI。</p>
+                <p className="body-copy">これらは開発・検証の対象領域であり、提供開始や実証済み効果を示すものではありません。予測と因果効果を区別し、同意、権限、停止可能性を守ります。</p>
+                <a className="text-link" href="mailto:contact@aniccaai.com">研究・共同検証のお問い合わせ ↗</a>
+              </div>
+            </div>
+          </section>
           <section id="business">
-            <div className="section-label">05 / 事業</div>
+            <div className="section-label">06 / 事業</div>
             <div className="split">
               <h2>
                 事業は、
@@ -200,7 +215,7 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
             </div>
           </section>
           <section id="product">
-            <div className="section-label">06 / プロダクト</div>
+            <div className="section-label">07 / 旗艦アプリ</div>
             <div className="split">
               <h2>
                 Anicca。
@@ -434,8 +449,23 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
               </p>
             </div>
           </section>
+          <section id="markets">
+            <div className="section-label">05 / Markets</div>
+            <div className="split">
+              <h2>The model is the product.</h2>
+              <div>
+                <p className="body-copy">Manager is a model under development connecting probabilistic forecasts, counterfactual comparisons, planning, authorized actions, and learning from observed reality. The app is one delivery surface.</p>
+                <p className="body-copy"><strong>Individuals (B2C).</strong> Assistance with self-chosen life goals.</p>
+                <p className="body-copy"><strong>Enterprises (B2B).</strong> Simulation of business alternatives and outcomes.</p>
+                <p className="body-copy"><strong>Public institutions (B2G).</strong> Public-service scenario analysis using public or aggregate data.</p>
+                <p className="body-copy"><strong>AI agents (B2A).</strong> Model APIs for forecasting, counterfactuals, and evaluation.</p>
+                <p className="body-copy">These are research and validation areas, not claims of available services or demonstrated impact. We distinguish forecasts from causal effects and preserve consent, authorization, and the ability to stop.</p>
+                <a className="text-link" href="mailto:contact@aniccaai.com">Research and pilot inquiries ↗</a>
+              </div>
+            </div>
+          </section>
           <section id="business">
-            <div className="section-label">05 / What we do</div>
+            <div className="section-label">06 / What we do</div>
             <div className="split">
               <h2>
                 Two
@@ -466,7 +496,7 @@ export default function ManagerHome({ locale }: { locale: "en" | "ja" }) {
             </div>
           </section>
           <section id="product">
-            <div className="section-label">06 / The product</div>
+            <div className="section-label">07 / Flagship app</div>
             <div className="split">
               <h2>
                 Anicca.
