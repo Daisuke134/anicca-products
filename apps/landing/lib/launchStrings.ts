@@ -20,11 +20,11 @@ export const launchStrings = {
     },
 
     lm: {
-      publicEyebrow: 'Google Calendar · 7-day free trial · $29/mo',
+      publicEyebrow: 'Life Manager Cloud has ended',
       publicTitle: 'Know when it is time to leave for your next event.',
       publicBody:
-        'Connect Google Calendar once. Life Manager adds travel time before eligible in-person events and gives you a departure reminder in Calendar. Google account verification and Calendar permission are required.',
-      primaryCta: 'Connect Google Calendar',
+        'The hosted Life Manager service is no longer available. You can still run the open-source project yourself, or see Anicca, the app we are building now.',
+      primaryCta: 'See Anicca',
       localSurface: 'Your own Google Calendar',
       cloudSurface: 'Always-on cloud · no app to install',
       surfacesLabel: 'where you use it',
@@ -43,7 +43,7 @@ export const launchStrings = {
       evidenceBody:
         'Choose your Google account and grant Calendar permission on Google’s consent screen. Life Manager does not read your Gmail inbox. Disconnect Calendar whenever you like.',
       evidenceBoundary:
-        '7-day free trial. A card is required to start; then $29/mo. Cancel anytime.',
+        'The $29/mo cloud plan and seven-day trial are closed. No new sign-ups.',
       sourceCta: 'View the source code',
     },
 
@@ -155,11 +155,11 @@ export const launchStrings = {
     },
 
     lm: {
-      publicEyebrow: 'Googleカレンダー · 7日間無料 · 月$29',
+      publicEyebrow: 'Life Manager Cloudは終了しました',
       publicTitle: '次の予定に、いつ出ればいいかを。',
       publicBody:
-        'Googleカレンダーを一度接続すると、対象の対面予定の前に移動時間を追加し、出発時刻をカレンダーでお知らせします。予定や地図を何度も確認する手間を減らします。Googleアカウントの本人確認とカレンダー権限の許可が必要です。',
-      primaryCta: 'Googleカレンダーに接続',
+        'クラウド版のLife Managerは提供を終了しました。オープンソース版はGitHubで公開中です。いま作っているアプリはAniccaです。',
+      primaryCta: 'Aniccaを見る',
       localSurface: '自分の Google カレンダー',
       cloudSurface: 'クラウドで常時稼働 · アプリ不要',
       surfacesLabel: '毎日の表示先',
@@ -178,7 +178,7 @@ export const launchStrings = {
       evidenceBody:
         'Googleの同意画面でアカウントとカレンダー権限を確認して接続します。Gmailの受信箱は読みません。接続はいつでも解除できます。',
       evidenceBoundary:
-        '7日間無料で試せます。開始にはカード登録が必要です。以降は月$29。いつでも解約できます。',
+        '月$29のクラウドプランと7日間無料トライアルは終了し、新規受付はありません。',
       sourceCta: 'ソースコードを見る',
     },
 

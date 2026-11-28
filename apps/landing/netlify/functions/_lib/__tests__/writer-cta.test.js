@@ -13,7 +13,7 @@ const query = {
 };
 const id = "123e4567-e89b-12d3-a456-426614174000";
 
-test("writer CTA persists a reduced receipt and redirects to the Web app with a deterministic campaign ref", async () => {
+test("writer CTA persists a reduced receipt and redirects to Anicca home with a deterministic campaign ref", async () => {
   const rows = [];
   const handler = makeWriterCtaHandler({
     persist: async (row) => rows.push(row),
@@ -24,7 +24,7 @@ test("writer CTA persists a reduced receipt and redirects to the Web app with a 
   const response = await handler({ httpMethod: "GET", queryStringParameters: query });
   assert.equal(response.statusCode, 302);
   assert.equal(response.headers.location,
-    "https://life-call-production.up.railway.app/lm?start_calendar=1&utm_source=writer&utm_medium=article&utm_campaign=wr_" + ref);
+    "https://aniccaai.com/?utm_source=writer&utm_medium=article&utm_campaign=wr_" + ref);
   assert.match(ref, /^[0-9a-f]{32}$/);
   assert.deepEqual(rows, [{
     schema_version: 1,
@@ -35,7 +35,7 @@ test("writer CTA persists a reduced receipt and redirects to the Web app with a 
   }]);
 });
 
-test("writer CTA still reaches the Web app when receipt persistence is unavailable", async () => {
+test("writer CTA still reaches Anicca home when receipt persistence is unavailable", async () => {
   const handler = makeWriterCtaHandler({
     persist: async () => { throw new Error("db"); },
     receiptId: () => id,
@@ -43,7 +43,7 @@ test("writer CTA still reaches the Web app when receipt persistence is unavailab
   const response = await handler({ httpMethod: "GET", queryStringParameters: query });
   assert.equal(response.statusCode, 302);
   assert.equal(response.headers.location,
-    "https://life-call-production.up.railway.app/lm?start_calendar=1&utm_source=writer&utm_medium=article&utm_campaign=wr_" + attributionRef(query));
+    "https://aniccaai.com/?utm_source=writer&utm_medium=article&utm_campaign=wr_" + attributionRef(query));
 });
 
 test("writer CTA rejects malformed query and wrong method", async () => {
@@ -60,9 +60,9 @@ test("writer CTA normalizes Netlify query shapes", async () => {
   assert.equal((await handler({ httpMethod: "GET", rawUrl: "https://aniccaai.com/.netlify/functions/writer-cta?" + new URLSearchParams(query) })).statusCode, 302);
 });
 
-test("Life Manager CTA defaults to web and preserves a valid Writer receipt route", async () => {
+test("Life Manager CTA defaults to Anicca home and preserves a valid Writer receipt route", async () => {
   const { lifeManagerCtaHref } = await import("../../../../lib/writer-cta-url.js");
-  const appUrl = "https://life-call-production.up.railway.app/lm?start_calendar=1";
+  const appUrl = "https://aniccaai.com/";
   assert.equal(lifeManagerCtaHref(""), appUrl);
   assert.equal(lifeManagerCtaHref("?product_id=anicca&run_id=bad&artifact_id=a&variant_id=v&click_id=c"), appUrl);
   assert.match(lifeManagerCtaHref(new URLSearchParams(query).toString()), /^\/.netlify\/functions\/writer-cta\?/);

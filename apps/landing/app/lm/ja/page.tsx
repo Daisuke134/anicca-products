@@ -13,12 +13,12 @@ export const dynamic = 'force-static';
 export const metadata = {
   title: 'Life Manager｜Googleカレンダーに移動時間と出発時刻を自動で追加',
   description:
-    'Googleカレンダーを一度接続すると、対象の対面予定の前に移動時間を追加し、出発時刻をカレンダーでお知らせします。アプリ不要・Gmailは読みません。7日間無料、以降は月$29。',
+    'クラウド版のLife Managerは提供を終了しました。オープンソース版はGitHubで公開中です。',
   keywords: ['Googleカレンダー 移動時間 自動', '出発時刻 通知', '移動時間 計算', '遅刻しない 方法', 'Life Manager'],
   alternates: { canonical: 'https://aniccaai.com/lm/ja', languages: { en: 'https://aniccaai.com/lm', ja: 'https://aniccaai.com/lm/ja' } },
   openGraph: {
     title: 'Life Manager｜次の予定に、いつ出ればいいかを。',
-    description: 'Googleカレンダーに移動時間と出発時刻の通知を自動で追加。アプリ不要。7日間無料。',
+    description: 'クラウド版のLife Managerは提供を終了しました。オープンソース版はGitHubで公開中です。',
     url: 'https://aniccaai.com/lm/ja',
     locale: 'ja_JP',
     type: 'website',
@@ -44,7 +44,7 @@ const FAQS = [
   { q: 'アプリを入れる必要はありますか？', a: 'ありません。クラウドで常時稼働します。設定後は、いつものGoogleカレンダーを開くだけです。' },
   { q: 'Gmailの内容は読まれますか？', a: 'Gmailの受信箱は読みません。' },
   { q: '場所が書かれていない予定はどうなりますか？', a: '情報が足りない予定には、誤った時間を作らず変更しません。' },
-  { q: '料金は？', a: '7日間無料で試せます。開始にはカード登録が必要です。以降は月$29。いつでも解約できます。' },
+  { q: '料金は？', a: 'クラウド版は終了しました。月$29プランと7日間無料トライアルの新規受付はありません。' },
   { q: '接続をやめたいときは？', a: 'カレンダーの接続はいつでも解除できます。' },
 ];
 
@@ -59,7 +59,7 @@ const jsonLd = {
       url: 'https://aniccaai.com/lm/ja',
       inLanguage: 'ja',
       description: 'Googleカレンダーの対面予定の前に移動時間を追加し、出発時刻をカレンダーで通知するサービス。',
-      offers: { '@type': 'Offer', price: '29', priceCurrency: 'USD', description: '7日間無料（カード登録が必要）、以降は月額' },
+      isAccessibleForFree: true,
       publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
     },
     {
@@ -77,13 +77,13 @@ export default function Page() {
         <div className="mx-auto max-w-6xl">
           <section className="relative border-y border-[hsl(var(--border))] py-10 md:py-16">
             <p className="text-xs font-semibold tracking-[0.2em] text-[hsl(var(--gold))]">
-              Googleカレンダー · 7日間無料 · 月$29
+              Life Manager Cloudは終了しました
             </p>
             <h1 className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.15] tracking-[-0.02em] text-[hsl(var(--text-primary))] md:text-6xl">
               次の予定に、いつ出ればいいかを。
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-8 text-[hsl(var(--text-secondary))] md:text-lg">
-              Googleカレンダーを一度接続すると、対象の対面予定の前に移動時間を追加し、出発時刻をカレンダーでお知らせします。予定や地図を何度も確認する手間を減らします。Googleアカウントの本人確認とカレンダー権限の許可が必要です。
+              クラウド版のLife Managerは提供を終了しました。オープンソース版はGitHubで公開中です。いま作っているアプリはAniccaです。
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <LmJaCta campaign={CAMPAIGN} content="hero" />
@@ -95,7 +95,7 @@ export default function Page() {
               </Link>
             </div>
             <p className="mt-4 text-xs leading-6 text-[hsl(var(--text-secondary))]">
-              7日間無料で試せます。開始にはカード登録が必要です。以降は月$29。いつでも解約できます。
+              月$29のクラウドプランと7日間無料トライアルは終了し、新規受付はありません。
             </p>
           </section>
 

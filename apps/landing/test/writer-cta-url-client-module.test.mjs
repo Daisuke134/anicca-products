@@ -1,24 +1,24 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { lifeManagerCtaHref } from '../lib/writer-cta-url.js';
+import { lifeManagerCtaHref, ANICCA_HOME_URL } from '../lib/writer-cta-url.js';
 
-const LIFE_MANAGER_WEB_APP_URL = 'https://life-call-production.up.railway.app/lm?start_calendar=1';
-
-test('normal /lm CTA opens the Life Manager web app in the same browser', () => {
-  assert.equal(lifeManagerCtaHref(''), LIFE_MANAGER_WEB_APP_URL);
+test('normal /lm CTA opens the live Anicca site, not the retired Life Manager web app', () => {
+  assert.equal(ANICCA_HOME_URL, 'https://aniccaai.com/');
+  assert.equal(lifeManagerCtaHref(''), ANICCA_HOME_URL);
+  assert.doesNotMatch(lifeManagerCtaHref(''), /railway\.app/);
 });
 
 test('normal /lm CTA carries a single bounded first-touch UTM set', () => {
   assert.equal(
     lifeManagerCtaHref('?utm_source=instagram&utm_medium=social&utm_campaign=leave-on-time'),
-    `${LIFE_MANAGER_WEB_APP_URL}&utm_source=instagram&utm_medium=social&utm_campaign=leave-on-time`,
+    `${ANICCA_HOME_URL}?utm_source=instagram&utm_medium=social&utm_campaign=leave-on-time`,
   );
 });
 
-test('invalid or duplicated UTM values are dropped without blocking the web start', () => {
+test('invalid or duplicated UTM values are dropped without blocking the start', () => {
   assert.equal(
     lifeManagerCtaHref('?utm_source=instagram&utm_source=spam&utm_campaign=fall'),
-    `${LIFE_MANAGER_WEB_APP_URL}&utm_campaign=fall`,
+    `${ANICCA_HOME_URL}?utm_campaign=fall`,
   );
 });
 

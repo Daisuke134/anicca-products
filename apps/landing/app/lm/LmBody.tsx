@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Reveal } from '@/components/site/taste';
 import { useLaunchLocale } from '@/lib/launchLocale';
-import { LIFE_MANAGER_WEB_APP_URL, lifeManagerCtaHref } from '@/lib/writer-cta-url';
+import { ANICCA_HOME_URL, lifeManagerCtaHref } from '@/lib/writer-cta-url';
 import { launchStrings } from '@/lib/launchStrings';
 
 const REPOSITORY_URL = 'https://github.com/Daisuke134/life-manager';
@@ -44,13 +44,13 @@ const RUNS_ON = {
   },
 } as const;
 
-// The public landing page enters the browser-based Calendar setup. Writer query identity is
-// validated locally and routed through its click-receipt redirect before continuing to the Web app.
+// Life Manager Cloud ended 2026-11-28. The primary CTA goes to the live Anicca site.
+// Writer query identity still routes through the click-receipt redirect.
 export default function LmBody() {
   const { locale } = useLaunchLocale();
   const t = launchStrings[locale].lm;
   const r = locale === 'ja' ? RUNS_ON.ja : RUNS_ON.en;
-  const [startHref, setStartHref] = useState(LIFE_MANAGER_WEB_APP_URL);
+  const [startHref, setStartHref] = useState(ANICCA_HOME_URL);
   useEffect(() => {
     setStartHref(lifeManagerCtaHref(window.location.search));
   }, []);
