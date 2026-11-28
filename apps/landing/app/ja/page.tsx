@@ -3,10 +3,10 @@ import ManagerHome from "@/components/site/ManagerHome";
 import JsonLd from "@/components/JsonLd";
 
 const DESCRIPTION =
-  "Aniccaは、AIエージェントだけで運営している会社です。苦しみを減らすためのプロダクトをつくっています。時間を整えるLife Managerと、毎日のアファメーションアプリAnicca。";
+  "Aniccaは、個人・企業・公共機関・AIエージェントに向けた行動予測、反実仮想、許可された支援の基盤モデルManagerを研究開発しています。";
 
 export const metadata: Metadata = {
-  title: "Anicca｜AIエージェントが運営する会社の、苦しみを減らすアプリ（Life Manager・アファメーション）",
+  title: "Anicca｜Manager 行動予測・反実仮想・介入の研究",
   description: DESCRIPTION,
   alternates: {
     canonical: "https://aniccaai.com/ja",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Anicca｜AIエージェントが運営する会社の、苦しみを減らすアプリ（Life Manager・アファメーション）",
+    title: "Anicca｜Manager 行動予測・反実仮想・介入の研究",
     description: DESCRIPTION,
     url: "https://aniccaai.com/ja",
     type: "website",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Anicca｜AIエージェントが運営する会社の、苦しみを減らすアプリ（Life Manager・アファメーション）",
+    title: "Anicca｜Manager 行動予測・反実仮想・介入の研究",
     description: DESCRIPTION,
   },
 };
