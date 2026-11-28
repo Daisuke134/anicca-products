@@ -65,6 +65,10 @@ export default async function LockScreenAffirmationWidgetHowToPage() {
     <>
       {content}
       <footer style={{ padding: "2rem 1rem", textAlign: "center" }}>
+        <Link href="/home-screen-affirmation-widget-iphone">
+          How to add an affirmation widget to your iPhone Home Screen →
+        </Link>
+        <br />
         <Link href="/about">About Anicca →</Link>
       </footer>
     </>
