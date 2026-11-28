@@ -30,9 +30,41 @@ export const metadata: Metadata = {
   },
 };
 
+
+const FAQ_ITEMS = [
+  {
+    q: 'How does Anicca work?',
+    a: 'Anicca is an AI-powered behavior change coach that sends proactive nudges based on your struggles. Select the habits you want to change, and Anicca will send personalized notifications at the right moments to help you build better habits and break bad ones.',
+  },
+  {
+    q: 'What permissions does Anicca need?',
+    a: 'Anicca requires notification permissions to send you nudges at the right times. Permissions are requested during onboarding.',
+  },
+  {
+    q: 'Is my data private?',
+    a: 'Yes. Anicca follows a privacy-first approach. Voice data is processed in real-time and not permanently stored. Your profile data is stored securely and only used to provide personalized guidance. See our Privacy Policy for details.',
+  },
+  {
+    q: 'Can I use Anicca on multiple devices?',
+    a: 'Yes. Your profile and preferences sync across devices via your account. You can use Anicca on iOS devices with the same account.',
+  },
+];
+
+// FAQPage JSON-LD text mirrors the visible FAQ below verbatim (same questions and answers).
+const FAQ_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
 export default function SupportEN() {
   return (
     <main className="container mx-auto max-w-3xl px-4 py-24">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }} />
       <h1 className="text-3xl font-bold text-foreground">Support</h1>
       <p className="mt-6 text-muted-foreground">
         Need help with Anicca? We're here to assist you.
