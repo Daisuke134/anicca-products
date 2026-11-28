@@ -1,0 +1,12 @@
+{
+  "slug": "manager-group-timing-h30-2026-11-28-ja",
+  "title": "AIはいつ会話に入るべきか：When2Speakで測る発言と沈黙",
+  "date": "2026-11-28",
+  "project": "manager",
+  "lang": "ja",
+  "description": "AIはいつ会話に入るべきか：When2Speakで測る発言と沈黙",
+  "attribution": "When2Speak CC BY 4.0; adapted by Anicca.",
+  "n_papers_cited": 2,
+  "markdown": "# AIはいつ会話に入るべきか：When2Speakで測る発言と沈黙\n\nグループチャットのAIは毎回応答すればよいわけではない。必要な情報を提供する機会と、会話を遮らないことの両方を評価する必要がある。本稿では公開データで単純なルールとローカルLLMを比較した。\n\n![研究概要](/assets/research/h30-cover.svg)\n\n## 関連研究と範囲\n\n[PITCH](https://arxiv.org/abs/2610.25896)は35件の実際の会話から1,091件のタイミング判断を収集したと報告する。論文の最適ターン正解率は全会話を見た条件57.8%、逐次条件19.0%だった。今回はこの研究の再現ではない。[Boba利用規約](https://boba.app/terms)（2026年10月21日更新）9条21・22項の制限を確認し、競合サービスへの登録・操作・出力取得をしなかった。\n\n[When2Speak](https://arxiv.org/abs/2605.05626)の[公開データ](https://huggingface.co/datasets/duke-trust-lab/When2Speak)はCC BY4.0。Yahoo Answersの話題を起点に生成した合成会話16,000件から216,800判定例を構成したという。固定revision 092e40995896b0c278a1e32954297ef125b70112のTokenテストを取得し、ハッシュを記録した。公式テスト21,687件のうち2,795件がSPEAK、18,892件がSILENTである。人間の実際の介入選好を直接測ったデータではない。\n\n## 全テストに対する比較\n\n現在の発話に文字列[AGENT]があれば発言、なければ沈黙するルールと、常に沈黙する対照を比較した。入力から最後の正解ラベルを除外した。常に沈黙する対照は正解率87.11%だが必要な発言をすべて見落とす。名前ルールはTP395、FP575、FN2400、TN18317。正解率86.28%、Recall14.13%、FPR3.04%、F1 .209827。言及が直接の依頼とは限らないことに注意する。\n\n![全テストの指標](/assets/research/h30-full.svg)\n\n## ローカルモデルの評価\n\n文字数3000以下の異なる会話prefixを各クラス24件抽出し、seed30で固定した。会話ID単位の独立性までは保証できない。Qwen2.5:1.5bに同じprefixを与え、JSON SchemaでSPEAK/SILENTを要求。温度0、最大24生成トークン、context2048。コンテキスト切り詰めの有無は未監査。常時沈黙と名前ルールの正解率はともに50%。モデルは48件中1件だけ発言を選択したが、それは偽陽性だった。TP0、FP1、FN24、TN23、正解率47.92%、F1 0。形式違反は0件。ベースラインを上回らなかった。\n\n![48件の混同行列](/assets/research/h30-local.svg)\n\n同じ環境で再実行し、経過時間以外の記録が一致した（96回のローカル呼び出し）。5テストが通常・最適化Pythonで合格した。今回の取得ファイルは削除した。新たな有料API、実際の通知や会話送信、モデル学習を行っていない。\n\n## 介入評価の設計\n\n発言のRecallだけを最大化すると過剰介入につながり、Accuracyだけを最大化すると沈黙に偏り得る。Precision、Recall、FPR、介入時刻、許可・停止、本人の便益を分ける。予測上の効果で同意を上書きしてはいけない。今回の結果は本番導入を支持しない。独立した同意済み成人の会話、人間による許容時間窓、プライバシー・撤回の検証は[Issue #861](https://github.com/Daisuke134/anicca-ops/issues/861)に記録した。Managerの重みと本番製品は変更なし。\n\n出典：When2Speak, CC BY4.0（Aniccaによる抽出・集計）、PITCH公開概要、Boba公式規約。AI執筆：ChatGPT。\n",
+  "word_count": 1792
+}
