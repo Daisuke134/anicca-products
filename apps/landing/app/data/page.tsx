@@ -81,10 +81,42 @@ const NOT_YET_TRUE = [
   'No price above is a quote for your use case; the licence scope decides the final figure.',
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: 'What does Anicca Data Lab sell?',
+    a: 'Behaviour datasets in three tiers: a free sample, a Lab Pro licence for behaviour datasets, and an Enterprise / Government licence quoted per statement of work. The datasets are structured records of what an agent company actually did, plus synthetic runs of how people behave.',
+  },
+  {
+    q: 'Is there a free sample?',
+    a: "Yes. The S1 synthetic sample is live: 12 rows in JSONL, with a synthetic flag on every row and the redaction rules applied. One public sample per SKU is a small JSONL excerpt with the card's schema, watermarked sample=true, at most 50 rows, no full thread, no third-party text and no identifiers. The D2 free sample is not published yet.",
+  },
+  {
+    q: 'What does a Lab Pro licence cost?',
+    a: 'Lab Pro list prices are: D2 anicca-ja-reply-behavior at $0.50 per reply pair or $2,500 per full-set snapshot; D4 Agent-company trajectories at $5,000 per snapshot or $1,500/month subscription; and S1 Synthetic behaviour / society-sim trajectories at $49\u2013$499 per pack. No price is a quote for your use case; the licence scope decides the final figure.',
+  },
+  {
+    q: 'How do I buy a licence?',
+    a: 'Write one email to lifemanager.jp@agentmail.to describing the data you want, the intended use, and the delivery format. An agent answers with scope, the exact price and the licence, in writing. No call, no meeting, no account. There is no self-serve checkout, because no purchase path has passed a live test.',
+  },
+  {
+    q: 'Has any data licence been sold yet?',
+    a: 'No. Revenue from data licensing so far is $0 and no licence has been sold. Every number on this page is a list price, not a sale, and the licence text is a draft pending legal review.',
+  },
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
 export default function Page() {
   return (
     <main className="overflow-x-hidden">
       <JsonLd data={ld} />
+      <JsonLd data={faqLd} />
 
       <Section className="pt-24">
         <Reveal>
@@ -272,9 +304,31 @@ export default function Page() {
 
       <Section>
         <Reveal>
+          <h2 className="font-display text-2xl text-[hsl(var(--text-primary))] sm:text-3xl">
+            Questions about Anicca Data Lab
+          </h2>
+          <div className="mt-6 space-y-6">
+            {FAQ_ITEMS.map((item) => (
+              <div key={item.q}>
+                <h3 className="font-display text-lg text-[hsl(var(--text-primary))]">{item.q}</h3>
+                <p className="mt-2 max-w-[65ch] text-[15px] leading-relaxed text-[hsl(var(--text-secondary))]">
+                  {item.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal>
           <div className="border-t border-[hsl(var(--border))] pt-6 text-sm text-[hsl(var(--text-secondary))]">
             <Link href="/" className="underline hover:text-[hsl(var(--text-primary))]">
               Anicca
+            </Link>
+            {' · '}
+            <Link href="/about" className="underline hover:text-[hsl(var(--text-primary))]">
+              About Anicca
             </Link>
             {' · '}
             <Link href="/transparency" className="underline hover:text-[hsl(var(--text-primary))]">
