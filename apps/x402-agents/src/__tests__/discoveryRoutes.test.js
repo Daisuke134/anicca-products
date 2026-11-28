@@ -112,6 +112,23 @@ describe('x402-agents discovery surface', () => {
     expect(res.body.discovery.llms).toMatch(/\/llms\.txt$/);
   });
 
+  it('GET /.well-known/agent-card.json returns the A2A v0.3 card with 8 skills', async () => {
+    const { createApp } = await import('../server.js');
+    const app = await createApp();
+
+    const res = await request(app).get('/.well-known/agent-card.json');
+    expect(res.status).toBe(200);
+    expect(res.body.protocolVersion).toBe('0.3.0');
+    expect(res.body.provider).toEqual({ organization: 'Anicca', url: 'https://aniccaai.com' });
+    expect(res.body.defaultInputModes).toEqual(['application/json']);
+    expect(res.body.skills).toHaveLength(8);
+    const ids = res.body.skills.map(k => k.id).sort();
+    expect(ids).toEqual(['buddhist-counsel', 'context-compressor', 'decision-clarifier', 'emotion-detector', 'focus-coach', 'habit-designer', 'intent-router', 'prompt-sanitizer']);
+    const sanitizer = res.body.skills.find(k => k.id === 'prompt-sanitizer');
+    expect(sanitizer.description).toMatch(/x402 paid: USDC on Base, \$0\.005\/call, POST .*\/prompt-sanitizer/);
+    expect(JSON.stringify(res.body)).not.toContain('0xTestWallet');
+  });
+
   it('GET /llms.txt returns the plain-text index', async () => {
     const { createApp } = await import('../server.js');
     const app = await createApp();
@@ -139,7 +156,7 @@ describe('x402-agents discovery surface', () => {
     const { createApp } = await import('../server.js');
     const app = await createApp();
 
-    for (const path of ['/.well-known/x402', '/.well-known/agent.json', '/llms.txt', '/']) {
+    for (const path of ['/.well-known/x402', '/.well-known/agent.json', '/.well-known/agent-card.json', '/llms.txt', '/']) {
       const res = await request(app).get(path);
       expect(res.status).toBe(200);
     }
