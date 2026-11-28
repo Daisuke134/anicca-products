@@ -55,6 +55,19 @@ const pilot = [
 ];
 
 // FAQPage JSON-LD text mirrors the visible pilot Q&A below verbatim (same questions and answers).
+// Page-level freshness: this page's content last changed on 2026-11-29
+// (answer-first summary added). The visible "Last updated" line below
+// carries the same date.
+const WEBPAGE_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Manager for Enterprise | Anicca',
+  url: 'https://aniccaai.com/enterprise',
+  dateModified: '2026-11-29',
+  author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
+  publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
+};
+
 const FAQ_JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -69,6 +82,7 @@ export default function EnterprisePage() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBPAGE_JSONLD) }} />
       <ManifestoHero
         headline={
           <>
@@ -84,6 +98,28 @@ export default function EnterprisePage() {
           </CTA>
         }
       />
+
+      <Section>
+        <div className="mx-auto max-w-[60rem]">
+          <Reveal>
+            <h2 className="font-display text-2xl font-semibold text-[hsl(var(--text-primary))]">
+              What Manager for Enterprise is
+            </h2>
+            <p className="mt-6 text-base leading-relaxed text-[hsl(var(--text-secondary))]">
+              Manager for Enterprise is behavioral simulation for financial-crime teams. The entry offer is one thing: the
+              ManagerBench Enterprise Pilot, a fixed-fee evaluation on your anonymized historical data, delivered in the
+              format of our public benchmark, ManagerBench. It costs US$25,000 fixed fee (excl. tax) and takes four weeks.
+              You receive detection quality measured against simple baselines, calibration analysis, drafted intervention
+              messages for your analysts, and a written report that includes limitations and negative results. We do not
+              train on your data, and data is deleted within 30 days of delivery. Manager is an early research release, and
+              we do not promise a detection rate in advance.
+            </p>
+            <p className="mt-4 text-sm text-[hsl(var(--text-secondary))]">
+              Last updated November 29, 2026.
+            </p>
+          </Reveal>
+        </div>
+      </Section>
 
       <Section>
         <div className="mx-auto max-w-[60rem]">
