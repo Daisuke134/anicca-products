@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: CANONICAL,
     languages: { ja: CANONICAL },
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
   },
   openGraph: {
     title: TITLE,
@@ -86,6 +87,11 @@ export default function Page() {
       <JsonLd data={webAppLd} />
       <JsonLd data={faqLd} />
       <WallpaperTool />
+      <p className="mt-8 text-center text-[14px]">
+        <a href="/about" className="underline underline-offset-2">
+          アニッチャについて
+        </a>
+      </p>
     </main>
   );
 }
