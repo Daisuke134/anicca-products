@@ -73,6 +73,10 @@ export default async function LockScreenAffirmationWidgetHowToPage() {
           How to show affirmations in iPhone StandBy mode →
         </Link>
         <br />
+        <Link href="/lock-screen-affirmations-iphone">
+          Lock screen affirmations: the complete guide →
+        </Link>
+        <br />
         <Link href="/about">About Anicca →</Link>
       </footer>
     </>
