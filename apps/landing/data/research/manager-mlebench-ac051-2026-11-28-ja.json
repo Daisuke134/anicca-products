@@ -1,0 +1,14 @@
+{
+  "slug": "manager-mlebench-ac051-2026-11-28-ja",
+  "title": "MLE-benchを実測する：研究エージェントの成果をどう採点するか",
+  "date": "2026-11-28",
+  "project": "manager",
+  "lang": "ja",
+  "description": "MLE-benchを実測する：研究エージェントの成果をどう採点するか",
+  "attribution": {
+    "text": "OpenAI MLE-bench MIT; UCI Online Shoppers CC BY 4.0, adapted by Anicca."
+  },
+  "n_papers_cited": 1,
+  "markdown": "# MLE-benchを実測する：研究エージェントの成果をどう採点するか\n\n機械学習エージェントを評価する際、コードが動くことと、実際に優れた予測を提出できることは異なる。OpenAIの[MLE-bench](https://github.com/openai/mle-bench)はKaggle由来の75競技で後者を測る。本稿では公開済みの225採点記録を公式集計器で再計算し、さらに公式AUROC関数を別の実データに接続して採点の仕組みを検証した。\n\n![225件の公開済み採点記録](/assets/research/ac051-cover.svg)\n\n## 競技全体を評価する\n\n[2024年の論文](https://arxiv.org/abs/2410.07095)では、エージェントがデータ処理、学習、実験、提出を行う。公開当初のo1-previewとAIDEの構成は16.9%の競技でメダル相当の成績を得た。提出が欠落した競技を分母から除くと能力を過大評価するため、予定された全競技を分母に置く。今回取得した実装はMIT、revision 507f92e1138bb6e40dac5c6ee7a6758e6424bf97。全75競技とLite 22競技の定義を確認した。\n\n## 公開済みの実験記録を再集計する\n\n同revisionのDisarray名義の3グループを固定した。Git LFSのポインタと実データのSHA-256、サイズを照合し、各グループが75競技を重複なしで含むことを確認した。実験IDとグループの対応CSVにはマージ競合マーカーが残っていたため、モデル名や予算は推定せず、明示的なグループ名だけを使用した。公式aggregate_grading_reports.pyを変更せずに読み込み、各seedの集計と平均を計算した。別実装の整数カウントでも一致した。\n\n![グループ別のメダル数](/assets/research/ac051-reports.svg)\n\n| グループ | 有効提出 | メダル | 中央値超え |\n|---|---:|---:|---:|\n| 1 | 75 | 59 | 63 |\n| 2 | 75 | 58 | 62 |\n| 3 | 75 | 58 | 64 |\n| 合計 | 225 | 175 | 189 |\n\nメダル率77.78%、中央値超え84%、有効提出100%。これは公開済みの特定構成の記録であり、Aniccaによる新規実行や、初期の16.9%との同一予算比較ではない。公式SEMはメダル率0.4444ポイントだが、同一75競技を繰り返した3グループであり、独立した新規課題への一般化区間ではない。\n\n## 採点器を実データで再利用する\n\n公式Random Acts of Pizza競技のデータ取得先は匿名アクセスでHTTP 401だった。許可されていない取得経路は利用せず、[UCI Online Shoppers](https://archive.ics.uci.edu/dataset/468/online)（Sakar & Kastro, 2018、CC BY 4.0）を代替データとした。AC04と同じ特徴量・分割で7,604件を学習、2,416件をテストし、うち購入389件を正例とする。学習集合だけで標準化した6特徴量を用い、事前確率、ロジスティック回帰、固定32木のRandom Forestを比較した。公式gradeとAUROC前処理関数、例外型をASTからそのまま抽出し、列名を競技形式に合わせた。フルパッケージやKaggle競技そのものを実行したわけではない。\n\nAUROCは、正例が負例より高いスコアを持つ確率に、同点確率の半分を加えたものだ。独立した全正負ペア比較でも採点結果は一致した。\n\n![公式AUROC関数による代替データの採点](/assets/research/ac051-auc.svg)\n\n| モデル | AUROC |\n|---|---:|\n| Prior | 0.500000 |\n| Logistic | 0.651134 |\n| Forest | 0.667750 |\n\n行順の逆転でも値は不変だった。追加の厳格なラッパーは欠落、重複、NaN、範囲外、誤IDの5ケースを拒否した。集計ゲート6テストも通常・最適化Pythonで合格し、2種類の実験を再実行したJSONが一致した。pandas 3.1.1を既存環境に導入し依存整合性48件を確認した。\n\n## Aniccaへの示唆\n\n研究エージェントの成功率は、実行予定件数、提出件数、有効提出、独立した得点を別々に保存して初めて解釈できる。AUROCは順位性能であり、確率校正や介入効果は測らない。今回のデータは既使用で、モデルの汎化や採用を主張しない。公式競技のデータ権利、隔離された実行環境、同予算のエージェント比較、独立評価は[Issue #825](https://github.com/Daisuke134/anicca-ops/issues/825)で追跡する。Managerの重みや製品を変更していない。\n\n出典：OpenAI MLE-bench（MIT、固定revision上記）、UCI Online Shoppers（CC BY 4.0、DOI 10.24432/C5F88Q）。Aniccaによる再集計・特徴選択・採点形式の変換。AI執筆開示：ChatGPT。\n",
+  "word_count": 2281
+}
