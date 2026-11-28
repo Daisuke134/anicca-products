@@ -2,6 +2,10 @@ export const metadata = {
   title: 'Manager for Enterprise | Anicca',
   description:
     'Behavioral simulation for financial-crime teams: per-identity baselines, deviation detection, and drafted interventions, delivered as a fixed-fee evaluation pilot (ManagerBench Enterprise).',
+  alternates: {
+    canonical: 'https://aniccaai.com/enterprise',
+    types: { 'application/rss+xml': 'https://aniccaai.com/feed.xml' },
+  },
 };
 
 import { ManifestoHero } from '@/components/site/taste/ManifestoHero';
@@ -50,9 +54,21 @@ const pilot = [
   },
 ];
 
+// FAQPage JSON-LD text mirrors the visible pilot Q&A below verbatim (same questions and answers).
+const FAQ_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: pilot.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
 export default function EnterprisePage() {
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }} />
       <ManifestoHero
         headline={
           <>
@@ -121,7 +137,10 @@ export default function EnterprisePage() {
                 Request the pilot spec
               </CTA>
               <p className="mt-4 text-sm text-[hsl(var(--text-secondary))]">
-                Model card: huggingface.co/anicca-agent/manager-v0. Anicca is a research lab in Tokyo (The Simulation Company).
+                Model card: huggingface.co/anicca-agent/manager-v0. Anicca is a research lab in Tokyo (The Simulation Company).{' '}
+                <a href="/about" className="underline underline-offset-4 hover:text-[hsl(var(--text-primary))]">
+                  About Anicca
+                </a>
               </p>
             </div>
           </Reveal>
