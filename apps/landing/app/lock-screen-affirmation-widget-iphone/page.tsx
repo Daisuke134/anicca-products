@@ -69,6 +69,10 @@ export default async function LockScreenAffirmationWidgetHowToPage() {
           How to add an affirmation widget to your iPhone Home Screen →
         </Link>
         <br />
+        <Link href="/standby-affirmations-iphone">
+          How to show affirmations in iPhone StandBy mode →
+        </Link>
+        <br />
         <Link href="/about">About Anicca →</Link>
       </footer>
     </>
